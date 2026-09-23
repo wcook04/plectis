@@ -2240,14 +2240,21 @@ power-of-two exponent <span class="math inline" data-term-auto="off">\(39990\)</
 strict decimal exponent <span class="math inline" data-term-auto="off">\(12038\)</span>.</p>
 <section id="carry-computation-record." class="level5">
 <h5>Carry computation record.</h5>
-<p>The receipt , with schema , records the scale and guard bits above,
-the driver and backend used for its run, the event-trace digest, and the
-final enclosure. The source packet names the driver and the backend .
-Their published digests, followed by the receipt payload digest, are</p>
+<p>The receipt <code>verification/erdos68-strict-successor.json</code>,
+with schema <code>erdos68_strict_successor_exact_interval_v1</code>,
+records the scale and guard bits above, the driver and backend used for
+its run, the event-trace digest, and the final enclosure. The source
+packet names the driver
+<code>scripts/check_erdos68_strict_successor.py</code> and the backend
+<code>scripts/check_erdos68_strict_successor_gmp.cpp</code>. Their
+published digests, followed by the receipt payload digest, are</p>
 <blockquote>
-<p>Driver: .<br />
-Backend: .<br />
-Payload: .</p>
+<p>Driver:
+<code>f25b5bd8ffbfd66bdbb42ca6a07a936aab9b4eb7d3a57446725be55acb642191</code>.<br />
+Backend:
+<code>43308ddc3902dd537b789ae6e0648054a0d752adf07e5d6e1d829811e9342083</code>.<br />
+Payload:
+<code>044ef27a60f7294c39b8279b7f04e22e1234a942e2862e9e8c64eb66505af29b</code>.</p>
 </blockquote>
 <p>The supplied record states that the event trace and unit-carry
 certificate match the previously retained receipt. These identifiers

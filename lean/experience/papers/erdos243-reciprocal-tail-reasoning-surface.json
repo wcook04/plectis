@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 64,
+  "pages": 65,
   "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
   "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
   "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -27,12 +27,12 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 30,
-    "renderer_fingerprint": "d383526533396f6a",
-    "source_sha256": "5cb3f168714dd3d9658a7830be41d213b9493c4bc3046421b40586cc676bc5ea",
+    "renderer_contract_version": 32,
+    "renderer_fingerprint": "f255c6c37cc97729",
+    "source_sha256": "96efe00f21f23a1f0db034faf6d9076171cbc48520b87c529346889e5f41e0e6",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 2436,
+    "mathml_node_count": 2454,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -48,8 +48,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "f2dde5c6c6b9704580d65b63ba73637ada63a16467baac78ab127f6b259ccf54",
-    "html_exact_tex_sha256": "49d8d54273b1e577975f22096b5d186d904051384e7d14c448f0ccb87e8cbd41"
+    "html_mathml_sha256": "50f9fa7322e2113a8ee21beb318c96e9aa2088a276bb35734a37edaee2ffcd24",
+    "html_exact_tex_sha256": "628436790d83e8e45dd4fa18c179b7ef54ab4dcad7b4af63b2297749edbfbc45"
   },
   "sections": [
     {

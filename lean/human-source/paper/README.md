@@ -9,8 +9,16 @@ its argument and the question that remains. Use the longer record when you
 want to recover a detailed step, inspect a computation, or follow an approach
 that stopped. You do not need Lean or a coding agent to read either.
 
-The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report partial results, failed or equivalent routes,
-finite evidence, and the exact obligations that survive.
+Using the degree-seven polynomial constructed by the erdosproblems.com
+contributor ani, Lean proves that every preconnected strict-lemniscate set
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than two. This refutes the exact Formal Conjectures path-image-length
+statement; the separate total-variation bound is also checked. The other
+seven targets remain open. Independent human review of correspondence with
+the 1958 wording has not been recorded. Comparator checks only selected exact
+statements, axioms and kernel acceptance; it does not assess novelty or
+historical correspondence. The papers report partial results, failed or
+equivalent routes, finite evidence, and the exact obligations that survive.
 If the problem numbers or formalisation are unfamiliar, read
 [a reader's way in](../docs/READING_GUIDE.md) first. For the design of the tools
 and the research process, go to the [project papers](#project-papers).
@@ -20,7 +28,7 @@ and the research process, go to the [project papers](#project-papers).
 | Problem | Short paper | Complete reasoning record |
 |---|---|---|
 | #68 | [Two Incomparable Denominator Exclusions for ∑ₙ≥₂ 1/(n!−1)](68/erdos-68-factorial-denominator-irrationality.pdf) ([source](68/erdos-68-factorial-denominator-irrationality.tex)) | [Denominators and Rationality Criteria for ∑ₙ≥₂ 1/(n!−1)](68/erdos68-factorial-reasoning-surface.pdf) ([source](68/erdos68-factorial-reasoning-surface.tex)) |
-| #243 | [Bounded Increments and Rational Reciprocal Sums](243/erdos-243-reciprocal-tail-rigidity.pdf) ([source](243/erdos-243-reciprocal-tail-rigidity.tex)) | [Reciprocal-Tail Rigidity: Theorems, Proofs and Questions](243/erdos243-reciprocal-tail-reasoning-surface.pdf) ([source](243/erdos243-reciprocal-tail-reasoning-surface.tex)) |
+| #243 | [Cubic-Rate Irrationality and Reciprocal-Tail Rigidity](243/erdos-243-reciprocal-tail-rigidity.pdf) ([source](243/erdos-243-reciprocal-tail-rigidity.tex)) | [Reciprocal-Tail Rigidity: Theorems, Proofs and Questions](243/erdos243-reciprocal-tail-reasoning-surface.pdf) ([source](243/erdos243-reciprocal-tail-reasoning-surface.tex)) |
 | #249 | [Bases and Integral Relations for the k-Kernel of Euler's Totient](249/erdos-249-binary-totient-series.pdf) ([source](249/erdos-249-binary-totient-series.tex)) | [The Binary Totient Series](249/erdos249-totient-reasoning-surface.pdf) ([source](249/erdos249-totient-reasoning-surface.tex)) |
 | #251 | [Sparse Congruence-Preserving Perturbations of Dyadic Series](251/erdos-251-prime-gap-dyadic-series.pdf) ([source](251/erdos-251-prime-gap-dyadic-series.tex)) | [Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates](251/erdos251-prime-gap-reasoning-surface.pdf) ([source](251/erdos251-prime-gap-reasoning-surface.tex)) |
 | #257 | [Weighted Support Criteria for Reciprocal Mersenne Subseries](257/erdos-257-mersenne-support-subseries.pdf) ([source](257/erdos-257-mersenne-support-subseries.tex)) | [Reciprocal Mersenne Subseries](257/erdos257-mersenne-reasoning-surface.pdf) ([source](257/erdos257-mersenne-reasoning-surface.tex)) |

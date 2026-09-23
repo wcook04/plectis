@@ -8,18 +8,27 @@ exposition into further research. Eight Erdős programmes each have a short
 expository paper, a longer research record and associated Lean source. The aim
 is to make results, methods and useful failures understandable enough for
 others to question, extend and reuse.
-**The degree-seven counterexample found by the erdosproblems.com contributor
-ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in
-Lean. The other seven target problems are not resolved here. Independent
-human review of correspondence with the historical curve-length formulation
-has not been recorded. Comparator checks only its selected exact statements,
-configured axioms and kernel acceptance; it does not assess novelty or
+
+For a first mathematical result, start with [#257's short paper](paper/257/erdos-257-mersenne-support-subseries.pdf).
+If `h_P(a)` is the part of an exponent `a` supported on a finite nonempty set of primes,
+the Lean-checked theorem proves irrationality at every integer base for each
+infinite support `A` with finite base-two weighted mass
+`∑_{a∈A} h_P(a)/(a(2^{h_P(a)}−1))`. Some such supports have divergent
+`∑_{a∈A} 1/a`. The question for *every* infinite support remains open.
+[Read the longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf)
+or [inspect the Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
+
+**Using the degree-seven polynomial constructed by the erdosproblems.com
+contributor ani, Lean proves that every preconnected strict-lemniscate set
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than two. This refutes the exact Formal Conjectures path-image-length
+statement; the separate total-variation bound is also checked. The other
+seven targets remain open. Independent human review of correspondence with
+the 1958 wording has not been recorded. Comparator checks only selected exact
+statements, axioms and kernel acceptance; it does not assess novelty or
 historical correspondence.**
 
 The attribution is recorded in [ani's 7 September 2026 forum post](https://www.erdosproblems.com/forum/thread/1041#post-8861).
-
-This release does not solve Erdős #68, #243, #249, #251, #257, #269, or #1049.
-Those seven remain open.
 
 **[Read the mathematics](https://wcook04.github.io/plectis/maths/)** ·
 [Website](https://wcook04.github.io/plectis/) ·
@@ -30,11 +39,9 @@ Those seven remain open.
 
 ## Where to start
 
-**Read the mathematics. Find what comes next.** Use the papers, proofs and
-research records to continue an existing question, or to develop a new result,
-method or direction. Work with your own AI, directly in the repository, or
-without an AI. Work that returns becomes part of the shared account, with its
-sources, checks and credit kept visible.
+**Read the mathematics. Find what comes next.** Use the papers and research
+records to continue a question or develop a new direction. Work with your own
+AI or without one; returned work keeps its sources, checks and credit visible.
 
 - **Explore with your AI, no clone needed.** Give your model the
   [reading edition](docs/reading-edition/README.md): one file with an
@@ -44,53 +51,59 @@ sources, checks and credit kept visible.
 - **Work in the repository.** The
   [agent quickstart](docs/agents/README.md#start-with-current-public-work)
   provides clone commands and a copyable prompt. Name a question, or ask your
-  agent to read the corpus and decide what is worth developing.
+  agent to read the corpus and decide what is worth developing. The
+  [agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
+  explains the workbench design.
+- **Check one result with Python 3, no Lean.** From a clone, run
+  `python3 research/experiments/sparse_interpolation/late_rejection.py`.
+  Exact rational arithmetic checks that `189/388` passes the earlier greedy
+  decisions but is first rejected at step 17: its remainder is greater than
+  the sum of all later weights and smaller than the step-17 weight. Read the
+  [investigation](research/experiments/choices_contraction/README.md) for why
+  this example matters. It rules out this one rational as a subsum of
+  `1/(2^n-1)`; finite survival never proves membership, and this calculation
+  does not settle Problem 257.
 
-The short papers are the main exposition: the question, the strongest results,
-the ideas behind their proofs and what remains open. The longer records keep
-the details, computations and approaches that stopped. You can read both
-without Lean or a coding agent. The website brings these papers, their evidence
-and ways to contribute into one reading experience. [A reader's way in](docs/READING_GUIDE.md)
-introduces the questions; [Results and limits](docs/RESULTS.md) puts the results
-beside their remaining open questions.
+The short papers explain results; longer records keep calculations and failed
+routes. Both are readable without Lean. [A reader's way in](docs/READING_GUIDE.md)
+introduces the questions; [Results and limits](docs/RESULTS.md) names what remains open.
 
-Read a [problem paper](#problem-papers), then use the [source map](docs/SOURCE_MAP.md)
-to follow a statement into Lean, the proof assistant that checks its formal
-proof. You can also use the record to compare methods, find a connection,
-explain an obstruction, repair a formalisation gap, or propose a correction.
-[CONTRIBUTING](CONTRIBUTING.md) explains how to return that work with credit.
-
-### Bring your own agent
-
-The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
-provides clone commands, a copyable prompt and small first tasks. Start new work
-from current public `main`; keep the starting commit when returning a result.
-Navigation needs Git and Python 3. Proof builds have separate setup. No model
-account or private system is required to [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
+Use the [source map](docs/SOURCE_MAP.md) to follow a statement into Lean, the
+proof assistant that checks its formal proof. [CONTRIBUTING](CONTRIBUTING.md)
+explains how to return work with credit. No model account or private system is
+required to [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
 
 ## Why this exists
 
-I prioritised expository quality and a collaborative structure over trying to
-solve the problems; I hope to now solve them with others rather than alone.
-The idea is to turn intermediary findings into something reusable by
-mathematicians who actually understand the material. That includes the routes
-that stopped and the reasons they stopped.
+I prioritised expository quality and a collaborative structure so others can
+work on these questions with me. The records include routes that stopped at a
+precise obstruction, where another researcher can test or repair the argument.
 
 I am responsible for all claims, sources and the release. Plectis is an
 independent, AI-assisted prototype, not something I am declaring finished.
-It has had no independent mathematical review (trying to get this), and I
-need help to get anywhere near "done". Meaning, novelty and significance still
-need human judgement.
+It has had no independent mathematical review. Meaning, novelty and significance
+still need human judgement; corpus counts are navigation counts, not novelty claims.
 
 ## Problem papers
 
-For a first look, start with **#249** for bases and exact ranks of totient
-kernels: the sequences obtained by restricting Euler's totient to arithmetic
-progressions. Or start with **#257** for weighted conditions on the exponents
-that force reciprocal Mersenne subseries to be irrational, and for
-achievement-set measure. Each paper distinguishes ordinary proofs,
-Lean-checked results and open questions; the results guide covers all eight
-programmes.
+For a first look, start with **#257**: a Lean-checked weighted condition makes
+reciprocal Mersenne subseries irrational at every integer base, even for some
+supports whose reciprocal sum diverges. A simpler checked theorem covers every
+infinite support $A$ with $\sum_{a\in A}1/a<\infty$; Erdős stated that
+extension. The unrestricted support question remains open. Then read **#249**
+for exact ranks of totient kernels, obtained by restricting Euler's totient to
+arithmetic progressions. Each paper separates ordinary proofs, Lean-checked
+results and open questions; the results guide covers all eight programmes.
+
+For a more specialised theorem, **#243** gives irrationality for strictly
+increasing positive integer sequences under the precise cubic-rate hypothesis
+`a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)`. Lean checks the zero-indexed theorem;
+the paper transfers its one-based form by an ordinary finite-prefix argument.
+The unrestricted Sylvester-recurrence question remains open. For **#1049**,
+Lean checks that `F(31/4)` and `F((31/4)^r)` for every positive integer `r`
+are irrational, using rational-base forms built from Zudilin's construction.
+A coefficient pencil through rank eight is also checked. Irrationality at
+`3/2` and the all-rational-base claim remain open.
 
 **Reading the eight together.** The whole collection is also material for new
 mathematics: reusable constructions, connections between problems and questions
@@ -102,7 +115,7 @@ from the papers and Lean corpus, with each result's evidence and limits intact.
 | Problem | Topic | Papers |
 |---|---|---|
 | [#68](https://www.erdosproblems.com/68) | [Factorial-denominator irrationality](https://wcook04.github.io/plectis/maths/problems/erdos_68.html) | [short paper](paper/68/erdos-68-factorial-denominator-irrationality.pdf) · [longer paper](paper/68/erdos68-factorial-reasoning-surface.pdf) |
-| [#243](https://www.erdosproblems.com/243) | [Reciprocal-tail rigidity](https://wcook04.github.io/plectis/maths/problems/erdos_243.html) | [short paper](paper/243/erdos-243-reciprocal-tail-rigidity.pdf) · [longer paper](paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf) |
+| [#243](https://www.erdosproblems.com/243) | [Cubic-rate irrationality and reciprocal tails](https://wcook04.github.io/plectis/maths/problems/erdos_243.html) | [short paper](paper/243/erdos-243-reciprocal-tail-rigidity.pdf) · [longer paper](paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf) |
 | [#249](https://www.erdosproblems.com/249) | [Binary totient series](https://wcook04.github.io/plectis/maths/problems/erdos_249.html) | [short paper](paper/249/erdos-249-binary-totient-series.pdf) · [longer paper](paper/249/erdos249-totient-reasoning-surface.pdf) |
 | [#251](https://www.erdosproblems.com/251) | [Prime-gap dyadic series](https://wcook04.github.io/plectis/maths/problems/erdos_251.html) | [short paper](paper/251/erdos-251-prime-gap-dyadic-series.pdf) · [longer paper](paper/251/erdos251-prime-gap-reasoning-surface.pdf) |
 | [#257](https://www.erdosproblems.com/257) | [Mersenne-support subseries](https://wcook04.github.io/plectis/maths/problems/erdos_257.html) | [short paper](paper/257/erdos-257-mersenne-support-subseries.pdf) · [longer paper](paper/257/erdos257-mersenne-reasoning-surface.pdf) |
@@ -138,20 +151,16 @@ unreleased work.
 
 ## Contribute
 
-An idea, a correction, a counterexample, a failed route with a checkable
-reason, or a clearer explanation can help. You do not need to solve a problem.
-Directions and infrastructure suggestions receive credit too.
-
-You can contribute an insight without writing Lean. Will can work with you to
-develop its argument and formalisation; the idea, explanation and proof work
-keep their respective attribution. A contribution may advance one problem or
-open a direction across the whole collection.
+Contribute an idea, correction, counterexample, checked failed route,
+explanation or infrastructure change. You need not solve a problem or write
+Lean. Will can help formalise an argument while keeping each contribution's
+attribution.
 
 Start with [a paper](docs/CONTRIBUTE_BY_PAPER.md),
 [develop a method](paper/synthesis/README.md), or
 [improve the machinery](docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md).
-The same [submission and credit process](CONTRIBUTING.md#return-what-you-learned)
-serves all three, including contributions by email and work without a clone.
+The [submission and credit process](CONTRIBUTING.md#return-what-you-learned)
+also covers email and work without a clone.
 
 - **Ideas, corrections or review:** use the
   [research-progress form](https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml)
@@ -160,22 +169,15 @@ serves all three, including contributions by email and work without a clone.
 - **Your own agent and spare compute:** use the [frontier relay](docs/FRONTIER_RELAY.md)
   to choose a starting point and return what you find with its evidence.
 
-When maintainers accept contributed work, they commit a receipt naming the
-contributor and the files, results or evidence being credited. The
-[credit policy](docs/research-commons/CREDIT_POLICY.md) explains how contributions
-are attributed. Browse [source attributions](docs/research-commons/SOURCE_ATTRIBUTIONS.md)
-for named prior work and anonymous credit for implemented private advice.
+Accepted work receives a public receipt naming its contributor and evidence.
+The [credit policy](docs/research-commons/CREDIT_POLICY.md) and
+[source attributions](docs/research-commons/SOURCE_ATTRIBUTIONS.md) explain credit.
 
 If you solve a problem, the credit and the result are all yours. If this repo
 or my intermediary progress helped, please cite this release and say how, so
 others find it and we make progress together instead of hoarding partial
 results out of fear of being scooped, or rebuilding the same infrastructure
 instead of improving one cumulatively.
-
-**Experts:** corrections, methods and directions are welcome. Accepted work
-gets a public receipt naming the contribution and its author; later work
-records how it used that contribution. See the
-[credit policy](docs/research-commons/CREDIT_POLICY.md).
 
 <a id="citation-and-prior-work"></a>
 
@@ -189,9 +191,7 @@ downloads Lean and Mathlib. Cloning runs no project code; the
 Use the [documentation index](docs/README.md) for the file map and specialist
 guides. [How the repository works](docs/ARCHITECTURE.md) explains the roles of
 proofs, papers and checks. Coding agents start at [`AGENTS.md`](AGENTS.md) and
-follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md); the
-[agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
-explains that design.
+follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
@@ -200,7 +200,7 @@ explains that design.
 
 ## Corpus at a glance
 
-The reviewed layer a mathematician should judge: 148 curated claim records in 33 contribution families, reaching Lean source through 463 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
+The reviewed layer a mathematician should judge: 150 curated claim records in 33 contribution families, reaching Lean source through 468 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
 The rest is engineering inventory. About 87% of the 163,345 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
@@ -208,7 +208,7 @@ The rest is engineering inventory. About 87% of the 163,345 declarations (142,66
 |---|---:|
 | Lean modules (the two library roots) | 1,816 |
 | Formal results and supporting lemmas | 159,482 |
-| Curated claim records | 148 |
+| Curated claim records | 150 |
 | Contribution families | 33 |
 
 Generated shards are counted as formal source and never as separate

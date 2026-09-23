@@ -15,9 +15,15 @@ obstructions related to eight Erdős problem programmes —
 [#1049](https://www.erdosproblems.com/1049).
 Each problem has a short paper and a longer reasoning record; the retired
 combined #249/#257 manuscript is archive/provenance only, not a current
-gateway. The degree-seven example refutes the total-variation formulation of
-#1041; its correspondence with the historical curve-length problem has no
-recorded independent human review. The other seven targets remain open.
+gateway. Using the degree-seven polynomial constructed by the erdosproblems.com
+contributor ani, Lean proves that every preconnected strict-lemniscate set
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than two. This refutes the exact Formal Conjectures path-image-length
+statement; the separate total-variation bound is also checked. The other
+seven targets remain open. Independent human review of correspondence with
+the 1958 wording has not been recorded. Comparator checks only selected exact
+statements, axioms and kernel acceptance; it does not assess novelty or
+historical correspondence.
 
 Lean source checked by the pinned Lean kernel is proof authority. The audit log
 reports the headline declarations below with kernel assumptions
@@ -27,13 +33,15 @@ the displayed implication; it does not prove that its hypotheses occur.
 ## The short version
 
 The repository's clearest completed mathematics is concentrated in restricted
-forms of Problem 257. Lean checks the classical full-support theorem for every
-integer base `b ≥ 2`, a pairwise-coprime support theorem under explicit
-summability hypotheses, and irrationality for nonnegative rational
-eventually-periodic coefficients with a positive periodic tail. A formalised finite-prime
-weighted summability criterion also covers some supports with divergent
-reciprocal sum; the papers explain its averaging proof. The reciprocal-summable corollary
-was stated by Erdős without a printed proof. The same finite averaging window
+forms of Problem 257. Start with the Lean-checked finite-prime weighted support
+criterion: its base-two mass condition makes the series irrational at every
+integer base `b ≥ 2`, including for some supports whose reciprocal sum
+diverges. It is a sufficient condition, not the universal assertion for every
+infinite support. Lean separately checks the classical full-support theorem,
+a pairwise-coprime support theorem under explicit summability hypotheses, and
+irrationality for nonnegative rational eventually-periodic coefficients with
+a positive periodic tail. The reciprocal-summable corollary was stated by
+Erdős without a printed proof. The same finite averaging window
 also combines weighted supports with positive divisor covers, preserving
 irrationality for every infinite subset of their union at all integer bases.
 Lean checks this combination as `mixedSupportClaim`. The achievement-set
@@ -109,8 +117,17 @@ its entry `PalomarCorpus/E68` and proves it; that repository's Linux replay of
 Palomar's Comparator stage accepted the entry with both kernels
 (run 34782407633).
 
-**[#243](https://www.erdosproblems.com/243).** The short paper proves an
-ordinary original-sequence corollary. Let `a_1<a_2<⋯` be positive integers,
+**[#243](https://www.erdosproblems.com/243).** Under the exact cubic rate
+`a_n²/a_(n+1)=1+3/n+o(n⁻³)`, every strictly increasing positive integer
+sequence has an irrational reciprocal sum. Lean checks the zero-indexed
+theorem through a square-specialisation argument using Mathlib's
+Dedekind-zeta simple pole; the short paper transfers it to one-based indexing
+by an ordinary finite-prefix argument. Its printed proof uses classical
+Chebotarev instead. This rate does not cover the unrestricted Sylvester-tail
+question.
+
+The short paper also proves an ordinary original-sequence corollary. Let
+`a_1<a_2<⋯` be positive integers,
 `a_(n+1)/a_n²→1`, `∑ 1/a_n` rational, and `P_n=∏_{j<n} a_j`. If
 `limsup (P_n/a_n)(a_n²/a_(n+1)−1)<+∞`, then
 `a_(n+1)=a_n²−a_n+1` eventually. The needed limsup bound, or the paper's
@@ -267,28 +284,29 @@ On the generic stratum where simple nonzero critical values have pairwise
 distinct arguments and moduli, an ordinary slit-sheet theorem identifies the
 inverse-ray root-connection tree but gives no uniform length bound. Lean checks
 Newton-flow decay, ray-separating translations, and perturbative root
-retention. A degree-seven counterexample due to the erdosproblems.com
-contributor [`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861),
-formalised in Lean here, refutes the universal
-total-variation formulation; correspondence with the historical curve-length
-question remains unreviewed.
+retention. Using one degree-seven polynomial constructed by the
+erdosproblems.com contributor
+[`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861), Lean proves
+that every preconnected strict-lemniscate set joining two distinct roots has
+one-dimensional Hausdorff measure greater than two. This refutes the exact
+Formal Conjectures path-image-length statement and the separate total-variation
+formulation; correspondence with the 1958 wording remains unreviewed.
 
-**[#1049](https://www.erdosproblems.com/1049).** The short paper gives an
-ordinary proof that `F(a/b)` is irrational for coprime integers `a>b≥1` when
-`log b/log a < θ*`, where `θ* ≈ 0.4056830214`. It uses the polynomial
-conclusion of Zudilin's 2004 Lemma 7, together with the arithmetic and growth
-estimates used in its proof, before that source's integer-specialisation step.
-It makes no priority claim for the rational-base extension. In particular,
-`F((31/4)^r)` is irrational for every integer `r≥1`. Exact Hankel moment
-determinants through rank eight, both shifts, together with 76 cyclotomic
-residue witnesses and a rational interval bound placing the `31/4` exponent
-strictly below 301, are finite computer-algebra certificates; they are not
-Lean theorems and not an all-rank sign or uniqueness result. Lean checks that
-specialization with the source supply applied rather than assumed, together
-with the supporting arithmetic, the rational-base tail recurrence, and
-specific route exclusions. The base `3/2` lies outside the
-sufficient region, and the required approximants with analytic remainder
-control remain open.
+**[#1049](https://www.erdosproblems.com/1049).** For positive integers
+`0<b<a` in the exact Zudilin contour region, Lean checks irrationality and
+the stated irrationality-exponent bound for `F(a/b)`, including every positive
+integral power of `31/4`. The short paper also gives an ordinary proof for
+coprime `a,b` under `log b/log a < θ*`, where
+`θ* ≈ 0.4056830214`, using Zudilin's 2004 forms and estimates. Zudilin's
+prior work is credited; formalisation does not establish novelty. Lean also
+checks the normalized Hankel determinant's order and leading coefficient at
+every rank. Separately, for each real `p>1` and `1≤N≤8`, the Lean-checked
+finite coefficient pencil has a positive definite first matrix, real roots
+strictly below `F(p)`, and non-strict interlacing at adjacent ranks. The eight
+unshifted determinant certificates are kernel checked; the shifted eight and
+76 cyclotomic residue witnesses remain finite computations. These results
+give no all-rank coefficient positivity or irrationality at `3/2`, which lies
+outside the contour region. The universal rational-base question remains open.
 
 This guide is not a new result ranking. The canonical order of mathematical
 attention is maintained in
@@ -309,13 +327,25 @@ operational procedures live in the [agent workbench](agents/AGENT_WORKBENCH.md).
 
 ## Technical verdict
 
-The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The development is neither an empty collection of restatements nor
+Using the degree-seven polynomial constructed by erdosproblems.com contributor
+ani, Lean proves that every preconnected strict-lemniscate set joining two
+distinct roots has one-dimensional Hausdorff measure greater than two. This
+refutes the exact Formal Conjectures path-image-length statement; the separate
+total-variation bound is also checked. The other seven targets remain open.
+Independent human review of correspondence with the 1958 wording has not been
+recorded. Comparator checks only selected exact statements, axioms and kernel
+acceptance; it does not assess novelty or historical correspondence. The
+development is neither an empty collection of restatements nor
 a claim to settle the seven unresolved targets or the unadjudicated historical
 #1041 formulation. For a first mathematical pass, the high-signal spine is:
 
-- **#257, a completed unconditional endpoint theorem in the full-support
-  case.** The checked divisor-block proof combines a bounded Bertrand/CRT first
-  block, middle-window divisor-pair averaging, weighted tail control, and
+- **#257, finite-prime weighted supports and a completed full-support
+  case.** The checked `divisibilityWeightedClaim` proves irrationality at every
+  integer base under the stated base-two weighted mass condition for a finite
+  nonempty prime set. Some qualifying supports have divergent reciprocal mass;
+  full support does not satisfy this criterion, and arbitrary support remains
+  open. Separately, the checked divisor-block proof combines a bounded
+  Bertrand/CRT first block, middle-window divisor-pair averaging, weighted tail control, and
   parameter closure (`irrational_erdosSum_full_support`). It proves the
   canonical full-support series irrational in every integer base `b ≥ 2`, but
   not universal #257. A distinct adaptive-CRT certificate proves irrationality
@@ -1075,12 +1105,15 @@ core)**
   Erdős #1041. The source-only frontier still records hub selection on the
   ray-separated locus as an open parent carrier
   (`research_corpus/Erdos1041/FRONTIER.md`).
-- Current boundary: a degree-seven counterexample due to the erdosproblems.com
-  contributor [`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861),
-  formalised in Lean here, refutes the universal
-  total-variation connector formulation. What remains open here is the precise
-  correspondence with the historical curve-length question, including any
-  required Hausdorff-measure comparison and independent human review.
+- Checked counterexample: using the explicit degree-seven polynomial of
+  erdosproblems.com contributor
+  [`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861),
+  Lean proves that every preconnected strict-lemniscate set containing two
+  distinct roots has one-dimensional Hausdorff measure greater than two. The
+  path-image case refutes the exact Formal Conjectures statement, and the
+  separate total-variation bound remains checked. The formal proof covers one
+  polynomial, not ani's reported small-parameter family. Independent human
+  review of correspondence with the 1958 curve-length wording remains open.
 
 - Current-source boundary: the committed [`research_corpus/Erdos1041/FRONTIER.md`](../research_corpus/Erdos1041/FRONTIER.md)
   is the dated route for later source-only research evidence. Read it before
@@ -1720,8 +1753,9 @@ at most ten minutes? The request is exact, including the response schema, its
 consumer, payoff, and boundary.
 
 The reader replays the current overview, #1041 and semantic-relation routes;
-reports that the total-variation formulation is refuted by ani's degree-seven
-counterexample while the historical curve-length correspondence remains
+reports that ani's degree-seven counterexample refutes the exact Formal
+Conjectures path-image-length statement and the total-variation formulation,
+while the historical curve-length correspondence remains
 unreviewed; identifies the claim registry as selected rather than exhaustive;
 and summarises checked results from at least three distinct problems. This
 replaces the retired protocol built around a frozen #249/#257 binder sample.
@@ -1803,7 +1837,7 @@ _Questions generated from `docs/problem_index_source.json`._
 | [#251](../paper/251/erdos-251-prime-gap-dyadic-series.pdf) | Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational? |
 | [#257](../paper/257/erdos-257-mersenne-support-subseries.pdf) | Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational? |
 | [#269](../paper/269/erdos-269-three-prime-running-lcm.pdf) | For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case. |
-| [#1041](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf) | For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question. |
+| [#1041](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf) | Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review. |
 | [#1049](../paper/1049/erdos-1049-rational-base-lambert.pdf) | For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves. |
 <!-- END problem_programme_card -->
 

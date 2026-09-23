@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Cross-problem paper</p>
     <h1>Reading Eight Erdős Problems Together</h1>
     <p class="lean-paper__subject">Eight Erdős problems read together</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="optimal-sparse-perturbations.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/synthesis/optimal-sparse-perturbations.tex">
 <section id="sec:map" class="level2">
@@ -25,7 +26,7 @@ concerns polynomial lemniscates. It supplies no premise for the series
 arguments below.</p>
 <p>What can the freedom to choose digits preserve, and when does
 arithmetic remove that freedom? Sparse corrections in the #251 paper
-motivate the capacity criterion of Section . Its proof makes one
+motivate the capacity criterion of Section 3. Its proof makes one
 interval of possible continuations work for every cumulative residue.
 The factorial examples show that the arithmetic restrictions change a
 sharp support-gap threshold. Factorial denominators
@@ -33,25 +34,25 @@ sharp support-gap threshold. Factorial denominators
 in this construction are not the denominators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 in #68.</p>
-<p>Section  asks whether a single factorial digit sequence can prescribe
-several derivatives independently. Theorems and  give the sharp
-threshold and the dimension of the attainable vectors. The proof uses
-the scalar capacity theorem first, then a carry that preserves lower
-derivatives; Sections  and  give the argument and the rationality
-obstruction.</p>
+<p>Section 2 asks whether a single factorial digit sequence can
+prescribe several derivatives independently. Theorems 2.1 and 2.2 give
+the sharp threshold and the dimension of the attainable vectors. The
+proof uses the scalar capacity theorem first, then a carry that
+preserves lower derivatives; Sections 4 and 5 give the argument and the
+rationality obstruction.</p>
 <p>The common Lambert series in #257 and #1049 gives a second comparison
-in Section : a base below two permits rational subsums, while nested
+in Section 6: a base below two permits rational subsums, while nested
 denominators force irrationality on certain thin supports. Neither
 interval filling nor a measure estimate decides whether one specified
-rational is a subsum at base two. Sections  and explain that
+rational is a subsum at base two. Sections 6.3 and 8 explain that
 obstruction, including the exact computation that disproved a proposed
-stopping rule. Section  retains the other method limits without claiming
-that they have one common cause.</p>
+stopping rule. Section 7 retains the other method limits without
+claiming that they have one common cause.</p>
 <p>The proofs presented here are ordinary mathematical arguments. Cited
 Lean results establish specified ingredients and quoted results, not the
 complete capacity classification or Lambert-chain theorem. The sources
-and originating review are credited in Section . Historical novelty and
-independent expert review are not established.</p>
+and originating review are credited in Section 11. Historical novelty
+and independent expert review are not established.</p>
 </section>
 <section id="capacity:sec:jets-intro" class="level2">
 <h2>Prescribing a value and its derivatives</h2>
@@ -155,17 +156,17 @@ entries of the derivative vector unchanged, at a cost of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-in the coefficient allowance. The scalar construction of Theorem 
+in the coefficient allowance. The scalar construction of Theorem 3.1
 supplies the free quantity. For necessity, eventual evenness reduces the
 number of prefixes by an exponential factor, which forces measure zero
 even at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c=d</annotation></semantics></math>.
-Section  proves the theorem, including its dimension statement at the
+Section 4 proves the theorem, including its dimension statement at the
 critical exponent. In the reverse direction, division by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">(z-1)^d</annotation></semantics></math>
 converts vanishing derivatives into bounded integer coefficients.
-Eventual divisibility then forces them to vanish; this proves Theorem 
-in Section .</p>
+Eventual divisibility then forces them to vanish; this proves
+Theorem 2.2 in Section 5.</p>
 </section>
 <section id="capacity:sec:criterion" class="level2">
 <h2>An exact capacity criterion</h2>
@@ -230,11 +231,12 @@ lattice. It requires no monotonicity, regular variation or gap bound on
 the allowances, and no upper bound on the denominator ratios. It does
 not require the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>n</mi></msub><annotation encoding="application/x-tex">Q_n</annotation></semantics></math>
-to clear every rational denominator. Section  proves the theorem using
-the same residue-feedback mechanism already present in the public Lean
-repository. The capacity estimates and complete criterion are ordinary
-proofs; the abstract feedback endpoint is kernel-checked separately.
-Both geometric and factorial denominators satisfy the hypotheses.</p>
+to clear every rational denominator. Section 3.2 proves the theorem
+using the same residue-feedback mechanism already present in the public
+Lean repository. The capacity estimates and complete criterion are
+ordinary proofs; the abstract feedback endpoint is kernel-checked
+separately. Both geometric and factorial denominators satisfy the
+hypotheses.</p>
 <section id="the-sharp-support-threshold" class="level3">
 <h3>The sharp support threshold</h3>
 <p>Let
@@ -280,7 +282,7 @@ condition fails,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(S,c)</annotation></semantics></math>
 is null and meagre.</em></p></li>
 </ol>
-<p><em>When holds, one may require
+<p><em>When <code>[capacity:eq:gaps]</code> holds, one may require
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e_n=0</annotation></semantics></math>
 before any prescribed cutoff and impose both <span
 class="math display" data-term-auto="off">$$q\mid e_n,\qquad q\mid\sum_{k&lt;n}e_k
@@ -294,21 +296,23 @@ throughout the constructed interval.</em></p>
 </div>
 <p>The theorem is an ordinary mathematical proof. The associated formal
 sources check the general digit-feedback construction and, separately,
-the common-divisor carry obstruction of Section ; they do not formalise
-this gap classification or its measure argument. The source and
-attribution account is in Section .</p>
+the common-divisor carry obstruction of Section 3.6; they do not
+formalise this gap classification or its measure argument. The source
+and attribution account is in Section 11.</p>
 <p>For example, with allowance
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>,
-every second position suffices without congruences. Under , infinitely
-many omitted positions already force a null set. With allowance
+every second position suffices without congruences. Under
+<code>[capacity:eq:congruence]</code>, infinitely many omitted positions
+already force a null set. With allowance
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2.01</mn></msup><annotation encoding="application/x-tex">n^{2.01}</annotation></semantics></math>,
-every second position again suffices, even under . Thus the strict
-inequality in is essential.</p>
+every second position again suffices, even under
+<code>[capacity:eq:both]</code>. Thus the strict inequality in
+<code>[capacity:eq:gaps]</code> is essential.</p>
 <div class="corollary">
 <p><strong>Corollary 3.3</strong>. <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c&gt;1</annotation></semantics></math>,
 the least possible asymptotic density of a fixed permitted support that
-fills an interval under is
+fills an interval under <code>[capacity:eq:congruence]</code> is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">⌈</mo><mi>c</mi><mo stretchy="false" form="postfix">⌉</mo><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\lceil c\rceil-1)</annotation></semantics></math>.
 Every such support has lower density at least this value, and an
 arithmetic progression attains it. A density bound alone is not
@@ -542,7 +546,7 @@ and all subsequent repairs preserve divisibility by
 Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j+1</annotation></semantics></math>
 is a valid cutoff for every target. The allowance-exception index itself
-may depend on the target. This completes Theorem .</p>
+may depend on the target. This completes Theorem 3.1.</p>
 <p>The growth hypothesis has content. If repeated denominators are
 allowed, take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><msup><mn>2</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">Q_n=2^{\lfloor\sqrt n\rfloor}</annotation></semantics></math>
@@ -597,7 +601,7 @@ used
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>⋯</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msup><mi>N</mi><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">(N+1)\cdots(N+r)\ge N^r</annotation></semantics></math>.</p>
 <p>The bounded capacity along this subsequence invokes the necessity
-argument of Theorem , with allowances
+argument of Theorem 3.1, with allowances
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mi>n</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">F_n=\lfloor n^c\rfloor</annotation></semantics></math>
 on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
@@ -607,7 +611,7 @@ target-dependent congruence and allowance cutoffs.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c\le1</annotation></semantics></math>,
 every support gap is at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=1</annotation></semantics></math>,
-so this proves the first part of Theorem . If
+so this proves the first part of Theorem 3.2. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c&gt;1</annotation></semantics></math>
 and (3) fails, it proves the negative part. Notice that infrequent large
 gaps are enough; average digit counts do not detect this
@@ -732,7 +736,7 @@ also valid for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j=1</annotation></semantics></math>.
 Finally,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mi>/</mi><msub><mi>n</mi><mi>j</mi></msub><mi>!</mi><mo>≤</mo><msqrt><msub><mi>r</mi><mi>j</mi></msub></msqrt><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msub><mi>n</mi><mi>j</mi></msub><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msqrt><mrow><msub><mi>n</mi><mi>j</mi></msub><mi>!</mi></mrow></msqrt><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M_j/n_j!\le\sqrt{r_j}/(2n_j!)\le1/(2\sqrt{n_j!})\to0</annotation></semantics></math>.
-Lemma  fills
+Lemma 3.4 fills
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mi>/</mi><msub><mi>n</mi><mn>0</mn></msub><mi>!</mi><mo>,</mo><mn>2</mn><mi>/</mi><msub><mi>n</mi><mn>0</mn></msub><mi>!</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[1/n_0!,2/n_0!]</annotation></semantics></math>
 using the positions
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>j</mi></msub><annotation encoding="application/x-tex">n_j</annotation></semantics></math>,
@@ -757,7 +761,7 @@ Otherwise it is null and meagre. For
 it is always null and meagre.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> For necessity repeat Section  with
+<p><em>Proof.</em> For necessity repeat Section 3.3 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>c</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=\lfloor c\rfloor+1</annotation></semantics></math>.
 The bound in (5) now tends to zero. With lattice spacing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">1/N!</annotation></semantics></math>,
@@ -897,7 +901,7 @@ Nevertheless
  =\sum_{n\ge1}\frac{b_n-1}{Q_n}=1.</annotation></semantics></math> Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>n</mi></msub><mo>,</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\gcd(b_n,e_n)\le2</annotation></semantics></math>.
 This example separates rapid denominator growth from the arithmetic
-obstruction used in Theorem .</p>
+obstruction used in Theorem 3.6.</p>
 </section>
 <section id="why-a-small-allowance-along-a-subsequence-is-insufficient"
 class="level3">
@@ -929,8 +933,8 @@ while the capacity after
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 is at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>N</mi></mrow></msub><mi>n</mi><mi>/</mi><mi>n</mi><mi>!</mi><mo>≤</mo><mn>2</mn><mi>/</mi><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">\sum_{n&gt;N}n/n!\le2/N!</annotation></semantics></math>.
-The covering bound of Theorem (i), allowing zero-capacity levels to be
-omitted, tends to zero.</p>
+The covering bound of Theorem 6.1(i), allowing zero-capacity levels to
+be omitted, tends to zero.</p>
 <p>For the subsequence counterexample put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(2k)=0</annotation></semantics></math>
 and
@@ -954,7 +958,7 @@ therefore gives every value in
 even though
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(n)/n=0</annotation></semantics></math>
 at every even index. The exact telescoping identities and sample greedy
-expansions are reproduced by the script cited in Section ; the interval
+expansions are reproduced by the script cited in Section 8; the interval
 conclusion follows from this argument, not from the samples.</p>
 </section>
 </section>
@@ -1027,7 +1031,7 @@ that their derivative vectors contain an open set whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>,
-apply Theorem  to
+apply Theorem 3.1 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>η</mi><msup><mi>n</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">F_n=\lfloor\eta n^c\rfloor</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">Q_n=n!</annotation></semantics></math>,
@@ -1222,8 +1226,8 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>k</mi><mo>≤</mo><mi>r</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>t</mi><mrow><mi>r</mi><mo>−</mo><mi>k</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><msup><mn>2</mn><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\sum_{k\le r}\binom{t}{r-k}\le2^t</annotation></semantics></math>.
 Some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msubsup><mi>b</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">\Delta b_n^{(r)}</annotation></semantics></math>
-is a nonzero integer. Therefore one coordinate on the left of has
-absolute value at least
+is a nonzero integer. Therefore one coordinate on the left of
+<code>[capacity:eq:moving-taylor]</code> has absolute value at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2n!)</annotation></semantics></math>.
 The linear map from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J_d(g)</annotation></semantics></math>
@@ -1239,7 +1243,8 @@ consequently have separation at least
  \tag{S}\label{capacity:eq:jet-separation}</annotation></semantics></math>
 in the supremum norm of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>.</p>
-<p>Give all choices in uniform independent probabilities. If
+<p>Give all choices in <code>[capacity:eq:jet-digits]</code> uniform
+independent probabilities. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
 counts prefixes through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
@@ -1272,12 +1277,12 @@ Summing this inequality over any ball cover gives positive
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>-dimensional
 Hausdorff content. The dimension is at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>,
-completing Theorem .</p>
+completing Theorem 2.1.</p>
 </section>
 </section>
 <section id="capacity:sec:rational-jets" class="level2">
 <h2>The arithmetic threshold for rational derivatives</h2>
-<p>We prove Theorem . The coefficient estimate and the divisibilities
+<p>We prove Theorem 2.2. The coefficient estimate and the divisibilities
 are both needed, including at the critical exponent.</p>
 <p>Suppose the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
@@ -1311,7 +1316,8 @@ so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>g</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">q\mid g_k</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k\ge K</annotation></semantics></math>.
-Those terms in are divisible by
+Those terms in <code>[capacity:eq:quotient-prefix]</code> are divisible
+by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
 For each of the finitely many
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k&lt;K</annotation></semantics></math>,
@@ -1341,7 +1347,8 @@ vanish, and at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">j\ge d</annotation></semantics></math>,
 they equal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">(-1)^{d-1}\binom{j-1}{d-1}</annotation></semantics></math>.
-The complementary tail of therefore gives
+The complementary tail of <code>[capacity:eq:quotient-prefix]</code>
+therefore gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mi>d</mi></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><msub><mi>g</mi><mrow><mi>n</mi><mo>+</mo><mi>j</mi></mrow></msub><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">b_n=n!\sum_{j\ge d}\binom{j-1}{d-1}\frac{g_{n+j}}{(n+j)!}.
  \tag{R}\label{capacity:eq:quotient-tail}</annotation></semantics></math>
 All series here converge absolutely. For large
@@ -1376,8 +1383,8 @@ and
 are polynomials.</p>
 <p>For the converse, when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>,
-Theorem  gives an open set of vectors realised by nonpolynomial members
-of
+Theorem 2.1 gives an open set of vectors realised by nonpolynomial
+members of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\mathcal H_c</annotation></semantics></math>.
 Every nonempty open subset of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>
@@ -1488,8 +1495,8 @@ data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="
 Tao give a scalar reciprocal-choice covering lemma <span
 class="citation" data-cites="kovactao2024"></span>; their
 higher-dimensional approximation lemma is Lemma 7.2 of the same paper.
-We claim no novelty for Theorem . Its use here is to say which side each
-problem lies on.</p>
+We claim no novelty for Theorem 6.1. Its use here is to say which side
+each problem lies on.</p>
 <div class="theorem">
 <p><strong>Theorem 6.2</strong> (the subseries across bases). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t&gt;1</annotation></semantics></math>
@@ -1550,7 +1557,7 @@ record the strict inequality
 and the Cantor-set conclusion for every fixed base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">t\ge2</annotation></semantics></math>
 <span class="citation" data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. Parts (a) and
-(c) follow from Theorem  in a few lines. We have not found part (a)
+(c) follow from Theorem 6.1 in a few lines. We have not found part (a)
 stated for non-integer bases and it may be known. It shows that the
 statement asked in #257 is false at every rational base below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
@@ -1601,9 +1608,10 @@ supports with
 <span class="citation" data-cites="erdos1968"><a href="#ref-3">[3]</a></span>, proved in full in
 <span class="citation" data-cites="plectis257"><a href="#ref-22">[22]</a></span>. At base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
-it sits inside the regime of Theorem (a): rational values occur there,
-and exact divisibility still forces irrationality. For comparison, the
-companion note on #1049 proves the irrationality of the full sum
+it sits inside the regime of Theorem 6.2(a): rational values occur
+there, and exact divisibility still forces irrationality. For
+comparison, the companion note on #1049 proves the irrationality of the
+full sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_{\mathbb{N}_{&gt;0}}(a/b)</annotation></semantics></math>
 when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>b</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo>&lt;</mo><mn>0.4056830213840605</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\log b/\log a&lt;0.4056830213840605\ldots</annotation></semantics></math>,
@@ -1670,11 +1678,11 @@ computation in <span class="citation"
 data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> first read a surviving share
 near
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">62\%</annotation></semantics></math>
-as evidence that most such fractions are subsums; Theorem  is the
-correction. Section  states what remains.</p>
+as evidence that most such fractions are subsums; Theorem 6.4 is the
+correction. Section 6.3 states what remains.</p>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
-<p>The proofs of Theorems – are ordinary proofs. Theorem  uses
+<p>The proofs of Theorems 6.1–6.4 are ordinary proofs. Theorem 6.3 uses
 Nishioka’s theorem for Mahler systems as an external premise in the
 eventually doubling case, hence in both parts. Results quoted from the
 problem papers retain the evidence class given at each use.</p>
@@ -1682,7 +1690,7 @@ problem papers retain the evidence class given at each use.</p>
 <section id="sec:dichotomy" class="level3">
 <h3>Choices against contraction</h3>
 <div class="proof">
-<p><em>Proof of Theorem .</em> (i) A choice of
+<p><em>Proof of Theorem 6.1.</em> (i) A choice of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>ε</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\varepsilon_1,\dots,\varepsilon_N</annotation></semantics></math>
 fixes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><msub><mi>ε</mi><mi>n</mi></msub><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{n\le N}\varepsilon_nu_n</annotation></semantics></math>,
@@ -1820,7 +1828,7 @@ is small.</p>
 <section id="sec:bases" class="level3">
 <h3>The subseries across bases</h3>
 <div class="proof">
-<p><em>Proof of Theorem .</em> (a) Since
+<p><em>Proof of Theorem 6.2.</em> (a) Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>n</mi></msub><mo>≥</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><msup><mi>t</mi><mrow><mi>−</mi><mi>k</mi></mrow></msup><mo>=</mo><msup><mi>t</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_n\ge\sum_{k&gt;n}t^{-k}=t^{-n}/(t-1)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>n</mi></msub><mo>=</mo><msup><mi>t</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>t</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_n=t^{-n}/(1-t^{-n})</annotation></semantics></math>,
@@ -1828,7 +1836,7 @@ the inequality
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>R</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">w_n\le R_n</annotation></semantics></math>
 holds as soon as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>t</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>≤</mo><mn>2</mn><mo>−</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">t^{-n}\le2-t</annotation></semantics></math>.
-Theorem (ii) with
+Theorem 6.1(ii) with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_n=1</annotation></semantics></math>
 gives, for each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>N</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">F\subseteq\{1,\dots,N_0\}</annotation></semantics></math>,
@@ -1860,10 +1868,10 @@ and
 <p>(c) For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">t&gt;2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub><mo>≤</mo><msup><mn>2</mn><mi>N</mi></msup><msup><mi>t</mi><mrow><mi>−</mi><mi>N</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>t</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">2^NR_N\le2^Nt^{-N}/((t-1)(1-t^{-1}))\to0</annotation></semantics></math>,
-and Theorem (i) applies. ◻</p>
+and Theorem 6.1(i) applies. ◻</p>
 </div>
 <div class="proof">
-<p><em>Proof of Theorem .</em> Write
+<p><em>Proof of Theorem 6.3.</em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>b</mi><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\rho=b/a</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>j</mi></msub><mo>=</mo><msup><mi>a</mi><msub><mi>n</mi><mi>j</mi></msub></msup><mo>−</mo><msup><mi>b</mi><msub><mi>n</mi><mi>j</mi></msub></msup></mrow><annotation encoding="application/x-tex">D_j=a^{n_j}-b^{n_j}</annotation></semantics></math>
 and
@@ -2114,7 +2122,7 @@ is infinite.</p>
 <section id="fixed-depth-rational-counts" class="level4">
 <h4>Fixed-depth rational counts</h4>
 <div class="proof">
-<p><em>Proof of Theorem .</em> Fixing the first
+<p><em>Proof of Theorem 6.4.</em> Fixing the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 digits gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>N</mi></msup><annotation encoding="application/x-tex">2^N</annotation></semantics></math>
@@ -2180,7 +2188,7 @@ and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>E</mi><mo stretchy="false" form="postfix">]</mo><mo>∖</mo><mi mathvariant="script">𝒜</mi><mo>=</mo><munder><mo>⨆</mo><mrow><mi>F</mi><mo>≠</mo><mi>⌀</mi></mrow></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>g</mi><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>F</mi></mrow></msub><mo>,</mo><mspace width="0.167em"></mspace><msub><mi>X</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><msub><mi>g</mi><mi>n</mi></msub><mo>=</mo><mi>E</mi><mo>−</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">[0,E]\smallsetminus\mathcal A=\bigsqcup_{F\ne\varnothing}\bigl(X_F(2)-g_{\max F},\,X_F(2)\bigr),
  \qquad\sum_{n\ge1}2^{n-1}g_n=E-1,</annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>
-is the set of subsums. By Theorem (b) a rational with an infinite
+is the set of subsums. By Theorem 6.2(b) a rational with an infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is exactly a counterexample to #257 at base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
@@ -2221,8 +2229,8 @@ measure in
 that contain essentially no rationals <span class="citation"
 data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>.</p>
 <p>The exact computation in <span class="citation"
-data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> agrees with Theorem  step by
-step. Among the
+data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> agrees with Theorem 6.4 step
+by step. Among the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>19</mn><mo>,</mo><mn>653</mn></mrow><annotation encoding="application/x-tex">19{,}653</annotation></semantics></math>
 reduced fractions with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>q</mi><mo>≤</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">2\le q\le200</annotation></semantics></math>,
@@ -2252,7 +2260,7 @@ which falls below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 near
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>Q</mi><mo>−</mo><mn>2</mn><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>π</mi></mrow><annotation encoding="application/x-tex">n=2\log_2Q-2\log_2\pi</annotation></semantics></math>.
-This is not a deterministic cutoff: the error in Theorem  does not
+This is not a deterministic cutoff: the error in Theorem 6.4 does not
 justify such an extrapolation. For example,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>189</mn><mi>/</mi><mn>388</mn></mrow><annotation encoding="application/x-tex">189/388</annotation></semantics></math>
 is first rejected at step
@@ -2265,7 +2273,7 @@ and exact arithmetic gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mn>17</mn></msub><mo>≤</mo><mfrac><mn>196609</mn><mn>25769803776</mn></mfrac><mo>&lt;</mo><mfrac><mn>189</mn><mn>388</mn></mfrac><mo>−</mo><msub><mi>X</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>9291822600689</mn><mn>1217890317075045460</mn></mfrac><mo>&lt;</mo><mfrac><mn>1</mn><mn>131071</mn></mfrac><mo>=</mo><msub><mi>w</mi><mn>17</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">R_{17}\le\frac{196609}{25769803776}
  &lt;\frac{189}{388}-X_F(2)
  =\frac{9291822600689}{1217890317075045460}
- &lt;\frac1{131071}=w_{17}.</annotation></semantics></math> Section 
+ &lt;\frac1{131071}=w_{17}.</annotation></semantics></math> Section 8
 supplies the earlier-step checks. Deeper computation can therefore
 produce new exclusion certificates; absence of a later rejection still
 does not prove membership. No rational is known to have an infinite
@@ -2284,8 +2292,8 @@ at infinitely many steps.</em></p>
 <p>The rational-point counting papers examined here concern null Cantor
 sets such as the middle-third set <span class="citation"
 data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>. We did not locate a
-theorem settling the present positive-measure subsum problem. Problem 
-asks about one explicit rational point.</p>
+theorem settling the present positive-measure subsum problem.
+Problem 6.7 asks about one explicit rational point.</p>
 </section>
 </section>
 </section>
@@ -2439,8 +2447,8 @@ met at base
 </tr>
 </tbody>
 </table>
-<p>Theorem (ii) explains interval filling in the #251 construction. The
-#249 countermodel is a separate explicit construction with its own
+<p>Theorem 6.1(ii) explains interval filling in the #251 construction.
+The #249 countermodel is a separate explicit construction with its own
 preserved identities. The #1049 restriction does not exclude stronger
 base-specific estimates, different families at different bases, or forms
 involving several target values. The others bound a method. We tried to
@@ -2473,7 +2481,7 @@ close to
 This was read as evidence that about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">62\%</annotation></semantics></math>
 of rationals are subsums, hence that #257 is false. The reading is
-wrong. By Theorem  above the share at any fixed depth tends to
+wrong. By Theorem 6.4 above the share at any fixed depth tends to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub><mi>/</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">2^NR_N/E</annotation></semantics></math>
 whatever the truth of #257, because fractions equidistribute over the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>N</mi></msup><annotation encoding="application/x-tex">2^N</annotation></semantics></math>
@@ -2500,7 +2508,7 @@ at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">Q=200</annotation></semantics></math>.
 A main term below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-does not make the actual count zero. Theorem  is a fixed-depth
+does not make the actual count zero. Theorem 6.4 is a fixed-depth
 asymptotic, and its error
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>N</mi></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>Q</mi><mi>/</mi><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(2^N\log Q/Q)</annotation></semantics></math>
 does not justify an extrapolation to
@@ -2549,10 +2557,12 @@ the exact comparison is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mn>17</mn></msub><mo>≤</mo><mfrac><mn>196609</mn><mn>25769803776</mn></mfrac><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><mfrac><mn>1</mn><mn>131071</mn></mfrac><mo>=</mo><msub><mi>w</mi><mn>17</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">R_{17}\le\frac{196609}{25769803776}&lt;r&lt;\frac1{131071}=w_{17}.</annotation></semantics></math>
 The same rejection occurs for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>577</mn><mi>/</mi><mn>388</mn><mo>=</mo><mn>1</mn><mo>+</mo><mn>189</mn><mi>/</mi><mn>388</mn></mrow><annotation encoding="application/x-tex">577/388=1+189/388</annotation></semantics></math>
-by Lemma . The independent reproduction, including every earlier skipped
-step, is in . This certificate shows that deeper computation can add
-exclusions. It does not convert survival to any finite depth into a
-membership certificate.</p>
+by Lemma 6.6. The independent reproduction, including every earlier
+skipped step, is in
+<code>research/experiments/sparse_interpolation/late_rejection.py</code>.
+This certificate shows that deeper computation can add exclusions. It
+does not convert survival to any finite depth into a membership
+certificate.</p>
 <p>What survives is the agreement itself. At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">Q=200</annotation></semantics></math>
 the counts at steps
@@ -2579,7 +2589,7 @@ against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>32</mn><annotation encoding="application/x-tex">32</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>16</mn><annotation encoding="application/x-tex">16</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>
-from the measures of Lemma ; steps
+from the measures of Lemma 6.5; steps
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math>
@@ -2594,7 +2604,7 @@ has
 against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
 The late counts fluctuate more than independent events would, because
-rejections arrive in the families of Lemma .</p>
+rejections arrive in the families of Lemma 6.6.</p>
 </section>
 <section id="sec:eliminated" class="level2">
 <h2>Eliminated ideas</h2>
@@ -2609,7 +2619,7 @@ at positions
 and allow each of those digits to be changed to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
 The reachable values form a null set when the positions are sparse, by
-Theorem (i), yet changing all of them gives
+Theorem 6.1(i), yet changing all of them gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum2^{-n}=1</annotation></semantics></math>.
 So no count of choices against contraction, and no depth depending only
 on sparsity, excludes a particular rational.</p></li>
@@ -2626,23 +2636,23 @@ would be such a host. The subsum set of a host
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 has positive measure exactly when the complement of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-is finite, by Theorem (i) and the measure at full support.</p></li>
+is finite, by Theorem 6.1(i) and the measure at full support.</p></li>
 <li><p><em>The share of surviving fractions as evidence.</em>
-Section .</p></li>
-<li><p><em>A wrong locator.</em> A draft of Theorem (b) cited Theorem 
-of <span class="citation" data-cites="adamczewskifaverjon2026"><a href="#ref-29">[29]</a></span>
-as Nishioka’s theorem. That theorem says a value of a Mahler function at
-an algebraic point is rational or transcendental, which cannot prove
-irrationality. The proof in Section  uses Nishioka’s value theorem as
-quoted in <span class="citation"
-data-cites="adamczewskifaverjon2016"><a href="#ref-13">[13]</a></span>, applied there to the
-two-dimensional system for
+Section 8.</p></li>
+<li><p><em>A wrong locator.</em> A draft of Theorem 6.3(b) cited
+Theorem 6.1 of <span class="citation"
+data-cites="adamczewskifaverjon2026"><a href="#ref-29">[29]</a></span> as Nishioka’s theorem. That
+theorem says a value of a Mahler function at an algebraic point is
+rational or transcendental, which cannot prove irrationality. The proof
+in Section 6.2 uses Nishioka’s value theorem as quoted in <span
+class="citation" data-cites="adamczewskifaverjon2016"></span>, applied
+there to the two-dimensional system for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>g</mi><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(g,1)</annotation></semantics></math>
 with regular points in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>.</p></li>
 <li><p><em>Algebraic independence for #1049.</em> With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
-as in Section ,
+as in Section 6.2,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>=</mo><msub><mo>∑</mo><mrow><mi>m</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mrow><mi>−</mi><mi>m</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}(t^n-1)^{-1}=\sum_{m\ \mathrm{odd}}g(t^{-m})</annotation></semantics></math>,
 and each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mrow><mi>−</mi><mi>m</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g(t^{-m})</annotation></semantics></math>
@@ -2656,7 +2666,7 @@ decomposition is supplied here.</p></li>
 <section id="sec:known" class="level2">
 <h2>What was already known</h2>
 <ul>
-<li><p>The covering argument of Theorem (ii) goes back to Kakeya; see
+<li><p>The covering argument of Theorem 6.1(ii) goes back to Kakeya; see
 <span class="citation"
 data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Its use to build
 rational series inside a class defined by soft data is the method of
@@ -2671,7 +2681,7 @@ form a Cantor set at fixed
 is <span class="citation" data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>.</p></li>
 <li><p>A closed set of positive measure can contain essentially no
 rationals <span class="citation"
-data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>, so the heuristic of Section 
+data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>, so the heuristic of Section 6.3
 cannot be a consequence of measure.</p></li>
 <li><p>The rational-point counting papers examined here concern null
 Cantor sets <span class="citation"
@@ -2708,7 +2718,7 @@ href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf">short paper</a> and
 href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/lean/ErdosProblems/Erdos251/ResidueFeedbackCore.lean"><code>ResidueFeedbackCore.lean</code></a>.
 The latter already proves residue-dependent selection and an abstract
 infinite sum endpoint. An operator-supplied review supplied the form of
-Lemma , the sharp exponential support constants, and the
+Lemma 3.4, the sharp exponential support constants, and the
 linear/superlinear factorial contrast. Those ingredients are credited to
 that review, not presented as discoveries of this paper. The extensions
 developed here are the exact capacity criterion on arbitrary strict
@@ -2716,10 +2726,12 @@ integer divisibility chains, the factorial support classification and
 its integer-exponent comparison, the common-divisor formulation, and the
 derivative dimension and rationality thresholds proved above.</p>
 <p>The derivative theorem combines residue feedback from #251 with the
-treatment of factorial carries in #68. Identity  interprets a carry as
+treatment of factorial carries in #68.
+Identity <code>[capacity:eq:jet-carry]</code> interprets a carry as
 multiplication by a polynomial vanishing at the evaluation point. This
 produces the independent higher derivative instead of assuming its
-availability. The moving coordinates in make the full-dimensional
+availability. The moving coordinates in
+<code>[capacity:eq:moving-taylor]</code> make the full-dimensional
 critical construction possible; the counting obstruction proves its
 measure is zero. Conversely, division by the same vanishing polynomial
 preserves integer factorial coefficients and eventual divisibility. The
@@ -2780,11 +2792,12 @@ from #68.</p>
 href="https://github.com/wcook04/plectis-erdos/blob/2bd14835b940b3c695a9cc8828c7e2967d65c053/lean/ErdosProblems/Synthesis/FactorialJet.lean"><code>FactorialJet.lean</code></a>
 checks the finite factorial-carry identity and its first weighted
 version, including endpoint terms, and preservation of divisibility. It
-does not formalise Theorems  and , their limits or dimension proof. The
-exact-arithmetic script <code>jets.py</code> checks the formulas at
-specified finite degrees, both quotient formulas, and independently
-checks the uniform tail majorant in . These finite degree tests are not
-the proof for every
+does not formalise Theorems 2.1 and 2.2, their limits or dimension
+proof. The exact-arithmetic script <code>jets.py</code> checks the
+formulas at specified finite degrees, both quotient formulas, and
+independently checks the uniform tail majorant in
+<code>[capacity:eq:moving-taylor]</code>. These finite degree tests are
+not the proof for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.</p>
 <p>The capacity criterion already covers non-power and oscillating
 allowances.</p>
@@ -2797,7 +2810,7 @@ allowances.</p>
 a subsum of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum(2^n-1)^{-1}</annotation></semantics></math>?
 The exact obligation is in <span class="citation"
-data-cites="plectis257"><a href="#ref-22">[22]</a></span>. By Lemma  the general question is
+data-cites="plectis257"><a href="#ref-22">[22]</a></span>. By Lemma 6.5 the general question is
 one-sided approximation of a rational by finite subsums
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>F</mi></msub><annotation encoding="application/x-tex">X_F</annotation></semantics></math>
 to within
@@ -2810,11 +2823,11 @@ stay close to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><msup><mi>Q</mi><mn>2</mn></msup><mi>/</mi><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><msub><mi>g</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">(3Q^2/\pi^2)2^{n-1}g_n</annotation></semantics></math>
 in the joint range
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>−</mo><mi>ε</mi><mo stretchy="false" form="postfix">)</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>Q</mi></mrow><annotation encoding="application/x-tex">n\le(2-\varepsilon)\log_2Q</annotation></semantics></math>,
-counted modulo the translations of Lemma ? A persistent excess would be
-the first sign of an arithmetic mechanism for #257.</p></li>
+counted modulo the translations of Lemma 6.6? A persistent excess would
+be the first sign of an arithmetic mechanism for #257.</p></li>
 <li><p>Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>&gt;</mo><msup><mi>b</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">a^2&gt;b^3</annotation></semantics></math>
-necessary in Theorem (a)? First case: base
+necessary in Theorem 6.3(a)? First case: base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>,
 a chain with ratios
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
@@ -2846,7 +2859,7 @@ agents under Will Cook’s direction. The first-page disclosure states his
 review boundary. The earlier synthesis record reports separate agent
 proof checks, independent reruns of the exact computations, and source
 checks on 20 September 2026; the failed citation is retained in
-Section . This consolidation preserves those arguments and their
+Section 9. This consolidation preserves those arguments and their
 evidence classes. It is not an independent mathematical review.</p>
 </section>
 <section id="references" class="level2 unnumbered">

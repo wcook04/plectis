@@ -15,13 +15,15 @@ account of the approaches that stopped and why. Plectis is a prototype
 for making this work understandable, reusable and open to further
 insight. The website brings the collection together; you do not need
 Lean to read the papers.</p>
-<p>The degree-seven counterexample found by the erdosproblems.com
-contributor ani refutes the total-variation formulation of Erdős #1041;
-this repository formalises it in Lean. The other seven target problems
-are not resolved here. Independent human review of correspondence with
-the historical curve-length formulation has not been recorded.
-Comparator checks only its selected exact statements, configured axioms
-and kernel acceptance; it does not assess novelty or historical
+<p>Using the degree-seven polynomial constructed by the
+erdosproblems.com contributor ani, Lean proves that every preconnected
+strict-lemniscate set containing two distinct roots has one-dimensional
+Hausdorff measure greater than two. This refutes the exact Formal
+Conjectures path-image-length statement; the separate total-variation
+bound is also checked. The other seven targets remain open. Independent
+human review of correspondence with the 1958 wording has not been
+recorded. Comparator checks only selected exact statements, axioms and
+kernel acceptance; it does not assess novelty or historical
 correspondence. The work also proves intermediate theorems, writes out
 proofs of results that were stated but not printed in the literature,
 checks exact finite cases, and records obstructions to tempting
@@ -46,9 +48,11 @@ with a short paper and a longer paper for each. The short paper is the
 main exposition: it introduces the question, states the strongest
 results and explains the ideas behind the arguments for a mathematical
 reader. The longer record keeps technical detail, failed routes, finite
-experiments, and the exact obligations that survive. The <a
-href="paper-guide.html">paper catalogue</a> groups the manuscripts and
-their sources, including the systems papers.</p>
+experiments, and the exact obligations that survive. The other seven
+target problems are not resolved here; those papers make their surviving
+questions explicit. The <a href="paper-guide.html">paper catalogue</a>
+groups the manuscripts and their sources, including the systems
+papers.</p>
 <p>The <a href="results.html">results guide</a> states the strongest
 checked result for each problem next to what still blocks its endpoint.
 <a href="prior-art.html">Prior work</a> records earlier arguments and
@@ -64,7 +68,9 @@ or importance, or turn a conditional result into an unconditional one.
 Each paper distinguishes ordinary mathematical arguments, formalised
 results and remaining gaps. Follow a statement’s source link and
 verification record to see what has been checked; a build alone does not
-establish that every argument in a paper has been formalised.</p>
+establish that every argument in a paper has been formalised.
+Independent human review of correspondence with the historical
+curve-length formulation has not been recorded.</p>
 </section>
 <section id="the-eight-problems-in-brief" class="level2">
 <h2>The eight problems in brief</h2>
@@ -102,11 +108,10 @@ reciprocals of the running least common multiples of the smooth numbers
 irrational? This library treats the three-prime case. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-269">Work on this paper</a>.</p>
 <p><a href="../../../papers/erdos-1041-lemniscate-newton-flow.pdf">Problem
-1041</a>. For a monic polynomial whose roots lie in the open unit disc,
-must two roots be joinable by a curve of length less than two inside the
-open unit lemniscate? The registry has not adjudicated whether the
-checked total-variation formulation exactly matches this historical
-curve-length question. <a
+1041</a>. Must two roots of a monic polynomial in the open unit disc be
+joined by a sub-two-length curve inside its unit lemniscate? Ani’s
+degree-seven example refutes the exact Formal Conjectures statement;
+correspondence with the 1958 wording awaits human review. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-1041">Work on this paper</a>.</p>
 <p><a href="../../../papers/erdos-1049-rational-base-lambert.pdf">Problem
 1049</a>. For which rational bases is the corresponding series

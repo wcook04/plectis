@@ -10,14 +10,16 @@ approaches that stopped and why. Plectis is a prototype for making this work
 understandable, reusable and open to further insight. The website brings the
 collection together; you do not need Lean to read the papers.
 
-The degree-seven counterexample found by the erdosproblems.com contributor ani
-refutes the total-variation formulation of Erdős #1041; this repository
-formalises it in Lean. The other seven target problems are not resolved here. Independent human
-review of correspondence with the historical curve-length formulation has not
-been recorded. Comparator checks only its selected exact statements, configured
-axioms and kernel acceptance; it does not assess novelty or historical
-correspondence. The work also proves intermediate theorems, writes out proofs
-of results that were stated but not printed in the literature, checks exact
+Using the degree-seven polynomial constructed by the erdosproblems.com
+contributor ani, Lean proves that every preconnected strict-lemniscate set
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than two. This refutes the exact Formal Conjectures path-image-length
+statement; the separate total-variation bound is also checked. The other
+seven targets remain open. Independent human review of correspondence with
+the 1958 wording has not been recorded. Comparator checks only selected exact
+statements, axioms and kernel acceptance; it does not assess novelty or
+historical correspondence. The work also proves intermediate theorems, writes
+out proofs of results that were stated but not printed in the literature, checks exact
 finite cases, and records obstructions to tempting shortcuts.
 
 ## Two ways to begin
@@ -38,8 +40,9 @@ a longer paper for each. The short paper is the main exposition: it introduces
 the question, states the strongest results and explains the ideas behind the
 arguments for a mathematical reader. The longer record keeps technical detail,
 failed routes, finite experiments, and the exact obligations that
-survive. The [paper catalogue](../paper/README.md) groups the manuscripts and
-their sources, including the systems papers.
+survive. The other seven target problems are not resolved here; those papers
+make their surviving questions explicit. The [paper catalogue](../paper/README.md)
+groups the manuscripts and their sources, including the systems papers.
 
 The [results guide](RESULTS.md) states the strongest checked result for each
 problem next to what still blocks its endpoint. [Prior work](PRIOR_ART.md)
@@ -55,6 +58,8 @@ Each paper distinguishes ordinary mathematical arguments, formalised results
 and remaining gaps. Follow a statement's source link and verification record
 to see what has been checked; a build alone does not establish that every
 argument in a paper has been formalised.
+Independent human review of correspondence with the historical curve-length
+formulation has not been recorded.
 
 ## The eight problems in brief
 
@@ -76,7 +81,7 @@ those assessments in one place avoids conflicting summaries.
 
 [Problem 269](../paper/269/erdos-269-three-prime-running-lcm.pdf). For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case. [Work on this paper](CONTRIBUTE_BY_PAPER.md#problem-269).
 
-[Problem 1041](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf). For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question. [Work on this paper](CONTRIBUTE_BY_PAPER.md#problem-1041).
+[Problem 1041](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf). Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review. [Work on this paper](CONTRIBUTE_BY_PAPER.md#problem-1041).
 
 [Problem 1049](../paper/1049/erdos-1049-rational-base-lambert.pdf). For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves. [Work on this paper](CONTRIBUTE_BY_PAPER.md#problem-1049).
 <!-- END problem_programme_card -->

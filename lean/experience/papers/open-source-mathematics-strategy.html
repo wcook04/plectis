@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Open-source research strategy</p>
     <h1>From Spare Compute to Cumulative Mathematics</h1>
     <p class="lean-paper__subject">Systems paper</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="open-source-mathematics-strategy.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/systems/open-source-mathematics-strategy.tex">
 <section id="sec:strategy" class="level2">
@@ -65,7 +66,24 @@ kind of object as any other: a stated idea, its evidence, the prior work
 found, its limits, and the next question it opens. The public repository
 carries one such investigation in full, including the step at which it
 corrected its own first reading of its data (<a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/research/experiments/choices_contraction/README.md"><code>choices, contraction and rational membership</code></a>).</p>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/research/experiments/choices_contraction/README.md"><code>choices, contraction and rational membership</code></a>).</p>
+<p>A second cross-problem investigation gives a small example of why
+returned work needs an exact limit. The rational number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>189</mn><mi>/</mi><mn>388</mn></mrow><annotation encoding="application/x-tex">189/388</annotation></semantics></math>
+survives the first sixteen steps of a Mersenne greedy test and is
+rejected at step seventeen by exact rational arithmetic. This refutes a
+proposed extrapolation from a fixed-depth counting theorem; it does not
+make finite survival a certificate of membership. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/61e2e6a6b852d5250f0c722132531d7784664bbe/research/experiments/sparse_interpolation/late_rejection.py">reproduction
+program</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/61e2e6a6b852d5250f0c722132531d7784664bbe/paper/synthesis/optimal-sparse-perturbations.tex">synthesis
+paper</a> give the arithmetic and the surviving theorem. It is a
+contribution even though it closes no listed endpoint: the next run no
+longer starts from the false stopping rule. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/research/experiments/choices_contraction/README.md"><code>exact-rational probe</code></a>
+varies host and finite bounds; non-exclusion at a tested depth is not
+membership. The record lists five next tests and where to report
+results.</p>
 <section id="two-coupled-goals-not-one-endless-agent"
 class="level3 unnumbered">
 <h3 class="unnumbered">Two coupled goals, not one endless agent</h3>
@@ -105,7 +123,7 @@ merely to report that it is unchanged. This makes continuous work a
 sequence of inspectable state transitions rather than an expensive
 synonym for leaving a chat window open.</p>
 <p>The public <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/run-coupled-research-goals/SKILL.md"><code>run-coupled-research-goals skill</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/run-coupled-research-goals/SKILL.md"><code>run-coupled-research-goals skill</code></a>
 makes this control shape executable in a cold clone. It invokes the
 existing mining and consequence-propagation jobs, preserves a shared
 source pin, and passes committed objects and receipts rather than
@@ -113,12 +131,12 @@ conversational claims of progress. One agent may alternate between the
 roles, or different people, models, subscriptions, and machines may
 supply them. The architecture requires distinct decisions, not an
 unnecessarily grand collection of laptops.</p>
-<p>This is not a proposal to place a public queue in front of a private
-machine. The public clone must stand on its own. The larger private
-workbench explains how the initial corpus was produced, but it grants no
-proof or publication authority to a returned result. Contributors may
-use any model runner or no model at all. What joins their work is the
-public problem definition, evidence contract, and review path.</p>
+<p>The public Lean clone owns the mathematics and return path. The
+separate <a href="https://github.com/wcook04/plectis">public Plectis
+Python toolkit</a> offers optional mechanism examples. The private
+workbench explains production, not proof authority, and contributors
+need no access to it. Any runner or no model at all can use the public
+evidence and review path.</p>
 <p>The <span>systems-lifecycle</span><span>systems paper</span> gives
 the complete claim-transition lifecycle. The
 <span>cold-clone-problem</span><span>cold-clone paper</span> tests how a
@@ -141,10 +159,10 @@ start. Finding a question that deserves attention is part of the
 research, and a well-posed new question, a general theorem behind a
 recorded example, or a clearer account of an existing proof is a
 contribution in the same sense as a proof. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a>
 owns that route and hands an emerged question to the workflows below.
 The clone-local <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explain-public-system/SKILL.md"><code>explain-public-system skill</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/explain-public-system/SKILL.md"><code>explain-public-system skill</code></a>
 lets an agent read the public corpus and companion papers on the
 newcomer’s behalf, explain the claim boundaries at the requested level,
 and point back to exact evidence. The reader can therefore begin with
@@ -182,12 +200,13 @@ of <em>reviewable mathematical progress</em> is a different quantity:
 \tag{2.2}\label{eq:accepted}</annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
 includes formal checking, statement reconciliation, attribution, and
-editorial selection. Equations  and are a conceptual production model,
-not a fitted empirical law. They record complementarity and bottlenecks.
-More compute can generate more attempts without increasing the rate at
-which strong results are validated or understood. A better model can
-still revisit a closed route if the corpus is difficult to navigate.
-Expert insight can change the search distribution without supplying any
+editorial selection. Equations <code>[eq:generation]</code> and
+<code>[eq:accepted]</code> are a conceptual production model, not a
+fitted empirical law. They record complementarity and bottlenecks. More
+compute can generate more attempts without increasing the rate at which
+strong results are validated or understood. A better model can still
+revisit a closed route if the corpus is difficult to navigate. Expert
+insight can change the search distribution without supplying any
 compute. Review capacity can be the binding constraint even when proof
 generation is cheap.</p>
 <p>The open-source strategy adds two recursive updates: <span
@@ -267,6 +286,31 @@ deduction into a checked declaration or find that the two statements
 disagree. A literature reader may locate a theorem that closes or
 invalidates a route. The contribution is the exact returned object and
 its limitation, not the prestige of the problem number.</p>
+<p>The different evidence classes matter in this portfolio. In the 257
+lane, a Lean-checked finite-prime weighted condition on an infinite
+exponent set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{a\in B}(b^a-1)^{-1}</annotation></semantics></math>
+irrational for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+and every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math>.
+The paper constructs such an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+with divergent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a</annotation></semantics></math>;
+arbitrary infinite supports remain open. Erdős had stated the narrower
+reciprocal-summable extension. The 249 lane checks certificates at every
+lcm-diagonal scale through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>82</mn><annotation encoding="application/x-tex">82</annotation></semantics></math>;
+the unbounded supply needed for irrationality has not been proved. In
+the 1041 lane, the explicit degree-seven example due to <code>ani</code>
+refutes the Formal Conjectures Hausdorff path-image claim, while its
+relation to the historical curve-length question awaits independent
+human review. A participant can advance any of these worlds by supplying
+the next mathematical fact, a correction, an exact computation, or a
+review that keeps those boundaries visible.</p>
 </section>
 <section id="sec:object" class="level2">
 <h2>The public research object</h2>
@@ -298,17 +342,21 @@ data-cites="erdosproblems"><a href="#ref-7">[7]</a></span>. Lean supplies the fo
 and kernel <span class="citation" data-cites="lean4"><a href="#ref-8">[8]</a></span>. DeepMind’s
 <code>formal-conjectures</code> supplies a public one-problem-file model
 with metadata, snapshots, issues, and pull requests <span
-class="citation" data-cites="formalconjectures"></span>. Comparator and
-Palomar supply exact-interface checking, permitted-axiom inspection, and
-a durable formal record with a deliberately limited editorial claim
-<span class="citation" data-cites="palomar"><a href="#ref-10">[10]</a></span>. Polymath supplies a
-social precedent for publishing small, tentative, and negative
-contributions <span class="citation" data-cites="polymath"><a href="#ref-4">[4]</a></span>.
-BOINC and GIMPS supply the volunteer-compute precedent and make visible
-why executable work, independent checks, and legible credit matter <span
-class="citation" data-cites="boinc gimps"></span>. The present
-repository wraps these practices into a route that a newcomer can enter
-without first rebuilding each component.</p>
+class="citation" data-cites="formalconjectures"></span>. Comparator
+compares selected exact statements with their Lean implementations and
+permitted axioms. A repository-local review ranks candidate results and
+checks whether the selected family is ready for possible submission to
+Palomar <span class="citation" data-cites="palomar"><a href="#ref-10">[10]</a></span>. That
+readiness is not an external Palomar decision and does not establish
+novelty or registration; exact-head Comparator replay is reported
+separately. Polymath supplies a social precedent for publishing small,
+tentative, and negative contributions <span class="citation"
+data-cites="polymath"><a href="#ref-4">[4]</a></span>. BOINC and GIMPS supply the
+volunteer-compute precedent and make visible why executable work,
+independent checks, and legible credit matter <span class="citation"
+data-cites="boinc gimps"><a href="#ref-2">[2]</a><a href="#ref-3">[3]</a></span>. The present repository wraps these
+practices into a route that a newcomer can enter without first
+rebuilding each component.</p>
 <p>The same underlying substrate can support several reader projections:
 a short public primer, a specialist paper, a detailed proof account,
 Lean declarations, an agent explanation, and machine-readable queries.
@@ -316,29 +364,28 @@ Each projection must link back to its source claims and evidence. A
 shorter or friendlier account does not acquire permission to strengthen
 them.</p>
 <p>An external runner begins at <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/AGENTS.md"><code>the compact agent entry</code></a>.
-It can inspect all problem frontiers, choose a bounded question, read
-the relevant paper and source neighbourhood, run experiments or edit
-formal code, validate the result, and prepare a return. None of these
-steps requires access to the private workbench. A reader with no clone
-starts from the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/reading-edition/README.md"><code>reading edition</code></a>:
-one generated file that carries an introduction, the opening of each
-short paper, the evidence vocabulary, and the same research instruction
-that the clone gives its agents. It is built from the sources of the
-papers, so it cannot drift from them, and its sizes are printed so that
-a reader knows what a model can load. A contributor is free to replace
-the agent, the scheduler, or the entire search policy while retaining
-the public evidence boundary.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/AGENTS.md"><code>the compact agent entry</code></a>.
+It can inspect the problem frontiers, choose a bounded question, read
+the relevant paper and source, run experiments or edit formal code,
+validate the result, and prepare a return. None of this requires the
+private workbench. A reader with no clone starts from the <a
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/reading-edition/README.md"><code>reading edition</code></a>.
+Its two committed files contain an introduction and research
+instruction, the cross-problem paper, and either short-paper openings or
+all eight short papers in full; an edition with all 17 mathematics
+papers can be built on demand. The builder’s <code>--check</code>
+detects stale outputs against the paper sources. File sizes are printed
+so a reader can choose what a model can load. A contributor is free to
+replace the agent, the scheduler, or the entire search policy while
+retaining the public evidence boundary.</p>
 </section>
 <section id="sec:protocol" class="level2">
 <h2>The contribution protocol</h2>
-<p>The ordinary Git verb is a pull request. A contributor forks or
-clones the repository, creates a branch, commits a focused change,
-pushes the branch to a public fork, and opens a pull request. A person
-who has a result but no patch can open a structured research-progress
-issue. A person with an infrastructure proposal can use the parallel
-architecture-proposal path.</p>
+<p>Patches return by pull request. An idea, reference, correction, or
+result needs no clone or Lean: a plain-language research-progress issue
+or email can start review. Infrastructure ideas use the
+architecture-proposal path. Adopted ideas and later proofs or
+implementations receive distinct credit.</p>
 <p>The clone-local <code>submit-pull-request</code> skill makes this
 sequence agent-readable. It separates mathematically or architecturally
 coherent changes into reviewable commits when they can genuinely be
@@ -356,10 +403,12 @@ public context. Second, reconcile the accepted substance with current
 main and rerun the present checks. A material conflict resolution is a
 new, separately credited integration change. It does not erase or
 retrospectively rewrite the original contribution.</p>
-<p>The complete protocol has nine steps.</p>
+<p>For an idea-only submission, maintainers or later patch contributors
+perform the validation steps in the nine-step adoption path below.</p>
 <ol>
-<li><p><strong>Clone.</strong> Record the exact public commit and
-environment.</p></li>
+<li><p><strong>Anchor.</strong> For a patch, record the exact public
+commit and environment. For an idea, cite the problem, paper, or source
+if known.</p></li>
 <li><p><strong>Orient.</strong> Read the claim boundary and the paper
 governing the selected problem or architecture area.</p></li>
 <li><p><strong>Select or discover.</strong> Name one bounded frontier,
@@ -381,9 +430,9 @@ paper, computation, route, validation, and contributor consumers. Update
 each one, verify it unchanged, defer it with a re-entry condition, or
 explain why it is not a consequence. Repeat this pass after old-branch
 work is reconciled with current main.</p></li>
-<li><p><strong>Return.</strong> Submit source, evidence, starting
-commit, tool disclosure, collaborators, requested contribution roles,
-and the exact stronger statement that remains unproved.</p></li>
+<li><p><strong>Return.</strong> Submit the idea or artifact, evidence,
+limits, collaborators, and preferred credit; add commit and tool details
+when relevant.</p></li>
 <li><p><strong>Review and adopt.</strong> Reviewers reproduce the
 evidence, reconcile formal and informal statements, decide scope, and
 either accept, request revision, reject, or preserve the return as a
@@ -429,8 +478,12 @@ same holds inside the mathematics track. A return whose subject is wider
 than one problem, such as a general theorem, a mechanism shared by
 several programmes, or a new question with evidence for its value, names
 that subject in words and lists the related problems. The list may be
-empty. The credit record then shows the contribution under its subject
-and under each related problem.</p>
+empty. The credit record names the subject and related problems. The
+public <a
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture route</code></a>
+accepts an observable failure and stop condition, such as repairing a
+missing cold-clone validation route and checking its discovery. An
+adopted design is credited without promoting a mathematical claim.</p>
 <p>The distinction between a return and an adopted result is
 load-bearing. A pull request is a proposed delta. A review act records a
 decision. A release generation is an immutable public state. Keeping
@@ -783,15 +836,17 @@ decomposition with the antecedent left visible, reuse credit, and shared
 negative findings, Prove2Me has a running implementation and is the
 prior published design.</p>
 <p>The two differ in what the shared object is. Prove2Me is a hosted
-service with server-side verification, and its reported completed
-missions formalise results whose proofs already exist in a paper or
-textbook. The commons here is a git repository with no service behind
-it, and its eight endpoints are open research problems whose proofs do
-not exist. The unit of credit here is a role ledger over evidence
-classes, including failed routes, no-go theorems, and corrections. This
-paper does not claim that the second design is better. Which contributor
-experience scales is an open question and one of the measures in
-Section .</p>
+service with server-side verification. Its public instructions describe
+paper and textbook formalisation, while the site also offers campaigns
+and paper proposals. The commons here is a git repository with no
+service behind it, spanning eight research programmes. Seven original
+endpoints remain unresolved here. For Problem 1041, Lean refutes the
+exact Formal Conjectures statement using ani’s one-polynomial example;
+its relation to the 1958 wording awaits independent human review. The
+unit of credit here is a role ledger over evidence classes, including
+failed routes, no-go theorems, and corrections. This paper does not
+claim that the second design is better. Which contributor experience
+scales is an open question and one of the measures in Section 12.</p>
 </section>
 <section id="semi-autonomous-discovery-on-the-erdős-problems."
 class="level5">
@@ -817,16 +872,18 @@ data-cites="autonomousmath"><a href="#ref-15">[15]</a></span> adds the generate,
 revise loop with a separated verifier that declines to answer, four
 further papers, the finding that a search-equipped model still misquotes
 real references, and the two-axis disclosure taxonomy and interaction
-cards taken up in Sections  and . It concludes that formal verification
-systems cannot yet formulate the questions of interest on most research
-frontiers and chooses informal natural-language verification for that
-reason. This project accepts that bound and works the other side of it:
-each problem world exists because its endpoint can be stated exactly,
-and the Lean layer is empty wherever it cannot. The report also concedes
-that benchmark results may be contaminated by training data and
-mitigates this by perturbing known problems; a genuinely open endpoint
-has no solution to memorise, which is one more reason to work on open
-problems.</p>
+cards taken up in Sections 7 and 8. It concludes that formal
+verification systems cannot yet formulate the questions of interest on
+most research frontiers and chooses informal natural-language
+verification for that reason. This project accepts that bound and works
+the other side of it: each problem world exists because its endpoint can
+be stated exactly, and the Lean layer is empty wherever it cannot. The
+report also concedes that benchmark results may be contaminated by
+training data and mitigates this by perturbing known problems. For the
+seven still-open targets here, there is no known solution to memorise.
+The refuted exact Formal Conjectures statement for Problem 1041 instead
+tests counterexample recognition and fidelity to the historical
+wording.</p>
 <p>Tao’s community wiki of AI contributions to the Erdős problems is the
 existing public register in this exact domain <span class="citation"
 data-cites="taowiki"><a href="#ref-18">[18]</a></span>. It records which problems AI systems have
@@ -854,7 +911,7 @@ record is designed for the first; the second is a per-result event. At
 the time of writing no selected result carries a recorded expert account
 of that kind, and adopting the standard is not compliance with it.
 Whether the record supports such an account is one of the measures in
-Section .</p>
+Section 12.</p>
 <p>The proposed composition joins these precedents. It combines
 volunteer compute, small shared insights, formal task decomposition,
 agent-native problem worlds, explicit negative knowledge, untrusted
@@ -1177,13 +1234,14 @@ is not a present project goal.</p>
 <section id="sec:limits" class="level2">
 <h2>Limits and governance</h2>
 <p>The present strategy has substantial limits.</p>
-<p>First, the selected total-variation refutation for Problem 1041 does
-not establish correspondence with the historical question, and the other
-seven targets remain unresolved here. The repository contains
-intermediate mathematics and deep records of failed routes, but no
-evidence that a distributed run will solve any problem. The claim that
-infrastructure improves the conversion from compute to mathematics has
-not yet been measured in a controlled experiment.</p>
+<p>First, the Lean-checked Hausdorff-length refutation of the exact
+Formal Conjectures statement for Problem 1041 uses one polynomial from
+ani’s construction; correspondence with the 1958 question remains
+unreviewed. The other seven targets remain unresolved here. The
+repository contains intermediate mathematics and deep records of failed
+routes, but no evidence that a distributed run will solve any problem.
+The claim that infrastructure improves the conversion from compute to
+mathematics has not yet been measured in a controlled experiment.</p>
 <p>The prototype had no recorded external user or accepted outside
 contribution by 14 September 2026. Its clone instructions, agent skills,
 cross-paper links, pull-request path, and credit machinery may therefore
@@ -1293,114 +1351,120 @@ The shortest current routes are:</p>
 </thead>
 <tbody>
 <tr>
-<td class="ta-l">What is the experiment?</td>
+<td class="ta-l">How can I run an exact mathematics
+experiment?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/README.md"><code>README.md</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/research/experiments/choices_contraction/README.md"><code>probe, limits, and continuations</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">Where should an agent begin?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/AGENTS.md"><code>AGENTS.md</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/AGENTS.md"><code>AGENTS.md</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can an agent explain the system?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explain-public-system/SKILL.md"><code>explain-public-system skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/explain-public-system/SKILL.md"><code>explain-public-system skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can an agent run the coupled research
 lifecycle?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/run-coupled-research-goals/SKILL.md"><code>coupled-goal skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/run-coupled-research-goals/SKILL.md"><code>coupled-goal skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can I read the mathematics with my own
 model, without a clone?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/reading-edition/README.md"><code>reading edition</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/reading-edition/README.md"><code>reading edition</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can an agent read the corpus and
 decide what to develop?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can an agent mine a frontier?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/mine-open-problem/SKILL.md"><code>mine-open-problem skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/mine-open-problem/SKILL.md"><code>mine-open-problem skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How is a bounded Lean change
 validated?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/lean-concurrent-validation/SKILL.md"><code>lean-concurrent-validation skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/lean-concurrent-validation/SKILL.md"><code>lean-concurrent-validation skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How are downstream consequences
 reconciled?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/propagate-research-consequences/SKILL.md"><code>propagate-research-consequences skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/propagate-research-consequences/SKILL.md"><code>propagate-research-consequences skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How are clone skills installed
 elsewhere?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/install-clone-skills/SKILL.md"><code>install-clone-skills skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/install-clone-skills/SKILL.md"><code>install-clone-skills skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">What is proved and what remains open?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/RESULTS.md"><code>docs/RESULTS.md</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/RESULTS.md"><code>docs/RESULTS.md</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">Which papers and problems exist?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/papers/README.md"><code>docs/papers/README.md</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/papers/README.md"><code>docs/papers/README.md</code></a></td>
 </tr>
 <tr>
-<td class="ta-l">How can I contribute mathematics?</td>
+<td class="ta-l">How can I contribute mathematics or an
+idea?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>
-and the research-progress issue form</td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml">the
+research-progress issue form</a></td>
 </tr>
 <tr>
 <td class="ta-l">How can I improve the architecture?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contribution guide</code></a>
-and the architecture-proposal issue form</td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contribution guide</code></a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/issues/new?template=architecture_proposal.yml">the
+architecture-proposal issue form</a></td>
 </tr>
 <tr>
 <td class="ta-l">How can an agent prepare a pull
 request?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/submit-pull-request/SKILL.md"><code>submit-pull-request skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/submit-pull-request/SKILL.md"><code>submit-pull-request skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How can I propose or add another
 problem?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/add-open-problem/SKILL.md"><code>add-open-problem skill</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/add-open-problem/SKILL.md"><code>add-open-problem skill</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How is a return validated?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/erdos-research-return/SKILL.md"><code>erdos-research-return skill</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/skills/erdos-research-return/SKILL.md"><code>erdos-research-return skill</code></a>
 and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/research-commons/README.md"><code>research-commons protocol</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/research-commons/README.md"><code>research-commons protocol</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">How is credit recorded?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a></td>
 </tr>
 <tr>
 <td class="ta-l">What do Comparator and Palomar
 establish?</td>
 <td class="ta-l"><a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/EXTERNAL_VERIFICATION.md"><code>Comparator guide</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/EXTERNAL_VERIFICATION.md"><code>Comparator guide</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/verification/PALOMAR_QUALIFICATION.md"><code>Palomar qualification</code></a></td>
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/verification/PALOMAR_QUALIFICATION.md"><code>Palomar qualification</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1413,11 +1477,11 @@ class="level2 unnumbered">
 language models operating within Will Cook’s private research system for
 artificial intelligence. The formal proofs and repository software were
 likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority.</p>
+Cook’s direction. Cook set the objectives and acceptance criteria and
+reviewed claims when he could. Cook assumes responsibility for the
+accuracy, interpretation, and presentation of the work. Generative
+systems are production tools, not authors, and supply no independent
+authority.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

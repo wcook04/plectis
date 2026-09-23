@@ -59,7 +59,7 @@
       "href": "problems/erdos_257.json",
       "paper_id": "erdos-257-mersenne-support-subseries",
       "module_count": 1,
-      "main_result_count": 13,
+      "main_result_count": 15,
       "has_results_guide": true
     },
     {
@@ -79,10 +79,10 @@
       "erdos_number": 1041,
       "title": "Short connections inside polynomial lemniscates",
       "status": "open",
-      "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question.",
+      "question": "Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review.",
       "href": "problems/erdos_1041.json",
       "paper_id": "erdos-1041-lemniscate-newton-flow",
-      "module_count": 2,
+      "module_count": 3,
       "main_result_count": 2,
       "has_results_guide": true
     },

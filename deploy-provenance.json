@@ -3,12 +3,12 @@
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
-      "commit": "951422cbd26168ec1b7570042c788d50e9a050bd",
+      "commit": "6b279150b815d446cb6382bb4ffac2a00cb5c24f",
       "ref": "main",
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "a08529a329578d172a9a2e602bacba4a8cc760cd",
+      "commit": "0704643fda503ec9068f5c600da94fd96cdc7112",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

@@ -24,14 +24,14 @@
 \newcommand{\SemanticStructuralOnly}{11,677}
 \newcommand{\SemanticAuthoredPercent}{92.3}
 % END generated_semantic_coverage_macros
-\newcommand{\repolink}[2]{\href{\repobase/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/402497d8e1ae025518ee34190664e8f67aa40f93/#1}{\texttt{#2}}}
 \emergencystretch=1.7em
 
 \runninghead{Problem-sized Lean worlds}
 \title{Problem-Sized Lean Worlds}
 \subtitle{An authority-separated architecture from AI search to public mathematical claims}
 \author{Will Cook}
-\date{August 2026}
+\date{September 2026}
 
 \begin{document}
 \maketitle
@@ -44,43 +44,43 @@ under proof abundance. It separates six things that are commonly collapsed:
 cognition authority, permission to change shared state, validation capacity,
 evidence class, public-claim authority, and reviewer attention.
 
-The architecture organises work around \emph{problem-sized mathematical
-worlds}, not isolated theorem files. Each world joins formal declarations,
-experiments, source literature, failed mechanisms, open obligations, and a
-reviewed public boundary. Formal dependencies, authored mathematical meaning,
-and public claims remain separate graphs, so a dense connection cannot make a
-claim stronger. An agent enters a world through a compiled comprehension
-packet: it federates the corpora by content digest, states the endpoint and
-claim ceiling before any route, separates proved results from open producers
-and closed routes, and declares both what it omitted and when it exceeded its
-context budget. The contribution is an implemented architecture that connects
-research state, scoped changes, formal checks, and public explanation while
-keeping their evidential roles distinct; the related-work section compares it
-with neighbouring systems along stated dimensions and claims no priority.
+Problem worlds join proofs, experiments, failed routes and open obligations.
+Separate graphs track formal dependencies, meaning and claims. A bounded entry
+packet names the endpoint, claim ceiling, omissions and context overflow. The
+architecture connects scoped changes, checks and reviewed wording without
+transferring authority. The related-work section
+compares it with neighbouring systems along stated dimensions and claims no
+priority.
 
-Computation supplies finite evidence; Lean checks a formal statement;
-Comparator checks selected propositions and their axiom boundary. These checks
-do not establish intended meaning, novelty, importance or external acceptance.
+Computation supplies finite evidence; Lean checks the written formal statement;
+Comparator checks selected propositions and their axiom boundary. None
+establishes intended meaning, novelty, importance or external acceptance.
 
-The public repository is a self-contained output whose Lean source, claim
-record, papers, navigation, and release checks can be inspected from a fresh
-clone. A worked example follows a finite certificate for Erd\H{o}s Problem 249
-and shows why a checked finite range cannot become an unbounded conclusion.
-This is a working prototype rather than a validated multi-user service. As of
-14 September 2026, the author had not recorded a completed external cold-clone use
-or an accepted external contribution.
-The paper does not claim a solution to any of them.
+A fresh public clone gives each of eight problems a short paper, longer record
+and Lean source, plus a cross-problem synthesis, claims and release checks.
+Problem 257 has a Lean-checked
+finite-prime weighted criterion: a convergent base-two weighted mass makes its
+subseries irrational at every integer base at least two, even for some supports
+with divergent reciprocal sum. Arbitrary infinite supports remain open. A
+finite certificate for Problem 249 does not settle its unbounded question.
+The degree-seven example due to \texttt{ani} refutes the Formal Conjectures
+1041 claim about one-dimensional Hausdorff measure of path images;
+its relation to the 1958 question remains unreviewed. The other programmes are not claimed solved.
+This is a prototype, not a validated multi-user service: by 14 September 2026,
+no completed external cold-clone use or accepted contribution was recorded.
 \end{abstract}
 
 \begin{paperresult}{Main contribution and claim ceiling}
 \textbf{Contribution.} The prototype keeps six authorities separate and
-makes every transition from conjecture to public wording carry its evidence
-and its limit.  Problem-sized worlds join formal dependencies, mathematical
+records evidence and limits for selected transitions from conjecture to
+public wording.  Problem-sized worlds join formal dependencies, mathematical
 interpretation, failed routes, and reviewed claims without treating any one
-graph as authority for the others.  \textbf{Demonstration.} The mechanism is
-exercised on a self-contained public Lean corpus and an audited finite
-certificate for Erd\H{o}s Problem 249.  \textbf{Ceiling.} No open problem is
-claimed solved, and external use remains untested.
+graph as authority for the others.  \textbf{Demonstration.} The public Lean corpus includes a
+weighted-support irrationality theorem for Problem 257 and an audited finite
+certificate for Problem 249.  \textbf{Ceiling.} The Formal Conjectures 1041
+Hausdorff path-image claim is refuted, but its historical correspondence
+remains unreviewed; the other seven target programmes remain unresolved here,
+and external use remains untested.
 \end{paperresult}
 
 \section{The problem: many kinds of evidence}
@@ -113,16 +113,15 @@ than checking correctness, and that formal verification helps with neither.
 Those findings predate this paper and motivate the separation it
 implements.
 
-The \href{\repobase}{public repository studied here} contains Lean source,
-papers, and release machinery around eight Erd\H{o}s problem programmes. The
-degree-seven counterexample due to
-\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}}
-is formalised in Lean here and refutes the total-variation formulation of
-Problem 1041. Its correspondence with the historical curve-length question has not had
-independent human review; the other seven target problems remain unresolved here. The repository also contains
-intermediate theorems, exact reformulations, conditional reductions, finite
-certificates, and no-go results. Private development explains the provenance;
-public claims rely only on the published evidence.
+The \href{\repobase}{public repository} contains paired papers, Lean source
+and release checks for eight Erd\H{o}s programmes. It formalises the
+degree-seven example due to
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
+refuting the Formal Conjectures 1041 Hausdorff path-image claim. Its relation
+to the 1958 question lacks independent human review; the other seven target
+problems remain unresolved here. The corpus also records partial theorems,
+reductions, certificates and no-go results. Private development explains
+provenance; public claims rely on published evidence.
 
 \paragraph{The novelty claim and its ceiling.}
 The candidate contribution is an executable \emph{claim-transition architecture},
@@ -578,18 +577,18 @@ close conditional reduction may deserve more work than many routine lemmas.
 
 \subsection{Experiments are route selectors}
 
-Computation serves three useful roles. It can find a counterexample, measure a
-finite pattern, or test whether a proposed mechanism is plausible enough to
-formalise. Each experiment records its inputs, code, finite domain, output, and
-interpretation. The interpretation must state what the experiment cannot show.
+Computation can refute a guess, measure a finite pattern, or select a route
+worth proving. For example, the public \repolink{research/experiments/choices_contraction/README.md}{Problem 257 rational probe}
+runs exact rational arithmetic over denominators and depths chosen by the
+reader. It reports an excluded fraction with a finite certificate, an explicit
+finite representation, or survival through depth $N$. Survival is not
+membership in the infinite set. The recorded rejection of $189/388$ at step
+17 defeats a proposed stopping estimate, not the open irrationality problem.
 
-A finite computation becomes formal evidence only through an explicit bridge.
-For example, Lean may evaluate a finite proposition with \texttt{decide} and
-check the resulting proof term. Even then, the conclusion remains finite. A
-pattern observed for many inputs does not become an ``all inputs'' theorem, and
-a successful numerical approximation does not become an exact equality. Failed
-experiments are kept when they prune a natural route; otherwise later agents
-pay to repeat the same mistake.
+Each experiment records code, inputs, finite domain, output, and limits. Lean
+can turn a finite evaluation into a checked finite proof term; an additional
+argument is needed for an unbounded theorem. Retained failures prevent a
+later agent from repeating the same unsupported inference.
 
 \paragraph{Failure modes are mathematical outputs.}
 The system distinguishes three kinds of negative evidence. A failed agent
@@ -692,8 +691,11 @@ measure of mathematical value.
 
 Depth is not readiness. At the August 2026 snapshot the canonical public 1041
 library had two integrated Lean modules, while its separately governed public
-research export had 125 Lean sources and its private world was larger again. The public route
-memory still records no reviewed 1041 claim family. Across the whole semantic
+research export had 125 Lean sources and its private world was larger again. At
+that snapshot, public route memory recorded no reviewed 1041 claim family. The
+current public claim record separately registers \texttt{ani}'s degree-seven
+Hausdorff path-image counterexample as formalised here and leaves historical
+curve-length correspondence open. Across the whole semantic
 corpus, structural linkage is broad, but only 25 statement nodes and eight
 relations carry digest-bound semantic-review receipts at this snapshot. These
 differences are intentional status boundaries: a discoverable declaration is
@@ -805,7 +807,9 @@ The repository has two Lean roots. The reviewed root contains the established
 additional Erd\H{o}s problems and unpromoted lanes for 249 and 257. Both roots
 are checked by the same Lean kernel, but kernel acceptance does not automatically
 promote a declaration into a reviewed public claim. Promotion is a separate
-change to the claim record and exposition.
+change to the claim record and exposition. The 1041 degree-seven
+counterexample has its own recorded formalised claim; that does not adjudicate
+its relation to the historical curve-length formulation.
 
 The main public sources have deliberately separate jobs:
 
@@ -842,10 +846,12 @@ approval. \\
 \label{tab:authority}
 \end{table}
 
-The companion public Plectis repository has a different role. It publishes
-runnable, bounded mechanism slices and receipts from the wider system. The Lean
-repository publishes a mathematical corpus. Neither public repository inherits
-authority from the other, and neither is a public mirror of the private root.
+The public \href{https://github.com/wcook04/plectis}{Plectis Python toolkit}
+provides optional runnable mechanism examples. The \href{\repobase}{Lean
+and papers repository} owns the mathematical claims, proofs, experiments, open
+questions, and contribution returns. A reader can use either public clone
+without the private orchestration root. A toolkit test does not verify a
+mathematical theorem, and private machinery grants no public claim authority.
 
 \section{Comparator, Palomar, and publication}\label{sec:assurance}
 
@@ -1009,15 +1015,21 @@ The evidence marks a coverage boundary, not a reliability score.
 The post-repair witness accepts the current README and
 rejects a test copy containing the false clause.
 
-The same architecture handles other shapes of progress. Problem 257 separates
-a theorem for full-support representations from a stronger arbitrary-support
-statement that remains open. Problem 68 has an exact carry-based equivalence
-but no theorem producing the required carries. Problem 251 has an exact series
-reformulation rather than an irrationality proof, and Problem 243 records a
-conditional recovery theorem whose premises remain part of the public claim.
-A counterexample or corrected statement, as in the 1041 lane, is also a
-first-class result. The publication rule is identical in every case: preserve
-the quantifiers, premises, and nearest stronger open statement.
+Problem 257 illustrates why the strongest theorem and its limit must appear
+together. For an infinite support $A$, let $P$ be a finite nonempty set of
+primes and $h(a)$ the part of $a$ supported on $P$. Its
+\repolink{paper/257/erdos-257-mersenne-support-subseries.tex}{short paper}
+proves that if $\sum_{a\in A}h(a)/[a(2^{h(a)}-1)]$ converges, then
+$\sum_{a\in A}(b^a-1)^{-1}$ is irrational for every integer $b\ge2$.
+Some such supports have divergent $\sum_{a\in A}1/a$; every
+reciprocal-summable support also qualifies. Lean checks the stated criterion,
+not the arbitrary-support conjecture. Erd\H{o}s had already stated the
+reciprocal-summable all-base extension. The exact rejection of $189/388$ at
+step 17 refutes a proposed stopping estimate, while finite survival proves no
+membership. Problem 68 has a carry equivalence without the required carries;
+Problem 251 has a series reformulation without irrationality; Problem 243 has
+a conditional recovery theorem; and \texttt{ani}'s 1041 counterexample corrects
+a formulation. Each public claim keeps its premises and nearest open question.
 
 \section{Inspection routes}\label{sec:routes}
 
@@ -1035,29 +1047,34 @@ Question & Start here \\
 \midrule
 How does the public repository fit together? &
 \repolink{docs/ARCHITECTURE.md}{docs/ARCHITECTURE.md} \\
-What may the project say, and what remains open? &
+What is proved and open? &
 \repolink{docs/claims.json}{docs/claims.json} and
 \repolink{docs/methodology.json}{docs/methodology.json} \\
 Where is the checked mathematics? &
 \repolink{lean/Erdos249257.lean}{lean/Erdos249257.lean} and
 \repolink{lean/ErdosProblems.lean}{lean/ErdosProblems.lean} \\
-How can I navigate without reading the whole corpus? &
+How can I navigate the corpus? &
 \repolink{docs/ORIENTATION.md}{docs/ORIENTATION.md} and
 \repolink{scripts/query_corpus.py}{scripts/query\_corpus.py} \\
 What exactly does Comparator check? &
 \repolink{docs/EXTERNAL_VERIFICATION.md}{docs/EXTERNAL\_VERIFICATION.md} and
 \repolink{verification/comparator.json}{verification/comparator.json} \\
-What does the local review selection qualify? &
+What is locally qualified? &
 \repolink{docs/verification/PALOMAR_QUALIFICATION.md}{PALOMAR\_QUALIFICATION.md} and
 \repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{docs/PALOMAR\_RESULT\_SHOWCASE.json} \\
-Which papers exist and what question does each answer? &
-\repolink{docs/papers/README.md}{docs/papers/README.md} \\
+Which papers exist? &
+\repolink{docs/papers/README.md}{paper index},
+\repolink{paper/257/erdos-257-mersenne-support-subseries.pdf}{\#257 short paper},
+\repolink{paper/257/erdos257-mersenne-reasoning-surface.pdf}{long record} \\
+What can I test without Lean? &
+\repolink{research/experiments/sparse_interpolation/late_rejection.py}{exact-rational probe} \\
 Which checks gate a release? &
 \repolink{scripts/check_release.py}{scripts/check\_release.py} and
 \repolink{.github/workflows/lean.yml}{.github/workflows/lean.yml} \\
 How can work return with public credit? &
-\repolink{CONTRIBUTING.md}{CONTRIBUTING.md} and
-\repolink{docs/research-commons/CONTRIBUTIONS.md}{research-commons/CONTRIBUTIONS.md} \\
+\repolink{CONTRIBUTING.md}{CONTRIBUTING.md},
+\repolink{docs/research-commons/CREDIT_POLICY.md}{credit policy}, and
+\repolink{docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md}{architecture guide} \\
 \bottomrule
 \end{tabular}
 \caption{Compact public inspection routes. These are entry points, not a new
@@ -1129,34 +1146,19 @@ through the same proof and publication gates. More compute increases the
 number and diversity of attempts; it does not relax the meaning of a passing
 receipt.
 
-This suggests a ``result mining'' mode. Workers select bounded frontier
-objects, explore proofs, counterexamples, computations, or literature, and
-return exact artefacts. Fan-in then checks Lean, reconciles statements, records
-negative evidence, and ranks the mathematically strongest surviving result
-families. The useful unit is not a model answer or a theorem count. It is a
-result packet with provenance, scope, formal status, mathematical role, and a
-nearest stronger open statement. Local review selection can allocate scarce
-expert attention to those packets; Comparator can protect selected exact
-interfaces; neither is replaced by scale.
+In ``result mining'', workers return bounded proofs, counterexamples,
+computations, or source findings. Persistent stewardship checks each stable
+delta against the complete candidate universe, reconciles statements, records
+negative evidence, and reranks the frontier. Its unit is a result packet with
+provenance, scope, formal status, mathematical role, and the nearest stronger
+open statement. Several miners can share one steward if each write and
+mathematical object has an owner. A short obstruction may outrank many lemmas;
+more output is not a measure of mathematical value. Review selection allocates
+expert attention, while Comparator protects selected exact interfaces.
 
-At scale, fan-in is a persistent stewardship role rather than an end-of-run
-cleanup task. It consumes each stable delta, compares it with the complete
-candidate universe, updates the paper hierarchy and assurance interfaces when
-warranted, and returns a newly ranked frontier to the mining fleet. Several
-miners may therefore share one stewardship goal, and one steward may consume
-results from several problems, provided every write and mathematical object
-still has one owner. The steward is allowed to say that a large run produced
-no new mathematical family, or that a short negative result should outrank
-many formal lemmas. This prevents compute volume and theorem count from
-becoming accidental editorial policy.
-
-Fleet size and validation capacity are deliberately different variables. In
-principle, many logical agents can search disjoint mathematical neighbourhoods;
-in practice, the controller admits work according to path conflicts, memory,
-CPU, disk pressure, and the expected value of the lane. Cheap reading and
-computation may fan out widely while mutation remains path-leased and heavy
-Lean work is narrower. This prevents ``more agents'' from meaning ``more
-processes contending for the same compiler and checkout.''
+Fleet size and validation capacity differ. The controller admits disjoint
+search according to path conflicts, resources, and expected value. Cheap work
+may fan out; writes remain path-leased and heavy Lean work remains narrower.
 
 Lean validation uses a semantic single-flight queue. A request is identified
 by the reachable source, logical targets, toolchain, dependency lock, and
@@ -1171,25 +1173,25 @@ detached process owns the queued build. Thus the fleet may grow much wider
 than the expensive validator without corrupting the evidence or wasting every
 agent as a queue supervisor.
 
-There are consequently four separate scaling limits: logical search width,
-safe concurrent mutation, mechanical validation throughput, and scarce expert
-review. Path leases govern the second, the Lean queue governs the third, and
-review-selection ranking governs the fourth. Fan-in joins their outputs only after
-the appropriate receipts exist. This separation is what allows additional
-models and compute to enlarge exploration without silently enlarging any
-model's authority.
+The four separate scaling limits are search width, safe mutation, validation throughput, and
+expert review. Path leases, the Lean queue, and review ranking govern the last
+three; fan-in joins outputs only after their receipts exist.
 
-The return path is already public. A person can fork or clone the repository,
-work from a named public commit, and open a pull request or research-progress
-issue. A structured return can preserve the contributor, collaborators, tool
-operator, disclosed model systems, starting commit, evidence, affected result,
-and surviving limitation as separate fields. Only an accepted receipt enters
-the generated contribution views. Acceptance, mathematical claim status, and
-release inclusion remain separate decisions, so a credited counterexample or
-failed route need not be mislabelled as a theorem. Later corrections append a
-new history rather than erasing the earlier contributor. Attribution and pull
-requests are standard practice; the architectural role here is to carry credit
-and provenance through fan-in without allowing either to strengthen the claim.
+A first return can be a plain-language research-progress issue or email: name
+the idea, source, limit, and desired credit. No clone, proof, code, or receipt
+schema is required. A proof or implementation can instead arrive by pull
+request from a named public commit, with replay evidence and its surviving
+limitation. The \repolink{docs/research-commons/CREDIT_POLICY.md}{credit policy}
+allows an idea to be credited separately from later proof, Lean formalization,
+software, or explanation. Accepted work receives a public receipt tied to exact
+artifacts. Acceptance
+does not establish theorem status, novelty, or release inclusion. Corrections
+append history rather than erasing the earlier contributor.
+
+Infrastructure has its own \repolink{docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md}{proposal route}.
+For example, if a fresh clone cannot find the validation command, a proposal
+can stop when the route is discoverable and a regression check passes. This is
+creditable architecture work; it does not promote a mathematical claim.
 
 The named starting commit remains useful even when main advances. Git retains
 the common ancestor needed to inspect the contributor's original delta. A

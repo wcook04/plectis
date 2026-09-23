@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Agent navigation</p>
     <h1>From a Cold Clone to a Proof Receipt</h1>
     <p class="lean-paper__subject">Systems paper</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="cold-clone-to-proof-receipt.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/systems/cold-clone-to-proof-receipt.tex">
 <section id="sec:problem" class="level2">
@@ -30,24 +31,24 @@ registry now covers selected statements from all eight; a paper’s
 inclusion does not give every statement in it formal status. The
 degree-seven counterexample due to the erdosproblems.com contributor <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>,
-formalised in Lean in this repository, refutes the total-variation
-formulation of Problem 1041, while correspondence with its historical
-curve-length question remains unreviewed and the other seven targets
-remain unresolved here. The detailed navigation examples in this paper
-concentrate on Problems 249 and 257: exact separation equivalences for
-Problem 249, a machine-checked rational countermodel agreeing with the
-totient’s parity at every index, and quotient-greedy classifications for
-Problem 257, with obstruction theorems recorded beside the routes they
-close. The generated certificate shards named in the abstract sit
-underneath these results as checked finite evidence, not beside them as
-further claims. The design goal is not to replace reasoning with a fixed
-pipeline. It is to let a capable reader see enough structure to reason
-well, while reserving mathematical authority for the pinned proof
-kernel.</p>
+formalised in Lean in this repository, refutes the Formal Conjectures
+1041 one-dimensional Hausdorff path-image claim, while correspondence
+with its historical curve-length question remains unreviewed and the
+other seven targets remain unresolved here. The detailed navigation
+examples in this paper concentrate on Problems 249 and 257: exact
+separation equivalences for Problem 249, a machine-checked rational
+countermodel agreeing with the totient’s parity at every index, and
+quotient-greedy classifications for Problem 257, with obstruction
+theorems recorded beside the routes they close. The generated
+certificate shards named in the abstract sit underneath these results as
+checked finite evidence, not beside them as further claims. The design
+goal is not to replace reasoning with a fixed pipeline. It is to let a
+capable reader see enough structure to reason well, while reserving
+mathematical authority for the pinned proof kernel.</p>
 <p>The paper first separates the repository’s four navigation layers and
 then shows how a bounded tour expands into exact source and dependency
-routes. Sections  and  mark the transition from navigation to kernel
-authority and explain the incremental validation path. Section  gives a
+routes. Sections 4 and 5 mark the transition from navigation to kernel
+authority and explain the incremental validation path. Section 6 gives a
 replayed case study; the remaining sections compare related systems and
 state the limits of transfer.</p>
 <p>This paper owns the navigation and validation case study. The wider
@@ -71,8 +72,8 @@ infinite claim from a finite run.</p>
 <h2>Four views of the mathematical library</h2>
 <p>No single graph can serve all readers without hiding an important
 distinction. The repository therefore commits four related layers
-(Figure ). They are projections with different coverage contracts, not
-successive claims of understanding.</p>
+(Figure <code>[fig:layers]</code>). They are projections with different
+coverage contracts, not successive claims of understanding.</p>
 <figure id="fig:layers" data-latex-placement="!t">
 
 <figcaption>The navigation layers. The dependency index and semantic
@@ -183,10 +184,10 @@ example.</p>
 <section id="sec:authority" class="level2">
 <h2>From navigation to proof authority</h2>
 <p>The architecture treats navigation and proof as separate capabilities
-(Figure ). A static query may nominate a theorem or dependency path. It
-cannot establish that a proposed application typechecks, that a proof
-closes a goal, or that an English interpretation is mathematically
-faithful.</p>
+(Figure <code>[fig:sequence]</code>). A static query may nominate a
+theorem or dependency path. It cannot establish that a proposed
+application typechecks, that a proof closes a goal, or that an English
+interpretation is mathematically faithful.</p>
 <figure id="fig:sequence" data-latex-placement="!t">
 
 <figcaption>The shortest path from first contact to an authoritative

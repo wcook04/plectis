@@ -975,7 +975,7 @@
           "title": "Newton Flow and Ray Separation in Polynomial Lemniscates",
           "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
           "rendered": "paper/1041/erdos-1041-lemniscate-newton-flow.pdf",
-          "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
           "role": "Standalone theorem-led problem note for Erdős #1041 and the finite ray-separation boundary.",
           "anchor_label_allowlist": [
             "res:ray"
@@ -985,7 +985,7 @@
           "title": "Arithmetic Boundaries at Base 3/2 for Erdős Problem 1049",
           "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
           "rendered": "paper/1049/erdos-1049-rational-base-lambert.pdf",
-          "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
           "role": "Standalone theorem-led problem note for Erdős #1049 and the coordinatewise-corridor and cleared-tail boundaries.",
           "anchor_label_allowlist": [
             "res:nocorridor",
@@ -997,7 +997,7 @@
           "title": "Reciprocal-Tail Rigidity for Erdős Problem 243",
           "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
           "rendered": "paper/243/erdos-243-reciprocal-tail-rigidity.pdf",
-          "formal_source_ref": "3d6d938d696fed0fb71dd55115a18a73738ff223",
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
           "role": "Standalone theorem-led problem note for Erdős #243 and the bounded-rise fresh-modulus barrier.",
           "anchor_label_allowlist": [
             "res:barrier"
@@ -1060,14 +1060,14 @@
             "res:degree-three",
             "res:reflected-critical-value"
           ],
-          "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334"
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500"
         },
         {
           "title": "Rational-Base Lambert Series: Complete Reasoning Record",
           "source": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
           "rendered": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #1049.",
-          "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334"
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500"
         },
         {
           "title": "The Factorial-Denominator Series: Complete Reasoning Record",
@@ -1081,7 +1081,7 @@
           "source": "paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
           "rendered": "paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #243.",
-          "formal_source_ref": "3d6d938d696fed0fb71dd55115a18a73738ff223"
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500"
         },
         {
           "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
@@ -1178,13 +1178,13 @@
             "id": "erdos_1041_reasoning_record",
             "source": "paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Full reasoning record for Erdős #1041: the checked ani degree-seven total-variation counterexample, critical-value mean, Newton-flow and translation geometry, solved-family kernels, and ordinary positive-family path assemblies. The counterexample is one explicit instance; historical correspondence awaits independent review."
+            "thesis": "Full reasoning record for Erdős #1041: ani's one-polynomial degree-seven counterexample now gives a Lean-checked one-dimensional Hausdorff-measure bound for every preconnected connecting set and refutes the exact Formal Conjectures path-image-length statement. The record also treats the critical-value mean, Newton-flow and translation geometry, solved-family kernels, and ordinary positive-family path assemblies. The reported counterexample family is not formalised; correspondence with the 1958 wording awaits independent human review."
           },
           {
             "id": "erdos_1049_reasoning_record",
             "source": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Rational-base irrationality and irrationality-exponent bounds in the Zudilin contour region, including every positive integral power of 31/4, with complete Lean source constructions; all-rank normalized Hankel order and coefficient formulas; the base 3/2 and universal rational-base assertion remain open."
+            "thesis": "Rational-base irrationality and irrationality-exponent bounds in the Zudilin contour region, including powers of 31/4, plus all-rank normalized Hankel order and coefficient formulas. The coefficient pencil is Lean checked only through rank eight. Irrationality at 3/2 and the universal rational-base assertion remain open."
           },
           {
             "id": "erdos_68_reasoning_record",
@@ -1196,7 +1196,7 @@
             "id": "erdos_243_reasoning_record",
             "source": "paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Complete reasoning record for Erdős #243. Lean integer-state rigidity, including a scalar finite-negative-mass criterion; cubic-rate and Chebotarev steps are ordinary. Mixed-sign unbounded regime remains open."
+            "thesis": "Complete reasoning record for Erdős #243. The zero-indexed positive StrictMono cubic-rate irrationality theorem and its square-specialisation chain have unconditional Lean declarations under their exact hypotheses; the paper's one-based transfer uses an ordinary finite-prefix bridge; the ordinary proof uses Chebotarev, while the formal proof uses a Dedekind-zeta pole comparison. The integer-state bounded-negative criteria remain separate. The unrestricted problem and mixed-sign unbounded regime remain open."
           },
           {
             "id": "erdos_251_reasoning_record",
@@ -1222,7 +1222,7 @@
             "id": "erdos_243_note",
             "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "The integer-state bounded-negative theorem and its original-coordinate transfer, with the signed-error lower-bound obligation kept explicit. The original-coordinate transfer derives centring and normalised vanishing from the sequence and sum hypotheses; it does not discharge that lower bound."
+            "thesis": "A Lean-checked zero-indexed positive StrictMono cubic-rate irrationality theorem for a_n²/a_(n+1)=1+3/n+o(n^-3), transferred to the one-based paper form by an ordinary finite-prefix argument, alongside the bounded-increment criterion for eventual Sylvester recurrence under rationality. The latter requires an additional increment bound not derived from the original hypotheses. Erdős #243 remains open."
           },
           {
             "id": "erdos_249_note",
@@ -1252,16 +1252,16 @@
             "id": "erdos_1041_note",
             "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Ani’s checked explicit degree-seven counterexample to the stated total-variation formulation, alongside positive short-path families, the sharp critical-value mean, Newton-flow geometry, and exact obstructions. The positive results keep their stated hypotheses; historical correspondence and remaining ordinary analytic assemblies are separate from Lean verification."
+            "thesis": "Using ani's explicit degree-seven polynomial, Lean proves a one-dimensional Hausdorff-measure bound for every preconnected connecting set and refutes the exact Formal Conjectures path-image-length statement; the total-variation bound remains checked. The note also treats positive short-path families, the sharp critical-value mean, Newton-flow geometry, and exact obstructions. The family is not formalised; historical correspondence and ordinary analytic assemblies remain separate from Lean verification."
           },
           {
             "id": "erdos_1049_note",
             "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Rational-base irrationality and irrationality-exponent bounds in the Zudilin contour region, including every positive integral power of 31/4, with complete Lean source constructions; all-rank normalized Hankel order and coefficient formulas; the base 3/2 and universal rational-base assertion remain open."
+            "thesis": "Rational-base irrationality and irrationality-exponent bounds in the Zudilin contour region, including powers of 31/4, plus all-rank normalized Hankel order and coefficient formulas. The finite coefficient pencil is Lean checked only through rank eight. Irrationality at 3/2 and the universal rational-base assertion remain open."
           }
         ],
-        "problem_series_boundary": "A problem note expounds declarations and ordinary mathematics. Formal status belongs to the exact registered statements and their evidence, not to every assertion in a note. The degree-seven result refutes the stated total-variation formulation of #1041; historical correspondence remains unreviewed, and the other seven target problems remain unresolved here.",
+        "problem_series_boundary": "A problem note expounds declarations and ordinary mathematics. Formal status belongs to exact registered statements and their evidence, not to every assertion in a note. Using ani's degree-seven polynomial, Lean refutes the exact Formal Conjectures path-image-length statement by a one-dimensional Hausdorff-measure bound; the total-variation result remains checked. Historical correspondence remains unreviewed, and the other seven targets remain unresolved here.",
         "retirement_notices": [
           {
             "source": "paper/erdos249-transport-curvature-companion-note.tex",
@@ -1761,7 +1761,7 @@
           "prior_art_posture": "The finite ray and perturbation statements are source-specific formal results. Their checked hypotheses do not imply unrestricted connection; no novelty, priority, significance or independent human-review claim is made.",
           "primary_narrative_owner": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
           "source_route": "python3 scripts/query_corpus.py --claim newton_ray_separation_consumer",
-          "consumer_or_open_obligation": "These finite conditional consumers do not construct a universal short connector. The stated universal total-variation formulation is refuted by the separate degree-seven result; historical correspondence and valid positive-family hypotheses remain distinct questions.",
+          "consumer_or_open_obligation": "These finite conditional consumers do not construct a universal short connector. The exact Formal Conjectures path-image-length statement and the total-variation formulation are refuted by the separate degree-seven result; historical correspondence and valid positive-family hypotheses remain distinct questions.",
           "view_decision": "problem_note_reference_detail"
         },
         {
@@ -1771,13 +1771,14 @@
             "bounded_rise_fresh_modulus_barrier",
             "eventually_periodic_negative_no_go",
             "bounded_negative_exclusion",
-            "cubic_survivor_phase_density"
+            "cubic_survivor_phase_density",
+            "cubic_rate_irrationality_unconditional"
           ],
-          "status_summary": "An open eventual-Sylvester-recurrence endpoint plus unconditional bounded-rise and eventually-periodic negative-orbit obstructions, and a conditional cofinally bounded negative-magnitude exclusion.",
+          "status_summary": "An open eventual-Sylvester-recurrence endpoint plus a Lean-checked irrationality theorem for strictly increasing positive sequences with the stated cubic-rate asymptotic, unconditional bounded-rise and eventually-periodic negative-orbit obstructions, and a conditional cofinally bounded negative-magnitude exclusion.",
           "prior_art_posture": "These are source-specific formal results; no novelty, priority, significance, or #243 solution claim is made, and normalised vanishing, mixed-sign, and unbounded-negative boundaries remain explicit.",
           "primary_narrative_owner": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
           "source_route": "python3 scripts/query_corpus.py --claim bounded_rise_fresh_modulus_barrier",
-          "consumer_or_open_obligation": "The three no-go consumers remove fresh-modulus avoidance, eventually-periodic negative tails, and the cofinally bounded negative branch under normalised vanishing; the original eventual-recurrence assertion still requires control of the mixed-sign unbounded orbit regime.",
+          "consumer_or_open_obligation": "The cubic-rate theorem applies only when its quantitative asymptotic holds. The three no-go consumers remove fresh-modulus avoidance, eventually-periodic negative tails, and the cofinally bounded negative branch under normalised vanishing; the original eventual-recurrence assertion still requires control of the mixed-sign unbounded orbit regime.",
           "view_decision": "problem_note_reference_detail"
         },
         {
@@ -1812,13 +1813,14 @@
           "id": "zudilin_rational_base_and_hankel_theorems",
           "claim_ids": [
             "zudilin_rational_base_region",
-            "zudilin_all_rank_hankel_order"
+            "zudilin_all_rank_hankel_order",
+            "coefficient_pencil_finite_rank"
           ],
-          "status_summary": "Formalized rational-base irrationality and measure in the contour region, and all-rank normalized Hankel order and coefficient formulas.",
+          "status_summary": "Formalized rational-base irrationality and measure in the contour region, all-rank normalized Hankel order and coefficient formulas, and the coefficient-pencil proposition through rank eight.",
           "prior_art_posture": "Zudilin supplies the cited 2004 polynomial-form construction and 2016 Hankel sequence. The formalizations preserve their hypotheses and make no novelty, priority or independent human-review claim.",
           "primary_narrative_owner": "paper/1049/erdos-1049-rational-base-lambert.tex",
           "source_route": "python3 scripts/query_corpus.py --claim zudilin_rational_base_region",
-          "consumer_or_open_obligation": "The contour-region theorems include all positive powers of 31/4; the base 3/2 and universal rational-base irrationality remain open.",
+          "consumer_or_open_obligation": "The contour-region theorems include all positive powers of 31/4. The coefficient-pencil result is finite-rank only; its all-rank extension, irrationality at base 3/2, and universal rational-base irrationality remain open.",
           "view_decision": "problem_note_reference_detail"
         },
         {
@@ -1841,11 +1843,11 @@
           "claim_ids": [
             "ani_degree_seven_total_variation_counterexample"
           ],
-          "status_summary": "An explicit degree-seven polynomial refutes the universal total-variation formulation.",
+          "status_summary": "Ani's explicit degree-seven polynomial refutes the exact Formal Conjectures path-image-length statement by a Lean-checked one-dimensional Hausdorff-measure bound; the total-variation formulation is also refuted.",
           "prior_art_posture": "Formalisation of ani’s existing construction; no novelty or independent human review of historical correspondence is claimed.",
           "primary_narrative_owner": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
           "source_route": "python3 scripts/query_corpus.py --claim ani_degree_seven_total_variation_counterexample",
-          "consumer_or_open_obligation": "Comparison with the historical curve-length formulation and a Hausdorff-measure formulation remains outside the checked theorem.",
+          "consumer_or_open_obligation": "Independent human review of correspondence with the 1958 curve-length wording remains open; the exact Formal Conjectures Hausdorff-length statement is checked and refuted.",
           "view_decision": "problem_note_reference_detail"
         }
       ]
@@ -19153,7 +19155,7 @@
     "schema": "erdos-external-verification-packet/1",
     "scope": "all_eight_public_problem_programmes",
     "purpose": "Disclose the checked frontier for each of the eight public problem programmes, and isolate a small Comparator-executable review unit with a separately declared statement and axiom budget.",
-    "boundary": "The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
+    "boundary": "Using the degree-seven polynomial constructed by the erdosproblems.com contributor ani, Lean proves that every preconnected strict-lemniscate set containing two distinct roots has one-dimensional Hausdorff measure greater than two. This refutes the exact Formal Conjectures path-image-length statement; the separate total-variation bound is also checked. The other seven targets remain open. Independent human review of correspondence with the 1958 wording has not been recorded. Comparator checks only selected exact statements, axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
     "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed",
     "automation": {
       "posture": "Substantial language-model and agent assistance was used in formalisation, proof engineering, checking, and exposition.",
@@ -19610,6 +19612,29 @@
         "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSum_full_support",
         "statement": "For every integer base b >= 2, the full-support Erdos-Borwein series is irrational.",
         "boundary": "This is the classical full-support theorem, not universal Erdos #257."
+      },
+      {
+        "id": "finite_prime_weighted_support",
+        "problem": 257,
+        "review_family": "finite_prime_weighted_support",
+        "claim_id": "finite_prime_weighted_support",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "original_declaration": "ErdosProblems.Erdos257.PaperCompleteR8.divisibilityWeightedClaim",
+        "original_source": "ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean",
+        "wrapper_declaration": "Erdos249257.ExternalVerification.divisibilityWeightedClaim",
+        "statement": "For every base b >= 2, an infinite positive support A with finite prime-weighted mass in base b has irrational support series; if a positive host H has finite prime-weighted mass in base 2, every infinite subset of H has irrational support series at every base b >= 2.",
+        "boundary": "The finite-prime weighted-summability premise is explicit in both clauses. This criterion does not cover every infinite support or settle universal Erdős #257; no novelty, priority, significance, or external human-review claim is made."
+      },
+      {
+        "id": "finite_prime_weighted_fixed_base_hereditary",
+        "problem": 257,
+        "review_family": "finite_prime_weighted_support",
+        "contribution_class": "locally proved result; novelty unassessed",
+        "original_declaration": "ErdosProblems.Erdos257.PaperCompleteR8.finitePrimeWeighted_fixedBase_hereditary",
+        "original_source": "ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean",
+        "wrapper_declaration": "Erdos249257.ExternalVerification.finitePrimeWeighted_fixedBase_hereditary",
+        "statement": "For every base b >= 2, if a positive host H has finite prime-weighted mass in base b, every infinite subset A of H has irrational support series in the same base b.",
+        "boundary": "This hereditary result retains the same-base weighted-summability hypothesis; it does not infer all-base irrationality from weighted mass at an arbitrary base, or settle universal Erdős #257."
       },
       {
         "id": "erdos_support_pairwise_coprime",
@@ -20347,6 +20372,14 @@
             "boundary": "Structured known families do not cover arbitrary infinite supports."
           },
           {
+            "id": "finite_prime_weighted_support",
+            "contribution_class": "locally proved result; novelty unassessed",
+            "summary": "Finite prime-weighted mass gives fixed-base irrationality for infinite positive supports; binary weighted mass gives all-base irrationality for every infinite subset of a positive host, while weighted mass at another fixed base gives same-base hereditary irrationality.",
+            "evidence_mode": "Lean kernel; exact Comparator transport configured, external replay pending",
+            "comparator_disposition": "targeted_exact_weighted_and_hereditary_interfaces_pending_replay",
+            "boundary": "Each clause retains its exact finite-prime weighted-summability and positive-support hypotheses. Binary mass is required for the all-base hereditary clause; arbitrary infinite supports remain open."
+          },
+          {
             "id": "pairwise_coprime_support",
             "contribution_class": "formalisation of an existing theorem",
             "summary": "Infinite pairwise-coprime supports with summable reciprocal mass have irrational Mersenne support series by an adaptive CRT and weighted coefficient certificate argument.",
@@ -20752,12 +20785,12 @@
       "id": "remaining_open.erdos_1041_lemniscate_connection",
       "status": "open",
       "open_target_claim": "erdos_1041",
-      "statement": "Determine the precise correspondence between the historical curve-length question and the checked total-variation formulation, which ani’s explicit degree-seven example refutes. A Hausdorff-measure comparison is not formalised, and independent human review of historical correspondence is not recorded; the refuted total-variation assertion itself is no longer an open proof obligation.",
+      "statement": "Independently review whether the 1958 curve-length wording matches the exact Formal Conjectures path-image-length statement, whose negation is now Lean-checked using ani's explicit degree-seven polynomial. The checked one-dimensional Hausdorff-measure bound settles that formal statement negatively; the reported small-parameter family is not formalised.",
       "paper_anchor": {
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 131
+        "line": 132
       }
     },
     {
@@ -20769,7 +20802,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 58
+        "line": 61
       }
     },
     {
@@ -20781,7 +20814,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 141
+        "line": 149
       }
     },
     {
@@ -20829,7 +20862,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "growth of repeated denominator factors",
-        "line": 836
+        "line": 860
       }
     },
     {
@@ -20983,7 +21016,7 @@
       "id": "erdos_1041",
       "label": "Erdős #1041: short connections inside polynomial lemniscates",
       "status": "open",
-      "statement": "The historical curve-length formulation remains an unadjudicated programme target in this registry. The separate checked degree-seven example refutes the universal formulation using total variation of continuous paths in the strict unit lemniscate. No Hausdorff-measure comparison or independent human review of historical correspondence is recorded.",
+      "statement": "Using ani's explicit monic degree-seven polynomial, Lean proves that every preconnected subset of its strict unit lemniscate containing two distinct roots has one-dimensional Hausdorff measure greater than 2. This refutes the exact Formal Conjectures path-image-length statement and its total-variation counterpart. The reported family is not formalised, and independent human review of correspondence with the 1958 wording is not recorded.",
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_1041_lemniscate_connection"
       ],
@@ -24585,6 +24618,24 @@
       ]
     },
     {
+      "id": "cubic_rate_irrationality_unconditional",
+      "label": "Cubic-rate reciprocal-sum irrationality under the stated asymptotic",
+      "status": "formalised here",
+      "statement": "For a zero-indexed strictly increasing sequence of positive natural numbers a, if n³(a(n)²/a(n+1) − (1 + 3/n)) tends to zero and the reciprocal series has sum S, then S is irrational. Lean proves the square-specialisation input through the Dedekind-zeta simple pole, so this theorem has no Chebotarev premise. The paper states the ordinary one-based bridge. The quantitative cubic-rate hypothesis is essential here; this does not settle the original eventual Sylvester recurrence assertion.",
+      "remaining_open_proposition_ids": [
+        "remaining_open.erdos_243_eventual_recurrence"
+      ],
+      "paper_label": "res:cubicrate",
+      "readme_headline": false,
+      "declarations": [
+        {
+          "name": "cubic_rate_irrationality_unconditional",
+          "module": "ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean",
+          "line": 70
+        }
+      ]
+    },
+    {
       "id": "finite_period_noncollapse",
       "label": "Finite-support denominator period noncollapse",
       "status": "unconditional progress",
@@ -24932,6 +24983,24 @@
       ]
     },
     {
+      "id": "coefficient_pencil_finite_rank",
+      "label": "Coefficient-pencil positivity and root interlacing through rank eight",
+      "status": "formalised here",
+      "statement": "For each real p > 1 and each natural rank N ≤ 8, the coefficient Hankel matrix A_N is positive definite, the polynomial det(Y A_N − B_N) splits over the reals, and every root is strictly below F(p). For adjacent ranks N and N+1 ≤ 8, the ordered root lists interlace non-strictly, with multiplicities. Lean includes N = 0; the paper states the ranks 1 through 8. No all-rank coefficient-pencil theorem, simple-root or strict-interlacing assertion, limiting result, or irrationality of F(3/2) follows from this finite proposition.",
+      "remaining_open_proposition_ids": [
+        "remaining_open.erdos_1049_irrationality"
+      ],
+      "paper_label": "long1049:res:finite-pencil",
+      "readme_headline": false,
+      "declarations": [
+        {
+          "name": "coefficientPencil_finitePencil",
+          "module": "ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean",
+          "line": 43
+        }
+      ]
+    },
+    {
       "declarations": [
         {
           "line": 40,
@@ -25010,9 +25079,9 @@
     },
     {
       "id": "ani_degree_seven_total_variation_counterexample",
-      "label": "Degree-seven total-variation counterexample",
+      "label": "Degree-seven Hausdorff-length counterexample",
       "status": "formalised here",
-      "statement": "There exists a monic complex polynomial of degree seven, with distinct roots all in the open unit disc, such that every continuous path in its strict unit lemniscate joining distinct roots has extended total variation greater than 2. This formalises one explicit instance of ani’s construction; the whole small-parameter family and a Hausdorff-measure comparison are not formalised.",
+      "statement": "For ani's explicit monic complex polynomial of degree seven, whose distinct roots lie in the open unit disc, every preconnected subset of the strict unit lemniscate containing two distinct roots has one-dimensional Hausdorff measure greater than 2. In particular, Lean proves the negation and answer(False) forms of the exact Formal Conjectures path-image-length statement. The total-variation bound also remains checked. This formalises one polynomial, not the reported small-parameter family; independent human review of correspondence with the 1958 wording is not recorded.",
       "paper_label": "res:ani-degree-seven-counterexample",
       "readme_headline": false,
       "declarations": [
@@ -25020,6 +25089,21 @@
           "name": "erdos1041_ani_degree_seven",
           "module": "ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean",
           "line": 25
+        },
+        {
+          "name": "erdos1041_counterexample_hausdorff",
+          "module": "ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+          "line": 283
+        },
+        {
+          "name": "erdos1041_hausdorff_negation",
+          "module": "ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+          "line": 407
+        },
+        {
+          "name": "erdos1041_hausdorff_answer_false",
+          "module": "ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+          "line": 449
         }
       ]
     }

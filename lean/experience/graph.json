@@ -3,17 +3,17 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2186,
-    "edges": 5914,
+    "nodes": 2189,
+    "edges": 5922,
     "node_kinds": {
-      "comparator_review_family": 70,
+      "comparator_review_family": 71,
       "human_document": 16,
       "integration_surface": 2,
       "lean_module": 1814,
       "mathematical_object": 105,
       "paper": 21,
       "problem": 8,
-      "public_claim": 148,
+      "public_claim": 150,
       "registry_review_unit": 1,
       "universe": 1
     },
@@ -24,19 +24,19 @@
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 21,
-      "formalized_in": 42,
+      "formalized_in": 43,
       "has_registry_review_unit": 1,
-      "has_review_family": 70,
+      "has_review_family": 71,
       "imports": 3427,
       "instantiates": 2,
       "interpreted_by": 16,
       "makes_exact": 1,
       "may_review": 1,
       "positions": 3,
-      "publishes": 148,
+      "publishes": 150,
       "re_expresses_open_branch": 6,
-      "reviews": 70,
-      "supported_by": 178
+      "reviews": 71,
+      "supported_by": 181
     }
   },
   "nodes": [
@@ -107,8 +107,8 @@
     {
       "id": "claim:ani_degree_seven_total_variation_counterexample",
       "kind": "public_claim",
-      "label": "Degree-seven total-variation counterexample",
-      "statement": "There exists a monic complex polynomial of degree seven, with distinct roots all in the open unit disc, such that every continuous path in its strict unit lemniscate joining distinct roots has extended total variation greater than 2. This formalises one explicit instance of ani’s construction; the whole small-parameter family and a Hausdorff-measure comparison are not formalised.",
+      "label": "Degree-seven Hausdorff-length counterexample",
+      "statement": "For ani's explicit monic complex polynomial of degree seven, whose distinct roots lie in the open unit disc, every preconnected subset of the strict unit lemniscate containing two distinct roots has one-dimensional Hausdorff measure greater than 2. In particular, Lean proves the negation and answer(False) forms of the exact Formal Conjectures path-image-length statement. The total-variation bound also remains checked. This formalises one polynomial, not the reported small-parameter family; independent human review of correspondence with the 1958 wording is not recorded.",
       "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -193,6 +193,14 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:coefficient_pencil_finite_rank",
+      "kind": "public_claim",
+      "label": "Coefficient-pencil positivity and root interlacing through rank eight",
+      "statement": "For each real p > 1 and each natural rank N ≤ 8, the coefficient Hankel matrix A_N is positive definite, the polynomial det(Y A_N − B_N) splits over the reals, and every root is strictly below F(p). For adjacent ranks N and N+1 ≤ 8, the ordered root lists interlace non-strictly, with multiplicities. Lean includes N = 0; the paper states the ranks 1 through 8. No all-rank coefficient-pencil theorem, simple-root or strict-interlacing assertion, limiting result, or irrationality of F(3/2) follows from this finite proposition.",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:cofinal_cylinder_half_countermodel",
       "kind": "public_claim",
       "label": "Conditional cofinal-cylinder half countermodel",
@@ -230,6 +238,14 @@
       "label": "Concrete finite seam adapter",
       "statement": "Concrete finite seam words realize the abstract adjacent-cut recurrence, and the next seam word agrees with the integer-greedy choice. This implements the finite recurrence but does not establish the unbounded remainder estimate.",
       "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:cubic_rate_irrationality_unconditional",
+      "kind": "public_claim",
+      "label": "Cubic-rate reciprocal-sum irrationality under the stated asymptotic",
+      "statement": "For a zero-indexed strictly increasing sequence of positive natural numbers a, if n³(a(n)²/a(n+1) − (1 + 3/n)) tends to zero and the reciprocal series has sum S, then S is irrational. Lean proves the square-specialisation input through the Dedekind-zeta simple pole, so this theorem has no Chebotarev premise. The paper states the ordinary one-based bridge. The quantitative cubic-rate hypothesis is essential here; this does not settle the original eventual Sylvester recurrence assertion.",
+      "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -324,7 +340,7 @@
       "id": "claim:erdos_1041",
       "kind": "public_claim",
       "label": "Erdős #1041: short connections inside polynomial lemniscates",
-      "statement": "The historical curve-length formulation remains an unadjudicated programme target in this registry. The separate checked degree-seven example refutes the universal formulation using total variation of continuous paths in the strict unit lemniscate. No Hausdorff-measure comparison or independent human review of historical correspondence is recorded.",
+      "statement": "Using ani's explicit monic degree-seven polynomial, Lean proves that every preconnected subset of its strict unit lemniscate containing two distinct roots has one-dimensional Hausdorff measure greater than 2. This refutes the exact Formal Conjectures path-image-length statement and its total-variation counterpart. The reported family is not formalised, and independent human review of correspondence with the 1958 wording is not recorded.",
       "status": "open",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -8158,9 +8174,11 @@
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
       "path": "lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
-      "role": "Lean proof module",
+      "declaration_count": 10,
+      "theorem_count": 9,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+      "role": "Lean proof module"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
@@ -18444,7 +18462,7 @@
     {
       "id": "paper:erdos-243-reciprocal-tail-rigidity",
       "kind": "paper",
-      "label": "Bounded Increments and Rational Reciprocal Sums",
+      "label": "Cubic-Rate Irrationality and Reciprocal-Tail Rigidity",
       "subject": "Erdős #243",
       "form": "Problem note",
       "href": "papers/erdos-243-reciprocal-tail-rigidity.json",
@@ -18599,7 +18617,7 @@
       "kind": "problem",
       "label": "Short connections inside polynomial lemniscates",
       "status": "open",
-      "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question.",
+      "question": "Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review.",
       "href": "problems/erdos_1041.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json",
       "source_directory_github": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos1041"
@@ -19068,6 +19086,14 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "review-family:erdos_257:finite_prime_weighted_support",
+      "kind": "comparator_review_family",
+      "label": "Finite prime-weighted mass gives fixed-base irrationality for infinite positive supports; binary weighted mass gives all-base irrationality for every infinite subset of a positive host, while weighted mass at another fixed base gives same-base hereditary irrationality.",
+      "disposition": "targeted_exact_weighted_and_hereditary_interfaces_pending_replay",
+      "boundary": "Each clause retains its exact finite-prime weighted-summability and positive-support hypotheses. Binary mass is required for the all-base hereditary clause; arbitrary infinite supports remain open.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "review-family:erdos_257:half_and_twenty_one_frontiers",
       "kind": "comparator_review_family",
       "label": "Exact greedy characterisations, finite-support exclusions, the odd 2-adic two-thirds-band bound, and two conditional rational-half countermodel frontiers isolate local constraints around the remaining 1/2 and 1/21 alternatives.",
@@ -19366,6 +19392,14 @@
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"
     },
     {
+      "source": "claim:ani_degree_seven_total_variation_counterexample",
+      "relation": "supported_by",
+      "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
+      "declaration": "erdos1041_hausdorff_answer_false",
+      "line": 449,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L449"
+    },
+    {
       "source": "claim:boolean_mobius_carry",
       "relation": "supported_by",
       "target": "lean-module:Erdos249257.BooleanMobiusCarry",
@@ -19486,6 +19520,14 @@
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130"
     },
     {
+      "source": "claim:coefficient_pencil_finite_rank",
+      "relation": "supported_by",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR20.FinitePencilProposition",
+      "declaration": "coefficientPencil_finitePencil",
+      "line": 43,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43"
+    },
+    {
       "source": "claim:cofinal_cylinder_half_countermodel",
       "relation": "supported_by",
       "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
@@ -19524,6 +19566,14 @@
       "declaration": "seamCutNextWord_eq_greedyWord_succ",
       "line": 667,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderConcreteSeamAdapter.lean#L667"
+    },
+    {
+      "source": "claim:cubic_rate_irrationality_unconditional",
+      "relation": "supported_by",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationUnconditional",
+      "declaration": "cubic_rate_irrationality_unconditional",
+      "line": 70,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70"
     },
     {
       "source": "claim:cubic_survivor_phase_density",
@@ -20916,6 +20966,11 @@
       "source": "integration:comparator",
       "relation": "reviews",
       "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:finite_prime_weighted_support"
     },
     {
       "source": "integration:comparator",
@@ -38770,6 +38825,11 @@
     {
       "source": "problem:erdos_1041",
       "relation": "formalized_in",
+      "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.HausdorffLength"
+    },
+    {
+      "source": "problem:erdos_1041",
+      "relation": "formalized_in",
       "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation"
     },
     {
@@ -39141,6 +39201,11 @@
       "source": "problem:erdos_257",
       "relation": "has_review_family",
       "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:finite_prime_weighted_support"
     },
     {
       "source": "problem:erdos_257",
@@ -48715,6 +48780,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:coefficient_pencil_finite_rank"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:cofinal_cylinder_half_countermodel"
     },
     {
@@ -48736,6 +48806,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:concrete_seam_adapter"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:cubic_rate_irrationality_unconditional"
     },
     {
       "source": "universe:plectis-lean",

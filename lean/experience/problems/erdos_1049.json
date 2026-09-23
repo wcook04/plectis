@@ -7,6 +7,8 @@
   "question": "For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves.",
   "authority_posture": "registered_declarations",
   "what_is_checked": [
+    "Lean checks irrationality and the stated irrationality-exponent bound for rational bases in the exact Zudilin contour region, including every positive integral power of 31/4. The contour excludes 3/2.",
+    "For p>1 and N≤8, Lean checks positive definite coefficient matrices, real finite-pencil roots below F(p), and non-strict interlacing at adjacent ranks. Neither all-rank positivity nor irrationality at 3/2 follows.",
     "That a literal coordinatewise transfer of the integer-base clearing argument forces a power-versus-linear inequality, and that this inequality is impossible at base three halves.",
     "The exact denominator-cleared rational-base tail recurrence, including its forcing term.",
     "That for every noninteger base with denominator at least two the forcing magnitude grows at least exponentially, while at denominator one it collapses to a bounded expression.",
@@ -27,16 +29,15 @@
     "The universal rational-base conjecture, including the case 3/2, remains open. The checked 31/4 power family settles one region and leaves that conjecture untouched.",
     "The published analytic height theorem, which is cited and used as an external result and is not formalised here.",
     "The all-scale Heine-Zudilin coefficient construction at rational base three halves; the primary source assumes an integer base.",
-    "The source analytic irrationality theorem inside the 81/200 height region; only its elementary parameter specialisations are formalised.",
     "A sufficiently large primitive-normalised, non-collapsed coefficient family meeting the checked n >= 4R+2S threshold at the required quadratic depths.",
     "That one of the resulting bounded-coefficient collision vectors has a nonzero polynomial pair, lies outside the analytic remainder nullspace, and has sufficient local gain.",
-    "Positivity or decay of the elementary Padé remainder; only its exponent arithmetic is checked.",
-    "Any general recurrence, endpoint, lattice, valuation, denominator, or irrationality conclusion from the n = 0 q-Apery residual; it proves only that the named scalar recurrence does not transfer to Van Assche's diagonal."
+    "The elementary Padé pilot checks exponent arithmetic only; it lacks remainder positivity or decay and does not qualify the separate Zudilin contour result.",
+    "The n=0 q-Apéry residual gives no general recurrence, lattice, valuation, denominator, or irrationality result; it only blocks the named scalar transfer."
   ],
   "open_obligations": [
     {
       "id": "three_halves_growing_rank_endpoint_jet_kernel",
-      "statement": "After dividing every coefficient pair by its rowwise common content, at positive quadratic target depths R_n,S_n exhibit at least 4R_n+2S_n primitive coefficient pairs from a genuinely non-collapsed deformation, prove that the required two-adic and three-adic gain survives primitive normalisation, and prove that at least one resulting checked {-1,0,1} collision has a nonzero polynomial pair and lies outside the analytic remainder nullspace; or prove an exact rank obstruction."
+      "statement": "After rowwise primitive normalisation, exhibit at least 4R_n+2S_n coefficient pairs at positive quadratic depths from a non-collapsed deformation; preserve the two- and three-adic gain; then show that one checked {-1,0,1} collision has a nonzero polynomial pair outside the analytic remainder nullspace, or prove an exact rank obstruction."
     }
   ],
   "finite_search": null,
@@ -213,7 +214,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
+    "source_sha256": "937260a9c9aa4061f42c37f6437f35dc5910bf14c806cbed561877c47b6797f1",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -255,19 +256,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 30,
-      "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "7444fdc6ce71c5b49487e0bfc58bdbd974d75918b5e0b7cafee946a551f556b9",
+      "renderer_contract_version": 32,
+      "renderer_fingerprint": "f255c6c37cc97729",
+      "source_sha256": "330172cff7ad691440144905e20a9773fac8ad3d6f2c62460ee4e39284b47c19",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 735,
+      "mathml_node_count": 738,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "6146b2f3825d88ae6ac47d75534bc630ed80be200f8702e491e1ced370140589",
-      "html_exact_tex_sha256": "6859c6ef8b5f3be3f2c3bd9612eb1ee1e5a45edda558227d2d6caa0f55dbdaf7"
+      "html_mathml_sha256": "ab6209ec9e31743e048569396fb7c08389dafa47f0fc2162dd5efd69e4777cc6",
+      "html_exact_tex_sha256": "a36d4b3e0c93fb2ad6994f8860b44d95f2f3511468a92e7a1b3eec12986834da"
     },
     "sections": [
       {
@@ -514,19 +515,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "7444fdc6ce71c5b49487e0bfc58bdbd974d75918b5e0b7cafee946a551f556b9",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "330172cff7ad691440144905e20a9773fac8ad3d6f2c62460ee4e39284b47c19",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 735,
+        "mathml_node_count": 738,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "6146b2f3825d88ae6ac47d75534bc630ed80be200f8702e491e1ced370140589",
-        "html_exact_tex_sha256": "6859c6ef8b5f3be3f2c3bd9612eb1ee1e5a45edda558227d2d6caa0f55dbdaf7"
+        "html_mathml_sha256": "ab6209ec9e31743e048569396fb7c08389dafa47f0fc2162dd5efd69e4777cc6",
+        "html_exact_tex_sha256": "a36d4b3e0c93fb2ad6994f8860b44d95f2f3511468a92e7a1b3eec12986834da"
       },
       "sections": [
         {
@@ -773,9 +774,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "feb1594783aaa4db000596f35cfc4bb09cef6c804455dbe4da84015fd23fc3cf",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "a3aadb660376ef5a79703a227bf5b74c47e4af66429c6defdab7bdb0b380529e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2681,
@@ -803,8 +804,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "da45fb816d442a23d31f07c79219f967b3448b7ef47520029cc0ed0f0980b07f",
-        "html_exact_tex_sha256": "a82d44cd47f452e9db41b4d533d9d3aa55e4cf791371488bfe5fecd9484d6e3c"
+        "html_mathml_sha256": "124ee9aeee846c74080d83242facd00341593ef0a7c1c0e99e25770f74d61944",
+        "html_exact_tex_sha256": "696cd73de41fb323848999dcbb9b8ce85ede351b1fb93bf7bf279069f9956721"
       },
       "sections": [
         {

@@ -9,10 +9,10 @@
       "erdos68-factorial-reasoning-surface": {
         "mathml": [
           "[WARNING] Could not convert TeX math S\\notin\\mathbb{Q}\\quad\\Longleftrightarrow\\quad",
-          "\\text{\\eqref{long68:eq:finite-escape} holds for arbitrarily large integers }m., rendering as TeX:",
-          "\\text{\\eqref{long68:eq:finite-escape} h",
+          "\\text{\\texttt{[long68:eq:finite-escape]} holds for arbitrarily large integers }m., rendering as TeX:",
+          "\\text{\\texttt{[long68:eq:finite-escape]",
           "^",
-          "unexpected \"e\"",
+          "unexpected \"t\"",
           "expecting \" \", \"!\", \",\", \":\", \";\" or \">\""
         ],
         "mathjax": []

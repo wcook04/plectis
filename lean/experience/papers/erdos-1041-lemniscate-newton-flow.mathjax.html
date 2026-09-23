@@ -123,17 +123,16 @@ degree-four case by a close-pair chord or two radial segments through
 the centre of a smallest enclosing disc. That centre need not be a
 critical point. The results here concern specified polynomial families
 and sufficient conditions; no priority claim is made.</p>
-<p> A degree-seven counterexample due to the <a
+<p> The degree-seven polynomial constructed by <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861">erdosproblems.com
-contributor <code>ani</code></a> makes the unrestricted total-variation
-assertion false. For one explicit monic polynomial of degree seven whose
-roots are distinct and lie in the open unit disc, every continuous path
-in the strict unit lemniscate joining two distinct roots has total
-variation greater than <span class="math inline" data-term-auto="off">\(2\)</span>.<a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> Thus this polynomial has no
-continuous root-to-root parametrisation of total variation less
-than <span class="math inline" data-term-auto="off">\(2\)</span>.</p>
+contributor <code>ani</code></a> has distinct roots in the open unit
+disc. Lean proves that every preconnected subset of its strict unit
+lemniscate containing two distinct roots has one-dimensional Hausdorff
+measure greater than <span class="math inline" data-term-auto="off">\(2\)</span>. In
+particular, the image of every continuous root-to-root path has this
+measure, and Lean proves the negation and <code>answer(False)</code>
+forms of the exact Formal Conjectures statement.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The trinomial proof prescribes a path for every pair of distinct
 roots. The area-growth argument in Section <a class="math-ref" href="#sec:constant-factor">3</a> has a different
 conclusion: it selects some pair of roots, but requires no coefficient
@@ -526,7 +525,7 @@ d_j^{\,n-1})^{1/n}\le2r\)</span>. Without the reciprocal balance, the
 required restriction on <span class="math inline" data-term-auto="off">\(t\)</span> would be
 missing. The complete complex theorem, including the choice of two
 indices and both inequalities, is checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L289">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L291">the
 bound for the sum of two root distances</a>.</p>
 <div class="corollary">
 <p><strong>Corollary 4.2</strong> (two nearest roots). <em>If the roots
@@ -625,9 +624,9 @@ class="math inline" data-term-auto="off">\(z+w\)</span> is the negative of the t
 <p>Uniqueness in the quintic rules out repairing that example by
 breaking a tie differently. The cubic excludes every direct root-to-root
 segment, not a curved path. The two exact evaluations are checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L438">escape
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L440">escape
 along the segment to a uniquely nearest root</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L569">escape
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L571">escape
 at all three root-pair midpoints</a>. <a
 href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178">The
 complete straight-path statement</a> also includes the polynomial,
@@ -704,7 +703,7 @@ with <span class="math inline" data-term-auto="off">\(|tr-r|=(1-t)|r|\)</span>, 
 <span class="math inline" data-term-auto="off">\(|P(tr)|&lt;1\)</span> for <span
 class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>; at <span
 class="math inline" data-term-auto="off">\(t=1\)</span> the value is zero. Lean checks <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161">the
 cubic segment inequality</a>.</p>
 <p>A nonzero root <span class="math inline" data-term-auto="off">\(r\)</span> with this
 property gives two distinct roots <span
@@ -786,9 +785,9 @@ averaged has modulus below one. The value at <span
 class="math inline" data-term-auto="off">\(t=1\)</span> is zero. Two selected segments have
 total length <span class="math inline" data-term-auto="off">\(|w_i|+|w_j|&lt;2\)</span>;
 coincident occurrences instead give the constant path. Lean checks <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean#L200">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean#L200">the
 selection for roots on the unit circle</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">the
 selection for roots in the closed disc</a>. The source snapshot also
 contains <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean#L235">the
@@ -803,9 +802,9 @@ closed-disc statement in the long paper.</p>
 maximum modulus on a suitable root segment, as well as a bound on that
 segment’s length. Collinearity supplies a real ordering that is absent
 for a general complex root configuration. Lean checks <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/SharpCollinearAlternation.lean#L158">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/SharpCollinearAlternation.lean#L158">the
 comparison of alternating values</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133">the
 resulting Chebyshev bound</a>; affine normalisation, root-gap selection,
 and transport back to the original line are ordinary.</p>
 </section>
@@ -1174,9 +1173,9 @@ class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)z&#39;=-f(z)=-w\)</sp
 Multiplication by <span class="math inline" data-term-auto="off">\(e^t\)</span> and
 integration on <span class="math inline" data-term-auto="off">\(I\)</span> give the displayed
 identity. Lean checks the local complex-parameter chain rule as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
 Newton-flow value equation</a> and its scaled zero-derivative form as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
 of the exponentially scaled value</a>. The integrated real-time
 assertion above is an ordinary consequence.</p>
 <p>For an existing trajectory with nonzero initial value, the value
@@ -1222,7 +1221,7 @@ continuity. This does not evaluate <span
 class="math inline" data-term-auto="off">\(-f/f&#39;\)</span> at a critical endpoint. Lean
 checks the algebraic contradiction from an assumed exponential endpoint
 relation in <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L334">the
 distinct-ray endpoint implication</a>. Kozen and Stefánsson draw the
 same consequence for the Newtonian graph: under <span
 class="math inline" data-term-auto="off">\(f\)</span>, every edge maps onto a segment of a
@@ -1280,15 +1279,15 @@ class="math inline" data-term-auto="off">\(-a\)</span> and <span
 class="math inline" data-term-auto="off">\(-b\)</span>.</p>
 <p>Each pair of critical values contributes such a forbidden subset, as
 checked in <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">the
 ray-collision parameterization</a>. These loci lie on finitely many real
 lines. Excluding those lines and the finitely many translations that
 make a value zero still leaves a point in every open disc. Accordingly,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">an
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">an
 arbitrarily small translation separates the arguments</a>. Under an
 explicit margin, <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">a
 small constant perturbation keeps the roots in the unit disc</a>. For a
 constant shift there is also an elementary sharper estimate: if <span
 class="math inline" data-term-auto="off">\(f(z)=\prod_{j=1}^n(z-a_j)\)</span> has degree
@@ -2244,49 +2243,49 @@ commit fixed for this paper. Their text describes the mathematics; the
 Lean declaration names remain in the link targets.</p>
 <ul>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">the
 Newton vector field</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">cancellation
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">cancellation
 of the derivative in the Newton equation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">the
 positive-ray relation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">reflexivity
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">reflexivity
 of the positive-ray relation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">symmetry
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">symmetry
 of the positive-ray relation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">transitivity
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">transitivity
 of the positive-ray relation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
 affine lines in the complex plane</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">agreement
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">agreement
 with the affine-span definition</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">closedness
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">closedness
 of a real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">density
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">density
 of its complement</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">a
 small perturbation avoiding finitely many real lines</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">the
 line containing forbidden translations</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">retention
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">retention
 of the unit-disc margin near a root</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">root
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">root
 displacement under a constant perturbation</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L306">positive-ray
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L325">positive-ray
 invariance under exponential decay</a></p></li>
 </ul>
 <p><em>Companion system context.</em> The <a
@@ -2419,13 +2418,19 @@ href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.<
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Lean checks this instance in <a
+<li id="fn1"><p>The one-polynomial Hausdorff theorem and
+formal-statement negation are <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L283"><code>erdos1041_counterexample_hausdorff</code></a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L407"><code>erdos1041_hausdorff_negation</code></a>.
+The corresponding <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L449"><code>erdos1041_hausdorff_answer_false</code></a>
+proves the <code>answer(False)</code> form. The separate total-variation
+theorem is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
-The formal result concerns one polynomial; it does not formalise the
-reported small-parameter family or a Hausdorff-measure comparison, and
-its correspondence with the historical formulation has not received
-independent human review.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+The reported small-parameter family is not formalised, and independent
+human review has not adjudicated correspondence with the 1958 wording.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

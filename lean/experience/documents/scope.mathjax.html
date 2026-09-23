@@ -8,16 +8,19 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section id="scope-of-this-release" class="level1">
 <h1>Scope of this release</h1>
-<p>The degree-seven counterexample found by the erdosproblems.com
-contributor ani refutes the total-variation formulation of Erdős #1041;
-this repository formalises it in Lean. The other seven target problems
-are not resolved here. Independent human review of correspondence with
-the historical curve-length formulation has not been recorded.
-Comparator checks only its selected exact statements, configured axioms
-and kernel acceptance; it does not assess novelty or historical
-correspondence. This release does not prove Erdős #68, #243, #249, #251,
-#257, #269, or #1049; those seven remain open. Claims use only the
-immutable formal-source checkpoint in <a
+<p>Using the degree-seven polynomial constructed by the
+erdosproblems.com contributor ani, Lean proves that every preconnected
+strict-lemniscate set containing two distinct roots has one-dimensional
+Hausdorff measure greater than two. This refutes the exact Formal
+Conjectures path-image-length statement; the separate total-variation
+bound is also checked. The other seven targets remain open. Independent
+human review of correspondence with the 1958 wording has not been
+recorded. Comparator checks only selected exact statements, axioms and
+kernel acceptance; it does not assess novelty or historical
+correspondence.</p>
+<p>The reported small-parameter family is not formalised. This release
+does not prove Erdős #68, #243, #249, #251, #257, #269, or #1049. Claims
+use only the immutable formal-source checkpoint in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a>; the last release
 tag is its citation identity, not a substitute for an exact proof-source
 identity.</p>

@@ -135871,7 +135871,7 @@
             "page": "components.html"
           },
           {
-            "count": 30,
+            "count": 29,
             "page": "papers.html"
           },
           {
@@ -135879,7 +135879,7 @@
             "page": "paper-module-batch8-compliance-pipeline-capsule.html"
           }
         ],
-        "total_occurrences": 844
+        "total_occurrences": 843
       },
       "visible_text_byte_count": 770
     },
@@ -151265,7 +151265,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 31,
+            "count": 32,
             "page": "papers.html"
           },
           {
@@ -151273,7 +151273,7 @@
             "page": "updates.html"
           }
         ],
-        "total_occurrences": 32
+        "total_occurrences": 33
       },
       "visible_text_byte_count": 784
     },
@@ -162741,7 +162741,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 23,
+            "count": 22,
             "page": "papers.html"
           },
           {
@@ -162753,7 +162753,7 @@
             "page": "introduction.html"
           }
         ],
-        "total_occurrences": 27
+        "total_occurrences": 26
       },
       "visible_text_byte_count": 884
     },
@@ -163321,7 +163321,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 10,
+            "count": 11,
             "page": "papers.html"
           },
           {
@@ -163329,7 +163329,7 @@
             "page": "updates.html"
           }
         ],
-        "total_occurrences": 36
+        "total_occurrences": 37
       },
       "visible_text_byte_count": 695
     },
@@ -163381,11 +163381,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 8,
+            "count": 7,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 8
+        "total_occurrences": 7
       },
       "visible_text_byte_count": 876
     },
@@ -164851,11 +164851,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 1,
+            "count": 2,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 1
+        "total_occurrences": 2
       },
       "visible_text_byte_count": 842
     },
@@ -274373,13 +274373,13 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 4,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 59,
-        "papers.html": 30,
+        "papers.html": 29,
         "reference.html": 8,
         "rules-and-ideas.html": 155
       },
       "page_count": 148,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 844
+      "total_occurrences": 843
     },
     "bridge": {
       "by_page": {
@@ -279972,12 +279972,12 @@
     },
     "irrational": {
       "by_page": {
-        "papers.html": 31,
+        "papers.html": 32,
         "updates.html": 1
       },
       "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 32
+      "total_occurrences": 33
     },
     "irrationality_exponent": {
       "by_page": {
@@ -284394,11 +284394,11 @@
       "by_page": {
         "introduction.html": 1,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 3,
-        "papers.html": 23
+        "papers.html": 22
       },
       "page_count": 3,
       "top_page": "papers.html",
-      "total_occurrences": 27
+      "total_occurrences": 26
     },
     "reader": {
       "by_page": {
@@ -284671,21 +284671,21 @@
     },
     "reciprocal": {
       "by_page": {
-        "papers.html": 10,
+        "papers.html": 11,
         "rules-and-ideas.html": 25,
         "updates.html": 1
       },
       "page_count": 3,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 36
+      "total_occurrences": 37
     },
     "reciprocal_series": {
       "by_page": {
-        "papers.html": 8
+        "papers.html": 7
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 8
+      "total_occurrences": 7
     },
     "record": {
       "by_page": {
@@ -285807,11 +285807,11 @@
     },
     "rigidity": {
       "by_page": {
-        "papers.html": 1
+        "papers.html": 2
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 1
+      "total_occurrences": 2
     },
     "rollback": {
       "by_page": {

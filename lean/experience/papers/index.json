@@ -32,8 +32,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "7a9b37c07700cdf95a6614c2e98d9b6a01e62eeec14d39b03a3fd623fa900f81",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -43,7 +43,7 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "c2b92c2ae715760e7dc6a6e564428b20697fb7afdaf8c8b923ff0207074b81ae",
+        "html_mathml_sha256": "8a5c0b2087e82a8b977e22dad66dbd5e2dcaad02f441207295113881578042f6",
         "html_exact_tex_sha256": "f2fd192fa1dacfb9ec32964e343e7e41ff1b33831fa9f9e5aa6536b591549b96"
       },
       "sections": [
@@ -249,8 +249,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "a1e8e011af99f3c74e9facc32be9c5cebcb8f5977652e5c47b57a1de4d0e7169",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -259,16 +259,16 @@
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math S\\notin\\mathbb{Q}\\quad\\Longleftrightarrow\\quad",
-            "\\text{\\eqref{long68:eq:finite-escape} holds for arbitrarily large integers }m., rendering as TeX:",
-            "\\text{\\eqref{long68:eq:finite-escape} h",
+            "\\text{\\texttt{[long68:eq:finite-escape]} holds for arbitrarily large integers }m., rendering as TeX:",
+            "\\text{\\texttt{[long68:eq:finite-escape]",
             "^",
-            "unexpected \"e\"",
+            "unexpected \"t\"",
             "expecting \" \", \"!\", \",\", \":\", \";\" or \">\""
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "210a1ff0cebcf65a6f4a98cd23ab135094f447955b9c39d182a7ceb3e6bf4323",
-        "html_exact_tex_sha256": "edcacd2fe9a4c1f055f3066f2ced9dbdc665d7ce57543d10f628b800569f0dd4"
+        "html_mathml_sha256": "2dc0df5aac97875e38f6b8b57c49cfe90d41a6def6535be934483d4fe7e5a3d5",
+        "html_exact_tex_sha256": "18e51330df76bc79982b3444b237c3e99c3c12a9a247d8fafb8478f47bb2183d"
       },
       "sections": [
         {
@@ -507,7 +507,7 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-243-reciprocal-tail-rigidity",
-      "title": "Bounded Increments and Rational Reciprocal Sums",
+      "title": "Cubic-Rate Irrationality and Reciprocal-Tail Rigidity",
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
@@ -533,19 +533,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "1e9a3ab22bf1b3bb60d60d587ce1d17121c39b6a5db79404e0275e5f38d72be6",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "9a064db20f9f82e223eef246d626b7b22eb5fe1db29a9be11db351c34f7de575",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 510,
+        "mathml_node_count": 526,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "c97fdf0afe0f493e523b981841c7cd68e1daf5d6a2a69415c0d670dee57ed665",
-        "html_exact_tex_sha256": "7c33d821960943aaa05dddb258bc77b291c570840371b3cd770b0d7bf20ee3eb"
+        "html_mathml_sha256": "0d8ad61a234e4db33eaad5e6d7f7248aae1ad552a4a10a305a4e0eda37a8dc27",
+        "html_exact_tex_sha256": "ab53200de560ce073402f8d094d1c9d07ecce922c8866c87eff8ca362af75bc8"
       },
       "sections": [
         {
@@ -601,7 +601,7 @@
         {
           "level": 2,
           "anchor": "sec:secondaryrate",
-          "label": "Further consequences"
+          "label": "Cubic-rate irrationality and further consequences"
         },
         {
           "level": 2,
@@ -683,7 +683,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 64,
+      "pages": 65,
       "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
       "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -705,12 +705,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "5cb3f168714dd3d9658a7830be41d213b9493c4bc3046421b40586cc676bc5ea",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "96efe00f21f23a1f0db034faf6d9076171cbc48520b87c529346889e5f41e0e6",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2436,
+        "mathml_node_count": 2454,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -726,8 +726,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f2dde5c6c6b9704580d65b63ba73637ada63a16467baac78ab127f6b259ccf54",
-        "html_exact_tex_sha256": "49d8d54273b1e577975f22096b5d186d904051384e7d14c448f0ccb87e8cbd41"
+        "html_mathml_sha256": "50f9fa7322e2113a8ee21beb318c96e9aa2088a276bb35734a37edaee2ffcd24",
+        "html_exact_tex_sha256": "628436790d83e8e45dd4fa18c179b7ef54ab4dcad7b4af63b2297749edbfbc45"
       },
       "sections": [
         {
@@ -1102,8 +1102,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "b1f44a81d1e5e4eda4f6c4ee8955bc2e22779fc10e2d370581356aaed668a8fe",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -1113,7 +1113,7 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "07fb6499273d2368bab4eddc3b997f3cee91b589301583b03a0bcc11dc1a8092",
+        "html_mathml_sha256": "298139701e1d6ae82e8ac17d3a86e1361cc5947304b47a1e7c33a1d28d97f43f",
         "html_exact_tex_sha256": "0ab88eec8b875a286d4188d4a1975d4ecba85671b9746cf4954dd2ceb705ced4"
       },
       "sections": [
@@ -1264,8 +1264,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "8e35779332d1eb61f6f745b9c7d49613ceb654f2dc92262d62563941c683b7bc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -1294,7 +1294,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "c5e63eb59e004c41546ab9c171dc0691af822d82a514492548d564d21419f02f",
+        "html_mathml_sha256": "32b366a0a2810d9295cb13eb2c194e37a55a192702cd14d55760cb423bb94e81",
         "html_exact_tex_sha256": "a23f3abe3191f95811f81e21b8910f43bc4cf16134866ec675b3ec3a2e0c59e6"
       },
       "sections": [
@@ -2170,8 +2170,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "ddc51a73fab16e533cf890e113f01cfa34658f1197ac85de3940da066cbdd41c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -2181,7 +2181,7 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "0e8b1e4df17197b175e485e75ec2c3c38d4ee9f690a72fa67a1b49936fbd5789",
+        "html_mathml_sha256": "45c361f2e654fc85900178554ac39b151c34fa5ec6cdc33ed1ed17adaaebe111",
         "html_exact_tex_sha256": "b7a2445d34e8cea5bcc35500206f940dd31dc26c42ea7c28f4d478bbc12c9f23"
       },
       "sections": [
@@ -2307,8 +2307,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "d151bccef2113d3131ad8f8980bc1a9336e79ccf12e5a20a2490040638728c38",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -2390,7 +2390,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "70f4f934a1397319ea6780e20faf0b4c4f468439eee037fb7bebeb363855375e",
+        "html_mathml_sha256": "22dafea4139a4da14cc49801b49c060c4766a1d4cd6039151300546b38784136",
         "html_exact_tex_sha256": "4191d6c4f685970e11b06841085e2c5812e5acbcf614560bf5ac86ec5eabf83b"
       },
       "sections": [
@@ -2781,8 +2781,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "fc88570d017fbc97be2553c27cb3c6ed218ddc46b0fa311860814914537808e8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -2798,7 +2798,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "1f6213602eb75c96993a0459153e38ed52042ca6b718a1e23632ae70afe7733b",
+        "html_mathml_sha256": "67909b738901cd5042b0dbae31013c765e25b3df46049598586c098688476a7e",
         "html_exact_tex_sha256": "3deee46cd2cd7705d0f72d142d44d838409801237218bf0592b42e5149ab4409"
       },
       "sections": [
@@ -3049,8 +3049,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "688a8e8dcd728c79b89d58aec10c6203429d9223e0fa44adcbb8bde7e312091b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -3091,7 +3091,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "e0b71ac04779fbe6fbba20e2fc20bb2b773f9a778887decd2e4b0b415b4f198e",
+        "html_mathml_sha256": "851650b37b1aa1b4b9efe483429056eca124c2dd438f389b0bd3be0ead756ccb",
         "html_exact_tex_sha256": "492b50a3bd054f331fa1494787ca0c889227c0d19237e417027acbc7d7289404"
       },
       "sections": [
@@ -3907,8 +3907,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "8ad4751fea8b1611a65400e2ad283725e155b0ee0499fe5ca6e727a24645971d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -3927,7 +3927,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "ad60ee3a7f63c165927e35a9aac4973a3affb5505ff4d130a1eabd66ce6d61a3",
+        "html_mathml_sha256": "f11899db879d21f112f75282a78e5bb120e2741a9b891380fb8eda02e65a6bd2",
         "html_exact_tex_sha256": "9a762fe90355af8f6f3b8e9cbd504cd017e08bf416f4b2472f26d6169c2e54db"
       },
       "sections": [
@@ -4218,8 +4218,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -4229,7 +4229,7 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "0cfdebf7d05b8b8d15716d2cece79b2e448bf2b9c25ba10a82d7aad0a01283a8",
+        "html_mathml_sha256": "a211fba546c6769be22b6887d3f79bd2a10f8a85f96495b26c074bd5991f8266",
         "html_exact_tex_sha256": "7a488c633c2940fc640bdfc18331b57c673d49741737149f9d724aa75ea101fa"
       },
       "sections": [
@@ -4370,19 +4370,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "a5a6f75b996d2d8b6751e064414516d42c6ded18ac8c0818431bfd715fab1744",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "c10b43eed3c2954e3e0c878f2868b3d5c876fa1da2abc15f49d4a55a52bcd5ef",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 787,
+        "mathml_node_count": 786,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "285440f30ca0b77dea5e32ec51fae5c66fc6db45d2188891bce82346e45102ca",
-        "html_exact_tex_sha256": "574f93be84acabd99b260acfe252b73238b4eea92882425c9fd674a73f051ab9"
+        "html_mathml_sha256": "5aa9378684793d37000992eb3d2c39d2748893ee62a510123fec1955bce46b7f",
+        "html_exact_tex_sha256": "0ff75182c57fadaad9fc42e3a9eac12fc4ff41b8cfc3ea1bdda09ab19265ee69"
       },
       "sections": [
         {
@@ -4637,12 +4637,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "91cac94ec9296e643a61bd89580a294c44fbae5cf17afd6975682a3b2522f76b",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "bdddc472edcff62dd91155af8353f6fc8451dce625f96c7edea057cf71bbc576",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2553,
+        "mathml_node_count": 2554,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -4667,8 +4667,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "5c4f15591e77d444170763238548ea1e13c69227593fa616b9be89b85cd8bfb3",
-        "html_exact_tex_sha256": "9581697898b1948fa42942a87f12d5883451152418b500b42562157f210523a4"
+        "html_mathml_sha256": "ae2efed1dfce72f27f43c1ce65b2305f9032db0cde6af7a6fabc15e85e8e4d96",
+        "html_exact_tex_sha256": "57e1b9e638a89b7e6c9e5bd43ff52656ea27b64a0b49fee92c573cffd8af699b"
       },
       "sections": [
         {
@@ -5073,19 +5073,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "7444fdc6ce71c5b49487e0bfc58bdbd974d75918b5e0b7cafee946a551f556b9",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "330172cff7ad691440144905e20a9773fac8ad3d6f2c62460ee4e39284b47c19",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 735,
+        "mathml_node_count": 738,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "6146b2f3825d88ae6ac47d75534bc630ed80be200f8702e491e1ced370140589",
-        "html_exact_tex_sha256": "6859c6ef8b5f3be3f2c3bd9612eb1ee1e5a45edda558227d2d6caa0f55dbdaf7"
+        "html_mathml_sha256": "ab6209ec9e31743e048569396fb7c08389dafa47f0fc2162dd5efd69e4777cc6",
+        "html_exact_tex_sha256": "a36d4b3e0c93fb2ad6994f8860b44d95f2f3511468a92e7a1b3eec12986834da"
       },
       "sections": [
         {
@@ -5325,9 +5325,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "feb1594783aaa4db000596f35cfc4bb09cef6c804455dbe4da84015fd23fc3cf",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "a3aadb660376ef5a79703a227bf5b74c47e4af66429c6defdab7bdb0b380529e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2681,
@@ -5355,8 +5355,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "da45fb816d442a23d31f07c79219f967b3448b7ef47520029cc0ed0f0980b07f",
-        "html_exact_tex_sha256": "a82d44cd47f452e9db41b4d533d9d3aa55e4cf791371488bfe5fecd9484d6e3c"
+        "html_mathml_sha256": "124ee9aeee846c74080d83242facd00341593ef0a7c1c0e99e25770f74d61944",
+        "html_exact_tex_sha256": "696cd73de41fb323848999dcbb9b8ce85ede351b1fb93bf7bf279069f9956721"
       },
       "sections": [
         {
@@ -5731,8 +5731,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
         "source_sha256": "15e5174aa5a2cf6268cd28f0fc353e212ba2fff64561c230325d36d56f90e34d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -5749,8 +5749,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "d3d03b7a6063833db09a77b4fd53e2767643eb8cccdba35f35d519cea7b16b02",
-        "html_exact_tex_sha256": "f8c8091d32dc741cd65f16e79e1d0ab25589378fa23e37853b7bec267fddcea8"
+        "html_mathml_sha256": "4e419adf623a452e687a498d075bcd0aa83d40435285c1dacbc4562df19bf580",
+        "html_exact_tex_sha256": "c20d0dc1b68872d2830a7366e0151d69c871650f31f8fba902e8d2e3a35814f9"
       },
       "sections": [
         {
@@ -5958,7 +5958,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Research architecture",
-      "pages": 21,
+      "pages": 20,
       "question": "How does a research system turn agent work into inspectable mathematical claims?",
       "precis": "Problem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.",
       "owns": "the research architecture and its evidence and authority boundaries",
@@ -5980,19 +5980,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "fefda86309ab84283d9fb87bfa0a4334796eb8a4ab2562ef16664095225beb7d",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "2194a8959c61090d7f21f097fb3df02a816a7fff434516273439405f63128c98",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 12,
+        "mathml_node_count": 24,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "53b5ed57ab4eb6216e3ea55edf3ed9df2a1b026e186dac9f7cf6886154483ba5",
-        "html_exact_tex_sha256": "6895c3376b031b6c16ee6b93252342cc2ec1c0752df0d963b69790b2a3dce4b4"
+        "html_mathml_sha256": "f065d0364ea6baf8f6ce7c28afabc23d59fe7af1d2847e83a32d7c9515ce13f6",
+        "html_exact_tex_sha256": "f39c1cd83c0e8eb3a4f949f8aad97290a96bb24d8581704c3ba409713fea43db"
       },
       "sections": [
         {
@@ -6302,9 +6302,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "c1803808df7ee8142298820360a887283ee2ace7c61b9930ad99477a188bea5a",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "b1ed4142bfc78343481c3560c9e5661a93b62e4ca12cef9712e9180d1a5aa680",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -6313,8 +6313,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "ec5d8355d3954a7ca7ce84b50c23da454f41a36952833e28931fd4b7e2d7b2fd",
-        "html_exact_tex_sha256": "124547d36ce4f0fe785d6335283b94b6c763fd257e800ff56a110d27d7f7f011"
+        "html_mathml_sha256": "96a3687f6d51d64c87ad52ba280607783b9d1ed3cc35f2e746099b15636a9ba0",
+        "html_exact_tex_sha256": "5801823a6c110911064edbfb9a9bf4e5e6c44577a4aed19595170c17e23e9702"
       },
       "sections": [
         {
@@ -6479,12 +6479,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "3548d9c753a2ccf2d61166fee710d72a50fc4df86937a96f40694df0c79e0f12",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "233effed36447608dec182b8b5b998e92de6745cbbbafaa8928e55b9b237bdc1",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 7,
+        "mathml_node_count": 15,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -6507,8 +6507,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "87755c54fbd53391cc287a944c6cb4c190f2b171ebc8e3ebde09ddd806832f49",
-        "html_exact_tex_sha256": "41d46a0787950329764bb51d7d92c7b5c5921ceb41c430fc5182c6bc1d0e5ab6"
+        "html_mathml_sha256": "10a04d4aff5058b950d39dc2dec1d83df0d897b103ac565f56d1cb244ead041f",
+        "html_exact_tex_sha256": "e94458c86f750deb4963d857683198e3af6a3016eef67bc99553a998b903af02"
       },
       "sections": [
         {
@@ -6733,19 +6733,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "eee3b04d7b98c8aceaa5c1af8a2773c4de8b31b91d66f33dca05eb35715e0615",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "b93fb1381948d5123d8abfc6bf95bebb7e6709efb04018e6d34b59fa0aa76cb4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 13,
+        "mathml_node_count": 24,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "62523ce66c5b152af25ebea9751c03a8307a7d4a0c60d50a0556970f961653c5",
-        "html_exact_tex_sha256": "5157ed5b00687aa8c440cc6a05f6e00db3243fe74eae95206a33ccb1b8806ad5"
+        "html_mathml_sha256": "ab06b4ca904c8956739b8a8396a26436616e9b7cf9312351196310681bd332dd",
+        "html_exact_tex_sha256": "4ca74afddd85411d8ba0751227f285c6fd21f692917b02624ec24a5128bd1d1d"
       },
       "sections": [
         {
@@ -6847,6 +6847,11 @@
           "level": 2,
           "anchor": "sec:appendix",
           "label": "Dated reproduction record"
+        },
+        {
+          "level": 5,
+          "anchor": "later-public-entry-check.",
+          "label": "Later public-entry check."
         },
         {
           "level": 5,

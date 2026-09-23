@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Evidence boundary</p>
     <h1>Plectis: What a Stranger Can Check</h1>
     <p class="lean-paper__subject">Systems paper</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="plectis-public-system.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/plectis-public-system.tex">
 <section id="sec:problem" class="level2">
@@ -29,21 +30,78 @@ folder and history to another computer. Everything this paper says a
 stranger can check is in that repository. This paper describes how its
 claims are exposed and where the evidence stops.</p>
 <p>This paper examines the public software collection only. The
-companion mathematics repository is a separate public release containing
-formal mathematics on eight open Erdős problems and the workflows for
-continuing it; the recorded walkthroughs on the project website show the
-private interface. These objects share a reported production history,
-but each supports different conclusions and must be assessed from its
-own evidence. Readers interested in the breadth of the private system
-should start from the architecture documentation rather than from the
-small worked example below, which is chosen for what it lets a stranger
-check, not for what it displays.</p>
+companion mathematics repository is a separate public release with work
+on eight Erdős problem programmes. It credits ani with an explicit
+degree-seven polynomial for which every path through the strict
+lemniscate joining two distinct roots has image of one-dimensional
+Hausdorff measure greater
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+Lean checks the resulting refutation of the Formal Conjectures
+path-image formulation of #1041, as well as the earlier total-variation
+statement; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L393">path-image
+declaration</a> states the checked scope. Correspondence with the 1958
+curve-length wording still awaits independent human review, and the
+other seven target problems remain unresolved there. The recorded
+walkthroughs on the project website show the private interface. These
+objects share a reported production history, but each supports different
+conclusions and must be assessed from its own evidence. The audio
+example below does not test any mathematical result. Readers interested
+in the breadth of the private system should start from the architecture
+documentation rather than from that small example.</p>
+<p>As a current public companion to this dated software case, the
+mathematics repository’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf">#257
+short paper</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf">longer
+record</a> prove a Lean-checked theorem for an infinite exponent set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and a finite nonempty prime set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.
+Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h_P(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v_p(a)</annotation></semantics></math>
+counts factors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}h_P(a)/[a(2^{h_P(a)}-1)]&lt;\infty</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{a\in A}(b^a-1)^{-1}</annotation></semantics></math>
+is irrational at every integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.
+The condition holds for some supports with divergent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a</annotation></semantics></math>
+and passes to infinite subsets. Irrationality for arbitrary infinite
+supports remains open. The audio example below does not test this
+theorem.</p>
+<p>The companion publishes short problem papers, longer reasoning
+records, and linked Lean source. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">exact-rational
+experiment</a> gives a separate, bounded way to test one #257 question.
+Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md">Comparator</a>
+checks selected formal statements, while <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">Palomar
+qualification</a> is repository-local review of candidates for possible
+external submission; neither is an external verdict on novelty or the
+historical problem wording. Readers can propose a proof-workflow or
+other infrastructure change through the companion’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">architecture
+guide</a>, or a toolkit change through <a
+href="https://github.com/wcook04/plectis/blob/main/CONTRIBUTING.md">this
+repository’s contribution guide</a>. Those mathematics artifacts and
+invitations are outside the dated software collection examined here;
+they do not establish independent use or validation of the private
+system.</p>
 <p>The main result is a boundary, not a score. Public code, inputs,
 rules, and run records can make a selected claim easier to challenge.
 They cannot by themselves establish three missing premises: that the
 public code came from the private system, that the project’s expected
 answers and pass rules are correct, or that the selected cases represent
-the unseen whole. The audio example in Section  shows all three limits
+the unseen whole. The audio example in Section 4 shows all three limits
 in one elementary calculation. The later inventory records what was
 published; it is not evidence of breadth, quality, or independence.
 Runeson and Höst likewise treat configuration-managed project documents
@@ -55,10 +113,11 @@ test claims about the public objects it actually exposes, within the
 limits stated for each test.</p>
 <section id="who-made-the-decisions." class="level5">
 <h5>Who made the decisions.</h5>
-<p>I built the private system by directing AI coding agents: I set the
-objectives and review criteria, accepted or rejected their output, and
-remained responsible for the cases, expected answers, decision rules,
-and final public wording. No other person worked on the system. This
+<p>Cook directed the private system’s construction through AI coding
+agents. He set project objectives and review criteria and accepted or
+rejected agent output in the development process. The public record does
+not show how closely he reviewed each present case, expected answer,
+decision rule, or sentence. No other person worked on the system. This
 account explains the concentration of control, but it remains testimony
 about origin: Plectis cannot independently prove how the private work
 was produced, and the public repository does not prove the story. The
@@ -112,12 +171,12 @@ named repository version, I read the list and plain descriptions of all
 88 components, counted them by project group and by the kind of public
 evidence offered, traced the worked component from input to limit, and
 reran the appendix’s public commands. I did not compare every pass rule
-with its prose claim or derive fresh expected answers; Section  reserves
-those checks for an outside evaluator. The paper defines the component
-contract, then follows one ordinary component from input to limit. Five
-distinctions separate what a passing run shows from conclusions it may
-appear to support. The final sections identify the choices an evaluator
-would need to make independently of me.</p>
+with its prose claim or derive fresh expected answers; Section 8
+reserves those checks for an outside evaluator. The paper defines the
+component contract, then follows one ordinary component from input to
+limit. Five distinctions separate what a passing run shows from
+conclusions it may appear to support. The final sections identify the
+choices an evaluator would need to make independently of me.</p>
 <p>This is a descriptive analysis of one public repository, not a
 statistical study. Runeson and Höst define the case as the object of
 study and its units of analysis as items contained within it <span
@@ -168,7 +227,7 @@ contain.</p>
 <li><p>Which independently controlled evidence would strengthen
 it?</p></li>
 </ol>
-<p>Section  gives the full command, all five audio cases, and the saved
+<p>Section 4 gives the full command, all five audio cases, and the saved
 run record. We now generalise from this example to the project’s common
 record format.</p>
 </section>
@@ -197,10 +256,11 @@ read by the programs, contains 88 entries. Every entry is required to
 connect the same things: a claim stated in prose; a fixture; a command;
 the output files the command writes; a stored receipt from a prior run;
 an explicit rule for what counts as a pass and what must be refused; and
-a stated limit on what a pass establishes. Figure  lays the required
-parts out, together with the fact about them that the rest of this paper
-keeps returning to: every part is supplied by me, and every part is
-exposed to a stranger.</p>
+a stated limit on what a pass establishes.
+Figure <code>[fig:contract]</code> lays the required parts out, together
+with the fact about them that the rest of this paper keeps returning to:
+every part is supplied by me, and every part is exposed to a
+stranger.</p>
 <figure id="fig:contract" data-latex-placement="t">
 
 <figcaption>How to read the component contract, at commit
@@ -215,10 +275,10 @@ part is public, and the project supplied every part. The italic blue row
 names what a stranger can do without asking anyone; amber marks the
 project’s words and choices. Across the figures, a dashed outline marks
 something outside what the public run establishes. This figure has no
-dashed boxes because none of its parts is hidden. In Figures  and ,
-dashes mark private material or conclusions not established by the
-observed run. Section  follows one component through this
-chain.</figcaption>
+dashed boxes because none of its parts is hidden. In
+Figures <code>[fig:boundary]</code> and <code>[fig:gaps]</code>, dashes
+mark private material or conclusions not established by the observed
+run. Section 4 follows one component through this chain.</figcaption>
 </figure>
 <p>The repository cannot by itself support my assertions about the
 unseen private system. A component does something narrower: it gives a
@@ -248,7 +308,7 @@ public record shows each boundary as declared at the named commit, and
 it cannot show whether the boundary was drawn before or after an awkward
 case was first met. A boundary drawn afterwards turns a failure into a
 designed refusal in the telling. Saving the version before an outside
-evaluation begins, as Section  proposes, is what would make that
+evaluation begins, as Section 8 proposes, is what would make that
 ordering checkable.</p>
 <p>The idea does not depend on software. The contract needs a claim in
 words; a determinate public case; a procedure a stranger can cause to
@@ -507,7 +567,7 @@ where a reader promotes a case to the second by recomputing it, as the
 worked example’s decimal-samples row invites. Components that invoke a
 named external tool occupy a hybrid of the first and third positions:
 the project still chooses the case and the rule, while the tool supplies
-a result that inherits its own limits. The evaluations in Section 
+a result that inherits its own limits. The evaluations in Section 8
 describe ways to move consequential choices out of the project’s
 control.</p>
 <p><code>batch8_audio_level_rms_port_validation_receipt.json</code> is
@@ -537,15 +597,16 @@ treats these five gaps separately.</p>
 </section>
 <section id="sec:distinctions" class="level2">
 <h2>Five distinctions</h2>
-<p>Five labels organise the gaps in Figure : <em>origin</em>, where the
-material came from; <em>correctness</em>, whether an answer is right;
-<em>meaning</em>, whether a rule tests its claim; <em>reach</em>,
-whether shown cases stand for unshown ones; and <em>risk</em>, what the
-declared checks may miss. These short labels correspond to familiar
-questions about provenance, test-oracle validity, claim–test fidelity,
-representativeness, and residual risk. They are not five new kinds of
-evidence. Each subsection separates what the public run directly shows
-from the additional premise needed for a stronger conclusion.</p>
+<p>Five labels organise the gaps in Figure <code>[fig:gaps]</code>:
+<em>origin</em>, where the material came from; <em>correctness</em>,
+whether an answer is right; <em>meaning</em>, whether a rule tests its
+claim; <em>reach</em>, whether shown cases stand for unshown ones; and
+<em>risk</em>, what the declared checks may miss. These short labels
+correspond to familiar questions about provenance, test-oracle validity,
+claim–test fidelity, representativeness, and residual risk. They are not
+five new kinds of evidence. Each subsection separates what the public
+run directly shows from the additional premise needed for a stronger
+conclusion.</p>
 <section id="public-execution-versus-where-the-code-came-from"
 class="level3 unnumbered">
 <h3 class="unnumbered">Public execution versus where the code came
@@ -608,7 +669,7 @@ can be repeatable, and correct as far as the checked property goes,
 while the checked property is beside the stated point. Plectis makes the
 gap inspectable rather than closed. Every validator is public, so a
 reader can put the rule beside the prose and object where the rule is
-weaker, and the review in Section  makes exactly that comparison its
+weaker, and the review in Section 9 makes exactly that comparison its
 central step. Since the same author-controlled project produced both the
 claims and the rules, agreement between them records one judgement
 twice, and no count of passing components can substitute for reading one
@@ -628,21 +689,21 @@ collection resembles ordinary work in the private system. A collection
 can consist entirely of genuine items and still give an unrepresentative
 picture of what it was drawn from. This is analogous to selective
 publication and the file-drawer problem, not the same process <span
-class="citation" data-cites="rosenthal1979"></span>. Figure  draws the
-situation: public checking reaches everything to the right of the
-boundary, and the pool the selection was drawn from stays on the
-left.</p>
+class="citation" data-cites="rosenthal1979"></span>.
+Figure <code>[fig:boundary]</code> draws the situation: public checking
+reaches everything to the right of the boundary, and the pool the
+selection was drawn from stays on the left.</p>
 <figure id="fig:boundary" data-latex-placement="H">
 
 <figcaption>The selection problem. Each square stands for a private
 mechanism; the darker ones were given public form. Each public component
-has the parts shown in Figure . The grid trails off because its true
-extent is exactly what the public side cannot know. The count of squares
-on the left, the rule that picked the darker ones, and the resemblance
-between the two sides are all invisible from the right. The collection
-supplies directly checkable evidence about the published files and their
-behaviour under named tests, but no basis by itself for generalising to
-the hidden whole.</figcaption>
+has the parts shown in Figure <code>[fig:contract]</code>. The grid
+trails off because its true extent is exactly what the public side
+cannot know. The count of squares on the left, the rule that picked the
+darker ones, and the resemblance between the two sides are all invisible
+from the right. The collection supplies directly checkable evidence
+about the published files and their behaviour under named tests, but no
+basis by itself for generalising to the hidden whole.</figcaption>
 </figure>
 <p>The registry’s count should be read in that light. A registry of 88
 entries defines exactly what is published. A later evaluation would need
@@ -688,7 +749,7 @@ supplies none of these assumptions. The contract makes each one
 explicit. Once named, a gap can be disputed, assigned a cost to address,
 or deliberately left open. An unnamed gap is easy to cross without
 noticing. These five are not exhaustive. Two more gaps appeared earlier:
-observing a refusal today does not show when it was drawn (Section ),
+observing a refusal today does not show when it was drawn (Section 3),
 and observing a number at one commit does not describe the next (the
 appendix). These are simply the five gaps this collection most needs a
 reader to hold.</p>
@@ -778,7 +839,7 @@ work resumes after interruption.</td>
 </table>
 </div>
 <p>The groups do not share a subject. Their only unity is the contract
-of Section : each item became a small public test. The collection is
+of Section 3: each item became a small public test. The collection is
 organised by how claims are checked, not by a common scientific
 question.</p>
 <p>The registry also classifies what kind of evidence each component
@@ -896,7 +957,7 @@ what any of it is for. An objection about selection is not answered by
 the successful execution of any number of selected items. The registry
 hosts the small arguments; it does not settle the large ones.</p>
 <p>Two corrections need no cooperation from me. First, read any
-component at the weakest property its validator checks, as Section 
+component at the weakest property its validator checks, as Section 6
 proposes. Second, treat every count as an inventory, and every agreement
 among my records as one witness. A third point concerns what no reader
 can inspect: a private mechanism is easiest to publish when it can be
@@ -917,7 +978,7 @@ undergone no IV&amp;V. No other outside evaluation report is cited or
 included, and I know of none; an unreported private rerun would remain
 invisible. I use the NASA criteria only for the paper’s five gaps:
 evidence about a choice depends less on me once the choice is no longer
-mine. Section  lists evaluations that address those dependencies.</p>
+mine. Section 8 lists evaluations that address those dependencies.</p>
 </section>
 <section id="sec:stronger" class="level2">
 <h2>What stronger evidence would look like</h2>
@@ -934,13 +995,13 @@ includes no outside evaluator’s report; I know of none, although a
 private rerun could be unreported.</p>
 <p>Five forms of independent evaluation could add evidence that the
 public repository cannot supply by itself. These are not the four
-publication routes in Section . A publication route classifies evidence
+publication routes in Section 6. A publication route classifies evidence
 already in the registry; the evaluations below describe new work by
 someone outside the project. The order is only for exposition. It ranks
-nothing, and no evaluation is a prerequisite for another. Figure  shows
-which choice each evaluation transfers and which claim it still leaves
-open. The common question is who makes the choice that matters for that
-claim.</p>
+nothing, and no evaluation is a prerequisite for another.
+Figure <code>[fig:ladder]</code> shows which choice each evaluation
+transfers and which claim it still leaves open. The common question is
+who makes the choice that matters for that claim.</p>
 <figure id="fig:ladder" data-latex-placement="H">
 
 <figcaption>Five forms of independent evaluation. Above each evaluation,
@@ -1057,7 +1118,7 @@ preregistered case-selection rule and a failure taxonomy fixed before
 outcomes are inspected would separate those accounts better than another
 author-selected example.</p>
 <p>This format does not make the leading hypothesis independent. It is
-the project’s expected answer, in the same sense that Section ’s
+the project’s expected answer, in the same sense that Section 4’s
 expected output is project-supplied. Its contribution is different: it
 makes the prior, alternatives, and update rule inspectable before an
 expert answer is known. A reader can reject the leading hypothesis, add
@@ -1092,7 +1153,7 @@ or no better than a short ordinary script, that conclusion belongs on
 the record with the same standing as a pass. Any outside evaluator’s
 report should remain under that evaluator’s control, cited rather than
 absorbed. If the repository later falls short of this paragraph, the
-shortfall is itself a finding, and Section  says where findings go.</p>
+shortfall is itself a finding, and Section 9 says where findings go.</p>
 <p>These evaluations do not pair one-for-one with the distinctions. They
 address the runner, public-case selection, tested-case correctness,
 usefulness, and origin. None repairs a validator–claim mismatch, proves
@@ -1125,10 +1186,22 @@ Python 3.13.7. The repository version was commit
 <code>57ffb7f5830cc446a2cbd8083d5d80bcab2af563</code>, abbreviated
 <code>57ffb7f5830c</code> elsewhere. Later commits or machines may
 differ; the body does not depend on them.</p>
-<p>A typed hypothesis handoff makes the next outside contribution more
-specific: it exposes the project’s tentative answer, alternatives, and
-update rule before the outcome is known. That is a better invitation to
-disagree, not stronger evidence that the project is right.</p>
+<section id="later-public-entry-check." class="level5">
+<h5>Later public-entry check.</h5>
+<p>A maintainer-run <code>make ci</code> in September 2026, after commit
+<code>c69f9afb32</code> and before <code>09794d4cbb</code>, reported 795
+passing tests and five skips, followed by passing public smoke and
+package-install checks. The package check installed the source into a
+fresh environment, moved the source tree out of the import path, and ran
+the installed <code>plectis</code> command against its packaged
+hypothesis-handoff example. It checked that the command accepted the
+packet without changing the input. The current first-action command,
+<code>plectis comprehend --first-action</code>, is also part of that
+installed check. This later run was performed within the project, not by
+an independent evaluator; it does not amend the pinned July results or
+verify the companion repository’s mathematics. Changes after that run
+require fresh checks.</p>
+</section>
 <section id="a-first-review." class="level5">
 <h5>A first review.</h5>
 <p>Use the appendix’s no-install block and select the version analysed
@@ -1138,7 +1211,7 @@ claim. Ask the repository to find the audio example with</p>
   --first-action &quot;audio level calculation&quot; --format text</code></pre>
 <p>The response identifies the audio component, but do not run its first
 suggested command: it writes to the repository’s saved receipt paths.
-Run the paper’s exact no-install command near the start of Section 
+Run the paper’s exact no-install command near the start of Section 4
 instead; it writes only to <code>/tmp</code> and leaves the checkout
 unchanged. Under <code>/tmp/plectis-audio-rms/</code>, open
 <code>batch8_audio_level_rms_port_result.json</code>; JSON is a
@@ -1201,9 +1274,9 @@ or model calls, so inspect the source.</p>
 </section>
 <section id="the-worked-example." class="level5">
 <h5>The worked example.</h5>
-<p>A fresh Section  rerun reproduced all displayed passes and values and
-overwrote <code>/tmp/plectis-audio-rms</code>. A stale field reports a
-copied private module, while the saved import record reports none
+<p>A fresh Section 4 rerun reproduced all displayed passes and values
+and overwrote <code>/tmp/plectis-audio-rms</code>. A stale field reports
+a copied private module, while the saved import record reports none
 because public code replaced it; the discrepancy remains.</p>
 </section>
 <section id="a-second-python-version." class="level5">
@@ -1253,11 +1326,11 @@ external truth.</p>
 language models operating within Will Cook’s private research system for
 artificial intelligence. The formal proofs and repository software were
 likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority.</p>
+Cook’s direction. Cook set the project’s objectives and acceptance
+criteria and directed the agent work. The public record does not
+establish that he personally reviewed every claim or approved this
+specific version. Generative systems are production tools, not authors,
+and supply no independent authority.</p>
 </section>
 <section id="authority-boundary." class="level5">
 <h5>Authority boundary.</h5>

@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-243-reciprocal-tail-rigidity",
-  "title": "Bounded Increments and Rational Reciprocal Sums",
+  "title": "Cubic-Rate Irrationality and Reciprocal-Tail Rigidity",
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Problem note",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 30,
-    "renderer_fingerprint": "d383526533396f6a",
-    "source_sha256": "1e9a3ab22bf1b3bb60d60d587ce1d17121c39b6a5db79404e0275e5f38d72be6",
+    "renderer_contract_version": 32,
+    "renderer_fingerprint": "f255c6c37cc97729",
+    "source_sha256": "9a064db20f9f82e223eef246d626b7b22eb5fe1db29a9be11db351c34f7de575",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 510,
+    "mathml_node_count": 526,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "c97fdf0afe0f493e523b981841c7cd68e1daf5d6a2a69415c0d670dee57ed665",
-    "html_exact_tex_sha256": "7c33d821960943aaa05dddb258bc77b291c570840371b3cd770b0d7bf20ee3eb"
+    "html_mathml_sha256": "0d8ad61a234e4db33eaad5e6d7f7248aae1ad552a4a10a305a4e0eda37a8dc27",
+    "html_exact_tex_sha256": "ab53200de560ce073402f8d094d1c9d07ecce922c8866c87eff8ca362af75bc8"
   },
   "sections": [
     {
@@ -95,7 +95,7 @@
     {
       "level": 2,
       "anchor": "sec:secondaryrate",
-      "label": "Further consequences"
+      "label": "Cubic-rate irrationality and further consequences"
     },
     {
       "level": 2,

@@ -1,13 +1,16 @@
 <article class="lean-paper" data-paper-id="erdos-243-reciprocal-tail-rigidity" data-math-mode="mathml">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Bounded Increments and Rational Reciprocal Sums</h1>
+    <h1>Cubic-Rate Irrationality and Reciprocal-Tail Rigidity</h1>
     <p class="lean-paper__subject">Erdős #243</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="erdos-243-reciprocal-tail-rigidity.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
-<p>For integers
+<p>The cubic-rate theorem in Section 7 gives irrationality for a precise
+subclass of the growth sequences in Erdős Problem #243. The main
+recurrence criterion below treats a different subclass. For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n&gt;1</annotation></semantics></math>,
 the Sylvester recurrence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^2-a_n+1</annotation></semantics></math>
@@ -69,9 +72,9 @@ bound also allows positive limiting increments: the integer sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mi>n</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌉</mo></mrow><annotation encoding="application/x-tex">a_{n+1}=\lceil n a_n^2/(n+1)\rceil</annotation></semantics></math>,
 beginning
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>43</mn><mo>,</mo><mn>1387</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">4,8,43,1387,\ldots</annotation></semantics></math>,
-is such an example. We verify this after the main proof in Section . A
+is such an example. We verify this after the main proof in Section 4. A
 ratio tending to one alone does not give the bound: the rounded
-cubic-rate example in Section  has increments of order
+cubic-rate example in Section 7 has increments of order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>.</p>
 <p>Write the rational tail as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_n/D_n</annotation></semantics></math>,
@@ -90,7 +93,7 @@ out gives coprimality to every earlier multiplier. The Chinese remainder
 theorem then supplies a forbidden block that bounded upward jumps cannot
 cross without landing inside.</p>
 <p>Here is the precise arithmetic statement. For the rational tails,
-Section  supplies every condition except (5). Condition (4) follows
+Section 4 supplies every condition except (5). Condition (4) follows
 from (6) with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K=1</annotation></semantics></math>;
 listing it separately makes the hypothesis used when propagating a zero
@@ -167,31 +170,31 @@ data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span> and by Erdős <spa
 data-cites="erdos1988"><a href="#ref-6">[6]</a></span>, and Bloom’s catalogue lists it as
 Problem #243 <span class="citation"
 data-cites="erdosproblems"><a href="#ref-11">[11]</a></span>.</p>
-<p>Sections – contain the main proof: the arithmetic argument, its gcd
+<p>Sections 2–4 contain the main proof: the arithmetic argument, its gcd
 and CRT lemmas, and the construction from the reciprocal series. The
 later sections give extensions and state the estimate still needed for
-the unrestricted problem. Appendix  records the formal correspondences
+the unrestricted problem. Appendix A records the formal correspondences
 separately.</p>
 </section>
 <section id="sec:bounded" class="level2">
 <h2>Proof under a lower bound on the error</h2>
-<p>We first assemble the argument. Section  proves its arithmetic
-lemmas; Section  constructs the integers from the rational reciprocal
+<p>We first assemble the argument. Section 3 proves its arithmetic
+lemmas; Section 4 constructs the integers from the rational reciprocal
 sum.</p>
 <div class="proof">
-<p><em>Proof of Theorem .</em> Suppose the error is not eventually zero.
-By Theorem , after the centring threshold a single zero would force
-every later error to be zero. Hence
+<p><em>Proof of Theorem 1.2.</em> Suppose the error is not eventually
+zero. By Theorem 3.2, after the centring threshold a single zero would
+force every later error to be zero. Hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|E_n|\ge1</annotation></semantics></math>
 on a sufficiently late tail, and condition (6) gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">C_n\to\infty</annotation></semantics></math>.</p>
-<p>If there were only finitely many negative indices, Theorem  would
+<p>If there were only finitely many negative indices, Theorem 3.2 would
 give eventual zero. There are therefore infinitely many, and
 condition (5) bounds their magnitudes by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
 In particular
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>.
-Proposition  now makes
+Proposition 3.7 now makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G_n=\gcd(C_n,D_n)</annotation></semantics></math>
 constant, say
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g&gt;0</annotation></semantics></math>,
@@ -204,11 +207,11 @@ form a reduced exact orbit, with
 and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><mi>g</mi><mo>≤</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">u_{n+1}-u_n=-E_n/g\le B.</annotation></semantics></math>
 The earlier multipliers are coprime to every later reduced numerator.
-Theorem  says that these coprimality conditions are incompatible with
+Theorem 3.5 says that these coprimality conditions are incompatible with
 divergence and the displayed bound on upward steps. ◻</p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 2.1</strong>. <em> Under Theorem , the multipliers
+<p><strong>Corollary 2.1</strong>. <em> Under Theorem 1.2, the multipliers
 satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^2-a_n+1</annotation></semantics></math>
 eventually.</em></p>
@@ -217,9 +220,9 @@ eventually.</em></p>
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L179">bounded
 negative endpoint eventual multiplier</a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> Theorem  gives eventual zero error. Since
+<p><em>Proof.</em> Theorem 1.2 gives eventual zero error. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_n&gt;0</annotation></semantics></math>,
-Corollary  gives the recurrence. ◻</p>
+Corollary 3.3 gives the recurrence. ◻</p>
 </div>
 </section>
 <section id="sec:state" class="level2">
@@ -231,11 +234,11 @@ and take empty products and least common multiples to be
 An <em>exact state</em> means sequences satisfying the two recurrences
 and the definition of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
-in Theorem ; positivity and bounds on the error are stated separately.
-Removing finitely many terms does not change convergence or rationality
-of the reciprocal series, or the eventual validity of a recurrence. A
-specified higher-order rate retains its original index: reindexing
-changes its lower-order terms.</p>
+in Theorem 1.2; positivity and bounds on the error are stated
+separately. Removing finitely many terms does not change convergence or
+rationality of the reciprocal series, or the eventual validity of a
+recurrence. A specified higher-order rate retains its original index:
+reindexing changes its lower-order terms.</p>
 <section id="sec:defect" class="level3">
 <h3>Error, absorption and descent</h3>
 <p> The error identity gives both the Sylvester recurrence and
@@ -334,7 +337,7 @@ shifted consecutive multiples</a>.</small></p>
 by the Chinese remainder theorem, then add multiples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mi>i</mi></msub><msub><mi>m</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\prod_i m_i</annotation></semantics></math>. ◻</p>
 </div>
-<p>Lemma  matches each modulus
+<p>Lemma 3.4 matches each modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>i</mi></msub><annotation encoding="application/x-tex">m_i</annotation></semantics></math>
 to its own multiple
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">t+i</annotation></semantics></math>
@@ -380,7 +383,7 @@ bounded rise of tail avoidance</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>m</mi><mrow><mi>B</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">m_0,\ldots,m_{B-1}</annotation></semantics></math>
-and use Lemma  to find
+and use Lemma 3.4 to find
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t&gt;\max(u_0,\ldots,u_B)</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>i</mi></msub><mo>∣</mo><mi>t</mi><mo>+</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">m_i\mid t+i</annotation></semantics></math>.
@@ -482,7 +485,7 @@ coprime. ◻</p>
 <section id="sec:transfer" class="level2">
 <h2>Constructing the integers from a reciprocal series</h2>
 <p>Assume the positivity, strict increase, growth and rationality
-hypotheses of Corollary , but not yet its increment bound. We use the
+hypotheses of Corollary 1.1, but not yet its increment bound. We use the
 denominator-clearing construction of <span class="citation"
 data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>, with the following indexing. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mi>n</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">x_n=\sum_{k\ge n}1/a_k</annotation></semantics></math>.
@@ -531,8 +534,8 @@ his rounding rule gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><mn>2</mn><mo>≤</mo><msub><mi>E</mi><mi>n</mi></msub><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-C_n/2\le E_n&lt;C_n/2</annotation></semantics></math>
 on that tail.</p>
 <div class="proof">
-<p><em>Proof of Corollary .</em> Only a one-sided comparison is needed.
-Substituting
+<p><em>Proof of Corollary 1.1.</em> Only a one-sided comparison is
+needed. Substituting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">x_n=1/a_n+1/a_{n+1}+\sum_{k\ge n+2}1/a_k</annotation></semantics></math>
 gives the exact identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><mfrac><msub><mi>P</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mi>n</mi><mo>+</mo><mn>2</mn></mrow></munder><mfrac><mn>1</mn><msub><mi>a</mi><mi>k</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
@@ -550,14 +553,15 @@ eventually, since
 The right side is therefore positive. The assumed upper bound on the
 product expression now supplies a lower bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>.
-After deleting a finite prefix, Theorem  and Corollary  give the
+After deleting a finite prefix, Theorem 1.2 and Corollary 2.1 give the
 result. ◻</p>
 </div>
 <p>This completes the main argument. The summability, LCM and
 higher-order rate hypotheses in the following extensions are not used in
 it.</p>
-<p>The product-weighted comparison in  also occurs in Koizumi’s proof of
-his Corollary 4(1) <span class="citation"
+<p>The product-weighted comparison
+in <code>[eq:canonical-dictionary]</code> also occurs in Koizumi’s proof
+of his Corollary 4(1) <span class="citation"
 data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. Here its eventual sign suffices for
 the lower error bound.</p>
 <section id="an-example-with-positive-limiting-increments."
@@ -592,7 +596,7 @@ have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}-1=O(1/a_n)</annotation></semantics></math>.
 The positive limiting increment separates the two product conditions,
 not the full range of earlier irrationality criteria.</p>
-<p>The additional hypothesis in Theorem  is the lower bound on
+<p>The additional hypothesis in Theorem 1.2 is the lower bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>.
 The growth and rationality assumptions already supply the other
 arithmetic hypotheses after a finite shift. Badea’s criterion <span
@@ -607,18 +611,18 @@ eventually, forces a Sylvester tail and hence the other. The present
 theorem allows sign changes but bounds the magnitude of negative errors.
 Koizumi’s Corollary 4(1) assumes a nonpositive upper limit for the
 product expression <span class="citation"
-data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>, and Corollary  allows any finite upper
-limit. Bado’s preprint, posted in September 2026, assumes two-sided
-bounded errors <span class="citation" data-cites="bado2026"><a href="#ref-7">[7]</a></span>;
-Theorem  needs only an eventual lower bound. Both proofs use a forbidden
-block from the Chinese remainder theorem. Here the one-sided bound first
-stabilises the gcd, which makes that argument available for the reduced
-numerators.</p>
+data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>, and Corollary 1.1 allows any finite
+upper limit. Bado’s preprint, posted in September 2026, assumes
+two-sided bounded errors <span class="citation"
+data-cites="bado2026"><a href="#ref-7">[7]</a></span>; Theorem 1.2 needs only an eventual lower
+bound. Both proofs use a forbidden block from the Chinese remainder
+theorem. Here the one-sided bound first stabilises the gcd, which makes
+that argument available for the reduced numerators.</p>
 <p>The error identities, absorption and descent follow from Koizumi’s
 recurrences <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>; he
 credits the nonnegative-error case to Badea <span class="citation"
 data-cites="badea1993"><a href="#ref-3">[3]</a></span>. Earlier remainder methods are discussed
-in Appendix .</p>
+in Appendix A.</p>
 </section>
 </section>
 <section id="sec:mass" class="level2">
@@ -690,7 +694,7 @@ August 2026 <span class="citation"
 data-cites="erdosproblemaday243"><a href="#ref-8">[8]</a></span>; the statement above is for any
 positive integer sequence with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}=C_n-E_n</annotation></semantics></math>.
-This summability condition and the bound in Theorem  are different
+This summability condition and the bound in Theorem 1.2 are different
 estimates. For exact reciprocal tails with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|E_n|/C_n\to0</annotation></semantics></math>,
 each is equivalent to eventual vanishing of
@@ -749,7 +753,7 @@ data-cites="bado2026"><a href="#ref-7">[7]</a></span>.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>∣</mo><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">L_n\mid qP_n</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>n</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">V_n=(L_n/(qP_n))E_n</annotation></semantics></math>,
-multiplying by
+multiplying <code>[eq:canonical-dictionary]</code> by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_n/(qP_n)</annotation></semantics></math>
 gives, eventually,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>V</mi><mi>n</mi></msub><mo>+</mo><mfrac><msub><mi>L</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mfrac><msub><mi>L</mi><mi>n</mi></msub><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
@@ -787,8 +791,8 @@ This identity is not asserted at a contracting step with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho_n\ge2</annotation></semantics></math>.</p>
 <div class="theorem">
 <p><strong>Theorem 6.1</strong> (a convergent weighted sum over new
-maxima). <em> Assume the growth and rationality hypotheses of Problem .
-Let
+maxima). <em> Assume the growth and rationality hypotheses of
+Problem 1.3. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f:[1,\infty)\to[0,\infty)</annotation></semantics></math>
 be finite and nonincreasing, with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>1</mn><mi>∞</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\int_1^\infty f(t)\,dt=\infty</annotation></semantics></math>.
@@ -934,7 +938,7 @@ eventually. ◻</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>t</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">f(t)=1/[t\log(et)]</annotation></semantics></math>
 gives the sufficient condition
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi mathvariant="script">ℛ</mi></mrow></munder><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><mrow><msub><mi>U</mi><mi>n</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{n\in\mathcal R}\frac{(-V_n-B)_+}{U_n\log(eU_n)}&lt;\infty.</annotation></semantics></math>
-Its finite lower bound in  is
+Its finite lower bound in <code>[eq:weightedcrossing]</code> is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><msub><mi>R</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P^{-1}\log\bigl(\log(eR_N)/\log(e(R_T+P))\bigr)</annotation></semantics></math>.
 Further fixed iterated logarithmic factors are allowed whenever the
 integral still diverges. These are specialisations of one crossing
@@ -967,10 +971,12 @@ now
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">U_n\le C_n</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(U_n)\le f(1)</annotation></semantics></math>
-make the comparison error summable. The errors in  and  are also
-absolutely summable, since each is eventually between zero and
+make the comparison error summable. The errors
+in <code>[eq:canonical-dictionary]</code>
+and <code>[eq:general-clearance-dictionary]</code> are also absolutely
+summable, since each is eventually between zero and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">qP_n/a_{n+1}=O(P_n/a_n^2)</annotation></semantics></math>.
-Consequently Theorem  is equivalent to finiteness of
+Consequently Theorem 6.1 is equivalent to finiteness of
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi mathvariant="script">ℛ</mi></mrow></munder><msub><mi>U</mi><mi>n</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>−</mo><mn>1</mn><mo>−</mo><mfrac><mi>B</mi><msub><mi>U</mi><mi>n</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:weightedgrowth}
  \sum_{n\in\mathcal R}U_nf(U_n)
@@ -986,7 +992,7 @@ be replaced by
 in the crossing proof.</p>
 <div class="corollary">
 <p><strong>Corollary 6.2</strong> (a bound using the least common
-multiple). <em> Assume the hypotheses of Problem . Write
+multiple). <em> Assume the hypotheses of Problem 1.3. Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">A_1=1</annotation></semantics></math>.
@@ -1006,13 +1012,14 @@ lies in
 an upper bound on the expression in the corollary gives an upper bound
 on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(L_n/a_n)(a_n^2/a_{n+1}-1)</annotation></semantics></math>;
-negative terms remain negative. Equation  therefore bounds the negative
-part of
+negative terms remain negative.
+Equation <code>[eq:general-clearance-dictionary]</code> therefore bounds
+the negative part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>n</mi></msub><annotation encoding="application/x-tex">V_n</annotation></semantics></math>.
 Choose an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 above that eventual bound. The record series then vanishes after a
-finite prefix, so Theorem  applies. ◻</p>
+finite prefix, so Theorem 6.1 applies. ◻</p>
 </div>
 <p>Erdős and Straus assume a nonpositive upper limit in this LCM
 expression <span class="citation" data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>:
@@ -1027,7 +1034,7 @@ Tijdeman and Yuan extend this type of criterion to positive numerators
 finite upper bound suffices under the quadratic-limit assumption. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>∣</mo><msub><mi>P</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">A_n\mid P_n</annotation></semantics></math>,
 the LCM hypothesis is no stronger than the product hypothesis in
-Corollary : if the product expression is at most
+Corollary 1.1: if the product expression is at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
 the LCM expression is at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\max(B,0)</annotation></semantics></math>.
@@ -1035,7 +1042,7 @@ When the earlier terms are pairwise coprime the two weights agree;
 repeated prime factors can make the LCM much smaller. This comparison
 does not assert the existence of a non-Sylvester rational example
 satisfying one bound but not the other.</p>
-<p>Lean checks Corollary  as <a
+<p>Lean checks Corollary 6.2 as <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">the
 LCM condition for the reciprocal sequence</a>. That declaration takes
 the rational reciprocal sum and the quadratic growth limit as
@@ -1092,7 +1099,7 @@ proof supplement</a> also gives finite examples separating boundedness
 from stationarity.</p>
 </section>
 <section id="sec:secondaryrate" class="level2">
-<h2>Further consequences</h2>
+<h2>Cubic-rate irrationality and further consequences</h2>
 <div class="corollary">
 <p><strong>Corollary 7.1</strong> (an inclusive one-sided
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
@@ -1132,7 +1139,7 @@ Since
 the increment
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_n\gamma_n</annotation></semantics></math>
 is bounded above. This supplies the extra hypothesis of
-Corollary . ◻</p>
+Corollary 1.1. ◻</p>
 </div>
 <p>This is a written consequence of the bounded-increment criterion. It
 does not assert that the weaker condition
@@ -1147,11 +1154,51 @@ strictly increasing sequence of positive integers with
 has irrational reciprocal sum.</em></p>
 </div>
 <p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic
-rate irrationality unconditional</a>.</small></p>
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70"><code>cubic_rate_irrationality_unconditional</code></a>.
+The zero-indexed theorem has no Chebotarev hypothesis; the one-based
+index translation below is an ordinary argument. See the <a
+href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
+<p><em>Index translation.</em> The Lean theorem takes a positive,
+strictly increasing sequence indexed from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.
+To preserve the displayed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">3/n</annotation></semantics></math>
+rate, we alter only a finite prefix without shifting indices. Strict
+increase gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">a_n\ge n</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>.
+The rate makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}&lt;2</annotation></semantics></math>
+eventually, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>&gt;</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><mn>2</mn><mo>≥</mo><msup><mi>n</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo>&gt;</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}&gt;a_n^2/2\ge n^2/2&gt;n+1</annotation></semantics></math>
+for all sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>N</mi></msub><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a_N&gt;N</annotation></semantics></math>
+and set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_n=n+1</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">0\le n&lt;N</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">b_n=a_n</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n\ge N</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+is positive and strictly increasing, has exactly the same rate for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n\ge N</annotation></semantics></math>,
+and its reciprocal sum differs from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}1/a_n</annotation></semantics></math>
+by a finite rational sum. Thus the zero-indexed Lean theorem implies the
+printed one-based conclusion through this ordinary finite-prefix
+argument.</p>
 <div class="proof">
 <p><em>Proof by the polynomial exclusion.</em> Under rationality,
-Section  gives
+Section 4 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mi>/</mi><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_{n+1}/C_n=1+3/n+o(n^{-3})</annotation></semantics></math>.
 Integer finite differences then give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>A</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">C_n=An(n+1)(n+2)+B</annotation></semantics></math>
@@ -1163,15 +1210,19 @@ The fixed-cubic exclusion contradicts this profile. The complete
 ordinary argument, including the finite-difference extraction and the
 cubic-field step, is in Section 2 of the <a
 href="https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf">companion
-reasoning paper</a>. The field step in that argument uses Chebotarev’s
-theorem; see <span class="citation"
-data-cites="stevenhagenlenstra1996"><a href="#ref-9">[9]</a></span> for that classical input.
-This paragraph is a proof by a stated companion result. ◻</p>
+reasoning paper</a>. The companion gives an ordinary proof of the field
+step using the classical Chebotarev theorem <span class="citation"
+data-cites="stevenhagenlenstra1996"><a href="#ref-9">[9]</a></span>. The Lean proof instead
+derives the square-specialisation lemma from the simple pole of the
+Dedekind zeta function and applies it to the full cubic-rate
+implication. This paragraph is a proof by the stated companion
+argument. ◻</p>
 </div>
-<p>Theorem  is also a Lean theorem, <a
+<p>The zero-indexed form of Theorem 7.2 is also a Lean theorem, <a
 href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
-irrationality</a>, with no hypothesis beyond those printed above. In the
-Lean proof, the field step uses the simple pole of the Dedekind zeta
+irrationality</a>, with the stated rate and no Chebotarev premise. The
+one-based conclusion uses the ordinary finite-prefix bridge above. In
+the Lean proof, the field step uses the simple pole of the Dedekind zeta
 function at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s=1</annotation></semantics></math>,
 which Mathlib provides, in place of Chebotarev’s theorem.</p>
@@ -1181,9 +1232,9 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mi>n</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌉</mo></mrow><annotation encoding="application/x-tex">a_{n+1}=\lceil n a_n^2/(n+3)\rceil</annotation></semantics></math>
 give this rate and product-ratio increments of order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>.
-Thus the bounded-increment criterion does not apply, but Theorem  gives
-irrationality. The rounding estimates are in the companion’s Section 2;
-its Section 7 treats the general
+Thus the bounded-increment criterion does not apply, but Theorem 7.2
+gives irrationality. The rounding estimates are in the companion’s
+Section 2; its Section 7 treats the general
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>c</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1+c/n</annotation></semantics></math>
 comparison.</p>
 <p>The same finite-difference extraction excludes every nonintegral
@@ -1207,7 +1258,7 @@ diverge.</p>
 is an integer linear form in the reciprocal sum, it grows. The argument
 uses an exact polynomial formula, not a small-linear-form criterion.</p>
 <p>There is also a quantitative extension. Under the hypotheses of
-Theorem  other than (5),
+Theorem 1.2 other than (5),
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">limsup</mi><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>≤</mo><mn>1</mn><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> eventually</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\limsup_{n\to\infty}
  \frac{(-E_n)_+}{\log_2\log_2\max(4,C_n)}\le1
  \quad\Longrightarrow\quad E_n=0\text{ eventually}.</annotation></semantics></math>
@@ -1253,7 +1304,7 @@ general bound on the sum at record steps.</p>
 <h2>The remaining arithmetic estimate</h2>
 <div class="proposition">
 <p><strong>Proposition 8.1</strong> (necessary profile). <em> The integer
-tail of a sequence satisfying Problem ’s hypotheses but not its
+tail of a sequence satisfying Problem 1.3’s hypotheses but not its
 conclusion has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n\ne0</annotation></semantics></math>
 eventually,
@@ -1266,7 +1317,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb75
 frontier</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Absorption excludes late zeros, descent excludes an
-eventually nonnegative error, and Theorems  and  exclude the two
+eventually nonnegative error, and Theorems 1.2 and 5.1 exclude the two
 finiteness conditions. ◻</p>
 </div>
 <p>The profile is a necessary condition, not a construction. For a
@@ -1287,7 +1338,7 @@ or a finite admissible prefix does not.</p>
 <div class="problem">
 <p><strong>Problem 8.2</strong> (growth of repeated denominator factors).
 <em> For every rational-tail orbit satisfying the hypotheses but not the
-conclusion of Problem , must
+conclusion of Problem 1.3, must
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">limsup</mi><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>M</mi><mi>n</mi></msub></mrow><mi>n</mi></mfrac><mo>&gt;</mo><mn>0</mn><mi>?</mi></mrow><annotation encoding="application/x-tex">\limsup_{n\to\infty}\frac{\log M_n}{n}&gt;0?</annotation></semantics></math>
 Equivalently, must there be a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K\ge1</annotation></semantics></math>
@@ -1295,7 +1346,7 @@ for which
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>≤</mo><msubsup><mi>M</mi><mi>n</mi><mi>K</mi></msubsup></mrow><annotation encoding="application/x-tex">2^n\le M_n^K</annotation></semantics></math>
 at infinitely many indices?</em></p>
 </div>
-<p>Section  gives
+<p>Section 4 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">C_{n+1}/C_n\to1</annotation></semantics></math>;
 averaging logarithms therefore gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log C_n=o(n)</annotation></semantics></math>.
@@ -1345,8 +1396,9 @@ and apply it with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>j</mi></msub><mo>=</mo><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">u_j=U_n</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><annotation encoding="application/x-tex">w_j=(-V_n-B)_+</annotation></semantics></math>.
-The missing assertion is that growth and rationality force ; the
-first-crossing lower bound is already proved.</p>
+The missing assertion is that growth and rationality force
+<code>[eq:remaining-record-budget]</code>; the first-crossing lower
+bound is already proved.</p>
 <div class="lemma">
 <p><strong>Lemma 8.3</strong> (weights and linear density). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>j</mi></msub><annotation encoding="application/x-tex">u_j</annotation></semantics></math>
@@ -1423,7 +1475,8 @@ profile
 and its failed divisibility check, as well as sequences avoiding sparse
 fixed moduli. Its discussion of reduced numerators also distinguishes
 compatibility modulo one old denominator from control of prime divisors
-of later denominators. None of those weaker properties supplies .</p>
+of later denominators. None of those weaker properties
+supplies <code>[eq:remaining-record-budget]</code>.</p>
 <section id="acknowledgements." class="level5">
 <h5>Acknowledgements.</h5>
 <p>I thank Wouter van Doorn for advice on the exposition, in particular
@@ -1435,7 +1488,7 @@ unnecessary terminology and notation.</p>
 <h2>Sources and related methods</h2>
 <p>The mathematical arguments above are independent of the source code.
 Each linked phrase below opens its declaration at an immutable revision;
-the checkpoint is <code>3d6d938d696f</code> unless the destination
+the checkpoint is <code>7380b7871687</code> unless the destination
 identifies a separate release, an older research note or a later
 revision.</p>
 <section id="recorded-coverage." class="level5">
@@ -1447,23 +1500,22 @@ rational-tail construction has its own formalised estimates; it is not
 merely an interpretation of an abstract recurrence. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean#L87">weighted
 criterion is checked in both directions</a>, with the real cutoff used
-in Lemma . The cubic-rate theorem has an assembled Lean proof, <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
-irrationality</a>, with no hypothesis beyond those of Theorem . The
-companion’s double-logarithmic results, its Theorem 7.3 and
-Corollary 7.4, are Lean theorems for the integer tails of a rational
-reciprocal sum (<a
+in Lemma 8.3. The zero-indexed cubic-rate theorem has an unconditional
+Lean declaration at the pinned revision; the one-based finite-prefix
+bridge above is an ordinary argument. The companion’s double-logarithmic
+results, its Theorem 7.3 and Corollary 7.4, are Lean theorems for the
+integer tails of a rational reciprocal sum (<a
 href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340">record
 dichotomy</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129">double-logarithmic
-criterion</a>). For an orbit satisfying the hypotheses of Theorem  other
-than (5), the double-logarithmic bound of Section  is a Lean theorem as
-well (<a
+criterion</a>). For an orbit satisfying the hypotheses of Theorem 1.2
+other than (5), the double-logarithmic bound of Section 7 is a Lean
+theorem as well (<a
 href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean#L45">double-logarithmic
 bound</a>). The companion supplies the written proofs of both arguments,
 including the growth and modulus-counting arguments.</p>
 <p>The recorded main build is at <code>6b78209ab63a</code>; links retain
-their original pins, including <code>3d6d938d696f</code>. The linked
+their original pins, including <code>7380b7871687</code>. The linked
 weighted criterion also has a fresh Lean check; this does not certify
 the remaining exposition as a whole. Finite certificates and
 unsuccessful extensions are retained in the companion, not counted as
@@ -1492,38 +1544,38 @@ here.</p>
 <p>The formalisation checks <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean#L211">the
 reciprocal-series corollary and its integer-tail construction</a>
-(Corollary ). The proof of <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2360">eventual
-vanishing under a lower error bound</a> (Theorem ) shifts past the two
-thresholds and applies the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2271">vanishing
+(Corollary 1.1). The proof of <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2360">eventual
+vanishing under a lower error bound</a> (Theorem 1.2) shifts past the
+two thresholds and applies the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2271">vanishing
 result under a bound on the negative part</a> with centring and the
 lower bound at every index.</p>
-<p>Proposition  corresponds to the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
+<p>Proposition 3.1 corresponds to the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57">update
 law</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1775">defect
-identity</a>. Theorem  uses <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2227">absorption
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1775">defect
+identity</a>. Theorem 3.2 uses <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2227">absorption
 of a vanishing error</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1843">stabilisation
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1843">stabilisation
 of the nonnegative error</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1787">local
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1787">local
 rigidity step</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1805">eventual
-Sylvester recurrence</a> give the two forms of Corollary .</p>
-<p>The three parts of Proposition  are <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L989">step
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1805">eventual
+Sylvester recurrence</a> give the two forms of Corollary 3.3.</p>
+<p>The three parts of Proposition 3.6 are <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L989">step
 coprimality</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1016">pairwise
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1016">pairwise
 coprimality</a>, and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1030">coprimality
-to each earlier multiplier</a>. Proposition  gives <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1636">eventual
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1030">coprimality
+to each earlier multiplier</a>. Proposition 3.7 gives <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1636">eventual
 constancy of the gcd</a>. The exclusions treat <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1066">reduced
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1066">reduced
 numerators with bounded increments</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1754">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1754">the
 case where divergence follows from vanishing relative error</a>. The
 main proof uses both divergence of the reduced numerator and a bound on
 every upward increment. A cofinal bound on negative errors suffices for
@@ -1534,21 +1586,21 @@ increases; the latter is not used here.</p>
 <section id="the-scalar-criterion." class="level5">
 <h5>The scalar criterion.</h5>
 <p>The scalar declaration proves <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L612">vanishing
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L612">vanishing
 for a positive integer sequence with summable relative increases</a>
-(Theorem ); its exact-orbit consequence is <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L690">the
+(Theorem 5.1); its exact-orbit consequence is <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L690">the
 Sylvester recurrence under the same assumption</a>. These declarations
 concern integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>,
 not the real-initial-value observation following the proof. Formulations
 that also assume denominator dynamics and vanishing relative error give
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L378">a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L378">a
 growth bound for the numerator</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L488">eventual
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L488">eventual
 zero error under the convergence assumption</a>, and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L510">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean#L510">the
 resulting Sylvester recurrence</a>.</p>
 <p>The state dynamics and arithmetic exclusions are in
 <code>ReciprocalTailRigidity.lean</code>; the scalar criterion is in
@@ -1561,7 +1613,7 @@ multiplier. For periodic positive magnitudes and multipliers
 the companion derives this bound eventually from the exact recurrences.
 For general errors, vanishing relative error supplies strict centring
 eventually, but control of the negative part is still needed in
-Theorem .</p>
+Theorem 1.2.</p>
 </section>
 </section>
 <section id="app:residue" class="level2">
@@ -1578,7 +1630,7 @@ and the shape equation
  D_n+m=(a_n-1)C_n.
 \end{equation}</annotation></semantics></math> In the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>c</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=c=1</annotation></semantics></math>,
-where  reads
+where <code>[eq:shape]</code> reads
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_n+1=(a_n-1)(n+1)</annotation></semantics></math>,
 each multiplier is determined by its predecessor; we call such an orbit
 <em>forced</em>. At index
@@ -1586,13 +1638,13 @@ each multiplier is determined by its predecessor; we call such an orbit
 the numerator of the next multiplier is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">num</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),</annotation></semantics></math>
 the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
 numerator</a>, and the divisor is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n+2</annotation></semantics></math>.
 The orbit continues for another step exactly when this division is
 exact. Here survival counts exact divisions; it does not impose the
 positivity conditions of an infinite reciprocal-tail orbit. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">formal
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">formal
 survival predicate</a> requires exact division at each step.</p>
 <div class="example">
 <p><strong>Example B.1</strong> (the shape equation running until it
@@ -1674,17 +1726,17 @@ Taking
 proves the claim. ◻</p>
 </div>
 <p>The formal <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
 residue reduction</a> uses the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L97">shrinking-modulus
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L97">shrinking-modulus
 induction</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L26">polynomial
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L26">polynomial
 congruence</a>, and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L41">cancellation
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L41">cancellation
 after exact division</a>. Its modulus is identified by the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L59">ascending-factorial
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L59">ascending-factorial
 formula</a> and its <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
 value at the initial index</a>.</p>
 <p>At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h=1</annotation></semantics></math>,
@@ -1692,7 +1744,7 @@ survival means
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∣</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>a</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">2\mid a^2-2a+3</annotation></semantics></math>,
 or equivalently that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-is odd. This illustrates Theorem  with modulus
+is odd. This illustrates Theorem B.2 with modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>!</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2!=2</annotation></semantics></math>.</p>
 <p>Exact enumeration over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><msub><mi>a</mi><mn>0</mn></msub><mo>&lt;</mo><mn>5000</mn></mrow><annotation encoding="application/x-tex">2\le a_0&lt;5000</annotation></semantics></math>
@@ -1707,7 +1759,7 @@ The omitted seed
 is a fixed point, outside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_n\ge2</annotation></semantics></math>.
 This finite search is not a proof of the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">constant-negative
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L286">constant-negative
 exclusion</a>, which concerns infinite natural-number orbits under its
 stated hypotheses. Example 9.1 of the companion gives the further search
 details.</p>

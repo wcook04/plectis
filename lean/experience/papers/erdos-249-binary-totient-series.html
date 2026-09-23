@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Problem note</p>
     <h1>Bases and Integral Relations for the $k$-Kernel of Euler&#x27;s Totient</h1>
     <p class="lean-paper__subject">Erdős #249</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="erdos-249-binary-totient-series.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/249/erdos-249-binary-totient-series.tex">
 <section id="sec:results" class="level2">
@@ -32,7 +33,7 @@ Thus the seven sections through level two in base two are spanned by
  \varphi(4n+1),\quad\varphi(4n+3).</annotation></semantics></math> Are
 these five sequences independent, and do the analogous reductions
 account for every relation in every base? The next theorem answers both
-questions; Corollary  gives the integral relation module.</p>
+questions; Corollary 1.3 gives the integral relation module.</p>
 <p>An integer sequence is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
 if the
@@ -253,14 +254,14 @@ As
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\varphi(k)&lt;k</annotation></semantics></math>,
 both coefficients vanish. The reductions give spanning and the count is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>e</mi></munderover><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>j</mi></msup><mo>−</mo><msup><mi>k</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">2+\sum_{j=1}^e(k^j-k^{j-1})=k^e+1.</annotation></semantics></math>
-This proves Theorem . The linked formal statement gives the same scalar
-reduction at level
+This proves Theorem 1.1. The linked formal statement gives the same
+scalar reduction at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>−</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">j-t</annotation></semantics></math>,
 with its Euler product written out: <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">reduction
 by the largest power of the base dividing the residue</a>.</p>
 <p>The relation to the earlier CRT argument and the alternative proof
-from Martin’s theorem are discussed in Appendix .</p>
+from Martin’s theorem are discussed in Appendix A.</p>
 <div class="corollary">
 <p><strong>Corollary 1.2</strong> (Dyadic basis). <em> The family
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>φ</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mi>j</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>r</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\{\varphi_{0,0},\varphi_{1,0}\}
@@ -464,10 +465,10 @@ series</h2>
 <p>The independent results below distinguish bounded-residue series,
 finite exclusions for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
-and conditions for irrationality. None is needed for Theorem ; in
-particular, the conditions in Sections  and  are not assumptions of that
-theorem. Generating-function context and the formal-source guide are in
-Appendix .</p>
+and conditions for irrationality. None is needed for Theorem 1.1; in
+particular, the conditions in Sections 3 and 5 are not assumptions of
+that theorem. Generating-function context and the formal-source guide
+are in Appendix A.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded residues and rationality</h2>
@@ -567,7 +568,7 @@ with absolute value less than
 a contradiction. ◻</p>
 </div>
 <div class="proof">
-<p><em>Proof of Theorem .</em> Fix a unit
+<p><em>Proof of Theorem 2.1.</em> Fix a unit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">s\pmod m</annotation></semantics></math>
 and a block length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.
@@ -599,7 +600,7 @@ and clear the finitely many denominators of its values. This produces a
 bounded integer sequence. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(s-1)\ne f(0)</annotation></semantics></math>,
 the construction gives an isolated nonzero coefficient between
-arbitrarily long zero blocks, so Lemma  proves irrationality. For the
+arbitrarily long zero blocks, so Lemma 2.2 proves irrationality. For the
 least-residue map choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">s=-1</annotation></semantics></math>:
 its central residue is
@@ -639,7 +640,7 @@ is irrational for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;2</annotation></semantics></math>,
 with the base equal to the modulus, as an answer on Mathematics Stack
 Exchange on 29 March 2015 <span class="citation"
-data-cites="wong2015"><a href="#ref-5">[5]</a></span>. Theorem  fixes the base at
+data-cites="wong2015"><a href="#ref-5">[5]</a></span>. Theorem 2.1 fixes the base at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 for every modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>
@@ -763,11 +764,11 @@ successive multipliers.</p>
 <div class="proof">
 <p><em>Proof.</em> Set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>t</mi></msub><mo>=</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mi>t</mi><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_t=\Delta_{td}(N)</annotation></semantics></math>.
-Equation  yields
+Equation <code>[eq:tail-phase]</code> yields
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≡</mo><msup><mn>2</mn><mi>d</mi></msup><msub><mi>F</mi><mi>t</mi></msub><mo>+</mo><msub><mi>F</mi><mn>1</mn></msub><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">F_{t+1}\equiv2^dF_t+F_1\pmod\mathbb{Z}</annotation></semantics></math>.
 If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>d</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>t</mi><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(td,N,td)</annotation></semantics></math>
-fails, gives
+fails, <code>[eq:tail-error]</code> gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><msub><mi>F</mi><mi>t</mi></msub><msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="double-struck">ℝ</mi><mi>/</mi><mi mathvariant="double-struck">ℤ</mi></mrow></msub><mo>≤</mo><msub><mi>ϵ</mi><mi>t</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ϵ</mi><mi>t</mi></msub><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>2</mn><mi>t</mi><mi>d</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>t</mi><mi>d</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\|F_t\|_{\mathbb{R}/\mathbb{Z}}\le\epsilon_t,
  \qquad \epsilon_t=2(N+2td+2)2^{-td}.</annotation></semantics></math>
 Two adjacent failures would imply
@@ -780,7 +781,7 @@ Conversely, if
 is integral, then every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>t</mi></msub><annotation encoding="application/x-tex">F_t</annotation></semantics></math>
 is integral by the same recurrence, so no certificate exists. Finally,
-is nonintegral for every
+<code>[eq:tail-phase]</code> is nonintegral for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d,N</annotation></semantics></math>
 when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
@@ -874,7 +875,7 @@ is therefore within distance less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>+</mo><mi>H</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c+H+1</annotation></semantics></math>
 of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">0\pmod M</annotation></semantics></math>,
-so fails.</p>
+so <code>[eq:canonical-gap]</code> fails.</p>
 <p>If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is irrational, fix
@@ -892,7 +893,8 @@ Hence the fractional part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mi>/</mi><mi>M</mi><mo>=</mo><mi>−</mi><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">-B_{H,c}/M=-vR_c+\Delta_H(c)/M</annotation></semantics></math>
 stays away from both endpoints of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>,
-which gives for all sufficiently large such
+which gives <code>[eq:canonical-gap]</code> for all sufficiently large
+such
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>. ◻</p>
 </div>
 <p>The condition is neither a routine size bound nor an additional
@@ -911,11 +913,12 @@ without assuming irrationality.</p>
 <p>The separate formal release states this equivalence using
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mi>M</mi><mo>=</mo><msup><mn>2</mn><mi>H</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">vM=2^H-1</annotation></semantics></math>.
 Its proof and the replay receipt are identified with the formal
-counterpart to Lemma . The finite residues also satisfy
+counterpart to Lemma 2.2. The finite residues also satisfy
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mrow><mi>H</mi><mo>,</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>M</mi></mrow></msub><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>2</mn><msub><mi>ρ</mi><mrow><mi>H</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>M</mi></mrow></msub><mo>−</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>H</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>M</mi><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>ρ</mi><mrow><mi>H</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>M</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>M</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\rho_{H,N+1,M}=
  \bigl(2\rho_{H,N,M}-\varphi(N+H+1)+\varphi(N+1)\bigr)\operatorname{mod} M,
  \quad \rho_{H,N,M}=(-B_{H,N})\operatorname{mod} M,</annotation></semantics></math>
-which is an exact recurrence for searches directed at .</p>
+which is an exact recurrence for searches directed at
+<code>[eq:canonical-gap]</code>.</p>
 </section>
 </section>
 <section id="sec:nogo" class="level2">
@@ -1148,9 +1151,10 @@ at depth
 not a quantity tending to zero. A prescribed approximation family
 therefore needs a sharper error or reduced-denominator bound. When
 approximants may be chosen freely, continued-fraction convergents show
-that the criterion is equivalent to irrationality, just as is. The
-theorem above excludes the displayed rank-one quotients and their
-positive averages, not other approximation families.</p>
+that the criterion is equivalent to irrationality, just as
+<code>[eq:canonical-gap]</code> is. The theorem above excludes the
+displayed rank-one quotients and their positive averages, not other
+approximation families.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>A remaining exponential-sum estimate</h2>
@@ -1169,7 +1173,7 @@ such that
                                       \le\frac9{10}X.</annotation></semantics></math>
 Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><annotation encoding="application/x-tex">D_{h,N,L}</annotation></semantics></math>
-is the integer window sum from Section . The room inequality makes the
+is the integer window sum from Section 3. The room inequality makes the
 truncation error small, whereas the cosine bound forces at least one
 residue away from the integer lattice. The long record proves that these
 quantified inequalities would imply irrationality. The modulus grows
@@ -1346,7 +1350,7 @@ put a nonzero coefficient first and choose
 At the resulting values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 the first term has larger absolute value than the sum of all the others,
-a contradiction. The proof in Section  instead constructs a finite
+a contradiction. The proof in Section 1.1 instead constructs a finite
 nonsingularity certificate for each chosen family.</p>
 </section>
 <section id="regularity-mahler-equations-and-section-maps"
@@ -1377,7 +1381,7 @@ evaluations map it injectively to
 and the module into
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℤ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{Z}^d</annotation></semantics></math>
 (compare the evaluation argument in <span class="citation"
-data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Theorem  therefore recovers Coons’s
+data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Theorem 1.1 therefore recovers Coons’s
 nonregularity theorem <span class="citation" data-cites="coons"><a href="#ref-2">[2]</a></span>
 and gives the dimension at every finite level.</p>
 <p>The generating-function conclusion concerns functional equations, not
@@ -1479,7 +1483,7 @@ class="level3 unnumbered">
 <h5>Formal support.</h5>
 <p>The dyadic infinite-basis corollary and the periodic-coefficient
 corollary have ordinary proofs above; no additional formal declarations
-are asserted for them. For Lemma , the supplied release records
+are asserted for them. For Lemma 2.2, the supplied release records
 acceptance by the Lean kernel and by NanoDa at Palomar’s Comparator
 stage. No new replay was performed for this revision.</p>
 <p>Formal sources: <a
@@ -1488,7 +1492,7 @@ href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">run
 34782407633</a>.</p>
 <ol>
-<li><p> <strong>Rank in every integer base.</strong> Theorem  proves
+<li><p> <strong>Rank in every integer base.</strong> Theorem 1.1 proves
 that the sections through level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
 have rank
@@ -1635,7 +1639,7 @@ and arbitrarily large certificates</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L300">the
 carry-rank lower bound under rationality</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientCarryKernelRigidity.lean#L211">rank
-transport from </a>; <a
+transport from <code>[res:rank]</code></a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L224">modular
 periodicity and the rank lower bound for the same carry</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L126">forcing

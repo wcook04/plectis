@@ -29,15 +29,63 @@ folder and history to another computer. Everything this paper says a
 stranger can check is in that repository. This paper describes how its
 claims are exposed and where the evidence stops.</p>
 <p>This paper examines the public software collection only. The
-companion mathematics repository is a separate public release containing
-formal mathematics on eight open Erdős problems and the workflows for
-continuing it; the recorded walkthroughs on the project website show the
-private interface. These objects share a reported production history,
-but each supports different conclusions and must be assessed from its
-own evidence. Readers interested in the breadth of the private system
-should start from the architecture documentation rather than from the
-small worked example below, which is chosen for what it lets a stranger
-check, not for what it displays.</p>
+companion mathematics repository is a separate public release with work
+on eight Erdős problem programmes. It credits ani with an explicit
+degree-seven polynomial for which every path through the strict
+lemniscate joining two distinct roots has image of one-dimensional
+Hausdorff measure greater than <span class="math inline" data-term-auto="off">\(2\)</span>.
+Lean checks the resulting refutation of the Formal Conjectures
+path-image formulation of #1041, as well as the earlier total-variation
+statement; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L393">path-image
+declaration</a> states the checked scope. Correspondence with the 1958
+curve-length wording still awaits independent human review, and the
+other seven target problems remain unresolved there. The recorded
+walkthroughs on the project website show the private interface. These
+objects share a reported production history, but each supports different
+conclusions and must be assessed from its own evidence. The audio
+example below does not test any mathematical result. Readers interested
+in the breadth of the private system should start from the architecture
+documentation rather than from that small example.</p>
+<p>As a current public companion to this dated software case, the
+mathematics repository’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf">#257
+short paper</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf">longer
+record</a> prove a Lean-checked theorem for an infinite exponent set
+<span class="math inline" data-term-auto="off">\(A\)</span> and a finite nonempty prime set
+<span class="math inline" data-term-auto="off">\(P\)</span>. Write <span
+class="math inline" data-term-auto="off">\(h_P(a)=\prod_{p\in P}p^{v_p(a)}\)</span>, where
+<span class="math inline" data-term-auto="off">\(v_p(a)\)</span> counts factors of <span
+class="math inline" data-term-auto="off">\(p\)</span> in <span
+class="math inline" data-term-auto="off">\(a\)</span>. If <span
+class="math inline" data-term-auto="off">\(\sum_{a\in
+A}h_P(a)/[a(2^{h_P(a)}-1)]&lt;\infty\)</span>, then <span
+class="math inline" data-term-auto="off">\(\sum_{a\in A}(b^a-1)^{-1}\)</span> is irrational
+at every integer base <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. The
+condition holds for some supports with divergent <span
+class="math inline" data-term-auto="off">\(\sum_{a\in A}1/a\)</span> and passes to infinite
+subsets. Irrationality for arbitrary infinite supports remains open. The
+audio example below does not test this theorem.</p>
+<p>The companion publishes short problem papers, longer reasoning
+records, and linked Lean source. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">exact-rational
+experiment</a> gives a separate, bounded way to test one #257 question.
+Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md">Comparator</a>
+checks selected formal statements, while <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">Palomar
+qualification</a> is repository-local review of candidates for possible
+external submission; neither is an external verdict on novelty or the
+historical problem wording. Readers can propose a proof-workflow or
+other infrastructure change through the companion’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">architecture
+guide</a>, or a toolkit change through <a
+href="https://github.com/wcook04/plectis/blob/main/CONTRIBUTING.md">this
+repository’s contribution guide</a>. Those mathematics artifacts and
+invitations are outside the dated software collection examined here;
+they do not establish independent use or validation of the private
+system.</p>
 <p>The main result is a boundary, not a score. Public code, inputs,
 rules, and run records can make a selected claim easier to challenge.
 They cannot by themselves establish three missing premises: that the
@@ -55,10 +103,11 @@ test claims about the public objects it actually exposes, within the
 limits stated for each test.</p>
 <section id="who-made-the-decisions." class="level5">
 <h5>Who made the decisions.</h5>
-<p>I built the private system by directing AI coding agents: I set the
-objectives and review criteria, accepted or rejected their output, and
-remained responsible for the cases, expected answers, decision rules,
-and final public wording. No other person worked on the system. This
+<p>Cook directed the private system’s construction through AI coding
+agents. He set project objectives and review criteria and accepted or
+rejected agent output in the development process. The public record does
+not show how closely he reviewed each present case, expected answer,
+decision rule, or sentence. No other person worked on the system. This
 account explains the concentration of control, but it remains testimony
 about origin: Plectis cannot independently prove how the private work
 was produced, and the public repository does not prove the story. The
@@ -1123,10 +1172,22 @@ Python 3.13.7. The repository version was commit
 <code>57ffb7f5830cc446a2cbd8083d5d80bcab2af563</code>, abbreviated
 <code>57ffb7f5830c</code> elsewhere. Later commits or machines may
 differ; the body does not depend on them.</p>
-<p>A typed hypothesis handoff makes the next outside contribution more
-specific: it exposes the project’s tentative answer, alternatives, and
-update rule before the outcome is known. That is a better invitation to
-disagree, not stronger evidence that the project is right.</p>
+<section id="later-public-entry-check." class="level5">
+<h5>Later public-entry check.</h5>
+<p>A maintainer-run <code>make ci</code> in September 2026, after commit
+<code>c69f9afb32</code> and before <code>09794d4cbb</code>, reported 795
+passing tests and five skips, followed by passing public smoke and
+package-install checks. The package check installed the source into a
+fresh environment, moved the source tree out of the import path, and ran
+the installed <code>plectis</code> command against its packaged
+hypothesis-handoff example. It checked that the command accepted the
+packet without changing the input. The current first-action command,
+<code>plectis comprehend --first-action</code>, is also part of that
+installed check. This later run was performed within the project, not by
+an independent evaluator; it does not amend the pinned July results or
+verify the companion repository’s mathematics. Changes after that run
+require fresh checks.</p>
+</section>
 <section id="a-first-review." class="level5">
 <h5>A first review.</h5>
 <p>Use the appendix’s no-install block and select the version analysed
@@ -1252,11 +1313,11 @@ external truth.</p>
 language models operating within Will Cook’s private research system for
 artificial intelligence. The formal proofs and repository software were
 likewise drafted and revised by the agents through that system under
-Cook’s direction. Cook set the objectives and acceptance criteria,
-selected and reviewed the public claims, and approved the published
-version. Cook assumes responsibility for the accuracy, interpretation,
-and presentation of the work. Generative systems are production tools,
-not authors, and supply no independent authority.</p>
+Cook’s direction. Cook set the project’s objectives and acceptance
+criteria and directed the agent work. The public record does not
+establish that he personally reviewed every claim or approved this
+specific version. Generative systems are production tools, not authors,
+and supply no independent authority.</p>
 </section>
 <section id="authority-boundary." class="level5">
 <h5>Authority boundary.</h5>

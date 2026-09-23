@@ -3,6 +3,7 @@
     <p class="lean-paper__eyebrow">Problem note</p>
     <h1>No Finite Separable Representation at Three Prime Generators</h1>
     <p class="lean-paper__subject">Erdős #269</p>
+    <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="erdos-269-three-prime-running-lcm.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/269/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
@@ -35,7 +36,7 @@ write
  \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.</annotation></semantics></math>
 Prime-power divisibility gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi mathvariant="normal">H</mi></mrow><annotation encoding="application/x-tex">\operatorname{L}=\operatorname{H}</annotation></semantics></math>
-(Proposition ). Fan used this identity to separate the two-prime
+(Proposition 4.1). Fan used this identity to separate the two-prime
 kernel <span class="citation" data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. With
 three primes, even a finite sum of separated products is impossible.
 This is a statement about the kernel, not the arithmetic nature of its
@@ -211,8 +212,8 @@ inverse.</em></p>
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible
 modular minors</a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> Choose the maps from Theorem . Every row and column
-factor is a unit modulo
+<p><em>Proof.</em> Choose the maps from Theorem 2.1. Every row and
+column factor is a unit modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
 The normalised determinant is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>5</mn><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>4</mn><mi>/</mi><mn>5</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">5^{-1}(-4/5)^{n-1}</annotation></semantics></math>,
@@ -444,7 +445,7 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m_n=j-1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\delta_n=1</annotation></semantics></math>.
-These identities prove .</p>
+These identities prove <code>[eq:two-prime-affine]</code>.</p>
 <p>For the Hecke–Mahler series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>m</mi><mi>n</mi></msub></msubsup><msup><mi>x</mi><mi>n</mi></msup><msup><mi>y</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k</annotation></semantics></math>,
 geometric summation gives
@@ -723,7 +724,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
 giving at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(a+1)^2</annotation></semantics></math>
-terms. By ,
+terms. By <code>[res:cube]</code>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>a</mi></msub><mo>≤</mo><mn>30</mn><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>/</mi><msup><mn>8</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">s_a\le30(a+1)^2/8^a</annotation></semantics></math>.
 Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>a</mi></msub><mo>≤</mo><msup><mn>8</mn><mi>a</mi></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">h_a\le8^a/2</annotation></semantics></math>
@@ -827,7 +828,7 @@ after the stated onset, and
 differs from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>a</mi></msub><mi>A</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h_aA/(2^u3^v5^w)</annotation></semantics></math>
 by an integer and is therefore integral. Positivity, the recurrence and
-the bound follow from Proposition . ◻</p>
+the bound follow from Proposition 4.5. ◻</p>
 </div>
 <p>Every positive denominator splits in the required way:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
@@ -872,7 +873,7 @@ state is integer iff first clearing index le</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166">clearing
 condition iff max</a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> By ,
+<p><em>Proof.</em> By <code>[eq:prefix-lattice]</code>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">BX_a</annotation></semantics></math>
 differs from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>a</mi></msub><mi>A</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">h_aA/M</annotation></semantics></math>
@@ -900,7 +901,8 @@ tail.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ell\ge0</annotation></semantics></math>
 and having
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h\ge0</annotation></semantics></math>
-steps, define its product of bases and accumulated numerator from  by
+steps, define its product of bases and accumulated numerator
+from <code>[eq:actual-digit]</code> by
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><msub><mi>m</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{\ell,0}=1,\quad F_{\ell,0}=0,\qquad
  W_{\ell,h+1}=b_{\ell+h}W_{\ell,h},\quad
  F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.</annotation></semantics></math>
@@ -985,18 +987,19 @@ is irrational if and only if
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51">short
 window equivalence</a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> Assume  and suppose
+<p><em>Proof.</em> Assume <code>[eq:escape]</code> and suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-is rational. Theorem  supplies a positive integral carry
+is rational. Theorem 4.6 supplies a positive integral carry
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">d_a=BX_a</annotation></semantics></math>
-after its onset. Choose a window in beyond that onset. Equation  gives
+after its onset. Choose a window in <code>[eq:escape]</code> beyond that
+onset. Equation <code>[eq:actual-tail]</code> gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>≡</mo><mi>−</mi><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}</annotation></semantics></math>,
-contradicting Lemma  and the upper bound.</p>
+contradicting Lemma 5.1 and the upper bound.</p>
 <p>Conversely, let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 be irrational and fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B,\ell\ge1</annotation></semantics></math>.
-Equation  makes
+Equation <code>[eq:prefix-lattice]</code> makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
 nonintegral. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo stretchy="false" form="postfix">⌉</mo><mo>−</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\delta=\lceil BX_\ell\rceil-BX_\ell\in(0,1)</annotation></semantics></math>.
@@ -1023,7 +1026,8 @@ Hence
  =\delta W_{\ell,h}+BX_{\ell+h}.</annotation></semantics></math> Its
 exponentially growing first term eventually exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(B,\ell+h)</annotation></semantics></math>.
-This proves , in fact from each fixed start. ◻</p>
+This proves <code>[eq:escape]</code>, in fact from each fixed
+start. ◻</p>
 </div>
 <p>The proved bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">90B(a+1)^2</annotation></semantics></math>
@@ -1032,7 +1036,8 @@ controls every positive integral
 that rationality would force. Polynomial growth alone does not suffice:
 the zero bound would make the residue inequality automatic. The
 companion, Section 7, treats smaller and more general bounds. No finite
-search establishes the unbounded quantifiers in .</p>
+search establishes the unbounded quantifiers
+in <code>[eq:escape]</code>.</p>
 <p>The remaining task has the following three equivalent
 formulations.</p>
 <div class="problem">
@@ -1056,14 +1061,14 @@ coprime to
 </div>
 <div class="problem">
 <p><strong>Problem 5.5</strong> (residue inequalities after every
-starting index). <em> Prove .</em></p>
+starting index). <em> Prove <code>[eq:escape]</code>.</em></p>
 </div>
 <p>Indeed, one integral scaled tail makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-rational by , whereas denominator clearing gives such tails from a
-rational
+rational by <code>[eq:prefix-lattice]</code>, whereas denominator
+clearing gives such tails from a rational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
-Theorem  supplies the third equivalence. These arithmetic assertions
+Theorem 5.2 supplies the third equivalence. These arithmetic assertions
 remain unproved. The companion’s finite certificate (Section 8) and
 comparisons with other approaches (Section 9) are supplementary, not
 premises of this argument.</p>

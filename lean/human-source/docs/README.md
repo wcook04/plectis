@@ -7,9 +7,17 @@ The [front page](../README.md) introduces the project. This index helps you
 choose what to read or do next, whether you want to understand a result, check
 its proof, continue the research, or inspect how the tools work.
 
-The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report intermediate results and the approaches that
-stopped, with enough of the record preserved for somebody else to inspect the
-argument and continue from it.
+Using the degree-seven polynomial constructed by the erdosproblems.com
+contributor ani, Lean proves that every preconnected strict-lemniscate set
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than two. This refutes the exact Formal Conjectures path-image-length
+statement; the separate total-variation bound is also checked. The other
+seven targets remain open. Independent human review of correspondence with
+the 1958 wording has not been recorded. Comparator checks only selected exact
+statements, axioms and kernel acceptance; it does not assess novelty or
+historical correspondence. The papers report intermediate results and the
+approaches that stopped, with enough of the record preserved for somebody
+else to inspect the argument and continue from it.
 
 ## Choose a way in
 

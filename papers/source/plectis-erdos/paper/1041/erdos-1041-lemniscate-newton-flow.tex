@@ -12,8 +12,9 @@
 \documentclass[11pt]{article}
 \usepackage{longtable}
 \input{problem-note-preamble}
-\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\renewcommand{\commitshort}{99f4bf47422a}
+\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\renewcommand{\commitshort}{7380b7871687}
+\renewcommand{\PX}{lean/ErdosProblems}
 \hypersetup{
   pdftitle={Paths in polynomial lemniscates: trinomials and critical-value bounds},
   pdfsubject={Erdős Problem Notes: Problem 1041},
@@ -27,20 +28,20 @@
 \subtitle{Root-to-origin segments, critical-value estimates and path
 containment for Erd\H{o}s Problem~\#1041}
 \author{Will Cook}
-\date{17 September 2026}
+\date{23 September 2026}
 
 \begin{document}
 \maketitle
 \noteprovenance
 
 \begin{abstract}
-A degree-seven counterexample due to the erdosproblems.com contributor
+For one degree-seven polynomial constructed by the erdosproblems.com contributor
 \href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
-formalised in Lean here, refutes the universal total-variation
-formulation: every continuous path inside the strict unit lemniscate joining
-two distinct roots has total variation greater than $2$.  Its correspondence
-with the historical curve-length question has not received independent human
-review.
+Lean proves that every preconnected subset of its strict unit lemniscate
+containing two distinct roots has one-dimensional Hausdorff measure greater
+than $2$.  This refutes the exact path-image-length formulation in Formal
+Conjectures, as well as the total-variation formulation.  Independent human
+review of correspondence with the 1958 curve-length wording is not recorded.
 For a monic trinomial $f(z)=z^n+az^m+b$, $1\le m<n$, with roots in the
 open unit disc, the root equation controls $f$ on every root-to-origin
 segment. Any two distinct roots are consequently joined inside
@@ -145,17 +146,24 @@ a critical point. The results here concern specified polynomial families
 and sufficient conditions; no priority claim is made.
 
 \phantomsection\label{res:ani-degree-seven-counterexample}
-A degree-seven counterexample due to the
-\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{erdosproblems.com contributor \texttt{ani}} makes the unrestricted total-variation assertion false.  For
-one explicit monic polynomial of degree seven whose roots are distinct and
-lie in the open unit disc, every continuous path in the strict unit lemniscate
-joining two distinct roots has total variation greater than~$2$.\footnote{Lean
-checks this instance in
+The degree-seven polynomial constructed by
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{erdosproblems.com contributor \texttt{ani}}
+has distinct roots in the open unit disc.  Lean proves that every preconnected
+subset of its strict unit lemniscate containing two distinct roots has
+one-dimensional Hausdorff measure greater than~$2$.  In particular, the image
+of every continuous root-to-root path has this measure, and Lean proves the
+negation and \texttt{answer(False)} forms of the exact Formal Conjectures
+statement.\footnote{The one-polynomial Hausdorff theorem and formal-statement
+negation are
+\href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean\#L283}{\texttt{erdos1041\_counterexample\_hausdorff}} and
+\href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean\#L407}{\texttt{erdos1041\_hausdorff\_negation}}.
+The corresponding
+\href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean\#L449}{\texttt{erdos1041\_hausdorff\_answer\_false}}
+proves the \texttt{answer(False)} form.
+The separate total-variation theorem is
 \href{https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean\#L25}{\texttt{erdos1041\_ani\_degree\_seven}}.
-The formal result concerns one polynomial; it does not formalise the reported
-small-parameter family or a Hausdorff-measure comparison, and its correspondence
-with the historical formulation has not received independent human review.}
-Thus this polynomial has no continuous root-to-root parametrisation of total variation less than~$2$.
+The reported small-parameter family is not formalised, and independent human
+review has not adjudicated correspondence with the 1958 wording.}
 
 The trinomial proof prescribes a path for every pair of distinct roots.
 The area-growth argument in Section~\ref{sec:constant-factor} has a
@@ -440,7 +448,7 @@ $d_i+d_j\le2(d_i d_j^{\,n-1})^{1/n}\le2r$.
 Without the reciprocal balance, the required restriction on $t$ would be
 missing.  The complete complex theorem,
 including the choice of two indices and both inequalities, is checked as
-\lword{Erdos1041/CriticalTwoRootProximity.lean}{289}{exists_two_roots_dist_sum_le_two_mul_geomMean}{the bound for the sum of two root distances}.
+\lword{Erdos1041/CriticalTwoRootProximity.lean}{291}{exists_two_roots_dist_sum_le_two_mul_geomMean}{the bound for the sum of two root distances}.
 
 \begin{corollary}[two nearest roots]
 If the roots lie in the open unit disc and $c$ is a non-root critical point,
@@ -517,8 +525,8 @@ All three roots have modulus $99/100$.
 Uniqueness in the quintic rules out repairing that example by breaking a
 tie differently. The cubic excludes every direct root-to-root segment,
 not a curved path. The two exact evaluations are checked as
-\lword{Erdos1041/CriticalTwoRootProximity.lean}{438}{nearestSpoke_unique_nearest_spoke_escapes}{escape along the segment to a uniquely nearest root} and
-\lword{Erdos1041/CriticalTwoRootProximity.lean}{569}{allStraightCubic_every_pair_midpoint_escapes}{escape at all three root-pair midpoints}.
+\lword{Erdos1041/CriticalTwoRootProximity.lean}{440}{nearestSpoke_unique_nearest_spoke_escapes}{escape along the segment to a uniquely nearest root} and
+\lword{Erdos1041/CriticalTwoRootProximity.lean}{571}{allStraightCubic_every_pair_midpoint_escapes}{escape at all three root-pair midpoints}.
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178}{The complete straight-path statement} also includes the polynomial,
 root-disc, critical-point and unique-nearest-root assertions, rather than
 only the two evaluations.
@@ -935,7 +943,7 @@ cannot be the endpoints of such a finite connection.
 endpoints by continuity.  This does not evaluate $-f/f'$ at a critical
 endpoint.  Lean checks the algebraic contradiction from an assumed
 exponential endpoint relation in
-\lword{Erdos1041/NewtonFlowRaySeparation.lean}{315}{no_newtonConnection_of_not_samePositiveRay}{the distinct-ray endpoint implication}.
+\lword{Erdos1041/NewtonFlowRaySeparation.lean}{334}{no_newtonConnection_of_not_samePositiveRay}{the distinct-ray endpoint implication}.
 Kozen and Stef\'ansson draw the same consequence for the Newtonian graph:
 under $f$, every edge maps onto a segment of a ray through the origin whose
 endpoints are $0$ or critical values \cite[\S2]{kozen-stefansson1997}.  The
@@ -1765,7 +1773,7 @@ Lean declaration names remain in the link targets.
 \item \lword{Erdos1041/NewtonFlowRaySeparation.lean}{179}{samePositiveRay_imp_mem_realAffineLine}{the line containing forbidden translations}
 \item \lword{Erdos1041/NewtonFlowRaySeparation.lean}{230}{norm_lt_one_of_near_root}{retention of the unit-disc margin near a root}
 \item \lword{Erdos1041/NewtonFlowRaySeparation.lean}{257}{constant_perturbation_root_near_original}{root displacement under a constant perturbation}
-\item \lword{Erdos1041/NewtonFlowRaySeparation.lean}{306}{samePositiveRay_of_real_exp_decay}{positive-ray invariance under exponential decay}
+\item \lword{Erdos1041/NewtonFlowRaySeparation.lean}{325}{samePositiveRay_of_real_exp_decay}{positive-ray invariance under exponential decay}
 \end{itemize}
 % END pin-faithful-source-inventory
 

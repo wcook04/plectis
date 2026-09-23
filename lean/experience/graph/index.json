@@ -4,8 +4,8 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 267,
-    "edges": 335,
+    "nodes": 270,
+    "edges": 339,
     "deferred_node_kinds": {
       "lean_module": 1814,
       "mathematical_object": 105
@@ -71,7 +71,7 @@
     {
       "id": "claim:ani_degree_seven_total_variation_counterexample",
       "kind": "public_claim",
-      "label": "Degree-seven total-variation counterexample",
+      "label": "Degree-seven Hausdorff-length counterexample",
       "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -146,6 +146,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:coefficient_pencil_finite_rank",
+      "kind": "public_claim",
+      "label": "Coefficient-pencil positivity and root interlacing through rank eight",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:cofinal_cylinder_half_countermodel",
       "kind": "public_claim",
       "label": "Conditional cofinal-cylinder half countermodel",
@@ -178,6 +185,13 @@
       "kind": "public_claim",
       "label": "Concrete finite seam adapter",
       "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:cubic_rate_irrationality_unconditional",
+      "kind": "public_claim",
+      "label": "Cubic-rate reciprocal-sum irrationality under the stated asymptotic",
+      "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1228,7 +1242,7 @@
     {
       "id": "paper:erdos-243-reciprocal-tail-rigidity",
       "kind": "paper",
-      "label": "Bounded Increments and Rational Reciprocal Sums",
+      "label": "Cubic-Rate Irrationality and Reciprocal-Tail Rigidity",
       "subject": "Erdős #243",
       "form": "Problem note",
       "href": "papers/erdos-243-reciprocal-tail-rigidity.json",
@@ -1739,6 +1753,12 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "review-family:erdos_257:finite_prime_weighted_support",
+      "kind": "comparator_review_family",
+      "label": "Finite prime-weighted mass gives fixed-base irrationality for infinite positive supports; binary weighted mass gives all-base irrationality for every infinite subset of a positive host, while weighted mass at another fixed base gives same-base hereditary irrationality.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "review-family:erdos_257:half_and_twenty_one_frontiers",
       "kind": "comparator_review_family",
       "label": "Exact greedy characterisations, finite-support exclusions, the odd 2-adic two-thirds-band bound, and two conditional rational-half countermodel frontiers isolate local constraints around the remaining 1/2 and 1/21 alternatives.",
@@ -2118,6 +2138,11 @@
       "source": "integration:comparator",
       "relation": "reviews",
       "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_257:finite_prime_weighted_support"
     },
     {
       "source": "integration:comparator",
@@ -2508,6 +2533,11 @@
       "source": "problem:erdos_257",
       "relation": "has_review_family",
       "target": "review-family:erdos_257:finite_period_noncollapse"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_257:finite_prime_weighted_support"
     },
     {
       "source": "problem:erdos_257",
@@ -2912,6 +2942,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:coefficient_pencil_finite_rank"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:cofinal_cylinder_half_countermodel"
     },
     {
@@ -2933,6 +2968,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:concrete_seam_adapter"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:cubic_rate_irrationality_unconditional"
     },
     {
       "source": "universe:plectis-lean",

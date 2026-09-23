@@ -89,22 +89,27 @@ in the open unit lemniscate. Repeated roots, counted as distinct
 occurrences, give a constant path; the substantive case is therefore
 squarefree.</p>
 <p>The problem numbering follows Bloom’s Erdős problem catalogue <span
-class="citation" data-cites="bloom"></span>. A degree-seven
-counterexample due to the <a
+class="citation" data-cites="bloom"></span>. The degree-seven polynomial
+constructed by <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861">erdosproblems.com
-contributor <code>ani</code></a> makes the unrestricted total-variation
-assertion false. For one explicit monic polynomial of degree seven whose
-roots are distinct and lie in the open unit disc, every continuous path
-in the strict unit lemniscate joining two distinct roots has total
-variation greater than <span class="math inline" data-term-auto="off">\(2\)</span>.<a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> Thus this polynomial has no
-continuous root-to-root parametrisation of total variation less
-than <span class="math inline" data-term-auto="off">\(2\)</span>. The original source is
-Problem 5 on printed p. 139 of Erdős–Herzog–Piranian <span
-class="citation" data-cites="ehp1958"></span>; the preceding paragraph
-records the known input that one component of the lemniscate contains at
-least two zeros.</p>
+contributor <code>ani</code></a> has distinct roots in the open unit
+disc. Lean proves that every preconnected subset of its strict unit
+lemniscate containing two distinct roots has one-dimensional Hausdorff
+measure greater than <span class="math inline" data-term-auto="off">\(2\)</span>. Hence the
+image of every continuous root-to-root path has Hausdorff length greater
+than <span class="math inline" data-term-auto="off">\(2\)</span>, and the exact Formal
+Conjectures statement is false.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> The new Hausdorff bound
+uses a bottleneck: a preconnected set joining the two roots must cross
+radial circles in two disjoint sheets near a critical point. The
+distance coordinate is one-Lipschitz on each sheet, and the resulting
+lower bounds for their disjoint portions add to more than <span
+class="math inline" data-term-auto="off">\(2\)</span>. This is stronger than a bound only on
+the variation of a parametrisation. The original source is Problem 5 on
+printed p. 139 of Erdős–Herzog–Piranian <span class="citation"
+data-cites="ehp1958"><a href="#ref-4">[4]</a></span>; the preceding paragraph records the known
+input that one component of the lemniscate contains at least two
+zeros.</p>
 <p>The main constructions use different kinds of information. The
 trinomial identity controls a prescribed path directly. The area
 argument instead uses the number of roots in a sublevel component.
@@ -2403,7 +2408,7 @@ C_{m+2}.\]</span></div>
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133">exists
 peak le comparison bound</a>.</small></p>
 <p>This is exactly the statement selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/verification/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
 formal Chebyshev endpoint</a>. It proves the finite alternation
 inequality; it does not yet construct the segment between two roots.</p>
 <p>All real-rooted polynomials, and their images under rotations and
@@ -2625,7 +2630,7 @@ class="math inline" data-term-auto="off">\(E_j&lt;1\)</span>.</em></p>
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">primitive
 interior exists two tail energy lt one</a>.</small></p>
 <p>This is the exact finite conclusion selected as <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/verification/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
 formal two-index inequality</a>. It selects two distinct indices. It
 does not assert that the corresponding complex root values are
 distinct.</p>
@@ -2818,7 +2823,7 @@ class="math display" data-term-auto="off">\[\left|(tu-r)(tu-s)(tu-v)\right|\le1
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161">cubic
 has safe root spoke</a>.</small></p>
 <p>This is exactly <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/verification/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
 formal cubic segment inequality</a>.</p>
 <div class="theorem" id="thm:translated-cubic-quotient-fibres">
 <p><strong>Theorem 7.7</strong> (a cubic composed with a power map). <em>
@@ -3296,9 +3301,9 @@ uncontracted closed-level problem.</p>
 class="level3 unnumbered">
 <h3 class="unnumbered">Power substitutions in trinomials</h3>
 <p>The radial-segment identity and strict bound are formalized in <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">cancellation
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">cancellation
 along a trinomial root segment</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">containment
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">containment
 of a trinomial root segment</a>.</p>
 <p>The trinomial identity also applies after a power substitution. Fix
 integers <span class="math inline" data-term-auto="off">\(1\le r&lt;m\)</span> and <span
@@ -3325,7 +3330,7 @@ class="math inline" data-term-auto="off">\(-w^m\)</span>, with weights <span
 class="math inline" data-term-auto="off">\(1-u^r\)</span> and <span
 class="math inline" data-term-auto="off">\(u^r-u^m\)</span> summing to <span
 class="math inline" data-term-auto="off">\(1-u^m\)</span>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L103">formal
 radial-segment estimate</a> gives strict containment when <span
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(|c|&lt;1\)</span>.</p>
@@ -3405,9 +3410,9 @@ class="math inline" data-term-auto="off">\(-w^m\)</span>; their moduli are stric
 under the root-dependent condition. The same identity explains why no
 bound on <span class="math inline" data-term-auto="off">\(a\)</span> is needed. Lean checks
 the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
 and the resulting <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
 spoke theorem</a> under the exact weak exponent hypotheses <span
 class="math inline" data-term-auto="off">\(1\le s\le r\le m\)</span>; it also checks the
 coefficient-only corollary above. Its weak bound <span
@@ -3424,7 +3429,7 @@ indices. Let <span class="math inline" data-term-auto="off">\(S\)</span> index a
 family of roots, <span class="math inline" data-term-auto="off">\(N=|S|\ge2\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M=\sum_{i\in S}w_i^s.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">squared-modulus
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L33">squared-modulus
 identity</a> gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{i\in
 S}|c+bw_i^s|^2
@@ -3446,7 +3451,7 @@ below one, the other <span class="math inline" data-term-auto="off">\(N-1\)</spa
 would each contribute at least one. This explains both the threshold
 <span class="math inline" data-term-auto="off">\(N-1\)</span> and why the criterion selects
 two indices. Applying the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">resulting
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/TetranomialL2Selector.lean#L208">resulting
 contained-segment theorem</a> to these inequalities proves that both
 root segments lie strictly in <span
 class="math inline" data-term-auto="off">\(\{|g|&lt;1\}\)</span>. Retaining the signed cross
@@ -3575,7 +3580,7 @@ class="math display" data-term-auto="off">\[\bigl(\sqrt{d^2+x^2}\bigr)^{\alpha-1
 why replacing <span class="math inline" data-term-auto="off">\(|w|\)</span> by <span
 class="math inline" data-term-auto="off">\(x\)</span> gives an upper length bound. Lean
 checks <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L37">the
 integral of the power-map derivative</a></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\alpha\int_0^A
@@ -3598,7 +3603,7 @@ estimate</p>
 class="math display" data-term-auto="off">\[\operatorname{length}(\widetilde{[a,b]})
     \le |a|^{1/q}+|b|^{1/q}.\]</span></div>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">strict
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/research_corpus/Erdos1041/QuarticQuotientFiberCase.lean#L59">strict
 endpoint-length estimate</a> also proves that if <span
 class="math inline" data-term-auto="off">\(0\le a,b&lt;1\)</span>, <span
 class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span>, and a candidate length <span
@@ -4864,10 +4869,10 @@ real value whole</a>.</small></p>
 <p>The computation is one line: <span
 class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
 The kernel checks the local complex-parameter chain rule as <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
 derivative of the polynomial value along a Newton trajectory</a>,
 together with the differential form of the first integral, <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">the
 derivative of the exponentially rescaled value</a>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0.\]</span></div>
@@ -4986,7 +4991,7 @@ so the forbidden translations lie on the real affine line through <span
 class="math inline" data-term-auto="off">\(-a\)</span> and <span
 class="math inline" data-term-auto="off">\(-b\)</span>.</p>
 <p>The formula is checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translations
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translations
 that put two values on one ray</a>. A finite union of these loci has
 empty interior. Adding a constant to <span
 class="math inline" data-term-auto="off">\(f\)</span> translates all critical values by that
@@ -5558,7 +5563,7 @@ class="level3 unnumbered">
 critical-value family is injective, Lean proves an arbitrarily small
 translation making every value nonzero and pairwise positive-ray
 separated (<a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">a
 small translation separating the arguments</a>). It also proves the
 explicit root-retention estimate: for a monic polynomial <span
 class="math inline" data-term-auto="off">\(f\)</span> of degree <span
@@ -5568,7 +5573,7 @@ the unit disc provided</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[((n+1)\varepsilon)^{1/n}+\max_{f(b)=0}|b|&lt;1\]</span></div>
 <p class="display-continue">(<a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">the
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">the
 root-retention estimate for the unit disc</a>). Adding a constant leaves
 the difference of two critical values unchanged, so it cannot separate
 values that were equal to begin with.</p>
@@ -5984,26 +5989,34 @@ such input; for each of them part of the argument is formalised and the
 rest is not. A theorem whose own statement is conditional is formalised
 exactly as stated; the results listed here are asserted
 unconditionally.</p>
+<p>The concordance below is pinned to an earlier checkpoint and records
+the total-variation version of the degree-seven counterexample. The
+stronger Hausdorff-measure theorem and the exact Formal Conjectures
+negation are linked in Section <a class="math-ref" href="#sec:problem">1</a>; the earlier Comparator
+receipt does not review those later declarations.</p>
 <section id="concordance-of-statements-and-lean-declarations."
 class="level5">
 <h5>Concordance of statements and Lean declarations.</h5>
 <p>Each result of this record that has a kernel-checked Lean statement
 of the same assertion is listed below with the declarations that jointly
-state it. Each name links to its declaration at revision
-<code>a25cb360bef8</code>. Where the Lean statement is stronger than the
-printed one and implies it by an immediate specialisation, the entry
-says so. An entry marked <em>compared</em> was also checked
-independently: a restatement of the same declarations against Mathlib
-alone, together with its proof, was verified by Comparator
-(<code>leanprover/comparator</code>) in a clean continuous integration
-environment, in the run named by its number. Comparator trusts the
-restated statement, so the correspondence between the printed result and
-that statement is the one this concordance records.</p>
+state it. Each name links to the source revision in its URL. Where the
+Lean statement is stronger than the printed one and implies it by an
+immediate specialisation, the entry says so. An entry marked
+<em>compared</em> was also checked independently: a restatement of the
+same declarations against Mathlib alone, together with its proof, was
+verified by Comparator (<code>leanprover/comparator</code>) in a clean
+continuous integration environment, in the run named by its number.
+Comparator trusts the restated statement, so the correspondence between
+the printed result and that statement is the one this concordance
+records.</p>
 <p> The statement at <a class="math-ref" href="#res:ani-degree-seven-counterexample-long">res:ani-degree-seven-counterexample-long</a>:
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L283"><code>erdos1041_counterexample_hausdorff</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L407"><code>erdos1041_hausdorff_negation</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L449"><code>erdos1041_hausdorff_answer_false</code></a>.
+<em>Comparator replay pending; Palomar entry pending.</em></p>
 <p> Theorem <a class="math-ref" href="#res:trinomial-all-degree">2.1</a> (the Lean
 statement is stronger): <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean#L26"><code>all_spokes</code></a>,
@@ -6581,13 +6594,16 @@ algebraischen Gleichungen mit ganzzahligen Koeffizienten</em>, Math. Z.
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Lean checks this instance in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
-The formal result concerns one polynomial; it does not formalise the
-reported small-parameter family or a Hausdorff-measure comparison, and
-its correspondence with the historical formulation has not received
-independent human review.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The checked <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L283">preconnected-set
+theorem</a> yields the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L407">negation</a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L449"><code>answer(False)</code></a>
+forms of the Formal Conjectures proposition. This formalises one
+polynomial, not ani’s reported small-parameter family. Independent human
+review has not adjudicated correspondence with the 1958 wording.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

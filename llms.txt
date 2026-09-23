@@ -81,7 +81,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos68-factorial-reasoning-surface (Reasoning surface, 49 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
 - [Erdős #243](maths/problems/erdos_243.html)
 - [erdos-243-reciprocal-tail-rigidity (Problem note, 19 pp.)](maths/papers/erdos-243-reciprocal-tail-rigidity.html)
-- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 64 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
+- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 65 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
 - [Erdős #249](maths/problems/erdos_249.html)
 - [erdos-249-binary-totient-series (Problem note, 17 pp.)](maths/papers/erdos-249-binary-totient-series.html)
 - [erdos249-totient-reasoning-surface (Reasoning surface, 165 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
@@ -101,7 +101,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos-1049-rational-base-lambert (Problem note, 21 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 73 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
 - [optimal-sparse-perturbations (Cross-problem paper, 28 pp.)](maths/papers/optimal-sparse-perturbations.html)
-- [claim-faithful-publication-systems (Research architecture, 21 pp.)](maths/papers/claim-faithful-publication-systems.html)
+- [claim-faithful-publication-systems (Research architecture, 20 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 12 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
 - [open-source-mathematics-strategy (Open-source research strategy, 22 pp.)](maths/papers/open-source-mathematics-strategy.html)
 - [plectis-public-system (Evidence boundary, 22 pp.)](maths/papers/plectis-public-system.html)
@@ -145,7 +145,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 ## Reader ladder (open in order of need)
 
-- [AI packet](plectis-ai-review-packet.json) (~18 MB): start here -- upload this file and ask for a guided tour of the website or either GitHub repository. It carries the papers, full glossary, page prose and source records, with question routes, indexed names, section links and exact source pointers. Open question_router.routes.guided_tour for a tour; use retrieval_index for a term, page, paper or repository file.
+- [AI packet](plectis-ai-review-packet.json) (~19 MB): start here -- upload this file and ask for a guided tour of the website or either GitHub repository. It carries the papers, full glossary, page prose and source records, with question routes, indexed names, section links and exact source pointers. Open question_router.routes.guided_tour for a tour; use retrieval_index for a term, page, paper or repository file.
 - [reviewer brief](plectis-reviewer-brief.json) (~11 MB): smaller optional source download -- paper LaTeX, assertions, glossary, repository documents and path indexes. Use the full AI packet for website prose and guided tours.
 - [reader digest](plectis-ai-reader-digest.json) (~350 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.

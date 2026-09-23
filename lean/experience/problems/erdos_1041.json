@@ -4,10 +4,10 @@
   "erdos_number": 1041,
   "title": "Short connections inside polynomial lemniscates",
   "status": "open",
-  "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question.",
+  "question": "Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review.",
   "authority_posture": "registered_declarations",
   "what_is_checked": [
-    "An explicit monic degree-seven polynomial with distinct roots in the open unit disc has the property that every continuous path in its strict unit lemniscate joining distinct roots has extended total variation greater than two. This refutes the universal total-variation formulation.",
+    "For ani’s degree-seven polynomial, every preconnected strict-lemniscate set containing two distinct roots has one-dimensional Hausdorff measure above two. Lean refutes the exact Formal Conjectures path-image claim and checks a separate total-variation bound.",
     "Along a trajectory tangent to the complex Newton vector field -f/f', the polynomial value satisfies w' = -w.",
     "The exponentially rescaled polynomial value is a first integral, so the value of a Newton trajectory remains on one oriented ray.",
     "A finite Newton-flow connection can only join endpoints whose polynomial values lie on the same positive ray; distinct critical-value arguments therefore exclude such a connection.",
@@ -16,8 +16,8 @@
     "An explicit root-retention estimate keeps roots of a sufficiently small constant perturbation inside the unit disc."
   ],
   "what_is_not_checked": [
-    "A Hausdorff-measure comparison between the historical curve-length formulation and the checked extended-total-variation formulation.",
-    "Independent human review adjudicating whether the checked total-variation formulation exactly represents the historical question.",
+    "The full small-parameter family reported by ani; only one explicit polynomial is formalised.",
+    "Independent human review adjudicating whether the exact Formal Conjectures path-image-length statement represents the 1958 curve-length wording.",
     "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
     "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
     "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
@@ -26,31 +26,41 @@
   "open_obligations": [
     {
       "id": "historical_curve_length_correspondence",
-      "statement": "Determine the precise correspondence between the historical curve-length question and the refuted total-variation formulation, including any required Hausdorff-measure comparison and independent human review."
+      "statement": "Independently review whether the 1958 curve-length wording matches the refuted Formal Conjectures path-image Hausdorff statement."
     },
     {
       "id": "repair_or_refute_saddle_block",
-      "statement": "The printed 1/(2π) spanning-tree estimate of Proposition 12 is false. Any later argument must pay a positive attachment cost, select only one short pair, or use a different global metric inequality."
+      "statement": "Repair or replace the false Proposition 12 spanning-tree estimate; account for positive attachment costs or use another metric inequality."
     },
     {
       "id": "compact_ray_cut_strip_decomposition",
-      "statement": "Construct and verify a compact ray-cut strip or cell decomposition under explicit local-valence hypotheses, as auxiliary structure for restricted families or a correspondence-adjusted historical formulation. It does not imply a universal sub-two total-variation connector."
+      "statement": "Verify a compact ray-cut strip or cell decomposition under explicit local-valence hypotheses for restricted families; it gives no universal sub-two connector."
     },
     {
       "id": "corrected_metric_gluing_for_restricted_families",
-      "statement": "The degree-seven counterexample rules out universal total-variation gluing below two. For a stated restricted family or different historical length notion, derive a metric gluing inequality with all positive attachment costs explicit; the false printed 1/(2π) coefficient may not be retained."
+      "statement": "For a restricted family or different historical length notion, prove a metric gluing inequality that pays every positive attachment cost; universal sub-two total-variation gluing is refuted."
     },
     {
       "id": "two_stage_stable_perturbation",
-      "statement": "Given a polynomial/component and an already selected connector with explicit strict slack, quantify a two-stage perturbation preserving roots, that component, collars, ray separation, and the stated slack. No universal existence or sub-two conclusion is asserted."
+      "statement": "Given a selected connector with strict slack, quantify a two-stage perturbation preserving roots, component, collars, ray separation, and slack; no universal existence claim follows."
     },
     {
       "id": "relative_global_newton_flow_theorem",
-      "statement": "Under explicit relative component, saddle, and corrected metric hypotheses, derive the corresponding root-to-root Newton-flow connector. The theorem must state its restricted hypotheses and cannot imply a sub-two total-variation connector for every polynomial."
+      "statement": "Under explicit component, saddle, and corrected metric hypotheses, derive a restricted root-to-root Newton-flow connector without a universal sub-two claim."
     }
   ],
-  "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence and is separate from the exact degree-seven total-variation counterexample checked in Lean.",
+  "finite_search": "Raster tests through degree ten suggest candidate bounds only; they are separate from the exact degree-seven Lean counterexample.",
   "modules": [
+    {
+      "module": "ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
+      "path": "lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+      "present": true,
+      "line_count": 460,
+      "declaration_count": 10,
+      "theorem_count": 9,
+      "content_digest": "sha256:069ea76e27304bd34e020cf8aab0fcc9200c495ff892127612e8afe571e3fcb4",
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"
+    },
     {
       "module": "ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter",
       "path": "lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean",
@@ -165,7 +175,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
+    "source_sha256": "937260a9c9aa4061f42c37f6437f35dc5910bf14c806cbed561877c47b6797f1",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -207,19 +217,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 30,
-      "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "a5a6f75b996d2d8b6751e064414516d42c6ded18ac8c0818431bfd715fab1744",
+      "renderer_contract_version": 32,
+      "renderer_fingerprint": "f255c6c37cc97729",
+      "source_sha256": "c10b43eed3c2954e3e0c878f2868b3d5c876fa1da2abc15f49d4a55a52bcd5ef",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 787,
+      "mathml_node_count": 786,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "285440f30ca0b77dea5e32ec51fae5c66fc6db45d2188891bce82346e45102ca",
-      "html_exact_tex_sha256": "574f93be84acabd99b260acfe252b73238b4eea92882425c9fd674a73f051ab9"
+      "html_mathml_sha256": "5aa9378684793d37000992eb3d2c39d2748893ee62a510123fec1955bce46b7f",
+      "html_exact_tex_sha256": "0ff75182c57fadaad9fc42e3a9eac12fc4ff41b8cfc3ea1bdda09ab19265ee69"
     },
     "sections": [
       {
@@ -481,19 +491,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "a5a6f75b996d2d8b6751e064414516d42c6ded18ac8c0818431bfd715fab1744",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "c10b43eed3c2954e3e0c878f2868b3d5c876fa1da2abc15f49d4a55a52bcd5ef",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 787,
+        "mathml_node_count": 786,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "285440f30ca0b77dea5e32ec51fae5c66fc6db45d2188891bce82346e45102ca",
-        "html_exact_tex_sha256": "574f93be84acabd99b260acfe252b73238b4eea92882425c9fd674a73f051ab9"
+        "html_mathml_sha256": "5aa9378684793d37000992eb3d2c39d2748893ee62a510123fec1955bce46b7f",
+        "html_exact_tex_sha256": "0ff75182c57fadaad9fc42e3a9eac12fc4ff41b8cfc3ea1bdda09ab19265ee69"
       },
       "sections": [
         {
@@ -755,12 +765,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 30,
-        "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "91cac94ec9296e643a61bd89580a294c44fbae5cf17afd6975682a3b2522f76b",
+        "renderer_contract_version": 32,
+        "renderer_fingerprint": "f255c6c37cc97729",
+        "source_sha256": "bdddc472edcff62dd91155af8353f6fc8451dce625f96c7edea057cf71bbc576",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2553,
+        "mathml_node_count": 2554,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -785,8 +795,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "5c4f15591e77d444170763238548ea1e13c69227593fa616b9be89b85cd8bfb3",
-        "html_exact_tex_sha256": "9581697898b1948fa42942a87f12d5883451152418b500b42562157f210523a4"
+        "html_mathml_sha256": "ae2efed1dfce72f27f43c1ce65b2305f9032db0cde6af7a6fabc15e85e8e4d96",
+        "html_exact_tex_sha256": "57e1b9e638a89b7e6c9e5bd43ff52656ea27b64a0b49fee92c573cffd8af699b"
       },
       "sections": [
         {

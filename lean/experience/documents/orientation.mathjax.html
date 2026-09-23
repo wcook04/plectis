@@ -44,65 +44,79 @@ reachable below.</p>
 <tbody>
 <tr>
 <td class="ta-r">1</td>
-<td><code>known_irrational_supports</code> / <code>selected</code></td>
+<td><code>finite_prime_weighted_support</code> /
+<code>selected</code></td>
 </tr>
 <tr>
 <td class="ta-r">2</td>
-<td><code>pairwise_coprime_support</code> /
+<td><code>known_irrational_supports</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">3</td>
-<td><code>orthogonal_petal_sunflower_reduction</code> /
+<td><code>pairwise_coprime_support</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">4</td>
-<td><code>periodic_nonnegative_weight_irrationality</code> /
+<td><code>orthogonal_petal_sunflower_reduction</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">5</td>
-<td><code>actual_lcm_orbit_separation</code> /
+<td><code>periodic_nonnegative_weight_irrationality</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">6</td>
-<td><code>first_harmonic_pivot_decomposition</code> /
+<td><code>actual_lcm_orbit_separation</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">7</td>
-<td><code>strict_prime_tail_orbit_gap</code> /
+<td><code>first_harmonic_pivot_decomposition</code> /
 <code>represented</code></td>
 </tr>
 <tr>
 <td class="ta-r">8</td>
+<td><code>strict_prime_tail_orbit_gap</code> /
+<code>represented</code></td>
+</tr>
+<tr>
+<td class="ta-r">9</td>
 <td><code>factorial_carry_characterisation</code> /
 <code>subordinate</code></td>
 </tr>
 <tr>
-<td class="ta-r">9</td>
+<td class="ta-r">10</td>
 <td><code>prime_gap_reformulation</code> / <code>subordinate</code></td>
 </tr>
 <tr>
-<td class="ta-r">10</td>
+<td class="ta-r">11</td>
 <td><code>totient_carry_anti_compression</code> /
 <code>represented</code></td>
 </tr>
 <tr>
-<td class="ta-r">11</td>
+<td class="ta-r">12</td>
 <td><code>half_membership_seam_classification</code> /
 <code>represented</code></td>
 </tr>
 <tr>
-<td class="ta-r">12</td>
+<td class="ta-r">13</td>
 <td><code>negative_mass_recovery</code> / <code>represented</code></td>
 </tr>
 </tbody>
 </table>
 <p>Interface, source declaration, and exact boundary, by rank:</p>
 <ol type="1">
+<li><code>finite_prime_weighted_support</code>
+<code>Erdos249257.ExternalVerification.divisibilityWeightedClaim</code>
+→
+<code>ErdosProblems.Erdos257.PaperCompleteR8.divisibilityWeightedClaim</code>
+The finite-prime weighted-summability premise is explicit in both
+clauses. This criterion does not cover every infinite support or settle
+universal Erdős #257; no novelty, priority, significance, or external
+human-review claim is made.</li>
 <li><code>known_irrational_supports</code>
 <code>Erdos249257.ExternalVerification.irrational_erdosSum_full_support</code>
 → <code>Erdos249257.irrational_erdosSum_full_support</code> This is the
@@ -302,12 +316,12 @@ Determine irrationality of the running-LCM reciprocal sum for finite
 prime sets of size at least three. For {2,3,5}, the rationality-to-carry
 bridge is established and cofinal local-window escape remains open.</li>
 <li><code>remaining_open.erdos_1041_lemniscate_connection</code> —
-Determine the precise correspondence between the historical curve-length
-question and the checked total-variation formulation, which ani’s
-explicit degree-seven example refutes. A Hausdorff-measure comparison is
-not formalised, and independent human review of historical
-correspondence is not recorded; the refuted total-variation assertion
-itself is no longer an open proof obligation.</li>
+Independently review whether the 1958 curve-length wording matches the
+exact Formal Conjectures path-image-length statement, whose negation is
+now Lean-checked using ani’s explicit degree-seven polynomial. The
+checked one-dimensional Hausdorff-measure bound settles that formal
+statement negatively; the reported small-parameter family is not
+formalised.</li>
 <li><code>remaining_open.erdos_1049_irrationality</code> — Determine
 whether F(t) = ∑_{n≥1} 1/(tⁿ − 1) is irrational for every rational t
 &gt; 1. Irrationality of F((31/4)^r) for every positive integer r is a
