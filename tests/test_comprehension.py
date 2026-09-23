@@ -1536,6 +1536,18 @@ def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path
     assert all(v is False for v in pack["authority_ceiling"].values())
 
 
+def test_first_action_fresh_clone_example_routes_to_project_tour() -> None:
+    goal = "find and run a first example in a fresh clone"
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "public_first_example_tour"
+    assert pack["first_action"]["command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core tour --format text ."
+    )
+    assert pack["owner"]["scope"] == "public_project_tour"
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
 def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:
     """A clone without the graph must FAIL the first-action assay (degraded), not
     quietly degrade into doc-shaped answers."""

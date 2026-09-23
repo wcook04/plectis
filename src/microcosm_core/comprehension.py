@@ -2689,6 +2689,14 @@ def _public_getting_started_goal(text: str) -> bool:
     )
 
 
+def _public_first_example_goal(text: str) -> bool:
+    """Recognize a cold reader asking for the repository's first runnable example."""
+    lowered = (text or "").lower()
+    return "first example" in lowered and any(
+        phrase in lowered for phrase in ("clone", "repository", "repo")
+    )
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     Return whether tokens overlap holds for the comprehension flow.
@@ -3204,6 +3212,56 @@ def _compile_first_action(
     organs = _resolve_goal_organs(goal, inputs)
     organ_target = organs["selected"]
     mode, _rg_target, _note = route_goal(goal, inputs)
+    if (
+        not organ_target
+        and mode not in ("path", "mutation_plan", "papers", "mechanism")
+        and _public_first_example_goal(text)
+    ):
+        command = "PYTHONPATH=src python3 -m microcosm_core tour --format text ."
+        pack["routing"] = {"basis": "public_first_example_tour"}
+        pack["summary"]["what_this_is"] = (
+            "The first runnable example in a fresh clone is the project tour "
+            "documented in QUICKSTART.md."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_verification_command",
+            "command": command,
+            "why": (
+                "The tour runs from source with Python 3.11 or newer and writes "
+                "its local record under ignored .microcosm/."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {"scope": "public_project_tour", "packet_id": "first_example"}
+        pack["proof_path"] = {
+            "validation_commands": [command],
+            "receipt_refs": [],
+            "note": (
+                "Inspect .microcosm/catalog.json and .microcosm/routes.json after "
+                "the run; QUICKSTART.md explains their limited meaning."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop after the tour and its local records; choose a component "
+                "example separately if the reader wants a domain-specific replay."
+            ),
+            "task_classes": ["getting-started"],
+            "source": "QUICKSTART.md::First result",
+        }
+        pack["do_not_claim"] = (
+            "The tour verifies a local first run only; it does not validate "
+            "the other components, mathematics, or the private system."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "the tour writes ignored local state, not tracked source files",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice mechanism --format text",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
     if _source_locus_goal(text, organ_target):
         command = (
             "PYTHONPATH=src python3 -m microcosm_core comprehend "

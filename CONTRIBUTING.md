@@ -26,11 +26,18 @@ python3 --version
 PYTHONPATH=src python3 -m plectis comprehend --first-action "find and run a first example in a fresh clone" --format text
 ```
 
-Read the returned `Do this first`, reason, `no-write variant`, and limits.
-Check whether the named command and input exist in the clone and whether the
-step fits the question. If it does, run at most the printed `no-write variant`,
-which places its output under ignored `.microcosm/`. Stop after that one run or
-at the first mismatch: an unrelated route, a missing command or input, or an
+Read the returned `Do this first`, reason, and limits.
+The documented first example is the project tour in [Quickstart](QUICKSTART.md#1-first-result),
+which runs from source and writes under ignored `.microcosm/`. Check whether the
+returned command matches that example. In a clone without an install, the
+printed `plectis tour` command has this source form:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core tour --format text .
+```
+
+If the route matches, run it once. Stop after that one run or at the first
+mismatch: an unrelated route, a missing command or input, or an
 unclear next step. Do not run a command that writes tracked receipts just to
 complete this experiment.
 

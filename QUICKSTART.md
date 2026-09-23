@@ -18,6 +18,9 @@ The tour lists project files in `.microcosm/catalog.json` and proposes tasks
 such as inspecting a README in `.microcosm/routes.json`. It records a simulated
 task run; it does not execute your project's tests. Your source files are
 unchanged, and `.microcosm/` is ignored by git. The component examples have separate commands.
+The first-action router also selects this tour for a request to find a first
+example in a fresh clone. Its result is a local introduction, not a check of
+the other component examples.
 
 ```bash
 PYTHONPATH=src python3 -m plectis tour --card .
