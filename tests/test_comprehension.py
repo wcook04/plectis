@@ -1053,6 +1053,30 @@ def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:
     assert all(v is False for v in pack["authority_ceiling"].values())
 
 
+@pytest.mark.parametrize("goal", [
+    "experiment with a Lean proof of an Erdős problem",
+    "prove an Erdos #257 theorem",
+    "explore an Erdős paper and its open problem",
+])
+def test_erdos_research_first_action_uses_companion(goal: str) -> None:
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "companion_erdos_research"
+    assert pack["first_action"]["action_kind"] == "open_packet"
+    assert "--slice papers" in pack["first_action"]["command"]
+    assert "lean_proof_search_lab_runtime" not in pack["first_action"]["command"]
+    assert pack["owner"]["repository"] == C.LEAN_COMPANION_REPOSITORY["repository"]
+    assert C._first_action_contract_complete(pack)
+
+
+def test_explicit_toy_lean_organ_stays_local_when_erdos_is_context() -> None:
+    pack = C.comprehend(
+        root=C.default_root(), mode="first_action",
+        target="run lean_proof_search_lab_runtime toy fixture for an Erdos example",
+    )
+    assert pack["routing"]["basis"] != "companion_erdos_research"
+    assert pack["owner"]["organ_id"] == "lean_proof_search_lab_runtime"
+
+
 def test_first_action_contract_via_task_route_match(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(

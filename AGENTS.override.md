@@ -91,6 +91,11 @@ repository's proof authority. For theorem status, mathematical progress,
 remaining open propositions, Lean declarations, or paper-to-source claims, use
 the companion repository's tracked machine route:
 
+The same boundary applies to `comprehend --first-action` requests to work on
+an Erdős proof: the first step opens the paper guide and points to the
+companion. An explicit request for this toolkit's toy Lean proof-search lab
+still routes to its local fixture and carries the toy-theorem limit.
+
 ```bash
 python3 scripts/query_corpus.py --ask "<question>"
 ```

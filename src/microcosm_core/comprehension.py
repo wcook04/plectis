@@ -2697,6 +2697,26 @@ def _public_first_example_goal(text: str) -> bool:
     )
 
 
+def _companion_erdos_goal(text: str) -> bool:
+    """Send Erdős research questions to the repository that owns the proofs.
+
+    An explicit request for this toolkit's toy proof-search organ still uses
+    that organ, even if the reader mentions an Erdős example for context.
+    """
+    lowered = (text or "").lower()
+    if not re.search(r"\berd[oő]s\b", lowered):
+        return False
+    return not any(
+        name in lowered
+        for name in (
+            "lean_proof_search_lab_runtime",
+            "lean-proof-search-lab-runtime",
+            "lean proof-search lab",
+            "lean proof search lab",
+        )
+    )
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     Return whether tokens overlap holds for the comprehension flow.
@@ -3207,6 +3227,59 @@ def _compile_first_action(
             "paths": [],
             "note": "no edit, deletion, or publication is authorized by this contract",
         }
+        return pack
+
+    if _companion_erdos_goal(text):
+        command = (
+            "PYTHONPATH=src python3 -m microcosm_core comprehend "
+            "--slice papers --format text"
+        )
+        pack["routing"] = {"basis": "companion_erdos_research"}
+        pack["summary"]["what_this_is"] = (
+            "Erdős research belongs to the separate public Lean companion. "
+            "Open the local paper guide for its clone URL and first query."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": command,
+            "why": (
+                "The paper guide names the public companion, whose Lean source, "
+                "papers, and open-question records own mathematical claims."
+            ),
+            "committed_receipts": ["docs/papers/corpus.json"],
+        }
+        pack["owner"] = {
+            "scope": "public_mathematics_companion",
+            "repository": LEAN_COMPANION_REPOSITORY["repository"],
+        }
+        pack["proof_path"] = {
+            "validation_commands": [command, "python3 docs/papers/check_paper_corpus.py"],
+            "receipt_refs": ["docs/papers/corpus.json"],
+            "note": (
+                "In the companion clone, run scripts/query_corpus.py before "
+                "choosing a theorem, experiment, or contribution route."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the companion's stated theorem status and open boundary; "
+                "a toolkit fixture does not check an Erdős proof."
+            ),
+            "task_classes": ["companion_mathematics"],
+            "source": "AGENTS.override.md::Mathematics, Lean theorem status, or paper claims",
+        }
+        pack["do_not_claim"] = (
+            "This toolkit paper route does not prove a theorem, establish novelty, "
+            "or authorize release. Check the companion's exact Lean declaration "
+            "and paper before making a mathematical claim."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "This read-only route does not edit toolkit or companion source.",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --packet-atlas",
+        ]
         return pack
 
     organs = _resolve_goal_organs(goal, inputs)
