@@ -826,12 +826,14 @@ argument.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The two-prime deduction uses an external transcendence theorem and is
-not formalised here. Fan’s priority is retained from the supplied forum
-record; the live thread and catalogue could not be rechecked for this
-revision. The formal sources for the rank theorem and the tail
-recurrence are listed below. The supplied <code>LEAN_INDEX.json</code>
-identifies the public snapshot as
+<p>The two-prime identities and their transcendence conclusion are
+formalised in <code>TwoPrimeSums.lean</code>. The latter theorem retains
+the cited Bugeaud–Laurent transcendence theorem as an explicit
+hypothesis; that external theorem is not formalised here. Fan’s priority
+is retained from the supplied forum record; the live thread and
+catalogue could not be rechecked for this revision. The formal sources
+for the rank theorem and the tail recurrence are listed below. The
+supplied <code>LEAN_INDEX.json</code> identifies the public snapshot as
 <code>6b78209ab63a8c643281115f8628a3be79ff7ec7</code> and marks selected
 declarations <code>ci_checked</code>. Its recorded successful
 compilation is at an earlier commit; the build step in the pinned run
@@ -938,8 +940,9 @@ window existence.</td>
 </tr>
 <tr>
 <td class="ta-l">External input</td>
-<td class="ta-l">Bugeaud–Laurent and Loxton–van der Poorten
-for the two-prime theorem; no Lean value theorem claimed.</td>
+<td class="ta-l">The Lean two-prime transcendence theorem
+assumes the cited Bugeaud–Laurent result (including the Loxton–van der
+Poorten case); it does not formalise that external theorem.</td>
 </tr>
 </tbody>
 </table>

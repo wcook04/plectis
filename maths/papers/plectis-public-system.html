@@ -30,6 +30,11 @@
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Plectis: What a Stranger Can Check">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/09">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/papers/plectis-public-system.pdf">
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/5077ae4a6bd4d8e9.css">
@@ -89,6 +94,8 @@
           <span>Systems paper</span>
           <span>22&#8202;pp</span>
           <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equations</a> typeset from the exact TeX</span>
+          <span>By <a href="../../docs/contact.html" rel="author">Will Cook</a></span>
+          <span>July 2026; updated September 2026</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 22&#8202;pp</a>
@@ -96,6 +103,8 @@
           <a class="source-link" href="https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex" data-link-kind="exogenous" rel="external noopener">Source on <span data-term-preview-only data-term="github" data-term-auto="1">GitHub</span></a>
           
         </div>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a>. He reviewed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> when he could. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">AI agents</a> did most of the research and drafting. Cook did not independently <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a> every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff"><span data-term-preview-only data-term="release" data-term-auto="1">release</span> citation</a> and give the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> used. <a href="../../docs/contact.html">Contact Will</a> with questions or corrections.</p>
       </header>
 
       <div class="paper-precis">
@@ -115,15 +124,15 @@
   <div class="lean-paper__body" data-source="../../../paper/plectis-public-system.tex">
 <section id="sec:problem" class="level2">
 <h2>The problem</h2>
-<p>I have a larger private <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software system</a> that I cannot responsibly
+<p>I have a larger private <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software system</a> that I cannot responsibly
 publish: it contains personal records, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-credential" data-term="credential" data-term-auto="1">credentials</a>, live <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-web-browser" data-term="web_browser" data-term-auto="1">browser</a> and
 account information, my working notes, and unfinished tools. I would
-still like strangers to be able to test some <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> about it instead of
+still like strangers to be able to test some <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> about it instead of
 accepting my say-so. I use <em>answerable</em> in a deliberately local
 sense: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> is answerable when a stranger can run a public test that
 bears on it, see how the result is judged, and locate a disagreement in
 a named input, rule, or output. This is not a new synonym for truth,
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reproducible" data-term="reproducible" data-term-auto="1">reproducibility</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a>, or independent review. For the rest of
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reproducible" data-term="reproducible" data-term-auto="1">reproducibility</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a>, or independent review. For the rest of
 the paper I use the plainer phrase <em>publicly testable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a></em>. The
 question is what conclusions such a test can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> when the larger
 system and the unpublished pool from which the test was selected remain
@@ -137,7 +146,7 @@ folder and history to another computer. Everything this paper says a
 stranger can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> is in that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. This paper describes how its
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> are exposed and where the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> stops.</p>
 <p>This paper examines the public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a> collection only. The
-companion <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is a separate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a> with work
+companion <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is a separate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a> with work
 on eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes. It <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credits</a> ani with an explicit
 degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-polynomial" data-term="polynomial" data-term-auto="1">polynomial</a> for which every path through the strict
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> joining two distinct roots has image of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hausdorff-measure" data-term="hausdorff_measure" data-term-auto="1">one-dimensional
@@ -213,7 +222,7 @@ test <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs
 <h5>Who made the decisions.</h5>
 <p>Cook directed the private system’s construction through AI <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">coding
 agents</a>. He set project objectives and review criteria and accepted or
-rejected <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> output in the development process. The public record does
+rejected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> output in the development process. The public record does
 not show how closely he reviewed each present case, expected answer,
 decision rule, or sentence. No other person worked on the system. This
 account explains the concentration of control, but it remains testimony
@@ -338,7 +347,7 @@ a run. The <a class="narrative-ref narrative-ref--term is-term-again" href="../.
 write another. A <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a></em> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-program" data-term="program" data-term-auto="1">program</a> that applies a
 component’s pass and refusal rules. In testing terminology, the rule and
 expected result together act as the test oracle: they say what should
-count as correct for that case. A <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a></em> is a named, saved
+count as correct for that case. A <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a></em> is a named, saved
 version of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. These are Plectis’s internal names for
 familiar objects—test case, test oracle, run record, and saved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>
 version—and the paper uses the familiar terms whenever the internal

@@ -32,63 +32,44 @@ the displayed implication; it does not prove that its hypotheses occur.
 
 ## The short version
 
-The repository's clearest completed mathematics is concentrated in restricted
-forms of Problem 257. Start with the Lean-checked finite-prime weighted support
-criterion: its base-two mass condition makes the series irrational at every
-integer base `b ≥ 2`, including for some supports whose reciprocal sum
-diverges. It is a sufficient condition, not the universal assertion for every
-infinite support. Lean separately checks the classical full-support theorem,
-a pairwise-coprime support theorem under explicit summability hypotheses, and
-irrationality for nonnegative rational eventually-periodic coefficients with
-a positive periodic tail. The reciprocal-summable corollary was stated by
-Erdős without a printed proof. The same finite averaging window
-also combines weighted supports with positive divisor covers, preserving
-irrationality for every infinite subset of their union at all integer bases.
-Lean checks this combination as `mixedSupportClaim`. The achievement-set
-development adds exact topological and measure statements. Universal Problem
-257, which quantifies over every infinite support, remains open.
+The [front-page #257 example](../README.md) gives a complete irrationality
+theorem for restricted supports. The other programmes have direct results,
+exact reductions, conditional routes and counterexamples to tempting methods.
+The table gives one entry point per problem; the
+[guide below](#problem-by-problem-guide) keeps each result beside its missing
+step. Mathematical importance requires separate judgement.
 
-Problem 249 supplies the deepest collection of endpoint-facing mechanisms.
-Under hypothetical rationality, Lean constructs one
-tempered integral carry whose dyadic sections are eventually periodic modulo a
-common multiplier while its canonical carry-kernel ranks are at least
-`2^e − 1` for every `e`. Those two conclusions are not proved contradictory:
-modulo a divisor of the multiplier, the forcing can vanish and the carry can
-become geometric. Separate checked results determine the coefficient kernel's
-exact finite-level rank `2^e + 1`, formalise finite denominator exclusions, and
-give conditional routes from actual-LCM separation or first-harmonic
-decorrelation to irrationality. Every such route still lacks its cofinal
-producer. Checked no-go results also explain why fixed precision, quotient
-periodicity, or coefficient structure alone leave that cofinal producer
-unconstructed.
+| Problem | A result to start with | Where the result stops |
+|---|---|---|
+| [#68](#result-68) | Two exact finite denominator exclusions, one with a Lean-checked carry consumer, and a Lean-checked `3/2` lower growth exponent for the uncleared common denominator. | No cofinal non-unit factorial carries have been produced; irrationality remains open. |
+| [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
+| [#249](#result-249) | The short paper and Lean give the exact all-base totient-kernel rank `k^e+1`; Lean also checks three conditional routes toward irrationality. | None supplies the needed cofinal actual-LCM, first-harmonic or strict prime-tail input. |
+| [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
+| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support; the selected public Comparator replay for this claim is pending. |
+| [#269](#result-269) | Both two-prime running-LCM sums are transcendental by the paper's argument using a cited Hecke–Mahler theorem; Lean checks the formulas and the conditional transfer. | The cited transcendence input is not formalised, and the three-prime irrationality question remains open. |
+| [#1041](#result-1041) | Ani's degree-seven polynomial refutes the exact Formal Conjectures path-image-length statement in Lean; Lean also checks positive trinomial and sharp collinear families. | Independent review of correspondence with the 1958 wording is pending; other geometric results have their own hypotheses. |
+| [#1049](#result-1049) | Lean checks irrationality in Zudilin's rational-base contour region and exact Hankel orders. | `3/2` and the all-rational-base claim remain open. |
 
-The other programmes have substantive but sharply bounded outcomes. For
-Problem 68, every positive rational denominator misses `299999!` and satisfies
-`q ≥ 2^{39990}`; Lean also checks the `3/2` lower growth exponent for the
-uncleared common denominator, while Lean gives exact carry equivalences and
-finite channel obstructions. Problem 243 has a checked signed recovery theorem: exact
-centered-state dynamics, strict centering, a uniform lower bound on the signed
-error, and normalised vanishing force that error to vanish eventually; a
-separate finite-normalised-negative-mass route also yields eventual Sylvester
-behaviour. Problem 251 has the checked prime-gap identity and exact tail-shift
-equivalences, plus a source-backed Lean countermodel with positive even
-logarithmically bounded digits, dyadic sum `6`, integral tail shifts, recurring
-values `2` and `4` in every residue class, and prime-number-theorem-scale
-cumulative positions. An independent ordinary sparse perturbation shows that
-several natural prime-gap statistics do not suffice. Problem 269 has an
-ordinary two-prime transcendence theorem for both running-LCM variants,
-Lean-checked three-prime height and finite-minor identities, a checked actual
-rationality-to-reduced-carry bridge, and exact conditional window-escape
-interfaces. Problem 1041 has ordinary all-degree trinomial containment, a low-critical
-connector of length less than `2` whenever `μ≤13/25`, a scaled connector of
-length less than `(5/2)μ^{1/n}` in `{|f|<(25/13)μ}`, separated-critical-value
-connectors, bounded-radius concyclic, and generic-topology theorems; its sharp
-critical-value mean is Lean-checked, as are supporting Newton-flow inputs. Problem 1049 has a Lean-checked irrationality
-region for rational bases, together with a Lean-checked rational-base tail
-recurrence, height region, and route exclusions. These results leave their corresponding universal targets open; the
-#1041 total-variation counterexample is discussed separately below.
+To read further, the [paper catalogue](../paper/README.md#problem-papers)
+has each short paper and longer reasoning record; the
+[synthesis paper](../paper/synthesis/optimal-sparse-perturbations.pdf) reads
+across the eight. To inspect a claim, use the [source map](SOURCE_MAP.md),
+[claim registry](claims.json), [prior art](PRIOR_ART.md) and
+[verification dossier](EXTERNAL_VERIFICATION.md); Comparator covers selected
+formal statements, not every theorem or its novelty. The
+[reproduction guide](REPRODUCIBILITY.md) starts with one claim without Lean.
+For the system's design and its open-source collaboration model, read
+[Problem-Sized Lean Worlds](../paper/systems/claim-faithful-publication-systems-paper.pdf),
+[From a Cold Clone to a Proof Receipt](../paper/systems/cold-clone-to-proof-receipt.pdf),
+or [From Spare Compute to Cumulative Mathematics](../paper/systems/open-source-mathematics-strategy.pdf).
+To improve a proof, explanation or the architecture itself, use the
+[contribution route](../CONTRIBUTING.md),
+[architecture guide](research-commons/ARCHITECTURE_CONTRIBUTIONS.md) and
+[credit policy](research-commons/CREDIT_POLICY.md).
 
 ### Problem-by-problem guide
+
+<a id="result-68"></a>
 
 **[#68](https://www.erdosproblems.com/68).** Put
 `S = ∑_{n≥2} 1/(n!−1)` and `L_N = lcm_{2≤n≤N}(n!−1)`. Any rational
@@ -116,6 +97,13 @@ states the `3/2` bound at commit `52f29ad1` as `common_denominator_growth` in
 its entry `PalomarCorpus/E68` and proves it; that repository's Linux replay of
 Palomar's Comparator stage accepted the entry with both kernels
 (run 34782407633).
+Further conditional zero-branch and private-factor carry producers are in the
+[formal evidence](EXTERNAL_VERIFICATION.md#programme-68); neither supplies the
+cofinal property for the actual factorial-gap orbit. Read the
+[short paper](../paper/68/erdos-68-factorial-denominator-irrationality.pdf) or
+[long record](../paper/68/erdos68-factorial-reasoning-surface.pdf).
+
+<a id="result-243"></a>
 
 **[#243](https://www.erdosproblems.com/243).** Under the exact cubic rate
 `a_n²/a_(n+1)=1+3/n+o(n⁻³)`, every strictly increasing positive integer
@@ -154,7 +142,14 @@ bounded-defect corollary from the rational reciprocal sum in
 (`ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean:49`); the paper derives
 the displayed `P_n` form from that corollary by `A_n | P_n`. For the
 state-system endpoint, no uniform lower bound on the centered error is proved.
-Unbounded negative excursions and the full Erdős endpoint remain open.
+Unbounded negative excursions and the full Erdős endpoint remain open. The
+signed recovery develops Koizumi's canonical-tail framework under an additional
+bounded-negative premise. Read the
+[short paper](../paper/243/erdos-243-reciprocal-tail-rigidity.pdf),
+[long record](../paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf), or
+[selected formal checks](EXTERNAL_VERIFICATION.md#programme-243).
+
+<a id="result-249"></a>
 
 **[#249](https://www.erdosproblems.com/249).** The short paper proves the
 all-base finite-level rank `k^e+1` for every `k≥2` and `e≥1`, with canonical
@@ -170,10 +165,16 @@ one carry would have uniformly eventually-periodic dyadic sections modulo its
 multiplier while retaining canonical section rank at least `2^e − 1` at every
 level. No finite-rank upper bound is proved, so this is a necessary
 consequence rather than a contradiction. Finite denominator exclusions and
-conditional actual-LCM and first-harmonic routes remain useful, but none
-supplies the missing cofinal producer. Coons non-regularity, Martin affine
+conditional actual-LCM, first-harmonic and strict natural-prime tail-gap
+routes remain useful, but none supplies its missing cofinal producer. Coons
+non-regularity, Martin affine
 independence, and Yazdani–Shallit CRT–Dirichlet separation are credited
-antecedents, not new claims of this release.
+antecedents, not new claims of this release. Read the
+[short paper](../paper/249/erdos-249-binary-totient-series.pdf),
+[long record](../paper/249/erdos249-totient-reasoning-surface.pdf), and
+[selected formal checks](EXTERNAL_VERIFICATION.md#programme-249).
+
+<a id="result-251"></a>
 
 **[#251](https://www.erdosproblems.com/251).** A
 [public Lean declaration](../lean/ErdosProblems/Erdos251/AllResidueLogarithmicR9.lean)
@@ -197,10 +198,17 @@ construction and the polylogarithmic schedule with growing-block transfer in
 `SparsePaperR11.lean`. The printed construction additionally gives congruence
 cutoffs uniform in the target; the linked Lean statement quantifies those
 cutoffs after the target. The prime-growth corollary uses cited analytic results. This obstruction shows that those coarse
-statistics alone do not force irrationality. The exact prime-gap
-summation-by-parts equivalence still proves neither the prime-gap series nor
-the original series irrational; a prime-specific sieve or tail bridge remains
-open.
+statistics alone do not force irrationality. Lean also checks a precise
+conditional route: for one fixed shift, cofinally many adjacent tail shifts
+strictly between `-1` and `1`, with unequal actual prime gaps, would prevent
+eventual integrality of that shift. Those prime-specific mismatches are not
+proved. The exact prime-gap summation-by-parts equivalence still proves
+neither the prime-gap series nor the original series irrational. Read the
+[short paper](../paper/251/erdos-251-prime-gap-dyadic-series.pdf),
+[long record](../paper/251/erdos251-prime-gap-reasoning-surface.pdf), and
+[selected formal checks](EXTERNAL_VERIFICATION.md#programme-251).
+
+<a id="result-257"></a>
 
 **[#257](https://www.erdosproblems.com/257).** Fix a finite nonempty set of
 primes `P` and let `h(a)` be the largest divisor of `a` supported on `P`.
@@ -226,6 +234,13 @@ irrationality at every integer base is classical (Erdős 1948) and
 Lean-checked here, as are pairwise-coprime summable-reciprocal support and
 Lebesgue measure one for the base-2 achievement set. Irrationality for
 every infinite support and the `1/2` and `1/21` branches remain open.
+The weighted theorem is Lean-checked; its selected public Comparator interface
+has not yet completed external replay. Read the
+[short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf),
+[long record](../paper/257/erdos257-mersenne-reasoning-surface.pdf), and
+[exact verification status](EXTERNAL_VERIFICATION.md#programme-257).
+
+<a id="result-269"></a>
 
 **[#269](https://www.erdosproblems.com/269).** For three pairwise distinct
 primes, the threshold-column argument produces nonsingular selected kernel
@@ -249,8 +264,15 @@ Hecke–Mahler value. Steve Fan posted the repeated-sum two-prime factorisation,
 reduction and transcendence conclusion first, on the problem's forum on
 26 June 2026; the note credits his priority, gives a proof found
 independently, derives the de-duplicated formula, and uses the cited
-Hecke–Mahler transcendence theorem. The two-prime case has an ordinary proof
-and no Lean theorem.
+Hecke–Mahler transcendence theorem. Lean also checks the two-prime affine and
+quadratic formulas and derives transcendence from the cited Hecke–Mahler
+result as an explicit named hypothesis; that external theorem itself is not
+formalised here. Read the
+[short paper](../paper/269/erdos-269-three-prime-running-lcm.pdf),
+[long record](../paper/269/erdos269-running-lcm-reasoning-surface.pdf), and
+[selected formal checks](EXTERNAL_VERIFICATION.md#programme-269).
+
+<a id="result-1041"></a>
 
 **[#1041](https://www.erdosproblems.com/1041).** A source-backed
 [ordinary theorem](../research_corpus/Erdos1041/ConcyclicAlternation.md) covers
@@ -267,7 +289,10 @@ leaves radii sufficiently close to `1` outside this method.
 
 Every monic trinomial with roots in the open unit disc also has radial
 root-to-origin segments inside `{|f|<1}`, so any two roots join through the
-origin with length less than `2`; that path assembly is ordinary mathematics.
+origin with length less than `2`; Lean checks the complete displayed
+trinomial statement. For collinear roots, Lean checks a sharp Chebyshev
+segment bound and the resulting `<2` connector when the roots lie in the
+open unit disc. These are solved families, not a general connector theorem.
 For a squarefree monic polynomial, write `μ = min_{f'(c)=0} |f(c)|`. An
 ordinary theorem gives a connector of length less than `2` in the open unit
 lemniscate whenever `μ ≤ 13/25`, with no root-location hypothesis; scaling
@@ -291,6 +316,14 @@ that every preconnected strict-lemniscate set joining two distinct roots has
 one-dimensional Hausdorff measure greater than two. This refutes the exact
 Formal Conjectures path-image-length statement and the separate total-variation
 formulation; correspondence with the 1958 wording remains unreviewed.
+The short paper also gives a cubic showing why a two-root first merger alone
+does not force a capacity gap; its Lean capacity clause assumes the classical
+transfinite-diameter formula. Read the
+[short paper](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf),
+[long record](../paper/1041/erdos1041-lemniscate-reasoning-surface.pdf), and
+[selected formal checks](EXTERNAL_VERIFICATION.md#programme-1041).
+
+<a id="result-1049"></a>
 
 **[#1049](https://www.erdosproblems.com/1049).** For positive integers
 `0<b<a` in the exact Zudilin contour region, Lean checks irrationality and
@@ -307,6 +340,11 @@ unshifted determinant certificates are kernel checked; the shifted eight and
 76 cyclotomic residue witnesses remain finite computations. These results
 give no all-rank coefficient positivity or irrationality at `3/2`, which lies
 outside the contour region. The universal rational-base question remains open.
+Read the [short paper](../paper/1049/erdos-1049-rational-base-lambert.pdf),
+[long record](../paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf),
+and [selected formal checks](EXTERNAL_VERIFICATION.md#programme-1049); the
+contour-region theorem should not be inferred to be among the selected
+Comparator propositions.
 
 This guide is not a new result ranking.
 [`PALOMAR_RESULT_SHOWCASE.json`](PALOMAR_RESULT_SHOWCASE.json) records a scoped
@@ -670,13 +708,14 @@ boundaries kept together.
   is not finite-dimensional. These are coefficient-space facts, not a
   rationality-to-finite-rank bridge or an irrationality proof.
 - For every base `k ≥ 2` and level `e ≥ 1`, an all-base extension has an
-  explicit canonical spanning family; under its stated linear-independence
-  hypothesis, the level-`e` span has dimension `kᵉ + 1`
+  explicit canonical spanning family. Its reusable conditional theorem gives
+  dimension `kᵉ + 1` under a linear-independence hypothesis
   (`finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent`,
   `Erdos249257/TotientKernelConditional.lean:215`; claims registry:
-  `all_base_totient_kernel_conditional_rank`). The independence is an
-  external affine-ordering input not proved here, and this conditional rank
-  statement does not prove irrationality of `S`.
+  `all_base_totient_kernel_conditional_rank`). The separate
+  `AllBaseTotientKernel.lean` proof discharges that hypothesis and gives the
+  unconditional rank and basis stated in the table below. This remains a
+  coefficient-space result, not an irrationality proof for `S`.
 - A scalar-localisation height lemma transfers, rather than discards, denominator
   information: under its displayed divisibility hypotheses,
   `scalarLocalization_complement_dvd` bounds the complementary factor of a
@@ -1016,10 +1055,13 @@ core)**
 **#269 — are reciprocal sums of running lcms irrational?**
 
 - For every pair of distinct primes, both the de-duplicated and the repeated
-  running-lcm reciprocal sums are transcendental — a paper argument in the
-  problem note; the transcendence engine is Loxton–van der Poorten 1977,
-  quoted in the modern Bugeaud–Laurent form (Theorem 1.1); deliberately not a
-  Lean theorem, and the note says so. Independently found and not first: the
+  running-lcm reciprocal sums are transcendental by a paper argument using
+  Loxton–van der Poorten 1977, quoted in the modern Bugeaud–Laurent form
+  (Theorem 1.1). Lean checks the exact affine and quadratic formulas and
+  derives transcendence under the explicit `BugeaudLaurentTranscendence`
+  hypothesis; the cited external theorem itself is not formalised
+  ([`TwoPrimeSums.lean`](../lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L841)).
+  Independently found and not first: the
   same reduction and conclusion were posted by Steve Fan on the
   erdosproblems.com #269 discussion page on 26 June 2026, before the note was
   finalised, with follow-ups there extending it to arbitrary coprime pairs;
@@ -1079,10 +1121,18 @@ core)**
   and weighted-phase observers.
 **#1041 — short connections inside polynomial lemniscates?**
 
-- Ordinary all-degree theorem: every monic trinomial `z^n + a z^m + b` with
+- Lean-checked all-degree theorem: every monic trinomial `z^n + a z^m + b` with
   roots in the open unit disc has each root-to-origin segment inside `{|f|<1}`,
   so any two roots join through the origin with length less than `2`. This is
-  coefficient-restricted, not a solution of the unrestricted path problem.
+  coefficient-restricted, not a solution of the unrestricted path problem
+  ([`PaperTrinomialWholeR21.lean`](../lean/ErdosProblems/Erdos1041/PaperTrinomialWholeR21.lean#L23)).
+- Lean checks a sharp Chebyshev bound on a segment between collinear roots of
+  a monic polynomial and the `<2` connector corollary for roots in the open
+  unit disc ([`CollinearDiameterWhole.lean`](../lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L967)).
+  A separate cubic shows that a first merger joining two roots need not give
+  a normalised capacity gap; the Lean capacity clause assumes the named
+  classical transfinite-diameter formula
+  ([`ArityNotCapacity.lean`](../lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean#L677)).
 - Lean-checked sharp critical-value mean: for monic degree-`n ≥ 2` polynomials with
   zeros in the closed unit disc,
   `∑_{j=1}^{n-1} |f(c_j)|^{2/(n-1)} ≤ n-1`, with equality for `z^n − λ` when
@@ -1277,15 +1327,18 @@ numerator, so it is not uniform across supports (`SublogDivisorCoverage.lean:392
 claims registry: `sublog_zero_windows`). This is a genuine restriction on a
 possible rational support, not a contradiction or a proof of universal #257.
 
-The squarefree support remains open. Its divisor incidence is proved to be
-`2^ω(n)-1`, hence odd at every `n≥2`. The certificate engines in this
-development begin by selecting an even-incidence block, so they cannot act on
-that support at any block position. The checked declarations
+The squarefree-support value is already known to be irrational at every
+power-of-two base `2^j` by Duverney–Tachiya (2019, cited here, not
+formalised); their cited result does not decide the other integer bases.
+Its divisor incidence is proved to be `2^ω(n)-1`, hence odd at every `n≥2`.
+The certificate engines in this development begin by selecting an
+even-incidence block, so they cannot act on that support at any block
+position. The checked declarations
 `card_squarefreeDivisors`, `squarefreeIncidence_eq`, and
 `odd_squarefreeIncidence` are in
 `ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean`. This is a limitation
-of the named engines, not evidence that the squarefree-support value is
-rational or irrational.
+of the named engines, not a statement about the value's irrationality or the
+universal #257 question.
 
 ### The reduction chain for the one-half test case of Problem 257
 

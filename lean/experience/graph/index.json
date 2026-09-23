@@ -820,7 +820,7 @@
     {
       "id": "claim:squarefree_support_irrationality",
       "kind": "public_claim",
-      "label": "Irrationality of the base-2 squarefree-support series",
+      "label": "Irrationality of squarefree-support series at power-of-two bases",
       "status": "cited only",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },

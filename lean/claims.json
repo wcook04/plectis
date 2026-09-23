@@ -1348,7 +1348,7 @@
             "universal_257"
           ],
           "status_summary": "Classical formalisation, cited special cases, and the open universal target.",
-          "prior_art_posture": "Erdős owns full support and the pairwise-coprime family; Duverney–Tachiya own the base-2 squarefree-support theorem; Tao–Teräväinen own the base-2 prime-support theorem. The cited squarefree theorem does not cover bases b≥3, and the cited prime-power extension is remark-only. No priority claim is made for the formalised families.",
+          "prior_art_posture": "Erdős owns full support and the pairwise-coprime family; Duverney–Tachiya own squarefree-support irrationality at every power-of-two base; Tao–Teräväinen own the base-2 prime-support theorem. The cited squarefree theorem does not cover integer bases that are not powers of two, and the cited prime-power extension is remark-only. No priority claim is made for the formalised families.",
           "primary_narrative_owner": "paper/archive/erdos249-257-main-paper.tex",
           "source_route": "python3 scripts/query_corpus.py --claim eb_full_support",
           "consumer_or_open_obligation": "Establishes the classical benchmark and leaves remaining_open.universal_257_all_infinite_supports.",
@@ -23969,9 +23969,9 @@
     },
     {
       "id": "squarefree_support_irrationality",
-      "label": "Irrationality of the base-2 squarefree-support series",
+      "label": "Irrationality of squarefree-support series at power-of-two bases",
       "status": "cited only",
-      "statement": "Duverney–Tachiya Corollary 1.2 and Example 1.1 prove linear independence of 1 and the squarefree Lambert sum including n=1; subtracting that rational term settles the support {n≥2:n squarefree} at base 2. Their condition |q|L≤s, with L=lcm(1,…,ℓ), here reads |q|≤2 and does not cover the same support at integer bases b≥3. This result is not formalised here.",
+      "statement": "Duverney–Tachiya Corollary 1.2 and Example 1.1 prove linear independence of 1 and the squarefree Lambert sums at bases 2^j (j≥1), including n=1; subtracting each rational n=1 term settles the support {n≥2:n squarefree} at every power-of-two base. Their condition |q|L≤s, with L=lcm(1,…,ℓ), here permits q=2 but does not cover integer bases that are not powers of two. This result is not formalised here.",
       "declarations": []
     },
     {

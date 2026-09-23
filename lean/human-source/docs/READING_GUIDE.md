@@ -10,7 +10,8 @@ open to further insight. The website brings the collection together; you do
 not need Lean to read it.
 
 Start with the [#257 paper](../paper/257/erdos-257-mersenne-support-subseries.pdf):
-its checked weighted criterion covers named infinite supports, while arbitrary
+its checked finite-prime weighted criterion proves irrationality for some
+infinite supports with divergent reciprocal sum, while arbitrary infinite
 support remains open. Then read [#1049](../paper/1049/erdos-1049-rational-base-lambert.pdf):
 irrationality holds in the stated region, including powers of `31/4`; `3/2`
 remains open. The [#1041 paper](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf)
@@ -28,14 +29,13 @@ historical correspondence.
 
 ## Two ways to begin
 
-You can continue a particular question or read the papers as one body of work:
-a method from one problem may explain an obstruction in another,
-a recorded example may suggest a general theorem, and a worthwhile new question
-is itself a contribution. The [reading edition](reading-edition/README.md)
-serves this route without a clone. It is one file to read or to give to an AI
-model, with a short research instruction and the opening of each short paper.
-[Choices, contraction and rational membership](../research/experiments/choices_contraction/README.md)
-is one investigation that began this way.
+You can follow one question or read across the corpus: a failed method in one
+programme can suggest a different theorem in another. The
+[reading edition](reading-edition/README.md) gives a short research instruction
+and the opening of each short paper in one file. For #257, follow the weighted
+theorem through its averaging proof, the small-displacement test that fails at
+full support, the long record, the Lean source and the still-open universal
+question. Failure of the weighted condition does not show rationality.
 
 ## What is here
 
@@ -46,7 +46,8 @@ arguments for a mathematical reader. The longer record keeps technical detail,
 failed routes, finite experiments, and the exact obligations that
 survive. The other seven target problems are not resolved here; those papers
 make their surviving questions explicit. The [paper catalogue](../paper/README.md)
-groups the manuscripts and their sources, including the systems papers.
+includes *Problem-Sized Lean Worlds* on proof and claim boundaries and
+*From Spare Compute to Cumulative Mathematics* on contribution and credit.
 
 The [results guide](RESULTS.md) states the strongest checked result for each
 problem next to what still blocks its endpoint. [Prior work](PRIOR_ART.md)

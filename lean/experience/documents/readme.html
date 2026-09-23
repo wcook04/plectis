@@ -15,7 +15,7 @@ each have a short expository paper, a longer research record and
 associated Lean source. The aim is to make results, methods and useful
 failures understandable enough for others to question, extend and
 reuse.</p>
-<p>For a first mathematical result, start with <a
+<p>Start with <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s short
 paper</a>. If <code>h_P(a)</code> is the part of an exponent
 <code>a</code> supported on a finite nonempty set of primes, the
@@ -27,7 +27,26 @@ infinite support remains open. <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">Read the longer
 proof record</a> or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">inspect
-the Lean declaration</a>.</p>
+the Lean declaration</a>. Other seven programmes: <a
+href="results.html#problem-by-problem-guide">results guide</a>.</p>
+<p>Start here: <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">read the
+paper</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/sparse_interpolation/late_rejection.py">run
+one exact-rational experiment</a>, and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
+correction</a>. This tests one proposed rational subsum, not the
+weighted theorem.</p>
+<p><strong><a href="paper-guide.html">All papers</a></strong> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">Reading edition</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Reproduce one result</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
+<figure>
+Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue
+<figcaption aria-hidden="true">Eight Erdős problem programmes: papers,
+checked results, failed routes, and questions another researcher can
+continue</figcaption>
+</figure>
 <p><strong>Using the degree-seven polynomial constructed by the
 erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-lemniscate set containing two distinct roots has one-dimensional
@@ -41,17 +60,6 @@ correspondence.</strong></p>
 <p>The attribution is recorded in <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s 7
 September 2026 forum post</a>.</p>
-<p><strong><a href="https://wcook04.github.io/plectis/maths/">Read the
-mathematics</a></strong> · <a
-href="https://wcook04.github.io/plectis/">Website</a> · <a
-href="paper-guide.html">All papers</a> · <a
-href="https://wcook04.github.io/plectis/#contact">Contact me</a></p>
-<figure>
-Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue
-<figcaption aria-hidden="true">Eight Erdős problem programmes: papers,
-checked results, failed routes, and questions another researcher can
-continue</figcaption>
-</figure>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
 <p><strong>Read the mathematics. Find what comes next.</strong> Use the
@@ -111,18 +119,13 @@ navigation counts, not novelty claims.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>For a first look, start with <strong>#257</strong>: a Lean-checked
-weighted condition makes reciprocal Mersenne subseries irrational at
-every integer base, even for some supports whose reciprocal sum
-diverges. A simpler checked theorem covers every infinite support
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>;
-Erdős stated that extension. The unrestricted support question remains
-open. Then read <strong>#249</strong> for exact ranks of totient
-kernels, obtained by restricting Euler’s totient to arithmetic
-progressions. Each paper separates ordinary proofs, Lean-checked results
-and open questions; the results guide covers all eight programmes.</p>
+<p>For a first look, start with <strong>#257</strong>: Lean checks
+weighted support conditions for irrational reciprocal Mersenne subseries
+at every integer base, including some supports with divergent reciprocal
+sum. Erdős stated the simpler reciprocal-summable extension; Lean checks
+it here. The unrestricted question remains open. <strong>#249</strong>
+gives exact ranks of totient kernels. Each paper names its ordinary
+proofs, Lean-checked results and open questions.</p>
 <p>For a more specialised theorem, <strong>#243</strong> gives
 irrationality for strictly increasing positive integer sequences under
 the precise cubic-rate hypothesis

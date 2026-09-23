@@ -154,13 +154,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf",
-      "source_sha256": "fb5783ecf06ec239d51ffcd06b11194e8aa9da3c4a01b6a3158e5785d1f90fdc",
-      "bytes": 122901,
+      "source_sha256": "db64449159e8bef3e8e82575132c35cb5c9be5a820162dc64678f49822817335",
+      "bytes": 123045,
       "source_tex_path": "paper/269/erdos-269-three-prime-running-lcm.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos-269-three-prime-running-lcm.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex",
-      "hosted_tex_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
-      "tex_bytes": 48238
+      "hosted_tex_sha256": "4094d3936e1c1e919520724c8602eaff04f585590c1b6d04b66c70df68ec4991",
+      "tex_bytes": 48475
     },
     {
       "hosted_path": "papers/erdos-1041-lemniscate-newton-flow.pdf",

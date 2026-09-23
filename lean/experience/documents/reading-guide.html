@@ -15,8 +15,9 @@ keeps the work open to further insight. The website brings the
 collection together; you do not need Lean to read it.</p>
 <p>Start with the <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257
-paper</a>: its checked weighted criterion covers named infinite
-supports, while arbitrary support remains open. Then read <a
+paper</a>: its checked finite-prime weighted criterion proves
+irrationality for some infinite supports with divergent reciprocal sum,
+while arbitrary infinite support remains open. Then read <a
 href="../../../papers/erdos-1049-rational-base-lambert.pdf">#1049</a>:
 irrationality holds in the stated region, including powers of
 <code>31/4</code>; <code>3/2</code> remains open. The <a
@@ -34,16 +35,14 @@ kernel acceptance; it does not assess novelty or historical
 correspondence.</p>
 <section id="two-ways-to-begin" class="level2">
 <h2>Two ways to begin</h2>
-<p>You can continue a particular question or read the papers as one body
-of work: a method from one problem may explain an obstruction in
-another, a recorded example may suggest a general theorem, and a
-worthwhile new question is itself a contribution. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a> serves this route
-without a clone. It is one file to read or to give to an AI model, with
-a short research instruction and the opening of each short paper. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">Choices,
-contraction and rational membership</a> is one investigation that began
-this way.</p>
+<p>You can follow one question or read across the corpus: a failed
+method in one programme can suggest a different theorem in another. The
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a> gives a short
+research instruction and the opening of each short paper in one file.
+For #257, follow the weighted theorem through its averaging proof, the
+small-displacement test that fails at full support, the long record, the
+Lean source and the still-open universal question. Failure of the
+weighted condition does not show rationality.</p>
 </section>
 <section id="what-is-here" class="level2">
 <h2>What is here</h2>
@@ -55,8 +54,9 @@ reader. The longer record keeps technical detail, failed routes, finite
 experiments, and the exact obligations that survive. The other seven
 target problems are not resolved here; those papers make their surviving
 questions explicit. The <a href="paper-guide.html">paper catalogue</a>
-groups the manuscripts and their sources, including the systems
-papers.</p>
+includes <em>Problem-Sized Lean Worlds</em> on proof and claim
+boundaries and <em>From Spare Compute to Cumulative Mathematics</em> on
+contribution and credit.</p>
 <p>The <a href="results.html">results guide</a> states the strongest
 checked result for each problem next to what still blocks its endpoint.
 <a href="prior-art.html">Prior work</a> records earlier arguments and

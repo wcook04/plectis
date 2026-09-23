@@ -603,10 +603,12 @@ certificate (Section~8) and comparisons with other approaches
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 \paragraph{Proof sources.}
-The two-prime deduction uses an external transcendence theorem and is not
-formalised here.  Fan's priority is retained from the supplied forum record; the live
-thread and catalogue could not be rechecked for this revision.
-The formal sources for the rank theorem and the tail recurrence are
+The two-prime identities and their transcendence conclusion are formalised in
+\texttt{TwoPrimeSums.lean}.  The latter theorem retains the cited
+Bugeaud--Laurent transcendence theorem as an explicit hypothesis; that external
+theorem is not formalised here.  Fan's priority is retained from the supplied
+forum record; the live thread and catalogue could not be rechecked for this
+revision.  The formal sources for the rank theorem and the tail recurrence are
 listed below.  The supplied \texttt{LEAN\_INDEX.json}
 identifies the public snapshot as
 \nolinkurl{6b78209ab63a8c643281115f8628a3be79ff7ec7} and marks selected
@@ -677,8 +679,9 @@ sum of the boundary exponents, the smaller using the order of the jumps.\\
 Residue equivalence & \nolinkurl{CofinalWindowEscapeEquivalence} and
 \nolinkurl{R12/OcticWindowBand}: the residue contradiction and equivalence
 with irrationality, not a proof of the required unbounded window existence.\\
-External input & Bugeaud--Laurent and Loxton--van der Poorten for the
-two-prime theorem; no Lean value theorem claimed.\\ \hline
+External input & The Lean two-prime transcendence theorem assumes the cited
+Bugeaud--Laurent result (including the Loxton--van der Poorten case); it does
+not formalise that external theorem.\\ \hline
 \end{tabular}
 \end{center}
 The public index supplied for this revision identifies commit
