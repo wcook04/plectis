@@ -288,7 +288,7 @@ curve of length strictly below $2$.  No hypothesis is placed on the locations
 of the roots, on the number of roots in any component, or on the capacity of
 any component.
 \end{theorem}
-\leannote{Not formalised: the degree-two case and the exact rational arithmetic of the stopping-time comparison are checked, and the analytic argument in higher degrees is not. See the \hyperref[sec:coverage]{coverage section}.}
+\leannote{Not formalised: the degree-two case and the closing inequality $(13/25)e^X<1$ at the recorded stopping time $X=635762889599/10^{12}$ are checked; the computation that certifies $X$ and the analytic argument in higher degrees are not. See the \hyperref[sec:coverage]{coverage section}.}
 
 For $f(z)=z^n-b$ with $0<|b|<1$, the only critical point is $0$ and
 $\mu=|b|$. Thus this criterion includes $|b|\le13/25$ but excludes
@@ -470,7 +470,7 @@ $\Sigma=\sum_i\sigma_i$ and
 \]
 If $U>0$, then failure forces $k\ge(x-\pi\Sigma)/U$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{594}{dual_arity_floor_sup}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{579}{dual_arity_floor}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{506}{le_of_lam_le}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{141}{cosh_dist_polar}, and 1 further declaration. Conditional on the radius and budget bound that this proof derives from the standing failure hypothesis; see the \hyperref[sec:coverage]{coverage section}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{594}{dual_arity_floor_sup}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{579}{dual_arity_floor}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{506}{le_of_lam_le}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean}{141}{cosh_dist_polar}, and 1 further declaration. Conditional on the separation bound \eqref{eq:lc-separation} and the radius and budget bounds \eqref{eq:lc-radius-and-budget}, which this proof derives from the standing failure hypothesis; see the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 By~\eqref{eq:lc-radius-and-budget}, Lemma~\ref{res:circle-slice-packing} and
@@ -4498,13 +4498,17 @@ development at revision \texttt{181078b6b009}.  This includes
 Lemma~\ref{res:circle-slice-packing}.
 
 Theorem~\ref{res:low-critical-thirteen-twentyfifths} is checked in degree two,
-with no hypothesis on the positions of the roots, and the exact rational
-arithmetic of its stopping-time comparison is checked.  The analytic argument
-in higher degrees is not yet formalised.
+with no hypothesis on the positions of the roots.  For the recorded stopping
+time $X=635762889599/10^{12}$ of its certificate, the closing inequality
+$(13/25)e^X<1$ is checked, and so is $(529/1000)e^X<1$.  The computation that
+certifies $X$ is carried out by the exact-arithmetic program of
+Section~\ref{sec:low-critical-closure}, outside the Lean development, and the
+analytic argument in higher degrees is not yet formalised.
 Corollary~\ref{res:low-critical-scale-free} and
 Corollary~\ref{res:scaled-low-critical-path} are verified as reductions to
-that theorem, which is itself in this list; the degree-two case of the second
-corollary is checked with no input at all.
+Theorem~\ref{res:low-critical-thirteen-twentyfifths}, which is itself in this
+list; the degree-two case of the second corollary is checked with no input at
+all.
 
 Theorem~\ref{res:critical-value-separation} and
 Corollary~\ref{res:critical-value-thresholds} are verified as reductions to a
@@ -4534,9 +4538,11 @@ constructs and which is not formalised; its ingredients are the component
 count in the proof of \cite[Proposition~2.1]{eks2010}, the boundary extension
 of the inverse branch and the Jordan curve theorem.  The half-perimeter
 selection lemma is checked.  Theorem~\ref{res:dual-arity-floor} is verified as
-a reduction to \eqref{eq:lc-radius-and-budget}, which its own proof derives
-from the standing failure hypothesis by the Blaschke factorisation of a
-Riemann map and P\'olya's area inequality; that derivation is not formalised.
+a reduction to \eqref{eq:lc-separation} and \eqref{eq:lc-radius-and-budget},
+which its own proof derives from the standing failure hypothesis through a
+Riemann map of the component, using the Bergman-kernel length estimate, the
+Blaschke factorisation and P\'olya's area inequality; that derivation is not
+formalised.
 The hyperbolic law of cosines it uses is proved in the development.  For
 Theorem~\ref{res:attachment-aware-reeb} the development checks the
 ray-disjointness, level-separation and saddle-scale steps of its proof, and

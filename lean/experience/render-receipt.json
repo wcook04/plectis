@@ -166,12 +166,7 @@
           "&\\hspace{35mm}\\Longleftrightarrow\\quad",
           "^",
           "unexpected \"\\\\\"",
-          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
-          "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
-          "\\leanlink{HalfCylinderMiddleCarryLowerBo",
-          "^",
-          "unexpected control sequence \\leanlink",
-          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
         ],
         "mathjax": []
       },

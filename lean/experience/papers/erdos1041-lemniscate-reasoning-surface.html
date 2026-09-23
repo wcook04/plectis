@@ -333,8 +333,13 @@ No hypothesis is placed on the locations of the roots, on the number of
 roots in any component, or on the capacity of any component.</em></p>
 </div>
 <p class="lean-note"><small>Not formalised: the degree-two case and the
-exact rational arithmetic of the stopping-time comparison are checked,
-and the analytic argument in higher degrees is not. See the <a
+closing inequality
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>13</mn><mi>/</mi><mn>25</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mi>X</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(13/25)e^X&lt;1</annotation></semantics></math>
+at the recorded stopping time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>635762889599</mn><mi>/</mi><msup><mn>10</mn><mn>12</mn></msup></mrow><annotation encoding="application/x-tex">X=635762889599/10^{12}</annotation></semantics></math>
+are checked; the computation that certifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+and the analytic argument in higher degrees are not. See the <a
 href="#sec:coverage">coverage section</a>.</small></p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mi>n</mi></msup><mo>−</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">f(z)=z^n-b</annotation></semantics></math>
@@ -663,9 +668,11 @@ arity floor</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L506">le
 of lam le</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L141">cosh
-dist polar</a>, and 1 further declaration. Conditional on the radius and
-budget bound that this proof derives from the standing failure
-hypothesis; see the <a href="#sec:coverage">coverage section</a>.</small></p>
+dist polar</a>, and 1 further declaration. Conditional on the separation
+bound <code>[eq:lc-separation]</code> and the radius and budget bounds
+<code>[eq:lc-radius-and-budget]</code>, which this proof derives from
+the standing failure hypothesis; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By <code>[eq:lc-radius-and-budget]</code>, Lemma 3.3
 and the radius bound, <span
@@ -7408,12 +7415,19 @@ the same hypotheses, checked by the Lean kernel using only the axioms
 <code>Quot.sound</code>, in the development at revision
 <code>181078b6b009</code>. This includes Lemma 3.3.</p>
 <p>Theorem 3.1 is checked in degree two, with no hypothesis on the
-positions of the roots, and the exact rational arithmetic of its
-stopping-time comparison is checked. The analytic argument in higher
-degrees is not yet formalised. Corollary 3.2 and Corollary 3.5 are
-verified as reductions to that theorem, which is itself in this list;
-the degree-two case of the second corollary is checked with no input at
-all.</p>
+positions of the roots. For the recorded stopping time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>635762889599</mn><mi>/</mi><msup><mn>10</mn><mn>12</mn></msup></mrow><annotation encoding="application/x-tex">X=635762889599/10^{12}</annotation></semantics></math>
+of its certificate, the closing inequality
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>13</mn><mi>/</mi><mn>25</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mi>X</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(13/25)e^X&lt;1</annotation></semantics></math>
+is checked, and so is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>529</mn><mi>/</mi><mn>1000</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>e</mi><mi>X</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(529/1000)e^X&lt;1</annotation></semantics></math>.
+The computation that certifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+is carried out by the exact-arithmetic program of Section 3, outside the
+Lean development, and the analytic argument in higher degrees is not yet
+formalised. Corollary 3.2 and Corollary 3.5 are verified as reductions
+to Theorem 3.1, which is itself in this list; the degree-two case of the
+second corollary is checked with no input at all.</p>
 <p>Theorem 6.1 and Corollary 6.2 are verified as reductions to a single
 named statement, which is what the analytic construction in the proof of
 Theorem 6.1 produces: for every normalised separation datum, a
@@ -7445,14 +7459,15 @@ formalised; its ingredients are the component count in the proof of
 <span class="citation" data-cites="eks2010"><a href="#ref-8">[8]</a></span>, the boundary
 extension of the inverse branch and the Jordan curve theorem. The
 half-perimeter selection lemma is checked. Theorem 3.4 is verified as a
-reduction to <code>[eq:lc-radius-and-budget]</code>, which its own proof
-derives from the standing failure hypothesis by the Blaschke
-factorisation of a Riemann map and Pólya’s area inequality; that
-derivation is not formalised. The hyperbolic law of cosines it uses is
-proved in the development. For Theorem 11.1 the development checks the
-ray-disjointness, level-separation and saddle-scale steps of its proof,
-and the Morse, monodromy and strip statements themselves are not yet
-formalised.</p>
+reduction to <code>[eq:lc-separation]</code> and
+<code>[eq:lc-radius-and-budget]</code>, which its own proof derives from
+the standing failure hypothesis through a Riemann map of the component,
+using the Bergman-kernel length estimate, the Blaschke factorisation and
+Pólya’s area inequality; that derivation is not formalised. The
+hyperbolic law of cosines it uses is proved in the development. For
+Theorem 11.1 the development checks the ray-disjointness,
+level-separation and saddle-scale steps of its proof, and the Morse,
+monodromy and strip statements themselves are not yet formalised.</p>
 <p>Formal proofs of the named inputs are not included in the verified
 development, so the endpoints that carry one remain conditional on it.
 Theorem 3.1 and Theorem 11.1 carry no such input; for each of them part

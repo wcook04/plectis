@@ -433,8 +433,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 32,
-      "renderer_fingerprint": "f255c6c37cc97729",
+      "renderer_contract_version": 34,
+      "renderer_fingerprint": "832c62a7a87ab6fd",
       "source_sha256": "fc88570d017fbc97be2553c27cb3c6ed218ddc46b0fa311860814914537808e8",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -708,8 +708,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 32,
-        "renderer_fingerprint": "f255c6c37cc97729",
+        "renderer_contract_version": 34,
+        "renderer_fingerprint": "832c62a7a87ab6fd",
         "source_sha256": "fc88570d017fbc97be2553c27cb3c6ed218ddc46b0fa311860814914537808e8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -983,13 +983,13 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 32,
-        "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "688a8e8dcd728c79b89d58aec10c6203429d9223e0fa44adcbb8bde7e312091b",
+        "renderer_contract_version": 34,
+        "renderer_fingerprint": "832c62a7a87ab6fd",
+        "source_sha256": "102b24d7fa79a23e1d49517be72772decf1f1a839fc5b0bfecf67e94091d057f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 4500,
-        "raw_math_fallback_count": 5,
+        "raw_math_fallback_count": 4,
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math \\sum_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}, rendering as TeX:",
@@ -1016,17 +1016,12 @@
             "&\\hspace{35mm}\\Longleftrightarrow\\quad",
             "^",
             "unexpected \"\\\\\"",
-            "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
-            "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
-            "\\leanlink{HalfCylinderMiddleCarryLowerBo",
-            "^",
-            "unexpected control sequence \\leanlink",
-            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+            "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "851650b37b1aa1b4b9efe483429056eca124c2dd438f389b0bd3be0ead756ccb",
-        "html_exact_tex_sha256": "492b50a3bd054f331fa1494787ca0c889227c0d19237e417027acbc7d7289404"
+        "html_mathml_sha256": "a50e182fc6d718767c8fc87540337e61601d1bb38bbd9f41c2ba4ce05fa987d5",
+        "html_exact_tex_sha256": "8f1498dcaa8f5b511e2ee7c744c007f1f5f0c6e502e1c151d53a00826be15100"
       },
       "sections": [
         {

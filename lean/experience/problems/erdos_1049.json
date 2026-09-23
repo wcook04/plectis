@@ -256,8 +256,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 32,
-      "renderer_fingerprint": "f255c6c37cc97729",
+      "renderer_contract_version": 34,
+      "renderer_fingerprint": "832c62a7a87ab6fd",
       "source_sha256": "9ae7976d9bf5b1ccdcb8b00b524e2478f2b7ab1aa7b35d702702bd836fd12431",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -515,8 +515,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 32,
-        "renderer_fingerprint": "f255c6c37cc97729",
+        "renderer_contract_version": 34,
+        "renderer_fingerprint": "832c62a7a87ab6fd",
         "source_sha256": "9ae7976d9bf5b1ccdcb8b00b524e2478f2b7ab1aa7b35d702702bd836fd12431",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -774,9 +774,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 32,
-        "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "3c72aca20194cfae8d4f410255a5cb262e185eaad27204b31ed898e2d5bb507f",
+        "renderer_contract_version": 34,
+        "renderer_fingerprint": "832c62a7a87ab6fd",
+        "source_sha256": "6c7ac91c59933c590559edf73d12c4c394852b62132e85a3cc63264071ecf19e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2689,
@@ -804,8 +804,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8d2d8bb18de75dea9fa7b801ac41bf2c54608daee9ac6a32e40af94a75df24ae",
-        "html_exact_tex_sha256": "60ad2ec20661f6d0cac5d41e9bc62d33698084113d840a28f17bd8e6c6362295"
+        "html_mathml_sha256": "e13ea67155d8e3d286fb41193e6c5054ce590b6f5e9fe8c881162a11a33c9a9d",
+        "html_exact_tex_sha256": "7af1526a69353b05a0fe747651ccf8fda2c05fab18dca477f424dabb819c3bc3"
       },
       "sections": [
         {

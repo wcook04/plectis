@@ -292,8 +292,11 @@ hypothesis is placed on the locations of the roots, on the number of
 roots in any component, or on the capacity of any component.</em></p>
 </div>
 <p class="lean-note"><small>Not formalised: the degree-two case and the
-exact rational arithmetic of the stopping-time comparison are checked,
-and the analytic argument in higher degrees is not. See the <a
+closing inequality <span class="math inline" data-term-auto="off">\((13/25)e^X&lt;1\)</span>
+at the recorded stopping time <span
+class="math inline" data-term-auto="off">\(X=635762889599/10^{12}\)</span> are checked; the
+computation that certifies <span class="math inline" data-term-auto="off">\(X\)</span> and
+the analytic argument in higher degrees are not. See the <a
 href="#sec:coverage">coverage section</a>.</small></p>
 <p>For <span class="math inline" data-term-auto="off">\(f(z)=z^n-b\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;|b|&lt;1\)</span>, the only critical point is
@@ -555,9 +558,11 @@ arity floor</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L506">le
 of lam le</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L141">cosh
-dist polar</a>, and 1 further declaration. Conditional on the radius and
-budget bound that this proof derives from the standing failure
-hypothesis; see the <a href="#sec:coverage">coverage section</a>.</small></p>
+dist polar</a>, and 1 further declaration. Conditional on the separation
+bound <a class="math-ref" data-equation-ref="true" href="#eq:lc-separation">eq:lc-separation</a> and
+the radius and budget bounds <a class="math-ref" data-equation-ref="true" href="#eq:lc-radius-and-budget">eq:lc-radius-and-budget</a>, which
+this proof derives from the standing failure hypothesis; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By <a class="math-ref" data-equation-ref="true" href="#eq:lc-radius-and-budget">eq:lc-radius-and-budget</a>,
 Lemma <a class="math-ref" href="#res:circle-slice-packing">3.3</a> and the
@@ -5934,13 +5939,19 @@ the same hypotheses, checked by the Lean kernel using only the axioms
 <code>181078b6b009</code>. This includes Lemma <a class="math-ref" href="#res:circle-slice-packing">3.3</a>.</p>
 <p>Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
 is checked in degree two, with no hypothesis on the positions of the
-roots, and the exact rational arithmetic of its stopping-time comparison
-is checked. The analytic argument in higher degrees is not yet
-formalised. Corollary <a class="math-ref" href="#res:low-critical-scale-free">3.2</a> and
+roots. For the recorded stopping time <span
+class="math inline" data-term-auto="off">\(X=635762889599/10^{12}\)</span> of its
+certificate, the closing inequality <span
+class="math inline" data-term-auto="off">\((13/25)e^X&lt;1\)</span> is checked, and so is
+<span class="math inline" data-term-auto="off">\((529/1000)e^X&lt;1\)</span>. The computation
+that certifies <span class="math inline" data-term-auto="off">\(X\)</span> is carried out by
+the exact-arithmetic program of Section <a class="math-ref" href="#sec:low-critical-closure">3</a>, outside
+the Lean development, and the analytic argument in higher degrees is not
+yet formalised. Corollary <a class="math-ref" href="#res:low-critical-scale-free">3.2</a> and
 Corollary <a class="math-ref" href="#res:scaled-low-critical-path">3.5</a> are
-verified as reductions to that theorem, which is itself in this list;
-the degree-two case of the second corollary is checked with no input at
-all.</p>
+verified as reductions to Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>,
+which is itself in this list; the degree-two case of the second
+corollary is checked with no input at all.</p>
 <p>Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a> and
 Corollary <a class="math-ref" href="#res:critical-value-thresholds">6.2</a> are
 verified as reductions to a single named statement, which is what the
@@ -5973,11 +5984,12 @@ ingredients are the component count in the proof of <span
 class="citation" data-cites="eks2010"></span>, the boundary extension of
 the inverse branch and the Jordan curve theorem. The half-perimeter
 selection lemma is checked. Theorem <a class="math-ref" href="#res:dual-arity-floor">3.4</a> is verified as
-a reduction to <a class="math-ref" data-equation-ref="true" href="#eq:lc-radius-and-budget">eq:lc-radius-and-budget</a>, which
-its own proof derives from the standing failure hypothesis by the
-Blaschke factorisation of a Riemann map and Pólya’s area inequality;
-that derivation is not formalised. The hyperbolic law of cosines it uses
-is proved in the development. For Theorem <a class="math-ref" href="#res:attachment-aware-reeb">11.1</a> the
+a reduction to <a class="math-ref" data-equation-ref="true" href="#eq:lc-separation">eq:lc-separation</a> and <a class="math-ref" data-equation-ref="true" href="#eq:lc-radius-and-budget">eq:lc-radius-and-budget</a>, which
+its own proof derives from the standing failure hypothesis through a
+Riemann map of the component, using the Bergman-kernel length estimate,
+the Blaschke factorisation and Pólya’s area inequality; that derivation
+is not formalised. The hyperbolic law of cosines it uses is proved in
+the development. For Theorem <a class="math-ref" href="#res:attachment-aware-reeb">11.1</a> the
 development checks the ray-disjointness, level-separation and
 saddle-scale steps of its proof, and the Morse, monodromy and strip
 statements themselves are not yet formalised.</p>
