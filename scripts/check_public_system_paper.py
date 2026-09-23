@@ -38,6 +38,9 @@ TRUTH_BUCKET_MACROS = {
 }
 
 FORBIDDEN_OVERCLAIMS = (
+    "reviewed and authorised the manuscript",
+    "approved the published version",
+    "responsible for the cases, expected answers, decision rules, and final public wording",
     "without trusting anyone",
     "verify it is non-secret",
     "verifies it is non-secret",
