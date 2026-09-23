@@ -347,10 +347,13 @@ separate repository containing the Lean proof source and mathematical papers:
 
 [**plectis-erdos**](https://github.com/wcook04/plectis-erdos)
 contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
-#1041, and #1049**. The degree-seven counterexample found by ani refutes the
-total-variation formulation of #1041 and is formalised there; independent
-human review of its correspondence with the historical curve-length formulation
-has not been recorded. The other seven target problems are not resolved there.
+#1041, and #1049**. For ani's explicit degree-seven polynomial, Lean proves
+that every path through its strict lemniscate joining two distinct roots has
+image of one-dimensional Hausdorff measure greater than two. This refutes the
+[Formal Conjectures path-image formulation of #1041](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L393),
+as well as the earlier total-variation statement. Independent human review of
+its correspondence with the 1958 curve-length wording has not been recorded.
+The other seven target problems are not resolved there.
 Its README gives each problem's statement, results and remaining questions.
 Lean verifies the proofs
 against their formal statements; the claim records and papers explain how
