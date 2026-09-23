@@ -156,7 +156,7 @@
       "public projection refresh and declared release validation"
     ],
     "required_validation": [
-      "python -m pytest",
+      "make ci",
       "python scripts/check_public_system_paper.py",
       "python -m plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text"
     ],

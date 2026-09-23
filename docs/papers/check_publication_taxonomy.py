@@ -41,6 +41,7 @@ DOI_ABSENCE_REASON = "no_archival_deposit_yet"
 PUBLICATION_CLASSES = {
     "problem_paper",
     "reasoning_surface",
+    "synthesis_paper",
     "methods_paper",
     "software_paper",
 }

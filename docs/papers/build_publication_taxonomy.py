@@ -10,7 +10,8 @@ guess -- and the honest answer is available from data already in the corpus.
 This builder adds, per paper:
 
 ``publication_class``
-    ``problem_paper``, ``reasoning_surface``, ``methods_paper``, or
+    ``problem_paper``, ``reasoning_surface``, ``synthesis_paper``,
+    ``methods_paper``, or
     ``software_paper``, decided by ordered rules over the manuscript's own
     ``owns``, ``title``, and ``home_repository`` fields. The rule that fired is
     recorded in ``publication_class_basis`` so the decision can be audited
@@ -43,10 +44,11 @@ These fields describe how a manuscript was published. They say nothing about
 what it establishes; ``authority_order`` and ``verification_boundary`` still own
 that, and are left untouched.
 
-The canonical corpus builder lives in the private system repository and owns
-every other field. This projector is deliberately additive and idempotent: it
-reads ``corpus.json``, adds or refreshes only the keys above, and rewrites the
-file in the same format. Running it twice produces no second diff.
+``refresh_paper_corpus.py`` owns clone-local refresh of native paper text and
+its corpus metadata; imported companion records retain their recorded public
+provenance. This projector is deliberately additive and idempotent: it reads
+``corpus.json``, adds or refreshes only the keys above, and rewrites the file in
+the same format. Running it twice produces no second diff.
 
     python3 docs/papers/build_publication_taxonomy.py            # write
     python3 docs/papers/build_publication_taxonomy.py --check    # exit 1 if stale
@@ -79,6 +81,10 @@ PUBLICATION_CLASSES = {
     "reasoning_surface": (
         "A long-form record of attempted routes, the routes that closed, and "
         "the obligations that survive."
+    ),
+    "synthesis_paper": (
+        "Mathematics whose subject is several covered problems read together: "
+        "what is common, what is not, and what the comparison leaves open."
     ),
     "methods_paper": (
         "A systems or methodology argument: how something is built, checked, "
@@ -162,6 +168,12 @@ def _classify(paper: dict[str, Any]) -> tuple[str, str]:
     # in the paper's own fields.
     if "reasoning surface" in owns:
         return "reasoning_surface", "owns names 'reasoning surface'"
+
+    # Before the problem-paper markers: a paper whose subject is the comparison
+    # across problems is not exposition of one of them, and filing it as a
+    # problem paper would put it in every surface that counts problems.
+    if "synthesis exposition" in owns:
+        return "synthesis_paper", "owns names 'synthesis exposition'"
 
     if home and title.lower().startswith(home.lower()):
         return "software_paper", f"title opens with its released artefact '{home}'"
@@ -413,9 +425,24 @@ def _project_paper(paper: dict[str, Any]) -> dict[str, Any]:
     return rebuilt
 
 
+def _is_unavailable(paper: dict[str, Any]) -> bool:
+    """A registry paper whose manuscript is absent from the exported checkout.
+
+    The exporter records it as ``unavailable_at_build`` with no title and no
+    ``owns`` text, so there is nothing to classify.  It is carried through
+    untouched and left out of the taxonomy counts: a paper that lives on another
+    branch must not stop the export of the papers that are here, and must not be
+    filed under a class nobody chose for it.
+    """
+    return paper.get("availability") == "unavailable_at_build"
+
+
 def build(corpus: dict[str, Any], root: Path) -> dict[str, Any]:
-    papers = [_project_paper(paper) for paper in corpus.get("papers", [])]
-    summary = _summary(papers, root)
+    papers = [
+        paper if _is_unavailable(paper) else _project_paper(paper)
+        for paper in corpus.get("papers", [])
+    ]
+    summary = _summary([paper for paper in papers if not _is_unavailable(paper)], root)
 
     rebuilt: dict[str, Any] = {}
     for key, value in corpus.items():

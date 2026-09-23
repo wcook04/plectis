@@ -2689,6 +2689,42 @@ def _public_getting_started_goal(text: str) -> bool:
     )
 
 
+def _public_first_example_goal(text: str) -> bool:
+    """Recognize a cold reader asking for the repository's first runnable example."""
+    lowered = (text or "").lower()
+    return "first example" in lowered and any(
+        phrase in lowered for phrase in ("clone", "repository", "repo")
+    )
+
+
+def _companion_erdos_goal(text: str) -> bool:
+    """Send Erdős research questions to the repository that owns the proofs.
+
+    An explicit request for this toolkit's toy proof-search organ still uses
+    that organ, even if the reader mentions an Erdős example for context.
+    """
+    lowered = (text or "").lower()
+    if not re.search(r"\berd[oő]s\b", lowered):
+        return False
+    return not any(
+        name in lowered
+        for name in (
+            "lean_proof_search_lab_runtime",
+            "lean-proof-search-lab-runtime",
+            "lean proof-search lab",
+            "lean proof search lab",
+        )
+    )
+
+
+def _public_infrastructure_proposal_goal(text: str) -> bool:
+    """Distinguish a public idea submission from a request to edit source."""
+    tokens = set(_goal_tokens(text))
+    return bool(tokens & {"propose", "proposal", "suggest", "suggestion", "idea"}) and bool(
+        tokens & {"infra", "infrastructure", "architecture", "workflow", "workflows"}
+    )
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     Return whether tokens overlap holds for the comprehension flow.
@@ -3201,9 +3237,168 @@ def _compile_first_action(
         }
         return pack
 
+    if _public_infrastructure_proposal_goal(text):
+        math_proposal = bool(
+            set(_goal_tokens(text))
+            & {"erdos", "erdős", "math", "mathematics", "lean", "proof", "theorem", "corpus"}
+        )
+        guide = (
+            "https://github.com/wcook04/plectis-erdos/blob/main/"
+            "docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"
+            if math_proposal
+            else "https://github.com/wcook04/plectis/blob/main/CONTRIBUTING.md"
+        )
+        command = "cat CONTRIBUTING.md"
+        pack["routing"] = {"basis": "public_infrastructure_proposal"}
+        pack["summary"]["what_this_is"] = (
+            "A public infrastructure idea starts with the contribution guide. "
+            f"Read {guide}."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_document",
+            "command": command,
+            "why": (
+                "The toolkit guide links both the toolkit issue route and the "
+                "separate mathematics architecture proposal route."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "public_mathematics_companion" if math_proposal else "public_toolkit",
+            "repository": (
+                LEAN_COMPANION_REPOSITORY["repository"]
+                if math_proposal else "https://github.com/wcook04/plectis"
+            ),
+            "contribution_guide": guide,
+        }
+        pack["proof_path"] = {
+            "validation_commands": [command],
+            "receipt_refs": [],
+            "note": "The committed guide describes a proposal route; it is not an acceptance receipt.",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the public guide and its stated issue or pull-request route; "
+                "a proposal does not require private workbench access."
+            ),
+            "task_classes": ["public_infrastructure_proposal"],
+            "source": "CONTRIBUTING.md::Propose a public infrastructure change",
+        }
+        pack["do_not_claim"] = (
+            "A proposal is not an accepted change, independent evaluation, or proof."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "Reading a contribution route does not authorize source mutation.",
+        }
+        return pack
+
+    if _companion_erdos_goal(text):
+        command = (
+            "PYTHONPATH=src python3 -m microcosm_core comprehend "
+            "--slice papers --format text"
+        )
+        pack["routing"] = {"basis": "companion_erdos_research"}
+        pack["summary"]["what_this_is"] = (
+            "Erdős research belongs to the separate public Lean companion. "
+            "Open the local paper guide for its clone URL and first query."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": command,
+            "why": (
+                "The paper guide names the public companion, whose Lean source, "
+                "papers, and open-question records own mathematical claims."
+            ),
+            "committed_receipts": ["docs/papers/corpus.json"],
+        }
+        pack["owner"] = {
+            "scope": "public_mathematics_companion",
+            "repository": LEAN_COMPANION_REPOSITORY["repository"],
+        }
+        pack["proof_path"] = {
+            "validation_commands": [command, "python3 docs/papers/check_paper_corpus.py"],
+            "receipt_refs": ["docs/papers/corpus.json"],
+            "note": (
+                "In the companion clone, run scripts/query_corpus.py before "
+                "choosing a theorem, experiment, or contribution route."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the companion's stated theorem status and open boundary; "
+                "a toolkit fixture does not check an Erdős proof."
+            ),
+            "task_classes": ["companion_mathematics"],
+            "source": "AGENTS.override.md::Mathematics, Lean theorem status, or paper claims",
+        }
+        pack["do_not_claim"] = (
+            "This toolkit paper route does not prove a theorem, establish novelty, "
+            "or authorize release. Check the companion's exact Lean declaration "
+            "and paper before making a mathematical claim."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "This read-only route does not edit toolkit or companion source.",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
+
     organs = _resolve_goal_organs(goal, inputs)
     organ_target = organs["selected"]
     mode, _rg_target, _note = route_goal(goal, inputs)
+    if (
+        not organ_target
+        and mode not in ("path", "mutation_plan", "papers", "mechanism")
+        and _public_first_example_goal(text)
+    ):
+        command = "PYTHONPATH=src python3 -m microcosm_core tour --format text ."
+        pack["routing"] = {"basis": "public_first_example_tour"}
+        pack["summary"]["what_this_is"] = (
+            "The first runnable example in a fresh clone is the project tour "
+            "documented in QUICKSTART.md."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_verification_command",
+            "command": command,
+            "why": (
+                "The tour runs from source with Python 3.11 or newer and writes "
+                "its local record under ignored .microcosm/."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {"scope": "public_project_tour", "packet_id": "first_example"}
+        pack["proof_path"] = {
+            "validation_commands": [command],
+            "receipt_refs": [],
+            "note": (
+                "Inspect .microcosm/catalog.json and .microcosm/routes.json after "
+                "the run; QUICKSTART.md explains their limited meaning."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop after the tour and its local records; choose a component "
+                "example separately if the reader wants a domain-specific replay."
+            ),
+            "task_classes": ["getting-started"],
+            "source": "QUICKSTART.md::First result",
+        }
+        pack["do_not_claim"] = (
+            "The tour verifies a local first run only; it does not validate "
+            "the other components, mathematics, or the private system."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "the tour writes ignored local state, not tracked source files",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice mechanism --format text",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
     if _source_locus_goal(text, organ_target):
         command = (
             "PYTHONPATH=src python3 -m microcosm_core comprehend "
@@ -5119,6 +5314,9 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("what should I fix in this repo?",
      {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
       "routing_basis": "improvement_goal"}),
+    ("propose an infrastructure change to the proof workflow",
+     {"action_kind": "open_document", "command_has": "cat CONTRIBUTING.md",
+      "routing_basis": "public_infrastructure_proposal"}),
     ("inspect src/microcosm_core/cli.py",
      {"action_kind": "open_packet", "command_has": "--path src/microcosm_core/cli.py",
       "routing_basis": "path_reference_goal"}),
@@ -5183,6 +5381,8 @@ def _is_cold_runnable_source_command(command: str) -> bool:
     failing evidence is returned or raised exactly where the body says so.
     """
     parts = shlex.split(str(command or ""))
+    if parts == ["cat", "CONTRIBUTING.md"]:
+        return True
     if len(parts) >= 3 and parts[0] == sys.executable and parts[1] == "-m":
         return parts[2] == "microcosm_core" or parts[2].startswith("microcosm_core.")
     if not parts or parts[0] != "PYTHONPATH=src":

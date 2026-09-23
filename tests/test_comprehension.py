@@ -1053,6 +1053,74 @@ def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:
     assert all(v is False for v in pack["authority_ceiling"].values())
 
 
+@pytest.mark.parametrize("goal", [
+    "experiment with a Lean proof of an Erdős problem",
+    "prove an Erdos #257 theorem",
+    "explore an Erdős paper and its open problem",
+])
+def test_erdos_research_first_action_uses_companion(goal: str) -> None:
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "companion_erdos_research"
+    assert pack["first_action"]["action_kind"] == "open_packet"
+    assert "--slice papers" in pack["first_action"]["command"]
+    assert "lean_proof_search_lab_runtime" not in pack["first_action"]["command"]
+    assert pack["owner"]["repository"] == C.LEAN_COMPANION_REPOSITORY["repository"]
+    assert C._first_action_contract_complete(pack)
+
+
+@pytest.mark.parametrize("goal,guide_fragment,scope", [
+    (
+        "I want to propose a public infrastructure change to the proof workflow",
+        "plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md",
+        "public_mathematics_companion",
+    ),
+    (
+        "propose an infrastructure change to the Erdős Lean corpus",
+        "plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md",
+        "public_mathematics_companion",
+    ),
+    (
+        "I have an idea for the toolkit infrastructure",
+        "plectis/blob/main/CONTRIBUTING.md",
+        "public_toolkit",
+    ),
+    (
+        "Can I propose infra changes?",
+        "plectis/blob/main/CONTRIBUTING.md",
+        "public_toolkit",
+    ),
+])
+def test_public_infrastructure_proposal_first_action_opens_guide(
+    goal: str, guide_fragment: str, scope: str
+) -> None:
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "public_infrastructure_proposal"
+    assert pack["first_action"]["command"] == "cat CONTRIBUTING.md"
+    assert guide_fragment in pack["owner"]["contribution_guide"]
+    assert pack["owner"]["scope"] == scope
+    assert C._first_action_contract_complete(pack)
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_implementing_infrastructure_still_gets_mutation_route() -> None:
+    pack = C.comprehend(
+        root=C.default_root(), mode="first_action",
+        target="change the toolkit infrastructure code",
+    )
+    assert pack["routing"]["basis"] != "public_infrastructure_proposal"
+    assert "--mutation" in pack["first_action"]["command"]
+    assert not C._is_cold_runnable_source_command("cat private-notes.md")
+
+
+def test_explicit_toy_lean_organ_stays_local_when_erdos_is_context() -> None:
+    pack = C.comprehend(
+        root=C.default_root(), mode="first_action",
+        target="run lean_proof_search_lab_runtime toy fixture for an Erdos example",
+    )
+    assert pack["routing"]["basis"] != "companion_erdos_research"
+    assert pack["owner"]["organ_id"] == "lean_proof_search_lab_runtime"
+
+
 def test_first_action_contract_via_task_route_match(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(
@@ -1532,6 +1600,18 @@ def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path
     assert pack["first_action"]["action_kind"] == "run_verification_command"
     assert pack["first_action"]["command"] == C.DEPENDENCY_PREFLIGHT_COMMAND
     assert "blocked_dependency_codes" in pack["reading_boundary"]["stop_condition"]
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_first_action_fresh_clone_example_routes_to_project_tour() -> None:
+    goal = "find and run a first example in a fresh clone"
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "public_first_example_tour"
+    assert pack["first_action"]["command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core tour --format text ."
+    )
+    assert pack["owner"]["scope"] == "public_project_tour"
     assert C._first_action_contract_complete(pack) is True
     assert all(v is False for v in pack["authority_ceiling"].values())
 

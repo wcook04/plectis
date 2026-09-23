@@ -92,7 +92,7 @@ def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
     }
 
 
-def test_accepts_previous_scale_and_citation_wording(tmp_path: Path) -> None:
+def test_accepts_previous_scale_wording_with_exact_commit_citation(tmp_path: Path) -> None:
     root = _fixture_root(tmp_path)
     path = root / "README.md"
     text = path.read_text(encoding="utf-8")
@@ -101,7 +101,7 @@ def test_accepts_previous_scale_and_citation_wording(tmp_path: Path) -> None:
         "  not count solutions to Erdős problems.",
         "These are scale and navigation counts, not separate\n"
         "  mathematical claims;",
-    ).replace("remains the version to cite", "remains the tagged citation anchor")
+    )
     path.write_text(text, encoding="utf-8")
     receipt = validate_lean_companion_snapshot(root)
     assert receipt["status"] == "pass", receipt["errors"]
@@ -113,7 +113,8 @@ def test_accepts_previous_scale_and_citation_wording(tmp_path: Path) -> None:
         ("These counts include library declarations; they do\n"
          "  not count solutions to Erdős problems.", ""),
         ("they do\n  not count solutions", "they do count solutions"),
-        ("remains the version to cite", "is not the version to cite"),
+        ("commit `", "tag `"),
+        ("latest tagged release", "obsolete tagged release"),
         ("releases/tag/", "releases/retired-tag/"),
     ],
 )
@@ -159,10 +160,12 @@ def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
     assert refreshed.startswith(prefix)
     assert refreshed.endswith(suffix)
     assert "not count solutions to Erdős problems" in refreshed
-    assert "`v99.0.0` remains the version to cite" in refreshed
+    normalized = " ".join(refreshed.split())
+    assert f"cite commit `{'a' * 40}` and the relevant paper" in normalized
+    assert "`v99.0.0` is the latest tagged release" in normalized
     assert "/releases/tag/v99.0.0" in refreshed
     assert f"{payload['scale']['module_count']:,} Lean modules" in refreshed
-    assert "citation anchor" not in refreshed[len(prefix):]
+    assert "tagged citation anchor" not in refreshed[len(prefix):]
     second = refresh_lean_companion_snapshot(root, upstream_root=tmp_path)
     assert second["status"] == "pass", second["errors"]
     assert path.read_text(encoding="utf-8") == refreshed

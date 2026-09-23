@@ -67,6 +67,7 @@ then $X_A(b)$ is irrational.  In particular, the base-two condition
 implies that $X_A(b)$ is irrational for every integer $b\ge2$.  Both
 conclusions are hereditary under passage to infinite subsets.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{120}{divisibilityWeightedClaim}, \lproof{ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean}{31}{finitePrimeWeighted_fixedBase_hereditary}.}
 
 For $P=\{2\}$, the summand in~\eqref{eq:weighted-fixed-base} is
 $1/[m(b^{2^k}-1)]$ when $a=2^km$ and $m$ is odd.  Large powers of $2$
@@ -93,6 +94,7 @@ Let $A\subseteq\Npos$ be infinite.  If
 \]
 then \(X_A(b)\) is irrational for every integer \(b\ge2\).
 \end{theorem}
+\leannote{Lean: \lproof{Erdos249257/AllBaseReciprocalSupportIrrationality.lean}{395}{irrational_erdosSupportSeries_of_summable_reciprocal}.}
 
 Erd\H{o}s stated Theorem~\ref{res:reciprocal-support}, including the
 all-base conclusion, after proving its pairwise-coprime case
@@ -427,6 +429,7 @@ Set $C_j=\sum_{d\ge1}c_{j,d}/d$.  If
 then $X_A(b)$ is irrational for every infinite
 $A\subseteq\bigcup_jF_j$ and every integer $b\ge2$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean}{241}{strengthenedPositiveCoverClaim}.}
 
 Every finite set admits a majorant of the required kind: take
 $\alpha_j=1$ and $c_{j,d}=\mathbf1_{F_j}(d)$.  The restriction is that
@@ -584,6 +587,7 @@ with either~\eqref{eq:strengthened-cover} or its positive-weight variant.
 Then $X_A(b)$ is irrational for every
 infinite $A\subseteq E\cup V$ and every integer $b\ge2$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{126}{mixedSupportClaim}, \lproof{ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean}{101}{arbitraryWeightMixedSupport_allBase_hereditary}.}
 \begin{proof}
 Fix $\varepsilon>0$ and an integer $N_0\ge1$, and put $\rho=\varepsilon/3$.
 Use the cover notation $B_j,U_j,V_j$ above, with $\eta_j=2^{-j}$ in
@@ -673,6 +677,7 @@ If moreover $\lcm(F)\ge2$, then $\lcm(F)<D_F$.  We use
 $\operatorname{ord}_1(b)=1$, so the statement includes $F=\{1\}$
 at $b=2$.
 \end{theorem}
+\leannote{Lean: \lproof{Erdos249257/CertificateKernel.lean}{5221}{coprime_base_den_finiteErdosSum}, \lproof{Erdos249257/CertificateKernel.lean}{5246}{finite_period_noncollapse_rat_den}, \lproof{Erdos249257/CertificateKernel.lean}{5260}{lcm_lt_den_finiteErdosSum}.}
 
 Coprimality is
 \mword{Erdos249257/CertificateKernel.lean}{5221}{coprime_base_den_finiteErdosSum}{coprimality of the base and finite-sum denominator}, the order statement is
@@ -845,6 +850,7 @@ For every real $x\ge0$, the following are equivalent:
  \end{gathered}
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos257/PaperCompleteR20/GeneralRepairCorrespondence.lean}{15}{paper_general_repair_criteria}.}
 
 The following is an ordinary proof.  The supplied solution wrapper
 \nolinkurl{Solutions/PalomarCorpus/E257/GeneralRepairCriterion.lean}
@@ -982,6 +988,7 @@ The following statements hold.
 Here $c_{D_R}(m)=\#\{d\in D_R:d\mid m\}$.
 \end{enumerate}
 \end{theorem}
+\leannote{Lean: \lproof{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}, \lproof{Erdos249257/TwentyOneQuotientGreedy.lean}{5554}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}, \lproof{Erdos249257/TwentyOneQuotientGreedy.lean}{5458}{one_div_twenty_one_mem_mersenneAchievementSet_of_cofinalGreedyDecay}, \lproof{Erdos249257/TwentyOneQuotientGreedy.lean}{5625}{twentyOneFatalAlignedBranch_eventually_strict_supercapacity}, and 1 further declaration in the \papersectionlink{erdos257-mersenne-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \noindent The equivalence is
 \mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{the equivalence with failure of $\mathcal F_{21}$};
@@ -1018,6 +1025,7 @@ $A_j\subseteq\{2,\ldots,M_j\}$ such that
 \]
 Then $X_A(2)=1/2$ for some infinite set $A\subseteq\Npos$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos257/PaperCompleteR20/TerminalSetCorrespondence.lean}{51}{paper_terminalhalf}.}
 
 No agreement between different $A_j$ is assumed, and no bound is imposed
 on their earlier carries.  Producing such finite approximants would
@@ -1081,6 +1089,7 @@ $\max\{N,1\}\le M$, $0\le K\le M$, and a family satisfying all the
 conditions in the preceding paragraph.  Then $X_A(2)=1/2$ for some
 infinite set $A\subseteq\Npos$.
 \end{theorem}
+\leannote{Lean: \lproof{Erdos249257/SuffixCylinderTerminalOnlyBridge.lean}{287}{exists_infinite_positive_support_half_of_cofinalCylinderStages}.}
 
 Choosing one member from each family gives the terminal bound in
 Theorem~\ref{res:terminalhalf}, proving the conclusion.  The shared-prefix

@@ -107,6 +107,7 @@ can be made with
 In particular the distance tends to zero for every integer-valued
 $m=m(X)\ge1$ with $m(X)=o(\log\log X)$, uniformly over target values.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/SparseAmbientR9.lean}{269}{arbitrary_word_sparse_rationalisation_uniform}, \lproof{ErdosProblems/Erdos251/SparsePaperR11.lean}{137}{polylogarithmic_word_interval_uniform}.}
 
 The convergence hypothesis includes all nonnegative integer sequences of
 polynomial growth, but excludes $a_n=2^n$.  The allowance $f(n)\to\infty$
@@ -276,6 +277,7 @@ Moreover, with $P_n=2+\sum_{i<n}b_i$,
 \]
 These positions are not asserted to be prime.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{431}{short_joint_prime_gap_countermodel}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{228}{cut_prefix_bound}. Conditional on Schlage-Puchta's density lemma and the prime number theorem; see the \papersectionlink{erdos251-prime-gap-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \begin{proof}
 Choose a rational target in the interval
@@ -369,6 +371,7 @@ The actual prime and gap series satisfy $\Pi=2+G$.  Their complete tails
 satisfy $T_0=2G-1$ and $T_{N+1}=2T_N-g_{N+1}$.
 Thus $\Pi$, $G$ and $T_0$ have the same rationality status.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{31}{realPrimeGapTail_eq_tsum_shifted_gaps}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{57}{realPrimeGapTail_zero}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{48}{realPrimeGapTail_recurrence}, and 2 further declarations in the \papersectionlink{erdos251-prime-gap-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 \begin{proof}
 Finite summation by parts retains the endpoint:
 \[
@@ -388,6 +391,7 @@ Let $\sum_{j\ge1}|a_j|2^{-j}<\infty$ and $U_{N+1}=2U_N-a_{N+1}$.
 Then $U_N=\sum_{j\ge1}a_{N+j}2^{-j}$ for every $N$ if and only if
 $2^{-N}U_N\to0$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean}{57}{real_dyadic_orbit_eq_true_tail_iff}.}
 \begin{proof}
 The recurrence gives
 $2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}$.
@@ -428,6 +432,7 @@ Consequently $U_0$ is irrational exactly when every positive shift is
 nonintegral at every index, equivalently when for each fixed $h\ge1$
 there are arbitrarily late nonintegral shifts.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean}{62}{real_orbit_exact_den_and_shift}, \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{94}{rationality_classification}.}
 \begin{proof}
 Iteration gives
 \[
@@ -467,6 +472,7 @@ for some $s\in\{-1,1\}$,
 \]
 In that case $sD'\in(-1,0)$ and both $D$ and $D'$ are nonintegral.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean}{7}{signed_two_window_iff}, \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean}{47}{signed_two_window_consequences}.}
 \begin{proof}
 The bounds on $D$ and $D'$ imply $-3<\delta<3$.  Since $\delta$ is
 nonzero and even, it equals $2s$ for $s=1$ or $s=-1$.  Substituting in
@@ -509,6 +515,7 @@ If for every $h\ge1$ and every cutoff $N_0$ there are $N\ge N_0,L\ge1$ with
 \end{equation}
 then $\Pi$ is irrational.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{273}{irrational_prime_series_of_finite_truncation}.}
 \begin{proof}
 The distance from $D_N$ to $\Z$ is at least
 $\operatorname{dist}(S_{h,N,L},\Z)-R_{h,N,L}(M)>0$.
@@ -596,6 +603,7 @@ The prime-value dyadic series is irrational if and only if the prime-gap
 dyadic series is. Both series converge by the polynomial bound proved above;
 neither side is proved irrational.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}, \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{56}{irrationality_reformulation}.}
 \begin{proof}
 Theorem~\ref{res:infinite} gives $\Pi=2+G$, and adding a rational number
 preserves both rationality and irrationality.
@@ -605,6 +613,7 @@ preserves both rationality and irrationality.
 For every positive $h$, the actual consecutive-prime-gap sequence is not
 eventually periodic with period $h$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{175}{prime_gaps_not_eventually_periodic}.}
 \begin{proof}
 An eventually periodic sequence takes only finitely many values and is
 bounded.  Prime gaps are unbounded: for each $m\ge2$, the $m-1$ consecutive

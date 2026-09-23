@@ -71,9 +71,18 @@ show the private interface; they do not establish its reliability.
   [agent reliability and safety replays](ORGANS.md#agent-reliability--safety-replays).
   These include examples of prompt injection and poisoned memory. The examples
   use supplied data; passing them does not establish that a live agent is safe.
-- **Read the mathematics:** the
-  [Lean companion](https://github.com/wcook04/plectis-erdos), with its own
-  problem papers and reading guide.
+- **Try a mathematics experiment:** start at the
+  [Lean companion's reader path](https://github.com/wcook04/plectis-erdos#where-to-start).
+  Its exact-rational #257 probe runs with Python 3; the short papers, longer
+  records and Lean source show what the probe does and does not establish.
+- **Improve the toolkit's first-use path:**
+  [try an entry-route experiment](CONTRIBUTING.md#try-an-entry-route-experiment).
+  Check whether a plain-language software task leads to a relevant, runnable
+  first step, then report one reproducible mismatch.
+- **Propose public infrastructure:**
+  [describe a toolkit change](CONTRIBUTING.md#propose-a-public-infrastructure-change),
+  or use the [Lean companion's architecture proposal](https://github.com/wcook04/plectis-erdos/issues/new?template=architecture_proposal.yml)
+  for its proof corpus and research workflow. An idea can start without code.
 - **Find a command, paper or source file:** the [documentation index](docs/README.md)
   or the [links below](#choose-a-route).
 
@@ -342,8 +351,15 @@ separate repository containing the Lean proof source and mathematical papers:
 
 [**plectis-erdos**](https://github.com/wcook04/plectis-erdos)
 contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
-#1041, and #1049**. All eight remain open. Its README gives the statement, partial results
-and remaining unsolved question for each problem. Lean verifies the proofs
+#1041, and #1049**. For ani's explicit degree-seven polynomial, Lean proves
+that every path through its strict lemniscate joining two distinct roots has
+image of one-dimensional Hausdorff measure greater than two. This refutes the
+[Formal Conjectures path-image formulation of #1041](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean#L393),
+as well as the earlier total-variation statement. Independent human review of
+its correspondence with the 1958 curve-length wording has not been recorded.
+The other seven target problems are not resolved there.
+Its README gives each problem's statement, results and remaining questions.
+Lean verifies the proofs
 against their formal statements; the claim records and papers explain how
 those statements relate to the original problems. Running a software example
 here does not rerun the companion repository's Lean proofs.
@@ -354,17 +370,19 @@ the broader test suite runs.
 
 - [**Read the proven partial results, problem by problem**](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md):
   one entry per problem, with links to the Lean declarations, an explanation
-  of what each result proves, and the part of the problem that remains open. All eight problems remain open.
+  of what each result proves, and its limits or remaining questions.
 - [**Choose a problem paper**](https://github.com/wcook04/plectis-erdos#problem-papers):
   the companion README lists one short paper for each covered problem and
   states the partial results beside it.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how the authors compare the claims in the papers with the statements
   proved in Lean, and record which source version they used.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/d26363e8737156078eebf0a94a81b067454b030a):
-  the recorded public source snapshot contains 1,770 Lean modules and 158,837
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/a08529a329578d172a9a2e602bacba4a8cc760cd):
+  the recorded public source snapshot contains 1,816 Lean modules and 159,482
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These counts include library declarations; they do
-  not count solutions to Erdős problems. `v0.10.0` remains the version to cite.
+  not count solutions to Erdős problems. For this source snapshot, cite
+  commit `a08529a329578d172a9a2e602bacba4a8cc760cd` and the relevant paper. `v0.10.0` is the
+  latest tagged release.
 - [**Release v0.10.0**](https://github.com/wcook04/plectis-erdos/releases/tag/v0.10.0):
   the version to cite when referring to that release.

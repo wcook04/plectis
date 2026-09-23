@@ -116,6 +116,25 @@ def test_validator_rejects_authority_and_discrimination_gaps(
     assert any(expected_error in error for error in validate_packet(packet))
 
 
+@pytest.mark.parametrize(
+    "unsafe_path",
+    ["..\\private\\evidence.json", "C:\\private\\evidence.json",
+     "C:/private/evidence.json", "\\\\server\\share\\evidence.json",
+     "docs/file.json:stream", "."],
+)
+def test_landing_target_paths_are_safe_across_hosts(unsafe_path: str) -> None:
+    packet = example_packet()
+    packet["expert_return"]["landing_targets"][0]["path"] = unsafe_path
+    assert any("safe repository-relative path" in error for error in validate_packet(packet))
+
+
+def test_landing_target_paths_reject_canonical_duplicates() -> None:
+    packet = example_packet()
+    targets = packet["expert_return"]["landing_targets"]
+    targets[1]["path"] = "./" + targets[0]["path"]
+    assert any("path is duplicated" in error for error in validate_packet(packet))
+
+
 def test_cli_json_and_text_are_read_only(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -158,9 +177,11 @@ def test_cli_json_and_text_are_read_only(
     assert "[supports: hypothesis.independent_cases_find_more_failures]" in text
     assert "Decisive returns if verified:" in text
     assert "Useful but route-only returns:" in text
-    assert "Checked landing targets:" in text
-    assert "Checked landing order:" in text
+    assert "Proposed landing targets:" in text
+    assert "Prescribed landing order:" in text
     assert "Required validation:" in text
+    assert "  - make ci" in text
+    assert "  - python -m pytest\n" not in text
     assert "No claim status changes" in text
     assert EXAMPLE.read_bytes() == before
 

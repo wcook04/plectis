@@ -1140,6 +1140,9 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     (source_root / ".microcosm/private.json").write_text("{}", encoding="utf-8")
     (source_root / ".venv/bin").mkdir(parents=True)
     (source_root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    handoff_example = source_root / "examples/hypothesis_handoff/independent_evaluation.json"
+    handoff_example.parent.mkdir(parents=True)
+    handoff_example.write_text("{}", encoding="utf-8")
 
     work_dir = tmp_path / "work with spaces"
     calls: list[tuple[list[str], dict[str, str] | None, Path | None]] = []
@@ -1173,6 +1176,13 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     ) -> subprocess.CompletedProcess[str]:
         calls.append((argv, env, stdout_path))
         stdout = ""
+        if argv[1:4] == ["-m", "pip", "install"]:
+            installed_example = (
+                work_dir
+                / "venv/share/plectis/examples/hypothesis_handoff/independent_evaluation.json"
+            )
+            installed_example.parent.mkdir(parents=True)
+            installed_example.write_bytes(handoff_example.read_bytes())
         if "-c" in argv:
             stdout = str(
                 work_dir
@@ -1197,6 +1207,8 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
                     payload["card_status"] = "clear"
                 if stdout_path.name == "first-action.json":
                     payload.update(first_action(argv[-1]))
+                if stdout_path.name == "hypothesis-handoff.json":
+                    payload["ready_for_expert"] = True
                 stdout_path.parent.mkdir(parents=True, exist_ok=True)
                 stdout_path.write_text(json.dumps(payload), encoding="utf-8")
             else:
@@ -1235,6 +1247,14 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     assert pip_env["PIP_CACHE_DIR"] == str(work_dir / "pip-cache")
     assert pip_env["PYTHONPYCACHEPREFIX"] == str(work_dir / "pycache")
     assert pip_env["TMPDIR"] == str(work_dir / "tmp")
+    handoff_call = next(
+        argv for argv, _, _ in calls if "hypothesis-handoff" in argv
+    )
+    assert handoff_call[handoff_call.index("--input") + 1] == str(
+        work_dir
+        / "venv/share/plectis/examples/hypothesis_handoff/independent_evaluation.json"
+    )
+    assert (work_dir / "outputs/hypothesis-handoff.json").is_file()
     assert executed_actions == ["prompt-injection", "voice-to-doctrine", "finance"]
 
 

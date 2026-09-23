@@ -9,6 +9,12 @@
 % Pinned Lean revision. Retained without retargeting in the prose revision.
 \renewcommand{\commit}{3d6d938d696fed0fb71dd55115a18a73738ff223}
 \renewcommand{\commitshort}{3d6d938d696f}
+% That revision keeps the Lean roots under lean/, so the links name it.
+\renewcommand{\PX}{lean/ErdosProblems}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Bounded increments and rational reciprocal sums: a sufficient condition for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
@@ -63,6 +69,7 @@ $\sum_{n\ge1}1/a_n\in\Q$.  Put $P_n=\prod_{j<n}a_j$.  If
 \]
 then $a_{n+1}=a_n^2-a_n+1$ for all sufficiently large $n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean}{211}{original_coordinate_bounded_defect}.}
 
 The assumption bounds the upward increments of $P_n/a_n$; it does not
 bound $P_n/a_n$ itself. Indeed,
@@ -120,6 +127,7 @@ $K\,|E_n|<C_n$ for all $n\ge N$.
 \end{enumerate}
 Then $E_n=0$ for all sufficiently large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}.}
 \end{samepage}
 
 Condition~(5) bounds upward steps but permits sign changes and places no
@@ -180,6 +188,7 @@ incompatible with divergence and the displayed bound on upward steps.
 Under Theorem~\ref{res:bounded}, the multipliers satisfy
 $a_{n+1}=a_n^2-a_n+1$ eventually.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{179}{bounded_negative_endpoint_eventual_multiplier}.}
 \begin{proof}
 Theorem~\ref{res:bounded} gives eventual zero error. Since $C_n>0$,
 Corollary~\ref{res:eventual} gives the recurrence.
@@ -205,6 +214,7 @@ For an exact integer state,
  \bigl(a_{n+1}-a_n^2+a_n-1\bigr)C_{n+1}=a_n^2E_n-E_{n+1}.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{21}{error_identities}.}
 \begin{proof}
 Substitute $E_n=D_n-(a_n-1)C_n$ and use
 $D_{n+1}=a_nD_n$, $C_{n+1}=a_nC_n-D_n$.
@@ -215,6 +225,7 @@ For a positive exact state with strict centring, $E_n=0$ implies
 $E_{n+1}=0$. For any positive integer state with $C_{n+1}=C_n-E_n$,
 eventual nonnegativity of $E_n$ implies its eventual vanishing.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{120}{absorption_and_descent}.}
 \begin{proof}
 When $E_n=0$, the second identity makes $E_{n+1}$ a multiple of
 $C_{n+1}$; strict centring forces that multiple to be zero. In the second
@@ -227,6 +238,7 @@ If $E_n=E_{n+1}=0$ and $C_{n+1}\ne0$, then
 $a_{n+1}=a_n^2-a_n+1$. Thus eventual zero error in a positive exact state
 implies the eventual Sylvester recurrence.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1787}{sylvesterNext_eq_of_centered_zero}, \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{156}{natural_sylvester_of_eventual_zero}.}
 \begin{proof}
 The second error identity has nonzero factor $C_{n+1}$.
 \end{proof}
@@ -242,6 +254,7 @@ $C_n\to\infty$.
 For pairwise coprime integers $m_0,\ldots,m_{B-1}\ge2$ and every lower
 bound, there is a larger $t$ such that $m_i\mid t+i$ for each $i<B$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{839}{exists_shifted_consecutiveMultiples}.}
 \begin{proof}
 Solve $t\equiv-i\pmod{m_i}$ by the Chinese remainder theorem, then add
 multiples of $\prod_i m_i$.
@@ -265,6 +278,7 @@ Let $u:\N\to\N$ tend to infinity and let $B\ge1$ be an integer with
 $u_{n+1}\le u_n+B$ for every $n$. There is no sequence of pairwise coprime
 integers $m_i\ge2$ for which $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{903}{no_boundedRise_of_tailAvoidance}.}
 \begin{proof}
 Choose $m_0,\ldots,m_{B-1}$ and use Lemma~\ref{res:crt} to find
 $t>\max(u_0,\ldots,u_B)$ with $m_i\mid t+i$.  Since $u_n\to\infty$,
@@ -291,6 +305,7 @@ In a reduced exact tail, $\gcd(a_n,v_n)=1$. Distinct multipliers are
 pairwise coprime, and every earlier multiplier is coprime to every later
 numerator.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{16}{persistent_coprimality}.}
 \begin{proof}
 A common prime divisor of $a_n,v_n$ would divide both $u_{n+1}$ and
 $v_{n+1}$. Also, $a_i\mid v_t$ for $i<t$, so reducedness gives
@@ -304,6 +319,7 @@ satisfies $-B\le E_n<0$ at infinitely many indices. Then
 $G_n=\gcd(C_n,D_n)$ is eventually constant. Division by its stable value
 gives a reduced exact tail.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{103}{gcd_stabilises_and_reduces}.}
 \begin{proof}
 Both updates preserve common divisors, so $G_n\mid G_{n+1}$, and
 $G_n\mid E_n$. For any $n$, choose $t\ge n$ with $-B\le E_t<0$.
@@ -434,6 +450,7 @@ $C_{n+1}=C_n-E_n$. If
 \]
 then $E_n=0$ eventually. Neither denominator dynamics nor vanishing relative error is required.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{84}{finite_negative_mass_paper}.}
 \begin{proof}
 Set $\delta_n=(-E_n)_+/C_n$. Then
 \[
@@ -518,6 +535,7 @@ if and only if, for some integer $B\ge0$,
  \sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)<\infty.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean}{202}{canonical_weighted_record_excess}.}
 
 Only a step reaching a new maximum contributes. At a late such step,
 $-V_n=U_{n+1}-U_n$, so the first $B$ units of the increase are ignored.
@@ -625,6 +643,7 @@ $A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})$ with $A_1=1$. If
 \]
 then the sequence is eventually Sylvester.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean}{49}{original_coordinate_lcm_bounded_defect}.}
 
 \begin{proof}
 Since $L_n/A_n=q/\gcd(q,A_n)$ lies in $[1,q]$, an upper bound on the
@@ -696,6 +715,7 @@ and $\sum_n1/a_n\in\Q$. Suppose that for some $K\ge0$ and $\varepsilon>0$,
 Then the sequence is eventually Sylvester. In particular, the conclusion
 holds under the pointwise eventual bound $\gamma_n\le1/n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{207}{original_coordinate_inclusive_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{225}{original_coordinate_inclusive_one_pointwise}.}
 \begin{proof}
 Set $t_n=P_n/a_n$, so $t_{n+1}/t_n=1+\gamma_n$. For all large $n$,
 \[
@@ -716,6 +736,7 @@ A strictly increasing sequence of positive integers with
 \]
 has irrational reciprocal sum.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{70}{cubic_rate_irrationality_unconditional}.}
 \begin{proof}[Proof by the polynomial exclusion]
 Under rationality, Section~\ref{sec:transfer} gives
 $C_{n+1}/C_n=1+3/n+o(n^{-3})$. Integer finite differences then give
@@ -724,11 +745,16 @@ The fixed-cubic exclusion contradicts this profile. The complete ordinary
 argument, including the finite-difference extraction and the cubic-field
 step, is in Section~2 of the
 \href{https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf}{companion reasoning paper}.
-The field step uses Chebotarev; see
+The field step in that argument uses Chebotarev's theorem; see
 \cite[Section~3, author version]{stevenhagenlenstra1996} for that classical
-input. This paragraph is a proof by a stated companion result, not a
-standalone finite-congruence proof and not an assembled Lean proof.
+input. This paragraph is a proof by a stated companion result.
 \end{proof}
+
+\noindent Theorem~\ref{res:cubicrate} is also a Lean theorem,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
+with no hypothesis beyond those printed above. In the Lean proof, the field
+step uses the simple pole of the Dedekind zeta function at $s=1$, which
+Mathlib provides, in place of Chebotarev's theorem.
 
 For example, $a_1=8$ and $a_{n+1}=\lceil n a_n^2/(n+3)\rceil$
 give this rate and product-ratio increments of order $n^2$. Thus the
@@ -751,14 +777,16 @@ Although $C_n$ is an integer linear form in the reciprocal sum, it grows.
 The argument uses an exact polynomial formula, not a small-linear-form
 criterion.
 
-There is also an ordinary quantitative extension, not an end-to-end
-Lean-checked theorem. Under the hypotheses of
-Theorem~\ref{res:bounded} other than (5), the companion proves
+There is also a quantitative extension. Under the hypotheses of
+Theorem~\ref{res:bounded} other than (5),
 \[
  \limsup_{n\to\infty}
  \frac{(-E_n)_+}{\log_2\log_2\max(4,C_n)}\le1
  \quad\Longrightarrow\quad E_n=0\text{ eventually}.
 \]
+This implication is a Lean theorem,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound},
+with no hypothesis beyond these.
 The companion's Theorem~7.3 and Corollary~7.4 prove this inclusive
 bound by controlling the height of a CRT block. A fixed bound satisfies
 it on a nonzero tail, where $C_n\to\infty$; a bound of order
@@ -766,7 +794,15 @@ $\sqrt{C_n}$ need not. Unlike boundedness, the coefficient depends on
 the integer normalisation: scaling $(C_n,D_n,E_n)$ by $k\in\N_{>0}$
 scales this limit superior by $k$. The proof and the running-maximum
 estimates are in the companion's Section~7, not in the elementary
-bounded-increment argument above. Subcritical versions are given in
+bounded-increment argument above. Put $H_n=\max_{j\le n}C_j$. The Lean
+proof combines two Lean theorems about such an orbit: that
+$\limsup_n(H_{n+1}-H_n)/\log_2\log_2\max(4,H_n)>1$ whenever $E_n$ is not
+eventually zero
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}),
+and that this limit superior is at most the one displayed above
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L100}{comparison with the negative part}).
+The displayed implication is the contrapositive of the two combined, which
+also uses $D_0\ge1$, a consequence of~(6). Subcritical versions are given in
 \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/SlowNegativePartRigidity.md}{the slow-negative proof}
 and \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/LcmRecordExcess.md\#5-record-only-subcritical-log-log-bound}
 {the record-only extension}, the latter for LCM numerators with the bound
@@ -783,6 +819,7 @@ and
  \sum_n\frac{(-E_n)_+}{C_n}=\infty.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{151}{canonical_frontier}.}
 \begin{proof}
 Absorption excludes late zeros, descent excludes an eventually
 nonnegative error, and Theorems~\ref{res:bounded} and~\ref{res:massscalar}
@@ -848,6 +885,7 @@ $F(X)=\sum_{u_j\le X}w_j$, with the sum allowed a priori to be $+\infty$. Then $
 there is a finite nonincreasing $f:[1,\infty)\to[0,\infty)$ with
 $\int_1^\infty f(t)\,dt=\infty$ and $\sum_jw_jf(u_j)<\infty$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean}{87}{real_lowerDensityZero_iff_exists_admissible_real_weight}.}
 
 \begin{proof}
 Suppose the lower limit vanishes. Choose cutoffs at which the ratio
@@ -898,22 +936,32 @@ terminology and notation.
 The mathematical arguments above are independent of the source code.
 Each linked phrase below opens its declaration at an immutable revision;
 the checkpoint is \texttt{\commitshort} unless the destination identifies
-a separate release or older research note.
+a separate release, an older research note or a later revision.
 
 \paragraph{Recorded coverage.}
 The supplied index records checked proofs of the bounded-negative theorem,
 its product and LCM consequences, the scalar convergence criterion and
 necessary conditions on a counterexample. The rational-tail construction
 has its own formalised estimates; it is not merely an interpretation of
-an abstract recurrence. The weighted criterion has a separate-release
-proof source outside the main build. The cubic and double-logarithmic
-arguments have checked components, not assembled Lean proofs identified
-here; the companion supplies their written proofs, including the growth
-and modulus-counting arguments.
+an abstract recurrence. The \href{https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean\#L87}{weighted criterion is checked in both directions}, with the real cutoff used in Lemma~\ref{res:weights}. The cubic-rate
+theorem has an assembled Lean proof,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
+with no hypothesis beyond those of Theorem~\ref{res:cubicrate}. The
+companion's double-logarithmic results, its Theorem~7.3 and
+Corollary~7.4, are Lean theorems for the integer tails of a rational
+reciprocal sum
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L340}{record dichotomy},
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L129}{double-logarithmic criterion}).
+For an orbit satisfying the hypotheses of Theorem~\ref{res:bounded} other
+than (5), the double-logarithmic bound of Section~\ref{sec:secondaryrate}
+is a Lean theorem as well
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound}).
+The companion supplies the written proofs of
+both arguments, including the growth and modulus-counting arguments.
 
 The recorded main build is at \texttt{6b78209ab63a}; links retain their
-original pins, including \texttt{\commitshort}. No fresh Lean run or
-verification of the revised exposition is claimed. Finite certificates
+original pins, including \texttt{\commitshort}. The linked weighted criterion also has a fresh Lean check; this does not
+certify the remaining exposition as a whole. Finite certificates
 and unsuccessful extensions are retained in the companion, not counted
 as proofs of assembled arguments. The earlier Isabelle/HOL development
 of Koutsoukou-Argyraki and Li \cite{kouli2020} verifies older irrationality
@@ -1087,6 +1135,7 @@ factorial.
 For all $h$ and all integers $a\equiv b \pmod{(h+1)!}$, the orbit from $a$
 survives $h$ forced updates exactly when the orbit from $b$ does.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/FiniteHorizonResidue.lean}{134}{forcedSurvives_iff_of_modEq_factorial}.}
 
 \begin{proof}
 Define $M(0,i)=1$ and $M(h+1,i)=(i+2)M(h,i+1)$. Thus

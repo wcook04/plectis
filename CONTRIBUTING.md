@@ -15,6 +15,52 @@ names three JSON-field comparisons in the prompt-injection example. The README's
 [Choose a route](README.md#choose-a-route) table helps you find another area.
 Pick one concrete discrepancy or improvement and keep the change focused on it.
 
+## Propose a public infrastructure change
+
+An idea does not need a patch. Open a [toolkit issue](https://github.com/wcook04/plectis/issues)
+with one observable problem, the change you suggest, and how another reader
+could tell whether it helped. Name a public command or file when you can, and
+say how you would like your idea, code, test, or review credited if adopted.
+
+For the Lean corpus, proof workflow, or mathematics contributor path, use the
+separate [architecture proposal form](https://github.com/wcook04/plectis-erdos/issues/new?template=architecture_proposal.yml).
+It accepts a plain-language idea and asks for an observable stop condition and
+credit preference. Neither route requires access to the private workbench.
+
+## Try an entry-route experiment
+
+Can a new reader ask for a first example and get a relevant, runnable step?
+From a fresh clone with Python 3.11 or newer, run this public-only probe:
+
+```bash
+git rev-parse HEAD
+python3 --version
+PYTHONPATH=src python3 -m plectis comprehend --first-action "find and run a first example in a fresh clone" --format text
+```
+
+Read the returned `Do this first`, reason, and limits.
+The documented first example is the project tour in [Quickstart](QUICKSTART.md#1-first-result),
+which runs from source and writes under ignored `.microcosm/`. Check whether the
+returned command matches that example. In a clone without an install, the
+printed `plectis tour` command has this source form:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core tour --format text .
+```
+
+If the route matches, run it once. Stop after that one run or at the first
+mismatch: an unrelated route, a missing command or input, or an
+unclear next step. Do not run a command that writes tracked receipts just to
+complete this experiment.
+
+Report the commit, operating system, Python version, exact prompt and output,
+what first step you expected, and what you observed. If you ran the variant,
+include its output path. A focused fix can add a test for the same prompt and
+observed route. Use only this repository's public source and fixtures; the
+larger private system is outside this contribution route. For theorem status,
+Lean proofs, or paper questions, use the
+[mathematics companion](https://github.com/wcook04/plectis-erdos) instead.
+
 ## Reporting a discrepancy
 
 Report an output that differs from the documented expected result, a validator

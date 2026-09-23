@@ -7,6 +7,12 @@
 % Pinned Lean revision. Retained without retargeting in the prose revision.
 \renewcommand{\commit}{3d6d938d696fed0fb71dd55115a18a73738ff223}
 \renewcommand{\commitshort}{3d6d938d696f}
+% That revision keeps the Lean roots under lean/, so the links name it.
+\renewcommand{\PX}{lean/ErdosProblems}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Reciprocal-tail rigidity: theorems, proofs and questions for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
@@ -45,9 +51,10 @@ the eventual recurrence $a_{n+1}=a_n^2-a_n+1$ under the more general limit
 $a_{n+1}/a_n^2\to1$. They control either increases of an integer tail
 numerator or a convergent sum at steps setting new maxima. The paper
 gives the underlying recurrences, their relation to earlier work, and
-examples separating numerical growth bounds from the exact recurrences. The cubic
-proof and the further written arguments are distinguished from the
-specific theorems formalised in Lean. None of the additional bounds is
+examples separating numerical growth bounds from the exact recurrences. The
+cubic-rate theorem is checked in Lean, together with every lemma used in its
+proof. The further written arguments are distinguished from the specific
+theorems formalised in Lean. None of the additional bounds is
 derived for every rational reciprocal sum in Erd\H{o}s Problem~\#243.
 \end{abstract}
 
@@ -141,6 +148,7 @@ below; it cannot simply be replaced there by $O(n^{-3})$.
 If strictly increasing positive integers satisfy
 $a_n^2/a_{n+1}=1+3/n+o(n^{-3})$, then $\sum_n1/a_n$ is irrational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{70}{cubic_rate_irrationality_unconditional}.}
 
 For a concrete sequence satisfying the hypothesis, take
 \[
@@ -170,6 +178,7 @@ Then for every $A\in\Q_{>0}$ and every $B\in\Q$,
 In particular no such orbit satisfies $C_n=A\,n(n+1)(n+2)+B$ for all
 large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{54}{cubic_exclusion_unconditional}.}
 
 The irrationality theorem needs only exclusion of eventual equality.
 Theorem~\ref{long243:res:cubicexclusion} proves more: disagreement with
@@ -231,6 +240,7 @@ offsets. Suppose that for every sufficiently large $n$ in one residue
 class modulo $h$ at least one of $n+j_1,\ldots,n+j_L$ lies in $S$.
 Then $\underline d(S)\ge1/(Lh)$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/DensityTransport.lean}{156}{fixed_offsets_periodic_lowerDensity}.}
 
 \begin{proof}
 There are $X/h+O(1)$ relevant starting indices below $X$. Their witnesses
@@ -262,6 +272,7 @@ and there are $m\in\Z_{>0}$ and $c\in\{-1,1\}$ with
  Q(n)=\frac m6n(n+1)(n+2)+c .
 \end{equation}
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/CubicProfileGcdShape.lean}{103}{cubic_profile_gcd_stabilisation_and_primitive_shape}.}
 
 \begin{proof}
 Equation~\eqref{long243:eq:cubicorbit} gives $G_n\mid G_{n+1}$ and $G_n\mid C_t$ for
@@ -306,6 +317,7 @@ On the primitive tail, $\gcd(a_n,v_n)=1$, the multipliers at distinct indices
 are pairwise coprime, infinitely many of them exceed $1$, and the cubic
 $Q_{m,c}$ of \eqref{long243:eq:Qmc} is irreducible over $\Q$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/PrimitiveMultiplierSupply.lean}{244}{primitive_zero_density_paper_multiplier_lemma}.}
 
 \begin{proof}
 A prime dividing $a_n$ and $v_n$ would divide $u_{n+1}$ and $v_{n+1}$, against
@@ -338,6 +350,7 @@ $H(\alpha)\ne0$.  If for all but finitely many primes $\ell$ every root
 $r\in\Fp_\ell$ of the reduction of $f$ has $H(r)$ a square in $\Fp_\ell^\times$,
 then $H(\alpha)$ is a square in $\Q(\alpha)^\times$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{35}{squareSpecialisation}.}
 
 \begin{proof}
 Suppose not.  Put $K=\Q(\alpha)$ and choose $\beta$ with $\beta^2=H(\alpha)$,
@@ -359,6 +372,24 @@ is a nonsquare in $\Fp_\ell$ at a root of the reduction of $f$, against the
 hypothesis.
 \end{proof}
 
+The Lean proof of Lemma~\ref{long243:res:squarespec}
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean\#L184}{square specialisation})
+avoids the Chebotarev density theorem. It uses only the fact that an
+algebraic integer $b$ of a number field $K$ that is not a square in $K$ is
+zero or a nonsquare modulo infinitely many primes of $K$ of degree one. If
+$H(\alpha)$ is not a square in $K=\Q(\alpha)$, this applies to
+$b=m^2H(\alpha)$, where the nonzero integer $m$ makes $b$ an algebraic
+integer, and the residue map at such a prime, of norm $\ell$, sends $\alpha$
+to a root $r\in\Fp_\ell$ of the reduction of $f$ at which $H(r)$ is not a
+nonzero square. That fact
+(\href{\laterepobase/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean\#L40}{nonsquares modulo primes})
+is proved from the simple pole of the Dedekind zeta function at $s=1$, which
+is in Mathlib. If $b$ were a nonzero square modulo all but finitely many
+primes of degree one, these primes would split in $K(\sqrt b)$, and for real
+$s>1$ near $1$ the zeta function of $K(\sqrt b)$ would be at least a positive
+constant times the square of the zeta function of $K$, which the two simple
+poles forbid.
+
 The hypothesis is needed at every root and at all but finitely many primes.  A
 favourable finite set of tested primes would not suffice.
 
@@ -367,6 +398,7 @@ Write $\kappa=m/6$ and $\eta=6c/m$, so that $Q_{m,c}(n)=\kappa f(n+1)$ for
 $f(T)=T^3-T+\eta$.  Then $\alpha^2-1$ is a square in $\Q(\alpha)^\times$ for a
 root $\alpha$ of $f$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{39}{transport_square_unconditional}.}
 
 \begin{proof}
 Eliminating $v_n$ from \eqref{long243:eq:primitivetail} gives
@@ -409,6 +441,7 @@ Let $m$ be a positive integer, let $c\in\{-1,1\}$ and $\eta=6c/m$, and suppose $
 irreducible over $\Q$ with a root $\alpha$ such that $\alpha^2-1$ is a square
 in $\Q(\alpha)^\times$.  Then $m=12$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/ScaleTwelve.lean}{36}{scale_twelve_of_square_in_rootField}.}
 
 \begin{proof}
 Choose $\beta\in\Q(\alpha)$ with $\beta^2=\alpha^2-1$. The substitution
@@ -495,6 +528,7 @@ holds for windows beginning at $n\equiv1\pmod7$. In either case,
 $\underline d(S)\ge1/7$.
 No phase-free four-index obstruction is asserted.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean}{18}{plus_one_forbidden_word}, \lproof{ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean}{38}{minus_one_forbidden_word}.}
 
 \begin{proof}
 Reduce modulo $7$.  For $c=1$ the values of $Q_{12,1}$ at $n=0,1,2,3$ are
@@ -572,6 +606,7 @@ Let $\lambda>1$ and let $C_n$ be positive integers with
 Then $\lambda$ is an integer $d\ge2$, and there are $A\in\Q_{>0}$ and
 $B\in\Q$ with $C_n=A\,n(n+1)\cdots(n+d-1)+B$ for all large $n$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean}{874}{regular_rate_extraction}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean}{1151}{regular_rate_extraction_cubic}.}
 
 \begin{proof}
 Put $F_n=\Gamma(n+\lambda)/\Gamma(n)$, so that $F_{n+1}/F_n=1+\lambda/n$
@@ -639,6 +674,7 @@ Write $\gamma_n=a_n^2/a_{n+1}-1$.  Then
  \qquad a_n\ge\exp(c\,2^n)\ \text{eventually for some }c>0 .
 \]
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/QuantitativeTail.lean}{204}{canonical_tail_ratio_quantitative}.}
 
 \begin{proof}
 Since $a_{n+1}/a_n^2\to1$ and $a_n\to\infty$, there is an $N$ with
@@ -688,12 +724,14 @@ the image $\{0,2,5,6\}$ modulo $7$ and the condition
 $(r^2+s^2)^2\mid48$ have been calculated above. The public checkpoint
 also contains formalised polynomial extraction, primitive cubic
 normalisation and finite transport results, including
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR11/CubicZeroDensityShape.lean\#L112}{the primitive-shape theorem}. These are components, not an assembled proof of
-Theorem~\ref{long243:res:cubicrate}. No declaration of that complete
-irrationality implication has been identified in the supplied source index.
-Lemma~\ref{long243:res:squarespec} uses the classical finite-Galois
-Chebotarev theorem; its use must be justified by the number-field argument,
-not by finite residue computations.
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR11/CubicZeroDensityShape.lean\#L112}{the primitive-shape theorem}. These are components of the proof of
+Theorem~\ref{long243:res:cubicrate}. The complete irrationality implication
+is also a Lean theorem,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
+whose only hypotheses are those of Theorem~\ref{long243:res:cubicrate}.
+Lemma~\ref{long243:res:squarespec} is proved above from the classical
+finite-Galois Chebotarev theorem, and its Lean proof uses the simple pole of
+the Dedekind zeta function instead.
 
 Theorem~\ref{long243:res:cubicrate} assumes neither rationality nor an
 integer orbit: these enter only under the supposition that the reciprocal
@@ -946,18 +984,27 @@ Theorem~3.1. That is formal prior art for those classical criteria, not an
 existing formal proof of Erd\H{o}s~\#243.
 
 \paragraph{Results and proof status.}
-The cubic-rate theorem (Theorem~\ref{long243:res:cubicrate}) is an ordinary
-irrationality proof with formalised components. The bounded-negative theorem
+The cubic-rate theorem (Theorem~\ref{long243:res:cubicrate}) and the three
+results its proof passes through, Theorem~\ref{long243:res:cubicexclusion},
+Proposition~\ref{long243:res:transportsquare} and
+Lemma~\ref{long243:res:squarespec}, are checked in the development with no
+additional hypothesis; Section~\ref{long243:sec:coverage} gives the
+revision. The
+bounded-negative theorem
 (Theorem~\ref{long243:res:bounded}) and the scalar summability theorem
 (Theorem~\ref{long243:res:mass}) have checked declarations. The checked
-theorems using a product or a least common multiple include the estimates for rational tails.
-The complete weighted-record statement has a proof source in the separate
-release; that source is not part of the main-repository build documented here.
+theorems include the estimates for rational tails, proved from a product bound
+and from the least common multiple of the denominators.
+The complete weighted-record statement (Theorem~\ref{long243:res:weightedrecord})
+is kernel-checked in the main development, alongside its earlier proof source
+in the separate release.
 For the further record criteria, each evidence paragraph identifies the
 ordinary argument and the checked lemma it uses. In particular,
-Lemma~\ref{long243:res:oddpowersupply} below proves the existence of large odd prime powers on the page; its written proof is not included in the inherited Lean
-receipt. The static-model conclusions in Section~\ref{long243:sec:open}
-are likewise ordinary results.
+Lemma~\ref{long243:res:oddpowersupply} below proves that the reduced
+denominator supplies arbitrarily large odd prime powers, and that proof is
+kernel-checked in the main development. The static-model conclusions in
+Section~\ref{long243:sec:open} are proved by ordinary arguments and are
+checked in the development as well.
 
 The additional bound or convergence assumption is not derived from the
 problem's hypotheses. An equivalence between convergence and the desired
@@ -1008,6 +1055,7 @@ For all $a,D,C\in\Z$,
 \]
 Consequently, every exact orbit satisfies $C_{n+1}=C_n-E_n$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{57}{nextTailState_eq_sub_centered}.}
 
 \begin{proof}
 $C-\bigl(D-(a-1)C\bigr)=aC-D$.
@@ -1117,6 +1165,7 @@ For every $s,a,D,C\in\Z$,
  sD-(a-1)sC=s\,[D-(a-1)C].
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{31}{state_scale}.}
 
 \noindent The three identities are formalised for the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{65}{nextDenState_scale}{denominator},
@@ -1153,6 +1202,7 @@ For all $a,a',D,C\in\Z$,
 \]
 that is, $\Delta_n\,C_{n+1}=a_n^{2}E_n-E_{n+1}$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1775}{sylvesterDefect_mul_nextTailState}.}
 
 \begin{proof}
 A direct expansion: both sides equal
@@ -1185,6 +1235,7 @@ Let $a,a',D,C\in\Z$ with $aC-D\ne0$. If
 \]
 then $a'=a^2-a+1$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1787}{sylvesterNext_eq_of_centered_zero}.}
 
 \begin{proof}
 Theorem~\ref{long243:res:defect} gives
@@ -1216,6 +1267,7 @@ Let $a,a_1,u,u_1,u_2,v,v_1,h,h_1$ be integers satisfying
 \]
 Then $a^2u+hh_1u_2=h(a+a_1)u_1$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{42}{reduced_second_order_int}.}
 
 \begin{proof}
 Multiply the first equation by $a$, replace $av$ using the second equation,
@@ -1246,6 +1298,7 @@ $p_2+a^2p=(a+a_1)p_1$.  Then
  q^2+\bigl(pp_2-p_1^2\bigr)=(a_1-a)pp_1.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/DynamicCancellation.lean}{309}{cancellationFree_curvature_square}.}
 
 \begin{proof}
 Substitute $q=ap-p_1$ and $p_2=(a+a_1)p_1-a^2p$:
@@ -1314,6 +1367,7 @@ reduced denominator residues equal to zero. Consequently the eliminated
 two-step identity alone imposes no further restriction on such unit words
 when the multiplier residues are free.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean}{39}{unit_word_saturates_old_modulus}.}
 \begin{proof}
 Set $v_i\equiv0\pmod M$ and choose
 $a_i\equiv r_{i+1}r_i^{-1}\pmod M$. Then
@@ -1335,6 +1389,7 @@ $C_{n+1}=a_nC_n-D_n$.  If $E_n=0$ for all sufficiently large $n$ and
 $C_{n+1}\ne0$ for all sufficiently large $n$, then $a_{n+1}=a_n^{2}-a_n+1$ for
 all sufficiently large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1805}{sylvesterNext_eventually_of_centered_zero}.}
 
 \noindent The sequence form is formalised as the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1805}{sylvesterNext_eventually_of_centered_zero}{eventual
@@ -1351,6 +1406,7 @@ $C_{n+1}+D_n=a_nC_n$ and $D_{n+1}=a_nD_n$, and let
 $E_n=D_n-(a_n-1)C_n$.  Suppose the centring is strict, $|E_n|<C_n$ for
 every $n$.  If $E_n=0$ then $E_{n+1}=0$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{2227}{centeredState_zero_absorbing}.}
 
 \begin{proof}
 Putting $E_n=0$ in Theorem~\ref{long243:res:defect} gives
@@ -1452,6 +1508,7 @@ $\int_1^\infty f(t)\,dt=\infty$. For each fixed integer $B\ge0$,
  \sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)<\infty.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/ArithmeticWeightedRecord.lean}{264}{arithmetic_weighted_record_dichotomy}.}
 
 \begin{proof}
 A bounded integer running maximum increases only finitely many times, so
@@ -1503,6 +1560,7 @@ eventually Sylvester if and only if, for some integer $B\ge0$,
  \sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)<\infty.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean}{202}{canonical_weighted_record_excess}.}
 
 \begin{proof}
 If the sequence is not eventually Sylvester, zero error is never reached on a sufficiently late
@@ -1733,6 +1791,7 @@ $r=\nu_p(a)$, $s=\nu_p(v)$ and $t=\nu_p(w)$. Then
 In particular $\nu_p(v')\le\max(r,s)$. A strict loss relative to $s$
 requires $r=s\ge1$ and $t>s$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean}{244}{reduced_denominator_valuation_transition}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean}{262}{reduced_denominator_valuation_le_max}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean}{279}{reduced_denominator_valuation_strict_loss}.}
 \begin{proof}
 Always $\nu_p(v')=r+s-\min(t,r+s)$. If $r\ne s$, primitivity implies
 $t=\min(r,s)$: when $s>0$, $u$ is a $p$-adic unit, and when $s=0<r$,
@@ -1751,6 +1810,7 @@ This is a finite exact step, not an infinite counterexample.
 Suppose $p^k\mid v_s$. If $w_n<p^{k+1}$ at every step from $s$ through
 $t-1$, then $p^k\mid v_t$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/PowerPersistence.lean}{27}{primePower_persists}.}
 \begin{proof}
 At a first loss of divisibility by $p^k$, the current exponent is some
 $j\ge k$ and the valuation lemma forces $\nu_p(w_n)>j$. This would give
@@ -1770,6 +1830,7 @@ late $T$, so that $\Theta>g\ge1$.  For any orbit under the standing
 hypotheses, therefore, $\Theta=0$ or $\Theta>1$, and $\Theta\le1$ forces
 the eventual Sylvester recurrence.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean}{340}{canonical_quantitative_record_dichotomy}, \lproof{ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean}{308}{canonical_recordTheta_zero_or_gt_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean}{321}{canonical_recordTheta_eq_zero_iff}, \lproof{ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean}{54}{canonical_recordTheta_gt_one}.}
 
 The constant in the next condition is measured against a double
 logarithm, not against $C_n$. This grows much more slowly than any
@@ -1791,6 +1852,7 @@ satisfies
  \limsup_n\frac{(-E_n)_+}{\ell(C_n)}>1.
 \]
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean}{129}{canonical_inclusive_logLog_criterion}, \lproof{ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean}{108}{canonical_negativeError_limsup_gt_one}.}
 
 \begin{proof}[Proof of Theorem~\ref{long243:res:recorddichotomy} and
 Corollary~\ref{long243:res:loglogboundary}]
@@ -1929,7 +1991,22 @@ Together with $\ell(C_n)\le\ell(H_n)$, this proves the corollary.
 \end{proof}
 
 \paragraph{Formalisation.}
-The supplied formal sources contain persistence and pointwise-rise
+Theorem~\ref{long243:res:recorddichotomy} and
+Corollary~\ref{long243:res:loglogboundary} are Lean theorems for the
+integer tails of a rational reciprocal sum under the standing hypotheses
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L340}{record dichotomy},
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L129}{double-logarithmic criterion}).
+The strict bound $\Theta>1$ is also a Lean theorem for any exact orbit
+with $a_n>1$, $C_n>0$, $D_0\ge1$ and vanishing relative error whose error
+is not eventually zero
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}).
+The implication of Corollary~\ref{long243:res:loglogboundary}, that
+$\limsup_n(-E_n)_+/\ell(C_n)\le1$ forces $E_n=0$ eventually, is a Lean
+theorem for any exact orbit with $a_n>1$, $C_n>0$ and vanishing relative
+error
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound for an exact orbit});
+there $D_0\ge1$ follows from the vanishing relative error.
+The supplied formal sources also contain persistence and pointwise-rise
 versions of the arithmetic steps:
 \lword{Erdos243/SlowRiseBarrier.lean}{111}{commonDivisor_persists}{persistence of
 a common divisor}, the
@@ -1938,12 +2015,9 @@ CRT block}, the
 \lword{Erdos243/SlowRiseBarrier.lean}{194}{slowRise_landing}{slow-rise landing
 lemma}, and the
 \lword{Erdos243/SlowRiseBarrier.lean}{280}{no_slowNegative_of_coprimeBlock}{coprime-block
-exclusion}.  The growth estimates, the count of usable moduli and the running-maximum
-argument are proved above in ordinary mathematics. The cited declarations
-verify their own arithmetic statements, not this assembled theorem.
-In particular, their landing bound controls increments of $C_n$;
-the argument above controls increments of $H_n$ and is a written
-extension, not a direct invocation of that declaration.
+exclusion}.  These four declarations verify their own arithmetic
+statements; their landing bound controls increments of $C_n$, and the
+argument above controls increments of $H_n$.
 
 No upper bound on $\Theta$ is proved. If $G_n$ is unbounded, the theorem
 forces $\Theta=+\infty$. If $G_n=g$ eventually, it proves only
@@ -1962,6 +2036,7 @@ Under the standing hypotheses, the following are equivalent: eventual Sylvester 
 $\limsup_nR_n\delta_n<\infty$.  Each of those two limits superior is $0$ or
 $+\infty$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{975}{recordAmplified}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{931}{amp_bddAbove_iff_sylvester}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{948}{Rdelta_bddAbove_iff_amp}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{587}{eventuallySylvester_of_amp_le}, and 6 further declarations in the \hyperref[long243:sec:coverage]{coverage section}.}
 
 \begin{corollary}[the critical rate]\label{long243:res:criticalrate}
 Under the standing hypotheses and $\delta_n=O(1/n)$, with no convergence of $n\delta_n$ assumed,
@@ -1969,6 +2044,7 @@ eventual Sylvester behaviour is equivalent to $u_n=O(n)$ and to $(-\tilde e_n)_+
 counterexample at the critical rate therefore has $\limsup_nu_n/n=\infty$ and
 $\limsup_n(-\tilde e_n)_+=\infty$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{1033}{criticalRate}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{1197}{criticalRate_counterexample}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean}{1016}{R_le_of_u_le}.}
 
 \begin{proof}[Proof of Theorem~\ref{long243:res:recordamplified}]
 Suppose the orbit is not eventually Sylvester and
@@ -2058,6 +2134,7 @@ reduced denominator $v_n$ has an odd prime-power divisor $Q=p^k$ with
 The prime $p$ may depend on $n$; no stable-gcd or prime-arrival assumption
 is imposed.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean}{790}{oddPrimePower_supply}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean}{718}{oddPrimePower_supply_nat}.}
 \begin{proof}
 The denominator grows too fast for all its odd prime-power factors to
 remain small compared with $H_n$. Indeed, the estimate for the rational
@@ -2089,6 +2166,7 @@ for all large $n$.  Hence the sequence is eventually Sylvester if and only if
 $\#\{n:R_{n+1}-R_n\ge2\}$ is finite.  No hypothesis is placed on drawdowns, on
 record-setting jumps, or on the cancellation factors $h_n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean}{846}{unitRecordIncrement_sylvesterNext}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean}{950}{unitRecordIncrement_criterion}.}
 
 \begin{proof}
 Suppose the orbit is not eventually Sylvester. Absorption gives
@@ -2142,6 +2220,7 @@ multiple of $p$ in $(L/2,L]$, and put $X=\sum_{n\in J}(d_n-2)$.  Then every
 $n\in J$ is a record step with $h_n=1$ and $d_n\ge3$, and
 $pQ\le(8p+8)\lvert J\rvert+4X+8p$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean}{149}{epoch_energy_named_crossing_set}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean}{34}{mem_barrierIdx_iff}.}
 
 \begin{proof}[Proof of Theorem~\ref{long243:res:epochenergy}]
 For $s\le n<\tau$, one has $u_n<L$ and
@@ -2179,6 +2258,7 @@ $\mathcal E=\sum_{n\ \mathrm{record}}\bigl(\mathbf 1_{d_n\ge3}u_n^{-1/2}
 +(d_n-2)_+u_n^{-1}\bigr)$ is finite if and only if the sequence is eventually Sylvester; and
 $\sum_{n\ \mathrm{record}}(d_n-2)_+u_n^{-1/2}$ is finite if and only if the sequence is eventually Sylvester.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean}{468}{energy_criterion}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean}{414}{energy_summable_iff}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean}{455}{energySqrt_summable_iff}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean}{161}{energy_le_two_energySqrt}, and 2 further declarations in the \hyperref[long243:sec:coverage]{coverage section}.}
 
 \begin{proof}
 Assume first that the recurrence is not eventually Sylvester. Then $u_n\to\infty$.
@@ -2238,6 +2318,7 @@ vanishing relative error.  Suppose that for some $\delta\in(0,1)$ and all large 
 with $E_n<0$ one has $-E_n\le(1-\delta)\ell(C_n)$.  Then $E_n=0$ for all large
 $n$, and $a_{n+1}=a_n^2-a_n+1$ for all large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean}{559}{slowNegative_eventually_zero_and_sylvesterNext_unconditional}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean}{363}{exactOrbit_recordTheta_gt_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean}{522}{exactOrbit_one_le_recordTheta}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean}{288}{exactOrbit_unbounded_of_error_not_eventually_zero}, and 3 further declarations in the \hyperref[long243:sec:coverage]{coverage section}.}
 
 \noindent Theorem~\ref{long243:res:bounded} is the case of a constant bound, since a
 constant is eventually below $(1-\delta)\ell(C_n)$ on a nonzero tail,
@@ -2259,7 +2340,10 @@ Theorem~\ref{long243:res:eventual} gives the Sylvester recurrence.
 \end{proof}
 
 \paragraph{Formalisation.}
-The corresponding pointwise-rise argument has formalised arithmetic
+Theorem~\ref{long243:res:slownegative} is a Lean theorem with the
+hypotheses printed above
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L559}{slow negative part}).
+The corresponding pointwise-rise argument also has formalised arithmetic
 lemmas:
 \lword{Erdos243/SlowRiseBarrier.lean}{111}{commonDivisor_persists}{persistence of
 a common divisor}, the
@@ -2269,8 +2353,7 @@ transport}, the
 the
 \lword{Erdos243/SlowRiseBarrier.lean}{280}{no_slowNegative_of_coprimeBlock}{coprime-block
 exclusion}.  The count of indices and the simultaneous choice of constants are
-written out in the earlier proof; no end-to-end Lean verification of
-this consequence is claimed. Corollary~\ref{long243:res:loglogboundary} includes the
+written out in the earlier proof. Corollary~\ref{long243:res:loglogboundary} includes the
 boundary coefficient $1$, while the preceding theorem on the running
 maximum also discounts rises that recover an earlier decrease. The present
 statement is retained for its direct bound on $E_n$.
@@ -2308,6 +2391,7 @@ The same conclusion holds if, for some $\delta>0$ and all large $n$,
  \ell(a_1\cdots a_{n-1}/a_n).
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean}{211}{original_coordinate_bounded_defect}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean}{155}{original_coordinate_slow_growth_defect}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean}{61}{recordTheta_le_of_slow_negative}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean}{111}{prefix_ratio_le_canonicalNumerator}.}
 
 For the bounded clause, use the stated denominator $q$, put
 $P_n=\prod_{j<n}a_j$, $x_n=\sum_{k\ge n}1/a_k$, and form the integer tail
@@ -2388,6 +2472,7 @@ then $a_{n+1}=a_n^2-a_n+1$ for all large $n$. The same conclusion holds if, for 
 \]
 In particular the one-sided bound by $1/n$ is included.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ProductDefectThresholds.lean}{92}{original_coordinate_strict_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{207}{original_coordinate_inclusive_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{225}{original_coordinate_inclusive_one_pointwise}.}
 
 \begin{proof}
 Put $\gamma_n=a_n^2/a_{n+1}-1$ and $t_n=\bigl(\prod_{j<n}a_j\bigr)/a_n$, so
@@ -2486,6 +2571,7 @@ negative precisely when
 $E_{n+1}/C_{n+1}>\Lambda_{n+1}$. On a Sylvester tail $E_n=0$ and
 $\Lambda_n=(a_n-1)/a_{n+1}>0$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean}{206}{overlapDebt_dvd_gcd}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean}{225}{canonicalError_div_overlapDebt}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean}{325}{growthDefect_eq_neg_relativeError_add_shiftedCorrection}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean}{415}{canonical_growthDefect_identity}, and 8 further declarations in the \hyperref[long243:sec:coverage]{coverage section}.}
 
 \begin{proof}
 Since both $C_n=D_nx_n$ and $L_nx_n$ are integers, $M_n=D_n/L_n$
@@ -2536,6 +2622,7 @@ sequence of positive integers $(u_n)$ such that
  u_{n+1}-u_n\le(1+\epsilon)\ell(u_n)\quad\text{eventually}.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean}{201}{exists_avoiding_in_window}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean}{423}{exists_slow_rise_avoiding_sequence}.}
 
 \begin{proof}
 The interval $[x,x+L)$ contains exactly $L$ integers.  Each lies in
@@ -2615,6 +2702,7 @@ negative errors.
 Let $C,E:\N\to\N$ satisfy $C_{n+1}+E_n=C_n$ for every $n$.  Then $E_n=0$ for
 all sufficiently large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1843}{centeredState_eventually_zero}.}
 
 \begin{proof}
 The recurrence gives $C_{n+1}\le C_n$. Choose an index at which the
@@ -2672,6 +2760,7 @@ $a,D:\N\to\N$ with $a_n\ge2$ for all $n$ satisfying
 $D_{n+1}=a_nD_n$ and~\eqref{long243:eq:shape}. The same holds if the
 shape equation only begins at some index.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean}{38}{no_constantNegative_shapeEquation}, \lproof{ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean}{52}{no_eventuallyConstantNegative_shapeEquation}.}
 
 \begin{proof}[Proof when $c$ and $m$ are coprime]
 Assume first $\gcd(c,m)=1$. Every multiplier must share a prime with
@@ -2772,6 +2861,7 @@ satisfying
 and suppose $e_{n+h}=e_n$ and $C_{n+h}=C_n+M$ for some $h>0$ and $M>0$.  This
 is impossible.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean}{68}{no_periodicNegative_shapeEquation}.}
 
 \begin{proof}
 We use strong induction on the drift $M$. A prime divisor of $M$ that
@@ -2860,6 +2950,7 @@ integer sequence with bounded upward steps must land.
 Let $m_0,\ldots,m_{B-1}$ be pairwise coprime and at least $2$.  For every bound
 there is a $t$ beyond it with $m_i\mid t+i$ for each $i<B$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean}{26}{exists_shiftedBlock_consecutiveMultiples}.}
 
 \begin{proof}
 Standard Chinese remaindering: solve $t\equiv-i \pmod{m_i}$ simultaneously,
@@ -2900,6 +2991,7 @@ Then $u$ cannot remain coprime to infinitely many fresh pairwise coprime
 moduli: there is no family of pairwise coprime $m_i\ge2$, one for each index,
 such that $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean}{44}{no_boundedRise_coprimeToEarlierModuli}.}
 
 The CRT block must lie above the initial segment where some moduli
 are not yet available. No monotonicity of $u$ is assumed.
@@ -2953,6 +3045,7 @@ In a reduced exact tail, $a_n$ is coprime to $v_n$; the multipliers at distinct
 indices are pairwise coprime; and every earlier multiplier is coprime to every
 later numerator.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{16}{persistent_coprimality}.}
 
 \begin{proof}
 A common prime divisor of $a_n$ and $v_n$ would divide both
@@ -3002,6 +3095,7 @@ $-B\le E_n<0$ at infinitely many indices. Then
 $\gcd(C_n,D_n)$ is eventually constant, and beyond that index the orbit divided
 by the stable gcd is a reduced exact tail.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{103}{gcd_stabilises_and_reduces}.}
 
 \begin{proof}
 First, $C_n>0$ at every index. If $C_n=0$, the nonnegative recurrence
@@ -3053,6 +3147,7 @@ $L$, some $n\ge B$ satisfies
   G_n=G_{n+1}=\cdots=G_{n+L}.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean}{97}{sparse_gcd_changes}.}
 
 \noindent The first assertion is the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{2186}{tailGcd_strictGrowthCount_sublinear_of_normalizedVanishes}{sublinear
@@ -3102,6 +3197,7 @@ $K\,|E_n|<C_n$ for all $n\ge N$.
 \end{enumerate}
 Then $E_n=0$ for all sufficiently large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}.}
 
 \begin{proof}
 Suppose the error is not eventually zero. Absorption implies that
@@ -3138,6 +3234,7 @@ Under the hypotheses of Theorem~\ref{long243:res:bounded}, together with
 $C_{n+1}\ne0$ for all large $n$, the multipliers satisfy
 $a_{n+1}=a_n^{2}-a_n+1$ for all sufficiently large $n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{2412}{boundedNegativePart_sylvesterNext_eventually}.}
 
 \begin{proof}
 Theorem~\ref{long243:res:bounded} gives eventual zero error.
@@ -3194,6 +3291,7 @@ If
 then \(E_n=0\) eventually. For an exact reciprocal-tail orbit this implies
 \(a_{n+1}=a_n^2-a_n+1\) eventually. No hypothesis $|E_n|/C_n\to0$ is required.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{84}{finite_negative_mass_paper}.}
 \end{samepage}
 
 \begin{proof}
@@ -3296,6 +3394,7 @@ In particular, negative indices occur infinitely often.  Thus the remaining
 regime consists of unbounded negative errors along exact reciprocal tails for which
 the sum of relative increases diverges.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{151}{canonical_frontier}.}
 
 \begin{proof}
 Koizumi's construction from a rational reciprocal tail gives strict centring and vanishing relative error after a finite shift; the strict-centring hypothesis of
@@ -3590,6 +3689,7 @@ Theorem~\ref{long243:res:barrier} cannot be replaced by an
 $o(\log\log u_n)$ bound without a quantitative restriction on the
 moduli.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean}{862}{exists_sparse_prime_coprime_sequence}.}
 
 \begin{proof}
 Choose increasing primes
@@ -3628,6 +3728,7 @@ divisible by no $m_j$ in increasing order as $(u_n)$. Then
 This is a statement about avoidance of multiples of whole moduli. It is not a statement
 about coprimality to composite $m_j$, or about integer tail orbits.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/MaximalGapConstant.lean}{1041}{maximal_gap_limsup_eq_inv_sigma}.}
 
 \begin{proof}
 Write $k(z)=\#\{j:m_j\le z\}=\ell(z)+O(1)$. For a fixed prefix length
@@ -3720,8 +3821,10 @@ The supplied source index records a successful build of the listed
 main-repository modules at revision \texttt{6b78209ab63a}, using the
 identical-file evidence described there. The links in this manuscript
 retain their original pins, including \texttt{\commitshort}; this build
-record is not a new verification of every linked revision. No new Lean run or transitive-axiom audit is claimed here, and the separate
-release is not covered as a whole. A source link is not a build receipt.
+record is not a new verification of every linked revision. The kernel
+checks and axioms stated in Appendix~\ref{long243:app:index} belong to the
+revisions named there, and the separate release is not covered as a
+whole. A source link is not a build receipt.
 The external formal-conjecture entry states the problem rather than proving
 it. The ordinary proofs and their exposition require mathematical review
 independently of the recorded checks.
@@ -3755,6 +3858,31 @@ strict centring and vanishing relative error separately;
 the latter implies the former eventually by taking $K=1$.
 Sections~\ref{long243:sec:priorwork} and~\ref{long243:sec:bounded} give the
 construction from a rational reciprocal sum.
+
+\subsection*{Formalisation coverage and remaining dependencies}
+\label{long243:sec:coverage}
+\papersectiontarget{coverage}
+
+Every theorem, lemma, proposition and corollary of this record other than the
+four listed below has a Lean statement of the same assertion, with the same
+hypotheses, checked by the Lean kernel using only the axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
+development at revision \texttt{181078b6b009}.
+
+The four are Lemma~\ref{long243:res:squarespec},
+Proposition~\ref{long243:res:transportsquare},
+Theorem~\ref{long243:res:cubicexclusion} and
+Theorem~\ref{long243:res:cubicrate}, one chain of results proved later.
+Each has a Lean statement of the same assertion, checked by the Lean kernel
+using only those three axioms, at revision \texttt{e4ba6841dfdb}
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L35}{the four statements}).
+The Lean proof of Lemma~\ref{long243:res:squarespec} replaces the Chebotarev
+density theorem, used in the proof printed here, by the simple pole of the
+Dedekind zeta function at $s=1$, as described after that proof.  The other
+three are deduced from the lemma in Lean through the square forced modulo a
+prime dividing a middle numerator, the passage from that congruence to a
+square in the cubic field, the exclusion of the proposed cubic orbit, and the
+irrationality conclusion.
 
 % The exhaustive source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.
@@ -3826,6 +3954,74 @@ factorial residue reduction & \lrefx{Erdos243/FiniteHorizonResidue.lean}{134}{fo
 \end{tabular}
 \fi
 
+% BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
+\paragraph{Concordance of statements and Lean declarations.}
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
+below with the declarations that jointly state it.  Each name links to its declaration at revision
+\texttt{a25cb360bef8}.  Where the Lean statement is stronger than the printed one and implies it by
+an immediate specialisation, the entry says so.  An entry marked \emph{compared} was also checked
+independently: a restatement of the same declarations against Mathlib alone, together with its
+proof, was verified by Comparator (\texttt{leanprover/comparator}) in a clean continuous
+integration environment, in the run named by its number.  Comparator trusts the restated
+statement, so the correspondence between the printed result and that statement is the one this
+concordance records.
+
+\begingroup\small\raggedright
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:cubicrate}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{\nolinkurl{cubic_rate_irrationality_unconditional}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:cubicexclusion}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L54}{\nolinkurl{cubic_exclusion_unconditional}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:periodicobstruction}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/DensityTransport.lean\#L156}{\nolinkurl{fixed_offsets_periodic_lowerDensity}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:gcdshape}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/CubicProfileGcdShape.lean\#L103}{\nolinkurl{cubic_profile_gcd_stabilisation_and_primitive_shape}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:reduciblecase}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/PrimitiveMultiplierSupply.lean\#L244}{\nolinkurl{primitive_zero_density_paper_multiplier_lemma}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:squarespec}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L35}{\nolinkurl{squareSpecialisation}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:transportsquare}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L39}{\nolinkurl{transport_square_unconditional}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:scaletwelve}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/ScaleTwelve.lean\#L36}{\nolinkurl{scale_twelve_of_square_in_rootField}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:modseven}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean\#L18}{\nolinkurl{plus_one_forbidden_word}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean\#L38}{\nolinkurl{minus_one_forbidden_word}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:extraction}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean\#L874}{\nolinkurl{regular_rate_extraction}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean\#L1151}{\nolinkurl{regular_rate_extraction_cubic}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:tailratio} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/QuantitativeTail.lean\#L204}{\nolinkurl{canonical_tail_ratio_quantitative}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:update}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L57}{\nolinkurl{nextTailState_eq_sub_centered}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:scale}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean\#L31}{\nolinkurl{state_scale}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:defect}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L1775}{\nolinkurl{sylvesterDefect_mul_nextTailState}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:step}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L1787}{\nolinkurl{sylvesterNext_eq_of_centered_zero}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:secondorder}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean\#L42}{\nolinkurl{reduced_second_order_int}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:curvature}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/DynamicCancellation.lean\#L309}{\nolinkurl{cancellationFree_curvature_square}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:oldmodulussaturation}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean\#L39}{\nolinkurl{unit_word_saturates_old_modulus}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:eventual}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L1805}{\nolinkurl{sylvesterNext_eventually_of_centered_zero}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:absorb}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L2227}{\nolinkurl{centeredState_zero_absorbing}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:arithmeticrecord}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/ArithmeticWeightedRecord.lean\#L264}{\nolinkurl{arithmetic_weighted_record_dichotomy}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:weightedrecord}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean\#L202}{\nolinkurl{canonical_weighted_record_excess}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:valuationtransition}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean\#L244}{\nolinkurl{reduced_denominator_valuation_transition}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean\#L262}{\nolinkurl{reduced_denominator_valuation_le_max}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean\#L279}{\nolinkurl{reduced_denominator_valuation_strict_loss}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long243:res:powerpersistence}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/PowerPersistence.lean\#L27}{\nolinkurl{primePower_persists}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:recorddichotomy}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L340}{\nolinkurl{canonical_quantitative_record_dichotomy}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L308}{\nolinkurl{canonical_recordTheta_zero_or_gt_one}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L321}{\nolinkurl{canonical_recordTheta_eq_zero_iff}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L54}{\nolinkurl{canonical_recordTheta_gt_one}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long243:res:loglogboundary}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L129}{\nolinkurl{canonical_inclusive_logLog_criterion}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L108}{\nolinkurl{canonical_negativeError_limsup_gt_one}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:recordamplified}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L975}{\nolinkurl{recordAmplified}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L931}{\nolinkurl{amp_bddAbove_iff_sylvester}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L948}{\nolinkurl{Rdelta_bddAbove_iff_amp}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L587}{\nolinkurl{eventuallySylvester_of_amp_le}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L187}{\nolinkurl{coprimeMultiplier_cofinal}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L295}{\nolinkurl{largePrime_coprimeMultiplier}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L546}{\nolinkurl{primeBlock_supply}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L462}{\nolinkurl{canc_lt_of_amp_le}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L738}{\nolinkurl{delta_negPart_comparison}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L870}{\nolinkurl{R_delta_sub_amp_tendsto_zero}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662}{\texttt{35682858662}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long243:res:criticalrate}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L1033}{\nolinkurl{criticalRate}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L1197}{\nolinkurl{criticalRate_counterexample}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean\#L1016}{\nolinkurl{R_le_of_u_le}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:oddpowersupply}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean\#L790}{\nolinkurl{oddPrimePower_supply}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean\#L718}{\nolinkurl{oddPrimePower_supply_nat}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:unitrecord}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean\#L846}{\nolinkurl{unitRecordIncrement_sylvesterNext}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean\#L950}{\nolinkurl{unitRecordIncrement_criterion}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662}{\texttt{35682858662}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:epochenergy}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean\#L149}{\nolinkurl{epoch_energy_named_crossing_set}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean\#L34}{\nolinkurl{mem_barrierIdx_iff}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:energycriterion}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L468}{\nolinkurl{energy_criterion}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L414}{\nolinkurl{energy_summable_iff}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L455}{\nolinkurl{energySqrt_summable_iff}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L161}{\nolinkurl{energy_le_two_energySqrt}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L263}{\nolinkurl{exists_late_energy_window}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean\#L84}{\nolinkurl{energy_window_real_bound}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:slownegative}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L559}{\nolinkurl{slowNegative_eventually_zero_and_sylvesterNext_unconditional}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{\nolinkurl{exactOrbit_recordTheta_gt_one}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L522}{\nolinkurl{exactOrbit_one_le_recordTheta}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L288}{\nolinkurl{exactOrbit_unbounded_of_error_not_eventually_zero}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L145}{\nolinkurl{tail_multiplier_quadratic_lower}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L254}{\nolinkurl{tail_binaryTower_lower}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L218}{\nolinkurl{exists_multiplier_ge_four}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:strausbounded}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean\#L211}{\nolinkurl{original_coordinate_bounded_defect}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean\#L155}{\nolinkurl{original_coordinate_slow_growth_defect}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean\#L61}{\nolinkurl{recordTheta_le_of_slow_negative}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean\#L111}{\nolinkurl{prefix_ratio_le_canonicalNumerator}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long243:res:onethreshold} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProductDefectThresholds.lean\#L92}{\nolinkurl{original_coordinate_strict_one}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean\#L207}{\nolinkurl{original_coordinate_inclusive_one}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean\#L225}{\nolinkurl{original_coordinate_inclusive_one_pointwise}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:classicalhalfspace}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L206}{\nolinkurl{overlapDebt_dvd_gcd}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L225}{\nolinkurl{canonicalError_div_overlapDebt}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L325}{\nolinkurl{growthDefect_eq_neg_relativeError_add_shiftedCorrection}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L415}{\nolinkurl{canonical_growthDefect_identity}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L459}{\nolinkurl{canonicalCorrection_pos_and_lt_three_div}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L380}{\nolinkurl{shiftedCorrectionTerm_pos_and_lt_three_div}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L527}{\nolinkurl{erdosStraus_lcm_includes_digit_not_denominator}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L543}{\nolinkurl{erdosStrausQuantity_ne_productDefect_ne_lcmShift}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L573}{\nolinkurl{erdosStrausQuantity_sign}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L351}{\nolinkurl{sylvesterTail_shiftedCorrection}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L135}{\nolinkurl{overlapDebt_mul_lcmClearedNumerator}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean\#L82}{\nolinkurl{digitProductScale_eq_canonicalDenominator}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:coprimalitycap}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean\#L201}{\nolinkurl{exists_avoiding_in_window}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean\#L423}{\nolinkurl{exists_slow_rise_avoiding_sequence}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:descent}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L1843}{\nolinkurl{centeredState_eventually_zero}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:constant}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean\#L38}{\nolinkurl{no_constantNegative_shapeEquation}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean\#L52}{\nolinkurl{no_eventuallyConstantNegative_shapeEquation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:periodic}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean\#L68}{\nolinkurl{no_periodicNegative_shapeEquation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long243:res:crt}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean\#L26}{\nolinkurl{exists_shiftedBlock_consecutiveMultiples}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:barrier}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean\#L44}{\nolinkurl{no_boundedRise_coprimeToEarlierModuli}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:reduced}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean\#L16}{\nolinkurl{persistent_coprimality}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:gcdstab}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean\#L103}{\nolinkurl{gcd_stabilises_and_reduces}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:gcdsparse}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean\#L97}{\nolinkurl{sparse_gcd_changes}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:bounded} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L2360}{\nolinkurl{eventuallyBoundedNegativePart_eventually_zero}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long243:res:cor} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean\#L2412}{\nolinkurl{boundedNegativePart_sylvesterNext_eventually}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:mass}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean\#L84}{\nolinkurl{finite_negative_mass_paper}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:frontier}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean\#L151}{\nolinkurl{canonical_frontier}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long243:res:variablerise} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean\#L862}{\nolinkurl{exists_sparse_prime_coprime_sequence}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:gapconstant}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/MaximalGapConstant.lean\#L1041}{\nolinkurl{maximal_gap_limsup_eq_inv_sigma}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long243:res:residue}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForcedOrbitResidueHorizon.lean\#L21}{\nolinkurl{forcedOrbit_survives_iff_of_factorial_modEq}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean\#L134}{\nolinkurl{forcedSurvives_iff_of_modEq_factorial}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\endgroup
+% END GENERATED CONCORDANCE
+
 \section{A factorial residue reduction for forced orbits}\label{long243:app:residue}
 
 In the case $m=c=1$ of Section~\ref{long243:sec:constant}, where the shape
@@ -3854,6 +4050,7 @@ factorial.
 For all $h$ and all integers $a\equiv b \pmod{(h+1)!}$, the orbit from $a$
 survives $h$ forced updates exactly when the orbit from $b$ does.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/ForcedOrbitResidueHorizon.lean}{21}{forcedOrbit_survives_iff_of_factorial_modEq}, \lproof{ErdosProblems/Erdos243/FiniteHorizonResidue.lean}{134}{forcedSurvives_iff_of_modEq_factorial}.}
 
 \begin{proof}
 Define $M(0,i)=1$ and $M(h+1,i)=(i+2)M(h,i+1)$. Thus
@@ -3949,8 +4146,9 @@ The tail estimate and finite differences of the Gamma ratio force an
 eventual cubic polynomial for the integer numerator. The recurrence and
 Chebotar\"ev then force a square in the cubic field. The trace calculation
 leaves $m=12$, and both possible signs are excluded modulo seven.
-This is an ordinary proof. Finite checks and component sources do not
-constitute a formal proof of the complete cubic-rate theorem.
+The complete cubic-rate theorem is also checked in Lean, where the square in
+the cubic field comes from the simple pole of the Dedekind zeta function in
+place of Chebotar\"ev's theorem.
 
 \paragraph{Static barriers.}
 For sufficiently sparse prime moduli, a coprime integer sequence can

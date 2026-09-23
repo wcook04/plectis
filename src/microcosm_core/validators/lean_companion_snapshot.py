@@ -205,7 +205,9 @@ def _readme_companion_block(payload: dict[str, Any]) -> str:
             ),
             "  theorem-like declarations, checked by the pinned kernel; start from",
             "  `docs/ORIENTATION.md`. These counts include library declarations; they do",
-            f"  not count solutions to Erdős problems. `{latest_tag}` remains the version to cite.",
+            "  not count solutions to Erdős problems. For this source snapshot, cite",
+            f"  commit `{public_ref}` and the relevant paper. `{latest_tag}` is the",
+            "  latest tagged release.",
             # The release bullet is inside the managed block because it names
             # the same tag. It used to sit outside it, so a refresh updated the
             # sentence above and left this line pointing at an older release --
@@ -291,10 +293,8 @@ def _expected_readme_fragments(payload: dict[str, Any]) -> list[tuple[str, ...]]
             "These are scale and navigation counts, not separate mathematical claims",
             "These counts include library declarations; they do not count solutions to Erdős problems",
         ),
-        (
-            f"`{latest_tag}` remains the tagged citation anchor",
-            f"`{latest_tag}` remains the version to cite",
-        ),
+        (f"cite commit `{public_ref}` and the relevant paper",),
+        (f"`{latest_tag}` is the latest tagged release",),
         (f"{repository}/releases/tag/{latest_tag}",),
     ]
 

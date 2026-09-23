@@ -66,8 +66,9 @@ The [validator](../../src/microcosm_core/hypothesis_handoff.py) requires:
   an outcome in that row referring back to the hypothesis;
 - each outcome's `supports_hypothesis_ids` to name recorded hypotheses, and
   each discriminator's outcomes to refer to at least two different hypotheses;
-- each proposed update path in `expert_return.landing_targets` to be relative,
-  contain no `..` path component and occur only once; and
+- each proposed update path in `expert_return.landing_targets` to use a
+  repository-relative `/` path, with no `..` component, Windows drive,
+  backslash, or duplicate path after normalisation; and
 - `landing_order` and `status_change_rule` to match the prescribed text: record
   the argument or observations, independently verify them, update the claim
   record, then regenerate the public documents and run release validation.
