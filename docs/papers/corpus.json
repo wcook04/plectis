@@ -7815,11 +7815,11 @@
         "year": "2026",
         "title": "Plectis: What a Stranger Can Check",
         "repository": "plectis",
-        "canonical_source_commit": null,
-        "canonical_source_url": null,
+        "canonical_source_commit": "ae78779d7ba001753dd45dc5452d6696b7350dd4",
+        "canonical_source_url": "https://github.com/wcook04/plectis/blob/ae78779d7ba001753dd45dc5452d6696b7350dd4/paper/plectis-public-system.tex",
         "licence": "CC-BY-4.0",
-        "identifier_kind": "unversioned_source",
-        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis. CC-BY-4.0.",
+        "identifier_kind": "commit_pinned_source",
+        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis, commit ae78779d7ba001753dd45dc5452d6696b7350dd4. CC-BY-4.0. https://github.com/wcook04/plectis/blob/ae78779d7ba001753dd45dc5452d6696b7350dd4/paper/plectis-public-system.tex",
         "derived_from": [
           "docs/papers/corpus.json: title, copyright, home_repository, canonical_source_commit, canonical_source_url, licence"
         ]
@@ -7831,10 +7831,10 @@
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
       "source_sha256": "sha256:37ee2835f40f117cf459c49c765c4bf50221cb1830408ca220ca5e6e0f9a9df2",
-      "canonical_source_commit": null,
-      "canonical_source_pin_status": "local_unpublished",
-      "canonical_source_url": null,
-      "canonical_source_raw_url": null,
+      "canonical_source_commit": "ae78779d7ba001753dd45dc5452d6696b7350dd4",
+      "canonical_source_pin_status": "immutable_commit",
+      "canonical_source_url": "https://github.com/wcook04/plectis/blob/ae78779d7ba001753dd45dc5452d6696b7350dd4/paper/plectis-public-system.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/ae78779d7ba001753dd45dc5452d6696b7350dd4/paper/plectis-public-system.tex",
       "section_count": 32,
       "sections": [
         {
@@ -8062,9 +8062,9 @@
         "unresolved_count": 0
       },
       "previous_published_source": {
-        "canonical_source_commit": "c4bc700a26d2062b322cffe9abab7cb5963b817e",
-        "canonical_source_url": "https://github.com/wcook04/plectis/blob/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
-        "source_sha256": "sha256:6010857594762edba452ac8a5d016277136f6938c657fa4ff4bb3c4351140fca"
+        "canonical_source_commit": "c2fe48bf0b29cb322f1f7b172369e2967379fa1e",
+        "canonical_source_url": "https://github.com/wcook04/plectis/blob/c2fe48bf0b29cb322f1f7b172369e2967379fa1e/paper/plectis-public-system.tex",
+        "source_sha256": "sha256:87609af9991c90a62db3c8788ef9d6f72f057441d37f7e27d6eb651652a60dd1"
       }
     }
   ]
