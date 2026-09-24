@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
   <meta name="citation_title" content="From a Cold Clone to a Proof Receipt">
   <meta name="citation_author" content="Will Cook">
@@ -41,15 +41,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -62,14 +61,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
         <a href="../index.html#documents">Repository documents</a>
@@ -77,149 +76,146 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">From a Cold Clone to a Proof Receipt</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
-        <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">Agent</a> navigation</p>
+        <p class="paper-head__eyebrow">Agent navigation</p>
         <h1>From a Cold Clone to a Proof Receipt</h1>
         <div class="paper-head__meta">
           <span>Systems paper</span>
           <span>12&#8202;pp</span>
-          <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">Equations</a> typeset from the exact TeX</span>
-          <span>By <a href="../../docs/contact.html" rel="author">Will Cook</a></span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>August 2026</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/cold-clone-to-proof-receipt.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 12&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex"><span class="btn__format">TeX</span><span data-term-preview-only data-term="latex" data-term-auto="1">LaTeX source</span></a>
-          <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex" data-link-kind="exogenous" rel="external noopener">Source on <span data-term-preview-only data-term="github" data-term-auto="1">GitHub</span></a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           
         </div>
-        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a>. He reviewed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> when he could. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">AI agents</a> did most of the research and drafting. Cook did not independently <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a> every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>.</p>
-        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff"><span data-term-preview-only data-term="release" data-term-auto="1">release</span> citation</a> and give the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> used. <a href="../../docs/contact.html">Contact Will</a> with questions or corrections.</p>
       </header>
 
       <div class="paper-precis">
         <p class="eyebrow">Pr&eacute;cis</p>
-        <p>A large <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-library" data-term="library" data-term-auto="1">formal library</a> can be mechanically exact and still be practically unreadable to the next <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> or reasoning <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>. At the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> revision a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cold-clone" data-term="cold_clone" data-term-auto="1">cold clone</a> exposes a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> six-line tour over 1,019 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> and 153,238 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>, a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> of ten programmes, 101 curated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, and an elaborated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>, none of which requires a build. 503 of those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> and 8,171 of those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> are marked machine-generated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards, counted as source and never as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, and that marking is a classification <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-floor-function" data-term="floor_function" data-term-auto="1">floor</a> rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>: probe verdicts come from the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> process and cannot be authored by the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>, and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> must cite an accepted probe that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> reruns from stored bytes. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.</p>
+        <p>A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cold-clone" data-term="cold_clone" data-term-auto="1">cold clone</a> exposes a bounded six-line tour over 1,019 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-floor-function" data-term="floor_function" data-term-auto="1">floor</a> rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.</p>
       </div>
 
-      <div class="authority-card">
-        <p><b>This paper owns</b> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>-navigation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a>: layered <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> intent routing, kernel-authored session <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>, focused builds, and exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
-        <p><b>It is not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for</b> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> project.</p>
+      <div class="paper-notes">
+        <div class="authority-card">
+          <p><b>This paper owns</b> the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts.</p>
+          <p><b>It is not authority for</b> proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project.</p>
+        </div>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
-      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here · Editorial route</p><nav aria-label="Start here"><a href="#sec:problem">The cold-<span data-term-preview-only data-term="clone" data-term-auto="1">clone</span> problem</a><a href="#sec:tour">A short tour with exact follow-up queries</a><a href="#sec:authority">From navigation to <span data-term-preview-only data-term="proof" data-term-auto="1">proof</span> <span data-term-preview-only data-term="authority" data-term-auto="1">authority</span></a><a href="#sec:dogfood">A <span data-term-preview-only data-term="replay" data-term-auto="1">replayed</span> case study</a><a href="#sec:limits"><span data-term-preview-only data-term="limit" data-term-auto="1">Limits</span> and transfer conditions</a></nav></div>
-      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:problem">The cold-<span data-term-preview-only data-term="clone" data-term-auto="1">clone</span> problem</a><a class="toc-l2" href="#sec:layers">Four views of the mathematical library</a><a class="toc-l2" href="#sec:tour">A short tour with exact follow-up queries</a><a class="toc-l2" href="#sec:authority">From navigation to <span data-term-preview-only data-term="proof" data-term-auto="1">proof</span> <span data-term-preview-only data-term="authority" data-term-auto="1">authority</span></a><a class="toc-l2" href="#sec:incremental">Compilation after comprehension</a><a class="toc-l2" href="#sec:dogfood">A <span data-term-preview-only data-term="replay" data-term-auto="1">replayed</span> case study</a><a class="toc-l2" href="#sec:related">Relation to prior work</a><a class="toc-l2" href="#sec:return">From a <span data-term-preview-only data-term="proof" data-term-auto="1">proof</span> <span data-term-preview-only data-term="receipt" data-term-auto="1">receipt</span> to a public return</a><a class="toc-l2" href="#sec:limits"><span data-term-preview-only data-term="limit" data-term-auto="1">Limits</span> and transfer conditions</a><a class="toc-l2" href="#sec:conclusion">What the <span data-term-preview-only data-term="architecture" data-term-auto="1">architecture</span> guarantees</a><a class="toc-l2" href="#app:repro">How to <span data-term-preview-only data-term="reproducible" data-term-auto="1">reproduce</span> the <span data-term-preview-only data-term="audit" data-term-auto="1">audit</span></a><a class="toc-l2" href="#references"><span data-term-preview-only data-term="reference" data-term-auto="1">References</span></a></nav></details>
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here · Editorial route</p><nav aria-label="Start here"><a href="#sec:problem">The cold-clone problem</a><a href="#sec:tour">A short tour with exact follow-up queries</a><a href="#sec:authority">From navigation to proof authority</a><a href="#sec:dogfood">A replayed case study</a><a href="#sec:limits">Limits and transfer conditions</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:problem">The cold-clone problem</a><a class="toc-l2" href="#sec:layers">Four views of the mathematical library</a><a class="toc-l2" href="#sec:tour">A short tour with exact follow-up queries</a><a class="toc-l2" href="#sec:authority">From navigation to proof authority</a><a class="toc-l2" href="#sec:incremental">Compilation after comprehension</a><a class="toc-l2" href="#sec:dogfood">A replayed case study</a><a class="toc-l2" href="#sec:related">Relation to prior work</a><a class="toc-l2" href="#sec:return">From a proof receipt to a public return</a><a class="toc-l2" href="#sec:limits">Limits and transfer conditions</a><a class="toc-l2" href="#sec:conclusion">What the architecture guarantees</a><a class="toc-l2" href="#app:repro">How to reproduce the audit</a><a class="toc-l2" href="#references">References</a></nav></details>
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="cold-clone-to-proof-receipt" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/systems/cold-clone-to-proof-receipt.tex">
 <section id="sec:problem" class="level2">
-<h2>The cold-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> problem</h2>
-<p>The first interaction with a large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is usually a
-filesystem. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> sees <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source-file" data-term="source_file" data-term-auto="1">source files</a>, generated files, scripts,
-papers, and build <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configuration</a>, but not the shape of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. A
-language <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> can search filenames and text, yet those operations do
+<h2>The cold-clone problem</h2>
+<p>The first interaction with a large Lean repository is usually a
+filesystem. The reader sees source files, generated files, scripts,
+papers, and build configuration, but not the shape of the mathematics. A
+language model can search filenames and text, yet those operations do
 not answer the questions that matter: Which programmes exist? Which
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> are established, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>, or open? Where does a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> sit in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>? Which surface is
+propositions are established, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>, finite, or open? Where does a
+declaration sit in the formal dependency graph? Which surface is
 exhaustive, and which is a human selection? What may be trusted without
 compiling anything?</p>
-<p>Poor first-contact navigation changes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>
-attempts. An <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> that cannot see a library’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-option-surface" data-term="option_surface" data-term-auto="1">option surface</a> may
-rediscover existing <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a>, confuse a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> result with its open
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a> neighbour, or build a new local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> because the existing one
-was not discoverable. Loading every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>, paper, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> edge
+<p>Poor first-contact navigation changes the mathematics an agent
+attempts. An agent that cannot see a library’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-option-surface" data-term="option_surface" data-term-auto="1">option surface</a> may
+rediscover existing lemmas, confuse a finite result with its open
+unbounded neighbour, or build a new local index because the existing one
+was not discoverable. Loading every declaration, paper, and proof edge
 into one prompt destroys the distinctions the extra context was meant to
 reveal. A useful first-contact surface must therefore be small,
 expandable, and honest about what it omits.</p>
 <p>The <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">development
-studied here</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexes</a> eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim
+studied here</a> indexes eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim
 registry</a> now covers selected statements from all eight; a paper’s
-inclusion does not give every statement in it <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> status. The
-degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> due to the erdosproblems.com contributor <a
+inclusion does not give every statement in it formal status. The
+degree-seven counterexample due to the erdosproblems.com contributor <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>,
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>, refutes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a>
-1041 one-dimensional Hausdorff path-image <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, while correspondence
+formalised in Lean in this repository, refutes the Formal Conjectures
+1041 one-dimensional Hausdorff path-image claim, while correspondence
 with its historical curve-length question remains unreviewed and the
 other seven targets remain unresolved here. The detailed navigation
 examples in this paper concentrate on Problems 249 and 257: exact
-separation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalences</a> for Problem 249, a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">machine-checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
-countermodel agreeing with the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>’s parity at every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>, and
-quotient-greedy classifications for Problem 257, with <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> recorded beside the routes they close. The generated
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards named in the abstract sit underneath these results as
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, not beside them as further <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. The design
-goal is not to replace reasoning with a fixed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-pipeline" data-term="pipeline" data-term-auto="1">pipeline</a>. It is to let a
-capable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> see enough structure to reason well, while reserving
-mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for the pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-checker" data-term="proof_checker" data-term-auto="1">proof kernel</a>.</p>
-<p>The paper first separates the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s four navigation layers and
-then shows how a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> tour expands into exact source and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>
+separation equivalences for Problem 249, a machine-checked rational
+countermodel agreeing with the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>’s parity at every index, and
+quotient-greedy classifications for Problem 257, with obstruction
+theorems recorded beside the routes they close. The generated
+certificate shards named in the abstract sit underneath these results as
+checked finite evidence, not beside them as further claims. The design
+goal is not to replace reasoning with a fixed pipeline. It is to let a
+capable reader see enough structure to reason well, while reserving
+mathematical authority for the pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-checker" data-term="proof_checker" data-term-auto="1">proof kernel</a>.</p>
+<p>The paper first separates the repository’s four navigation layers and
+then shows how a bounded tour expands into exact source and dependency
 routes. Sections <a class="math-ref" href="#sec:authority">4</a> and <a class="math-ref" href="#sec:incremental">5</a> mark the transition
-from navigation to kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> and explain the incremental
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> path. Section <a class="math-ref" href="#sec:dogfood">6</a> gives a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case
+from navigation to kernel authority and explain the incremental
+validation path. Section <a class="math-ref" href="#sec:dogfood">6</a> gives a replayed case
 study; the remaining sections compare related systems and state the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> of transfer.</p>
-<p>This paper owns the navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> case study. The wider
-<span>systems-lifecycle</span><span><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-transition lifecycle</span> is
+limits of transfer.</p>
+<p>This paper owns the navigation and validation case study. The wider
+<span>systems-lifecycle</span><span>claim-transition lifecycle</span> is
 described in the systems paper, while the
-<span>strategy-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-protocol" data-term="protocol" data-term-auto="1">protocol</a></span><span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-protocol" data-term="protocol" data-term-auto="1">protocol</a></span>
+<span>strategy-protocol</span><span>contribution protocol</span>
 specifies how an outsider returns a change. These links lead to named
 destinations in the sibling PDFs rather than to page numbers.</p>
-<p>The same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-state <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiler" data-term="compiler" data-term-auto="1">compiler</a> also <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> inspection of a
-selected elaborated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. The existing feedback experiment uses that
-route to expose admissible construction choices and emits <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> for the same workbench to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the
+<p>The same proof-state compiler also supports bounded inspection of a
+selected elaborated proof. The existing feedback experiment uses that
+route to expose admissible construction choices and emits finite
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> for the same workbench to replay. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> can check the
 separately stated continuation contract through a named unit of its
-existing runner. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implementation" data-term="implementation" data-term-auto="1">implementation</a>, literature attribution and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+existing runner. The implementation, literature attribution and finite
 controls are described in the systems paper’s discussion of executable
 construction choices. These operations extend the existing research
 route and do not automatically extract a new contract or establish an
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> from a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> run.</p>
+infinite claim from a finite run.</p>
 </section>
 <section id="sec:layers" class="level2">
 <h2>Four views of the mathematical library</h2>
-<p>No single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> can serve all <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a> without hiding an important
-distinction. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> therefore <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a> four related layers
-(Figure <a class="math-ref" href="#fig:layers">fig:layers</a>). They are
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a> with different <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coverage" data-term="coverage" data-term-auto="1">coverage</a> contracts, not successive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> of
+<p>No single graph can serve all readers without hiding an important
+distinction. The repository therefore commits four related layers
+(Figure <a class="math-ref" href="#fig:layers">1</a>). They are
+projections with different coverage contracts, not successive claims of
 understanding.</p>
-<figure id="fig:layers" data-latex-placement="!t">
-
-<figcaption>The navigation layers. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> and semantic
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> are different partial views of the exhaustive atlas; neither is
-presented as a complete interpretation.</figcaption>
-</figure>
+<p class="figure-elsewhere" id="fig:layers" data-term-auto="off">This figure is drawn in the <a href="../../papers/cold-clone-to-proof-receipt.pdf">PDF</a>.</p>
 <section id="complete-inventory." class="level5">
 <h5>Complete inventory.</h5>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> atlas is a source-derived address book. It records
-every live <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> that its explicit source roots contain.
-Exhaustiveness here means that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can locate a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>, not
+<p>The declaration atlas is a source-derived address book. It records
+every live declaration that its explicit source roots contain.
+Exhaustiveness here means that a reader can locate a declaration, not
 that the system understands its mathematical role.</p>
 </section>
 <section id="exact-formal-neighbourhoods." class="level5">
-<h5>Exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-neighbourhood" data-term="neighbourhood" data-term-auto="1">neighbourhoods</a>.</h5>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> loads the two supported <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> roots, extracts
-direct constant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">references</a> from elaborated types and values, and joins
+<h5>Exact formal neighbourhoods.</h5>
+<p>The dependency index loads the two supported compact roots, extracts
+direct constant references from elaborated types and values, and joins
 those constants to atlas coordinates. It reports unresolved rows and
-edges instead of silently treating absence as independence. Its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> is
-exact for the loaded <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> and stated edge relation, but it is not
-a transitive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> explanation.</p>
+edges instead of silently treating absence as independence. Its graph is
+exact for the loaded environment and stated edge relation, but it is not
+a transitive proof explanation.</p>
 </section>
 <section id="authored-mathematical-interpretation." class="level5">
 <h5>Authored mathematical interpretation.</h5>
-<p>The semantic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> contains authored <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement-node" data-term="statement_node" data-term-auto="1">statement nodes</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-typed-relation" data-term="typed_relation" data-term-auto="1">typed
-relations</a>, and an exact source-structural <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-floor-function" data-term="floor_function" data-term-auto="1">floor</a>. At the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> revision
-all 151,704 authored <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>-like <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> are linked. Of these,
+<p>The semantic graph contains authored <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement-node" data-term="statement_node" data-term-auto="1">statement nodes</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-typed-relation" data-term="typed_relation" data-term-auto="1">typed
+relations</a>, and an exact source-structural floor. At the audited revision
+all 151,704 authored theorem-like declarations are linked. Of these,
 139,818 (92.2%) participate in authored mathematical interpretations:
-3,330 are exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and 136,488 are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> contextual
-links to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digest</a>- or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verified</a> families. The remaining 11,886 are
-grouped only by exact source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> and normalised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>
+3,330 are exact proposition evidence and 136,488 are bounded contextual
+links to digest- or module-verified families. The remaining 11,886 are
+grouped only by exact source module and normalised Lean proposition
 signature. That lower tier is useful navigation, not a mathematical
 paraphrase. Keeping the tiers visible prevents exhaustive linkage or
 bulk helper assignment from being misreported as exhaustive direct
@@ -227,431 +223,426 @@ understanding. A paper-seeded population query continues to rank exact
 live citations whose best route is structural rather than authored.</p>
 </section>
 <section id="reviewed-public-claims." class="level5">
-<h5>Reviewed public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</h5>
-<p>At the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> revision the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> selected 101 results for public
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a>. It recorded 37 as proved here, 8 as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> here, 5 as
-unconditional progress, 39 as <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-reduction" data-term="conditional_reduction" data-term-auto="1">conditional reductions</a>, 7 as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verified</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> instances, 3 as cited only, and 2 as open. Five explicit <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> described the stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> that survived; the
-current <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a> is larger. These labels are maintainer-reviewed public
-meaning, not outputs inferred by the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof-checker" data-term="proof_checker" data-term-auto="1">proof kernel</a>.</p>
+<h5>Reviewed public claims.</h5>
+<p>At the audited revision the claim map selected 101 results for public
+exposition. It recorded 37 as proved here, 8 as formalised here, 5 as
+unconditional progress, 39 as <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-reduction" data-term="conditional_reduction" data-term-auto="1">conditional reductions</a>, 7 as verified
+finite instances, 3 as cited only, and 2 as open. Five explicit <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a>
+propositions described the stronger obligations that survived; the
+current registry is larger. These labels are maintainer-reviewed public
+meaning, not outputs inferred by the proof kernel.</p>
 </section>
 </section>
 <section id="sec:tour" class="level2">
 <h2>A short tour with exact follow-up queries</h2>
 <p>The public entry command is
-<code>python3 scripts/proof_cockpit.py</code>. Its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact</a> card combines
-the checkout, pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> scale, exact open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a>,
-problem-local <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a>, recorded workbench outcomes, and the next
-typed commands. Every field comes from the public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>. No private task
-ledger, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-provider" data-term="provider" data-term-auto="1">provider</a> trace, memory, or operator state is required. The
+<code>python3 scripts/proof_cockpit.py</code>. Its compact card combines
+the checkout, pinned toolchain, corpus scale, exact open frontier,
+problem-local obligations, recorded workbench outcomes, and the next
+typed commands. Every field comes from the public clone. No private task
+ledger, provider trace, memory, or operator state is required. The
 cockpit is an observation and routing surface: even its
-<code>--check</code> mode runs public structural <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, and
-cannot promote a navigation result or workbench note into a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<code>--check</code> mode runs public structural checks, not Lean, and
+cannot promote a navigation result or workbench note into a theorem.</p>
 <p>The underlying tour command returns a short card rather than a
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-database" data-term="database" data-term-auto="1">database</a> dump. It derives the first result to inspect, its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a>
-class and boundary, the eight-problem <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> with its open count, and the
-next route commands from the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a>. The full <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> uses
-a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>-scaled budget: 18 kB of base context plus 2 kB per <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a>
-problem, hence 34 kB for the present eight-problem <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>. It expands
-the card into a mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>, status counts, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>-specific
+database dump. It derives the first result to inspect, its contribution
+class and boundary, the eight-problem map with its open count, and the
+next route commands from the committed projections. The full packet uses
+a registry-scaled budget: 18 kB of base context plus 2 kB per indexed
+problem, hence 34 kB for the present eight-problem registry. It expands
+the card into a mathematical map, status counts, reader-specific
 contracts, and typed follow-up commands.</p>
 <p>Five intent lenses cover the main transitions:</p>
 <ol>
-<li><p>understand the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> through a selected programme and its
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>;</p></li>
-<li><p>locate any <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> object through ordinary-language search
+<li><p>understand the mathematics through a selected programme and its
+claims;</p></li>
+<li><p>locate any formal object through ordinary-language search
 followed by exhaustive inventory;</p></li>
-<li><p>inspect exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a> through <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> cones and
+<li><p>inspect exact formal dependencies through proof cones and
 paths;</p></li>
-<li><p>begin a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> change through the session notary and focused
+<li><p>begin a checked change through the session notary and focused
 builder;</p></li>
-<li><p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> system through the publication
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-gate" data-term="gate" data-term-auto="1">release gate</a>.</p></li>
+<li><p>audit the agent and release system through the publication
+architecture and release gate.</p></li>
 </ol>
-<p>The route logic names no specimen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">Repository</a>-specific <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> enters through data: programme rows,
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> records, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>. This distinction
-matters. The mechanism is generic over the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-schema" data-term="schema" data-term-auto="1">schemas</a>, while the current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> content is intentionally specific
-to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> it describes.</p>
+<p>The route logic names no specimen theorem or module.
+Repository-specific mathematics enters through data: programme rows,
+claims, declaration records, and frontier propositions. This distinction
+matters. The mechanism is generic over the repository’s projection
+schemas, while the current projection content is intentionally specific
+to the mathematics it describes.</p>
 <p>Ordinary-language entry is likewise not an undocumented trigger list.
-The <code>--vocabulary</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> is an executable Rosetta surface:
+The <code>--vocabulary</code> packet is an executable Rosetta surface:
 it publishes question operators, aliases, transparent expansions, typed
-route hints, an all-problem <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a> projected from
+route hints, an all-problem registry projected from
 <code>docs/problems.json</code>, and a route-discovery lexicon projected
 from <code>docs/claims.json::machine_readable_paper.entrypoints</code>.
 A unique exact authored term may take a constant-time fast path;
 ambiguous or unseen language falls through to visible vocabulary
-interpretation and ranked <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> search. Every search response records
-that interpretation, so an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can inspect how its wording was
+interpretation and ranked corpus search. Every search response records
+that interpretation, so an agent can inspect how its wording was
 translated instead of depending on phrase luck.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> also answers four different cold <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a>. A research
-mathematician gets programmes, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> statuses, and surviving open
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> engineer gets <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> coordinates,
-exact value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">references</a>, and a route into a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> change. An AI-lab
-researcher gets <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coverage" data-term="coverage" data-term-auto="1">coverage</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> distinctions. An independent
-contributor gets the no-build <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orientation" data-term="orientation" data-term-auto="1">orientation</a>, changed-cone build route, and
-public handoff <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>. Each <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> sees the same facts through a
-different question contract rather than a separate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hard-coded" data-term="hard_coded" data-term-auto="1">hard-coded</a>
+<p>The packet also answers four different <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cold-agent" data-term="cold_agent" data-term-auto="1">cold readers</a>. A research
+mathematician gets programmes, claim statuses, and surviving open
+propositions. A formalisation engineer gets declaration coordinates,
+exact value references, and a route into a checked change. An AI-lab
+researcher gets coverage and authority distinctions. An independent
+contributor gets the no-build orientation, changed-cone build route, and
+public handoff check. Each reader sees the same facts through a
+different question contract rather than a separate hard-coded
 example.</p>
 </section>
 <section id="sec:authority" class="level2">
-<h2>From navigation to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a></h2>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> treats navigation and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> as separate capabilities
-(Figure <a class="math-ref" href="#fig:sequence">fig:<span data-term-preview-only data-term="sequence" data-term-auto="1">sequence</span></a>). A
-static query may nominate a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> path. It cannot
-establish that a proposed application typechecks, that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> closes a
+<h2>From navigation to proof authority</h2>
+<p>The architecture treats navigation and proof as separate capabilities
+(Figure <a class="math-ref" href="#fig:sequence">2</a>). A
+static query may nominate a theorem or dependency path. It cannot
+establish that a proposed application typechecks, that a proof closes a
 goal, or that an English interpretation is mathematically faithful.</p>
-<figure id="fig:sequence" data-latex-placement="!t">
-
-<figcaption>The shortest path from first contact to an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authoritative</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> chooses the route; the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> process supplies
-the verdict.</figcaption>
-</figure>
+<p class="figure-elsewhere" id="fig:sequence" data-term-auto="off">This figure is drawn in the <a href="../../papers/cold-clone-to-proof-receipt.pdf">PDF</a>.</p>
 <p>The session notary records a typed move grammar in an append-only
-ledger: observations, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjectures</a>, plans, interpretations, abandonments,
-probes, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, and closure. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> may declare a falsifier. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">Dead
+ledger: observations, conjectures, plans, interpretations, abandonments,
+probes, claims, and closure. Conjectures may declare a falsifier. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">Dead
 ends</a> remain in the record instead of being rewritten into a linear
 success story.</p>
-<p>A probe is different. The notary stores the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> input bytes,
-runs the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> process, and computes one of three verdicts from
+<p>A probe is different. The notary stores the exact Lean input bytes,
+runs the pinned Lean process, and computes one of three verdicts from
 the process result: accepted, accepted with an admitted placeholder, or
-rejected. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> cannot <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-a" data-term="type_a" data-term-auto="1">type a</a> verdict into the ledger. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> must
-cite an accepted probe <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a>; the notary rejects weaker citations.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">Replay</a> reruns every stored probe and compares the current result with
+rejected. The agent cannot <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-a" data-term="type_a" data-term-auto="1">type a</a> verdict into the ledger. A claim must
+cite an accepted probe receipt; the notary rejects weaker citations.
+Replay reruns every stored probe and compares the current result with
 the recorded verdict.</p>
-<p>Workflow-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">provenance</a> systems already record what ran, when and where
+<p>Workflow-provenance systems already record what ran, when and where
 it ran, how tasks and data were connected, and who initiated them; they
-also distinguish a planned workflow from the trace of an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-execution" data-term="execution" data-term-auto="1">executed</a> one
+also distinguish a planned workflow from the trace of an executed one
 <span class="citation" data-cites="workflowprovenance"><a href="#ref-12">[12]</a></span>. That is
-the closest established role for the notary’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-execution" data-term="execution" data-term-auto="1">execution</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-metadata" data-term="metadata" data-term-auto="1">metadata</a>. The
-notary adds a different contract: its ledger types an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>’s
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">conjectures</a>, abandonments, probes, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, while the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+the closest established role for the notary’s execution metadata. The
+notary adds a different contract: its ledger types an agent’s
+conjectures, abandonments, probes, and claims, while the pinned Lean
 process alone supplies probe verdicts. The comparison does not show that
-the resulting record improves the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>’s research choices.</p>
+the resulting record improves the agent’s research choices.</p>
 <p>This design deliberately leaves search policy open. LeanDojo couples
-an open programmatic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> with extracted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> data, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premise</a>
-annotations, retrieval, and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>-proving <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmark</a> <span
+an open programmatic Lean environment with extracted proof data, premise
+annotations, retrieval, and a theorem-proving benchmark <span
 class="citation" data-cites="leandojo"></span>. Pantograph exposes
-tactic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-execution" data-term="execution" data-term-auto="1">execution</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> states, metavariables, and data extraction
-through machine <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a> <span class="citation"
-data-cites="pantograph"><a href="#ref-5">[5]</a></span>. Those systems make machine-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+tactic execution, proof states, metavariables, and data extraction
+through machine interfaces <span class="citation"
+data-cites="pantograph"><a href="#ref-5">[5]</a></span>. Those systems make machine-to-Lean
 interaction richer. The notary here addresses a complementary question:
-after an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> chooses its own policy, which parts of the resulting
-reasoning record are advisory, and which exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-grounding" data-term="grounding" data-term-auto="1">grounded</a> by
+after an agent chooses its own policy, which parts of the resulting
+reasoning record are advisory, and which exact claims are grounded by
 replayable <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">kernel acceptance</a>?</p>
 </section>
 <section id="sec:incremental" class="level2">
 <h2>Compilation after comprehension</h2>
-<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> navigation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> is portable text; an
-<code>.olean</code> file is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a>- and platform-specific build
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-product" data-term="product" data-term-auto="1">product</a>. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cold-clone" data-term="cold_clone" data-term-auto="1">cold clone</a> can therefore orient immediately but must either
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-compiler" data-term="compiler" data-term-auto="1">compile</a> the selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> target or restore a compatible <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> before
+<p>A committed navigation projection is portable text; an
+<code>.olean</code> file is a toolchain- and platform-specific build
+product. A cold clone can therefore orient immediately but must either
+compile the selected formal target or restore a compatible cache before
 editing.</p>
-<p>The focused build wrapper accepts an exact target, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> changed
-since a Git <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a>, or the stale cone derived from Lake traces. It
-orders the selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> waves, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> parallel jobs,
-and finishes with a serialized Lake <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>. Restored <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">caches</a> use
+<p>The focused build wrapper accepts an exact target, modules changed
+since a Git reference, or the stale cone derived from Lake traces. It
+orders the selected modules into dependency waves, limits parallel jobs,
+and finishes with a serialized Lake authority check. Restored caches use
 Lake’s content traces rather than checkout timestamps. In one historical
-four-file addition, the planner selected 26 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> in four waves rather
+four-file addition, the planner selected 26 modules in four waves rather
 than both complete roots; in a warm two-root dogfood plan it selected no
-stale <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>. The test suite covers trace freshness, changed-file
-selection, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> ordering, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> parallelism, failure
-propagation, and the final <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>.</p>
-<p>The exhaustive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> is expensive for a
-different reason: it traverses the elaborated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> and exports
-direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">references</a>. After a full export matches the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>, the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> writes an exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> below the ignored Lake <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a>. Its key
-includes every supported <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source-file" data-term="source_file" data-term-auto="1">source file</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a> and Lake locks,
-the exporter and builder inputs, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> atlas and generated
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>-source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a>, the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a>-extraction helper definitions, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> bytes.
-An ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> reuses the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> only while all inputs and output
-remain byte-identical; an explicit full-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> mode bypasses it. A
-changed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> or exporter input therefore forces a fresh incremental
+stale modules. The test suite covers trace freshness, changed-file
+selection, dependency ordering, bounded parallelism, failure
+propagation, and the final authority check.</p>
+<p>The exhaustive dependency-index validator is expensive for a
+different reason: it traverses the elaborated environment and exports
+direct references. After a full export matches the committed index, the
+validator writes an exact receipt below the ignored Lake cache. Its key
+includes every supported Lean source file, the toolchain and Lake locks,
+the exporter and builder inputs, the declaration atlas and generated
+manifest, the formal-source release slice of the claim registry, the
+dependency-extraction helper definitions, and the committed index bytes.
+An ordinary check reuses the receipt only while all inputs and output
+remain byte-identical; an explicit full-check mode bypasses it. A
+changed formal or exporter input therefore forces a fresh incremental
 build and full export, while documentation-only revisions and exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> restores do not.</p>
-<p>This is intentionally conservative. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> that
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> export itself has become incremental. It prevents
+cache restores do not.</p>
+<p>This is intentionally conservative. The receipt does not claim that
+the environment export itself has become incremental. It prevents
 unnecessary repetition when its entire input surface is unchanged. When
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source changes, Lake still recompiles only stale <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a>, but
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> exporter currently scans the supported <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> again.</p>
+Lean source changes, Lake still recompiles only stale dependencies, but
+the graph exporter currently scans the supported environment again.</p>
 </section>
 <section id="sec:dogfood" class="level2">
-<h2>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replayed</a> case study</h2>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> prospective session is a naturalistic use of the
-workbench, not a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-synthetic" data-term="synthetic" data-term-auto="1">synthetic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmark</a>. The ledger contains six reasoning
-notes, one kernel-accepted probe, and two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> to that probe. It
+<h2>A replayed case study</h2>
+<p>The committed prospective session is a naturalistic use of the
+workbench, not a synthetic benchmark. The ledger contains six reasoning
+notes, one kernel-accepted probe, and two claims bound to that probe. It
 produced a binary carry-pivot <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-normal-form" data-term="normal_form" data-term-auto="1">normal form</a> for numeral-adjacent boundary
-words and an exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-incidence identity that sharpens a previously
-landed one-sided <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coefficient" data-term="coefficient" data-term-auto="1">coefficient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">equality</a>. At the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> revision,
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> reruns the stored probe and returns the same accepted
+words and an exact divisor-incidence identity that sharpens a previously
+landed one-sided coefficient bound to equality. At the audited revision,
+replay reruns the stored probe and returns the same accepted
 verdict.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> a narrow statement: the stored input is accepted
-by the pinned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a>, the cited <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> point to that accepted
-probe, and the result survives <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> at this revision. It does not
-establish that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>’s route was optimal, that every candidate was
-searched, that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> failure is impossible, or that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>
-is new outside the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> history.</p>
+<p>The receipt supports a narrow statement: the stored input is accepted
+by the pinned Lean environment, the cited claims point to that accepted
+probe, and the result survives replay at this revision. It does not
+establish that the agent’s route was optimal, that every candidate was
+searched, that a bounded failure is impossible, or that the mathematics
+is new outside the repository history.</p>
 <p>The navigation surface was dogfooded separately as four audiences.
-The research-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> route reaches the programme <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> and explicit
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a>; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> route reaches a source coordinate and exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> cone; the AI-lab route exposes exhaustive-versus-selective
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coverage" data-term="coverage" data-term-auto="1">coverage</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>; the contributor route reaches a focused
-build and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>. Adversarial tests remove or distort each
-protected transition and require the cold-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validator</a> to reject the
+The research-mathematics route reaches the programme map and explicit
+frontier; the formalisation route reaches a source coordinate and exact
+proof cone; the AI-lab route exposes exhaustive-versus-selective
+coverage and receipt authority; the contributor route reaches a focused
+build and release check. Adversarial tests remove or distort each
+protected transition and require the cold-clone validator to reject the
 mutation. This evaluates the declared first-contact contract, not
 subjective comprehension.</p>
 </section>
 <section id="sec:related" class="level2">
 <h2>Relation to prior work</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> blueprints pair informal plans with named <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and
-author-supplied <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> links. <code>leanblueprint</code> stores a
-blueprint in TeX and its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> only confirms that each named
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> exists <span class="citation"
+<p>Proof blueprints pair informal plans with named Lean declarations and
+author-supplied dependency links. <code>leanblueprint</code> stores a
+blueprint in TeX and its checker only confirms that each named
+declaration exists <span class="citation"
 data-cites="leanblueprint"><a href="#ref-1">[1]</a></span>; it neither infers those links nor
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> that the informal and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> statements agree. LeanArchitect
-infers <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-hole status and exports
+checks that the informal and formal statements agree. LeanArchitect
+infers formal dependencies and proof-hole status and exports
 synchronised blueprint material <span class="citation"
 data-cites="leanarchitect"><a href="#ref-2">[2]</a></span>. The Carleson project shows a
-blueprint used as a large <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-collaboration" data-term="collaboration" data-term-auto="1">collaboration</a> surface. Its public blueprint
-split the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> into about 180 claimable tasks, most
-corresponding to one blueprint <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> feedback produced
+blueprint used as a large collaboration surface. Its public blueprint
+split the formalisation into about 180 claimable tasks, most
+corresponding to one blueprint lemma; formalisation feedback produced
 localized corrections, modifications, and extensions to the mathematical
 guide, including a few changes to the general setup and main
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> <span class="citation" data-cites="carleson"><a href="#ref-3">[3]</a></span>. The
+theorems <span class="citation" data-cites="carleson"><a href="#ref-3">[3]</a></span>. The
 present tour has a different first-contact role. It begins after the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> already contains a large <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, distinguishes exhaustive
-inventory from authored interpretation, and routes a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> into exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> tools.</p>
+repository already contains a large corpus, distinguishes exhaustive
+inventory from authored interpretation, and routes a reader into exact
+dependency and proof-receipt tools.</p>
 <p>LeanDojo and Pantograph provide stronger interaction substrates for
-learned or scripted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proving <span class="citation"
+learned or scripted theorem proving <span class="citation"
 data-cites="leandojo pantograph"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a></span>. This work does not propose a
-new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-search policy. It makes the policy slot explicit and records
-enough of an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>-chosen trajectory to separate notes, nominations,
-rejected probes, and accepted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
-<p>Nor is its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> or retrieval route novel in isolation.
-LeanGraph extracts typed elaborator-level edges across <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> projects,
-while a separate network study analyses <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>’s multilayer <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> <span class="citation"
+new proof-search policy. It makes the policy slot explicit and records
+enough of an agent-chosen trajectory to separate notes, nominations,
+rejected probes, and accepted claims.</p>
+<p>Nor is its declaration graph or retrieval route novel in isolation.
+LeanGraph extracts typed elaborator-level edges across Lean projects,
+while a separate network study analyses <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>’s multilayer declaration
+graph <span class="citation"
 data-cites="theoremgraph mathlibnetwork"><a href="#ref-6">[6]</a><a href="#ref-7">[7]</a></span>. LeanExplore combines
-semantic, lexical, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> ranking behind Python and MCP <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a>,
-and LeanSearch v2 targets global <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premise</a> sets through iterative
+semantic, lexical, and graph ranking behind Python and MCP interfaces,
+and LeanSearch v2 targets global premise sets through iterative
 sketch–retrieve–reflect <span class="citation"
-data-cites="leanexplore leansearchv2"><a href="#ref-8">[8]</a><a href="#ref-9">[9]</a></span>. The narrower <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> here
-is that one cold-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> contract composes source addresses, selective
-semantics, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> cones, incremental <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a> without requiring a hosted service or an initial <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+data-cites="leanexplore leansearchv2"><a href="#ref-8">[8]</a><a href="#ref-9">[9]</a></span>. The narrower claim here
+is that one cold-clone contract composes source addresses, selective
+semantics, dependency cones, incremental validation, and authority
+receipts without requiring a hosted service or an initial Lean
 build.</p>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">Repository</a> question answering provides a second comparison. Abedu,
-Khatoonabadi, and Shihab combine an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-large-language-model" data-term="large_language_model" data-term-auto="1">LLM</a> with a knowledge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> built
-from users, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a>, issues, and files; their evaluation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-span" data-term="span" data-term-auto="1">spans</a> five
-open-source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repositories</a> and a 20-participant task study <span
+<p>Repository question answering provides a second comparison. Abedu,
+Khatoonabadi, and Shihab combine an LLM with a knowledge graph built
+from users, commits, issues, and files; their evaluation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-span" data-term="span" data-term-auto="1">spans</a> five
+open-source repositories and a 20-participant task study <span
 class="citation" data-cites="repokg"></span>. They explicitly leave code
-entities and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-program" data-term="program" data-term-auto="1">program</a>-analysis edges to future work. The tour here does
-not evaluate a conversational <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interface</a>. It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a> code-level <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>, elaborated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a>, authored mathematical
-interpretations, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-status boundaries so that a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can
-inspect the route before an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-large-language-model" data-term="large_language_model" data-term-auto="1">LLM</a> explains it.</p>
+entities and program-analysis edges to future work. The tour here does
+not evaluate a conversational interface. It commits code-level Lean
+declarations, elaborated dependencies, authored mathematical
+interpretations, and claim-status boundaries so that a reader can
+inspect the route before an LLM explains it.</p>
 <p>Large-library maintenance supplies the relevant compilation lesson.
-<em>Growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a></em> describes performance-aware library design,
-deprecation, semantic linters, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmarks</a>, review tooling, and explicit
+<em>Growing Mathlib</em> describes performance-aware library design,
+deprecation, semantic linters, benchmarks, review tooling, and explicit
 technical-debt management <span class="citation"
 data-cites="growingmathlib"><a href="#ref-10">[10]</a></span>. The changed-cone planner and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> apply a smaller-scale version of that maintenance posture.
-The local measurements do not transfer <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>’s scale or social
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</p>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Atlas narrows the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> whose meaning can affect selected
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> statements and leaves semantic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> to people <span
+receipt cache apply a smaller-scale version of that maintenance posture.
+The local measurements do not transfer Mathlib’s scale or social
+evidence.</p>
+<p>Lean Atlas narrows the declarations whose meaning can affect selected
+theorem statements and leaves semantic verification to people <span
 class="citation" data-cites="leanatlas"></span>. That is close to the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> distinction here: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> can focus human inspection
-without deciding intended meaning. The cold-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> tour adds a front-door
+authority distinction here: formal dependency can focus human inspection
+without deciding intended meaning. The cold-clone tour adds a front-door
 contract across exhaustive inventory, selective semantics, public
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
+claims, and agent receipts.</p>
 </section>
 <section id="sec:return" class="level2">
-<h2>From a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> to a public return</h2>
-<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> closes only the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> job. It does not say
-whether a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> record, paper, computation, open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a>, query route,
-or contributor surface has become stale. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> therefore continues
-through an explicit <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a>: invoke a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> route with
+<h2>From a proof receipt to a public return</h2>
+<p>A proof receipt closes only the validation job. It does not say
+whether a claim record, paper, computation, open frontier, query route,
+or contributor surface has become stale. The clone therefore continues
+through an explicit sequence: invoke a bounded route with
 <code>mine-open-problem</code>; continue, suspend, or close the research
-run at its stated stopping condition; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validate</a> the stable delta;
+run at its stated stopping condition; validate the stable delta;
 classify its downstream consumers with
-<code>propagate-research-consequences</code>; <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">provenance</a> with <code>erdos-research-return</code>; and prepare the
-proposed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-upstream" data-term="upstream" data-term-auto="1">upstream</a> change with <code>submit-pull-request</code>. Pushing
-a branch or opening the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-pull-request" data-term="pull_request" data-term-auto="1">pull request</a> still requires the contributor’s
+<code>propagate-research-consequences</code>; package the evidence and
+provenance with <code>erdos-research-return</code>; and prepare the
+proposed upstream change with <code>submit-pull-request</code>. Pushing
+a branch or opening the pull request still requires the contributor’s
 authorisation.</p>
 <p>The router also has to serve a request that names no target. The task
-“read the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> and find something worth developing across the papers”
-matched no cue and fell through to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>-explanation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fallback" data-term="fallback" data-term-auto="1">fallback</a>,
-so an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> asked to think was handed a tour. The repair followed the
-method of this paper: the observed request became a routing <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">fixture</a>, a
+“read the corpus and find something worth developing across the papers”
+matched no cue and fell through to the repository-explanation fallback,
+so an agent asked to think was handed a tour. The repair followed the
+method of this paper: the observed request became a routing fixture, a
 lane for open reading was added, and the <code>explore-the-corpus</code>
 skill now hands an emerged question to <code>mine-open-problem</code>
-and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> above. The same research instruction is published
-without a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> in the <a
+and the sequence above. The same research instruction is published
+without a clone in the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading
 edition</a>.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> is deliberately independent of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-harness" data-term="harness" data-term-auto="1">harness</a>. A
+<p>The sequence is deliberately independent of the agent harness. A
 contributor may use Codex, Claude Code, Cursor, another runner, ordinary
-scripts, or no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>. The shared contract is the starting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>,
-changed source, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">claim ceiling</a>, surviving limitation,
+scripts, or no agent. The shared contract is the starting commit,
+changed source, evidence, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">claim ceiling</a>, surviving limitation,
 consequence dispositions, and stop or re-entry condition. A suspended
 run can therefore be resumed without being misreported as either failure
-or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</p>
-<p>The starting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> also permits work from an older <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> to survive
+or proof.</p>
+<p>The starting commit also permits work from an older clone to survive
 current development. Git retains the common ancestor and hence the
-original delta. Maintainers first <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reproducible" data-term="reproducible" data-term-auto="1">reproduce</a> that delta in its stated
+original delta. Maintainers first reproduce that delta in its stated
 context, then reconcile the reviewed substance with current main.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">Validation</a> and consequence propagation are repeated on the integration
+Validation and consequence propagation are repeated on the integration
 delta. Material conflict resolution is recorded and credited as new
 work; the contributor’s original authorship is preserved. The complete
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-govern" data-term="govern" data-term-auto="1">governance</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> appears in the
-<span>strategy-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-protocol" data-term="protocol" data-term-auto="1">protocol</a></span><span>companion <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-protocol" data-term="protocol" data-term-auto="1">protocol</a></span>, while the wider job <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> appears in the
+governance sequence appears in the
+<span>strategy-protocol</span><span>companion contribution
+protocol</span>, while the wider job map appears in the
 <span>systems-job-lifecycle</span><span>systems lifecycle</span>.</p>
 </section>
 <section id="sec:limits" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">Limits</a> and transfer conditions</h2>
-<p>This is a case study of one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> at one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audited</a> revision. Its
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-schema" data-term="schema" data-term-auto="1">schemas</a> and routing engine are reusable mechanisms, but
-another project must supply its own source roots, programme <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
-vocabulary, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> statements, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> owners. The paper gives
-no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> that a new project can adopt the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> cheaply or
-that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> using it outperform <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> with an ordinary README.</p>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> was author-operated. No external contributor had yet
+<h2>Limits and transfer conditions</h2>
+<p>This is a case study of one repository at one audited revision. Its
+projection schemas and routing engine are reusable mechanisms, but
+another project must supply its own source roots, programme map, claim
+vocabulary, frontier statements, and authority owners. The paper gives
+no evidence that a new project can adopt the architecture cheaply or
+that agents using it outperform agents with an ordinary README.</p>
+<p>The audit was author-operated. No external contributor had yet
 completed the tour, attempted the documented return path, or reported
-where the first-contact explanation failed. Cold-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> usability and
+where the first-contact explanation failed. Cold-clone usability and
 maintainer burden are therefore open empirical questions, not properties
-established by the internal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a>.</p>
-<p>Counts describe <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifact</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coverage" data-term="coverage" data-term-auto="1">coverage</a>, not mathematical understanding.
-Direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> edges are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> explanations. Authored semantic
-nodes may be wrong or incomplete. Maintainer-reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> may also be
+established by the internal replay.</p>
+<p>Counts describe artifact coverage, not mathematical understanding.
+Direct dependency edges are not proof explanations. Authored semantic
+nodes may be wrong or incomplete. Maintainer-reviewed claims may also be
 wrong; automation preserves recorded relationships but does not judge
 unrestricted prose.</p>
 <p>Receipted reasoning is auditable rather than necessarily good. A
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> may choose unproductive probes, omit a relevant source, or
-rationalise a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">dead end</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">Replay</a> detects <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> drift in stored
+model may choose unproductive probes, omit a relevant source, or
+rationalise a dead end. Replay detects environment drift in stored
 probes but not every flaw in the surrounding interpretation.
 Context-blind historical experiments also cannot establish training-data
 blindness.</p>
-<p>Finally, the first full project build and the first elaborated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>
-export remain material costs. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> moves them after
-comprehension, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> compatible <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> restoration, and avoids
+<p>Finally, the first full project build and the first elaborated graph
+export remain material costs. The architecture moves them after
+comprehension, supports compatible cache restoration, and avoids
 repeating an exact export when nothing relevant changed. It does not
-eliminate the cost of validating a genuinely changed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a>.</p>
+eliminate the cost of validating a genuinely changed formal
+environment.</p>
 </section>
 <section id="sec:conclusion" class="level2">
-<h2>What the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> guarantees</h2>
-<p>An <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>-native <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> needs to reveal, from a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cold-clone" data-term="cold_clone" data-term-auto="1">cold clone</a>,
-what <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> exists, what each navigation layer knows, what <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains
-open</a>, and which next action crosses into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>. The
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> here realises that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a>, a
-public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> cockpit, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> intent tour, exact loaded-root
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> data, a session notary, focused builds, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
+<h2>What the architecture guarantees</h2>
+<p>An agent-native formal repository needs to reveal, from a cold clone,
+what mathematics exists, what each navigation layer knows, what remains
+open, and which next action crosses into proof authority. The
+architecture here realises that sequence with committed projections, a
+public proof cockpit, a bounded intent tour, exact loaded-root
+dependency data, a session notary, focused builds, and cache-bound
+validation receipts.</p>
 <p>The central design choice is separation. Comprehension comes before
 compilation; nomination comes before application; reasoning notes remain
 distinct from kernel verdicts; exhaustive routing remains distinct from
-selective interpretation; and a public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> remains distinct from the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> statement it describes. Those boundaries let a capable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> move
-quickly without making speed look like <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.</p>
+selective interpretation; and a public claim remains distinct from the
+formal statement it describes. Those boundaries let a capable agent move
+quickly without making speed look like authority.</p>
 </section>
 <section id="app:repro" class="level2">
-<h2>How to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reproducible" data-term="reproducible" data-term-auto="1">reproduce</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a></h2>
-<p>The public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commits</a> the tour, route, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a>, workbench
-session, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validator" data-term="validator" data-term-auto="1">validators</a> used in this paper. The shortest reproduction
-route has four <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> tasks.</p>
+<h2>How to reproduce the audit</h2>
+<p>The public repository commits the tour, route, projections, workbench
+session, and validators used in this paper. The shortest reproduction
+route has four bounded tasks.</p>
 <section id="orient-without-compiling-lean." class="level5">
-<h5>1. Orient without compiling <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>.</h5>
-<p>These commands inspect <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projections</a> only:</p>
-<p>The cockpit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validates</a> the public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a>, cold-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>
-contract, and generated-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orientation" data-term="orientation" data-term-auto="1">orientation</a> freshness; it does not run <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. The
-full tour <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> is obtained by omitting the format flag. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a>
-name returned by inventory can be expanded into a direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-neighbourhood" data-term="neighbourhood" data-term-auto="1">neighbourhood</a>
-or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> cone.</p>
+<h5>1. Orient without compiling Lean.</h5>
+<p>These commands inspect committed projections only:</p>
+<p>The cockpit check validates the public claim registry, cold-clone
+contract, and generated-orientation freshness; it does not run Lean. The
+full tour packet is obtained by omitting the format flag. A declaration
+name returned by inventory can be expanded into a direct neighbourhood
+or bounded proof cone.</p>
 </section>
 <section id="check-a-proof." class="level5">
-<h5>2. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>.</h5>
-<p>Beginning <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> work enters the notary and then the focused
+<h5>2. Check a proof.</h5>
+<p>Beginning formal work enters the notary and then the focused
 builder:</p>
 </section>
 <section id="check-reuse-of-the-dependency-index." class="level5">
-<h5>3. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> reuse of the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependency</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>.</h5>
-<p>The ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> may reuse an exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a>; the full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>
+<h5>3. Check reuse of the dependency index.</h5>
+<p>The ordinary check may reuse an exact cache receipt; the full check
 bypasses it:</p>
-<p>The first ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> after a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cold-clone" data-term="cold_clone" data-term-auto="1">cold clone</a> may perform the full
-export; a matching restored Lake <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cache" data-term="cache" data-term-auto="1">cache</a> can carry the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a>. The
-full-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> form always bypasses it.</p>
+<p>The first ordinary check after a cold clone may perform the full
+export; a matching restored Lake cache can carry the exact receipt. The
+full-check form always bypasses it.</p>
 </section>
 <section id="inspect-the-return-lifecycle." class="level5">
 <h5>4. Inspect the return lifecycle.</h5>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>-local owners can be read without installing them
+<p>The clone-local owners can be read without installing them
 globally:</p>
 <p>These commands inspect and test the route. They do not push a branch,
-open a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-pull-request" data-term="pull_request" data-term-auto="1">pull request</a>, accept a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a>, or alter mathematical
+open a pull request, accept a contribution, or alter mathematical
 status.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
-<h2 class="unnumbered"><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">References</a></h2>
+<h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> blueprints, 2020, <a
-href="https://github.com/PatrickMassot/leanblueprint"><span data-term-preview-only data-term="software" data-term-auto="1">software</span>
-<span data-term-preview-only data-term="repository" data-term-auto="1">repository</span></a>, accessed 28 July 2026.</p></li>
+<li id="ref-1"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for Lean
+formalisation blueprints, 2020, <a
+href="https://github.com/PatrickMassot/leanblueprint">software
+repository</a>, accessed 28 July 2026.</p></li>
 <li id="ref-2"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad,
 <em>LeanArchitect: Automating Blueprint Generation for Humans and
-AI</em>, in <em>17th International Conference on Interactive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a>
+AI</em>, in <em>17th International Conference on Interactive Theorem
 Proving</em>, LIPIcs 382, 2026, pp. 25:1–25:16, <a
 href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
-<li id="ref-3"><p>L. Becker et al., <em>A Blueprint for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">Formalization</a> of
-Carleson’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> on <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-convergence" data-term="convergence" data-term-auto="1">Convergence</a> of Fourier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">Series</a></em>, 2025, <a
+<li id="ref-3"><p>L. Becker et al., <em>A Blueprint for the Formalization of
+Carleson’s Theorem on Convergence of Fourier Series</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2405.06423">arXiv:2405.06423</a>.</p></li>
 <li id="ref-4"><p>K. Yang, A. M. Swope, A. Gu, R. Chalamala, P. Song, S. Yu,
-S. Godil, R. Prenger, and A. Anandkumar, <em>LeanDojo: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving
-with Retrieval-Augmented Language <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">Models</a></em>, in <em>Advances in Neural
+S. Godil, R. Prenger, and A. Anandkumar, <em>LeanDojo: Theorem Proving
+with Retrieval-Augmented Language Models</em>, in <em>Advances in Neural
 Information Processing Systems 36</em>, 2023, <a
 href="https://doi.org/10.48550/arXiv.2306.15626">arXiv:2306.15626</a>.</p></li>
 <li id="ref-5"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
-<em>Pantograph: A Machine-to-Machine Interaction <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">Interface</a> for Advanced
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving, High Level Reasoning, and Data Extraction in <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-4</em>, in <em>Tools and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algorithm" data-term="algorithm" data-term-auto="1">Algorithms</a> for the Construction and Analysis of
+<em>Pantograph: A Machine-to-Machine Interaction Interface for Advanced
+Theorem Proving, High Level Reasoning, and Data Extraction in Lean
+4</em>, in <em>Tools and Algorithms for the Construction and Analysis of
 Systems</em>, 2025, pp. 116–137, <a
 href="https://doi.org/10.1007/978-3-031-90643-5_6">DOI</a>.</p></li>
-<li id="ref-6"><p>S. Kurgan et al., <em>TheoremGraph: Bridging <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> and Informal
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>, 2026, <a
+<li id="ref-6"><p>S. Kurgan et al., <em>TheoremGraph: Bridging Formal and Informal
+Mathematics</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2606.25363">arXiv:2606.25363</a>.</p></li>
 <li id="ref-7"><p>X. Li, N. Peng, S. Severini, and P. Shafto, <em>The Network
-Structure of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a></em>, 2026, <a
+Structure of Mathlib</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.24797">arXiv:2604.24797</a>.</p></li>
-<li id="ref-8"><p>J. Asher, <em>LeanExplore: A Search Engine for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> 4
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">Declarations</a></em>, 2025, <a
+<li id="ref-8"><p>J. Asher, <em>LeanExplore: A Search Engine for Lean 4
+Declarations</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2506.11085">arXiv:2506.11085</a>.</p></li>
-<li id="ref-9"><p>G. Gao et al., <em>LeanSearch v2: Global <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">Premise</a> Retrieval for
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> 4 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> Proving</em>, 2026, <a
+<li id="ref-9"><p>G. Gao et al., <em>LeanSearch v2: Global Premise Retrieval for
+Lean 4 Theorem Proving</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2605.13137">arXiv:2605.13137</a>.</p></li>
 <li id="ref-10"><p>A. Baanen, M. R. Ballard, J. Commelin, B. Gin-ge Chen,
-M. Rothgang, and D. Testa, <em>Growing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>: Maintenance of a Large
-Scale Mathematical Library</em>, in <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-intelligent" data-term="intelligent" data-term-auto="1">Intelligent</a> Computer
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em>, 2025, <a
+M. Rothgang, and D. Testa, <em>Growing Mathlib: Maintenance of a Large
+Scale Mathematical Library</em>, in <em>Intelligent Computer
+Mathematics</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2508.21593">arXiv:2508.21593</a>.</p></li>
-<li id="ref-11"><p>B. Yanahama and A. Sannai, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Atlas: An Integrated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">Environment</a> for Scalable Human–AI Collaborative <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">Formalization</a></em>,
+<li id="ref-11"><p>B. Yanahama and A. Sannai, <em>Lean Atlas: An Integrated Proof
+Environment for Scalable Human–AI Collaborative Formalization</em>,
 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
 <li id="ref-12"><p>R. Souza, T. Poteet, B. Etz, D. Rosendo, A. Gueroudji, W. Shin,
-P. Balaprakash, and R. Ferreira da Silva, <em><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-large-language-model" data-term="large_language_model" data-term-auto="1">LLM</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">Agents</a> for Interactive
-Workflow <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">Provenance</a>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">Reference</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">Architecture</a> and Evaluation
+P. Balaprakash, and R. Ferreira da Silva, <em>LLM Agents for Interactive
+Workflow Provenance: Reference Architecture and Evaluation
 Methodology</em>, WORKS at the ACM/IEEE International Conference for
 High Performance Computing, Networking, Storage and Analysis, 2025, <a
 href="https://doi.org/10.1145/3731599.3767582">DOI</a>.</p></li>
-<li id="ref-13"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, <em>Synergizing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-large-language-model" data-term="large_language_model" data-term-auto="1">LLMs</a>
-and Knowledge <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">Graphs</a>: A Novel Approach to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-software" data-term="software" data-term-auto="1">Software</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">Repository</a>-Related
+<li id="ref-13"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, <em>Synergizing LLMs
+and Knowledge Graphs: A Novel Approach to Software Repository-Related
 Question Answering</em>, 2024, revised 2025, <a
 href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
 </ol>
@@ -664,10 +655,10 @@ href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/cold-clone-to-proof-receipt.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 12&#8202;pp</a>
-          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex"><span class="btn__format">TeX</span>Open the <span data-term-preview-only data-term="latex" data-term-auto="1">LaTeX source</span></a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:1319d0175edc6514</code>. It matched the published source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:1319d0175edc6514</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

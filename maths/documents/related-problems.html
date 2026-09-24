@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/af9e1c0cfabede7f.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,17 +74,18 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Related problems</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
         <p class="doc-role-eyebrow">Related problems</p>
         <h1>Related problems</h1>
-        <p class="doc-source-line">Rendered from <code>docs/RELATED_PROBLEMS.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/RELATED_PROBLEMS.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -107,43 +107,43 @@ href="https://www.erdosproblems.com/1049">1049</a>, <a
 href="https://www.erdosproblems.com/69">69</a>, <a
 href="https://www.erdosproblems.com/250">250</a>, <a
 href="https://www.erdosproblems.com/258">258</a>) in July 2026; none of
-the external results is re-proved in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>.</p>
+the external results is re-proved in this repository.</p>
 <section id="bounded-status-route" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounded</a> status route</h2>
-<p>The external catalogue status and the local <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> status are
-separate facts. Use the exact local <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packets</a> before interpreting an
+<h2>Bounded status route</h2>
+<p>The external catalogue status and the local release status are
+separate facts. Use the exact local packets before interpreting an
 analogy:</p>
-<p>For a machine-first return from any <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> problem, run
+<p>For a machine-first return from any indexed problem, run
 <code>python3 scripts/query_corpus.py --route erdos_&lt;n&gt;</code> for
 <span class="math inline" data-term-auto="off" data-tex="\(n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></mjx-assistive-mml></mjx-container></span> in <span class="math inline" data-term-auto="off" data-tex="\(68,243,249,251,257,269,1041,1049\)" data-math-rendered="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c35" noic="true">5</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c35" noic="true">5</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c37">7</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c39">9</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>68</mn><mo>,</mo><mn>243</mn><mo>,</mo><mn>249</mn><mo>,</mo><mn>251</mn><mo>,</mo><mn>257</mn><mo>,</mo><mn>269</mn><mo>,</mo><mn>1041</mn><mo>,</mo><mn>1049</mn></math></mjx-assistive-mml></mjx-container></span>,
 then follow the <a
 href="source-map.html#complete-eight-problem-return-matrix">complete
-eight-problem return <span data-term-preview-only data-term="matrix" data-term-auto="1">matrix</span></a>. That <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-matrix" data-term="matrix" data-term-auto="1">matrix</a> binds each public status
-row to its strongest <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> source, paper and TeX record, and exact
-open-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> handles without changing the status or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.</p>
+eight-problem return matrix</a>. That matrix binds each public status
+row to its strongest checked source, paper and TeX record, and exact
+open-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a> handles without changing the status or claim
+authority.</p>
 <ul>
 <li>#249 target:
 <code>python3 scripts/query_corpus.py --open remaining_open.erdos_249_irrationality</code>;
-return to its problem-owned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> with
+return to its problem-owned evidence with
 <code>python3 scripts/query_corpus.py --route erdos_249</code>.</li>
 <li>#257 target:
 <code>python3 scripts/query_corpus.py --open remaining_open.universal_257_all_infinite_supports</code>;
-return to its problem-owned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> with
+return to its problem-owned evidence with
 <code>python3 scripts/query_corpus.py --route erdos_257</code>.</li>
 <li>#69 neighbour:
 <code>python3 scripts/query_corpus.py --claim prime_support_irrationality</code></li>
 <li>#250 neighbour:
 <code>python3 scripts/query_corpus.py --claim sigma_transcendence</code></li>
 </ul>
-<p>The first two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packets</a> are <code>open</code>; the latter two are
+<p>The first two packets are <code>open</code>; the latter two are
 <code>cited only</code>. A solved neighbour, shared transform, or
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> special case does not advance an open target unless
+formalised special case does not advance an open target unless
 <code>docs/claims.json::machine_readable_paper.argument_graph</code>
 records an <code>advances_open_target</code> edge.</p>
 </section>
 <section id="problem-map" class="level2">
-<h2>Problem <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></h2>
+<h2>Problem map</h2>
 <table>
 <colgroup>
 <col />
@@ -161,7 +161,7 @@ records an <code>advances_open_target</code> edge.</p>
 <tr>
 <td><strong>#68</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum _{n\ge 2}1/(n!-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c21">!</mjx-c></mjx-mo><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></munder><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mi>n</mi><mo>!</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span></td>
 <td>open</td>
-<td>problem-owned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a></td>
+<td>problem-owned checked reductions and finite evidence</td>
 </tr>
 <tr>
 <td><strong>#249</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum \varphi (n)/2^{n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D711">𝜑</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>/</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup></math></mjx-assistive-mml></mjx-container></span></td>
@@ -171,24 +171,24 @@ records an <code>advances_open_target</code> edge.</p>
 <tr>
 <td><strong>#257</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum _{n\in A}1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></munder><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span></td>
 <td>open</td>
-<td>open target with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> special cases</td>
+<td>open target with formalised special cases</td>
 </tr>
 <tr>
 <td><strong>#1041</strong> short curves in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">polynomial lemniscates</a></td>
 <td>open</td>
-<td>problem-owned dynamical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a></td>
+<td>problem-owned dynamical reductions and proof audit</td>
 </tr>
 <tr>
-<td><strong>#1049</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum 1/(t^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mi>t</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>
+<td><strong>#1049</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum 1/(t^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mi>t</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, rational
 <span class="math inline" data-term-auto="off" data-tex="\(t&gt;1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>&gt;</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span></td>
-<td>open (<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <span class="math inline" data-term-auto="off" data-tex="\(t\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math></mjx-assistive-mml></mjx-container></span>)</td>
-<td><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>-base <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> plus problem-owned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-base
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a></td>
+<td>open (rational <span class="math inline" data-term-auto="off" data-tex="\(t\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math></mjx-assistive-mml></mjx-container></span>)</td>
+<td>integer-base theorem plus problem-owned rational-base
+obstructions</td>
 </tr>
 <tr>
 <td><strong>#69</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum \omega (n)/2^{n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D714">𝜔</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mi>ω</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>/</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup></math></mjx-assistive-mml></mjx-container></span></td>
 <td>solved (Tao–Teräväinen)</td>
-<td>cited-only solved neighbour plus <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> identity bridge</td>
+<td>cited-only solved neighbour plus formalised identity bridge</td>
 </tr>
 <tr>
 <td><strong>#250</strong> <span class="math inline" data-term-auto="off" data-tex="\(\sum \sigma (n)/2^{n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D70E">𝜎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>/</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup></math></mjx-assistive-mml></mjx-container></span></td>
@@ -204,66 +204,66 @@ records an <code>advances_open_target</code> edge.</p>
 </table>
 </section>
 <section id="relation-in-this-repository" class="level2">
-<h2>Relation in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a></h2>
+<h2>Relation in this repository</h2>
 <ul>
 <li><strong>#68</strong> — the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md"><span data-term-preview-only data-term="factorial" data-term-auto="1">factorial</span>-carry
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md">factorial-carry
 note</a> routes to the exact <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">FactorialZeroPlateau
-source</a>: <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-factorial" data-term="factorial" data-term-auto="1">factorial</a>-successor and carry <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontiers</a>, structural
-consumers, and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> exclusion; open boundary: produce
-cofinally many non-unit carries, not merely one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> miss.</li>
+source</a>: factorial-successor and carry <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontiers</a>, structural
+consumers, and a finite denominator exclusion; open boundary: produce
+cofinally many non-unit carries, not merely one finite miss.</li>
 <li><strong>#249</strong> — the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md">problem-owned
-paper note</a> and <a href="source-map.html">canonical source <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>
-return the unconditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> exclusion and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-reduction" data-term="conditional_reduction" data-term-auto="1">conditional
+paper note</a> and <a href="source-map.html">canonical source map</a>
+return the unconditional denominator exclusion and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-reduction" data-term="conditional_reduction" data-term-auto="1">conditional
 reductions</a>. The new <a
 href="external-verification.html#programme-249">squared-Lambert/GCD-moment
 family</a> routes to the exact first-moment identity in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean#L235">GcdMomentCalculus</a>;
-it is an identity with no <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> consequence, so #249 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains
-open</a>.</li>
+it is an identity with no irrationality consequence, so #249 remains
+open.</li>
 <li><strong>#257</strong> — the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md">problem-owned
-paper note</a> and <a href="source-map.html">canonical source <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>
-return the named <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> cases and full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a>
+paper note</a> and <a href="source-map.html">canonical source map</a>
+return the named infinite-support cases and full support
 (<span class="math inline" data-term-auto="off" data-tex="\(A=\mathbb{N}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-TeXAtom space="4" texclass="ORD"><mjx-mi><mjx-c class="mjx-c2115 STX-DS">ℕ</mjx-c></mjx-mi></mjx-TeXAtom></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>=</mo><mrow data-mjx-texclass="ORD"><mi mathvariant="double-struck">N</mi></mrow></math></mjx-assistive-mml></mjx-container></span>), not the universal statement.</li>
 <li><strong>#243</strong> — the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md"><span data-term-preview-only data-term="reciprocal" data-term-auto="1">reciprocal</span>-tail
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-243-reciprocal-tail-rigidity.md">reciprocal-tail
 note</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897">ReciprocalTailRigidity
-source</a> exclude <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> negative-error regimes; open boundary: the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a> mixed-sign/negative-excursion regime.</li>
+source</a> exclude bounded negative-error regimes; open boundary: the
+unbounded mixed-sign/negative-excursion regime.</li>
 <li><strong>#251</strong> — the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md"><span data-term-preview-only data-term="prime" data-term-auto="1">prime</span>-gap
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-251-prime-gap-dyadic-series.md">prime-gap
 note</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">PrimeGapDyadicTail
 source</a> expose the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>-tail machinery; open boundary:
-cofinally many adjacent small tail shifts at <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indices</a> where <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a>
+cofinally many adjacent small tail shifts at indices where <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime-gap" data-term="prime_gap" data-term-auto="1">prime gaps</a>
 differ.</li>
 <li><strong>#269</strong> — the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-269-three-prime-running-lcm.md">running-lcm
 note</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">ThreePrimeRunningLcm
-source</a> expose exact three-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> identities and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>
-residue-escape route; open boundary: the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationality</a>-to-carry bridge and
+source</a> expose exact three-prime identities and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>
+residue-escape route; open boundary: the rationality-to-carry bridge and
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> window escape.</li>
-<li><strong>#1041</strong> — the paper-facing route <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> Newton-flow
-ray separation and perturbation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a>. The source-current <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md"><span data-term-preview-only data-term="frontier" data-term-auto="1">frontier</span> delta</a>
+<li><strong>#1041</strong> — the paper-facing route checks Newton-flow
+ray separation and perturbation lemmas. The source-current <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>
 additionally routes the surviving hub-selection, near-Fekete, perimeter,
-inverse-sheet, and degree-five <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premise</a> families through their exact
+inverse-sheet, and degree-five premise families through their exact
 public source notes; it also records the 2026-08-29 refutations that
 must not be rebuilt. The unrestricted topology, attachment-compatible
-selection, and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-metric" data-term="metric" data-term-auto="1">metric</a> gluing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>. Use the <a
+selection, and metric gluing remain open. Use the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/STRONGEST_RESULTS.json">machine
-result <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a> and <a
+result map</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">paper
-note</a> together, keeping the source-only <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> separate from
-reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.</li>
+note</a> together, keeping the source-only frontier separate from
+reviewed claim authority.</li>
 <li><strong>#1049</strong> — the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md"><span data-term-preview-only data-term="rational" data-term-auto="1">rational</span>-base
-note</a> and its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> source family — <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1049-rational-base-lambert.md">rational-base
+note</a> and its checked source family — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">RationalBaseLambert</a>
 for the <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> corridor and <span class="math inline" data-term-auto="off" data-tex="\(7/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c37">7</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>7</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> height input, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">ZudilinHeightRegion</a>
@@ -271,29 +271,29 @@ for the <span class="math inline" data-term-auto="off" data-tex="\(81/200\)" dat
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">RationalPadeArithmetic</a>
 and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">HermitePadeNoGo</a>
-for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> Padé arithmetic and comparison, and <a
+for finite Padé arithmetic and comparison, and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67">QAperyDiagonalNonEquivalence</a>
 for the moving-diagonal no-go, with <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286">ZudilinConeArithmetic</a>
-covering the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a>-unit common-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> — route distinct
-mechanisms without claiming <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a>-base case
+covering the endpoint-unit common-divisor obstruction — route distinct
+mechanisms without claiming irrationality. The integer-base case
 <span class="math inline" data-term-auto="off" data-tex="\(b\ge 2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> is <code>irrational_erdosSum_full_support</code>;
-open boundary: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>, the primitive
+open boundary: irrationality at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>, the primitive
 noncollapsed construction, and analytic remainder control.</li>
-<li><strong>#69</strong> — the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> case of #257; only the
-identity bridge to <span class="math inline" data-term-auto="off" data-tex="\(\sum _{p}1/(2^{p}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45D">𝑝</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45D">𝑝</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>p</mi></mrow></munder><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>p</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a>, not the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>.</li>
+<li><strong>#69</strong> — the prime-support case of #257; only the
+identity bridge to <span class="math inline" data-term-auto="off" data-tex="\(\sum _{p}1/(2^{p}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45D">𝑝</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45D">𝑝</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>p</mi></mrow></munder><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>p</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is formalised, not the
+irrationality.</li>
 <li><strong>#250</strong> — the ladder neighbour <code>L(Id)</code>;
 cited, not re-proved.</li>
 <li><strong>#258</strong> — not addressed here; the monotone φ/σ sequel
 is the sibling territory of #249.</li>
 </ul>
-<p>The one-line summary: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> settled special cases, exact
-structural <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> and scoped no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> across eight <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problems</a>, and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">finite certificates</a> whose quantifiers are stated
-explicitly. The degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> found by the
+<p>The one-line summary: formalised settled special cases, exact
+structural reductions and scoped no-go theorems across eight indexed
+open problems, and finite certificates whose quantifiers are stated
+explicitly. The degree-seven counterexample found by the
 erdosproblems.com contributor ani refutes the total-variation
-formulation of #1041 and is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> here; the other seven problems
+formulation of #1041 and is formalised here; the other seven problems
 are not resolved here.</p>
 </section>
 </section>

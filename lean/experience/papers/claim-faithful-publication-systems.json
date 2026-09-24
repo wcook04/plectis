@@ -6,10 +6,10 @@
   "subject_kind": "system",
   "form": "Research architecture",
   "pages": 20,
-  "question": "How does a research system turn agent work into inspectable mathematical claims?",
-  "precis": "Problem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.",
-  "owns": "the research architecture and its evidence and authority boundaries",
-  "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+  "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
+  "precis": "A problem-sized world keeps one open problem with its established results, failed routes, experiments, literature and exact open obligations: a short paper for an expert and a long record for whoever continues. Lean checks the formal proofs, Comparator checks that each selected proof establishes exactly its separately written statement, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight open Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and states what remains a mathematician's judgement.",
+  "owns": "the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle",
+  "not_authority_for": "the mathematics it uses as examples, which the problem papers own, or the novelty and significance of those results",
   "problem_id": null,
   "routes": {
     "html_mathml": "papers/claim-faithful-publication-systems.html",
@@ -27,8 +27,8 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 34,
-    "renderer_fingerprint": "832c62a7a87ab6fd",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "f4d15df6dc782e78",
     "source_sha256": "daf4b28f6e14fc79925dc46baed5e4630254f14dce96a8c88e50ca6738079e56",
     "source_manifest_match": true,
     "publication_manifest_match": true,
@@ -39,7 +39,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "42bdeb1ef1d94bb90b777ecf31e3c17f1c92fb3712582bcc2b7583a004d81ae8",
-    "html_exact_tex_sha256": "2cdc0fe1b395229800f982fa1d9eb13804ccb062efbf8d24e56e745f86c2044a"
+    "html_exact_tex_sha256": "faba73210594f98e9d9ba25bd1f8b74664b1375de8215fd066e19f34143677ba"
   },
   "sections": [
     {
@@ -293,8 +293,8 @@
     "provenance": "editorial selection for this guide",
     "sections": [
       {
-        "id": "sec:lifecycle",
-        "title": "The whole lifecycle in one picture",
+        "id": "sec:private",
+        "title": "The private workbench",
         "level": 2
       },
       {
@@ -303,13 +303,13 @@
         "level": 2
       },
       {
-        "id": "sec:example",
-        "title": "One complete boundary: finite is not unbounded",
+        "id": "sec:assurance",
+        "title": "Comparator, Palomar, and publication",
         "level": 2
       },
       {
-        "id": "sec:routes",
-        "title": "Inspection routes",
+        "id": "sec:example",
+        "title": "One complete boundary: finite is not unbounded",
         "level": 2
       },
       {

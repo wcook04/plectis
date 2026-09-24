@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/89eb30af843f47b4.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,17 +74,18 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Source map</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
-        <p class="doc-role-eyebrow">Source <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a></p>
+        <p class="doc-role-eyebrow">Source map</p>
         <h1>Source map</h1>
-        <p class="doc-source-line">Rendered from <code>docs/SOURCE_MAP.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/SOURCE_MAP.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -98,131 +98,131 @@ SPDX-License-Identifier: Apache-2.0
 <section class="level1 lean-doc-titled">
 
 <section id="bounded-reader-route" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounded</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> route</h2>
+<h2>Bounded reader route</h2>
 <p>Start from one mathematical question rather than decoding the
-complete import <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a>:</p>
+complete import graph:</p>
 <ol type="1">
-<li>Read <code>docs/orientation.json</code>, or its human <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a>
-<code>docs/ORIENTATION.md</code>, and select one programme, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, or
-exact remaining open <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>.</li>
-<li>Run one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> lookup:
+<li>Read <code>docs/orientation.json</code>, or its human projection
+<code>docs/ORIENTATION.md</code>, and select one programme, claim, or
+exact remaining open proposition.</li>
+<li>Run one bounded lookup:
 <code>python3 scripts/query_corpus.py --route &lt;programme_id&gt;</code>,
 <code>python3 scripts/query_corpus.py --claim &lt;claim_id&gt;</code>,
 or
 <code>python3 scripts/query_corpus.py --open &lt;remaining_open.id&gt;</code>.</li>
-<li>Follow the returned paper label into the authored <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> and its
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> or source handles into the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> grouped below.</li>
+<li>Follow the returned paper label into the authored exposition and its
+declaration or source handles into the modules grouped below.</li>
 <li>Read <code>Erdos249257.lean</code> or
-<code>ErdosProblems.lean</code> only when <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a> topology itself is the
+<code>ErdosProblems.lean</code> only when package topology itself is the
 question. Those root files now live under <code>lean/</code>. Read
 <code>docs/reference/WAVE_INDEX.md</code> for chronology, not as the
 recommended mathematical reading order.</li>
 </ol>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by the pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>.
-This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> is authored navigation: it does not strengthen a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, replace
+<p>Lean source checked by the pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> is proof authority.
+This map is authored navigation: it does not strengthen a claim, replace
 <code>docs/claims.json</code>, or close an exact remaining-open
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #249</a> and the universal form of #257 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>.</p>
+proposition. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #249</a> and the universal form of #257 remain open.</p>
 </section>
 <section id="source-result-and-comparator-spines" class="level2">
 <h2>Source result and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> spines</h2>
-<p>Use the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>-local <a
+<p>Use the repository-local <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json">result selection record</a> for two
 related reading orders. It records a possible <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar submission</a>, not an
-external service decision, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> count, or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>. Its
-<code>source_result_spine</code> leads with the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
-weighted #257 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrationality-criterion" data-term="irrationality_criterion" data-term-auto="1">irrationality criterion</a>, then the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a>
-Zudilin-region #1049 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> (including powers of 31/4),
-then ani’s degree-seven #1041 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> path-image statement. Universal arbitrary-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> #257 and
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-base #1049 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>; correspondence between the #1041 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>
+external service decision, claim count, or proof authority. Its
+<code>source_result_spine</code> leads with the checked finite-prime
+weighted #257 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrationality-criterion" data-term="irrationality_criterion" data-term-auto="1">irrationality criterion</a>, then the formalised
+Zudilin-region #1049 irrationality theorem (including powers of 31/4),
+then ani’s degree-seven #1041 counterexample to the exact Formal
+Conjectures path-image statement. Universal arbitrary-support #257 and
+rational-base #1049 remain open; correspondence between the #1041 formal
 statement and the 1958 wording awaits independent human review. The
-separate <code>candidate_ranking</code> orders <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>-qualified
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>. The generated <a
-href="external-verification.html#mathematical-signal-spine"><span data-term-preview-only data-term="verification" data-term-auto="1">verification</span>
-dossier</a> expands that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> spine with exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>,
+separate <code>candidate_ranking</code> orders Comparator-qualified
+declarations. The generated <a
+href="external-verification.html#mathematical-signal-spine">verification
+dossier</a> expands that Comparator spine with exact declarations,
 mechanisms, and boundaries. These selections are navigation and
-appraisal, not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> or novelty judgements;
-<code>docs/claims.json</code> and the named <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> sources own the exact
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">Support</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> producers stay subordinate.</p>
+appraisal, not proof authority or novelty judgements;
+<code>docs/claims.json</code> and the named Lean sources own the exact
+claims. Support lemmas and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> producers stay subordinate.</p>
 </section>
 <section id="source-current-frontier" class="level2">
 <h2>#1041 / source-current <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a></h2>
-<p>The current #1041 paper covers the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a>
-path-image Hausdorff refutation using ani’s degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-polynomial" data-term="polynomial" data-term-auto="1">polynomial</a>, a
-separate total-variation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a>, and Newton-flow results. <a
+<p>The current #1041 paper covers the exact Formal Conjectures
+path-image Hausdorff refutation using ani’s degree-seven polynomial, a
+separate total-variation counterexample, and Newton-flow results. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean">HausdorffLength</a>
-is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source for the path-image statement; <a
+is the Lean source for the path-image statement; <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean">CatalogueAdapter</a>
 is the source entry for
 <code>ani_degree_seven_total_variation_counterexample</code>.
 <code>docs/claims.json</code> records the exact statements and
 attribution. Independent review of correspondence with the 1958 wording
-remains outstanding. For the separate source-only research <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, start
+remains outstanding. For the separate source-only research corpus, start
 with the dated <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md"><span data-term-preview-only data-term="frontier" data-term-auto="1">frontier</span> delta</a>, then
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>, then
 use the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/STRONGEST_RESULTS.json">strongest-result
-<span data-term-preview-only data-term="map" data-term-auto="1">map</span></a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/CORPUS_MANIFEST.json"><span data-term-preview-only data-term="corpus" data-term-auto="1">corpus</span>
-<span data-term-preview-only data-term="manifest" data-term-auto="1">manifest</span></a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a> delta is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for rows refuted after
-the activation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> was generated; do not rebuild those rows merely
-because they remain in the machine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>.</p>
+map</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/CORPUS_MANIFEST.json">corpus
+manifest</a>. The frontier delta is the authority for rows refuted after
+the activation map was generated; do not rebuild those rows merely
+because they remain in the machine map.</p>
 <p>The high-signal reading routes are:</p>
 <ul>
 <li><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/AttachmentAwareReeb.md" data-link-kind="exogenous" rel="external noopener">hub
 selection and generic closure</a> → <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/GenericSufficiencyClosure.md">GenericSufficiencyClosure</a>:
 the surviving parent carrier is <span class="math inline" data-term-auto="off" data-tex="\(\min _{c}L(c)\le 2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo><mjx-c class="mjx-s-28b761e46797fae7 mjx-c6D" noic="true">m</mjx-c><mjx-c class="mjx-s-28b761e46797fae7 mjx-c69" noic="true">i</mjx-c><mjx-c class="mjx-s-28b761e46797fae7 mjx-c6E">n</mjx-c></mjx-mo><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mi space="2"><mjx-c class="mjx-c1D43F">𝐿</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo data-mjx-texclass="OP" movablelimits="true">min</mo><mrow data-mjx-texclass="ORD"><mi>c</mi></mrow></munder><mi>L</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>≤</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> on the
-ray-separated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a>, followed by lower-semicontinuity closure.</li>
+ray-separated locus, followed by lower-semicontinuity closure.</li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">quantitative
-Fekete stability and radial/angular <span data-term-preview-only data-term="reduction" data-term-auto="1">reduction</span></a> → <a
+Fekete stability and radial/angular reduction</a> → <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md">degree-five
 sharpened cuts</a>: the new tools localise the residual, but do not
-prove the degree-five or unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</li>
+prove the degree-five or unrestricted theorem.</li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/PartialClusterPreimagePerimeterIdentity.md">partial-cluster
 perimeter identity</a> → <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/TiedNewtonFaceFibreProduct.md">tied-fibre
-moment hierarchy</a>: these are exact geometric/algebraic <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premises</a> for
+moment hierarchy</a>: these are exact geometric/algebraic premises for
 future selection work, not a completed compatible-root selector.</li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/ExteriorRootProductCovering.md">new
-exterior-root <span data-term-preview-only data-term="product" data-term-auto="1">product</span> covering</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/SeparatrixAggregateReduction.md"><span data-term-preview-only data-term="separatrix" data-term-auto="1">separatrix</span>
-aggregate <span data-term-preview-only data-term="reduction" data-term-auto="1">reduction</span></a>: read their explicit hypotheses and refutations
+exterior-root product covering</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/SeparatrixAggregateReduction.md">separatrix
+aggregate reduction</a>: read their explicit hypotheses and refutations
 before treating either as a parent route.</li>
 </ul>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">current
-paper</a> links its statements to their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>. The separate
-research <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> is not part of <code>docs/claims.json</code>’s reviewed
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>: its files preserve source-level <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premises</a>, computations,
-no-go results, and open boundaries. The exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a>
+paper</a> links its statements to their Lean declarations. The separate
+research corpus is not part of <code>docs/claims.json</code>’s reviewed
+claim authority: its files preserve source-level premises, computations,
+no-go results, and open boundaries. The exact Formal Conjectures
 path-image statement is refuted; the historical wording has not been
-independently adjudicated. The separate research <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> still records
+independently adjudicated. The separate research corpus still records
 open geometric continuations in <code>FRONTIER.md</code>, which must be
-read before new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> search.</p>
+read before new proof search.</p>
 </section>
 <section id="complete-eight-problem-return-matrix" class="level2">
-<h2>Complete eight-problem return <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-matrix" data-term="matrix" data-term-auto="1">matrix</a></h2>
-<p>The per-problem <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json" data-link-kind="exogenous" rel="external noopener">machine <span data-term-preview-only data-term="index" data-term-auto="1">index</span></a> lists
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> entry points, papers and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">open obligations</a>. The <a
+<h2>Complete eight-problem return matrix</h2>
+<p>The per-problem <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json" data-link-kind="exogenous" rel="external noopener">machine index</a> lists
+module entry points, papers and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">open obligations</a>. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json">problem library</a> expands each programme
-into its papers and transitive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>. Expand each row’s
+into its papers and transitive Lean source map. Expand each row’s
 <code>what_is_checked</code> and <code>what_is_not_checked</code> fields
 before treating one source entry as the whole result inventory: they are
-the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> ceiling, not additional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. This single <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-matrix" data-term="matrix" data-term-auto="1">matrix</a> makes
+the evidence ceiling, not additional claims. This single matrix makes
 the same route bidirectional: start at a public problem id, reach source
-entry points and the paper record, then use the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> handles to
-resume the open boundary; a paper or source <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a> can return with the
+entry points and the paper record, then use the exact index handles to
+resume the open boundary; a paper or source reader can return with the
 <code>--route</code> command in the second column. Use
 <code>claim_registration.registered_claim_ids</code> to reach each
-registered statement’s status and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> in
-<code>docs/claims.json</code>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> or library containing a
-statement does not determine its review status. Unlisted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>
-acquire no public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> status from their neighbours. For #249 and #257,
-follow the reviewed core routes as well as the problem-owned <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>.</p>
+registered statement’s status and declarations in
+<code>docs/claims.json</code>. The module or library containing a
+statement does not determine its review status. Unlisted declarations
+acquire no public claim status from their neighbours. For #249 and #257,
+follow the reviewed core routes as well as the problem-owned index.</p>
 <table>
 <colgroup>
 <col />
@@ -287,7 +287,7 @@ explanation</a></td>
 </tr>
 <tr>
 <td>#251</td>
-<td><code>python3 scripts/query_corpus.py --route erdos_251</code><br><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a>
+<td><code>python3 scripts/query_corpus.py --route erdos_251</code><br>Palomar
 family spine (run
 <code>python3 scripts/query_semantic.py family-relations &lt;family_id&gt;</code>):
 <code>prime_gap_reformulation</code> →
@@ -321,7 +321,7 @@ source</a></td>
 </tr>
 <tr>
 <td>#269</td>
-<td><code>python3 scripts/query_corpus.py --route erdos_269</code><br><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a>
+<td><code>python3 scripts/query_corpus.py --route erdos_269</code><br>Palomar
 family spine (run
 <code>python3 scripts/query_semantic.py family-relations &lt;family_id&gt;</code>):
 <code>conditional_carry_escape</code> →
@@ -351,7 +351,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdo
 · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"><code>NewtonFlowRaySeparation.lean</code></a></td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md" data-link-kind="exogenous" rel="external noopener">dated
-<span data-term-preview-only data-term="frontier" data-term-auto="1">frontier</span></a> → <a
+frontier</a> → <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">paper
 note</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex">TeX
@@ -386,7 +386,7 @@ they read here:</p>
 <li><strong>#243</strong> — <code>unbounded_negative_excursions</code>;
 <code>derive_negative_part_bound</code>;
 <code>formalise_the_published_criteria</code></li>
-<li><strong>#249</strong> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">Index</a>:
+<li><strong>#249</strong> — Index:
 <code>strict_prime_tail_orbit_gap</code>;
 <code>hankel_denominator_fan_in</code>;
 <code>euler_sieve_limit_theorem</code>;
@@ -401,7 +401,7 @@ they read here:</p>
 <li><strong>#251</strong> — <code>prime_gap_cofinal_shift_escape</code>;
 <code>cofinal_adjacent_small_mismatch</code>;
 <code>actual_prime_gap_tail_formal_bridge</code></li>
-<li><strong>#257</strong> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">Index</a>:
+<li><strong>#257</strong> — Index:
 <code>arithmetic_rigidity_for_thin_supports</code>;
 <code>formalise_measure_and_stride_geometry</code>. Reviewed:
 <code>remaining_open.half_value_membership</code>;
@@ -420,9 +420,9 @@ they read here:</p>
 <li><strong>#1049</strong> —
 <code>three_halves_growing_rank_endpoint_jet_kernel</code></li>
 </ul>
-<p>From a reviewed route, use the registered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> or paper-anchor query
-to travel back to exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a>; use the open query for the
-registered unresolved boundary rather than treating a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> special
+<p>From a reviewed route, use the registered claim or paper-anchor query
+to travel back to exact Lean declarations; use the open query for the
+registered unresolved boundary rather than treating a checked special
 case as a solution:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--claim</span> <span class="op">&lt;</span>claim_id<span class="op">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/query_corpus.py <span class="at">--paper-anchor</span> <span class="op">&lt;</span>TeX_label_or_source_ref<span class="op">&gt;</span></span>
@@ -433,20 +433,20 @@ case as a solution:</p>
 <ul>
 <li><code>Erdos249257.lean</code></li>
 <li><code>ErdosProblems.lean</code></li>
-<li>Lake <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>: <code>erdos249257</code></li>
-<li><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> libraries / stable root imports: <code>Erdos249257</code>,
+<li>Lake package: <code>erdos249257</code></li>
+<li>Lean libraries / stable root imports: <code>Erdos249257</code>,
 <code>ErdosProblems</code></li>
 </ul>
-<p><code>Erdos249257</code> is the reviewed #249/#257 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.
+<p><code>Erdos249257</code> is the reviewed #249/#257 corpus.
 <code>ErdosProblems</code> is the problem-owned expansion surface;
-unregistered <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> there remain exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> rather
-than reviewed public mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
+unregistered declarations there remain exact Lean propositions rather
+than reviewed public mathematical claims.</p>
 </section>
 <section id="erdősborwein-families" class="level2">
-<h2>#257 / <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>–Borwein families</h2>
+<h2>#257 / Erdős–Borwein families</h2>
 <ul>
 <li><code>Erdos249257.CertificateKernel</code></li>
-<li>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li>Relevant declarations include:
 <code>irrational_erdosSum_full_support</code>,
 <code>irrational_erdosBorwein_series</code>,
 <code>irrational_erdosSum_factorial_support</code>,
@@ -455,7 +455,7 @@ than reviewed public mathematical <a class="narrative-ref narrative-ref--term is
 </ul>
 </section>
 <section id="periodic-weighted-lambert-series" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">Periodic</a> weighted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a></h2>
+<h2>Periodic weighted <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a></h2>
 <ul>
 <li><code>Erdos249257.CertificateKernel</code></li>
 <li>Nonnegative weights:
@@ -464,81 +464,81 @@ than reviewed public mathematical <a class="narrative-ref narrative-ref--term is
 <code>irrational_ratWeightSeries_eventuallyPeriodic</code>.</li>
 <li>Signed weights:
 <code>irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic</code>
-gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>-or-base-terminating dichotomy, while
+gives the irrational-or-base-terminating dichotomy, while
 <code>irrational_intWeightedErdosSeries_periodic_of_bpow_mul_ne_intCast</code>
-consumes an explicit nontermination <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>.</li>
+consumes an explicit nontermination hypothesis.</li>
 <li><code>intWeightedCoeff_periodFourSignWeight_eq_zero_of_mod_four_eq_three</code>
-is the residue-selection <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> explaining why the signed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a>
-is not unconditional <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>.</li>
+is the residue-selection obstruction explaining why the signed endpoint
+is not unconditional irrationality.</li>
 </ul>
 </section>
 <section id="totient-denominator-exclusions" class="level2">
-<h2>#249 / <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-denominator" data-term="denominator" data-term-auto="1">denominator</a> exclusions</h2>
+<h2>#249 / <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> denominator exclusions</h2>
 <ul>
 <li><p><code>Erdos249257.GapFareyBound</code></p></li>
 <li><p><code>Erdos249257.CertificateKernel</code></p></li>
 <li><p><strong>Visible-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> lattice mass</strong>
 (<code>totient_visible_coprime_lattice_mass</code>) — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean#L349"><code>tsum_pos_coprime_inv_mersenne_eq_one</code></a>
-proves that the positive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> weights on the visible lattice
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> exactly to one. This is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> normalization behind the
-fair-coin <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprimality</a> form of #249, not an <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> result. Follow
+proves that the positive coprime <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> weights on the visible lattice
+sum exactly to one. This is the rational normalization behind the
+fair-coin coprimality form of #249, not an irrationality result. Follow
 the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.">individual-paper
-explanation</a> or the reviewed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> route
+explanation</a> or the reviewed claim route
 <code>python3 scripts/query_corpus.py --claim stern_brocot_cylinder_law</code>;
 both expose the explanation and reverse source links. The exact boundary
 is unchanged: this identity does not settle #249.</p></li>
-<li><p><strong>All-base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a>-kernel <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>, spanning, and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> rank</strong>
+<li><p><strong>All-base totient-kernel reduction, spanning, and
+conditional rank</strong>
 (<code>all_base_totient_kernel_index_reduction</code>) — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean#L102"><code>TotientKernelConditional.lean</code></a>
-gives the unconditional canonical spanning <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, while <a
+gives the unconditional canonical spanning theorem, while <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean#L215"><code>finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent</code></a>
 gives rank <span class="math inline" data-term-auto="off" data-tex="\(k^{e}+1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mi><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>k</mi><mrow data-mjx-texclass="ORD"><mi>e</mi></mrow></msup><mo>+</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> only under the explicit
-linear-independence <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>. That independence, and Martin’s external
-positive-density <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, are not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a> here; this algebraic
-boundary does not prove <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> of #249. Retrieve the full
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>/source record with
+linear-independence hypothesis. That independence, and Martin’s external
+positive-density theorem, are not formalised here; this algebraic
+boundary does not prove irrationality of #249. Retrieve the full
+claim/source record with
 <code>python3 scripts/query_corpus.py --claim all_base_totient_kernel_index_reduction</code>,
-then return to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a> with
+then return to the open problem with
 <code>python3 scripts/query_corpus.py --route erdos_249</code>.</p></li>
-<li><p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">Prime</a>-ray cyclotomic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> escape</strong>
+<li><p><strong>Prime-ray cyclotomic support escape</strong>
 (<code>prime_ray_resultant_supply</code>) — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PrimeRayCyclotomicCurvature.lean#L95"><code>PrimeRayCyclotomicCurvature.lean</code></a>
-turns <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>-degree order <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisibility" data-term="divisibility" data-term-auto="1">divisibility</a> and eventual nontrivial clean
-layers into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> escape and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisors</a>.
-Its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> order is an existence of an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not exact
-order. The actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> layer/resultant bridge and the route from
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> or carry escape <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>; the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a>-only instantiation in
+turns bounded-degree order divisibility and eventual nontrivial clean
+layers into finite-support escape and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> unbounded prime divisors.
+Its bounded order is an existence of an exponent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>, not exact
+order. The actual totient layer/resultant bridge and the route from
+unbounded prime support to certificate or carry escape remain open; the
+Mersenne-only instantiation in
 <code>CyclotomicAnchoredKill.lean:33-105</code> does not close #249 or
 justify novelty.</p></li>
-<li><p><strong>Tail-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a> phase-density and natural-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a></strong> (<code>strict_prime_tail_orbit_gap</code>) — <a
+<li><p><strong>Tail-orbit phase-density and natural-prime strict-gap
+reductions</strong> (<code>strict_prime_tail_orbit_gap</code>) — <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L25"><code>TotientStrictPrimeEscape.lean</code></a>
-makes the two producer <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a> explicit: an <span class="math inline" data-term-auto="off" data-tex="\(11/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>11</mn><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span>
-nonpositive-phase density on arbitrarily late <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> blocks <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> an
-<span class="math inline" data-term-auto="off" data-tex="\(89/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>89</mn><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span> first-harmonic block saving, while the natural-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>
+makes the two producer interfaces explicit: an <span class="math inline" data-term-auto="off" data-tex="\(11/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>11</mn><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span>
+nonpositive-phase density on arbitrarily late <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> blocks implies an
+<span class="math inline" data-term-auto="off" data-tex="\(89/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>89</mn><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span> first-harmonic block saving, while the natural-prime
 strict-gap predicate gives a pointwise <span class="math inline" data-term-auto="off" data-tex="\(9/10\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>9</mn><mo>/</mo><mn>10</mn></math></mjx-assistive-mml></mjx-container></span> pivot escape
 through the wrapper
 <code>Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap</code>.
-The same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> records the exact phase update <a
+The same module records the exact phase update <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L167"><code>tailOrbitFirstExp_succ</code></a>:
-after the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> carry disappears under exponentiation, the first phase
-evolves by squaring. This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>-mechanism <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> only; it supplies
-none of the density, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap, or uniform-margin
-hypotheses. The density, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> strict-gap, and positive
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-truncation" data-term="finite_truncation" data-term-auto="1">truncation</a>-margin producers are unproved for the actual <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-orbit" data-term="orbit" data-term-auto="1">orbit</a>.
-This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>/<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> only: it does
-not close #249, duplicate the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+after the integer carry disappears under exponentiation, the first phase
+evolves by squaring. This is orbit-mechanism evidence only; it supplies
+none of the density, cofinal prime strict-gap, or uniform-margin
+hypotheses. The density, cofinal prime strict-gap, and positive
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-truncation" data-term="finite_truncation" data-term-auto="1">truncation</a>-margin producers are unproved for the actual totient orbit.
+This is conditional certificate/irrationality reduction only: it does
+not close #249, duplicate the finite
 <code>first_harmonic_pivot_decomposition</code> or
 <code>actual_lcm_orbit_separation</code> families, or justify novelty,
 priority, significance, or external review.</p></li>
 </ul>
 </section>
 <section id="certificate-reductions" class="level2">
-<h2>#249 / <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a></h2>
+<h2>#249 / certificate reductions</h2>
 <ul>
 <li><code>Erdos249257.TotientTailPeriodKiller</code></li>
 <li><code>Erdos249257.CarrySurvivorExtinction</code></li>
@@ -546,7 +546,7 @@ priority, significance, or external review.</p></li>
 <li><code>Erdos249257.LcmConeFlatness</code></li>
 <li><code>Erdos249257.LcmConeNonflat</code></li>
 </ul>
-<p>Supporting ladder <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>:</p>
+<p>Supporting ladder modules:</p>
 <ul>
 <li><code>Erdos249257.MersenneLambertLadder</code></li>
 <li><code>Erdos249257.GeometricCoprimality</code></li>
@@ -554,31 +554,31 @@ priority, significance, or external review.</p></li>
 </ul>
 </section>
 <section id="diagonal-pincer-frontier" class="level2">
-<h2>#249 / diagonal pincer <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-frontier" data-term="frontier" data-term-auto="1">frontier</a></h2>
-<p>Read this band after the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> above. It sharpens
-the same <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">open obligation</a>; it does not prove the required <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a>
+<h2>#249 / diagonal pincer frontier</h2>
+<p>Read this band after the certificate reductions above. It sharpens
+the same open obligation; it does not prove the required unbounded
 supply.</p>
 <ul>
 <li><code>Erdos249257.DiagonalPincerDecomposition</code> — exact
 full-target interval characterisation and the
-target-avoidance-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a>.</li>
+target-avoidance-to-irrationality reduction.</li>
 <li><code>Erdos249257.SquaredMersenneDiagonalEnclosure</code> —
 Lambert-projected centre, exact signed square tail, and a sharp
 separation criterion.</li>
 <li><code>Erdos249257.DiagonalFreshLossBridge</code> — exact fresh-loss
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-projection" data-term="projection" data-term-auto="1">projection</a> and stronger adjacent-suffix supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a>.</li>
+projection and stronger adjacent-suffix supply interfaces.</li>
 <li><code>Erdos249257.DiagonalPincerCertificates</code> and
 <code>Erdos249257.DiagonalPincerCertificatesT*</code>, followed by
 <code>ErdosProblems.Lift</code> and <code>ErdosProblems.Skip</code> —
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> diagonal segment supplies a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> working depth for every
+the finite diagonal segment supplies a checked working depth for every
 natural <span class="math inline" data-term-auto="off" data-tex="\(t\le 82\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>≤</mo><mn>82</mn></math></mjx-assistive-mml></mjx-container></span>; it supplies nothing at <span class="math inline" data-term-auto="off" data-tex="\(t=83\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33">3</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mn>83</mn></math></mjx-assistive-mml></mjx-container></span>.
-This is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> source extraction, not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> or asymptotic
+This is finite source extraction, not a cofinal or asymptotic
 result.</li>
-<li><code>Erdos249257.DiagonalPincerPrimeCertificates.*</code> — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards used by that assembled segment; read the
+<li><code>Erdos249257.DiagonalPincerPrimeCertificates.*</code> — finite
+prime certificate shards used by that assembled segment; read the
 aggregators first.</li>
 </ul>
-<p>Algebraic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> for the same band:</p>
+<p>Algebraic support for the same band:</p>
 <ul>
 <li><code>MersenneShadowCyclotomicNoncollapse → MersenneShadowDenominatorGrowth</code></li>
 <li><code>RadicalMobiusShadow → RepunitMobiusNumerator → CyclicTensorMobiusShadow</code></li>
@@ -587,7 +587,7 @@ aggregators first.</li>
 <code>LambertDiagonalEnclosure</code>, and
 <code>FullTargetPrimeAdjunctionNoGo</code></li>
 </ul>
-<p>Exploratory exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a> with explicit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> boundaries
+<p>Exploratory exact interfaces with explicit conditional boundaries
 live in <code>PrimitiveRationalGapSupply</code>,
 <code>PrimitiveSupportBridge</code>,
 <code>ActualForeignResidueProjection</code>,
@@ -597,65 +597,65 @@ live in <code>PrimitiveRationalGapSupply</code>,
 <h3>Transport and curvature companion band</h3>
 <p>Read
 <code>CurvatureCarry → ExponentOnlyTransport → JointExponentTransport</code>
-for the main <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> spine, then
+for the main proof spine, then
 <code>PrimeJumpMigration → PrimeJumpWindow</code> and
-<code>ThreeTransportBoundary</code> for the new-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> and balanced
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> consumers. For the harmonic route, read
+<code>ThreeTransportBoundary</code> for the new-prime and balanced
+finite consumers. For the harmonic route, read
 <code>FirstHarmonicGap → FirstHarmonicPivot → AdjacentPhaseSeparation</code>.
-<code>FirstHarmonicGap</code> turns a constant-saving cosine <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> into
-a direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>. <code>FirstHarmonicPivot</code> decomposes the
-complex harmonic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> exactly into centred supplier-fibre, fibre-mean,
+<code>FirstHarmonicGap</code> turns a constant-saving cosine bound into
+a direct certificate. <code>FirstHarmonicPivot</code> decomposes the
+complex harmonic sum exactly into centred supplier-fibre, fibre-mean,
 bad-supplier, and non-supplier terms; the one-sided budgets
 <span class="math inline" data-term-auto="off" data-tex="\(14X/25\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-04b4ae50c2ef8166 mjx-c34">4</mjx-c></mjx-mn><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c35">5</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>14</mn><mi>X</mi><mo>/</mo><mn>25</mn></math></mjx-assistive-mml></mjx-container></span>, <span class="math inline" data-term-auto="off" data-tex="\(X/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span>, <span class="math inline" data-term-auto="off" data-tex="\(X/100\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi><mo>/</mo><mn>100</mn></math></mjx-assistive-mml></mjx-container></span>, and
 <span class="math inline" data-term-auto="off" data-tex="\(8X/25\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c38">8</mjx-c></mjx-mn><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c35">5</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>8</mn><mi>X</mi><mo>/</mo><mn>25</mn></math></mjx-assistive-mml></mjx-container></span> give the required <span class="math inline" data-term-auto="off" data-tex="\(9X/10\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c39">9</mjx-c></mjx-mn><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-53edfa0366f0a08e mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>9</mn><mi>X</mi><mo>/</mo><mn>10</mn></math></mjx-assistive-mml></mjx-container></span> saving.
 <code>AdjacentPhaseSeparation</code> gives a pairwise alternative. No
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> harmonic, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-distribution, or decorrelation estimate is
+cofinal harmonic, prime-distribution, or decorrelation estimate is
 proved. <code>TropicalCurvatureCarry</code> is a proved negative result
-showing that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> valuation–unit precision alone cannot exclude all
+showing that bounded valuation–unit precision alone cannot exclude all
 centred completions.</p>
 <ul>
 <li><code>CurvatureCarry</code> — exact curvature window, sharp radius,
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">unbounded</a>-supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoints</a>.</li>
-<li><code>ExponentOnlyTransport</code> — <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> stability
-and the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-periodic" data-term="periodic" data-term-auto="1">periodic</a> affine slope/intercept state.</li>
+recurrence, and conditional unbounded-supply endpoints.</li>
+<li><code>ExponentOnlyTransport</code> — <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> support stability
+and the exact periodic affine slope/intercept state.</li>
 <li><code>JointExponentTransport</code> — universal two-moment
 old-channel annihilation and the anchored <span class="math inline" data-term-auto="off" data-tex="\((3,5)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> four-vertex
 consumer.</li>
 <li><code>PrimeJumpMigration</code> / <code>PrimeJumpWindow</code> —
-migrated-channel correction, sharp direct radius, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
-<span class="math inline" data-term-auto="off" data-tex="\((12,5,15)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c35">5</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>12</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>15</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
+migrated-channel correction, sharp direct radius, and the finite
+<span class="math inline" data-term-auto="off" data-tex="\((12,5,15)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-4b34eef2714ce5d5 mjx-c35">5</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>12</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>15</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> certificate.</li>
 <li><code>ThreeTransportBoundary</code> — balanced
-<span class="math inline" data-term-auto="off" data-tex="\((1,2,3,6)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c36">6</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> consumer and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> <span class="math inline" data-term-auto="off" data-tex="\((60,12)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c30">0</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>60</mn><mo>,</mo><mn>12</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
-<li><code>FirstHarmonicGap</code> — <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-deterministic" data-term="deterministic" data-term-auto="1">deterministic</a> conversion of a
-blockwise harmonic gap into a direct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</li>
+<span class="math inline" data-term-auto="off" data-tex="\((1,2,3,6)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c36">6</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> consumer and the finite <span class="math inline" data-term-auto="off" data-tex="\((60,12)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-0c0e77440e5ab419 mjx-c30">0</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>60</mn><mo>,</mo><mn>12</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>
+certificate.</li>
+<li><code>FirstHarmonicGap</code> — deterministic conversion of a
+blockwise harmonic gap into a direct certificate.</li>
 <li><code>FirstHarmonicPivot</code> — exact four-term complex pivot
-decomposition and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a> budget-to-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>
+decomposition and a conditional cofinal budget-to-irrationality
 socket.</li>
 <li><code>TropicalCurvatureCarry</code> — fixed-precision
-local-signature no-go <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</li>
+local-signature no-go theorem.</li>
 </ul>
-<p>The former one-sided transport companion is retired. Its exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
+<p>The former one-sided transport companion is retired. Its exact Lean
 results remain available through the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> and source routes;
 no separate active manuscript or rendered companion is part of this
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>.</p>
+release.</p>
 </section>
 <section id="paper-curation-boundary" class="level3">
 <h3>Paper-curation boundary</h3>
 <p>The paper treats <code>GcdMomentCalculus</code> as supporting
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">mathematical exposition</a>: its squared Lambert transform, gcd moments,
+mathematical exposition: its squared Lambert transform, gcd moments,
 reduced-direction law, and cylinder recursion explain the representation
 containing the #249 Möbius-square atom.
 <code>FullTargetPrimeAdjunctionNoGo</code> is included as a proved
-negative result because it closes a recurring <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-adjunction strategy
-without changing the open <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>. <code>SternBrocotRunGeometry</code> is
-registered as a source-level supporting <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>: its continuant/Fibonacci
-stability <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> are stated in the Lambert complements, but no
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a> argument currently consumes them. It therefore remains outside
+negative result because it closes a recurring prime-adjunction strategy
+without changing the open claim. <code>SternBrocotRunGeometry</code> is
+registered as a source-level supporting claim: its continuant/Fibonacci
+stability theorems are stated in the Lambert complements, but no
+endpoint argument currently consumes them. It therefore remains outside
 the paper’s principal result spine; the cylinder law is owned by
 <code>GcdMomentCalculus</code>, while
 <code>SternBrocotRunGeometry</code> owns the induced-run stability
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>.</p>
+package.</p>
 </section>
 </section>
 <section id="binary-carry-trunk-post-wave-carry-layer" class="level2">
@@ -665,13 +665,13 @@ wave chronology. Reading order:
 <code>GenericTailOrbitRigidity → GreedyAchievementSet → CampbellShiftSynchronization → BooleanMobiusCarry → RationalSupportCarrySkeleton → DyadicPrefixCompression → SublogDivisorCoverage</code>.</p>
 <ul>
 <li><p><code>Erdos249257.GenericTailOrbitRigidity</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>temperedBinaryOrbit_eq_scaledTail</code>,
 <code>binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit</code>,
 <code>balancedPulse_fanout_unbounded</code>,
 <code>balancedPulse_no_autonomous_decoder</code></p></li>
 <li><p><code>Erdos249257.GreedyAchievementSet</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>volume_mersenneAchievementSet</code>,
 <code>perfect_mersenneAchievementSet</code>,
 <code>isNowhereDense_mersenneAchievementSet</code>,
@@ -680,94 +680,94 @@ wave chronology. Reading order:
 <code>three_fourths_not_mem_mersenneAchievementSet</code>,
 <code>rational_member_support_bit_iff</code>,
 <code>half_mem_mersenneAchievementSet_of_prefixForcingChain</code>
-(<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interface</a> only)</p></li>
+(conditional interface only)</p></li>
 <li><p><code>Erdos249257.CampbellShiftSynchronization</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>campbellQuarterExponent_periodFreeze_noSync</code>,
 <code>campbellPhaseFreeze_parameters_impossible</code>,
 <code>shiftWindowZero_iff_greedyMersenneSkippedSupport_infinite</code>,
 and <code>shiftWindowZero_iff_half_mem_mersenneAchievementSet</code>.
-These are a synchronization no-go and an exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a> re-expression,
+These are a synchronization no-go and an exact endpoint re-expression,
 not an independent half-membership producer.</p></li>
 <li><p><code>Erdos249257.BooleanMobiusCarry</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>erdosSupportSeries_rational_iff_exists_temperedCarry</code>,
 <code>support_fraction_iff_exists_temperedCarry</code>,
 <code>exists_normalized_support_fraction_iff_exists_booleanMobiusCarry</code>,
 <code>mobius_carryQuotient_recovers_support</code>,
 <code>support_half_iff_affineBinaryOrbit_tempered</code></p></li>
 <li><p><code>Erdos249257.RationalSupportCarrySkeleton</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>sum_doublingResidue_eq_mul_wrapCount</code>,
 <code>one_div_oddOrder_le_reciprocalMass_of_support_fraction</code>,
 <code>reciprocalMass_eq_residueMean_add_excessMean</code>,
 <code>dyadic_support_fraction_reciprocalMass_diverges_or_gt_one</code>,
 <code>exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction</code></p></li>
 <li><p><code>Erdos249257.DyadicPrefixCompression</code></p></li>
-<li><p>This is #257 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a>, not part of the #249 diagonal band. It
-gives exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-fragment <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> compression inside a hypothetical
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> value, reduced/raw block-safety coordinates,
-primitive-lattice and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a>-tail-gap <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalences</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>
-half-membership consumers, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> failures of naive <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematical-induction" data-term="mathematical_induction" data-term-auto="1">induction</a>.
+<li><p>This is #257 support, not part of the #249 diagonal band. It
+gives exact finite-fragment dyadic compression inside a hypothetical
+dyadic-rational support value, reduced/raw block-safety coordinates,
+primitive-lattice and support-tail-gap equivalences, conditional
+half-membership consumers, and checked failures of naive induction.
 Start with <code>finiteFragment_dyadicPrefixCompression</code>,
 <code>halfGreedyThreeDepthTakeRunExcessBound_iff_skippedExcessBound</code>,
 <code>greedyHalf_badSkipCapViolation_iff_primitiveLattice</code>,
 <code>halfGreedyPrefixSupportTailGap_eq_excess_div_denominator</code>,
-and <code>unsafeSkipGcdOvershootSupply_iff_primitive</code>. No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-cofinal" data-term="cofinal" data-term-auto="1">cofinal</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a> supply is proved.</p></li>
+and <code>unsafeSkipGcdOvershootSupply_iff_primitive</code>. No cofinal
+witness supply is proved.</p></li>
 <li><p><code>Erdos249257.SublogDivisorCoverage</code></p></li>
-<li><p>Relevant <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> include:
+<li><p>Relevant declarations include:
 <code>supportCoeffZeroWindow_length_le_eps_logb_add</code></p></li>
 </ul>
 </section>
 <section id="half-value-finite-prefix-and-boundary-analysis"
 class="level2">
-<h2>Half-value <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-prefix and boundary analysis</h2>
+<h2>Half-value finite-prefix and boundary analysis</h2>
 <p>This band studies the test value <span class="math inline" data-term-auto="off" data-tex="\(1/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> in ordinary
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-prefix language. A greedy prefix is the first <span class="math inline" data-term-auto="off" data-tex="\(n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></mjx-assistive-mml></mjx-container></span>
-include/skip decisions. A seam is a pair of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> words whose values
-bracket <span class="math inline" data-term-auto="off" data-tex="\(1/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>. A cylinder is the set of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> extensions
-of one fixed prefix. A producer is an unproved <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> that supplies
-the required seams or return <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configurations</a> arbitrarily far out.</p>
+finite-prefix language. A greedy prefix is the first <span class="math inline" data-term-auto="off" data-tex="\(n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></mjx-assistive-mml></mjx-container></span>
+include/skip decisions. A seam is a pair of finite words whose values
+bracket <span class="math inline" data-term-auto="off" data-tex="\(1/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>. A cylinder is the set of infinite extensions
+of one fixed prefix. A producer is an unproved hypothesis that supplies
+the required seams or return configurations arbitrarily far out.</p>
 <p>Read the band in four layers:</p>
 <ol type="1">
 <li><code>GreedyAchievementSet → HalfCutLocator</code> defines the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a>, greedy coding, and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> cut around
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a>, greedy coding, and the finite cut around
 <span class="math inline" data-term-auto="off" data-tex="\(1/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>.</li>
 <li><code>HalfCarryReachability → HalfCylinderFiniteShadow</code>
-translates <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> prefixes into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> carry and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-shadow
+translates finite prefixes into integer carry and finite-shadow
 coordinates.</li>
 <li><code>HalfCylinderIntegerGreedy → HalfCylinderConcreteSeamAdapter → HalfCylinderFullShellSeamBridge → HalfCylinderSkippedEndpointClassifier → HalfCylinderFloorErrorReset → HalfCylinderSeamLimit</code>
-develops the exact boundary arithmetic and limiting seam <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interface</a>.</li>
+develops the exact boundary arithmetic and limiting seam interface.</li>
 <li><code>HalfCylinderFatalGapRightTail → HalfCylinderHalfMembershipClassification → HalfCylinderLastProducerContradiction → HalfCylinderMiddleCarryLowerBound</code>
-gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a> classification, eliminates the upper and
+gives the endpoint classification, eliminates the upper and
 <span class="math inline" data-term-auto="off" data-tex="\(-3\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>3</mn></math></mjx-assistive-mml></mjx-container></span> middle cases, and isolates the remaining carry-tail
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> for <span class="math inline" data-term-auto="off" data-tex="\(-2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> and <span class="math inline" data-term-auto="off" data-tex="\(-1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>.</li>
+inequality for <span class="math inline" data-term-auto="off" data-tex="\(-2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> and <span class="math inline" data-term-auto="off" data-tex="\(-1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>.</li>
 </ol>
-<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-floor-function" data-term="floor_function" data-term-auto="1">floor</a>-error and shell <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> are supporting arithmetic layers,
-not separate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a>. The last layer remains <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>: no
-producer supplying the required <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configurations</a> cofinally is proved.</p>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-floor-function" data-term="floor_function" data-term-auto="1">floor</a>-error and shell modules are supporting arithmetic layers,
+not separate endpoint theorems. The last layer remains conditional: no
+producer supplying the required configurations cofinally is proved.</p>
 </section>
 <section id="claim-registry" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">Claim registry</a></h2>
+<h2>Claim registry</h2>
 <ul>
-<li><code>docs/claims.json</code> — the single owner of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>
-identity, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> statuses, and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> coordinates (file and line),
-cross-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by <code>scripts/check_release.py</code></li>
+<li><code>docs/claims.json</code> — the single owner of release
+identity, claim statuses, and declaration coordinates (file and line),
+cross-checked by <code>scripts/check_release.py</code></li>
 </ul>
 </section>
 <section id="generated-finite-certificates" class="level2">
-<h2>Generated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">finite certificates</a></h2>
+<h2>Generated finite certificates</h2>
 <ul>
 <li><code>Erdos249257.GeneratedCertificates</code></li>
 <li><code>Erdos249257.GeneratedCertificates.*</code></li>
 </ul>
-<p>The complete import <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-graph" data-term="graph" data-term-auto="1">graph</a> and every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> are generated in
+<p>The complete import graph and every declaration are generated in
 <code>docs/claims.json::machine_readable_paper.module_graph</code> and
 <code>docs/declaration_atlas.json</code>; use those surfaces when a
-grouped route above is not specific enough. Current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> counts live
+grouped route above is not specific enough. Current corpus counts live
 in the generated <code>docs/ORIENTATION.md</code>, not in this authored
-route <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>.</p>
+route map.</p>
 </section>
 </section>
   </div>

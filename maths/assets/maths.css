@@ -63,10 +63,9 @@
    wide module table would otherwise force page-level horizontal scroll on
    small screens; the table's own .table-scroll wrapper is the scroller. */
 .maths-layout .docs-main { min-width: 0; }
-body:has(.maths-layout) .glossary-hint--inline-ready {
-  position: static; width: 100%; max-width: var(--prose);
-  margin: 1rem 0 1.25rem; box-shadow: none;
-}
+/* The paper head, précis and notes share the manuscript's measure, so the
+   right edge of the reading column does not move as the page begins. */
+.maths-layout { --paper-measure: 42.5rem; }
 @media (min-width: 1281px) {
   .maths-layout:has(.docs-toc) { grid-template-columns: 220px minmax(0, 1fr) 220px; }
   .maths-layout .docs-toc { grid-column: 3; grid-row: 1; }
@@ -77,16 +76,28 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
   height: calc(100dvh - var(--topbar-h));
 }
 
+/* ---- Brand: one link to this overview ---------------------------------
+   "Will Cook / Plectis" is a single link home. The rungs keep the shared
+   ladder's type; hover lights the name the way the ladder's link did. */
+a.brand-ladder--home { color: inherit; text-decoration: none; }
+a.brand-ladder--home:hover { text-decoration: none; }
+a.brand-ladder--home:hover .brand-ladder__up { color: var(--accent); border-bottom-color: var(--accent); }
+a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
 /* ---- Maths sidebar refinements ---------------------------------------- */
 .maths-nav-number {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   color: var(--faint);
-  display: inline-block;
-  min-width: 3.6em;
-  margin-right: 0.15em;
 }
 .docs-nav a.is-active .maths-nav-number { color: inherit; }
+/* Number and name in two columns: a long name wraps under itself. */
+.docs-nav a.maths-nav-problem {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  column-gap: 0.45rem;
+  align-items: baseline;
+}
 
 /* ---- Breadcrumb (docs grammar, restated for pages without docs.js) ------ */
 .maths-layout .docs-breadcrumb { margin: var(--space-4) 0 var(--space-5); }
@@ -108,6 +119,38 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
 .maths-layout .docs-breadcrumb a { color: var(--muted); }
 .maths-layout .docs-breadcrumb a:hover { color: var(--accent); }
 .maths-layout .docs-breadcrumb li[aria-current="page"] { color: var(--ink-soft); }
+
+/* ---- Page bar: breadcrumb left, page tools right, one line -------------
+   Copy text and Download JSON are utilities. They sit beside the breadcrumb
+   as quiet text controls instead of a labelled row of bordered buttons. */
+.maths-pagebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-4) 0 var(--space-5);
+}
+.maths-layout .maths-pagebar .docs-breadcrumb { margin: 0; flex: 1 1 18rem; min-width: 0; }
+.maths-layout .docs-main .docs-pagetools {
+  margin: 0;
+  max-width: none;
+  gap: 2px;
+  flex: none;
+}
+.maths-layout .docs-main .docs-pagetool {
+  padding: 2px 8px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--faint);
+  font-size: var(--fs-small);
+}
+.maths-layout .docs-main .docs-pagetool:hover {
+  border-color: transparent;
+  background: var(--surface-sunk);
+  color: var(--accent-strong);
+}
+.maths-layout .docs-main .docs-pagetool.is-copied { color: var(--accent-strong); }
 
 /* ---- Landing ----------------------------------------------------------- */
 .maths-hero { padding: var(--space-7) 0 var(--space-6); }
@@ -235,6 +278,29 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
 
 .maths-hero__map { margin-top: var(--space-2); }
 .maths-hero__map a { font-weight: 600; }
+
+/* The overview hero: every block on one measure and one rhythm. The lede and
+   the ways in lead; the note on who built the work and how to join it closes
+   the hero in a quieter voice under a hairline. */
+.reading-index .maths-hero { --hero-measure: 42rem; }
+.reading-index .maths-hero__lede,
+.reading-index .maths-hero__starts,
+.maths-hero__more,
+.maths-hero__about { max-width: var(--hero-measure); }
+.reading-index .maths-hero__lede { margin-bottom: var(--space-5); }
+.reading-index .maths-hero__starts { margin: 0 0 var(--space-5); gap: var(--space-3); }
+.maths-hero__more { margin: 0 0 var(--space-5); }
+.maths-hero__more p { margin: 0 0 var(--space-1); color: var(--ink-soft); }
+.maths-hero__more .maths-hero__map { margin-top: 0; }
+.maths-hero__about {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+.maths-hero__about p { margin: 0 0 var(--space-3); }
+.maths-hero__about p:last-child { margin-bottom: 0; }
 
 /* Landing teaser: the same field, fixed portrait, one caption line. */
 .universe-teaser {
@@ -434,7 +500,7 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
   margin: var(--space-3) 0 0;
   color: var(--faint);
   font-size: var(--fs-small);
-  max-width: none;
+  max-width: 48rem;
 }
 
 /* No-JS and reduced capability: the canvas is an enhancement. */
@@ -722,23 +788,43 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-head__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
-  align-items: center;
+  gap: var(--space-1) 0;
+  align-items: baseline;
   color: var(--muted);
   font-size: var(--fs-meta);
   margin-bottom: var(--space-4);
 }
-.paper-head__routes {
+/* The separator trails its item, so a wrapped line never opens with a dot. */
+.paper-head__meta > span:not(:last-child)::after {
+  content: "\00b7";
+  margin: 0 0.6em;
+  color: var(--faint);
+}
+/* One control, one size: the PDF leads as the filled button and every other
+   route follows as a ghost button of the same height. A route that leaves
+   the site keeps the shared outbound mark and takes the button's ink. */
+.paper-head__routes,
+.paper-choice__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  gap: var(--space-2);
 }
+.paper-head__routes .btn,
+.paper-choice__links .btn {
+  font-size: var(--fs-meta);
+  padding: 0.5rem 0.9rem;
+}
+.paper-head__routes .btn[data-link-kind="exogenous"],
+.paper-choice__links .btn[data-link-kind="exogenous"] { color: var(--ink); }
+.paper-head__routes .btn[data-link-kind="exogenous"]::after,
+.paper-choice__links .btn[data-link-kind="exogenous"]::after { color: var(--link-ext); }
 
 .paper-precis {
   border-left: 3px solid var(--maths-gold);
   padding: var(--space-2) 0 var(--space-2) var(--space-5);
-  margin: 0 0 var(--space-5);
-  max-width: 72ch;
+  margin: var(--space-6) 0 var(--space-5);
+  max-width: var(--paper-measure, 42rem);
 }
 .paper-precis p {
   margin: 0;
@@ -747,7 +833,15 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-size: 1.1rem;
   line-height: 1.6;
 }
-.paper-precis .eyebrow { margin-bottom: var(--space-1); }
+/* The label keeps the eyebrow type used everywhere else on the page; the
+   serif belongs to the précis itself. */
+.paper-precis .eyebrow {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-snug);
+  color: var(--faint);
+}
 
 .authority-card {
   border: 1px solid var(--rule);
@@ -760,6 +854,33 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .authority-card p { margin: 0.3rem 0; }
 .authority-card b { font-weight: 600; }
+
+/* What the paper is authority for, the authorship and AI-use disclosure and
+   the citation note: one quiet panel under the précis, every word intact, in
+   caption type so it qualifies the paper without standing in front of it. */
+.paper-notes {
+  max-width: var(--paper-measure, 42rem);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-3) 0 0 var(--space-5);
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-meta);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.paper-notes b { font-weight: 600; color: var(--ink-soft); }
+.paper-notes .authority-card {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  font-size: inherit;
+}
+.paper-notes .authority-card p { margin: 0; }
+.paper-notes .authority-card p + p { margin-top: var(--space-1); }
+.paper-notes > p.note { margin: var(--space-3) 0 0; }
+@media (max-width: 768px) { .paper-notes { padding-left: 0; } }
 
 /* The rendered manuscript. Pandoc emits section.levelN wrappers.
    Set like a journal page: a serif measure of about 68 characters, an
@@ -1435,7 +1556,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-inspector__clear:hover,
 .universe-inspector__copy:hover { color: var(--ink); border-color: var(--accent); }
 .universe-inspector__copy { margin-top: var(--space-3); }
-.universe-hint { color: var(--faint); font-size: var(--fs-small); margin: var(--space-2) 0 0; }
+.universe-hint { color: var(--faint); font-size: var(--fs-small); margin: var(--space-2) 0 0; max-width: 48rem; }
 
 .universe-index { margin: var(--space-7) 0; }
 .universe-index details { border-top: 1px solid var(--rule); }
@@ -1615,15 +1736,58 @@ html:not(.scripting) .universe-nojs { display: block; }
 .reading-index .maths-hero { padding-bottom: 2rem; }
 .reading-index .maths-hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
 .problem-directory, .reading-shelf { list-style: none; margin: 0; padding: 0; }
-.problem-entry { border-top: 1px solid var(--u-edge); padding: 1.7rem 0; }
-.problem-entry__title { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1rem; align-items: baseline; text-decoration: none; }
+/* Problem rows share one shape: number and title, the question, an optional
+   note in a quieter line, then the reading routes. */
+.problem-section { margin: var(--space-4) 0 0; }
+.problem-section__head { margin: 0 0 var(--space-4); }
+.problem-section__head h2 { font-family: var(--font-serif); font-size: 1.45rem; margin: 0 0 var(--space-1); }
+.problem-section__head .note { margin: 0; color: var(--muted); font-size: var(--fs-meta); }
+/* The overview's document lists carry no marker, so they take no indent. */
+.reading-index .fact-list li { padding-left: 0; }
+.reading-index .fact-list li::before { content: none; }
+.problem-entry { border-top: 1px solid var(--u-edge); padding: 1.5rem 0; }
+.problem-entry__title { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; text-decoration: none; }
 .problem-entry__title strong { font-size: 1.25rem; font-weight: 500; }
 .problem-entry__title > span { font-family: var(--font-mono); color: var(--muted); }
-.problem-entry > p { margin: .6rem 0 .8rem 5.5rem; color: var(--muted); max-width: 65ch; }
-.problem-entry__links { margin-left: 5.5rem; font-size: .9rem; }
+.problem-entry > p { margin: .5rem 0 0 5.5rem; max-width: 65ch; }
+.problem-entry__question { color: var(--ink-soft); }
+.problem-entry__note { color: var(--muted); font-size: var(--fs-meta); line-height: var(--lh-body); }
+.problem-entry__note strong { font-weight: 600; color: var(--ink-soft); }
+.problem-entry__links { margin: .75rem 0 0 5.5rem; font-size: var(--fs-meta); }
 .reading-next, .problem-jumps { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--u-edge); }
-.reading-shelf li { padding: 1rem 0; border-bottom: 1px solid var(--u-edge); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
-.reading-shelf li > a:first-child { flex: 1 1 18rem; }
+.reading-shelf li { padding: 0.85rem 0; border-bottom: 1px solid var(--u-edge); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; align-items: center; }
+.reading-shelf li > a:first-child { flex: 1 1 100%; }
+.reading-shelf__title { flex: 1 1 18rem; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+.reading-shelf__title small { color: var(--muted); font-size: var(--fs-small); }
+.reading-shelf li > p { flex: 1 1 100%; margin: 0; max-width: 65ch; color: var(--ink-soft); }
+.reading-shelf .btn { font-size: var(--fs-small); padding: 0.3rem 0.7rem; }
+
+/* A folded section on the overview reads as a section: its summary takes the
+   same serif heading as the open sections around it, with a small chevron. */
+.reading-index > details.dossier-section > summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  padding: var(--space-1) 0 var(--space-3);
+}
+.reading-index > details.dossier-section > summary::-webkit-details-marker { display: none; }
+.reading-index > details.dossier-section > summary::after {
+  content: "";
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  margin-left: 0.55em;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: translateY(-0.18em) rotate(45deg);
+  transition: transform var(--motion-ui) var(--ease);
+}
+.reading-index > details.dossier-section[open] > summary::after { transform: translateY(0.05em) rotate(-135deg); }
+.reading-index > details.dossier-section > summary:hover { color: var(--accent); }
 .paper-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 2rem; padding: 1.4rem 0; }
 .paper-choice { border-top: 2px solid var(--u-edge-hot); padding-top: 1.2rem; }
 .paper-choice h2 { font-size: 1.35rem; line-height: 1.4; margin: .6rem 0 1.2rem; }
@@ -1704,7 +1868,10 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .research-details > .dossier-section { border-top: 0; }
 @media (max-width: 640px) {
-  .problem-entry__title { grid-template-columns: 3.5rem 1fr auto; gap: .5rem; }
+  /* The heading below already names the page; on a phone the breadcrumb
+     keeps only the route back. */
+  .maths-layout .docs-breadcrumb li[aria-current="page"] { display: none; }
+  .problem-entry__title { grid-template-columns: 3.5rem minmax(0, 1fr); gap: .5rem; }
   .problem-entry > p, .problem-entry__links { margin-left: 0; }
   .source-file__rel-k { width: auto; }
 }
@@ -1888,4 +2055,49 @@ body.has-viewback:has(.maths-layout) .viewback {
    screen the margin panel carries the same rows. */
 @media (min-width: 1281px) {
   .maths-layout:has(.docs-toc) .reader-contents--inline { display: none; }
+}
+
+/* ---- Definition links ------------------------------------------------------
+   The builder keeps one automatic definition link per technical term per
+   page. It reads as plain prose: no colour and no rule at rest, a help cursor,
+   and a fine dotted rule on hover or focus. A reader who asks for more
+   contrast keeps the rule at rest. */
+.maths-layout a.narrative-ref--term,
+.maths-layout a.narrative-ref--term.is-term-first,
+.maths-layout a.narrative-ref--term.is-term-again,
+html:not(.scripting) .maths-layout a.narrative-ref--term {
+  color: inherit;
+  text-decoration-line: none;
+}
+.maths-layout a.narrative-ref--term:hover,
+.maths-layout a.narrative-ref--term:focus-visible,
+.maths-layout a.narrative-ref--term.is-term-first:hover,
+.maths-layout a.narrative-ref--term.is-term-again:hover {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  text-underline-offset: 0.2em;
+}
+@media (prefers-contrast: more) {
+  .maths-layout a.narrative-ref--term,
+  .maths-layout a.narrative-ref--term.is-term-first {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+  }
+}
+
+/* ---- A figure the web edition cannot draw ---------------------------------
+   The TikZ drawings live in the PDF; the page says so in one line where the
+   figure stood, and a cross-reference to the figure still lands here. */
+.paper-stage .figure-elsewhere {
+  margin: 1.2em 0;
+  padding: 0.6em 0.9em;
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r-sm);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
 }

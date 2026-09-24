@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/9bb26acc9f8f6cdc.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,17 +74,18 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Repository overview</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
         <p class="doc-role-eyebrow">Start here</p>
         <h1>Repository overview</h1>
-        <p class="doc-source-line">Rendered from <code>README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -96,51 +96,46 @@
 <section class="level1 lean-doc-titled">
 <h2>Plectis: research on eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes</h2>
 <p>Plectis is an open-source, AI-assisted prototype for turning
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">mathematical exposition</a> into further research. Eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> programmes
+mathematical exposition into further research. Eight Erdős programmes
 each have a short expository paper, a longer research record and
-associated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source. The aim is to make results, methods and useful
+associated Lean source. The aim is to make results, methods and useful
 failures understandable enough for others to question, extend and
 reuse.</p>
 <p>Start with <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s short
-paper</a>. If <span class="math inline" data-term-auto="off" data-tex="\(h_{P}(a)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is the part of an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">exponent</a>
-<span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span> supported on a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> nonempty set of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>, the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean-checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> proves <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> at every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">integer base</a> for each
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> <span class="math inline" data-term-auto="off" data-tex="\(A\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math></mjx-assistive-mml></mjx-container></span> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> base-two weighted mass
-<span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in A}h_{P}(a)/(a(2^{h_{P}(a)}-1))\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>/</mo><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. Some such <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> have
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergent</a> <span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in A}1/a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mn>1</mn><mo>/</mo><mi>a</mi></math></mjx-assistive-mml></mjx-container></span>. The question for <em>every</em>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. <a
+paper</a>. If <span class="math inline" data-term-auto="off" data-tex="\(h_{P}(a)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is the part of an exponent
+<span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span> supported on a finite nonempty set of primes, the
+Lean-checked theorem proves irrationality at every integer base for each
+infinite support <span class="math inline" data-term-auto="off" data-tex="\(A\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math></mjx-assistive-mml></mjx-container></span> with finite base-two weighted mass
+<span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in A}h_{P}(a)/(a(2^{h_{P}(a)}-1))\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>/</mo><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. Some such supports have
+divergent <span class="math inline" data-term-auto="off" data-tex="\(\sum _{a\in A}1/a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D434">𝐴</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mn>1</mn><mo>/</mo><mi>a</mi></math></mjx-assistive-mml></mjx-container></span>. The question for <em>every</em>
+infinite support remains open. <a
 href="../../papers/erdos257-mersenne-reasoning-surface.pdf">Read the longer
-<span data-term-preview-only data-term="proof" data-term-auto="1">proof</span> record</a> or <a
+proof record</a> or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">inspect
-the <span data-term-preview-only data-term="lean" data-term-auto="1">Lean</span> <span data-term-preview-only data-term="declaration" data-term-auto="1">declaration</span></a>. Other seven programmes: <a
+the Lean declaration</a>. Other seven programmes: <a
 href="results.html#problem-by-problem-guide">results guide</a>.</p>
 <p>Start here: <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">read the
 paper</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/sparse_interpolation/late_rejection.py">run
-one exact-<span data-term-preview-only data-term="rational" data-term-auto="1">rational</span> experiment</a>, and <a
+one exact-rational experiment</a>, and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
-correction</a>. This tests one proposed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a>, not the
-weighted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+correction</a>. This tests one proposed rational <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a>, not the
+weighted theorem.</p>
 <p><strong><a href="paper-guide.html">All papers</a></strong> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">Reading edition</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md"><span data-term-preview-only data-term="reproducible" data-term-auto="1">Reproduce</span> one result</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md"><span data-term-preview-only data-term="contribute" data-term-auto="1">Contribute</span> or correct</a></p>
-<figure>
-Eight <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes: papers, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> results, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a>, and questions another researcher can continue
-<figcaption aria-hidden="true">Eight Erdős problem programmes: papers,
-checked results, failed routes, and questions another researcher can
-continue</figcaption>
-</figure>
-<p><strong>Using the degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-polynomial" data-term="polynomial" data-term-auto="1">polynomial</a> constructed by the
-erdosproblems.com contributor ani, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves that every preconnected
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Reproduce one result</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
+
+<p><strong>Using the degree-seven polynomial constructed by the
+erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> set containing two distinct roots has <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hausdorff-measure" data-term="hausdorff_measure" data-term-auto="1">one-dimensional
-Hausdorff measure</a> greater than two. This refutes the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> path-image-length statement; the separate total-variation
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>. The other seven targets <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>. Independent
+Hausdorff measure</a> greater than two. This refutes the exact Formal
+Conjectures path-image-length statement; the separate total-variation
+bound is also checked. The other seven targets remain open. Independent
 human review of correspondence with the 1958 wording has not been
-recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> only selected exact statements, axioms and
+recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> checks only selected exact statements, axioms and
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">kernel acceptance</a>; it does not assess novelty or historical
 correspondence.</strong></p>
 <p>The attribution is recorded in <a
@@ -148,92 +143,92 @@ href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s 7
 September 2026 forum post</a>.</p>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
-<p><strong>Read the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. Find what comes next.</strong> Use the
+<p><strong>Read the mathematics. Find what comes next.</strong> Use the
 papers and research records to continue a question or develop a new
 direction. Work with your own AI or without one; returned work keeps its
-sources, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> visible.</p>
+sources, checks and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> visible.</p>
 <ul>
-<li><strong>Explore with your AI, no <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> needed.</strong> Give your
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">reading edition</a>:
+<li><strong>Explore with your AI, no clone needed.</strong> Give your
+model the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">reading edition</a>:
 one file with an introduction, a short research instruction and the
 opening of each paper. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">One open
 investigation</a> shows the route and ends with five ways to continue
 it.</li>
-<li><strong>Work in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>.</strong> The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work"><span data-term-preview-only data-term="agent" data-term-auto="1">agent</span>
-<span data-term-preview-only data-term="quickstart" data-term-auto="1">quickstart</span></a> provides <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> commands and a copyable prompt. Name a
-question, or ask your <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> to read the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> and decide what is worth
+<li><strong>Work in the repository.</strong> The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">agent
+quickstart</a> provides clone commands and a copyable prompt. Name a
+question, or ask your agent to read the corpus and decide what is worth
 developing. The <a
-href="../../papers/cold-clone-to-proof-receipt.pdf"><span data-term-preview-only data-term="agent" data-term-auto="1">agent</span>-navigation
+href="../../papers/cold-clone-to-proof-receipt.pdf">agent-navigation
 paper</a> explains the workbench design.</li>
-<li><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> one result with Python 3, no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>.</strong> From a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>, run
+<li><strong>Check one result with Python 3, no Lean.</strong> From a
+clone, run
 <code>python3 research/experiments/sparse_interpolation/late_rejection.py</code>.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exact-rational-arithmetic" data-term="exact_rational_arithmetic" data-term-auto="1">Exact rational arithmetic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> that <span class="math inline" data-term-auto="off" data-tex="\(189/388\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>189</mn><mo>/</mo><mn>388</mn></math></mjx-assistive-mml></mjx-container></span> passes the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exact-rational-arithmetic" data-term="exact_rational_arithmetic" data-term-auto="1">Exact rational arithmetic</a> checks that <span class="math inline" data-term-auto="off" data-tex="\(189/388\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>189</mn><mo>/</mo><mn>388</mn></math></mjx-assistive-mml></mjx-container></span> passes the
 earlier greedy decisions but is first rejected at step 17: its remainder
-is greater than the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> of all later weights and smaller than the
+is greater than the sum of all later weights and smaller than the
 step-17 weight. Read the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">investigation</a>
-for why this example matters. It rules out this one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a> as a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a>
-of <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> survival never proves membership, and
+for why this example matters. It rules out this one rational as a subsum
+of <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>; finite survival never proves membership, and
 this calculation does not settle Problem 257.</li>
 </ul>
 <p>The short papers explain results; longer records keep calculations
-and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a>. Both are readable without <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. <a
-href="reading-guide.html">A <span data-term-preview-only data-term="reader" data-term-auto="1">reader</span>’s way in</a> introduces the
-questions; <a href="results.html">Results and <span data-term-preview-only data-term="limit" data-term-auto="1">limits</span></a> names what
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>.</p>
-<p>Use the <a href="source-map.html">source <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a> to follow a
-statement into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a> that <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>.
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="contribute" data-term-auto="1">CONTRIBUTING</span></a> explains how to return work
-with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>. No <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> account or private system is required to <a
+and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a>. Both are readable without Lean. <a
+href="reading-guide.html">A reader’s way in</a> introduces the
+questions; <a href="results.html">Results and limits</a> names what
+remains open.</p>
+<p>Use the <a href="source-map.html">source map</a> to follow a
+statement into Lean, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a> that checks its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>.
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">CONTRIBUTING</a> explains how to return work
+with credit. No model account or private system is required to <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">follow one
-<span data-term-preview-only data-term="claim" data-term-auto="1">claim</span></a>.</p>
+claim</a>.</p>
 </section>
 <section id="why-this-exists" class="level2">
 <h2>Why this exists</h2>
 <p>I prioritised expository quality and a collaborative structure so
 others can work on these questions with me. The records include routes
-that stopped at a precise <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a>, where another researcher can test
+that stopped at a precise obstruction, where another researcher can test
 or repair the argument.</p>
-<p>I am responsible for all <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, sources and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>. Plectis is
+<p>I am responsible for all claims, sources and the release. Plectis is
 an independent, AI-assisted prototype, not something I am declaring
 finished. It has had no independent mathematical review. Meaning,
-novelty and significance still need human judgement; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> counts are
-navigation counts, not novelty <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
+novelty and significance still need human judgement; corpus counts are
+navigation counts, not novelty claims.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>For a first look, start with <strong>#257</strong>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
-weighted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> conditions for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subseries" data-term="subseries" data-term-auto="1">subseries</a>
-at every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">integer base</a>, including some <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> with <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal
-sum</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a> stated the simpler <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal" data-term="reciprocal" data-term-auto="1">reciprocal</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summability" data-term="summability" data-term-auto="1">summable</a> extension; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
-it here. The unrestricted question <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. <strong>#249</strong>
+<p>For a first look, start with <strong>#257</strong>: Lean checks
+weighted support conditions for irrational reciprocal <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subseries" data-term="subseries" data-term-auto="1">subseries</a>
+at every integer base, including some supports with divergent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal
+sum</a>. Erdős stated the simpler reciprocal-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summability" data-term="summability" data-term-auto="1">summable</a> extension; Lean checks
+it here. The unrestricted question remains open. <strong>#249</strong>
 gives exact ranks of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> kernels. Each paper names its ordinary
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean-checked</a> results and open questions.</p>
-<p>For a more specialised <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, <strong>#243</strong> gives
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> for strictly increasing positive <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">integer sequences</a> under
-the precise cubic-rate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a>
-<span class="math inline" data-term-auto="off" data-tex="\(a_{n}^{2}/a_{n+1}=1+3/n+o(n^{-3})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msubsup><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mi space="3"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo>/</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>/</mo><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>3</mn></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the
-zero-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexed</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>; the paper transfers its one-based form by an
-ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-prefix argument. The unrestricted Sylvester-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-recurrence" data-term="recurrence" data-term-auto="1">recurrence</a>
-question <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. For <strong>#1049</strong>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> that
-<span class="math inline" data-term-auto="off" data-tex="\(F(31/4)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D439">𝐹</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi><mo stretchy="false">(</mo><mn>31</mn><mo>/</mo><mn>4</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> and <span class="math inline" data-term-auto="off" data-tex="\(F((31/4)^{r})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D439">𝐹</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mn>31</mn><mo>/</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mi>r</mi></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> for every <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-positive-integer" data-term="positive_integer" data-term-auto="1">positive
-integer</a> <span class="math inline" data-term-auto="off" data-tex="\(r\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math></mjx-assistive-mml></mjx-container></span> are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>, using <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-base forms built
-from Zudilin’s construction. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coefficient" data-term="coefficient" data-term-auto="1">coefficient</a> pencil through rank eight is
-also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">Irrationality</a> at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> and the
-all-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rational</a>-base <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>.</p>
+proofs, Lean-checked results and open questions.</p>
+<p>For a more specialised theorem, <strong>#243</strong> gives
+irrationality for strictly increasing positive integer sequences under
+the precise cubic-rate hypothesis
+<span class="math inline" data-term-auto="off" data-tex="\(a_{n}^{2}/a_{n+1}=1+3/n+o(n^{-3})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msubsup><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-9561742b60faf9f3"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom><mjx-spacer class="mjx-s-7978193657f16d34"></mjx-spacer><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msubsup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mi space="3"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow><mrow data-mjx-texclass="ORD"><mn>2</mn></mrow></msubsup><mo>/</mo><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>/</mo><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>3</mn></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. Lean checks the
+zero-indexed theorem; the paper transfers its one-based form by an
+ordinary finite-prefix argument. The unrestricted Sylvester-recurrence
+question remains open. For <strong>#1049</strong>, Lean checks that
+<span class="math inline" data-term-auto="off" data-tex="\(F(31/4)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D439">𝐹</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi><mo stretchy="false">(</mo><mn>31</mn><mo>/</mo><mn>4</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> and <span class="math inline" data-term-auto="off" data-tex="\(F((31/4)^{r})\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D439">𝐹</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>F</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mn>31</mn><mo>/</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mi>r</mi></mrow></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> for every positive
+integer <span class="math inline" data-term-auto="off" data-tex="\(r\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math></mjx-assistive-mml></mjx-container></span> are irrational, using rational-base forms built
+from Zudilin’s construction. A coefficient pencil through rank eight is
+also checked. Irrationality at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> and the
+all-rational-base claim remain open.</p>
 <p><strong>Reading the eight together.</strong> The whole collection is
-also material for new <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>: reusable constructions, connections
+also material for new mathematics: reusable constructions, connections
 between problems and questions that go beyond the original targets.
 Start with the <a
 href="../../papers/optimal-sparse-perturbations.pdf">cross-problem
-paper, Reading Eight <span data-term-preview-only data-term="erdos_problem" data-term-auto="1">Erdős Problems</span> Together</a>. It joins the capacity
-and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-congruence" data-term="congruence" data-term-auto="1">congruence</a> results, Lambert <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a>, method <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> and their
+paper, Reading Eight Erdős Problems Together</a>. It joins the capacity
+and congruence results, Lambert subsums, method limits and their
 research record. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md" data-link-kind="exogenous" rel="external noopener">synthesis
-guide</a> explains how to develop this work from the papers and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, with each result’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> intact.</p>
+guide</a> explains how to develop this work from the papers and Lean
+corpus, with each result’s evidence and limits intact.</p>
 <table>
 <colgroup>
 <col />
@@ -251,8 +246,8 @@ guide</a> explains how to develop this work from the papers and <a class="narrat
 <tr>
 <td><a href="https://www.erdosproblems.com/68" data-link-kind="exogenous" rel="external noopener">#68</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_68.html"><span data-term-preview-only data-term="factorial" data-term-auto="1">Factorial</span>-<span data-term-preview-only data-term="denominator" data-term-auto="1">denominator</span>
-<span data-term-preview-only data-term="irrational" data-term-auto="1">irrationality</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_68.html">Factorial-denominator
+irrationality</a></td>
 <td><a
 href="../../papers/erdos-68-factorial-denominator-irrationality.pdf">short
 paper</a> · <a
@@ -263,7 +258,7 @@ paper</a></td>
 <td><a href="https://www.erdosproblems.com/243" data-link-kind="exogenous" rel="external noopener">#243</a></td>
 <td><a
 href="https://wcook04.github.io/plectis/maths/problems/erdos_243.html">Cubic-rate
-<span data-term-preview-only data-term="irrational" data-term-auto="1">irrationality</span> and <span data-term-preview-only data-term="reciprocal" data-term-auto="1">reciprocal</span> tails</a></td>
+irrationality and reciprocal tails</a></td>
 <td><a href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf">short
 paper</a> · <a
 href="../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf">longer
@@ -273,7 +268,7 @@ paper</a></td>
 <td><a href="https://www.erdosproblems.com/249" data-link-kind="exogenous" rel="external noopener">#249</a></td>
 <td><a
 href="https://wcook04.github.io/plectis/maths/problems/erdos_249.html">Binary
-<span data-term-preview-only data-term="totient" data-term-auto="1">totient</span> <span data-term-preview-only data-term="series" data-term-auto="1">series</span></a></td>
+totient series</a></td>
 <td><a href="../../papers/erdos-249-binary-totient-series.pdf">short
 paper</a> · <a
 href="../../papers/erdos249-totient-reasoning-surface.pdf">longer
@@ -282,8 +277,8 @@ paper</a></td>
 <tr>
 <td><a href="https://www.erdosproblems.com/251" data-link-kind="exogenous" rel="external noopener">#251</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_251.html"><span data-term-preview-only data-term="prime" data-term-auto="1">Prime</span>-gap
-<span data-term-preview-only data-term="dyadic" data-term-auto="1">dyadic</span> <span data-term-preview-only data-term="series" data-term-auto="1">series</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_251.html">Prime-gap
+dyadic series</a></td>
 <td><a href="../../papers/erdos-251-prime-gap-dyadic-series.pdf">short
 paper</a> · <a
 href="../../papers/erdos251-prime-gap-reasoning-surface.pdf">longer
@@ -292,8 +287,8 @@ paper</a></td>
 <tr>
 <td><a href="https://www.erdosproblems.com/257" data-link-kind="exogenous" rel="external noopener">#257</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_257.html"><span data-term-preview-only data-term="mersenne_number" data-term-auto="1">Mersenne</span>-<span data-term-preview-only data-term="subseries" data-term-auto="1">support
-subseries</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_257.html">Mersenne-support
+subseries</a></td>
 <td><a href="../../papers/erdos-257-mersenne-support-subseries.pdf">short
 paper</a> · <a
 href="../../papers/erdos257-mersenne-reasoning-surface.pdf">longer
@@ -302,8 +297,8 @@ paper</a></td>
 <tr>
 <td><a href="https://www.erdosproblems.com/269" data-link-kind="exogenous" rel="external noopener">#269</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_269.html">Three-<span data-term-preview-only data-term="prime" data-term-auto="1">prime</span>
-<span data-term-preview-only data-term="running_lcm" data-term-auto="1">running LCM</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_269.html">Three-prime
+running LCM</a></td>
 <td><a href="../../papers/erdos-269-three-prime-running-lcm.pdf">short
 paper</a> · <a
 href="../../papers/erdos269-running-lcm-reasoning-surface.pdf">longer
@@ -312,8 +307,8 @@ paper</a></td>
 <tr>
 <td><a href="https://www.erdosproblems.com/1041" data-link-kind="exogenous" rel="external noopener">#1041</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_1041.html"><span data-term-preview-only data-term="lemniscate" data-term-auto="1">Lemniscates</span>
-and <span data-term-preview-only data-term="newton_flow" data-term-auto="1">Newton flow</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_1041.html">Lemniscates
+and Newton flow</a></td>
 <td><a href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">short
 paper</a> · <a
 href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf">longer
@@ -322,8 +317,8 @@ paper</a></td>
 <tr>
 <td><a href="https://www.erdosproblems.com/1049" data-link-kind="exogenous" rel="external noopener">#1049</a></td>
 <td><a
-href="https://wcook04.github.io/plectis/maths/problems/erdos_1049.html"><span data-term-preview-only data-term="rational" data-term-auto="1">Rational</span>-base
-<span data-term-preview-only data-term="lambert_series" data-term-auto="1">Lambert series</span></a></td>
+href="https://wcook04.github.io/plectis/maths/problems/erdos_1049.html">Rational-base
+Lambert series</a></td>
 <td><a href="../../papers/erdos-1049-rational-base-lambert.pdf">short
 paper</a> · <a
 href="../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf">longer
@@ -332,98 +327,98 @@ paper</a></td>
 </tbody>
 </table>
 <p><a href="results.html#problem-by-problem-guide">Read the result
-summaries and their <span data-term-preview-only data-term="limit" data-term-auto="1">limits</span></a>, including prior work, what was <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>,
+summaries and their limits</a>, including prior work, what was checked,
 and the questions that remain.</p>
 <p><a id="what-the-checks-establish"></a></p>
 </section>
 <section id="what-lean-and-comparator-verify" class="level2">
-<h2>What <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a></h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verifies</a> that a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiler" data-term="compiler" data-term-auto="1">compiled</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> establishes the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> statement
+<h2>What Lean and Comparator verify</h2>
+<p>Lean verifies that a compiled proof establishes the formal statement
 written in the source. Use the <a href="source-map.html">source
-<span data-term-preview-only data-term="map" data-term-auto="1">map</span></a> to locate a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> cited in a paper. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><span data-term-preview-only data-term="claim" data-term-auto="1">claim</span> records</a> list the published statements
-and their status; <a href="prior-art.html"><span data-term-preview-only data-term="prior_art" data-term-auto="1">prior art</span></a> lists
+map</a> to locate a declaration cited in a paper. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claim records</a> list the published statements
+and their status; <a href="prior-art.html">prior art</a> lists
 earlier results and their relationship to the work here.</p>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> compares a separately declared statement with the
-statement established by its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> solution, using an explicit list of
-allowed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a>. <a
+<p>Comparator compares a separately declared statement with the
+statement established by its Lean solution, using an explicit list of
+allowed assumptions. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a> lists the
 <strong>selected statements</strong>; the comparison does not cover
-every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> in this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. The <a
-href="external-verification.html"><span data-term-preview-only data-term="verification" data-term-auto="1">verification</span> dossier</a> identifies
-the selected statements across all eight problems and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> of the
+every theorem in this repository. The <a
+href="external-verification.html">verification dossier</a> identifies
+the selected statements across all eight problems and the limits of the
 comparison.</p>
-<p>Researchers still have to judge whether a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> statement expresses
+<p>Researchers still have to judge whether a formal statement expresses
 the intended problem, whether it is new, and whether it is worth
 studying. <a href="methodology.html">Methodology</a> records the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and review required before changing a public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>. Do not
+evidence and review required before changing a public claim. Do not
 infer results from private or unreleased work.</p>
 </section>
 <section id="contribute" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">Contribute</a></h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">Contribute</a> an idea, correction, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> failed route,
+<h2>Contribute</h2>
+<p>Contribute an idea, correction, counterexample, checked failed route,
 explanation or infrastructure change. You need not solve a problem or
-write <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>. Will can help <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalise</a> an argument while keeping each
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a>’s attribution.</p>
+write Lean. Will can help formalise an argument while keeping each
+contribution’s attribution.</p>
 <p>Start with <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md" data-link-kind="exogenous" rel="external noopener">a paper</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">develop a method</a>, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">improve the
 machinery</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">submission and <span data-term-preview-only data-term="contributor_credit" data-term-auto="1">credit</span>
-process</a> also covers email and work without a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">submission and credit
+process</a> also covers email and work without a clone.</p>
 <ul>
 <li><strong>Ideas, corrections or review:</strong> use the <a
 href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml">research-progress
 form</a> or <a href="https://wcook04.github.io/plectis/#contact" data-link-kind="exogenous" rel="external noopener">email
 me</a>.</li>
-<li><strong>Changes to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>:</strong> follow <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md"><span data-term-preview-only data-term="contribute" data-term-auto="1">CONTRIBUTING</span></a>.</li>
-<li><strong>Your own <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> and spare compute:</strong> use the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md"><span data-term-preview-only data-term="research_shift" data-term-auto="1">frontier relay</span></a> to choose a starting
-point and return what you find with its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</li>
+<li><strong>Changes to the repository:</strong> follow <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>.</li>
+<li><strong>Your own agent and spare compute:</strong> use the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> to choose a starting
+point and return what you find with its evidence.</li>
 </ul>
-<p>Accepted work receives a public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> naming its contributor and
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="contributor_credit" data-term-auto="1">credit
-policy</span></a> and <a
+<p>Accepted work receives a public receipt naming its contributor and
+evidence. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md" data-link-kind="exogenous" rel="external noopener">credit
+policy</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md">source
-attributions</a> explain <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>.</p>
-<p>If you solve a problem, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> and the result are all yours. If
-this repo or my intermediary progress helped, please cite this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>
+attributions</a> explain credit.</p>
+<p>If you solve a problem, the credit and the result are all yours. If
+this repo or my intermediary progress helped, please cite this release
 and say how, so others find it and we make progress together instead of
 hoarding partial results out of fear of being scooped, or rebuilding the
 same infrastructure instead of improving one cumulatively.</p>
 <p><a id="citation-and-prior-work"></a></p>
 </section>
 <section id="read-or-verify-locally" class="level2">
-<h2>Read or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a> locally</h2>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="reproducible" data-term-auto="1">REPRODUCIBILITY</span></a> owns <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>,
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-inspection and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> build instructions. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a> is hundreds of
-megabytes; building <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> also downloads <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-clone" data-term="clone" data-term-auto="1">Cloning</a> runs
+<h2>Read or verify locally</h2>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">REPRODUCIBILITY</a> owns clone,
+claim-inspection and proof build instructions. The clone is hundreds of
+megabytes; building proofs also downloads Lean and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>. Cloning runs
 no project code; the <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md" data-link-kind="exogenous" rel="external noopener">security policy</a>
-explains the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-execution" data-term="execution" data-term-auto="1">execution</a> boundary.</p>
-<p>Use the <a href="documentation.html">documentation <span data-term-preview-only data-term="index" data-term-auto="1">index</span></a> for the file
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> and specialist guides. <a href="architecture.html">How the
-<span data-term-preview-only data-term="repository" data-term-auto="1">repository</span> works</a> explains the roles of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, papers and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">Coding agents</a> start at <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener"><code>AGENTS.md</code></a>
-and follow the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="agent" data-term-auto="1">agent</span>
+explains the execution boundary.</p>
+<p>Use the <a href="documentation.html">documentation index</a> for the file
+map and specialist guides. <a href="architecture.html">How the
+repository works</a> explains the roles of proofs, papers and checks.
+Coding agents start at <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md" data-link-kind="exogenous" rel="external noopener"><code>AGENTS.md</code></a>
+and follow the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md" data-link-kind="exogenous" rel="external noopener">agent
 workbench</a>.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 <details>
 <summary>
-<span data-term-preview-only data-term="corpus" data-term-auto="1">Corpus</span> inventory and counting <span data-term-preview-only data-term="limit" data-term-auto="1">limits</span>
+Corpus inventory and counting limits
 </summary>
 </section>
 <section id="corpus-at-a-glance" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">Corpus</a> at a glance</h2>
-<p>The reviewed layer a mathematician should judge: 150 curated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
-records in 33 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a> families, reaching <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source through 468
-principal <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> links. <code>docs/SCOPE.md</code> gives its shape
-and <code>docs/RESULTS.md</code> gives the strongest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> result per
+<h2>Corpus at a glance</h2>
+<p>The reviewed layer a mathematician should judge: 150 curated claim
+records in 33 contribution families, reaching Lean source through 468
+principal declaration links. <code>docs/SCOPE.md</code> gives its shape
+and <code>docs/RESULTS.md</code> gives the strongest checked result per
 problem. The website and the papers are the human reading path.</p>
 <p>The rest is engineering inventory. About 87% of the 163,598
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> (142,668 across 695 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a>) are machine-emitted
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> shards: one <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-integer" data-term="integer" data-term-auto="1">integer</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>, one position excluded.
+declarations (142,668 across 695 modules) are machine-emitted
+certificate shards: one integer checked prime, one position excluded.
 The remainder is not all hand-written either.</p>
 <table>
 <thead>
@@ -434,67 +429,67 @@ The remainder is not all hand-written either.</p>
 </thead>
 <tbody>
 <tr>
-<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">modules</a> (the two library roots)</td>
+<td>Lean modules (the two library roots)</td>
 <td class="ta-r">1,823</td>
 </tr>
 <tr>
-<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> results and supporting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemmas</a></td>
+<td>Formal results and supporting lemmas</td>
 <td class="ta-r">159,691</td>
 </tr>
 <tr>
-<td>Curated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> records</td>
+<td>Curated claim records</td>
 <td class="ta-r">150</td>
 </tr>
 <tr>
-<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">Contribution</a> families</td>
+<td>Contribution families</td>
 <td class="ta-r">33</td>
 </tr>
 </tbody>
 </table>
-<p>Generated shards are counted as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal source</a> and never as separate
-mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">Claim</a> records cover every status, including cited
+<p>Generated shards are counted as formal source and never as separate
+mathematical claims. Claim records cover every status, including cited
 and open, and are partitioned once. These are navigation counts, not
-novelty <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. They still need expert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validation</a>.</p>
+novelty claims. They still need expert validation.</p>
 </details>
 <!-- END generated_corpus_at_a_glance -->
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 </section>
 <section id="following-a-result-into-lean" class="level2">
-<h2>Following a result into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a></h2>
+<h2>Following a result into Lean</h2>
 <p>The paper links each headline result to the relevant source. For a
 particular topic, start with the <a href="source-map.html">source
-<span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>; it gives the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> order without asking you to decode <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> names first.
+map</a>; it gives the module order without asking you to decode Lean
+declaration names first.
 <!-- END generated_principal_declaration_anchors --></p>
 </section>
 <section id="about-the-project" class="level2">
 <h2>About the project</h2>
 <p><a href="../../papers/open-source-mathematics-strategy.pdf">From
-Spare Compute to Cumulative <span data-term-preview-only data-term="mathematics" data-term-auto="1">Mathematics</span></a> explains the collaborative
+Spare Compute to Cumulative Mathematics</a> explains the collaborative
 research process. <a
 href="../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
-<span data-term-preview-only data-term="lean" data-term-auto="1">Lean</span> Worlds</a> describes the publication system. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-runnable" data-term="runnable" data-term-auto="1">Runnable</a> workflow
+Lean Worlds</a> describes the publication system. Runnable workflow
 components live in the <a
-href="https://github.com/wcook04/plectis">Plectis <span data-term-preview-only data-term="software" data-term-auto="1">software</span> toolkit</a>;
-selected external <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verification</a> entries live in <a
-href="https://github.com/wcook04/plectis-erdos-lean">plectis-<span data-term-preview-only data-term="erdos" data-term-auto="1">erdos</span>-<span data-term-preview-only data-term="lean" data-term-auto="1">lean</span></a>.
-The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> and tools in this checkout are self-contained.</p>
+href="https://github.com/wcook04/plectis">Plectis software toolkit</a>;
+selected external verification entries live in <a
+href="https://github.com/wcook04/plectis-erdos-lean">plectis-erdos-lean</a>.
+The mathematics and tools in this checkout are self-contained.</p>
 </section>
 <section id="citation-and-licence" class="level2">
 <h2>Citation and licence</h2>
-<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">CITATION.cff</a> to cite <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>
-<code>v0.10.0</code>, and give your <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a> for work beyond it. Cite the
+<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff" data-link-kind="exogenous" rel="external noopener">CITATION.cff</a> to cite release
+<code>v0.10.0</code>, and give your commit for work beyond it. Cite the
 relevant <a href="paper-guide.html">problem paper</a> and its original
-sources for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. <a href="prior-art.html"><span data-term-preview-only data-term="prior_art" data-term-auto="1">Prior art</span></a> and
+sources for mathematics. <a href="prior-art.html">Prior art</a> and
 <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md" data-link-kind="exogenous" rel="external noopener">source
-attributions</a> distinguish earlier results, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> and local
-use; a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> citation does not replace the original author’s
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>.</p>
-<p>Code, scripts and documentation are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-apache-2-0" data-term="apache_2_0" data-term-auto="1">Apache-2.0</a>; manuscript sources
+attributions</a> distinguish earlier results, formalisation and local
+use; a repository citation does not replace the original author’s
+credit.</p>
+<p>Code, scripts and documentation are Apache-2.0; manuscript sources
 and PDFs are CC-BY-4.0. <a href="https://github.com/wcook04/plectis-erdos/blob/main/REUSE.toml" data-link-kind="exogenous" rel="external noopener">REUSE.toml</a> records
-exceptions. See also <a href="scope.html"><span data-term-preview-only data-term="scope" data-term-auto="1">scope</span></a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIVACY.md"><span data-term-preview-only data-term="privacy" data-term-auto="1">privacy</span></a> and the <a
+exceptions. See also <a href="scope.html">scope</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIVACY.md">privacy</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/.github/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
 </section>
 </section>

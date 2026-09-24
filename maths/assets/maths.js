@@ -67,6 +67,27 @@
   }
 })();
 
+/* A link to a folded section opens it. The header's "Papers" link lands on
+   the overview's paper list, which is folded by default; the shared runtime
+   opens a targeted fold when it loads, and this covers the same-page click
+   and a reader who arrives before that runtime is ready. */
+(function () {
+  'use strict';
+  function openTarget() {
+    var id = '';
+    try { id = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) { return; }
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS' && !target.open) target.open = true;
+  }
+  window.addEventListener('hashchange', openTarget);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', openTarget);
+  } else {
+    openTarget();
+  }
+})();
+
 /* Problem-local import map. All data and file links are built into the page.
    The list is the object: a file name selects it, GitHub stays on the row,
    and local imports expand under the selected file. There is no separate

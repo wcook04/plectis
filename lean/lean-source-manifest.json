@@ -42,8 +42,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
-      "bytes": 130307
+      "source_sha256": "fd51709fa32f267439fefc0e1a2710e9cea404162e81e35a4144e449eed71f67",
+      "bytes": 130861
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -87,8 +87,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
-      "bytes": 130307
+      "source_sha256": "fd51709fa32f267439fefc0e1a2710e9cea404162e81e35a4144e449eed71f67",
+      "bytes": 130861
     },
     {
       "hosted_path": "lean/human-source/docs/ORIENTATION.md",

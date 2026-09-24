@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/f2bbb333be4e366b.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,97 +74,98 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Residual progress</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
         <p class="doc-role-eyebrow">Open-boundary progress</p>
         <h1>Residual progress</h1>
-        <p class="doc-source-line">Rendered from <code>docs/reference/RESIDUAL_PROGRESS.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/reference/RESIDUAL_PROGRESS.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
 <article class="lean-document" data-document-id="residual-progress" data-document-role="open_boundary_progress" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/reference/RESIDUAL_PROGRESS.md">
 <section class="level1 lean-doc-titled">
-<h2>Deciding whether a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> sketch reduced its target or renamed
+<h2>Deciding whether a proof sketch reduced its target or renamed
 it</h2>
-<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> either <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> or it does not, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> says nothing
-about an incomplete one. An <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> that leaves <code>sorry</code> behind
+<p>A proof either checks or it does not, and a checker says nothing
+about an incomplete one. An agent that leaves <code>sorry</code> behind
 has produced <em>something</em> — the question is whether what remains
 to prove is easier than what it started with, or the same problem
 wearing different notation. That question is semantic, it is the one a
 search loop has to answer thousands of times, and some instances of it
 are decidable by the kernel.</p>
-<p>This document describes what is decidable, what this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>
-measured, and what the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> in
+<p>This document describes what is decidable, what this repository
+measured, and what the evaluator in
 <code>scripts/residual_evaluator.py</code> does and does not settle.</p>
 <section id="the-reported-failure" class="level2">
 <h2>The reported failure</h2>
 <p>Google DeepMind’s AlphaProof Nexus paper (<a
 href="https://arxiv.org/abs/2605.22763">arXiv:2605.22763</a>) rates
-candidate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> sketches with a language <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a>, because <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-verification" data-term="formal_verification" data-term-auto="1">formal
+candidate proof sketches with a language model, because <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-verification" data-term="formal_verification" data-term-auto="1">formal
 verification</a> gives a binary signal and evolutionary search needs a
 graded one. Its raters judge, among other things, “the plausibility of
 remaining goals”. Its failure analysis reports:</p>
 <blockquote>
-<p>the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> frequently offloaded a problem’s core difficulty into a
-single <code>sorry</code> within a helper <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a> that reiterated the
+<p>the agent frequently offloaded a problem’s core difficulty into a
+single <code>sorry</code> within a helper lemma that reiterated the
 target statement in a slightly different form</p>
 </blockquote>
 <p>and, of that behaviour:</p>
 <blockquote>
 <p>Explicitly prompting against this behavior failed to prevent it.</p>
 </blockquote>
-<p>Prompting is the wrong instrument. Whether a helper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemma" data-term="lemma" data-term-auto="1">lemma</a> reiterates
-its target is a relation between two <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a>
+<p>Prompting is the wrong instrument. Whether a helper lemma reiterates
+its target is a relation between two propositions, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-assistant" data-term="proof_assistant" data-term-auto="1">proof assistant</a>
 can sometimes settle it outright.</p>
 </section>
 <section id="where-the-instrument-came-from" class="level2">
 <h2>Where the instrument came from</h2>
-<p>This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> programme over eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a>
+<p>This repository is a formalisation programme over eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a>
 programmes, and its output is structural: an exact carry <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-normal-form" data-term="normal_form" data-term-auto="1">normal form</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalent to</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> for #68, a complete measure classification
+equivalent to irrationality for #68, a complete measure classification
 of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mersenne-number" data-term="mersenne_number" data-term-auto="1">Mersenne</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">achievement set</a> for #257, the exact rank
-<span class="math inline" data-term-auto="off" data-tex="\(2^{e}+1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>e</mi></mrow></msup><mo>+</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> and an explicit odd-core <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-basis" data-term="basis" data-term-auto="1">basis</a> of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>
+<span class="math inline" data-term-auto="off" data-tex="\(2^{e}+1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>e</mi></mrow></msup><mo>+</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> and an explicit odd-core basis of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a>
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-totient" data-term="totient" data-term-auto="1">totient</a> kernel for #249, a first integral of the complex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton flow</a> for
-#1041, exact three-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> prefix-LCM dynamics for #269, and proved no-go
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> that close named strategies rather than gesture at difficulty.
+#1041, exact three-prime prefix-LCM dynamics for #269, and proved no-go
+theorems that close named strategies rather than gesture at difficulty.
 <a href="results.html">RESULTS</a> states each result and the exact
 point where it stops.</p>
 <p>Holding that line requires deciding, repeatedly, which of a
-programme’s many <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulations</a> are progress. The instrument described
+programme’s many reformulations are progress. The instrument described
 here was built for that job, and it was turned inward first.</p>
 <p><code>ErdosProblems/DemandLedger/Hyp.lean</code> provides
 <code>hypOf%</code>, a term elaborator that takes the type of a named
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> binder directly from the kernel’s <code>ConstantInfo</code>
+hypothesis binder directly from the kernel’s <code>ConstantInfo</code>
 and returns it as a standalone <code>Prop</code>. It does not
-pretty-print and reparse: the extracted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> is the binder type
+pretty-print and reparse: the extracted proposition is the binder type
 or elaboration fails. An unresolved mathematical demand, which
 previously existed only in binder position, becomes an object that can
 be named, compared and proved about.</p>
 <p>The mechanism is intentionally local. A submitted target and its
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">remaining obligations</a> are compared as exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, one sketch at
-a time, against a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> budget. It does not infer a live <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">remaining obligations</a> are compared as exact propositions, one sketch at
+a time, against a bounded proof budget. It does not infer a live corpus
 census from historical binder extraction, and it does not turn an
 authored relation label into a kernel verdict. Current registered
 relations are navigated through
 <code>python3 scripts/query_semantic.py</code>; current problem status
-and continuation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> remain owned by
+and continuation obligations remain owned by
 <code>python3 scripts/query_corpus.py</code> and
 <code>docs/claims.json</code>.</p>
 </section>
 <section id="restatement-and-reuse-use-the-integrated-corpus"
 class="level2">
-<h2>Restatement and reuse use the integrated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a></h2>
+<h2>Restatement and reuse use the integrated corpus</h2>
 <p>The retired two-problem productivity report counted textual
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">references</a> between <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and divided a historical sample by
+references between Lean declarations and divided a historical sample by
 an authored <code>is_restatement</code> label. That was neither a kernel
-restatement <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> nor a current measurement of the eight public
+restatement check nor a current measurement of the eight public
 programmes. Textual fan-in also does not establish mathematical
 importance, novelty or significance, so the report and its standalone
 builder are no longer public infrastructure.</p>
@@ -173,32 +173,32 @@ builder are no longer public infrastructure.</p>
 owner:</p>
 <ul>
 <li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a> records
-reviewed public status and exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> addresses for the selected
-registered <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>; it does not assert that every mathematical statement
+reviewed public status and exact Lean addresses for the selected
+registered claims; it does not assert that every mathematical statement
 in every paper is registered.</li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/semantic_corpus.json.gz"><code>docs/semantic_corpus.json.gz</code></a>,
 queried with <code>python3 scripts/query_semantic.py</code>, owns
-cross-paper statement and relation navigation across the current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.
+cross-paper statement and relation navigation across the current corpus.
 Relation labels are navigation and do not themselves certify
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalence</a>, novelty or value.</li>
+equivalence, novelty or value.</li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>docs/PALOMAR_RESULT_SHOWCASE.json</code></a>
 owns the current candidate universe, screening dispositions and
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>-facing signal order without turning that screening into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> or
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-peer-review" data-term="peer_review" data-term-auto="1">peer review</a>.</li>
-<li><code>scripts/residual_evaluator.py</code> remains the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
-route for asking whether a particular proposed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> leaves its
-target, an equivalent residual or an explicitly stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>. Its
-answer is about the submitted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, not an aggregate score
+reader-facing signal order without turning that screening into proof or
+peer review.</li>
+<li><code>scripts/residual_evaluator.py</code> remains the exact bounded
+route for asking whether a particular proposed reduction leaves its
+target, an equivalent residual or an explicitly stronger obligation. Its
+answer is about the submitted Lean propositions, not an aggregate score
 over an old sample.</li>
 </ul>
 </section>
 <section id="what-the-evaluator-decides" class="level2">
-<h2>What the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> decides</h2>
-<p><code>scripts/residual_evaluator.py</code> asks <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> three <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
+<h2>What the evaluator decides</h2>
+<p><code>scripts/residual_evaluator.py</code> asks Lean three bounded
 questions about a sketch that targets <span class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span> and leaves residual
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> <span class="math inline" data-term-auto="off" data-tex="\(R_{1}\ldots R_{n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo space="2"><mjx-c class="mjx-c2026">…</mjx-c></mjx-mo><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mn>1</mn></mrow></msub><mo>…</mo><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msub></math></mjx-assistive-mml></mjx-container></span>:</p>
+obligations <span class="math inline" data-term-auto="off" data-tex="\(R_{1}\ldots R_{n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo space="2"><mjx-c class="mjx-c2026">…</mjx-c></mjx-mo><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mn>1</mn></mrow></msub><mo>…</mo><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msub></math></mjx-assistive-mml></mjx-container></span>:</p>
 <ol type="1">
 <li><strong>Sufficiency.</strong> Is <span class="math inline" data-term-auto="off" data-tex="\(R_{1}\wedge \ldots \wedge R_{n}\to P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2227">∧</mjx-c></mjx-mo><mjx-mo space="3"><mjx-c class="mjx-c2026">…</mjx-c></mjx-mo><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2227">∧</mjx-c></mjx-mo><mjx-msub space="3"><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mn>1</mn></mrow></msub><mo>∧</mo><mo>…</mo><mo>∧</mo><msub><mi>R</mi><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msub><mo accent="false" stretchy="false">→</mo><mi>P</mi></math></mjx-assistive-mml></mjx-container></span>
 provable within the budget?</li>
@@ -223,7 +223,7 @@ false?</li>
 <tbody>
 <tr>
 <td><code>endpoint_equivalent</code></td>
-<td>Some single residual is provably <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalent to</a> the target. The
+<td>Some single residual is provably equivalent to the target. The
 sketch renamed the problem.</td>
 </tr>
 <tr>
@@ -234,7 +234,7 @@ untrue.</td>
 <tr>
 <td><code>strict_decomposition_candidate</code></td>
 <td>The residuals suffice, and no individual residual is provably
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalent to</a> the target.</td>
+equivalent to the target.</td>
 </tr>
 <tr>
 <td><code>unknown_relation</code></td>
@@ -246,12 +246,12 @@ separation.</td>
 <p>Two details matter more than they look.</p>
 <p><strong>Restatement is tested per residual and in both
 directions.</strong> Testing <code>P → ⋀Rᵢ</code> instead is wrong: a
-target <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> every legitimate consequence, so that criterion convicts
-every correct decomposition. An earlier version of this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> did
-exactly that and flagged a textbook base-plus-step <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematical-induction" data-term="mathematical_induction" data-term-auto="1">induction</a> split as
+target implies every legitimate consequence, so that criterion convicts
+every correct decomposition. An earlier version of this evaluator did
+exactly that and flagged a textbook base-plus-step induction split as
 the failure it is the opposite of.</p>
 <p><strong>A false accusation is the expensive error.</strong> Requiring
-two kernel <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> on one residual means a well-disguised restatement can
+two kernel proofs on one residual means a well-disguised restatement can
 escape into <code>unknown_relation</code>. That is the intended trade:
 missing one costs a wasted search branch, while falsely rejecting a
 productive change of representation costs the branch that would have
@@ -260,13 +260,13 @@ worked.</p>
 <section id="residualbench" class="level2">
 <h2>ResidualBench</h2>
 <p><code>residualbench/ResidualBench.lean</code> holds eight labelled
-sketches over two elementary targets — the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> of the first
-<span class="math inline" data-term-auto="off" data-tex="\(n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></mjx-assistive-mml></mjx-container></span> odd numbers, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divisor" data-term="divisor" data-term-auto="1">divisor</a>-count identity — including
-deliberate restatement, self-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumption</a>, false-residual and
+sketches over two elementary targets — the sum of the first
+<span class="math inline" data-term-auto="off" data-tex="\(n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></mjx-assistive-mml></mjx-container></span> odd numbers, and a divisor-count identity — including
+deliberate restatement, self-assumption, false-residual and
 hallucinated-literature specimens, plus two controls that must
 <strong>not</strong> be vetoed. Labels live in
 <code>scripts/residualbench_manifest.json</code> and are compared
-against the run; the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> refuses a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a> that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-trying" data-term="trying" data-term-auto="1">tries</a> to author a
+against the run; the evaluator refuses a manifest that tries to author a
 verdict rather than declare an expectation.</p>
 <p>Under budget <code>ladder_v3_independent</code>:</p>
 <table>
@@ -328,57 +328,57 @@ vetoed</td>
 </table>
 <p>Three vetoes, both controls clean, and the legitimate decomposition
 survives. <code>docs/residualbench_report.json</code> is the run: every
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> put to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, the tactic that discharged it, and its axiom
-budget. It records this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> only; no
-cross-pin <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> is registered here, so this note makes no portability
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> about the older <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> pins or other library
+proposition put to Lean, the tactic that discharged it, and its axiom
+budget. It records this repository’s pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> environment only; no
+cross-pin receipt is registered here, so this note makes no portability
+claim about the older Formal Conjectures pins or other library
 versions.</p>
-<p>Two rows disagree with their labels on budget <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-grounding" data-term="grounding" data-term-auto="1">grounds</a> and are left
+<p>Two rows disagree with their labels on budget grounds and are left
 that way. <code>B_reassociation</code> is an equivalent range reindexing
 and <code>F_strengthening</code> specialises a general
 arithmetic-progression formula; the current general tactic ladder does
-not close either. Adding tactics shaped to these <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">fixtures</a> would turn the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-benchmark" data-term="benchmark" data-term-auto="1">benchmark</a> into a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-transcript" data-term="transcript" data-term-auto="1">transcript</a> of its own tactic list.</p>
+not close either. Adding tactics shaped to these fixtures would turn the
+benchmark into a transcript of its own tactic list.</p>
 <p><code>D_self_assumption</code> is an error by the author of the
 bench, kept on the record. Its residual is <code>OddSum → OddSum</code>,
-which is a tautology — <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalent to</a> <code>True</code>, not to the
-target, because it cannot <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">imply</a> the target back. It was labelled
-<code>endpoint_equivalent</code>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> was right and the label
-was wrong. A residual provable with no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> establishes nothing
+which is a tautology — equivalent to <code>True</code>, not to the
+target, because it cannot imply the target back. It was labelled
+<code>endpoint_equivalent</code>. The evaluator was right and the label
+was wrong. A residual provable with no assumptions establishes nothing
 and deserves its own verdict; it does not yet have one.</p>
 </section>
 <section id="running-it" class="level2">
 <h2>Running it</h2>
-<p>Requires a built <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> for this <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-toolchain" data-term="toolchain" data-term-auto="1">toolchain</a>.</p>
+<p>Requires a built Mathlib for this toolchain.</p>
 <pre><code>python3 scripts/lean_fast_build.py ResidualBench
 python3 scripts/residual_evaluator.py \
   --manifest scripts/residualbench_manifest.json \
   --lean-root . \
   --no-cross</code></pre>
-<p>The run emits, per sketch, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a> it put to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which
-tactic discharged each, and the axiom budget of every accepted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>. A
+<p>The run emits, per sketch, the propositions it put to Lean, which
+tactic discharged each, and the axiom budget of every accepted proof. A
 tactic attempt counts as proved only when <code>#print axioms</code>
-returns a report free of <code>sorryAx</code>; a failed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> still
-enters the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> closed by <code>sorryAx</code>, so the presence
+returns a report free of <code>sorryAx</code>; a failed theorem still
+enters the environment closed by <code>sorryAx</code>, so the presence
 of a report is not sufficient. Each run carries two controls — one
-trivially provable <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> and one unprovable one — and refuses to
-report any verdict if the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-harness" data-term="harness" data-term-auto="1">harness</a> cannot separate them.</p>
+trivially provable proposition and one unprovable one — and refuses to
+report any verdict if the harness cannot separate them.</p>
 </section>
 <section id="what-this-does-not-establish" class="level2">
 <h2>What this does not establish</h2>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> is sound where it speaks and silent elsewhere. It is
-not a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-difficulty <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-metric" data-term="metric" data-term-auto="1">metric</a>: logical strength and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> cost are
+<p>The evaluator is sound where it speaks and silent elsewhere. It is
+not a proof-difficulty metric: logical strength and proof cost are
 different quantities, and a stronger residual may be easier because it
 has more exploitable structure. It is not complete:
 <code>unknown_relation</code> means the budget proved nothing, never
-that no relation exists. It has not been run against a live <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-search
-loop, so no <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> is made here about search efficiency or solve rate.
-And no priority is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claimed</a> for the construction; the relation between
-this and existing <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>-progress prediction and reward-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-model" data-term="model" data-term-auto="1">model</a> work has
+that no relation exists. It has not been run against a live proof-search
+loop, so no claim is made here about search efficiency or solve rate.
+And no priority is claimed for the construction; the relation between
+this and existing proof-progress prediction and reward-model work has
 not been surveyed.</p>
 <p>What it does establish is narrower and checkable: for the specimens
-listed above, at the stated budget, in the stated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a>, the
-relation between a sketch’s <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">remaining obligations</a> and its target was
+listed above, at the stated budget, in the stated environment, the
+relation between a sketch’s remaining obligations and its target was
 decided by the kernel rather than estimated.</p>
 </section>
 </section>

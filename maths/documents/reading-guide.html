@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/3560831ffa53fc67.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,17 +74,18 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">A reader&#x27;s way in</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
         <p class="doc-role-eyebrow">Introduction</p>
         <h1>A reader&#x27;s way in</h1>
-        <p class="doc-source-line">Rendered from <code>docs/READING_GUIDE.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/READING_GUIDE.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
@@ -95,71 +95,71 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
 
-<p>This <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> studies eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes through short
-papers, longer research records, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> of selected statements,
+<p>This repository studies eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes through short
+papers, longer research records, Lean proofs of selected statements,
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computations</a>, and accounts of approaches that stopped. Plectis
 keeps the work open to further insight. The website brings the
-collection together; you do not need <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> to read it.</p>
+collection together; you do not need Lean to read it.</p>
 <p>Start with the <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">#257
-paper</a>: its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> weighted criterion proves
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> for some <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">supports</a> with <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-divergence" data-term="divergence" data-term-auto="1">divergent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a>,
-while arbitrary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. Then read <a
+paper</a>: its checked finite-prime weighted criterion proves
+irrationality for some infinite supports with divergent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a>,
+while arbitrary infinite support remains open. Then read <a
 href="../../papers/erdos-1049-rational-base-lambert.pdf">#1049</a>:
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> holds in the stated region, including powers of
-<span class="math inline" data-term-auto="off" data-tex="\(31/4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>31</mn><mo>/</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span>; <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>. The <a
+irrationality holds in the stated region, including powers of
+<span class="math inline" data-term-auto="off" data-tex="\(31/4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>31</mn><mo>/</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span>; <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> remains open. The <a
 href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">#1041
-paper</a> examines ani’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a>.</p>
-<p>Using the degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-polynomial" data-term="polynomial" data-term-auto="1">polynomial</a> constructed by the
-erdosproblems.com contributor ani, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves that every preconnected
+paper</a> examines ani’s counterexample.</p>
+<p>Using the degree-seven polynomial constructed by the
+erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a> set containing two distinct roots has <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hausdorff-measure" data-term="hausdorff_measure" data-term-auto="1">one-dimensional
-Hausdorff measure</a> greater than two. This refutes the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> path-image-length statement; the separate total-variation
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> is also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>. The other seven targets <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>. Independent
+Hausdorff measure</a> greater than two. This refutes the exact Formal
+Conjectures path-image-length statement; the separate total-variation
+bound is also checked. The other seven targets remain open. Independent
 human review of correspondence with the 1958 wording has not been
-recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> only selected exact statements, axioms and
+recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> checks only selected exact statements, axioms and
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">kernel acceptance</a>; it does not assess novelty or historical
 correspondence.</p>
 <section id="two-ways-to-begin" class="level2">
 <h2>Two ways to begin</h2>
-<p>You can follow one question or read across the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>: a failed
-method in one programme can suggest a different <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> in another. The
+<p>You can follow one question or read across the corpus: a failed
+method in one programme can suggest a different theorem in another. The
 <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">reading edition</a> gives a short
 research instruction and the opening of each short paper in one file.
-For #257, follow the weighted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> through its averaging <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, the
-small-displacement test that fails at full <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-support" data-term="support" data-term-auto="1">support</a>, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>, the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source and the still-open universal question. Failure of the
-weighted condition does not show <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationality</a>.</p>
+For #257, follow the weighted theorem through its averaging proof, the
+small-displacement test that fails at full support, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a>, the
+Lean source and the still-open universal question. Failure of the
+weighted condition does not show rationality.</p>
 </section>
 <section id="what-is-here" class="level2">
 <h2>What is here</h2>
 <p>The <a href="readme.html">front page</a> lists the eight problems
 with a short paper and a longer paper for each. The short paper is the
-main <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a>: it introduces the question, states the strongest
+main exposition: it introduces the question, states the strongest
 results and explains the ideas behind the arguments for a mathematical
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>. The longer record keeps technical detail, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a>
+reader. The longer record keeps technical detail, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a>, finite
 experiments, and the exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> that survive. The other seven
 target problems are not resolved here; those papers make their surviving
 questions explicit. The <a href="paper-guide.html">paper catalogue</a>
-includes <em>Problem-Sized <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Worlds</em> on <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">claim
-boundaries</a> and <em>From Spare Compute to Cumulative <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">Mathematics</a></em> on
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>.</p>
+includes <em>Problem-Sized Lean Worlds</em> on proof and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">claim
+boundaries</a> and <em>From Spare Compute to Cumulative Mathematics</em> on
+contribution and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>.</p>
 <p>The <a href="results.html">results guide</a> states the strongest
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> result for each problem next to what still blocks its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a>.
+checked result for each problem next to what still blocks its endpoint.
 <a href="prior-art.html">Prior work</a> records earlier arguments and
-attribution. <a href="scope.html"><span data-term-preview-only data-term="scope" data-term-auto="1">Scope</span></a> states the project’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>;
-the <a href="architecture.html"><span data-term-preview-only data-term="architecture" data-term-auto="1">architecture</span> guide</a> explains its
+attribution. <a href="scope.html">Scope</a> states the project’s limits;
+the <a href="architecture.html">architecture guide</a> explains its
 machinery.</p>
 </section>
 <section id="what-formalisation-adds" class="level2">
-<h2>What <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> adds</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> a precise statement against a precise <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, exposing
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a>, quantifiers and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dependency" data-term="dependency" data-term-auto="1">dependencies</a>. It does not establish novelty
+<h2>What formalisation adds</h2>
+<p>Lean checks a precise statement against a precise proof, exposing
+assumptions, quantifiers and dependencies. It does not establish novelty
 or importance, or turn a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional result</a> into an unconditional one.
-Each paper distinguishes ordinary mathematical arguments, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a>
+Each paper distinguishes ordinary mathematical arguments, formalised
 results and remaining gaps. Follow a statement’s source link and
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">verification record</a> to see what has been <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>; a build alone does not
-establish that every argument in a paper has been <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalised</a>.
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">verification record</a> to see what has been checked; a build alone does not
+establish that every argument in a paper has been formalised.
 Independent human review of correspondence with the historical
 curve-length formulation has not been recorded.</p>
 </section>
@@ -167,99 +167,99 @@ curve-length formulation has not been recorded.</p>
 <h2>The eight problems in brief</h2>
 <p>Choose a question below to open its short paper. The <a
 href="results.html#problem-by-problem-guide">problem-by-problem results
-guide</a> explains the main arguments, their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalisation</a> and the
+guide</a> explains the main arguments, their formalisation and the
 questions left open. Keeping those assessments in one place avoids
 conflicting summaries.</p>
 <!-- BEGIN problem_programme_card -->
 <p><a
 href="../../papers/erdos-68-factorial-denominator-irrationality.pdf">Problem
-68</a>. Is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> sum_{n &gt;= 2} 1/(n! - 1) <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? <a
+68</a>. Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational? <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-68">Work on this paper</a>.</p>
 <p><a href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf">Problem
-243</a>. Under a rapid-growth <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> on an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">integer sequence</a>, does
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">rationality</a> of its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a> force the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sequence" data-term="sequence" data-term-auto="1">sequence</a> to satisfy the
+243</a>. Under a rapid-growth hypothesis on an integer sequence, does
+rationality of its reciprocal sum force the sequence to satisfy the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sylvester-sequence" data-term="sylvester_sequence" data-term-auto="1">Sylvester recurrence</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a>? <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-243">Work on this paper</a>.</p>
 <p><a href="../../papers/erdos-249-binary-totient-series.pdf">Problem
-249</a>. Is the binary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> phi(n)/2^n <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? <a
+249</a>. Is the binary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a> sum phi(n)/2^n irrational? <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-249">Work on this paper</a>.</p>
 <p><a href="../../papers/erdos-251-prime-gap-dyadic-series.pdf">Problem
-251</a>. Is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> of consecutive <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>?
-Equivalently, is the corresponding consecutive-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-gap <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-251" data-link-kind="exogenous" rel="external noopener">Work on this
+251</a>. Is the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dyadic" data-term="dyadic" data-term-auto="1">dyadic</a> series of consecutive primes irrational?
+Equivalently, is the corresponding consecutive-prime-gap dyadic series
+irrational? <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-251" data-link-kind="exogenous" rel="external noopener">Work on this
 paper</a>.</p>
 <p><a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">Problem
-257</a>. Is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-sum" data-term="sum" data-term-auto="1">sum</a> of 1/(2^n-1) over every <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-infinite" data-term="infinite" data-term-auto="1">infinite set</a> of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exponent" data-term="exponent" data-term-auto="1">positive
-exponents</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-257" data-link-kind="exogenous" rel="external noopener">Work
+257</a>. Is the sum of 1/(2^n-1) over every infinite set of positive
+exponents irrational? <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-257" data-link-kind="exogenous" rel="external noopener">Work
 on this paper</a>.</p>
 <p><a href="../../papers/erdos-269-three-prime-running-lcm.pdf">Problem
-269</a>. For a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of at least two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">primes</a>, is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">sum of
-reciprocals</a> of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-running-lcm" data-term="running_lcm" data-term-auto="1">running least common multiples</a> of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-smooth-number" data-term="smooth_number" data-term-auto="1">smooth numbers</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? This library treats the three-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a> case. <a
+269</a>. For a finite set of at least two primes, is the sum of
+reciprocals of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-running-lcm" data-term="running_lcm" data-term-auto="1">running least common multiples</a> of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-smooth-number" data-term="smooth_number" data-term-auto="1">smooth numbers</a>
+irrational? This library treats the three-prime case. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-269">Work on this paper</a>.</p>
 <p><a href="../../papers/erdos-1041-lemniscate-newton-flow.pdf">Problem
 1041</a>. Must two roots of a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomial</a> in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-unit-disc" data-term="unit_disc" data-term-auto="1">open unit disc</a> be
-joined by a sub-two-length curve inside its unit <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lemniscate" data-term="lemniscate" data-term-auto="1">lemniscate</a>? Ani’s
-degree-seven example refutes the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> statement;
+joined by a sub-two-length curve inside its unit lemniscate? Ani’s
+degree-seven example refutes the exact Formal Conjectures statement;
 correspondence with the 1958 wording awaits human review. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-1041">Work on this paper</a>.</p>
 <p><a href="../../papers/erdos-1049-rational-base-lambert.pdf">Problem
-1049</a>. For which <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">rational bases</a> is the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? The first resistant explicit base is three halves. <a
+1049</a>. For which rational bases is the corresponding series
+irrational? The first resistant explicit base is three halves. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md#problem-1049">Work on this paper</a>.
 <!-- END problem_programme_card --></p>
 <p>The <a
 href="../../papers/optimal-sparse-perturbations.pdf">cross-problem
-paper, Reading Eight <span data-term-preview-only data-term="erdos_problem" data-term-auto="1">Erdős Problems</span> Together</a> joins the capacity
-criterion, Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> across bases, method <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>, exact
+paper, Reading Eight Erdős Problems Together</a> joins the capacity
+criterion, Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> across bases, method limits, exact
 computations and unsuccessful approaches in one account. This is a
-central use of the collection: read the papers and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> together,
-find constructions or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a> that survive in a more general
-setting, and develop the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> they suggest. The <a
+central use of the collection: read the papers and Lean corpus together,
+find constructions or obstructions that survive in a more general
+setting, and develop the mathematics they suggest. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">synthesis guide</a> gives ways to
 begin.</p>
 </section>
 <section id="how-to-read-the-evidence" class="level2">
-<h2>How to read the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a></h2>
-<p>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> statement; a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> record gives its
-public status and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>. A paper supplies motivation and a readable
-argument. A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite calculation</a> covers only the range it reached.</p>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> compares selected statements with independently declared
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a> under fixed <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a>. It is not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-peer-review" data-term="peer_review" data-term-auto="1">peer review</a> and
+<h2>How to read the evidence</h2>
+<p>A Lean proof checks a formal statement; a claim record gives its
+public status and limits. A paper supplies motivation and a readable
+argument. A finite calculation covers only the range it reached.</p>
+<p>Comparator compares selected statements with independently declared
+formal interfaces under fixed assumptions. It is not peer review and
 does not establish novelty. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"><span data-term-preview-only data-term="palomar" data-term-auto="1">Palomar</span> guide</a>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">Palomar guide</a>
 distinguishes local packaging from recorded service submission or
 acceptance.</p>
 <p>This is a self-contained public record, not an entrypoint into any
-private development system. File, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> and computation counts do
+private development system. File, declaration and computation counts do
 not measure mathematical importance.</p>
 </section>
 <section id="reviewing-one-result" class="level2">
 <h2>Reviewing one result</h2>
-<p>Pick a statement in a short paper, read its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> and the step
+<p>Pick a statement in a short paper, read its assumptions and the step
 that does the work, then follow the longer record. Missing motivation,
 compressed hard steps and unclear attribution are useful feedback: a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> still needs an explanation others can understand and
+checked proof still needs an explanation others can understand and
 reuse.</p>
 </section>
 <section id="contributing" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">Contributing</a></h2>
+<h2>Contributing</h2>
 <p>AI tools did much of the research, code, and drafting under my
-direction. I am responsible for the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>, the sources, and the
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>. Nothing here has had independent mathematical review.</p>
-<p>The most useful <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a> is a mathematical one: a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
+direction. I am responsible for the claims, the sources, and the
+release. Nothing here has had independent mathematical review.</p>
+<p>The most useful contribution is a mathematical one: a proof
 correction, a clearer explanation of a hard step, an attribution
-correction, a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to an intermediate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>, or an earlier
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a>. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">contributor guide</a>
-explains how to send that back with its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> intact. If
-this work helps you solve one of the eight, the solution and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>
+correction, a counterexample to an intermediate claim, or an earlier
+reference. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">contributor guide</a>
+explains how to send that back with its evidence and credit intact. If
+this work helps you solve one of the eight, the solution and the credit
 are yours.</p>
 <p>An insight is welcome before it has a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>. Will can work
-with you to develop the argument and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalise</a> it, with the originating
-insight credited separately from subsequent <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> work.
+with you to develop the argument and formalise it, with the originating
+insight credited separately from subsequent exposition and proof work.
 Clearer understanding, reusable methods and new questions across the
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> also count as <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contributions</a>; they need not close an original
+corpus also count as contributions; they need not close an original
 problem.</p>
 </section>
 </section>

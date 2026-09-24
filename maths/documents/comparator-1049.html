@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-glossary-hint="off">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,10 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
+  <link rel="stylesheet" href="../assets/maths.css?v=aefd0772c4ed">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
-  <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
+  <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/math/857aa975b5b901a0.css">
@@ -39,15 +39,14 @@
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
       <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <span class="brand-ladder">
-        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+      <a class="brand-ladder brand-ladder--home" href="../index.html">
+        <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <a class="wordmark" href="../../index.html">Plectis</a>
-      </span>
+        <span class="wordmark">Plectis</span>
+      </a>
       <nav class="docs-topbar__links" aria-label="Primary">
         <a href="../index.html">Maths</a>
-        <a href="../../docs/index.html">Software</a>
-        <a href="../../docs/papers.html">Papers</a>
+        <a href="../index.html#papers">Papers</a>
         <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
       </nav>
     </div>
@@ -60,14 +59,14 @@
         <a href="../index.html">Overview</a>
         <a href="../universe.html">Universe map</a>
         <p class="docs-nav__group">Problems</p>
-        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
-        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
-        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
-        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
-        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
-        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
-        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
-        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
         <p class="docs-nav__group">Reading</p>
         <a href="../index.html#papers">The papers</a>
         <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
@@ -75,71 +74,72 @@
     </aside>
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
+      <div class="maths-pagebar">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Comparator #1049 fixture</li></ol></nav>
-      <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <header class="paper-head">
         <p class="doc-role-eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> case study</p>
         <h1>Comparator #1049 fixture</h1>
-        <p class="doc-source-line">Rendered from <code>docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+        <p class="doc-source-line">Rendered from <code>docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
       <div class="paper-stage">
 <article class="lean-document" data-document-id="comparator-1049" data-document-role="comparator_case_study" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md">
 <section class="level1 lean-doc-titled">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1049</a>: one numerical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>, exactly scoped</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1049</a>: one numerical certificate, exactly scoped</h2>
 <section id="the-question" class="level2">
 <h2>The question</h2>
-<p>For which <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">rational bases</a> is the relevant <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert-type series</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? The base <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> is the main unresolved target in
+<p>For which rational bases is the relevant <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert-type series</a>
+irrational? The base <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> is the main unresolved target in
 this programme.</p>
 </section>
 <section id="what-is-checked-here" class="level2">
-<h2>What is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> here</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> proves the concrete <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a></p>
+<h2>What is checked here</h2>
+<p>Lean proves the concrete inequality</p>
 <pre class="text"><code>log(2) / log(7) &lt; 1/2 - 1/pi^2.</code></pre>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> is configured to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> a tiny <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> transport from the
-public source <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> to a separately declared <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>-only statement,
-with a deliberately weakened nearby statement as the negative <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-fixture" data-term="fixture" data-term-auto="1">fixture</a>.
-The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>-in <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configuration</a> and workflow are <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-gate" data-term="gate" data-term-auto="1">release gates</a>, not
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
-<p>This is useful because the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-inequality" data-term="inequality" data-term-auto="1">inequality</a> is the numerical input used at
-the base <span class="math inline" data-term-auto="off" data-tex="\(7/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c37">7</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>7</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> in the external <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> of <a
+<p>Comparator is configured to check a tiny proof transport from the
+public source theorem to a separately declared <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a>-only statement,
+with a deliberately weakened nearby statement as the negative fixture.
+The checked-in configuration and workflow are release gates, not
+terminal replay receipts.</p>
+<p>This is useful because the inequality is the numerical input used at
+the base <span class="math inline" data-term-auto="off" data-tex="\(7/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c37">7</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>7</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> in the external theorem of <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/totient-kernel/bundschuh-vaanenen-1994-source-closure.md">Bundschuh
-and Väänänen</a>. It cleanly separates a kernel-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> arithmetic
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a> from the literature <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> that consumes it.</p>
+and Väänänen</a>. It cleanly separates a kernel-checked arithmetic
+certificate from the literature theorem that consumes it.</p>
 </section>
 <section id="what-is-not-checked-here" class="level2">
-<h2>What is not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> here</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalise</a> the full Bundschuh-Väänänen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>, all of
-its hypotheses, or its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a> conclusion. This <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-packet" data-term="packet" data-term-auto="1">packet</a> does not
+<h2>What is not checked here</h2>
+<p>Lean does not formalise the full Bundschuh-Väänänen theorem, all of
+its hypotheses, or its irrationality conclusion. This packet does not
 advance the open base <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> case.</p>
 </section>
 <section id="who-did-what" class="level2">
 <h2>Who did what</h2>
-<p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">AI agents</a> helped draft the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, the statement firewall, and
-this <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a>. Will Cook directed and reviewed the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a> and
-remains responsible for its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the source
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> is configured to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the transport to the
-separately declared statement. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifact</a>
+<p>AI agents helped draft the Lean proof, the statement firewall, and
+this exposition. Will Cook directed and reviewed the public release and
+remains responsible for its claims. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">Lean kernel</a> checks the source
+proposition. Comparator is configured to check the transport to the
+separately declared statement. A commit-bound terminal replay artifact
 is required before claiming that a particular generation passed. The
-Bundschuh-Väänänen <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> remains a cited external result.</p>
+Bundschuh-Väänänen theorem remains a cited external result.</p>
 </section>
 <section id="proof-handle" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">Proof</a> handle</h2>
+<h2>Proof handle</h2>
 <ul>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean">Public
-<span data-term-preview-only data-term="lean" data-term-auto="1">Lean</span> source</a>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
+Lean source</a>: theorem
 <code>sevenHalves_bundschuhVaananen_margin</code></li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification1049/Challenge.lean">Separately
-declared challenge statement</a>: <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
+declared challenge statement</a>: theorem
 <code>comparator_sevenHalves_numericalHeight</code></li>
 <li><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification1049/Solution.lean">Source
@@ -148,13 +148,13 @@ transport</a></li>
 href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification1049/NegativeSolution.lean">Deliberate
 mismatch</a></li>
 <li><a
-href="https://github.com/wcook04/plectis-erdos/blob/main/verification/comparator-1049-numerical-height.metadata.json"><span data-term-preview-only data-term="machine_readable" data-term-auto="1">Machine-readable</span>
-<span data-term-preview-only data-term="scope" data-term-auto="1">scope</span></a></li>
+href="https://github.com/wcook04/plectis-erdos/blob/main/verification/comparator-1049-numerical-height.metadata.json">Machine-readable
+scope</a></li>
 </ul>
-<p>Until a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">commit</a>-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-terminal" data-term="terminal" data-term-auto="1">terminal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifact</a> is attached, the
-precise badge is: <strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a>-configured numerical
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a></strong>. It is not an independently <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verified</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrationality</a>
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+<p>Until a commit-bound terminal replay artifact is attached, the
+precise badge is: <strong>Comparator-configured numerical
+certificate</strong>. It is not an independently verified irrationality
+theorem.</p>
 </section>
 </section>
   </div>

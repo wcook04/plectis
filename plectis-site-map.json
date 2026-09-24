@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:46359dab35c34a478e104ffe4c51f59ae3e1174925dc53b91b47ffb535388545",
+    "payload_sha256_excluding_identity": "sha256:e2865cc97c526610a70f1768381970f28f8692369365a88a940b3f5aaf7cc2cd",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1"
@@ -7260,11 +7260,11 @@
       ],
       "title": "The papers",
       "visible_text": {
-        "byte_count": 42123,
+        "byte_count": 42500,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "The system\n\n### The papers\n\nEight short papers, one per problem, come first. The system papers explain how the work is checked and shared. The long reasoning records carry the complete route behind each short paper.\n\nFor a particular problem, [choose it in the mathematics library](maths/index.html) to see its papers alongside its Lean proofs. Each entry below opens to the abstract, what the paper is and is not authority for, and the LaTeX behind the hosted PDF.\n\n#### Short papers 8\n\nOne per problem: the original question, the results checked in Lean, the routes that failed, and the step that remains open. Start here.\n\nErd\u0151s #68 Short paper 18 pages\n\n##### Two Incomparable Denominator Exclusions for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhich exact denominator exclusions are proved for Erd\u0151s #68, and what still blocks irrationality?\n\n[Read online](maths/papers/erdos-68-factorial-denominator-irrationality.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-68-factorial-denominator-irrationality.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex)\n\nAbstract and reading guide\n\nAny expression of S=\u2211_{n\u22652}(n!\u22121)^{-1} as a/q must satisfy q\u2224299999! and q\u22652^39990>10^12038. The two exclusions are incomparable: one uses the next integer above a factorial-scaled partial sum, the other a rational enclosure and continued fractions. A separate coefficient construction produces remainders MS+k and classifies the vectors that cancel prescribed initial weighted sums. At fixed M every remainder has the same fractional part. Irrationality by this method still requires every positive integer to divide a moment whose remainder lies strictly between consecutive integers.\n\nExplains the problem-specific exposition for Erd\u0151s #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start problem, channels, projection, open (our selection, not the paper's own advice)\n\nErd\u0151s #243 Short paper 18 pages\n\n##### Cubic-Rate Irrationality and Reciprocal-Tail Rigidity\n\nFor Erd\u0151s #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?\n\n[Read online](maths/papers/erdos-243-reciprocal-tail-rigidity.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-243-reciprocal-tail-rigidity.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex)\n\nAbstract and reading guide\n\nEvery strictly increasing sequence of positive integers with a_n\u00b2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n\u00b2\u21921 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=\u220f_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erd\u0151s #243 remains open.\n\nExplains the cubic-rate irrationality theorem and the problem-specific exposition for Erd\u0151s #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start problem, secondaryrate, bounded, open (our selection, not the paper's own advice)\n\nErd\u0151s #249 Short paper 16 pages\n\n##### Bases and Integral Relations for the k -Kernel of Euler's Totient\n\nWhat explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erd\u0151s #249?\n\n[Read online](maths/papers/erdos-249-binary-totient-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-249-binary-totient-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex)\n\nAbstract and reading guide\n\nFor integers k\u22652 and e\u22651, the totient sections n\u21a6\u03c6(k^j n+r) with 0\u2264j\u2264e and 0\u2264r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=\u2211 \u03c6(n)2^{-n}. They do not establish that S is irrational.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start results, carry rank, frontier, nogo (our selection, not the paper's own advice)\n\nErd\u0151s #251 Short paper 14 pages\n\n##### Sparse Congruence-Preserving Perturbations of Dyadic Series\n\nWhich sparse congruence-preserving corrections can rationalise a dyadic series, and why does that not prove Erd\u0151s #251 irrational?\n\n[Read online](maths/papers/erdos-251-prime-gap-dyadic-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-251-prime-gap-dyadic-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex)\n\nAbstract and reading guide\n\nSparse nonnegative integer corrections can rationalise a convergent dyadic series with nonnegative integer coefficients. Given a finite prefix to retain and any allowance f(n)\u2192\u221e, one permitted index set of upper Banach density zero supports corrections attaining every real target in a nondegenerate interval above the original sum. The corrections are eventually bounded by f; each fixed modulus divides both the corrections and their cumulative sums beyond a cutoff independent of the target. For f(n)=(log(n+3))^\u03b5, the empirical unnormalised block distributions of original and corrected sequences become close in total variation for lengths o(log log X). Applied to prime gaps, the construction gives rational dyadic sums while cumulative positions remain asymptotic to n log n. These congruences and block statistics alone cannot establish irrationality, and the construction does not assert that the cumulative positions are prime.\n\nExplains the problem-specific exposition for Erd\u0151s #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start problem, tail, local certificate, open (our selection, not the paper's own advice)\n\nErd\u0151s #257 Short paper 21 pages\n\n##### Weighted Support Criteria for Reciprocal Mersenne Subseries\n\nWhich weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erd\u0151s #257 question?\n\n[Read online](maths/papers/erdos-257-mersenne-support-subseries.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex)\n\nAbstract and reading guide\n\nFor a finite nonempty set P of primes, let h(a) be the P-part of a. If \u2211_{a\u2208A} h(a)/(a(2^{h(a)}\u22121)) is finite, then \u2211_{a\u2208B}(b^a\u22121)^{-1} is irrational for every integer b\u22652 and every infinite B\u2286A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erd\u0151s and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, which remains open. Where to start problem, reciprocal support, eight return extensions, open (our selection, not the paper's own advice)\n\nErd\u0151s #269 Short paper 12 pages\n\n##### No Finite Separable Representation at Three Prime Generators\n\nWhy does the Erd\u0151s #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?\n\n[Read online](maths/papers/erdos-269-three-prime-running-lcm.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-269-three-prime-running-lcm.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex)\n\nAbstract and reading guide\n\nFor three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.\n\nExplains the problem-specific exposition for Erd\u0151s #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start problem, rank, lcm, escape (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Short paper 28 pages\n\n##### Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria\n\nWhich explicit short paths and critical-value bounds are proved for Erd\u0151s #1041, and which hypotheses do they require?\n\n[Read online](maths/papers/erdos-1041-lemniscate-newton-flow.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex)\n\nAbstract and reading guide\n\nFor a monic trinomial f(z)=z^n+a z^m+b, 1\u2264m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.\n\nExplains the problem-specific exposition for Erd\u0151s #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erd\u0151s #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository. Where to start trinomial, constant factor, gap, open (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Short paper 20 pages\n\n##### Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order\n\nFor Erd\u0151s #1049, which rational bases make F(a/b) irrational, what exact Hankel order is computed, and why does 3/2 remain open?\n\n[Read online](maths/papers/erdos-1049-rational-base-lambert.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1049-rational-base-lambert.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex)\n\nAbstract and reading guide\n\nFor coprime integers a>b\u22651, F(a/b)=\u2211_{n\u22651}((a/b)^n\u22121)^{-1} is irrational when log b / log a is less than the explicit cutoff 0.4056830213840605\u2026. This includes every positive integral power of 31/4, with irrationality exponent less than 301. The argument uses Zudilin's 2004 forms and constants, cancels common cyclotomic factors before rational evaluation, and computes the remaining denominator cost. For the distinct normalised Hankel determinants V_N^* in his 2016 construction with x=z=1, the q-order is N(N\u22121)(2N\u22121)/6 and the leading coefficient is (N!)^2(N+1)!/2^N. The rational-base criterion does not include 3/2; neither argument settles irrationality at that base.\n\nExplains the problem-specific exposition for Erd\u0151s #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, the finite rank-eight coefficient-pencil result, and the remaining approximant and remainder construction at 3/2. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start problem, rational base irrationality, hankel order, open (our selection, not the paper's own advice)\n\n#### Reading the problems together 1\n\nMathematics whose subject is several of the covered problems at once: what is common, what is not, and what the comparison leaves open.\n\nEight Erd\u0151s problems read together Cross-problem paper Cross-problem paper 28 pages\n\n##### Reading Eight Erd\u0151s Problems Together\n\nWhen do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erd\u0151s programmes?\n\n[Read online](maths/papers/optimal-sparse-perturbations.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/optimal-sparse-perturbations.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex)\n\nAbstract and reading guide\n\nOne account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.\n\nExplains the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record. Not authority for a solution to any original Erd\u0151s target, historical novelty, independent expert review, or a full Lean proof of the analytic capacity criterion or Lambert-chain theorem. Where to start map, capacity:sec:criterion, results, questions (our selection, not the paper's own advice)\n\n#### System papers 4\n\nHow the work is found, checked, published and shared. No mathematical claim about any problem lives here.\n\nSystem paper Research architecture 20 pages\n\n##### Problem-Sized Lean Worlds\n\nHow does a research system turn agent work into inspectable mathematical claims?\n\n[Read online](maths/papers/claim-faithful-publication-systems.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex)\n\nAbstract and reading guide\n\nProblem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.\n\nExplains the research architecture and its evidence and authority boundaries. Not authority for the mathematical content it uses as its worked example, and the correctness of the human review it preserves. Where to start lifecycle, mathloop, example, routes, trust (our selection, not the paper's own advice)\n\nSystem paper Agent navigation 12 pages\n\n##### From a Cold Clone to a Proof Receipt\n\nHow can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?\n\n[Read online](maths/papers/cold-clone-to-proof-receipt.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/cold-clone-to-proof-receipt.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex)\n\nAbstract and reading guide\n\nA large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.\n\nExplains the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts. Not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project. Where to start problem, tour, authority, dogfood, limits (our selection, not the paper's own advice)\n\nSystem paper Open-source research strategy 22 pages\n\n##### From Spare Compute to Cumulative Mathematics\n\nHow can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?\n\n[Read online](maths/papers/open-source-mathematics-strategy.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex)\n\nAbstract and reading guide\n\nA public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erd\u0151s problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.\n\nExplains the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons. Not authority for a solution to any Erd\u0151s problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement. Where to start strategy, protocol, attention, local to general, limits (our selection, not the paper's own advice)\n\nSystem paper Evidence boundary 22 pages\n\n##### Plectis: What a Stranger Can Check\n\nWhat may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?\n\n[Read online](maths/papers/plectis-public-system.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/plectis-public-system.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis/paper/plectis-public-system.tex) \u00b7 [plectis](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex)\n\nAbstract and reading guide\n\nThe author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.\n\nExplains the evidence boundary: what a passing public run does and does not establish. Not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence. Where to start problem, early example, distinctions, stronger (our selection, not the paper's own advice)\n\n#### Long reasoning records 8\n\nThe complete record behind each short paper: every route tried and where each stopped, for a researcher or an agent to continue.\n\nErd\u0151s #68 Reasoning record 46 pages\n\n##### Denominators and Rationality Criteria for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhat growth, valuation, and finite-denominator facts are proved for \u2211_{n\u22652}(n!\u22121)^{-1}, and which tail inequalities remain?\n\n[Read online](maths/papers/erdos68-factorial-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos68-factorial-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe record proves liminf (log L_N)/(N^{3/2} log N) \u2265 2\u221a2/3 for L_N=lcm(2!\u22121,\u2026,N!\u22121), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma\u2013Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q\u2224299999! and q\u22652^39990>10^12038. These exclusions do not prove irrationality.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #68, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start long68:sec:carry, long68:sec:finite, long68:sec:open, erdos 68 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #243 Reasoning record 59 pages\n\n##### Reciprocal-Tail Rigidity: Theorems, Proofs and Questions\n\nWhich growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erd\u0151s #243?\n\n[Read online](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex)\n\nAbstract and reading guide\n\nAn increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2\u21921, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2\u2212a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erd\u0151s #243.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #243, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start long243:sec:cubicrate, long243:sec:bounded, long243:sec:open, erdos 243 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #249 Reasoning record 140 pages\n\n##### The Binary Totient Series\n\nWhat can the totient-kernel basis and residue tests say about Erd\u0151s #249, and which hypotheses still block irrationality?\n\n[Read online](maths/papers/erdos249-totient-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos249-totient-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe dyadic totient sections through level e\u22651 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=\u2211 \u03c6(n)2^{-n}.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start wall, survivors, series, mahler defect (our selection, not the paper's own advice)\n\nErd\u0151s #251 Reasoning record 44 pages\n\n##### Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates\n\nWhat exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?\n\n[Read online](maths/papers/erdos251-prime-gap-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos251-prime-gap-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)\u2192\u221e, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=\u2211_{j\u22651} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N\u2212g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #251, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start long251:sec:tail, long251:sec:obstructions, long251:sec:open, erdos 251 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #257 Reasoning record 144 pages\n\n##### Reciprocal Mersenne Subseries\n\nWhat weighted and cover criteria prove hereditary Mersenne irrationality for Erd\u0151s #257, and which targets remain open?\n\n[Read online](maths/papers/erdos257-mersenne-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with \u2211 h(a)/(a(b^{h(a)}\u22121)) finite has irrational \u2211 (b^a\u22121)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erd\u0151s's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, whose universal and half-value questions remain open. Where to start 257 problem, 257 wall, 257 survivors, 257 howto (our selection, not the paper's own advice)\n\nErd\u0151s #269 Reasoning record 51 pages\n\n##### The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic\n\nWhat infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?\n\n[Read online](maths/papers/erdos269-running-lcm-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos269-running-lcm-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke\u2013Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #269, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start long269:sec:problem, long269:sec:rank, long269:sec:open, erdos 269 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Reasoning record 73 pages\n\n##### Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria\n\nWhat path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?\n\n[Read online](maths/papers/erdos1041-lemniscate-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex)\n\nAbstract and reading guide\n\nFor a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n\u22652, an area-growth argument gives such a path when the least critical-value modulus \u03bc is at most 13/25; scaling gives length less than (5/2)\u03bc^{1/n} inside {|f|<(25/13)\u03bc}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1041, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erd\u0151s #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository. Where to start low critical closure, solved polynomial families, gap, erdos 1041 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Reasoning record 69 pages\n\n##### Zudilin's Forms at Rational Bases: Proofs and Research Record\n\nWhat all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?\n\n[Read online](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1049-rational-base-lambert-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex)\n\nAbstract and reading guide\n\nSpecialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b\u22651 when \u03b8=log b / log a is less than \u03b8^*=0.4056830213840605\u2026, with irrationality-exponent bound (1\u2212\u03b8)/(\u03b8^*\u2212\u03b8) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1049, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start long1049:sec:region, long1049:sec:hankel order, long1049:sec:open (our selection, not the paper's own advice)\n\n#### Retired manuscripts\n\nSuperseded work is not deleted. Each of these remains in its home repository so an existing citation still resolves, and each is marked so no reader mistakes it for the current route.\n\nErd\u0151s #249 and #257 Combined note Combined note\n\n##### Tail Certificates and Achievement-Set Geometry for Erd\u0151s Problems 249 and 257\n\nWhat is mathematically proved about Erd\u0151s #249 and #257, and what exactly remains open?\n\n[Open the PDF on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.pdf) \u00b7 [Read the LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex) \u00b7 plectis-erdos\n\nRetired: superseded by the problem-specific papers above, and kept here so an existing citation still resolves.\n\nAbstract and reading guide\n\nThe combined mathematical exposition for Erd\u0151s #249 and #257, superseded by the problem-specific notes and kept for provenance.\n\nExplains retired combined mathematical exposition preserved for provenance; its problem-specific successors are the active reader routes. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, and public claim status, which belongs to docs/claims.json. Where to start spines, architecture, unresolved (the paper's own reading route)"
+        "text": "The system\n\n### The papers\n\nEight short papers, one per problem, come first. The system papers explain how the work is checked and shared. The long reasoning records carry the complete route behind each short paper.\n\nFor a particular problem, [choose it in the mathematics library](maths/index.html) to see its papers alongside its Lean proofs. Each entry below opens to the abstract, what the paper is and is not authority for, and the LaTeX behind the hosted PDF.\n\n#### Short papers 8\n\nOne per problem: the original question, the results checked in Lean, the routes that failed, and the step that remains open. Start here.\n\nErd\u0151s #68 Short paper 18 pages\n\n##### Two Incomparable Denominator Exclusions for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhich exact denominator exclusions are proved for Erd\u0151s #68, and what still blocks irrationality?\n\n[Read online](maths/papers/erdos-68-factorial-denominator-irrationality.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-68-factorial-denominator-irrationality.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex)\n\nAbstract and reading guide\n\nAny expression of S=\u2211_{n\u22652}(n!\u22121)^{-1} as a/q must satisfy q\u2224299999! and q\u22652^39990>10^12038. The two exclusions are incomparable: one uses the next integer above a factorial-scaled partial sum, the other a rational enclosure and continued fractions. A separate coefficient construction produces remainders MS+k and classifies the vectors that cancel prescribed initial weighted sums. At fixed M every remainder has the same fractional part. Irrationality by this method still requires every positive integer to divide a moment whose remainder lies strictly between consecutive integers.\n\nExplains the problem-specific exposition for Erd\u0151s #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start problem, channels, projection, open (our selection, not the paper's own advice)\n\nErd\u0151s #243 Short paper 18 pages\n\n##### Cubic-Rate Irrationality and Reciprocal-Tail Rigidity\n\nFor Erd\u0151s #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?\n\n[Read online](maths/papers/erdos-243-reciprocal-tail-rigidity.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-243-reciprocal-tail-rigidity.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex)\n\nAbstract and reading guide\n\nEvery strictly increasing sequence of positive integers with a_n\u00b2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n\u00b2\u21921 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=\u220f_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erd\u0151s #243 remains open.\n\nExplains the cubic-rate irrationality theorem and the problem-specific exposition for Erd\u0151s #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start problem, secondaryrate, bounded, open (our selection, not the paper's own advice)\n\nErd\u0151s #249 Short paper 16 pages\n\n##### Bases and Integral Relations for the k -Kernel of Euler's Totient\n\nWhat explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erd\u0151s #249?\n\n[Read online](maths/papers/erdos-249-binary-totient-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-249-binary-totient-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex)\n\nAbstract and reading guide\n\nFor integers k\u22652 and e\u22651, the totient sections n\u21a6\u03c6(k^j n+r) with 0\u2264j\u2264e and 0\u2264r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=\u2211 \u03c6(n)2^{-n}. They do not establish that S is irrational.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start results, carry rank, frontier, nogo (our selection, not the paper's own advice)\n\nErd\u0151s #251 Short paper 14 pages\n\n##### Sparse Congruence-Preserving Perturbations of Dyadic Series\n\nWhich sparse congruence-preserving corrections can rationalise a dyadic series, and why does that not prove Erd\u0151s #251 irrational?\n\n[Read online](maths/papers/erdos-251-prime-gap-dyadic-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-251-prime-gap-dyadic-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex)\n\nAbstract and reading guide\n\nSparse nonnegative integer corrections can rationalise a convergent dyadic series with nonnegative integer coefficients. Given a finite prefix to retain and any allowance f(n)\u2192\u221e, one permitted index set of upper Banach density zero supports corrections attaining every real target in a nondegenerate interval above the original sum. The corrections are eventually bounded by f; each fixed modulus divides both the corrections and their cumulative sums beyond a cutoff independent of the target. For f(n)=(log(n+3))^\u03b5, the empirical unnormalised block distributions of original and corrected sequences become close in total variation for lengths o(log log X). Applied to prime gaps, the construction gives rational dyadic sums while cumulative positions remain asymptotic to n log n. These congruences and block statistics alone cannot establish irrationality, and the construction does not assert that the cumulative positions are prime.\n\nExplains the problem-specific exposition for Erd\u0151s #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start problem, tail, local certificate, open (our selection, not the paper's own advice)\n\nErd\u0151s #257 Short paper 21 pages\n\n##### Weighted Support Criteria for Reciprocal Mersenne Subseries\n\nWhich weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erd\u0151s #257 question?\n\n[Read online](maths/papers/erdos-257-mersenne-support-subseries.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex)\n\nAbstract and reading guide\n\nFor a finite nonempty set P of primes, let h(a) be the P-part of a. If \u2211_{a\u2208A} h(a)/(a(2^{h(a)}\u22121)) is finite, then \u2211_{a\u2208B}(b^a\u22121)^{-1} is irrational for every integer b\u22652 and every infinite B\u2286A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erd\u0151s and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, which remains open. Where to start problem, reciprocal support, eight return extensions, open (our selection, not the paper's own advice)\n\nErd\u0151s #269 Short paper 12 pages\n\n##### No Finite Separable Representation at Three Prime Generators\n\nWhy does the Erd\u0151s #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?\n\n[Read online](maths/papers/erdos-269-three-prime-running-lcm.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-269-three-prime-running-lcm.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex)\n\nAbstract and reading guide\n\nFor three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.\n\nExplains the problem-specific exposition for Erd\u0151s #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start problem, rank, lcm, escape (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Short paper 28 pages\n\n##### Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria\n\nWhich explicit short paths and critical-value bounds are proved for Erd\u0151s #1041, and which hypotheses do they require?\n\n[Read online](maths/papers/erdos-1041-lemniscate-newton-flow.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex)\n\nAbstract and reading guide\n\nFor a monic trinomial f(z)=z^n+a z^m+b, 1\u2264m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.\n\nExplains the problem-specific exposition for Erd\u0151s #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erd\u0151s #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository. Where to start trinomial, constant factor, gap, open (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Short paper 20 pages\n\n##### Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order\n\nFor Erd\u0151s #1049, which rational bases make F(a/b) irrational, what exact Hankel order is computed, and why does 3/2 remain open?\n\n[Read online](maths/papers/erdos-1049-rational-base-lambert.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1049-rational-base-lambert.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex)\n\nAbstract and reading guide\n\nFor coprime integers a>b\u22651, F(a/b)=\u2211_{n\u22651}((a/b)^n\u22121)^{-1} is irrational when log b / log a is less than the explicit cutoff 0.4056830213840605\u2026. This includes every positive integral power of 31/4, with irrationality exponent less than 301. The argument uses Zudilin's 2004 forms and constants, cancels common cyclotomic factors before rational evaluation, and computes the remaining denominator cost. For the distinct normalised Hankel determinants V_N^* in his 2016 construction with x=z=1, the q-order is N(N\u22121)(2N\u22121)/6 and the leading coefficient is (N!)^2(N+1)!/2^N. The rational-base criterion does not include 3/2; neither argument settles irrationality at that base.\n\nExplains the problem-specific exposition for Erd\u0151s #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, the finite rank-eight coefficient-pencil result, and the remaining approximant and remainder construction at 3/2. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start problem, rational base irrationality, hankel order, open (our selection, not the paper's own advice)\n\n#### Reading the problems together 1\n\nMathematics whose subject is several of the covered problems at once: what is common, what is not, and what the comparison leaves open.\n\nEight Erd\u0151s problems read together Cross-problem paper Cross-problem paper 28 pages\n\n##### Reading Eight Erd\u0151s Problems Together\n\nWhen do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erd\u0151s programmes?\n\n[Read online](maths/papers/optimal-sparse-perturbations.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/optimal-sparse-perturbations.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex)\n\nAbstract and reading guide\n\nOne account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.\n\nExplains the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record. Not authority for a solution to any original Erd\u0151s target, historical novelty, independent expert review, or a full Lean proof of the analytic capacity criterion or Lambert-chain theorem. Where to start map, capacity:sec:criterion, results, questions (our selection, not the paper's own advice)\n\n#### System papers 4\n\nHow the work is found, checked, published and shared. No mathematical claim about any problem lives here.\n\nSystem paper Research architecture 20 pages\n\n##### Problem-Sized Lean Worlds\n\nHow can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?\n\n[Read online](maths/papers/claim-faithful-publication-systems.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex)\n\nAbstract and reading guide\n\nA problem-sized world keeps one open problem with its established results, failed routes, experiments, literature and exact open obligations: a short paper for an expert and a long record for whoever continues. Lean checks the formal proofs, Comparator checks that each selected proof establishes exactly its separately written statement, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight open Erd\u0151s problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and states what remains a mathematician's judgement.\n\nExplains the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle. Not authority for the mathematics it uses as examples, which the problem papers own, or the novelty and significance of those results. Where to start private, mathloop, assurance, example, trust (our selection, not the paper's own advice)\n\nSystem paper Agent navigation 12 pages\n\n##### From a Cold Clone to a Proof Receipt\n\nHow can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?\n\n[Read online](maths/papers/cold-clone-to-proof-receipt.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/cold-clone-to-proof-receipt.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex)\n\nAbstract and reading guide\n\nA large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.\n\nExplains the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts. Not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project. Where to start problem, tour, authority, dogfood, limits (our selection, not the paper's own advice)\n\nSystem paper Open-source research strategy 22 pages\n\n##### From Spare Compute to Cumulative Mathematics\n\nHow can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?\n\n[Read online](maths/papers/open-source-mathematics-strategy.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex)\n\nAbstract and reading guide\n\nA public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erd\u0151s problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.\n\nExplains the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons. Not authority for a solution to any Erd\u0151s problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement. Where to start strategy, protocol, attention, local to general, limits (our selection, not the paper's own advice)\n\nSystem paper Evidence boundary 22 pages\n\n##### Plectis: What a Stranger Can Check\n\nWhat may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?\n\n[Read online](maths/papers/plectis-public-system.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/plectis-public-system.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis/paper/plectis-public-system.tex) \u00b7 [plectis](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex)\n\nAbstract and reading guide\n\nThe author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.\n\nExplains the evidence boundary: what a passing public run does and does not establish. Not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence. Where to start problem, early example, distinctions, stronger (our selection, not the paper's own advice)\n\n#### Long reasoning records 8\n\nThe complete record behind each short paper: every route tried and where each stopped, for a researcher or an agent to continue.\n\nErd\u0151s #68 Reasoning record 46 pages\n\n##### Denominators and Rationality Criteria for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhat growth, valuation, and finite-denominator facts are proved for \u2211_{n\u22652}(n!\u22121)^{-1}, and which tail inequalities remain?\n\n[Read online](maths/papers/erdos68-factorial-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos68-factorial-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe record proves liminf (log L_N)/(N^{3/2} log N) \u2265 2\u221a2/3 for L_N=lcm(2!\u22121,\u2026,N!\u22121), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma\u2013Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q\u2224299999! and q\u22652^39990>10^12038. These exclusions do not prove irrationality.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #68, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start long68:sec:carry, long68:sec:finite, long68:sec:open, erdos 68 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #243 Reasoning record 59 pages\n\n##### Reciprocal-Tail Rigidity: Theorems, Proofs and Questions\n\nWhich growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erd\u0151s #243?\n\n[Read online](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex)\n\nAbstract and reading guide\n\nAn increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2\u21921, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2\u2212a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erd\u0151s #243.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #243, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start long243:sec:cubicrate, long243:sec:bounded, long243:sec:open, erdos 243 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #249 Reasoning record 140 pages\n\n##### The Binary Totient Series\n\nWhat can the totient-kernel basis and residue tests say about Erd\u0151s #249, and which hypotheses still block irrationality?\n\n[Read online](maths/papers/erdos249-totient-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos249-totient-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe dyadic totient sections through level e\u22651 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=\u2211 \u03c6(n)2^{-n}.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start wall, survivors, series, mahler defect (our selection, not the paper's own advice)\n\nErd\u0151s #251 Reasoning record 44 pages\n\n##### Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates\n\nWhat exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?\n\n[Read online](maths/papers/erdos251-prime-gap-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos251-prime-gap-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)\u2192\u221e, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=\u2211_{j\u22651} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N\u2212g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #251, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start long251:sec:tail, long251:sec:obstructions, long251:sec:open, erdos 251 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #257 Reasoning record 144 pages\n\n##### Reciprocal Mersenne Subseries\n\nWhat weighted and cover criteria prove hereditary Mersenne irrationality for Erd\u0151s #257, and which targets remain open?\n\n[Read online](maths/papers/erdos257-mersenne-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with \u2211 h(a)/(a(b^{h(a)}\u22121)) finite has irrational \u2211 (b^a\u22121)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erd\u0151s's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, whose universal and half-value questions remain open. Where to start 257 problem, 257 wall, 257 survivors, 257 howto (our selection, not the paper's own advice)\n\nErd\u0151s #269 Reasoning record 51 pages\n\n##### The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic\n\nWhat infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?\n\n[Read online](maths/papers/erdos269-running-lcm-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos269-running-lcm-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke\u2013Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #269, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start long269:sec:problem, long269:sec:rank, long269:sec:open, erdos 269 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Reasoning record 73 pages\n\n##### Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria\n\nWhat path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?\n\n[Read online](maths/papers/erdos1041-lemniscate-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex)\n\nAbstract and reading guide\n\nFor a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n\u22652, an area-growth argument gives such a path when the least critical-value modulus \u03bc is at most 13/25; scaling gives length less than (5/2)\u03bc^{1/n} inside {|f|<(25/13)\u03bc}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1041, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erd\u0151s #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository. Where to start low critical closure, solved polynomial families, gap, erdos 1041 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Reasoning record 69 pages\n\n##### Zudilin's Forms at Rational Bases: Proofs and Research Record\n\nWhat all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?\n\n[Read online](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1049-rational-base-lambert-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex)\n\nAbstract and reading guide\n\nSpecialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b\u22651 when \u03b8=log b / log a is less than \u03b8^*=0.4056830213840605\u2026, with irrationality-exponent bound (1\u2212\u03b8)/(\u03b8^*\u2212\u03b8) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1049, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start long1049:sec:region, long1049:sec:hankel order, long1049:sec:open (our selection, not the paper's own advice)\n\n#### Retired manuscripts\n\nSuperseded work is not deleted. Each of these remains in its home repository so an existing citation still resolves, and each is marked so no reader mistakes it for the current route.\n\nErd\u0151s #249 and #257 Combined note Combined note\n\n##### Tail Certificates and Achievement-Set Geometry for Erd\u0151s Problems 249 and 257\n\nWhat is mathematically proved about Erd\u0151s #249 and #257, and what exactly remains open?\n\n[Open the PDF on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.pdf) \u00b7 [Read the LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex) \u00b7 plectis-erdos\n\nRetired: superseded by the problem-specific papers above, and kept here so an existing citation still resolves.\n\nAbstract and reading guide\n\nThe combined mathematical exposition for Erd\u0151s #249 and #257, superseded by the problem-specific notes and kept for provenance.\n\nExplains retired combined mathematical exposition preserved for provenance; its problem-specific successors are the active reader routes. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, and public claim status, which belongs to docs/claims.json. Where to start spines, architecture, unresolved (the paper's own reading route)"
       }
     },
     {
@@ -15542,7 +15542,7 @@
         "status": "active",
         "term_kind": "evidence",
         "used_in": {
-          "page_count": 99,
+          "page_count": 100,
           "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
           "top_pages": [
             {
@@ -15570,7 +15570,7 @@
               "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
             }
           ],
-          "total_occurrences": 104
+          "total_occurrences": 105
         },
         "visible_text_byte_count": 1382
       },
@@ -15671,7 +15671,7 @@
               "page": "paper-module-navigation-hologram-route-plane.html"
             }
           ],
-          "total_occurrences": 2020
+          "total_occurrences": 2022
         },
         "visible_text_byte_count": 1174
       },
@@ -16979,7 +16979,7 @@
               "page": "coding-agents.html"
             }
           ],
-          "total_occurrences": 777
+          "total_occurrences": 776
         },
         "visible_text_byte_count": 770
       },
@@ -18102,11 +18102,11 @@
               "page": "paper-module-navigation-hologram-route-plane.html"
             },
             {
-              "count": 7,
+              "count": 6,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 102
+          "total_occurrences": 101
         },
         "visible_text_byte_count": 959
       },
@@ -18909,7 +18909,7 @@
               "page": "paper-modules.html"
             },
             {
-              "count": 28,
+              "count": 27,
               "page": "papers.html"
             },
             {
@@ -18921,7 +18921,7 @@
               "page": "components.html"
             }
           ],
-          "total_occurrences": 1280
+          "total_occurrences": 1279
         },
         "visible_text_byte_count": 866
       },
@@ -20872,7 +20872,7 @@
               "page": "paper-module-generated-projection-drift-runtime.html"
             }
           ],
-          "total_occurrences": 2140
+          "total_occurrences": 2143
         },
         "visible_text_byte_count": 754
       },
@@ -21168,15 +21168,19 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 1,
+          "page_count": 2,
           "top_page": "contact.html",
           "top_pages": [
             {
               "count": 1,
               "page": "contact.html"
+            },
+            {
+              "count": 1,
+              "page": "papers.html"
             }
           ],
-          "total_occurrences": 1
+          "total_occurrences": 2
         },
         "visible_text_byte_count": 988
       },
@@ -22699,6 +22703,10 @@
               "page": "paper-module-verifier-lab-kernel.html"
             },
             {
+              "count": 2,
+              "page": "papers.html"
+            },
+            {
               "count": 1,
               "page": "coding-agents.html"
             },
@@ -22709,13 +22717,9 @@
             {
               "count": 1,
               "page": "introduction.html"
-            },
-            {
-              "count": 1,
-              "page": "papers.html"
             }
           ],
-          "total_occurrences": 6
+          "total_occurrences": 7
         },
         "visible_text_byte_count": 846
       },
@@ -24240,7 +24244,7 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 4,
+              "count": 6,
               "page": "papers.html"
             },
             {
@@ -24264,7 +24268,7 @@
               "page": "paper-module-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 25
+          "total_occurrences": 27
         },
         "visible_text_byte_count": 889
       },
@@ -28546,7 +28550,7 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 69,
+              "count": 70,
               "page": "papers.html"
             },
             {
@@ -28570,7 +28574,7 @@
               "page": "paper-modules.html"
             }
           ],
-          "total_occurrences": 107
+          "total_occurrences": 108
         },
         "visible_text_byte_count": 1002
       },
@@ -28922,7 +28926,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 2256
+          "total_occurrences": 2254
         },
         "visible_text_byte_count": 814
       },
@@ -31085,7 +31089,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 14,
+          "page_count": 15,
           "top_page": "paper-modules.html",
           "top_pages": [
             {
@@ -31113,7 +31117,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 27
+          "total_occurrences": 28
         },
         "visible_text_byte_count": 919
       },
@@ -36470,7 +36474,7 @@
               "page": "paper-module-formal-math-lean-proof-witness.html"
             }
           ],
-          "total_occurrences": 913
+          "total_occurrences": 914
         },
         "visible_text_byte_count": 839
       },
@@ -37002,7 +37006,7 @@
               "page": "doctrine.html"
             },
             {
-              "count": 7,
+              "count": 8,
               "page": "papers.html"
             },
             {
@@ -37022,7 +37026,7 @@
               "page": "paper-module-mission-transaction-work-spine.html"
             }
           ],
-          "total_occurrences": 110
+          "total_occurrences": 111
         },
         "visible_text_byte_count": 858
       },
@@ -38298,15 +38302,19 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 1,
+          "page_count": 2,
           "top_page": "contact.html",
           "top_pages": [
             {
               "count": 1,
               "page": "contact.html"
+            },
+            {
+              "count": 1,
+              "page": "papers.html"
             }
           ],
-          "total_occurrences": 1
+          "total_occurrences": 2
         },
         "visible_text_byte_count": 739
       },
@@ -38358,7 +38366,7 @@
               "page": "introduction.html"
             },
             {
-              "count": 8,
+              "count": 9,
               "page": "papers.html"
             },
             {
@@ -38378,7 +38386,7 @@
               "page": "paper-module-navigation-fitness-benchmark.html"
             }
           ],
-          "total_occurrences": 36
+          "total_occurrences": 37
         },
         "visible_text_byte_count": 877
       },
@@ -39549,7 +39557,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 156,
+          "page_count": 157,
           "top_page": "open-questions.html",
           "top_pages": [
             {
@@ -39577,7 +39585,7 @@
               "page": "paper-module-batch12-market-dashboard-read-model-capsule.html"
             }
           ],
-          "total_occurrences": 1043
+          "total_occurrences": 1044
         },
         "visible_text_byte_count": 816
       },
@@ -41712,10 +41720,10 @@
             },
             {
               "count": 3,
-              "page": "rules-and-ideas.html"
+              "page": "papers.html"
             }
           ],
-          "total_occurrences": 116
+          "total_occurrences": 117
         },
         "visible_text_byte_count": 870
       },
@@ -41764,7 +41772,7 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 22,
+              "count": 24,
               "page": "papers.html"
             },
             {
@@ -41788,7 +41796,7 @@
               "page": "paper-module-lean-proof-search-lab-runtime.html"
             }
           ],
-          "total_occurrences": 32
+          "total_occurrences": 34
         },
         "visible_text_byte_count": 865
       },
@@ -42672,7 +42680,7 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 52,
+              "count": 55,
               "page": "papers.html"
             },
             {
@@ -42696,7 +42704,7 @@
               "page": "component-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 284
+          "total_occurrences": 287
         },
         "visible_text_byte_count": 1057
       },
@@ -45532,7 +45540,7 @@
               "page": "paper-module-formal-math-readiness-gate.html"
             }
           ],
-          "total_occurrences": 1609
+          "total_occurrences": 1610
         },
         "visible_text_byte_count": 883
       },
@@ -51061,7 +51069,7 @@
         "status": "active",
         "term_kind": "artifact",
         "used_in": {
-          "page_count": 6,
+          "page_count": 7,
           "top_page": "open-questions.html",
           "top_pages": [
             {
@@ -51089,7 +51097,7 @@
               "page": "paper-modules.html"
             }
           ],
-          "total_occurrences": 15
+          "total_occurrences": 16
         },
         "visible_text_byte_count": 1193
       },
@@ -56074,7 +56082,7 @@
               "page": "paper-module-durable-agent-work-landing-replay.html"
             }
           ],
-          "total_occurrences": 2041
+          "total_occurrences": 2040
         },
         "visible_text_byte_count": 894
       },
@@ -56985,11 +56993,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 8,
+              "count": 9,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 8
+          "total_occurrences": 9
         },
         "visible_text_byte_count": 1258
       },
@@ -63120,7 +63128,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 3990005,
       "page_count": 219,
-      "page_text_byte_count": 444808,
+      "page_text_byte_count": 445185,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 660,
       "roster_section_count": 3,
@@ -188008,7 +188016,7 @@
           "status": "active",
           "term_kind": "evidence",
           "used_in": {
-            "page_count": 99,
+            "page_count": 100,
             "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
             "top_pages": [
               {
@@ -188036,7 +188044,7 @@
                 "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
               }
             ],
-            "total_occurrences": 104
+            "total_occurrences": 105
           },
           "visible_text_byte_count": 1382
         },
@@ -188137,7 +188145,7 @@
                 "page": "paper-module-navigation-hologram-route-plane.html"
               }
             ],
-            "total_occurrences": 2020
+            "total_occurrences": 2022
           },
           "visible_text_byte_count": 1174
         },
@@ -189445,7 +189453,7 @@
                 "page": "coding-agents.html"
               }
             ],
-            "total_occurrences": 777
+            "total_occurrences": 776
           },
           "visible_text_byte_count": 770
         },
@@ -190568,11 +190576,11 @@
                 "page": "paper-module-navigation-hologram-route-plane.html"
               },
               {
-                "count": 7,
+                "count": 6,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 102
+            "total_occurrences": 101
           },
           "visible_text_byte_count": 959
         },
@@ -191375,7 +191383,7 @@
                 "page": "paper-modules.html"
               },
               {
-                "count": 28,
+                "count": 27,
                 "page": "papers.html"
               },
               {
@@ -191387,7 +191395,7 @@
                 "page": "components.html"
               }
             ],
-            "total_occurrences": 1280
+            "total_occurrences": 1279
           },
           "visible_text_byte_count": 866
         },
@@ -193338,7 +193346,7 @@
                 "page": "paper-module-generated-projection-drift-runtime.html"
               }
             ],
-            "total_occurrences": 2140
+            "total_occurrences": 2143
           },
           "visible_text_byte_count": 754
         },
@@ -193634,15 +193642,19 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 1,
+            "page_count": 2,
             "top_page": "contact.html",
             "top_pages": [
               {
                 "count": 1,
                 "page": "contact.html"
+              },
+              {
+                "count": 1,
+                "page": "papers.html"
               }
             ],
-            "total_occurrences": 1
+            "total_occurrences": 2
           },
           "visible_text_byte_count": 988
         },
@@ -195165,6 +195177,10 @@
                 "page": "paper-module-verifier-lab-kernel.html"
               },
               {
+                "count": 2,
+                "page": "papers.html"
+              },
+              {
                 "count": 1,
                 "page": "coding-agents.html"
               },
@@ -195175,13 +195191,9 @@
               {
                 "count": 1,
                 "page": "introduction.html"
-              },
-              {
-                "count": 1,
-                "page": "papers.html"
               }
             ],
-            "total_occurrences": 6
+            "total_occurrences": 7
           },
           "visible_text_byte_count": 846
         },
@@ -196706,7 +196718,7 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 4,
+                "count": 6,
                 "page": "papers.html"
               },
               {
@@ -196730,7 +196742,7 @@
                 "page": "paper-module-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 25
+            "total_occurrences": 27
           },
           "visible_text_byte_count": 889
         },
@@ -201012,7 +201024,7 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 69,
+                "count": 70,
                 "page": "papers.html"
               },
               {
@@ -201036,7 +201048,7 @@
                 "page": "paper-modules.html"
               }
             ],
-            "total_occurrences": 107
+            "total_occurrences": 108
           },
           "visible_text_byte_count": 1002
         },
@@ -201388,7 +201400,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 2256
+            "total_occurrences": 2254
           },
           "visible_text_byte_count": 814
         },
@@ -203551,7 +203563,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 14,
+            "page_count": 15,
             "top_page": "paper-modules.html",
             "top_pages": [
               {
@@ -203579,7 +203591,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 27
+            "total_occurrences": 28
           },
           "visible_text_byte_count": 919
         },
@@ -208936,7 +208948,7 @@
                 "page": "paper-module-formal-math-lean-proof-witness.html"
               }
             ],
-            "total_occurrences": 913
+            "total_occurrences": 914
           },
           "visible_text_byte_count": 839
         },
@@ -209468,7 +209480,7 @@
                 "page": "doctrine.html"
               },
               {
-                "count": 7,
+                "count": 8,
                 "page": "papers.html"
               },
               {
@@ -209488,7 +209500,7 @@
                 "page": "paper-module-mission-transaction-work-spine.html"
               }
             ],
-            "total_occurrences": 110
+            "total_occurrences": 111
           },
           "visible_text_byte_count": 858
         },
@@ -210764,15 +210776,19 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 1,
+            "page_count": 2,
             "top_page": "contact.html",
             "top_pages": [
               {
                 "count": 1,
                 "page": "contact.html"
+              },
+              {
+                "count": 1,
+                "page": "papers.html"
               }
             ],
-            "total_occurrences": 1
+            "total_occurrences": 2
           },
           "visible_text_byte_count": 739
         },
@@ -210824,7 +210840,7 @@
                 "page": "introduction.html"
               },
               {
-                "count": 8,
+                "count": 9,
                 "page": "papers.html"
               },
               {
@@ -210844,7 +210860,7 @@
                 "page": "paper-module-navigation-fitness-benchmark.html"
               }
             ],
-            "total_occurrences": 36
+            "total_occurrences": 37
           },
           "visible_text_byte_count": 877
         },
@@ -212015,7 +212031,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 156,
+            "page_count": 157,
             "top_page": "open-questions.html",
             "top_pages": [
               {
@@ -212043,7 +212059,7 @@
                 "page": "paper-module-batch12-market-dashboard-read-model-capsule.html"
               }
             ],
-            "total_occurrences": 1043
+            "total_occurrences": 1044
           },
           "visible_text_byte_count": 816
         },
@@ -214178,10 +214194,10 @@
               },
               {
                 "count": 3,
-                "page": "rules-and-ideas.html"
+                "page": "papers.html"
               }
             ],
-            "total_occurrences": 116
+            "total_occurrences": 117
           },
           "visible_text_byte_count": 870
         },
@@ -214230,7 +214246,7 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 22,
+                "count": 24,
                 "page": "papers.html"
               },
               {
@@ -214254,7 +214270,7 @@
                 "page": "paper-module-lean-proof-search-lab-runtime.html"
               }
             ],
-            "total_occurrences": 32
+            "total_occurrences": 34
           },
           "visible_text_byte_count": 865
         },
@@ -215138,7 +215154,7 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 52,
+                "count": 55,
                 "page": "papers.html"
               },
               {
@@ -215162,7 +215178,7 @@
                 "page": "component-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 284
+            "total_occurrences": 287
           },
           "visible_text_byte_count": 1057
         },
@@ -217998,7 +218014,7 @@
                 "page": "paper-module-formal-math-readiness-gate.html"
               }
             ],
-            "total_occurrences": 1609
+            "total_occurrences": 1610
           },
           "visible_text_byte_count": 883
         },
@@ -223527,7 +223543,7 @@
           "status": "active",
           "term_kind": "artifact",
           "used_in": {
-            "page_count": 6,
+            "page_count": 7,
             "top_page": "open-questions.html",
             "top_pages": [
               {
@@ -223555,7 +223571,7 @@
                 "page": "paper-modules.html"
               }
             ],
-            "total_occurrences": 15
+            "total_occurrences": 16
           },
           "visible_text_byte_count": 1193
         },
@@ -228540,7 +228556,7 @@
                 "page": "paper-module-durable-agent-work-landing-replay.html"
               }
             ],
-            "total_occurrences": 2041
+            "total_occurrences": 2040
           },
           "visible_text_byte_count": 894
         },
@@ -229451,11 +229467,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 8,
+                "count": 9,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 8
+            "total_occurrences": 9
           },
           "visible_text_byte_count": 1258
         },
@@ -266579,7 +266595,7 @@
         "title": "Working with a coding agent"
       },
       {
-        "byte_count": 42123,
+        "byte_count": 42500,
         "content_refs": {
           "component_refs": [],
           "family_id": null

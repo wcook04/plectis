@@ -45,7 +45,7 @@ step. Mathematical importance requires separate judgement.
 | [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
 | [#249](#result-249) | The short paper and Lean give the exact all-base totient-kernel rank `k^e+1`; Lean also checks three conditional routes toward irrationality. | None supplies the needed cofinal actual-LCM, first-harmonic or strict prime-tail input. |
 | [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
-| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support; the selected public Comparator replay for this claim is pending. |
+| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. Palomar's mechanical verification passed for the exact five-declaration `E257_01` entry; editorial review and registration remain pending. |
 | [#269](#result-269) | Both two-prime running-LCM sums are transcendental by the paper's argument using a cited Hecke–Mahler theorem; Lean checks the formulas and the conditional transfer. | The cited transcendence input is not formalised, and the three-prime irrationality question remains open. |
 | [#1041](#result-1041) | Ani's degree-seven polynomial refutes the exact Formal Conjectures path-image-length statement in Lean; Lean also checks positive trinomial and sharp collinear families. | Independent review of correspondence with the 1958 wording is pending; other geometric results have their own hypotheses. |
 | [#1049](#result-1049) | Lean checks irrationality in Zudilin's rational-base contour region and exact Hankel orders. | `3/2` and the all-rational-base claim remain open. |
@@ -263,11 +263,17 @@ irrationality at every integer base is classical (Erdős 1948) and
 Lean-checked here, as are pairwise-coprime summable-reciprocal support and
 Lebesgue measure one for the base-2 achievement set. Irrationality for
 every infinite support and the `1/2` and `1/21` branches remain open.
-The weighted theorem is Lean-checked; its selected public Comparator interface
-has not yet completed external replay. Read the
+The weighted theorem is Lean-checked. The exact five-declaration
+`PalomarCorpus/E257_01` entry, which includes `divisibilityWeightedClaim`,
+passed [Palomar mechanical verification](https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226)
+for source commit `b85ed30805188eb4390a686b111294b24363418e`.
+At the last authenticated status check (24 September 2026, 14:13 UTC),
+submission `gid0ym5uu910` was awaiting editorial review; no registration
+was recorded. This verifies that selected interface, not every claim in the
+paper or the unrestricted Erdős problem. Read the
 [short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf),
 [long record](../paper/257/erdos257-mersenne-reasoning-surface.pdf), and
-[exact verification status](EXTERNAL_VERIFICATION.md#programme-257).
+[separate Comparator verification status](EXTERNAL_VERIFICATION.md#programme-257).
 
 <a id="result-269"></a>
 
