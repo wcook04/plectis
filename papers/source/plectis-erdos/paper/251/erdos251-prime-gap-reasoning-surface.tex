@@ -6,6 +6,7 @@
 % This flat manuscript is generated from reviewable parts below.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\input{evidence/erdos251-prime-gap-reasoning-surface}
 % Compatibility labels for statements moved from the short paper.
 % amsmath permits only one ordinary label per equation. Its preserved kernel
 % label writer lets the aliases share the same number and PDF anchor.
@@ -120,6 +121,8 @@ use an explicit prime bound, not the perturbation construction.  The
 counterexamples in Section~\ref{long251:sec:obstructions} identify
 coefficient properties that cannot supply the missing prime-gap estimate.
 
+\evidenceparagraph{\evidencerecordurl}
+
 \paragraph{Notation.}
 We use $\N=\{0,1,2,\ldots\}$, write $\ph$ for Euler's totient
 function, and write $\operatorname{den}q$ for the positive denominator of
@@ -193,7 +196,6 @@ Precisely the coupling error is at most $m|S\cap[X,2X+m)|/X$; with
 $\|\Phi\|_\infty\le B_0$ the bounded-test error is at most twice this
 quantity times $B_0$, also for tests depending on the starting index.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/SparseAmbientR9.lean}{269}{arbitrary_word_sparse_rationalisation_uniform}, \lproof{ErdosProblems/Erdos251/SparsePaperR11.lean}{137}{polylogarithmic_word_interval_uniform}, \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean}{8}{bounded_test_finite_coupling}.}
 
 The hypotheses allow any nonnegative integer sequence of polynomial
 growth, but not $a_n=2^n$, whose dyadic series diverges.  The correction
@@ -404,15 +406,15 @@ complete weighted tails: coefficients beyond an unchanged block can
 still change its tail.
 
 
-The printed construction and the formal construction use different
-corrections.  Their statements and quantifier order are compared in
-Appendix~\ref{long251:app:index}.
+The Lean proof uses a different construction: at each stage it changes
+one coordinate, where the proof above changes a triple.  Like the
+printed statement, it fixes the permitted set, the interval and every
+congruence cutoff before the target.
 
 \begin{corollary}[target intervals arbitrarily close to the original sum]\label{long251:res:local-targets}
 For the sparse theorem for an arbitrary sequence, the target interval can additionally
 be required to lie in $(A,A+\eta)$ for any prescribed $\eta>0$.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean}{38}{local_target_interval}.}
 \begin{proof}
 In the general schedule, every supported entry satisfies $e_n\le n$.
 Choose an integer $K'\ge K$ sufficiently large that
@@ -450,8 +452,7 @@ fixed base $b\ge2$, the number in the latter statement is
 $\sum_{n\ge0}p_n b^{-(n+1)}$, and normality is to base $b$.
 Changing $b$ changes the number; this is not absolute normality of a
 single constant.  The authors
-supply formalisation material, which has not been independently rebuilt
-for this revision.  The uniform hypothesis in
+supply formalisation material, which we have not rebuilt.  The uniform hypothesis in
 \cite[Conjecture~1.3]{kuperberg2023} counts prime translates of every
 nonempty admissible tuple of $k\le(\log\log x)^3$ distinct integer shifts
 in $[0,(\log x)^2]$.  Its main term is the tuple's singular series times
@@ -643,8 +644,8 @@ growing blocks from these results or from a fixed-dimensional limit theorem.
 At the cited revision, Problem~\#251 appears as an unproved statement in
 the \emph{Formal Conjectures} repository~\cite{formalconjectures251}.  Its
 zero-based Lean sum starts with the zeroth prime over $2^0$, so it is twice the
-displayed normalisation and has equivalent irrationality status; its proof is
-\texttt{sorry}.
+displayed normalisation and has equivalent irrationality status; the
+statement is left unproved there.
 
 \paragraph{The strategy.}
 An ordinary binary expansion uses digits in $\{0,1\}$ and is rational
@@ -713,7 +714,6 @@ For every rational sequence $P$ and every $n\ge0$,
        -\frac{P(n)}{2^{\,n+1}} .
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{138}{dyadicPartialSumQ_eq_start_add_differences}.}
 
 \begin{proof}
 At $n=0$ both sides equal $P(0)/2$.  When $n$ is replaced by $n+1$,
@@ -737,7 +737,6 @@ $g_i=p_{i+1}-p_i$.  For every $n\ge0$,
  =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}} .
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{172}{prime0_dyadic_summation_by_parts}.}
 
 The leading $2$ is the first prime, not a normalising constant.
 At $n=2$, for instance, the left side is $2/2+3/4+5/8=19/8$ and the right side
@@ -764,7 +763,6 @@ Both series converge and
  \;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}} .
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}.}
 
 \begin{proof}
 The bound $p_n\le1250(n+1)^4$ of Appendix~\ref{long251:app:prime-bound} makes $(u_n)$
@@ -788,7 +786,6 @@ $\Pi$ is irrational if and only if $S=\sum_{n\ge0}g_n2^{-(n+1)}$ is irrational.
 The corresponding zero-based series with denominator $2^n$ equals $4+2S$ and
 has the same irrationality status.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{56}{irrationality_reformulation}.}
 \begin{proof}
 The identity just proved gives $\Pi=2+S$.  Adding a rational constant or
 multiplying by a nonzero rational number preserves rationality and
@@ -846,7 +843,6 @@ For every $N$ and $h$,
  \sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{76}{real_block_identity}.}
 
 \begin{proof}
 The case $h=0$ follows from $B_{0,N}=0$.  If the first identity holds at
@@ -907,7 +903,6 @@ Consequently $T_0$ is irrational if and only if every positive-length shift is
 nonintegral at every index, equivalently if and only if for every $h\ge1$ and
 every cutoff some later $N$ has $\sigma_h(N)\notin\Z$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{94}{rationality_classification}.}
 
 \begin{proof}
 For \textup{(i)}$\Rightarrow$\textup{(iii)}, the block identity makes every
@@ -932,7 +927,6 @@ Then
  \quad\Longleftrightarrow\quad 2^{-N}U_N\longrightarrow0.
 \]
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean}{57}{real_dyadic_orbit_eq_true_tail_iff}.}
 \begin{proof}
 Iteration gives
 $2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}$.
@@ -981,7 +975,6 @@ equivalent to irrationality.
 $S$ is irrational if and only if for every $t\ge1$ and every $N_0$ there are
 $N,M\ge N_0$ with $M\equiv N\pmod t$ and $T_M-T_N\notin\Z$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{189}{actual_free_pair_criterion}.}
 
 \begin{proof}
 If $S$ is irrational, take $M=N+t$ for the $N$ supplied by
@@ -1015,7 +1008,6 @@ Let $g:\N\to\Z$ and $T:\N\to\R$ satisfy $T_{N+1}=2T_N-g_{N+1}$.  Then
 $T_0$ is irrational if and only if
 $T_{2L_j}-T_{L_j}\notin\Z$ for every $j\ge0$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/OrderLatticeDiagonal.lean}{153}{irrational_initial_iff_all_lcmDiagonal_nonintegral}.}
 
 \begin{proof}
 Theorem~\ref{long251:res:escape-irrational} gives the forward implication.  Conversely,
@@ -1053,7 +1045,6 @@ then $\sigma_h(N)$ and $\sigma_h(N+1)$ cannot both be integers.  Consequently,
 if such a pair occurs beyond every threshold, the $h$-shift is not eventually
 integral.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{267}{rational_small_pair_bundle}.}
 
 \begin{proof}
 An integer strictly between $-1$ and $1$ is zero.  If both shifts were
@@ -1067,7 +1058,6 @@ The same statement holds for a real orbit, with the same proof.  If for every
 $h\ge1$ and every cutoff some later $N$ satisfies the three displayed
 conditions for the actual prime gaps, then $\Pi$ is irrational.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{298}{real_small_pair_prime_endpoint}.}
 
 The unequal-gap condition alone is available: at $h=1$, $N=2$ it reads
 $g_4=2\ne4=g_3$, and Proposition~\ref{long251:res:gap-nonperiodic}
@@ -1081,7 +1071,6 @@ intersect.
 For every positive $h$, the actual consecutive-prime-gap sequence is not
 eventually periodic with period $h$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{175}{prime_gaps_not_eventually_periodic}.}
 
 \begin{proof}
 For $m\ge2$ the integers $(m+1)!+2,\ldots,(m+1)!+m+1$ are composite, so the
@@ -1090,12 +1079,10 @@ finite range after its preperiod and a bounded initial segment, hence is
 bounded.
 \end{proof}
 
-\noindent Lean checks the factorial argument as
+\noindent Far stronger lower bounds for large gaps are
+known~\cite[Theorem~1]{fgkmt2018}; the
 \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L57}{unboundedness
-of the actual gaps} and the conclusion as
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1023}{non-eventual
-periodicity}.  Far stronger lower bounds for large gaps are
-known~\cite[Theorem~1]{fgkmt2018}; unboundedness is all that is needed.
+of the gaps} is all that is needed.
 
 With even gap differences, the three conditions in
 Theorem~\ref{long251:res:smallpair} reduce to two possible signed intervals,
@@ -1112,7 +1099,6 @@ $-1<D_N<1$, $-1<D_{N+1}<1$, $\delta_N\ne0$ is equivalent to
  \bigl(\delta_N=-2\ \hbox{ and }-1<D_N<-\tfrac12\bigr).
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{135}{real_signed_two_window}.}
 
 \begin{proof}
 Since $\delta_N=2D_N-D_{N+1}$, the bounds $|D_N|<1$ and
@@ -1149,7 +1135,6 @@ $|F_{h,N,L}|+E_{h,N,L}<1$ certifies $|\sigma_h(N)|<1$, and
 $\operatorname{dist}(F_{h,N,L},\Z)>E_{h,N,L}$ certifies
 $\sigma_h(N)\notin\Z$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{211}{explicit_remainder_certificate}.}
 
 \begin{proof}
 The checked bound $p_n\le1250(n+1)^4$ gives $0\le g_m\le p_{m+1}\le1250(m+2)^4$,
@@ -1168,7 +1153,6 @@ For the actual prime gaps, $h=1$ and $N=2$ satisfy the three hypotheses of
 Theorem~\ref{long251:res:smallpair}: both $\sigma_1(2)$ and $\sigma_1(3)$ lie in
 $(-1,1)$ and are nonintegral, and $g_4=2\ne4=g_3$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{111}{finite_small_pair}.}
 
 \begin{proof}
 Take $L=40$ and $Q=2^{40}=1099511627776$.  Exact integer arithmetic over the
@@ -1202,7 +1186,6 @@ then $1/2<sD_N<1$, $|D_{N+1}|<1$, and both $D_N,D_{N+1}$ are
 nonintegral.  In particular the adjacent small-shift obstruction is
 certified from just one tail enclosure.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean}{6}{one_tail_signed_certificate}.}
 \begin{proof}
 The inequalities place the complete interval
 $[(sA-B)/Q,(sA+B)/Q]$ inside $(1/2,1)$.
@@ -1219,15 +1202,16 @@ remains a useful independent cross-check, not a logical necessity.
 
 An exact rational enclosure of $\Pi$ can exclude all rational values
 whose denominator lies below an explicit bound.  The two results here use
-the same polynomial estimate for the omitted prime terms, but have
-different supplied verification records.  Both bounds are finite; neither
+the same polynomial estimate for the omitted prime terms.  Both are exact
+certificates, finitely many integer comparisons checked by the Lean
+kernel; the first is small enough to print in full in
+Appendix~\ref{long251:app:certificates}.  Both bounds are finite; neither
 proves irrationality.
 
 \begin{theorem}[a denominator bound checked by exact integer comparisons]\label{long251:res:denominatorfloor}
 Let $a\in\Z$ and let $b$ be a positive integer.  If $\Pi=a/b$ then $b\ge2^{589}>10^{177}$, and
 the same floor holds for every rational equal to $S$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{142}{denominator_floor_both}, \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{137}{denominator_floor_decimal}.}
 
 \begin{proof}
 Put $c=1229$, the number of primes below $10^4$, and
@@ -1262,24 +1246,18 @@ Since $589\log_{10}2>177$, the floor exceeds $10^{177}$.  If $S=a/b$, apply the
 same argument to $\Pi=(a+2b)/b$.
 \end{proof}
 
-\noindent The Lean kernel decides the four inequalities on the same literals by
-\texttt{decide +kernel} with no \texttt{native\_decide}, over a trial-division
-sieve it re-runs on $[2,10^4)$: the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean\#L310}{certificate},
-the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean\#L316}{floor
-for the prime series}, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean\#L324}{floor
-for the gap series}.  Its analytic input is the same enclosure, over the
-polynomial bound at
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L360}{line~360}.
-The four Farey literals have $177$ and $178$ digits.
+\noindent The Lean kernel evaluates the four inequalities itself, on the
+same integers, after recomputing the primes below $10^4$ by trial
+division; no compiled code is trusted.  Its analytic input is the same
+enclosure, derived from the
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L360}{polynomial
+bound} $p_n\le1250(n+1)^4$.  The four integers $u,v,u',v'$ have $177$
+and $178$ digits.
 
 \begin{theorem}[certified continued-fraction exclusion]\label{long251:res:cfexclusion}
 Every rational equal to $\Pi$, and hence every rational equal to $S$, has
 reduced denominator $q\ge2^{39997}$, and therefore $q>10^{12040}$.
 \end{theorem}
-\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean\#L29}{\nolinkurl{denominator_floor_both}}.}
 
 \begin{proof}
 Put $c=80200$, the number of primes below $1\,023\,068$, and
@@ -1315,63 +1293,42 @@ those partial quotients, and $u'/v'$ is the mediant of $u/v$ and the convergent
 before it.  Only the four comparisons enter the proof.  The numerators $u,u'$
 have $12061$ decimal digits and the denominators $v,v'$ have $12060$.
 
-The Lean kernel checks every step of this proof.  The computations are decided
-by \texttt{decide +kernel}, with no \texttt{native\_decide}.  The kernel
-recomputes $c$ and $A$ from the definition of primality.  It scans the integers
-below $1\,023\,068$ in $250$ consecutive blocks and checks the prime count and
-partial numerator at the end of each block, starting from their values at the
-end of the block before.  It decides primality by trial division below $1012$.
-On $[1012,1013^2)$, which contains the rest of the scan because
-$1013^2=1\,026\,169$, it uses the
+The Lean kernel checks every step of this proof and evaluates every
+computation itself; no compiled code is trusted.  It recomputes $c$ and
+$A$ from the definition of primality, scanning the integers below
+$1\,023\,068$ in $250$ consecutive blocks and checking the prime count and
+partial numerator at the end of each block.  It decides primality by trial
+division below $1012$.  On $[1012,1013^2)$, which contains the rest of the
+scan because $1013^2=1\,026\,169$, it uses the
 \href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/GcdPrimality.lean\#L72}{fact}
 that such an integer is prime exactly when it is coprime to the product of the
 primes below $1012$, and it recomputes that product by trial division.  Lean
 proves that the two primality tests agree at every natural number.  The kernel
-decides the four comparisons on the same literals, together with
-$10^{59}<2^{196}$ and $10^{23}<2^{78}$.  The enclosure and the determinant step
-are proved in general form.  The result is the
-\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean\#L76}{bound $b\ge2^{40062}$ and $b>10^{12059}$ for both series},
-from which Lean derives the
-\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean\#L29}{theorem as stated}.
-Both use only the axioms \texttt{propext}, \texttt{Classical.choice} and
-\texttt{Quot.sound}.
+then decides the four comparisons, together with $10^{59}<2^{196}$ and
+$10^{23}<2^{78}$; the enclosure and the determinant step are proved in
+general form.  Lean proves the
+\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean\#L76}{bound $b\ge2^{40062}$ and $b>10^{12059}$ for both series}
+and derives the theorem as stated from it, using only Lean's three
+standard axioms.
 
-A second certificate was checked outside Lean by the accompanying
-integer-arithmetic verifier, which uses no floating-point arithmetic.  It
-encloses $\Pi$ between the sum of its first $80128$ terms and that sum plus
-$1250P(80128)/2^{80128}$, with the primes taken from a sieve below
-$1\,200\,000$.  The added term is a bound for the omitted terms, obtained from
-$p_n\le1250(n+1)^4$ and the identity $2P(x)=(x+1)^4+P(x+1)$ in the proof of
-Proposition~\ref{long251:res:explicit-remainder}.  Rounding the lower endpoint down and the upper
-endpoint up to multiples of $2^{-80000}$ gives integers $L$ and $U=L+1$ with
-$L2^{-80000}\le\Pi\le U2^{-80000}$; this is the width reported as $1$ in the
-scaled receipt.  The continued fractions of the two rounded endpoints agree in
-their first $23369$ partial quotients, and their last two common convergents,
-ordered as $s/t<s'/t'$, satisfy
-\[
- s't-st'=1,\qquad
- s\,2^{80000}<Lt,\qquad Ut'<s'\,2^{80000},\qquad
- t+t'\ge2^{39998}.
-\]
-The same determinant calculation gives $q\ge2^{39998}$.  In both certificates
-the continued fractions are those of the two rational endpoints of an enclosure
-of $\Pi$.
+An independent
+\href{https://github.com/wcook04/plectis-erdos/blob/beaf0866976c908539fba0a96075374dd658f44a/research/experiments/erdos251/exact_replay.py}{program}
+outside Lean, in exact integer arithmetic, recomputes $A$ from a prime sieve
+and checks the four comparisons; it finds the same $23407$ common partial
+quotients and a sum $v+v'$ of bit length $40062$
+(\href{https://github.com/wcook04/plectis-erdos/blob/beaf0866976c908539fba0a96075374dd658f44a/research/experiments/erdos251/receipts/251-exact-replay.json}{recorded output}).
 
-The original receipt uses the best-approximation property of convergents
-\cite[\S6, Theorems~16 and~17]{khinchin1964}; Short gives an accessible
-statement and proof~\cite[Theorem~1.1]{short2009}.  The receipt
-is \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json}{the continued-fraction receipt},
-which records the generating program and its digest, the power-of-two exponent
-$39997$, the bit length $39998$, the strict decimal power $12040$, the decimal
-digit count $12041$, the largest partial quotient $973919$ at index $16442$,
-and an arithmetic self-check of the same routine against the known expansions
-of $e$ and $\pi$.  Those bit and digit counts describe the original routine's last
-convergent, not an arbitrary rational in the enclosure.  Bit length
-$39998$ implies a denominator at least $2^{39997}$, and $12041$ decimal
-digits imply only a non-strict lower bound $10^{12040}$.  The bounds for
-$q$ above use the checked sums $v+v'$ and $t+t'$.  The strict decimal
-inequality follows from the separate integer comparison
-$2^{39997}>10^{12040}$.
+The constants $2^{39997}$ and $10^{12040}$ in the statement come from a
+separate computation with a bracket of width $2^{-80000}$, which used the best-approximation property of
+convergents \cite[\S6, Theorems~16 and~17]{khinchin1964}; Short gives an
+accessible statement and proof~\cite[Theorem~1.1]{short2009}.  Its
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json}{recorded output}
+lists the generating program and its digest and a last convergent whose
+denominator has bit length $39998$, hence is at least $2^{39997}$; the
+program also checked its arithmetic against the known expansions of $e$
+and $\pi$.  That bit length describes one convergent only; the bound for
+every rational in the enclosure comes from the certified sum $v+v'$
+above, and $2^{39997}>10^{12040}$ is a separate integer comparison.
 
 A rational number may have a denominator beyond either bound.  Extending
 the computation can exclude a larger finite range, but a longer prefix
@@ -1402,7 +1359,6 @@ every integer $M\ge1$ and every cutoff $K$ there are digits
 $\varepsilon_n\in\{0,1\}$, zero for $n<K$, such that
 $\sum_{n\ge0}(a_n+M\varepsilon_n)2^{-(n+1)}$ is rational.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{200}{rational_bounded_perturbation}.}
 
 \begin{proof}
 Write $A=\sum_{n\ge0}a_n2^{-(n+1)}$ and choose a rational
@@ -1411,19 +1367,15 @@ $\sum_{n\ge K}\varepsilon_n2^{-(n+1)}$ with $\varepsilon_n\in\{0,1\}$; set
 $\varepsilon_n=0$ for $n<K$.  The perturbed series converges and equals $r$.
 \end{proof}
 
-\noindent The
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean\#L193}{construction}
-is covered by the supplied formal verification record.  It follows that
-a property shared by every allowed perturbation cannot by itself force
-irrationality, since one such perturbation has a rational sum.  This is an
-ordinary consequence of the construction, not a separate formal theorem.  The construction is also
-checked at the actual consecutive prime gaps for every $M\ge1$ and every $K$,
-the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean\#L208}{rational
-perturbed prime-gap series}, with the perturbed gap lying in $[g_n,g_n+M]$ and
-congruent to $g_n$ modulo $M$, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean\#L234}{gap
-bounds}.  For each fixed $k\ge1$, the sum of $k$ consecutive gaps
+\noindent Hence a property shared by every allowed perturbation cannot by
+itself force irrationality, since one such perturbation has a rational sum;
+this consequence is not stated separately in Lean.  Lean also checks the construction at the actual consecutive prime gaps,
+for every $M\ge1$ and every $K$: the
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean\#L208}{perturbed
+prime-gap series is rational}, and each perturbed gap lies in
+$[g_n,g_n+M]$ and is
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean\#L234}{congruent
+to $g_n$ modulo $M$}.  For each fixed $k\ge1$, the sum of $k$ consecutive gaps
 increases by at most $kM$.  Thus infinitely many bounded gaps and bounded
 clusters of each fixed size survive, but their original numerical bounds
 need not.  Nonnegative corrections also preserve lower bounds for large
@@ -1473,7 +1425,6 @@ $x,x+d,x+s,x+s+d+r$ prime. Then, for every $N,H\ge0$,
  (h+1)p_{N+h+1}+(H+1)Q_{N,H,r}.
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/ShiftedGapCountingR9.lean}{152}{shifted_count_bound}.}
 
 \begin{proof}
 For a counted index $n$, put $x=p_n$, $d=g_n$ and
@@ -1486,11 +1437,8 @@ $(h+1)\sum_{i<N+h}g_i<(h+1)p_{N+h+1}$.  Multiply the resulting bound
 on the exceptional count by $H+1$ and add the small-span contribution.
 \end{proof}
 
-The displayed finite shifted-count bound is unconditional by the ordinary
-proof above.  Its \href{https://github.com/wcook04/plectis-erdos/blob/d058b9150218ae23d2cfd975580088d6167e9da8/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152}{historical source locator}
-is retained; Appendix~\ref{long251:app:index} identifies the relocated proof
-in the supplied packet and distinguishes its recorded release status from
-a checked build.
+The displayed finite shifted-count bound is unconditional by the
+elementary proof above.
 To obtain zero density from this particular finite bound, one would need,
 for every $\varepsilon>0$ and all large $N$, a choice of $H$ making its
 right side less than $\varepsilon N(H+1)$.  For $h=1$, the same definitions give $s=d$, so $x+d=x+s$.
@@ -1514,7 +1462,6 @@ Let $a:\N\to\Z$ have fixed-block nonconcentration, let $E\subset\Z$ be finite,
 and let $b_n=a_n+e_n$ with $e_n\in E$ for every $n$.  Then $b$ has fixed-block
 nonconcentration.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperNonconcentrationR7.lean}{100}{finite_perturbation_stability}.}
 
 \begin{proof}
 Fix $k\ge0$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$.  For a tuple
@@ -1550,7 +1497,8 @@ fixed-block nonconcentration, and the cumulative sequence
 $P_n=2+\sum_{i<n}b_i$ satisfies $p_n\le P_n\le p_n+Mn$ and hence
 $P_n\sim n\log n$.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{126}{nonconcentration_does_not_force_irrationality}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{67}{perturbed_position_bounds}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{45}{sum_range_primeGap0}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{59}{perturbed_position_eq}, and 1 further declaration. Conditional on the prime number theorem; see the \hyperref[long251:sec:coverage]{coverage section}.}
+\evidenceremark{The Lean proof assumes Schlage-Puchta's Lemma~4
+\cite{schlagepuchta2011} and the prime number theorem.}
 
 \begin{proof}
 Theorem~\ref{long251:res:boundedperturbation} gives the rational sum,
@@ -1580,7 +1528,6 @@ Let $a,b:\N\to\Z$ agree off a set $S$ of ordinary density zero.
 If $a$ has fixed-block nonconcentration, then so does $b$.
 No boundedness assumption on $a-b$ is needed.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean}{80}{sparse_nonconcentration}.}
 \begin{proof}
 For fixed $k$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$, a zero of
 $F(b_n,\ldots,b_{n+k})$ either is already a zero at the $a$-block or has
@@ -1605,7 +1552,8 @@ fixed-block polynomial nonconcentration, and vanishing total variation distance 
  \qquad P_n\sim n\log n.
 \]
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{256}{long_joint_prime_gap_countermodel}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{228}{cut_prefix_bound}. Conditional on Schlage-Puchta's density lemma and the prime number theorem; see the \hyperref[long251:sec:coverage]{coverage section}.}
+\evidenceremark{The Lean proof assumes Schlage-Puchta's Lemma~4
+\cite{schlagepuchta2011} and the prime number theorem.}
 \end{samepage}
 \begin{proof}
 Apply Theorem~\ref{long251:res:sparse-rationalisation} at a rational target.
@@ -1628,8 +1576,8 @@ of nonnegative terms gives
 \]
 The finite value on the right also proves convergence on the left.
 \end{proof}
-These are ordinary deductions from the sparse theorem and the stated
-external analytic input.  In fact, all conclusions also hold for every
+These conclusions follow from the sparse theorem, Schlage-Puchta's
+Lemma~4 and the prime number theorem.  In fact, all conclusions also hold for every
 $\varepsilon>1$: apply the corollary with exponent $1$.  Its correction
 is smaller than the prescribed allowance, and its cumulative estimate
 $O(n\log(n+3)/\log\log n)$ is stronger than the displayed bound and
@@ -1669,7 +1617,8 @@ Theorem~\ref{long251:res:smallpair} hold for the actual prime gaps has density z
 For the same $h$, the set of $N$ with $g_{N+h+1}=g_{N+1}$ also has density
 zero.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{38}{prime_gap_two_window_sparse}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{50}{prime_gap_equal_shift_zeroDensity}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{30}{primeGap_tail_recurrence}. Conditional on Schlage-Puchta's density lemma; see the \hyperref[long251:sec:coverage]{coverage section}.}
+\evidenceremark{The Lean proof assumes Schlage-Puchta's Lemma~4
+\cite{schlagepuchta2011}.}
 
 \begin{proof}
 For $N\ge1$ every gap involved is even, so $\delta_N=g_{N+h+1}-g_{N+1}$ is
@@ -1745,7 +1694,6 @@ $\sum_{j\ge1}a_{N+j}2^{-j}$ is an integer, so every tail shift is integral.
 The increasing odd sequence $P_n=3+\sum_{j\le n}a_j$ satisfies
 $P_n\sim n\log n$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean}{368}{exists_logarithmic_recurring_values_countermodel}.}
 
 \begin{proof}
 Put $b_n=2\lceil\tfrac12\log(n+64)\rceil$, so
@@ -1900,7 +1848,6 @@ integral, $c_{n+1}-c_n=4n+10$ is never $\pm2$, and
  \sum_{j\ge1}\frac{c_j}{2^{\,j}}=32 .
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{27}{polynomial_countermodel}.}
 
 \begin{proof}
 Direct expansion gives the recurrence, and the finite telescope is
@@ -1912,18 +1859,6 @@ $c_{n+1}-c_n=4n+10\ge10$.
 \noindent The series starts at $j=1$ and equals the initial rescaled tail
 $U_0=32$.  Under the opening convention its sum is
 $\sum_{n\ge0}c_n2^{-(n+1)}=(c_0+32)/2=18$.
-The formal construction checks the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1596}{recurrence},
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1632}{strict
-growth},
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1654}{integrality
-of every shift},
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1644}{exclusion
-of adjacent differences of size two}, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean\#L92}{value
-$32$ for the shifted series}, whose summand is $c_{n+1}/2^{\,n+1}$; the
-rational value is recorded at
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean\#L109}{line~109}.
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent-gap condition of
 Theorem~\ref{long251:res:signedwindow} fails at every index.  The telescoping mechanism
@@ -1940,7 +1875,6 @@ arbitrary and put $\kappa_n=2K_n-K_{n+1}$: the
 For every $n\ge0$,
 $\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_0-K_n2^{-n}$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{1137}{carryPartialSum_eq}.}
 
 \begin{proof}
 The sum is empty when $n=0$.  Passing from $n$ to $n+1$ adds
@@ -1967,9 +1901,7 @@ $K_0-\lim_{n\to\infty}2^{-n}K_n$.  The sum equals $K_0$ precisely when
 that limit is zero; polynomial growth suffices.  For $K_n=2^n$, every
 $\kappa_n$ is zero, so the series converges to $0$, not to $K_0=1$.
 
-\noindent The
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1137}{finite telescoping identity}
-is also formalised.  Taking $K_0=\tfrac52$ and $K_n=2n+2$ for $n\ge1$ gives
+\noindent Taking $K_0=\tfrac52$ and $K_n=2n+2$ for $n\ge1$ gives
 $\kappa_0=1$ and $\kappa_n=2n$, so the coefficients $1,2,4,6,8,\ldots$ are
 positive, even after the first term, unbounded and not eventually periodic,
 while their dyadic sum is $\tfrac52$.  Rationality alone therefore cannot imply
@@ -1984,11 +1916,14 @@ hypotheses are preserved in Appendix~\ref{long251:app:affine-detail}.
 \section{Finite numerical searches}\label{long251:sec:measurements}
 
 The two searches described below concern finite ranges of the prime-gap
-tails.  Their receipts record floating-point observations, not exact
-certificates or proofs of occurrence beyond every cutoff.  The exact
-integer checks are given separately in
-Appendix~\ref{long251:app:certificates}.  The searches have not been rerun
-for this edition.
+tails.  Both compute the tails in double-precision arithmetic with no
+bound on the accumulated rounding error, so neither a count nor an
+individual hit is exact; a bound for the omitted infinite tail would not
+by itself bound that error.  Neither search says anything beyond its
+range.  The exact certificates are
+Proposition~\ref{long251:res:finite-smallpair} and the two denominator
+bounds of Section~\ref{long251:sec:denominator-floor}, all checked by the
+Lean kernel.
 
 Over the $6\,841\,648$ primes below $1.2\times10^{8}$ and offsets
 $h=1,\ldots,16$, the scan records hits for the reduced two-window event of
@@ -1998,14 +1933,10 @@ signs.  At $h=1$ it records $56\,427$ hits among $6\,841\,564$ candidate
 indices, the last at the prime $119\,995\,753$.  Multiplying the observed proportion in each band
 by that band's mean of $\log p$ gives $0.17671$ in the first band and
 $0.13148$ in the last.
-This finite observation does not establish an asymptotic counting law or
-cofinality.  The tails in this scan use double-precision arithmetic.
-The receipt gives no certified enclosure for the accumulated rounding
-error, so neither a count nor an individual hit is an exact certificate.
-A bound for the omitted infinite tail would not, by itself, bound that
-rounding error.  Proposition~\ref{long251:res:finite-smallpair} gives a
-separate pair certified by exact integer arithmetic.  The receipt is
-\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json}{the adjacent-pair search receipt}.
+This finite observation establishes no asymptotic counting law and no
+occurrence beyond every cutoff.  The
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json}{search output}
+is public.
 
 A second scan uses the $1\,270\,607$ primes below $2\times10^{7}$ and
 pairs of indices in the half-open range
@@ -2017,13 +1948,16 @@ class has at least $90\,150$ counted pairs; pairs may share indices.
 For each class, the program also records the larger index of a selected
 late witness.  The minimum of those recorded indices is $1\,270\,520$;
 it need not come from the class with the fewest pairs.  The saved sample pairs pass the resulting two-window
-check in floating-point arithmetic.  These observations are not exact
-certificates, and the scan supplies neither arbitrary moduli nor
-witnesses beyond every prescribed cutoff.  The receipt is
-\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json}{the congruent-pair search receipt}.
-The \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{public computation guide}
-provides the programs, dependencies and exact replay commands for all three
-recorded runs, including the continued-fraction calculation above.
+check in floating-point arithmetic.  The scan supplies neither arbitrary
+moduli nor witnesses beyond every prescribed cutoff.  Its
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json}{search output}
+is public.
+The \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{computation guide}
+gives the programs, dependencies and commands to rerun both searches and
+the $80000$-bit continued-fraction calculation of
+Section~\ref{long251:sec:denominator-floor}.
+Appendix~\ref{long251:sec:xr-corrections} corrects the stated
+justification of the tail bound in the free-pair program.
 
 \section{Remaining prime-gap estimates}\label{long251:sec:open}
 
@@ -2123,52 +2057,21 @@ irrationality.  These constructions are not shown to enumerate the
 consecutive primes, so they do not rule out arguments that combine those
 properties with further information about primes.
 
-\paragraph{Verification boundary.}
-The Lean kernel checks the integer certificates of both denominator bounds.
-The larger bound is also supported by the archived computation and by the
-independent integer-arithmetic replay described after its proof.  Neither
-bound is an irrationality theorem.  The older $4096$-bit calculation and the separate
-justification of its tail bound are discussed in
-Section~\ref{long251:sec:xr-corrections}.  Declaration-level build status is recorded below,
-separately from the ordinary proofs and numerical receipts.
-
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 
-\paragraph{Artefact and data availability.}
-Declaration links identify immutable revisions, not a live branch.  The
-main source links in this manuscript retain revision \texttt{3d6d938d696f}; release-only declarations
-are linked to \texttt{52f29ad173b0}.  The certificate of
-Theorem~\ref{long251:res:cfexclusion} is linked at \texttt{e6c2d8f77ac2}.  The supplied declaration index
-distinguishes \texttt{ci\_checked}, \texttt{outside\_checked\_build}, and
-\texttt{release\_only}; presence of a file or link alone is not evidence
-that its proof was checked.  The recorded CI receipt is
-\href{https://github.com/wcook04/plectis-erdos/actions/runs/35073961520}{run 35073961520}.
-The declaration index records the status of each result.  The build
-record reports \texttt{lake build ErdosProblems Erdos249257} with
-Lean~4.29.1.  No new execution of that build is claimed here.
-
+\paragraph{Data availability.}
 Lean~4~\cite{lean4} and mathlib~\cite{mathlib} provide the proof-checking
-environment.  A checked proof statement, its hypotheses and its transitive
-axiom report must be distinguished from a challenge containing
-\texttt{sorry}, an executable certificate, or an ordinary proof.  Formal
-checking does not establish novelty, attribution, or the faithfulness of
-an unexamined mathematical interpretation.
-
-The finite-computation receipts and generating programs remain separately
-identified in the
-\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{pinned computation guide}.
-For this edition the self-contained verifier in
-Appendix~\ref{long251:app:certificates} was rerun; it checks the adjacent
-pair and the bound $2^{589}$.  A separate verifier, supplied as
-\texttt{checks/verify\_independent\_cf.py}, regenerates the $80000$-bit
-enclosure and checks the Farey certificate for the larger exclusion.
-It reproduces the common-prefix length and the receipt's denominator
-threshold, and checks the stronger neighbouring-denominator sum stated
-above.  It does not rerun the original program's floating-point statistics
-or its self-tests on $e$ and $\pi$.  The prime-gap frequency scans were not
-rerun, and neither verifier is a new Lean build.  The Lean kernel checks the
-certificate given in the proof of Theorem~\ref{long251:res:cfexclusion}.
+environment; the margin marks link each result to its Lean proof, and the
+\href{\evidencerecordurl}{evidence record} lists every declaration and
+check.  Formal checking does not establish novelty or attribution.  The
+programs for the searches of Section~\ref{long251:sec:measurements} are
+listed in the
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{computation guide}.
+The program in Appendix~\ref{long251:app:certificates} checks the
+adjacent pair and the bound $2^{589}$; the independent program of
+Section~\ref{long251:sec:denominator-floor} checks the certificate of
+Theorem~\ref{long251:res:cfexclusion}.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -2181,9 +2084,8 @@ this acknowledgement does not imply that he reviewed or endorsed the
 mathematics of the present paper.
 The problem numbering follows the Erd\H{o}s Problems catalogue maintained
 by Thomas Bloom~\cite{erdosproblems}.  The logarithmic-scale construction
-and the transfer of nonconcentration are retained from the earlier review
-materials accompanying this project; that provenance is not evidence of
-independent mathematical review.
+and the transfer of nonconcentration come from earlier working materials
+of this project, which were not an independent mathematical review.
 
 \appendix
 \section{An elementary polynomial bound for the primes}\label{long251:app:prime-bound}
@@ -2224,10 +2126,9 @@ $p_n\le1250(n+1)^4$ is checked by the kernel at
 
 The following calculation uses trial division and integer arithmetic only.  It
 reproduces the two rows of Proposition~\ref{long251:res:finite-smallpair} and every
-inequality used in Theorem~\ref{long251:res:denominatorfloor}.  The four literals are
-the certificate the Lean kernel decides in
-\texttt{KernelDenominatorFloor.lean}; their use here requires no
-floating-point approximation.  Adjacent quoted strings are concatenated by
+inequality used in Theorem~\ref{long251:res:denominatorfloor}.  The four
+integers are the certificate that the Lean kernel checks for that theorem;
+their use here requires no floating-point approximation.  Adjacent quoted strings are concatenated by
 Python.
 {\footnotesize
 \begin{verbatim}
@@ -2295,194 +2196,33 @@ print("Both tail rows and the denominator floor verified.")
 
 \section{Guide to the formal sources}\label{long251:app:index}\compatlabel{app:index}
 
-The links in this appendix and after selected proofs identify formal
-definitions and statements at fixed revisions and line numbers.  The declaration index
-records their build status; the ordinary arguments are printed in the
-paper itself.
+The margin marks link each result to its Lean proof, and the
+\href{\evidencerecordurl}{evidence record} lists every declaration.  The
+links after selected proofs identify further formal definitions and steps
+at fixed revisions and line numbers.
 
-The summation-by-parts identity and polynomial prime bound concern the
+The summation-by-parts identity and the polynomial prime bound concern the
 actual primes.  The recurrence results apply to arbitrary integer
-coefficients and, as stated, rational or real sequences.  Substituting the
-actual prime-gap tail requires its convergence and boundary condition.
+coefficients and, as stated, to rational or real sequences; substituting
+the actual prime-gap tail requires its convergence and boundary condition.
 The finite certificates use the same polynomial bound to control the
-omitted terms.  The counterexamples concern other coefficient sequences,
-not a construction of new primes.  The complete link inventory is also retained in the TeX source.
+omitted terms.  The counterexamples concern other coefficient sequences
+and construct no new primes.
 
-\subsection*{Formalisation coverage and remaining dependencies}
-\label{long251:sec:coverage}
-\papersectiontarget{coverage}
-
-Every theorem, lemma, proposition and corollary of this record other than the
-three listed below has a Lean statement of the same assertion, with the same
-hypotheses, checked by the Lean kernel using only the axioms
-\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
-development at revision \texttt{181078b6b009}.  For
-Theorem~\ref{long251:res:cfexclusion} the revision is the later
-\texttt{e6c2d8f77ac2}.  It adds a primality test that the kernel evaluates with
-one gcd per integer, which makes the certificate in the proof of that theorem
-feasible to check.
-
-The three exceptions share cited inputs.  The development verifies the
-reduction of Theorem~\ref{long251:res:sparse} to Schlage-Puchta's lemma that,
-for a fixed nonzero integer polynomial in a fixed block of consecutive prime
-gaps, the set of indices where it vanishes has density
-zero~\cite[Lemma~4, pp.~5--6]{schlagepuchta2011}, and the reduction of
-Corollary~\ref{long251:res:nonconc-primes} and
-Corollary~\ref{long251:res:jointcountermodel} to that lemma together with the
-prime number theorem in the form $p_n\sim n\log n$~\cite[Chapter~6]{mv2007}.
-Formal proofs of those two inputs are not included in the verified
-development, so these three endpoints remain conditional on them.  What each
-statement adds to them is checked, including the estimate that the corrected
-sequence of Corollary~\ref{long251:res:jointcountermodel} differs from the
-prime gaps at $O_\varepsilon(n/\log\log n)$ indices below $n$, which uses no
+The Lean proofs of three results assume published inputs that the Lean
+development does not prove.  The Lean proof of
+Theorem~\ref{long251:res:sparse} assumes Schlage-Puchta's
+Lemma~4 \cite[Lemma~4, pp.~5--6]{schlagepuchta2011}; for a fixed nonzero
+integer polynomial in a fixed block of consecutive prime gaps, it states
+that the set of indices where the polynomial vanishes has density zero.
+Those of Corollaries~\ref{long251:res:nonconc-primes}
+and~\ref{long251:res:jointcountermodel} assume that lemma and the prime
+number theorem in the form $p_n\sim n\log n$~\cite[Chapter~6]{mv2007}.
+What each statement adds to these inputs is checked, including the
+estimate that the corrected sequence of
+Corollary~\ref{long251:res:jointcountermodel} differs from the prime gaps
+at $O_\varepsilon(n/\log\log n)$ indices below $n$, which uses no
 information about the distribution of primes.
-
-A theorem whose own statement is conditional is formalised exactly as stated.
-The three results above are asserted unconditionally here, and their Lean
-counterparts carry a named input.
-
-% BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
-\paragraph{Concordance of statements and Lean declarations.}
-Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
-below with the declarations that jointly state it.  Each name links to its declaration at revision
-\texttt{a25cb360bef8}.  Where the Lean statement is stronger than the printed one and implies it by
-an immediate specialisation, the entry says so.  An entry marked \emph{compared} was also checked
-independently: a restatement of the same declarations against Mathlib alone, together with its
-proof, was verified by Comparator (\texttt{leanprover/comparator}) in a clean continuous
-integration environment, in the run named by its number.  Comparator trusts the restated
-statement, so the correspondence between the printed result and that statement is the one this
-concordance records.
-
-\begingroup\small\raggedright
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:sparse-rationalisation}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean\#L269}{\nolinkurl{arbitrary_word_sparse_rationalisation_uniform}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L137}{\nolinkurl{polylogarithmic_word_interval_uniform}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean\#L8}{\nolinkurl{bounded_test_finite_coupling}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:local-targets}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean\#L38}{\nolinkurl{local_target_interval}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:abel}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L138}{\nolinkurl{dyadicPartialSumQ_eq_start_add_differences}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:parts}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L172}{\nolinkurl{prime0_dyadic_summation_by_parts}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:infinite}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L47}{\nolinkurl{infinite_prime_gap_identity}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:irr-equivalence}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L56}{\nolinkurl{irrationality_reformulation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:block}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L76}{\nolinkurl{real_block_identity}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:escape-irrational}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L94}{\nolinkurl{rationality_classification}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Lemma~\ref{long251:res:true-tail}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean\#L57}{\nolinkurl{real_dyadic_orbit_eq_true_tail_iff}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:freepair}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L189}{\nolinkurl{actual_free_pair_criterion}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:lcmdiagonal}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean\#L153}{\nolinkurl{irrational_initial_iff_all_lcmDiagonal_nonintegral}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:smallpair}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L267}{\nolinkurl{rational_small_pair_bundle}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:smallpair-real}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L298}{\nolinkurl{real_small_pair_prime_endpoint}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:gap-nonperiodic}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L175}{\nolinkurl{prime_gaps_not_eventually_periodic}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:signedwindow}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L135}{\nolinkurl{real_signed_two_window}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:explicit-remainder}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean\#L211}{\nolinkurl{explicit_remainder_certificate}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:finite-smallpair}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L111}{\nolinkurl{finite_small_pair}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:one-tail-certificate}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean\#L6}{\nolinkurl{one_tail_signed_certificate}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:denominatorfloor}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L142}{\nolinkurl{denominator_floor_both}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L137}{\nolinkurl{denominator_floor_decimal}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:boundedperturbation}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L200}{\nolinkurl{rational_bounded_perturbation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:shiftedcount}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean\#L152}{\nolinkurl{shifted_count_bound}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:nonconcentration}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean\#L100}{\nolinkurl{finite_perturbation_stability}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:sparse-nonconcentration}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean\#L80}{\nolinkurl{sparse_nonconcentration}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:polignacfail}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean\#L368}{\nolinkurl{exists_logarithmic_recurring_values_countermodel}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:polynomialcountermodel}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L27}{\nolinkurl{polynomial_countermodel}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:telescope}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1137}{\nolinkurl{carryPartialSum_eq}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:totient}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L877}{\nolinkurl{tailShift_integral_totient_of_odd_den}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:propagate}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean\#L27}{\nolinkurl{realTailShift_integral_add}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:truncation} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean\#L261}{\nolinkurl{cofinal_escape_of_finite_truncation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:complete-truncation}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean\#L25}{\nolinkurl{finite_separation_complete}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:boundedpolignac} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperBoundedCarryR7.lean\#L179}{\nolinkurl{bounded_recurring_values_countermodel}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048}{\texttt{35605146048}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:affinecollapse}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L241}{\nolinkurl{affine_circularity_bundle}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\endgroup
-% END GENERATED CONCORDANCE
-
-\paragraph{Sparse construction.}
-The source index records \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean\#L217}{the interval theorem for an arbitrary sequence}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L53}{its rational-target consequence}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L78}{the polylogarithmic interval theorem}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean\#L139}{the block total-variation bound} and \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean\#L152}{the uniform bounded-test theorem} as \texttt{ci\_checked}.
-The formal construction chooses one coordinate at a time, rather than
-the triples used here.  Its polylogarithmic statement fixes the permitted
-set, interval, and support-count constant and cutoff before the target;
-the eventual congruences and convergence are quantified after it.
-The common support-count bound and same-index block comparison therefore
-give a target-independent statistical error bound.  A common congruence
-cutoff instead requires the construction, which chooses it from the
-schedule and modulus.  The printed schedule independently supplies the
-common cutoffs and bounds in Theorem~\ref{long251:res:sparse-rationalisation}.
-The recorded build status is described under Statements and declarations;
-no new Lean build is claimed.
-\paragraph{Finite shifted-gap count.}
-The supplied release contains a
-\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos251/ShiftedCountingSourceR11.lean}{relocated proof of the finite shifted-gap count}
-in Proposition~\ref{long251:res:shiftedcount}.  Its natural-number triples
-agree with the printed integer triples: $x,d,s$ and $x+s+d+r$ are positive
-under the stated conditions.  The finite inequality has no sieve premise;
-the separate sieve-dependent density-zero implication is not used here.
-The declaration index records this file as \texttt{release\_only}, not \texttt{ci\_checked};
-source availability does not establish a successful build.
-\paragraph{Finite summation by parts.}
-\noindent Formalised as the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L138}{summation-by-parts
-identity}.  The finite identity requires no positivity, monotonicity or convergence.
-\paragraph{Prime-gap summation by parts.}
-\noindent Formalised as the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L172}{prime-gap
-summation by parts}, using the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L161}{gap partial
-sum} and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L156}{agreement of the two gap formulas}; the latter records that the natural-number difference
-$p_{n+1}-p_n$ agrees with the difference taken in $\Q$, which needs
-$p_n\le p_{n+1}$, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L152}{increase of consecutive primes}.
-\paragraph{Convergence and the infinite identity.}
-The sources prove the \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L360}{polynomial prime bound},
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L379}{convergence of the prime series} and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L385}{convergence transfer to the gap series}.
-The identity in Theorem~\ref{long251:res:infinite} is the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L427}{unconditional prime-gap identity}.
-\paragraph{The irrationality equivalences.}
-The source proves the \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L435}{irrationality equivalence between $\Pi$ and $S$}.
-For the second normalisation, it proves the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L444}{identity $\sum_{n\ge0}p_n2^{-n}=4+2S$} and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L459}{corresponding irrationality equivalence}.
-\paragraph{The general recurrence.}
-The source defines the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L482}{tail
-recurrence}, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L544}{shift}, and
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L575}{integrality}.
-\paragraph{Iteration of the recurrence.}
-The source versions of Theorem~\ref{long251:res:block} give the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L653}{iterated
-block identity} and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L667}{scaled
-shift identity}.
-\paragraph{Two consecutive small differences.}
-The sources for Theorem~\ref{long251:res:smallpair} and
-Corollary~\ref{long251:res:smallpair-real} are the rational \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L979}{adjacent
-small-shift obstruction}, its
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1006}{arbitrarily late consequence}, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean\#L99}{real
-small-pair implication}, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean\#L120}{sufficient condition for irrationality}.
-\paragraph{Congruent indices.}
-For Theorem~\ref{long251:res:freepair}, the source gives the \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean\#L92}{criterion for congruent indices}, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean\#L105}{eventual congruence classification}, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean\#L236}{irrationality criterion using congruent indices}, using the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean\#L186}{actual
-real tail recurrence}.
-\paragraph{Denominators and integral shifts.}
-The sources for \eqref{long251:eq:den-law} and its consequences give the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1217}{denominator
-recurrence}, its
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1226}{odd
-case} and
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1236}{even
-case}, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1279}{denominator
-classification}, the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L877}{totient
-shift}, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L900}{propagation
-of an integral shift to every later index}.
-\paragraph{Rationality of the initial value.}
-For Theorem~\ref{long251:res:escape-irrational}, the sources give two
-rationality criteria: \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1479}{one integral shift of positive length} and
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1525}{eventual integrality for a fixed positive length}.
-The corresponding irrationality criteria are
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1551}{nonintegrality at every index for every positive length} and
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1572}{arbitrarily late nonintegrality for every positive length}.
 
 % The exhaustive source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.
@@ -2609,7 +2349,6 @@ Let $T:\N\to\Q$ satisfy the dyadic tail recurrence with integer coefficients.  I
 reduced denominator $d$ of $T_N$ is odd, then $\sigma_{\ph(d)}(N)$ is an
 integer.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{877}{tailShift_integral_totient_of_odd_den}.}
 
 \begin{proof}
 Since $d$ is odd, $2$ and $d$ are coprime, so Euler's congruence gives
@@ -2624,7 +2363,6 @@ and define $\sigma_h(N)=T_{N+h}-T_N$.  For fixed $h,N\ge0$,
 if $\sigma_h(N)$ is an integer, then $\sigma_h(N+k)$ is an integer
 for every $k\ge0$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean}{27}{realTailShift_integral_add}.}
 
 \begin{proof}
 The shift step identity gives
@@ -2665,7 +2403,6 @@ If for every $h\ge1$ and every $N_0$ there are $N\ge N_0$ and $L\ge1$ with
 $\operatorname{dist}(S_{h,N,L},\Z)>R_{h,N,L}(M)$, then the nonintegrality
 condition in Problem~\ref{long251:prob:escape} holds.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{261}{cofinal_escape_of_finite_truncation}.}
 \end{samepage}
 
 \begin{proof}
@@ -2707,7 +2444,6 @@ $|D-S_L|\le R_L$ and $R_L\to0$.  Then
  \text{there exists }L\text{ with }\operatorname{dist}(S_L,\Z)>R_L.
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean}{25}{finite_separation_complete}.}
 \begin{proof}
 The reverse implication follows from the triangle inequality.
 For the forward implication put $\delta=\operatorname{dist}(D,\Z)>0$.
@@ -2858,7 +2594,6 @@ at index $2\,k!$, so both recur infinitely often at indices divisible by any fix
 $t\ge1$.  The series $\sum_{n\ge1}a_n2^{-n}$ equals $4$ and every tail
 $\sum_{j\ge1}a_{N+j}2^{-j}$ equals the integer $U_N$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperBoundedCarryR7.lean}{179}{bounded_recurring_values_countermodel}.}
 
 \begin{proof}
 For $k\ge3$ the index $k!$ is even and at least $6$, and $k!-1$ is odd, so the
@@ -2922,10 +2657,10 @@ only an upper bound; it predicts neither a monotone decline nor an
 asymptotic proportion.  The finite-band ratios therefore do not
 establish an asymptotic rate.
 
-\subsection{Corrections to earlier records}\label{long251:sec:xr-corrections}
+\subsection{Two corrections}\label{long251:sec:xr-corrections}
 
-\paragraph{The earlier tail-bound calculation.}
-The $4096$-bit program linked through
+\paragraph{The tail bound in the free-pair program.}
+The $4096$-bit free-pair program linked through
 Section~\ref{long251:sec:measurements} bounds $T_s$ by summing the first
 $400$ terms of $1250(s+j+2)^4 2^{-j}$ after rounding each down, then
 adding $1$.  This does not necessarily bound that polynomial series:
@@ -2950,41 +2685,15 @@ Thus the rounding issue is in the stated majorant argument, not a
 failure of the returned enclosure.  This argument justifies the
 analytic bound; it is not a rerun of the denominator-exclusion search.
 
-\paragraph{Two different improvements to the exclusion record.}
-An earlier internal record gave a denominator exclusion at $10^{602}$.
-The kernel-decided floor $2^{589}>10^{177}$ of
-Theorem~\ref{long251:res:denominatorfloor} is numerically smaller but has a
-different verification status.  It does not supersede $10^{602}$ in
-numerical strength.  The continued-fraction exclusion
-$2^{39997}>10^{12040}$ of Theorem~\ref{long251:res:cfexclusion} is the larger
-numerical bound.  The bound has $12041$ decimal digits; the corresponding strict power-of-ten
-lower bound is $10^{12040}$, not $10^{12041}$.  The earlier manuscript reports a separate interval and Farey-neighbour
-replay.  Independently of that report, this edition regenerates an
-$80000$-bit enclosure and its Farey certificate, as described after the proof of
-Theorem~\ref{long251:res:cfexclusion}.  The original program was not executed.
-The Lean kernel checks the certificate given in that proof, which yields the
-stronger bound $2^{40062}>10^{12059}$.
+\paragraph{An insufficient condition.}  With the offset freed by
+Theorem~\ref{long251:res:freepair}, the route needs, for each modulus $t$,
+cofinally many congruent pairs with certified nonintegral tail difference.
+Two even values differing by $2$, each occurring infinitely often inside a
+common index residue class, do not imply this two-condition form for
+integer-coefficient recurrences: the sequence of
+Theorem~\ref{long251:res:polignacfail} has both properties and only
+integral tail shifts.
 
-\paragraph{An insufficient proposed condition.}  An earlier record named
-Hardy-Littlewood $k$-tuple correlation of consecutive gaps at a fixed offset as
-the missing input.  With the offset freed by Theorem~\ref{long251:res:freepair} the
-route needs, for each modulus $t$, cofinally many congruent pairs with
-certified nonintegral tail difference.  A further record proposed that two even
-values differing by $2$, each occurring infinitely often inside a common index
-residue class, would supply the two-condition form.  Theorem~\ref{long251:res:polignacfail} shows that this implication is false
-for integer-coefficient recurrences.  That entry is withdrawn.
-
-\paragraph{The formal boundary.}  An earlier reading of the short note placed
-the relation between rational and real tails and the real small-pair
-implication among the results supported only by ordinary proofs.  The
-supplied record instead identifies formal proofs at
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean\#L48}{line~48}
-and
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean\#L99}{line~99}
-of the real prime-gap tail module.  A second reading placed the kernel-decided
-denominator floor and the criterion using congruent indices outside the source revision the
-note pins.  Both modules are present at that revision, and both are linked from
-the note.
 % Part: part family_catalogue
 \section{Arithmetic-progression reformulations of integrality}
 \label{long251:app:affine-detail}
@@ -3040,7 +2749,6 @@ Then
 \label{eq:fixedcollapse}\compatlabel{long251:eq:fixedcollapse}
 \end{equation}
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{241}{affine_circularity_bundle}.}
 
 \begin{proof}
 Substituting $D_{N+r}=2^rD_N-B_{h,N,r}$ into the first membership condition cancels the
@@ -3069,9 +2777,6 @@ give, for every $z\in\Z$,
 \]
 The same $r$ works for all integers $z$, as required.
 \end{proof}
-
-\noindent The three displayed equivalences are assembled in one declaration,
-\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L241}{the three arithmetic-progression equivalences}.
 
 Evenness is essential in \eqref{eq:affinecofinal}.  Without it, the
 recurrence $T_N=N+1$, $g_n=n-1$ for $n\ge1$, has
@@ -3102,7 +2807,8 @@ Thus \eqref{eq:fixedcollapse} holds for real integer-coefficient
 recurrences under the same bound and growth hypothesis.  The same is
 true of \eqref{eq:affinecollapse}, and of \eqref{eq:affinecofinal} when the
 coefficient differences are even.  These extensions follow from the
-printed argument; the cited formal statement is the rational one.
+printed argument; the Lean proof covers the rational case stated in the
+theorem.
 
 The first test is exactly even integrality of $D_N$, regardless of $r$.
 The fixed-progression test compares $2^r\operatorname{dist}(D_N,\Z)$
@@ -3171,9 +2877,9 @@ exclusions do not establish that conclusion.
 \bibitem{zhang2014} Yitang Zhang, \href{https://doi.org/10.4007/annals.2014.179.3.7}{\emph{Bounded gaps between primes}}.
   Annals of Mathematics \textbf{179} (2014), 1121--1174, doi:\href{https://doi.org/10.4007/annals.2014.179.3.7}{10.4007/annals.2014.179.3.7}.
 \bibitem{erdosproblems} Thomas F. Bloom, \href{https://www.erdosproblems.com/251}{\emph{Erd\H{o}s Problem \#251}}.
-  2026. Catalogue snapshot accessed 6 September 2026.
+  2026. Accessed 6 September 2026.
 \bibitem{erdosproblems251thread} {Erdős Problems contributors}, \href{https://www.erdosproblems.com/forum/thread/251}{\emph{Erd\H{o}s Problem \#251 discussion thread}}.
-  2026. Snapshot accessed 6 September 2026: Tao comment of 7 October 2025 and Land comments of 6 September 2026.
+  2026. Accessed 6 September 2026: Tao comment of 7 October 2025 and Land comments of 6 September 2026.
 \bibitem{kovac2026} {ChatGPT 5.4 Pro (orchestrated by Vjeko Kova\v{c})}, \href{https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf}{\emph{On the Erd\H{o}s problem \#251}}.
   Unpublished note, Department of Mathematics, University of Zagreb, 2026. Accessed 6 September 2026.
 \bibitem{formalconjectures251} {The Formal Conjectures Authors}, \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean}{\emph{FormalConjectures.ErdosProblems.251}}.

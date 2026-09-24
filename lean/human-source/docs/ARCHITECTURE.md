@@ -214,12 +214,15 @@ reviewed and attributed.
 
 ## How the checks run
 
-GitHub runs a Lean job and a release-surface job on pushes and pull requests.
-The [workflow file](../.github/workflows/lean.yml) contains their current commands.
-The Lean job installs the pinned toolchain and dependencies, then builds the
-formal libraries and supported downstream examples. The release-surface job
-checks the claim records, source links, generated files, papers, licences and
-query routes, including tests with deliberately invalid inputs.
+GitHub runs a Lean job and a release-surface job on pull requests and on manual
+dispatch. The [workflow file](../.github/workflows/lean.yml) contains their
+current commands. The Lean job installs the pinned toolchain and dependencies,
+then builds the supported roots named in that file. A separate coverage build,
+[lean-coverage-build.yml](../.github/workflows/lean-coverage-build.yml), compiles
+the paper-coverage Lean modules outside those roots on pushes to main that touch
+a Lean input, and on manual dispatch. The release-surface job checks the claim
+records, source links, generated files, papers, licences and query routes,
+including tests with deliberately invalid inputs.
 
 [Reproducibility](REPRODUCIBILITY.md) is the command guide. It starts with a
 claim you can inspect without Lean, then gives installation and proof-build

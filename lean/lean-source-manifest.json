@@ -15,8 +15,8 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "da7729a428771b423a3cba19f3cd38de5f3efb2a08ec5da900c49ac5d81d2840",
-      "bytes": 1191142
+      "source_sha256": "ee50b15c40b9f8580b6dba5192b8be15a8b79a5f1ddc36ff9abc1b3bfb23d1c3",
+      "bytes": 1191520
     },
     {
       "hosted_path": "lean/problems.json",
@@ -24,8 +24,8 @@
       "source_ref": "main",
       "source_path": "docs/problems.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json",
-      "source_sha256": "2bb32403a072bce763baa3ae7094c2c52ea0ab02a4b5184b252daaac30be22bc",
-      "bytes": 64497
+      "source_sha256": "f338de0d78d4b05725b8bdb4f214302fd3253c731f103def81afa3ece15fa9dc",
+      "bytes": 64542
     },
     {
       "hosted_path": "lean/problem-library.json",
@@ -33,8 +33,8 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "087a8cbe8250ab91f3a1763bd4df973210b315e8b08e1206d38a3a323db66abb",
-      "bytes": 1233644
+      "source_sha256": "ab9d81e3e286d0185ef187ce8f52a982d792e81e1e0463419e0b079de2aadac3",
+      "bytes": 1234362
     },
     {
       "hosted_path": "lean/RESULTS.md",
@@ -42,8 +42,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "cc21d52dae6c2b81350a6042d9138c9c0009b15d37f51dfbc37542ef69cce976",
-      "bytes": 128284
+      "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
+      "bytes": 130307
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -51,7 +51,7 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "3fe230ac46d4a7917cc2598496cd4def4666341fa09d4b22e9869275b6d988d7",
+      "source_sha256": "04b15f98413c52a2af3ca49105775b446c9db85e3c8c8f1a75632ed2604dbbe2",
       "bytes": 15998
     },
     {
@@ -87,8 +87,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "cc21d52dae6c2b81350a6042d9138c9c0009b15d37f51dfbc37542ef69cce976",
-      "bytes": 128284
+      "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
+      "bytes": 130307
     },
     {
       "hosted_path": "lean/human-source/docs/ORIENTATION.md",
@@ -96,7 +96,7 @@
       "source_ref": "main",
       "source_path": "docs/ORIENTATION.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md",
-      "source_sha256": "dd247b161b18928a056eb8d2bfea98c50a362437d126afff95154a7b938dec25",
+      "source_sha256": "3781f16ddb06d8c78ffcff8e14eed1d2488f32b0cfbf88cea1c566282df5bd2c",
       "bytes": 21446
     },
     {
@@ -168,8 +168,8 @@
       "source_ref": "main",
       "source_path": "docs/ARCHITECTURE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md",
-      "source_sha256": "d009d3e0422738a1a4f8ee9a37e0cb10bae08e599b61647f9659b6900b55fd62",
-      "bytes": 15807
+      "source_sha256": "505a145f64056d129ce7ba2f27b4052489b59b3535e745697b2314495e4e4d5f",
+      "bytes": 16031
     },
     {
       "hosted_path": "lean/human-source/docs/reference/RESIDUAL_PROGRESS.md",
@@ -186,7 +186,7 @@
       "source_ref": "main",
       "source_path": "docs/reference/WAVE_INDEX.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md",
-      "source_sha256": "9069555bb9c59bd5f86b455205a4b3fe27485776ae2b3787fe72abe5cedf8e52",
+      "source_sha256": "8f61c4d1c0a43cec8c4ea59c02ee8cff4db7031a90d46ed997fe420023788cb4",
       "bytes": 21698
     }
   ]

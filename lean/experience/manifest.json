@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "533fa1bb0544bb6613cfc333db40d8fa9a61d9e6ac75cde11834b6c25f7c3fd8",
+  "source_fingerprint": "04184cf173b04983f83e8a9e57d881e91f8d4c402e7ff911c7f14ea8fe54f0d5",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -31,16 +31,16 @@
     "problems": 8,
     "papers": 21,
     "human_documents": 16,
-    "graph_nodes": 2195,
-    "graph_edges": 5944
+    "graph_nodes": 2196,
+    "graph_edges": 5947
   },
   "source_identity": {
     "human_document_navigation": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
-    "lean_manifest": "6d6de8baff97092d3357964c7fc93c3fc6661358edb3735a2fdfd32f0f66b431",
-    "paper_manifest": "c8e11821a496ab473deff00f82789ba7518df5ee2684f0333be8fb8f1173f807",
-    "claims": "da7729a428771b423a3cba19f3cd38de5f3efb2a08ec5da900c49ac5d81d2840",
-    "problems": "2bb32403a072bce763baa3ae7094c2c52ea0ab02a4b5184b252daaac30be22bc",
-    "problem_library": "087a8cbe8250ab91f3a1763bd4df973210b315e8b08e1206d38a3a323db66abb",
+    "lean_manifest": "b340e87d809ee2008e35964657e88d8f9a85774f89cb4cf81464aad2afb6d742",
+    "paper_manifest": "fa98b22cce39d0301485e901a61939adf68ff1cadddfe498412daf0048a7b6e5",
+    "claims": "ee50b15c40b9f8580b6dba5192b8be15a8b79a5f1ddc36ff9abc1b3bfb23d1c3",
+    "problems": "f338de0d78d4b05725b8bdb4f214302fd3253c731f103def81afa3ece15fa9dc",
+    "problem_library": "ab9d81e3e286d0185ef187ce8f52a982d792e81e1e0463419e0b079de2aadac3",
     "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965",
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
@@ -59,7 +59,7 @@
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
       "first_screen_nodes": 270,
-      "complete_nodes": 2195
+      "complete_nodes": 2196
     }
   }
 }

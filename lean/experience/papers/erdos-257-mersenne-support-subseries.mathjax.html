@@ -48,11 +48,6 @@ class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for eve
 <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. Both conclusions are
 hereditary under passage to infinite subsets.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">divisibility
-weighted claim</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean#L31">finite
-prime weighted fixed base hereditary</a>.</small></p>
 <p>For <span class="math inline" data-term-auto="off">\(P=\{2\}\)</span>, the summand
 in <a class="math-ref" data-equation-ref="true" href="#eq:weighted-fixed-base">eq:weighted-fixed-base</a>
 is <span class="math inline" data-term-auto="off">\(1/[m(b^{2^k}-1)]\)</span> when <span
@@ -85,9 +80,6 @@ every reciprocal-summable support.</p>
 then <span class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every
 integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395">irrational
-erdos support series of summable reciprocal</a>.</small></p>
 <p>Erdős stated Theorem <a class="math-ref" href="#res:reciprocal-support">1.2</a>, including
 the all-base conclusion, after proving its pairwise-coprime case <span
 class="citation" data-cites="erdos1968"></span>. We give a complete
@@ -147,7 +139,7 @@ class="math inline" data-term-auto="off">\(X_A(2)\)</span> irrational for every 
 the support criteria: first the simpler reciprocal-summable argument,
 then the weighted theorem and its common-average extension. The
 remaining sections give supplementary finite-denominator and
-rational-membership results. None is needed for the weighted proof.</p>
+rational-membership results. None is needed for the weighted proof. </p>
 <p>The coefficient sequence throughout is the divisor transform of the
 indicator function of the support:</p>
 <div class="math-display" id="eq:incidence" data-term-auto="off"><span
@@ -242,13 +234,7 @@ proves Theorem <a class="math-ref" href="#res:reciprocal-support">1.2</a> direc
 every integer base.</p>
 <p>The order of limits is essential: the observation length tends to
 infinity with the modulus fixed, and only then does the modulus
-increase. Reciprocal summability controls both interchanges. The exact
-all-base result, with hypotheses <span
-class="math inline" data-term-auto="off">\(b\ge2\)</span>, infinitude of <span
-class="math inline" data-term-auto="off">\(A\)</span>, and summability of <span
-class="math inline" data-term-auto="off">\(a\mapsto
-\mathbf1_A(a)/a\)</span>, is kernel-checked as <a
-href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395"><code>irrational_erdosSupportSeries_of_summable_reciprocal</code></a>.</p>
+increase. Reciprocal summability controls both interchanges.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
@@ -393,10 +379,6 @@ under rationality. Finally <span class="math inline" data-term-auto="off">\(W_{b
 W_{2,P}(A)\)</span> for <span class="math inline" data-term-auto="off">\(b\ge2\)</span>, and
 weighted mass decreases on taking subsets. ◻</p>
 </div>
-<p>The exact interface of Theorem <a class="math-ref" href="#res:weighted-support">1.1</a>, including its
-fixed-base conclusion and hereditary all-base clause, is kernel-checked
-as <a
-href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L99"><code>divisibilityWeightedClaim</code></a>.</p>
 </section>
 <section id="an-example-beyond-reciprocal-summability" class="level3">
 <h3>An example beyond reciprocal summability</h3>
@@ -426,8 +408,9 @@ class="math inline" data-term-auto="off">\((1+2^k\log2)2^{1-2^k}\)</span>, a sum
 sequence. Thus every infinite subset of <span
 class="math inline" data-term-auto="off">\(A_\star\)</span> has irrational <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> at every integer base, although
-<span class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span>
-diverges.</p>
+<span class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span> diverges.
+This example is an ordinary argument; the Lean proofs do not treat this
+particular set.</p>
 <p>Both proofs select a term no larger than a finite average. For a
 related selection step on arithmetic progressions, see
 Duverney–Tachiya <span class="citation"
@@ -499,16 +482,11 @@ class="math display" data-term-auto="off">\[\frac1T\sum_{m=1}^T w_{B,d}(Lm)
 <p>For the last inequality, use <span
 class="math inline" data-term-auto="off">\((B^L-1)/(B-1)=\sum_{i=0}^{L-1}B^i\ge
 B^{L-1}\)</span> and <span class="math inline" data-term-auto="off">\(B\le2\)</span>. Summing
-the main terms and the two error bounds proves <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a>. The
-release snapshot contains a proof body for the full estimate in <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/DyadicKernel.lean#L207">the
-finite averaging estimate</a>. Its complete-cycle and no-wrap scalar
-ingredients are in <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L130">the
-scalar averaging estimates</a>. Their formal-checking status is
-described in Appendix <a class="math-ref" href="#app:sources">A</a>. Nonnegative
-interchange permits summation against any coefficients <span
-class="math inline" data-term-auto="off">\(c_d\)</span> with <span
+the main terms and the two error bounds proves <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a>. This is
+an ordinary proof; the estimate is also <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/DyadicKernel.lean#L206">proved
+in Lean</a>. Nonnegative interchange permits summation against any
+coefficients <span class="math inline" data-term-auto="off">\(c_d\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_dc_d/d&lt;\infty\)</span>.</p>
 </section>
 <section id="positive-divisor-majorants" class="level3">
@@ -540,9 +518,6 @@ class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for eve
 <span class="math inline" data-term-auto="off">\(A\subseteq\bigcup_jF_j\)</span> and every
 integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241">strengthened
-positive cover claim</a>.</small></p>
 <p>Every finite set admits a majorant of the required kind: take <span
 class="math inline" data-term-auto="off">\(\alpha_j=1\)</span> and <span
 class="math inline" data-term-auto="off">\(c_{j,d}=\mathbf1_{F_j}(d)\)</span>. The
@@ -624,11 +599,12 @@ class="math inline" data-term-auto="off">\(\eta_j\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_j\eta_j=1\)</span>: replace <span
 class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a> by <span
 class="math inline" data-term-auto="off">\(\eta_j^{-\alpha_j}\)</span> and take <span
-class="math inline" data-term-auto="off">\(t_j=\varepsilon\eta_j\)</span>. The earlier
+class="math inline" data-term-auto="off">\(t_j=\varepsilon\eta_j\)</span>. The stronger
 condition <span
 class="math inline" data-term-auto="off">\(\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty\)</span>
 implies <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>, since each
-old summand is the new one multiplied by <span
+of its summands is the corresponding summand of <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a> multiplied
+by <span
 class="math inline" data-term-auto="off">\(2^{\alpha_j}/(2^{\alpha_j}-1)&gt;1\)</span>. This
 proves inclusion of the hypotheses for a given cover, not strict
 inclusion of the resulting support classes after optimisation over all
@@ -670,12 +646,10 @@ the first inequality; the covering moduli need not divide <span
 class="math inline" data-term-auto="off">\(\operatorname{lcm}(F)\)</span>. Convexity gives
 <span class="math inline" data-term-auto="off">\(2^\alpha-1\le\alpha\)</span>, and <span
 class="math inline" data-term-auto="off">\(e^u/u\ge e\)</span> proves the second. Those
-scalar steps have corresponding source bodies in <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L170">the
-scalar averaging estimates, lines 170–214</a>, including the bound <span
-class="math inline" data-term-auto="off">\(t^\alpha/(2^\alpha-1)\ge e\log t\)</span>. This
-does not by itself formalise the assembled averaging argument, and no
-fresh Lean verification is claimed.</p>
+scalar steps, including the bound <span
+class="math inline" data-term-auto="off">\(t^\alpha/(2^\alpha-1)\ge e\log t\)</span>, are <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L170">proved
+in Lean</a>; the assembled averaging argument is an ordinary proof.</p>
 <p>This bound survives optimisation over all covers. For <span
 class="math inline" data-term-auto="off">\(F(q,P)=\{qd:d\mid\prod_{p\in P}p\}\)</span>, where
 <span class="math inline" data-term-auto="off">\(q\ge2\)</span> and no <span
@@ -717,16 +691,14 @@ class="math inline" data-term-auto="off">\(P\)</span>.</p>
 majorant by a logarithmic one need not control averages along the
 multiples of a prescribed modulus. A counterexample and the distinct
 bound for ordinary initial intervals are proved in the companion,
-Section 13, and in <span class="citation"
-data-cites="endpoint2026"><a href="#ref-16">[16]</a></span>. Those arguments concern finite
+Section 13; those proofs were first worked out in an AI-assisted note of
+17 September 2026. The three results of that section also have Lean
+proofs, each compared independently by Comparator; the ordinary proofs
+have not had independent human review. Those arguments concern finite
 functionals, not a comparison of the infinite-support irrationality
-classes.</p>
-<p>The source <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticSeparationReturn.lean#L16">constructs
-a weighted support with no strengthened cover</a>. The reverse
-separation is not established here, so two-way incomparability is not
-asserted. This source statement is distinct from the finite-functional
-counterexample just cited.</p>
+classes. No separation between the weighted supports of Theorem <a class="math-ref" href="#res:weighted-support">1.1</a> and the cover
+supports of Theorem <a class="math-ref" href="#thm:variable-fractional-cover">3.1</a> is
+proved here.</p>
 </section>
 <section id="combining-the-two-support-criteria" class="level3">
 <h3>Combining the two support criteria</h3>
@@ -748,11 +720,6 @@ class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for eve
 <span class="math inline" data-term-auto="off">\(A\subseteq E\cup V\)</span> and every
 integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L126">mixed
-support claim</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L101">arbitrary
-weight mixed support all base hereditary</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Fix <span
 class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and an integer <span
@@ -875,23 +842,6 @@ class="math inline" data-term-auto="off">\(\operatorname{ord}_1(b)=1\)</span>, s
 statement includes <span class="math inline" data-term-auto="off">\(F=\{1\}\)</span> at <span
 class="math inline" data-term-auto="off">\(b=2\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5221">coprime
-base den finite erdos sum</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5246">finite
-period noncollapse rat den</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5260">lcm
-lt den finite erdos sum</a>.</small></p>
-<p>Coprimality is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5221">coprimality
-of the base and finite-sum denominator</a>, the order statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5246">noncollapse
-for the reduced rational denominator</a>, and the size bound is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5260">the
-lower bound for the finite-sum denominator</a>. The three clauses are
-the CertificateKernel declarations just cited;
-<code>PaperCompleteR7/Assemblies.lean</code> is not in this
-checkout.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(L=\operatorname{lcm}(F)\)</span>.
 Clearing denominators gives <span class="math inline" data-term-auto="off">\(D_F\mid
 b^L-1\)</span>, so the upper divisibility for the order is immediate.
@@ -915,9 +865,8 @@ when <span class="math inline" data-term-auto="off">\(L\ge2\)</span>. The case <
 class="math inline" data-term-auto="off">\(F=\{1\}\)</span> has order one directly.</p>
 <p>The same unique-valuation argument permits signs <span
 class="math inline" data-term-auto="off">\(\pm1\)</span> on the finite summands. This is an
-ordinary deduction here, not a claim of a formal proof in the
-unavailable <code>SignedFinitePeriodNoncollapse.lean</code>. The
-required cyclotomic prime-power fact is proved in Section <a class="math-ref" href="#app:elementary-details">10</a>. The
+ordinary deduction; it is not formalised. The required cyclotomic
+prime-power fact is proved in Section <a class="math-ref" href="#app:elementary-details">10</a>. The
 distinction between primes and prime powers is visible in</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[X_{\{2,3\}}(2)=\frac{10}{21},\qquad
@@ -970,7 +919,7 @@ class="math inline" data-term-auto="off">\(\mu*c_A=\mathbf1_A\)</span>, where <s
 class="math inline" data-term-auto="off">\(\mu\)</span> is the Möbius function. A putative
 recurrence with integral forcing must therefore satisfy <span
 class="math inline" data-term-auto="off">\((\mu*c_A)(n)\in\{0,1\}\)</span> for all <span
-class="math inline" data-term-auto="off">\(n\)</span>. The long record gives the
+class="math inline" data-term-auto="off">\(n\)</span>. The companion gives the
 integer-recurrence criterion, its telescoping proof, Möbius inversion,
 and the coefficient-series identity in Theorems 6.105–6.107, under
 <em>Bounds for a general coefficient sequence</em>. The example <span
@@ -1005,7 +954,7 @@ sequence of polynomial growth, and they present it as support for the
 conjecture of Erdős and Graham stated here as Problem <a class="math-ref" href="#res:problem">1.3</a>. The zero-window
 obstruction for one normalised certificate scheme concerns that scheme’s
 hypotheses. It gives no obstruction to irrationality of the value. The
-precise normalisation counterexamples are retained in the long record,
+precise normalisation counterexamples are retained in the companion,
 together with the complete catalogue of known support families.</p>
 <p>A growth-only criterion gives a different class: if <span
 class="math inline" data-term-auto="off">\(A=\{c_1&lt;c_2&lt;\cdots\}\)</span> and <span
@@ -1017,7 +966,7 @@ translation from denominator growth and gives examples showing that this
 class and reciprocal summability are incomparable. The interval-filling
 constructions in <span class="citation" data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>
 and the freely chosen lacunary denominators of <span class="citation"
-data-cites="vandoornkovac"><a href="#ref-17">[17]</a></span> are not constructions of subseries of
+data-cites="vandoornkovac"><a href="#ref-16">[16]</a></span> are not constructions of subseries of
 these fixed Mersenne weights.</p>
 <p>Prime-incidence arguments require additional care as well:
 multiplying all prime exponents by <span
@@ -1058,7 +1007,13 @@ strict-tail inequality and the Cantor conclusion in the fixed-base
 setting <span class="citation" data-cites="kovactao"><a href="#ref-4">[4]</a></span>. For a
 specified rational target, the useful consequence here is uniqueness of
 its possible selector. Restricted-set dimension and measure calculations
-are given in the companion, Section 1.8.</p>
+are given in the companion, Section 1.8; Lean proves the <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L30">comparison
+of each restricted tail with the preceding weight</a>, the <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L54">injectivity
+of the restricted digit map</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L397">measure
+dichotomy</a>.</p>
 </section>
 <section id="sec:actual-repairs" class="level2">
 <h2>Greedy membership and an integer recurrence</h2>
@@ -1095,16 +1050,6 @@ x\in\mathcal A;\\
 \quad Q_{N+1}\le Q_N.
 \end{gathered}\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralRepairCorrespondence.lean#L15">paper
-general repair criteria</a>.</small></p>
-<p>The following is an ordinary proof. The supplied solution wrapper
-<code>Solutions/PalomarCorpus/E257/GeneralRepairCriterion.lean</code>
-contains the two named equivalences, with explicit bridges to the
-challenge definitions and the same square-root window. Its provenance is
-the separate release <code>52f29ad173b0</code>. This static comparison
-is not a new replay; a challenge declaration alone is not cited as a
-proof.</p>
 <div class="proof">
 <p><em>Proof.</em> Strict domination of each Mersenne weight over its
 tail implies that a represented target is recovered by the greedy rule.
@@ -1170,8 +1115,8 @@ D_\varepsilon(C_\varepsilon+3)^\varepsilon(K+1)^\varepsilon&lt;T,\]</span></div>
 <p class="display-continue">a contradiction. The converse still follows from exponential growth when
 <span class="math inline" data-term-auto="off">\(x\)</span> is not represented. This ordinary
 argument strengthens the window bound, not the occurrence claim for a
-specified target; it is separate from the square-root statement in the
-cited formal source.</p>
+specified target; only the square-root window of Theorem <a class="math-ref" href="#res:general-repair">8.1</a> has a Lean
+proof.</p>
 <p>At <span class="math inline" data-term-auto="off">\(x=1/2\)</span>, the digits <span
 class="math inline" data-term-auto="off">\(\beta_N\)</span> vanish for <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span>; at <span
@@ -1187,7 +1132,7 @@ c_x(N+1)\ge Q_N+\beta_N,
 \end{equation}\]</span></div>
 <p>Both <span class="math inline" data-term-auto="off">\(Q_N\)</span>
 and <span class="math inline" data-term-auto="off">\(c_x\)</span> must arise from the same
-greedy selector. The long record retains exact counterexamples to
+greedy selector. The companion retains exact counterexamples to
 fixed-multiplier repair schedules and the finite phase masks used to
 test them. Neither target is decided here.</p>
 </section>
@@ -1279,31 +1224,9 @@ class="math inline" data-term-auto="off">\(c_{D_R}(m)=\#\{d\in D_R:d\mid
 m\}\)</span>.</em></p></li>
 </ol>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L3507">one
-div twenty one mem iff not fatal aligned branch</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5554">twenty
-one cofinal even quotient greedy decay of closed rows</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5458">one
-div twenty one mem mersenne achievement set of cofinal greedy decay</a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5625">twenty
-one fatal aligned branch eventually strict supercapacity</a>, and 1
-further declaration in the <a
-href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=coverage">coverage
-section of the companion record</a>.</small></p>
-<p>The equivalence is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3507">the
-equivalence with failure of <span class="math inline" data-term-auto="off">\(\mathcal
-F_{21}\)</span></a>; the closed-row compactness step is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5554">vanishing
-scaled error from unbounded closed rows</a>; and the eventual affine
-regime is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5658">the
-eventual affine recurrence on <span class="math inline" data-term-auto="off">\(\mathcal
-F_{21}\)</span></a>. The finite uniqueness statement is also explicit:
-if <span class="math inline" data-term-auto="off">\(D\subseteq\{2,\ldots,R\}\)</span> and an
-integer <span class="math inline" data-term-auto="off">\(s\)</span> satisfy <span
+<p>The finite uniqueness statement is also explicit: if <span
+class="math inline" data-term-auto="off">\(D\subseteq\{2,\ldots,R\}\)</span> and an integer
+<span class="math inline" data-term-auto="off">\(s\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(\sum_{d\in D}q_{2R}(d)+s=T_{2R}\)</span> with
 <span class="math inline" data-term-auto="off">\(0\le s\le2^R\)</span>, then <span
 class="math inline" data-term-auto="off">\(D=D_R\)</span> and <span
@@ -1342,9 +1265,6 @@ class="math display" data-term-auto="off">\[\frac{|K_{A_j}(M_j)|}{2^{M_j}}\longr
 Then <span class="math inline" data-term-auto="off">\(X_A(2)=1/2\)</span> for some infinite
 set <span class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR20/TerminalSetCorrespondence.lean#L51">paper
-terminalhalf</a>.</small></p>
 <p>No agreement between different <span
 class="math inline" data-term-auto="off">\(A_j\)</span> is assumed, and no bound is imposed
 on their earlier carries. Producing such finite approximants would
@@ -1422,15 +1342,12 @@ the conditions in the preceding paragraph. Then <span
 class="math inline" data-term-auto="off">\(X_A(2)=1/2\)</span> for some infinite set <span
 class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287">exists
-infinite positive support half of cofinal cylinder stages</a>.</small></p>
 <p>Choosing one member from each family gives the terminal bound in
 Theorem <a class="math-ref" href="#res:terminalhalf">9.2</a>,
 proving the conclusion. The shared-prefix conditions are needed for the
 proposed construction of the families, not for this final compactness
-step. Such a construction at unbounded depths would refute Problem #257;
-none is proved here.</p>
+step. Such a construction at unbounded depths would refute Problem <a class="math-ref" href="#res:problem">1.3</a>; none is proved
+here.</p>
 <div class="problem" id="prob:one-over-twenty-one-membership">
 <p><strong>Problem 9.4</strong> (membership of 1/21 in the Mersenne
 achievement set). <em> For the greedy remainder of <span
@@ -1569,19 +1486,7 @@ positive-cover criterion.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
-<h2>Guide to the formal sources</h2>
-<p>The public proof closure at <code>065e09523286</code> was replayed
-under Lean 4.29.1. Besides the reciprocal and weighted declarations
-cited above, the replay checked the exact strengthened positive-cover
-conclusion in <a
-href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241"><code>strengthenedPositiveCoverClaim</code></a>
-and the common-witness conclusion in <a
-href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L105"><code>mixedSupportClaim</code></a>.
-The axiom audit for these endpoints reports only <code>propext</code>,
-<code>Classical.choice</code>, and <code>Quot.sound</code>. The ordinary
-proof for <span class="math inline" data-term-auto="off">\(A_\star\)</span> remains separate
-from the existential host wrapper, which does not verify that named
-example.</p>
+<h2>Sources</h2>
 <p>Erdős’s five-page paper was checked directly: p. 222 states the
 reciprocal-summable extension without proof, and p. 226 describes the
 fractional-part approach. The original Luca–Tachiya and Hornich articles
@@ -1592,344 +1497,91 @@ data-cites="lucatachiya2017"><a href="#ref-11">[11]</a></span>, and the strict-t
 Nitecki’s exposition. The <em>Formal Conjectures</em> file <span
 class="citation" data-cites="formalconjectures257"></span> is
 statement-level prior art, not a proof dependency.</p>
-<p>The index retains the original names and revisions: standard macros
-use <code>99f4bf47422a</code>, and fourteen paper-local coordinates
-across the two papers use <code>f36a98bf3d3e</code>. The linked
-hypotheses and conclusions, not the abbreviated index labels, give the
-precise statements.</p>
-<section id="finite-sums-and-rational-denominators." class="level5">
-<h5>Finite sums and rational denominators.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5091">noncollapse
-of the finite period</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5246">noncollapse
-for the reduced rational denominator</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5221">coprimality
-of the base and finite-sum denominator</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5260">the
-lower bound for the finite-sum denominator</a>.</p>
-</section>
-<section id="rationality-and-integer-carries." class="level5">
-<h5>Rationality and integer carries.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">rationality
-and integer recurrences with vanishing scaled error</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L2383">unboundedness
-of the shifted odd-tail recurrence</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SublogDivisorCoverage.lean#L392">lengths
-of intervals with zero divisor count</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L1480">a
-lower bound for reciprocal mass</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L2210">the
-reciprocal-mass alternative for dyadic values</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L949">rational
-support values and Möbius-inverted carries</a>.</p>
-</section>
-<section id="classical-support-theorems-and-examples." class="level5">
-<h5>Classical support theorems and examples.</h5>
-<p>The formal <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">pairwise-coprime
-theorem</a> retains the coprimality hypothesis, whereas <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
-irrationality</a> is a separate result. The other classical-support
-declarations are: <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L9045">irrationality
-for full support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L9103">irrationality
-for multiples of an integer</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L12811">irrationality
-for the stated eventually periodic weights</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L11672">residue
-class</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L11686">odd</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6035">factorial
-support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6059">powers-of-two
-support</a>; <a
+<p>The evidence record lists the Lean declarations behind each marked
+result, with their versions and independent checks. The Lean sources for
+the supplementary statements quoted from the companion (finite sums and
+denominators, the achievement set and its restrictions, squarefree
+divisor counts, half-membership and the tests for <span
+class="math inline" data-term-auto="off">\(1/21\)</span>) are linked beside the corresponding
+statements there.</p>
+<section id="library-declarations." class="level5">
+<h5>Library declarations.</h5>
+<p>Several statements of this note and its companion rest on the
+following library declarations, each opened at a fixed revision.
+Pairwise-coprime supports: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6082">factorial-support
 instance</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6090">powers-of-two-support
 instance</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">pairwise-coprime
-support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
-irrationality</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6272">failure
-of the least-common-multiple gap condition for full support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L14175">the
-rationality alternative for signed periodic weights</a>.</p>
-</section>
-<section id="squarefree-divisor-counts-and-certificate-restrictions."
-class="level5">
-<h5>Squarefree divisor counts and certificate restrictions.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L94">the
-number <span class="math inline" data-term-auto="off">\(2^{\omega(n)}\)</span> of squarefree
-divisors</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L111">the
-squarefree divisor-count identity</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L140">parity
-of the squarefree divisor count</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L71">squarefree
-divisors as products of distinct primes</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L274">failure
-of the stated carry certificates for squarefree support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L292">failure
-of the stated digitwise certificates for squarefree support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L314"><span
-class="math inline" data-term-auto="off">\(2^{\omega(n)}\)</span> incidence</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L335">equivalence
-after shifting the squarefree divisor count</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L441">blocks
-on which <span class="math inline" data-term-auto="off">\(\omega(n)\)</span> is large</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L485">digitwise
-blocks for the shifted divisor count</a>.</p>
-</section>
-<section id="deleting-finitely-many-terms." class="level5">
-<h5>Deleting finitely many terms.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L9467">passing
-irrationality from a tail to the series</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L9476">passing
-irrationality from the series to a tail</a>.</p>
-</section>
-<section id="the-full-achievement-set." class="level5">
-<h5>The full achievement set.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L656">compact</a>;
+theorem</a>. Eventually periodic weights: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L12811">irrationality
+for the stated eventually periodic weights</a>. Fixed-core supports: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L531">carry
+certificates for the stated fixed-core support</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L540">irrationality
+for the stated fixed-core support</a>. Finite supports and denominators:
 <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5246">noncollapse
+for the reduced rational denominator</a>. Rational values and carries:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L949">rational
+support values and Möbius-inverted carries</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">rationality
+and integer recurrences with vanishing scaled error</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L1480">a
+lower bound for reciprocal mass</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L2383">unboundedness
+of the shifted odd-tail recurrence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SublogDivisorCoverage.lean#L392">lengths
+of intervals with zero divisor count</a>. Composite dilation: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L30">the
+divisor-count identity under dilation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L151">the
+upper bound for the dilation correction</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L218">the
+example with exponents two and six</a>. The achievement set: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L996">Lebesgue
+measure one</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1656">perfect</a>;
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1672">totally
 disconnected</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1681">nowhere
 dense</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L996">Lebesgue
-measure one</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1458">membership
 and greedy tail bounds</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1784">non-membership
-of <span class="math inline" data-term-auto="off">\(3/4\)</span></a>.</p>
-</section>
-<section id="restricted-achievement-sets." class="level5">
-<h5>Restricted achievement sets.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L20">the
-tail of a restricted subseries</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L24">summability
-of the restricted tail</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L30">strict
-domination of the restricted tail by the preceding weight</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L54">injectivity
-of the restricted digit map</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L45">digit
-strings vanishing off <span class="math inline" data-term-auto="off">\(J\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L49">restricted
-digit map</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L63">supported
-digit set</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L66">closed</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L76">restricted
-achievement set</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L79">the
-image theorem</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L90">compact</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L96">closed</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L103">support
-restriction</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L112">nowhere
-dense</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L120">absence
-of isolated restricted digit strings for infinite support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L150">absence
-of isolated represented values for infinite support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L167">perfect</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L175">controls
-digit terms</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L182">the
-update formula</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L203">the
-union formula after adding one exponent</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L262">disjointness
-of the two translated copies</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L286">doubles
-the volume</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L300">recovery
-of the full achievement set</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L313">the
-scaled volume identity after deleting finitely many exponents</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L349">gives
-<span class="math inline" data-term-auto="off">\(2^{-|F|}\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L358">monotonicity
-under inclusion of supports</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L368">measure
-zero</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L397">the
-formal dichotomy</a>.</p>
-</section>
-<section id="half-membership-and-finite-approximations." class="level5">
-<h5>Half-membership and finite approximations.</h5>
-<p><a
+of <span class="math inline" data-term-auto="off">\(3/4\)</span></a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L2583">the
 greedy form</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCarryReachability.lean#L589">the
+finite-support exclusion</a>. Restricted achievement sets: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L397">the
+formal dichotomy</a>. Greedy skips and exact rows: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L22">the
+cofinal-skip hypothesis</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L55">an
+exact finite sum from one greedy skip</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L84">exact
+finite sums from arbitrarily late greedy skips</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L97">membership
+from infinitely many greedy skips</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkippedCoreExactRow.lean#L228">the
+upper-half Boolean fill</a>. Membership of <span
+class="math inline" data-term-auto="off">\(1/2\)</span>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126">the
 terminal-bit form</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L213">the
-skipped-rank form</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFatalGapRightTail.lean#L781">the
-fatal-gap equivalence</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFatalGapRightTail.lean#L787">its
-transfer to non-membership</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCarryReachability.lean#L589">the
-finite-support exclusion</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L55">an
-exact finite sum from one greedy skip</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkippedCoreExactRow.lean#L228">the
-upper-half Boolean fill</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L32">the
-strict-positivity theorem</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L22">the
-cofinal-skip hypothesis</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L84">exact
-finite sums from arbitrarily late greedy skips</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCofinalExactRows.lean#L71">compactness
-from exact sums at unbounded depths</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L97">membership
-from infinitely many greedy skips</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L110">equivalence
-of infinitely many skips and half-membership</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TerminalOnlyScaledVanishing.lean#L165">achievement-set
-conclusion</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TerminalOnlyScaledVanishing.lean#L221">infinite-support
-lift</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean#L31">a
-conditional infinite support representing one half</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean#L39">the
-conditional counterexample to universal irrationality</a>.</p>
-</section>
-<section id="finite-greedy-inequalities." class="level5">
-<h5>Finite greedy inequalities.</h5>
-<p><a
+skipped-rank form</a>. The two-thirds band: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L88">general
 band localization</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L127">two-thirds
 band</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231">odd
-numerator bound</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L185">integral
-safety</a>.</p>
-</section>
-<section id="fixed-core-supports-and-dilation." class="level5">
-<h5>Fixed-core supports and dilation.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L531">carry
-certificates for the stated fixed-core support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L540">irrationality
-for the stated fixed-core support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L406">the
-uniform tail-selection hypothesis</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L30">the
-divisor-count identity under dilation</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L103">vanishing
-of the dilation correction for prime support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L119">prime
-specialization</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L133">classification
-of the extra divisors</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L151">the
-upper bound for the dilation correction</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L218">the
-example with exponents two and six</a>.</p>
-</section>
-<section id="the-shared-prefix-families." class="level5">
-<h5>The shared-prefix families.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L264">terminal
-bounds from the shared-prefix families</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L277">infinite
-half-support</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287">positive-support
-lift</a>.</p>
-</section>
-<section id="the-möbius-example-and-two-prime-digit-systems."
-class="level5">
-<h5>The Möbius example and two-prime digit systems.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MobiusSignSupportNoGo.lean#L111">identity</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/MobiusSignSupportNoGo.lean#L150">bound</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean#L61">exclusion
-of finite support for <span class="math inline" data-term-auto="off">\(1/21\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/Primitive23Multiplicity.lean#L52">existence
-for the stated two-prime digit system from rank eleven</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/Primitive23Multiplicity.lean#L26">nonexistence
-for that system at rank ten</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/Primitive23Multiplicity.lean#L38">two
-solutions at rank eleven</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/Primitive23Multiplicity.lean#L86">two
-solutions at the stated multiples of ten</a>.</p>
-</section>
-<section id="scaled-greedy-remainders." class="level5">
-<h5>Scaled greedy remainders.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L262">membership
-and a bounded scaled greedy remainder</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L189">divergence
-of the scaled remainder outside the achievement set</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L225">membership
-and bounded scaled returns at unbounded ranks</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L152">the
-equivalent small-remainder test for rational targets</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L283">the
-small-remainder test for <span class="math inline" data-term-auto="off">\(1/21\)</span></a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L2117">the
-relation between the integer and scaled real remainders</a>.</p>
-</section>
-<section id="finite-quotient-tests-for-121." class="level5">
-<h5>Finite quotient tests for <span
-class="math inline" data-term-auto="off">\(1/21\)</span>.</h5>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L32">support</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L39">remainder</a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3507">the
-equivalence with failure of <span class="math inline" data-term-auto="off">\(\mathcal
-F_{21}\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5554">vanishing
-scaled error from unbounded closed rows</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5658">the
-eventual affine recurrence on <span class="math inline" data-term-auto="off">\(\mathcal
-F_{21}\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L231">uniqueness
-of a finite representation with the stated remainder bound</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5179">the
-missing-prefix consequence of an aligned crossing</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5223">the
-real greedy skip forced by that crossing</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyTrapDynamics.lean#L275">the
-bounded-return test for <span class="math inline" data-term-auto="off">\(1/21\)</span></a>;
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L2843">a
-sufficient integer-remainder bound for <span
-class="math inline" data-term-auto="off">\(1/21\)</span></a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L1892">the
-six-step integer-remainder recurrence</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L1927">the
-equivalent divisor-count inequality</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3735">an
-exact one-sided approximation</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3569">order
-identity</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3583">lower
-bound</a>.</p>
+safety</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231">odd
+numerator bound</a>.</p>
 </section>
 </section>
 <section id="acknowledgements" class="level2 unnumbered">
@@ -1939,14 +1591,6 @@ particular on explaining restrictive hypotheses, avoiding unnecessary
 notation, and writing for a first-time reader. His comments concerned a
 note on Problem 243; this acknowledgement does not imply that he
 reviewed the mathematics of the present paper.</p>
-<p><em>Companion system context.</em> The <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
-and trust boundary</a>, <a
-href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
-route to proof authority</a>, and <a
-href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
-contribution protocol</a> are described in sibling papers. Those
-descriptions do not change the mathematical status of this note.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -2016,11 +1660,7 @@ href="https://arxiv.org/abs/math/0101187v1">arXiv:math/0101187v1</a>.</p></li>
 Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
 (1941), 316–320. <a
 href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
-<li id="ref-16"><p><em>The logarithmic endpoint fails under arithmetic
-sampling</em>, AI-assisted ordinary proof note, 17 September 2026.
-Theorem 1, Corollary 3 and Proposition 4. Unpublished working note;
-independent review and fresh Lean verification are outstanding.</p></li>
-<li id="ref-17"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
+<li id="ref-16"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
 reciprocal sums represent all rational numbers in an interval</em>, Acta
 Arith. 223 (2026), 275–295. <a
 href="https://doi.org/10.4064/aa251001-13-1">DOI</a>. Page references

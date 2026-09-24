@@ -54,17 +54,6 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{\{p,q\}}</annotation></semantics></math>
 are transcendental.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L924">two
-prime transcendence</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L872">two
-prime sums transcendental</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L893">repeated
-sum comm</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L906">distinct
-sum comm</a>, and 1 further declaration. Conditional on the
-transcendence theorem of Bugeaud and Laurent; see the <a
-href="#long269:sec:coverage">coverage section</a>.</small></p>
 <p>Section 3 proves this by expressing both values as nonconstant
 polynomials over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb Q</annotation></semantics></math>
@@ -74,8 +63,8 @@ data-cites="loxtonvdp1977"><a href="#ref-11">[11]</a></span> in the modern form 
 Laurent <span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span>.
 The two-prime argument therefore consists of an elementary identity
 followed by that external value theorem.</p>
-<p>The supplied forum record credits Steve Fan’s post of 26 June 2026
-with the running-LCM identity for finite prime sets, the two-prime
+<p>Steve Fan’s post of 26 June 2026 on the erdosproblems.com forum gives
+the running-LCM identity for finite prime sets, the two-prime
 factorisation, the Hecke–Mahler reduction and its transcendence
 conclusion <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>.
 We include the calculation to distinguish repeated from distinct-height
@@ -196,6 +185,14 @@ certificate. Section 9 keeps the weighted differences, recodings and
 value-theorem comparisons separate from the proved residue criterion:
 none is a premise of that criterion. The tail notation agrees with the
 short paper and is defined when first used.</p>
+<p><em>Status.</em> The problem treated here is open, and this note does
+not close it. Every Lean mark in the margin points to propositions that
+the pinned Lean kernel accepts, with no <code>sorry</code>, no added
+axiom, and no unchecked evaluation. That claim concerns the formal
+statements only; it says nothing about their mathematical interest,
+their novelty, or the original problem. The unresolved obligations are
+named exactly, in their own section, and none of the finite
+computations, reductions, or no-go results here removes one of them.</p>
 </section>
 </section>
 <section id="long269:sec:lcm" class="level2">
@@ -244,9 +241,6 @@ be pairwise distinct primes and
 Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{L}(x)=\operatorname{H}(x)</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L49">running
-lcm real cutoff exact</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every smooth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">n\le x</annotation></semantics></math>
@@ -313,16 +307,6 @@ or
 in place of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L65">real
-prefix lcm eq of same log cell</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L87">real
-prefix lcm jump first</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L117">real
-prefix lcm jump second</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L129">real
-prefix lcm jump third</a>, and 1 further declaration in the <a
-href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Both parts are immediate from Theorem 2.1: the height
 depends on
@@ -349,9 +333,6 @@ elements, and adjoining the common origin
 gives exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">3n+1</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L69">paper
-jump count</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a fixed prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
@@ -381,9 +362,6 @@ every box
 the outer sum ranging over the heights attained on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
-smooth kernel sum grouped by height</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Partition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
@@ -423,9 +401,6 @@ both lie in
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mi>a</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">a=a&#39;</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean#L10">exponent
-unique real base short interval</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><msup><mi>a</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">a&lt;a&#39;</annotation></semantics></math>
@@ -466,9 +441,6 @@ with
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mspace width="0.167em"></mspace><mi>#</mi><mi mathvariant="script">𝒮</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>3</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">9\,\#\mathcal S\le(j+3)^{2}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L285">real
-smooth exponent shell bounds</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>≤</mo><mi>r</mi><mspace width="0.167em"></mspace><mi>λ</mi></mrow><annotation encoding="application/x-tex">\eta\le r\,\lambda</annotation></semantics></math>.
@@ -693,7 +665,7 @@ at the cutoff
 not
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>4</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>4</mn></msub><mn>8</mn><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mn>8</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>8</mn></msub><mn>8</mn><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">4^{\lfloor\log_4 8\rfloor}8^{\lfloor\log_8 8\rfloor}=32</annotation></semantics></math>;
 its slope is rational as well. The coprime extension was already noted
-in the supplied forum discussion (Section 10.1).</p>
+in the forum discussion (Section 10.1).</p>
 <p>A third prime introduces an additional floor term that cannot be
 separated in this way. The next section makes that obstruction
 precise.</p>
@@ -723,9 +695,6 @@ so every two-by-two minor of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><annotation encoding="application/x-tex">\operatorname{K}_2</annotation></semantics></math>
 vanishes.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean#L63">real
-two prime separation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
@@ -770,9 +739,6 @@ would force
  =\det\begin{pmatrix}1&amp;1/6\\1/2&amp;1/60\end{pmatrix}
  =-\frac1{15}\ne0 .</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102">paper
-two by two fixture</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The four values are computed from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\operatorname{H}(1)=1</annotation></semantics></math>,
@@ -811,9 +777,6 @@ satisfying
 for all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">i,j,k</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">paper
-uniform rank and nonseparation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\alpha=\log_r p</annotation></semantics></math>,
@@ -970,9 +933,6 @@ in a nonempty set
 then its rank is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>−</mi><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">}</mo><mo>⊆</mo><mi>E</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">|E|-\mathbf 1_{\{0,m\}\subseteq E}.</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
-cut matrix</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>h</mi><mn>1</mn></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>h</mi><mi>s</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E=\{h_1&lt;\cdots&lt;h_s\}</annotation></semantics></math>.
@@ -1135,9 +1095,6 @@ of finite separated rank, and it is attained by the constant matrix of
 value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(1+t)/2</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean#L321">uniform
-rank complete</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every entry of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
@@ -1352,16 +1309,6 @@ ordered by the value
  \qquad\text{so}\qquad 2\le b_a\le30 .
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669">dyadic
-internal power exponent unique</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L701">exists
-dyadic internal power iff log succ</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L734">log
-dyadic succ eq of no internal power</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L781">three
-prime height dyadic block succ</a>, and 3 further declarations in the <a
-href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A power of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
@@ -1476,9 +1423,6 @@ For every
  X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L189">long
-actual orbit</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every exponent of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
@@ -1587,9 +1531,6 @@ and the numerator sequence is unbounded. These are integer numerators,
 not positional digits restricted to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>b</mi><mi>a</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{0,\ldots,b_a-1\}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean#L193">literal
-triangle whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For each pair with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>&lt;</mo><mi>a</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w_{j,k}&lt;a+1</annotation></semantics></math>,
@@ -1649,9 +1590,6 @@ with
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">z\in\mathbb{Z}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L132">scaled
-integer or cofinal separation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If the second alternative fails, there are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
@@ -1760,9 +1698,6 @@ is the sum of the three height exponents at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;X_a\le Q(n_a)</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8RankMajorant.lean#L357">actual
-tail rank bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Partition the smooth integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><msup><mn>2</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">x\ge2^{a}</annotation></semantics></math>
@@ -1908,9 +1843,6 @@ and there are indices
 for which
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>i</mi></msub><mo>−</mo><msub><mi>X</mi><mi>j</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_i-X_j\in\mathbb{Z}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean#L56">long
-all scale lattice exact</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> An empty window has mass zero. Otherwise
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b\ge1</annotation></semantics></math>,
@@ -1957,11 +1889,6 @@ the number
 is a positive integer and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mi>a</mi></msub><msub><mi>d</mi><mi>a</mi></msub><mo>−</mo><mi>B</mi><msub><mi>m</mi><mi>a</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mn>1</mn><mo>≤</mo><msub><mi>d</mi><mi>a</mi></msub><mo>≤</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">d_{a+1}=b_ad_a-Bm_a,\qquad 1\le d_a\le K(B,a)\le90B(a+1)^{2} .</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L37">long
-fixed split bridge r11</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L26">long
-paper cap le three square r11</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msup><mn>2</mn><mi>u</mi></msup><msup><mn>3</mn><mi>v</mi></msup><msup><mn>5</mn><mi>w</mi></msup></mrow><annotation encoding="application/x-tex">M=2^{u}3^{v}5^{w}</annotation></semantics></math>.
@@ -2047,16 +1974,6 @@ is integral exactly for
 This onset is computable by integer powers; it is not an estimate
 obtained by rounding logarithms.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L334">exact
-denominators and minimal clearing</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L309">scaled
-state is integer iff first clearing index le</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166">clearing
-condition iff max</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L203">first
-clearing index spec</a>, and 2 further declarations in the <a
-href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By Lemma 6.2,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>
@@ -2131,9 +2048,6 @@ for every
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>A</mi></msub><mo>=</mo><msub><mi>X</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">y_A=X_A</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean#L77">paper
-pinning and eight scale rigidity</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The identity is the recurrence solved for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>,
@@ -2203,9 +2117,6 @@ every
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mn>1210</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>9130</mn><mi>n</mi><mo>+</mo><mn>18847</mn></mrow><mn>11979</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">0&lt;X_a\le\widetilde Q(n_a)&lt;Q(n_a),\qquad
  \widetilde Q(n)=\frac{1210n^2+9130n+18847}{11979}.</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean#L339">actual
-sharp tail bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><msup><mn>2</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">x\ge2^a</annotation></semantics></math>,
@@ -2479,9 +2390,6 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&lt;</mo><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>C</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K&lt;\operatorname{lpr}_C(N)</annotation></semantics></math>,
 then the hypotheses are contradictory.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ResidueEscape.lean#L110">no
-bounded positive int state of least positive residue</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every positive integer congruent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -2574,9 +2482,6 @@ holds automatically, since every least positive residue is at least
 its truth alone therefore provides no contradiction to an integral
 tail.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean#L50">octic
-escape whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(G)</annotation></semantics></math>
@@ -2693,13 +2598,6 @@ is integral, then
 for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L172">eventually
-fixed start residue formula</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L205">fixed
-start residue ratio tendsto</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L231">eventually
-fixed start residue eq tail of integral</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The least positive residue is the modulus times the
 gap to the next strictly larger integer. Division with remainder gives
@@ -2895,9 +2793,6 @@ and
  \qquad
  \frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L196">long
-window growth</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Telescoping <code>[long269:eq:dyadic-alphabet]</code>
 gives
@@ -2936,9 +2831,6 @@ admit an escaping window of length at most
 against the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L267">long
-no bounded length</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A least positive residue never exceeds its modulus,
 so escape at
@@ -2974,41 +2866,25 @@ together with the displayed tail and window estimates. No such uniform
 information about the tails of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is proved here.</p>
-<p><em>Status.</em> The problem treated here is open, and this note does
-not close it. Every statement below marked as checked is a proposition
-that the pinned Lean kernel accepts from the sources this note links to,
-with no <code>sorry</code>, no added axiom, and no unchecked evaluation.
-That is a claim about the formal statement, not about its mathematical
-interest, its novelty, or the original problem. The unresolved
-obligations are named exactly, in their own section, and none of the
-finite computations, reductions, or no-go results here removes one of
-them.</p>
-<p><em>Companion system context.</em> The <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
-and trust boundary</a>, <a
-href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
-route to proof authority</a>, and <a
-href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
-contribution protocol</a> are described in sibling papers. Those
-descriptions do not change the mathematical status of this note.</p>
 </section>
 </section>
 <section id="long269:sec:evidence" class="level2">
 <h2>Finite computations and their limits</h2>
 <p>The three displayed window tuples and the twelve-shell denominator
 bound below have directly replayable finite certificates. The larger
-scan and the two much larger denominator exclusions are archived
-computational reports. Their full execution records are not supplied
-here; in particular the two large exclusions lack their machine-readable
-witnesses. They are not theorem inputs, and none supplies the unbounded
-quantifiers.</p>
+scan and the two much larger denominator exclusions are also replayable:
+their programs, machine-readable witnesses and saved outputs are
+published in the <a
+href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
+directory</a>. They remain finite computations outside the theorem
+inputs, and none supplies the unbounded quantifiers.</p>
 <section id="checking-individual-windows" class="level3">
 <h3>Checking individual windows</h3>
 <p>The three rows below record individual instances of the residue
 inequality <code>[long269:eq:actual-escape]</code>. The integer-only <a
 href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">dyadic-window
-checker</a> is their historical source; exact enumeration independently
-reproduces them. For each required shell, enumerate the pairs with
+checker</a> computes them, and exact enumeration reproduces them. For
+each required shell, enumerate the pairs with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>3</mn><mi>j</mi></msup><msup><mn>5</mn><mi>k</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3^j5^k&lt;2^{a+1}</annotation></semantics></math>,
 choose the unique exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
@@ -3064,21 +2940,23 @@ of <code>[long269:eq:actual-escape]</code>, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>16</mn><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\gcd(16,30)=2</annotation></semantics></math>,
 and is displayed to illustrate the window arithmetic at greater
 depth.</p>
-<p>The archived scan report covers
+<p>The larger scan covers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≤</mo><mn>5000</mn></mrow><annotation encoding="application/x-tex">B\le5000</annotation></semantics></math>
 coprime to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mn>3000</mn></mrow><annotation encoding="application/x-tex">100\le\ell\le3000</annotation></semantics></math>:
+all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>869</mn><mo>,</mo><mn>934</mn></mrow><annotation encoding="application/x-tex">3{,}869{,}934</annotation></semantics></math>
-pairs, with reported first escape length at most
+pairs escape, with first escape length at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>18</mn><annotation encoding="application/x-tex">18</annotation></semantics></math>
 in a search to length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>.
-The full scan was not rerun. Its histogram in Section 10.4 is an
-archived observation, not a consequence of the window-growth bound. By
-contrast, the accompanying integer-only check reconstructs the shells
-and tests all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>
+(<a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">saved
+run</a>). Its histogram in Section 10.4 is a finite observation that the
+window-growth bound does not predict. The accompanying integer-only
+check reconstructs the shells and tests all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2496</mn><annotation encoding="application/x-tex">2496</annotation></semantics></math>
 pairs with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>B</mi><mo>≤</mo><mn>97</mn></mrow><annotation encoding="application/x-tex">1\le B\le97</annotation></semantics></math>,
@@ -3091,8 +2969,8 @@ to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>,
 with a search limit of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>.
-This smaller scan uses the enumeration and window recursions above,
-without floating-point logarithms. Neither computation proves escape for
+This check uses the enumeration and window recursions above, without
+floating-point logarithms. Neither computation proves escape for
 unbounded
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 or arbitrarily late starts; Corollary 7.5 rules out covering the latter
@@ -3150,23 +3028,22 @@ has that denominator. It says that this interval is still compatible
 with a rational of denominator
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>22126</mn><annotation encoding="application/x-tex">22126</annotation></semantics></math>.</p>
 <p>The certificate uses the actual shell coefficients and proved tail
-bound, not the archived continued-fraction statistics below. A narrower
-certified enclosure could exclude further denominators; the two much
-larger reported exclusions that follow are not verified by this
-calculation.</p>
+bound. A narrower certified enclosure excludes further denominators; the
+continued-fraction exclusion below uses one built from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mo>,</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">15{,}500</annotation></semantics></math>
+shells.</p>
 </section>
 <section id="long269:res:lead-block-exclusion" class="level5">
-<h5>Archived
-window-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>128</mn><annotation encoding="application/x-tex">128</annotation></semantics></math>
-exclusion report (witness unavailable).</h5>
-<p>The archived report asserts the following, which is not used as a
-proved result in this revision. Using windows of length
+<h5>Window-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>128</mn><annotation encoding="application/x-tex">128</annotation></semantics></math>
+lattice exclusion.</h5>
+<p>A finite lattice computation, outside the theorem inputs, excludes
+the following denominators. Using windows of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>128</mn><annotation encoding="application/x-tex">128</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>64</mn><annotation encoding="application/x-tex">64</annotation></semantics></math>
 starting indices, the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10005</mn><annotation encoding="application/x-tex">10005</annotation></semantics></math>,
-it reports that no rational value of the
+no rational value of the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
 running-LCM series has reduced denominator
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">MB</annotation></semantics></math>
@@ -3193,57 +3070,128 @@ integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>10005</mn><mo>,</mo><mn>6312</mn><mo>,</mo><mn>4308</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(10005,6312,4308)</annotation></semantics></math>
 is that of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mn>10005</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{H}(2^{10005})</annotation></semantics></math>.
-The reported normalisation therefore uses the full height at its first
-start, whereas Lemma 6.2 uses the half height
+The normalisation therefore uses the full height at its first start,
+whereas Lemma 6.2 uses the half height
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mn>10005</mn></msub><annotation encoding="application/x-tex">h_{10005}</annotation></semantics></math>.
-The reported family of smooth denominators is the larger one.</p>
-<p>The archived report gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>386.40993</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">386.40993\ldots</annotation></semantics></math>
-for the base-two logarithm of its window product. It also records an
-exclusion index of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
-an enclosure width of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9.674</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>227</mn></mrow></msup></mrow><annotation encoding="application/x-tex">9.674\times10^{-227}</annotation></semantics></math>,
-and a maximum ratio of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.185997</mn><annotation encoding="application/x-tex">0.185997</annotation></semantics></math>,
-labelled
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>/</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">X/W</annotation></semantics></math>
-in the report. This label is retained without identifying its
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-with a tail
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>.
-The report attributes the exclusion index to a reduced basis within a
-bound assigned to each starting index. Without the exact enclosure,
-basis, integer inequalities, software revision and execution command,
-these figures do not verify the claimed exclusion. No Lean declaration
-is claimed for this report.</p>
+This family of smooth denominators is the larger one.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/block_certificate.json">certificate</a>
+and its exact <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py">checker</a>
+are published. Its starts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><mi>…</mi><mo>&lt;</mo><msub><mi>a</mi><mn>64</mn></msub></mrow><annotation encoding="application/x-tex">a_1&lt;\dots&lt;a_{64}</annotation></semantics></math>
+are the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>10005</mn></mrow><annotation encoding="application/x-tex">a\ge10005</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>a</mi><mo>,</mo><mn>128</mn></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mn>10005</mn><mo>,</mo><mn>128</mn></mrow></msub><mo>=</mo><mi>W</mi><mo>=</mo><msup><mn>2</mn><mn>128</mn></msup><msup><mn>3</mn><mn>81</mn></msup><msup><mn>5</mn><mn>56</mn></msup></mrow><annotation encoding="application/x-tex">W_{a,128}=W_{10005,128}=W=2^{128}3^{81}5^{56}</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi>W</mi><mo>=</mo><mn>386.40993</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\log_2W=386.40993\ldots</annotation></semantics></math>;
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>=</mo><mi>W</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">m_0=W/2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>j</mi></msub><mo>=</mo><msub><mi>F</mi><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>,</mo><mn>128</mn></mrow></msub></mrow><annotation encoding="application/x-tex">F_j=F_{a_j,128}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo>+</mo><mn>128</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>+</mo><mn>6</mn><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo>+</mo><mn>128</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">w_j=(a_j+128)^2+6(a_j+128)+11</annotation></semantics></math>.
+The certificate lists an integer matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C=(c_{ij})</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>F</mi><mi>j</mi></msub><mo>≡</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><msub><mi>m</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sum_jc_{ij}F_j\equiv0\pmod{m_0}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>j</mi></msub><mo>≤</mo><mn>184</mn><mo>,</mo><mn>560</mn><mo>,</mo><mn>461</mn><mo>,</mo><mn>211</mn></mrow><annotation encoding="application/x-tex">\sum_j|c_{ij}|w_j\le184{,}560{,}461{,}211</annotation></semantics></math>
+for every row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+an integer matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>E</mi><mo>=</mo><mi>E</mi><mi>C</mi><mo>=</mo><msub><mi>m</mi><mn>0</mn></msub><mi>I</mi></mrow><annotation encoding="application/x-tex">CE=EC=m_0I</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>184</mn><mo>,</mo><mn>560</mn><mo>,</mo><mn>461</mn><mo>,</mo><mn>211</mn><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">B_{\max}=\lfloor(W-1)/184{,}560{,}461{,}211\rfloor</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≤</mo><msub><mi>B</mi><mi mathvariant="normal">max</mi></msub></mrow><annotation encoding="application/x-tex">B\le B_{\max}</annotation></semantics></math>
+and integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>j</mi></msub><mo>=</mo><mi>W</mi><msub><mi>s</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn><mi>B</mi><msub><mi>F</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">f_j=Ws_j-2BF_j</annotation></semantics></math>
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>f</mi><mi>j</mi></msub><mo>≤</mo><mi>B</mi><msub><mi>w</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">0&lt;f_j\le Bw_j</annotation></semantics></math>,
+each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>f</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\sum_jc_{ij}f_j</annotation></semantics></math>
+is a multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
+of absolute value less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>,
+hence zero, and invertibility of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+forces every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>j</mi></msub><annotation encoding="application/x-tex">f_j</annotation></semantics></math>
+to vanish, a contradiction. The weights bound the tails: since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>b</mi></msub><mo>≤</mo><mn>2.07</mn><mi>b</mi></mrow><annotation encoding="application/x-tex">n_b\le2.07b</annotation></semantics></math>,
+Theorem 6.1 gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>X</mi><mi>b</mi></msub><mo>≤</mo><mn>2</mn><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>b</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>b</mi><mo>+</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">2X_b\le2Q(n_b)\le b^2+6b+11</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b\ge0</annotation></semantics></math>.
+The reduction from a rational value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N/(MB)</annotation></semantics></math>
+to the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>64</mn><annotation encoding="application/x-tex">64</annotation></semantics></math>
+window inequalities, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><mn>2</mn><mi>B</mi><msub><mi>X</mi><msub><mi>a</mi><mi>j</mi></msub></msub></mrow><annotation encoding="application/x-tex">s_j=2BX_{a_j}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>j</mi></msub><mo>=</mo><mn>2</mn><mi>B</mi><msub><mi>X</mi><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>+</mo><mn>128</mn></mrow></msub></mrow><annotation encoding="application/x-tex">f_j=2BX_{a_j+128}</annotation></semantics></math>,
+uses the window identity at full height and is not machine-checked.</p>
 </section>
 <section id="long269:res:cf-exclusion" class="level5">
-<h5>Archived continued-fraction report.</h5>
-<p>The archived report claims
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>,</mo><mn>109</mn></mrow><annotation encoding="application/x-tex">13{,}109</annotation></semantics></math>
-certified partial quotients for the normalised tail
+<h5>Continued-fraction exclusion.</h5>
+<p>A finite computation, outside the theorem inputs, shows that neither
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
-and an exclusion of reduced denominators at most
+nor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+is a fraction with reduced denominator at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>22482</mn></msup><annotation encoding="application/x-tex">2^{22482}</annotation></semantics></math>,
 about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>6768</mn></msup><annotation encoding="application/x-tex">10^{6768}</annotation></semantics></math>.</p>
-<p>The stated certification method is a common prefix of the continued
-fractions of the two endpoints of an interval provably containing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>;
-the numbers with a given prefix of partial quotients form an interval
-<span class="citation" data-cites="bosmaCF"><a href="#ref-19">[19]</a></span>, so this method can
-give an exact certificate rather than a numerical approximation. The
-report also says that its truncation was checked against the direct
-smooth-number sum as an exact rational. Those checks cannot be repeated
-from the supplied material: the machine-readable witness and execution
-record are absent. The asserted exclusion is therefore not a theorem
-input. A replay must supply rational endpoints, a proof that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
-lies in the interval, the common continued-fraction cylinder, and a
-rigorous lower bound for denominators of all rationals in the enclosure.
-A count of matching partial quotients alone is not that denominator
-certificate. The recorded statistics are a largest denominator of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>6768</mn></msup><annotation encoding="application/x-tex">10^{6768}</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+be the window base and accumulated numerator of shells
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mo>,</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">15{,}500</annotation></semantics></math>.
+The tail bound used for the twelve-shell certificate, at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mn>15501</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mn>31956</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>340480534</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">Q(n_{15501})=Q(31956)=340480534/3</annotation></semantics></math>,
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>/</mi><mi>W</mi><mo>&lt;</mo><msub><mi>X</mi><mn>1</mn></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo>+</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">F/W&lt;X_1\le(F+Q)/W</annotation></semantics></math>.
+Every shell is built with integers, and shells
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
+are also checked against a direct enumeration of the smooth numbers. The
+two endpoints share their first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>,</mo><mn>540</mn></mrow><annotation encoding="application/x-tex">13{,}540</annotation></semantics></math>
+partial quotients, and the numbers with a given prefix of partial
+quotients form an interval <span class="citation"
+data-cites="bosmaCF"><a href="#ref-19">[19]</a></span>. The first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>,</mo><mn>109</mn></mrow><annotation encoding="application/x-tex">13{,}109</annotation></semantics></math>
+digits,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_0=0</annotation></semantics></math>
+included, define a cylinder whose endpoints have cross-determinant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+and strictly contain the enclosure, so every fraction in the enclosure
+has denominator at least the sum of the two endpoint denominators, a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>22</mn><mo>,</mo><mn>483</mn></mrow><annotation encoding="application/x-tex">22{,}483</annotation></semantics></math>-bit
+integer. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/tail_certificate.json">enclosure</a>,
+the <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/cf_common_prefix.json">common
+digits</a>, the <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerate_269.py">regeneration
+program</a> and the exact <a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py">checker</a>
+are published. A separate continued-fraction probe (<a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/cf-statistics.json">saved
+run</a>) certifies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>,</mo><mn>109</mn></mrow><annotation encoding="application/x-tex">13{,}109</annotation></semantics></math>
+partial quotients after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>0</mn></msub><annotation encoding="application/x-tex">a_0</annotation></semantics></math>
+and records a largest denominator of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>22</mn><mo>,</mo><mn>483</mn></mrow><annotation encoding="application/x-tex">22{,}483</annotation></semantics></math>
 bits, a largest partial quotient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>129</mn><mo>,</mo><mn>114</mn></mrow><annotation encoding="application/x-tex">129{,}114</annotation></semantics></math>,
@@ -3272,13 +3220,13 @@ and do not bear on whether
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
 is a Liouville number, algebraic, or rational with a larger
 denominator.</p>
-<p>The two archived reports concern different finite families: one uses
-a lattice at a fixed starting index and fixed smooth part, the other a
+<p>The two exclusions concern different finite families: one uses a
+lattice at a fixed starting index and fixed smooth part, the other a
 continued-fraction enclosure at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a=1</annotation></semantics></math>.
-Neither has a reproducible witness in the supplied material. Even after
-verification, each would exclude only its stated denominator range and
-neither would settle an instance of the problem.</p>
+Both have published witnesses and exact checkers. Each excludes only its
+stated denominator range, and neither settles an instance of the
+problem.</p>
 </section>
 </section>
 </section>
@@ -3336,9 +3284,6 @@ whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>&lt;</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msup><mn>2</mn><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo>−</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>r</mi></mrow></msup><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>c</mi><mi>J</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">\sum_{j&lt;J}|c_j|2^{-(J-j)r}&lt;|c_J|</annotation></semantics></math>;
 an empty sum is zero.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean#L216">weighted
-shift whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The exponent of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
@@ -3479,11 +3424,6 @@ if all these crossing bits vanish, then
 Thus absence of floor crossings cancels the common interior, but not
 necessarily the three boundary strips.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L132">actual
-weighted strip decomposition</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L172">actual
-cubic no crossing strips</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>3</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">p=3,5</annotation></semantics></math>,
@@ -3541,12 +3481,12 @@ not a floating-point estimate. The strips have sizes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>194</mn><mo>,</mo><mn>528</mn><mo>,</mo><mn>859</mn></mrow><annotation encoding="application/x-tex">194,528,859</annotation></semantics></math>,
 so
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mn>35</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>15</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>194</mn><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>528</mn><mo>−</mo><mn>859</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>45</mn><mo>≠</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">D_{35,0}=15(-194+2\cdot528-859)=45\ne0.</annotation></semantics></math>
-Exact enumeration in this revision reproduced all four counts and
-checked the endpoint power inequalities using integers. This example
-disproves the claim that avoiding floor crossings alone forces the third
-difference to vanish. It does not exclude a different fixed operator,
-different shifts, a boundary correction or a sparse-defect statement
-restricted to a suitable infinite subsequence.</em></p>
+Exact enumeration reproduces all four counts and checks the endpoint
+power inequalities using integers. This example disproves the claim that
+avoiding floor crossings alone forces the third difference to vanish. It
+does not exclude a different fixed operator, different shifts, a
+boundary correction or a sparse-defect statement restricted to a
+suitable infinite subsequence.</em></p>
 </div>
 <section id="what-the-heckemahler-comparison-does-and-does-not-supply."
 class="level5">
@@ -3703,9 +3643,6 @@ holds exactly when
 that direct recoding then has coefficients at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mi>/</mi><mn>8</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(q/8)^{a+1}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean#L154">fixed
-base recoding whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Each exponent in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>n</mi></msub><annotation encoding="application/x-tex">P_n</annotation></semantics></math>
@@ -3887,9 +3824,6 @@ and every
 is equivalent to irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L214">all
-reduced tails nonintegral iff</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">BX_a\in\mathbb{Z}</annotation></semantics></math>
@@ -3975,9 +3909,9 @@ establish it separately.</p>
 <p>A finite-dimensional encoding must preserve equality of the functions
 it is meant to represent. If two encodings agree but their functions do
 not, the encoding cannot justify a conclusion about those functions. The
-supplied formal sources express this condition as a factorisation
-through a finite-dimensional space and prove that the resulting space of
-functions is then finite-dimensional (<a
+Lean sources express this condition as a factorisation through a
+finite-dimensional space and prove that the resulting space of functions
+is then finite-dimensional (<a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L109">identity
 for the carry</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L293">map
@@ -4188,8 +4122,8 @@ there are integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">n,k</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mi>n</mi><mi>x</mi><mo>−</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">0&lt;|nx-k|&lt;1/d</annotation></semantics></math>.</p>
-<p>To use these observations for a series, the supplied conditional
-result requires exact identities
+<p>To use these observations for a series, the conditional result
+requires exact identities
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>M</mi></msub><mo>=</mo><msub><mi>H</mi><mi>M</mi></msub><mi>x</mi><mo>−</mo><msub><mi>z</mi><mi>M</mi></msub></mrow><annotation encoding="application/x-tex">y_M=H_Mx-z_M</annotation></semantics></math>,
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>M</mi></msub><mo>,</mo><msub><mi>z</mi><mi>M</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">H_M,z_M\in\mathbb{Z}</annotation></semantics></math>,
@@ -4233,48 +4167,32 @@ value theorem.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The two-prime deduction rests on the cited external value theorem and
-is not formalised here. Fan’s priority is retained from the supplied
-forum record. The live thread and catalogue could not be rechecked for
-this revision; no new claim about their current status is made. The
-supplied <code>LEAN_INDEX.json</code> labels selected declarations
-<code>ci_checked</code>, including results on arbitrary-order rank, the
-tail recurrence, the scaled integrality dichotomy, denominator clearing,
-the two quadratic bounds and the residue criterion for bounds of size
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>8</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(8^a)</annotation></semantics></math>.
-Its public source snapshot is <code>6b78209a</code>, while its build
-record names an earlier compiled revision, <code>6fdb8a20</code>, and
-marks the pinned build step as skipped. These records are not a fresh
-build of all the attached files. The separate Palomar release at
-<code>52f29ad1</code> selects arbitrary-order uniform-minor and prime
-non-separation statements as well as the finite example; its selection
-is not limited to a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2\times2</annotation></semantics></math>
-determinant. An index entry is not a complete axiom audit; the kernel
-checks and axioms stated in the <a href="#long269:sec:coverage">coverage
-subsection</a> belong to the revisions named there. The original source
-links retain their historical revisions, not the newer snapshot.</p>
+<p>The two-prime deduction rests on the cited external value theorem,
+which the Lean proof of Theorem 1.1 assumes; Fan posted that deduction
+first, on the erdosproblems.com forum <span class="citation"
+data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>. Every other theorem, proposition,
+lemma and corollary has a Lean proof of its whole statement, marked in
+the margin; Section 11 states what the Lean proof of the two-prime
+theorem checks.</p>
 <p>The weighted-triangle and weighted-shift identities, exact
 denominator formula, scaled dichotomy, uniqueness argument, residue
-limit, strip decomposition and direct recoding proposition have ordinary
-proofs here. The independent integer computations check finite
-instances, not infinite quantifiers; they are not new formalisation
-results. The twelve-shell rational enclosure, denominator bound and
-eight mixed-radix digits have the exact finite proofs given above. The
-large numerical exclusions remain unverified reports because their
-witnesses are unavailable. None of these records proves escape beyond
-every prescribed starting index.</p>
+limit, strip decomposition and direct recoding proposition also have the
+written proofs given here. The independent integer computations check
+finite instances, not infinite quantifiers. The twelve-shell rational
+enclosure, denominator bound and eight mixed-radix digits have the exact
+finite proofs given above. The two large numerical exclusions have
+published witnesses and exact checkers, and the larger scan has a
+published saved run. None of these records proves escape beyond every
+prescribed starting index.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">historical source revision</a> is the
-original repository reference for the formal sources and the
-dyadic-window checker. The attached Lean files and index permit source
-inspection, but not every historical dependency or computation is
-included. The formal evidence applies only to the statements identified
-in the source index. Ordinary proofs and external analytic inputs have
-their own stated dependencies; the unavailable numerical witnesses are
-not supplied by a repository link.</p>
+<p>The links in the source inventory and to the dyadic-window checker
+open a <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">fixed revision</a> of the repository. The
+witnesses and exact checkers for the two large numerical exclusions and
+the saved larger scan are in the <a
+href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
+directory</a>.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -4301,8 +4219,8 @@ the elementary running-LCM identity for finite prime sets <span
 class="citation" data-cites="fan2026comment"></span>. The transcendence
 input is due to Yann Bugeaud and Michel Laurent and to the earlier work
 of Loxton and van der Poorten cited by them. The problem numbering and
-historical status snapshot are taken from the Erdős Problems catalogue
-maintained by Thomas Bloom <span class="citation"
+its status as of 28 July 2026 are taken from the Erdős Problems
+catalogue maintained by Thomas Bloom <span class="citation"
 data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
 </section>
 </section>
@@ -4310,9 +4228,8 @@ data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
 <section id="long269:long:extended" class="level2">
 <h2>Further examples, conditional lemmas and source references</h2>
 <p>This section collects the historical details, the integer recurrence
-lemmas in their general form, worked examples and the original formal
-source links. The reported large computations remain unverified
-here.</p>
+lemmas in their general form, worked examples and an inventory of the
+formal sources.</p>
 <section id="long269:long:history" class="level3">
 <h3>The historical and catalogue record</h3>
 <p>For
@@ -4327,13 +4244,12 @@ In the primary 1988 source Erdős states irrationality for infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
 as a simple exercise and presents persistence for a finite number of
 primes greater than one as a probable extension, not a theorem <span
-class="citation" data-cites="erdos1988"></span>. The catalogue snapshot
-cited in the supplied manuscript records an open problem <span
-class="citation" data-cites="erdosproblems"></span>; that historical
-status is not inferred from the conjectural wording and has not been
-reverified against the live page for this revision. In the letter
-written on 1 January 1973 and published in 1974, Erdős says he can prove
-irrationality of the distinct-height sum <span class="citation"
+class="citation" data-cites="erdos1988"></span>. Bloom’s catalogue, as
+accessed on 28 July 2026, records an open problem <span class="citation"
+data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>; that status is not inferred from the
+conjectural wording. In the letter written on 1 January 1973 and
+published in 1974, Erdős says he can prove irrationality of the
+distinct-height sum <span class="citation"
 data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>. He writes “given primes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>p</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">p_1,\ldots,p_r</annotation></semantics></math>”
 without restricting
@@ -4361,10 +4277,9 @@ itself notes that the argument does not seem to generalise immediately
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">|P|\ge3</annotation></semantics></math>,
 and a reply there observes that it applies to arbitrary coprime pairs.
-The supplied publication record dates the note’s first public manuscript
-to 22 July 2026, at commit <code>a9d3ab8</code>, after Fan’s post. We
-retain the calculation as exposition and make no priority claim for
-it.</p>
+The first public version of this note is dated 22 July 2026, after Fan’s
+post. We retain the calculation as exposition and make no priority claim
+for it.</p>
 <p>The statement of the problem has been formalised as a conjecture with
 an unfilled proof in the <em>Formal Conjectures</em> collection <span
 class="citation" data-cites="formalconjectures269"></span>. In the cited
@@ -4438,9 +4353,6 @@ and every real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>c</mi><mi>n</mi></msub><mo>≤</mo><mi>D</mi><mi>t</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>&lt;</mo><msub><mi>d</mi><mi>n</mi></msub><mo>≤</mo><mi>B</mi><mi>t</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">0&lt;c_n\le Dt\quad\Longleftrightarrow\quad0&lt;d_n\le Bt.</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean#L25">conditional
-denominator reduction real bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Substitute
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">m</mi></mrow></msub><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">c_n=D_{\mathrm{sm}}d_n</annotation></semantics></math>
@@ -4560,9 +4472,6 @@ and
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
-positive reduced carry of cofinal local window escape</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose one escaping window
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\ell,h)</annotation></semantics></math>.
@@ -4707,7 +4616,7 @@ alone.</p>
 </section>
 <section id="long269:long:experiments" class="level3">
 <h3>The finite-scan histogram</h3>
-<p>The archived scan report described in Section 8 claims coverage of
+<p>The larger scan described in Section 8 covers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≤</mo><mn>5000</mn></mrow><annotation encoding="application/x-tex">B\le5000</annotation></semantics></math>
 coprime to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
@@ -4715,29 +4624,32 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mn>3000</mn></mrow><annotation encoding="application/x-tex">100\le\ell\le3000</annotation></semantics></math>,
 with search depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>.
-It reports
+Its saved run (<a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">scan-5000-100-3000.json</a>)
+gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>869</mn><mo>,</mo><mn>934</mn></mrow><annotation encoding="application/x-tex">3{,}869{,}934</annotation></semantics></math>
 pairs, an escape in every case, and the following first-success
-histogram. These figures were not rerun for this revision and are
-retained as historical data: <span
+histogram: <span
 class="math display" data-term-auto="off">$$\resizebox{\linewidth}{!}{$\begin{array}{c|rrrrrrrrrrrrrrr}
 h&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10&amp;11&amp;12&amp;13&amp;14&amp;15&amp;16&amp;17&amp;18\\
 \hline
 \#&amp;1&amp;104&amp;812&amp;5437&amp;51409&amp;237423&amp;735450&amp;1431226&amp;1132756&amp;236752&amp;34910&amp;3076&amp;521&amp;49&amp;8
-\end{array}$}$$</span> The first reported case attaining the maximal
-observed length
+\end{array}$}$$</span> The first case attaining the maximal observed
+length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>18</mn><annotation encoding="application/x-tex">18</annotation></semantics></math>
 has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>917</mn></mrow><annotation encoding="application/x-tex">B=917</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>=</mo><mn>2980</mn></mrow><annotation encoding="application/x-tex">\ell=2980</annotation></semantics></math>.
-An earlier archived run over
+The smaller run (<a
+href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-1000-100-500.json">scan-1000-100-500.json</a>)
+over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≤</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">B\le1000</annotation></semantics></math>
 coprime to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>≤</mo><mi>ℓ</mi><mo>≤</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">100\le\ell\le500</annotation></semantics></math>
-reports
+gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>106</mn><mo>,</mo><mn>666</mn></mrow><annotation encoding="application/x-tex">106{,}666</annotation></semantics></math>
 pairs and maximal first successful length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>14</mn><annotation encoding="application/x-tex">14</annotation></semantics></math>,
@@ -4745,15 +4657,14 @@ first attained at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>359</mn></mrow><annotation encoding="application/x-tex">B=359</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>=</mo><mn>291</mn></mrow><annotation encoding="application/x-tex">\ell=291</annotation></semantics></math>.
-The two reported cases have the following data; neither underlying scan
-was reproduced for this revision.</p>
+The two cases have the following data.</p>
 <div class="center">
 <table>
 <thead>
 <tr>
 <th class="ta-l"></th>
-<th class="ta-r">Later report</th>
-<th class="ta-r">Earlier report</th>
+<th class="ta-r">Larger scan</th>
+<th class="ta-r">Smaller scan</th>
 </tr>
 </thead>
 <tbody>
@@ -4810,26 +4721,25 @@ generic-residue model is used as evidence for cofinal escape.</p>
 </section>
 <section id="long269:long:sources" class="level3">
 <h3>Source inventory</h3>
-<p>Each entry pairs a mathematical statement with its original Lean
-source link. Declaration names are retained here for lookup, not
-introduced as mathematical terminology. These links keep their original
-immutable revisions. The supplied index describes a newer snapshot and
-inherited build evidence, as explained above; agreement between the
-revisions must not be assumed without comparing them.</p>
-<p>Two conventions require care. The natural-number helper
-<code>heightNormalizer235</code> uses integer division: its value at
+<p>Each entry pairs a mathematical statement with the Lean source that
+states it, at a fixed earlier revision of the sources. The declaration
+names are for lookup only.</p>
+<p>Two conventions in the Lean sources require care. The Lean version of
+the half-height
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>a</mi></msub><annotation encoding="application/x-tex">h_a</annotation></semantics></math>
+is a natural number computed by integer division: its value at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>,
-not
+whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">h_0=1/2</annotation></semantics></math>.
 It agrees with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>a</mi></msub><annotation encoding="application/x-tex">h_a</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
-as assumed in the supplied half-height identity. The real tail
-definition <code>dyadicNormalizedTailStateR235</code> divides after
-casting to
+as the half-height identity assumes. The Lean version of the tail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>
+divides after casting to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℝ</mi><annotation encoding="application/x-tex">\mathbb R</annotation></semantics></math>,
 so agrees with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mi>h</mi><mi>a</mi></msub><msub><mi>T</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">X_a=h_aT_a</annotation></semantics></math>
@@ -4844,19 +4754,8 @@ thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>N</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">S=N/D</annotation></semantics></math>
 supplies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mi>D</mi></mrow><mi>D</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mi>D</mi><mo>,</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">T_1=\frac{N-D}{D},\qquad \gcd(N-D,D)=\gcd(N,D).</annotation></semantics></math>
-The supplied <code>PaperR7RationalBridge.lean</code> proves this
-translation, which preserves the denominator, its smooth factor and the
-clearing onset. These comparisons use the attached sources; they are not
-a new build or verification of all historical link targets.</p>
-<p>Two displayed statements also have direct current-source
-counterparts. The threshold-column rank formula is <a
-href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">finite
-cut rank</a>; its range equality allows repeated columns and arbitrary
-ordering. The uniform modular-minor statement is <a
-href="https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">uniform
-modular minors</a>; its row and column indices are chosen before the
-modulus and layer. The two modules compiled under Lean 4.29.1 during
-this source migration.</p>
+Lean proves this translation, which preserves the denominator, its
+smooth factor and the clearing onset.</p>
 <table>
 <thead>
 <tr>
@@ -5691,8 +5590,8 @@ checked in Lean; the theorem itself is a cited input (Section 11).</td>
 <tr>
 <td class="ta-l">Arbitrary-order rank</td>
 <td class="ta-l">Diagonal rescaling, separate
-one-dimensional densities and a staircase determinant; selected supplied
-formal evidence.</td>
+one-dimensional densities and a staircase determinant; checked in
+Lean.</td>
 </tr>
 <tr>
 <td class="ta-l">Tail recurrence</td>
@@ -5704,7 +5603,7 @@ recurrence would not identify the sum.</td>
 <td class="ta-l">Denominator reduction</td>
 <td class="ta-l">A finite prefix with cleared denominators
 and an upper bound for positive integer tails. The first valid index is
-determined by an ordinary proof.</td>
+determined exactly (Proposition 6.4); checked in Lean.</td>
 </tr>
 <tr>
 <td class="ta-l">Residue criterion</td>
@@ -5722,27 +5621,22 @@ counterexample to third-difference cancellation.</td>
 <tr>
 <td class="ta-l">Finite computations</td>
 <td class="ta-l">Direct checks settle only their individual
-windows; the large reports cannot be verified without their missing
-data.</td>
+windows. The two large exclusions have published witnesses and exact
+checkers, and the larger scan a published saved run; none is a theorem
+input.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>A source link identifies code; a build record reports what was run;
-an axiom audit concerns logical dependencies; and a finite computation
-checks its stated inputs. None substitutes for a proof of the remaining
-irrationality assertion.</p>
+<p>None of these results proves the remaining irrationality
+assertion.</p>
 <section id="long269:sec:coverage" class="level3 unnumbered">
-<h3 class="unnumbered">Formalisation coverage and remaining
-dependencies</h3>
-<p>Every theorem, lemma, proposition and corollary of this record other
-than the one named below has a Lean statement of the same assertion,
-with the same hypotheses, checked by the Lean kernel using only the
-axioms <code>propext</code>, <code>Classical.choice</code> and
-<code>Quot.sound</code>, in the development at revision
-<code>181078b6b009</code>.</p>
-<p>The exception is Theorem 1.1. The development verifies its reduction
-to the transcendence of the Hecke–Mahler boundary sum at an irrational
+<h3 class="unnumbered">What the Lean proof of the two-prime theorem
+assumes</h3>
+<p>Every theorem, lemma, proposition and corollary of this record
+carries a Lean mark in the margin. Only the Lean proof of Theorem 1.1
+assumes an input. It verifies the reduction of that theorem to the
+transcendence of the Hecke–Mahler boundary sum at an irrational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta\in(0,1)</annotation></semantics></math>
 and nonzero algebraic
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>,</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\beta,\alpha</annotation></semantics></math>
@@ -5754,10 +5648,10 @@ which is Theorem 1.1 of Bugeaud and Laurent <span class="citation"
 data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span> in the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>,
 due to Loxton and van der Poorten <span class="citation"
-data-cites="loxtonvdp1977"><a href="#ref-11">[11]</a></span>. A formal proof of that input is not
-included in the verified development, so this endpoint remains
-conditional on it. Everything the proof adds is checked: the running
-least-common-multiple identity, the selection of the single power of
+data-cites="loxtonvdp1977"><a href="#ref-11">[11]</a></span>. Lean does not prove that input; the
+Lean theorem assumes it. Everything the proof adds is checked: the
+running least-common-multiple identity, the selection of the single
+power of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 between consecutive powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
@@ -5778,190 +5672,6 @@ are unconditional and carry no additional input.</p>
 <p>A theorem whose own statement is conditional is formalised exactly as
 stated. Theorem 1.1 is asserted unconditionally in this record, and its
 Lean counterpart carries the additional named input described here.</p>
-<section id="concordance-of-statements-and-lean-declarations."
-class="level5">
-<h5>Concordance of statements and Lean declarations.</h5>
-<p>Each result of this record that has a kernel-checked Lean statement
-of the same assertion is listed below with the declarations that jointly
-state it. Each name links to its declaration at revision
-<code>a25cb360bef8</code>. Where the Lean statement is stronger than the
-printed one and implies it by an immediate specialisation, the entry
-says so. An entry marked <em>compared</em> was also checked
-independently: a restatement of the same declarations against Mathlib
-alone, together with its proof, was verified by Comparator
-(<code>leanprover/comparator</code>) in a clean continuous integration
-environment, in the run named by its number. Comparator trusts the
-restated statement, so the correspondence between the printed result and
-that statement is the one this concordance records.</p>
-<p> Theorem 2.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L49"><code>running_lcm_real_cutoff_exact</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 2.2 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L65"><code>realPrefixLcm_eq_of_sameLogCell</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L87"><code>realPrefixLcm_jump_first</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L117"><code>realPrefixLcm_jump_second</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L129"><code>realPrefixLcm_jump_third</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L142"><code>threePrimeKernelQ_eq_of_sameRealLogCell</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 2.3: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L69"><code>paper_jump_count</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 2.4: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407"><code>finiteSmoothKernelSum_groupedByHeight</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
-<p> Lemma 2.5 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean#L10"><code>exponent_unique_real_base_short_interval</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 2.6 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L285"><code>realSmoothExponentShell_bounds</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 4.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean#L63"><code>real_two_prime_separation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 4.2: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102"><code>paper_two_by_two_fixture</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Theorem 4.3 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22"><code>paper_uniform_rank_and_nonseparation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 4.4 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182"><code>rank_cutMatrix</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662"><code>35682858662</code></a>.</p>
-<p> Theorem 4.5 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean#L321"><code>uniform_rank_complete</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 5.1: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669"><code>dyadicInternalPower_exponent_unique</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L701"><code>exists_dyadicInternalPower_iff_log_succ</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L734"><code>log_dyadic_succ_eq_of_no_internalPower</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L781"><code>threePrimeHeight_dyadicBlock_succ</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L56"><code>radix_eq_height_ratio</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L762"><code>dyadicBlockBase235_cases</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L774"><code>dyadicBlockBase235_mem_interval</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Theorem 5.2: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L189"><code>long_actual_orbit</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Lemma 5.3 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean#L193"><code>literal_triangle_whole</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 5.4 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L132"><code>scaled_integer_or_cofinal_separation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Theorem 6.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8RankMajorant.lean#L357"><code>actual_tail_rank_bound</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Lemma 6.2 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean#L56"><code>long_all_scale_lattice_exact</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Theorem 6.3 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L37"><code>long_fixed_split_bridgeR11</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L26"><code>longPaperCap_le_three_squareR11</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 6.4: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L334"><code>exact_denominators_and_minimal_clearing</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L309"><code>scaled_state_is_integer_iff_firstClearingIndex_le</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166"><code>clearingCondition_iff_max</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L203"><code>firstClearingIndex_spec</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L208"><code>firstClearingIndex_minimal</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L213"><code>firstClearingIndex_le_sufficient</code></a>.
-<em>Compared</em>, runs <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Proposition 6.5 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean#L77"><code>paper_pinning_and_eight_scale_rigidity</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 6.6 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean#L339"><code>actual_sharp_tail_bound</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 7.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ResidueEscape.lean#L110"><code>no_bounded_positive_int_state_of_leastPositiveResidue</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Theorem 7.2 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean#L50"><code>octic_escape_whole</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
-<p> Proposition 7.3 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L172"><code>eventually_fixedStartResidue_formula</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L205"><code>fixedStartResidue_ratio_tendsto</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L231"><code>eventually_fixedStartResidue_eq_tail_of_integral</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
-<p> Proposition 7.4 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L196"><code>long_window_growth</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Corollary 7.5 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L267"><code>long_no_bounded_length</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Lemma 9.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean#L216"><code>weighted_shift_whole</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 9.2 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L132"><code>actual_weighted_strip_decomposition</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L172"><code>actual_cubic_no_crossing_strips</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 9.4 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean#L154"><code>fixed_base_recoding_whole</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 9.6 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L214"><code>allReducedTailsNonintegral_iff</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458"><code>35643815458</code></a>.</p>
-<p> Proposition 10.1 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean#L25"><code>conditional_denominator_reduction_real_bound</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Proposition 10.2 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645"><code>no_positive_reducedCarry_of_cofinalLocalWindowEscape</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
-</section>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -5980,8 +5690,8 @@ href="https://doi.org/10.1017/CBO9780511897184.009">doi:<code>10.1017/CBO9780511
 <strong>12</strong>, no. 4 (1974), 335, <a
 href="https://www.fq.math.ca/Scanned/12-4/letter.pdf">source</a>.</p></li>
 <li id="ref-4"><p>Thomas F. Bloom, <em>Erdős Problem #269</em> (2026), <a
-href="https://www.erdosproblems.com/269">source</a>. Catalogue snapshot
-cited in the supplied manuscript: 28 July 2026.</p></li>
+href="https://www.erdosproblems.com/269">source</a>. Accessed 28 July
+2026.</p></li>
 <li id="ref-5"><p>The Formal Conjectures Authors,
 <em>FormalConjectures.ErdosProblems.269</em> (2025), <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean">source</a>.</p></li>
@@ -6018,8 +5728,7 @@ href="https://doi.org/10.1017/S0004972700022978">doi:<code>10.1017/S000497270002
 <li id="ref-12"><p>Steve Fan, <em>Comment on Erdős Problem #269, thread 269, post
 7218</em> (2026), <a
 href="https://www.erdosproblems.com/forum/thread/269#post-7218">source</a>.
-26 June 2026, thread 269, post 7218; priority retained from the supplied
-record.</p></li>
+Public forum post, 26 June 2026, thread 269, post 7218.</p></li>
 <li id="ref-13"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
 certain series</em>, Pacific Journal of Mathematics <strong>55</strong>,
 no. 1 (1974), 85–92, <a

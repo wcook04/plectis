@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 166,
+  "pages": 144,
   "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
   "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 34,
     "renderer_fingerprint": "832c62a7a87ab6fd",
-    "source_sha256": "102b24d7fa79a23e1d49517be72772decf1f1a839fc5b0bfecf67e94091d057f",
+    "source_sha256": "f416aae7069e05033ec6bb58a69f660fe37ce823cb3e06311e0e8e8119859733",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 4500,
+    "mathml_node_count": 4510,
     "raw_math_fallback_count": 4,
     "warnings": {
       "mathml": [
@@ -64,8 +64,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "a50e182fc6d718767c8fc87540337e61601d1bb38bbd9f41c2ba4ce05fa987d5",
-    "html_exact_tex_sha256": "8f1498dcaa8f5b511e2ee7c744c007f1f5f0c6e502e1c151d53a00826be15100"
+    "html_mathml_sha256": "8374313cffca46958faaea63be4765b5ae27881f9cf5194f37d0eea85a5d19a0",
+    "html_exact_tex_sha256": "a8ca6713a35ad34e1ff197e971593e795cae583beccf7ecfa8627a55e798ff87"
   },
   "sections": [
     {
@@ -97,11 +97,6 @@
       "level": 5,
       "anchor": "a-weighted-condition-on-the-support",
       "label": "A weighted condition on the support"
-    },
-    {
-      "level": 5,
-      "anchor": "sec:coverage",
-      "label": "Formalisation coverage and remaining dependencies"
     },
     {
       "level": 5,
@@ -187,11 +182,6 @@
       "level": 4,
       "anchor": "sec:257-survivors",
       "label": "Unproved inputs for further arguments"
-    },
-    {
-      "level": 5,
-      "anchor": "a-claimed-quantitative-support-condition",
-      "label": "A claimed quantitative support condition"
     },
     {
       "level": 5,
@@ -805,8 +795,8 @@
     },
     {
       "level": 4,
-      "anchor": "two-proof-details-and-source-comparators",
-      "label": "Two proof details and source comparators"
+      "anchor": "two-proof-details-and-sources",
+      "label": "Two proof details and sources"
     },
     {
       "level": 4,

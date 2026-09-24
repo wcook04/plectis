@@ -6,6 +6,7 @@
 % `tectonic erdos-251-prime-gap-dyadic-series.tex` or `make`.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\input{evidence/erdos-251-prime-gap-dyadic-series}
 % Problem-specific source pin: #251 advances independently of the corpus
 % default, while the #249/#257 notes retain their own reviewed snapshot.
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
@@ -66,6 +67,8 @@ block unchanged.  The choices within the triples then fill an
 interval of dyadic sums without changing the permitted indices or the
 congruence cutoffs.
 
+\evidenceparagraph{\evidencerecordurl}
+
 \paragraph{Density and block conventions.}
 Here $\N=\{0,1,\ldots\}$, all intervals of indices contain integers, and
 $\log$ is natural unless a base is displayed.  Upper Banach density zero means
@@ -107,7 +110,6 @@ can be made with
 In particular the distance tends to zero for every integer-valued
 $m=m(X)\ge1$ with $m(X)=o(\log\log X)$, uniformly over target values.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/SparseAmbientR9.lean}{269}{arbitrary_word_sparse_rationalisation_uniform}, \lproof{ErdosProblems/Erdos251/SparsePaperR11.lean}{137}{polylogarithmic_word_interval_uniform}.}
 
 The convergence hypothesis includes all nonnegative integer sequences of
 polynomial growth, but excludes $a_n=2^n$.  The allowance $f(n)\to\infty$
@@ -240,7 +242,9 @@ For tests bounded in absolute value by $B_0$ that also depend on the
 starting index, the same coupling bounds the mean change by
 $2B_0m|S\cap[X,2X+m)|/X$.  This is an absolute bound, not a relative
 estimate for rare events; unchanged finite blocks need not have unchanged
-complete tails.  The companion, Section~2, discusses these distinctions.
+complete tails.  Section~2 of the companion paper, \emph{Prime-Gap Dyadic
+Series: Perturbations, Exact Criteria and Certificates}, discusses these
+distinctions.
 
 To apply the construction, write $p_0=2,p_1=3,\ldots$ and
 $g_n=p_{n+1}-p_n$.  The central-binomial argument of Erd\H{o}s
@@ -277,7 +281,8 @@ Moreover, with $P_n=2+\sum_{i<n}b_i$,
 \]
 These positions are not asserted to be prime.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{431}{short_joint_prime_gap_countermodel}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{228}{cut_prefix_bound}. Conditional on Schlage-Puchta's density lemma and the prime number theorem; see the \papersectionlink{erdos251-prime-gap-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
+\evidenceremark{The Lean proof assumes Schlage-Puchta's Lemma~4
+\cite{schlagepuchta2011} and the prime number theorem.}
 
 \begin{proof}
 Choose a rational target in the interval
@@ -351,8 +356,7 @@ references.
 
 The remaining sections ask what information about the actual weighted
 tails would prove irrationality.  Further equivalences, counterexamples
-and computations are in the companion, \emph{Prime-Gap Dyadic Series:
-Perturbations, Exact Criteria and Certificates}.
+and computations are in the companion.
 
 \section{The prime series and its actual tails}\label{sec:parts}
 Retain the zero-based primes and gaps of Corollary~\ref{res:jointcountermodel},
@@ -371,7 +375,6 @@ The actual prime and gap series satisfy $\Pi=2+G$.  Their complete tails
 satisfy $T_0=2G-1$ and $T_{N+1}=2T_N-g_{N+1}$.
 Thus $\Pi$, $G$ and $T_0$ have the same rationality status.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{31}{realPrimeGapTail_eq_tsum_shifted_gaps}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{57}{realPrimeGapTail_zero}, \lproof{ErdosProblems/Erdos251/RealPrimeGapTail.lean}{48}{realPrimeGapTail_recurrence}, and 2 further declarations in the \papersectionlink{erdos251-prime-gap-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 \begin{proof}
 Finite summation by parts retains the endpoint:
 \[
@@ -391,7 +394,6 @@ Let $\sum_{j\ge1}|a_j|2^{-j}<\infty$ and $U_{N+1}=2U_N-a_{N+1}$.
 Then $U_N=\sum_{j\ge1}a_{N+j}2^{-j}$ for every $N$ if and only if
 $2^{-N}U_N\to0$.
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean}{57}{real_dyadic_orbit_eq_true_tail_iff}.}
 \begin{proof}
 The recurrence gives
 $2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}$.
@@ -432,7 +434,6 @@ Consequently $U_0$ is irrational exactly when every positive shift is
 nonintegral at every index, equivalently when for each fixed $h\ge1$
 there are arbitrarily late nonintegral shifts.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean}{62}{real_orbit_exact_den_and_shift}, \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{94}{rationality_classification}.}
 \begin{proof}
 Iteration gives
 \[
@@ -472,7 +473,6 @@ for some $s\in\{-1,1\}$,
 \]
 In that case $sD'\in(-1,0)$ and both $D$ and $D'$ are nonintegral.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean}{7}{signed_two_window_iff}, \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean}{47}{signed_two_window_consequences}.}
 \begin{proof}
 The bounds on $D$ and $D'$ imply $-3<\delta<3$.  Since $\delta$ is
 nonzero and even, it equals $2s$ for $s=1$ or $s=-1$.  Substituting in
@@ -515,7 +515,6 @@ If for every $h\ge1$ and every cutoff $N_0$ there are $N\ge N_0,L\ge1$ with
 \end{equation}
 then $\Pi$ is irrational.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{273}{irrational_prime_series_of_finite_truncation}.}
 \begin{proof}
 The distance from $D_N$ to $\Z$ is at least
 $\operatorname{dist}(S_{h,N,L},\Z)-R_{h,N,L}(M)>0$.
@@ -580,12 +579,13 @@ Lemma~\ref{res:true-tail} gives
 The coefficients are strictly increasing, and their adjacent differences
 $4n+10$ are never $\pm2$.  This is a synthetic sequence, not a prime-gap
 construction; the companion, Section~8.6, treats the polynomial examples.
-For the first example, the sources give
+Lean checks
 \lword{Erdos251/PrimeGapDyadicTail.lean}{1157}{carryPartialSum_natCast_eq}{the telescoping formula}
 and
-\lword{Erdos251/PrimeGapDyadicTail.lean}{1163}{carryCoeff_natCast_not_eventually_periodic}{nonperiodicity}.
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1163}{carryCoeff_natCast_not_eventually_periodic}{nonperiodicity}
+for the first example.
 
-The companion, Appendix~D.5, also gives a bounded nonperiodic example.
+The companion's Proposition~D.6 gives a bounded nonperiodic example.
 The actual prime gaps are
 \lword{Erdos251/PrimeGapDyadicTail.lean}{1023}{primeGap0_not_eventually_periodic}{not eventually periodic},
 so that property alone does not settle their dyadic sum.
@@ -603,7 +603,6 @@ The prime-value dyadic series is irrational if and only if the prime-gap
 dyadic series is. Both series converge by the polynomial bound proved above;
 neither side is proved irrational.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}, \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{56}{irrationality_reformulation}.}
 \begin{proof}
 Theorem~\ref{res:infinite} gives $\Pi=2+G$, and adding a rational number
 preserves both rationality and irrationality.
@@ -613,7 +612,6 @@ preserves both rationality and irrationality.
 For every positive $h$, the actual consecutive-prime-gap sequence is not
 eventually periodic with period $h$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{175}{prime_gaps_not_eventually_periodic}.}
 \begin{proof}
 An eventually periodic sequence takes only finitely many values and is
 bounded.  Prime gaps are unbounded: for each $m\ge2$, the $m-1$ consecutive
@@ -635,25 +633,13 @@ stronger sufficient condition.  The preserved statistics do not supply
 this step, but primality or sharper rare-event estimates may still be used.
 The finite certificates do not prove irrationality.
 
-\subsection*{Attribution and verification}
-The source links retain revision \texttt{99f4bf47422a}; the companion's
-declaration index records the sparse existence results and build status.
-The printed construction uses triples; the formal one changes one
-coordinate at a time.  The linked polylogarithmic statement chooses the
-permitted set, interval, and support-count constant and cutoff before the
-target; its eventual congruences and convergence are quantified after the
-target.  The common congruence cutoffs used here follow from the printed
-schedule.  The companion separates these statement-level guarantees from
-the uniform bounds deduced using the common support.
-The prime-gap corollary is an ordinary deduction using Schlage-Puchta's
-theorem and the prime number theorem.
-
-The verification record reports a build of \texttt{ErdosProblems} and
-\texttt{Erdos249257} with Lean~4.29.1; no new Lean build is claimed here.
+\subsection*{Formal proofs and acknowledgements}
 Lean~4 \cite{lean4} and mathlib \cite{mathlib} provide the checking
-environment.  The companion distinguishes checked declarations, exact
-integer computations and ordinary proofs.  A source link alone does not
-establish that the linked statement belongs to a successful build.
+environment.  The Lean proof of Proposition~\ref{res:sparserationalisation}
+uses a different construction: at each stage it changes one coordinate,
+where the printed proof changes a triple.  Like the printed statement, it
+fixes the permitted set, the interval and every congruence cutoff before
+the target.
 
 I thank Wouter van Doorn for advice on explaining unfamiliar hypotheses,
 removing unnecessary terminology, and using notation only when it helps
@@ -666,10 +652,9 @@ The numbering follows Bloom's catalogue \cite{erdosproblems}.
 % BEGIN pin-faithful-source-inventory
 \section{Sources and further comparisons}
 \label{sec:pinned-lean-sources}
-The links below identify the formal definitions and statements used in
-this note.  Each retains its original source revision and line number.
-The descriptions give the mathematical content rather than the names used
-in the Lean files.
+The links below identify further formal definitions and statements used
+in this note, at their original revision and line number.  Each link is
+labelled by the mathematics it states.
 \par\medskip
 \begingroup
 \small\raggedright
@@ -804,9 +789,9 @@ need not be rational.
 \bibitem{zhang2014} Yitang Zhang, \href{https://doi.org/10.4007/annals.2014.179.3.7}{\emph{Bounded gaps between primes}}.
   Annals of Mathematics \textbf{179} (2014), 1121--1174, doi:\href{https://doi.org/10.4007/annals.2014.179.3.7}{10.4007/annals.2014.179.3.7}.
 \bibitem{erdosproblems} Thomas F. Bloom, \href{https://www.erdosproblems.com/251}{\emph{Erd\H{o}s Problem \#251}}.
-  2026. Catalogue snapshot accessed 6 September 2026.
+  2026. Accessed 6 September 2026.
 \bibitem{erdosproblems251thread} {Erdős Problems contributors}, \href{https://www.erdosproblems.com/forum/thread/251}{\emph{Erd\H{o}s Problem \#251 discussion thread}}.
-  2026. Snapshot accessed 6 September 2026: Tao comment of 7 October 2025 and Land comments of 6 September 2026.
+  2026. Accessed 6 September 2026: Tao comment of 7 October 2025 and Land comments of 6 September 2026.
 \bibitem{kovac2026} {ChatGPT 5.4 Pro (orchestrated by Vjeko Kova\v{c})}, \href{https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf}{\emph{On the Erd\H{o}s problem \#251}}.
   Unpublished note, Department of Mathematics, University of Zagreb, 2026. Accessed 6 September 2026.
 \bibitem{ringer2026} Stefan Ringer, \href{https://github.com/StefanRinger/erdos-251}{\emph{Local gap statistics, telescoping, and normality: a local-pattern approach to Erd\H{o}s problem 251}}.
@@ -837,6 +822,5 @@ need not be rational.
   2025; arXiv:\href{https://arxiv.org/abs/2512.17761v1}{2512.17761v1}. Version 1, 19 December 2025. Theorem 3.1 requires the Star Procedure of Definition 2 never to break; no application to the present factorial weights is asserted.
 \end{thebibliography}
 
-\companionpapercontext
 
 \end{document}

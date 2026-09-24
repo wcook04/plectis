@@ -5,6 +5,7 @@
 % The immutable source-link revisions below are deliberately unchanged.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\input{evidence/erdos269-running-lcm-reasoning-surface}
 \usepackage{longtable}
 \usepackage{colortbl}
 \usepackage[htt]{hyphenat}
@@ -87,7 +88,8 @@ Section~\ref{long269:long:history}.
 Let $p$ and $q$ be distinct primes.  Then $\mathcal R_{\{p,q\}}$ and
 $\mathcal D_{\{p,q\}}$ are transcendental.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{924}{two_prime_transcendence}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{872}{two_prime_sums_transcendental}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{893}{repeatedSum_comm}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{906}{distinctSum_comm}, and 1 further declaration. Conditional on the transcendence theorem of Bugeaud and Laurent; see the \hyperref[long269:sec:coverage]{coverage section}.}
+\evidenceremark{The Lean proof assumes the transcendence theorem of Bugeaud
+and Laurent.}
 
 Section~\ref{long269:sec:two-prime} proves this by expressing both values
 as nonconstant polynomials over $\mathbb Q$ in the same Hecke--Mahler
@@ -96,7 +98,7 @@ boundary sum.  Transcendence of that sum is the theorem of Loxton and van der Po
 Laurent \cite[Theorem~1.1]{bugeaudlaurent2023}.  The two-prime argument therefore consists of an elementary identity
 followed by that external value theorem.
 
-The supplied forum record credits Steve Fan's post of 26 June 2026 with
+Steve Fan's post of 26 June 2026 on the erdosproblems.com forum gives
 the running-LCM identity for finite prime sets, the two-prime
 factorisation, the Hecke--Mahler reduction and its transcendence conclusion
 \cite{fan2026comment}.  We include the calculation to distinguish repeated
@@ -181,6 +183,10 @@ separate from the proved residue criterion: none is a premise of that
 criterion.  The tail notation agrees with the short paper and is defined
 when first used.
 
+\statusboundary
+
+\evidenceparagraph{\evidencerecordurl}
+
 \section{The finite geometry of the running value}\label{long269:sec:lcm}
 
 The prime-exponent maximum rule for the least common multiple is
@@ -203,7 +209,6 @@ but the corresponding smooth number is $60$.
 Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then
 $\Lprefix(x)=\hgt(x)$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{49}{running_lcm_real_cutoff_exact}.}
 
 \begin{proof}
 Every smooth $n\le x$ has exponents bounded by the corresponding integer
@@ -241,7 +246,6 @@ $\lfloor\log_p y\rfloor=\lfloor\log_p x\rfloor+1$ while the other two
 logarithms agree, then $\Lprefix(y)=p\,\Lprefix(x)$, and similarly with $q$ or
 $r$ in place of $p$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{65}{realPrefixLcm_eq_of_sameLogCell}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{87}{realPrefixLcm_jump_first}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{117}{realPrefixLcm_jump_second}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{129}{realPrefixLcm_jump_third}, and 1 further declaration in the \hyperref[long269:sec:coverage]{coverage section}.}
 
 \begin{proof}
 Both parts are immediate from Theorem~\ref{long269:res:lcm}: the height depends on $x$
@@ -256,7 +260,6 @@ Let $n\ge0$.  The set of the first $n$ positive powers of $p$, of $q$ and of
 $r$ has exactly $3n$ elements, and adjoining the common origin $1$ gives
 exactly $3n+1$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7BasicAssembly.lean}{69}{paper_jump_count}.}
 
 \begin{proof}
 For a fixed prime $b$, the powers $b,b^{2},\ldots,b^{n}$ are distinct.
@@ -278,7 +281,6 @@ For every box $\mathcal B$,
 \]
 the outer sum ranging over the heights attained on $\mathcal B$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{407}{finiteSmoothKernelSum_groupedByHeight}.}
 
 \begin{proof}
 Partition $\mathcal B$ into the fibres of the height map.  On $F(H)$ every
@@ -295,7 +297,6 @@ nonnegative integers, and $w\ge0$ is the product of the fixed factors.
 Let $b\ge1$ and $\hi\le b\,\lo$.  If $b^{a}w$ and $b^{a'}w$ both lie in
 $[\lo,\hi)$ then $a=a'$.
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean}{10}{exponent_unique_real_base_short_interval}.}
 
 \begin{proof}
 If $a<a'$ then $\hi\le b\,\lo\le b^{a+1}w\le b^{a'}w<\hi$, which is impossible;
@@ -315,7 +316,6 @@ $\hi\le p\,\lo$ then $\#\mathcal S\le(h_q+1)(h_r+1)$.  If moreover
 $\hi\le r\,\lo$ and $h_p\le h_q\le h_r$ with $h_p+h_q+h_r=j$, then
 $9\,\#\mathcal S\le(j+3)^{2}$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{285}{realSmoothExponentShell_bounds}.}
 
 \begin{proof}
 Suppose $\hi\le r\,\lo$.  If two triples of $\mathcal S$ agree in their first
@@ -432,7 +432,7 @@ conclusions remain valid.  For example, this applies to generators $4,9$.
 By contrast, the monoid generated by $4,8$ has running LCM $8$ at the
 cutoff $8$, not $4^{\lfloor\log_4 8\rfloor}8^{\lfloor\log_8 8\rfloor}=32$;
 its slope is rational as well.  The coprime extension was already noted
-in the supplied forum discussion (Section~\ref{long269:long:history}).
+in the forum discussion (Section~\ref{long269:long:history}).
 
 A third prime introduces an additional floor term that cannot be separated
 in this way.  The next section makes that obstruction precise.
@@ -456,7 +456,6 @@ $\Kernel_2(i,j)=1/L_{p,q}(p^iq^j)$ is the outer product
 \]
 so every two-by-two minor of $\Kernel_2$ vanishes.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean}{63}{real_two_prime_separation}.}
 
 \begin{proof}
 Since $i$ and $j$ are integers,
@@ -486,7 +485,6 @@ With $(p,q,r)=(2,3,5)$,
  =-\frac1{15}\ne0 .
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7BasicAssembly.lean}{102}{paper_two_by_two_fixture}.}
 
 \begin{proof}
 The four values are computed from $\hgt(1)=1$, $\hgt(2)=2$,
@@ -507,7 +505,6 @@ Consequently, for no finite $d$ do there exist rational-valued functions
 $f_\ell:\N\to\Q$ and $G_\ell:\N^{2}\to\Q$, $0\le\ell<d$, satisfying
 $\Kernel(i,j,k)=\sum_{\ell<d}f_\ell(i)G_\ell(j,k)$ for all $i,j,k$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7BasicAssembly.lean}{22}{paper_uniform_rank_and_nonseparation}.}
 
 \begin{proof}
 Put $\alpha=\log_r p$, $\beta=\log_r q$, $x_i=\{i\alpha\}$ and
@@ -599,7 +596,6 @@ $v_h$ with $h$ in a nonempty set $E\subseteq\{0,\ldots,m\}$, then its rank is
  |E|-\mathbf 1_{\{0,m\}\subseteq E}.
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean}{182}{rank_cutMatrix}.}
 
 \begin{proof}
 Write $E=\{h_1<\cdots<h_s\}$.  The $s-1$ consecutive differences are
@@ -690,7 +686,6 @@ in~\eqref{long269:eq:carry-matrix}.  Then
 the infimum being over all matrices $A$ of finite separated rank, and it is
 attained by the constant matrix of value $(1+t)/2$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR8UniformRank.lean}{321}{uniform_rank_complete}.}
 
 \begin{proof}
 Every entry of $C$ lies in $\{1,t\}$, and $C(i,j)=t$ exactly when
@@ -793,7 +788,6 @@ For every $a$,
  \qquad\text{so}\qquad 2\le b_a\le30 .
 \end{equation}
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{669}{dyadicInternalPower_exponent_unique}, \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{701}{exists_dyadicInternalPower_iff_log_succ}, \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{734}{log_dyadic_succ_eq_of_no_internalPower}, \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{781}{threePrimeHeight_dyadicBlock_succ}, and 3 further declarations in the \hyperref[long269:sec:coverage]{coverage section}.}
 
 \begin{proof}
 A power of $3$ may occur and a power of $5$ may occur, each at most once.
@@ -857,7 +851,6 @@ The shell masses are summable and $S=\sum_{a\ge0}s_a$.  For every $a\ge0$,
  X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
 \end{equation}
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean}{189}{long_actual_orbit}.}
 
 \begin{proof}
 Every exponent of $3$ or $5$ in the $a$th shell is at most $a$, and for each
@@ -915,7 +908,6 @@ Thus $m_a=\Theta((a+1)^2)$ and the numerator sequence is unbounded.
 These are integer numerators, not positional digits restricted to
 $\{0,\ldots,b_a-1\}$.
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean}{193}{literal_triangle_whole}.}
 \begin{proof}
 For each pair with $w_{j,k}<a+1$, exactly one exponent
 $i=a-\lfloor w_{j,k}\rfloor\ge0$ puts
@@ -944,7 +936,6 @@ For every integer $B\ge1$, either $BX_a\in\Z$ for some $a\ge0$ and every
 later $a$, or for every $a_0$ there is $a\ge a_0$ with
 $|BX_a-z|\ge1/31$ for every $z\in\Z$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7ActualOrbit.lean}{132}{scaled_integer_or_cofinal_separation}.}
 
 \begin{proof}
 If the second alternative fails, there are $A$ and integers $z_a$ such
@@ -1005,7 +996,6 @@ so $n_a$ is the sum of the three height exponents at $2^{a}$.
 \begin{theorem}[a quadratic upper bound]\label{long269:res:actual-tail-bound}
 For every $a\ge0$, $0<X_a\le Q(n_a)$.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR8RankMajorant.lean}{357}{actual_tail_rank_bound}.}
 
 \begin{proof}
 Partition the smooth integers $x\ge2^{a}$ by their height vector
@@ -1085,7 +1075,6 @@ natural number.  If $S=N/D$ with $N\in\Z$ and $D\in\N_{>0}$, then $DX_a\in\Z$
 for every $a\ge1$, and there are indices $1\le i<j\le D+1$ for which
 $X_i-X_j\in\Z$.
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean}{56}{long_all_scale_lattice_exact}.}
 
 \begin{proof}
 An empty window has mass zero.  Otherwise $b\ge1$, and every integer $x<2^{b}$
@@ -1115,7 +1104,6 @@ Then for every $a\ge a_D$ the number $d_a=BX_a$ is a positive integer and
  d_{a+1}=b_ad_a-Bm_a,\qquad 1\le d_a\le K(B,a)\le90B(a+1)^{2} .
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/LongWindowCapR11.lean}{37}{long_fixed_split_bridgeR11}, \lproof{ErdosProblems/Erdos269/LongWindowCapR11.lean}{26}{longPaperCap_le_three_squareR11}.}
 
 \begin{proof}
 Let $M=2^{u}3^{v}5^{w}$.  For $a\ge a_D$ we have $2^{a}\ge2^{u+1}$,
@@ -1153,7 +1141,6 @@ Hence the first integral reduced tail occurs at
 and $BX_a$ is integral exactly for $a\ge a_*$.  This onset is computable by
 integer powers; it is not an estimate obtained by rounding logarithms.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{334}{exact_denominators_and_minimal_clearing}, \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{309}{scaled_state_is_integer_iff_firstClearingIndex_le}, \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{166}{clearingCondition_iff_max}, \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{203}{firstClearingIndex_spec}, and 2 further declarations in the \hyperref[long269:sec:coverage]{coverage section}.}
 \begin{proof}
 By Lemma~\ref{long269:res:all-scale-lattice}, $X_a$ differs from
 $h_aN/(MB)$ by an integer.  Since $N$ is coprime to $MB$
@@ -1179,7 +1166,6 @@ $w(A+k)/8^{k}\to0$, and a real sequence $(y_n)_{n\ge A}$ satisfying
 $y_{n+1}=b_ny_n-m_n$.  If $y_n$ and $X_n$ both lie in
 $(m_n/b_n,\;m_n/b_n+w(n)]$ for every $n\ge A$, then $y_A=X_A$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean}{77}{paper_pinning_and_eight_scale_rigidity}.}
 
 \begin{proof}
 The identity is the recurrence solved for $X_a$, and positivity holds because
@@ -1225,7 +1211,6 @@ For every $a\ge0$,
  \widetilde Q(n)=\frac{1210n^2+9130n+18847}{11979}.
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean}{339}{actual_sharp_tail_bound}.}
 \begin{proof}
 For a point $x\ge2^a$, let $d_p$ be the increase in its $p$-height exponent
 from the boundary $2^a$, and put $k=d_2+d_3+d_5$.
@@ -1403,7 +1388,6 @@ allows comparison with a positive integral carry.
 Let $C>0$ and let $c$ be an integer with $0<c$ and $|c|\le K$.  If
 $c\equiv N\pmod C$ and $K<\lpr_C(N)$, then the hypotheses are contradictory.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/ResidueEscape.lean}{110}{no_bounded_positive_int_state_of_leastPositiveResidue}.}
 
 \begin{proof}
 Every positive integer congruent to $N$ is at least $\lpr_C(N)$.
@@ -1447,7 +1431,6 @@ equivalent.  By contrast, $\Esc(0)$ holds automatically, since every
 least positive residue is at least $1$; its truth alone therefore
 provides no contradiction to an integral tail.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean}{50}{octic_escape_whole}.}
 
 \begin{proof}
 Suppose $\Esc(G)$ and suppose $S=N/D$ were rational.
@@ -1514,7 +1497,6 @@ and consequently
 In particular, if $BX_\ell$ is integral, then $R_h=BX_{\ell+h}$
 for all sufficiently large $h$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean}{172}{eventually_fixedStartResidue_formula}, \lproof{ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean}{205}{fixedStartResidue_ratio_tendsto}, \lproof{ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean}{231}{eventually_fixedStartResidue_eq_tail_of_integral}.}
 \begin{proof}
 The least positive residue is the modulus times the gap to the next
 strictly larger integer.  Division with remainder gives
@@ -1632,7 +1614,6 @@ $h\ge1$,
  \frac{8^{h}}{15}<W_{\ell,h}<15\cdot8^{h} .
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7WindowResults.lean}{196}{long_window_growth}.}
 
 \begin{proof}
 Telescoping \eqref{long269:eq:dyadic-alphabet} gives
@@ -1647,7 +1628,6 @@ $2^{h}/5$ and $5\cdot2^{h}$.  Multiplying the three ranges gives the bounds.
 Fix $B\ge1$ coprime to $30$ and $H\ge1$.  Only finitely many starts $\ell$
 admit an escaping window of length at most $H$ against the bound $K$.
 \end{corollary}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7WindowResults.lean}{267}{long_no_bounded_length}.}
 
 \begin{proof}
 A least positive residue never exceeds its modulus, so escape at $(\ell,h)$
@@ -1669,26 +1649,25 @@ This is only a necessary lower bound, not an asymptotic formula or an
 upper bound for the first successful length.
 An explicit eventual escape threshold can be obtained from a positive
 lower bound for $\delta=\lceil BX_\ell\rceil-BX_\ell$ and for $1-\delta$,
-together with the displayed tail and window estimates.  No such uniform information about the tails of $S$ is proved here.  
-
-\statusboundary
+together with the displayed tail and window estimates.  No such uniform information about the tails of $S$ is proved here.
 
 \section{Finite computations and their limits}\label{long269:sec:evidence}
 
 The three displayed window tuples and the twelve-shell denominator
 bound below have directly replayable finite certificates.  The larger
-scan and the two much larger denominator exclusions are archived
-computational reports.  Their full execution records are not supplied here;
-in particular the two large exclusions lack their machine-readable witnesses.
-They are not theorem inputs, and none supplies the unbounded quantifiers.
+scan and the two much larger denominator exclusions are also replayable:
+their programs, machine-readable witnesses and saved outputs are
+published in the
+\href{https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations}{large-computation directory}.
+They remain finite computations outside the theorem inputs, and none
+supplies the unbounded quantifiers.
 
 \subsection{Checking individual windows}
 
 The three rows below record individual instances of the residue
 inequality~\eqref{long269:eq:actual-escape}.  The integer-only
 \href{\sourceurl/scripts/check_erdos269_dyadic_windows.py}{dyadic-window
-checker} is their historical source; exact enumeration independently
-reproduces them.  For each required shell, enumerate the pairs with
+checker} computes them, and exact enumeration reproduces them.  For each required shell, enumerate the pairs with
 $3^j5^k<2^{a+1}$, choose the unique exponent $i$ that puts $2^i3^j5^k$ in
 $[2^a,2^{a+1})$, and add $P_{a+1}/(2\hgt(2^i3^j5^k))$.
 All powers and comparisons are integral.  The recursions for $W$ and $F$
@@ -1712,15 +1691,16 @@ $K(1,3)=\lfloor(16+40+27)/9\rfloor=9$.  The third row lies outside the domain
 of~\eqref{long269:eq:actual-escape}, since $\gcd(16,30)=2$, and is displayed to
 illustrate the window arithmetic at greater depth.
 
-The archived scan report covers $B\le5000$ coprime to $30$ and
-$100\le\ell\le3000$: $3{,}869{,}934$ pairs, with reported first escape
-length at most $18$ in a search to length $24$.  The full scan was not
-rerun.  Its histogram in Section~\ref{long269:long:experiments} is an
-archived observation, not a consequence of the window-growth bound.
-By contrast, the accompanying integer-only check reconstructs the shells
+The larger scan covers $B\le5000$ coprime to $30$ and
+$100\le\ell\le3000$: all $3{,}869{,}934$ pairs escape, with first escape
+length at most $18$ in a search to length $24$
+(\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json}{saved run}).
+Its histogram in Section~\ref{long269:long:experiments} is a finite
+observation that the window-growth bound does not predict.
+The accompanying integer-only check reconstructs the shells
 and tests all $2496$ pairs with $1\le B\le97$, $\gcd(B,30)=1$ and
 $1\le\ell\le96$.  Every pair escapes; the first successful lengths range
-from $1$ to $10$, with a search limit of $24$.  This smaller scan uses the
+from $1$ to $10$, with a search limit of $24$.  This check uses the
 enumeration and window recursions above, without floating-point
 logarithms.  Neither computation proves escape for unbounded $B$ or
 arbitrarily late starts; Corollary~\ref{long269:res:no-bounded-length}
@@ -1762,16 +1742,15 @@ denominator.  It says that this interval is still compatible with a
 rational of denominator $22126$.
 
 The certificate uses the actual shell coefficients and proved tail
-bound, not the archived continued-fraction statistics below.  A narrower
-certified enclosure could exclude further denominators; the two much
-larger reported exclusions that follow are not verified by this
-calculation.
+bound.  A narrower certified enclosure excludes further denominators;
+the continued-fraction exclusion below uses one built from $15{,}500$
+shells.
 
-\paragraph{Archived window-$128$ exclusion report (witness unavailable).}
+\paragraph{Window-$128$ lattice exclusion.}
 \label{long269:res:lead-block-exclusion}
-The archived report asserts the following, which is not used as a proved
-result in this revision.  Using windows of length $128$ and $64$ starting
-indices, the first $10005$, it reports that no rational value
+A finite lattice computation, outside the theorem inputs, excludes the
+following denominators.  Using windows of length $128$ and $64$ starting
+indices, the first $10005$, no rational value
 of the $\{2,3,5\}$ running-LCM series has reduced denominator $MB$ with $M$ a
 divisor supported on $\{2,3,5\}$ of $2^{10005}3^{6312}5^{4308}$, $\gcd(B,30)=1$ and
 $1<B\le B_{\max}$, where $B_{\max}$ is the $106$-digit integer
@@ -1784,42 +1763,59 @@ $1<B\le B_{\max}$, where $B_{\max}$ is the $106$-digit integer
 so that $\log_2B_{\max}=348.9846\ldots$.
 
 The exponent triple $(10005,6312,4308)$ is that of $\hgt(2^{10005})$.
-The reported normalisation therefore uses the full height at its first
+The normalisation therefore uses the full height at its first
 start, whereas Lemma~\ref{long269:res:all-scale-lattice} uses the half
-height $h_{10005}$.  The reported family of smooth denominators is the
+height $h_{10005}$.  This family of smooth denominators is the
 larger one.
 
-The archived report gives $386.40993\ldots$ for the base-two logarithm of
-its window product.  It also records an exclusion index of $1$, an enclosure width of
-$9.674\times10^{-227}$, and a maximum ratio of $0.185997$, labelled
-$X/W$ in the report.  This label is retained without identifying its $X$
-with a tail $X_a$.  The report attributes the
-exclusion index to a reduced basis within a bound assigned to each
-starting index.  Without the exact enclosure, basis, integer
-inequalities, software revision and execution command, these figures do
-not verify the claimed exclusion.  No Lean declaration is claimed for
-this report.
+The
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/block_certificate.json}{certificate}
+and its exact
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py}{checker}
+are published.  Its starts $a_1<\dots<a_{64}$ are the first $a\ge10005$
+with $W_{a,128}=W_{10005,128}=W=2^{128}3^{81}5^{56}$, so
+$\log_2W=386.40993\ldots$; put $m_0=W/2$, $F_j=F_{a_j,128}$ and
+$w_j=(a_j+128)^2+6(a_j+128)+11$.  The certificate lists an integer
+matrix $C=(c_{ij})$ with $\sum_jc_{ij}F_j\equiv0\pmod{m_0}$ and
+$\sum_j|c_{ij}|w_j\le184{,}560{,}461{,}211$ for every row $i$, an
+integer matrix $E$ with $CE=EC=m_0I$, and
+$B_{\max}=\lfloor(W-1)/184{,}560{,}461{,}211\rfloor$.  If
+$B\le B_{\max}$ and integers $f_j=Ws_j-2BF_j$ satisfy $0<f_j\le Bw_j$,
+each $\sum_jc_{ij}f_j$ is a multiple of $W$ of absolute value less than
+$W$, hence zero, and invertibility of $C$ forces every $f_j$ to vanish,
+a contradiction.  The weights bound the tails: since $n_b\le2.07b$,
+Theorem~\ref{long269:res:actual-tail-bound} gives
+$2X_b\le2Q(n_b)\le b^2+6b+11$ for every $b\ge0$.  The reduction from a
+rational value $N/(MB)$ to the $64$ window inequalities, with
+$s_j=2BX_{a_j}$ and $f_j=2BX_{a_j+128}$, uses the window identity at full
+height and is not machine-checked.
 
-\paragraph{Archived continued-fraction report.}
+\paragraph{Continued-fraction exclusion.}
 \label{long269:res:cf-exclusion}
-The archived report claims $13{,}109$ certified partial quotients for the
-normalised tail $X_1$ and an exclusion of reduced denominators at most
-$2^{22482}$, about $10^{6768}$.
-
-
-The stated certification method is a common prefix of the continued fractions of the two
-endpoints of an interval provably containing $X_1$; the numbers with a given
-prefix of partial quotients form an interval
-\cite[Lemma~10.1.2, p.~106]{bosmaCF}, so this method can give an exact certificate rather than a numerical
-approximation.  The report also says that its truncation was checked
-against the direct smooth-number sum as an exact rational.  Those checks
-cannot be repeated from the supplied material: the machine-readable
-witness and execution record are absent.  The asserted exclusion is
-therefore not a theorem input.  A replay must supply rational
-endpoints, a proof that $X_1$ lies in the interval, the common
-continued-fraction cylinder, and a rigorous lower bound for denominators of
-all rationals in the enclosure.  A count of matching partial quotients
-alone is not that denominator certificate.  The recorded statistics are
+A finite computation, outside the theorem inputs, shows that neither
+$X_1$ nor $S$ is a fraction with reduced denominator at most
+$2^{22482}$, about $10^{6768}$.  Let $W$ and $F$ be the window base and
+accumulated numerator of shells $1$ to $15{,}500$.  The tail bound used
+for the twelve-shell certificate, at $Q(n_{15501})=Q(31956)=340480534/3$,
+gives $F/W<X_1\le(F+Q)/W$.  Every shell is built with integers, and
+shells $1$ to $30$ are also checked against a direct enumeration of the
+smooth numbers.  The two endpoints share their first $13{,}540$ partial
+quotients, and the numbers with a given prefix of partial quotients form
+an interval \cite[Lemma~10.1.2, p.~106]{bosmaCF}.  The first $13{,}109$
+digits, $a_0=0$ included, define a cylinder whose endpoints have
+cross-determinant $1$ and strictly contain the enclosure, so every
+fraction in the enclosure has denominator at least the sum of the two
+endpoint denominators, a $22{,}483$-bit integer.  The
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/tail_certificate.json}{enclosure},
+the
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/cf_common_prefix.json}{common digits},
+the
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerate_269.py}{regeneration program}
+and the exact
+\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/verify_recovered.py}{checker}
+are published.  A separate continued-fraction probe
+(\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/cf-statistics.json}{saved run})
+certifies $13{,}109$ partial quotients after $a_0$ and records
 a largest denominator of $22{,}483$ bits, a largest partial quotient of
 $129{,}114$, a mean partial quotient of $23.4133$, observed Gauss--Kuzmin
 frequencies $0.4208$, $0.1665$, $0.0917$, $0.0575$, $0.0391$ against the
@@ -1830,11 +1826,11 @@ almost-everywhere constant \cite[pp.~288--289 and footnote~5]{levy1936}.
 These statistics describe a finite prefix and do not bear on whether $X_1$ is a
 Liouville number, algebraic, or rational with a larger denominator.
 
-The two archived reports concern different finite families: one uses a
+The two exclusions concern different finite families: one uses a
 lattice at a fixed starting index and fixed smooth part, the other a continued-fraction
-enclosure at $a=1$.  Neither has a reproducible witness in the supplied material.
-Even after verification, each would exclude only its stated denominator
-range and neither would settle an instance of the problem.
+enclosure at $a=1$.  Both have published witnesses and exact checkers.
+Each excludes only its stated denominator range, and neither settles an
+instance of the problem.
 
 \section{The remaining arithmetic questions}\label{long269:sec:open}
 
@@ -1874,7 +1870,6 @@ $|D_{r,a}|\le C(a+r+1)^2$.  If $J$ is the largest index with $c_J\ne0$,
 then $A_r\ne0$ whenever
 $\sum_{j<J}|c_j|2^{-(J-j)r}<|c_J|$; an empty sum is zero.
 \end{lemma}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean}{216}{weighted_shift_whole}.}
 \begin{proof}
 The exponent of $2$ in $\gamma_{a,t}$ is $t+(a+1)-(a+t+1)=0$.
 For $p=3,5$, the exponent is
@@ -1953,7 +1948,6 @@ then
 Thus absence of floor crossings cancels the common interior, but not
 necessarily the three boundary strips.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean}{132}{actual_weighted_strip_decomposition}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean}{172}{actual_cubic_no_crossing_strips}.}
 \begin{proof}
 For each $p=3,5$, the exponent of $p$ on either side of
 \[
@@ -1997,8 +1991,8 @@ $194,528,859$, so
 \[
  D_{35,0}=15(-194+2\cdot528-859)=45\ne0.
 \]
-Exact enumeration in this revision reproduced all four counts and
-checked the endpoint power inequalities using integers.  This example disproves the claim that avoiding floor crossings alone
+Exact enumeration reproduces all four counts and
+checks the endpoint power inequalities using integers.  This example disproves the claim that avoiding floor crossings alone
 forces the third difference to vanish.  It does not
 exclude a different fixed operator, different shifts, a boundary correction
 or a sparse-defect statement restricted to a suitable infinite subsequence.
@@ -2100,7 +2094,6 @@ For an integer $q\ge2$, the termwise divisibility $P_n\mid q^n$ for every
 $n\ge1$ holds exactly when $30\mid q$; that direct recoding then has
 coefficients at least $(q/8)^{a+1}$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean}{154}{fixed_base_recoding_whole}.}
 \begin{proof}
 Each exponent in $P_n$ is at most $n$, so $P_n\mid30^n$.  The estimate
 $8^n/15<P_n\le8^n$ was proved in Section~\ref{long269:sec:blocks}.
@@ -2220,7 +2213,6 @@ Theorem~\ref{long269:res:actual-escape-endpoint}.
 Statement~\eqref{long269:eq:tail-nonintegrality}, quantified over every $B\ge1$
 coprime to $30$ and every $a\ge1$, is equivalent to irrationality of $S$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7RationalBridge.lean}{214}{allReducedTailsNonintegral_iff}.}
 
 \begin{proof}
 If $BX_a\in\Z$ for some such $B$ and $a$, then $X_a\in\Q$, and since
@@ -2274,7 +2266,7 @@ approach that needs such a stronger hypothesis must establish it separately.
 A finite-dimensional encoding must preserve equality of the functions it
 is meant to represent.  If two encodings agree but their functions do not,
 the encoding cannot justify a conclusion about those functions.  The
-supplied formal sources express this condition as a factorisation through
+Lean sources express this condition as a factorisation through
 a finite-dimensional space and prove that the resulting space of
 functions is then finite-dimensional
 (\lword{Erdos269/WeightedPhaseCarry.lean}{109}{carry_eq_residueDigit_add_coboundary}{identity
@@ -2420,7 +2412,7 @@ $u-v>1/(3a)$.  Finally, a real number $x$ is irrational if, for every
 positive integer $d$, there are integers $n,k$ with
 $0<|nx-k|<1/d$.
 
-To use these observations for a series, the supplied conditional result
+To use these observations for a series, the conditional result
 requires exact identities $y_M=H_Mx-z_M$, with $H_M,z_M\in\Z$, and,
 for every positive $d$, two indices with different $H_M$, different
 $y_M$, and $|y_M-y_{M'}|<1/d$.  Their difference gives the required
@@ -2450,44 +2442,31 @@ uses Fan's earlier reduction to the cited Hecke--Mahler value theorem.
 \subsection*{Statements and declarations}
 
 \paragraph{Proof sources.}
-The two-prime deduction rests on the cited external value theorem and is
-not formalised here.  Fan's priority is retained from the supplied forum
-record.  The live thread and catalogue could not be rechecked for this
-revision; no new claim about their current status is made.
-The supplied \texttt{LEAN\_INDEX.json} labels selected declarations
-\texttt{ci\_checked}, including results on arbitrary-order rank, the tail recurrence, the
-scaled integrality dichotomy, denominator clearing, the two quadratic
-bounds and the residue
-criterion for bounds of size $o(8^a)$.  Its public source snapshot is
-\texttt{6b78209a}, while its build record names an earlier compiled
-revision, \texttt{6fdb8a20}, and marks the pinned build step as skipped.
-These records are not a fresh build of all the attached files.
-The separate Palomar release at \texttt{52f29ad1} selects
-arbitrary-order uniform-minor and prime non-separation statements as well
-as the finite example; its selection is not limited to a $2\times2$
-determinant.  An index entry is not a complete axiom audit; the kernel
-checks and axioms stated in the \hyperref[long269:sec:coverage]{coverage
-subsection} belong to the revisions named there.  The original source links
-retain their historical revisions, not the newer snapshot.
+The two-prime deduction rests on the cited external value theorem, which
+the Lean proof of Theorem~\ref{long269:res:lead-two-prime} assumes; Fan
+posted that deduction first, on the erdosproblems.com
+forum~\cite{fan2026comment}.  Every other theorem, proposition, lemma and
+corollary has a Lean proof of its whole statement, marked in the margin;
+Section~\ref{long269:sec:coverage} states what the Lean proof of the
+two-prime theorem checks.
 
 The weighted-triangle and weighted-shift identities, exact denominator
 formula, scaled dichotomy, uniqueness argument, residue limit, strip
-decomposition and direct recoding proposition have ordinary proofs here.
-The independent integer computations check finite instances, not infinite
-quantifiers; they are not new formalisation results.  The twelve-shell
-rational enclosure, denominator bound and eight mixed-radix digits have
-the exact finite proofs given above.  The large numerical exclusions remain unverified reports
-because their witnesses are unavailable.  None of these records proves
-escape beyond every prescribed starting index.
+decomposition and direct recoding proposition also have the written proofs
+given here.  The independent integer computations check finite instances,
+not infinite quantifiers.
+The twelve-shell rational enclosure, denominator bound and eight
+mixed-radix digits have the exact finite proofs given above.  The two
+large numerical exclusions have published witnesses and exact checkers,
+and the larger scan has a published saved run.  None of these records proves escape beyond every prescribed
+starting index.
 
-\paragraph{Artefact and data availability.} The
-\href{\sourceurl}{historical source revision} is the original repository
-reference for the formal sources and the dyadic-window checker.  The
-attached Lean files and index permit source inspection, but not every
-historical dependency or computation is included.  The formal evidence
-applies only to the statements identified in the source index.  Ordinary proofs and external analytic
-inputs have their own stated dependencies; the unavailable numerical
-witnesses are not supplied by a repository link.
+\paragraph{Artefact and data availability.} The links in the
+source inventory and to the dyadic-window checker open a
+\href{\sourceurl}{fixed revision} of the repository.  The
+witnesses and exact checkers for the two large numerical exclusions and
+the saved larger scan are in the
+\href{https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations}{large-computation directory}.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -2508,15 +2487,15 @@ manuscript; it also records the elementary running-LCM identity for finite
 prime sets~\cite{fan2026comment}.  The
 transcendence input is due to Yann Bugeaud and Michel Laurent and to the
 earlier work of Loxton and van der Poorten cited by them.  The
-problem numbering and historical status snapshot are taken from the
+problem numbering and its status as of 28 July 2026 are taken from the
 Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 % Part: extended_record
 \section{Further examples, conditional lemmas and source references}
 \label{long269:long:extended}
 
 This section collects the historical details, the integer recurrence
-lemmas in their general form, worked examples and the original formal
-source links.  The reported large computations remain unverified here.
+lemmas in their general form, worked examples and an inventory of the
+formal sources.
 
 \subsection{The historical and catalogue record}\label{long269:long:history}
 
@@ -2525,10 +2504,9 @@ $[a_1,\ldots,a_n]=p^{n-1}$ and both sums equal $p/(p-1)$.
 In the primary 1988 source Erd\H{o}s states irrationality for infinite $P$
 as a simple exercise and presents persistence for a finite number of
 primes greater than one as a probable extension, not a theorem
-\cite[p.~106]{erdos1988}.  The catalogue snapshot cited in the supplied
-manuscript records an open problem \cite{erdosproblems}; that historical
-status is not inferred from the conjectural wording and has not been
-reverified against the live page for this revision.
+\cite[p.~106]{erdos1988}.  Bloom's catalogue, as accessed on 28 July
+2026, records an open problem \cite{erdosproblems}; that status is not
+inferred from the conjectural wording.
 In the letter written on 1 January 1973 and published in 1974,
 Erd\H{o}s says he can prove irrationality of the distinct-height sum
 \cite[p.~335]{erdos1974letter}.  He writes ``given primes $p_1,\ldots,p_r$''
@@ -2545,8 +2523,8 @@ two-prime factorisation, the Hecke--Mahler reduction and the transcendence
 conclusion in the discussion thread of the problem's page
 \cite{fan2026comment}; the comment itself notes that the argument does not seem
 to generalise immediately to $|P|\ge3$, and a reply there observes that it
-applies to arbitrary coprime pairs.  The supplied publication record dates the note's first public manuscript
-to 22 July 2026, at commit \texttt{a9d3ab8}, after Fan's post.  We retain
+applies to arbitrary coprime pairs.  The first public version of this
+note is dated 22 July 2026, after Fan's post.  We retain
 the calculation as exposition and make no priority claim for it.
 
 The statement of the problem has been formalised as a conjecture with an
@@ -2588,7 +2566,6 @@ of $D$.  Moreover, for every $n$ and every real $t$,
  0<c_n\le Dt\quad\Longleftrightarrow\quad0<d_n\le Bt.
 \]
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean}{25}{conditional_denominator_reduction_real_bound}.}
 
 \begin{proof}
 Substitute $c_n=D_{\mathrm{sm}}d_n$ and $D=D_{\mathrm{sm}}B$ in the
@@ -2655,7 +2632,6 @@ Fix $B>0$ coprime to $30$.  There is no integral sequence $(d_n)$ satisfying
 simultaneously $d_{n+1}=b_nd_n-Bm_n$, $d_n>0$ and $|d_n|\le G(B,n)$ for every
 $n\ge0$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos269/RestrictedFloorSum.lean}{645}{no_positive_reducedCarry_of_cofinalLocalWindowEscape}.}
 
 \begin{proof}
 Choose one escaping window $(\ell,h)$.  The window identity gives
@@ -2741,27 +2717,28 @@ its radix falls back to the terminal factor alone.
 
 \subsection{The finite-scan histogram}\label{long269:long:experiments}
 
-The archived scan report described in Section~\ref{long269:sec:evidence}
-claims coverage of $B\le5000$ coprime to $30$ and $100\le\ell\le3000$,
-with search depth $24$.  It reports $3{,}869{,}934$ pairs, an escape in
-every case, and the following first-success histogram.  These figures were
-not rerun for this revision and are retained as historical data:
+The larger scan described in Section~\ref{long269:sec:evidence}
+covers $B\le5000$ coprime to $30$ and $100\le\ell\le3000$, with search
+depth $24$.  Its saved run
+(\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json}{scan-5000-100-3000.json})
+gives $3{,}869{,}934$ pairs, an escape in every case, and the following
+first-success histogram:
 \[
 \resizebox{\linewidth}{!}{$\begin{array}{c|rrrrrrrrrrrrrrr}
 h&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18\\ \hline
 \#&1&104&812&5437&51409&237423&735450&1431226&1132756&236752&34910&3076&521&49&8
 \end{array}$}
 \]
-The first reported case attaining the maximal observed length $18$ has
-$B=917$ and $\ell=2980$.  An earlier archived run over $B\le1000$ coprime
-to $30$ and $100\le\ell\le500$ reports $106{,}666$ pairs and maximal first
-successful length $14$, first attained at $B=359$ and $\ell=291$.
-The two reported cases have the following data; neither underlying scan
-was reproduced for this revision.
+The first case attaining the maximal observed length $18$ has
+$B=917$ and $\ell=2980$.  The smaller run
+(\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-1000-100-500.json}{scan-1000-100-500.json})
+over $B\le1000$ coprime to $30$ and $100\le\ell\le500$ gives $106{,}666$
+pairs and maximal first successful length $14$, first attained at
+$B=359$ and $\ell=291$.  The two cases have the following data.
 \begin{center}\small
 \begin{tabular}{@{}lrr@{}}
 \hline
- & Later report & Earlier report\\\hline
+ & Larger scan & Smaller scan\\\hline
 Denominator $B$ & $917$ & $359$\\
 Start $\ell$ & $2980$ & $291$\\
 Length $h$ & $18$ & $14$\\
@@ -2780,38 +2757,24 @@ used as evidence for cofinal escape.
 
 \subsection{Source inventory}\label{long269:long:sources}
 
-Each entry pairs a mathematical statement with its original Lean source
-link.  Declaration names are retained here for lookup, not introduced as
-mathematical terminology.  These links keep their original immutable
-revisions.  The supplied index describes a newer snapshot and inherited
-build evidence, as explained above; agreement between the revisions must
-not be assumed without comparing them.
+Each entry pairs a mathematical statement with the Lean source that
+states it, at a fixed earlier revision of the sources.  The declaration
+names are for lookup only.
 
-Two conventions require care.  The natural-number helper
-\nolinkurl{heightNormalizer235} uses integer division: its value at $0$
-is $0$, not $h_0=1/2$.  It agrees with $h_a$ for $a\ge1$, as assumed
-in the supplied half-height identity.  The real tail definition
-\nolinkurl{dyadicNormalizedTailStateR235} divides after casting to
-$\mathbb R$, so agrees with $X_a=h_aT_a$ at every index.
+Two conventions in the Lean sources require care.  The Lean version of
+the half-height $h_a$ is a natural number computed by integer division:
+its value at $0$ is $0$, whereas $h_0=1/2$.  It agrees with $h_a$ for
+$a\ge1$, as the half-height identity assumes.  The Lean version of the
+tail $X_a$ divides after casting to $\mathbb R$, so agrees with
+$X_a=h_aT_a$ at every index.
 
 The denominator-clearing and reduced-carry lemmas assume $T_1$ rational.
 The first shell consists of $1$ alone, so $T_1=S-1$; thus $S=N/D$ supplies
 \[
  T_1=\frac{N-D}{D},\qquad \gcd(N-D,D)=\gcd(N,D).
 \]
-The supplied \nolinkurl{PaperR7RationalBridge.lean} proves this
-translation, which preserves the denominator, its smooth factor and the
-clearing onset.  These comparisons use the attached sources; they are
-not a new build or verification of all historical link targets.
-
-Two displayed statements also have direct current-source counterparts.
-The threshold-column rank formula is
-\href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{finite cut rank};
-its range equality allows repeated columns and arbitrary ordering.  The
-uniform modular-minor statement is
-\href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{uniform modular minors};
-its row and column indices are chosen before the modulus and layer.  The
-two modules compiled under Lean~4.29.1 during this source migration.
+Lean proves this translation, which preserves the denominator, its
+smooth factor and the clearing onset.
 
 \begin{longtable}{@{}p{.35\linewidth}p{.59\linewidth}@{}}
 informal statement & linked Lean source\\
@@ -2960,13 +2923,14 @@ Two-prime values & Earlier factorisation plus the cited external
 Hecke--Mahler value theorem.  The reduction to that theorem is checked in
 Lean; the theorem itself is a cited input (Section~\ref{long269:sec:coverage}).\\
 Arbitrary-order rank & Diagonal rescaling, separate one-dimensional
-densities and a staircase determinant; selected supplied formal evidence.\\
+densities and a staircase determinant; checked in Lean.\\
 Tail recurrence & Counting the original multiplicities, normalising by
 half the boundary height, and convergence; an abstract recurrence would
 not identify the sum.\\
 Denominator reduction & A finite prefix with cleared denominators and
 an upper bound for positive integer tails.  The first valid index is
-determined by an ordinary proof.\\
+determined exactly (Proposition~\ref{long269:res:exact-denominator}); checked
+in Lean.\\
 Residue criterion & The actual recurrence, a dominating bound and window
 products comparable to $8^h$; escape at arbitrarily late starts remains
 unproved.\\
@@ -2974,32 +2938,27 @@ Weighted differences & Exact reindexing and the contributions of the
 new boundary strips; integer enumeration checks the displayed
 counterexample to third-difference cancellation.\\
 Finite computations & Direct checks settle only their individual
-windows; the large reports cannot be verified without their missing data.\\\hline
+windows.  The two large exclusions have published witnesses and exact
+checkers, and the larger scan a published saved run; none is a theorem
+input.\\\hline
 \end{tabular}
 \end{center}
-A source link identifies code; a build record reports what was run; an
-axiom audit concerns logical dependencies; and a finite computation checks
-its stated inputs.  None substitutes for a proof of the remaining
-irrationality assertion.
+None of these results proves the remaining irrationality assertion.
 
-\subsection*{Formalisation coverage and remaining dependencies}
+\subsection*{What the Lean proof of the two-prime theorem assumes}
 \label{long269:sec:coverage}
 \papersectiontarget{coverage}
 
-Every theorem, lemma, proposition and corollary of this record other than the
-one named below has a Lean statement of the same assertion, with the same
-hypotheses, checked by the Lean kernel using only the axioms
-\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
-development at revision \texttt{181078b6b009}.
-
-The exception is Theorem~\ref{long269:res:lead-two-prime}.  The development
-verifies its reduction to the transcendence of the Hecke--Mahler boundary sum
+Every theorem, lemma, proposition and corollary of this record carries a
+Lean mark in the margin.  Only the Lean proof of
+Theorem~\ref{long269:res:lead-two-prime} assumes an input.  It
+verifies the reduction of that theorem to the transcendence of the Hecke--Mahler boundary sum
 at an irrational $\theta\in(0,1)$ and nonzero algebraic $\beta,\alpha$ with
 $|\beta|<1$ and $|\beta||\alpha|^\theta<1$, which is Theorem~1.1 of Bugeaud
 and Laurent~\cite{bugeaudlaurent2023} in the case $\rho=0$, due to Loxton and
-van der Poorten~\cite[Theorem~8, p.~40]{loxtonvdp1977}.  A formal proof of that
-input is not included in the verified development, so this endpoint remains
-conditional on it.  Everything the proof adds is checked:
+van der Poorten~\cite[Theorem~8, p.~40]{loxtonvdp1977}.  Lean does not
+prove that input; the Lean theorem assumes it.  Everything the proof adds
+is checked:
 the running least-common-multiple identity, the selection of the single power
 of $q$ between consecutive powers of $p$, the factorisation of the repeated
 sum, the identification of the distinct running values, the telescoping
@@ -3015,53 +2974,6 @@ Theorem~\ref{long269:res:lead-two-prime} is asserted unconditionally in this
 record, and its Lean counterpart carries the additional named input described
 here.
 % Part: back
-% BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
-\paragraph{Concordance of statements and Lean declarations.}
-Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
-below with the declarations that jointly state it.  Each name links to its declaration at revision
-\texttt{a25cb360bef8}.  Where the Lean statement is stronger than the printed one and implies it by
-an immediate specialisation, the entry says so.  An entry marked \emph{compared} was also checked
-independently: a restatement of the same declarations against Mathlib alone, together with its
-proof, was verified by Comparator (\texttt{leanprover/comparator}) in a clean continuous
-integration environment, in the run named by its number.  Comparator trusts the restated
-statement, so the correspondence between the printed result and that statement is the one this
-concordance records.
-
-\begingroup\small\raggedright
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:lcm} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L49}{\nolinkurl{running_lcm_real_cutoff_exact}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:cell} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L65}{\nolinkurl{realPrefixLcm_eq_of_sameLogCell}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L87}{\nolinkurl{realPrefixLcm_jump_first}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L117}{\nolinkurl{realPrefixLcm_jump_second}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L129}{\nolinkurl{realPrefixLcm_jump_third}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L142}{\nolinkurl{threePrimeKernelQ_eq_of_sameRealLogCell}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:count}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L69}{\nolinkurl{paper_jump_count}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:fibre}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L407}{\nolinkurl{finiteSmoothKernelSum_groupedByHeight}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
-\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:short} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean\#L10}{\nolinkurl{exponent_unique_real_base_short_interval}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:drop} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L285}{\nolinkurl{realSmoothExponentShell_bounds}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:two-prime-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean\#L63}{\nolinkurl{real_two_prime_separation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:rank}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L102}{\nolinkurl{paper_two_by_two_fixture}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:infinite-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L22}{\nolinkurl{paper_uniform_rank_and_nonseparation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:finite-cut-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean\#L182}{\nolinkurl{rank_cutMatrix}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662}{\texttt{35682858662}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:uniform-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean\#L321}{\nolinkurl{uniform_rank_complete}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:dyadic-alphabet}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L669}{\nolinkurl{dyadicInternalPower_exponent_unique}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L701}{\nolinkurl{exists_dyadicInternalPower_iff_log_succ}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L734}{\nolinkurl{log_dyadic_succ_eq_of_no_internalPower}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L781}{\nolinkurl{threePrimeHeight_dyadicBlock_succ}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean\#L56}{\nolinkurl{radix_eq_height_ratio}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L762}{\nolinkurl{dyadicBlockBase235_cases}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L774}{\nolinkurl{dyadicBlockBase235_mem_interval}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-orbit}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean\#L189}{\nolinkurl{long_actual_orbit}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:literal-triangle} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean\#L193}{\nolinkurl{literal_triangle_whole}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:actual-dichotomy} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean\#L132}{\nolinkurl{scaled_integer_or_cofinal_separation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-tail-bound} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR8RankMajorant.lean\#L357}{\nolinkurl{actual_tail_rank_bound}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:all-scale-lattice} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean\#L56}{\nolinkurl{long_all_scale_lattice_exact}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-cancellation} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean\#L37}{\nolinkurl{long_fixed_split_bridgeR11}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean\#L26}{\nolinkurl{longPaperCap_le_three_squareR11}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:exact-denominator}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L334}{\nolinkurl{exact_denominators_and_minimal_clearing}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L309}{\nolinkurl{scaled_state_is_integer_iff_firstClearingIndex_le}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L166}{\nolinkurl{clearingCondition_iff_max}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L203}{\nolinkurl{firstClearingIndex_spec}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L208}{\nolinkurl{firstClearingIndex_minimal}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L213}{\nolinkurl{firstClearingIndex_le_sufficient}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:pinning} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean\#L77}{\nolinkurl{paper_pinning_and_eight_scale_rigidity}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:jump-constrained-bound} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean\#L339}{\nolinkurl{actual_sharp_tail_bound}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:consumer} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ResidueEscape.lean\#L110}{\nolinkurl{no_bounded_positive_int_state_of_leastPositiveResidue}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-escape-endpoint} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean\#L50}{\nolinkurl{octic_escape_whole}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:residue-limit} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L172}{\nolinkurl{eventually_fixedStartResidue_formula}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L205}{\nolinkurl{fixedStartResidue_ratio_tendsto}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L231}{\nolinkurl{eventually_fixedStartResidue_eq_tail_of_integral}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:window-growth} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean\#L196}{\nolinkurl{long_window_growth}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Corollary~\ref{long269:res:no-bounded-length} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean\#L267}{\nolinkurl{long_no_bounded_length}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:weighted-shift-identity} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean\#L216}{\nolinkurl{weighted_shift_whole}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:strip-decomposition} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean\#L132}{\nolinkurl{actual_weighted_strip_decomposition}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean\#L172}{\nolinkurl{actual_cubic_no_crossing_strips}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:fixed-base-recoding} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean\#L154}{\nolinkurl{fixed_base_recoding_whole}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:tails-equivalence} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean\#L214}{\nolinkurl{allReducedTailsNonintegral_iff}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458}{\texttt{35643815458}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:long:denominator-reduction} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean\#L25}{\nolinkurl{conditional_denominator_reduction_real_bound}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
-\par\noindent\hangindent=1.5em Proposition~\ref{long269:long:windowconsumer} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean\#L645}{\nolinkurl{no_positive_reducedCarry_of_cofinalLocalWindowEscape}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
-\par\endgroup
-% END GENERATED CONCORDANCE
 
 \begin{thebibliography}{99}
 \bibitem{erdosgraham1980} Paul Erd\H{o}s and Ronald L. Graham,
@@ -3075,7 +2987,7 @@ concordance records.
   \href{https://www.fq.math.ca/Scanned/12-4/letter.pdf}{source}.
 \bibitem{erdosproblems} Thomas F. Bloom,
   \emph{Erd\H{o}s Problem \#269} (2026),
-  \href{https://www.erdosproblems.com/269}{source}. Catalogue snapshot cited in the supplied manuscript: 28 July 2026.
+  \href{https://www.erdosproblems.com/269}{source}. Accessed 28 July 2026.
 \bibitem{formalconjectures269} The Formal Conjectures Authors,
   \emph{FormalConjectures.ErdosProblems.269} (2025),
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean}{source}.
@@ -3099,7 +3011,7 @@ concordance records.
   \href{https://doi.org/10.1017/S0004972700022978}{doi:\nolinkurl{10.1017/S0004972700022978}}.
 \bibitem{fan2026comment} Steve Fan,
   \emph{Comment on Erd\H{o}s Problem \#269, thread 269, post 7218} (2026),
-  \href{https://www.erdosproblems.com/forum/thread/269#post-7218}{source}. 26 June 2026, thread 269, post 7218; priority retained from the supplied record.
+  \href{https://www.erdosproblems.com/forum/thread/269#post-7218}{source}. Public forum post, 26 June 2026, thread 269, post 7218.
 \bibitem{erdosstraus1974} Paul Erd\H{o}s and Ernst G. Straus,
   \emph{On the irrationality of certain series}, Pacific Journal of Mathematics \textbf{55}, no.~1 (1974), 85--92,
   \href{https://doi.org/10.2140/pjm.1974.55.85}{doi:\nolinkurl{10.2140/pjm.1974.55.85}}.

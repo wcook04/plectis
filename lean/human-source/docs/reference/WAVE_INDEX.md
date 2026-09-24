@@ -393,7 +393,7 @@ claim-status authority.
 - `CertificateKernel.lean` (0.85 MiB, 19,278 lines, 845 declarations; 519 theorems and 275 lemmas): the assembled microkernel and headline interfaces.
 - `GeneratedCertificates.lean` (1.18 MiB, 27,728 lines, 1,174 declarations) plus 0 generated shards: finite certificate instances checked by the Lean kernel.
 - The diagonal-pincer family contains 0 isolated prime-certificate modules and 0 scale aggregators. The shards are indexed through aggregators rather than presented as separate mathematical claims.
-- Entire checked corpus: 1,822 modules, 163,596 declarations, 159,689 theorem-like declarations, and 8,171 manifest-marked generated-certificate declarations (a classification floor, not the generated share). The release gate rejects `sorry`, `admit`, custom `axiom` declarations, and `native_decide`.
+- Entire checked corpus: 1,823 modules, 163,598 declarations, 159,691 theorem-like declarations, and 8,171 manifest-marked generated-certificate declarations (a classification floor, not the generated share). The release gate rejects `sorry`, `admit`, custom `axiom` declarations, and `native_decide`.
 
 These are generated inventory facts, not mathematical claim counts. The declaration atlas
 and Lean source remain the drilldown owners.

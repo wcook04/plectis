@@ -3,13 +3,13 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2195,
-    "edges": 5944,
+    "nodes": 2196,
+    "edges": 5947,
     "node_kinds": {
       "comparator_review_family": 71,
       "human_document": 16,
       "integration_surface": 2,
-      "lean_module": 1820,
+      "lean_module": 1821,
       "mathematical_object": 105,
       "paper": 21,
       "problem": 8,
@@ -20,14 +20,14 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1828,
+      "contains": 1829,
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 21,
       "formalized_in": 43,
       "has_registry_review_unit": 1,
       "has_review_family": 71,
-      "imports": 3443,
+      "imports": 3445,
       "instantiates": 2,
       "interpreted_by": 16,
       "makes_exact": 1,
@@ -13209,6 +13209,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/MersenneConstantDecimal.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport",
+      "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/PositivePeriodicSupport.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/PositivePeriodicSupport.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/PositivePeriodicSupport.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
@@ -18498,7 +18507,7 @@
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds",
+      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -18570,7 +18579,7 @@
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: Proofs and Examples",
+      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
@@ -29759,6 +29768,11 @@
     {
       "source": "lean-module:ErdosProblems.EightPaperRecoveryAudit",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperRecoveryAudit",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim"
     },
     {
@@ -34390,6 +34404,11 @@
       "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.MersenneConstantDecimal",
       "relation": "imports",
       "target": "lean-module:Erdos249257.GreedyAchievementSet"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport",
+      "relation": "imports",
+      "target": "lean-module:Erdos249257.CertificateKernel"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
@@ -46105,6 +46124,11 @@
       "source": "universe:plectis-lean",
       "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.MersenneConstantDecimal"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport"
     },
     {
       "source": "universe:plectis-lean",

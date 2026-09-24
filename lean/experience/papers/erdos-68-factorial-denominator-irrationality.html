@@ -79,8 +79,9 @@ This does not exclude every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>299999</mn><annotation encoding="application/x-tex">299999</annotation></semantics></math>-smooth
 denominator: sufficiently high powers of a small prime need not divide
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">299999!</annotation></semantics></math>.
-Section 7 distinguishes this reported full run from the smaller
-computation repeated in the rewrite notes.</p>
+Section 7 describes the computation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mn>300000</mn></msub><annotation encoding="application/x-tex">b_{300000}</annotation></semantics></math>,
+which is carried out outside Lean.</p>
 </section>
 <section id="the-size-exclusion." class="level5">
 <h5>The size exclusion.</h5>
@@ -141,7 +142,8 @@ to every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>.
-The long record gives the immutable program and receipt links.</p>
+The long paper, <em>Denominators and Rationality Criteria</em>, links
+the program and its output in §6.</p>
 <p>Neither restriction implies the other: the prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>300007</mn><annotation encoding="application/x-tex">300007</annotation></semantics></math>
 satisfies the divisibility restriction and fails the size restriction,
@@ -171,9 +173,6 @@ problem is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090">criterion
 using the next integer</a>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L45">carry
-characterisation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Rationality forces eventual unit carries by
 <code>[eq:finite-denominator-consumer]</code>. Conversely, if
@@ -211,8 +210,7 @@ For the tail arguments below, the issue is the gap to an integer after
 scaling, not just the size of the unscaled tail. The remaining sections
 study that gap and the exact coefficient equations. Appendix A gives a
 factorial-digit formulation and the floor correction relating the two
-sequences. Secondary constructions are proved in the long companion
-paper, <em>Denominators and Rationality Criteria</em>.</p>
+sequences. Secondary constructions are proved in the long paper.</p>
 </section>
 </section>
 <section id="sec:channels" class="level2">
@@ -347,9 +345,6 @@ expansion
 \label{eq:channel-basis-expansion}
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260">divisor
-channel coordinates</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The moment of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>n</mi></msub><annotation encoding="application/x-tex">T_n</annotation></semantics></math>
@@ -555,11 +550,6 @@ and put
 Then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>D</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>H</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>H</mi><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">g_D=\gcd(u_{D+1},\ldots,u_H),\qquad H&lt;2D^2.</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">finite
-channel moment certificate</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L260">finite
-channel moment certificate eq</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mn>2</mn><mi>ℓ</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ℓ</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">D&lt;2\ell\le D(2\ell-1)=H</annotation></semantics></math>,
@@ -634,13 +624,6 @@ and
 some supported index is at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">2d</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean#L24">supported
-quotient band</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean#L42">supported
-first band cancellation</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean#L51">supported
-breakpoint escape</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> On the stated interval
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\lfloor n/d\rfloor=k</annotation></semantics></math>,
@@ -666,7 +649,7 @@ The last equality uses the full-tail divisibility
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,n)\mid u_n</annotation></semantics></math>
 together with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>23</mn><msub><mi>u</mi><mn>6</mn></msub><mo>−</mo><msub><mi>u</mi><mn>8</mn></msub><mo>=</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">23u_6-u_8=60</annotation></semantics></math>.
-The long record, §5.1, proves that divisibility by Legendre’s formula,
+The long paper, §5.1, proves that divisibility by Legendre’s formula,
 checks the attaining vector, and gives the different minimum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4140</mn><annotation encoding="application/x-tex">4140</annotation></semantics></math>
 when support is restricted to
@@ -704,8 +687,7 @@ implies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><msub><mi>L</mi><mi>D</mi></msub><mo>∣</mo><mi>M</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 12L_D\mid M.\label{eq:twelve-lcm}
 \end{equation}</annotation></semantics></math> This is a necessary
-divisor, not the minimum: the long record, §5.1, gives examples
-attaining
+divisor, not the minimum: the long paper, §5.1, gives examples attaining
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">12L_D</annotation></semantics></math>
 at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>2</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=2,3</annotation></semantics></math>
@@ -779,7 +761,7 @@ gives
 The choice
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">\alpha=\sqrt2</annotation></semantics></math>
 proves <code>[res:lcm-growth]</code>; the error estimates are given in
-the long record, §2.</p>
+the long paper, §2.</p>
 <p>This lower bound does not provide a small positive scaled tail. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N\ge3</annotation></semantics></math>,
 any common divisor of
@@ -816,7 +798,7 @@ it satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mi>⋯</mi><mo>=</mo><msub><mi>V</mi><mi>D</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>=</mo><mi>N</mi><mi>!</mi><munderover><mo>∏</mo><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><mi>D</mi></munderover><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mi>ℓ</mi><mi>/</mi><mi>d</mi></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">⌊</mo><msqrt><mi>N</mi></msqrt><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>∣</mo><mi>M</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">V_2=\cdots=V_D=0,\qquad
  M=N!\prod_{d=2}^D\bigl(1-(d!)^{-\ell/d}\bigr)&gt;0,
  \qquad (\lfloor\sqrt N/2\rfloor+1)!\mid M.</annotation></semantics></math>
-The long record, §5, paragraph “A primitive solution on an arithmetic
+The long paper, §5, paragraph “A primitive solution on an arithmetic
 progression”, constructs the coefficients from a polynomial with
 prescribed roots and proves integrality and primitivity by a multinomial
 count. Thus
@@ -928,7 +910,7 @@ for
 Thus no summand after index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q-2</annotation></semantics></math>
 can change the prime’s exponent in the reduced denominator; the general
-proof is in the long record, §1. This concerns partial sums, not a
+proof is in the long paper, §1. This concerns partial sums, not a
 hypothetical denominator of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
 Survival still needs to be combined with a bound for the real tail.</p>
@@ -1020,9 +1002,6 @@ R_p&gt;1,\qquad
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is irrational.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L154">global
-complementary criterion nat</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
@@ -1177,8 +1156,8 @@ itself, smaller than the tested upper bound. Increasing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 changes neither
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-nor denominator coverage. The long record, §5.1, gives the full endpoint
-argument; its further numerical examples are in Appendix B.6.</p>
+nor denominator coverage. The long paper gives the full endpoint
+argument in §5.1 and further numerical examples in its Appendix B.6.</p>
 <section id="sec:nogo" class="level5">
 <h5>The limit of short truncations.</h5>
 <p> As
@@ -1223,15 +1202,13 @@ Its unit carries occur at
 In particular
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>300000</mn></msub><mo>≠</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_{300000}\ne1</annotation></semantics></math>,
 giving the exclusion proved in
-<code>[eq:finite-denominator-consumer]</code>. This is a reported exact
-computation outside Lean. The long record, §6, transcribes its driver,
-backend and payload digests and distinguishes the smaller replay through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4000</mn><annotation encoding="application/x-tex">4000</annotation></semantics></math>.
-The original packet supplies the report, not the full GMP executable and
-payload; this prose revision neither authenticates those files nor
-repeats the full run.</p>
+<code>[eq:finite-denominator-consumer]</code>. The carry certificate is
+an exact computation outside Lean; Lean proves the implication from a
+non-unit carry to the exclusion. The long paper, §6, identifies its
+program and output, and describes a separate computation through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4000</mn><annotation encoding="application/x-tex">4000</annotation></semantics></math>.</p>
 <p>The continued-fraction enclosure and its denominator implication are
-proved in §1. The exact replay gives
+proved in §1. The exact computation gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>7054</mn></mrow><annotation encoding="application/x-tex">N=7054</annotation></semantics></math>,
 enclosure width
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>7053</mn><annotation encoding="application/x-tex">7053</annotation></semantics></math>
@@ -1239,9 +1216,9 @@ at scale
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>80000</mn></msup><annotation encoding="application/x-tex">2^{80000}</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23449</mn><annotation encoding="application/x-tex">23449</annotation></semantics></math>
-common partial quotients. Its integer algorithm and receipt are recorded
-in the long paper, §6. These two finite calculations are distinct from
-an unbounded family of non-unit carries or successful remainder
+common partial quotients. It is also outside Lean; the long paper, §6,
+links its program and output. These two finite calculations are distinct
+from an unbounded family of non-unit carries or successful remainder
 comparisons.</p>
 </section>
 <section id="sec:companion-orbit" class="level2">
@@ -1304,9 +1281,6 @@ for every sufficiently large
  \label{eq:companion-cofinal}
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L27">companion
-orbit boundary</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> First suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
@@ -1414,165 +1388,81 @@ neither indicator can simply be omitted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The proofs above can be read without following the Lean links. Each
-link retains the commit and path cited in the original manuscript; the
-links do not assert that all the modules were compiled together.</p>
-<p>The source packet for this revision contains the public snapshot
-<code>6b78209ab63a8c643281115f8628a3be79ff7ec7</code> and the separate
-release <code>52f29ad173b04e3bac941b3663f2b9aebe5de0bb</code>. Its
-declaration index distinguishes recorded checked declarations, source
-files outside the recorded build, and release-only declarations. In
-particular, <code>PaperCompleteExisting</code> is present but outside
-the recorded checked build, as is the candidate finite-size certificate.
-Source presence is not a proof-checking receipt.</p>
-<p>The packet’s build receipt points back to a successful Lean build at
-an earlier commit; the Lean build step at the supplied public pin was
-skipped. No Lean build or axiom audit was run for this prose revision.
-Statements below described as checked refer to the supplied source and
-build records, not to a new compilation. Likewise, the large carry
-census is a recorded integer computation, not a Lean theorem established
-by this revision. The continued-fraction enclosure and the small
-numerical examples can be checked independently with integer arithmetic;
-the rewrite notes record which such checks were repeated.</p>
-<section id="source-counterparts-of-the-main-statements."
-class="level5">
-<h5>Source counterparts of the main statements.</h5>
-<p>The following links identify the declarations corresponding to the
-numbered results and selected formulas. The source and build
-qualifications above apply to every entry.</p>
-<p>Theorem A.1. The formal statement of the equivalence is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L29">the
-factorial-residue equivalence</a>.</p>
-<p>Theorem 1.1. A single source declaration records <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47">both
-carry equivalences</a>. The equivalent condition <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>∤</mo><msub><mi>Z</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">m\nmid Z_m</annotation></semantics></math>
-at arbitrarily large indices</a> has the same unbounded quantifier.</p>
-<p>Theorem 2.1. The corresponding Lean statement gives <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean#L260">the
-integer basis and its coefficient formula</a>.</p>
-<p>Equation <code>[res:translator]</code>. The source records <a
+<p>The proofs above can be read without following the Lean links. The
+numbered results carry their Lean proofs in the margin; the links below
+identify further Lean statements used in the proofs, at fixed earlier
+revisions of the sources. The carry certificate and the
+continued-fraction enclosure of Section 7 are exact integer computations
+outside Lean.</p>
+<section id="further-formal-sources." class="level5">
+<h5>Further formal sources.</h5>
+<p>The Lean sources also give <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L17">the
 explicit vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>9</mn></msub><annotation encoding="application/x-tex">U_9</annotation></semantics></math></a>
-and <a
+of <code>[res:translator]</code> with <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L45">its
-weighted sums</a>.</p>
-<p>Congruence <code>[res:congruence]</code>. The source states this as
-<a
+weighted sums</a>, and state the
+congruence <code>[res:congruence]</code> as <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53">divisibility
 of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(\lambda)-M(\lambda)</annotation></semantics></math>
 by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d!-1</annotation></semantics></math></a>.</p>
-<p>Theorem 2.2. The linked Lean statement gives <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean#L252">the
-finite formula for the gcd</a>.</p>
-<p>Theorem 2.3. The linked sources give <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
-factorisation for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">its
-zero-moment consequence</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">the
-case
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">d\le n&lt;2d</annotation></semantics></math></a>,
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">the
-support conclusion</a>.</p>
-<p>Proposition 5.1. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156">formal
-counterpart</a> states the same implication for natural-number
-parameters.</p>
-</section>
-<section id="what-the-source-records-establish." class="level5">
-<h5>What the source records establish.</h5>
-<p>The identities for adjacent coefficient differences, the recursion
-that isolates one weighted sum, the vanishing moment, the individual
-values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d!-1</annotation></semantics></math></a>.
+The identities for adjacent coefficient differences, the recursion that
+isolates one weighted sum, the vanishing moment, the individual values
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>d</mi></msub><annotation encoding="application/x-tex">V_d</annotation></semantics></math>,
 and the factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>
 have formal proofs in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.lean">the
-integer basis for the weighted sums</a>. The unique integral basis
-expansion, attainable-moment formula and construction on an arithmetic
-progression are ordinary proofs, described in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.md">the
-integer basis for the weighted sums</a> and, for the grid construction,
-in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompressedPrimitiveChannelKernel.md">the
-primitive vector on an arithmetic progression</a>. The quadratic
-stopping theorem is checked in <a
+Lean file on the integer basis</a>. The basis expansion, the
+attainable-moment formula and the construction on an arithmetic
+progression are also written out in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.md">an
+account of the integer basis</a> and, for the construction, in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompressedPrimitiveChannelKernel.md">an
+account of the primitive vector</a>. The Lean proof of Theorem 2.2 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean">the
-quadratic stopping bound for the gcd</a>, together with the scalar
-recurrence, the equal-block divisibility and the explicit coefficient at
-twice a prime used in its proof. The divisibility
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,n)\mid u_n</annotation></semantics></math>
-and the
-depth-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
-moment
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>
-have ordinary proofs with exact checks in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_moment_saturation.py">exact
-checks of the moment divisibility</a>. Checks for the finite gcd
-calculation are in <a
+finite formula for the gcd</a>) also checks the scalar recurrence, the
+equal-block divisibility and the explicit coefficient at twice a prime
+used in its proof. Checks for the finite gcd calculation are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_finite_source.py">the
-finite gcd verification script</a>. The inherited generic lemmas in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean">gcd
-lemmas with an assumed divisibility</a> assume that divisibility; they
-do not prove it for the factorial coefficients. The growth liminf is the
-ordinary asymptotic consequence of the finite terminal-block inequality
-cited above, and Lean checks it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">the
-liminf bound for the common denominator</a>. The checked counterpart of
-the growth liminf in the public Lean release
-<code>wcook04/plectis-erdos-lean</code> at commit <code>52f29ad1</code>
-is identified in the next source paragraph
-for <code>[res:lcm-growth]</code>.</p>
-<p>Formal proof checking does not assess external novelty or the
-significance of the remaining hypothesis. The complete source register,
-receipts and failed-route calculations belong to the long record.</p>
+finite gcd verification script</a>. The divisibility
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,n)\mid u_n</annotation></semantics></math>
+and the minimum moment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">D=4</annotation></semantics></math>
+have ordinary proofs, supplemented by exact checks in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_moment_saturation.py">a
+script</a>. <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean">Generic
+gcd lemmas in the Lean sources</a> assume that divisibility; they do not
+prove it for the factorial coefficients.</p>
 </section>
-<section id="formal-sources-for-the-common-denominator-bound."
-class="level5">
-<h5>Formal sources for the common-denominator bound.</h5>
-<p>The formal sources for <code>[res:lcm-growth]</code> include <a
-href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">the
-liminf bound for the common denominator</a>. The separate public Lean
-release <code>wcook04/plectis-erdos-lean</code> at commit
-<code>52f29ad1</code> states the bound <code>[res:lcm-growth]</code>,
-with the least common multiple of
+<section id="the-common-denominator-bound." class="level5">
+<h5>The common-denominator bound.</h5>
+<p>The growth liminf <code>[res:lcm-growth]</code>, with the least
+common multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">2\le n\le N</annotation></semantics></math>
-as the common denominator, as <code>common_denominator_growth</code> and
-in extended real form as <code>common_denominator_growth_liminf</code>.
-The statements are in the Comparator challenge file <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249"><code>PalomarCorpus/E68/Challenge.lean</code></a>,
-where the proofs are left as <code>sorry</code>. The solution file <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean#L17"><code>Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean</code></a>
-closes both by transfer from <code>common_denominator_growth</code> in
-<code>ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean</code> and
-<code>common_denominator_growth_liminf</code> in
-<code>ErdosProblems/Erdos68/PaperCompleteLiminf.lean</code> of the same
-release. The supplied release record reports that a Linux replay of
-Palomar’s Comparator stage accepted the entry with the Lean kernel and
-with NanoDa (<a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">run
-34782407633</a>). This bound concerns a common denominator of the
-partial sums. It is not a lower bound for the denominator of the series
-under a rationality assumption. The finite-block inequality has a
-separate Lean source, <a
+as the common denominator, is the ordinary asymptotic consequence of the
+finite terminal-block inequality, and Lean checks it as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">the
+liminf bound for the common denominator</a>. The finite-block inequality
+has a separate Lean source, <a
 href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">the
-inequality for a terminal block</a>.</p>
+inequality for a terminal block</a>. The long paper proves the same
+bound in §2, where the margin links give its Lean proof and an
+independent Comparator check. This bound concerns a common denominator
+of the partial sums. It is not a lower bound for the denominator of the
+series under a rationality assumption.</p>
 </section>
 <section id="links-to-individual-statements." class="level5">
 <h5>Links to individual statements.</h5>
-<p>The links below are grouped by the calculation they support. Their
-original commit, file, line and declaration targets are unchanged; the
-separate build qualifications above still apply.</p>
+<p>The links below are grouped by the calculation they support.</p>
 <p><em>Successive partial sums and carries:</em> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">the
 condition for two consecutive unit carries</a>; <a
@@ -1651,6 +1541,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 change in a weighted sum at one index</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">adjacent
 differences affect only divisor weighted sums</a>.</p>
+<p><em>Constant values of the floor in the weights:</em> <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
+factorisation for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math></a>;
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">its
+zero-moment consequence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">the
+case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">d\le n&lt;2d</annotation></semantics></math></a>;
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">the
+support conclusion</a>.</p>
 <p><em>The two-term vector:</em> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101">the
 vector
@@ -1703,8 +1606,8 @@ uses an eventual cutoff for positivity and nonvanishing <span
 class="citation" data-cites="lai"></span>, attributed there to Luca and
 Shparlinski <span class="citation"
 data-cites="luca-shparlinski"><a href="#ref-9">[9]</a></span>. Its proof, including the uniform
-choice of cutoff and the lower-order gcd loss, is in the long record,
-§2. The non-polynomial shift
+choice of cutoff and the lower-order gcd loss, is in the long paper, §2.
+The non-polynomial shift
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+2^n-1</annotation></semantics></math>
 uses a different, three-index elimination <span class="citation"
 data-cites="luca-shparlinski-exp"><a href="#ref-14">[14]</a></span>; it is not an instance of that
@@ -1784,7 +1687,7 @@ approximation bound is not applied to
 integrality of normalised rational tails <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>, and classify the
 polynomial-coefficient case <span class="citation"
-data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>. The long record, Appendix B.2,
+data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>. The long paper, Appendix B.2,
 explains the direct application after rewriting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 as a factorial series with integer carry-defect coefficients. These
@@ -1832,54 +1735,21 @@ an odd prime, already suffice without that test. These comparisons, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148">the
 condition for two consecutive unit carries</a>, and an example
 distinguishing the integer recurrence from its defining floor relation
-are given in the long record. It also explains why any fixed collection
-of denominator factors eventually divides the factorial being
-removed.</p>
-<p>The standalone formal source for the carry equivalences is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">the
-isolated source for the next-integer criterion</a>. <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">The
-module on factorial-scaled partial sums and the next integer</a>
-duplicates this development; it is not the standalone source. Formal
-proofs of the rationality equivalence are given in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">rationality
-and factorial residues</a>. Its statements corresponding to the paper
-are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">eventual
-residue congruence under rationality</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">arbitrarily
-late failures of the residue congruence</a>. The combined statement <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">the
-full factorial-residue equivalence</a> corresponds to Theorem A.1 and
-the following <a
-href="#bdry:companion-orbit-nonconcentration">remark</a>. The long
-record also gives the two simultaneous inequalities for a selected
-prime, the shared-factor bound for the selected factors, and the
-eventual absorption of fixed denominator indices. The separate public
-Lean release <code>wcook04/plectis-erdos-lean</code> at commit
-<code>52f29ad1</code> selects those three endpoints as
-<code>movingPrivateFactorScaleSplit_implies_irrational</code>,
-<code>splitFactorNormalizedCollision_implies_irrational</code> and
-<code>fixedOwnerPair_eventually_absorbed</code> in
-<code>PalomarCorpus/E68/Challenge.lean</code>. These three release
-statements are separate from the historical public links above. The
-supplied release record reports acceptance of the <code>E68</code> entry
-at commit <code>52f29ad1</code> by the Linux replay of Palomar’s
-Comparator stage (run 34782407633, cited earlier in this appendix). That
-report does not establish a new compilation of every source linked by
-this manuscript. The unconditional correction
-<code>[eq:companion-wrap]</code> is checked in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">the
-exact floor correction for the companion series</a>, and the
-pole-residue identity and the two displayed reciprocal equalities are
+are given in the long paper. It also explains why any fixed collection
+of denominator factors eventually divides the factorial being removed.
+The long paper also gives the two simultaneous inequalities for a
+selected prime, the shared-factor bound for the selected factors, and
+the eventual absorption of fixed denominator indices.</p>
+<p>The unconditional correction <code>[eq:companion-wrap]</code> is
 checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">the
+exact floor correction for the companion series</a>, and the residue
+congruence for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>M</mi></msub><annotation encoding="application/x-tex">A_M</annotation></semantics></math>
+in §4 and the two displayed reciprocal equalities are checked in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">the
-prime-power noncancellation criterion</a>. The complete maximal-hit data
-come from the separate exact modular scan; the carry census and
-continued-fraction certificate use exact integer computation outside
-Lean. The inherited macro-generated links use public source pin
-<code>99f4bf47422a</code>. Their targets are retained for traceability,
-not retargeted to the newer attached snapshot.</p>
+prime-power noncancellation criterion</a>. The indices and cofactor
+residues in §4 come from a separate exact modular scan.</p>
 </section>
 </section>
 <section id="acknowledgements" class="level2 unnumbered">
@@ -1889,14 +1759,6 @@ explaining notation when it first appears, avoiding private terminology,
 and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
 mathematics of this paper.</p>
-<p><em>Companion system context.</em> The <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
-and trust boundary</a>, <a
-href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
-route to proof authority</a>, and <a
-href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
-contribution protocol</a> are described in sibling papers. Those
-descriptions do not change the mathematical status of this note.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

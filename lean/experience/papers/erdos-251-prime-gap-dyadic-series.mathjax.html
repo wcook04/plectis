@@ -90,11 +90,6 @@ class="math inline" data-term-auto="off">\(m=m(X)\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(m(X)=o(\log\log X)\)</span>, uniformly over target
 values.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L269">arbitrary
-word sparse rationalisation uniform</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L137">polylogarithmic
-word interval uniform</a>.</small></p>
 <p>The convergence hypothesis includes all nonnegative integer sequences
 of polynomial growth, but excludes <span
 class="math inline" data-term-auto="off">\(a_n=2^n\)</span>. The allowance <span
@@ -276,8 +271,9 @@ class="math inline" data-term-auto="off">\(B_0\)</span> that also depend on the 
 index, the same coupling bounds the mean change by <span
 class="math inline" data-term-auto="off">\(2B_0m|S\cap[X,2X+m)|/X\)</span>. This is an
 absolute bound, not a relative estimate for rare events; unchanged
-finite blocks need not have unchanged complete tails. The companion,
-Section 2, discusses these distinctions.</p>
+finite blocks need not have unchanged complete tails. Section 2 of the
+companion paper, <em>Prime-Gap Dyadic Series: Perturbations, Exact
+Criteria and Certificates</em>, discusses these distinctions.</p>
 <p>To apply the construction, write <span
 class="math inline" data-term-auto="off">\(p_0=2,p_1=3,\ldots\)</span> and <span
 class="math inline" data-term-auto="off">\(g_n=p_{n+1}-p_n\)</span>. The central-binomial
@@ -329,14 +325,6 @@ class="math display" data-term-auto="off">\[0\le P_n-p_n=O_\varepsilon\!\left(
 <p><em> These positions are not asserted to be
 prime.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L431">short
-joint prime gap countermodel</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L228">cut
-prefix bound</a>. Conditional on Schlage-Puchta’s density lemma and the
-prime number theorem; see the <a
-href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#nameddest=coverage">coverage
-section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose a rational target in the interval of
 Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> and put
@@ -429,8 +417,7 @@ hypotheses and sampling conventions; Section <a class="math-ref" href="#sec:pin
 retains the further literature references.</p>
 <p>The remaining sections ask what information about the actual weighted
 tails would prove irrationality. Further equivalences, counterexamples
-and computations are in the companion, <em>Prime-Gap Dyadic Series:
-Perturbations, Exact Criteria and Certificates</em>.</p>
+and computations are in the companion.</p>
 </section>
 </section>
 <section id="sec:parts" class="level2">
@@ -454,17 +441,6 @@ class="math inline" data-term-auto="off">\(G\)</span> and <span
 class="math inline" data-term-auto="off">\(T_0\)</span> have the same rationality
 status.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
-prime gap identity</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">real
-prime gap tail eq tsum shifted gaps</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L57">real
-prime gap tail zero</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">real
-prime gap tail recurrence</a>, and 2 further declarations in the <a
-href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#nameddest=coverage">coverage
-section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Finite summation by parts retains the endpoint:</p>
 <div class="math-display" data-term-auto="off"><span
@@ -489,9 +465,6 @@ class="math inline" data-term-auto="off">\(U_N=\sum_{j\ge1}a_{N+j}2^{-j}\)</span
 <span class="math inline" data-term-auto="off">\(N\)</span> if and only if <span
 class="math inline" data-term-auto="off">\(2^{-N}U_N\to0\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean#L57">real
-dyadic orbit eq true tail iff</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The recurrence gives <span
 class="math inline" data-term-auto="off">\(2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}\)</span>. If
@@ -551,11 +524,6 @@ positive shift is nonintegral at every index, equivalently when for each
 fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span> there are arbitrarily
 late nonintegral shifts.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean#L62">real
-orbit exact den and shift</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L94">rationality
-classification</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Iteration gives</p>
 <div class="math-display" data-term-auto="off"><span
@@ -618,11 +586,6 @@ that case <span class="math inline" data-term-auto="off">\(sD&#39;\in(-1,0)\)</s
 <span class="math inline" data-term-auto="off">\(D\)</span> and <span
 class="math inline" data-term-auto="off">\(D&#39;\)</span> are nonintegral.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean#L7">signed
-two window iff</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean#L47">signed
-two window consequences</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The bounds on <span class="math inline" data-term-auto="off">\(D\)</span>
 and <span class="math inline" data-term-auto="off">\(D&#39;\)</span> imply <span
@@ -693,9 +656,6 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p class="display-continue"><em> then <span class="math inline" data-term-auto="off">\(\Pi\)</span> is
 irrational.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L273">irrational
-prime series of finite truncation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The distance from <span
 class="math inline" data-term-auto="off">\(D_N\)</span> to <span
@@ -783,12 +743,13 @@ strictly increasing, and their adjacent differences <span
 class="math inline" data-term-auto="off">\(4n+10\)</span> are never <span
 class="math inline" data-term-auto="off">\(\pm2\)</span>. This is a synthetic sequence, not a
 prime-gap construction; the companion, Section 8.6, treats the
-polynomial examples. For the first example, the sources give <a
+polynomial examples. Lean checks <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1157">the
 telescoping formula</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163">nonperiodicity</a>.</p>
-<p>The companion, Appendix D.5, also gives a bounded nonperiodic
-example. The actual prime gaps are <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163">nonperiodicity</a>
+for the first example.</p>
+<p>The companion’s Proposition D.6 gives a bounded nonperiodic example.
+The actual prime gaps are <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">not
 eventually periodic</a>, so that property alone does not settle their
 dyadic sum.</p>
@@ -812,11 +773,6 @@ small.</p>
 prime-gap dyadic series is. Both series converge by the polynomial bound
 proved above; neither side is proved irrational.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
-prime gap identity</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L56">irrationality
-reformulation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Theorem <a class="math-ref" href="#res:infinite">2.1</a> gives <span
 class="math inline" data-term-auto="off">\(\Pi=2+G\)</span>, and adding a rational number
@@ -828,9 +784,6 @@ preserves both rationality and irrationality. ◻</p>
 actual consecutive-prime-gap sequence is not eventually periodic with
 period <span class="math inline" data-term-auto="off">\(h\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L175">prime
-gaps not eventually periodic</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> An eventually periodic sequence takes only finitely
 many values and is bounded. Prime gaps are unbounded: for each <span
@@ -855,27 +808,16 @@ needed arbitrarily late for every positive shift; <a class="math-ref" data-equat
 sufficient condition. The preserved statistics do not supply this step,
 but primality or sharper rare-event estimates may still be used. The
 finite certificates do not prove irrationality.</p>
-<section id="attribution-and-verification" class="level3 unnumbered">
-<h3 class="unnumbered">Attribution and verification</h3>
-<p>The source links retain revision <code>99f4bf47422a</code>; the
-companion’s declaration index records the sparse existence results and
-build status. The printed construction uses triples; the formal one
-changes one coordinate at a time. The linked polylogarithmic statement
-chooses the permitted set, interval, and support-count constant and
-cutoff before the target; its eventual congruences and convergence are
-quantified after the target. The common congruence cutoffs used here
-follow from the printed schedule. The companion separates these
-statement-level guarantees from the uniform bounds deduced using the
-common support. The prime-gap corollary is an ordinary deduction using
-Schlage-Puchta’s theorem and the prime number theorem.</p>
-<p>The verification record reports a build of <code>ErdosProblems</code>
-and <code>Erdos249257</code> with Lean 4.29.1; no new Lean build is
-claimed here. Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-10">[10]</a></span>
-and mathlib <span class="citation" data-cites="mathlib"><a href="#ref-11">[11]</a></span> provide
-the checking environment. The companion distinguishes checked
-declarations, exact integer computations and ordinary proofs. A source
-link alone does not establish that the linked statement belongs to a
-successful build.</p>
+<section id="formal-proofs-and-acknowledgements"
+class="level3 unnumbered">
+<h3 class="unnumbered">Formal proofs and acknowledgements</h3>
+<p>Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-10">[10]</a></span> and mathlib
+<span class="citation" data-cites="mathlib"><a href="#ref-11">[11]</a></span> provide the checking
+environment. The Lean proof of Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> uses a
+different construction: at each stage it changes one coordinate, where
+the printed proof changes a triple. Like the printed statement, it fixes
+the permitted set, the interval and every congruence cutoff before the
+target.</p>
 <p>I thank Wouter van Doorn for advice on explaining unfamiliar
 hypotheses, removing unnecessary terminology, and using notation only
 when it helps the reader. His comments concerned an earlier note on
@@ -888,10 +830,9 @@ data-cites="erdosproblems"><a href="#ref-16">[16]</a></span>.</p>
 </section>
 <section id="sec:pinned-lean-sources" class="level2">
 <h2>Sources and further comparisons</h2>
-<p>The links below identify the formal definitions and statements used
-in this note. Each retains its original source revision and line number.
-The descriptions give the mathematical content rather than the names
-used in the Lean files.</p>
+<p>The links below identify further formal definitions and statements
+used in this note, at their original revision and line number. Each link
+is labelled by the mathematics it states.</p>
 <p><strong>Finite series.</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L47">The
 first prime gap is one</a>; <a
@@ -1058,14 +999,6 @@ not growing families of automata or the unbounded gap sequence. They
 give logarithmic densities in general, and a sufficient condition for
 natural densities to exist and be rational; the logarithmic densities
 need not be rational.</p>
-<p><em>Companion system context.</em> The <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
-and trust boundary</a>, <a
-href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
-route to proof authority</a>, and <a
-href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
-contribution protocol</a> are described in sibling papers. Those
-descriptions do not change the mathematical status of this note.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1162,12 +1095,11 @@ between primes</em></a>. Annals of Mathematics <strong>179</strong>
 href="https://doi.org/10.4007/annals.2014.179.3.7">10.4007/annals.2014.179.3.7</a>.</p></li>
 <li id="ref-16"><p>Thomas F. Bloom, <a
 href="https://www.erdosproblems.com/251"><em>Erdős Problem
-#251</em></a>. 2026. Catalogue snapshot accessed 6 September
-2026.</p></li>
+#251</em></a>. 2026. Accessed 6 September 2026.</p></li>
 <li id="ref-17"><p><span>Erdős Problems contributors</span>, <a
 href="https://www.erdosproblems.com/forum/thread/251"><em>Erdős Problem
-#251 discussion thread</em></a>. 2026. Snapshot accessed 6 September
-2026: Tao comment of 7 October 2025 and Land comments of 6 September
+#251 discussion thread</em></a>. 2026. Accessed 6 September 2026: Tao
+comment of 7 October 2025 and Land comments of 6 September
 2026.</p></li>
 <li id="ref-18"><p><span>ChatGPT 5.4 Pro (orchestrated by Vjeko Kovač)</span>, <a
 href="https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf"><em>On

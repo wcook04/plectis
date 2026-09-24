@@ -505,7 +505,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "cc21d52dae6c2b81350a6042d9138c9c0009b15d37f51dfbc37542ef69cce976",
+    "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -529,7 +529,7 @@
     "subject": "Erdős #249",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 17,
+    "pages": 16,
     "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
     "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=∑ φ(n)2^{-n}. They do not establish that S is irrational.",
     "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -553,17 +553,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 34,
       "renderer_fingerprint": "832c62a7a87ab6fd",
-      "source_sha256": "b1f44a81d1e5e4eda4f6c4ee8955bc2e22779fc10e2d370581356aaed668a8fe",
+      "source_sha256": "a66a9b8be8cfeaca7235cb65b00d13672fdc980dcda9c063f52956fc0c92442d",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 540,
+      "mathml_node_count": 538,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "298139701e1d6ae82e8ac17d3a86e1361cc5947304b47a1e7c33a1d28d97f43f",
-      "html_exact_tex_sha256": "0ab88eec8b875a286d4188d4a1975d4ecba85671b9746cf4954dd2ceb705ced4"
+      "html_mathml_sha256": "08de4c5f55ef49e44033bd4fdef5e1e895eb7ad42c3dbae42a6c741ed1af7e45",
+      "html_exact_tex_sha256": "7ac2a77e4ccf82fe928e64942d3727a17073e0aeb0bb75a50b1ca449ad556a67"
     },
     "sections": [
       {
@@ -638,13 +638,8 @@
       },
       {
         "level": 3,
-        "anchor": "formal-verification-and-finite-certificates",
-        "label": "Formal verification and finite certificates"
-      },
-      {
-        "level": 5,
-        "anchor": "formal-support.",
-        "label": "Formal support."
+        "anchor": "a-finite-denominator-exclusion",
+        "label": "A finite denominator exclusion"
       },
       {
         "level": 3,
@@ -698,7 +693,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 17,
+      "pages": 16,
       "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
       "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=∑ φ(n)2^{-n}. They do not establish that S is irrational.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -722,17 +717,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 34,
         "renderer_fingerprint": "832c62a7a87ab6fd",
-        "source_sha256": "b1f44a81d1e5e4eda4f6c4ee8955bc2e22779fc10e2d370581356aaed668a8fe",
+        "source_sha256": "a66a9b8be8cfeaca7235cb65b00d13672fdc980dcda9c063f52956fc0c92442d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 540,
+        "mathml_node_count": 538,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "298139701e1d6ae82e8ac17d3a86e1361cc5947304b47a1e7c33a1d28d97f43f",
-        "html_exact_tex_sha256": "0ab88eec8b875a286d4188d4a1975d4ecba85671b9746cf4954dd2ceb705ced4"
+        "html_mathml_sha256": "08de4c5f55ef49e44033bd4fdef5e1e895eb7ad42c3dbae42a6c741ed1af7e45",
+        "html_exact_tex_sha256": "7ac2a77e4ccf82fe928e64942d3727a17073e0aeb0bb75a50b1ca449ad556a67"
       },
       "sections": [
         {
@@ -807,13 +802,8 @@
         },
         {
           "level": 3,
-          "anchor": "formal-verification-and-finite-certificates",
-          "label": "Formal verification and finite certificates"
-        },
-        {
-          "level": 5,
-          "anchor": "formal-support.",
-          "label": "Formal support."
+          "anchor": "a-finite-denominator-exclusion",
+          "label": "A finite denominator exclusion"
         },
         {
           "level": 3,
@@ -867,7 +857,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 164,
+      "pages": 140,
       "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
       "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -891,10 +881,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 34,
         "renderer_fingerprint": "832c62a7a87ab6fd",
-        "source_sha256": "5f3c27407fc4067fb4a9570a8e2c2ac08a860ce1505e5db7c2a6d08cc446a286",
+        "source_sha256": "a6c609c1f6ae72f3f1d287164b1d0d7ebfc02b9dce643fb383373edfafabcd53",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4517,
+        "mathml_node_count": 4486,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -919,8 +909,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "571f9d181bf03aebd138a81c6b303d801ed1503a779e969f5a62428648115e6e",
-        "html_exact_tex_sha256": "1bc20e4d6a3010b92f08a70dd4544728fb55a2f2c4bddd5e93ca0ad598b11a14"
+        "html_mathml_sha256": "57af2b20f972c8e6d46207489d2fc798ac201f3b061ab350912cd9ce4df75dda",
+        "html_exact_tex_sha256": "ab7b0d26afeb846ed701a78699ff7793b871259a142ad1ea6040077c9191840b"
       },
       "sections": [
         {
@@ -1707,16 +1697,6 @@
           "level": 5,
           "anchor": "sources-and-data.",
           "label": "Sources and data."
-        },
-        {
-          "level": 3,
-          "anchor": "sec:coverage",
-          "label": "Formalisation coverage and remaining dependencies"
-        },
-        {
-          "level": 5,
-          "anchor": "concordance-of-statements-and-lean-declarations.",
-          "label": "Concordance of statements and Lean declarations."
         },
         {
           "level": 5,

@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1041-lemniscate-newton-flow",
-  "title": "Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds",
+  "title": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria",
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 32,
+  "pages": 28,
   "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
   "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
   "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
@@ -29,19 +29,24 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 34,
     "renderer_fingerprint": "832c62a7a87ab6fd",
-    "source_sha256": "a3ee862f03e19aeff31926a797d8908429a772d0b1468c036108c6f6c28df37e",
+    "source_sha256": "53ff3bef71fb81041ea80b960e88147e6d75481d17048eca1f93fcabe7497999",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 798,
+    "mathml_node_count": 796,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "d011adb4d9535d50fe860b7fb224daed826ee23c9607aa2dc5ce44922c439352",
-    "html_exact_tex_sha256": "eb871e616b90e41c8d4be63734ce08b094325b7228176f304ec4f8c61e7b0976"
+    "html_mathml_sha256": "412131a7027afa04b97d61da5f9445249b0be0dd7c0c80dfc12dc8579c008ef9",
+    "html_exact_tex_sha256": "6ad9c93738c0f83913af31cbd5cb73d1e7fdeb04b1bed9802d200ca915f2856a"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": "sec:problem",
+      "label": "The question and a degree-seven counterexample"
+    },
     {
       "level": 2,
       "anchor": "sec:trinomial",
@@ -51,11 +56,6 @@
       "level": 5,
       "anchor": "abel-summation-along-a-segment.",
       "label": "Abel summation along a segment."
-    },
-    {
-      "level": 2,
-      "anchor": "sec:problem",
-      "label": "The historical question and the path estimates"
     },
     {
       "level": 2,
@@ -120,7 +120,7 @@
     {
       "level": 5,
       "anchor": "bdry:critical-value-separation",
-      "label": "Formalisation."
+      "label": "Scope."
     },
     {
       "level": 2,
@@ -185,7 +185,7 @@
     {
       "level": 2,
       "anchor": "sec:open",
-      "label": "What a universal path estimate would require"
+      "label": "Fixed-degree limits and the earlier approach"
     },
     {
       "level": 5,
@@ -209,11 +209,6 @@
     },
     {
       "level": 2,
-      "anchor": "sec:evidence-ledger",
-      "label": "Proof boundaries"
-    },
-    {
-      "level": 3,
       "anchor": "sec:1041-sources",
       "label": "Sources and adjacent results"
     },
@@ -221,16 +216,6 @@
       "level": 2,
       "anchor": "acknowledgements",
       "label": "Acknowledgements"
-    },
-    {
-      "level": 2,
-      "anchor": "app:sources",
-      "label": "Guide to the formal sources"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:pinned-lean-sources",
-      "label": "Pinned Lean sources"
     },
     {
       "level": 2,
@@ -259,7 +244,7 @@
       },
       {
         "id": "sec:open",
-        "title": "What a universal path estimate would require",
+        "title": "Fixed-degree limits and the earlier approach",
         "level": 2
       }
     ]

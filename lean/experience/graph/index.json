@@ -7,7 +7,7 @@
     "nodes": 270,
     "edges": 339,
     "deferred_node_kinds": {
-      "lean_module": 1820,
+      "lean_module": 1821,
       "mathematical_object": 105
     }
   },
@@ -1224,7 +1224,7 @@
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds",
+      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -1296,7 +1296,7 @@
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: Proofs and Examples",
+      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",

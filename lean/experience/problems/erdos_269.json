@@ -254,7 +254,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "cc21d52dae6c2b81350a6042d9138c9c0009b15d37f51dfbc37542ef69cce976",
+    "source_sha256": "9fb860afd2bd22a3f86e42fc82a96553ad14dc7ba353207f9a594382c414760a",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -274,7 +274,7 @@
     "subject": "Erdős #269",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 16,
+    "pages": 12,
     "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
     "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -298,17 +298,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 34,
       "renderer_fingerprint": "832c62a7a87ab6fd",
-      "source_sha256": "4094d3936e1c1e919520724c8602eaff04f585590c1b6d04b66c70df68ec4991",
+      "source_sha256": "848b631510dbda4efdfce326b348e7b3d650b6de3e3f9449c0710f2cb6e6e865",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 381,
+      "mathml_node_count": 387,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "348cd8e7c707e9333ea0894f46fb8f69533adc560da2203f3b77b94132389c59",
-      "html_exact_tex_sha256": "86cf4ece635abc38abeae9f96913bd6a5471abf3b662e2ffe44934324ef474cb"
+      "html_mathml_sha256": "a2a9711f4f0cd9bad0e5fb0d61267def5d37336981aebb746a80d89c24763f27",
+      "html_exact_tex_sha256": "8c5f4cc3f2f6f755e4b31f0d6b3a2c62832366f6efd0a3faf71e55ab0f43209d"
     },
     "sections": [
       {
@@ -378,13 +378,13 @@
       },
       {
         "level": 5,
-        "anchor": "scope-of-the-supplementary-literature.",
-        "label": "Scope of the supplementary literature."
+        "anchor": "library-declarations.",
+        "label": "Library declarations."
       },
       {
-        "level": 2,
-        "anchor": "sec:pinned-lean-sources",
-        "label": "Pinned Lean sources"
+        "level": 5,
+        "anchor": "scope-of-the-supplementary-literature.",
+        "label": "Scope of the supplementary literature."
       },
       {
         "level": 2,
@@ -433,7 +433,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 16,
+      "pages": 12,
       "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
       "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -457,17 +457,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 34,
         "renderer_fingerprint": "832c62a7a87ab6fd",
-        "source_sha256": "4094d3936e1c1e919520724c8602eaff04f585590c1b6d04b66c70df68ec4991",
+        "source_sha256": "848b631510dbda4efdfce326b348e7b3d650b6de3e3f9449c0710f2cb6e6e865",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 381,
+        "mathml_node_count": 387,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "348cd8e7c707e9333ea0894f46fb8f69533adc560da2203f3b77b94132389c59",
-        "html_exact_tex_sha256": "86cf4ece635abc38abeae9f96913bd6a5471abf3b662e2ffe44934324ef474cb"
+        "html_mathml_sha256": "a2a9711f4f0cd9bad0e5fb0d61267def5d37336981aebb746a80d89c24763f27",
+        "html_exact_tex_sha256": "8c5f4cc3f2f6f755e4b31f0d6b3a2c62832366f6efd0a3faf71e55ab0f43209d"
       },
       "sections": [
         {
@@ -537,13 +537,13 @@
         },
         {
           "level": 5,
-          "anchor": "scope-of-the-supplementary-literature.",
-          "label": "Scope of the supplementary literature."
+          "anchor": "library-declarations.",
+          "label": "Library declarations."
         },
         {
-          "level": 2,
-          "anchor": "sec:pinned-lean-sources",
-          "label": "Pinned Lean sources"
+          "level": 5,
+          "anchor": "scope-of-the-supplementary-literature.",
+          "label": "Scope of the supplementary literature."
         },
         {
           "level": 2,
@@ -592,7 +592,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 53,
+      "pages": 51,
       "question": "What infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?",
       "precis": "The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -616,10 +616,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 34,
         "renderer_fingerprint": "832c62a7a87ab6fd",
-        "source_sha256": "8ad4751fea8b1611a65400e2ad283725e155b0ee0499fe5ca6e727a24645971d",
+        "source_sha256": "316fd934a7a966623319e2cc56e6c035d3ea13067e41f980f7a5eacf3be07870",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1721,
+        "mathml_node_count": 1757,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -634,8 +634,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f11899db879d21f112f75282a78e5bb120e2741a9b891380fb8eda02e65a6bd2",
-        "html_exact_tex_sha256": "9a762fe90355af8f6f3b8e9cbd504cd017e08bf416f4b2472f26d6169c2e54db"
+        "html_mathml_sha256": "98b4ded4be130b226142035583be63fa62795951cbeeecfaead117beed683845",
+        "html_exact_tex_sha256": "0235dbf18a22f2a6bd96b78650c66809b6624ad93f1aed1c30bdcbb95c779a94"
       },
       "sections": [
         {
@@ -736,12 +736,12 @@
         {
           "level": 5,
           "anchor": "long269:res:lead-block-exclusion",
-          "label": "Archived window-128128 exclusion report (witness unavailable)."
+          "label": "Window-128128 lattice exclusion."
         },
         {
           "level": 5,
           "anchor": "long269:res:cf-exclusion",
-          "label": "Archived continued-fraction report."
+          "label": "Continued-fraction exclusion."
         },
         {
           "level": 2,
@@ -856,12 +856,7 @@
         {
           "level": 3,
           "anchor": "long269:sec:coverage",
-          "label": "Formalisation coverage and remaining dependencies"
-        },
-        {
-          "level": 5,
-          "anchor": "concordance-of-statements-and-lean-declarations.",
-          "label": "Concordance of statements and Lean declarations."
+          "label": "What the Lean proof of the two-prime theorem assumes"
         },
         {
           "level": 2,

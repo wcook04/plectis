@@ -5,7 +5,7 @@
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 49,
+  "pages": 44,
   "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
   "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
   "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 34,
     "renderer_fingerprint": "832c62a7a87ab6fd",
-    "source_sha256": "9ab6473e919099a0616ca41822542150c8479f03e07c77b9c076f9cabf6278f6",
+    "source_sha256": "5e366351cb650eb751151f50081cf3a6b6456d6409de706a19c9adaa09b86091",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1575,
+    "mathml_node_count": 1535,
     "raw_math_fallback_count": 7,
     "warnings": {
       "mathml": [
@@ -110,8 +110,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "38b753aa9e4732a9c05a9e5f840efe642921f33b2de82c9cf59cac97995a1768",
-    "html_exact_tex_sha256": "646e82b98f884a41d3e9c1f3a7c99d32a312444b70384b8690a6f6c0c1875afd"
+    "html_mathml_sha256": "ffd053ceb228414054281f0f1a2b7a672b083d9b34d53f3378a22f81aa1202dd",
+    "html_exact_tex_sha256": "f5c32c86c349f508de4cd0873452429a15f5e478e7e732f2a48aa6218d563f63"
   },
   "sections": [
     {
@@ -250,19 +250,14 @@
       "label": "Remaining prime-gap estimates"
     },
     {
-      "level": 5,
-      "anchor": "verification-boundary.",
-      "label": "Verification boundary."
-    },
-    {
       "level": 3,
       "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": "artefact-and-data-availability.",
-      "label": "Artefact and data availability."
+      "anchor": "data-availability.",
+      "label": "Data availability."
     },
     {
       "level": 5,
@@ -288,76 +283,6 @@
       "level": 2,
       "anchor": "long251:app:index",
       "label": "Guide to the formal sources"
-    },
-    {
-      "level": 3,
-      "anchor": "long251:sec:coverage",
-      "label": "Formalisation coverage and remaining dependencies"
-    },
-    {
-      "level": 5,
-      "anchor": "concordance-of-statements-and-lean-declarations.",
-      "label": "Concordance of statements and Lean declarations."
-    },
-    {
-      "level": 5,
-      "anchor": "sparse-construction.",
-      "label": "Sparse construction."
-    },
-    {
-      "level": 5,
-      "anchor": "finite-shifted-gap-count.",
-      "label": "Finite shifted-gap count."
-    },
-    {
-      "level": 5,
-      "anchor": "finite-summation-by-parts.",
-      "label": "Finite summation by parts."
-    },
-    {
-      "level": 5,
-      "anchor": "prime-gap-summation-by-parts.",
-      "label": "Prime-gap summation by parts."
-    },
-    {
-      "level": 5,
-      "anchor": "convergence-and-the-infinite-identity.",
-      "label": "Convergence and the infinite identity."
-    },
-    {
-      "level": 5,
-      "anchor": "the-irrationality-equivalences.",
-      "label": "The irrationality equivalences."
-    },
-    {
-      "level": 5,
-      "anchor": "the-general-recurrence.",
-      "label": "The general recurrence."
-    },
-    {
-      "level": 5,
-      "anchor": "iteration-of-the-recurrence.",
-      "label": "Iteration of the recurrence."
-    },
-    {
-      "level": 5,
-      "anchor": "two-consecutive-small-differences.",
-      "label": "Two consecutive small differences."
-    },
-    {
-      "level": 5,
-      "anchor": "congruent-indices.",
-      "label": "Congruent indices."
-    },
-    {
-      "level": 5,
-      "anchor": "denominators-and-integral-shifts.",
-      "label": "Denominators and integral shifts."
-    },
-    {
-      "level": 5,
-      "anchor": "rationality-of-the-initial-value.",
-      "label": "Rationality of the initial value."
     },
     {
       "level": 2,
@@ -407,27 +332,17 @@
     {
       "level": 3,
       "anchor": "long251:sec:xr-corrections",
-      "label": "Corrections to earlier records"
+      "label": "Two corrections"
     },
     {
       "level": 5,
-      "anchor": "the-earlier-tail-bound-calculation.",
-      "label": "The earlier tail-bound calculation."
+      "anchor": "the-tail-bound-in-the-free-pair-program.",
+      "label": "The tail bound in the free-pair program."
     },
     {
       "level": 5,
-      "anchor": "two-different-improvements-to-the-exclusion-record.",
-      "label": "Two different improvements to the exclusion record."
-    },
-    {
-      "level": 5,
-      "anchor": "an-insufficient-proposed-condition.",
-      "label": "An insufficient proposed condition."
-    },
-    {
-      "level": 5,
-      "anchor": "the-formal-boundary.",
-      "label": "The formal boundary."
+      "anchor": "an-insufficient-condition.",
+      "label": "An insufficient condition."
     },
     {
       "level": 2,

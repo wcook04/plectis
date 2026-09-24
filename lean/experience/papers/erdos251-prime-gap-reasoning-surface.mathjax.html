@@ -162,13 +162,6 @@ error is at most twice this quantity times <span
 class="math inline" data-term-auto="off">\(B_0\)</span>, also for tests depending on the
 starting index.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L269">arbitrary
-word sparse rationalisation uniform</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L137">polylogarithmic
-word interval uniform</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean#L8">bounded
-test finite coupling</a>.</small></p>
 <p>The hypotheses allow any nonnegative integer sequence of polynomial
 growth, but not <span class="math inline" data-term-auto="off">\(a_n=2^n\)</span>, whose
 dyadic series diverges. The correction allowance can grow as slowly as
@@ -470,9 +463,10 @@ probability tends to zero; relative preservation requires an error small
 compared with that probability. The comparison is of finite coefficient
 blocks, not complete weighted tails: coefficients beyond an unchanged
 block can still change its tail.</p>
-<p>The printed construction and the formal construction use different
-corrections. Their statements and quantifier order are compared in
-Appendix <a class="math-ref" href="#long251:app:index">C</a>.</p>
+<p>The Lean proof uses a different construction: at each stage it
+changes one coordinate, where the proof above changes a triple. Like the
+printed statement, it fixes the permitted set, the interval and every
+congruence cutoff before the target.</p>
 <div class="corollary" id="long251:res:local-targets">
 <p><strong>Corollary 2.2</strong> (target intervals arbitrarily close to
 the original sum). <em> For the sparse theorem for an arbitrary
@@ -480,9 +474,6 @@ sequence, the target interval can additionally be required to lie in
 <span class="math inline" data-term-auto="off">\((A,A+\eta)\)</span> for any prescribed <span
 class="math inline" data-term-auto="off">\(\eta&gt;0\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean#L38">local
-target interval</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> In the general schedule, every supported entry
 satisfies <span class="math inline" data-term-auto="off">\(e_n\le n\)</span>. Choose an
@@ -529,18 +520,17 @@ is <span class="math inline" data-term-auto="off">\(\sum_{n\ge0}p_n b^{-(n+1)}\)
 normality is to base <span class="math inline" data-term-auto="off">\(b\)</span>. Changing
 <span class="math inline" data-term-auto="off">\(b\)</span> changes the number; this is not
 absolute normality of a single constant. The authors supply
-formalisation material, which has not been independently rebuilt for
-this revision. The uniform hypothesis in <span class="citation"
-data-cites="kuperberg2023"><a href="#ref-12">[12]</a></span> counts prime translates of every
-nonempty admissible tuple of <span class="math inline" data-term-auto="off">\(k\le(\log\log
-x)^3\)</span> distinct integer shifts in <span
-class="math inline" data-term-auto="off">\([0,(\log x)^2]\)</span>. Its main term is the
-tuple’s singular series times <span class="math inline" data-term-auto="off">\(\int_2^x(\log
-t)^{-k}\,dt\)</span>, with absolute error at most <span
-class="math inline" data-term-auto="off">\(Cx^{1-\delta}\)</span>. The logarithmic integral
-cannot simply be replaced by its leading asymptotic while retaining that
-error bound. Here admissible means that the shifts omit a residue class
-modulo each prime. The positive constants <span
+formalisation material, which we have not rebuilt. The uniform
+hypothesis in <span class="citation" data-cites="kuperberg2023"><a href="#ref-12">[12]</a></span>
+counts prime translates of every nonempty admissible tuple of <span
+class="math inline" data-term-auto="off">\(k\le(\log\log x)^3\)</span> distinct integer
+shifts in <span class="math inline" data-term-auto="off">\([0,(\log x)^2]\)</span>. Its main
+term is the tuple’s singular series times <span
+class="math inline" data-term-auto="off">\(\int_2^x(\log t)^{-k}\,dt\)</span>, with absolute
+error at most <span class="math inline" data-term-auto="off">\(Cx^{1-\delta}\)</span>. The
+logarithmic integral cannot simply be replaced by its leading asymptotic
+while retaining that error bound. Here admissible means that the shifts
+omit a residue class modulo each prime. The positive constants <span
 class="math inline" data-term-auto="off">\(C,\delta\)</span> and the starting threshold are
 chosen before <span class="math inline" data-term-auto="off">\(x\)</span> and the tuple.
 Qualitative asymptotics for each fixed tuple do not provide this
@@ -773,8 +763,8 @@ in the <em>Formal Conjectures</em> repository <span class="citation"
 data-cites="formalconjectures251"><a href="#ref-25">[25]</a></span>. Its zero-based Lean sum
 starts with the zeroth prime over <span
 class="math inline" data-term-auto="off">\(2^0\)</span>, so it is twice the displayed
-normalisation and has equivalent irrationality status; its proof is
-<code>sorry</code>.</p>
+normalisation and has equivalent irrationality status; the statement is
+left unproved there.</p>
 </section>
 <section id="the-strategy." class="level5">
 <h5>The strategy.</h5>
@@ -857,9 +847,6 @@ class="math display" data-term-auto="off">\[\sum_{i=0}^{n}\frac{P(i)}{2^{\,i+1}}
 =P(0)+\sum_{i=0}^{n-1}\frac{P(i+1)-P(i)}{2^{\,i+1}}
        -\frac{P(n)}{2^{\,n+1}} .\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138">dyadic
-partial sum q eq start add differences</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> At <span class="math inline" data-term-auto="off">\(n=0\)</span> both
 sides equal <span class="math inline" data-term-auto="off">\(P(0)/2\)</span>. When <span
@@ -887,9 +874,6 @@ class="math display" data-term-auto="off">\[\sum_{i=0}^{n}\frac{p_i}{2^{\,i+1}}
 =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}}
 .\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime0
-dyadic summation by parts</a>.</small></p>
 <p>The leading <span class="math inline" data-term-auto="off">\(2\)</span> is the first
 prime, not a normalising constant. At <span
 class="math inline" data-term-auto="off">\(n=2\)</span>, for instance, the left side is <span
@@ -916,9 +900,6 @@ series converge and </em></p>
 class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
 \;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}} .\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
-prime gap identity</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The bound <span
 class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> of Appendix <a class="math-ref" href="#long251:app:prime-bound">A</a> makes <span
@@ -948,9 +929,6 @@ class="math inline" data-term-auto="off">\(2^n\)</span> equals <span
 class="math inline" data-term-auto="off">\(4+2S\)</span> and has the same irrationality
 status.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L56">irrationality
-reformulation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The identity just proved gives <span
 class="math inline" data-term-auto="off">\(\Pi=2+S\)</span>. Adding a rational constant or
@@ -1038,9 +1016,6 @@ class="math display" data-term-auto="off">\[T_{N+h}=2^{h}T_N-B_{h,N},
 \qquad\text{hence}\qquad
 \sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L76">real
-block identity</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The case <span class="math inline" data-term-auto="off">\(h=0\)</span>
 follows from <span class="math inline" data-term-auto="off">\(B_{0,N}=0\)</span>. If the
@@ -1129,9 +1104,6 @@ class="math inline" data-term-auto="off">\(h\ge1\)</span> and every cutoff some 
 class="math inline" data-term-auto="off">\(N\)</span> has <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\notin\Z\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L94">rationality
-classification</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="upright">(i)</span><span
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span><span
@@ -1170,9 +1142,6 @@ every }N
 \quad\Longleftrightarrow\quad
 2^{-N}U_N\longrightarrow0.\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean#L57">real
-dyadic orbit eq true tail iff</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Iteration gives <span
 class="math inline" data-term-auto="off">\(2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}\)</span>.
@@ -1239,9 +1208,6 @@ class="math inline" data-term-auto="off">\(N,M\ge N_0\)</span> with <span
 class="math inline" data-term-auto="off">\(M\equiv N\pmod t\)</span> and <span
 class="math inline" data-term-auto="off">\(T_M-T_N\notin\Z\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L189">actual
-free pair criterion</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
 irrational, take <span class="math inline" data-term-auto="off">\(M=N+t\)</span> for the
@@ -1294,9 +1260,6 @@ class="math inline" data-term-auto="off">\(T_0\)</span> is irrational if and onl
 class="math inline" data-term-auto="off">\(T_{2L_j}-T_{L_j}\notin\Z\)</span> for every <span
 class="math inline" data-term-auto="off">\(j\ge0\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153">irrational
-initial iff all lcm diagonal nonintegral</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Theorem <a class="math-ref" href="#long251:res:escape-irrational">5.3</a> gives
 the forward implication. Conversely, if <span
@@ -1346,9 +1309,6 @@ Consequently, if such a pair occurs beyond every threshold, the <span
 class="math inline" data-term-auto="off">\(h\)</span>-shift is not eventually
 integral.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L267">rational
-small pair bundle</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> An integer strictly between <span
 class="math inline" data-term-auto="off">\(-1\)</span> and <span
@@ -1366,9 +1326,6 @@ every cutoff some later <span class="math inline" data-term-auto="off">\(N\)</sp
 the three displayed conditions for the actual prime gaps, then <span
 class="math inline" data-term-auto="off">\(\Pi\)</span> is irrational.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L298">real
-small pair prime endpoint</a>.</small></p>
 <p>The unequal-gap condition alone is available: at <span
 class="math inline" data-term-auto="off">\(h=1\)</span>, <span
 class="math inline" data-term-auto="off">\(N=2\)</span> it reads <span
@@ -1384,9 +1341,6 @@ three requirements need not intersect.</p>
 actual consecutive-prime-gap sequence is not eventually periodic with
 period <span class="math inline" data-term-auto="off">\(h\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L175">prime
-gaps not eventually periodic</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(m\ge2\)</span> the
 integers <span class="math inline" data-term-auto="off">\((m+1)!+2,\ldots,(m+1)!+m+1\)</span>
@@ -1394,13 +1348,10 @@ are composite, so the gaps are unbounded. An eventually periodic
 sequence of natural numbers has finite range after its preperiod and a
 bounded initial segment, hence is bounded. ◻</p>
 </div>
-<p>Lean checks the factorial argument as <a
+<p>Far stronger lower bounds for large gaps are known <span
+class="citation" data-cites="fgkmt2018"></span>; the <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L57">unboundedness
-of the actual gaps</a> and the conclusion as <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">non-eventual
-periodicity</a>. Far stronger lower bounds for large gaps are
-known <span class="citation" data-cites="fgkmt2018"><a href="#ref-8">[8]</a></span>;
-unboundedness is all that is needed.</p>
+of the gaps</a> is all that is needed.</p>
 <p>With even gap differences, the three conditions in Theorem <a class="math-ref" href="#long251:res:smallpair">6.1</a> reduce to two
 possible signed intervals, each accompanied by a prescribed gap
 difference. For fixed <span class="math inline" data-term-auto="off">\(h\)</span> write <span
@@ -1422,9 +1373,6 @@ class="math display" data-term-auto="off">\[\bigl(\delta_N=2\ \hbox{ and
 \bigl(\delta_N=-2\ \hbox{ and
 }-1&lt;D_N&lt;-\tfrac12\bigr).\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L135">real
-signed two window</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since <span
 class="math inline" data-term-auto="off">\(\delta_N=2D_N-D_{N+1}\)</span>, the bounds <span
@@ -1473,9 +1421,6 @@ class="math inline" data-term-auto="off">\(\operatorname{dist}(F_{h,N,L},\Z)&gt;
 certifies <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\notin\Z\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L211">explicit
-remainder certificate</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The checked bound <span
 class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> gives <span
@@ -1504,9 +1449,6 @@ class="math inline" data-term-auto="off">\(\sigma_1(3)\)</span> lie in <span
 class="math inline" data-term-auto="off">\((-1,1)\)</span> and are nonintegral, and <span
 class="math inline" data-term-auto="off">\(g_4=2\ne4=g_3\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L111">finite
-small pair</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Take <span class="math inline" data-term-auto="off">\(L=40\)</span> and
 <span class="math inline" data-term-auto="off">\(Q=2^{40}=1099511627776\)</span>. Exact
@@ -1552,9 +1494,6 @@ class="math inline" data-term-auto="off">\(D_N,D_{N+1}\)</span> are nonintegral.
 particular the adjacent small-shift obstruction is certified from just
 one tail enclosure.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L6">one
-tail signed certificate</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The inequalities place the complete interval <span
 class="math inline" data-term-auto="off">\([(sA-B)/Q,(sA+B)/Q]\)</span> inside <span
@@ -1578,9 +1517,10 @@ remains a useful independent cross-check, not a logical necessity.</p>
 <p>An exact rational enclosure of <span
 class="math inline" data-term-auto="off">\(\Pi\)</span> can exclude all rational values whose
 denominator lies below an explicit bound. The two results here use the
-same polynomial estimate for the omitted prime terms, but have different
-supplied verification records. Both bounds are finite; neither proves
-irrationality.</p>
+same polynomial estimate for the omitted prime terms. Both are exact
+certificates, finitely many integer comparisons checked by the Lean
+kernel; the first is small enough to print in full in Appendix <a class="math-ref" href="#long251:app:certificates">B</a>. Both
+bounds are finite; neither proves irrationality.</p>
 <div class="theorem" id="long251:res:denominatorfloor">
 <p><strong>Theorem 7.1</strong> (a denominator bound checked by exact
 integer comparisons). <em> Let <span
@@ -1591,11 +1531,6 @@ class="math inline" data-term-auto="off">\(b\ge2^{589}&gt;10^{177}\)</span>, and
 floor holds for every rational equal to <span
 class="math inline" data-term-auto="off">\(S\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L142">denominator
-floor both</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L137">denominator
-floor decimal</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(c=1229\)</span>, the
 number of primes below <span class="math inline" data-term-auto="off">\(10^4\)</span>, and
@@ -1640,20 +1575,16 @@ class="math inline" data-term-auto="off">\(589\log_{10}2&gt;177\)</span>, the fl
 class="math inline" data-term-auto="off">\(S=a/b\)</span>, apply the same argument to <span
 class="math inline" data-term-auto="off">\(\Pi=(a+2b)/b\)</span>. ◻</p>
 </div>
-<p>The Lean kernel decides the four inequalities on the same literals by
-<code>decide +kernel</code> with no <code>native_decide</code>, over a
-trial-division sieve it re-runs on <span
-class="math inline" data-term-auto="off">\([2,10^4)\)</span>: the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L310">certificate</a>,
-the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L316">floor
-for the prime series</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/KernelDenominatorFloor.lean#L324">floor
-for the gap series</a>. Its analytic input is the same enclosure, over
-the polynomial bound at <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">line 360</a>.
-The four Farey literals have <span class="math inline" data-term-auto="off">\(177\)</span>
-and <span class="math inline" data-term-auto="off">\(178\)</span> digits.</p>
+<p>The Lean kernel evaluates the four inequalities itself, on the same
+integers, after recomputing the primes below <span
+class="math inline" data-term-auto="off">\(10^4\)</span> by trial division; no compiled code
+is trusted. Its analytic input is the same enclosure, derived from the
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">polynomial
+bound</a> <span class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span>. The
+four integers <span class="math inline" data-term-auto="off">\(u,v,u&#39;,v&#39;\)</span>
+have <span class="math inline" data-term-auto="off">\(177\)</span> and <span
+class="math inline" data-term-auto="off">\(178\)</span> digits.</p>
 <div class="theorem" id="long251:res:cfexclusion">
 <p><strong>Theorem 7.2</strong> (certified continued-fraction exclusion).
 <em> Every rational equal to <span class="math inline" data-term-auto="off">\(\Pi\)</span>,
@@ -1662,8 +1593,6 @@ class="math inline" data-term-auto="off">\(S\)</span>, has reduced denominator <
 class="math inline" data-term-auto="off">\(q\ge2^{39997}\)</span>, and therefore <span
 class="math inline" data-term-auto="off">\(q&gt;10^{12040}\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29"><code>denominator_floor_both</code></a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(c=80200\)</span>, the
 number of primes below <span class="math inline" data-term-auto="off">\(1\,023\,068\)</span>,
@@ -1715,92 +1644,62 @@ class="math inline" data-term-auto="off">\(u,u&#39;\)</span> have <span
 class="math inline" data-term-auto="off">\(12061\)</span> decimal digits and the denominators
 <span class="math inline" data-term-auto="off">\(v,v&#39;\)</span> have <span
 class="math inline" data-term-auto="off">\(12060\)</span>.</p>
-<p>The Lean kernel checks every step of this proof. The computations are
-decided by <code>decide +kernel</code>, with no
-<code>native_decide</code>. The kernel recomputes <span
+<p>The Lean kernel checks every step of this proof and evaluates every
+computation itself; no compiled code is trusted. It recomputes <span
 class="math inline" data-term-auto="off">\(c\)</span> and <span
-class="math inline" data-term-auto="off">\(A\)</span> from the definition of primality. It
-scans the integers below <span
+class="math inline" data-term-auto="off">\(A\)</span> from the definition of primality,
+scanning the integers below <span
 class="math inline" data-term-auto="off">\(1\,023\,068\)</span> in <span
-class="math inline" data-term-auto="off">\(250\)</span> consecutive blocks and checks the
-prime count and partial numerator at the end of each block, starting
-from their values at the end of the block before. It decides primality
-by trial division below <span class="math inline" data-term-auto="off">\(1012\)</span>. On
-<span class="math inline" data-term-auto="off">\([1012,1013^2)\)</span>, which contains the
-rest of the scan because <span
+class="math inline" data-term-auto="off">\(250\)</span> consecutive blocks and checking the
+prime count and partial numerator at the end of each block. It decides
+primality by trial division below <span
+class="math inline" data-term-auto="off">\(1012\)</span>. On <span
+class="math inline" data-term-auto="off">\([1012,1013^2)\)</span>, which contains the rest of
+the scan because <span
 class="math inline" data-term-auto="off">\(1013^2=1\,026\,169\)</span>, it uses the <a
 href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/GcdPrimality.lean#L72">fact</a>
 that such an integer is prime exactly when it is coprime to the product
 of the primes below <span class="math inline" data-term-auto="off">\(1012\)</span>, and it
 recomputes that product by trial division. Lean proves that the two
-primality tests agree at every natural number. The kernel decides the
-four comparisons on the same literals, together with <span
+primality tests agree at every natural number. The kernel then decides
+the four comparisons, together with <span
 class="math inline" data-term-auto="off">\(10^{59}&lt;2^{196}\)</span> and <span
-class="math inline" data-term-auto="off">\(10^{23}&lt;2^{78}\)</span>. The enclosure and the
-determinant step are proved in general form. The result is the <a
+class="math inline" data-term-auto="off">\(10^{23}&lt;2^{78}\)</span>; the enclosure and the
+determinant step are proved in general form. Lean proves the <a
 href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean#L76">bound
 <span class="math inline" data-term-auto="off">\(b\ge2^{40062}\)</span> and <span
-class="math inline" data-term-auto="off">\(b&gt;10^{12059}\)</span> for both series</a>, from
-which Lean derives the <a
-href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29">theorem
-as stated</a>. Both use only the axioms <code>propext</code>,
-<code>Classical.choice</code> and <code>Quot.sound</code>.</p>
-<p>A second certificate was checked outside Lean by the accompanying
-integer-arithmetic verifier, which uses no floating-point arithmetic. It
-encloses <span class="math inline" data-term-auto="off">\(\Pi\)</span> between the sum of its
-first <span class="math inline" data-term-auto="off">\(80128\)</span> terms and that sum plus
-<span class="math inline" data-term-auto="off">\(1250P(80128)/2^{80128}\)</span>, with the
-primes taken from a sieve below <span
-class="math inline" data-term-auto="off">\(1\,200\,000\)</span>. The added term is a bound
-for the omitted terms, obtained from <span
-class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> and the identity <span
-class="math inline" data-term-auto="off">\(2P(x)=(x+1)^4+P(x+1)\)</span> in the proof of
-Proposition <a class="math-ref" href="#long251:res:explicit-remainder">6.5</a>.
-Rounding the lower endpoint down and the upper endpoint up to multiples
-of <span class="math inline" data-term-auto="off">\(2^{-80000}\)</span> gives integers <span
-class="math inline" data-term-auto="off">\(L\)</span> and <span
-class="math inline" data-term-auto="off">\(U=L+1\)</span> with <span
-class="math inline" data-term-auto="off">\(L2^{-80000}\le\Pi\le U2^{-80000}\)</span>; this is
-the width reported as <span class="math inline" data-term-auto="off">\(1\)</span> in the
-scaled receipt. The continued fractions of the two rounded endpoints
-agree in their first <span class="math inline" data-term-auto="off">\(23369\)</span> partial
-quotients, and their last two common convergents, ordered as <span
-class="math inline" data-term-auto="off">\(s/t&lt;s&#39;/t&#39;\)</span>, satisfy</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[s&#39;t-st&#39;=1,\qquad
-s\,2^{80000}&lt;Lt,\qquad Ut&#39;&lt;s&#39;\,2^{80000},\qquad
-t+t&#39;\ge2^{39998}.\]</span></div>
-<p>The same determinant calculation gives
-<span class="math inline" data-term-auto="off">\(q\ge2^{39998}\)</span>. In both certificates
-the continued fractions are those of the two rational endpoints of an
-enclosure of <span class="math inline" data-term-auto="off">\(\Pi\)</span>.</p>
-<p>The original receipt uses the best-approximation property of
-convergents <span class="citation" data-cites="khinchin1964"><a href="#ref-10">[10]</a></span>;
-Short gives an accessible statement and proof <span class="citation"
-data-cites="short2009"><a href="#ref-19">[19]</a></span>. The receipt is <a
-href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json">the
-continued-fraction receipt</a>, which records the generating program and
-its digest, the power-of-two exponent <span
-class="math inline" data-term-auto="off">\(39997\)</span>, the bit length <span
-class="math inline" data-term-auto="off">\(39998\)</span>, the strict decimal power <span
-class="math inline" data-term-auto="off">\(12040\)</span>, the decimal digit count <span
-class="math inline" data-term-auto="off">\(12041\)</span>, the largest partial quotient <span
-class="math inline" data-term-auto="off">\(973919\)</span> at index <span
-class="math inline" data-term-auto="off">\(16442\)</span>, and an arithmetic self-check of
-the same routine against the known expansions of <span
+class="math inline" data-term-auto="off">\(b&gt;10^{12059}\)</span> for both series</a> and
+derives the theorem as stated from it, using only Lean’s three standard
+axioms.</p>
+<p>An independent <a
+href="https://github.com/wcook04/plectis-erdos/blob/beaf0866976c908539fba0a96075374dd658f44a/research/experiments/erdos251/exact_replay.py">program</a>
+outside Lean, in exact integer arithmetic, recomputes <span
+class="math inline" data-term-auto="off">\(A\)</span> from a prime sieve and checks the four
+comparisons; it finds the same <span
+class="math inline" data-term-auto="off">\(23407\)</span> common partial quotients and a sum
+<span class="math inline" data-term-auto="off">\(v+v&#39;\)</span> of bit length <span
+class="math inline" data-term-auto="off">\(40062\)</span> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/beaf0866976c908539fba0a96075374dd658f44a/research/experiments/erdos251/receipts/251-exact-replay.json">recorded
+output</a>).</p>
+<p>The constants <span class="math inline" data-term-auto="off">\(2^{39997}\)</span> and
+<span class="math inline" data-term-auto="off">\(10^{12040}\)</span> in the statement come
+from a separate computation with a bracket of width <span
+class="math inline" data-term-auto="off">\(2^{-80000}\)</span>, which used the
+best-approximation property of convergents <span class="citation"
+data-cites="khinchin1964"><a href="#ref-10">[10]</a></span>; Short gives an accessible statement
+and proof <span class="citation" data-cites="short2009"><a href="#ref-19">[19]</a></span>. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json">recorded
+output</a> lists the generating program and its digest and a last
+convergent whose denominator has bit length <span
+class="math inline" data-term-auto="off">\(39998\)</span>, hence is at least <span
+class="math inline" data-term-auto="off">\(2^{39997}\)</span>; the program also checked its
+arithmetic against the known expansions of <span
 class="math inline" data-term-auto="off">\(e\)</span> and <span
-class="math inline" data-term-auto="off">\(\pi\)</span>. Those bit and digit counts describe
-the original routine’s last convergent, not an arbitrary rational in the
-enclosure. Bit length <span class="math inline" data-term-auto="off">\(39998\)</span> implies
-a denominator at least <span class="math inline" data-term-auto="off">\(2^{39997}\)</span>,
-and <span class="math inline" data-term-auto="off">\(12041\)</span> decimal digits imply only
-a non-strict lower bound <span
-class="math inline" data-term-auto="off">\(10^{12040}\)</span>. The bounds for <span
-class="math inline" data-term-auto="off">\(q\)</span> above use the checked sums <span
-class="math inline" data-term-auto="off">\(v+v&#39;\)</span> and <span
-class="math inline" data-term-auto="off">\(t+t&#39;\)</span>. The strict decimal inequality
-follows from the separate integer comparison <span
-class="math inline" data-term-auto="off">\(2^{39997}&gt;10^{12040}\)</span>.</p>
+class="math inline" data-term-auto="off">\(\pi\)</span>. That bit length describes one
+convergent only; the bound for every rational in the enclosure comes
+from the certified sum <span class="math inline" data-term-auto="off">\(v+v&#39;\)</span>
+above, and <span class="math inline" data-term-auto="off">\(2^{39997}&gt;10^{12040}\)</span>
+is a separate integer comparison.</p>
 <p>A rational number may have a denominator beyond either bound.
 Extending the computation can exclude a larger finite range, but a
 longer prefix need not improve the bound at every step and cannot by
@@ -1834,9 +1733,6 @@ and every cutoff <span class="math inline" data-term-auto="off">\(K\)</span> the
 class="math inline" data-term-auto="off">\(\sum_{n\ge0}(a_n+M\varepsilon_n)2^{-(n+1)}\)</span>
 is rational.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L200">rational
-bounded perturbation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Write <span
 class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}a_n2^{-(n+1)}\)</span> and choose a
@@ -1850,32 +1746,28 @@ class="math inline" data-term-auto="off">\(\varepsilon_n=0\)</span> for <span
 class="math inline" data-term-auto="off">\(n&lt;K\)</span>. The perturbed series converges
 and equals <span class="math inline" data-term-auto="off">\(r\)</span>. ◻</p>
 </div>
-<p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L193">construction</a>
-is covered by the supplied formal verification record. It follows that a
-property shared by every allowed perturbation cannot by itself force
-irrationality, since one such perturbation has a rational sum. This is
-an ordinary consequence of the construction, not a separate formal
-theorem. The construction is also checked at the actual consecutive
-prime gaps for every <span class="math inline" data-term-auto="off">\(M\ge1\)</span> and
-every <span class="math inline" data-term-auto="off">\(K\)</span>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L208">rational
-perturbed prime-gap series</a>, with the perturbed gap lying in <span
-class="math inline" data-term-auto="off">\([g_n,g_n+M]\)</span> and congruent to <span
-class="math inline" data-term-auto="off">\(g_n\)</span> modulo <span
-class="math inline" data-term-auto="off">\(M\)</span>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L234">gap
-bounds</a>. For each fixed <span class="math inline" data-term-auto="off">\(k\ge1\)</span>,
-the sum of <span class="math inline" data-term-auto="off">\(k\)</span> consecutive gaps
-increases by at most <span class="math inline" data-term-auto="off">\(kM\)</span>. Thus
-infinitely many bounded gaps and bounded clusters of each fixed size
-survive, but their original numerical bounds need not. Nonnegative
-corrections also preserve lower bounds for large gaps. Taking <span
-class="math inline" data-term-auto="off">\(M=2q\)</span> preserves parity and the cumulative
-positions modulo a prescribed <span class="math inline" data-term-auto="off">\(q\)</span>,
-hence any limiting residue frequencies of those positions. These
-conclusions concern the size and residue information in the results
-discussed in Section <a class="math-ref" href="#long251:sec:open">10</a>; they establish
+<p>Hence a property shared by every allowed perturbation cannot by
+itself force irrationality, since one such perturbation has a rational
+sum; this consequence is not stated separately in Lean. Lean also checks
+the construction at the actual consecutive prime gaps, for every <span
+class="math inline" data-term-auto="off">\(M\ge1\)</span> and every <span
+class="math inline" data-term-auto="off">\(K\)</span>: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L208">perturbed
+prime-gap series is rational</a>, and each perturbed gap lies in <span
+class="math inline" data-term-auto="off">\([g_n,g_n+M]\)</span> and is <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/BoundedPerturbationCountermodel.lean#L234">congruent
+to <span class="math inline" data-term-auto="off">\(g_n\)</span> modulo <span
+class="math inline" data-term-auto="off">\(M\)</span></a>. For each fixed <span
+class="math inline" data-term-auto="off">\(k\ge1\)</span>, the sum of <span
+class="math inline" data-term-auto="off">\(k\)</span> consecutive gaps increases by at most
+<span class="math inline" data-term-auto="off">\(kM\)</span>. Thus infinitely many bounded
+gaps and bounded clusters of each fixed size survive, but their original
+numerical bounds need not. Nonnegative corrections also preserve lower
+bounds for large gaps. Taking <span class="math inline" data-term-auto="off">\(M=2q\)</span>
+preserves parity and the cumulative positions modulo a prescribed <span
+class="math inline" data-term-auto="off">\(q\)</span>, hence any limiting residue frequencies
+of those positions. These conclusions concern the size and residue
+information in the results discussed in Section <a class="math-ref" href="#long251:sec:open">10</a>; they establish
 neither primality of the new positions nor preservation of every
 quantitative assertion of those theorems.</p>
 </section>
@@ -1937,9 +1829,6 @@ class="math inline" data-term-auto="off">\(x,x+d,x+s,x+s+d+r\)</span> prime. The
 class="math display" data-term-auto="off">\[(H+1)M_{h,r}(N)\le
 (h+1)p_{N+h+1}+(H+1)Q_{N,H,r}.\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152">shifted
-count bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a counted index <span
 class="math inline" data-term-auto="off">\(n\)</span>, put <span
@@ -1963,12 +1852,8 @@ class="math inline" data-term-auto="off">\(H+1\)</span> and add the small-span
 contribution. ◻</p>
 </div>
 <p>The displayed finite shifted-count bound is unconditional by the
-ordinary proof above. Its <a
-href="https://github.com/wcook04/plectis-erdos/blob/d058b9150218ae23d2cfd975580088d6167e9da8/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152">historical
-source locator</a> is retained; Appendix <a class="math-ref" href="#long251:app:index">C</a> identifies the
-relocated proof in the supplied packet and distinguishes its recorded
-release status from a checked build. To obtain zero density from this
-particular finite bound, one would need, for every <span
+elementary proof above. To obtain zero density from this particular
+finite bound, one would need, for every <span
 class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and all large <span
 class="math inline" data-term-auto="off">\(N\)</span>, a choice of <span
 class="math inline" data-term-auto="off">\(H\)</span> making its right side less than <span
@@ -2005,9 +1890,6 @@ class="math inline" data-term-auto="off">\(n\)</span>. Then <span
 class="math inline" data-term-auto="off">\(b\)</span> has fixed-block
 nonconcentration.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean#L100">finite
-perturbation stability</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Fix <span class="math inline" data-term-auto="off">\(k\ge0\)</span> and a
 nonzero <span class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span>. For
@@ -2058,17 +1940,6 @@ class="math inline" data-term-auto="off">\(P_n=2+\sum_{i&lt;n}b_i\)</span> satis
 class="math inline" data-term-auto="off">\(p_n\le P_n\le p_n+Mn\)</span> and hence <span
 class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean#L126">nonconcentration
-does not force irrationality</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean#L67">perturbed
-position bounds</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean#L45">sum
-range prime gap0</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean#L59">perturbed
-position eq</a>, and 1 further declaration. Conditional on the prime
-number theorem; see the <a href="#long251:sec:coverage">coverage
-section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Theorem <a class="math-ref" href="#long251:res:boundedperturbation">8.1</a>
 gives the rational sum, prefix and congruence assertions. Summing <span
@@ -2106,9 +1977,6 @@ nonconcentration, then so does <span class="math inline" data-term-auto="off">\(
 No boundedness assumption on <span class="math inline" data-term-auto="off">\(a-b\)</span> is
 needed.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean#L80">sparse
-nonconcentration</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For fixed <span class="math inline" data-term-auto="off">\(k\)</span> and
 a nonzero <span class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span>, a
@@ -2142,13 +2010,6 @@ satisfy </em></p>
     \frac{n(\log(n+3))^\varepsilon}{\log\log n}\right),
 \qquad P_n\sim n\log n.\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L256">long
-joint prime gap countermodel</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L228">cut
-prefix bound</a>. Conditional on Schlage-Puchta’s density lemma and the
-prime number theorem; see the <a href="#long251:sec:coverage">coverage
-section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Apply Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">2.1</a>
 at a rational target. Proposition <a class="math-ref" href="#long251:res:sparse-nonconcentration">8.5</a>
@@ -2174,10 +2035,10 @@ class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{P_n}{2^{n+1}}
 <p>The finite value on
 the right also proves convergence on the left. ◻</p>
 </div>
-<p>These are ordinary deductions from the sparse theorem and the stated
-external analytic input. In fact, all conclusions also hold for every
-<span class="math inline" data-term-auto="off">\(\varepsilon&gt;1\)</span>: apply the
-corollary with exponent <span class="math inline" data-term-auto="off">\(1\)</span>. Its
+<p>These conclusions follow from the sparse theorem, Schlage-Puchta’s
+Lemma 4 and the prime number theorem. In fact, all conclusions also hold
+for every <span class="math inline" data-term-auto="off">\(\varepsilon&gt;1\)</span>: apply
+the corollary with exponent <span class="math inline" data-term-auto="off">\(1\)</span>. Its
 correction is smaller than the prescribed allowance, and its cumulative
 estimate <span class="math inline" data-term-auto="off">\(O(n\log(n+3)/\log\log n)\)</span>
 is stronger than the displayed bound and still gives <span
@@ -2229,14 +2090,6 @@ class="math inline" data-term-auto="off">\(N\)</span> with <span
 class="math inline" data-term-auto="off">\(g_{N+h+1}=g_{N+1}\)</span> also has density
 zero.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean#L38">prime
-gap two window sparse</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean#L50">prime
-gap equal shift zero density</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean#L30">prime
-gap tail recurrence</a>. Conditional on Schlage-Puchta’s density lemma;
-see the <a href="#long251:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(N\ge1\)</span> every
 gap involved is even, so <span
@@ -2336,9 +2189,6 @@ so every tail shift is integral. The increasing odd sequence <span
 class="math inline" data-term-auto="off">\(P_n=3+\sum_{j\le n}a_j\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean#L368">exists
-logarithmic recurring values countermodel</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span
 class="math inline" data-term-auto="off">\(b_n=2\lceil\tfrac12\log(n+64)\rceil\)</span>, so
@@ -2561,9 +2411,6 @@ never <span class="math inline" data-term-auto="off">\(\pm2\)</span>, and </em><
 class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{c_j}{2^{\,j}}=32
 .\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L27">polynomial
-countermodel</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Direct expansion gives the recurrence, and the finite
 telescope is <span
@@ -2577,20 +2424,6 @@ equals the initial rescaled tail <span
 class="math inline" data-term-auto="off">\(U_0=32\)</span>. Under the opening convention its
 sum is <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge0}c_n2^{-(n+1)}=(c_0+32)/2=18\)</span>.
-The formal construction checks the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1596">recurrence</a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1632">strict
-growth</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1654">integrality
-of every shift</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1644">exclusion
-of adjacent differences of size two</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L92">value
-<span class="math inline" data-term-auto="off">\(32\)</span> for the shifted series</a>,
-whose summand is <span class="math inline" data-term-auto="off">\(c_{n+1}/2^{\,n+1}\)</span>;
-the rational value is recorded at <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PolynomialGapSeriesValue.lean#L109">line 109</a>.
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent-gap
 condition of Theorem <a class="math-ref" href="#long251:res:signedwindow">6.4</a> fails at
@@ -2609,9 +2442,6 @@ of the telescoping series</a>.</p>
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_0-K_n2^{-n}\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137">carry
-partial sum eq</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The sum is empty when <span
 class="math inline" data-term-auto="off">\(n=0\)</span>. Passing from <span
@@ -2655,10 +2485,7 @@ class="math inline" data-term-auto="off">\(K_n=2^n\)</span>, every <span
 class="math inline" data-term-auto="off">\(\kappa_n\)</span> is zero, so the series converges
 to <span class="math inline" data-term-auto="off">\(0\)</span>, not to <span
 class="math inline" data-term-auto="off">\(K_0=1\)</span>.</p>
-<p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137">finite
-telescoping identity</a> is also formalised. Taking <span
-class="math inline" data-term-auto="off">\(K_0=\tfrac52\)</span> and <span
+<p>Taking <span class="math inline" data-term-auto="off">\(K_0=\tfrac52\)</span> and <span
 class="math inline" data-term-auto="off">\(K_n=2n+2\)</span> for <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span> gives <span
 class="math inline" data-term-auto="off">\(\kappa_0=1\)</span> and <span
@@ -2677,10 +2504,13 @@ exact hypotheses are preserved in Appendix <a class="math-ref" href="#long251:a
 <section id="long251:sec:measurements" class="level2">
 <h2>Finite numerical searches</h2>
 <p>The two searches described below concern finite ranges of the
-prime-gap tails. Their receipts record floating-point observations, not
-exact certificates or proofs of occurrence beyond every cutoff. The
-exact integer checks are given separately in Appendix <a class="math-ref" href="#long251:app:certificates">B</a>. The
-searches have not been rerun for this edition.</p>
+prime-gap tails. Both compute the tails in double-precision arithmetic
+with no bound on the accumulated rounding error, so neither a count nor
+an individual hit is exact; a bound for the omitted infinite tail would
+not by itself bound that error. Neither search says anything beyond its
+range. The exact certificates are Proposition <a class="math-ref" href="#long251:res:finite-smallpair">6.6</a> and
+the two denominator bounds of Section <a class="math-ref" href="#long251:sec:denominator-floor">7</a>, all
+checked by the Lean kernel.</p>
 <p>Over the <span class="math inline" data-term-auto="off">\(6\,841\,648\)</span> primes
 below <span class="math inline" data-term-auto="off">\(1.2\times10^{8}\)</span> and offsets
 <span class="math inline" data-term-auto="off">\(h=1,\ldots,16\)</span>, the scan records
@@ -2696,15 +2526,10 @@ Multiplying the observed proportion in each band by that band’s mean of
 <span class="math inline" data-term-auto="off">\(\log p\)</span> gives <span
 class="math inline" data-term-auto="off">\(0.17671\)</span> in the first band and <span
 class="math inline" data-term-auto="off">\(0.13148\)</span> in the last. This finite
-observation does not establish an asymptotic counting law or cofinality.
-The tails in this scan use double-precision arithmetic. The receipt
-gives no certified enclosure for the accumulated rounding error, so
-neither a count nor an individual hit is an exact certificate. A bound
-for the omitted infinite tail would not, by itself, bound that rounding
-error. Proposition <a class="math-ref" href="#long251:res:finite-smallpair">6.6</a> gives
-a separate pair certified by exact integer arithmetic. The receipt is <a
-href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json">the
-adjacent-pair search receipt</a>.</p>
+observation establishes no asymptotic counting law and no occurrence
+beyond every cutoff. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json">search
+output</a> is public.</p>
 <p>A second scan uses the <span
 class="math inline" data-term-auto="off">\(1\,270\,607\)</span> primes below <span
 class="math inline" data-term-auto="off">\(2\times10^{7}\)</span> and pairs of indices in the
@@ -2720,16 +2545,17 @@ share indices. For each class, the program also records the larger index
 of a selected late witness. The minimum of those recorded indices is
 <span class="math inline" data-term-auto="off">\(1\,270\,520\)</span>; it need not come from
 the class with the fewest pairs. The saved sample pairs pass the
-resulting two-window check in floating-point arithmetic. These
-observations are not exact certificates, and the scan supplies neither
-arbitrary moduli nor witnesses beyond every prescribed cutoff. The
-receipt is <a
-href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json">the
-congruent-pair search receipt</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md">public
-computation guide</a> provides the programs, dependencies and exact
-replay commands for all three recorded runs, including the
-continued-fraction calculation above.</p>
+resulting two-window check in floating-point arithmetic. The scan
+supplies neither arbitrary moduli nor witnesses beyond every prescribed
+cutoff. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json">search
+output</a> is public. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md">computation
+guide</a> gives the programs, dependencies and commands to rerun both
+searches and the <span class="math inline" data-term-auto="off">\(80000\)</span>-bit
+continued-fraction calculation of Section <a class="math-ref" href="#long251:sec:denominator-floor">7</a>.
+Appendix <a class="math-ref" href="#long251:sec:xr-corrections">D.7</a> corrects
+the stated justification of the tail bound in the free-pair program.</p>
 </section>
 <section id="long251:sec:open" class="level2">
 <h2>Remaining prime-gap estimates</h2>
@@ -2848,59 +2674,23 @@ the listed size, congruence and block-statistical properties alone do
 not force irrationality. These constructions are not shown to enumerate
 the consecutive primes, so they do not rule out arguments that combine
 those properties with further information about primes.</p>
-<section id="verification-boundary." class="level5">
-<h5>Verification boundary.</h5>
-<p>The Lean kernel checks the integer certificates of both denominator
-bounds. The larger bound is also supported by the archived computation
-and by the independent integer-arithmetic replay described after its
-proof. Neither bound is an irrationality theorem. The older <span
-class="math inline" data-term-auto="off">\(4096\)</span>-bit calculation and the separate
-justification of its tail bound are discussed in Section <a class="math-ref" href="#long251:sec:xr-corrections">D.7</a>.
-Declaration-level build status is recorded below, separately from the
-ordinary proofs and numerical receipts.</p>
-</section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
-<section id="artefact-and-data-availability." class="level5">
-<h5>Artefact and data availability.</h5>
-<p>Declaration links identify immutable revisions, not a live branch.
-The main source links in this manuscript retain revision
-<code>3d6d938d696f</code>; release-only declarations are linked to
-<code>52f29ad173b0</code>. The certificate of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> is linked
-at <code>e6c2d8f77ac2</code>. The supplied declaration index
-distinguishes <code>ci_checked</code>,
-<code>outside_checked_build</code>, and <code>release_only</code>;
-presence of a file or link alone is not evidence that its proof was
-checked. The recorded CI receipt is <a
-href="https://github.com/wcook04/plectis-erdos/actions/runs/35073961520">run
-35073961520</a>. The declaration index records the status of each
-result. The build record reports
-<code>lake build ErdosProblems Erdos249257</code> with Lean 4.29.1. No
-new execution of that build is claimed here.</p>
+<section id="data-availability." class="level5">
+<h5>Data availability.</h5>
 <p>Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-14">[14]</a></span> and
 mathlib <span class="citation" data-cites="mathlib"><a href="#ref-15">[15]</a></span> provide the
-proof-checking environment. A checked proof statement, its hypotheses
-and its transitive axiom report must be distinguished from a challenge
-containing <code>sorry</code>, an executable certificate, or an ordinary
-proof. Formal checking does not establish novelty, attribution, or the
-faithfulness of an unexamined mathematical interpretation.</p>
-<p>The finite-computation receipts and generating programs remain
-separately identified in the <a
-href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md">pinned
-computation guide</a>. For this edition the self-contained verifier in
-Appendix <a class="math-ref" href="#long251:app:certificates">B</a> was rerun;
-it checks the adjacent pair and the bound <span
-class="math inline" data-term-auto="off">\(2^{589}\)</span>. A separate verifier, supplied as
-<code>checks/verify_independent_cf.py</code>, regenerates the <span
-class="math inline" data-term-auto="off">\(80000\)</span>-bit enclosure and checks the Farey
-certificate for the larger exclusion. It reproduces the common-prefix
-length and the receipt’s denominator threshold, and checks the stronger
-neighbouring-denominator sum stated above. It does not rerun the
-original program’s floating-point statistics or its self-tests on <span
-class="math inline" data-term-auto="off">\(e\)</span> and <span
-class="math inline" data-term-auto="off">\(\pi\)</span>. The prime-gap frequency scans were
-not rerun, and neither verifier is a new Lean build. The Lean kernel
-checks the certificate given in the proof of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>.</p>
+proof-checking environment; the margin marks link each result to its
+Lean proof, and the <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/\evidencerecordurl">evidence record</a>
+lists every declaration and check. Formal checking does not establish
+novelty or attribution. The programs for the searches of Section <a class="math-ref" href="#long251:sec:measurements">9</a> are listed
+in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md">computation
+guide</a>. The program in Appendix <a class="math-ref" href="#long251:app:certificates">B</a> checks the
+adjacent pair and the bound <span
+class="math inline" data-term-auto="off">\(2^{589}\)</span>; the independent program of
+Section <a class="math-ref" href="#long251:sec:denominator-floor">7</a>
+checks the certificate of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -2916,9 +2706,9 @@ Problem #243; this acknowledgement does not imply that he reviewed or
 endorsed the mathematics of the present paper. The problem numbering
 follows the Erdős Problems catalogue maintained by Thomas Bloom <span
 class="citation" data-cites="erdosproblems"></span>. The
-logarithmic-scale construction and the transfer of nonconcentration are
-retained from the earlier review materials accompanying this project;
-that provenance is not evidence of independent mathematical review.</p>
+logarithmic-scale construction and the transfer of nonconcentration come
+from earlier working materials of this project, which were not an
+independent mathematical review.</p>
 </section>
 </section>
 </section>
@@ -2983,10 +2773,9 @@ href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a1
 <p>The following calculation uses trial division and integer arithmetic
 only. It reproduces the two rows of Proposition <a class="math-ref" href="#long251:res:finite-smallpair">6.6</a> and
 every inequality used in Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a>. The
-four literals are the certificate the Lean kernel decides in
-<code>KernelDenominatorFloor.lean</code>; their use here requires no
-floating-point approximation. Adjacent quoted strings are concatenated
-by Python.</p>
+four integers are the certificate that the Lean kernel checks for that
+theorem; their use here requires no floating-point approximation.
+Adjacent quoted strings are concatenated by Python.</p>
 <pre><code>from math import isqrt
 
 primes = [n for n in range(2, 10000)
@@ -3049,373 +2838,34 @@ print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pr
 </section>
 <section id="long251:app:index" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The links in this appendix and after selected proofs identify formal
-definitions and statements at fixed revisions and line numbers. The
-declaration index records their build status; the ordinary arguments are
-printed in the paper itself.</p>
-<p>The summation-by-parts identity and polynomial prime bound concern
-the actual primes. The recurrence results apply to arbitrary integer
-coefficients and, as stated, rational or real sequences. Substituting
-the actual prime-gap tail requires its convergence and boundary
-condition. The finite certificates use the same polynomial bound to
-control the omitted terms. The counterexamples concern other coefficient
-sequences, not a construction of new primes. The complete link inventory
-is also retained in the TeX source.</p>
-<section id="long251:sec:coverage" class="level3 unnumbered">
-<h3 class="unnumbered">Formalisation coverage and remaining
-dependencies</h3>
-<p>Every theorem, lemma, proposition and corollary of this record other
-than the three listed below has a Lean statement of the same assertion,
-with the same hypotheses, checked by the Lean kernel using only the
-axioms <code>propext</code>, <code>Classical.choice</code> and
-<code>Quot.sound</code>, in the development at revision
-<code>181078b6b009</code>. For Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> the
-revision is the later <code>e6c2d8f77ac2</code>. It adds a primality
-test that the kernel evaluates with one gcd per integer, which makes the
-certificate in the proof of that theorem feasible to check.</p>
-<p>The three exceptions share cited inputs. The development verifies the
-reduction of Theorem <a class="math-ref" href="#long251:res:sparse">8.7</a> to
-Schlage-Puchta’s lemma that, for a fixed nonzero integer polynomial in a
-fixed block of consecutive prime gaps, the set of indices where it
-vanishes has density zero <span class="citation"
-data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, and the reduction of
-Corollary <a class="math-ref" href="#long251:res:nonconc-primes">8.4</a> and
-Corollary <a class="math-ref" href="#long251:res:jointcountermodel">8.6</a> to
-that lemma together with the prime number theorem in the form <span
+<p>The margin marks link each result to its Lean proof, and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/\evidencerecordurl">evidence record</a> lists every declaration.
+The links after selected proofs identify further formal definitions and
+steps at fixed revisions and line numbers.</p>
+<p>The summation-by-parts identity and the polynomial prime bound
+concern the actual primes. The recurrence results apply to arbitrary
+integer coefficients and, as stated, to rational or real sequences;
+substituting the actual prime-gap tail requires its convergence and
+boundary condition. The finite certificates use the same polynomial
+bound to control the omitted terms. The counterexamples concern other
+coefficient sequences and construct no new primes.</p>
+<p>The Lean proofs of three results assume published inputs that the
+Lean development does not prove. The Lean proof of Theorem <a class="math-ref" href="#long251:res:sparse">8.7</a> assumes
+Schlage-Puchta’s Lemma 4 <span class="citation"
+data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>; for a fixed nonzero integer
+polynomial in a fixed block of consecutive prime gaps, it states that
+the set of indices where the polynomial vanishes has density zero. Those
+of Corollaries <a class="math-ref" href="#long251:res:nonconc-primes">8.4</a>
+and <a class="math-ref" href="#long251:res:jointcountermodel">8.6</a>
+assume that lemma and the prime number theorem in the form <span
 class="math inline" data-term-auto="off">\(p_n\sim n\log n\)</span> <span class="citation"
-data-cites="mv2007"><a href="#ref-17">[17]</a></span>. Formal proofs of those two inputs are not
-included in the verified development, so these three endpoints remain
-conditional on them. What each statement adds to them is checked,
-including the estimate that the corrected sequence of Corollary <a class="math-ref" href="#long251:res:jointcountermodel">8.6</a>
+data-cites="mv2007"><a href="#ref-17">[17]</a></span>. What each statement adds to these inputs is
+checked, including the estimate that the corrected sequence of
+Corollary <a class="math-ref" href="#long251:res:jointcountermodel">8.6</a>
 differs from the prime gaps at <span
 class="math inline" data-term-auto="off">\(O_\varepsilon(n/\log\log n)\)</span> indices below
 <span class="math inline" data-term-auto="off">\(n\)</span>, which uses no information about
 the distribution of primes.</p>
-<p>A theorem whose own statement is conditional is formalised exactly as
-stated. The three results above are asserted unconditionally here, and
-their Lean counterparts carry a named input.</p>
-<section id="concordance-of-statements-and-lean-declarations."
-class="level5">
-<h5>Concordance of statements and Lean declarations.</h5>
-<p>Each result of this record that has a kernel-checked Lean statement
-of the same assertion is listed below with the declarations that jointly
-state it. Each name links to its declaration at revision
-<code>a25cb360bef8</code>. Where the Lean statement is stronger than the
-printed one and implies it by an immediate specialisation, the entry
-says so. An entry marked <em>compared</em> was also checked
-independently: a restatement of the same declarations against Mathlib
-alone, together with its proof, was verified by Comparator
-(<code>leanprover/comparator</code>) in a clean continuous integration
-environment, in the run named by its number. Comparator trusts the
-restated statement, so the correspondence between the printed result and
-that statement is the one this concordance records.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">2.1</a>:
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L269"><code>arbitrary_word_sparse_rationalisation_uniform</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L137"><code>polylogarithmic_word_interval_uniform</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean#L8"><code>bounded_test_finite_coupling</code></a>.
-<em>Compared</em>, runs <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Corollary <a class="math-ref" href="#long251:res:local-targets">2.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean#L38"><code>local_target_interval</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:abel">4.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138"><code>dyadicPartialSumQ_eq_start_add_differences</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:parts">4.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172"><code>prime0_dyadic_summation_by_parts</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:infinite">4.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47"><code>infinite_prime_gap_identity</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Corollary <a class="math-ref" href="#long251:res:irr-equivalence">4.4</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L56"><code>irrationality_reformulation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:block">5.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L76"><code>real_block_identity</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:escape-irrational">5.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L94"><code>rationality_classification</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Lemma <a class="math-ref" href="#long251:res:true-tail">5.4</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean#L57"><code>real_dyadic_orbit_eq_true_tail_iff</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:freepair">5.5</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L189"><code>actual_free_pair_criterion</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:lcmdiagonal">5.6</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153"><code>irrational_initial_iff_all_lcmDiagonal_nonintegral</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:smallpair">6.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L267"><code>rational_small_pair_bundle</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Corollary <a class="math-ref" href="#long251:res:smallpair-real">6.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L298"><code>real_small_pair_prime_endpoint</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">6.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L175"><code>prime_gaps_not_eventually_periodic</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:signedwindow">6.4</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L135"><code>real_signed_two_window</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:explicit-remainder">6.5</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L211"><code>explicit_remainder_certificate</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:finite-smallpair">6.6</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L111"><code>finite_small_pair</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:one-tail-certificate">6.7</a>:
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L6"><code>one_tail_signed_certificate</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L142"><code>denominator_floor_both</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L137"><code>denominator_floor_decimal</code></a>.
-<em>Compared</em>, runs <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>,
-<a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:boundedperturbation">8.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L200"><code>rational_bounded_perturbation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:shiftedcount">8.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152"><code>shifted_count_bound</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:nonconcentration">8.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean#L100"><code>finite_perturbation_stability</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:sparse-nonconcentration">8.5</a>:
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean#L80"><code>sparse_nonconcentration</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:polignacfail">8.8</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean#L368"><code>exists_logarithmic_recurring_values_countermodel</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:polynomialcountermodel">8.9</a>:
-<a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L27"><code>polynomial_countermodel</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:telescope">8.10</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137"><code>carryPartialSum_eq</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:xr:totient">D.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877"><code>tailShift_integral_totient_of_odd_den</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:xr:propagate">D.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean#L27"><code>realTailShift_integral_add</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:xr:truncation">D.3</a> (the Lean
-statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L261"><code>cofinal_escape_of_finite_truncation</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:res:complete-truncation">D.4</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L25"><code>finite_separation_complete</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Proposition <a class="math-ref" href="#long251:xr:boundedpolignac">D.6</a> (the
-Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperBoundedCarryR7.lean#L179"><code>bounded_recurring_values_countermodel</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048"><code>35605146048</code></a>.</p>
-<p> Theorem <a class="math-ref" href="#long251:res:affinecollapse">E.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L241"><code>affine_circularity_bundle</code></a>.
-<em>Compared</em>, run <a
-href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
-</section>
-<section id="sparse-construction." class="level5">
-<h5>Sparse construction.</h5>
-<p>The source index records <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217">the
-interval theorem for an arbitrary sequence</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53">its
-rational-target consequence</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78">the
-polylogarithmic interval theorem</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139">the
-block total-variation bound</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152">the
-uniform bounded-test theorem</a> as <code>ci_checked</code>. The formal
-construction chooses one coordinate at a time, rather than the triples
-used here. Its polylogarithmic statement fixes the permitted set,
-interval, and support-count constant and cutoff before the target; the
-eventual congruences and convergence are quantified after it. The common
-support-count bound and same-index block comparison therefore give a
-target-independent statistical error bound. A common congruence cutoff
-instead requires the construction, which chooses it from the schedule
-and modulus. The printed schedule independently supplies the common
-cutoffs and bounds in Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">2.1</a>.
-The recorded build status is described under Statements and
-declarations; no new Lean build is claimed.</p>
-</section>
-<section id="finite-shifted-gap-count." class="level5">
-<h5>Finite shifted-gap count.</h5>
-<p>The supplied release contains a <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos251/ShiftedCountingSourceR11.lean">relocated
-proof of the finite shifted-gap count</a> in Proposition <a class="math-ref" href="#long251:res:shiftedcount">8.2</a>. Its
-natural-number triples agree with the printed integer triples: <span
-class="math inline" data-term-auto="off">\(x,d,s\)</span> and <span
-class="math inline" data-term-auto="off">\(x+s+d+r\)</span> are positive under the stated
-conditions. The finite inequality has no sieve premise; the separate
-sieve-dependent density-zero implication is not used here. The
-declaration index records this file as <code>release_only</code>, not
-<code>ci_checked</code>; source availability does not establish a
-successful build.</p>
-</section>
-<section id="finite-summation-by-parts." class="level5">
-<h5>Finite summation by parts.</h5>
-<p>Formalised as the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138">summation-by-parts
-identity</a>. The finite identity requires no positivity, monotonicity
-or convergence.</p>
-</section>
-<section id="prime-gap-summation-by-parts." class="level5">
-<h5>Prime-gap summation by parts.</h5>
-<p>Formalised as the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172">prime-gap
-summation by parts</a>, using the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L161">gap
-partial sum</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L156">agreement
-of the two gap formulas</a>; the latter records that the natural-number
-difference <span class="math inline" data-term-auto="off">\(p_{n+1}-p_n\)</span> agrees with
-the difference taken in <span class="math inline" data-term-auto="off">\(\Q\)</span>, which
-needs <span class="math inline" data-term-auto="off">\(p_n\le p_{n+1}\)</span>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L152">increase
-of consecutive primes</a>.</p>
-</section>
-<section id="convergence-and-the-infinite-identity." class="level5">
-<h5>Convergence and the infinite identity.</h5>
-<p>The sources prove the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360">polynomial
-prime bound</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L379">convergence
-of the prime series</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385">convergence
-transfer to the gap series</a>. The identity in Theorem <a class="math-ref" href="#long251:res:infinite">4.3</a> is the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
-prime-gap identity</a>.</p>
-</section>
-<section id="the-irrationality-equivalences." class="level5">
-<h5>The irrationality equivalences.</h5>
-<p>The source proves the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435">irrationality
-equivalence between <span class="math inline" data-term-auto="off">\(\Pi\)</span> and <span
-class="math inline" data-term-auto="off">\(S\)</span></a>. For the second normalisation, it
-proves the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L444">identity
-<span class="math inline" data-term-auto="off">\(\sum_{n\ge0}p_n2^{-n}=4+2S\)</span></a> and
-the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L459">corresponding
-irrationality equivalence</a>.</p>
-</section>
-<section id="the-general-recurrence." class="level5">
-<h5>The general recurrence.</h5>
-<p>The source defines the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L482">tail
-recurrence</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L544">shift</a>,
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L575">integrality</a>.</p>
-</section>
-<section id="iteration-of-the-recurrence." class="level5">
-<h5>Iteration of the recurrence.</h5>
-<p>The source versions of Theorem <a class="math-ref" href="#long251:res:block">5.2</a> give the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L653">iterated
-block identity</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L667">scaled
-shift identity</a>.</p>
-</section>
-<section id="two-consecutive-small-differences." class="level5">
-<h5>Two consecutive small differences.</h5>
-<p>The sources for Theorem <a class="math-ref" href="#long251:res:smallpair">6.1</a> and
-Corollary <a class="math-ref" href="#long251:res:smallpair-real">6.2</a> are the
-rational <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L979">adjacent
-small-shift obstruction</a>, its <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1006">arbitrarily
-late consequence</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">real
-small-pair implication</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L120">sufficient
-condition for irrationality</a>.</p>
-</section>
-<section id="congruent-indices." class="level5">
-<h5>Congruent indices.</h5>
-<p>For Theorem <a class="math-ref" href="#long251:res:freepair">5.5</a>, the source
-gives the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean#L92">criterion
-for congruent indices</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean#L105">eventual
-congruence classification</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean#L236">irrationality
-criterion using congruent indices</a>, using the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/FreePairReduction.lean#L186">actual
-real tail recurrence</a>.</p>
-</section>
-<section id="denominators-and-integral-shifts." class="level5">
-<h5>Denominators and integral shifts.</h5>
-<p>The sources for <a class="math-ref" data-equation-ref="true" href="#long251:eq:den-law">long251:eq:den-law</a> and its
-consequences give the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1217">denominator
-recurrence</a>, its <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1226">odd
-case</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1236">even
-case</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1279">denominator
-classification</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877">totient
-shift</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L900">propagation
-of an integral shift to every later index</a>.</p>
-</section>
-<section id="rationality-of-the-initial-value." class="level5">
-<h5>Rationality of the initial value.</h5>
-<p>For Theorem <a class="math-ref" href="#long251:res:escape-irrational">5.3</a>, the
-sources give two rationality criteria: <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1479">one
-integral shift of positive length</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1525">eventual
-integrality for a fixed positive length</a>. The corresponding
-irrationality criteria are <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1551">nonintegrality
-at every index for every positive length</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572">arbitrarily
-late nonintegrality for every positive length</a>.</p>
-</section>
-</section>
 </section>
 <section id="long251:sec:erdos-251-extended-record" class="level2">
 <h2>Further criteria, examples and computational details</h2>
@@ -3438,9 +2888,6 @@ class="math inline" data-term-auto="off">\(T_N\)</span> is odd, then <span
 class="math inline" data-term-auto="off">\(\sigma_{\ph(d)}(N)\)</span> is an
 integer.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877">tail
-shift integral totient of odd den</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since <span class="math inline" data-term-auto="off">\(d\)</span> is odd,
 <span class="math inline" data-term-auto="off">\(2\)</span> and <span
@@ -3462,9 +2909,6 @@ class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is an integer, t
 class="math inline" data-term-auto="off">\(\sigma_h(N+k)\)</span> is an integer for every
 <span class="math inline" data-term-auto="off">\(k\ge0\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean#L27">real
-tail shift integral add</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The shift step identity gives <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+1)=2\sigma_h(N)-(a_{N+h+1}-a_{N+1})\)</span>,
@@ -3523,9 +2967,6 @@ class="math inline" data-term-auto="off">\(L\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(S_{h,N,L},\Z)&gt;R_{h,N,L}(M)\)</span>,
 then the nonintegrality condition in Problem <a class="math-ref" href="#long251:prob:escape">10.1</a> holds.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L261">cofinal
-escape of finite truncation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The part of <span
 class="math inline" data-term-auto="off">\(\sum_{j\ge1}(g_{N+h+j}-g_{N+j})2^{-j}\)</span>
@@ -3575,9 +3016,6 @@ class="math display" data-term-auto="off">\[D\notin\Z\quad\Longleftrightarrow\qu
 \text{there exists }L\text{ with
 }\operatorname{dist}(S_L,\Z)&gt;R_L.\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L25">finite
-separation complete</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The reverse implication follows from the triangle
 inequality. For the forward implication put <span
@@ -3785,9 +3223,6 @@ class="math inline" data-term-auto="off">\(4\)</span> and every tail <span
 class="math inline" data-term-auto="off">\(\sum_{j\ge1}a_{N+j}2^{-j}\)</span> equals the
 integer <span class="math inline" data-term-auto="off">\(U_N\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperBoundedCarryR7.lean#L179">bounded
-recurring values countermodel</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(k\ge3\)</span> the
 index <span class="math inline" data-term-auto="off">\(k!\)</span> is even and at least <span
@@ -3911,11 +3346,11 @@ asymptotic proportion. The finite-band ratios therefore do not establish
 an asymptotic rate.</p>
 </section>
 <section id="long251:sec:xr-corrections" class="level3">
-<h3>Corrections to earlier records</h3>
-<section id="the-earlier-tail-bound-calculation." class="level5">
-<h5>The earlier tail-bound calculation.</h5>
-<p>The <span class="math inline" data-term-auto="off">\(4096\)</span>-bit program linked
-through Section <a class="math-ref" href="#long251:sec:measurements">9</a> bounds
+<h3>Two corrections</h3>
+<section id="the-tail-bound-in-the-free-pair-program." class="level5">
+<h5>The tail bound in the free-pair program.</h5>
+<p>The <span class="math inline" data-term-auto="off">\(4096\)</span>-bit free-pair program
+linked through Section <a class="math-ref" href="#long251:sec:measurements">9</a> bounds
 <span class="math inline" data-term-auto="off">\(T_s\)</span> by summing the first <span
 class="math inline" data-term-auto="off">\(400\)</span> terms of <span
 class="math inline" data-term-auto="off">\(1250(s+j+2)^4 2^{-j}\)</span> after rounding each
@@ -3940,57 +3375,16 @@ issue is in the stated majorant argument, not a failure of the returned
 enclosure. This argument justifies the analytic bound; it is not a rerun
 of the denominator-exclusion search.</p>
 </section>
-<section id="two-different-improvements-to-the-exclusion-record."
-class="level5">
-<h5>Two different improvements to the exclusion record.</h5>
-<p>An earlier internal record gave a denominator exclusion at <span
-class="math inline" data-term-auto="off">\(10^{602}\)</span>. The kernel-decided floor <span
-class="math inline" data-term-auto="off">\(2^{589}&gt;10^{177}\)</span> of Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a> is
-numerically smaller but has a different verification status. It does not
-supersede <span class="math inline" data-term-auto="off">\(10^{602}\)</span> in numerical
-strength. The continued-fraction exclusion <span
-class="math inline" data-term-auto="off">\(2^{39997}&gt;10^{12040}\)</span> of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> is the
-larger numerical bound. The bound has <span
-class="math inline" data-term-auto="off">\(12041\)</span> decimal digits; the corresponding
-strict power-of-ten lower bound is <span
-class="math inline" data-term-auto="off">\(10^{12040}\)</span>, not <span
-class="math inline" data-term-auto="off">\(10^{12041}\)</span>. The earlier manuscript
-reports a separate interval and Farey-neighbour replay. Independently of
-that report, this edition regenerates an <span
-class="math inline" data-term-auto="off">\(80000\)</span>-bit enclosure and its Farey
-certificate, as described after the proof of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>. The
-original program was not executed. The Lean kernel checks the
-certificate given in that proof, which yields the stronger bound <span
-class="math inline" data-term-auto="off">\(2^{40062}&gt;10^{12059}\)</span>.</p>
-</section>
-<section id="an-insufficient-proposed-condition." class="level5">
-<h5>An insufficient proposed condition.</h5>
-<p>An earlier record named Hardy-Littlewood <span
-class="math inline" data-term-auto="off">\(k\)</span>-tuple correlation of consecutive gaps
-at a fixed offset as the missing input. With the offset freed by
-Theorem <a class="math-ref" href="#long251:res:freepair">5.5</a>
-the route needs, for each modulus <span
-class="math inline" data-term-auto="off">\(t\)</span>, cofinally many congruent pairs with
-certified nonintegral tail difference. A further record proposed that
-two even values differing by <span class="math inline" data-term-auto="off">\(2\)</span>,
-each occurring infinitely often inside a common index residue class,
-would supply the two-condition form. Theorem <a class="math-ref" href="#long251:res:polignacfail">8.8</a> shows that
-this implication is false for integer-coefficient recurrences. That
-entry is withdrawn.</p>
-</section>
-<section id="the-formal-boundary." class="level5">
-<h5>The formal boundary.</h5>
-<p>An earlier reading of the short note placed the relation between
-rational and real tails and the real small-pair implication among the
-results supported only by ordinary proofs. The supplied record instead
-identifies formal proofs at <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">line 48</a>
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L99">line 99</a>
-of the real prime-gap tail module. A second reading placed the
-kernel-decided denominator floor and the criterion using congruent
-indices outside the source revision the note pins. Both modules are
-present at that revision, and both are linked from the note.</p>
+<section id="an-insufficient-condition." class="level5">
+<h5>An insufficient condition.</h5>
+<p>With the offset freed by Theorem <a class="math-ref" href="#long251:res:freepair">5.5</a>, the route
+needs, for each modulus <span class="math inline" data-term-auto="off">\(t\)</span>,
+cofinally many congruent pairs with certified nonintegral tail
+difference. Two even values differing by <span
+class="math inline" data-term-auto="off">\(2\)</span>, each occurring infinitely often inside
+a common index residue class, do not imply this two-condition form for
+integer-coefficient recurrences: the sequence of Theorem <a class="math-ref" href="#long251:res:polignacfail">8.8</a> has both
+properties and only integral tail shifts.</p>
 </section>
 </section>
 </section>
@@ -4060,9 +3454,6 @@ D_N\notin\Z\text{ for arbitrarily large }N.
 \label{eq:fixedcollapse}\ltx@label{long251:eq:fixedcollapse}
 \end{equation}\]</span></div>
 </div>
-<p class="lean-note"><small>Lean: <a
-href="https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L241">affine
-circularity bundle</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Substituting <span
 class="math inline" data-term-auto="off">\(D_{N+r}=2^rD_N-B_{h,N,r}\)</span> into the first
@@ -4101,9 +3492,6 @@ class="math display" data-term-auto="off">\[|B_{h,N,r}-2^rz|
 class="math inline" data-term-auto="off">\(r\)</span> works for all integers <span
 class="math inline" data-term-auto="off">\(z\)</span>, as required. ◻</p>
 </div>
-<p>The three displayed equivalences are assembled in one declaration, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L241">the
-three arithmetic-progression equivalences</a>.</p>
 <p>Evenness is essential in <a class="math-ref" data-equation-ref="true" href="#eq:affinecofinal">eq:affinecofinal</a>. Without it, the
 recurrence <span class="math inline" data-term-auto="off">\(T_N=N+1\)</span>, <span
 class="math inline" data-term-auto="off">\(g_n=n-1\)</span> for <span
@@ -4143,7 +3531,8 @@ Thus <a class="math-ref" data-equation-ref="true" href="#eq:fixedcollapse">eq:fi
 for real integer-coefficient recurrences under the same bound and growth
 hypothesis. The same is true of <a class="math-ref" data-equation-ref="true" href="#eq:affinecollapse">eq:affinecollapse</a>, and of <a class="math-ref" data-equation-ref="true" href="#eq:affinecofinal">eq:affinecofinal</a> when the
 coefficient differences are even. These extensions follow from the
-printed argument; the cited formal statement is the rational one.</p>
+printed argument; the Lean proof covers the rational case stated in the
+theorem.</p>
 <p>The first test is exactly even integrality of <span
 class="math inline" data-term-auto="off">\(D_N\)</span>, regardless of <span
 class="math inline" data-term-auto="off">\(r\)</span>. The fixed-progression test compares
@@ -4293,12 +3682,11 @@ between primes</em></a>. Annals of Mathematics <strong>179</strong>
 href="https://doi.org/10.4007/annals.2014.179.3.7">10.4007/annals.2014.179.3.7</a>.</p></li>
 <li id="ref-22"><p>Thomas F. Bloom, <a
 href="https://www.erdosproblems.com/251"><em>Erdős Problem
-#251</em></a>. 2026. Catalogue snapshot accessed 6 September
-2026.</p></li>
+#251</em></a>. 2026. Accessed 6 September 2026.</p></li>
 <li id="ref-23"><p><span>Erdős Problems contributors</span>, <a
 href="https://www.erdosproblems.com/forum/thread/251"><em>Erdős Problem
-#251 discussion thread</em></a>. 2026. Snapshot accessed 6 September
-2026: Tao comment of 7 October 2025 and Land comments of 6 September
+#251 discussion thread</em></a>. 2026. Accessed 6 September 2026: Tao
+comment of 7 October 2025 and Land comments of 6 September
 2026.</p></li>
 <li id="ref-24"><p><span>ChatGPT 5.4 Pro (orchestrated by Vjeko Kovač)</span>, <a
 href="https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf"><em>On

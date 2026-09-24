@@ -74,18 +74,11 @@
 \emergencystretch=2em
 
 % ---------------------------------------------------------------------------
-% Statement-level proof links.  \commit above predates the move of the Lean
-% roots under lean/, and the declarations cited under the statements were
-% written after it, so a second immutable pin, \ledgercommit, carries them.
-% The note printed under each statement is generated.  Do not edit a
-% \leannote by hand.
+% Evidence marks.  paper-evidence.tex places "Lean" and "Comparator" links in
+% the margin beside each result from the paper's generated file
+% paper/evidence/<paper>.tex, which each paper inputs after this preamble.
 % ---------------------------------------------------------------------------
-\newcommand{\ledgercommit}{a25cb360bef8dd818dde14b5fb752244304af354}
-\newcommand{\ledgerbase}{https://github.com/wcook04/plectis-erdos/blob/\ledgercommit}
-\newcommand{\lproof}[3]{\href{\ledgerbase/lean/#1\#L#2}{\leanlabel{#3}}}
-\newcommand{\leannote}[1]{%
-  \par\nobreak\vspace{-0.3\baselineskip}%
-  \noindent{\small #1\par}\vspace{0.15\baselineskip}}
+\input{paper-evidence}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -120,27 +113,13 @@
 % Erdős problem is closed.
 \newcommand{\statusboundary}{%
   \emph{Status.}  The problem treated here is open, and this note does not
-  close it.  Every statement below marked as checked is a proposition that the
-  pinned Lean kernel accepts from the sources this note links to, with no
-  \texttt{sorry}, no added axiom, and no unchecked evaluation.  That is a claim
-  about the formal statement, not about its mathematical interest, its
-  novelty, or the original problem.  The unresolved obligations are named
+  close it.  Every Lean mark in the margin points to propositions that the
+  pinned Lean kernel accepts, with no \texttt{sorry}, no added axiom, and no
+  unchecked evaluation.  That claim concerns the formal statements only; it
+  says nothing about their mathematical interest, their novelty, or the
+  original problem.  The unresolved obligations are named
   exactly, in their own section, and none of the finite computations,
-  reductions, or no-go results here removes one of them.
-  \companionpapercontext}
-
-% The mathematical notes remain standalone. These links supply optional
-% system context without making a systems manuscript authority for a theorem.
-\newcommand{\companionpapercontext}{%
-  \par\smallskip\noindent\emph{Companion system context.}
-  The \papersectionlink{claim-faithful-publication-systems-paper.pdf}%
-  {systems-trust}{claim and trust boundary},
-  \papersectionlink{cold-clone-to-proof-receipt.pdf}%
-  {cold-clone-authority}{cold-clone route to proof authority}, and
-  \papersectionlink{open-source-mathematics-strategy.pdf}%
-  {strategy-protocol}{public contribution protocol} are described in sibling
-  papers. Those descriptions do not change the mathematical status of this
-  note.}
+  reductions, or no-go results here removes one of them.}
 
 % Compact opening card for the separately stated Comparator theorem selected
 % from each problem note.  The prose supplied by each note owns the

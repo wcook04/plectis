@@ -1011,7 +1011,6 @@
           "role": "Standalone theorem-led problem note for Erdős #249 and the dyadic/all-base totient-kernel boundary.",
           "anchor_label_allowlist": [
             "res:basis",
-            "res:rank",
             "thm:kkernelrank",
             "res:factorideal",
             "res:actualorbit",
@@ -9069,6 +9068,7 @@
             "ErdosProblems.Erdos251.SparseAmbientR9",
             "ErdosProblems.Erdos251.SparsePaperR11",
             "ErdosProblems.Erdos257.MersenneSubseriesRigidity",
+            "ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport",
             "ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim",
             "ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn",
             "ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim",
@@ -13954,6 +13954,14 @@
           "role": "Lean proof module",
           "imports": [
             "Erdos249257.GreedyAchievementSet"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos257.PaperCompleteR20.PositivePeriodicSupport",
+          "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/PositivePeriodicSupport.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "Erdos249257.CertificateKernel"
           ]
         },
         {
@@ -19180,7 +19188,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "c91562bd574a387cde904481e609c7b4cacebb14",
+      "ref": "7f79e63d0b36b5b4f0b47b6368342b4a50824f4e",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",
@@ -20751,7 +20759,7 @@
         "source": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
         "environment": "problem",
         "title": "Erdős #68",
-        "line": 32
+        "line": 33
       }
     },
     {
@@ -20775,7 +20783,7 @@
         "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 49
+        "line": 50
       }
     },
     {
@@ -20811,7 +20819,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1100
+        "line": 1065
       }
     },
     {
@@ -20835,7 +20843,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 48
+        "line": 49
       }
     },
     {
@@ -20847,7 +20855,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 132
+        "line": 66
       }
     },
     {
@@ -20859,7 +20867,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 61
+        "line": 62
       }
     },
     {
@@ -20871,7 +20879,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 149
+        "line": 156
       }
     },
     {
@@ -20883,7 +20891,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "no reduced tail is an integer",
-        "line": 587
+        "line": 581
       }
     },
     {
@@ -20895,7 +20903,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "residue inequalities after every starting index",
-        "line": 593
+        "line": 587
       }
     },
     {
@@ -20907,7 +20915,7 @@
         "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
         "title": "an exact function representing the distinct-height sum",
-        "line": 2253
+        "line": 2245
       }
     },
     {
@@ -20919,7 +20927,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "growth of repeated denominator factors",
-        "line": 860
+        "line": 851
       }
     },
     {
@@ -20931,7 +20939,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "Four estimates for the first-harmonic sum",
-        "line": 721
+        "line": 704
       }
     },
     {
@@ -20943,7 +20951,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "bounded returns of the scaled remainder",
-        "line": 1116
+        "line": 1081
       }
     },
     {
@@ -20955,7 +20963,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "arithmetic tests for the greedy sequence",
-        "line": 1125
+        "line": 1090
       }
     },
     {
@@ -20967,7 +20975,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1136
+        "line": 1101
       }
     }
   ],
@@ -23557,7 +23565,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_249_irrationality"
       ],
-      "paper_label": "res:rank",
+      "paper_label": "thm:kkernelrank",
       "readme_headline": false,
       "declarations": [
         {

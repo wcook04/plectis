@@ -114,6 +114,21 @@ by an ordinary finite-prefix argument. Its printed proof uses classical
 Chebotarev instead. This rate does not cover the unrestricted Sylvester-tail
 question.
 
+The rounded sequence `a_1 = 8`,
+`a_(n+1) = ⌈n a_n²/(n+3)⌉` has precisely this rate and product-ratio
+increments of order `n²`. Thus the separate bounded-increment recurrence
+criterion below gives no conclusion for it, while the cubic-rate theorem
+proves its reciprocal sum irrational. Duverney's Corollary 3.2 supplies an
+earlier signed recurrence criterion under its printed one-sided growth-defect
+condition. In the all-positive, absolutely summable specialisation, the
+product-ratio increments tend to zero. For the rounded example,
+`a_(n+1)/a_n²−1 ∼ −3/n`, so its signed defect series diverges and that
+absolutely summable specialisation does not apply. The exact `o(n⁻³)`
+remainder matters to the polynomial-exclusion proof. These comparisons locate
+the contribution without deciding its novelty or priority; the
+[short paper's argument and example](papers/full-text/erdos-243-reciprocal-tail-rigidity.md#sec:secondaryrate)
+give the proof and source locators.
+
 The short paper also proves an ordinary original-sequence corollary. Let
 `a_1<a_2<⋯` be positive integers,
 `a_(n+1)/a_n²→1`, `∑ 1/a_n` rational, and `P_n=∏_{j<n} a_j`. If
@@ -222,6 +237,20 @@ Lean proves this as `divisibilityWeightedClaim` in
 [`WeightedReturn.lean`](../lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean).
 The short paper gives a shorter proof and an
 explicit support with divergent reciprocal sum satisfying the criterion.
+The comparison is with Erdős's earlier reciprocal-summable condition, which
+he stated for every integer base after proving the pairwise-coprime case.
+For `P = {2}`, write `a = 2^k m` with `m` odd: the weighted summand is
+`1/[m(b^{2^k}−1)]`. In the short paper's example
+`A★ = {2^k m : k ≥ 1, m odd, m ≤ 2^{2^k}}`, each layer contributes
+asymptotically `(log 2)/2` to `∑_{a∈A★} 1/a`, yet its weighted contribution
+is summable. In particular, the theorem covers `A★` itself at every integer
+base even though its reciprocal sum diverges. The weighted criterion is also
+hereditary for infinite subsets. It does not cover full support, all odd
+exponents, or the full prime support; Tao–Teräväinen prove the latter at base
+two by another method.
+The comparison identifies the added class and proof mechanism, but does not
+settle independent novelty or priority assessment. See the
+[short paper's theorem, example and sources](papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability).
 At base two, the weighted condition can also be combined with the positive
 divisor-cover criterion: the long paper proves that a common finite averaging
 window makes both displacements small. Every infinite subset of their union

@@ -1,0 +1,90 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+%
+% Margin links to the formal evidence for each result.
+%
+% Each paper inputs its own generated file paper/evidence/<paper>.tex, written by
+% scripts/paper_evidence.py from the coverage ledger and the Comparator replay
+% receipts.  That file holds one line per result,
+%
+%   \DeclareResultEvidence{<label>}{<mark>}{<Lean URL>}{<Comparator URL>}
+%
+% and nothing else.  When the result's \label is set, its marks are placed in
+% the right margin beside it: "Lean" (or "Lean" with a dagger when the Lean
+% proof assumes a named input) and, when the result was compared, "Comparator".
+% No text is added to the page.  A declared result whose label never occurs is
+% an error, so a mark cannot silently go missing; so is a label declared twice.
+% Do not edit the per-paper files by hand.
+
+\usepackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize\sffamily\upshape}
+\setlength{\marginparwidth}{56pt}
+\setlength{\marginparsep}{14pt}
+
+\makeatletter
+\newcommand*{\ev@all}{}
+\newcommand{\DeclareResultEvidence}[4]{%
+  \ifcsname ev@map@#1\endcsname
+    \PackageError{paper-evidence}{Evidence declared twice for label #1}%
+      {Regenerate the paper's evidence file with scripts/paper_evidence.py.}%
+  \else
+    \expandafter\gdef\csname ev@map@#1\endcsname{\ev@marks{#1}{#2}{#3}{#4}}%
+    \g@addto@macro\ev@all{\do{#1}}%
+  \fi}
+\newcommand{\ev@marks}[4]{%
+  \ifcsname ev@placed@#1\endcsname\else
+    \expandafter\gdef\csname ev@placed@#1\endcsname{}%
+    \if\relax\detokenize{#3}\relax
+      \PackageError{paper-evidence}{No Lean target for #1}%
+        {Regenerate the paper's evidence file with scripts/paper_evidence.py.}%
+    \else
+      \ev@place{\raggedright\href{#3}{#2}%
+        \if\relax\detokenize{#4}\relax\else\\[1pt]\href{#4}{Comparator}\fi}%
+    \fi
+  \fi}
+% \marginnote sits level with the line where the label is set, which is the
+% result's heading line: every label of a result is set on its \begin line or at
+% the start of the line after it.  scripts/check_paper_evidence_pdfs.py checks
+% this on the rendered pages.
+\newcommand{\ev@place}[1]{\marginnote{#1}}
+\newcommand{\ev@hook}[1]{%
+  \ifcsname ev@map@#1\endcsname\csname ev@map@#1\endcsname\fi}
+\AtBeginDocument{%
+  \let\ev@label\label
+  \renewcommand{\label}[1]{\ev@label{#1}\ev@hook{#1}}%
+  \ifdefined\compatlabel
+    \let\ev@compatlabel\compatlabel
+    \renewcommand{\compatlabel}[1]{\ev@compatlabel{#1}\ev@hook{#1}}%
+  \fi}
+\AtEndDocument{%
+  \def\do#1{\ifcsname ev@placed@#1\endcsname\else
+    \PackageError{paper-evidence}{The evidence mark for #1 was never placed}%
+      {Its label does not occur in this paper; regenerate the evidence file.}\fi}%
+  \ev@all}
+\makeatother
+
+% Once per paper: what the marks mean.  #1 is the URL of the paper's evidence
+% record.
+\newcommand{\evidenceparagraph}[1]{%
+  \par\smallskip\noindent\emph{Formal proofs.}
+  A result with a kernel-checked Lean proof carries a mark in the margin.
+  \emph{Lean} opens the proof: the declaration itself when one declaration
+  states the whole result, otherwise the list of declarations that together
+  state it.  \emph{Comparator} opens the record of an independent check, in
+  which the same statement, written again from Mathlib alone in a separate
+  repository, was compared with our proof by Lean's Comparator tool, allowing
+  only the three standard axioms.  A dagger on the Lean mark means that the
+  Lean proof assumes an input named just below the result.  A result without a
+  mark has no Lean proof of its whole statement; what is checked is said below
+  it.  The \href{#1}{evidence record} gives every declaration, version and
+  check.  These checks show that the stated propositions are proved; whether
+  they are the right propositions is a question the reader can settle by
+  comparing them with the text.}
+
+% A plain remark after a result, for what its mark alone cannot say: the input
+% a conditional Lean proof assumes, or what is and is not checked for a result
+% without a mark.  The skip after the result is replaced by one that cannot
+% break, so the remark never starts a page away from its result.
+\newcommand{\evidenceremark}[1]{%
+  \par\removelastskip\nobreak\vspace{0.3\baselineskip}%
+  \noindent{\small #1\par}\vspace{0.15\baselineskip}}
