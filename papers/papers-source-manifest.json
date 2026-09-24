@@ -115,13 +115,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "079feec7238dbff6e32b7bd4088f198c5edbdce14d04e292c8a4bff54d1e5945",
-      "bytes": 162001,
+      "source_sha256": "b7635e96da57a679d715c552af4e1f0b31b555b9ca9ba9ca1dc075e7526563a2",
+      "bytes": 162214,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "51e400713f30cfdbac24b7e06b6d3a4f9bcaea00c81533ec057daf8b966b2fe4",
-      "tex_bytes": 64466
+      "hosted_tex_sha256": "39b26c1a00840f40047ee03223b6359e10e7bafe4be8f0c9eca8f52a536d7984",
+      "tex_bytes": 64618
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",

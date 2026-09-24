@@ -45,7 +45,7 @@ step. Mathematical importance requires separate judgement.
 | [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
 | [#249](#result-249) | The short paper and Lean give the exact all-base totient-kernel rank `k^e+1`; Lean also checks three conditional routes toward irrationality. | None supplies the needed cofinal actual-LCM, first-harmonic or strict prime-tail input. |
 | [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
-| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. Palomar's mechanical verification passed for the exact five-declaration `E257_01` entry; editorial review and registration remain pending. |
+| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. Palomar's mechanical verification passed for the exact five-declaration `E257_01` entry; registration has been requested, with no public version yet. |
 | [#269](#result-269) | Both two-prime running-LCM sums are transcendental by the paper's argument using a cited Hecke–Mahler theorem; Lean checks the formulas and the conditional transfer. | The cited transcendence input is not formalised, and the three-prime irrationality question remains open. |
 | [#1041](#result-1041) | Ani's degree-seven polynomial refutes the exact Formal Conjectures path-image-length statement in Lean; Lean also checks positive trinomial and sharp collinear families. | Independent review of correspondence with the 1958 wording is pending; other geometric results have their own hypotheses. |
 | [#1049](#result-1049) | Lean checks irrationality in Zudilin's rational-base contour region and exact Hankel orders. | `3/2` and the all-rational-base claim remain open. |
@@ -241,13 +241,14 @@ The comparison is with Erdős's earlier reciprocal-summable condition, which
 he stated for every integer base after proving the pairwise-coprime case.
 For `P = {2}`, write `a = 2^k m` with `m` odd: the weighted summand is
 `1/[m(b^{2^k}−1)]`. In the short paper's example
-`A★ = {2^k m : k ≥ 1, m odd, m ≤ 2^{2^k}}`, each layer contributes
-asymptotically `(log 2)/2` to `∑_{a∈A★} 1/a`, yet its weighted contribution
-is summable. In particular, the theorem covers `A★` itself at every integer
-base even though its reciprocal sum diverges. The weighted criterion is also
-hereditary for infinite subsets. It does not cover full support, all odd
-exponents, or the full prime support; Tao–Teräväinen prove the latter at base
-two by another method.
+`A★ = {2^k m : k ≥ 1, m odd, m ≤ 2^{2^k}}`, dyadic blocks show that the
+odd reciprocals in the `k`th layer sum to between `2^k/4` and `2^k`.
+The layer therefore contributes at least `1/4` to `∑_{a∈A★} 1/a`, but at
+most `2^{1−k}` to the base-two weighted sum. The ordinary reciprocal sum
+diverges while the weighted sum converges. The theorem gives irrationality
+at every integer base for every infinite subset of `A★`. It does not cover
+full support, all odd exponents, or the full prime support; Tao–Teräväinen
+prove the latter at base two by another method.
 The comparison identifies the added class and proof mechanism, but does not
 settle independent novelty or priority assessment. See the
 [short paper's theorem, example and sources](papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability).
@@ -267,9 +268,10 @@ The weighted theorem is Lean-checked. The exact five-declaration
 `PalomarCorpus/E257_01` entry, which includes `divisibilityWeightedClaim`,
 passed [Palomar mechanical verification](https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226)
 for source commit `b85ed30805188eb4390a686b111294b24363418e`.
-At the last authenticated status check (24 September 2026, 14:13 UTC),
-submission `gid0ym5uu910` was awaiting editorial review; no registration
-was recorded. This verifies that selected interface, not every claim in the
+Palomar accepted a registration request for submission `gid0ym5uu910` at
+19:31 UTC on 24 September 2026. At the authenticated status check at 19:42
+UTC, no public ID or version had been returned. Its verification covers
+the selected interface, not every claim in the
 paper or the unrestricted Erdős problem. Read the
 [short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf),
 [long record](../paper/257/erdos257-mersenne-reasoning-surface.pdf), and

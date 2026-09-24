@@ -93,7 +93,7 @@ irrationality remains open.</td>
 integer base, including supports with divergent reciprocal sum.</td>
 <td>It does not cover every infinite support. Palomar’s mechanical
 verification passed for the exact five-declaration <code>E257_01</code>
-entry; editorial review and registration remain pending.</td>
+entry; registration has been requested, with no public version yet.</td>
 </tr>
 <tr>
 <td><a href="#result-269">#269</a></td>
@@ -342,15 +342,17 @@ every integer base after proving the pairwise-coprime case. For
 <code>P = {2}</code>, write <code>a = 2^k m</code> with <code>m</code>
 odd: the weighted summand is <code>1/[m(b^{2^k}−1)]</code>. In the short
 paper’s example <code>A★ = {2^k m : k ≥ 1, m odd, m ≤ 2^{2^k}}</code>,
-each layer contributes asymptotically <code>(log 2)/2</code> to
-<code>∑_{a∈A★} 1/a</code>, yet its weighted contribution is summable. In
-particular, the theorem covers <code>A★</code> itself at every integer
-base even though its reciprocal sum diverges. The weighted criterion is
-also hereditary for infinite subsets. It does not cover full support,
-all odd exponents, or the full prime support; Tao–Teräväinen prove the
-latter at base two by another method. The comparison identifies the
-added class and proof mechanism, but does not settle independent novelty
-or priority assessment. See the <a
+dyadic blocks show that the odd reciprocals in the <code>k</code>th
+layer sum to between <code>2^k/4</code> and <code>2^k</code>. The layer
+therefore contributes at least <code>1/4</code> to
+<code>∑_{a∈A★} 1/a</code>, but at most <code>2^{1−k}</code> to the
+base-two weighted sum. The ordinary reciprocal sum diverges while the
+weighted sum converges. The theorem gives irrationality at every integer
+base for every infinite subset of <code>A★</code>. It does not cover
+full support, all odd exponents, or the full prime support;
+Tao–Teräväinen prove the latter at base two by another method. The
+comparison identifies the added class and proof mechanism, but does not
+settle independent novelty or priority assessment. See the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability">short
 paper’s theorem, example and sources</a>. At base two, the weighted
 condition can also be combined with the positive divisor-cover
@@ -370,11 +372,12 @@ open. The weighted theorem is Lean-checked. The exact five-declaration
 <code>divisibilityWeightedClaim</code>, passed <a
 href="https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226">Palomar
 mechanical verification</a> for source commit
-<code>b85ed30805188eb4390a686b111294b24363418e</code>. At the last
-authenticated status check (24 September 2026, 14:13 UTC), submission
-<code>gid0ym5uu910</code> was awaiting editorial review; no registration
-was recorded. This verifies that selected interface, not every claim in
-the paper or the unrestricted Erdős problem. Read the <a
+<code>b85ed30805188eb4390a686b111294b24363418e</code>. Palomar accepted
+a registration request for submission <code>gid0ym5uu910</code> at 19:31
+UTC on 24 September 2026. At the authenticated status check at 19:42
+UTC, no public ID or version had been returned. Its verification covers
+the selected interface, not every claim in the paper or the unrestricted
+Erdős problem. Read the <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
 paper</a>, <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">long

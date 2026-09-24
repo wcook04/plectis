@@ -385,32 +385,35 @@ weighted mass decreases on taking subsets. ◻</p>
 <p>The hypothesis is genuinely weaker than reciprocal summability. Let</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[A_\star=\{2^k m:k\ge1,\ m\text{ odd},\
 m\le2^{2^k}\}.\]</span></div>
-<p>Write <span
-class="math inline" data-term-auto="off">\(H_N=\sum_{m=1}^N1/m\)</span> and <span
-class="math inline" data-term-auto="off">\(N_k=2^{2^k}\)</span>. The reciprocal mass in the
-<span class="math inline" data-term-auto="off">\(k\)</span>th layer is</p>
+<p>The layers are disjoint, since their elements
+have different <span class="math inline" data-term-auto="off">\(2\)</span>-adic valuations.
+For <span class="math inline" data-term-auto="off">\(r\ge2\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\rho_k=2^{-k}\sum_{\substack{m\le N_k\\m\text{
-odd}}}\frac1m
-=2^{-k}\bigl(H_{N_k}-\tfrac12H_{N_k/2}\bigr)
-\longrightarrow\frac{\log2}{2},\]</span></div>
-<p class="display-continue">so <span
+class="math display" data-term-auto="off">\[S_r=\sum_{\substack{m\le2^r\\m\text{
+odd}}}\frac1m.\]</span></div>
+<p>Each block <span class="math inline" data-term-auto="off">\(2^j\le
+m&lt;2^{j+1}\)</span>, <span class="math inline" data-term-auto="off">\(1\le j&lt;r\)</span>,
+contains <span class="math inline" data-term-auto="off">\(2^{j-1}\)</span> odd integers, with
+reciprocal sum between <span class="math inline" data-term-auto="off">\(1/4\)</span> and
+<span class="math inline" data-term-auto="off">\(1/2\)</span>. Including <span
+class="math inline" data-term-auto="off">\(m=1\)</span> gives <span
+class="math inline" data-term-auto="off">\(r/4\le S_r\le r\)</span>. The ordinary reciprocal
+mass of the <span class="math inline" data-term-auto="off">\(k\)</span>th layer is <span
+class="math inline" data-term-auto="off">\(2^{-k}S_{2^k}\ge1/4\)</span>, so <span
 class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span> diverges. For
-<span class="math inline" data-term-auto="off">\(P=\{2\}\)</span> the weighted mass of that
-layer is</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\frac{2^k}{2^{2^k}-1}\rho_k.\]</span></div>
-<p>Since <span
-class="math inline" data-term-auto="off">\(H_N\le1+\log N\)</span>, one has <span
-class="math inline" data-term-auto="off">\(\rho_k\le2^{-k}+\log2\)</span>. The weighted terms
-are therefore at most <span
-class="math inline" data-term-auto="off">\((1+2^k\log2)2^{1-2^k}\)</span>, a summable
-sequence. Thus every infinite subset of <span
-class="math inline" data-term-auto="off">\(A_\star\)</span> has irrational <span
-class="math inline" data-term-auto="off">\(X_A(b)\)</span> at every integer base, although
-<span class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span> diverges.
-This example is an ordinary argument; the Lean proofs do not treat this
-particular set.</p>
+<span class="math inline" data-term-auto="off">\(P=\{2\}\)</span>, that layer’s weighted mass
+satisfies</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{S_{2^k}}{2^{2^k}-1}
+\le\frac{2^k}{2^{2^k}-1}
+\le2^{1-k}.\]</span></div>
+<p>The last bound uses <span
+class="math inline" data-term-auto="off">\(2^{2^k}-1\ge2^{2^k-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(2^k\ge2k\)</span>. The weighted mass is summable.
+Every infinite subset of <span class="math inline" data-term-auto="off">\(A_\star\)</span>
+therefore has irrational <span class="math inline" data-term-auto="off">\(X_A(b)\)</span> at
+every integer base, although <span class="math inline" data-term-auto="off">\(\sum_{a\in
+A_\star}1/a\)</span> diverges. This example is an ordinary argument; the
+Lean proofs do not treat this particular set.</p>
 <p>Both proofs select a term no larger than a finite average. For a
 related selection step on arithmetic progressions, see
 Duverney–Tachiya <span class="citation"
