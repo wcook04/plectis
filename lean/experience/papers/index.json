@@ -5633,7 +5633,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Research architecture",
-      "pages": 20,
+      "pages": 11,
       "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
       "precis": "A problem-sized world keeps one open problem with its established results, failed routes, experiments, literature and exact open obligations: a short paper for an expert and a long record for whoever continues. Lean checks the formal proofs, Comparator checks that each selected proof establishes exactly its separately written statement, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight open Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and states what remains a mathematician's judgement.",
       "owns": "the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle",
@@ -5657,238 +5657,108 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "daf4b28f6e14fc79925dc46baed5e4630254f14dce96a8c88e50ca6738079e56",
+        "source_sha256": "0510be4018c9c8a9296606532b4173dc65ef876375f0f84d803911159dbb6ef1",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 24,
+        "mathml_node_count": 43,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "42bdeb1ef1d94bb90b777ecf31e3c17f1c92fb3712582bcc2b7583a004d81ae8",
-        "html_exact_tex_sha256": "faba73210594f98e9d9ba25bd1f8b74664b1375de8215fd066e19f34143677ba"
+        "html_mathml_sha256": "863a77b936bd3487427fddf77aab650d8bc4a6701d240874b73dfa5b1eb7bd92",
+        "html_exact_tex_sha256": "6b77b555bff8f85c5818ae0217dc953fdc1b5b8f8a3904ed2658821280928e40"
       },
       "sections": [
         {
           "level": 2,
-          "anchor": "the-problem-many-kinds-of-evidence",
-          "label": "The problem: many kinds of evidence"
-        },
-        {
-          "level": 5,
-          "anchor": "the-novelty-claim-and-its-ceiling.",
-          "label": "The novelty claim and its ceiling."
-        },
-        {
-          "level": 3,
-          "anchor": "two-architectural-claims",
-          "label": "Two architectural claims"
-        },
-        {
-          "level": 5,
-          "anchor": "a-problem-is-a-mathematical-world-not-a-folder.",
-          "label": "A problem is a mathematical world, not a folder."
-        },
-        {
-          "level": 5,
-          "anchor": "authority-is-separated-before-it-is-recombined.",
-          "label": "Authority is separated before it is recombined."
+          "anchor": "sec:intro",
+          "label": "What AI-assisted mathematics loses"
         },
         {
           "level": 2,
-          "anchor": "sec:lifecycle",
-          "label": "The whole lifecycle in one picture"
+          "anchor": "sec:world",
+          "label": "A problem-sized world"
         },
         {
           "level": 3,
-          "anchor": "skill-addressable-job-lifecycles",
-          "label": "Skill-addressable job lifecycles"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:private",
-          "label": "The private workbench"
-        },
-        {
-          "level": 3,
-          "anchor": "disk-is-shared-memory",
-          "label": "Disk is shared memory"
-        },
-        {
-          "level": 3,
-          "anchor": "type-a-and-type-b",
-          "label": "Type A and Type B"
-        },
-        {
-          "level": 3,
-          "anchor": "concurrency-without-shared-state-confusion",
-          "label": "Concurrency without shared-state confusion"
-        },
-        {
-          "level": 3,
-          "anchor": "the-control-plane-is-executable",
-          "label": "The control plane is executable"
-        },
-        {
-          "level": 3,
-          "anchor": "what-continuous-mathematical-work-looks-like",
-          "label": "What continuous mathematical work looks like"
-        },
-        {
-          "level": 3,
-          "anchor": "coupled-continuous-goals-discovery-and-stewardship",
-          "label": "Coupled continuous goals: discovery and stewardship"
-        },
-        {
-          "level": 2,
           "anchor": "sec:mathloop",
-          "label": "The mathematical reasoning loop"
+          "label": "Failed routes and open obligations"
         },
         {
-          "level": 3,
-          "anchor": "experiments-are-route-selectors",
-          "label": "Experiments are route selectors"
+          "level": 2,
+          "anchor": "sec:checks",
+          "label": "From a proof to a public claim"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:cycle",
+          "label": "The contribution cycle"
         },
         {
           "level": 5,
-          "anchor": "failure-modes-are-mathematical-outputs.",
-          "label": "Failure modes are mathematical outputs."
+          "anchor": "discovery-and-stewardship.",
+          "label": "Discovery and stewardship."
+        },
+        {
+          "level": 5,
+          "anchor": "credit.",
+          "label": "Credit."
         },
         {
           "level": 3,
-          "anchor": "three-oracles-not-one",
-          "label": "Three oracles, not one"
-        },
-        {
-          "level": 3,
-          "anchor": "from-local-progress-to-reusable-mathematics",
-          "label": "From local progress to reusable mathematics"
-        },
-        {
-          "level": 3,
-          "anchor": "problem-sized-lean-worlds-and-bounded-theorem-neighbourhoods",
-          "label": "Problem-sized Lean worlds and bounded theorem neighbourhoods"
-        },
-        {
-          "level": 3,
-          "anchor": "comprehension-before-the-mathematics",
-          "label": "Comprehension before the mathematics"
-        },
-        {
-          "level": 3,
-          "anchor": "consequence-propagation",
-          "label": "Consequence propagation"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:public",
-          "label": "The public Lean repository"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:assurance",
-          "label": "Comparator, Palomar, and publication"
-        },
-        {
-          "level": 3,
-          "anchor": "comparator-an-exact-statement-firewall",
-          "label": "Comparator: an exact-statement firewall"
-        },
-        {
-          "level": 3,
-          "anchor": "review-selection-and-what-the-palomar-registry-is-not",
-          "label": "Review selection, and what the Palomar registry is not"
-        },
-        {
-          "level": 3,
-          "anchor": "publication-and-propagation",
-          "label": "Publication and propagation"
-        },
-        {
-          "level": 3,
-          "anchor": "from-formal-checking-to-mathematical-use",
-          "label": "From formal checking to mathematical use"
-        },
-        {
-          "level": 2,
           "anchor": "sec:example",
-          "label": "One complete boundary: finite is not unbounded"
+          "label": "Worked example: Problem 1041"
         },
         {
           "level": 2,
-          "anchor": "sec:routes",
-          "label": "Inspection routes"
+          "anchor": "sec:instance",
+          "label": "Eight problems in one repository"
         },
         {
           "level": 2,
-          "anchor": "sec:trust",
-          "label": "What can be trusted"
+          "anchor": "sec:production",
+          "label": "How the records are produced"
         },
         {
-          "level": 2,
-          "anchor": "sec:scaling",
-          "label": "Scaling from one clone to a search network"
+          "level": 5,
+          "anchor": "shared-state-on-disk.",
+          "label": "Shared state on disk."
         },
         {
-          "level": 3,
-          "anchor": "clone-attach-compute-and-mine-bounded-results",
-          "label": "Clone, attach compute, and mine bounded results"
+          "level": 5,
+          "anchor": "bounded-context.",
+          "label": "Bounded context."
         },
         {
-          "level": 3,
-          "anchor": "the-no-go-graph-as-a-new-mathematical-object",
-          "label": "The no-go graph as a new mathematical object"
+          "level": 5,
+          "anchor": "claims-before-writes.",
+          "label": "Claims before writes."
         },
         {
-          "level": 3,
-          "anchor": "an-experimental-agenda",
-          "label": "An experimental agenda"
+          "level": 5,
+          "anchor": "single-flight-validation.",
+          "label": "Single-flight validation."
         },
         {
-          "level": 3,
-          "anchor": "sec:admissible-constructions",
-          "label": "Executable construction choices"
+          "level": 5,
+          "anchor": "route-repair.",
+          "label": "Route repair."
         },
         {
           "level": 2,
           "anchor": "sec:related",
-          "label": "Relation to other approaches"
+          "label": "Relation to Prove2Me and other systems"
         },
         {
           "level": 5,
-          "anchor": "theorem-proving-agents.",
-          "label": "Theorem-proving agents."
+          "anchor": "other-systems.",
+          "label": "Other systems."
         },
         {
-          "level": 5,
-          "anchor": "open-formalisation-platforms.",
-          "label": "Open formalisation platforms."
-        },
-        {
-          "level": 5,
-          "anchor": "semi-autonomous-discovery-studies.",
-          "label": "Semi-autonomous discovery studies."
-        },
-        {
-          "level": 5,
-          "anchor": "graphs-and-checked-exposition.",
-          "label": "Graphs and checked exposition."
-        },
-        {
-          "level": 5,
-          "anchor": "auditable-scientific-agents.",
-          "label": "Auditable scientific agents."
-        },
-        {
-          "level": 5,
-          "anchor": "contribution-and-limits.",
-          "label": "Contribution and limits."
-        },
-        {
-          "level": 5,
-          "anchor": "scaling-beyond-this-corpus.",
-          "label": "Scaling beyond this corpus."
+          "level": 2,
+          "anchor": "sec:limits",
+          "label": "Limits, and what stronger models change"
         },
         {
           "level": 2,
@@ -5898,17 +5768,7 @@
         {
           "level": 2,
           "anchor": "app:repro",
-          "label": "Reproducibility"
-        },
-        {
-          "level": 5,
-          "anchor": "public-first-contact.",
-          "label": "Public first contact."
-        },
-        {
-          "level": 5,
-          "anchor": "dated-navigation-counts.",
-          "label": "Dated navigation counts."
+          "label": "Inspection routes and reproducibility"
         },
         {
           "level": 2,
@@ -5921,28 +5781,28 @@
         "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:private",
-            "title": "The private workbench",
+            "id": "sec:world",
+            "title": "A problem-sized world",
             "level": 2
           },
           {
-            "id": "sec:mathloop",
-            "title": "The mathematical reasoning loop",
+            "id": "sec:checks",
+            "title": "From a proof to a public claim",
             "level": 2
           },
           {
-            "id": "sec:assurance",
-            "title": "Comparator, Palomar, and publication",
+            "id": "sec:cycle",
+            "title": "The contribution cycle",
             "level": 2
           },
           {
-            "id": "sec:example",
-            "title": "One complete boundary: finite is not unbounded",
+            "id": "sec:instance",
+            "title": "Eight problems in one repository",
             "level": 2
           },
           {
-            "id": "sec:trust",
-            "title": "What can be trusted",
+            "id": "sec:limits",
+            "title": "Limits, and what stronger models change",
             "level": 2
           }
         ]
@@ -6156,7 +6016,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "de20fa3f408466e70d8250bb0d795abda07356de2144b36fe91ddf60d36dba71",
+        "source_sha256": "f90c671b6e7ef44810048e2ee425b64dfb3a4e81a00e2f13470482e1a800cbb1",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 15,
@@ -6182,8 +6042,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "87f5386a6f9ba222ece8cd04ac4fbbc0f76af675d5b205d3f683ba79a6537d5a",
-        "html_exact_tex_sha256": "86926ea82928526363de467c54496e4d02f5aaad00cad218070233b27c9124d3"
+        "html_mathml_sha256": "1e5a89c720eee13e96874cae1f6e9fe43a34c512172f3a0c7b1fe451ecc91eaf",
+        "html_exact_tex_sha256": "1dd998536da93189371c5dc6d5e9552a4d536e29e5a6e942fd457d384217630a"
       },
       "sections": [
         {

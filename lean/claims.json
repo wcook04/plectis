@@ -1283,7 +1283,7 @@
             "id": "repository_architecture_guide",
             "source": "paper/systems/claim-faithful-publication-systems-paper.tex",
             "decision": "retain_as_primary_repository_architecture_guide",
-            "thesis": "A first-principles map of the Lean source, reviewed public claims, authored documents, generated views, release commands, GitHub workflow, and the exact boundary between human judgement and automatic checks."
+            "thesis": "The research architecture: each open problem kept as a persistent, checkable record (short paper, long record, Lean source, reviewed claims), the path from a proof to a public claim through Lean, Comparator and reviewed wording, and the contribution cycle published as agent skills, with the exact boundary between human judgement and automatic checks."
           }
         ],
         "agent_native_guides": [

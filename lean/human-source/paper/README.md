@@ -81,8 +81,6 @@ that interests you.
 
 For the repository layout, sources of truth, build path, and release
 infrastructure, see [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
-The companion [Plectis software repository](https://github.com/wcook04/plectis)
-contains the general workflow components discussed alongside the mathematics.
 
 ## Sources and earlier manuscripts
 

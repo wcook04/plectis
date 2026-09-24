@@ -22,7 +22,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "04b15f98413c52a2af3ca49105775b446c9db85e3c8c8f1a75632ed2604dbbe2",
+        "source_sha256": "a251c0ebf9dffa3835eafded23b0ef2193dd47fb6b1c0e59847a181572dfe3be",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -37,8 +37,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "bb59d5ab0eba611f50ac1a4cc46ffbde9f6d728ddeb58a91563856fdd79d2961",
-        "html_exact_tex_sha256": "e6c4236860b413bbe9ad18cfd4b72fbe32aa8eb40af5db06f5b3aa2f96320d92"
+        "html_mathml_sha256": "862f639c930e51565aa9aa5b2cea4c38adaf6b6be02bfdd2e9c758d8b453b3d4",
+        "html_exact_tex_sha256": "2695e42ae497d34ed00c10d4b357cb4b91e803dbec5e74da01ae51c069d17c2d"
       },
       "sections": [
         {
@@ -185,7 +185,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "83ddad61470bb6d9f3ddd8cebfefea4f1d799b81c65f7f9594cc2e79927b7eba",
+        "source_sha256": "d64afce92a85c81aa8475330aed29e046f72a756fdd1ec3f955ff1e30257bb6f",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -200,8 +200,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "cedbdc352dcf57a670d5780117da3920dbe57728a18a718000005aefcc9de9bf",
-        "html_exact_tex_sha256": "f1f2d46727d0b920291ef2b4391c80758c815ca150201254848ff56d6ca5b84a"
+        "html_mathml_sha256": "dc74c9274a1d004272f515754d2ccd113b118ac36bdcddad2ccb7f0299f202c3",
+        "html_exact_tex_sha256": "2bb148ffaf193b35fd9f03d7fc9c65f08accc6faaf385c6b07a77cfd8c8c6a7e"
       },
       "sections": [
         {

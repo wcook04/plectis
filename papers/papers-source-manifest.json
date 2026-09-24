@@ -232,13 +232,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "5f7a93a62712a58529d70dc1a4dbfd5709e3587cea7fe1711b5f633425ea564e",
-      "bytes": 160188,
+      "source_sha256": "046647b66db2bc850e7934e8456f96ce5d3537ae0f2f129160ee5d42bde34c59",
+      "bytes": 100724,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "daf4b28f6e14fc79925dc46baed5e4630254f14dce96a8c88e50ca6738079e56",
-      "tex_bytes": 95962
+      "hosted_tex_sha256": "0510be4018c9c8a9296606532b4173dc65ef876375f0f84d803911159dbb6ef1",
+      "tex_bytes": 44938
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",
@@ -258,13 +258,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf",
-      "source_sha256": "5d2e8c1d597e7185fa7e7c2ab5d6a689b90d6b47b42409d304a26e7f79b35c7c",
-      "bytes": 155499,
+      "source_sha256": "eb0278e15898a46721140486b8dd2e92fe57255610fb04656edc4a0e6391bd6a",
+      "bytes": 155423,
       "source_tex_path": "paper/systems/open-source-mathematics-strategy.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/open-source-mathematics-strategy.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex",
-      "hosted_tex_sha256": "de20fa3f408466e70d8250bb0d795abda07356de2144b36fe91ddf60d36dba71",
-      "tex_bytes": 97257
+      "hosted_tex_sha256": "f90c671b6e7ef44810048e2ee425b64dfb3a4e81a00e2f13470482e1a800cbb1",
+      "tex_bytes": 97211
     },
     {
       "hosted_path": "papers/plectis-public-system.pdf",

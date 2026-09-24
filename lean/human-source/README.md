@@ -234,12 +234,12 @@ order without asking you to decode Lean declaration names first.
 
 ## About the project
 
-[From Spare Compute to Cumulative Mathematics](paper/systems/open-source-mathematics-strategy.pdf)
-explains the collaborative research process.
 [Problem-Sized Lean Worlds](paper/systems/claim-faithful-publication-systems-paper.pdf)
-describes the publication system. Runnable workflow components live in the
-[Plectis software toolkit](https://github.com/wcook04/plectis); selected external
-verification entries live in [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean).
+describes the research system: each problem kept as a persistent, checkable
+record, the path from a proof to a public claim, and the contribution cycle.
+[From Spare Compute to Cumulative Mathematics](paper/systems/open-source-mathematics-strategy.pdf)
+explains the collaborative research process. Selected external verification
+entries live in [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean).
 The mathematics and tools in this checkout are self-contained.
 
 ## Citation and licence

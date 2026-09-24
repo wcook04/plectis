@@ -131,15 +131,13 @@ roles, or different people, models, subscriptions, and machines may
 supply them. The architecture requires distinct decisions, not an
 unnecessarily grand collection of laptops.</p>
 <p>The public Lean clone owns the mathematics and return path. The
-separate <a href="https://github.com/wcook04/plectis">public Plectis
-Python toolkit</a> offers optional mechanism examples. The private
-workbench explains production, not proof authority, and contributors
-need no access to it. Any runner or no model at all can use the public
-evidence and review path. The <a
-href="https://wcook04.github.io/plectis/">public website</a> is a
+private workbench explains production, not proof authority, and
+contributors need no access to it. Any runner or no model at all can use
+the public evidence and review path. The <a
+href="https://wcook04.github.io/plectis/maths/">public website</a> is a
 rendered reading route. Its canonical generator and editorial
-configuration remain private; the Lean clone and optional toolkit are
-the inspectable sources.</p>
+configuration remain private; the Lean clone is the inspectable
+source.</p>
 <p>The <span>systems-lifecycle</span><span>systems paper</span> gives
 the complete claim-transition lifecycle. The
 <span>cold-clone-problem</span><span>cold-clone paper</span> tests how a
@@ -341,21 +339,22 @@ data-cites="erdosproblems"><a href="#ref-7">[7]</a></span>. Lean supplies the fo
 and kernel <span class="citation" data-cites="lean4"><a href="#ref-8">[8]</a></span>. DeepMind’s
 <code>formal-conjectures</code> supplies a public one-problem-file model
 with metadata, snapshots, issues, and pull requests <span
-class="citation" data-cites="formalconjectures"></span>. Comparator
-compares selected exact statements with their Lean implementations and
-permitted axioms. A repository-local review ranks candidate results and
-checks whether the selected family is ready for possible submission to
-Palomar <span class="citation" data-cites="palomar"><a href="#ref-10">[10]</a></span>. That
-readiness is not an external Palomar decision and does not establish
-novelty or registration; exact-head Comparator replay is reported
-separately. Polymath supplies a social precedent for publishing small,
-tentative, and negative contributions <span class="citation"
-data-cites="polymath"><a href="#ref-4">[4]</a></span>. BOINC and GIMPS supply the
-volunteer-compute precedent and make visible why executable work,
-independent checks, and legible credit matter <span class="citation"
-data-cites="boinc gimps"><a href="#ref-2">[2]</a><a href="#ref-3">[3]</a></span>. The present repository wraps these
-practices into a route that a newcomer can enter without first
-rebuilding each component.</p>
+class="citation" data-cites="formalconjectures"></span>. <a
+href="https://github.com/leanprover/comparator">Comparator</a>, the Lean
+FRO’s statement checker, compares selected exact statements with their
+Lean implementations and permitted axioms. A repository-local review
+ranks candidate results and checks whether the selected family is ready
+for possible submission to Palomar <span class="citation"
+data-cites="palomar"><a href="#ref-10">[10]</a></span>. That readiness is not an external Palomar
+decision and does not establish novelty or registration; exact-head
+Comparator replay is reported separately. Polymath supplies a social
+precedent for publishing small, tentative, and negative contributions
+<span class="citation" data-cites="polymath"><a href="#ref-4">[4]</a></span>. BOINC and GIMPS
+supply the volunteer-compute precedent and make visible why executable
+work, independent checks, and legible credit matter <span
+class="citation" data-cites="boinc gimps"></span>. The present
+repository wraps these practices into a route that a newcomer can enter
+without first rebuilding each component.</p>
 <p>The same underlying substrate can support several reader projections:
 a short public primer, a specialist paper, a detailed proof account,
 Lean declarations, an agent explanation, and machine-readable queries.
@@ -661,9 +660,10 @@ lineage edges such as <em>uses</em>, <em>enables</em>, <em>repairs</em>,
 <em>formalises</em>, <em>refutes</em>, or <em>explains</em>. A
 consequence view can then show which later results, tools, or
 expositions depend on an earlier contribution. Prove2Me already
-implements the simplest such edge as a credit rule: a contributor earns
-credit when later proofs import a statement they proposed <span
-class="citation" data-cites="prove2me"></span>.</p>
+implements the simplest such edge as a credit rule: later proofs that
+import a statement credit it, to its proposer in the paper and its
+prover in the live FAQ <span class="citation"
+data-cites="prove2me"><a href="#ref-13">[13]</a></span>.</p>
 <p>This later view begins with an immediate obligation. Before a result
 is returned, the clone-local
 <code>propagate-research-consequences</code> skill gives every plausible
@@ -823,29 +823,29 @@ a small audited core: the goal statement, the definitions it rests on,
 and captain-curated milestone lemmas. Agents introduce every other
 intermediate theorem freely. A proof-sketch is a <code>sorry</code>-free
 proof that imports statements not yet proved, so the target is verified
-exactly when its imported children are, and proof search decomposes into
+once its imported children are, and proof search decomposes into
 atomised sub-problems that different agents can close. Every accepted
-statement enters a searchable reusable library, and a contributor earns
-credit when later proofs import a statement they proposed, which is the
-platform’s form of citation. Agents also post progress and lessons on a
-discussion channel, and one recorded exchange shows an agent disproving
-another’s statement and the first agent repairing it. Where the present
-strategy asks for spare compute, an agent-native onboarding route, task
-decomposition with the antecedent left visible, reuse credit, and shared
-negative findings, Prove2Me has a running implementation and is the
-prior published design.</p>
+statement enters a searchable reusable library, and later proofs that
+import a statement credit it, which is the platform’s form of citation.
+Agents also post progress and lessons on a discussion channel, and one
+recorded exchange shows an agent disproving another’s statement and the
+first agent repairing it. Where the present strategy asks for spare
+compute, an agent-native onboarding route, task decomposition with the
+antecedent left visible, reuse credit, and shared negative findings,
+Prove2Me has a running implementation and is the prior published
+design.</p>
 <p>The two differ in what the shared object is. Prove2Me is a hosted
-service with server-side verification. Its public instructions describe
-paper and textbook formalisation, while the site also offers campaigns
-and paper proposals. The commons here is a git repository with no
-service behind it, spanning eight research programmes. Seven original
-endpoints remain unresolved here. For Problem 1041, Lean refutes the
-exact Formal Conjectures statement using ani’s one-polynomial example;
-its relation to the 1958 wording awaits independent human review. The
-unit of credit here is a role ledger over evidence classes, including
-failed routes, no-go theorems, and corrections. This paper does not
-claim that the second design is better. Which contributor experience
-scales is an open question and one of the measures in Section <a class="math-ref" href="#sec:evaluation">12</a>.</p>
+service with server-side verification. Its missions cover research
+papers, textbooks and open problems, and the site also runs campaigns.
+The commons here is a git repository with no service behind it, spanning
+eight research programmes. Seven original endpoints remain unresolved
+here. For Problem 1041, Lean refutes the exact Formal Conjectures
+statement using ani’s one-polynomial example; its relation to the 1958
+wording awaits independent human review. The unit of credit here is a
+role ledger over evidence classes, including failed routes, no-go
+theorems, and corrections. This paper does not claim that the second
+design is better. Which contributor experience scales is an open
+question and one of the measures in Section <a class="math-ref" href="#sec:evaluation">12</a>.</p>
 </section>
 <section id="semi-autonomous-discovery-on-the-erdős-problems."
 class="level5">
@@ -883,14 +883,15 @@ problems. For the seven still-open targets here, there is no known
 solution to memorise. The refuted exact Formal Conjectures statement for
 Problem 1041 instead tests counterexample recognition and fidelity to
 the historical wording.</p>
-<p>Tao’s community wiki of AI contributions to the Erdős problems is the
-existing public register in this exact domain <span class="citation"
-data-cites="taowiki"><a href="#ref-18">[18]</a></span>. It records which problems AI systems have
-touched and with what outcome. It carries no evidence classes, roles, or
-checkable claim boundaries, and it is edited by hand. The protocol here
-is meant to feed that register with returns that already carry those
-fields, and to leave a trail from each wiki line back to the exact
-commit, receipt, and surviving boundary.</p>
+<p>Tao’s community wiki of AI contributions to the Erdős problems was
+the public register in this exact domain until its updates stopped on 30
+June 2026 <span class="citation" data-cites="taowiki"><a href="#ref-18">[18]</a></span>. It
+recorded which problems AI systems had touched and with what outcome,
+failed attempts included, edited by hand and without evidence classes,
+roles, or checkable claim boundaries. The protocol here produces returns
+that already carry those fields, with a trail from each record back to
+the exact commit, receipt, and surviving boundary, so any such register
+can cite them.</p>
 </section>
 <section id="proof-abundance." class="level5">
 <h5>Proof abundance.</h5>

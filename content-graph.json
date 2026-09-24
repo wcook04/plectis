@@ -136941,7 +136941,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2143
+        "total_occurrences": 2144
       },
       "visible_text_byte_count": 754
     },
@@ -153075,7 +153075,7 @@
             "page": "doctrine.html"
           },
           {
-            "count": 8,
+            "count": 9,
             "page": "papers.html"
           },
           {
@@ -153095,7 +153095,7 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           }
         ],
-        "total_occurrences": 111
+        "total_occurrences": 112
       },
       "visible_text_byte_count": 858
     },
@@ -274935,7 +274935,7 @@
         "paper-module-work-landing-control-spine.html": 14,
         "paper-module-world-model-projection-drift-control-room.html": 12,
         "paper-modules.html": 69,
-        "papers.html": 29,
+        "papers.html": 30,
         "quickstart.html": 4,
         "rules-and-ideas.html": 74,
         "source.html": 3,
@@ -274945,7 +274945,7 @@
       },
       "page_count": 181,
       "top_page": "doctrine.html",
-      "total_occurrences": 2143
+      "total_occurrences": 2144
     },
     "checker": {
       "by_page": {
@@ -280762,13 +280762,13 @@
         "paper-module-work-landing-control-spine.html": 3,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 2,
-        "papers.html": 8,
+        "papers.html": 9,
         "quickstart.html": 1,
         "rules-and-ideas.html": 5
       },
       "page_count": 48,
       "top_page": "doctrine.html",
-      "total_occurrences": 111
+      "total_occurrences": 112
     },
     "limit_inferior": {
       "by_page": {
