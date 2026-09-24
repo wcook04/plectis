@@ -157841,7 +157841,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 24,
+            "count": 23,
             "page": "papers.html"
           },
           {
@@ -157865,7 +157865,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           }
         ],
-        "total_occurrences": 34
+        "total_occurrences": 33
       },
       "visible_text_byte_count": 865
     },
@@ -282451,14 +282451,14 @@
         "paper-module-batch4-proof-authority-runtime.html": 2,
         "paper-module-lean-proof-search-lab-runtime.html": 1,
         "paper-modules.html": 1,
-        "papers.html": 24,
+        "papers.html": 23,
         "rules-and-ideas.html": 1,
         "source.html": 1,
         "updates.html": 1
       },
       "page_count": 10,
       "top_page": "papers.html",
-      "total_occurrences": 34
+      "total_occurrences": 33
     },
     "open_world": {
       "by_page": {

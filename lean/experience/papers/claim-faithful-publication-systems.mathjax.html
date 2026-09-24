@@ -26,15 +26,15 @@ ideas, and the citation of earlier work <span class="citation"
 data-cites="fieldsdecl"><a href="#ref-4">[4]</a></span>. Sanderson compresses the point: “every
 AI-generated proof is born an unsolved exposition problem” <span
 class="citation" data-cites="sanderson"></span>.</p>
-<p>Each of these describes a loss of state. A proof found in a session
-arrives without the session: the routes that failed, the computations
-that chose the route, the literature it relied on and the precise
-statement that remains open. The next person, or the next model, begins
-again from the problem statement. As producing results becomes easier,
-helping other people understand and use them becomes the scarce part of
-the work.</p>
+<p>Each of these concerns what a proof does not carry by itself. A proof
+found in a session arrives without the session: the routes that failed,
+the computations that chose the route, the literature it relied on and
+the precise statement that remains open. Whoever continues, a person or
+a model, must rebuild that record or work without it. As producing
+results becomes easier, helping other people understand and use them
+becomes the scarce part of the work.</p>
 <p>This paper describes a research environment built around a persistent
-unit of work, the <em>problem-sized world</em>: one open problem
+unit of work, the <em>problem-sized world</em>: one research problem
 together with everything learned about it. A world is written for two
 readers at once. Its short paper compresses the frontier so that an
 expert can inspect the underlying mathematical ideas without
@@ -56,8 +56,11 @@ Prove2Me and related systems (Section <a class="math-ref" href="#sec:related">7
 </section>
 <section id="sec:world" class="level2">
 <h2>A problem-sized world</h2>
-<p>A problem-sized world is a set of files in a public Git repository,
-organised around the mathematics. Table <a class="math-ref" href="#tab:world">1</a> lists its parts.</p>
+<p>A problem-sized world is a versioned set of files in a public Git
+repository, organised around one research question. It keeps its
+established results and remaining obligations as the question is refined
+or resolved. Table <a class="math-ref" href="#tab:world">1</a>
+lists its parts.</p>
 <div id="tab:world">
 <table>
 <caption>The parts of one problem-sized world.</caption>
@@ -137,10 +140,11 @@ results, obstructions and open obligations around the endpoint.</p>
 <p>The records treat negative results as outputs. A failed attempt shows
 that one search path did not close. A counterexample refutes a
 conjecture on its exact domain. A Lean no-go theorem rules out a class
-of strategies under explicit hypotheses. The last two prevent repeated
-work and show which new ingredient an endpoint needs. For Problem 257, a
-proposed estimate said that the greedy test ruling out a rational number
-with denominator <span class="math inline" data-term-auto="off">\(Q\)</span> as the sum of an
+of strategies under explicit hypotheses. The last two mark routes that
+later work need not repeat, and a no-go theorem shows that a proof of
+the endpoint must leave the excluded class. For Problem 257, a proposed
+estimate said that the greedy test ruling out a rational number with
+denominator <span class="math inline" data-term-auto="off">\(Q\)</span> as the sum of an
 infinite subseries of <span class="math inline" data-term-auto="off">\(\sum_n
 1/(2^n-1)\)</span> stops within about <span
 class="math inline" data-term-auto="off">\(2\log_2 Q-3.3\)</span> steps; an <a
@@ -204,8 +208,8 @@ integration</td>
 <tr>
 <td class="ta-l"><p>Is the proved statement exactly the
 separately stated one, using only permitted axioms?</p></td>
-<td class="ta-l"> Comparator, with the Lean kernel and an
-independent checker</td>
+<td class="ta-l"> Comparator and the Lean kernel, with
+nanoda as a second kernel in the corpus replay</td>
 <td class="ta-l"> The Comparator ledger and evidence
 records</td>
 </tr>
@@ -263,7 +267,7 @@ retained. The other nine edits were not rerun against the extended
 checklist. The evidence marks a coverage boundary, not a reliability
 score.</p>
 <p>The workflow does not technically force a second independent
-mathematician: one maintainer can edit a Lean statement, its record and
+mathematician: the maintainer can edit a Lean statement, its record and
 its prose together so that every comparison agrees with the same
 mistake. Independent review is recorded as an external event when it
 happens.</p>
@@ -284,8 +288,8 @@ path.</p>
 Four further skills coordinate discovery and stewardship, admit a new
 problem world, maintain the clone’s own tooling and install the set. A
 cycle closes when the change has evidence and every consequence has a
-recorded disposition; the open problem closes only with a proof of its
-original statement.</caption>
+recorded disposition; a problem closes only when a proof or a refutation
+settles its original statement.</caption>
 <colgroup>
 <col />
 <col />
@@ -405,13 +409,14 @@ erdosproblems.com contributor <code>ani</code> posted a degree-seven
 counterexample, found, as the post says, with the help of GPT-6 <span
 class="citation" data-cites="aniforum"></span>, and the record took the
 construction as an attributed input five days later. Lean first checked
-the total-variation form. On 23 September it proved that for that
-polynomial every preconnected subset of the strict lemniscate containing
-two distinct roots has one-dimensional Hausdorff measure greater
-than <span class="math inline" data-term-auto="off">\(2\)</span>, which refutes the exact
-path-image-length statement in Google DeepMind’s Formal Conjectures
-repository <span class="citation"
-data-cites="formalconjectures"><a href="#ref-14">[14]</a></span>. The same day, the Formal
+the total-variation form. On 22 September it proved that for one
+polynomial of that construction every preconnected subset of the strict
+lemniscate containing two distinct roots has one-dimensional Hausdorff
+measure greater than <span class="math inline" data-term-auto="off">\(2\)</span> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>),
+which refutes the exact path-image-length statement in Google DeepMind’s
+Formal Conjectures repository <span class="citation"
+data-cites="formalconjectures"><a href="#ref-14">[14]</a></span>. On 23 September the Formal
 Conjectures maintainers merged a change that marks the problem solved
 with answer <code>False</code> and links this proof <span
 class="citation" data-cites="fcpr"></span>. The short paper and long
@@ -475,7 +480,8 @@ equivalent to cofinally many non-unit factorial carries</td>
 </tr>
 <tr>
 <td class="ta-l"><p>#243, Sylvester-tail rigidity</p></td>
-<td class="ta-l"> Lean checks irrationality of <span
+<td class="ta-l"> For a strictly increasing sequence of
+positive integers, Lean checks irrationality of <span
 class="math inline" data-term-auto="off">\(\sum 1/a_n\)</span> under the exact cubic rate
 <span class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+3/n+o(n^{-3})\)</span></td>
 <td class="ta-l"> The unrestricted Sylvester-tail
@@ -483,14 +489,17 @@ question</td>
 </tr>
 <tr>
 <td class="ta-l"><p>#249, binary totient series</p></td>
-<td class="ta-l"> In every base <span
-class="math inline" data-term-auto="off">\(k\)</span>, the totient sections <span
+<td class="ta-l"> For every base <span
+class="math inline" data-term-auto="off">\(k\ge2\)</span> and level <span
+class="math inline" data-term-auto="off">\(e\ge1\)</span>, the totient sections <span
 class="math inline" data-term-auto="off">\(\varphi(k^jn+r)\)</span> with <span
-class="math inline" data-term-auto="off">\(j\le e\)</span> span dimension <span
-class="math inline" data-term-auto="off">\(k^e+1\)</span>; certificates for every <span
+class="math inline" data-term-auto="off">\(0\le j\le e\)</span> and <span
+class="math inline" data-term-auto="off">\(0\le r&lt;k^j\)</span> span a space of dimension
+<span class="math inline" data-term-auto="off">\(k^e+1\)</span> over <span
+class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>; certificates for every <span
 class="math inline" data-term-auto="off">\(t\le82\)</span></td>
-<td class="ta-l"> Certificates for arbitrarily large <span
-class="math inline" data-term-auto="off">\(t\)</span></td>
+<td class="ta-l"><p>Certificates for arbitrarily large
+<span class="math inline" data-term-auto="off">\(t\)</span></p></td>
 </tr>
 <tr>
 <td class="ta-l"><p>#251, prime-gap dyadic series</p></td>
@@ -533,18 +542,21 @@ class="math inline" data-term-auto="off">\(3/2\)</span> and all rational bases</
 </div>
 <p>The repository holds 1,823 Lean modules under a pinned toolchain,
 sixteen problem papers totalling 773 pages, a cross-problem synthesis
-paper and three systems papers. The papers assert 674 results. Of these,
-671 carry a Lean mark, linking a declaration that proves the result
-exactly, in a stronger form or from a named input, and 633 have been
-compared by Comparator; every receipt in the pinned corpus replay was
+paper and three systems papers. The papers assert 674 results, counting
+a result stated in both a short paper and a long record twice. Of these,
+671 carry a Lean mark: 506 link a declaration that proves the result
+exactly, 140 one that proves a stronger form and 25 one that proves it
+from a named input. Comparator has compared 633, and 13 more are queued
+for its next replay; every receipt in the pinned corpus replay was
 accepted by both the Lean kernel and nanoda. The claim registry holds
 150 public claims in seven statuses, from proved here and formalised
-here to conditional reduction and open, with 19 open propositions stated
-exactly. Continuous integration builds the supported Lean roots, a
-coverage build compiles every module a paper cites, and the release
-checker runs 15,666 checks over claims, papers, generated views and
-licences. A fresh clone needs no private file, and no public theorem
-depends on an unpublished lemma.</p>
+here to conditional reduction and open, and states 19 remaining
+obligations exactly, one of them the Problem 1041 correspondence review.
+Continuous integration builds the supported Lean roots, a coverage build
+compiles every module a paper cites, and the release checker runs 15,666
+checks over claims, papers, generated views and licences. A fresh clone
+needs no private file, and no public theorem depends on an unpublished
+lemma.</p>
 </section>
 <section id="sec:production" class="level2">
 <h2>How the records are produced</h2>
@@ -588,6 +600,18 @@ independent work.</p>
 <p>A failure in navigation, scheduling, experimentation or validation
 can change a route, skill or check for later agents through a guarded
 proposal. It never changes the status of a mathematical claim.</p>
+</section>
+<section id="proof-state-continuation." class="level5">
+<h5>Proof-state continuation.</h5>
+<p>The public clone carries the validation queue and a <a
+href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/docs/agents/PROOF_STATE_COMPILER.md"><code>proof-state compiler</code></a>.
+Static queries nominate declarations that might close a goal; the
+compiler asks the pinned Lean environment what each application does,
+keeps the subgoals Lean leaves as the exact remaining obligation, and
+records a proof only when none remain. In its pilot, applying a Problem
+249 totient-tail lemma without its divisibility hypothesis leaves
+exactly that hypothesis open, and supplying it closes the same
+application.</p>
 <p>The public repository replays without the private environment. The
 private environment explains how the records were produced; the public
 evidence is what supports each claim.</p>
@@ -630,9 +654,9 @@ public pages and from this repository, on 24 September 2026.</caption>
 <tbody>
 <tr>
 <td class="ta-l">Unit of work</td>
-<td class="ta-l"> One immutable statement or proof within a
-mission</td>
-<td class="ta-l"> One open problem with its whole
+<td class="ta-l"> A mission on a paper, textbook or open
+problem, built from immutable statements and proofs</td>
+<td class="ta-l"> One research problem with its whole
 record</td>
 </tr>
 <tr>
@@ -679,22 +703,16 @@ account</td>
 <td class="ta-l"> Git clone and thirteen agent skills, a
 pull request, an issue or an email</td>
 </tr>
-<tr>
-<td class="ta-l"><p>Scale, 24 September 2026</p></td>
-<td class="ta-l"> missions, 88,246 theorems, 722 users</td>
-<td class="ta-l"> Eight problems, 1,823 Lean modules, one
-maintainer</td>
-</tr>
 </tbody>
 </table>
 </div>
 <p>The two compose. Prove2Me contributes hosting, importable statements,
 per-submission checking and a contributor base; a world contributes the
 problem-level context around a statement: its papers, failed routes,
-obstructions and open obligations. The Problem 1041 package from this
-repository is hosted on Prove2Me, where its 21 theorems have accepted
-proofs and <code>ani</code> is credited separately for the
-construction.</p>
+obstructions and open obligations. This repository’s sharp collinear
+root-diameter bound for Problem 1041 is hosted on Prove2Me as a package
+of 21 theorems with accepted proofs, ported from Lean 4.29.1 to
+Prove2Me’s Lean 4.30.0 environment.</p>
 <section id="other-systems." class="level5">
 <h5>Other systems.</h5>
 <p>Feng et al. ran an agent over the 700 Erdős problems then listed as
@@ -732,13 +750,13 @@ the correspondence between the Problem 1041 refutation and the 1958
 wording has not been recorded. The system records evidence classes and
 review events; novelty and significance are judgements it leaves to
 experts, as Feng et al. also propose <span class="citation"
-data-cites="autonomousmath"><a href="#ref-19">[19]</a></span>. One maintainer can make a
-coordinated mistake that every structural check accepts. By 24 September
-2026 no outside contributor had opened a pull request or issue in the
-repository; its outside record is in Formal Conjectures, whose
-maintainers have merged four of its contributions, and on Prove2Me,
-which hosts its Problem 1041 package with accepted proofs. A record also
-leaves several of the concerns in Section <a class="math-ref" href="#sec:intro">1</a> where it finds them: it
+data-cites="autonomousmath"><a href="#ref-19">[19]</a></span>. A coordinated mistake in a
+statement, its record and its checks can pass every structural check. By
+24 September 2026 no outside human contributor had opened a pull request
+or issue in the repository; its outside record is in Formal Conjectures,
+whose maintainers have merged four of its contributions, and on
+Prove2Me, which hosts its Problem 1041 package with accepted proofs. A
+record also leaves several of the concerns in Section <a class="math-ref" href="#sec:intro">1</a> where it finds them: it
 trains no one, it restores no signal of individual expertise <span
 class="citation" data-cites="litt"></span>, and it answers neither the
 ethical objections some mathematicians raise to AI-assisted
@@ -769,9 +787,15 @@ work, connected to the full argument, the relevant formal checks and the
 questions it opens, with outside corrections and extensions returning to
 the same record. The design asks three things of a field: stable result
 identities, a checker where one exists, and an explicit boundary on
-public claims. The next measurement is comparative: whether agents given
-a world choose better frontiers, repeat fewer dead ends and reach useful
-obstructions sooner than agents given the same mathematics as prose.</p>
+public claims. The next measurement is comparative. With the source
+revision, tasks, model and budget held fixed, agents receive the plain
+repository, an information-equivalent written briefing, or the world
+with its continuation tools. Independent domain readers grade whether
+each recovers the strongest supported claim, its hypotheses, its
+attribution and the remaining obligation, and review one returned
+change, with scope errors, reviewer time and total work, maintenance
+included, recorded. Repeating the frozen tasks with a stronger model
+measures what the record adds as models improve.</p>
 </section>
 <section id="sec:conclusion" class="level2">
 <h2>Conclusion</h2>
@@ -824,9 +848,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc468
 <tr>
 <td class="ta-l">What does Comparator check?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>
-and <a
-href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/verification/comparator.json"><code>verification/comparator.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/verification/comparator.json"><code>verification/comparator.json</code></a>
+and the corpus replay index <a
+href="https://github.com/wcook04/plectis-erdos/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/evidence/comparator/associations.json"><code>evidence/comparator/associations.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which checks gate a release?</td>

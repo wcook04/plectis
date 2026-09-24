@@ -7,7 +7,7 @@
   "form": "Research architecture",
   "pages": 11,
   "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
-  "precis": "A problem-sized world keeps one open problem with its established results, failed routes, experiments, literature and exact open obligations: a short paper for an expert and a long record for whoever continues. Lean checks the formal proofs, Comparator checks that each selected proof establishes exactly its separately written statement, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and states what remains a mathematician's judgement.",
+  "precis": "A problem-sized world keeps one research problem with its established results, failed routes, experiments, literature and exact open obligations: a short paper for an expert and a long record for whoever continues. Lean checks the formal proofs, Comparator checks that each selected proof establishes exactly its separately written statement, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and states what remains a mathematician's judgement.",
   "owns": "the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle",
   "not_authority_for": "the mathematics it uses as examples, which the problem papers own, or the novelty and significance of those results",
   "problem_id": null,
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "d60c650aaed47838a4df90d5653304f85df6d4778dea0096c2285805771b9a5d",
+    "source_sha256": "b0068a9204ee7133cbdd1ad71710d222e28596f9fe624c853b6325e048603be8",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 43,
+    "mathml_node_count": 46,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "cfe606d981c8b1ec2490e5dfeb02493306313e3adc876b9701c995f2679458da",
-    "html_exact_tex_sha256": "ba4a9288bb3b726a50f0f40909bb0d1bb894c6638a72c396646da4e1b167133e"
+    "html_mathml_sha256": "b9c2c473e4b70a707b366ba9acdfde28ea28fd648142887fadb45f57976604fc",
+    "html_exact_tex_sha256": "e76849d26af05dfd4474fba8789b8d540e82cc64a5675614ad4d4909b1e2d187"
   },
   "sections": [
     {
@@ -116,6 +116,11 @@
       "level": 5,
       "anchor": "route-repair.",
       "label": "Route repair."
+    },
+    {
+      "level": 5,
+      "anchor": "proof-state-continuation.",
+      "label": "Proof-state continuation."
     },
     {
       "level": 2,
