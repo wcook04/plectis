@@ -964,6 +964,53 @@ writing for a first-time reader and on explaining the strength of a
 hypothesis. His advice concerned a different note; it was not a
 mathematical review or endorsement of the results presented here.</p>
 </section>
+<section id="sec:base-six-test" class="level2">
+<h2>A complete equality test at base six</h2>
+<p>The composite base shows what the integral coordinates let a reader
+do. At <span class="math inline" data-term-auto="off">\(k=6\)</span> and <span
+class="math inline" data-term-auto="off">\(e=2\)</span> there are <span
+class="math inline" data-term-auto="off">\(43\)</span> indexed sections. Retain <span
+class="math inline" data-term-auto="off">\(F_{0,0}\)</span>, <span
+class="math inline" data-term-auto="off">\(F_{1,0}\)</span>, the five <span
+class="math inline" data-term-auto="off">\(F_{1,r}\)</span> with <span
+class="math inline" data-term-auto="off">\(1\le r\le5\)</span>, and the <span
+class="math inline" data-term-auto="off">\(30\)</span> sections <span
+class="math inline" data-term-auto="off">\(F_{2,r}\)</span> with <span
+class="math inline" data-term-auto="off">\(1\le r&lt;36\)</span> and <span
+class="math inline" data-term-auto="off">\(6\nmid r\)</span>. In addition to <span
+class="math inline" data-term-auto="off">\(F_{2,6}=2F_{1,1}\)</span> and <span
+class="math inline" data-term-auto="off">\(F_{2,12}=4F_{1,2}\)</span> from above, the six
+omitted sections reduce as</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+F_{2,0}&amp;=6F_{1,0}, &amp; F_{2,6}&amp;=2F_{1,1}, &amp;
+F_{2,12}&amp;=4F_{1,2},\\
+F_{2,18}&amp;=3F_{1,3}, &amp; F_{2,24}&amp;=4F_{1,4}, &amp;
+F_{2,30}&amp;=2F_{1,5}.
+\end{aligned}\]</span></div>
+<p>Order the retained columns as just stated, with
+residues increasing within each level, and evaluate them at <span
+class="math inline" data-term-auto="off">\(n=0,\ldots,36\)</span>. Exact integer totient
+values give a <span class="math inline" data-term-auto="off">\(37\times37\)</span> matrix
+<span class="math inline" data-term-auto="off">\(M\)</span> with <span
+class="math inline" data-term-auto="off">\(\det M\equiv17\pmod{101}\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(M\)</span> is nonsingular over <span
+class="math inline" data-term-auto="off">\(\Q\)</span>. After the six reductions, a proposed
+integer identity holds for every <span
+class="math inline" data-term-auto="off">\(n\ge0\)</span> precisely when its <span
+class="math inline" data-term-auto="off">\(37\)</span> retained coefficients vanish;
+otherwise one of those <span class="math inline" data-term-auto="off">\(37\)</span> inputs is
+an exact counterexample. The six omitted coefficients are also its
+unique coordinates in the relation basis of Corollary <a class="math-ref" href="#cor:integral-normal-form">1.3</a> when it is
+an identity. The public
+<code>scripts/totient_kernel_normal_form.py</code> prints those
+coordinates and the first counterexample. Its modular determinant is an
+independence certificate; the identity decision and witness use exact
+integer arithmetic. For example, <span
+class="math inline" data-term-auto="off">\(101F_{2,2}\)</span> vanishes modulo <span
+class="math inline" data-term-auto="off">\(101\)</span> at every input, but its value at
+<span class="math inline" data-term-auto="off">\(n=0\)</span> is <span
+class="math inline" data-term-auto="off">\(101\)</span>, so it is not an identity.</p>
+</section>
 <section id="app:sources" class="level2">
 <h2>Further context and formal sources</h2>
 <section id="affine-independence-in-the-earlier-literature"

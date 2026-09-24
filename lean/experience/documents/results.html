@@ -185,7 +185,14 @@ orbit. Read the <a
 href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf">short
 paper</a> or <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf">long
-record</a>.</p>
+record</a>. The separately prepared <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/dc779af057dbab4224ac4f0cc101384f340fabc2/PalomarCorpus/E68_05/comparator.json"><code>E68_05</code>
+Comparator selection</a> contains six structural carry, channel and
+criterion declarations. It does not select the denominator exclusions or
+the <code>3/2</code> growth theorem above. Its <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/36019608937">caller-side
+preflight</a> passed at that exact source commit; this is not a Palomar
+registration.</p>
 <p><a id="result-243"></a></p>
 <p><strong><a
 href="https://www.erdosproblems.com/243">#243</a>.</strong> Under the
@@ -280,7 +287,13 @@ href="../../../papers/erdos-249-binary-totient-series.pdf">short paper</a>,
 <a href="../../../papers/erdos249-totient-reasoning-surface.pdf">long
 record</a>, and <a
 href="external-verification.html#programme-249">selected formal
-checks</a>.</p>
+checks</a>. For a concrete use of the basis, the short paper’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-249-binary-totient-series.md#sec:base-six-test">base-six
+example</a> reduces all 43 sections through depth two to 37 coordinates.
+The <a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/totient_kernel_normal_form.py">exact normal-form
+tool</a> prints those coordinates, the six relation coefficients, and an
+integer counterexample at one of the first 37 inputs whenever a proposed
+identity is false; its determinant check certifies that finite test.</p>
 <p><a id="result-251"></a></p>
 <p><strong><a
 href="https://www.erdosproblems.com/251">#251</a>.</strong> A <a
@@ -506,8 +519,15 @@ paper</a>, <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf">long
 record</a>, and <a
 href="external-verification.html#programme-1049">selected formal
-checks</a>; the contour-region theorem should not be inferred to be
-among the selected Comparator propositions.</p>
+checks</a>. The prepared <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/6bc4913c4ca42ac48829ad2d89985f8516361cb5/PalomarCorpus/E1049_01/comparator.json"><code>E1049_01</code>
+Comparator selection</a> contains 25 rational-base contour and measure
+declarations, including <code>rational_base_threshold</code>. It does
+not select the later Hankel determinant or finite coefficient-pencil
+results in the same paper. The <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/36023637887">caller-side
+preflight</a> passed at that exact source commit; no registry intake is
+claimed.</p>
 <p>This guide is not a new result ranking. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>
 records a scoped candidate ranking for a possible Palomar submission; it

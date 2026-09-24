@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 16,
+  "pages": 17,
   "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
   "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=∑ φ(n)2^{-n}. They do not establish that S is irrational.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "a66a9b8be8cfeaca7235cb65b00d13672fdc980dcda9c063f52956fc0c92442d",
+    "source_sha256": "05b086860e1d04afa531ec89042c906afb4d84e19b2fadea9113064d53fe926e",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 538,
+    "mathml_node_count": 565,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "08de4c5f55ef49e44033bd4fdef5e1e895eb7ad42c3dbae42a6c741ed1af7e45",
-    "html_exact_tex_sha256": "7ac2a77e4ccf82fe928e64942d3727a17073e0aeb0bb75a50b1ca449ad556a67"
+    "html_mathml_sha256": "dd10ad24f31d5305262515cc173f24cd271b9662b04a51676c497f47438b62e0",
+    "html_exact_tex_sha256": "c23aedee242a579f9b34040aad781330b21082fd2da572f3aa57b2c5d0ae285e"
   },
   "sections": [
     {
@@ -96,6 +96,11 @@
       "level": 2,
       "anchor": "sec:open",
       "label": "A remaining exponential-sum estimate"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:base-six-test",
+      "label": "A complete equality test at base six"
     },
     {
       "level": 2,

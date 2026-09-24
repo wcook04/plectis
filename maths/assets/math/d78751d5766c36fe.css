@@ -1755,6 +1755,14 @@ mjx-c.mjx-c1D43A {
   padding: 0.67em 0.697em 0.011em 0;
 }
 
+mjx-c.mjx-c37 {
+  padding: 0.63em 0.495em 0.008em 0;
+}
+
+mjx-c.mjx-cD7 {
+  padding: 0.541em 0.72em 0.026em 0;
+}
+
 mjx-c.mjx-c1D701 {
   padding: 0.75em 0.478em 0.221em 0;
 }
@@ -1765,14 +1773,6 @@ mjx-c.mjx-c1D443 {
 
 mjx-c.mjx-c2248 {
   padding: 0.486em 0.72em 0 0;
-}
-
-mjx-c.mjx-c37 {
-  padding: 0.63em 0.495em 0.008em 0;
-}
-
-mjx-c.mjx-cD7 {
-  padding: 0.541em 0.72em 0.026em 0;
 }
 
 
@@ -1789,6 +1789,7 @@ mjx-c.mjx-cD7 {
 .math[data-math-rendered] .mjx-s-14a5068b48f060d7 {vertical-align: 0.289em;}
 .math[data-math-rendered] .mjx-s-153ce43b99c626c8 {height: 4.266em; vertical-align: -1.883em;}
 .math[data-math-rendered] .mjx-s-16359aecc6eb2ac6 {min-width: 22.613em; position: relative;}
+.math[data-math-rendered] .mjx-s-173aa20f4a77a8ed {text-align: right; padding-left: 1em; padding-right: 0; padding-top: 0.15em;}
 .math[data-math-rendered] .mjx-s-1764aeb83442eae6 {vertical-align: -0.154em;}
 .math[data-math-rendered] .mjx-s-1a03c41e5d651c13 {vertical-align: -0.291em; margin-left: -0.051em;}
 .math[data-math-rendered] .mjx-s-1a4bae6f18762d72 {vertical-align: -0.006em;}
@@ -1834,6 +1835,7 @@ mjx-c.mjx-cD7 {
 .math[data-math-rendered] .mjx-s-6c576990d7b4b5f4 {width: 0.167em;}
 .math[data-math-rendered] .mjx-s-6d49f81678d9ec43 {vertical-align: -0.15em; margin-left: -0.018em;}
 .math[data-math-rendered] .mjx-s-6d6995e1e338ced3 {padding-bottom: 0.172em; padding-left: 0.002em;}
+.math[data-math-rendered] .mjx-s-71bd598510ef5d81 {text-align: left; padding-left: 0; padding-right: 1em; padding-top: 0.15em;}
 .math[data-math-rendered] .mjx-s-723b61fac7b77789 {height: NaNem;}
 .math[data-math-rendered] .mjx-s-74826be13f8d51a7 {margin-top: 0.3em;}
 .math[data-math-rendered] .mjx-s-78e1f9a3e09aa580 {padding-top: 0.167em; padding-left: 0.459em;}
@@ -1849,6 +1851,7 @@ mjx-c.mjx-cD7 {
 .math[data-math-rendered] .mjx-s-8773d60657f0dad2 {vertical-align: -0.017em;}
 .math[data-math-rendered] .mjx-s-888da7fc464de44e {padding-top: 0.167em; padding-left: 0.092em;}
 .math[data-math-rendered] .mjx-s-8ca2b7744c8aae23 {text-align: right; padding-right: 0; padding-top: 0.15em;}
+.math[data-math-rendered] .mjx-s-8ca73e228830c482 {text-align: right; padding-left: 1em; padding-right: 0; padding-bottom: 0.15em;}
 .math[data-math-rendered] .mjx-s-9183513eb16d3727 {padding-top: 0.167em; padding-left: 0.132em;}
 .math[data-math-rendered] .mjx-s-94b3ce6ef62d55f8 {vertical-align: -0.15em; margin-left: -0.099em;}
 .math[data-math-rendered] .mjx-s-96fe599c1433bfdb {height: 1.162em;}
@@ -1878,6 +1881,7 @@ mjx-c.mjx-cD7 {
 .math[data-math-rendered] .mjx-s-ba894e74902e5029 {height: 0.068em; border-top: 0.085em solid; margin: 0.204em -.1em;}
 .math[data-math-rendered] .mjx-s-bbf3eafe63e6763e {vertical-align: 0.363em;}
 .math[data-math-rendered] .mjx-s-be41b6ed4a16c367 {height: 0.068em; border-top: 0.085em solid; margin: 0.068em -.1em;}
+.math[data-math-rendered] .mjx-s-bfee57d28323ee16 {height: 0.9em;}
 .math[data-math-rendered] .mjx-s-c151edf26a193435 {padding-left: 0.075em;}
 .math[data-math-rendered] .mjx-s-c700790cab76c7cd {min-width: 4.152em;}
 .math[data-math-rendered] .mjx-s-c7ca5d4141ac0eed {height: 0.926em;}
@@ -1900,6 +1904,8 @@ mjx-c.mjx-cD7 {
 .math[data-math-rendered] .mjx-s-e926b69711aa3b35 {padding-top: 0.713em;}
 .math[data-math-rendered] .mjx-s-f0f31f51e9c5e561 {vertical-align: 0.007em;}
 .math[data-math-rendered] .mjx-s-f2ebd4ed7a5284e3 {height: 0.839em;}
+.math[data-math-rendered] .mjx-s-f30a5da103fb825e {min-width: 20.332em;}
+.math[data-math-rendered] .mjx-s-f326462560827f4f {text-align: left; padding-left: 0; padding-right: 1em; padding-bottom: 0.15em;}
 .math[data-math-rendered] .mjx-s-f339d851353dac39 {width: 22.613em;}
 .math[data-math-rendered] .mjx-s-f3b691339de2e64e {padding-top: 0.657em;}
 .math[data-math-rendered] .mjx-s-f550892f6664b57b {width: 16.379em;}
