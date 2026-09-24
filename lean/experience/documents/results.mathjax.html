@@ -626,10 +626,13 @@ equivalence to the separate non-integrality criterion. The supply itself
 is not proved; neither divisibility nor irrationality alone supplies the
 required anti-concentration. Separately, the dyadic totient-kernel rank
 <code>2^e + 1</code> and its odd-core basis are an unconditional
-finite-level structural result; the all-base spanning/rank upgrade is
-conditional on the displayed affine-independence input. The actual-LCM,
-diagonal, and phase/prime producers remain open, so neither structural
-spine solves the binary totient endpoint.</li>
+finite-level structural result, and so are the all-base rank
+<code>k^e + 1</code> and its explicit basis for every <code>k ≥ 2</code>
+and <code>e ≥ 1</code>: <code>AllBaseTotientKernel.lean</code>
+discharges the affine-independence premise of the reusable all-base
+wrapper. The actual-LCM, diagonal, and phase/prime producers remain
+open, so neither structural spine solves the binary totient
+endpoint.</li>
 <li>A distinct orbit-level carry anti-compression result is now checked:
 under hypothetical rationality, one positive multiplier supplies a
 tempered integral carry whose dyadic sections share an eventual modular
@@ -1090,15 +1093,19 @@ coefficient of <code>2⁻ⁿ</code>; this result does not transfer to
 <code>S</code>, arbitrary-support #257, or the release’s gcd-moment
 identities.</li>
 <li>Unconditional: the dyadic sections <code>n ↦ φ(2ʲn+r)</code> of
-Euler’s totient have an explicit rational basis, and the
-level-<code>e</code> span has dimension exactly <code>2ᵉ + 1</code> —
+Euler’s totient have an explicit rational basis. The canonical family
+<code>φ(n)</code>, <code>φ(2n)</code> and <code>φ(2ʲn+r)</code> with
+<code>1 ≤ j ≤ e</code> and <code>r</code> odd spans a space of dimension
+exactly <code>2ᵉ + 1</code> —
 <code>finrank_canonicalTotientKernel_eq</code>,
 <code>Erdos249257/TotientMahlerDefect.lean:989</code>; basis object at
-<code>Erdos249257/TotientMahlerDefect.lean:1392</code>. A theorem about
-the coefficient sequence, not about irrationality of <code>S</code>; it
-quantifies the known qualitative fact that <code>φ</code> is not
-2-regular (Coons 2008, arXiv:0810.3709, via ζ zero-density — no exact
-rank appears there). Claim
+<code>Erdos249257/TotientMahlerDefect.lean:1392</code>. For every
+<code>e ≥ 1</code> this is the span of all sections through level
+<code>e</code>; at level zero that span is <code>φ(n)</code> alone, of
+dimension one. A theorem about the coefficient sequence, not about
+irrationality of <code>S</code>; it quantifies the known qualitative
+fact that <code>φ</code> is not 2-regular (Coons 2008, arXiv:0810.3709,
+via ζ zero-density — no exact rank appears there). Claim
 <code>dyadic_totient_certificate_interface</code> (the basis
 declarations at <code>Erdos249257/TotientMahlerDefect.lean:1265</code>,
 <code>Erdos249257/TotientMahlerDefect.lean:1380</code>,

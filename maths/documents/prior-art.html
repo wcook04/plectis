@@ -32,7 +32,7 @@
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/math/f3ff984f9e986988.css">
+  <link rel="stylesheet" href="../assets/math/86590dff20231c4d.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -268,9 +268,13 @@ arguments and gives no details, and that <span class="math inline" data-term-aut
 could be replaced by an unstated weaker but more complicated condition;
 printed p. 226 suggests <span class="math inline" data-term-auto="off" data-tex="\(\sum _{n_{i}&lt;x}1/n_{i}=o(\log \log x)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D456">𝑖</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D456">𝑖</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><msub><mi>n</mi><mrow data-mjx-texclass="ORD"><mi>i</mi></mrow></msub><mo>&lt;</mo><mi>x</mi></mrow></munder><mn>1</mn><mo>/</mo><msub><mi>n</mi><mrow data-mjx-texclass="ORD"><mi>i</mi></mrow></msub><mo>=</mo><mi>o</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>x</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>
 via Brun’s method for pairwise coprime supports and says the all-primes
-case is not handled. The source therefore does not support the
-coprimality-free extension, universal #257, the release’s
-Lean/Comparator claims, or any novelty or priority claim.</p></li>
+case is not handled. The source therefore states the coprimality-free
+reciprocal-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summability" data-term="summability" data-term-auto="1">summable</a> extension without proof; the #257 note credits that
+stated extension to Erdős and gives a complete proof of it. The source
+does not settle universal #257 or supply the release’s Lean/Comparator
+proofs, and the note does not identify Erdős’s unstated weaker condition
+with its weighted criterion. No novelty or priority claim is
+made.</p></li>
 <li><p>D. Duverney and Y. Tachiya, <a
 href="https://doi.org/10.1515/forum-2018-0299"><em>Refinement of the
 Chowla–Erdős method and linear independence of certain Lambert
@@ -547,21 +551,26 @@ and proves that for every
 the simultaneous ratio gaps
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mi>n</mi><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>2</mn></msub><mi>n</mi><mo>+</mo><msub><mi>b</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>C</mi><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">\varphi(a_1n+b_1)/\varphi(a_2n+b_2)&gt;C,\ldots</annotation></semantics></math>
 hold on a set of positive lower density; the symmetry discussion
-supplies strict ordering patterns. In the local all-base argument this
-is the external comparison input behind the affine-totient independence
-statement; the finite dyadic Lean theorem remains separately formalised,
-not a theorem directly stated by Martin. His Corollary 4 transfers
-Theorem 1 and Corollaries 2–3 to
+supplies strict ordering patterns. For the local all-base argument it is
+an earlier source that already implies the affine-totient independence,
+which the release proves separately; the finite dyadic Lean theorem
+remains separately formalised, not a theorem directly stated by Martin.
+His Corollary 4 transfers Theorem 1 and Corollaries 2–3 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>.</p>
 <p><strong>Boundary.</strong> The release’s dyadic Lean independence
 result is separately formalised from this broader comparison input by a
 finite CRT–Dirichlet–determinant argument; Martin does not present the
-release’s Lean statement or proof. The all-base paper theorem applies
-Martin directly; Lean checks its zero-residue and composite-base
-arithmetic layers but does not formalise Martin’s positive-density
-theorem or the final all-base independence step. Martin needs neither
-odd slopes, nor primitivity, nor a residue bound, and concludes strictly
-more. A
+release’s Lean statement or proof. The all-base paper theorem proves its
+affine independence by a determinant that is diagonal modulo an
+auxiliary prime, built with the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-chinese-remainder-theorem" data-term="chinese_remainder_theorem" data-term-auto="1">Chinese remainder theorem</a> and
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dirichlet-theorem-arithmetic-progressions" data-term="dirichlet_theorem_arithmetic_progressions" data-term-auto="1">Dirichlet’s theorem</a>, and cites Martin’s Theorem 1 as an earlier source
+that already implies that independence. Lean proves the all-base
+independence, the exact rank <span class="math inline" data-term-auto="off" data-tex="\(k^{e}+1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mi><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>k</mi><mrow data-mjx-texclass="ORD"><mi>e</mi></mrow></msup><mo>+</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> for <span class="math inline" data-term-auto="off" data-tex="\(k\ge 2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>
+and <span class="math inline" data-term-auto="off" data-tex="\(e\ge 1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D452">𝑒</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>e</mi><mo>≥</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>, and the explicit basis unconditionally in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AllBaseTotientKernel.lean"><code>AllBaseTotientKernel.lean</code></a>;
+it does not formalise Martin’s positive-density theorem, which is not an
+input of that proof. Martin needs neither odd slopes, nor primitivity,
+nor a residue bound, and concludes strictly more. A
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
 analogue would likewise not be new. Exact-title, DOI and venue searches
 did not locate a separate journal publication, so this is cited as a
@@ -855,9 +864,13 @@ transcendence input for the note’s two-prime theorems: both the
 de-duplicated and repeated running-lcm reciprocal sums are
 transcendental for every pair of distinct primes, by a paper
 argument.</p>
-<p><strong>Boundary.</strong> The two-prime theorems are deliberately
-not Lean declarations; nothing follows for three or more
-primes.</p></li>
+<p><strong>Boundary.</strong> Lean proves the two-prime transcendence
+transfers conditionally on the named input
+<code>BugeaudLaurentTranscendence</code>
+(<code>two_prime_sums_transcendental</code> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean"><code>TwoPrimeSums.lean</code></a>);
+the Hecke–Mahler value theorem itself is not formalised. Nothing follows
+for three or more primes.</p></li>
 <li><p>S. Fan, <a
 href="https://www.erdosproblems.com/forum/thread/269#post-7218">comment
 on Erdős Problem #269</a>, 26 June 2026</p>
@@ -922,8 +935,13 @@ carriers, and open gaps that are not part of this historical
 bibliography. Read it before generated
 <code>STRONGEST_RESULTS.json</code>, which can lag the dated notes. The
 corpus is not thereby prior art or a reviewed claim: its rows make no
-peer-review, priority, novelty, or significance assertion, and #1041
-remains open.</p></li>
+peer-review, priority, novelty, or significance assertion. The current
+status of #1041 is owned by <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a>: Lean refutes the
+exact Formal Conjectures statement using the degree-seven polynomial
+posted by <code>ani</code>, Formal Conjectures records the answer
+<code>False</code>, and independent human review of correspondence with
+the 1958 wording has not been recorded.</p></li>
 </ul>
 </section>
 <section id="section-5" class="level3">

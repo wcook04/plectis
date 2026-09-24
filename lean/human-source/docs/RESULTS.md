@@ -486,9 +486,10 @@ a claim to settle the seven unresolved targets or the unadjudicated historical
   the separate non-integrality criterion. The supply itself is not proved;
   neither divisibility nor irrationality alone supplies the required
   anti-concentration. Separately, the dyadic totient-kernel rank `2^e + 1`
-  and its odd-core basis are an unconditional finite-level structural result;
-  the all-base spanning/rank upgrade is conditional on the displayed
-  affine-independence input. The actual-LCM, diagonal, and phase/prime
+  and its odd-core basis are an unconditional finite-level structural result,
+  and so are the all-base rank `k^e + 1` and its explicit basis for every
+  `k ≥ 2` and `e ≥ 1`: `AllBaseTotientKernel.lean` discharges the
+  affine-independence premise of the reusable all-base wrapper. The actual-LCM, diagonal, and phase/prime
   producers remain open, so neither structural spine solves the binary
   totient endpoint.
 - A distinct orbit-level carry anti-compression result is now checked: under
@@ -723,10 +724,13 @@ boundaries kept together.
   result does not transfer to `S`, arbitrary-support #257, or the release's
   gcd-moment identities.
 - Unconditional: the dyadic sections `n ↦ φ(2ʲn+r)` of Euler's totient have
-  an explicit rational basis, and the level-`e` span has dimension exactly
+  an explicit rational basis. The canonical family `φ(n)`, `φ(2n)` and
+  `φ(2ʲn+r)` with `1 ≤ j ≤ e` and `r` odd spans a space of dimension exactly
   `2ᵉ + 1` — `finrank_canonicalTotientKernel_eq`,
   `Erdos249257/TotientMahlerDefect.lean:989`; basis object at
-  `Erdos249257/TotientMahlerDefect.lean:1392`. A
+  `Erdos249257/TotientMahlerDefect.lean:1392`. For every `e ≥ 1` this is the
+  span of all sections through level `e`; at level zero that span is `φ(n)`
+  alone, of dimension one. A
   theorem about the coefficient sequence, not about irrationality of `S`;
   it quantifies the known qualitative fact that `φ` is not 2-regular
   (Coons 2008, arXiv:0810.3709, via ζ zero-density — no exact rank appears

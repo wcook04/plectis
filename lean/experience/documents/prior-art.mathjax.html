@@ -178,9 +178,13 @@ arguments and gives no details, and that <code>Σ 1/n_i &lt; ∞</code>
 could be replaced by an unstated weaker but more complicated condition;
 printed p. 226 suggests <code>Σ_{n_i&lt;x} 1/n_i = o(log log x)</code>
 via Brun’s method for pairwise coprime supports and says the all-primes
-case is not handled. The source therefore does not support the
-coprimality-free extension, universal #257, the release’s
-Lean/Comparator claims, or any novelty or priority claim.</p></li>
+case is not handled. The source therefore states the coprimality-free
+reciprocal-summable extension without proof; the #257 note credits that
+stated extension to Erdős and gives a complete proof of it. The source
+does not settle universal #257 or supply the release’s Lean/Comparator
+proofs, and the note does not identify Erdős’s unstated weaker condition
+with its weighted criterion. No novelty or priority claim is
+made.</p></li>
 <li><p>D. Duverney and Y. Tachiya, <a
 href="https://doi.org/10.1515/forum-2018-0299"><em>Refinement of the
 Chowla–Erdős method and linear independence of certain Lambert
@@ -436,24 +440,29 @@ every <span class="math inline" data-term-auto="off">\(C&gt;0\)</span> the simul
 gaps <span
 class="math inline" data-term-auto="off">\(\varphi(a_1n+b_1)/\varphi(a_2n+b_2)&gt;C,\ldots\)</span>
 hold on a set of positive lower density; the symmetry discussion
-supplies strict ordering patterns. In the local all-base argument this
-is the external comparison input behind the affine-totient independence
-statement; the finite dyadic Lean theorem remains separately formalised,
-not a theorem directly stated by Martin. His Corollary 4 transfers
-Theorem 1 and Corollaries 2–3 to <span
+supplies strict ordering patterns. For the local all-base argument it is
+an earlier source that already implies the affine-totient independence,
+which the release proves separately; the finite dyadic Lean theorem
+remains separately formalised, not a theorem directly stated by Martin.
+His Corollary 4 transfers Theorem 1 and Corollaries 2–3 to <span
 class="math inline" data-term-auto="off">\(\sigma\)</span>.</p>
 <p><strong>Boundary.</strong> The release’s dyadic Lean independence
 result is separately formalised from this broader comparison input by a
 finite CRT–Dirichlet–determinant argument; Martin does not present the
-release’s Lean statement or proof. The all-base paper theorem applies
-Martin directly; Lean checks its zero-residue and composite-base
-arithmetic layers but does not formalise Martin’s positive-density
-theorem or the final all-base independence step. Martin needs neither
-odd slopes, nor primitivity, nor a residue bound, and concludes strictly
-more. A <span class="math inline" data-term-auto="off">\(\sigma\)</span> analogue would
-likewise not be new. Exact-title, DOI and venue searches did not locate
-a separate journal publication, so this is cited as a public
-preprint.</p></li>
+release’s Lean statement or proof. The all-base paper theorem proves its
+affine independence by a determinant that is diagonal modulo an
+auxiliary prime, built with the Chinese remainder theorem and
+Dirichlet’s theorem, and cites Martin’s Theorem 1 as an earlier source
+that already implies that independence. Lean proves the all-base
+independence, the exact rank <code>k^e + 1</code> for <code>k ≥ 2</code>
+and <code>e ≥ 1</code>, and the explicit basis unconditionally in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AllBaseTotientKernel.lean"><code>AllBaseTotientKernel.lean</code></a>;
+it does not formalise Martin’s positive-density theorem, which is not an
+input of that proof. Martin needs neither odd slopes, nor primitivity,
+nor a residue bound, and concludes strictly more. A <span
+class="math inline" data-term-auto="off">\(\sigma\)</span> analogue would likewise not be
+new. Exact-title, DOI and venue searches did not locate a separate
+journal publication, so this is cited as a public preprint.</p></li>
 <li><p>F. Luca and Y. Tachiya, <a
 href="https://doi.org/10.1142/S1793042113501121"><em>Irrationality of
 Lambert series associated with a periodic sequence</em> (2014)</a> (<a
@@ -742,9 +751,13 @@ transcendence input for the note’s two-prime theorems: both the
 de-duplicated and repeated running-lcm reciprocal sums are
 transcendental for every pair of distinct primes, by a paper
 argument.</p>
-<p><strong>Boundary.</strong> The two-prime theorems are deliberately
-not Lean declarations; nothing follows for three or more
-primes.</p></li>
+<p><strong>Boundary.</strong> Lean proves the two-prime transcendence
+transfers conditionally on the named input
+<code>BugeaudLaurentTranscendence</code>
+(<code>two_prime_sums_transcendental</code> in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean"><code>TwoPrimeSums.lean</code></a>);
+the Hecke–Mahler value theorem itself is not formalised. Nothing follows
+for three or more primes.</p></li>
 <li><p>S. Fan, <a
 href="https://www.erdosproblems.com/forum/thread/269#post-7218">comment
 on Erdős Problem #269</a>, 26 June 2026</p>
@@ -809,8 +822,13 @@ carriers, and open gaps that are not part of this historical
 bibliography. Read it before generated
 <code>STRONGEST_RESULTS.json</code>, which can lag the dated notes. The
 corpus is not thereby prior art or a reviewed claim: its rows make no
-peer-review, priority, novelty, or significance assertion, and #1041
-remains open.</p></li>
+peer-review, priority, novelty, or significance assertion. The current
+status of #1041 is owned by <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a>: Lean refutes the
+exact Formal Conjectures statement using the degree-seven polynomial
+posted by <code>ani</code>, Formal Conjectures records the answer
+<code>False</code>, and independent human review of correspondence with
+the 1958 wording has not been recorded.</p></li>
 </ul>
 </section>
 <section id="section-5" class="level3">

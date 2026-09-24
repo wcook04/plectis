@@ -22,7 +22,7 @@
 \newcommand{\SemanticStructuralOnly}{11,886}
 \newcommand{\SemanticAuthoredPercent}{92.2}
 % END generated_semantic_coverage_macros
-\newcommand{\repolink}[2]{\href{\repobase/blob/7ab6a901a2fe07e8d0e5c99dc46821adffc7411b/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/872d16d07a4f1456300b923bc686ab31497b4df5/#1}{\texttt{#2}}}
 \emergencystretch=1.7em
 
 \runninghead{Problem-sized Lean worlds}
@@ -36,36 +36,38 @@
 \paperprovenance
 
 \begin{abstract}
-Frontier models now produce candidate proofs of research problems faster than
-mathematicians can read them. What is rarely preserved is the work around a
-proof: the reasoning stays in a session, failed routes are discarded, and the
-result reaches the public without the explanation, attribution and sense of
-difficulty that make it usable. This paper describes a research environment
-organised around a persistent unit of work, the problem-sized world: a set of
-files in a public Git repository that keeps one research problem together with
-its established results, failed routes, experiments, literature and exact open
-obligations. A short paper compresses
-its frontier for an expert; a long record keeps the complete arguments; Lean
-checks the formal proofs; Comparator checks that each selected proof
-establishes exactly its separately written statement; and a claim registry
-records the wording, evidence class and limits of every public claim. Any model, provider or person can resume from the record,
-and accepted work returns to it with credit. A public Lean repository maintains
-eight Erd\H{o}s problems this way. Its results include a kernel-checked
-irrationality criterion for Problem 257 that admits supports with divergent
-reciprocal sum, and a formal refutation of the Formal Conjectures statement of
-Problem 1041, built on a counterexample posted by the forum contributor
-\texttt{ani}; Formal Conjectures now records the answer as \texttt{False} and
-links the proof. A comparison with Prove2Me, a hosted platform for stating and
-proving Lean theorems, shows how the two designs compose. The paper closes with
-the controlled comparison that will measure whether such records reduce the
-work of understanding, checking and continuing a result.
+A proof becomes usable by other mathematicians when it arrives with an exact
+statement, an explanation of its hard step, its relation to earlier work and a
+precise account of what remains open. This paper describes a research
+environment organised around a persistent unit of work, the problem-sized
+world: the files in a public Git repository that keep one research problem
+together with its results, failed routes, experiments, literature and exact
+open obligations. A short paper explains the strongest results to an expert, a
+long record keeps the complete arguments, Lean checks the formal proofs and
+Comparator checks selected ones against separately written statements, and a
+claim registry fixes the wording, evidence class and limits of every public
+claim. Any model, provider or person can resume from the record, and accepted
+work returns to it with credit. A public Lean repository maintains eight
+Erd\H{o}s problems this way. Its results include an irrationality criterion
+for Problem 257, checked in Lean and by Comparator, that admits supports with
+divergent reciprocal sum, and a formal refutation of the Formal Conjectures
+statement of Problem 1041, built on a counterexample posted by the forum
+contributor \texttt{ani}; Google DeepMind's Formal Conjectures now records the
+answer as \texttt{False} and links the proof. Worked cases from Problems 257
+and 249 and from a cross-problem synthesis show what the record keeps for a
+result. The paper compares the design with Prove2Me and blueprint-based
+systems and specifies the controlled comparison that will measure whether
+such records reduce the work of understanding, checking and continuing a
+result.
 \end{abstract}
 
 \begin{paperresult}{Contribution and scope}
 \textbf{Design.} The problem-sized world as the persistent unit of AI-assisted
-research; a path from proof to public claim that separates what Lean settles,
-what Comparator settles and what a mathematician judges; and a contribution
-cycle that a person or an agent can run from a public clone.
+research; four separately recorded decisions about every returned result, on
+its evidence, its mathematical appraisal, its exposition and the next unit of
+work; a path from proof to public claim that separates what Lean settles, what
+Comparator settles and what a mathematician judges; and a contribution cycle
+that a person or an agent can run from a public clone.
 \textbf{Instance.} Eight Erd\H{o}s problems in one Lean repository:
 sixteen problem papers totalling 773 pages, 1,823 Lean modules, and 674 results
 asserted in the papers, short and long versions counted separately, of which 671
@@ -76,134 +78,178 @@ been recorded. The other seven targets remain open. The system leaves novelty
 and significance to experts.
 \end{paperresult}
 
-\section{What AI-assisted mathematics loses}\label{sec:intro}
+\section{A theorem and the explanation it needs}\label{sec:intro}
 
-Mathematicians writing in August and September 2026 describe one shift from
-several sides. Kra writes that the machines are producing solutions
-``faster than the mathematical community can read them, much less digest
-them''~\cite{kra}. Cohn finds current models ``much better at solving
-mathematical problems than at communicating the solutions well to humans'', and
-calls the unexplained remainder technical debt: a correct result that someone
-else must later pay to understand~\cite{cohn}. Tao argues that AI tools
-flatten the difficulty landscape a field uses to choose its next questions,
-that withheld negative results and processes hide where the new frontier lies,
-and asks for analysis that ``identifies insights from the solution
-process''~\cite{taomining}.
-A declaration first signed by twenty-five Fields Medallists names what rushed
-announcements lose: the writeup, the isolation of new methods and ideas, and
-the citation of earlier work~\cite{fieldsdecl}. Sanderson compresses the point:
+Problem 257 asks whether $\sum_{a\in A}(2^a-1)^{-1}$ is irrational for every
+infinite set $A$ of positive integers~\cite{erdosproblems}. For an integer
+$b\ge2$ write $X_A(b)=\sum_{a\in A}(b^a-1)^{-1}$, fix a finite nonempty set $P$
+of primes, and let $h(a)=\prod_{p\in P}p^{v_p(a)}$ be the $P$-part of $a$,
+where $v_p(a)$ is the exponent of $p$ in $a$. The Problem 257 short
+paper~\cite{paper257} proves that
+\[
+ \sum_{a\in A}\frac{h(a)}{a\,(2^{h(a)}-1)}<\infty
+\]
+makes $X_B(b)$ irrational for every integer $b\ge2$ and every infinite
+$B\subseteq A$. Lean proves the criterion, and Comparator has checked that
+proof against the separately written statement (Section~\ref{sec:checks}).
+
+The criterion reaches past reciprocal summability. Let
+\[
+ A_\star=\{2^km:\ k\ge1,\ m\text{ odd},\ m\le2^{2^k}\}.
+\]
+The $k$th layer of $A_\star$ has reciprocal mass at least $1/4$, so
+$\sum_{a\in A_\star}1/a$ diverges, while for $P=\{2\}$ an element $2^km$
+contributes $1/[m(2^{2^k}-1)]$ to the weighted sum and the whole layer at most
+$2^{1-k}$. Every infinite subset of $A_\star$ therefore has an irrational value
+at every integer base. These estimates are ordinary arguments in the short
+paper; Lean supplies the criterion they feed.
+
+The proof turns rationality into a lattice. For $N\ge1$,
+\[
+ 0<\Delta_A(N)=\sum_{a\in A}\frac{b^{N\bmod a}-1}{b^a-1}
+ =(b^N-1)X_A(b)-J(N),\qquad J(N)\in\mathbb Z,
+\]
+so if $X_A(b)=p/q$ every such displacement is at least $1/q$, and it suffices
+to find arbitrarily small ones. Sampling $N$ along multiples of a modulus that
+every element of a finite part of $A$ divides removes that part. The infinite
+tail is the hard step. Each remaining term is periodic in $N$; averaging over
+the first $T$ multiples of the modulus bounds its complete periods by its
+weighted summand when the $P$-part of the exponent divides the modulus, and
+through a large common divisor otherwise. The leftover incomplete periods of
+infinitely many exponents need a second average, over dyadic values of~$T$
+(\repolink{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{WeightedReturn.lean}
+carries both averages).
+
+Erd\H{o}s proved the pairwise-coprime case of the reciprocal-summable criterion
+and stated, without details, that coprimality can be
+removed~\cite[p.~222]{erdos1968}. The short paper gives a complete proof of
+that stated extension at every integer base, which Lean checks and Comparator
+has compared, and credits it to him. Erd\H{o}s also remarked that reciprocal
+summability could be replaced by a weaker, more complicated condition, which
+he did not state; the short paper does not identify its weighted condition
+with that remark, and it credits Duverney and Tachiya for a related selection
+step~\cite{duverneytachiya}. The criterion excludes full support and the set
+of all odd exponents, and irrationality for every infinite support remains
+open.
+
+A reader given this much can check the theorem, see why it holds, see whose
+idea it extends and see what is left to prove. Mathematicians writing in
+September 2026 describe what a proof produced at machine speed arrives
+without. Kra writes that the machines are producing solutions ``faster than
+the mathematical community can read them, much less digest them''~\cite{kra};
+Cohn calls the unexplained remainder technical debt~\cite{cohn}; Tao asks for
+analysis that ``identifies insights from the solution process''~\cite{taomining};
+a declaration first signed by twenty-five Fields Medallists names the writeup,
+the isolation of new methods and ideas, and the citation of earlier work as
+what rushed announcements lose~\cite{fieldsdecl}; and Sanderson writes that
 ``every AI-generated proof is born an unsolved exposition
-problem''~\cite{sanderson}.
+problem''~\cite{sanderson}. Each of these concerns what a proof does not carry
+by itself: the routes that failed, the computations that chose the route, the
+literature it relied on and the precise statement that remains open.
 
-Each of these concerns what a proof does not carry by itself. A proof found in a
-session arrives without the session: the routes that failed, the computations
-that chose the route, the literature it relied on and the precise statement that
-remains open. Whoever continues, a person or a model, must rebuild that record or
-work without it.
-As producing results becomes easier, helping other people understand and use
-them becomes the scarce part of the work.
-
-This paper describes a research environment built around a persistent unit of
-work, the \emph{problem-sized world}: one research problem together with
-everything learned about it. A world is written for two readers at once. Its short paper
-compresses the frontier so that an expert can inspect the underlying
-mathematical ideas without reconstructing the whole search; its long record
-keeps the complete arguments for whoever continues. Any model, provider or
-person can resume from the world, so the cumulative mathematical work stays
-available to be reasoned over and built on, and a stronger model starts from
-the recorded frontier.
-
-The paper makes four contributions: the problem-sized world as the persistent
-unit of AI-assisted research (Section~\ref{sec:world}); a path from proof to
-public claim that keeps three questions apart, namely whether Lean accepts a
-proof, whether the proved statement is exactly the stated one, and whether that
-statement means what the problem means (Section~\ref{sec:checks}); a
-contribution cycle, published as agent skills in the public repository, through
-which a person or an agent can take up an open obligation and return the result
-with credit (Section~\ref{sec:cycle}); and a public instance on eight
-Erd\H{o}s problems (Section~\ref{sec:instance}), compared with Prove2Me and
-related systems (Section~\ref{sec:related}).
+This paper describes a research environment built to keep that record. Its
+unit of work is the \emph{problem-sized world}: one research problem together
+with everything learned about it, kept in a public repository. As producing results becomes easier, helping other people
+understand and use them becomes the scarce part of the work, and the world is
+organised around that part.
 
 \section{A problem-sized world}\label{sec:world}
 
 A problem-sized world is a versioned set of files in a public Git repository,
-organised around one research question. It keeps its established results and
-remaining obligations as the question is refined or resolved.
-Table~\ref{tab:world} lists its parts.
+organised around one research question and kept while the question is refined,
+attacked, partly answered or resolved. Its short paper, 12 to 28 pages long,
+is the first read: the problem and its status, the strongest results and their
+mechanism, their relation to prior work and the exact point where the argument
+stops. Its long record keeps the complete arguments, failed routes,
+experiments with their finite domains, corrected claims and attribution for
+every borrowed idea. Beside them sit the Lean source, checked by a pinned
+kernel~\cite{lean4}; a claim registry with the wording, evidence class and
+limits of each public claim; and a ledger recording, for every result asserted
+in a paper, the Lean declarations that state it or that none does. A margin mark beside a result
+links its declaration and any Comparator receipt; an unmarked result rests on
+the paper's own argument, and a dagger marks a named input the formal proof
+assumes.
+
+Every result that returns to a world raises four decisions, and the world
+records each one separately (Table~\ref{tab:decisions}). A successful check in
+one row settles nothing in another: a valid theorem can be a routine lemma
+that belongs only in the long record, a promising conjecture can direct the
+next computation without entering the proved claims, and a clear explanation
+can describe the wrong formal statement.
 
 \begin{table}[!ht]
 \centering\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.17\linewidth}
-                    >{\raggedright\arraybackslash}p{0.50\linewidth}
-                    >{\raggedright\arraybackslash}p{0.25\linewidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\linewidth}
+                    >{\raggedright\arraybackslash}p{0.38\linewidth}
+                    >{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
 \toprule
 \papertablehead
-Part & What it holds & Written for \\
+Decision & What the world records & For the weighted criterion \\
 \midrule
-Short paper & The problem and its status, the strongest results and the
-mechanism behind them, relation to prior work, and the exact point where the
-argument stops & An expert deciding whether to engage \\
+Evidence & The exact statement, its hypotheses and named inputs, the Lean
+declaration and its checking receipts & Lean proves the criterion; Comparator
+has compared the declarations that state it \\
 \addlinespace
-Long record & Complete arguments, failed routes, experiments with their finite
-domains, corrected claims, and attribution for every borrowed idea & Whoever
-continues the work \\
+Appraisal & The mechanism, the closest antecedent, the strength of the result
+and the obstruction that survives & Two averages; Erd\H{o}s's
+reciprocal-summable case, credited; admits $A_\star$; excludes full support \\
 \addlinespace
-Lean source & Formal statements and proofs checked by a pinned Lean~\cite{lean4} kernel &
-Anyone who needs certainty about a formal statement \\
+Exposition & Whether the result belongs in the short paper or the long record,
+and how its hard step is explained & The theorem opens the short paper; the
+example and the full averaging proof follow it \\
 \addlinespace
-Evidence marks & Beside each result, ``Lean'' links the declaration that
-proves it, directly or through its evidence record, and ``Comparator'' links
-its replay receipt; an unmarked result rests
-on the paper's own argument & A reader checking one statement \\
-\addlinespace
-Claim registry & The registered wording of each public claim, with its
-evidence class, the bounded domain of each finite instance and the open
-statements it approaches & Release checks and anyone citing a claim \\
-\addlinespace
-Experiments & Code, inputs, finite domain, output and stated limits & Route
-selection and replay \\
+Allocation & The next question, the test that would decide it and the
+condition for stopping & Irrationality for every infinite support, registered
+as an open proposition \\
 \bottomrule
 \end{tabular}
-\caption{The parts of one problem-sized world.}
-\label{tab:world}
+\caption{Four decisions about a returned result, with the record kept for the
+weighted criterion of Section~\ref{sec:intro}.}
+\label{tab:decisions}
 \end{table}
 
-The short paper is the first read. It compresses the whole record, so an expert
-can see the frontier of ideas in 12 to 28 pages and decide whether the problem
-deserves their time. Its margin marks show, result by result, whether belief
-rests on Lean, on Lean and Comparator, or on the argument printed in the paper;
-a dagger on a Lean mark flags a named input the formal proof assumes. The long record holds what the essays above find missing
-from announced results: the solution process, the routes that failed and why,
-and the credit owed to earlier work. The difficulty landscape Tao
-describes~\cite{taomining} is kept explicitly, as the set of results,
-obstructions and open obligations around the endpoint.
+Problem 249 asks whether $S=\sum_{n\ge1}\varphi(n)/2^n$ is irrational, where
+$\varphi$ is Euler's totient function~\cite{erdosgraham}. Its short
+paper~\cite{paper249} starts from an exact theorem about the subsequences
+obtained by splitting the coefficients of $S$ into residue classes modulo
+powers of a base. With $\mathbb N=\{0,1,2,\ldots\}$ and $\varphi(0)=0$, the
+seven sections $\varphi(2^jn+r)$ with $0\le j\le2$ and $0\le r<2^j$ reduce to
+the five sequences
+\[
+ \varphi(n),\quad\varphi(2n),\quad\varphi(2n+1),\quad
+ \varphi(4n+1),\quad\varphi(4n+3),
+\]
+since $\varphi(4n)=2\varphi(2n)$ and $\varphi(4n+2)=\varphi(2n+1)$. These five
+are linearly independent, and the pattern holds in every base. For every base
+$k\ge2$ and level $e\ge1$, the sections $\varphi(k^jn+r)$ with $0\le j\le e$
+and $0\le r<k^j$ span a space of dimension $k^e+1$ over $\mathbb Q$, with basis
+$\varphi(n)$, $\varphi(kn)$ and the sections with $1\le j\le e$ and $k\nmid r$;
+every other section is an explicit integer multiple of a basis element, and
+these reductions generate all integral relations. Coons proved that $\varphi$
+is not $k$-regular for any $k\ge2$~\cite{coons}; the basis theorem recovers
+this and gives the dimension at every level.
 
-\subsection{Failed routes and open obligations}\label{sec:mathloop}
-\papersectiontarget{systems-mathloop}
+Lean proves the theorem for every base, and Comparator has compared it. The
+reductions are elementary; the independence carries the weight, through an
+evaluation matrix made diagonal and nonzero modulo an auxiliary prime, with
+evaluation points chosen by the Chinese remainder theorem and Dirichlet's
+theorem so that each row asks one primitive affine form to take a prime value.
+Martin's Theorem~1 already implies the affine independence~\cite{martin}, and
+the separation method goes back to Yazdani, who credits it to
+Shallit~\cite{yazdani}; the short paper credits both. The record keeps the
+basis theorem, a statement about the coefficients, apart from the
+irrationality of $S$, whose open form it states exactly.
 
-The records treat negative results as outputs. A failed attempt shows that one
-search path did not close. A counterexample refutes a conjecture on its exact
-domain. A Lean no-go theorem rules out a class of strategies under explicit
-hypotheses. The last two mark routes that later work need not repeat, and a
-no-go theorem shows that a proof of the endpoint must leave the excluded class.
-For Problem 257, a proposed estimate said that the greedy test
-ruling out a rational number with denominator $Q$ as the sum of an infinite
-subseries of $\sum_n 1/(2^n-1)$ stops within about $2\log_2 Q-3.3$ steps; an
-\repolink{research/experiments/choices_contraction/README.md}{exact rational
-probe} first rules out $189/388$ at step 17. The record keeps both that this
-defeats the estimate and that it leaves the problem itself untouched.
-
-\FloatBarrier
-Open obligations are stated as exactly as results. Problem 249 asks whether
-$S=\sum_{n\ge1}\varphi(n)/2^n$ is irrational, where $\varphi$ is Euler's
-totient function~\cite{erdosgraham}. The development expresses irrationality
-through finite certificates along $H_t=\operatorname{lcm}(1,\ldots,t)$. Writing
-$\mathrm{Cert}(t)$ for the existence of a finite computation showing that a
-scaled tail difference of $S$ at $H_t$ is not an integer, Lean checks
+Write $R_N=\sum_{j\ge1}\varphi(N+j)2^{-j}$ for the tail of $S$ after $N$
+terms, put $H_t=\operatorname{lcm}(1,\ldots,t)$, and write $\mathrm{Cert}(t)$
+for a finite exact computation, on totient values just after $H_t$ and
+$2H_t$, showing that $R_{2H_t}-R_{H_t}$ is not an integer. Lean checks, and
+Comparator has compared,
 \[
 \forall t\le82,\quad \mathrm{Cert}(t),
 \]
-and Lean also proves that irrationality is equivalent to the unbounded supply
+and Lean also proves, again with a Comparator comparison, that irrationality
+of $S$ is equivalent to the unbounded supply
 \[
 \forall T,\ \exists t>T,\quad \mathrm{Cert}(t).
 \]
@@ -211,171 +257,199 @@ The finite theorem makes no \(t=83\) or cofinal claim. What remains open is the
 unbounded supply itself, which is the irrationality of $S$ in equivalent form,
 and the record states it in exactly that form.
 
+\section{From corpus to insight}\label{sec:production}
+\papersectiontarget{systems-mathloop}
+
+The short papers are distilled from a much larger research record. Each
+problem keeps a research corpus of exact results, negative results,
+computations, literature notes and proposed next steps, including intermediate
+and superseded entries, and the mathematical loop runs over it in two coupled
+roles.
+
+\paragraph{Discovery and stewardship.}\papersectiontarget{systems-coupled-goals}
+A discovery pass stays close to the frontier: it runs discriminating
+computations, attempts proofs and returns results. A stewardship pass reads
+each new result against the whole corpus and makes the four decisions of
+Table~\ref{tab:decisions}: what the result establishes, whether it is routine
+or strong and whom it credits, where it belongs in a paper, and which
+obligation deserves the next unit of work. One agent may play both roles in
+sequence. Neither inherits the other's authority, and neither starts new work
+while the frontier and the files that depend on it are unchanged.
+
+Models do the reading, comparison and drafting under written procedures,
+published with the repository as agent skills. Deterministic code assembles
+each long record from its authored parts, records the Lean evidence of every
+asserted result or its absence, and checks that each result a paper states is
+linked and that each registered limitation stays visible. No deterministic
+check decides what is important; that judgement, whoever drafts it, is written
+into the paper, where a reader can inspect and dispute it.
+
+Negative results are part of what the loop produces. Tao observes that
+withheld negative results and processes hide where a new frontier
+lies~\cite{taomining}; the record keeps them. A counterexample refutes a
+conjecture on its exact domain, and a Lean no-go theorem rules out a class of
+strategies under explicit hypotheses, so later work need not repeat either. A
+failed computation records its finite domain and the inference it defeats. For
+Problem 257, a proposed estimate said that the greedy test ruling out a
+rational number with denominator $Q$ as the sum of an infinite subseries of
+$\sum_n1/(2^n-1)$ stops within about $2\log_2Q-3.3$ steps; an
+\repolink{research/experiments/choices_contraction/README.md}{exact rational
+probe} first rules out $189/388$ at step~17. The record keeps both facts: the
+estimate is false, and the problem itself is untouched. Inside the weighted
+proof the same discipline explains the second average: the short paper shows
+why the majorant of the reciprocal-summable proof fails beyond that class.
+
+Reading the problems together raises questions that none of them asks alone.
+Seven of the eight problems ask whether a series is irrational, and the
+synthesis paper~\cite{synthesis} studies what their methods share and where
+each stops. The sparse corrections used for Problem 251 led to a capacity
+criterion for factorial digits, and then to a question: can one sequence of
+factorial digits prescribe several derivatives at once? For $c>0$, let $\mathcal H_c$ be the class of entire
+functions $f(z)=\sum_{n\ge1}e_nz^n/n!$ with $e_n\in\mathbb Z_{\ge0}$,
+$e_n\le n^c$ eventually, and every fixed positive integer dividing $e_n$ for
+all large $n$, and for an integer $d\ge1$ put
+$J_d(f)=(f(1),f'(1),\ldots,f^{(d-1)}(1))$. The synthesis paper proves
+\[
+ \dim_{\mathrm H}\{J_d(f):f\in\mathcal H_c\}=\min(c,d),
+\]
+that this set contains a nonempty open subset of $\mathbb R^d$ exactly when
+$c>d$, and that a nonpolynomial member of $\mathcal H_c$ with
+$f(1),\ldots,f^{(d-1)}(1)$ all rational exists exactly when $c>d$. So a
+nonpolynomial $f\in\mathcal H_2$ with $f(1)$ rational has $f'(1)$ irrational,
+while coefficients of size $n^{2+\varepsilon}$ allow both to be rational. The
+construction rests on a carry identity,
+\[
+ (z-1)\sum_{n\ge0}\frac{b_nz^n}{n!}
+ =-b_0+\sum_{n\ge1}\frac{(nb_{n-1}-b_n)\,z^n}{n!}:
+\]
+adding such a term to $f$ leaves $f(1)$ unchanged and moves $f'(1)$ by
+$\sum_nb_n/n!$, and a factor $(z-1)^k$ leaves $f(1),\ldots,f^{(k-1)}(1)$
+unchanged at a cost of $k$ powers of $n$ in the coefficient allowance.
+Division by $(z-1)^d$ gives the matching obstruction: vanishing derivatives
+become bounded integer coefficients, which eventual divisibility forces to
+vanish. Both theorems are proved in the synthesis paper by ordinary argument
+and carry no Lean mark; Lean checks the finite carry identity and its
+preservation of divisibility.
+
 \section{From a proof to a public claim}\label{sec:checks}
 \papersectiontarget{systems-lifecycle}
 
 A proof becomes a public claim by crossing three questions that the word
-``verified'' tends to merge. Table~\ref{tab:questions} keeps them apart.
-
-\begin{table}[!ht]
-\centering\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.36\linewidth}
-                    >{\raggedright\arraybackslash}p{0.29\linewidth}
-                    >{\raggedright\arraybackslash}p{0.27\linewidth}@{}}
-\toprule
-\papertablehead
-Question & Answered by & Recorded in \\
-\midrule
-Does the proof establish this formal statement? & The pinned Lean kernel, in
-continuous integration & Lean source and build receipts \\
-\addlinespace
-Is the proved statement exactly the separately stated one, using only
-permitted axioms? & Comparator and the Lean kernel, with nanoda as a second
-kernel in the corpus replay & The Comparator ledger and evidence records \\
-\addlinespace
-Does the formal statement say what the problem says, and does the result
-matter? & A mathematician & Claim wording in the registry, and review events
-when they occur \\
-\bottomrule
-\end{tabular}
-\caption{Three questions a public mathematical claim must cross.}
-\label{tab:questions}
-\end{table}
+``verified'' tends to merge: whether the proof establishes its formal
+statement, which the pinned Lean kernel answers in continuous integration;
+whether the proved statement is exactly the separately written one, using only
+permitted axioms, which Comparator answers for selected statements; and whether
+the formal statement says what the problem says and whether the result
+matters, which a mathematician answers.
 
 Lean verifies that a proof establishes the formal statement written in the
 source; it does not verify whether that statement captures the intended
 mathematics or whether the paper describes it well. The gap is measurable.
 Feng et al.\ had mathematicians grade 200 candidate solutions to Erd\H{o}s
 problems produced by Aletheia, an agent built on Gemini Deep Think: 63 were
-technically correct and 13 meaningfully correct, and the other 50 answered a
-reading of the problem that missed Erd\H{o}s's intent~\cite{aletheia}.
+technically correct, of which 13 were meaningfully correct; the other 50
+answered a reading of the problem that missed Erd\H{o}s's
+intent~\cite{aletheia}.
 
 Comparator, a checker the Lean FRO built for judging machine-written
-proofs~\cite{leanfrocomparator}, answers the second question for selected statements.
-A trusted challenge module restates each statement without its proof; the proof
-must be a term of exactly that type, using only the permitted axioms, and the
-Lean kernel must accept it. The corpus replay also passes every proof through
-nanoda, an independent kernel~\cite{nanodalib}, and continuous integration requires
-a deliberately altered statement to fail, so the harness cannot pass
-vacuously. Comparator cannot decide whether a statement is the
-right translation of the problem. It guarantees that the statement a reader
-inspects is the statement that was proved, so ``Comparator-checked'' is
-accurate where ``independently verified'' would overclaim.
+proofs~\cite{leanfrocomparator}, answers the second question. A trusted
+challenge module restates each statement without its proof; the proof must be
+a term of exactly that type, using only the permitted axioms, and the Lean
+kernel must accept it. The corpus replay, run in the companion repository
+\texttt{plectis-erdos-lean}, also passes every compared proof through nanoda,
+an independent kernel~\cite{nanodalib}. In this repository, continuous
+integration requires a deliberately altered statement to fail Comparator, so
+the harness cannot pass vacuously. Comparator cannot decide whether a
+statement is the right translation of the problem. It guarantees that the
+separately written statement, which a reader can inspect, is the statement
+that was proved, so ``Comparator-checked'' is accurate where ``independently
+verified'' would overclaim.
+
+The paper-to-Lean ledger makes both formal questions countable for the papers'
+own statements. It holds one row
+for each result asserted in the sixteen problem papers, 674 in all, counting a
+result stated in both a short paper and a long record twice, with its
+statement digest and kind of correspondence. For 506 rows the named Lean
+declarations state the result exactly; for 140 they state it or a result that
+implies it by an immediate specialisation; 25 are proved from a named input,
+marked with a dagger; and 3 have no Lean statement. Comparator has compared 633
+of the 646 exact and specialising rows, and the other 13 are queued for its
+next replay; every receipt in the pinned corpus replay was accepted by both the
+Lean kernel and nanoda. A digest detects a changed statement, and the
+classification of a correspondence stays the maintainer's judgement.
 
 The third question stays with people. The claim registry records the wording
 of each public claim with its evidence class, the bounded domain of each finite
 instance and the open statements it approaches, and the papers, README and
 generated views may say only what the registry allows. In this repository the
 maintainer is responsible for that wording, and no independent mathematical
-review is yet recorded. A release checker keeps those surfaces consistent
-with the registry and the Lean source, and requires a registered limitation to
-stay visible wherever its claim appears.
+review is yet recorded. A release checker keeps those surfaces consistent with
+the registry and the Lean source, and requires a registered limitation to stay
+visible wherever its claim appears.
 
 That requirement comes from a test in which a limitation escaped. One
-deliberately false README edit changed a clause saying that the finite cases of Problem 249 did not supply the
-open requirement into one saying that they completed it. Lean was untouched,
-and the checker passed because that relationship had not been registered.
-After registration, the post-repair witness accepts the current README and
-rejects a test copy containing the false clause. A small historical study
-tested the checker with deliberately false edits: nine of the ten edits were
-rejected. One escaped, for the reason just given. The edits were authored by the checker's author. The
-original run logs were not retained. The other nine edits were not rerun
-against the extended checklist.
+deliberately false README edit changed a clause saying that the finite cases
+of Problem 249 did not supply the open requirement into one saying that they
+completed it. Lean was untouched, and the checker passed because that
+relationship had not been registered. After registration, the post-repair
+witness accepts the current README and rejects a test copy containing the
+false clause. A small historical study tested the checker with deliberately
+false edits: nine of the ten edits were rejected. One escaped, for the reason
+just given. The edits were authored by the checker's author. The original run
+logs were not retained. The other nine edits were not rerun against the
+extended checklist.
 The evidence marks a coverage boundary, not a reliability score.
 
 The workflow does not technically force a second independent mathematician:
 the maintainer can edit a Lean statement, its record and its prose together so
 that every comparison agrees with the same mistake. Independent review is
-recorded as an external event when it happens.
+recorded as an external event when it happens. A changed result reopens what
+depends on it. Propagation starts from the changed object and lists every
+reverse import, claim record, paper, experiment and open obligation the change
+may affect; each must be updated, verified unchanged, deferred with a reason or
+marked out of scope, and an empty search never counts as evidence of no
+consequence.
 
 \section{The contribution cycle}\label{sec:cycle}
+\papersectiontarget{systems-job-lifecycle}
 
 Someone outside the original research can contribute a correction or take an
-argument further, and that work returns to the same record for that problem. The public
+argument further, and that work returns to the same record. The public
 repository publishes this research, checking and revision cycle as thirteen
-reusable agent skills that install into common agent harnesses. Each skill owns
-one job: its starting state, the changes it may make, the evidence it must
-return, its stopping condition and the next owner. Table~\ref{tab:cycle} shows
-the ordinary path.
-
-\papersectiontarget{systems-job-lifecycle}
-\begin{table}[!ht]
-\centering\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}
-                    >{\raggedright\arraybackslash}p{0.33\linewidth}
-                    >{\raggedright\arraybackslash}p{0.47\linewidth}@{}}
-\toprule
-\papertablehead
-Step & Public skill & What it returns \\
-\midrule
-Orient & \texttt{explain-\allowbreak public-\allowbreak system},
-\texttt{explore-\allowbreak the-\allowbreak corpus} & An account of the record
-adapted to its reader, citing the evidence behind each statement \\
-\addlinespace
-Work & \texttt{mine-\allowbreak open-\allowbreak problem} & The smallest
-evidence-bearing change: a theorem, a counterexample, a no-go result or a
-diagnosed failure \\
-\addlinespace
-Validate & \texttt{lean-\allowbreak concurrent-\allowbreak validation},
-\texttt{land-\allowbreak lean-\allowbreak proofs} & One Lean verdict per
-distinct request, and every paper that states the result linked to its
-declaration \\
-\addlinespace
-Propagate & \texttt{propagate-\allowbreak research-\allowbreak consequences} &
-A recorded disposition for every affected import, claim, paper and open
-obligation \\
-\addlinespace
-Package & \texttt{erdos-\allowbreak research-\allowbreak return},
-\texttt{public-\allowbreak mathematical-\allowbreak writing} & A
-provenance-preserving return, with its prose held to the evidence \\
-\addlinespace
-Propose & \texttt{submit-\allowbreak pull-\allowbreak request} & A pull request
-from a named starting commit \\
-\addlinespace
-Adopt & Maintainer review under the credit policy & Reconciliation with the
-current tree and a public credit receipt \\
-\bottomrule
-\end{tabular}
-\caption{The contribution cycle as published in the public repository. Four
-further skills coordinate discovery and stewardship, admit a new problem world,
-maintain the clone's own tooling and install the set. A cycle closes when the
-change has evidence and every consequence has a recorded disposition; a problem
-closes only when a proof or a refutation settles its original statement.}
-\label{tab:cycle}
-\end{table}
-
-Two steps carry most of the discipline. Propagation starts from the changed
-object and lists every reverse import, claim record, paper, experiment and open
-obligation the change may affect. Each must be updated, verified unchanged,
-deferred with a reason or marked out of scope, and an empty search never counts
-as evidence of no consequence. Adoption replays the contributor's original
-change from its named starting commit before reconciling it with the current
-tree, so the original work and any conflict resolution are credited separately.
-Orientation needs no knowledge of the file layout: \texttt{explain-public-system}
-adapts its account to a lay reader, a mathematician, a formaliser, a compute
-contributor or an infrastructure contributor. The
+agent skills that install into common agent harnesses. Each skill owns one
+job, with its starting state, the changes it may make, the evidence it must
+return, its stopping condition and the next owner. The ordinary path orients
+(\texttt{explain-\allowbreak public-\allowbreak system}), works on one open
+obligation (\texttt{mine-\allowbreak open-\allowbreak problem}), validates
+(\texttt{land-\allowbreak lean-\allowbreak proofs}), propagates
+(\texttt{propagate-\allowbreak research-\allowbreak consequences}), packages
+the return with its prose held to the evidence
+(\texttt{public-\allowbreak mathematical-\allowbreak writing}) and proposes a
+pull request from a named starting commit
+(\texttt{submit-\allowbreak pull-\allowbreak request}). The
 \papersectionlink{open-source-mathematics-strategy.pdf}%
-{strategy-protocol}{companion contribution protocol} gives the full sequence.
-
-\paragraph{Discovery and stewardship.}\papersectiontarget{systems-coupled-goals}
-Long-running work uses two coupled roles. A discovery pass stays close to the
-frontier: it runs discriminating computations, attempts proofs and returns
-results. A stewardship pass reads each new result against the whole corpus and
-decides what it establishes, whether it is routine or strong, where it belongs
-in a paper, and which obligation deserves the next unit of work. One agent may
-play both roles in sequence. Neither inherits the other's authority, and both
-wait while the frontier and its consumers are unchanged.
+{strategy-protocol}{companion contribution protocol} gives the full sequence,
+and the \papersectionlink{cold-clone-to-proof-receipt.pdf}%
+{cold-clone-return-lifecycle}{companion runtime paper} describes navigation
+and proof receipts in a fresh clone. Adoption replays the contributor's
+original change from its named starting commit before reconciling it with the
+current tree, so the original work and any conflict resolution are credited
+separately. A cycle closes when the change has evidence and every consequence
+has a recorded disposition; a problem closes only when a proof or a refutation
+settles its original statement.
 
 \paragraph{Credit.}
 The \repolink{docs/research-commons/CREDIT_POLICY.md}{credit policy} lets an
 idea be credited separately from its proof, its Lean formalisation and its
 explanation, the roles Kra asks journals to distinguish~\cite{kra}, and credits
-software as a role of its own. A first
-return can be a plain-language research-progress issue or
-email: no clone, proof, code or receipt schema is required. Accepted work
-receives a public receipt tied to exact artifacts. Acceptance does not
-establish theorem status, novelty, or release inclusion. Corrections append to
-the history, and an earlier contributor's record stays in it.
+software as a role of its own. A first return can be a plain-language
+research-progress issue or email: no clone, proof, code or receipt schema is
+required. Accepted work receives a public receipt tied to exact artifacts.
+Acceptance does not establish theorem status, novelty, or release inclusion.
+Corrections append to the history, and an earlier contributor's record stays in
+it. Work also leaves the repository: Google DeepMind's Formal Conjectures
+maintainers have merged four of its contributions, linking formal proofs for
+Problems 257, 1049 and 1041 and a constant-base variant of Problem 258.
 
 \subsection{Worked example: Problem 1041}\label{sec:example}
 
@@ -394,8 +468,8 @@ greater than~$2$
 which refutes the exact path-image-length statement in Google DeepMind's Formal
 Conjectures repository~\cite{formalconjectures}. On 23 September the Formal
 Conjectures maintainers merged a change that marks the problem solved with
-answer \texttt{False} and links this proof~\cite{fcpr}. The short paper and long
-record carry the proof with its Lean mark and credit \texttt{ani} for the
+answer \texttt{False} and links this proof~\cite{fcpr}. The short paper and
+long record carry the proof with its Lean mark and credit \texttt{ani} for the
 construction. One judgement remains open: whether the formal statement matches
 the 1958 wording~\cite[Problem~5, p.~139]{ehp1958}. The record says so beside
 the result.
@@ -404,18 +478,9 @@ the result.
 \papersectiontarget{systems-public}
 
 The \href{\repobase}{public repository} maintains eight Erd\H{o}s
-problems~\cite{erdosproblems} as problem-sized worlds. Its README leads with
-Problem 257, which asks whether $\sum_{a\in A}(2^a-1)^{-1}$ is irrational for
-every infinite set $A$ of positive integers. For a set $A$ of positive integers
-and a finite nonempty set $P$ of primes, let $h(a)=\prod_{p\in P}p^{v_p(a)}$ be
-the $P$-part of $a$, where $v_p(a)$ is the exponent of $p$ in $a$. If
-\[
-\sum_{a\in A}\frac{h(a)}{a\,(2^{h(a)}-1)}<\infty,
-\]
-then $\sum_{a\in B}(b^a-1)^{-1}$ is irrational for every integer $b\ge2$ and
-every infinite $B\subseteq A$. The condition admits sets $A$ whose reciprocal
-sum diverges, and Lean checks the criterion. Table~\ref{tab:problems} gives one
-result for each problem and the point where it stops.
+problems~\cite{erdosproblems} as problem-sized worlds.
+Table~\ref{tab:problems} gives one result for each problem and the point where
+it stops.
 
 \begin{table}[!ht]
 \centering\small
@@ -440,16 +505,20 @@ totient sections $\varphi(k^jn+r)$ with $0\le j\le e$ and $0\le r<k^j$ span a
 space of dimension $k^e+1$ over $\mathbb{Q}$; certificates for every $t\le82$ &
 Certificates for arbitrarily large $t$ \\
 \addlinespace
-\#251, prime-gap dyadic series & Lean checks a synthetic prime-gap countermodel; the paper
-proves a sparse-perturbation obstruction & An argument specific to actual
-prime gaps \\
+\#251, prime-gap dyadic series & Lean and Comparator check that sparse
+corrections preserving the congruences fill an interval of sums; from the
+prime number theorem and a lemma of Schlage-Puchta as named inputs, Lean
+checks a sequence with the local statistics of prime gaps and a rational
+dyadic sum & An argument specific to actual prime gaps \\
 \addlinespace
-\#257, infinite exponent supports & The weighted-support criterion above, at
-every integer base & Arbitrary infinite supports \\
+\#257, infinite exponent supports & The weighted-support criterion of
+Section~\ref{sec:intro}, at every integer base & Arbitrary infinite supports \\
 \addlinespace
-\#269, three-prime running LCMs & Both two-prime sums are transcendental, by a cited
-Hecke--Mahler theorem, the repeated-sum case first posted by Fan~\cite{fan269};
-Lean checks the formulas and the conditional transfer & The three-prime case \\
+\#269, three-prime running LCMs & Lean and Comparator check that the
+three-prime running-LCM kernel has nonsingular minors of every order, so no
+finite sum of separated products represents it; both two-prime sums are transcendental by a cited
+Hecke--Mahler theorem, the repeated-sum case first posted by
+Fan~\cite{fan269} & The three-prime case \\
 \addlinespace
 \#1041, lemniscate connections & The Formal Conjectures statement is refuted with
 \texttt{ani}'s example & Match with the 1958 wording \\
@@ -463,89 +532,61 @@ each result in full with its hypotheses and sources.}
 \label{tab:problems}
 \end{table}
 
-The repository holds 1,823 Lean modules under a pinned
-toolchain, sixteen problem papers totalling 773 pages, a cross-problem
-synthesis paper and three systems papers. The papers assert 674 results,
-counting a result stated in both a short paper and a long record twice. Of
-these, 671 carry a Lean mark: 506 link a declaration that proves the result
-exactly, 140 one that proves a stronger form and 25 one that proves it from a
-named input. Comparator has compared 633, and 13 more are queued for its next
-replay; every receipt in the pinned corpus replay was accepted by both the Lean
-kernel and nanoda. The claim registry holds 150 public claims in seven
-statuses, from proved here and formalised here to conditional reduction and
-open, and states 19 remaining obligations exactly, one of them the Problem 1041
-correspondence review. Continuous integration builds
-the supported Lean roots, a coverage build compiles every module a paper cites,
-and the release checker runs 15,666 checks over claims, papers, generated views
-and licences. A fresh clone needs no private file, and no public theorem
-depends on an unpublished lemma.
+The repository holds 1,823 Lean modules in its two library roots under a
+pinned toolchain, sixteen problem papers totalling 773 pages, a cross-problem
+synthesis paper and three systems papers. The claim registry holds 150 public
+claims in seven statuses, from proved here and formalised here to conditional
+reduction and open, and states 19 remaining obligations exactly. Continuous integration builds the supported Lean roots,
+a coverage build compiles every module a paper cites, and the release checker
+runs 15,666 checks over claims, papers, generated views and licences. A fresh
+clone needs no private file, and no public theorem depends on an unpublished
+lemma.
 
-\section{How the records are produced}\label{sec:production}
 \papersectiontarget{systems-comprehension}
+The clone also carries the machinery for continuing a proof. A
+\repolink{docs/agents/PROOF_STATE_COMPILER.md}{proof-state compiler} takes the
+declarations that static queries nominate for a goal and asks the pinned Lean
+environment what each application does. A transition exists only when Lean
+reaches the state after the application; the subgoals Lean leaves form an AND
+set that becomes the exact remaining obligation, competing applications are OR
+alternatives, and a proof receipt exists only when Lean exits with no goals
+left. In its pilot, applying a Problem 249 totient-tail lemma without its
+divisibility hypothesis leaves exactly that hypothesis open, and supplying it
+closes the same application.
 
 The records come from a private environment, built over the past year, that
 runs agents from several model providers, including Anthropic's Claude and
-OpenAI's GPT models, concurrently on one shared file
-system. Five design choices carry most of the
-weight.
-
-\paragraph{Shared state on disk.} Durable state lives in files: sources,
-structured records, append-only ledgers, validation receipts and authored
-explanations. A change exists once its file is written and its
-checker accepts it, so work resumes across sessions, models and providers.
-
-\paragraph{Bounded context.} Before an agent opens a large source, a router
-compiles a packet conditioned on its task: the endpoint, its status and claim
-ceiling, the strongest nearby results, known falsifiers and literature, each
-labelled by evidence class, with a list of what was omitted and the command
-that restores it. A packet that would exceed its budget reports the overflow
-and stops.
-
-\paragraph{Claims before writes.} An agent claims exact paths for a bounded
-lease before changing them. Overlapping claims wait or coordinate, expired
-leases lose authority, and parallel work meets at a fan-in step where results
-are compared and validated.
-
-\paragraph{Single-flight validation.} Lean builds pass through a semantic
-single-flight queue keyed by source, targets, toolchain and dependency lock.
-Equivalent requests share one build. An agent that cannot get the build slot
-receives a deferral, recorded separately from theorem failures, and continues
-with independent work.
-
-\paragraph{Route repair.} A failure in navigation, scheduling,
-experimentation or validation can change a route, skill or check for later
-agents through a guarded proposal. It never changes the status of a
-mathematical claim.
-
-\paragraph{Proof-state continuation.} The public clone carries the validation
-queue and a \repolink{docs/agents/PROOF_STATE_COMPILER.md}{proof-state
-compiler}. Static queries nominate declarations that might close a goal; the
-compiler asks the pinned Lean environment what each application does, keeps the
-subgoals Lean leaves as the exact remaining obligation, and records a proof only
-when none remain. In its pilot, applying a Problem 249 totient-tail lemma without
-its divisibility hypothesis leaves exactly that hypothesis open, and supplying
-it closes the same application.
-
-The public repository replays without the private environment. The private
-environment explains how the records were produced; the public evidence is
-what supports each claim.
+OpenAI's GPT models, concurrently on one shared file system. Durable state
+lives in files, and before an agent opens a large source a router compiles a
+packet conditioned on its task, with each item labelled by evidence class and
+a list of what was omitted. Agents claim exact paths for a bounded lease
+before changing them. Lean builds pass through a semantic single-flight queue
+keyed by source, targets, toolchain and dependency lock, so equivalent requests
+share one build, and a deferral is recorded separately from theorem failures.
+A failure in navigation, scheduling, experimentation or validation can change
+a route, skill or check for later agents through a guarded proposal, and it
+never changes the status of a mathematical claim. The public repository
+replays without the private environment: the private environment explains how
+the records were produced, and the public evidence is what supports each
+claim.
 
 \section{Relation to Prove2Me and other systems}\label{sec:related}
 
-Prove2Me~\cite{prove2me} is the closest published system. It is a hosted
-platform on which anyone with a coding agent states Lean theorems and submits
-proofs. Each statement is immutable and may carry several proofs; the server
-accepts a proof only when its type is exactly the target's, with no
-\texttt{sorry} and only whitelisted axioms, and a disproof proves the negation.
-Missions on papers, textbooks and open problems confine human audit to a goal,
-its definitions and milestone lemmas, aided by a blind agent read-back of each
-Lean statement, and a proof sketch may import open statements for other agents
-to close. Prove2Me began as a class game at Columbia in spring 2026 and its
-paper appeared on 28 August 2026; the first public version of this paper, with
-its claim registry and release checks, appeared in July 2026, and the two
-designs developed independently. Prove2Me is the published reference for hosted
-statement and proof separation, audited mission cores and read-back auditing.
-Table~\ref{tab:prove2me} sets the two side by side.
+Prove2Me~\cite{prove2me} is the closest published system: a hosted platform on
+which anyone with a coding agent states Lean theorems and submits proofs. Each
+statement is immutable and may carry several proofs; the server accepts a proof
+only when its type is exactly the target's, with no \texttt{sorry} and only
+whitelisted axioms, and a disproof proves the negation. Missions on papers,
+textbooks and open problems confine human audit to a goal, its definitions and
+milestone lemmas, aided by a blind agent read-back of each Lean statement, and
+a proof sketch may import open statements for other agents to close.
+Persistence, decomposition, visible negative results and exact statement
+checking are therefore shared features; the two designs differ in the unit
+they maintain (Table~\ref{tab:prove2me}). Prove2Me's paper appeared on 28
+August 2026; the first public version of this paper, with its claim registry
+and release checks, appeared in July 2026, and the two designs developed
+independently. Prove2Me is the published reference for hosted statement and
+proof separation, audited mission cores and read-back auditing.
 
 \begin{table}[!ht]
 \centering\small
@@ -591,30 +632,36 @@ pages and from this repository, on 24 September 2026.}
 The two compose. Prove2Me contributes hosting, importable statements,
 per-submission checking and a contributor base; a world contributes the
 problem-level context around a statement: its papers, failed routes,
-obstructions and open obligations. This repository's sharp collinear
-root-diameter bound for Problem 1041 is hosted on Prove2Me as a package of 21
-theorems with accepted proofs, ported from Lean 4.29.1 to Prove2Me's Lean 4.30.0
-environment.
+obstructions and open obligations. This repository's sharp constant in the
+collinear root-segment bound of Erd\H{o}s, Herzog and Piranian for Problem
+1041, which Comparator has also compared, is hosted on Prove2Me as a package
+of 21 theorems with accepted proofs, ported from Lean 4.29.1 to Prove2Me's
+Lean 4.30.0 environment.
 
 \paragraph{Other systems.} Feng et al.\ ran an agent over the 700 Erd\H{o}s
-problems then listed as open and published graded outcomes~\cite{aletheia}, and
+problems then listed as open, published graded outcomes~\cite{aletheia}, and
 propose reporting AI-assisted results on at least two axes, autonomy and
 significance, with significance judged only by mathematicians expert in the
-area~\cite{autonomousmath}; the claim registry records the evidence behind a
-result and leaves its significance to experts in the same way. Tao's community wiki listed AI contributions to the Erd\H{o}s problems,
-failed attempts included, until its updates stopped on 30 June
-2026~\cite{taowiki}; a registered claim, with its evidence class and limits, is
-the kind of record such a list can cite. Formal
-Conjectures~\cite{formalconjectures} turns open problems into formal statements
-that automated systems can target. Ringer distinguishes mathematics as a
-process from mathematics as a benchmark~\cite{ringer}; a world keeps the
-process around such a statement. Blueprints connect informal proof plans to
-Lean declarations~\cite{leanblueprint,leanarchitect}, and provers such as
-ReProver, built on the LeanDojo toolkit, and OpenProver~\cite{leandojo,openprover}
-search for proofs; a world can use a blueprint as its dependency map and any
-such prover as a source of candidate proofs.
-Li et al.\ published a human-in-the-loop protocol for research mathematics that
-holds generation and validation apart without a proof assistant~\cite{lihai}.
+area~\cite{autonomousmath}; the claim registry leaves significance to experts
+in the same way. Tao's community wiki listed AI contributions to the Erd\H{o}s
+problems, failed attempts included, until its updates stopped on 30 June
+2026~\cite{taowiki}. Formal Conjectures~\cite{formalconjectures} turns open
+problems into formal targets, and Ringer distinguishes mathematics as a process
+from mathematics as a benchmark~\cite{ringer}; a world keeps the process around
+such a target. Blueprints connect informal proof plans to Lean
+declarations~\cite{leanblueprint}; LeanArchitect extracts blueprint data from
+annotated Lean source, infers dependencies and tracks
+progress~\cite{leanarchitect}; and LeanMarathon maintains an evolving
+blueprint, one Lean file serving as proof skeleton, natural-language proof
+graph and shared record, worked by separate construction, audit, proof and
+repair agents~\cite{leanmarathon}. These are direct precedents for durable
+formal development linked to its explanation, and a world can use a blueprint
+as its dependency map; the world adds the appraisal around the proofs, with
+the mechanism and antecedents of each result, the failed routes and the exact
+open obligations. Provers such as ReProver, built on LeanDojo, and
+OpenProver~\cite{leandojo,openprover} can supply a world with candidate proofs,
+and Li et al.\ hold generation and validation apart in research mathematics
+without a proof assistant~\cite{lihai}.
 
 \section{Limits, and what stronger models change}\label{sec:limits}
 \papersectiontarget{systems-trust}
@@ -623,61 +670,63 @@ The other seven targets remain open, and independent human review of the
 correspondence between the Problem 1041 refutation and the 1958 wording has not
 been recorded. The system records evidence classes and review events;
 novelty and significance are judgements it leaves to experts, as Feng et al.\
-also propose~\cite{autonomousmath}. A coordinated mistake in a statement, its
-record and its checks can pass every structural check. By 24 September 2026 no
-outside human contributor had opened a pull request or issue in the repository;
-its outside
-record is in Formal Conjectures, whose maintainers have merged four of its
-contributions, and on Prove2Me, which hosts its Problem 1041 package with
-accepted proofs. A record also leaves several of the concerns in
-Section~\ref{sec:intro} where it finds them: it trains no one, it restores no
-signal of individual expertise~\cite{litt}, and it answers neither the ethical
-objections some mathematicians raise to AI-assisted mathematics~\cite{chu} nor
-the warning of forty-two Fellows and Foreign Members of the Royal Society about
-catastrophic risk from AI~\cite{greenletter}. The private production
-environment is described here and is not distributed.
+also propose~\cite{autonomousmath}. The examples here show how the record
+organises results; whether the workflow made those results more likely has
+not been measured. By 24 September 2026 no outside human contributor had
+opened a pull request or issue in the repository; its outside record is the
+Formal Conjectures merges of Section~\ref{sec:cycle} and the Prove2Me package.
+A record also leaves several of the concerns in Section~\ref{sec:intro} where it
+finds them: it trains no one, it restores no signal of individual
+expertise~\cite{litt}, and it answers neither the ethical objections some
+mathematicians raise to AI-assisted mathematics~\cite{chu} nor the warning of
+forty-two Fellows and Foreign Members of the Royal Society about catastrophic
+risk from AI~\cite{greenletter}.
 
 \papersectiontarget{systems-scaling}
 The same design serves stronger models. A stronger model starts from the
-current frontier with the failed routes already marked,
-and it can reorganise, re-explain and extend the record as well as the
-mathematics.
-The public interfaces admit any producer: an outside contributor can attach any
-agent runner to the clone, and a laboratory with many frontier models could
-replace the private production environment while keeping the same evidence
-boundary.
+current frontier with the failed routes already marked, and it can reorganise,
+re-explain and extend the record as well as the mathematics. The public
+interfaces admit any producer: an outside contributor can attach any agent
+runner to the clone, and a laboratory with many frontier models could replace
+the private production environment while keeping the same evidence boundary.
 
 Gowers suggests a well-designed database of what is known, probably built with
-AI help, and Koukoulopoulos a public facility in which coordinated agents
-explore a research programme divided into subproblems under researchers'
-direction~\cite{gowers,koukoulopoulos}. A problem-sized world supplies the
-shared record both proposals need, at the scale of eight problems. Antieau
-writes that texts generated largely by a language model deserve a home other
-than the arXiv~\cite{antieau}; a world gives its long records one beside the
-proofs they explain. The same structure suits a single landmark result: a short
-paper explaining its core ideas and relation to prior work, connected to the
-full argument, the relevant formal checks and the questions it opens, with
-outside corrections and extensions returning to the same record. The design
-asks three things of a field: stable result identities, a checker where one
-exists, and an explicit boundary on public claims. The next measurement is
-comparative. With the source revision, tasks, model and budget held fixed,
-agents receive the plain repository, an information-equivalent written briefing,
-or the world with its continuation tools. Independent domain readers grade
-whether each recovers the strongest supported claim, its hypotheses, its
-attribution and the remaining obligation, and review one returned change, with
-scope errors, reviewer time and total work, maintenance included, recorded.
-Repeating the frozen tasks with a stronger model measures what the record adds
-as models improve.
+AI help, and adds that it may prove unnecessary if one can ask a language model
+for a bird's-eye view of an area~\cite{gowers}; Koukoulopoulos proposes a
+public facility in which coordinated agents explore a research programme
+divided into subproblems under researchers' direction~\cite{koukoulopoulos}. A
+problem-sized world supplies the shared record both proposals need, at the
+scale of eight problems, and the written-briefing arm of the measurement below
+stands in for Gowers's alternative. Antieau writes that texts generated largely by a language
+model deserve a home other than the arXiv~\cite{antieau}; a world gives its
+long records one beside the proofs they explain. The same structure suits a
+single landmark result, and it asks three things of a field: stable result
+identities, a checker where one exists, and an explicit boundary on public
+claims.
+
+The next measurement is comparative. With the source revision, task set,
+model, tool access and budget held fixed, agents receive the Lean source
+alone, an information-equivalent written briefing, or the whole world with its
+continuation tools. Independent domain readers grade whether each recovers the strongest
+supported claim, its hypotheses, its hard step, its antecedents and the
+remaining obligation, and review one returned change; statement errors,
+reviewer time and total work, preparation and maintenance included, are
+recorded, and failed and abandoned attempts are counted. Ablations separate the
+short paper, the evidence links and the continuation tools; historical tasks
+need a cutoff that hides later proofs and theorem names, and prospective tasks
+give a separate test. Repeating the frozen tasks with a stronger model measures
+what the record adds as models improve.
 
 \section{Conclusion}\label{sec:conclusion}
 
-A problem-sized world keeps the record around a proof that lets other people
-understand it, check it, credit it and build on it: its frontier, failed routes,
-formal checks, attribution and exact open statements. The eight worlds in the
-public repository show that the record can be kept persistent,
-checkable and open to contribution across several hard problems. The record is
-built for models stronger than the ones that produced it: each starts from the
-recorded frontier with the failed routes marked, and
+A problem-sized world keeps the record that lets other people understand a
+proof, check it, credit it and build on it: its mechanism, its antecedents, its
+formal evidence and its exact open statements. The weighted criterion, the
+totient basis and the derivative-interpolation theorem show that record for
+three results, and the eight worlds in the public repository show that it can
+be kept persistent, checkable and open to contribution across several hard
+problems. The record is built for models stronger than the ones that produced
+it: each starts from the recorded frontier with the failed routes marked, and
 Section~\ref{sec:limits} names the measurement that tests whether this makes
 it more effective.
 
@@ -697,6 +746,8 @@ How does the repository fit together? &
 What is proved and what is open? &
 \repolink{docs/RESULTS.md}{docs/RESULTS.md} and
 \repolink{docs/claims.json}{docs/claims.json} \\
+Which declaration states each paper result? &
+\repolink{docs/paper_lean_coverage.json}{docs/paper\_lean\_coverage.json} \\
 Where is the checked mathematics? &
 \repolink{lean/Erdos249257.lean}{lean/Erdos249257.lean} and
 \repolink{lean/ErdosProblems.lean}{lean/ErdosProblems.lean} \\
@@ -705,6 +756,8 @@ What does Comparator check? &
 \repolink{verification/comparator.json}{verification/comparator.json} and the
 corpus replay index
 \repolink{evidence/comparator/associations.json}{evidence/comparator/associations.json} \\
+Whose earlier work does each result use? &
+\repolink{docs/PRIOR_ART.md}{docs/PRIOR\_ART.md} \\
 Which checks gate a release? &
 \repolink{scripts/check_release.py}{scripts/check\_release.py} and
 \repolink{.github/workflows/lean.yml}{.github/workflows/lean.yml} \\
@@ -738,6 +791,18 @@ Section~\ref{sec:checks} is recorded in \path{docs/publication_evidence.json}.
 \begin{thebibliography}{99}
 \setlength{\itemsep}{1pt}
 \setlength{\parsep}{0pt}
+\bibitem{erdosproblems} T.~F.~Bloom, \emph{Erd\H{o}s problems},
+\href{https://www.erdosproblems.com}{erdosproblems.com}, accessed September 2026.
+\bibitem{paper257} W.~Cook, \emph{Weighted Support Criteria for Reciprocal
+Mersenne Subseries}, short paper on Erd\H{o}s Problem~257, September 2026,
+\repolink{paper/257/erdos-257-mersenne-support-subseries.pdf}{PDF}.
+\bibitem{erdos1968} P.~Erd\H{o}s, \emph{On the irrationality of certain
+series}, Math.\ Student 36 (1968), 222--226 (issued 1969),
+\href{https://users.renyi.hu/~p_erdos/1969-09.pdf}{scan}.
+\bibitem{duverneytachiya} D.~Duverney and Y.~Tachiya, \emph{Refinement of the
+Chowla--Erd\H{o}s method and linear independence of certain Lambert series},
+Forum Math.\ 31 (2019), 1557--1566,
+\href{https://doi.org/10.1515/forum-2018-0299}{DOI}.
 \bibitem{kra} B.~Kra, \emph{Deep theorems were scarce and difficult and so
 became an effective mechanism to identify deep thought. AI has broken this
 system}, guest post on \emph{What's new}, 13 September 2026,
@@ -754,13 +819,29 @@ misalignment of AI in mathematics}, declaration posted on \emph{What's new},
 \bibitem{sanderson} G.~Sanderson, \emph{If math is more than proof, we need to
 better celebrate the rest of it}, guest post on \emph{What's new}, 18 September
 2026, \href{https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/}{blog post}.
-\bibitem{erdosgraham} P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New
-Problems and Results in Combinatorial Number Theory}, Monographies de
-L'Enseignement Math\'ematique 28, 1980, p.~61.
 \bibitem{lean4} L.~de Moura and S.~Ullrich, \emph{The Lean 4 Theorem Prover
 and Programming Language}, in \emph{Automated Deduction, CADE 28}, Lecture
 Notes in Computer Science 12699, 2021, pp.~625--635,
 \href{https://doi.org/10.1007/978-3-030-79876-5_37}{DOI}.
+\bibitem{erdosgraham} P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New
+Problems and Results in Combinatorial Number Theory}, Monographies de
+L'Enseignement Math\'ematique 28, 1980, p.~61.
+\bibitem{paper249} W.~Cook, \emph{Bases and Integral Relations for the
+$k$-Kernel of Euler's Totient}, short paper on Erd\H{o}s Problem~249, revised
+18 September 2026,
+\repolink{paper/249/erdos-249-binary-totient-series.pdf}{PDF}.
+\bibitem{coons} M.~Coons, \emph{(Non)Automaticity of number theoretic
+functions}, J.\ Th\'eor.\ Nombres Bordeaux 22 (2010), 339--352,
+\href{https://doi.org/10.5802/jtnb.718}{DOI}, Theorem~3.2.
+\bibitem{martin} G.~Martin, \emph{Simultaneous inequalities among values of
+the Euler phi-function}, 2006,
+\href{https://arxiv.org/abs/math/0603053v1}{arXiv:math/0603053v1}, Theorem~1.
+\bibitem{yazdani} S.~Yazdani, \emph{Multiplicative functions and $k$-automatic
+sequences}, J.\ Th\'eor.\ Nombres Bordeaux 13 (2001), 651--658,
+\href{https://www.numdam.org/item/JTNB_2001__13_2_651_0/}{Numdam}.
+\bibitem{synthesis} W.~Cook, \emph{Reading Eight Erd\H{o}s Problems
+Together}, synthesis paper, September 2026,
+\repolink{paper/synthesis/optimal-sparse-perturbations.pdf}{PDF}.
 \bibitem{aletheia} T.~Feng, T.~Trinh, G.~Bingham, et al., \emph{Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erd\H{o}s Problems},
 2026, \href{https://doi.org/10.48550/arXiv.2601.22401}{arXiv}.
@@ -783,8 +864,6 @@ September 2026.
 \bibitem{fcpr} Formal Conjectures, pull request 6505, \emph{Erd\H{o}s 1041:
 mark solved with answer(False) and link a formal proof}, merged 23 September
 2026, \href{https://github.com/google-deepmind/formal-conjectures/pull/6505}{GitHub}.
-\bibitem{erdosproblems} T.~F.~Bloom, \emph{Erd\H{o}s problems},
-\href{https://www.erdosproblems.com}{erdosproblems.com}, accessed September 2026.
 \bibitem{fan269} S.~Fan, comment on Erd\H{o}s Problem \#269, erdosproblems.com
 forum, 26 June 2026,
 \href{https://www.erdosproblems.com/forum/thread/269\#post-7218}{forum post}.
@@ -806,7 +885,12 @@ Lean formalisation blueprints, 2020,
 \bibitem{leanarchitect} T.~Zhu, P.~Monticone, S.~Welleck, and J.~Avigad,
 \emph{LeanArchitect: Automating Blueprint Generation for Humans and AI},
 in \emph{17th International Conference on Interactive Theorem Proving},
-LIPIcs 382, 2026, pp.~25:1--25:16.
+LIPIcs 382, 2026, pp.~25:1--25:16,
+\href{https://doi.org/10.4230/LIPIcs.ITP.2026.25}{DOI}.
+\bibitem{leanmarathon} Y.~Zhang, Y.~Sun, T.~Suzuki, J.~D.~Lee, and F.~Liu,
+\emph{LeanMarathon: Toward Reliable AI Co-Mathematicians through Long-Horizon
+Lean Autoformalization}, 2026,
+\href{https://arxiv.org/abs/2606.05400}{arXiv:2606.05400}.
 \bibitem{leandojo} K.~Yang et al., \emph{LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models}, NeurIPS 2023.
 \bibitem{openprover} M.~Kripner and M.~Straka, \emph{OpenProver: Agentic and
