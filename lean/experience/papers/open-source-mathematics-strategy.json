@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Open-source research strategy",
-  "pages": 22,
+  "pages": 25,
   "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
   "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
   "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "b25d2a4ef60c4d1bfe35759ac4b94bd55e01e45caa4377ca221e46eb3e3c39f5",
+    "source_sha256": "93ed028ed9917075b4588e6cd4eef66966518071da9cd5607a53d1b0204069e0",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 15,
+    "mathml_node_count": 16,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -55,8 +55,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "f85f23a90c79314d0fd80fe5ac2a0ba470f987e15a3e23d7ce87e942e23ef200",
-    "html_exact_tex_sha256": "99d85a084c440501d66df5f4667545a67105d0290757acfcc929662d2e067d6e"
+    "html_mathml_sha256": "11db77fe64983da96430a68f09dab554c69ca25e7b1aad81998eb3c869b2b764",
+    "html_exact_tex_sha256": "8f6b58ed9f732eb7f6068f530ba7b973cfe290dd2b9caf77135ef9872af50bc2"
   },
   "sections": [
     {
@@ -197,7 +197,7 @@
     {
       "level": 2,
       "anchor": "sec:execution",
-      "label": "Execution order"
+      "label": "The next decision"
     },
     {
       "level": 2,

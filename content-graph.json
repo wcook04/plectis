@@ -136941,7 +136941,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2146
+        "total_occurrences": 2145
       },
       "visible_text_byte_count": 754
     },
@@ -140799,7 +140799,7 @@
             "page": "component-corpus-readiness-mathlib-absence-gate.html"
           }
         ],
-        "total_occurrences": 300
+        "total_occurrences": 299
       },
       "visible_text_byte_count": 753
     },
@@ -152548,7 +152548,7 @@
             "page": "paper-module-formal-math-lean-proof-witness.html"
           }
         ],
-        "total_occurrences": 916
+        "total_occurrences": 915
       },
       "visible_text_byte_count": 839
     },
@@ -154440,7 +154440,7 @@
             "page": "introduction.html"
           },
           {
-            "count": 10,
+            "count": 9,
             "page": "papers.html"
           },
           {
@@ -154460,7 +154460,7 @@
             "page": "paper-module-navigation-fitness-benchmark.html"
           }
         ],
-        "total_occurrences": 38
+        "total_occurrences": 37
       },
       "visible_text_byte_count": 877
     },
@@ -161614,7 +161614,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 1610
+        "total_occurrences": 1609
       },
       "visible_text_byte_count": 883
     },
@@ -169918,7 +169918,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           }
         ],
-        "total_occurrences": 296
+        "total_occurrences": 294
       },
       "visible_text_byte_count": 913
     },
@@ -172270,19 +172270,15 @@
       "status": "active",
       "term_kind": "mathematical_concept",
       "used_in": {
-        "page_count": 2,
+        "page_count": 1,
         "top_page": "open-questions.html",
         "top_pages": [
           {
             "count": 1,
             "page": "open-questions.html"
-          },
-          {
-            "count": 1,
-            "page": "papers.html"
           }
         ],
-        "total_occurrences": 2
+        "total_occurrences": 1
       },
       "visible_text_byte_count": 835
     },
@@ -274944,7 +274940,7 @@
         "paper-module-work-landing-control-spine.html": 14,
         "paper-module-world-model-projection-drift-control-room.html": 12,
         "paper-modules.html": 69,
-        "papers.html": 32,
+        "papers.html": 31,
         "quickstart.html": 4,
         "rules-and-ideas.html": 74,
         "source.html": 3,
@@ -274954,7 +274950,7 @@
       },
       "page_count": 181,
       "top_page": "doctrine.html",
-      "total_occurrences": 2146
+      "total_occurrences": 2145
     },
     "checker": {
       "by_page": {
@@ -276284,13 +276280,13 @@
         "paper-module-verifier-lab-kernel.html": 2,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 15,
-        "papers.html": 3,
+        "papers.html": 2,
         "reference.html": 4,
         "rules-and-ideas.html": 28
       },
       "page_count": 78,
       "top_page": "paper-module-corpus-readiness-mathlib-absence-gate.html",
-      "total_occurrences": 300
+      "total_occurrences": 299
     },
     "counterexample": {
       "by_page": {
@@ -280668,7 +280664,7 @@
         "paper-module-verifier-lab-execution-spine.html": 35,
         "paper-module-verifier-lab-kernel.html": 8,
         "paper-modules.html": 71,
-        "papers.html": 33,
+        "papers.html": 32,
         "reference.html": 17,
         "rules-and-ideas.html": 88,
         "source.html": 4,
@@ -280676,7 +280672,7 @@
       },
       "page_count": 76,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 916
+      "total_occurrences": 915
     },
     "lean_kernel": {
       "by_page": {
@@ -281295,13 +281291,13 @@
         "introduction.html": 12,
         "paper-module-navigation-fitness-benchmark.html": 2,
         "paper-module-proof-diagnostic-evidence-spine.html": 3,
-        "papers.html": 10,
+        "papers.html": 9,
         "source.html": 3,
         "tour.html": 2
       },
       "page_count": 10,
       "top_page": "introduction.html",
-      "total_occurrences": 38
+      "total_occurrences": 37
     },
     "mathlib": {
       "by_page": {
@@ -283838,7 +283834,7 @@
         "paper-module-verifier-lab-execution-spine.html": 29,
         "paper-module-verifier-lab-kernel.html": 25,
         "paper-modules.html": 147,
-        "papers.html": 21,
+        "papers.html": 20,
         "reference.html": 24,
         "rules-and-ideas.html": 231,
         "source.html": 2,
@@ -283848,7 +283844,7 @@
       },
       "page_count": 122,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1610
+      "total_occurrences": 1609
     },
     "proof_assistant": {
       "by_page": {
@@ -287904,13 +287900,13 @@
         "paper-module-verifier-lab-execution-spine.html": 2,
         "paper-module-verifier-lab-kernel.html": 5,
         "paper-modules.html": 26,
-        "papers.html": 14,
+        "papers.html": 12,
         "rules-and-ideas.html": 17,
         "updates.html": 1
       },
       "page_count": 51,
       "top_page": "components.html",
-      "total_occurrences": 296
+      "total_occurrences": 294
     },
     "threshold": {
       "by_page": {
@@ -288454,12 +288450,11 @@
     },
     "variable": {
       "by_page": {
-        "open-questions.html": 1,
-        "papers.html": 1
+        "open-questions.html": 1
       },
-      "page_count": 2,
+      "page_count": 1,
       "top_page": "open-questions.html",
-      "total_occurrences": 2
+      "total_occurrences": 1
     },
     "verification": {
       "by_page": {

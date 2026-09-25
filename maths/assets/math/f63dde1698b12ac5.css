@@ -264,20 +264,40 @@ mjx-break[size="5"] {
   letter-spacing: -0.667em;
 }
 
-mjx-mn {
+mjx-munder {
   display: inline-block;
   text-align: left;
 }
 
-mjx-c {
-  display: inline-block;
-  width: 0;
-  text-align: right;
+mjx-over {
+  text-align: left;
 }
 
-mjx-utext {
+mjx-munder:not([limits="false"]) {
+  display: inline-table;
+}
+
+mjx-munder > mjx-row {
+  text-align: left;
+}
+
+mjx-under {
+  padding-bottom: .1em;
+}
+
+mjx-msubsup {
   display: inline-block;
-  padding: .75em 0 .2em 0;
+  text-align: left;
+}
+
+mjx-script {
+  display: inline-block;
+  padding-right: .05em;
+  padding-left: .033em;
+}
+
+mjx-script > mjx-spacer {
+  display: block;
 }
 
 mjx-mo {
@@ -322,40 +342,15 @@ mjx-mark {
   height: 0;
 }
 
-mjx-munder {
+mjx-c {
   display: inline-block;
-  text-align: left;
+  width: 0;
+  text-align: right;
 }
 
-mjx-over {
-  text-align: left;
-}
-
-mjx-munder:not([limits="false"]) {
-  display: inline-table;
-}
-
-mjx-munder > mjx-row {
-  text-align: left;
-}
-
-mjx-under {
-  padding-bottom: .1em;
-}
-
-mjx-msubsup {
+mjx-utext {
   display: inline-block;
-  text-align: left;
-}
-
-mjx-script {
-  display: inline-block;
-  padding-right: .05em;
-  padding-left: .033em;
-}
-
-mjx-script > mjx-spacer {
-  display: block;
+  padding: .75em 0 .2em 0;
 }
 
 mjx-TeXAtom {
@@ -369,6 +364,11 @@ mjx-mi {
 }
 
 mjx-msup {
+  display: inline-block;
+  text-align: left;
+}
+
+mjx-mn {
   display: inline-block;
   text-align: left;
 }
@@ -896,18 +896,6 @@ mjx-container[jax="CHTML"] > mjx-math.STX-N[breakable] > * {
   src: url("./fonts/mjx-stx-ud.woff2") format("woff2");
 }
 
-mjx-c.mjx-c31 {
-  padding: 0.639em 0.495em 0 0;
-}
-
-mjx-c.mjx-c2F {
-  padding: 0.709em 0.386em 0.089em 0;
-}
-
-mjx-c.mjx-c33 {
-  padding: 0.644em 0.495em 0.013em 0;
-}
-
 mjx-c.mjx-c2211 {
   padding: 0.782em 0.936em 0.248em 0;
 }
@@ -934,6 +922,10 @@ mjx-c.mjx-c32 {
 
 mjx-c.mjx-c2212 {
   padding: 0.558em 0.72em 0.04em 0;
+}
+
+mjx-c.mjx-c31 {
+  padding: 0.639em 0.495em 0 0;
 }
 
 mjx-c.mjx-c29 {
@@ -1044,6 +1036,10 @@ mjx-c.mjx-c2E {
   padding: 0.114em 0.245em 0.008em 0;
 }
 
+mjx-c.mjx-c2F {
+  padding: 0.709em 0.386em 0.089em 0;
+}
+
 mjx-c.mjx-c34 {
   padding: 0.645em 0.495em 0 0;
 }
@@ -1090,6 +1086,10 @@ mjx-c.mjx-c1D447 {
 
 mjx-c.mjx-c1D43B {
   padding: 0.657em 0.805em 0 0;
+}
+
+mjx-c.mjx-c33 {
+  padding: 0.644em 0.495em 0.013em 0;
 }
 
 mjx-c.mjx-c35 {

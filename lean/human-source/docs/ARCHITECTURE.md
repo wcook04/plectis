@@ -41,21 +41,30 @@ and its mathematical claims do not depend on private files.
 A statement in a paper may have a formal proof, an ordinary mathematical
 argument, or a cited external theorem behind it. A correspondence audit starts
 from the current paper and asks what establishes each assertion, including its
-assumptions and full conclusion. Publication proceeds from checked evidence:
+assumptions and full conclusion. The evidence routes join at public claim
+review:
 
 ```text
-Lean source + review of its mathematical meaning
-                      |
-                      v
-              docs/claims.json
-       public statement, evidence, limits
-                      |
-                      v
-             papers and public guides
-                      |
-                      v
-        generated indexes and source links
+ordinary proof / cited theorem       Lean source       finite computation
+              |                         |                     |
+              |                 formal statement review       |
+              +-------------------------+---------------------+
+                                        |
+                                        v
+                               docs/claims.json
+                        public statement, evidence, limits
+                                        |
+                                        v
+                           papers and public guides
+                                        |
+                                        v
+                         generated indexes and source links
 ```
+
+Each evidence route keeps its own scope. An ordinary proof or cited theorem
+does not require a Lean proof, and a finite computation establishes only its
+finite domain. Outside reading, criticism and reuse are observed separately;
+none follows from passing through this diagram.
 
 These are two directions through the same records. Starting from a paper
 selects what needs checking; it does not make the paper proof authority. A

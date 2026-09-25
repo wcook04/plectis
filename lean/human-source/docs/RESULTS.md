@@ -41,11 +41,11 @@ step. Mathematical importance requires separate judgement.
 
 | Problem | A result to start with | Where the result stops |
 |---|---|---|
-| [#68](#result-68) | Two exact finite denominator exclusions, one with a Lean-checked carry consumer, and a Lean-checked `3/2` lower growth exponent for the uncleared common denominator. | No cofinal non-unit factorial carries have been produced; irrationality remains open. |
+| [#68](#result-68) | Two exact finite denominator exclusions and a Lean-checked `3/2` lower growth exponent; the paper also gives a finite calculation of attainable factorial moments after prescribed cancellations. | No cofinal non-unit factorial carries have been produced; irrationality remains open. |
 | [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
 | [#249](#result-249) | The short paper and Lean classify the fixed-base-two totient-residue series for every positive modulus and every rational-valued observable at dyadic moduli. They also give the exact all-base totient-kernel rank `k^e+1`. | The original series with unreduced totients remains open; the conditional routes still need their cofinal arithmetic inputs. |
 | [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
-| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. Palomar's mechanical verification passed for the exact five-declaration `E257_01` entry; registration has been requested, with no public version yet. |
+| [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. [Palomar registered version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000009&version=1) of the exact five-declaration `E257_01` selection. |
 | [#269](#result-269) | Both two-prime running-LCM sums are transcendental by the paper's argument using a cited Hecke–Mahler theorem; Lean checks the formulas and the conditional transfer. | The cited transcendence input is not formalised, and the three-prime irrationality question remains open. |
 | [#1041](#result-1041) | Ani's degree-seven polynomial refutes the exact Formal Conjectures path-image-length statement in Lean; Lean also checks positive trinomial and sharp collinear families. | Independent review of correspondence with the 1958 wording is pending; other geometric results have their own hypotheses. |
 | [#1049](#result-1049) | Lean checks irrationality in Zudilin's rational-base contour region and exact Hankel orders. | `3/2` and the all-rational-base claim remain open. |
@@ -108,6 +108,24 @@ contains six structural carry, channel and criterion declarations. It does
 not select the denominator exclusions or the `3/2` growth theorem above.
 Its [caller-side preflight](https://github.com/wcook04/plectis-erdos-lean/actions/runs/36019608937)
 passed at that exact source commit; this is not a Palomar registration.
+
+The channel results have a direct finite use. For a finitely supported integer
+vector `λ` on indices `n≥2`, set `M(λ)=∑ n!λₙ` and let `V_d(λ)` be its
+factorial channel at `d`, as defined in [Section 2 of the short
+paper](../paper/68/erdos-68-factorial-denominator-irrationality.pdf).
+Given a depth `D≥2`, the paper classifies the moments possible when
+`V₂(λ)=⋯=V_D(λ)=0`. Its tail gcd needs only coefficients through
+`H=D(2p−1)<2D²` for a prime `D/2<p≤D`; this makes the minimum positive
+moment a finite calculation. At `D=4`, the minimum is **1380**, attained by
+`λ=(-15318, 8176, -710, 1518, -253, -88, 11)` on indices `2,…,8`.
+Direct substitution gives `M(λ)=1380` and `V₂(λ)=V₃(λ)=V₄(λ)=0`; the
+coordinate and finite-gcd theorems prove minimality. This certificate answers
+which moments survive a chosen finite cancellation. It does not establish
+nonintegrality of the remaining tail or irrationality of `S`.
+Run `python3 scripts/check_erdos68_channel_moment.py` for the
+[exact integer replay](../scripts/check_erdos68_channel_moment.py) of the
+recurrence, finite gcd, moment and three vanishing channels. The paper's
+finite tail-gcd theorem extends the computed gcd to all later indices.
 
 <a id="result-243"></a>
 
@@ -315,9 +333,11 @@ The weighted theorem is Lean-checked. The exact five-declaration
 `PalomarCorpus/E257_01` entry, which includes `divisibilityWeightedClaim`,
 passed [Palomar mechanical verification](https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226)
 for source commit `b85ed30805188eb4390a686b111294b24363418e`.
-Palomar accepted a registration request for submission `gid0ym5uu910` at
-19:31 UTC on 24 September 2026. At the authenticated status check at 19:42
-UTC, no public ID or version had been returned. Its verification covers
+Palomar [registered version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000009&version=1)
+as `PALOMAR-2026-09-25-000009` on 25 September 2026. The
+[immutable record](https://data.palomar-registry.org/entries/PALOMAR-2026-09-25-000009-v1.json)
+binds that version to submission `gid0ym5uu910`, the pinned source, and the
+five selected declarations. Registration and mechanical verification cover
 the selected interface, not every claim in the
 paper or the unrestricted Erdős problem. Read the
 [short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf),

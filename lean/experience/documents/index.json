@@ -22,7 +22,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "ceac7c60590684ac5d40d35c4b1575961bbfaa2c90f9b30758227a4d4e91878e",
+        "source_sha256": "749da3633fd85809f3e68ce2515f0e5fbc9e2cea366921397d008eaa5dc299de",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -37,8 +37,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "466e98b3dc2ccd3cde496a3d4895a40d6c4ddb22130ce2f7148a1b275fefe022",
-        "html_exact_tex_sha256": "6a9b56951f9e926fc210d11d93398d792442f39cc0e0a003c37675ad410d7278"
+        "html_mathml_sha256": "2068067c3efc7b301fff2bbe9cfee9f9f770c4bf07ee9dd8487262d62d606396",
+        "html_exact_tex_sha256": "a4e0ac8a2a90d6c991ca0e17e8493645da089e2ab3782262acbc6a2dfe367f42"
       },
       "sections": [
         {
@@ -116,7 +116,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "7ee5f34a4a6747b106af2260ded5ceddb87d64d671713c035890e3c73f14d056",
+        "source_sha256": "50052160398f8dc3f8f95df3a4b4a199ab0fb26aeef0f0e5099eb36098067d3f",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -131,8 +131,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "7c171ae12d1e66db914cb0eb67c9f8e41e5df5c173c7a08b5e24d22a453ee412",
-        "html_exact_tex_sha256": "01b7966ea886824ba93fda32a1a0a0db6f3e69313ef4aa19e1bced639903b6ef"
+        "html_mathml_sha256": "00af5e96a1e2bdf0bff833970e59fda6110f56c56a9416a4de83fb742144228a",
+        "html_exact_tex_sha256": "7a05df8e697281ae885299b47d8cdf0b2d35d3e022b5170c2bd2c8ddc0c93acd"
       },
       "sections": [
         {
@@ -338,7 +338,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "e324720c71166c79276c62ef69d7f5cc2f25e2ca676f238d17abadafa5b88410",
+        "source_sha256": "896fa3fc4c6e6f4e4aed0993b841965c28a5a06641a9a708f110d9ef7873d236",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -353,8 +353,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "09d08e8e7bd0051ac32cb1a6c3047a38c3a1778e3553f2bb67527d6d84de9b3c",
-        "html_exact_tex_sha256": "bcae2e6642414f93bb2366a6a7285e41901d33afbe0201c21df8ba41ef3f9024"
+        "html_mathml_sha256": "2308a3a6cc23639f76fe1d629f476435a625c3d9bcb11a6f707533f32734a05f",
+        "html_exact_tex_sha256": "4cba8b8d35f6cbad79fda201b681019d99b424dedb2db61c882fefecde93b14b"
       },
       "sections": [
         {
@@ -1215,7 +1215,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "505a145f64056d129ce7ba2f27b4052489b59b3535e745697b2314495e4e4d5f",
+        "source_sha256": "0f3ac6575af8f9762e0c91248f4fd70b6a25ada7377024d4929827ee92616652",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -1230,8 +1230,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "b9f1f0359e9a71b581350de2e226abd392ed9b958c278daf3ee4ea8d9bb615a2",
-        "html_exact_tex_sha256": "d61e6a19c57d585929b0650b318bb21dec9217ec5bcef16eb996438612e13a67"
+        "html_mathml_sha256": "2f5dc4820d0c89fe81effc2265cdbd61fec66321d130d631f9020d75f3227509",
+        "html_exact_tex_sha256": "e44e7eaa008a2b1acfe645163dbc2a7a926d0507ceed06ed3729ea66277e9d20"
       },
       "sections": [
         {

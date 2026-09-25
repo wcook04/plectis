@@ -219,26 +219,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.pdf",
-      "source_sha256": "29c20626a468cf008f775cd83555f5efb58a7d50d86131cc9548c822c57774f0",
-      "bytes": 199020,
+      "source_sha256": "af9f67bb5d86f91fc4fc7fd788174c2d3c3261b111ff9a922526872079ec4808",
+      "bytes": 211610,
       "source_tex_path": "paper/synthesis/optimal-sparse-perturbations.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/synthesis/optimal-sparse-perturbations.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex",
-      "hosted_tex_sha256": "4c7bb3bfc2e00668ce4a85e35486f7b408706d38d564e49ffc4d3e4b5beb4ee8",
-      "tex_bytes": 85610
+      "hosted_tex_sha256": "73b61adcdb44439c93f3cdfa0a46bfe0719a7ccc5171bd2ebc66203a3b9c8f06",
+      "tex_bytes": 92851
     },
     {
       "hosted_path": "papers/claim-faithful-publication-systems-paper.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "b890a95660a3e06d2aa0359a32525c716ce0011a0357380b8b801171c6857200",
-      "bytes": 124941,
+      "source_sha256": "13ee864e842de94844077262413aa137da48cb47996734d8dc35bfd8516afdab",
+      "bytes": 128737,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "7bdb76ee91221237a928a1e3ccd36b9893cd1b9afc4ed5ff00da46001f66afec",
-      "tex_bytes": 60058
+      "hosted_tex_sha256": "a95860ed2e1af4038248300cdd62cc7e8b8833e2f5531f720f45a391c3d68846",
+      "tex_bytes": 62054
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",
@@ -258,13 +258,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf",
-      "source_sha256": "3d557a832b943cb8b39e72e2b2de2419d5a0a89958339cf9be4123516a3f27c3",
-      "bytes": 155436,
+      "source_sha256": "7c4df5ffb4b6954d49f26a1283ca0c3bc9291f05927b657412bb9aff20ce442c",
+      "bytes": 160008,
       "source_tex_path": "paper/systems/open-source-mathematics-strategy.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/open-source-mathematics-strategy.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex",
-      "hosted_tex_sha256": "b25d2a4ef60c4d1bfe35759ac4b94bd55e01e45caa4377ca221e46eb3e3c39f5",
-      "tex_bytes": 97200
+      "hosted_tex_sha256": "93ed028ed9917075b4588e6cd4eef66966518071da9cd5607a53d1b0204069e0",
+      "tex_bytes": 99749
     },
     {
       "hosted_path": "papers/plectis-public-system.pdf",

@@ -100,10 +100,10 @@ A separate generated subsite. It is not in the software-site page list above.
 - [Erdős #1049](maths/problems/erdos_1049.html)
 - [erdos-1049-rational-base-lambert (Problem note, 20 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 69 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
-- [optimal-sparse-perturbations (Cross-problem paper, 28 pp.)](maths/papers/optimal-sparse-perturbations.html)
+- [optimal-sparse-perturbations (Cross-problem paper, 30 pp.)](maths/papers/optimal-sparse-perturbations.html)
 - [claim-faithful-publication-systems (Research architecture, 14 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 12 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
-- [open-source-mathematics-strategy (Open-source research strategy, 22 pp.)](maths/papers/open-source-mathematics-strategy.html)
+- [open-source-mathematics-strategy (Open-source research strategy, 25 pp.)](maths/papers/open-source-mathematics-strategy.html)
 - [plectis-public-system (Evidence boundary, 22 pp.)](maths/papers/plectis-public-system.html)
 - [Repository overview](maths/documents/readme.html)
 - [A reader's way in](maths/documents/reading-guide.html)
@@ -141,7 +141,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 - [claims.json](lean/claims.json): the Lean claim layer -- release identity, the status taxonomy, the remaining open propositions, the claims with their source anchors, and the explicit non-claims
 - [problems.json](lean/problems.json): the per-problem index
 - [RESULTS.md](lean/RESULTS.md): the per-problem map -- the strongest checked statement per problem, its exact status, and where to verify it. Hosted here as raw Markdown for offline and machine readers, on the same byte-parity terms as the two files above; it [renders on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md) if you are reading it yourself
-- The proofs themselves are not hosted: 1,193 Lean files, plus a 72 MB per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-erdos, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
+- The proofs themselves are not hosted: the Lean source and its per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-erdos, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
 
 ## Reader ladder (open in order of need)
 

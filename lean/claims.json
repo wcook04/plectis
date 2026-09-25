@@ -1103,9 +1103,11 @@
           "title": "Reading Eight Erdős Problems Together",
           "source": "paper/synthesis/optimal-sparse-perturbations.tex",
           "rendered": "paper/synthesis/optimal-sparse-perturbations.pdf",
-          "role": "Consolidated cross-problem paper: sharp rationality, dimension and interior thresholds for factorial derivative vectors; exact capacity and support-gap criteria; Lambert-chain arguments, subsum obstructions and the research record. Complete arguments are ordinary proofs. Lean checks specified finite carry and feedback ingredients, not the complete theorems. No Erdos claim status changes.",
+          "role": "Consolidated cross-problem paper: sharp rationality, dimension and interior thresholds for factorial derivative vectors; exact capacity and support-gap criteria; Lambert-chain arguments, subsum obstructions, the restricted dyadic-shift classification and the research record. Complete arguments are ordinary proofs, with the sharp dyadic input cited. Lean checks specified ingredients, not the complete theorems. No Erdos claim status changes.",
           "anchor_label_allowlist": [
             "sec:map",
+            "sec:dyadic-shifts",
+            "thm:restricted-dyadic-shifts",
             "capacity:sec:criterion",
             "capacity:eq:capacity",
             "capacity:thm:capacity",

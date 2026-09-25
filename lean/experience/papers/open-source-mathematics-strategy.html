@@ -211,7 +211,7 @@ revisit a closed route if the corpus is difficult to navigate. Expert
 insight can change the search distribution without supplying any
 compute. Review capacity can be the binding constraint even when proof
 generation is cheap.</p>
-<p>The open-source strategy adds two recursive updates: <span
+<p>The open-source strategy proposes two recursive updates: <span
 class="math display" data-term-auto="off">$$\begin{aligned}
 K_{t+1}&amp;=K_t+\Delta_t^\mathrm{theorem}
               +\Delta_t^\mathrm{counterexample}
@@ -223,16 +223,20 @@ I_{t+1}&amp;=I_t+\Delta_t^\mathrm{navigation}
               +\Delta_t^\mathrm{reproducibility}
               +\Delta_t^\mathrm{governance}.
 \end{aligned}
-\tag{2.3}\label{eq:feedback}$$</span> Only reviewed, scoped returns
-enter these updates. The first line makes later research less forgetful.
-The second makes later research less expensive or more reliable. A local
-failure can therefore have two legitimate effects: it may add a
-mathematical obstruction to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>t</mi></msub><annotation encoding="application/x-tex">K_t</annotation></semantics></math>,
-or reveal a reusable process defect whose repair improves
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>t</mi></msub><annotation encoding="application/x-tex">I_t</annotation></semantics></math>.
-It cannot change a conjecture’s truth status merely because it changed
-the process.</p>
+\tag{2.3}\label{eq:feedback}$$</span> These
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>
+terms are <em>net changes to the currently endorsed record</em>, not
+nonnegative counts of retained files. A correction may withdraw an
+earlier claim, replace a proof or close an unproductive route, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">K_{t+1}</annotation></semantics></math>
+need not exceed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>t</mi></msub><annotation encoding="application/x-tex">K_t</annotation></semantics></math>
+even though the provenance history is append-only. Reviewed, scoped
+returns may make later research less forgetful or infrastructure more
+reliable; the equations do not estimate either gain. A local failure can
+add a mathematical obstruction to the record or reveal a process defect
+whose repair improves infrastructure. It cannot change a conjecture’s
+truth status merely because it changed the process.</p>
 <figure id="fig:conversion" data-latex-placement="H">
 
 <figcaption>The conversion loop. The labels on the left are functions,
@@ -329,13 +333,16 @@ uses the public checkout as the working environment; access to the
 private workbench is not part of the contribution protocol, and the
 workbench grants no proof or publication authority to a returned
 result.</p>
-<p>The public layers carry different kinds of evidence. Their order is
-easier to read as an authority ladder than as one all-purpose badge.</p>
+<p>The public layers carry different kinds of evidence. An ordinary
+proof, a cited theorem, a finite experiment and a Lean proof can each
+support a candidate on its stated domain. Review asks what that evidence
+establishes; formal statement alignment applies when a Lean claim is
+made. Uptake by other researchers is a separate observation.</p>
 <figure id="fig:authority-ladder" data-latex-placement="H">
 
-<figcaption>Evidence and acceptance remain separate. A candidate need
-not pass through every box in a single line, but no earlier box inherits
-the authority of a later one.</figcaption>
+<figcaption>Evidence routes keep their own scope. Formal claims require
+a meaning check; ordinary proofs and citations do not require Lean.
+Outside use is recorded separately.</figcaption>
 </figure>
 <p>The project is a composition layer around substantial prior work, not
 a replacement for it. Erdős Problems supplies questions, sources,
@@ -487,6 +494,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664
 accepts an observable failure and stop condition, such as repairing a
 missing cold-clone validation route and checking its discovery. An
 adopted design is credited without promoting a mathematical claim.</p>
+<p>The public <a
+href="https://github.com/wcook04/plectis-erdos/blob/402497d8e1ae025518ee34190664e8f67aa40f93/docs/research-commons/CONTRIBUTIONS.md"><code>accepted-contribution record</code></a>
+gives one architecture example. An OpenAI Codex return repaired the
+ordinary-language route into the research-return workflow and added a
+checked-positive architecture packaging case. Focused source checks were
+reproduced, the maintainer recorded adoption and the receipt keeps the
+software and validation credit. The contributor and maintainer-operated
+reviewer were the same agent; neither the receipt nor this paper claims
+an independent outside clone replay. A mathematical idea, an ordinary
+proof and a Lean proof would require their own corresponding review.</p>
 <p>The distinction between a return and an adopted result is
 load-bearing. A pull request is a proposed delta. A review act records a
 decision. A release generation is an immutable public state. Keeping
@@ -584,11 +601,12 @@ or</p></li>
 <li><p>exposition or review that changes what another person can
 understand and check.</p></li>
 </ul>
-<p>Two of these classes have measured value. Feng et al. found that
-literature identification was the lengthiest step of their Erdős study
-and that misread statements produced most of their vacuous solutions, so
-they proposed revised statements as a deliverable <span class="citation"
-data-cites="aletheia"><a href="#ref-14">[14]</a></span>.</p>
+<p>The need to retain such work appears in another study. Feng et
+al. found that literature identification was the lengthiest step of
+their Erdős study and that misread statements produced most of their
+vacuous solutions; they proposed revised statements as a deliverable
+<span class="citation" data-cites="aletheia"><a href="#ref-14">[14]</a></span>. This observation
+does not measure the payoff of this project’s credit scheme.</p>
 <p>These items should not be placed on one scalar leaderboard. Compute
 volume, mathematical depth, software quality, correction work,
 exposition, and review are not commensurable. Feng et al. propose a
@@ -883,9 +901,12 @@ verification for that reason. This project accepts that bound and works
 the other side of it: each problem world exists because its endpoint can
 be stated exactly, and the Lean layer is empty wherever it cannot. The
 report also concedes that benchmark results may be contaminated by
-training data and mitigates this by perturbing known problems. For the
-seven still-open targets here, there is no known solution to memorise.
-The refuted exact Formal Conjectures statement for Problem 1041 instead
+training data and mitigates this by perturbing known problems. An open
+endpoint has no known solution to recall, but its prompt, partial
+results, antecedents and solved exercises may still be familiar from
+training or tool access. An evaluation must record that exposure and use
+dated snapshots or changed-hypothesis tasks when testing discovery. The
+refuted exact Formal Conjectures statement for Problem 1041 instead
 tests counterexample recognition and fidelity to the historical
 wording.</p>
 <p>Tao’s community wiki of AI contributions to the Erdős problems was
@@ -969,8 +990,9 @@ repeated whenever the roster or navigation machinery changes.</p>
 </section>
 <section id="sec:growth" class="level2">
 <h2>Participation and growth</h2>
-<p>The project should present several independent reasons to clone the
-repository.</p>
+<p>The project should present several ways to use and contribute to the
+repository; a clone is useful for source work, but it is not the first
+requirement for a mathematical reader.</p>
 <ul>
 <li><p>A <strong>mathematician</strong> can see eight exact frontiers
 and contribute a lemma, construction, counterexample, reference, or
@@ -991,12 +1013,14 @@ conversion from all other inputs to useful mathematical output.</p></li>
 rank results, correct attribution, or turn a checked proof into
 recoverable understanding.</p></li>
 </ul>
-<p>The lowest-friction invitation should appear on the first screen of
-the README: clone the project, point a local agent at the compact entry
-file, and ask it to choose a bounded frontier that matches the available
-tools. The same screen must state the checked results beside their exact
-remaining-open questions, explain that a useful return need not solve a
-problem, and give architecture contributions first-class credit.</p>
+<p>The lowest-friction invitation is to read a result and return a
+specific question, counterexample, correction or source observation
+through the public issue or email route, without cloning. Readers who
+want to run an agent or change source can clone the project and use its
+compact entry file. The first screen of the README should state checked
+results beside their exact remaining-open questions, explain that a
+useful return need not solve a problem, and give architecture
+contributions first-class credit.</p>
 <p>Publicity should follow a working contribution loop rather than
 precede it. A Hacker News launch, research talk, or model-community post
 can then make a specific claim: a stranger can clone the corpus, reach
@@ -1046,9 +1070,9 @@ will become more informative over time. A later model therefore receives
 both a stronger model and a richer corpus. The design should measure
 these factors separately rather than presenting every later success as
 model improvement.</p>
-<p>The present work supplies no such evaluation. It establishes an
-implemented case, an explicit protocol, and falsifiable measures for a
-later study.</p>
+<p>The present work supplies no outside-reader evaluation. It
+establishes an implemented case, an explicit protocol, and falsifiable
+measures for a later study.</p>
 <p>Yuan et al. provide a useful precedent for the missing external test:
 two student teams attempted an end-to-end build from public
 documentation for scientific hardware designed more than a decade
@@ -1073,6 +1097,21 @@ of a better introductory paragraph. Failures are recorded at their own
 level: a command that could not be run, a source that could not be
 located, an interpretation that was corrected, or a result judged
 uninteresting are four different findings.</p>
+<p>The first formative task can use the public dyadic-shift <a
+href="https://github.com/wcook04/plectis-erdos/blob/cf2bbe46/research/experiments/premise_exchange/shift_family_exercise.md">exercise</a>
+and its separately available hints and solution. A reader should explain
+why factorial shifts suffice, why powers of two admit a rational
+counterexample, and why the endpoint cannot be inferred from a limsup
+inequality; a fresh variant can ask what happens after removing a finite
+prefix of factorial shifts. Record source and help used, the decisive
+argument, the limitation and whether the return lets a maintainer decide
+accept, correct, request evidence or reject without the originating
+session. One to three unfamiliar readers would diagnose this route, not
+establish a comparative advantage. Later representation comparisons must
+hold the mathematical task and source access fixed and count reader,
+model, preparation, review and repair costs on both sides. A correct
+answer to a published exercise is use, not automatically a new research
+contribution.</p>
 </section>
 <section id="sec:learning" class="level2">
 <h2>Learning from every run</h2>
@@ -1247,9 +1286,11 @@ repository contains intermediate mathematics and deep records of failed
 routes, but no evidence that a distributed run will solve any problem.
 The claim that infrastructure improves the conversion from compute to
 mathematics has not yet been measured in a controlled experiment.</p>
-<p>The prototype had no recorded external user or accepted outside
-contribution by 14 September 2026. Its clone instructions, agent skills,
-cross-paper links, pull-request path, and credit machinery may therefore
+<p>On 14 September 2026 the prototype had no recorded completed external
+cold-clone use or accepted external contribution. The later architecture
+receipt in Section 5 demonstrates a maintainer-operated adoption path,
+but still no independent first-use result. Its clone instructions, agent
+skills, cross-paper links, pull-request path, and credit machinery may
 contain friction that an author-operated audit does not reveal.
 Reproducing a clean clone, reporting a broken instruction, simplifying
 setup, repairing an unsafe default, or making the contribution route
@@ -1286,32 +1327,23 @@ the fixed cost of entry and make attribution more durable. It cannot by
 itself make research participation equitable.</p>
 </section>
 <section id="sec:execution" class="level2">
-<h2>Execution order</h2>
-<p>The strategy should be implemented in the following order.</p>
-<ol>
-<li><p>Make the README state the experiment, contributor types, exact
-open boundary, clone command, agent prompt, return paths, and credit
-policy.</p></li>
-<li><p>Keep every problem world independently navigable from a cold
-clone, with one paper-level open section and bounded query
-routes.</p></li>
-<li><p>Accept both mathematical and architecture returns through typed
-schemas, human review, immutable generations, and public provenance
-views.</p></li>
-<li><p>Provide runner-neutral local instructions and safe, unprivileged
-checks before building a hosted or volunteer-compute scheduler.</p></li>
-<li><p>Recruit external reviewers and maintainers before increasing
-agent throughput substantially.</p></li>
-<li><p>Run controlled studies of navigation changes, model changes, and
-compute changes against immutable snapshots.</p></li>
-<li><p>Only after these boundaries work should the project consider a
-public task market, donated compute service, or transfer to another
-scientific domain.</p></li>
-</ol>
-<p>The first three steps are partly implemented in the current public
-clone. Turnkey multi-provider mining, a public volunteer-compute
-scheduler, independent governance, and a cross-domain laboratory
-interface are not reported capabilities.</p>
+<h2>The next decision</h2>
+<p>The public clone already gives readers problem papers, exact open
+boundaries, bounded query routes, ordinary-language return paths and an
+accepted architecture receipt. Those establish an inspectable mechanism,
+not its benefit to a new reader. The next decision is whether an
+unfamiliar reader can use one mathematical case and return evidence a
+maintainer can assess without the original sessions. Section 12
+specifies a small dyadic-shift round and the observations that would
+lead to a correction of the explanation, return prompt or review
+rule.</p>
+<p>If the route works, a later comparison can test whether it reduces
+complete continuation and review work against good ordinary papers and
+source links. If it does not, the mathematical case remains useful and
+the default entry should be simplified. A donated-compute service,
+public task market and transfer to physical science would need separate
+evidence and governance; none is a reported capability of this
+repository.</p>
 </section>
 <section id="sec:conclusion" class="level2">
 <h2>Conclusion</h2>
@@ -1319,9 +1351,10 @@ interface are not reported capabilities.</p>
 shared conversion layer. A contributor may add compute, mathematical
 direction, formalisation, software, review, or exposition without
 rebuilding the whole system and without pretending to have solved an
-endpoint problem. Accepted mathematical work enlarges the reusable
-corpus. Accepted architecture work improves the process that produces
-and checks later work. Both retain public provenance.</p>
+endpoint problem. Accepted work changes the currently endorsed record
+while retaining the earlier evidence and credit. A correction may remove
+an apparent result or simplify a process; usefulness must be judged from
+what later readers can do with it.</p>
 <p>The eight Erdős problems are hard test worlds for this design. They
 make failure unavoidable enough that the system must learn to preserve
 it, and deep enough that improvements in models, compute,
@@ -1331,12 +1364,12 @@ research commons is exercised on real mathematics with exact open
 boundaries.</p>
 <p>The strongest mathematical signal is the Lean-checked finite-prime
 weighted support theorem for Problem 257; arbitrary infinite supports
-remain open. The architectural claim is that a fresh clone can carry a
-stranger from a hard question to a bounded frontier and give that
-stranger a path for returning evidence and receiving credit. The next
-test is social and empirical: whether outside contributors can use that
-path, whether reviewers can absorb the returns, and whether the
-accumulated graph makes the next attempt genuinely better.</p>
+remain open. The architectural claim is that the public record offers a
+route from a hard question to a bounded continuation and a credited
+return. One accepted architecture change shows the local protocol
+operating. The next test is whether an unfamiliar reader can use the
+route, whether a reviewer can decide from the returned evidence, and
+whether an adopted change helps the next reader.</p>
 </section>
 <section id="app:routes" class="level2">
 <h2>Public entry routes</h2>

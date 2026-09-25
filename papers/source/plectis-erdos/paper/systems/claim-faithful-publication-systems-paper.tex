@@ -71,7 +71,7 @@ work; a path from proof to public claim that separates what Lean settles, what
 Comparator settles and what a mathematician judges; and a contribution cycle
 that a person or an agent can run from a public clone.
 \textbf{Instance.} Eight Erd\H{o}s problems in one Lean repository:
-sixteen problem papers totalling 773 pages, 1,823 Lean modules, and 674 results
+sixteen problem papers, 1,823 Lean modules, and 674 results
 asserted in the papers, short and long versions counted separately, of which 671
 carry a Lean declaration and 633 have been compared by Comparator.
 \textbf{Scope.} For Problem 1041 the Formal Conjectures statement is refuted;
@@ -213,9 +213,12 @@ shows the whole transfer; the experiment keeps the trace \\
 \addlinespace
 Allocation & The next question, the test that would decide it and the
 condition for stopping & Irrationality for every infinite support stays the
-registered endpoint; no narrower next step is recorded & Is $1/3$ best for
+registered endpoint; a changed-base reader exercise and independent replay
+route now test outside use of the weighted condition & Is $1/3$ best for
 irrational tails? A probe pointed to $0.4125$, the literature fixed the
-answer, and the question closed; formalising it is optional \\
+answer, and the question closed. The restricted-shift theorem and reader
+exercise now test whether an outsider can use that answer; outside use has
+not yet been observed \\
 \bottomrule
 \end{tabular}
 \caption{Four decisions about a returned result, for the weighted criterion of
@@ -351,6 +354,19 @@ the \href{\repobase/blob/09db551ef4de91e6c56fd6a00add102eacd4b517/research/exper
 closure}, at their own evidence classes. This sharpens a quantitative irrationality
 criterion; establishing the criterion for the actual prime gaps remains
 open.
+
+The sharp-constant question then leads to a question about the shifts being
+tested. A rational dyadic orbit is eventually periodic modulo one, so a
+family containing a multiple of every positive integer detects its eventual
+integral differences. The
+\href{\repobase/blob/cf2bbe46/docs/papers/full-text/optimal-sparse-perturbations.md\#thm:restricted-dyadic-shifts}{synthesis theorem}
+proves the converse with explicit rational counterexamples: factorial shifts
+suffice, while power-of-two shifts do not. The
+\href{\repobase/blob/cf2bbe46/research/experiments/premise_exchange/shift_family_exercise.md}{reader task}
+asks which shifts still work and why a limsup bound does not include its
+endpoint. The full restricted-shift classification is an ordinary argument
+using the cited Dubickas bound; the Lean evidence currently covers the
+$1/3$ all-shifts criterion.
 
 Seven of the eight problems ask whether a series is irrational, and the
 synthesis paper~\cite{synthesis} studies what their methods share and where
@@ -503,6 +519,14 @@ it. Work also leaves the repository: Google DeepMind's Formal Conjectures
 maintainers have merged four of its contributions, linking formal proofs for
 Problems 257, 1049 and 1041 and a constant-base variant of Problem 258.
 
+The public \repolink{docs/research-commons/CONTRIBUTIONS.md}{contribution
+record} contains one accepted architecture return from 23 September: OpenAI
+Codex repaired the ordinary-language route into the research-return workflow
+and supplied a checked-positive architecture packaging case. The focused
+checks were reproduced by the same contributor in a maintainer-operated
+review. This is evidence that the credited local adoption protocol has been
+used, not an independent outside clone replay or mathematical endorsement.
+
 \subsection{Worked example: Problem 1041}\label{sec:example}
 
 Problem 1041 shows the cycle end to end, with the decisive idea arriving from
@@ -584,13 +608,14 @@ each result in full with its hypotheses and sources.}
 \label{tab:problems}
 \end{table}
 
-The repository holds 1,823 Lean modules in its two library roots under a
-pinned toolchain, sixteen problem papers totalling 773 pages, a cross-problem
+The repository holds 1,823 Lean modules, counting the two library root files,
+under a pinned toolchain. The root-import check counts the 1,821 modules
+beneath those roots. It also holds sixteen problem papers, a cross-problem
 synthesis paper and three systems papers. The claim registry holds 150 public
 claims in seven statuses, from proved here and formalised here to conditional
 reduction and open, and states 19 remaining obligations exactly. Continuous integration builds the supported Lean roots,
 a coverage build compiles every module a paper cites, and the release checker
-runs 15,666 checks over claims, papers, generated views and licences. A fresh
+checks claims, papers, generated views and licences. A fresh
 clone needs no private file, and no public theorem depends on an unpublished
 lemma.
 
@@ -632,9 +657,12 @@ whitelisted axioms, and a disproof proves the negation. Missions on papers,
 textbooks and open problems confine human audit to a goal, its definitions and
 milestone lemmas, aided by a blind agent read-back of each Lean statement, and
 a proof sketch may import open statements for other agents to close.
-Persistence, decomposition, visible negative results and exact statement
-checking are therefore shared features; the two designs differ in the unit
-they maintain (Table~\ref{tab:prove2me}). Prove2Me's paper appeared on 28
+Its published examples also include proof explanations, discussion and a
+formalisation corrected after a disproof; its service documents statement
+deprecation and relinking. Persistence, correction, shared work and exact
+statement checking are therefore overlapping capabilities. The comparison is
+about what a reader can do with each public research object
+(Table~\ref{tab:prove2me}). Prove2Me's paper appeared on 28
 August 2026; the first public version of this paper, with its claim registry
 and release checks, appeared in July 2026, and the two designs developed
 independently. Prove2Me is the published reference for hosted statement and
@@ -672,8 +700,8 @@ each result \\
 Credit & Permanent names, trust scores, leaderboards and import citations &
 Receipts by contribution role, and attribution for outside ideas \\
 \addlinespace
-Contribution path & Web platform and API, with an account & Git clone and
-thirteen agent skills, a pull request, an issue or an email \\
+Contribution path & Web platform and API, with an account & A plain-language
+issue or email without a clone; a clone and agent skills for source changes \\
 \bottomrule
 \end{tabular}
 \caption{Prove2Me and problem-sized worlds, from Prove2Me's paper and public
@@ -681,10 +709,12 @@ pages and from this repository, on 24 September 2026.}
 \label{tab:prove2me}
 \end{table}
 
-The two compose. Prove2Me contributes hosting, importable statements,
-per-submission checking and a contributor base; a world contributes the
-problem-level context around a statement: its papers, failed routes,
-obstructions and open obligations. This repository's sharp constant in the
+The two can compose. Prove2Me provides hosting, importable statements,
+per-submission checking and a contributor base. This repository offers a
+particular problem-level record around a statement: papers, failed routes,
+obstructions and open obligations. Whether that record makes a changed
+hypothesis easier to understand or a returned result easier to review is an
+empirical question, not a feature-exclusivity claim. This repository's sharp constant in the
 collinear root-segment bound of Erd\H{o}s, Herzog and Piranian for Problem
 1041, which Comparator has also compared, is hosted on Prove2Me as a package
 of 21 theorems with accepted proofs, ported from Lean 4.29.1 to Prove2Me's

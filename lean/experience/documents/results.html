@@ -59,9 +59,10 @@ separate judgement.</p>
 <tbody>
 <tr>
 <td><a href="#result-68">#68</a></td>
-<td>Two exact finite denominator exclusions, one with a Lean-checked
-carry consumer, and a Lean-checked <code>3/2</code> lower growth
-exponent for the uncleared common denominator.</td>
+<td>Two exact finite denominator exclusions and a Lean-checked
+<code>3/2</code> lower growth exponent; the paper also gives a finite
+calculation of attainable factorial moments after prescribed
+cancellations.</td>
 <td>No cofinal non-unit factorial carries have been produced;
 irrationality remains open.</td>
 </tr>
@@ -92,9 +93,10 @@ irrationality remains open.</td>
 <td><a href="#result-257">#257</a></td>
 <td>Lean checks the finite-prime weighted-support theorem at every
 integer base, including supports with divergent reciprocal sum.</td>
-<td>It does not cover every infinite support. Palomar’s mechanical
-verification passed for the exact five-declaration <code>E257_01</code>
-entry; registration has been requested, with no public version yet.</td>
+<td>It does not cover every infinite support. <a
+href="https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000009&amp;version=1">Palomar
+registered version 1</a> of the exact five-declaration
+<code>E257_01</code> selection.</td>
 </tr>
 <tr>
 <td><a href="#result-269">#269</a></td>
@@ -194,6 +196,28 @@ the <code>3/2</code> growth theorem above. Its <a
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/36019608937">caller-side
 preflight</a> passed at that exact source commit; this is not a Palomar
 registration.</p>
+<p>The channel results have a direct finite use. For a finitely
+supported integer vector <code>λ</code> on indices <code>n≥2</code>, set
+<code>M(λ)=∑ n!λₙ</code> and let <code>V_d(λ)</code> be its factorial
+channel at <code>d</code>, as defined in <a
+href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf">Section
+2 of the short paper</a>. Given a depth <code>D≥2</code>, the paper
+classifies the moments possible when <code>V₂(λ)=⋯=V_D(λ)=0</code>. Its
+tail gcd needs only coefficients through <code>H=D(2p−1)&lt;2D²</code>
+for a prime <code>D/2&lt;p≤D</code>; this makes the minimum positive
+moment a finite calculation. At <code>D=4</code>, the minimum is
+<strong>1380</strong>, attained by
+<code>λ=(-15318, 8176, -710, 1518, -253, -88, 11)</code> on indices
+<code>2,…,8</code>. Direct substitution gives <code>M(λ)=1380</code> and
+<code>V₂(λ)=V₃(λ)=V₄(λ)=0</code>; the coordinate and finite-gcd theorems
+prove minimality. This certificate answers which moments survive a
+chosen finite cancellation. It does not establish nonintegrality of the
+remaining tail or irrationality of <code>S</code>. Run
+<code>python3 scripts/check_erdos68_channel_moment.py</code> for the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/check_erdos68_channel_moment.py">exact integer
+replay</a> of the recurrence, finite gcd, moment and three vanishing
+channels. The paper’s finite tail-gcd theorem extends the computed gcd
+to all later indices.</p>
 <p><a id="result-243"></a></p>
 <p><strong><a
 href="https://www.erdosproblems.com/243">#243</a>.</strong> Under the
@@ -428,12 +452,15 @@ open. The weighted theorem is Lean-checked. The exact five-declaration
 <code>divisibilityWeightedClaim</code>, passed <a
 href="https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36009433226">Palomar
 mechanical verification</a> for source commit
-<code>b85ed30805188eb4390a686b111294b24363418e</code>. Palomar accepted
-a registration request for submission <code>gid0ym5uu910</code> at 19:31
-UTC on 24 September 2026. At the authenticated status check at 19:42
-UTC, no public ID or version had been returned. Its verification covers
-the selected interface, not every claim in the paper or the unrestricted
-Erdős problem. Read the <a
+<code>b85ed30805188eb4390a686b111294b24363418e</code>. Palomar <a
+href="https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000009&amp;version=1">registered
+version 1</a> as <code>PALOMAR-2026-09-25-000009</code> on 25 September
+2026. The <a
+href="https://data.palomar-registry.org/entries/PALOMAR-2026-09-25-000009-v1.json">immutable
+record</a> binds that version to submission <code>gid0ym5uu910</code>,
+the pinned source, and the five selected declarations. Registration and
+mechanical verification cover the selected interface, not every claim in
+the paper or the unrestricted Erdős problem. Read the <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
 paper</a>, <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">long

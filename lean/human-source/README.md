@@ -13,11 +13,11 @@ the Lean-checked theorem proves irrationality at every integer base for each
 infinite support `A` with finite base-two weighted mass
 `∑_{a∈A} h_P(a)/(a(2^{h_P(a)}−1))`. Some such supports have divergent
 `∑_{a∈A} 1/a`. The question for *every* infinite support remains open.
-[Read the longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf)
-or [inspect the Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
+[Longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf) ·
+[Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
 Other seven programmes: [results guide](docs/RESULTS.md#problem-by-problem-guide).
 
-[Bounded #243 and #257 results on Prove2Me](docs/research-commons/README.md#native-prove2me-theorems).
+[#257 exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis) · [#243/#257 proofs](docs/research-commons/README.md#native-prove2me-theorems).
 
 Start with the [paper](paper/257/erdos-257-mersenne-support-subseries.pdf),
 [one exact-rational test](research/experiments/sparse_interpolation/late_rejection.py)

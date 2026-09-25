@@ -36,14 +36,15 @@ and the opening of each short paper in one file. For #257, follow the weighted
 theorem, its averaging proof, the long record and Lean source. Then try the
 [changed-base exercise](../research/experiments/weighted_support_transfer/README.md):
 the failed sufficient test proves no rationality claim, and the universal
-question remains open.
+question remains open. The
+[dyadic shift exercise](../research/experiments/premise_exchange/shift_family_exercise.md)
+tests another change of hypothesis.
 
 ## What is here
 
 The [front page](../README.md) lists the eight problems with a short paper and
-a longer paper for each. The short paper is the main exposition: it introduces
-the question, states the strongest results and explains the ideas behind the
-arguments for a mathematical reader. The longer record keeps technical detail,
+a longer paper for each. The short paper states the question, strongest results,
+and main arguments. The longer record keeps technical detail,
 failed routes, finite experiments, and the exact obligations that
 survive. The other seven target problems are not resolved here; those papers
 make their surviving questions explicit. The [paper catalogue](../paper/README.md)

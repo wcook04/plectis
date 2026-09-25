@@ -50,7 +50,12 @@ eventually doubling chains give transcendence at every rational base greater
 than one. In contrast, every rational base between one and two admits rational
 values on infinite supports. At base two, a fixed-depth rational count and an
 exact late rejection separate finite survival from membership. Full proofs,
-method obstructions and the unsuccessful approaches are included. The main
+method obstructions and the unsuccessful approaches are included. We also
+classify the shift families that detect irrationality in every integer-digit
+dyadic recurrence: at every threshold $0<c<\tau$, precisely those containing
+a multiple of each positive integer suffice, where $\tau$ is the Thue--Morse
+constant in a cited sharp bound. Factorial shifts suffice; power-of-two
+shifts do not. The main
 arguments are ordinary proofs, with formal ingredients and external results
 identified separately; no original Erd\H{o}s problem is settled here.
 \end{abstract}
@@ -88,6 +93,12 @@ rational is a subsum at base two. Sections~\ref{sec:base2} and
 \ref{sec:misread} explain that obstruction, including the exact computation
 that disproved a proposed stopping rule. Section~\ref{sec:second} retains the
 other method limits without claiming that they have one common cause.
+
+Section~\ref{sec:dyadic-shifts} follows a different transfer. A difference of
+two dyadic tail states is itself an integer-digit dyadic orbit. The resulting
+irrationality criterion leads to a question about which shift lengths need
+testing; the answer depends on divisibility rather than the size or density
+of the chosen family.
 
 The proofs presented here are ordinary mathematical arguments. Cited Lean
 results establish specified ingredients and quoted results, not the complete
@@ -1211,6 +1222,126 @@ a theorem settling the present positive-measure subsum problem.
 Problem~\ref{prob:membership} asks about one explicit rational point.
 
 
+\section{Which dyadic shifts detect irrationality?}\label{sec:dyadic-shifts}
+
+Consider a real sequence satisfying
+\[
+ T_{N+1}=2T_N-g_{N+1},\qquad g_{N+1}\in\Z.
+\]
+Write $\|x\|=\operatorname{dist}(x,\Z)$. Iterating the recurrence shows that
+$T_N=2^NT_0-a_N$ for some integers $a_N$, and hence
+% paper-text-number: eq:dyadic-shift-identity=2
+\begin{equation}\label{eq:dyadic-shift-identity}
+ \|T_{N+h}-T_N\|=\|2^N(2^h-1)T_0\|.
+\end{equation}
+For $H\subseteq\Z_{>0}$ and $c\in\R$, say that $H$ detects $T$ at threshold
+$c$ when
+% paper-text-number: eq:dyadic-restricted-predicate=3
+\begin{equation}\label{eq:dyadic-restricted-predicate}
+ \forall h\in H\;\forall N_0\;\exists N\ge N_0:\quad
+ \|T_{N+h}-T_N\|\ge c.
+\end{equation}
+The witnessing index may depend on the shift.
+
+The Lean-checked transfer from the \#251 tail classifier and the \#269
+bounded-radix escape theorem gives the implication from irrationality in
+\eqref{eq:dyadic-restricted-predicate} for every positive shift when
+$c\le1/3$; the \href{\repobase/research/experiments/premise_exchange/README.md\#how-the-question-closed}{research record}
+keeps the original $1/31$ experiment and the later sharp-constant argument
+distinct. Dubickas's theorem, in the form stated by Akiyama and
+Kaneko~\cite{akiyamakaneko}, gives
+\[
+ \limsup_{N\to\infty}\|2^N\xi\|\ge\tau
+ \quad(\xi\notin\Q),\qquad
+ \tau=\sum_{n\ge0}\frac{t_n}{2^{n+1}}=0.412454\ldots,
+\]
+where $t_n$ is the parity of the binary digit sum of $n$. This cited input
+extends the implication to every $c<\tau$. The endpoint argument below is
+ordinary mathematics; the sharp bound itself is not formalised here.
+
+For fixed $c$ and $H$, call \eqref{eq:dyadic-restricted-predicate} the
+selected-shift test. The next theorem asks when that test detects
+irrationality \emph{for every} integer-digit dyadic recurrence, rather than
+for one chosen orbit.
+
+\begin{theorem}[Restricted dyadic shifts]\label{thm:restricted-dyadic-shifts}
+Fix $c\in\R$ and $H\subseteq\Z_{>0}$. The following conditions are
+equivalent:
+\begin{enumerate}
+\item For every integer-digit dyadic recurrence $T$, the initial value $T_0$
+is irrational if and only if $T$ passes the selected-shift test.
+\item The parameters satisfy $0<c<\tau$, and every positive integer $d$
+divides some shift $h\in H$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Suppose first that these two conditions hold. For irrational $T_0$ and
+fixed $h>0$, $(2^h-1)T_0$ is irrational. Equation
+\eqref{eq:dyadic-shift-identity} and Dubickas's bound give indices as late
+as desired with distance at least $c$. Conversely, let $T_0=p/q$ with
+$q=2^sr$ and $r$ odd. Some $d>0$ satisfies $2^d\equiv1\pmod r$; take
+$d=1$ if $r=1$. Choose $h\in H$ divisible by $d$. For every $N\ge s$,
+$2^N(2^h-1)p/q$ is an integer, so \eqref{eq:dyadic-restricted-predicate}
+fails.
+
+For necessity of the divisibility condition, suppose no member of $H$ is
+divisible by some $d\ge2$. Put $L=3d$, $q=2^L-1$, and
+$T_N=\{2^N/q\}$. This bounded rational orbit has digits in $\{0,1\}$.
+For a tested shift $h$, let $r\in\{1,\ldots,L-1\}$ be its residue modulo
+$L$. Since $2^L\equiv1\pmod q$, the distance sequence for $h$ is periodic
+and agrees with that for $r$. The sequences for $r$ and $L-r$ agree up to
+a cyclic shift, because
+$2^r(2^{L-r}-1)\equiv-(2^r-1)\pmod q$. We may therefore use
+$m=\max(r,L-r)\ge L/2\ge3$. At the index $N=L-m-1$, one distance is
+\[
+ v=\frac{2^{L-1}-2^{L-m-1}}{2^L-1}
+   =\frac{1-2^{-m}}{2(1-2^{-L})},
+ \qquad \frac7{16}\le v<\frac12.
+\]
+It recurs every $L$ indices. The first six Thue--Morse digits are
+$011010$, so $\tau<27/64<7/16$. Thus this rational orbit passes every
+tested shift at every $0<c<\tau$.
+
+If $c\le0$, the zero orbit passes. If $H$ is empty, every orbit passes.
+Finally, for $c\ge\tau$ and any $h_0\in H$, take
+$T_0=\tau/(2^{h_0}-1)$ and $g_N=0$. The cited sharp-bound construction
+identifies $\tau$ as irrational~\cite{akiyamakaneko}. The strict endpoint
+inequality $\|2^N\tau\|<\tau$ for every $N\ge1$ follows from the
+Thue--Morse shift argument just below. Equation
+\eqref{eq:dyadic-shift-identity} makes the test fail at $h_0$.
+\end{proof}
+
+Here is the strict endpoint step used in the proof. Write the Thue--Morse
+word as $t=011010\ldots$, its bitwise complement as $\bar t$, and let
+$\mu$ be the order-preserving substitution $0\mapsto01$, $1\mapsto10$.
+The word $t$ is fixed by $\mu$. An odd-indexed suffix of $t$ starts with
+$001$ or $010$ when its first bit is $0$, both strictly below the prefix
+$011$ of $t$. When its first bit is $1$, it starts with $101$ or $110$,
+both strictly above the prefix $100$ of $\bar t$. An even-indexed suffix
+is the image under $\mu$ of a shorter suffix, so induction and order
+preservation give the same strict comparisons at every positive index.
+The binary value of each suffix is therefore below $\tau$ or above
+$1-\tau$, according to its first bit. This proves
+$\|2^N\tau\|<\tau$ for $N\ge1$. The
+\href{\repobase/research/experiments/premise_exchange/README.md\#how-the-question-closed}{research record}
+retains the longer historical calculation. Related
+extremal-word constructions appear in Allouche, Clarke and
+Sidorov~\cite{alloucheclarkesidorov}, whose published bibliography points to
+earlier work of Allouche and Cosnard. The linked research record gives the
+longer nearest-integer calculation; no historical priority for the
+specific formulation above is asserted.
+
+The factorial family $H=\{j!:j\ge1\}$ satisfies the divisibility condition:
+$d\mid d!$. The power-of-two family does not, since none of its members is
+divisible by $3$. An especially small counterexample for the latter is the
+rational orbit $T_N=\{2^N/7\}$: for each tested shift its distances cycle
+through $1/7$, $2/7$, and $3/7$, so it passes at every $c<\tau$.
+No finite shift family suffices. Conversely, excluding all multiples of a
+large $d$ leaves a family of density $1-1/d$ that fails the test; factorial
+shifts have density zero and succeed. This criterion does not establish
+irrationality for the actual prime-gap tail in \#251.
+
 \section{Limits on methods}\label{sec:second}\label{sec:inventory}
 
 
@@ -1479,6 +1610,16 @@ does not separate dimension zero from full-dimensional null sets. Outside
 integer divisibility chains the prefix lattice changes, so no corresponding
 necessity is asserted here.
 \begin{thebibliography}{99}
+\bibitem{akiyamakaneko} S.~Akiyama and H.~Kaneko, \emph{Multiplicative analogue
+of Markoff--Lagrange spectrum and Pisot numbers}, Adv.\ Math.\ 380 (2021),
+107547, p.~3, reporting the theorem of A.~Dubickas,
+\href{https://arxiv.org/abs/1911.06170v6}{arXiv:1911.06170v6}.
+
+\bibitem{alloucheclarkesidorov} J.-P.~Allouche, M.~Clarke and N.~Sidorov,
+\emph{Periodic unique beta-expansions: the Sharkovski\u{\i} ordering},
+Ergodic Theory Dynam.\ Systems 29 (2009), 1055--1074,
+\href{https://doi.org/10.1017/S0143385708000746}{doi:10.1017/S0143385708000746}.
+
 \bibitem{erdosgraham1980} P.~Erd\H{o}s and R.~L. Graham,
   \href{https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf}{\emph{Old
   and New Problems and Results in Combinatorial Number Theory}},

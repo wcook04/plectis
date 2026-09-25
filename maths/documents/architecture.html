@@ -131,18 +131,26 @@ mathematical claims do not depend on private files.</p>
 mathematical argument, or a cited external theorem behind it. A
 correspondence audit starts from the current paper and asks what
 establishes each assertion, including its assumptions and full
-conclusion. Publication proceeds from checked evidence:</p>
-<pre class="text"><code>Lean source + review of its mathematical meaning
-                      |
-                      v
-              docs/claims.json
-       public statement, evidence, limits
-                      |
-                      v
-             papers and public guides
-                      |
-                      v
-        generated indexes and source links</code></pre>
+conclusion. The evidence routes join at public claim review:</p>
+<pre class="text"><code>ordinary proof / cited theorem       Lean source       finite computation
+              |                         |                     |
+              |                 formal statement review       |
+              +-------------------------+---------------------+
+                                        |
+                                        v
+                               docs/claims.json
+                        public statement, evidence, limits
+                                        |
+                                        v
+                           papers and public guides
+                                        |
+                                        v
+                         generated indexes and source links</code></pre>
+<p>Each evidence route keeps its own scope. An ordinary proof or cited
+theorem does not require a Lean proof, and a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computation</a>
+establishes only its finite domain. Outside reading, criticism and reuse
+are observed separately; none follows from passing through this
+diagram.</p>
 <p>These are two directions through the same records. Starting from a
 paper selects what needs checking; it does not make the paper proof
 authority. A stronger Lean theorem needs a checked implication to the
@@ -353,8 +361,8 @@ definition</a> and <a
 href="source-map.html#249--certificate-reductions">certificate source
 map</a> give the mathematical notation and source routes behind this
 example.</p>
-<p>One public claim says that Lean has checked successful <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite
-calculations</a> at every scale up to 82, together with eight small periods
+<p>One public claim says that Lean has checked successful finite
+calculations at every scale up to 82, together with eight small periods
 and separate shards.</p>
 <p>In ordinary language, the record says:</p>
 <pre class="text"><code>claim id: certified_kill_instances
