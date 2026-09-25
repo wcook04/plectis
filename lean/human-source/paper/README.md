@@ -36,12 +36,25 @@ and the research process, go to the [project papers](#project-papers).
 | #1041 | [Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds](1041/erdos-1041-lemniscate-newton-flow.pdf) ([source](1041/erdos-1041-lemniscate-newton-flow.tex)) | [Paths in Polynomial Lemniscates: Proofs and Examples](1041/erdos1041-lemniscate-reasoning-surface.pdf) ([source](1041/erdos1041-lemniscate-reasoning-surface.tex)) |
 | #1049 | [Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order](1049/erdos-1049-rational-base-lambert.pdf) ([source](1049/erdos-1049-rational-base-lambert.tex)) | [Zudilin's Forms at Rational Bases: Proofs and Research Record](1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) ([source](1049/erdos1049-rational-base-lambert-reasoning-surface.tex)) |
 
+The #243 short paper leads with irrationality under the cubic rate
+`a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)` for strictly increasing positive integer
+sequences. Its bounded-increment criterion for an eventual Sylvester tail is
+a second result; the unrestricted problem remains open. The #1049 short
+paper proves a rational-base sufficient region using Zudilin's forms after
+cyclotomic cancellation and denominator accounting. Its region contains
+`31/4`, which is outside the earlier Bundschuh–Väänänen sufficient region;
+`3/2` remains open.
+
 ## Reading the eight together
 
 One cross-problem paper develops the mathematics that arises from reading the
-programmes together. It contains the capacity and congruence criterion,
-Lambert-subsum results, full proofs, exact computations, method limits and
-unsuccessful approaches.
+programmes together. For `c>0` and integers `d≥1`, it considers entire functions
+`f(z) = ∑_(n≥1) e_n z^n/n!` with nonnegative integer `e_n` eventually bounded
+by `n^c` and, for each fixed positive integer `q`, eventually divisible by `q`.
+The set of derivative-value vectors at `1` has Hausdorff dimension `min(c,d)` and
+contains an open set exactly when `c>d`. This result has an ordinary proof with the formal ingredients
+identified separately. The paper also contains the capacity and congruence
+criterion, Lambert-subsum results, exact computations and method limits.
 
 [Reading Eight Erdős Problems Together](synthesis/optimal-sparse-perturbations.pdf)
 ([source](synthesis/optimal-sparse-perturbations.tex)).

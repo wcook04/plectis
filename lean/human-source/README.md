@@ -4,10 +4,8 @@
 # Plectis: research on eight Erdős problem programmes
 
 Plectis is an open-source, AI-assisted prototype for turning mathematical
-exposition into further research. Eight Erdős programmes each have a short
-expository paper, a longer research record and associated Lean source. The aim
-is to make results, methods and useful failures understandable enough for
-others to question, extend and reuse.
+exposition into further research. Eight Erdős programmes offer papers, Lean
+source, methods and failed routes for others to question and extend.
 
 Start with [#257's short paper](paper/257/erdos-257-mersenne-support-subseries.pdf).
 If `h_P(a)` is the part of an exponent `a` supported on a finite nonempty set of primes,
@@ -19,14 +17,15 @@ infinite support `A` with finite base-two weighted mass
 or [inspect the Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
 Other seven programmes: [results guide](docs/RESULTS.md#problem-by-problem-guide).
 
-Start here: [read the paper](paper/257/erdos-257-mersenne-support-subseries.pdf),
-[run one exact-rational experiment](research/experiments/sparse_interpolation/late_rejection.py),
-and [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
-This tests one proposed rational subsum, not the weighted theorem.
+[Bounded #243 and #257 results on Prove2Me](docs/research-commons/README.md#native-prove2me-theorems).
+
+Start with the [paper](paper/257/erdos-257-mersenne-support-subseries.pdf),
+[one exact-rational test](research/experiments/sparse_interpolation/late_rejection.py)
+(not the weighted theorem), or [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
 
 **[All papers](paper/README.md)** ·
 [Reading edition](docs/reading-edition/README.md) ·
-[Reproduce one result](docs/REPRODUCIBILITY.md) ·
+[Replay #257 theorem](docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay) ·
 [Contribute or correct](CONTRIBUTING.md)
 
 ![Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue](.github/system-map.png)
@@ -41,7 +40,9 @@ the 1958 wording has not been recorded. Comparator checks only selected exact
 statements, axioms and kernel acceptance; it does not assess novelty or
 historical correspondence.**
 
-The attribution is recorded in [ani's 7 September 2026 forum post](https://www.erdosproblems.com/forum/thread/1041#post-8861).
+Attribution: [ani's 7 September 2026 forum post](https://www.erdosproblems.com/forum/thread/1041#post-8861).
+
+See [Formal Conjectures work](#formal-conjectures-contributions).
 
 ## Where to start
 
@@ -99,22 +100,25 @@ reciprocal-summable extension; Lean checks it here. The unrestricted question
 remains open. **#249** gives exact ranks of totient kernels. Each paper names
 its ordinary proofs, Lean-checked results and open questions.
 
-For a more specialised theorem, **#243** gives irrationality for strictly
-increasing positive integer sequences under the precise cubic-rate hypothesis
-`a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)`. Lean checks the zero-indexed theorem;
-the paper transfers its one-based form by an ordinary finite-prefix argument.
-The unrestricted Sylvester-recurrence question remains open. For **#1049**,
-Lean checks that `F(31/4)` and `F((31/4)^r)` for every positive integer `r`
-are irrational, using rational-base forms built from Zudilin's construction.
-A coefficient pencil through rank eight is also checked. Irrationality at
-`3/2` and the all-rational-base claim remain open.
+For **#243**, Lean checks irrationality of the reciprocal sum of a strictly
+increasing positive integer sequence under
+`a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)` in zero-based indexing. The paper gives the
+one-based finite-prefix argument and a bounded-increment criterion for an
+eventual Sylvester tail. The unrestricted question remains open.
 
-**Reading the eight together.** The whole collection is also material for new
-mathematics: reusable constructions, connections between problems and questions
-that go beyond the original targets. Start with the
-[cross-problem paper, Reading Eight Erdős Problems Together](paper/synthesis/optimal-sparse-perturbations.pdf). It joins the capacity and congruence results, Lambert subsums, method limits and their research record.
-The [synthesis guide](paper/synthesis/README.md) explains how to develop this work
-from the papers and Lean corpus, with each result's evidence and limits intact.
+For **#1049**, the paper proves irrationality of
+`F(a/b) = ∑_(n≥1) 1/((a/b)^n−1)` for coprime `a>b≥1` when
+`log b/log a < 0.4056830213840605…`, using Zudilin's forms with cyclotomic
+cancellation and denominator accounting. Lean checks the region theorem and
+`F((31/4)^r)` for positive integers `r`. The earlier Bundschuh–Väänänen
+sufficient bound excludes `31/4`; irrationality at `3/2` remains open.
+
+**Reading the eight together.** The [cross-problem paper](paper/synthesis/optimal-sparse-perturbations.pdf)
+studies entire `f(z) = ∑_(n≥1) e_n z^n/n!` with nonnegative integer
+`e_n≤n^c` eventually and `q|e_n` eventually for each integer `q≥1`.
+For `c>0`, integer `d≥1`, the set of vectors
+`(f(1), …, f^(d−1)(1))` has Hausdorff dimension `min(c,d)` and contains an
+open set exactly when `c>d`. The proof is ordinary.
 
 | Problem | Topic | Papers |
 |---|---|---|
@@ -206,12 +210,12 @@ follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 The reviewed layer a mathematician should judge: 150 curated claim records in 33 contribution families, reaching Lean source through 468 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 87% of the 163,598 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 87% of the 163,604 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
 | Lean modules (the two library roots) | 1,823 |
-| Formal results and supporting lemmas | 159,691 |
+| Formal results and supporting lemmas | 159,697 |
 | Curated claim records | 150 |
 | Contribution families | 33 |
 
@@ -222,6 +226,14 @@ These are navigation counts, not novelty claims. They still need expert validati
 
 </details>
 <!-- END generated_corpus_at_a_glance -->
+
+## Formal Conjectures contributions
+
+Four merged changes: [#257](https://github.com/google-deepmind/formal-conjectures/pull/6506),
+[#258](https://github.com/google-deepmind/formal-conjectures/pull/5034), and
+[#1049](https://github.com/google-deepmind/formal-conjectures/pull/6507) proof links
+for solved variants of Erdős's 1948 theorem; a [#1041 correction](https://github.com/google-deepmind/formal-conjectures/pull/6505)
+using ani's counterexample. [Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
 
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->

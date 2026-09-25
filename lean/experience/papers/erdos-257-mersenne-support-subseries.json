@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "39b26c1a00840f40047ee03223b6359e10e7bafe4be8f0c9eca8f52a536d7984",
+    "source_sha256": "390ac1fb088c08e0778ef700b1effa2fc2cf0f6bf3c51c7be82af62e4298b08f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 711,
@@ -44,8 +44,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "1bc779c55f6178894b6245e639d4c868f3002d102cf2a00d5f8f3da272596349",
-    "html_exact_tex_sha256": "be6c1ed7a7944171ae71c0e4b023e40395e4a03d9bba8842df32eb757314832f"
+    "html_mathml_sha256": "d5a23fc1352ff97ca931766cea72ff06af357b9778a94be48a19e28fd49483ac",
+    "html_exact_tex_sha256": "7fa9d9932fd5f767c51a2d65e097cb61ea9833c613f474955e3d972c8a662056"
   },
   "sections": [
     {
@@ -157,6 +157,11 @@
       "level": 2,
       "anchor": "app:sources",
       "label": "Sources"
+    },
+    {
+      "level": 5,
+      "anchor": "reproducing-the-weighted-theorem.",
+      "label": "Reproducing the weighted theorem."
     },
     {
       "level": 5,

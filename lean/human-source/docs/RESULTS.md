@@ -43,7 +43,7 @@ step. Mathematical importance requires separate judgement.
 |---|---|---|
 | [#68](#result-68) | Two exact finite denominator exclusions, one with a Lean-checked carry consumer, and a Lean-checked `3/2` lower growth exponent for the uncleared common denominator. | No cofinal non-unit factorial carries have been produced; irrationality remains open. |
 | [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
-| [#249](#result-249) | The short paper and Lean give the exact all-base totient-kernel rank `k^e+1`; Lean also checks three conditional routes toward irrationality. | None supplies the needed cofinal actual-LCM, first-harmonic or strict prime-tail input. |
+| [#249](#result-249) | The short paper and Lean classify the fixed-base-two totient-residue series for every positive modulus and every rational-valued observable at dyadic moduli. They also give the exact all-base totient-kernel rank `k^e+1`. | The original series with unreduced totients remains open; the conditional routes still need their cofinal arithmetic inputs. |
 | [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
 | [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. Palomar's mechanical verification passed for the exact five-declaration `E257_01` entry; registration has been requested, with no public version yet. |
 | [#269](#result-269) | Both two-prime running-LCM sums are transcendental by the paper's argument using a cited Hecke–Mahler theorem; Lean checks the formulas and the conditional transfer. | The cited transcendence input is not formalised, and the three-prime irrationality question remains open. |
@@ -170,18 +170,42 @@ bounded-negative premise. Read the
 [long record](../paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf), or
 [selected formal checks](EXTERNAL_VERIFICATION.md#programme-243).
 
+The long record also proves an exact maximal-gap theorem for a separate
+static sieve. Let `m₀<m₁<⋯` be pairwise coprime integers at least `2`, with
+`ℓ(m_j)=j+O(1)` for `ℓ(x)=log₂ log₂ max(4,x)`. If
+`σ=∏_j(1−1/m_j)>0` and `u_n` lists the positive integers divisible by none
+of the `m_j`, then
+`limsup (u_(n+1)−u_n)/ℓ(u_n)=1/σ`. Lean checks the general theorem
+`maximal_gap_limsup_eq_inv_sigma` with the convergence to `σ` stated
+explicitly. The paper's finite-product calculation gives `σ=1/2` and thus
+coefficient `2` for the Fermat moduli `m_j=2^(2^j)+1`. This concerns
+[avoidance of whole moduli](papers/full-text/erdos243-reciprocal-tail-reasoning-surface.md#long243:res:gapconstant),
+not coprimality to composite moduli or construction of a reciprocal-tail
+orbit; the unrestricted #243 question remains open.
+
 <a id="result-249"></a>
 
-**[#249](https://www.erdosproblems.com/249).** The short paper proves the
-all-base finite-level rank `k^e+1` for every `k≥2` and `e≥1`, with canonical
-integral coordinates and a basis of all integral relations; at prime base the
-rank is exponential in the depth `e`. A rational `5/4` control that agrees with
-totient on odd arguments still has tempered carry rank at least `2^e−1` at
-every depth, so a generic rationality-driven carry-rank ceiling is false.
-Bounded-residue series `A_m` remain irrational for every `m ≥ 3`, with a
-complete rationality classification at dyadic moduli; this is ordinary
-mathematics in the short note, not Lean. The strongest checked structural
-result on the hypothetical rational totient branch is carry anti-compression:
+**[#249](https://www.erdosproblems.com/249).** The short paper and Lean
+classify the fixed-base-two series with coefficients `φ(n) mod m`: it is `0`
+for `m=1`, `3/4` for `m=2`, and irrational for every `m≥3`. More generally,
+for `k≥1` and any rational-valued function `f` on the residues modulo `2^k`,
+the series with coefficients `f(φ(n) mod 2^k)` is rational exactly when `f`
+is constant on the even residue classes. If that constant is `c`, the value
+is `3f(1)/4+c/4`. For example, at modulus four, the table
+`f=(5,7,5,-2)` in residue order `0,1,2,3` gives `13/2`, while
+`f=(0,0,1,0)` gives an irrational sum. The public Lean development checks the
+[irrationality theorem](https://github.com/wcook04/plectis-erdos/blob/a14777b3219873bc8343205cca0bb3bb6530e8fa/lean/ErdosProblems/Erdos249/ResidueClassTotientSeries.lean#L566-L580)
+and [dyadic classification](https://github.com/wcook04/plectis-erdos/blob/a14777b3219873bc8343205cca0bb3bb6530e8fa/lean/ErdosProblems/Erdos249/PaperCompleteR7/RationalObservableClassification.lean#L221-L233).
+The series with unreduced totients remains open.
+
+The short paper also proves the all-base finite-level totient-kernel rank
+`k^e+1` for every `k≥2` and `e≥1`, with canonical integral coordinates and
+a basis of all integral relations; at prime base the rank is exponential in
+the depth `e`. A rational `5/4` control that agrees with totient on odd
+arguments still has tempered carry rank at least `2^e−1` at every depth, so
+a generic rationality-driven carry-rank ceiling is false. The strongest
+checked structural result on the hypothetical rational totient branch is
+carry anti-compression:
 one carry would have uniformly eventually-periodic dyadic sections modulo its
 multiplier while retaining canonical section rank at least `2^e − 1` at every
 level. No finite-rank upper bound is proved, so this is a necessary
@@ -202,6 +226,15 @@ reduces all
 those coordinates, the six relation coefficients, and an integer
 counterexample at one of the first 37 inputs whenever a proposed identity
 is false; its determinant check certifies that finite test.
+For any integer base, the
+[sparse normal-form command](../scripts/totient_kernel_sparse_normal_form.py)
+reduces only the supplied sections to exact integral coordinates and decides
+their identity by the all-base basis theorem. For example,
+`--base 12 --term 8:29859840:1 --term 2:10:-1990656` returns an identity
+without constructing the ambient depth-eight matrix. Its optional
+`--witness-budget` searches for a concrete unequal input; exhaustion does not
+change an exact nonidentity decision. The Python command is an implementation
+of the paper's reduction, not a Lean-verified executable artifact.
 
 <a id="result-251"></a>
 

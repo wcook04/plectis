@@ -11,10 +11,8 @@ class="level1">
 <h1>Plectis: research on eight Erdős problem programmes</h1>
 <p>Plectis is an open-source, AI-assisted prototype for turning
 mathematical exposition into further research. Eight Erdős programmes
-each have a short expository paper, a longer research record and
-associated Lean source. The aim is to make results, methods and useful
-failures understandable enough for others to question, extend and
-reuse.</p>
+offer papers, Lean source, methods and failed routes for others to
+question and extend.</p>
 <p>Start with <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s short
 paper</a>. If <code>h_P(a)</code> is the part of an exponent
@@ -29,18 +27,20 @@ proof record</a> or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">inspect
 the Lean declaration</a>. Other seven programmes: <a
 href="results.mathjax.html#problem-by-problem-guide">results guide</a>.</p>
-<p>Start here: <a
-href="../../../papers/erdos-257-mersenne-support-subseries.pdf">read the
-paper</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/sparse_interpolation/late_rejection.py">run
-one exact-rational experiment</a>, and <a
+<p><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md#native-prove2me-theorems">Bounded
+#243 and #257 results on Prove2Me</a>.</p>
+<p>Start with the <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">paper</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/sparse_interpolation/late_rejection.py">one
+exact-rational test</a> (not the weighted theorem), or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
-correction</a>. This tests one proposed rational subsum, not the
-weighted theorem.</p>
+correction</a>.</p>
 <p><strong><a href="paper-guide.mathjax.html">All papers</a></strong> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">Reading edition</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Reproduce one result</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">Replay
+#257 theorem</a> · <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or
+correct</a></p>
 <figure>
 Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue
 <figcaption aria-hidden="true">Eight Erdős problem programmes: papers,
@@ -57,9 +57,11 @@ human review of correspondence with the 1958 wording has not been
 recorded. Comparator checks only selected exact statements, axioms and
 kernel acceptance; it does not assess novelty or historical
 correspondence.</strong></p>
-<p>The attribution is recorded in <a
+<p>Attribution: <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s 7
 September 2026 forum post</a>.</p>
+<p>See <a href="#formal-conjectures-contributions">Formal Conjectures
+work</a>.</p>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
 <p><strong>Read the mathematics. Find what comes next.</strong> Use the
@@ -126,28 +128,29 @@ sum. Erdős stated the simpler reciprocal-summable extension; Lean checks
 it here. The unrestricted question remains open. <strong>#249</strong>
 gives exact ranks of totient kernels. Each paper names its ordinary
 proofs, Lean-checked results and open questions.</p>
-<p>For a more specialised theorem, <strong>#243</strong> gives
-irrationality for strictly increasing positive integer sequences under
-the precise cubic-rate hypothesis
-<code>a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)</code>. Lean checks the
-zero-indexed theorem; the paper transfers its one-based form by an
-ordinary finite-prefix argument. The unrestricted Sylvester-recurrence
-question remains open. For <strong>#1049</strong>, Lean checks that
-<code>F(31/4)</code> and <code>F((31/4)^r)</code> for every positive
-integer <code>r</code> are irrational, using rational-base forms built
-from Zudilin’s construction. A coefficient pencil through rank eight is
-also checked. Irrationality at <code>3/2</code> and the
-all-rational-base claim remain open.</p>
-<p><strong>Reading the eight together.</strong> The whole collection is
-also material for new mathematics: reusable constructions, connections
-between problems and questions that go beyond the original targets.
-Start with the <a
+<p>For <strong>#243</strong>, Lean checks irrationality of the
+reciprocal sum of a strictly increasing positive integer sequence under
+<code>a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)</code> in zero-based indexing. The
+paper gives the one-based finite-prefix argument and a bounded-increment
+criterion for an eventual Sylvester tail. The unrestricted question
+remains open.</p>
+<p>For <strong>#1049</strong>, the paper proves irrationality of
+<code>F(a/b) = ∑_(n≥1) 1/((a/b)^n−1)</code> for coprime
+<code>a&gt;b≥1</code> when
+<code>log b/log a &lt; 0.4056830213840605…</code>, using Zudilin’s forms
+with cyclotomic cancellation and denominator accounting. Lean checks the
+region theorem and <code>F((31/4)^r)</code> for positive integers
+<code>r</code>. The earlier Bundschuh–Väänänen sufficient bound excludes
+<code>31/4</code>; irrationality at <code>3/2</code> remains open.</p>
+<p><strong>Reading the eight together.</strong> The <a
 href="../../../papers/optimal-sparse-perturbations.pdf">cross-problem
-paper, Reading Eight Erdős Problems Together</a>. It joins the capacity
-and congruence results, Lambert subsums, method limits and their
-research record. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">synthesis
-guide</a> explains how to develop this work from the papers and Lean
-corpus, with each result’s evidence and limits intact.</p>
+paper</a> studies entire <code>f(z) = ∑_(n≥1) e_n z^n/n!</code> with
+nonnegative integer <code>e_n≤n^c</code> eventually and
+<code>q|e_n</code> eventually for each integer <code>q≥1</code>. For
+<code>c&gt;0</code>, integer <code>d≥1</code>, the set of vectors
+<code>(f(1), …, f^(d−1)(1))</code> has Hausdorff dimension
+<code>min(c,d)</code> and contains an open set exactly when
+<code>c&gt;d</code>. The proof is ordinary.</p>
 <table>
 <colgroup>
 <col />
@@ -335,7 +338,7 @@ records in 33 contribution families, reaching Lean source through 468
 principal declaration links. <code>docs/SCOPE.md</code> gives its shape
 and <code>docs/RESULTS.md</code> gives the strongest checked result per
 problem. The website and the papers are the human reading path.</p>
-<p>The rest is engineering inventory. About 87% of the 163,598
+<p>The rest is engineering inventory. About 87% of the 163,604
 declarations (142,668 across 695 modules) are machine-emitted
 certificate shards: one integer checked prime, one position excluded.
 The remainder is not all hand-written either.</p>
@@ -353,7 +356,7 @@ The remainder is not all hand-written either.</p>
 </tr>
 <tr>
 <td>Formal results and supporting lemmas</td>
-<td class="ta-r">159,691</td>
+<td class="ta-r">159,697</td>
 </tr>
 <tr>
 <td>Curated claim records</td>
@@ -371,6 +374,20 @@ and open, and are partitioned once. These are navigation counts, not
 novelty claims. They still need expert validation.</p>
 </details>
 <!-- END generated_corpus_at_a_glance -->
+</section>
+<section id="formal-conjectures-contributions" class="level2">
+<h2>Formal Conjectures contributions</h2>
+<p>Four merged changes: <a
+href="https://github.com/google-deepmind/formal-conjectures/pull/6506">#257</a>,
+<a
+href="https://github.com/google-deepmind/formal-conjectures/pull/5034">#258</a>,
+and <a
+href="https://github.com/google-deepmind/formal-conjectures/pull/6507">#1049</a>
+proof links for solved variants of Erdős’s 1948 theorem; a <a
+href="https://github.com/google-deepmind/formal-conjectures/pull/6505">#1041
+correction</a> using ani’s counterexample. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/formal-conjectures-1041.md">Trace the #1041 Lean
+proof</a>.</p>
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 </section>

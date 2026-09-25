@@ -115,13 +115,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "b7635e96da57a679d715c552af4e1f0b31b555b9ca9ba9ca1dc075e7526563a2",
-      "bytes": 162214,
+      "source_sha256": "8299007a02ee0a4dbdab043f6bd290464849dbbcae7f1afb162be5a30311c397",
+      "bytes": 165421,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "39b26c1a00840f40047ee03223b6359e10e7bafe4be8f0c9eca8f52a536d7984",
-      "tex_bytes": 64618
+      "hosted_tex_sha256": "390ac1fb088c08e0778ef700b1effa2fc2cf0f6bf3c51c7be82af62e4298b08f",
+      "tex_bytes": 65561
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",
@@ -232,25 +232,25 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "e8bad79f27010ad82707c52f847689459b78410657a91040fd639834d34676e5",
-      "bytes": 116754,
+      "source_sha256": "b890a95660a3e06d2aa0359a32525c716ce0011a0357380b8b801171c6857200",
+      "bytes": 124941,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "2e9300fb916ac43824e3facf93f193906451cef64241363b99a64fb3814517d8",
-      "tex_bytes": 53822
+      "hosted_tex_sha256": "7bdb76ee91221237a928a1e3ccd36b9893cd1b9afc4ed5ff00da46001f66afec",
+      "tex_bytes": 60058
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf",
-      "source_sha256": "c6cdb4710e52b66d9c6260530ee721ab47ac6ce18e7005d07742de704bba6fd8",
-      "bytes": 88215,
+      "source_sha256": "4648b461a4ab85f24f4c9f5bf9ced1e7a295cda1e8b05ea84af463a7c51a8d62",
+      "bytes": 87537,
       "source_tex_path": "paper/systems/cold-clone-to-proof-receipt.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/cold-clone-to-proof-receipt.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex",
-      "hosted_tex_sha256": "1319d0175edc65147d32e19d9318e2fa701eb2150ec262f95bc5677d383f467d",
+      "hosted_tex_sha256": "dc5dd4b37231bf70084adee1043b7423326ee2139b097aa2b400eadc361ae747",
       "tex_bytes": 40432
     },
     {

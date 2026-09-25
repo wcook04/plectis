@@ -1507,6 +1507,25 @@ denominators, the achievement set and its restrictions, squarefree
 divisor counts, half-membership and the tests for <span
 class="math inline" data-term-auto="off">\(1/21\)</span>) are linked beside the corresponding
 statements there.</p>
+<section id="reproducing-the-weighted-theorem." class="level5">
+<h5>Reproducing the weighted theorem.</h5>
+<p>The two Lean declarations for Theorem <a class="math-ref" href="#res:weighted-support">1.1</a> are both in
+the public source at <a
+href="https://github.com/wcook04/plectis-erdos/tree/91ca3405b795a520825ac5ca04dcd591b9ddf3e3">commit
+<code>91ca3405</code></a>. That snapshot pins Lean 4.29.1 in
+<code>lean-toolchain</code> and its Mathlib revision in
+<code>lake-manifest.json</code>. From a complete checkout, with
+<code>elan</code> installed, build the two modules with:</p>
+<pre><code>lake exe cache get
+python3 scripts/lean_fast_build.py --jobs 2 \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim</code></pre>
+<p>The cache download is optional. The modules contain
+<code>divisibilityWeightedClaim</code> and
+<code>finitePrimeWeighted_fixedBase_hereditary</code>, respectively; the
+evidence record linked above gives their exact statements and the
+separate Comparator checks.</p>
+</section>
 <section id="library-declarations." class="level5">
 <h5>Library declarations.</h5>
 <p>Several statements of this note and its companion rest on the

@@ -14113,8 +14113,8 @@
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos269.BoundedRadixTailEscape",
       "path": "lean/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
-      "declaration_count": 6,
-      "theorem_count": 4,
+      "declaration_count": 10,
+      "theorem_count": 8,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/BoundedRadixTailEscape.lean",
       "role": "Lean proof module"

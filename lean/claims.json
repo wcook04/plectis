@@ -1080,7 +1080,10 @@
           "source": "paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
           "rendered": "paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #243.",
-          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500"
+          "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
+          "anchor_label_allowlist": [
+            "long243:res:gapconstant"
+          ]
         },
         {
           "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
@@ -19188,7 +19191,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "7f79e63d0b36b5b4f0b47b6368342b4a50824f4e",
+      "ref": "3aea812a5fb031b14e0911cc9110885cd8a10bfd",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",

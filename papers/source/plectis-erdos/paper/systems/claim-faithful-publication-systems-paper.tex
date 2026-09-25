@@ -15,14 +15,14 @@
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{151,704}
+\newcommand{\SemanticAuthoredTheoremLike}{151,710}
 \newcommand{\SemanticAuthoredInterpreted}{139,818}
 \newcommand{\SemanticDirectEvidence}{3,330}
 \newcommand{\SemanticContextual}{136,488}
-\newcommand{\SemanticStructuralOnly}{11,886}
+\newcommand{\SemanticStructuralOnly}{11,892}
 \newcommand{\SemanticAuthoredPercent}{92.2}
 % END generated_semantic_coverage_macros
-\newcommand{\repolink}[2]{\href{\repobase/blob/872d16d07a4f1456300b923bc686ab31497b4df5/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/#1}{\texttt{#2}}}
 \emergencystretch=1.7em
 
 \runninghead{Problem-sized Lean worlds}
@@ -55,7 +55,9 @@ statement of Problem 1041, built on a counterexample posted by the forum
 contributor \texttt{ani}; Google DeepMind's Formal Conjectures now records the
 answer as \texttt{False} and links the proof. Worked cases from Problems 257
 and 249 and from a cross-problem synthesis show what the record keeps for a
-result. The paper compares the design with Prove2Me and blueprint-based
+result, and a transfer between Problems 251 and 269, checked in Lean, shows one
+problem's theorem proving another's criterion and then improving its constant
+from $1/31$ to $1/3$. The paper compares the design with Prove2Me and blueprint-based
 systems and specifies the controlled comparison that will measure whether
 such records reduce the work of understanding, checking and continuing a
 result.
@@ -116,7 +118,11 @@ tail is the hard step. Each remaining term is periodic in $N$; averaging over
 the first $T$ multiples of the modulus bounds its complete periods by its
 weighted summand when the $P$-part of the exponent divides the modulus, and
 through a large common divisor otherwise. The leftover incomplete periods of
-infinitely many exponents need a second average, over dyadic values of~$T$
+infinitely many exponents need a second average, over dyadic values of~$T$.
+Its length is set between two scales. Once the finite part of $A$ and its
+modulus are fixed, the sampling modulus grows polynomially in a parameter $H$,
+while the large-divisor bound has a denominator exponential in $H$; an
+averaging length between the two makes both errors vanish as $H$ grows
 (\repolink{lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean}{WeightedReturn.lean}
 carries both averages).
 
@@ -179,32 +185,43 @@ can describe the wrong formal statement.
 
 \begin{table}[!ht]
 \centering\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\linewidth}
-                    >{\raggedright\arraybackslash}p{0.38\linewidth}
-                    >{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}
+                    >{\raggedright\arraybackslash}p{0.25\linewidth}
+                    >{\raggedright\arraybackslash}p{0.27\linewidth}
+                    >{\raggedright\arraybackslash}p{0.27\linewidth}@{}}
 \toprule
 \papertablehead
-Decision & What the world records & For the weighted criterion \\
+Decision & What the world records & Weighted criterion & Dyadic tail
+differences \\
 \midrule
 Evidence & The exact statement, its hypotheses and named inputs, the Lean
 declaration and its checking receipts & Lean proves the criterion; Comparator
-has compared the declarations that state it \\
+has compared the declarations that state it & Lean proves the equivalence
+with $1/31$ and then with $1/3$; the application trace records the rejected
+and the accepted step \\
 \addlinespace
 Appraisal & The mechanism, the closest antecedent, the strength of the result
 and the obstruction that survives & Two averages; Erd\H{o}s's
-reciprocal-summable case, credited; admits $A_\star$; excludes full support \\
+reciprocal-summable case, credited; admits $A_\star$; excludes full support &
+A change of state variable; $1/31$ was inherited from radix~30, and $1/3$
+cannot be raised for radix-two orbits in general \\
 \addlinespace
 Exposition & Whether the result belongs in the short paper or the long record,
 and how its hard step is explained & The theorem opens the short paper; the
-example and the full averaging proof follow it \\
+example and the full averaging proof follow it & Section~\ref{sec:production}
+shows the whole transfer; the experiment keeps the trace \\
 \addlinespace
 Allocation & The next question, the test that would decide it and the
-condition for stopping & Irrationality for every infinite support, registered
-as an open proposition \\
+condition for stopping & Irrationality for every infinite support stays the
+registered endpoint; no narrower next step is recorded & Is $1/3$ best for
+irrational tails? A probe pointed to $0.4125$, the literature fixed the
+answer, and the question closed; formalising it is optional \\
 \bottomrule
 \end{tabular}
-\caption{Four decisions about a returned result, with the record kept for the
-weighted criterion of Section~\ref{sec:intro}.}
+\caption{Four decisions about a returned result, for the weighted criterion of
+Section~\ref{sec:intro} and the cross-problem transfer of
+Section~\ref{sec:production}. An enduring endpoint and a justified next step
+are different allocations.}
 \label{tab:decisions}
 \end{table}
 
@@ -273,8 +290,10 @@ each new result against the whole corpus and makes the four decisions of
 Table~\ref{tab:decisions}: what the result establishes, whether it is routine
 or strong and whom it credits, where it belongs in a paper, and which
 obligation deserves the next unit of work. One agent may play both roles in
-sequence. Neither inherits the other's authority, and neither starts new work
-while the frontier and the files that depend on it are unchanged.
+sequence. Neither inherits the other's authority. Stewardship runs after a
+stable result or review event, and discovery resumes when the recorded
+frontier justifies a further discriminating attempt; an unchanged record is
+no reason to poll or repeat a run.
 
 Models do the reading, comparison and drafting under written procedures,
 published with the repository as agent skills. Deterministic code assembles
@@ -300,6 +319,39 @@ proof the same discipline explains the second average: the short paper shows
 why the majorant of the reciprocal-summable proof fails beyond that class.
 
 Reading the problems together raises questions that none of them asks alone.
+The smallest complete case is a transfer between two problems. For dyadic
+tails $T_{N+1}=2T_N-g_{N+1}$ with integer digits $g_N$, the Problem 251 record
+proves that $T_0$ is irrational exactly when no difference $T_{N+h}-T_N$ with
+$h>0$ is an integer. The Problem 269 record proves an escape theorem: an orbit
+$x_{n+1}=p_nx_n-c_n$ with $p_n,c_n\in\mathbb Z$ and $2\le p_n\le30$ reaches an integer
+or returns infinitely often to distance at least $1/31$ from the integers.
+Applied to $T$, the escape theorem says nothing about differences.
+The difference $U_N=T_{N+h}-T_N$ satisfies $U_{N+1}=2U_N-(g_{N+h+1}-g_{N+1})$, so it applies to
+$U$, and the Problem 251 criterion excludes the integral alternative. Hence
+$T_0$ is irrational exactly when every such difference is at least $1/31$ from
+the integers for infinitely many $N$. The
+\repolink{research/experiments/premise_exchange/README.md}{experiment}
+imports only the two sources and records the Lean outcomes: the application to
+$T$ is rejected, the application to $U$ leaves one goal, and the Problem 251
+theorem closes it. The change of variable is the mathematical bridge, and Lean
+establishes what follows. The constant $1/31$ came from the radix bound 30.
+With the bound $B$ as a parameter the same proof gives $1/(B+1)$, which the
+orbit alternating between $1/(B+1)$ and $B/(B+1)$ shows cannot be improved in
+general, and hence $1/3$ for the differences. Lean checks all three, and the
+$1/31$ run stays in the record as the original outcome. A finite probe then
+asked whether $1/3$ is best for irrational tails, and a published theorem
+answered it. Dubickas proved $\limsup_n\|2^n\xi\|\ge\tau$ for every irrational
+$\xi$, with equality at the Thue--Morse number $\tau=0.412454\ldots$, as stated
+by Akiyama and Kaneko~\cite{akiyamakaneko}, so every fixed $0<c<\tau$ works in
+the equivalence. The endpoint does not: the doubling orbit of $\tau$ stays
+strictly closer than $\tau$ to the integers at every positive index, so the
+admissible constants form the open interval $(0,\tau)$. The record keeps the
+Lean-checked $1/3$, the cited theorem and the ordinary endpoint argument, in
+the \href{\repobase/blob/09db551ef4de91e6c56fd6a00add102eacd4b517/research/experiments/premise_exchange/README.md\#how-the-question-closed}{recorded
+closure}, at their own evidence classes. This sharpens a quantitative irrationality
+criterion; establishing the criterion for the actual prime gaps remains
+open.
+
 Seven of the eight problems ask whether a series is irrational, and the
 synthesis paper~\cite{synthesis} studies what their methods share and where
 each stops. The sparse corrections used for Problem 251 led to a capacity
@@ -550,9 +602,9 @@ environment what each application does. A transition exists only when Lean
 reaches the state after the application; the subgoals Lean leaves form an AND
 set that becomes the exact remaining obligation, competing applications are OR
 alternatives, and a proof receipt exists only when Lean exits with no goals
-left. In its pilot, applying a Problem 249 totient-tail lemma without its
-divisibility hypothesis leaves exactly that hypothesis open, and supplying it
-closes the same application.
+left. In the transfer of Section~\ref{sec:production} both applications end
+with no remaining goals, the rejected one because Lean reached no state after
+it, so acceptance and closure are recorded separately.
 
 The records come from a private environment, built over the past year, that
 runs agents from several model providers, including Anthropic's Claude and
@@ -658,7 +710,15 @@ repair agents~\cite{leanmarathon}. These are direct precedents for durable
 formal development linked to its explanation, and a world can use a blueprint
 as its dependency map; the world adds the appraisal around the proofs, with
 the mechanism and antecedents of each result, the failed routes and the exact
-open obligations. Provers such as ReProver, built on LeanDojo, and
+open obligations. Hattori, Matsuzaki and Fujiwara translate Lean proofs into
+natural language step by step and summarise along the proof
+structure~\cite{hattori}, a direct precedent for the explanation a world keeps
+beside a formal proof. Each component exists elsewhere; a world contributes
+their combination on one task, as in the transfer of
+Section~\ref{sec:production}, where the record selected the move, Lean checked
+it, the explanation sits beside the proof and the next question carries its
+test. The measurement of Section~\ref{sec:limits} compares that workload with
+the alternatives. Provers such as ReProver, built on LeanDojo, and
 OpenProver~\cite{leandojo,openprover} can supply a world with candidate proofs,
 and Li et al.\ hold generation and validation apart in research mathematics
 without a proof assistant~\cite{lihai}.
@@ -695,9 +755,10 @@ AI help, and adds that it may prove unnecessary if one can ask a language model
 for a bird's-eye view of an area~\cite{gowers}; Koukoulopoulos proposes a
 public facility in which coordinated agents explore a research programme
 divided into subproblems under researchers' direction~\cite{koukoulopoulos}. A
-problem-sized world supplies the shared record both proposals need, at the
-scale of eight problems, and the written-briefing arm of the measurement below
-stands in for Gowers's alternative. Antieau writes that texts generated largely by a language
+problem-sized world is one concrete way to maintain the sources, explanations
+and open questions such work draws on, here at the scale of eight problems,
+and the measurement below tests its value against an on-demand briefing built
+from the same material. Antieau writes that texts generated largely by a language
 model deserve a home other than the arXiv~\cite{antieau}; a world gives its
 long records one beside the proofs they explain. The same structure suits a
 single landmark result, and it asks three things of a field: stable result
@@ -707,14 +768,24 @@ claims.
 The next measurement is comparative. With the source revision, task set,
 model, tool access and budget held fixed, agents receive the Lean source
 alone, an information-equivalent written briefing, or the whole world with its
-continuation tools. Independent domain readers grade whether each recovers the strongest
+continuation tools. A representation contrast holds information, tools and budget
+fixed and varies only the organisation and recorded decisions; a product
+contrast compares the world with the best on-demand briefing and tools built
+from the same material, with preparation amortised over observed reuse and
+maintenance, review and repair counted on both sides. miniCTX's repository
+contexts and temporal splits are a precedent for these controls~\cite{minictx}. Independent domain readers grade whether each recovers the strongest
 supported claim, its hypotheses, its hard step, its antecedents and the
 remaining obligation, and review one returned change; statement errors,
 reviewer time and total work, preparation and maintenance included, are
 recorded, and failed and abandoned attempts are counted. Ablations separate the
 short paper, the evidence links and the continuation tools; historical tasks
 need a cutoff that hides later proofs and theorem names, and prospective tasks
-give a separate test. Repeating the frozen tasks with a stronger model measures
+give a separate test. Tasks separating meaning from wording include a new antecedent
+that leaves the Lean proof intact and changes the appraisal, as the Dubickas
+comparison did, a dropped hypothesis or a limsup bound read as a bound reached
+infinitely often, and a faithful paraphrase. The
+transfer of Section~\ref{sec:production} is a diagnostic fixture; discovery
+comparisons use held-out transformations or prospective continuations. Repeating the frozen tasks with a stronger model measures
 what the record adds as models improve.
 
 \section{Conclusion}\label{sec:conclusion}
@@ -723,7 +794,8 @@ A problem-sized world keeps the record that lets other people understand a
 proof, check it, credit it and build on it: its mechanism, its antecedents, its
 formal evidence and its exact open statements. The weighted criterion, the
 totient basis and the derivative-interpolation theorem show that record for
-three results, and the eight worlds in the public repository show that it can
+three results, the dyadic transfer shows the corpus supplying a proof its
+parts did not contain, and the eight worlds in the public repository show that it can
 be kept persistent, checkable and open to contribution across several hard
 problems. The record is built for models stronger than the ones that produced
 it: each starts from the recorded frontier with the failed routes marked, and
@@ -891,6 +963,19 @@ LIPIcs 382, 2026, pp.~25:1--25:16,
 \emph{LeanMarathon: Toward Reliable AI Co-Mathematicians through Long-Horizon
 Lean Autoformalization}, 2026,
 \href{https://arxiv.org/abs/2606.05400}{arXiv:2606.05400}.
+\bibitem{hattori} S.~Hattori, T.~Matsuzaki, and M.~Fujiwara, \emph{Natural
+Language Translation of Formal Proofs through Informalization of Proof Steps
+and Recursive Summarization along Proof Structure}, in \emph{Proceedings of
+the 18th International Natural Language Generation Conference}, 2025,
+pp.~376--389, \href{https://aclanthology.org/2025.inlg-main.23/}{ACL Anthology}.
+\bibitem{minictx} J.~Hu, T.~Zhu, and S.~Welleck, \emph{miniCTX: Neural Theorem
+Proving with (Long-)Contexts}, ICLR 2025,
+\href{https://arxiv.org/abs/2408.03350}{arXiv:2408.03350}.
+\bibitem{akiyamakaneko} S.~Akiyama and H.~Kaneko, \emph{Multiplicative analogue
+of Markoff--Lagrange spectrum and Pisot numbers}, Adv.\ Math.\ 380 (2021),
+107547, p.~3, reporting the
+theorem of A.~Dubickas, J.\ Number Theory 117 (2006), 222--239,
+\href{https://arxiv.org/abs/1911.06170v6}{arXiv:1911.06170v6}.
 \bibitem{leandojo} K.~Yang et al., \emph{LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models}, NeurIPS 2023.
 \bibitem{openprover} M.~Kripner and M.~Straka, \emph{OpenProver: Agentic and

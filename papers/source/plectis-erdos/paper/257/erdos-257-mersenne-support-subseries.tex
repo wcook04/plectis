@@ -1180,6 +1180,25 @@ sums and denominators, the achievement set and its restrictions,
 squarefree divisor counts, half-membership and the tests for $1/21$) are
 linked beside the corresponding statements there.
 
+\paragraph{Reproducing the weighted theorem.}
+The two Lean declarations for Theorem~\ref{res:weighted-support} are both in
+the public source at
+\href{https://github.com/wcook04/plectis-erdos/tree/91ca3405b795a520825ac5ca04dcd591b9ddf3e3}{commit \texttt{91ca3405}}.
+That snapshot pins Lean~4.29.1 in \texttt{lean-toolchain} and its Mathlib
+revision in \texttt{lake-manifest.json}.  From a complete checkout, with
+\texttt{elan} installed, build the two modules with:
+\begin{verbatim}
+lake exe cache get
+python3 scripts/lean_fast_build.py --jobs 2 \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim
+\end{verbatim}
+The cache download is optional.  The modules contain
+\texttt{divisibilityWeightedClaim} and
+\texttt{finitePrimeWeighted\_fixedBase\_hereditary}, respectively; the
+evidence record linked above gives their exact statements and the separate
+Comparator checks.
+
 \paragraph{Library declarations.}
 Several statements of this note and its companion rest on the following
 library declarations, each opened at a fixed revision.

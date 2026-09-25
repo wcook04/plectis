@@ -65,8 +65,15 @@ complete periods by its weighted summand when the <span
 class="math inline" data-term-auto="off">\(P\)</span>-part of the exponent divides the
 modulus, and through a large common divisor otherwise. The leftover
 incomplete periods of infinitely many exponents need a second average,
-over dyadic values of <span class="math inline" data-term-auto="off">\(T\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean"><code>WeightedReturn.lean</code></a>
+over dyadic values of <span class="math inline" data-term-auto="off">\(T\)</span>. Its length
+is set between two scales. Once the finite part of <span
+class="math inline" data-term-auto="off">\(A\)</span> and its modulus are fixed, the sampling
+modulus grows polynomially in a parameter <span
+class="math inline" data-term-auto="off">\(H\)</span>, while the large-divisor bound has a
+denominator exponential in <span class="math inline" data-term-auto="off">\(H\)</span>; an
+averaging length between the two makes both errors vanish as <span
+class="math inline" data-term-auto="off">\(H\)</span> grows (<a
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean"><code>WeightedReturn.lean</code></a>
 carries both averages).</p>
 <p>Erdős proved the pairwise-coprime case of the reciprocal-summable
 criterion and stated, without details, that coprimality can be
@@ -132,9 +139,12 @@ direct the next computation without entering the proved claims, and a
 clear explanation can describe the wrong formal statement.</p>
 <div id="tab:decisions">
 <table>
-<caption>Four decisions about a returned result, with the record kept
-for the weighted criterion of Section <a class="math-ref" href="#sec:intro">1</a>.</caption>
+<caption>Four decisions about a returned result, for the weighted
+criterion of Section <a class="math-ref" href="#sec:intro">1</a> and the cross-problem
+transfer of Section <a class="math-ref" href="#sec:production">3</a>. An enduring
+endpoint and a justified next step are different allocations.</caption>
 <colgroup>
+<col />
 <col />
 <col />
 <col />
@@ -143,7 +153,8 @@ for the weighted criterion of Section <a class="math-ref" href="#sec:intro">1</
 <tr>
 <th class="ta-l"><p>Decision</p></th>
 <th class="ta-l"> What the world records</th>
-<th class="ta-l"> For the weighted criterion</th>
+<th class="ta-l"> Weighted criterion</th>
+<th class="ta-l"> Dyadic tail differences</th>
 </tr>
 </thead>
 <tbody>
@@ -153,6 +164,10 @@ for the weighted criterion of Section <a class="math-ref" href="#sec:intro">1</
 named inputs, the Lean declaration and its checking receipts</td>
 <td class="ta-l"> Lean proves the criterion; Comparator has
 compared the declarations that state it</td>
+<td class="ta-l"> Lean proves the equivalence with <span
+class="math inline" data-term-auto="off">\(1/31\)</span> and then with <span
+class="math inline" data-term-auto="off">\(1/3\)</span>; the application trace records the
+rejected and the accepted step</td>
 </tr>
 <tr>
 <td class="ta-l"><p>Appraisal</p></td>
@@ -161,6 +176,10 @@ the strength of the result and the obstruction that survives</td>
 <td class="ta-l"> Two averages; Erdős’s reciprocal-summable
 case, credited; admits <span class="math inline" data-term-auto="off">\(A_\star\)</span>;
 excludes full support</td>
+<td class="ta-l"><p>A change of state variable; <span
+class="math inline" data-term-auto="off">\(1/31\)</span> was inherited from radix 30, and
+<span class="math inline" data-term-auto="off">\(1/3\)</span> cannot be raised for radix-two
+orbits in general</p></td>
 </tr>
 <tr>
 <td class="ta-l"><p>Exposition</p></td>
@@ -168,13 +187,20 @@ excludes full support</td>
 paper or the long record, and how its hard step is explained</td>
 <td class="ta-l"> The theorem opens the short paper; the
 example and the full averaging proof follow it</td>
+<td class="ta-l"> Section <a class="math-ref" href="#sec:production">3</a> shows the whole
+transfer; the experiment keeps the trace</td>
 </tr>
 <tr>
 <td class="ta-l"><p>Allocation</p></td>
 <td class="ta-l"> The next question, the test that would
 decide it and the condition for stopping</td>
-<td class="ta-l"> Irrationality for every infinite support,
-registered as an open proposition</td>
+<td class="ta-l"> Irrationality for every infinite support
+stays the registered endpoint; no narrower next step is recorded</td>
+<td class="ta-l"> Is <span
+class="math inline" data-term-auto="off">\(1/3\)</span> best for irrational tails? A probe
+pointed to <span class="math inline" data-term-auto="off">\(0.4125\)</span>, the literature
+fixed the answer, and the question closed; formalising it is
+optional</td>
 </tr>
 </tbody>
 </table>
@@ -272,8 +298,10 @@ decisions of Table <a class="math-ref" href="#tab:decisions">1</a>: what the re
 establishes, whether it is routine or strong and whom it credits, where
 it belongs in a paper, and which obligation deserves the next unit of
 work. One agent may play both roles in sequence. Neither inherits the
-other’s authority, and neither starts new work while the frontier and
-the files that depend on it are unchanged.</p>
+other’s authority. Stewardship runs after a stable result or review
+event, and discovery resumes when the recorded frontier justifies a
+further discriminating attempt; an unchanged record is no reason to poll
+or repeat a run.</p>
 <p>Models do the reading, comparison and drafting under written
 procedures, published with the repository as agent skills. Deterministic
 code assembles each long record from its authored parts, records the
@@ -294,15 +322,72 @@ number with denominator <span class="math inline" data-term-auto="off">\(Q\)</sp
 sum of an infinite subseries of <span
 class="math inline" data-term-auto="off">\(\sum_n1/(2^n-1)\)</span> stops within about <span
 class="math inline" data-term-auto="off">\(2\log_2Q-3.3\)</span> steps; an <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/research/experiments/choices_contraction/README.md"><code>exact rational probe</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/research/experiments/choices_contraction/README.md"><code>exact rational probe</code></a>
 first rules out <span class="math inline" data-term-auto="off">\(189/388\)</span> at step 17.
 The record keeps both facts: the estimate is false, and the problem
 itself is untouched. Inside the weighted proof the same discipline
 explains the second average: the short paper shows why the majorant of
 the reciprocal-summable proof fails beyond that class.</p>
 <p>Reading the problems together raises questions that none of them asks
-alone. Seven of the eight problems ask whether a series is irrational,
-and the synthesis paper <span class="citation"
+alone. The smallest complete case is a transfer between two problems.
+For dyadic tails <span
+class="math inline" data-term-auto="off">\(T_{N+1}=2T_N-g_{N+1}\)</span> with integer digits
+<span class="math inline" data-term-auto="off">\(g_N\)</span>, the Problem 251 record proves
+that <span class="math inline" data-term-auto="off">\(T_0\)</span> is irrational exactly when
+no difference <span class="math inline" data-term-auto="off">\(T_{N+h}-T_N\)</span> with
+<span class="math inline" data-term-auto="off">\(h&gt;0\)</span> is an integer. The Problem
+269 record proves an escape theorem: an orbit <span
+class="math inline" data-term-auto="off">\(x_{n+1}=p_nx_n-c_n\)</span> with <span
+class="math inline" data-term-auto="off">\(p_n,c_n\in\mathbb Z\)</span> and <span
+class="math inline" data-term-auto="off">\(2\le p_n\le30\)</span> reaches an integer or
+returns infinitely often to distance at least <span
+class="math inline" data-term-auto="off">\(1/31\)</span> from the integers. Applied to <span
+class="math inline" data-term-auto="off">\(T\)</span>, the escape theorem says nothing about
+differences. The difference <span
+class="math inline" data-term-auto="off">\(U_N=T_{N+h}-T_N\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(U_{N+1}=2U_N-(g_{N+h+1}-g_{N+1})\)</span>, so it
+applies to <span class="math inline" data-term-auto="off">\(U\)</span>, and the Problem 251
+criterion excludes the integral alternative. Hence <span
+class="math inline" data-term-auto="off">\(T_0\)</span> is irrational exactly when every such
+difference is at least <span class="math inline" data-term-auto="off">\(1/31\)</span> from
+the integers for infinitely many <span class="math inline" data-term-auto="off">\(N\)</span>.
+The <a
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/research/experiments/premise_exchange/README.md"><code>experiment</code></a>
+imports only the two sources and records the Lean outcomes: the
+application to <span class="math inline" data-term-auto="off">\(T\)</span> is rejected, the
+application to <span class="math inline" data-term-auto="off">\(U\)</span> leaves one goal,
+and the Problem 251 theorem closes it. The change of variable is the
+mathematical bridge, and Lean establishes what follows. The constant
+<span class="math inline" data-term-auto="off">\(1/31\)</span> came from the radix bound 30.
+With the bound <span class="math inline" data-term-auto="off">\(B\)</span> as a parameter the
+same proof gives <span class="math inline" data-term-auto="off">\(1/(B+1)\)</span>, which the
+orbit alternating between <span class="math inline" data-term-auto="off">\(1/(B+1)\)</span>
+and <span class="math inline" data-term-auto="off">\(B/(B+1)\)</span> shows cannot be
+improved in general, and hence <span class="math inline" data-term-auto="off">\(1/3\)</span>
+for the differences. Lean checks all three, and the <span
+class="math inline" data-term-auto="off">\(1/31\)</span> run stays in the record as the
+original outcome. A finite probe then asked whether <span
+class="math inline" data-term-auto="off">\(1/3\)</span> is best for irrational tails, and a
+published theorem answered it. Dubickas proved <span
+class="math inline" data-term-auto="off">\(\limsup_n\|2^n\xi\|\ge\tau\)</span> for every
+irrational <span class="math inline" data-term-auto="off">\(\xi\)</span>, with equality at
+the Thue–Morse number <span
+class="math inline" data-term-auto="off">\(\tau=0.412454\ldots\)</span>, as stated by Akiyama
+and Kaneko <span class="citation" data-cites="akiyamakaneko"><a href="#ref-35">[35]</a></span>, so
+every fixed <span class="math inline" data-term-auto="off">\(0&lt;c&lt;\tau\)</span> works in
+the equivalence. The endpoint does not: the doubling orbit of <span
+class="math inline" data-term-auto="off">\(\tau\)</span> stays strictly closer than <span
+class="math inline" data-term-auto="off">\(\tau\)</span> to the integers at every positive
+index, so the admissible constants form the open interval <span
+class="math inline" data-term-auto="off">\((0,\tau)\)</span>. The record keeps the
+Lean-checked <span class="math inline" data-term-auto="off">\(1/3\)</span>, the cited theorem
+and the ordinary endpoint argument, in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/09db551ef4de91e6c56fd6a00add102eacd4b517/research/experiments/premise_exchange/README.md#how-the-question-closed">recorded
+closure</a>, at their own evidence classes. This sharpens a quantitative
+irrationality criterion; establishing the criterion for the actual prime
+gaps remains open.</p>
+<p>Seven of the eight problems ask whether a series is irrational, and
+the synthesis paper <span class="citation"
 data-cites="synthesis"><a href="#ref-16">[16]</a></span> studies what their methods share and
 where each stops. The sparse corrections used for Problem 251 led to a
 capacity criterion for factorial digits, and then to a question: can one
@@ -462,7 +547,7 @@ settles its original statement.</p>
 <section id="credit." class="level5">
 <h5>Credit.</h5>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
 lets an idea be credited separately from its proof, its Lean
 formalisation and its explanation, the roles Kra asks journals to
 distinguish <span class="citation" data-cites="kra"><a href="#ref-5">[5]</a></span>, and credits
@@ -493,7 +578,7 @@ the total-variation form. On 22 September it proved that for one
 polynomial of that construction every preconnected subset of the strict
 lemniscate containing two distinct roots has one-dimensional Hausdorff
 measure greater than <span class="math inline" data-term-auto="off">\(2\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>),
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>),
 which refutes the exact path-image-length statement in Google DeepMind’s
 Formal Conjectures repository <span class="citation"
 data-cites="formalconjectures"><a href="#ref-23">[23]</a></span>. On 23 September the Formal
@@ -616,16 +701,17 @@ cites, and the release checker runs 15,666 checks over claims, papers,
 generated views and licences. A fresh clone needs no private file, and
 no public theorem depends on an unpublished lemma.</p>
 <p>The clone also carries the machinery for continuing a proof. A <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/agents/PROOF_STATE_COMPILER.md"><code>proof-state compiler</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/agents/PROOF_STATE_COMPILER.md"><code>proof-state compiler</code></a>
 takes the declarations that static queries nominate for a goal and asks
 the pinned Lean environment what each application does. A transition
 exists only when Lean reaches the state after the application; the
 subgoals Lean leaves form an AND set that becomes the exact remaining
 obligation, competing applications are OR alternatives, and a proof
-receipt exists only when Lean exits with no goals left. In its pilot,
-applying a Problem 249 totient-tail lemma without its divisibility
-hypothesis leaves exactly that hypothesis open, and supplying it closes
-the same application.</p>
+receipt exists only when Lean exits with no goals left. In the transfer
+of Section <a class="math-ref" href="#sec:production">3</a>
+both applications end with no remaining goals, the rejected one because
+Lean reached no state after it, so acceptance and closure are recorded
+separately.</p>
 <p>The records come from a private environment, built over the past
 year, that runs agents from several model providers, including
 Anthropic’s Claude and OpenAI’s GPT models, concurrently on one shared
@@ -769,12 +855,22 @@ data-cites="leanmarathon"><a href="#ref-32">[32]</a></span>. These are direct pr
 durable formal development linked to its explanation, and a world can
 use a blueprint as its dependency map; the world adds the appraisal
 around the proofs, with the mechanism and antecedents of each result,
-the failed routes and the exact open obligations. Provers such as
-ReProver, built on LeanDojo, and OpenProver <span class="citation"
-data-cites="leandojo openprover"><a href="#ref-33">[33]</a><a href="#ref-34">[34]</a></span> can supply a world with
+the failed routes and the exact open obligations. Hattori, Matsuzaki and
+Fujiwara translate Lean proofs into natural language step by step and
+summarise along the proof structure <span class="citation"
+data-cites="hattori"><a href="#ref-33">[33]</a></span>, a direct precedent for the explanation a
+world keeps beside a formal proof. Each component exists elsewhere; a
+world contributes their combination on one task, as in the transfer of
+Section <a class="math-ref" href="#sec:production">3</a>, where
+the record selected the move, Lean checked it, the explanation sits
+beside the proof and the next question carries its test. The measurement
+of Section <a class="math-ref" href="#sec:limits">8</a>
+compares that workload with the alternatives. Provers such as ReProver,
+built on LeanDojo, and OpenProver <span class="citation"
+data-cites="leandojo openprover"><a href="#ref-36">[36]</a><a href="#ref-37">[37]</a></span> can supply a world with
 candidate proofs, and Li et al. hold generation and validation apart in
 research mathematics without a proof assistant <span class="citation"
-data-cites="lihai"><a href="#ref-35">[35]</a></span>.</p>
+data-cites="lihai"><a href="#ref-38">[38]</a></span>.</p>
 </section>
 </section>
 <section id="sec:limits" class="level2">
@@ -793,10 +889,10 @@ A record also leaves several of the concerns in Section <a class="math-ref" hre
 trains no one, it restores no signal of individual expertise <span
 class="citation" data-cites="litt"></span>, and it answers neither the
 ethical objections some mathematicians raise to AI-assisted
-mathematics <span class="citation" data-cites="chu"><a href="#ref-37">[37]</a></span> nor the
+mathematics <span class="citation" data-cites="chu"><a href="#ref-40">[40]</a></span> nor the
 warning of forty-two Fellows and Foreign Members of the Royal Society
 about catastrophic risk from AI <span class="citation"
-data-cites="greenletter"><a href="#ref-38">[38]</a></span>.</p>
+data-cites="greenletter"><a href="#ref-41">[41]</a></span>.</p>
 <p>The same design serves stronger models. A stronger model starts from
 the current frontier with the failed routes already marked, and it can
 reorganise, re-explain and extend the record as well as the mathematics.
@@ -811,9 +907,10 @@ class="citation" data-cites="gowers"></span>; Koukoulopoulos proposes a
 public facility in which coordinated agents explore a research programme
 divided into subproblems under researchers’ direction <span
 class="citation" data-cites="koukoulopoulos"></span>. A problem-sized
-world supplies the shared record both proposals need, at the scale of
-eight problems, and the written-briefing arm of the measurement below
-stands in for Gowers’s alternative. Antieau writes that texts generated
+world is one concrete way to maintain the sources, explanations and open
+questions such work draws on, here at the scale of eight problems, and
+the measurement below tests its value against an on-demand briefing
+built from the same material. Antieau writes that texts generated
 largely by a language model deserve a home other than the arXiv <span
 class="citation" data-cites="antieau"></span>; a world gives its long
 records one beside the proofs they explain. The same structure suits a
@@ -823,16 +920,29 @@ on public claims.</p>
 <p>The next measurement is comparative. With the source revision, task
 set, model, tool access and budget held fixed, agents receive the Lean
 source alone, an information-equivalent written briefing, or the whole
-world with its continuation tools. Independent domain readers grade
-whether each recovers the strongest supported claim, its hypotheses, its
-hard step, its antecedents and the remaining obligation, and review one
+world with its continuation tools. A representation contrast holds
+information, tools and budget fixed and varies only the organisation and
+recorded decisions; a product contrast compares the world with the best
+on-demand briefing and tools built from the same material, with
+preparation amortised over observed reuse and maintenance, review and
+repair counted on both sides. miniCTX’s repository contexts and temporal
+splits are a precedent for these controls <span class="citation"
+data-cites="minictx"><a href="#ref-34">[34]</a></span>. Independent domain readers grade whether
+each recovers the strongest supported claim, its hypotheses, its hard
+step, its antecedents and the remaining obligation, and review one
 returned change; statement errors, reviewer time and total work,
 preparation and maintenance included, are recorded, and failed and
 abandoned attempts are counted. Ablations separate the short paper, the
 evidence links and the continuation tools; historical tasks need a
 cutoff that hides later proofs and theorem names, and prospective tasks
-give a separate test. Repeating the frozen tasks with a stronger model
-measures what the record adds as models improve.</p>
+give a separate test. Tasks separating meaning from wording include a
+new antecedent that leaves the Lean proof intact and changes the
+appraisal, as the Dubickas comparison did, a dropped hypothesis or a
+limsup bound read as a bound reached infinitely often, and a faithful
+paraphrase. The transfer of Section <a class="math-ref" href="#sec:production">3</a> is a diagnostic
+fixture; discovery comparisons use held-out transformations or
+prospective continuations. Repeating the frozen tasks with a stronger
+model measures what the record adds as models improve.</p>
 </section>
 <section id="sec:conclusion" class="level2">
 <h2>Conclusion</h2>
@@ -840,12 +950,14 @@ measures what the record adds as models improve.</p>
 understand a proof, check it, credit it and build on it: its mechanism,
 its antecedents, its formal evidence and its exact open statements. The
 weighted criterion, the totient basis and the derivative-interpolation
-theorem show that record for three results, and the eight worlds in the
-public repository show that it can be kept persistent, checkable and
-open to contribution across several hard problems. The record is built
-for models stronger than the ones that produced it: each starts from the
-recorded frontier with the failed routes marked, and Section <a class="math-ref" href="#sec:limits">8</a> names the measurement
-that tests whether this makes it more effective.</p>
+theorem show that record for three results, the dyadic transfer shows
+the corpus supplying a proof its parts did not contain, and the eight
+worlds in the public repository show that it can be kept persistent,
+checkable and open to contribution across several hard problems. The
+record is built for models stronger than the ones that produced it: each
+starts from the recorded frontier with the failed routes marked, and
+Section <a class="math-ref" href="#sec:limits">8</a> names the
+measurement that tests whether this makes it more effective.</p>
 </section>
 <section id="app:repro" class="level2">
 <h2>Inspection routes and reproducibility</h2>
@@ -867,63 +979,63 @@ files and add no authority of their own.</caption>
 <tr>
 <td class="ta-l">How does the repository fit together?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">What is proved and what is open?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/RESULTS.md"><code>docs/RESULTS.md</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/RESULTS.md"><code>docs/RESULTS.md</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/claims.json"><code>docs/claims.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/claims.json"><code>docs/claims.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which declaration states each paper
 result?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Where is the checked mathematics?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/lean/Erdos249257.lean"><code>lean/Erdos249257.lean</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/Erdos249257.lean"><code>lean/Erdos249257.lean</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/lean/ErdosProblems.lean"><code>lean/ErdosProblems.lean</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems.lean"><code>lean/ErdosProblems.lean</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">What does Comparator check?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/verification/comparator.json"><code>verification/comparator.json</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/verification/comparator.json"><code>verification/comparator.json</code></a>
 and the corpus replay index <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/evidence/comparator/associations.json"><code>evidence/comparator/associations.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/evidence/comparator/associations.json"><code>evidence/comparator/associations.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Whose earlier work does each result
 use?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/PRIOR_ART.md"><code>docs/PRIOR_ART.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/PRIOR_ART.md"><code>docs/PRIOR_ART.md</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which checks gate a release?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/scripts/check_release.py"><code>scripts/check_release.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/scripts/check_release.py"><code>scripts/check_release.py</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">How can work return with credit?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contributions</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contributions</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which agent skills exist?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/skills/README.md"><code>skills/README.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/skills/README.md"><code>skills/README.md</code></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -948,7 +1060,7 @@ href="https://www.erdosproblems.com">erdosproblems.com</a>, accessed
 September 2026.</p></li>
 <li id="ref-2"><p>W. Cook, <em>Weighted Support Criteria for Reciprocal Mersenne
 Subseries</em>, short paper on Erdős Problem 257, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/paper/257/erdos-257-mersenne-support-subseries.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/257/erdos-257-mersenne-support-subseries.pdf"><code>PDF</code></a>.</p></li>
 <li id="ref-3"><p>P. Erdős, <em>On the irrationality of certain series</em>,
 Math. Student 36 (1968), 222–226 (issued 1969), <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf">scan</a>.</p></li>
@@ -988,7 +1100,7 @@ Mathématique 28, 1980, p. 61.</p></li>
 <li id="ref-12"><p>W. Cook, <em>Bases and Integral Relations for the <span
 class="math inline" data-term-auto="off">\(k\)</span>-Kernel of Euler’s Totient</em>, short
 paper on Erdős Problem 249, revised 18 September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/paper/249/erdos-249-binary-totient-series.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/249/erdos-249-binary-totient-series.pdf"><code>PDF</code></a>.</p></li>
 <li id="ref-13"><p>M. Coons, <em>(Non)Automaticity of number theoretic
 functions</em>, J. Théor. Nombres Bordeaux 22 (2010), 339–352, <a
 href="https://doi.org/10.5802/jtnb.718">DOI</a>, Theorem 3.2.</p></li>
@@ -1002,7 +1114,7 @@ J. Théor. Nombres Bordeaux 13 (2001), 651–658, <a
 href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/">Numdam</a>.</p></li>
 <li id="ref-16"><p>W. Cook, <em>Reading Eight Erdős Problems Together</em>,
 synthesis paper, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/872d16d07a4f1456300b923bc686ab31497b4df5/paper/synthesis/optimal-sparse-perturbations.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/synthesis/optimal-sparse-perturbations.pdf"><code>PDF</code></a>.</p></li>
 <li id="ref-17"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
@@ -1060,37 +1172,52 @@ href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
 <em>LeanMarathon: Toward Reliable AI Co-Mathematicians through
 Long-Horizon Lean Autoformalization</em>, 2026, <a
 href="https://arxiv.org/abs/2606.05400">arXiv:2606.05400</a>.</p></li>
-<li id="ref-33"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
+<li id="ref-33"><p>S. Hattori, T. Matsuzaki, and M. Fujiwara, <em>Natural Language
+Translation of Formal Proofs through Informalization of Proof Steps and
+Recursive Summarization along Proof Structure</em>, in <em>Proceedings
+of the 18th International Natural Language Generation Conference</em>,
+2025, pp. 376–389, <a
+href="https://aclanthology.org/2025.inlg-main.23/">ACL
+Anthology</a>.</p></li>
+<li id="ref-34"><p>J. Hu, T. Zhu, and S. Welleck, <em>miniCTX: Neural Theorem
+Proving with (Long-)Contexts</em>, ICLR 2025, <a
+href="https://arxiv.org/abs/2408.03350">arXiv:2408.03350</a>.</p></li>
+<li id="ref-35"><p>S. Akiyama and H. Kaneko, <em>Multiplicative analogue of
+Markoff–Lagrange spectrum and Pisot numbers</em>, Adv. Math. 380 (2021),
+107547, p. 3, reporting the theorem of A. Dubickas, J. Number Theory 117
+(2006), 222–239, <a
+href="https://arxiv.org/abs/1911.06170v6">arXiv:1911.06170v6</a>.</p></li>
+<li id="ref-36"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models</em>, NeurIPS 2023.</p></li>
-<li id="ref-34"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
+<li id="ref-37"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
 Theorem Proving with Lean 4</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2607.09217">arXiv</a>.</p></li>
-<li id="ref-35"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
+<li id="ref-38"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
 Mathematical Research via Human-AI Interactive Theorem Proving</em>,
 2025, <a
 href="https://arxiv.org/abs/2512.09443v2">arXiv:2512.09443v2</a>.</p></li>
-<li id="ref-36"><p>D. Litt, <em>A beginning for mathematics</em>, 13 September 2026,
+<li id="ref-39"><p>D. Litt, <em>A beginning for mathematics</em>, 13 September 2026,
 <a
 href="https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/">blog
 post</a>.</p></li>
-<li id="ref-37"><p>T. Chu, <em>The AI dissenter viewpoint</em>, <em>Proofs and
+<li id="ref-40"><p>T. Chu, <em>The AI dissenter viewpoint</em>, <em>Proofs and
 Prompts</em>, 9 August 2026, <a
 href="https://proofsandprompts.com/2026/08/09/the-ai-dissenter-viewpoint/">blog
 post</a>.</p></li>
-<li id="ref-38"><p>B. Green and forty-one other Fellows and Foreign Members of the
+<li id="ref-41"><p>B. Green and forty-one other Fellows and Foreign Members of the
 Royal Society, <em>Open letter to Sir Paul Nurse, President of the Royal
 Society</em>, <em>Proofs and Prompts</em>, 17 September 2026, <a
 href="https://proofsandprompts.com/2026/09/17/open-letter-to-sir-paul-nurse-president-of-the-royal-society/">blog
 post</a>.</p></li>
-<li id="ref-39"><p>W. T. Gowers, <em>Why I didn’t sign the Fields medallists’
+<li id="ref-42"><p>W. T. Gowers, <em>Why I didn’t sign the Fields medallists’
 letter</em>, 17 September 2026, <a
 href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/">blog
 post</a>.</p></li>
-<li id="ref-40"><p>D. Koukoulopoulos, <em>A CERN for AI-assisted science?</em>,
+<li id="ref-43"><p>D. Koukoulopoulos, <em>A CERN for AI-assisted science?</em>,
 guest post on <em>What’s new</em>, 17 September 2026, <a
 href="https://terrytao.wordpress.com/2026/09/17/a-cern-for-ai-assisted-science/">blog
 post</a>.</p></li>
-<li id="ref-41"><p>B. Antieau, <em>Fast math/slow math</em>, 15 September 2026, <a
+<li id="ref-44"><p>B. Antieau, <em>Fast math/slow math</em>, 15 September 2026, <a
 href="https://antieau.github.io/2026/09/15/fast-math-slow-math.html">blog
 post</a>.</p></li>
 </ol>

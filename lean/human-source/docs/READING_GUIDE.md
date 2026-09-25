@@ -33,9 +33,10 @@ You can follow one question or read across the corpus: a failed method in one
 programme can suggest a different theorem in another. The
 [reading edition](reading-edition/README.md) gives a short research instruction
 and the opening of each short paper in one file. For #257, follow the weighted
-theorem through its averaging proof, the small-displacement test that fails at
-full support, the long record, the Lean source and the still-open universal
-question. Failure of the weighted condition does not show rationality.
+theorem, its averaging proof, the long record and Lean source. Then try the
+[changed-base exercise](../research/experiments/weighted_support_transfer/README.md):
+the failed sufficient test proves no rationality claim, and the universal
+question remains open.
 
 ## What is here
 

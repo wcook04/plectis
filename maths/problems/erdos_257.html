@@ -1708,6 +1708,25 @@ denominators, the achievement set and its restrictions, squarefree
 divisor counts, half-membership and the tests for <span
 class="math inline" data-term-auto="off" data-tex="\(1/21\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>21</mn></math></mjx-assistive-mml></mjx-container></span>) are linked beside the corresponding
 statements there.</p>
+<section id="erdos-257-mersenne-support-subseries__reproducing-the-weighted-theorem." class="level5">
+<h5>Reproducing the weighted theorem.</h5>
+<p>The two Lean declarations for Theorem <a class="math-ref" href="#erdos-257-mersenne-support-subseries__res:weighted-support">1.1</a> are both in
+the public source at <a
+href="https://github.com/wcook04/plectis-erdos/tree/91ca3405b795a520825ac5ca04dcd591b9ddf3e3">commit
+<code>91ca3405</code></a>. That snapshot pins Lean 4.29.1 in
+<code>lean-toolchain</code> and its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> revision in
+<code>lake-manifest.json</code>. From a complete checkout, with
+<code>elan</code> installed, build the two modules with:</p>
+<pre><code>lake exe cache get
+python3 scripts/lean_fast_build.py --jobs 2 \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn \
+  ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim</code></pre>
+<p>The cache download is optional. The modules contain
+<code>divisibilityWeightedClaim</code> and
+<code>finitePrimeWeighted_fixedBase_hereditary</code>, respectively; the
+evidence record linked above gives their exact statements and the
+separate Comparator checks.</p>
+</section>
 <section id="erdos-257-mersenne-support-subseries__library-declarations." class="level5">
 <h5>Library declarations.</h5>
 <p>Several statements of this note and its companion rest on the
@@ -3120,7 +3139,7 @@ class="uri">https://arxiv.org/abs/2509.24971v3</a>.</p></li>
       </details>
 <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="erdos_251.html"><span class="maths-pager__dir">Previous</span>#251 The prime-gap dyadic series</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="erdos_269.html"><span class="maths-pager__dir">Next</span>#269 Three-prime running least common multiples</a></nav>
       <section class="maths-receipt" aria-label="How this page is generated">
-        <p>Every statement, boundary and count above is copied from the public Lean repository&#8217;s published data layer at source generation <code>2d5edd31d4c889bb</code>. Nothing on this page is written by hand, and a redeploy regenerates all of it from the repository as it then stands.</p>
+        <p>Every statement, boundary and count above is copied from the public Lean repository&#8217;s published data layer at source generation <code>ad344b8424d4f164</code>. Nothing on this page is written by hand, and a redeploy regenerates all of it from the repository as it then stands.</p>
       </section>
       </div>
     </main>

@@ -261,9 +261,15 @@ grouped by the problem whose note they serve.
 
 - J. Koizumi, [*Irrationality of the reciprocal sum of doubly exponential sequences* (Integers 26 (2026), A28)](https://math.colgate.edu/~integers/aa28/aa28.pdf); [arXiv:2504.05933](https://arxiv.org/abs/2504.05933) ([read source closure](primary-sources/reciprocal-tail/koizumi-2026-source-closure.md))
 
-  Supplies normalised vanishing for the canonical orbit, the sole hypothesis of the note's headline conditional theorems not proved in Lean; the published Lemma 3 and Proposition 1(2) (the preprint-v1 Lemma 13 and Proposition 19(2)) are conceded in-note as prior art for the note's absorption and descent lemmas.
+  Koizumi's canonical-tail and normalised-vanishing arguments are prior art.
+  The note credits his published Lemma 3 and Proposition 1(2) (preprint-v1
+  Lemma 13 and Proposition 19(2)) for absorption and descent.
 
-  **Boundary.** The bridge is prose; only the integer state-system theorems are kernel-checked here, and no priority or independence is adjudicated.
+  **Boundary.** Lean checks `canonical_integer_tail_normalized`,
+  `canonical_tail_ratio_quantitative` and
+  `cubic_rate_irrationality_unconditional`. The paper's one-based finite-prefix
+  bridge remains prose. Unrestricted #243 is open; no priority or independence
+  is adjudicated.
 
 ### #251
 

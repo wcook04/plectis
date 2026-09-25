@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "a251c0ebf9dffa3835eafded23b0ef2193dd47fb6b1c0e59847a181572dfe3be",
+    "source_sha256": "ceac7c60590684ac5d40d35c4b1575961bbfaa2c90f9b30758227a4d4e91878e",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "862f639c930e51565aa9aa5b2cea4c38adaf6b6be02bfdd2e9c758d8b453b3d4",
-    "html_exact_tex_sha256": "2695e42ae497d34ed00c10d4b357cb4b91e803dbec5e74da01ae51c069d17c2d"
+    "html_mathml_sha256": "466e98b3dc2ccd3cde496a3d4895a40d6c4ddb22130ce2f7148a1b275fefe022",
+    "html_exact_tex_sha256": "6a9b56951f9e926fc210d11d93398d792442f39cc0e0a003c37675ad410d7278"
   },
   "sections": [
     {
@@ -69,6 +69,11 @@
       "level": 2,
       "anchor": "corpus-at-a-glance",
       "label": "Corpus at a glance"
+    },
+    {
+      "level": 2,
+      "anchor": "formal-conjectures-contributions",
+      "label": "Formal Conjectures contributions"
     },
     {
       "level": 2,
