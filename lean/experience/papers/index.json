@@ -5394,7 +5394,7 @@
       "subject": "Eight Erdős problems read together",
       "subject_kind": "synthesis",
       "form": "Cross-problem paper",
-      "pages": 31,
+      "pages": 32,
       "question": "When do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erdős programmes?",
       "precis": "One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.",
       "owns": "the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record",
@@ -5418,10 +5418,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "62b30a66e6e9ea5f1a22c258be646c0953ef5d4030f0a7c344d5417a0efa529a",
+        "source_sha256": "1b70085a86d8631b484f6524714cdeaea0299fc9a3cf19053a31fdcb9a2bfecb",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1237,
+        "mathml_node_count": 1264,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -5434,8 +5434,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "b14c47f2bfb7ffa49d8b268c1ad63356b14c1257dcf4ba73ab4a3047600efdd0",
-        "html_exact_tex_sha256": "96f2beb7678e0a319c32b2d1e2563fdd93b5f3fbf4062baa619c16773c612535"
+        "html_mathml_sha256": "099c5fc4a56d4f7d4eddbec4fae9e362a0c8afe5e5f05a9b001984a42ec275bc",
+        "html_exact_tex_sha256": "c7a1765e7f029e19285e3e03a11ec07e2593c1ef9067b80b02e682c21d7d7d34"
       },
       "sections": [
         {
@@ -5653,7 +5653,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Research architecture",
-      "pages": 14,
+      "pages": 16,
       "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
       "precis": "The paper opens with an irrationality criterion for Erdős Problem 257, checked in Lean and by Comparator, that admits supports with divergent reciprocal sum, and shows what a problem-sized world keeps for it: the mechanism, the credited antecedent, the formal evidence and the open question. A world keeps one research problem with its results, failed routes, experiments, literature and exact open obligations, and records four decisions about every result separately: its evidence, its appraisal, its exposition and the next unit of work. Lean checks the formal proofs, Comparator checks selected ones against separately written statements, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and blueprint systems and states what remains a mathematician's judgement.",
       "owns": "the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle",
@@ -5677,17 +5677,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "6d01a38e0ce0ca5df07d0369a1e15566e400a9f60d3c2daff8dd1a69798facb2",
+        "source_sha256": "7ac81951bbec1935a5788cbddce341b1b7d6af269d14cf8005f4111a98da1bfc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 172,
+        "mathml_node_count": 183,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "334e3e8a6d4fa245aeb691425e5b355b68d4808ea7516717b71895d37cc49c84",
-        "html_exact_tex_sha256": "68b318b614fc5bd1eaf0f90553d0405a8af59fc7cdb2b1bc8eb8d8745f278a1d"
+        "html_mathml_sha256": "83677b03d4c25bffe77587c03c784fca80eac8c7a3e598ad6ba55b90e5950ae3",
+        "html_exact_tex_sha256": "083a59f659731183262bc2c3659c7d012ba37ebe80f4eed1ab871a7319b461bd"
       },
       "sections": [
         {
@@ -5709,6 +5709,11 @@
           "level": 5,
           "anchor": "discovery-and-stewardship.",
           "label": "Discovery and stewardship."
+        },
+        {
+          "level": 5,
+          "anchor": "testing-a-proposed-measure-of-value.",
+          "label": "Testing a proposed measure of value."
         },
         {
           "level": 2,
@@ -5829,7 +5834,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "7d629bd4139ae382eb72aa9c77e3303846f99c832f8800b3c0c6e9c2bd9f5289",
+        "source_sha256": "89ff084d0b7d2ba36b84f7287514b5e9c7a974936c22afafd835eb0b5d6182c5",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -5838,8 +5843,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f78a99c4c7a530f4dfe8bf6f2b04a5ff29598b4e73a01ee80f31df4ed8b623ba",
-        "html_exact_tex_sha256": "f42eaade38383a1a994fe80bd796d307de76783a971ba0afbce270409532db46"
+        "html_mathml_sha256": "6ef9a2d554becade40c15226d9272c98e1b6f050aff5e38c0af10e2618886623",
+        "html_exact_tex_sha256": "33f85dd7af2f6f6b7d4a8bf85dedf9dd5e55472e9247e9f0dc29ef9e31a48ac4"
       },
       "sections": [
         {
@@ -5982,7 +5987,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Open-source research strategy",
-      "pages": 25,
+      "pages": 26,
       "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
       "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
       "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -6006,7 +6011,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "35a129f690176e6aa9eed97fe0b52f971f67502bd96891a4189a5df99d961654",
+        "source_sha256": "badcff778bfef6a840bd5395c4417ea45f45321bf48f003365decdb12111bc35",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 16,
@@ -6032,8 +6037,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f83820b4b8ead800bca0eaef910577202043342d83c380973d5c3c8ade49bc5f",
-        "html_exact_tex_sha256": "443acaebfa2814ba6a9b4f23c0c01d54e724994dcb512f00f024ba5988ea3341"
+        "html_mathml_sha256": "368289a934061fe7f25575e2f3cab17226490c050c2aef59e6fa5eba02331ca0",
+        "html_exact_tex_sha256": "b95d3e9e5c61a789c508d53d99adf37c1941219016709070d018b6565149933e"
       },
       "sections": [
         {

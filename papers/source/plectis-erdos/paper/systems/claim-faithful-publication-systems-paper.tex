@@ -15,14 +15,14 @@
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{151,710}
+\newcommand{\SemanticAuthoredTheoremLike}{151,750}
 \newcommand{\SemanticAuthoredInterpreted}{139,818}
 \newcommand{\SemanticDirectEvidence}{3,330}
 \newcommand{\SemanticContextual}{136,488}
-\newcommand{\SemanticStructuralOnly}{11,892}
-\newcommand{\SemanticAuthoredPercent}{92.2}
+\newcommand{\SemanticStructuralOnly}{11,932}
+\newcommand{\SemanticAuthoredPercent}{92.1}
 % END generated_semantic_coverage_macros
-\newcommand{\repolink}[2]{\href{\repobase/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/af849c4709186165092254b08b00e9524f11144b/#1}{\texttt{#2}}}
 \emergencystretch=1.7em
 
 \runninghead{Problem-sized Lean worlds}
@@ -307,6 +307,63 @@ linked and that each registered limitation stays visible. No deterministic
 check decides what is important; that judgement, whoever drafts it, is written
 into the paper, where a reader can inspect and dispute it.
 
+\paragraph{Testing a proposed measure of value.}
+Patel et al.~\cite{patel} propose conditional proof difficulty as a way to
+choose useful mathematics: a lemma is valuable when making it available
+shortens later proofs. Their intrinsic score divides proof cost by the length
+of the statement and its required definitions. Their direct-use utility
+multiplies that cost by the number of citing theorems. This gives stewardship
+a testable proposal, but the shared proof-cost factor means that correlation
+between the two scores alone cannot establish that either finds useful
+abstractions. Our \href{\repobase/blob/d8c241f3/research/experiments/interestingness/README.md}{accompanying experiment} compares the observed correlation
+with shuffled user counts, separates generated certificates and repeated
+statement text, and records the resolved part of the dependency graph. It
+uses indexed subtotals of recorded source proofs; it neither trains their value
+model nor estimates a shortest proof.
+
+On the source snapshot used here, the two proxies have Spearman correlation
+$0.799$ over 9,289 cited theorem or lemma declarations. Yet their common
+proof-cost factor survives shuffling the user counts: all 64 fixed-seed
+permutations give a larger correlation, with mean $0.833$, while the
+interestingness proxy correlates $-0.172$ with user count alone. This is a
+negative control against interpreting the local correlation as independent
+evidence of reuse prediction, not a test of the authors' trained model.
+Excluding every target with generated-certificate ancestry leaves 8,022
+declarations and correlation $0.856$; excluding targets whose indexed
+dependency closure reports any omitted internal reference leaves 2,417 and
+$0.660$. These are different selected populations, not causal estimates.
+The experiment therefore reports source coverage alongside each result:
+the index resolves 16,111 declarations and omits private helpers and some
+public dependencies. Its costs are subtotals in that index. The analysis
+turns an apparently reassuring correlation into a concrete demand for
+independent evaluation.
+
+Conditioning on a workload gives a different question. In an
+\href{\repobase/blob/bb8f1f64/research/experiments/interestingness/conditional_reuse.json}{eight-target inspection experiment}
+drawn from the Problem 251 and 269 papers, shared prerequisites account for
+3,529 indexed lines, compared with 6,135 if every target is inspected
+separately. Among the same candidate premises, the leader by use count times
+cost removes only 30 lines from the shared subtotal; the largest initial
+contextual cut removes 491. Neither number determines importance: reading
+the source identifies the latter as an equivalence wrapper and redirects
+attention to the underlying arguments. Two Problem 269 premises remove 220
+and 216 lines separately, but 467 together, because a shared dependency stops
+being needed only after both paths to it are cut. Thus contextual gains can
+increase; adding individual scores misses this complementarity, and greedy
+selection has no general optimality guarantee. The paired tests make the
+workload and available premises explicit before allocating an inspection.
+
+The resulting candidates carry different jobs. A widely reused lemma needs
+an explanation of the mechanism its users share; a repeated statement needs
+a comparison of its elaborated types and the pinned library; a large
+certificate dependency needs an inspection of the generator before its size
+is read as mathematical difficulty. A negative result that eliminates an
+unproductive attack can deserve attention despite few formal users. The
+\href{\repobase/blob/d8c241f3/skills/run-coupled-research-goals/SKILL.md}{stewardship procedure}
+requires a named consumer or falsifiable test and records the allocation
+separately from the score. Such a ranking changes which question is checked
+next; the returned evidence determines whether the appraisal changes.
+
 Negative results are part of what the loop produces. Tao observes that
 withheld negative results and processes hide where a new frontier
 lies~\cite{taomining}; the record keeps them. A counterexample refutes a
@@ -356,6 +413,17 @@ closure}, at their own evidence classes. This sharpens a quantitative irrational
 criterion; establishing the criterion for the actual prime gaps remains
 open.
 
+The transfer also makes conditional proof cost concrete. Holding the target
+fixed, one can inspect the source work counted when the recorded proof is
+expanded through the shift criterion or the escape lemma, and the work counted
+when these are treated as available premises.
+Patel et al.'s composition inequality bounds ideal proof cost through an
+intermediate lemma; their Bellman-type equality requires an additional
+optimal-intermediate assumption~\cite[Definition~1]{patel}. A dependency
+expansion of these recorded proofs is an inspectable accounting model, not
+evidence for that assumption. The successful change from $T$ to its
+difference $U$ remains the mathematical reason these two premises combine.
+
 The sharp-constant question then leads to a question about the shifts being
 tested. A rational dyadic orbit is eventually periodic modulo one, so a
 family containing a multiple of every positive integer detects its eventual
@@ -399,6 +467,31 @@ become bounded integer coefficients, which eventual divisibility forces to
 vanish. Both theorems are proved in the synthesis paper by ordinary argument
 and carry no Lean mark; Lean checks the finite carry identity and its
 preservation of divisibility.
+
+The same corpus reading can suggest a representation absent from the recorded
+dependency graph. For a divisibility chain of exponents, the synthesis paper
+previously used a Mahler equation only when successive ratios eventually
+equal two. Grouping a repeated block of integer ratios instead proves that
+\emph{every eventually periodic ratio chain has a transcendental Lambert
+subsum at every algebraic real base greater than one}. For alternating ratios
+$2,3$, the support is $\{6^k,2\cdot6^k:k\ge0\}$ and its generating function
+satisfies
+\[
+ G(z)-G(z^6)=\frac{z}{1-z}+\frac{z^2}{1-z^2}.
+\]
+The old doubling equation fails at coefficient four. The block decomposition
+proves the new equation at every degree; infinitely many boundary
+singularities and Nishioka's value theorem supply transcendence. This covers
+base $4/3$, where the earlier denominator estimate fails. The full ordinary
+proof and attribution are in the updated synthesis theorem~\cite{synthesis};
+the \href{\repobase/blob/01de6282/research/experiments/interestingness/periodic_chain_probe.py}{coefficient probe}
+also rejects the same block equation on a specified nonperiodic ratio word.
+Finite agreement is a test of the proposed representation, not the infinite
+proof, and arbitrary nonperiodic chains remain beyond this argument. This is
+an application of classical Mahler theory, with no Lean or novelty claim. It
+illustrates a candidate-generating move---search for a functional equation
+before improving the estimate---without attributing the result to a numeric
+ranking or claiming measured discovery advantage.
 
 \section{From a proof to a public claim}\label{sec:checks}
 \papersectiontarget{systems-lifecycle}
@@ -821,6 +914,13 @@ transfer of Section~\ref{sec:production} is a diagnostic fixture; discovery
 comparisons use held-out transformations or prospective continuations. Repeating the frozen tasks with a stronger model measures
 what the record adds as models improve.
 
+For score-guided allocation, freeze the candidate statements and their
+rankings before the continuation period. Compare with proof-size, direct-use
+and unranked selection under equal effort, recording later independent
+consumers, accepted reuse, review cost and abandoned attempts. Scoring the
+selected outputs by the selection score would test the optimiser rather than
+the usefulness of its choices.
+
 \section{Conclusion}\label{sec:conclusion}
 
 A problem-sized world keeps the record that lets other people understand a
@@ -948,7 +1048,7 @@ sequences}, J.\ Th\'eor.\ Nombres Bordeaux 13 (2001), 651--658,
 \href{https://www.numdam.org/item/JTNB_2001__13_2_651_0/}{Numdam}.
 \bibitem{synthesis} W.~Cook, \emph{Reading Eight Erd\H{o}s Problems
 Together}, synthesis paper, September 2026,
-\repolink{paper/synthesis/optimal-sparse-perturbations.pdf}{PDF}.
+\href{\repobase/blob/af1462ce/paper/synthesis/optimal-sparse-perturbations.tex}{source, including the periodic-chain theorem}.
 \bibitem{aletheia} T.~Feng, T.~Trinh, G.~Bingham, et al., \emph{Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erd\H{o}s Problems},
 2026, \href{https://doi.org/10.48550/arXiv.2601.22401}{arXiv}.
@@ -974,6 +1074,9 @@ mark solved with answer(False) and link a formal proof}, merged 23 September
 \bibitem{fan269} S.~Fan, comment on Erd\H{o}s Problem \#269, erdosproblems.com
 forum, 26 June 2026,
 \href{https://www.erdosproblems.com/forum/thread/269\#post-7218}{forum post}.
+\bibitem{patel} N.~Patel, A.~Rammal, A.~Hayat, R.~Munos, and J.~Kempe,
+\emph{Learning to Discover Interesting Mathematics}, arXiv:2609.28603v1,
+2026, \url{https://arxiv.org/abs/2609.28603}.
 \bibitem{prove2me} S.~Chen, K.~Marwaha, X.~Lu, H.~Yuen, and T.~Peng,
 \emph{Prove2Me: An Open Collaborative Platform for Scaling Math
 Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2608.28433}{arXiv}.

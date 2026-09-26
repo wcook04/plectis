@@ -5,7 +5,7 @@
   "subject": "Eight Erdős problems read together",
   "subject_kind": "synthesis",
   "form": "Cross-problem paper",
-  "pages": 31,
+  "pages": 32,
   "question": "When do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erdős programmes?",
   "precis": "One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.",
   "owns": "the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "62b30a66e6e9ea5f1a22c258be646c0953ef5d4030f0a7c344d5417a0efa529a",
+    "source_sha256": "1b70085a86d8631b484f6524714cdeaea0299fc9a3cf19053a31fdcb9a2bfecb",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1237,
+    "mathml_node_count": 1264,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -45,8 +45,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "b14c47f2bfb7ffa49d8b268c1ad63356b14c1257dcf4ba73ab4a3047600efdd0",
-    "html_exact_tex_sha256": "96f2beb7678e0a319c32b2d1e2563fdd93b5f3fbf4062baa619c16773c612535"
+    "html_mathml_sha256": "099c5fc4a56d4f7d4eddbec4fae9e362a0c8afe5e5f05a9b001984a42ec275bc",
+    "html_exact_tex_sha256": "c7a1765e7f029e19285e3e03a11ec07e2593c1ef9067b80b02e682c21d7d7d34"
   },
   "sections": [
     {

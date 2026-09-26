@@ -8957,12 +8957,48 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos249.TotientApproximationDichotomy",
+        "label": "ErdosProblems.Erdos249.TotientApproximationDichotomy",
+        "path": "lean/ErdosProblems/Erdos249/TotientApproximationDichotomy.lean",
+        "direct": true,
+        "content_digest": "sha256:7b26a5788b2b2ff167313175b539c351495c5f046575c85cd463693d563fab1e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientApproximationDichotomy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TotientMeanApproximation",
+        "label": "ErdosProblems.Erdos249.TotientMeanApproximation",
+        "path": "lean/ErdosProblems/Erdos249/TotientMeanApproximation.lean",
+        "direct": true,
+        "content_digest": "sha256:b5ceb0d6cb77b09811402ae173ab883ce8984415d97392dbb000ee227a702b41",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientMeanApproximation.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos249.TotientStrictPrimeEscape",
         "label": "ErdosProblems.Erdos249.TotientStrictPrimeEscape",
         "path": "lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
         "direct": true,
         "content_digest": "sha256:d1c192d9ea692136eb58382e87fba2fdc61372de70dd7213c6fc083efbf2c09b",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TotientTranslateSeparation",
+        "label": "ErdosProblems.Erdos249.TotientTranslateSeparation",
+        "path": "lean/ErdosProblems/Erdos249/TotientTranslateSeparation.lean",
+        "direct": true,
+        "content_digest": "sha256:1dd1501c5a2c10d92aa86f1d13f40e7f7b752d3744de16f399cb16b95d76e5a4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientTranslateSeparation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos249.TotientUniformRankBarrier",
+        "label": "ErdosProblems.Erdos249.TotientUniformRankBarrier",
+        "path": "lean/ErdosProblems/Erdos249/TotientUniformRankBarrier.lean",
+        "direct": true,
+        "content_digest": "sha256:7b41f00fbf2f1a67ebdc25daf6228c99e6606ffbf3ee41f6125e1e23b816acf0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientUniformRankBarrier.lean",
         "role": "Lean proof module"
       },
       {
@@ -9173,6 +9209,42 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "label": "ErdosProblems.Erdos269.KernelCarryRank",
+        "path": "lean/ErdosProblems/Erdos269/KernelCarryRank.lean",
+        "direct": false,
+        "content_digest": "sha256:8b32ea2f9583cbea2d5c31c53da1f76400a4f3312a888bea0598016c16044839",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/KernelCarryRank.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR7AnalyticInterfaces",
+        "label": "ErdosProblems.Erdos269.PaperR7AnalyticInterfaces",
+        "path": "lean/ErdosProblems/Erdos269/PaperR7AnalyticInterfaces.lean",
+        "direct": false,
+        "content_digest": "sha256:85e66b3c7f2edcfdbd853d32ecf0958d7d6d71b285aad3a0f9caa558a53dd2ee",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7AnalyticInterfaces.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.PaperR8UniformRank",
+        "label": "ErdosProblems.Erdos269.PaperR8UniformRank",
+        "path": "lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean",
+        "direct": false,
+        "content_digest": "sha256:74cb5f2fef519b1a4aaa2460c3cda559e8c91804fd9262f1c0a3dc3562006fe8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm",
+        "label": "ErdosProblems.Erdos269.ThreePrimeRunningLcm",
+        "path": "lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+        "direct": false,
+        "content_digest": "sha256:769d80481465f4fd8655d5d62c5eb3e372c80c39b0722e80659bf4e150c6c036",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Lift.CertT67",
         "label": "ErdosProblems.Lift.CertT67",
         "path": "lean/ErdosProblems/Lift/CertT67.lean",
@@ -9191,6 +9263,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Shared.IrrationalRotationStaircase",
+        "label": "ErdosProblems.Shared.IrrationalRotationStaircase",
+        "path": "lean/ErdosProblems/Shared/IrrationalRotationStaircase.lean",
+        "direct": false,
+        "content_digest": "sha256:c3c2013d856ecedc3751e6fb0a4ac237e3ea397aa96fd475c76811137a74ba71",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/IrrationalRotationStaircase.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Shared.MertensSecond",
         "label": "ErdosProblems.Shared.MertensSecond",
         "path": "lean/ErdosProblems/Shared/MertensSecond.lean",
@@ -9206,6 +9287,15 @@
         "direct": false,
         "content_digest": "sha256:7baa0902174c28265287372586abc75d400cfb548af47ed428378622be0c228f",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Skip/LadderT67.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Synthesis.UniformRankBarrier",
+        "label": "ErdosProblems.Synthesis.UniformRankBarrier",
+        "path": "lean/ErdosProblems/Synthesis/UniformRankBarrier.lean",
+        "direct": false,
+        "content_digest": "sha256:b428a4f102befa63e6577c167c76a60ab9fbaa9c1ee05b682dc41cd5afa832dd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/UniformRankBarrier.lean",
         "role": "Lean proof module"
       }
     ],
@@ -15915,8 +16005,32 @@
         "target": "lean-module:Erdos249257.SignedQMomentObstruction"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientApproximationDichotomy",
+        "target": "lean-module:ErdosProblems.Erdos249.TotientMeanApproximation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientApproximationDichotomy",
+        "target": "lean-module:ErdosProblems.Erdos249.TotientUniformRankBarrier"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientMeanApproximation",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientMeanApproximation",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR8UniformRank"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos249.TotientStrictPrimeEscape",
         "target": "lean-module:Erdos249257.PivotAntiReconstruction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientUniformRankBarrier",
+        "target": "lean-module:ErdosProblems.Erdos249.TotientTranslateSeparation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.TotientUniformRankBarrier",
+        "target": "lean-module:ErdosProblems.Synthesis.UniformRankBarrier"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.Audit",
@@ -16015,6 +16129,22 @@
         "target": "lean-module:ErdosProblems.Erdos251.ResidueFeedbackCore"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "target": "lean-module:ErdosProblems.Erdos269.ThreePrimeRunningLcm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.KernelCarryRank",
+        "target": "lean-module:ErdosProblems.Shared.IrrationalRotationStaircase"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR7AnalyticInterfaces",
+        "target": "lean-module:ErdosProblems.Erdos269.KernelCarryRank"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos269.PaperR8UniformRank",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR7AnalyticInterfaces"
+      },
+      {
         "source": "lean-module:ErdosProblems.Lift.CertT67",
         "target": "lean-module:ErdosProblems.DemandLedger.edges.Discharge1_G097"
       },
@@ -16029,6 +16159,10 @@
       {
         "source": "lean-module:ErdosProblems.Skip.LadderT67",
         "target": "lean-module:ErdosProblems.Lift.Recon67"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Synthesis.UniformRankBarrier",
+        "target": "lean-module:ErdosProblems.Erdos269.PaperR8UniformRank"
       }
     ]
   },

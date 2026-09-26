@@ -219,38 +219,38 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.pdf",
-      "source_sha256": "5e420944fe5b07e81e20145eadd7eaf4c895f7fa9ad4bfc7e9d3511a46b07b35",
-      "bytes": 220052,
+      "source_sha256": "5958eba5880f9e6f9bc8e1f4d911d1120ea3b100a665f4969f33ba7b898acbf0",
+      "bytes": 224949,
       "source_tex_path": "paper/synthesis/optimal-sparse-perturbations.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/synthesis/optimal-sparse-perturbations.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex",
-      "hosted_tex_sha256": "62b30a66e6e9ea5f1a22c258be646c0953ef5d4030f0a7c344d5417a0efa529a",
-      "tex_bytes": 97871
+      "hosted_tex_sha256": "1b70085a86d8631b484f6524714cdeaea0299fc9a3cf19053a31fdcb9a2bfecb",
+      "tex_bytes": 100533
     },
     {
       "hosted_path": "papers/claim-faithful-publication-systems-paper.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "41eb5d3a8fb37440bd38bcd69dfabd72c75cc5ce0d68582e217b6866ce5e25d7",
-      "bytes": 129034,
+      "source_sha256": "5143487b9371f9dd6177dfc0d1ed15e91b1078a1d61c57b85205f231d941a47c",
+      "bytes": 138526,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "6d01a38e0ce0ca5df07d0369a1e15566e400a9f60d3c2daff8dd1a69798facb2",
-      "tex_bytes": 62412
+      "hosted_tex_sha256": "7ac81951bbec1935a5788cbddce341b1b7d6af269d14cf8005f4111a98da1bfc",
+      "tex_bytes": 69315
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf",
-      "source_sha256": "bb085154793359bbd79de6dffb05b5277a61d615f6ba1eeef8eeb16e84a1b1cd",
-      "bytes": 88652,
+      "source_sha256": "01e2b76032d7903b272b7c9be1b63a1b88e8e5bb7811cc6a5ea814bfaa21bd36",
+      "bytes": 88655,
       "source_tex_path": "paper/systems/cold-clone-to-proof-receipt.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/cold-clone-to-proof-receipt.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex",
-      "hosted_tex_sha256": "7d629bd4139ae382eb72aa9c77e3303846f99c832f8800b3c0c6e9c2bd9f5289",
+      "hosted_tex_sha256": "89ff084d0b7d2ba36b84f7287514b5e9c7a974936c22afafd835eb0b5d6182c5",
       "tex_bytes": 40939
     },
     {
@@ -258,13 +258,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf",
-      "source_sha256": "4159374e00fcfbace38a62143e350cc3077bfdcd6941fe4351ea7d775b490495",
-      "bytes": 160573,
+      "source_sha256": "a5366d3ff3f570a1a5420703f256dc40829551bc8907a51928ccca548f523f13",
+      "bytes": 163253,
       "source_tex_path": "paper/systems/open-source-mathematics-strategy.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/open-source-mathematics-strategy.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex",
-      "hosted_tex_sha256": "35a129f690176e6aa9eed97fe0b52f971f67502bd96891a4189a5df99d961654",
-      "tex_bytes": 100425
+      "hosted_tex_sha256": "badcff778bfef6a840bd5395c4417ea45f45321bf48f003365decdb12111bc35",
+      "tex_bytes": 101206
     },
     {
       "hosted_path": "papers/plectis-public-system.pdf",

@@ -73,7 +73,7 @@ class="math inline" data-term-auto="off">\(H\)</span>, while the large-divisor b
 denominator exponential in <span class="math inline" data-term-auto="off">\(H\)</span>; an
 averaging length between the two makes both errors vanish as <span
 class="math inline" data-term-auto="off">\(H\)</span> grows (<a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean"><code>WeightedReturn.lean</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean"><code>WeightedReturn.lean</code></a>
 carries both averages).</p>
 <p>Erdős proved the pairwise-coprime case of the reciprocal-summable
 criterion and stated, without details, that coprimality can be
@@ -313,6 +313,72 @@ each result a paper states is linked and that each registered limitation
 stays visible. No deterministic check decides what is important; that
 judgement, whoever drafts it, is written into the paper, where a reader
 can inspect and dispute it.</p>
+</section>
+<section id="testing-a-proposed-measure-of-value." class="level5">
+<h5>Testing a proposed measure of value.</h5>
+<p>Patel et al. <span class="citation" data-cites="patel"><a href="#ref-26">[26]</a></span>
+propose conditional proof difficulty as a way to choose useful
+mathematics: a lemma is valuable when making it available shortens later
+proofs. Their intrinsic score divides proof cost by the length of the
+statement and its required definitions. Their direct-use utility
+multiplies that cost by the number of citing theorems. This gives
+stewardship a testable proposal, but the shared proof-cost factor means
+that correlation between the two scores alone cannot establish that
+either finds useful abstractions. Our <a
+href="https://github.com/wcook04/plectis-erdos/blob/d8c241f3/research/experiments/interestingness/README.md">accompanying
+experiment</a> compares the observed correlation with shuffled user
+counts, separates generated certificates and repeated statement text,
+and records the resolved part of the dependency graph. It uses indexed
+subtotals of recorded source proofs; it neither trains their value model
+nor estimates a shortest proof.</p>
+<p>On the source snapshot used here, the two proxies have Spearman
+correlation <span class="math inline" data-term-auto="off">\(0.799\)</span> over 9,289 cited
+theorem or lemma declarations. Yet their common proof-cost factor
+survives shuffling the user counts: all 64 fixed-seed permutations give
+a larger correlation, with mean <span
+class="math inline" data-term-auto="off">\(0.833\)</span>, while the interestingness proxy
+correlates <span class="math inline" data-term-auto="off">\(-0.172\)</span> with user count
+alone. This is a negative control against interpreting the local
+correlation as independent evidence of reuse prediction, not a test of
+the authors’ trained model. Excluding every target with
+generated-certificate ancestry leaves 8,022 declarations and correlation
+<span class="math inline" data-term-auto="off">\(0.856\)</span>; excluding targets whose
+indexed dependency closure reports any omitted internal reference leaves
+2,417 and <span class="math inline" data-term-auto="off">\(0.660\)</span>. These are
+different selected populations, not causal estimates. The experiment
+therefore reports source coverage alongside each result: the index
+resolves 16,111 declarations and omits private helpers and some public
+dependencies. Its costs are subtotals in that index. The analysis turns
+an apparently reassuring correlation into a concrete demand for
+independent evaluation.</p>
+<p>Conditioning on a workload gives a different question. In an <a
+href="https://github.com/wcook04/plectis-erdos/blob/bb8f1f64/research/experiments/interestingness/conditional_reuse.json">eight-target
+inspection experiment</a> drawn from the Problem 251 and 269 papers,
+shared prerequisites account for 3,529 indexed lines, compared with
+6,135 if every target is inspected separately. Among the same candidate
+premises, the leader by use count times cost removes only 30 lines from
+the shared subtotal; the largest initial contextual cut removes 491.
+Neither number determines importance: reading the source identifies the
+latter as an equivalence wrapper and redirects attention to the
+underlying arguments. Two Problem 269 premises remove 220 and 216 lines
+separately, but 467 together, because a shared dependency stops being
+needed only after both paths to it are cut. Thus contextual gains can
+increase; adding individual scores misses this complementarity, and
+greedy selection has no general optimality guarantee. The paired tests
+make the workload and available premises explicit before allocating an
+inspection.</p>
+<p>The resulting candidates carry different jobs. A widely reused lemma
+needs an explanation of the mechanism its users share; a repeated
+statement needs a comparison of its elaborated types and the pinned
+library; a large certificate dependency needs an inspection of the
+generator before its size is read as mathematical difficulty. A negative
+result that eliminates an unproductive attack can deserve attention
+despite few formal users. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/d8c241f3/skills/run-coupled-research-goals/SKILL.md">stewardship
+procedure</a> requires a named consumer or falsifiable test and records
+the allocation separately from the score. Such a ranking changes which
+question is checked next; the returned evidence determines whether the
+appraisal changes.</p>
 <p>Negative results are part of what the loop produces. Tao observes
 that withheld negative results and processes hide where a new frontier
 lies <span class="citation" data-cites="taomining"><a href="#ref-7">[7]</a></span>; the record
@@ -325,7 +391,7 @@ number with denominator <span class="math inline" data-term-auto="off">\(Q\)</sp
 sum of an infinite subseries of <span
 class="math inline" data-term-auto="off">\(\sum_n1/(2^n-1)\)</span> stops within about <span
 class="math inline" data-term-auto="off">\(2\log_2Q-3.3\)</span> steps; an <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/research/experiments/choices_contraction/README.md"><code>exact rational probe</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/research/experiments/choices_contraction/README.md"><code>exact rational probe</code></a>
 first rules out <span class="math inline" data-term-auto="off">\(189/388\)</span> at step 17.
 The record keeps both facts: the estimate is false, and the problem
 itself is untouched. Inside the weighted proof the same discipline
@@ -355,7 +421,7 @@ class="math inline" data-term-auto="off">\(T_0\)</span> is irrational exactly wh
 difference is at least <span class="math inline" data-term-auto="off">\(1/31\)</span> from
 the integers for infinitely many <span class="math inline" data-term-auto="off">\(N\)</span>.
 The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/research/experiments/premise_exchange/README.md"><code>experiment</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/research/experiments/premise_exchange/README.md"><code>experiment</code></a>
 imports only the two sources and records the Lean outcomes: the
 application to <span class="math inline" data-term-auto="off">\(T\)</span> is rejected, the
 application to <span class="math inline" data-term-auto="off">\(U\)</span> leaves one goal,
@@ -376,7 +442,7 @@ class="math inline" data-term-auto="off">\(\limsup_n\|2^n\xi\|\ge\tau\)</span> f
 irrational <span class="math inline" data-term-auto="off">\(\xi\)</span>, with equality at
 the Thue–Morse number <span
 class="math inline" data-term-auto="off">\(\tau=0.412454\ldots\)</span>, as stated by Akiyama
-and Kaneko <span class="citation" data-cites="akiyamakaneko"><a href="#ref-35">[35]</a></span>, so
+and Kaneko <span class="citation" data-cites="akiyamakaneko"><a href="#ref-36">[36]</a></span>, so
 every fixed <span class="math inline" data-term-auto="off">\(0&lt;c&lt;\tau\)</span> works in
 the equivalence. The endpoint does not: the doubling orbit of <span
 class="math inline" data-term-auto="off">\(\tau\)</span> stays strictly closer than <span
@@ -389,6 +455,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/09db551ef4de91e6c56fd6a00add
 closure</a>, at their own evidence classes. This sharpens a quantitative
 irrationality criterion; establishing the criterion for the actual prime
 gaps remains open.</p>
+<p>The transfer also makes conditional proof cost concrete. Holding the
+target fixed, one can inspect the source work counted when the recorded
+proof is expanded through the shift criterion or the escape lemma, and
+the work counted when these are treated as available premises. Patel et
+al.’s composition inequality bounds ideal proof cost through an
+intermediate lemma; their Bellman-type equality requires an additional
+optimal-intermediate assumption <span class="citation"
+data-cites="patel"><a href="#ref-26">[26]</a></span>. A dependency expansion of these recorded
+proofs is an inspectable accounting model, not evidence for that
+assumption. The successful change from <span
+class="math inline" data-term-auto="off">\(T\)</span> to its difference <span
+class="math inline" data-term-auto="off">\(U\)</span> remains the mathematical reason these
+two premises combine.</p>
 <p>The sharp-constant question then leads to a question about the shifts
 being tested. A rational dyadic orbit is eventually periodic modulo one,
 so a family containing a multiple of every positive integer detects its
@@ -451,6 +530,35 @@ which eventual divisibility forces to vanish. Both theorems are proved
 in the synthesis paper by ordinary argument and carry no Lean mark; Lean
 checks the finite carry identity and its preservation of
 divisibility.</p>
+<p>The same corpus reading can suggest a representation absent from the
+recorded dependency graph. For a divisibility chain of exponents, the
+synthesis paper previously used a Mahler equation only when successive
+ratios eventually equal two. Grouping a repeated block of integer ratios
+instead proves that <em>every eventually periodic ratio chain has a
+transcendental Lambert subsum at every algebraic real base greater than
+one</em>. For alternating ratios <span
+class="math inline" data-term-auto="off">\(2,3\)</span>, the support is <span
+class="math inline" data-term-auto="off">\(\{6^k,2\cdot6^k:k\ge0\}\)</span> and its
+generating function satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[G(z)-G(z^6)=\frac{z}{1-z}+\frac{z^2}{1-z^2}.\]</span></div>
+<p>The old doubling equation fails at coefficient four. The block
+decomposition proves the new equation at every degree; infinitely many
+boundary singularities and Nishioka’s value theorem supply
+transcendence. This covers base <span
+class="math inline" data-term-auto="off">\(4/3\)</span>, where the earlier denominator
+estimate fails. The full ordinary proof and attribution are in the
+updated synthesis theorem <span class="citation"
+data-cites="synthesis"><a href="#ref-16">[16]</a></span>; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/01de6282/research/experiments/interestingness/periodic_chain_probe.py">coefficient
+probe</a> also rejects the same block equation on a specified
+nonperiodic ratio word. Finite agreement is a test of the proposed
+representation, not the infinite proof, and arbitrary nonperiodic chains
+remain beyond this argument. This is an application of classical Mahler
+theory, with no Lean or novelty claim. It illustrates a
+candidate-generating move—search for a functional equation before
+improving the estimate—without attributing the result to a numeric
+ranking or claiming measured discovery advantage.</p>
 </section>
 </section>
 <section id="sec:checks" class="level2">
@@ -565,7 +673,7 @@ settles its original statement.</p>
 <section id="credit." class="level5">
 <h5>Credit.</h5>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
 lets an idea be credited separately from its proof, its Lean
 formalisation and its explanation, the roles Kra asks journals to
 distinguish <span class="citation" data-cites="kra"><a href="#ref-5">[5]</a></span>, and credits
@@ -579,7 +687,7 @@ Google DeepMind’s Formal Conjectures maintainers have merged four of its
 contributions, linking formal proofs for Problems 257, 1049 and 1041 and
 a constant-base variant of Problem 258.</p>
 <p>The public <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/CONTRIBUTIONS.md"><code>contribution record</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/research-commons/CONTRIBUTIONS.md"><code>contribution record</code></a>
 contains one accepted architecture return from 23 September: OpenAI
 Codex repaired the ordinary-language route into the research-return
 workflow and supplied a checked-positive architecture packaging case.
@@ -605,7 +713,7 @@ the total-variation form. On 22 September it proved that for one
 polynomial of that construction every preconnected subset of the strict
 lemniscate containing two distinct roots has one-dimensional Hausdorff
 measure greater than <span class="math inline" data-term-auto="off">\(2\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>),
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean"><code>HausdorffLength.lean</code></a>),
 which refutes the exact path-image-length statement in Google DeepMind’s
 Formal Conjectures repository <span class="citation"
 data-cites="formalconjectures"><a href="#ref-23">[23]</a></span>. On 23 September the Formal
@@ -729,7 +837,7 @@ cites, and the release checker checks claims, papers, generated views
 and licences. A fresh clone needs no private file, and no public theorem
 depends on an unpublished lemma.</p>
 <p>The clone also carries the machinery for continuing a proof. A <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/agents/PROOF_STATE_COMPILER.md"><code>proof-state compiler</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/agents/PROOF_STATE_COMPILER.md"><code>proof-state compiler</code></a>
 takes the declarations that static queries nominate for a goal and asks
 the pinned Lean environment what each application does. A transition
 exists only when Lean reaches the state after the application; the
@@ -759,7 +867,7 @@ evidence is what supports each claim.</p>
 </section>
 <section id="sec:related" class="level2">
 <h2>Relation to Prove2Me and other systems</h2>
-<p>Prove2Me <span class="citation" data-cites="prove2me"><a href="#ref-26">[26]</a></span> is the
+<p>Prove2Me <span class="citation" data-cites="prove2me"><a href="#ref-27">[27]</a></span> is the
 closest published system: a hosted platform on which anyone with a
 coding agent states Lean theorems and submits proofs. Each statement is
 immutable and may carry several proofs; the server accepts a proof only
@@ -868,31 +976,31 @@ open, published graded outcomes <span class="citation"
 data-cites="aletheia"><a href="#ref-17">[17]</a></span>, and propose reporting AI-assisted results
 on at least two axes, autonomy and significance, with significance
 judged only by mathematicians expert in the area <span class="citation"
-data-cites="autonomousmath"><a href="#ref-27">[27]</a></span>; the claim registry leaves
+data-cites="autonomousmath"><a href="#ref-28">[28]</a></span>; the claim registry leaves
 significance to experts in the same way. Tao’s community wiki listed AI
 contributions to the Erdős problems, failed attempts included, until its
 updates stopped on 30 June 2026 <span class="citation"
-data-cites="taowiki"><a href="#ref-28">[28]</a></span>. Formal Conjectures <span class="citation"
+data-cites="taowiki"><a href="#ref-29">[29]</a></span>. Formal Conjectures <span class="citation"
 data-cites="formalconjectures"><a href="#ref-23">[23]</a></span> turns open problems into formal
 targets, and Ringer distinguishes mathematics as a process from
 mathematics as a benchmark <span class="citation"
-data-cites="ringer"><a href="#ref-29">[29]</a></span>; a world keeps the process around such a
+data-cites="ringer"><a href="#ref-30">[30]</a></span>; a world keeps the process around such a
 target. Blueprints connect informal proof plans to Lean
-declarations <span class="citation" data-cites="leanblueprint"><a href="#ref-30">[30]</a></span>;
+declarations <span class="citation" data-cites="leanblueprint"><a href="#ref-31">[31]</a></span>;
 LeanArchitect extracts blueprint data from annotated Lean source, infers
 dependencies and tracks progress <span class="citation"
-data-cites="leanarchitect"><a href="#ref-31">[31]</a></span>; and LeanMarathon maintains an
+data-cites="leanarchitect"><a href="#ref-32">[32]</a></span>; and LeanMarathon maintains an
 evolving blueprint, one Lean file serving as proof skeleton,
 natural-language proof graph and shared record, worked by separate
 construction, audit, proof and repair agents <span class="citation"
-data-cites="leanmarathon"><a href="#ref-32">[32]</a></span>. These are direct precedents for
+data-cites="leanmarathon"><a href="#ref-33">[33]</a></span>. These are direct precedents for
 durable formal development linked to its explanation, and a world can
 use a blueprint as its dependency map; the world adds the appraisal
 around the proofs, with the mechanism and antecedents of each result,
 the failed routes and the exact open obligations. Hattori, Matsuzaki and
 Fujiwara translate Lean proofs into natural language step by step and
 summarise along the proof structure <span class="citation"
-data-cites="hattori"><a href="#ref-33">[33]</a></span>, a direct precedent for the explanation a
+data-cites="hattori"><a href="#ref-34">[34]</a></span>, a direct precedent for the explanation a
 world keeps beside a formal proof. Each component exists elsewhere; a
 world contributes their combination on one task, as in the transfer of
 Section <a class="math-ref" href="#sec:production">3</a>, where
@@ -901,10 +1009,10 @@ beside the proof and the next question carries its test. The measurement
 of Section <a class="math-ref" href="#sec:limits">8</a>
 compares that workload with the alternatives. Provers such as ReProver,
 built on LeanDojo, and OpenProver <span class="citation"
-data-cites="leandojo openprover"><a href="#ref-36">[36]</a><a href="#ref-37">[37]</a></span> can supply a world with
+data-cites="leandojo openprover"><a href="#ref-37">[37]</a><a href="#ref-38">[38]</a></span> can supply a world with
 candidate proofs, and Li et al. hold generation and validation apart in
 research mathematics without a proof assistant <span class="citation"
-data-cites="lihai"><a href="#ref-38">[38]</a></span>.</p>
+data-cites="lihai"><a href="#ref-39">[39]</a></span>.</p>
 </section>
 </section>
 <section id="sec:limits" class="level2">
@@ -914,7 +1022,7 @@ the correspondence between the Problem 1041 refutation and the 1958
 wording has not been recorded. The system records evidence classes and
 review events; novelty and significance are judgements it leaves to
 experts, as Feng et al. also propose <span class="citation"
-data-cites="autonomousmath"><a href="#ref-27">[27]</a></span>. The examples here show how the
+data-cites="autonomousmath"><a href="#ref-28">[28]</a></span>. The examples here show how the
 record organises results; whether the workflow made those results more
 likely has not been measured. By 24 September 2026 no outside human
 contributor had opened a pull request or issue in the repository; its
@@ -923,10 +1031,10 @@ A record also leaves several of the concerns in Section <a class="math-ref" hre
 trains no one, it restores no signal of individual expertise <span
 class="citation" data-cites="litt"></span>, and it answers neither the
 ethical objections some mathematicians raise to AI-assisted
-mathematics <span class="citation" data-cites="chu"><a href="#ref-40">[40]</a></span> nor the
+mathematics <span class="citation" data-cites="chu"><a href="#ref-41">[41]</a></span> nor the
 warning of forty-two Fellows and Foreign Members of the Royal Society
 about catastrophic risk from AI <span class="citation"
-data-cites="greenletter"><a href="#ref-41">[41]</a></span>.</p>
+data-cites="greenletter"><a href="#ref-42">[42]</a></span>.</p>
 <p>The same design serves stronger models. A stronger model starts from
 the current frontier with the failed routes already marked, and it can
 reorganise, re-explain and extend the record as well as the mathematics.
@@ -961,7 +1069,7 @@ on-demand briefing and tools built from the same material, with
 preparation amortised over observed reuse and maintenance, review and
 repair counted on both sides. miniCTX’s repository contexts and temporal
 splits are a precedent for these controls <span class="citation"
-data-cites="minictx"><a href="#ref-34">[34]</a></span>. Independent domain readers grade whether
+data-cites="minictx"><a href="#ref-35">[35]</a></span>. Independent domain readers grade whether
 each recovers the strongest supported claim, its hypotheses, its hard
 step, its antecedents and the remaining obligation, and review one
 returned change; statement errors, reviewer time and total work,
@@ -977,6 +1085,12 @@ paraphrase. The transfer of Section <a class="math-ref" href="#sec:production">
 fixture; discovery comparisons use held-out transformations or
 prospective continuations. Repeating the frozen tasks with a stronger
 model measures what the record adds as models improve.</p>
+<p>For score-guided allocation, freeze the candidate statements and
+their rankings before the continuation period. Compare with proof-size,
+direct-use and unranked selection under equal effort, recording later
+independent consumers, accepted reuse, review cost and abandoned
+attempts. Scoring the selected outputs by the selection score would test
+the optimiser rather than the usefulness of its choices.</p>
 </section>
 <section id="sec:conclusion" class="level2">
 <h2>Conclusion</h2>
@@ -1013,63 +1127,63 @@ files and add no authority of their own.</caption>
 <tr>
 <td class="ta-l">How does the repository fit together?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">What is proved and what is open?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/RESULTS.md"><code>docs/RESULTS.md</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/RESULTS.md"><code>docs/RESULTS.md</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/claims.json"><code>docs/claims.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/claims.json"><code>docs/claims.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which declaration states each paper
 result?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Where is the checked mathematics?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/Erdos249257.lean"><code>lean/Erdos249257.lean</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/lean/Erdos249257.lean"><code>lean/Erdos249257.lean</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/lean/ErdosProblems.lean"><code>lean/ErdosProblems.lean</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/lean/ErdosProblems.lean"><code>lean/ErdosProblems.lean</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">What does Comparator check?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/EXTERNAL_VERIFICATION.md"><code>docs/EXTERNAL_VERIFICATION.md</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/verification/comparator.json"><code>verification/comparator.json</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/verification/comparator.json"><code>verification/comparator.json</code></a>
 and the corpus replay index <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/evidence/comparator/associations.json"><code>evidence/comparator/associations.json</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/evidence/comparator/associations.json"><code>evidence/comparator/associations.json</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Whose earlier work does each result
 use?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/PRIOR_ART.md"><code>docs/PRIOR_ART.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/PRIOR_ART.md"><code>docs/PRIOR_ART.md</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which checks gate a release?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/scripts/check_release.py"><code>scripts/check_release.py</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/scripts/check_release.py"><code>scripts/check_release.py</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/.github/workflows/lean.yml"><code>.github/workflows/lean.yml</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">How can work return with credit?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>,
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/research-commons/CREDIT_POLICY.md"><code>credit policy</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contributions</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"><code>architecture contributions</code></a></p></td>
 </tr>
 <tr>
 <td class="ta-l">Which agent skills exist?</td>
 <td class="ta-l"><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/skills/README.md"><code>skills/README.md</code></a></p></td>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/skills/README.md"><code>skills/README.md</code></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1080,7 +1194,7 @@ navigation without Lean:</p>
 python3 scripts/proof_cockpit.py --check</code></pre>
 <p>Release-surface validation is a separate operation using the pinned
 Python requirements in <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/REPRODUCIBILITY.md"><code>the reproduction guide</code></a>;
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/docs/REPRODUCIBILITY.md"><code>the reproduction guide</code></a>;
 it runs <code>python3 scripts/check_release.py</code>. Formal replay
 additionally uses the pinned Lean and Comparator environment named by
 the card and guide. The paper inventory,
@@ -1097,7 +1211,7 @@ href="https://www.erdosproblems.com">erdosproblems.com</a>, accessed
 September 2026.</p></li>
 <li id="ref-2"><p>W. Cook, <em>Weighted Support Criteria for Reciprocal Mersenne
 Subseries</em>, short paper on Erdős Problem 257, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/257/erdos-257-mersenne-support-subseries.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/paper/257/erdos-257-mersenne-support-subseries.pdf"><code>PDF</code></a>.</p></li>
 <li id="ref-3"><p>P. Erdős, <em>On the irrationality of certain series</em>,
 Math. Student 36 (1968), 222–226 (issued 1969), <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf">scan</a>.</p></li>
@@ -1137,7 +1251,7 @@ Mathématique 28, 1980, p. 61.</p></li>
 <li id="ref-12"><p>W. Cook, <em>Bases and Integral Relations for the <span
 class="math inline" data-term-auto="off">\(k\)</span>-Kernel of Euler’s Totient</em>, short
 paper on Erdős Problem 249, revised 18 September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/249/erdos-249-binary-totient-series.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/af849c4709186165092254b08b00e9524f11144b/paper/249/erdos-249-binary-totient-series.pdf"><code>PDF</code></a>.</p></li>
 <li id="ref-13"><p>M. Coons, <em>(Non)Automaticity of number theoretic
 functions</em>, J. Théor. Nombres Bordeaux 22 (2010), 339–352, <a
 href="https://doi.org/10.5802/jtnb.718">DOI</a>, Theorem 3.2.</p></li>
@@ -1151,7 +1265,8 @@ J. Théor. Nombres Bordeaux 13 (2001), 651–658, <a
 href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/">Numdam</a>.</p></li>
 <li id="ref-16"><p>W. Cook, <em>Reading Eight Erdős Problems Together</em>,
 synthesis paper, September 2026, <a
-href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/paper/synthesis/optimal-sparse-perturbations.pdf"><code>PDF</code></a>.</p></li>
+href="https://github.com/wcook04/plectis-erdos/blob/af1462ce/paper/synthesis/optimal-sparse-perturbations.tex">source,
+including the periodic-chain theorem</a>.</p></li>
 <li id="ref-17"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
@@ -1182,79 +1297,83 @@ href="https://github.com/google-deepmind/formal-conjectures/pull/6505">GitHub</a
 26 June 2026, <a
 href="https://www.erdosproblems.com/forum/thread/269#post-7218">forum
 post</a>.</p></li>
-<li id="ref-26"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
+<li id="ref-26"><p>N. Patel, A. Rammal, A. Hayat, R. Munos, and J. Kempe,
+<em>Learning to Discover Interesting Mathematics</em>,
+arXiv:2609.28603v1, 2026, <a href="https://arxiv.org/abs/2609.28603"
+class="uri">https://arxiv.org/abs/2609.28603</a>.</p></li>
+<li id="ref-27"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
 An Open Collaborative Platform for Scaling Math Formalization</em>,
 2026, <a
 href="https://doi.org/10.48550/arXiv.2608.28433">arXiv</a>.</p></li>
-<li id="ref-27"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
+<li id="ref-28"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
 Mathematics Research</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2602.10177">arXiv</a>.</p></li>
-<li id="ref-28"><p>T. Tao, <em>AI contributions to Erdős problems</em>, <a
+<li id="ref-29"><p>T. Tao, <em>AI contributions to Erdős problems</em>, <a
 href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub</a>,
 accessed September 2026.</p></li>
-<li id="ref-29"><p>T. Ringer, <em>Becoming a benchmark</em>, guest post on
+<li id="ref-30"><p>T. Ringer, <em>Becoming a benchmark</em>, guest post on
 <em>What’s new</em>, 17 September 2026, <a
 href="https://terrytao.wordpress.com/2026/09/17/becoming-a-benchmark/">blog
 post</a>.</p></li>
-<li id="ref-30"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for Lean
+<li id="ref-31"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for Lean
 formalisation blueprints, 2020, <a
 href="https://github.com/PatrickMassot/leanblueprint">software
 repository</a>.</p></li>
-<li id="ref-31"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad,
+<li id="ref-32"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad,
 <em>LeanArchitect: Automating Blueprint Generation for Humans and
 AI</em>, in <em>17th International Conference on Interactive Theorem
 Proving</em>, LIPIcs 382, 2026, pp. 25:1–25:16, <a
 href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
-<li id="ref-32"><p>Y. Zhang, Y. Sun, T. Suzuki, J. D. Lee, and F. Liu,
+<li id="ref-33"><p>Y. Zhang, Y. Sun, T. Suzuki, J. D. Lee, and F. Liu,
 <em>LeanMarathon: Toward Reliable AI Co-Mathematicians through
 Long-Horizon Lean Autoformalization</em>, 2026, <a
 href="https://arxiv.org/abs/2606.05400">arXiv:2606.05400</a>.</p></li>
-<li id="ref-33"><p>S. Hattori, T. Matsuzaki, and M. Fujiwara, <em>Natural Language
+<li id="ref-34"><p>S. Hattori, T. Matsuzaki, and M. Fujiwara, <em>Natural Language
 Translation of Formal Proofs through Informalization of Proof Steps and
 Recursive Summarization along Proof Structure</em>, in <em>Proceedings
 of the 18th International Natural Language Generation Conference</em>,
 2025, pp. 376–389, <a
 href="https://aclanthology.org/2025.inlg-main.23/">ACL
 Anthology</a>.</p></li>
-<li id="ref-34"><p>J. Hu, T. Zhu, and S. Welleck, <em>miniCTX: Neural Theorem
+<li id="ref-35"><p>J. Hu, T. Zhu, and S. Welleck, <em>miniCTX: Neural Theorem
 Proving with (Long-)Contexts</em>, ICLR 2025, <a
 href="https://arxiv.org/abs/2408.03350">arXiv:2408.03350</a>.</p></li>
-<li id="ref-35"><p>S. Akiyama and H. Kaneko, <em>Multiplicative analogue of
+<li id="ref-36"><p>S. Akiyama and H. Kaneko, <em>Multiplicative analogue of
 Markoff–Lagrange spectrum and Pisot numbers</em>, Adv. Math. 380 (2021),
 107547, p. 3, reporting the theorem of A. Dubickas, J. Number Theory 117
 (2006), 222–239, <a
 href="https://arxiv.org/abs/1911.06170v6">arXiv:1911.06170v6</a>.</p></li>
-<li id="ref-36"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
+<li id="ref-37"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models</em>, NeurIPS 2023.</p></li>
-<li id="ref-37"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
+<li id="ref-38"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
 Theorem Proving with Lean 4</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2607.09217">arXiv</a>.</p></li>
-<li id="ref-38"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
+<li id="ref-39"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
 Mathematical Research via Human-AI Interactive Theorem Proving</em>,
 2025, <a
 href="https://arxiv.org/abs/2512.09443v2">arXiv:2512.09443v2</a>.</p></li>
-<li id="ref-39"><p>D. Litt, <em>A beginning for mathematics</em>, 13 September 2026,
+<li id="ref-40"><p>D. Litt, <em>A beginning for mathematics</em>, 13 September 2026,
 <a
 href="https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/">blog
 post</a>.</p></li>
-<li id="ref-40"><p>T. Chu, <em>The AI dissenter viewpoint</em>, <em>Proofs and
+<li id="ref-41"><p>T. Chu, <em>The AI dissenter viewpoint</em>, <em>Proofs and
 Prompts</em>, 9 August 2026, <a
 href="https://proofsandprompts.com/2026/08/09/the-ai-dissenter-viewpoint/">blog
 post</a>.</p></li>
-<li id="ref-41"><p>B. Green and forty-one other Fellows and Foreign Members of the
+<li id="ref-42"><p>B. Green and forty-one other Fellows and Foreign Members of the
 Royal Society, <em>Open letter to Sir Paul Nurse, President of the Royal
 Society</em>, <em>Proofs and Prompts</em>, 17 September 2026, <a
 href="https://proofsandprompts.com/2026/09/17/open-letter-to-sir-paul-nurse-president-of-the-royal-society/">blog
 post</a>.</p></li>
-<li id="ref-42"><p>W. T. Gowers, <em>Why I didn’t sign the Fields medallists’
+<li id="ref-43"><p>W. T. Gowers, <em>Why I didn’t sign the Fields medallists’
 letter</em>, 17 September 2026, <a
 href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/">blog
 post</a>.</p></li>
-<li id="ref-43"><p>D. Koukoulopoulos, <em>A CERN for AI-assisted science?</em>,
+<li id="ref-44"><p>D. Koukoulopoulos, <em>A CERN for AI-assisted science?</em>,
 guest post on <em>What’s new</em>, 17 September 2026, <a
 href="https://terrytao.wordpress.com/2026/09/17/a-cern-for-ai-assisted-science/">blog
 post</a>.</p></li>
-<li id="ref-44"><p>B. Antieau, <em>Fast math/slow math</em>, 15 September 2026, <a
+<li id="ref-45"><p>B. Antieau, <em>Fast math/slow math</em>, 15 September 2026, <a
 href="https://antieau.github.io/2026/09/15/fast-math-slow-math.html">blog
 post</a>.</p></li>
 </ol>

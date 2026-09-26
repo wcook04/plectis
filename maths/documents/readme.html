@@ -32,7 +32,7 @@
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/math/0aed87cc86f54c60.css">
+  <link rel="stylesheet" href="../assets/math/456e172a881e0965.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -120,8 +120,8 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/R
 proofs</a>.</p>
 <p>Start with the <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">paper</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/sparse_interpolation/late_rejection.py">one
-exact-rational test</a> (not the weighted theorem), or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md#the-probe">an
+exact-rational test you can vary</a> (not the weighted theorem), or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
 correction</a>.</p>
 <p><strong><a href="paper-guide.html">All papers</a></strong> · <a
@@ -166,17 +166,16 @@ question, or ask your agent to read the corpus and decide what is worth
 developing. The <a
 href="../../papers/cold-clone-to-proof-receipt.pdf">agent-navigation
 paper</a> explains the workbench design.</li>
-<li><strong>Check one result with Python 3, no Lean.</strong> From a
-clone, run
-<code>python3 research/experiments/sparse_interpolation/late_rejection.py</code>.
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exact-rational-arithmetic" data-term="exact_rational_arithmetic" data-term-auto="1">Exact rational arithmetic</a> checks that <span class="math inline" data-term-auto="off" data-tex="\(189/388\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39">9</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>189</mn><mo>/</mo><mn>388</mn></math></mjx-assistive-mml></mjx-container></span> passes the
-earlier greedy decisions but is first rejected at step 17: its remainder
-is greater than the sum of all later weights and smaller than the
-step-17 weight. Read the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">investigation</a>
-for why this example matters. It rules out this one rational as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a>
-of <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>; finite survival never proves membership, and
-this calculation does not settle Problem 257.</li>
+<li><strong>Test a rational candidate with Python 3, no Lean.</strong>
+From a clone, run
+<code>python3 research/experiments/choices_contraction/rational_membership_probe.py --target 189/388 --depth 16 17 --horizon 160</code>.
+The exact output shows no exclusion through step 16 and a strict gap at
+step 17, ruling out this rational as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a> of <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>.
+Change <code>--target</code> to test your own positive fraction; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md#the-probe">probe
+guide</a> explains the outcomes and host choices. Surviving a finite
+depth never proves membership, and this test does not settle Problem
+257.</li>
 </ul>
 <p>The short papers explain results; longer records keep calculations
 and failed routes. Both are readable without Lean. <a
@@ -421,7 +420,7 @@ records in 33 contribution families, reaching Lean source through 468
 principal declaration links. <code>docs/SCOPE.md</code> gives its shape
 and <code>docs/RESULTS.md</code> gives the strongest checked result per
 problem. The website and the papers are the human reading path.</p>
-<p>The rest is engineering inventory. About 87% of the 163,604
+<p>The rest is engineering inventory. About 87% of the 163,651
 declarations (142,668 across 695 modules) are machine-emitted
 certificate shards: one integer checked prime, one position excluded.
 The remainder is not all hand-written either.</p>
@@ -435,11 +434,11 @@ The remainder is not all hand-written either.</p>
 <tbody>
 <tr>
 <td>Lean modules (the two library roots)</td>
-<td class="ta-r">1,823</td>
+<td class="ta-r">1,828</td>
 </tr>
 <tr>
 <td>Formal results and supporting lemmas</td>
-<td class="ta-r">159,697</td>
+<td class="ta-r">159,737</td>
 </tr>
 <tr>
 <td>Curated claim records</td>

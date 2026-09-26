@@ -1292,7 +1292,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7AnalyticInterfaces",
         "path": "lean/ErdosProblems/Erdos269/PaperR7AnalyticInterfaces.lean",
         "direct": true,
-        "content_digest": "sha256:eacbbdf035649eca6a9ab6fa6398100a71b4fad87b8ffd0350adae08bfed8b77",
+        "content_digest": "sha256:85e66b3c7f2edcfdbd853d32ecf0958d7d6d71b285aad3a0f9caa558a53dd2ee",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7AnalyticInterfaces.lean",
         "role": "Lean proof module"
       },
@@ -1373,7 +1373,7 @@
         "label": "ErdosProblems.Erdos269.PaperR8UniformRank",
         "path": "lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean",
         "direct": true,
-        "content_digest": "sha256:567ad20da4d0cb6122e573afc76ddbe253c8752d9d567a1c65e8e7f1120c1b59",
+        "content_digest": "sha256:74cb5f2fef519b1a4aaa2460c3cda559e8c91804fd9262f1c0a3dc3562006fe8",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean",
         "role": "Lean proof module"
       },

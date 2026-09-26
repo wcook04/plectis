@@ -20,7 +20,7 @@ Other seven programmes: [results guide](docs/RESULTS.md#problem-by-problem-guide
 [#257 exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis) · [#243/#257 proofs](docs/research-commons/README.md#native-prove2me-theorems).
 
 Start with the [paper](paper/257/erdos-257-mersenne-support-subseries.pdf),
-[one exact-rational test](research/experiments/sparse_interpolation/late_rejection.py)
+[an exact-rational test you can vary](research/experiments/choices_contraction/README.md#the-probe)
 (not the weighted theorem), or [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
 
 **[All papers](paper/README.md)** ·
@@ -61,15 +61,14 @@ AI or without one; returned work keeps its sources, checks and credit visible.
   agent to read the corpus and decide what is worth developing. The
   [agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
   explains the workbench design.
-- **Check one result with Python 3, no Lean.** From a clone, run
-  `python3 research/experiments/sparse_interpolation/late_rejection.py`.
-  Exact rational arithmetic checks that `189/388` passes the earlier greedy
-  decisions but is first rejected at step 17: its remainder is greater than
-  the sum of all later weights and smaller than the step-17 weight. Read the
-  [investigation](research/experiments/choices_contraction/README.md) for why
-  this example matters. It rules out this one rational as a subsum of
-  `1/(2^n-1)`; finite survival never proves membership, and this calculation
-  does not settle Problem 257.
+- **Test a rational candidate with Python 3, no Lean.** From a clone, run
+  `python3 research/experiments/choices_contraction/rational_membership_probe.py --target 189/388 --depth 16 17 --horizon 160`.
+  The exact output shows no exclusion through step 16 and a strict gap at
+  step 17, ruling out this rational as a subsum of `1/(2^n-1)`. Change
+  `--target` to test your own positive fraction; the
+  [probe guide](research/experiments/choices_contraction/README.md#the-probe)
+  explains the outcomes and host choices. Surviving a finite depth never
+  proves membership, and this test does not settle Problem 257.
 
 The short papers explain results; longer records keep calculations and failed
 routes. Both are readable without Lean. [A reader's way in](docs/READING_GUIDE.md)
@@ -210,12 +209,12 @@ follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 The reviewed layer a mathematician should judge: 150 curated claim records in 33 contribution families, reaching Lean source through 468 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 87% of the 163,604 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 87% of the 163,651 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,823 |
-| Formal results and supporting lemmas | 159,697 |
+| Lean modules (the two library roots) | 1,828 |
+| Formal results and supporting lemmas | 159,737 |
 | Curated claim records | 150 |
 | Contribution families | 33 |
 

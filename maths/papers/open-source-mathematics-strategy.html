@@ -92,12 +92,12 @@
         <h1>From Spare Compute to Cumulative Mathematics</h1>
         <div class="paper-head__meta">
           <span>Systems paper</span>
-          <span>25&#8202;pp</span>
+          <span>26&#8202;pp</span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>September 2026</span>
         </div>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/open-source-mathematics-strategy.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 25&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/open-source-mathematics-strategy.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 26&#8202;pp</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex"><span class="btn__format">TeX</span>LaTeX source</a>
           <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           
@@ -233,6 +233,16 @@ It then updates four separate outputs: proof and evidence status,
 mathematical appraisal, paper prominence, and the next allocation of
 compute or expert attention. These outputs may influence one another,
 but they are not one score and none can promote an unproved claim.</p>
+<p><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">Conditional</a> proof cost offers one way to propose that allocation:
+Patel et al. <span class="citation" data-cites="patel"><a href="#ref-13">[13]</a></span> rank
+statements by proof cost relative to statement length and compare this
+with reuse. The systems paper tests such a proxy on this repository
+before using it for triage. Shared factors in the scores, generated
+certificates and duplicated interfaces can all affect a ranking; the
+stewardship procedure asks which concrete consumer, containment check or
+failed route deserves investigation. Whether this allocation improves
+later research requires a prospective comparison with simpler
+baselines.</p>
 <p>The coupling is event-driven. A stable mathematical delta wakes the
 steward; a changed appraisal, missing consumer, or sharper open boundary
 can wake the miner. An unchanged repository should consume no agent turn
@@ -624,7 +634,7 @@ funnel below has the same shape. Their companion report states the
 premise of this section outright: many open questions lie within reach
 of existing techniques and stay open for want of time and attention from
 the right experts, and machine effort is bottlenecked by different
-factors <span class="citation" data-cites="autonomousmath"><a href="#ref-15">[15]</a></span>.</p>
+factors <span class="citation" data-cites="autonomousmath"><a href="#ref-16">[16]</a></span>.</p>
 <p>The project uses a deliberately asymmetric attention funnel:</p>
 <ol>
 <li><p><strong>Candidate.</strong> A person or agent returns a scoped
@@ -650,7 +660,7 @@ granted by its maintainer.</p></li>
 <p>Step three follows Henkel, who proposed a different model for
 verification than for generation on the evidence that each model is
 worst at grading its own proofs <span class="citation"
-data-cites="henkel openproofcorpus"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>.</p>
+data-cites="henkel openproofcorpus"><a href="#ref-17">[17]</a><a href="#ref-18">[18]</a></span>.</p>
 <p>Palomar is valuable precisely because its claim is narrower than peer
 review. It mechanically verifies a pinned challenge–solution interface
 using Comparator and kernel checking, records structured disclosure, and
@@ -696,7 +706,7 @@ understand and check.</p></li>
 al. found that literature identification was the lengthiest step of
 their Erdős study and that misread statements produced most of their
 vacuous solutions; they proposed revised statements as a deliverable
-<span class="citation" data-cites="aletheia"><a href="#ref-14">[14]</a></span>. This observation
+<span class="citation" data-cites="aletheia"><a href="#ref-15">[15]</a></span>. This observation
 does not measure the payoff of this project’s credit scheme.</p>
 <p>These items should not be placed on one scalar leaderboard. Compute
 volume, mathematical depth, software quality, correction work,
@@ -706,7 +716,7 @@ autonomy (primarily human, human–AI collaboration, essentially
 autonomous) against level of mathematical significance (negligible
 novelty to landmark breakthrough), and hold that only domain experts can
 place a result on the second axis <span class="citation"
-data-cites="autonomousmath"><a href="#ref-15">[15]</a></span>. The role ledger here is compatible
+data-cites="autonomousmath"><a href="#ref-16">[16]</a></span>. The role ledger here is compatible
 with that scheme and finer-grained on the first axis: it records which
 role each contributor played and which evidence class each artefact
 carries, from which an autonomy level can be read off. The significance
@@ -720,7 +730,7 @@ contributor, accepted artefacts, evidence classes, problem or
 architecture area, and contribution roles. The current receipt schema
 supports the fourteen CRediT roles as an optional vocabulary, including
 conceptualisation, methodology, software, validation, investigation, and
-writing <span class="citation" data-cites="credit"><a href="#ref-19">[19]</a></span>. CRediT
+writing <span class="citation" data-cites="credit"><a href="#ref-20">[20]</a></span>. CRediT
 describes work; it does not decide authorship.</p>
 <p>The default promise is simple: the project does not demand ownership
 of a contributor’s underlying idea in exchange for adoption. If a
@@ -730,7 +740,7 @@ Substantial authorship and formal publication decisions remain separate
 judgements. Feng et al. hold that mathematics papers should always be
 authored by humans because authorship carries accountability for
 validity and attribution <span class="citation"
-data-cites="aletheia"><a href="#ref-14">[14]</a></span>; this project applies the same rule, and
+data-cites="aletheia"><a href="#ref-15">[15]</a></span>; this project applies the same rule, and
 its manuscripts name one human author with the agents disclosed as
 production tools. A role ledger is more honest than either a
 winner-takes-all solver credit or a pseudonymous collective record when
@@ -777,7 +787,7 @@ expositions depend on an earlier contribution. Prove2Me already
 implements the simplest such edge as a credit rule: later proofs that
 import a statement credit it, to its proposer in the paper and its
 prover in the live FAQ <span class="citation"
-data-cites="prove2me"><a href="#ref-13">[13]</a></span>.</p>
+data-cites="prove2me"><a href="#ref-14">[14]</a></span>.</p>
 <p>This later view begins with an immediate obligation. Before a result
 is returned, the clone-local
 <code>propagate-research-consequences</code> skill gives every plausible
@@ -821,7 +831,7 @@ with Claude Code, Codex, Cursor, Antigravity, another open or
 proprietary harness, or no agent at all. The runner is replaceable.
 Prove2Me takes the same position for a hosted platform: it accepts any
 shell-capable agent and reports missions closed on ordinary consumer
-subscriptions <span class="citation" data-cites="prove2me"><a href="#ref-13">[13]</a></span>. The
+subscriptions <span class="citation" data-cites="prove2me"><a href="#ref-14">[14]</a></span>. The
 task packet, evidence boundary, and return record are the shared
 protocol. Returned code is untrusted until reviewed. Expensive or
 privileged continuous-integration jobs must not execute fork code with
@@ -829,7 +839,7 @@ repository secrets. In particular, a GitHub
 <code>pull_request_target</code> workflow must not check out and execute
 an untrusted fork; GitHub documents that combination as a route to
 secret leakage and repository compromise <span class="citation"
-data-cites="githubsecurity"><a href="#ref-20">[20]</a></span>. Initial checks should run with
+data-cites="githubsecurity"><a href="#ref-21">[21]</a></span>. Initial checks should run with
 read-only permissions, no secrets, bounded resources, and explicit
 artefact retention. Promotion to trusted infrastructure is a later
 review decision.</p>
@@ -916,7 +926,7 @@ verification of every output is the second, and seven applications
 across the research lifecycle from ideation to writing <span
 class="citation" data-cites="henkel"></span>. He proposes cross-model
 checking on the evidence that each model grades its own proofs worst
-<span class="citation" data-cites="openproofcorpus"><a href="#ref-17">[17]</a></span>, and he
+<span class="citation" data-cites="openproofcorpus"><a href="#ref-18">[18]</a></span>, and he
 treats acknowledgement of tool use as an emerging norm while recording
 that community standards for it remain to be established. His unit is
 one researcher at a chat window. The commons here supplies the shared
@@ -966,7 +976,7 @@ class="level5">
 <h5>Semi-autonomous discovery on the Erdős problems.</h5>
 <p>Feng et al. ran a research agent built on Gemini Deep Think over the
 700 problems then marked open in Bloom’s database and published the full
-accounting <span class="citation" data-cites="aletheia"><a href="#ref-14">[14]</a></span>: from
+accounting <span class="citation" data-cites="aletheia"><a href="#ref-15">[15]</a></span>: from
 200 graded candidates, two autonomous resolutions, two partial
 solutions, four independent rediscoveries, and five literature
 identifications. They classify outcomes by novelty as well as
@@ -981,7 +991,7 @@ grading team, released once with raw outputs; the commons here is a
 persistent per-problem record that anyone can extend. None of this
 repository’s eight problems appears in their results. Their companion
 report on the same agent <span class="citation"
-data-cites="autonomousmath"><a href="#ref-15">[15]</a></span> adds the generate, verify, and
+data-cites="autonomousmath"><a href="#ref-16">[16]</a></span> adds the generate, verify, and
 revise loop with a separated verifier that declines to answer, four
 further papers, the finding that a search-equipped model still misquotes
 real references, and the two-axis disclosure taxonomy and interaction
@@ -1002,7 +1012,7 @@ Problem 1041 instead tests counterexample recognition and fidelity to
 the historical wording.</p>
 <p>Tao’s community wiki of AI contributions to the Erdős problems was
 the public register in this exact domain until its updates stopped on 30
-June 2026 <span class="citation" data-cites="taowiki"><a href="#ref-18">[18]</a></span>. It
+June 2026 <span class="citation" data-cites="taowiki"><a href="#ref-19">[19]</a></span>. It
 recorded which problems AI systems had touched and with what outcome,
 failed attempts included, edited by hand and without evidence classes,
 roles, or checkable claim boundaries. The protocol here produces returns
@@ -1167,7 +1177,7 @@ measures for a later study.</p>
 <p>Yuan et al. provide a useful precedent for the missing external test:
 two student teams attempted an end-to-end build from public
 documentation for scientific hardware designed more than a decade
-earlier <span class="citation" data-cites="documentationtest"><a href="#ref-21">[21]</a></span>.
+earlier <span class="citation" data-cites="documentationtest"><a href="#ref-22">[22]</a></span>.
 Their study concerns open-source hardware in large collaborations, not
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-mathematics" data-term="formal_mathematics" data-term-auto="1">formal mathematics</a>, and does not validate this repository’s route. It
 supplies a precedent for testing accessibility by asking outsiders to
@@ -1661,35 +1671,39 @@ href="https://arxiv.org/abs/2603.06737">arXiv:2603.06737</a>.</p></li>
 Environment for Scalable Human–AI Collaborative Formalization</em>,
 2026, <a
 href="https://arxiv.org/abs/2604.16347">arXiv:2604.16347</a>.</p></li>
-<li id="ref-13"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
+<li id="ref-13"><p>N. Patel, A. Rammal, A. Hayat, R. Munos, and J. Kempe,
+<em>Learning to Discover Interesting Mathematics</em>,
+arXiv:2609.28603v1, 2026, <a href="https://arxiv.org/abs/2609.28603" data-link-kind="exogenous" rel="external noopener"
+class="uri">https://arxiv.org/abs/2609.28603</a>.</p></li>
+<li id="ref-14"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
 An Open Collaborative Platform for Scaling Math Formalization</em>,
 2026, <a
 href="https://arxiv.org/abs/2608.28433">arXiv:2608.28433</a>.</p></li>
-<li id="ref-14"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
+<li id="ref-15"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
 href="https://arxiv.org/abs/2601.22401">arXiv:2601.22401</a>.</p></li>
-<li id="ref-15"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
+<li id="ref-16"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
 Mathematics Research</em>, 2026, <a
 href="https://arxiv.org/abs/2602.10177">arXiv:2602.10177</a>.</p></li>
-<li id="ref-16"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
+<li id="ref-17"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
 Research Practice</em>, 2025, <a
 href="https://arxiv.org/abs/2508.20236">arXiv:2508.20236</a>.</p></li>
-<li id="ref-17"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
+<li id="ref-18"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
 Study of LLM-Generated Mathematical Proofs</em>, 2025, <a
 href="https://arxiv.org/abs/2506.21621">arXiv:2506.21621</a>.</p></li>
-<li id="ref-18"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
+<li id="ref-19"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
 wiki, <a
 href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub
 wiki page</a>, accessed September 2026.</p></li>
-<li id="ref-19"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
+<li id="ref-20"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
 href="https://credit.niso.org/contributor-roles-defined/">role
 definitions</a>, accessed August 2026.</p></li>
-<li id="ref-20"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
+<li id="ref-21"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
 guidance, <a
 href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
 accessed August 2026.</p></li>
-<li id="ref-21"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
+<li id="ref-22"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
 Documentation Developed in Large Collaborations</em>, 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
 </ol>
@@ -1701,11 +1715,11 @@ href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
       <div class="paper-foot" aria-label="Other ways to read this paper">
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/open-source-mathematics-strategy.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 25&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/open-source-mathematics-strategy.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 26&#8202;pp</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:35a129f690176e6a</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:badcff778bfef6a8</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

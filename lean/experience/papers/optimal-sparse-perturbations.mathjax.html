@@ -1199,20 +1199,31 @@ at base <span class="math inline" data-term-auto="off">\(2\)</span> must use mor
 shape of the series.</p>
 <div class="theorem" id="thm:chains">
 <p><strong>Theorem 6.3</strong> (divisibility chains). <em> Let <span
-class="math inline" data-term-auto="off">\(t=a/b&gt;1\)</span> in lowest terms and let <span
 class="math inline" data-term-auto="off">\(S=\{n_1&lt;n_2&lt;\cdots\}\)</span> be infinite
 with <span class="math inline" data-term-auto="off">\(n_j\mid n_{j+1}\)</span> for every
 <span class="math inline" data-term-auto="off">\(j\)</span>.</em></p>
 <p><em><span class="upright">(a)</span> If <span
-class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span>, then <span
+class="math inline" data-term-auto="off">\(t=a/b&gt;1\)</span> is rational in lowest terms
+and <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span>, then <span
 class="math inline" data-term-auto="off">\(X_S(t)\)</span> is irrational.</em></p>
-<p><em><span class="upright">(b)</span> If <span
-class="math inline" data-term-auto="off">\(n_{j+1}=2n_j\)</span> for all large <span
-class="math inline" data-term-auto="off">\(j\)</span>, then <span
-class="math inline" data-term-auto="off">\(X_S(t)\)</span> is transcendental, with no
-condition on <span class="math inline" data-term-auto="off">\(a\)</span> and <span
-class="math inline" data-term-auto="off">\(b\)</span>.</em></p>
+<p><em><span class="upright">(b)</span> If the integer ratios <span
+class="math inline" data-term-auto="off">\(n_{j+1}/n_j\)</span> are eventually periodic, then
+<span class="math inline" data-term-auto="off">\(X_S(t)\)</span> is transcendental for every
+algebraic real <span class="math inline" data-term-auto="off">\(t&gt;1\)</span>.</em></p>
 </div>
+<p>For example, the chain <span
+class="math inline" data-term-auto="off">\(1,2,6,12,36,72,\ldots\)</span> has alternating
+ratios <span class="math inline" data-term-auto="off">\(2,3\)</span>. Part (b) proves</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{k\ge0}\left(\frac1{(4/3)^{6^k}-1}
+                  +\frac1{(4/3)^{2\cdot6^k}-1}\right)
+\quad\hbox{is transcendental},\]</span></div>
+<p class="display-continue">although <span
+class="math inline" data-term-auto="off">\(4^2&lt;3^3\)</span>. Repeated blocks of ratios,
+rather than a stronger tail estimate, supply the functional equation
+used in this case. Part (b) is a direct corollary of the classical
+Mahler value theorem cited below; no historical novelty is claimed for
+this specialisation.</p>
 <p>The hypothesis <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> says
 <span class="math inline" data-term-auto="off">\(\log b/\log a&lt;2/3\)</span>. It holds for
 every integer base, for <span class="math inline" data-term-auto="off">\(3/2\)</span>, <span
@@ -1281,7 +1292,7 @@ remains.</p>
 <p>The proofs of Theorems <a class="math-ref" href="#thm:dichotomy">6.1</a>–<a class="math-ref" href="#thm:forced">6.4</a> are ordinary proofs.
 Theorem <a class="math-ref" href="#thm:chains">6.3</a> uses
 Nishioka’s theorem for Mahler systems as an external premise in the
-eventually doubling case, hence in both parts. Results quoted from the
+eventually periodic case, hence in both parts. Results quoted from the
 problem papers retain the evidence class given at each use.</p>
 </section>
 <section id="sec:dichotomy" class="level3">
@@ -1409,8 +1420,8 @@ and Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(i)
 applies. ◻</p>
 </div>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>.</em> Write <span
-class="math inline" data-term-auto="off">\(\rho=b/a\)</span>, <span
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>.</em> For part (a),
+write <span class="math inline" data-term-auto="off">\(\rho=b/a\)</span>, <span
 class="math inline" data-term-auto="off">\(D_j=a^{n_j}-b^{n_j}\)</span> and <span
 class="math inline" data-term-auto="off">\(S_j=\sum_{i\le
 j}b^{n_i}/(a^{n_i}-b^{n_i})\)</span>. Because <span
@@ -1436,48 +1447,99 @@ class="math inline" data-term-auto="off">\(X_S(t)=p/q\)</span>, then <span
 class="math inline" data-term-auto="off">\(qD_j(X_S(t)-S_j)\)</span> is a positive integer
 for every <span class="math inline" data-term-auto="off">\(j\)</span>, a contradiction.</p>
 <p>Otherwise the ratio is <span class="math inline" data-term-auto="off">\(2\)</span> from
-some index on, which is the case of part (b), and <span
-class="math inline" data-term-auto="off">\(S\)</span> is a finite set together with <span
-class="math inline" data-term-auto="off">\(\{d,2d,4d,\dots\}\)</span>. With <span
-class="math inline" data-term-auto="off">\(z=t^{-d}\)</span> the infinite part contributes
-<span class="math inline" data-term-auto="off">\(g(z)\)</span>, where</p>
+some index on, so part (b) completes the proof of (a).</p>
+<p>For part (b), discard a finite prefix and write the repeating ratio
+block as <span class="math inline" data-term-auto="off">\(r_1,\ldots,r_\ell\)</span>, with
+every <span class="math inline" data-term-auto="off">\(r_i\ge2\)</span>. Put</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[g(z)=\sum_{k\ge0}\frac{z^{2^k}}{1-z^{2^k}},\qquad
-g(z^2)=g(z)-\frac{z}{1-z}.\]</span></div>
-<p>We use Nishioka’s value theorem for
-Mahler systems <span class="citation" data-cites="nishioka1996"><a href="#ref-19">[19]</a></span>,
-in the precise form quoted by Adamczewski and Faverjon <span
-class="citation" data-cites="adamczewskifaverjon2016"></span>. At an
-algebraic regular point it equates the transcendence degree of the
-function values with that of the functions over <span
+class="math display" data-term-auto="off">\[Q=\prod_{i=1}^{\ell}r_i,\qquad e_0=1,\qquad
+e_i=\prod_{h=1}^i r_h\quad(1\le i&lt;\ell).\]</span></div>
+<p>With <span
+class="math inline" data-term-auto="off">\(d\)</span> the first exponent after that prefix,
+the remaining exponents are exactly <span class="math inline" data-term-auto="off">\(d
+e_iQ^k\)</span> with <span class="math inline" data-term-auto="off">\(0\le i&lt;\ell\)</span>
+and <span class="math inline" data-term-auto="off">\(k\ge0\)</span>. Indeed, one complete
+block multiplies an exponent by <span class="math inline" data-term-auto="off">\(Q\)</span>,
+and its intermediate positions multiply it by the <span
+class="math inline" data-term-auto="off">\(e_i\)</span>. These exponents are distinct since
+<span class="math inline" data-term-auto="off">\(1=e_0&lt;\cdots&lt;e_{\ell-1}&lt;Q\)</span>.
+Define</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[G(z)=\sum_{k\ge0}\sum_{i=0}^{\ell-1}
+          \frac{z^{e_iQ^k}}{1-z^{e_iQ^k}},\qquad
+R(z)=\sum_{i=0}^{\ell-1}\frac{z^{e_i}}{1-z^{e_i}}.\]</span></div>
+<p>The series
+for <span class="math inline" data-term-auto="off">\(G\)</span> converges normally on compact
+subsets of <span class="math inline" data-term-auto="off">\(|z|&lt;1\)</span>: on <span
+class="math inline" data-term-auto="off">\(|z|\le r&lt;1\)</span> its absolute sum is at most
+<span
+class="math inline" data-term-auto="off">\(\ell(1-r)^{-1}\sum_{k\ge0}r^{Q^k}&lt;\infty\)</span>.
+Its Taylor coefficients are integers, and removing the <span
+class="math inline" data-term-auto="off">\(k=0\)</span> block gives <span
+class="math inline" data-term-auto="off">\(G(z)=R(z)+G(z^Q)\)</span>. For the one-term block
+<span class="math inline" data-term-auto="off">\((2)\)</span> this is the function <span
+class="math inline" data-term-auto="off">\(g(z)=\sum_{k\ge0}z^{2^k}/(1-z^{2^k})\)</span> used
+below.</p>
+<p>The function <span class="math inline" data-term-auto="off">\(G\)</span> is transcendental
+over <span class="math inline" data-term-auto="off">\(\mathbb C(z)\)</span>. To see this, fix
+a primitive root of unity <span class="math inline" data-term-auto="off">\(\zeta\)</span> of
+order <span class="math inline" data-term-auto="off">\(Q^j\)</span>, with <span
+class="math inline" data-term-auto="off">\(j\ge1\)</span>, and approach it along <span
+class="math inline" data-term-auto="off">\(r\zeta\)</span> as <span
+class="math inline" data-term-auto="off">\(r\uparrow1\)</span>. For every <span
+class="math inline" data-term-auto="off">\(k\ge j\)</span>, all terms in the <span
+class="math inline" data-term-auto="off">\(k\)</span>th block are positive real numbers.
+Already the term <span class="math inline" data-term-auto="off">\(k=j,i=0\)</span> tends to
+<span class="math inline" data-term-auto="off">\(+\infty\)</span>. Among the finitely many
+earlier terms, those with <span
+class="math inline" data-term-auto="off">\(\zeta^{e_iQ^k}=1\)</span> are also positive, and
+all the others remain bounded. Thus <span
+class="math inline" data-term-auto="off">\(\operatorname{Re}G(r\zeta)\to+\infty\)</span>. The
+infinitely many distinct orders <span class="math inline" data-term-auto="off">\(Q^j\)</span>
+give infinitely many singularities, whereas an algebraic function over
+<span class="math inline" data-term-auto="off">\(\mathbb C(z)\)</span> has only finitely
+many.</p>
+<p>We use Nishioka’s value theorem for Mahler systems <span
+class="citation" data-cites="nishioka1996"></span>, in the precise form
+quoted by Adamczewski and Faverjon <span class="citation"
+data-cites="adamczewskifaverjon2016"><a href="#ref-18">[18]</a></span>. At an algebraic regular
+point it equates the transcendence degree of the function values with
+that of the functions over <span
 class="math inline" data-term-auto="off">\(\overline{\Q}(z)\)</span>. Here the system is</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{pmatrix}g(z)\\1\end{pmatrix}
-=\begin{pmatrix}1&amp;z/(1-z)\\0&amp;1\end{pmatrix}
-  \begin{pmatrix}g(z^2)\\1\end{pmatrix}.\]</span></div>
-<p>The matrix and its
-inverse have no poles at any iterate <span
-class="math inline" data-term-auto="off">\(\rho^{\,d2^k}\in(0,1)\)</span>, so <span
-class="math inline" data-term-auto="off">\(\rho^d\)</span> is regular. The function <span
-class="math inline" data-term-auto="off">\(g\)</span> is transcendental: at a root of unity
-<span class="math inline" data-term-auto="off">\(\zeta\)</span> of order <span
-class="math inline" data-term-auto="off">\(2^j\)</span> the terms with <span
-class="math inline" data-term-auto="off">\(k\ge j\)</span> are positive on the ray <span
-class="math inline" data-term-auto="off">\(r\zeta\)</span> and diverge as <span
-class="math inline" data-term-auto="off">\(r\to1\)</span>, while the earlier terms stay
-bounded, so <span class="math inline" data-term-auto="off">\(g\)</span> has infinitely many
-singularities on the unit circle. An algebraic function over <span
-class="math inline" data-term-auto="off">\(\mathbb{C}(z)\)</span> has only finitely many
-singular points, so <span class="math inline" data-term-auto="off">\(g\)</span> is
-transcendental over <span class="math inline" data-term-auto="off">\(\mathbb{C}(z)\)</span>.
-Hence <span class="math inline" data-term-auto="off">\(g(\rho^{\,d})\)</span> is
-transcendental, and adding the rational finite part proves (b) and
-completes (a). ◻</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{pmatrix}G(z)\\1\end{pmatrix}
+=\begin{pmatrix}1&amp;R(z)\\0&amp;1\end{pmatrix}
+  \begin{pmatrix}G(z^Q)\\1\end{pmatrix}.\]</span></div>
+<p>For algebraic real
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, the point <span
+class="math inline" data-term-auto="off">\(\alpha=t^{-d}\)</span> is algebraic and lies in
+<span class="math inline" data-term-auto="off">\((0,1)\)</span>. The matrix and its inverse
+have poles only at roots of unity, so none of <span
+class="math inline" data-term-auto="off">\(\alpha^{Q^k}\)</span> is a pole and <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> is regular. Nishioka’s theorem
+gives <span
+class="math inline" data-term-auto="off">\(\operatorname{trdeg}_{\overline{\Q}}(G(\alpha),1)=1\)</span>.
+The discarded finite sum is algebraic, so adding it to <span
+class="math inline" data-term-auto="off">\(G(\alpha)\)</span> proves part (b). ◻</p>
 </div>
+<p>The accompanying exact coefficient probe checks the proposed
+functional equation through degree <span
+class="math inline" data-term-auto="off">\(100{,}000\)</span> for five ratio blocks,
+including <span class="math inline" data-term-auto="off">\((2,3)\)</span>. For that
+alternating chain, the doubling equation <span
+class="math inline" data-term-auto="off">\(G(z)-G(z^2)=z/(1-z)\)</span> already fails at
+degree four. The probe also rejects the <span
+class="math inline" data-term-auto="off">\((2,3)\)</span> block’s equation on an explicit
+nonperiodic ratio word. The probe is in <a
+href="https://github.com/wcook04/plectis-erdos/blob/01de6282/research/experiments/interestingness/periodic_chain_probe.py"><code>research/experiments/interestingness/periodic_chain_probe.py</code></a>.
+Those finite checks test the formulas; the block decomposition above
+proves the equation at every degree.</p>
 <p>We do not know whether <span
-class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> is necessary in (a). The first
-open case is base <span class="math inline" data-term-auto="off">\(4/3\)</span> with a chain
-whose ratios are <span class="math inline" data-term-auto="off">\(2\)</span> except for
-infinitely many <span class="math inline" data-term-auto="off">\(3\)</span>s.</p>
+class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> can be removed from the
+universal statement in (a). At base <span
+class="math inline" data-term-auto="off">\(4/3\)</span>, chains with a
+non-eventually-periodic word of ratios <span
+class="math inline" data-term-auto="off">\(2,3\)</span> remain outside the argument.
+Arbitrarily grouping such ratios into blocks does not supply a single
+functional equation.</p>
 </section>
 <section id="sec:base2" class="level3">
 <h3>Base two</h3>
@@ -2477,11 +2539,12 @@ class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span> in th
 <span class="math inline" data-term-auto="off">\(n\le(2-\varepsilon)\log_2Q\)</span>, counted
 modulo the translations of Lemma <a class="math-ref" href="#lem:translate">6.6</a>? A persistent excess
 would be the first sign of an arithmetic mechanism for #257.</p></li>
-<li><p>Is <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> necessary in
-Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a)? First
-case: base <span class="math inline" data-term-auto="off">\(4/3\)</span>, a chain with ratios
-<span class="math inline" data-term-auto="off">\(2\)</span> and infinitely many ratios <span
-class="math inline" data-term-auto="off">\(3\)</span>.</p></li>
+<li><p>Can <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> be removed
+from Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a)?
+At base <span class="math inline" data-term-auto="off">\(4/3\)</span>, the remaining case
+includes chains with a non-eventually-periodic word of ratios <span
+class="math inline" data-term-auto="off">\(2,3\)</span>; periodic words are transcendental by
+part (b).</p></li>
 <li><p>Is there one inequality behind #1049 Theorem 5 and the cover cost
 of #257?</p></li>
 </ol>
