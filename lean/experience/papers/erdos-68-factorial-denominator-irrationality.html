@@ -654,6 +654,113 @@ checks the attaining vector, and gives the different minimum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4140</mn><annotation encoding="application/x-tex">4140</annotation></semantics></math>
 when support is restricted to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n\le6</annotation></semantics></math>.</p>
+<p>There is also a short certificate for this depth-four value that does
+not require computing the entire tail gcd. For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo>∣</mo><mn>11</mn><mi>n</mi><mi>!</mi><mo>−</mo><mn>46</mn><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>n</mi></mrow></msub><mo>+</mo><mn>12</mn><msub><mi>W</mi><mrow><mn>4</mn><mo>,</mo><mi>n</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+  1380\mid 11n!-46W_{2,n}+12W_{4,n}.
+  \label{eq:depth-four-dual}
+\end{equation}</annotation></semantics></math> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=2,3,4</annotation></semantics></math>
+the expression is zero. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n\ge4</annotation></semantics></math>,
+each summand is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><mo>∣</mo><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">12\mid n!</annotation></semantics></math>,
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>∣</mo><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">6\mid W_{2,n}</annotation></semantics></math>
+because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn><mi>r</mi></mrow></msub><mo>=</mo><mi>r</mi><mi>!</mi><msubsup><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>r</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W_{2,2r}=r!\prod_{j=1}^{r}(2j-1)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn><mi>r</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>r</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">W_{2,2r+1}=(2r+1)W_{2,2r}</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n\ge5</annotation></semantics></math>,
+each summand is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>,
+since the denominators removed from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>n</mi></mrow></msub><annotation encoding="application/x-tex">W_{2,n}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mn>4</mn><mo>,</mo><mi>n</mi></mrow></msub><annotation encoding="application/x-tex">W_{4,n}</annotation></semantics></math>
+are powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>.
+Finally,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>=</mo><msup><mn>24</mn><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msub><mi>W</mi><mrow><mn>4</mn><mo>,</mo><mi>n</mi></mrow></msub><mo>≡</mo><msub><mi>W</mi><mrow><mn>4</mn><mo>,</mo><mi>n</mi></mrow></msub><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>23</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">n!=24^{\lfloor n/4\rfloor}W_{4,n}\equiv W_{4,n}\pmod{23}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>46</mn><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>n</mi></mrow></msub><mo>≡</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>23</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">46W_{2,n}\equiv0\pmod{23}</annotation></semantics></math>.
+The factors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math>
+are coprime, proving <code>[eq:depth-four-dual]</code>.</p>
+<p>Summing against a finite integer vector gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo>∣</mo><mn>11</mn><mi>M</mi><mo>−</mo><mn>46</mn><msub><mi>V</mi><mn>2</mn></msub><mo>+</mo><mn>12</mn><msub><mi>V</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">1380\mid 11M-46V_2+12V_4</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><msub><mi>V</mi><mn>4</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=V_4=0</annotation></semantics></math>
+implies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1380\mid M</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math>
+is coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>.
+Equality is attained even with the third channel cancelled:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>1482</mn><msub><mi>e</mi><mn>2</mn></msub><mo>−</mo><mn>784</mn><msub><mi>e</mi><mn>3</mn></msub><mo>−</mo><mn>136</mn><msub><mi>e</mi><mn>5</mn></msub><mo>+</mo><mn>83</mn><msub><mi>e</mi><mn>6</mn></msub><mo>−</mo><msub><mi>e</mi><mn>8</mn></msub><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><msub><mi>V</mi><mn>2</mn></msub><mo>,</mo><msub><mi>V</mi><mn>3</mn></msub><mo>,</mo><msub><mi>V</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1380</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+  \lambda=1482e_2-784e_3-136e_5+83e_6-e_8,
+  \qquad (M,V_2,V_3,V_4)=(1380,0,0,0).
+  \label{eq:depth-four-short-vector}
+\end{equation}</annotation></semantics></math> These values follow
+directly from the five rows
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>,</mo><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>n</mi></mrow></msub><mo>,</mo><msub><mi>W</mi><mrow><mn>3</mn><mo>,</mo><mi>n</mi></mrow></msub><mo>,</mo><msub><mi>W</mi><mrow><mn>4</mn><mo>,</mo><mi>n</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n!,W_{2,n},W_{3,n},W_{4,n})</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">n=2,3,5,6,8</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,1,2,2)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(6,3,1,6)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>120</mn><mo>,</mo><mn>30</mn><mo>,</mo><mn>20</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(120,30,20,5)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>720</mn><mo>,</mo><mn>90</mn><mo>,</mo><mn>20</mn><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(720,90,20,30)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>40320</mn><mo>,</mo><mn>2520</mn><mo>,</mo><mn>1120</mn><mo>,</mo><mn>70</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(40320,2520,1120,70)</annotation></semantics></math>.
+Hence imposing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>3</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_3=0</annotation></semantics></math>
+does not change the attainable <em>moments</em>; it does restrict the
+vectors, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msub><mi>e</mi><mn>2</mn></msub><mo>−</mo><msub><mi>e</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">3e_2-e_3</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><msub><mi>V</mi><mn>4</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M=V_2=V_4=0</annotation></semantics></math>
+but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>3</mn></msub><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">V_3=5</annotation></semantics></math>.</p>
+<p>The first possible maximum index of a vector attaining moment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1380</mn><annotation encoding="application/x-tex">1380</annotation></semantics></math>
+under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><msub><mi>V</mi><mn>4</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_2=V_4=0</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>.
+Indeed, the expression in <code>[eq:depth-four-dual]</code> is zero at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n=2,3,4,5</annotation></semantics></math>
+and equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4140</mn><annotation encoding="application/x-tex">4140</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>28980</mn><mo>=</mo><mn>7</mn><mo>⋅</mo><mn>4140</mn></mrow><annotation encoding="application/x-tex">28980=7\cdot4140</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>6</mn><mo>,</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">n=6,7</annotation></semantics></math>.
+For support at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>7</mn><annotation encoding="application/x-tex">7</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mi>M</mi><mo>=</mo><mn>4140</mn><mo stretchy="false" form="prefix">(</mo><msub><mi>λ</mi><mn>6</mn></msub><mo>+</mo><mn>7</mn><msub><mi>λ</mi><mn>7</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">11M=4140(\lambda_6+7\lambda_7)</annotation></semantics></math>
+when the two channels vanish; coprimality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4140</mn><annotation encoding="application/x-tex">4140</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4140</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">4140\mid M</annotation></semantics></math>.
+The vector in <code>[eq:depth-four-short-vector]</code> reaches index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>.
+All of these statements concern finite cancellation; they do not prove
+irrationality of the series.</p>
 </section>
 </section>
 </section>
@@ -1758,7 +1865,11 @@ residues in §4 come from a separate exact modular scan.</p>
 explaining notation when it first appears, avoiding private terminology,
 and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
-mathematics of this paper.</p>
+mathematics of this paper. An AI research pass supplied by Will Cook
+derived the depth-four dual congruence and shorter vectors from the
+factorial-channel definitions and general moment-ideal theory developed
+earlier here. OpenAI Codex checked and integrated them; a separate AI
+pass reviewed the proof.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

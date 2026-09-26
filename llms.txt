@@ -78,7 +78,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [Universe](maths/universe.html)
 - [Erdős #68](maths/problems/erdos_68.html)
 - [erdos-68-factorial-denominator-irrationality (Problem note, 18 pp.)](maths/papers/erdos-68-factorial-denominator-irrationality.html)
-- [erdos68-factorial-reasoning-surface (Reasoning surface, 46 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
+- [erdos68-factorial-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
 - [Erdős #243](maths/problems/erdos_243.html)
 - [erdos-243-reciprocal-tail-rigidity (Problem note, 18 pp.)](maths/papers/erdos-243-reciprocal-tail-rigidity.html)
 - [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 59 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
@@ -89,7 +89,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos-251-prime-gap-dyadic-series (Problem note, 14 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
 - [erdos251-prime-gap-reasoning-surface (Reasoning surface, 44 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
 - [Erdős #257](maths/problems/erdos_257.html)
-- [erdos-257-mersenne-support-subseries (Problem note, 21 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
+- [erdos-257-mersenne-support-subseries (Problem note, 22 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
 - [erdos257-mersenne-reasoning-surface (Reasoning surface, 144 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
 - [Erdős #269](maths/problems/erdos_269.html)
 - [erdos269-running-lcm-reasoning-surface (Reasoning surface, 51 pp.)](maths/papers/erdos269-running-lcm-reasoning-surface.html)
@@ -100,7 +100,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [Erdős #1049](maths/problems/erdos_1049.html)
 - [erdos-1049-rational-base-lambert (Problem note, 20 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 69 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
-- [optimal-sparse-perturbations (Cross-problem paper, 30 pp.)](maths/papers/optimal-sparse-perturbations.html)
+- [optimal-sparse-perturbations (Cross-problem paper, 31 pp.)](maths/papers/optimal-sparse-perturbations.html)
 - [claim-faithful-publication-systems (Research architecture, 14 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 12 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
 - [open-source-mathematics-strategy (Open-source research strategy, 25 pp.)](maths/papers/open-source-mathematics-strategy.html)
@@ -141,7 +141,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 - [claims.json](lean/claims.json): the Lean claim layer -- release identity, the status taxonomy, the remaining open propositions, the claims with their source anchors, and the explicit non-claims
 - [problems.json](lean/problems.json): the per-problem index
 - [RESULTS.md](lean/RESULTS.md): the per-problem map -- the strongest checked statement per problem, its exact status, and where to verify it. Hosted here as raw Markdown for offline and machine readers, on the same byte-parity terms as the two files above; it [renders on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md) if you are reading it yourself
-- The proofs themselves are not hosted: the Lean source and its per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-erdos, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
+- The proofs themselves are not hosted: 1,193 Lean files, plus a 72 MB per-declaration atlas. They are read by cloning https://github.com/wcook04/plectis-erdos, not by fetching. What is hosted here is the layer that makes a question answerable; the repository is the layer that makes it checkable.
 
 ## Reader ladder (open in order of need)
 

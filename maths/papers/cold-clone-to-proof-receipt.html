@@ -140,10 +140,12 @@ into one prompt destroys the distinctions the extra context was meant to
 reveal. A useful first-contact surface must therefore be small,
 expandable, and honest about what it omits.</p>
 <p>The <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">development
-studied here</a> indexes eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim
-registry</a> now covers selected statements from all eight; a paper’s
-inclusion does not give every statement in it formal status. The
-degree-seven counterexample due to the erdosproblems.com contributor <a
+studied here</a> indexes eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes. The ten map
+entries are thematic routes across these problems, not ten separately
+indexed problems. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> now covers selected statements from
+all eight; a paper’s inclusion does not give every statement in it
+formal status. The degree-seven counterexample due to the
+erdosproblems.com contributor <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>,
 formalised in Lean in this repository, refutes the Formal Conjectures
 1041 one-dimensional Hausdorff path-image claim, while correspondence
@@ -211,16 +213,19 @@ a transitive proof explanation.</p>
 <h5>Authored mathematical interpretation.</h5>
 <p>The semantic graph contains authored <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement-node" data-term="statement_node" data-term-auto="1">statement nodes</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-typed-relation" data-term="typed_relation" data-term-auto="1">typed
 relations</a>, and an exact source-structural floor. At the audited revision
-all 151,710 authored theorem-like declarations are linked. Of these,
-139,818 (92.2%) participate in authored mathematical interpretations:
-3,330 are exact proposition evidence and 136,488 are bounded contextual
-links to digest- or module-verified families. The remaining 11,892 are
-grouped only by exact source module and normalised Lean proposition
-signature. That lower tier is useful navigation, not a mathematical
-paraphrase. Keeping the tiers visible prevents exhaustive linkage or
-bulk helper assignment from being misreported as exhaustive direct
-understanding. A paper-seeded population query continues to rank exact
-live citations whose best route is structural rather than authored.</p>
+all 151,710 theorem-like declarations in the source scope are linked. Of
+these, 139,818 (92.2%) participate in authored mathematical
+interpretations: 3,330 are exact proposition evidence and 136,488 are
+bounded contextual links to digest- or module-verified families. The
+remaining 11,892 are grouped only by exact source module and normalised
+Lean proposition signature. That lower tier is useful navigation, not a
+mathematical paraphrase. Keeping the tiers visible prevents exhaustive
+linkage or bulk helper assignment from being misreported as exhaustive
+direct understanding. A paper-seeded population query continues to rank
+exact live citations whose best route is structural rather than
+authored. The declaration count does not measure distinct discoveries,
+human-authored proofs, or individually reviewed mathematical
+interpretations.</p>
 </section>
 <section id="reviewed-public-claims." class="level5">
 <h5>Reviewed public claims.</h5>
@@ -308,19 +313,21 @@ success story.</p>
 <p>A probe is different. The notary stores the exact Lean input bytes,
 runs the pinned Lean process, and computes one of three verdicts from
 the process result: accepted, accepted with an admitted placeholder, or
-rejected. The agent cannot <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-a" data-term="type_a" data-term-auto="1">type a</a> verdict into the ledger. A claim must
-cite an accepted probe receipt; the notary rejects weaker citations.
-Replay reruns every stored probe and compares the current result with
-the recorded verdict.</p>
+rejected. The agent cannot supply a verdict through the supported notary
+interface. A claim must cite an accepted probe receipt; the notary
+rejects weaker citations. Replay reruns every stored probe and compares
+the current result with the recorded verdict.</p>
 <p>Workflow-provenance systems already record what ran, when and where
 it ran, how tasks and data were connected, and who initiated them; they
 also distinguish a planned workflow from the trace of an executed one
 <span class="citation" data-cites="workflowprovenance"><a href="#ref-12">[12]</a></span>. That is
 the closest established role for the notary’s execution metadata. The
 notary adds a different contract: its ledger types an agent’s
-conjectures, abandonments, probes, and claims, while the pinned Lean
-process alone supplies probe verdicts. The comparison does not show that
-the resulting record improves the agent’s research choices.</p>
+conjectures, abandonments, probes, and claims, while the notary derives
+probe verdicts from the pinned Lean process. This interface rule does
+not prevent an actor with filesystem access from changing the
+implementation or stored record. The comparison does not show that the
+resulting record improves the agent’s research choices.</p>
 <p>This design deliberately leaves search policy open. LeanDojo couples
 an open programmatic Lean environment with extracted proof data, premise
 annotations, retrieval, and a theorem-proving benchmark <span
@@ -658,7 +665,7 @@ href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:dc5dd4b37231bf70</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:7d629bd4139ae382</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

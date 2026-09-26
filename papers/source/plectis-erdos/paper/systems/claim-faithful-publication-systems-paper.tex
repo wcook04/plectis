@@ -46,7 +46,8 @@ open obligations. A short paper explains the strongest results to an expert, a
 long record keeps the complete arguments, Lean checks the formal proofs and
 Comparator checks selected ones against separately written statements, and a
 claim registry fixes the wording, evidence class and limits of every public
-claim. Any model, provider or person can resume from the record, and accepted
+claim. The public record supports continuation by human researchers and
+compatible agents beyond the originating chat or provider, and accepted
 work returns to it with credit. A public Lean repository maintains eight
 Erd\H{o}s problems this way. Its results include an irrationality criterion
 for Problem 257, checked in Lean and by Comparator, that admits supports with
@@ -426,9 +427,11 @@ a term of exactly that type, using only the permitted axioms, and the Lean
 kernel must accept it. The corpus replay, run in the companion repository
 \texttt{plectis-erdos-lean}, also passes every compared proof through nanoda,
 an independent kernel~\cite{nanodalib}. In this repository, continuous
-integration requires a deliberately altered statement to fail Comparator, so
-the harness cannot pass vacuously. Comparator cannot decide whether a
-statement is the right translation of the problem. It guarantees that the
+integration also requires Comparator to reject a deliberately altered
+statement. This control exercises that mismatch path; the surrounding
+invocation and verdict contract have separate obligations. Comparator cannot
+decide whether a statement is the right translation of the problem. It
+guarantees that the
 separately written statement, which a reader can inspect, is the statement
 that was proved, so ``Comparator-checked'' is accurate where ``independently
 verified'' would overclaim.
@@ -876,14 +879,16 @@ and add no authority of their own.}
 \label{tab:routes}
 \end{table}
 
-A fresh clone reproduces the control card and the structural checks without
-Lean:
+A fresh clone can inspect the control card and check its committed navigation
+without Lean:
 \begin{verbatim}
 python3 scripts/proof_cockpit.py --format card
 python3 scripts/proof_cockpit.py --check
-python3 scripts/check_release.py
 \end{verbatim}
-Formal authority begins with the pinned \texttt{lake build} named by the card.
+Release-surface validation is a separate operation using the pinned Python
+requirements in \repolink{docs/REPRODUCIBILITY.md}{the reproduction guide}; it
+runs \texttt{python3 scripts/check\_release.py}. Formal replay additionally
+uses the pinned Lean and Comparator environment named by the card and guide.
 The paper inventory, \path{docs/publication_contract.json}, records source and
 PDF hashes and validation commands, and the evidence for the checker study in
 Section~\ref{sec:checks} is recorded in \path{docs/publication_evidence.json}.

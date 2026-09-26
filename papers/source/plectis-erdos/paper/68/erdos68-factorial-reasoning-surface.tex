@@ -1157,6 +1157,105 @@ The least positive moment is then $115\cdot180/\gcd(180,55)=4140$.
 Minimising the moment and minimising the largest supported index are
 therefore different problems.
 
+The same minimum has a direct certificate using only the second and
+fourth channels. For every $n\ge2$,
+\begin{equation}
+1380\mid 11n!-46W_{2,n}+12W_{4,n}.
+\label{long68:eq:depth-four-dual}
+\end{equation}
+The expression is zero for $n=2,3,4$. For $n\ge4$, it is divisible
+by $12$: $12\mid n!$ and $6\mid W_{2,n}$, as follows from
+$W_{2,2r}=r!\prod_{j=1}^r(2j-1)$ for $r\ge2$ and the corresponding
+odd-index recurrence. For $n\ge5$, it is divisible by $5$ because
+$5\mid n!$ and the denominators removed to form $W_{2,n}$ and
+$W_{4,n}$ are coprime to $5$. Modulo $23$,
+$n!\equiv W_{4,n}$ and $46W_{2,n}\equiv0$. This proves the congruence.
+Consequently $V_2=V_4=0$ forces $1380\mid M$, without a restriction
+on the largest supported index. Conversely,
+$1482e_2-784e_3-136e_5+83e_6-e_8$ has moment $1380$ and
+$V_2=V_3=V_4=0$. Thus adding the third channel does not change the
+moment ideal, although $3e_2-e_3$ shows that it changes the set of
+admissible vectors.
+
+At support horizon $8$, this five-term vector is sparsest among
+attaining vectors. More precisely, every integer vector supported on
+$\{2,\ldots,8\}$ with $M=1380$ and $V_2=V_3=V_4=0$ has, for some
+$t,x,y\in\Z$, the coefficients
+\begin{equation}
+\begin{aligned}
+\lambda_2&=1482-4200t,&\lambda_3&=-784+2240t,\\
+\lambda_4&=-680+1890t-5x,&\lambda_5&=x,\\
+\lambda_6&=83-238t-7y,&\lambda_7&=y,\\
+\lambda_8&=-1+3t.
+\end{aligned}
+\label{long68:eq:depth-four-family}
+\end{equation}
+Indeed, the values of the expression in
+\eqref{long68:eq:depth-four-dual} at indices $2,\ldots,8$ are
+\[
+(0,0,0,0,4140,28980,328440).
+\]
+Therefore the dual identity and
+$M=1380$ give $11=3\lambda_6+21\lambda_7+238\lambda_8$.
+Modulo $3$ this yields $\lambda_8=-1+3t$, then
+$\lambda_6+7\lambda_7=83-238t$. Set $x=\lambda_5$ and
+$y=\lambda_7$; solving the three channel equations for indices
+$2,3,4$ gives \eqref{long68:eq:depth-four-family}. The coefficient
+matrix is
+$\left(\begin{smallmatrix}1&3&6\\2&1&4\\2&6&1\end{smallmatrix}\right)$,
+with determinant $55$, and substitution verifies the converse.
+Indices $2,3,8$ are nonzero for every integral $t$; neither the pair
+$(\lambda_4,\lambda_5)$ nor $(\lambda_6,\lambda_7)$ can vanish
+together. Thus five nonzero entries are necessary at this horizon.
+
+The smallest coefficient $\ell^1$ norm at horizon $8$ is $2416$,
+attained by
+$(\lambda_2,\ldots,\lambda_8)=(1482,-784,0,-136,-1,12,-1)$.
+For $t\ge1$, the absolute values at indices $2,3,8$ alone sum to
+$6443t-2267\ge4176$; for $t\le-1$ they sum to
+$2267-6443t\ge8710$. Thus a minimizer has $t=0$.
+The remaining independent minima are
+$\min_x(|-680-5x|+|x|)=136$ at $x=-136$ and
+$\min_y(|83-7y|+|y|)=13$ at $y=12$.
+For the first, $680\le|-680-5x|+5|x|$ is at most five times
+the objective. For the second, the objective is at least $83$ when
+$y\le0$, at least $17$ when $0\le y\le11$, and equals
+$8y-83\ge13$ when $y\ge12$.
+Adding the fixed contribution $1482+784+1=2267$ gives $2416$.
+Equality forces $t=0$, $x=-136$ and $y=12$, so this norm minimizer is
+unique. Among the five-term vectors, $t=0$ is again necessary for the
+least norm; the pair $(\lambda_6,\lambda_7)$ can then have one nonzero
+entry only when $y=0$, since $7\nmid83$. The pair
+$(\lambda_4,\lambda_5)$ has one nonzero entry only at $x=0$ or
+$x=-136$, and the latter is smaller. Hence the displayed five-term
+vector is the unique least-norm vector among those of minimum support,
+with norm $2486$.
+
+The third channel changes these optimization costs even though it does
+not change the moment ideal. With only $V_2=V_4=0$, group the seven
+coefficients by
+$a=\lambda_2+3\lambda_3$, $b=\lambda_4+5\lambda_5$,
+$c=\lambda_6+7\lambda_7$ and $d=\lambda_8$.
+Solving the two channel equations and $M=1380$ gives
+\[
+(a,b,c,d)=(-870+2520t,-680+1890t,83-238t,-1+3t),
+\qquad t\in\Z.
+\]
+Each coordinate is nonzero for integral $t$, so four nonzero
+coefficients are necessary and sufficient. One four-term witness is
+$-290e_3-136e_5+83e_6-e_8$, with norm $510$.
+For the unrestricted coefficient norm at this horizon,
+$|\lambda_2|+|\lambda_3|\ge|a|/3$ and
+$|\lambda_4|+|\lambda_5|\ge|b|/5$; when $t\ne0$, these bounds
+together with $|d|$ already sum to at least $794$.
+At $t=0$, the four groups have unique norm minima $290$, $136$,
+$13$ and $1$, respectively. Thus the unique norm minimizer under
+only $V_2=V_4=0$ is
+$-290e_3-136e_5-e_6+12e_7-e_8$, with norm $440$.
+The support-horizon, sparsity and norm optima here concern this
+depth-four finite problem; they make no assertion about the series'
+irrationality.
+
 The factor beyond $L_D$ is not always $12$. At $D=6$, the same recurrence
 gives
 \[
@@ -2636,6 +2735,14 @@ $256$. Its fractional part, rather than the size of the remainder itself,
 is what excludes denominators dividing $1380$. This small instance explains
 the signed-part comparison in the short note; the headline finite
 exclusions already imply its denominator restriction.
+The five-term vector in \S\ref{long68:sec:channels} has the same moment
+and residual $1380(S-H_4)-44$, exactly $286$ less than the preceding
+remainder, hence strictly between $-31$ and $-30$.
+The horizon-eight norm minimizer has residual $1380(S-H_4)-56$,
+strictly between $-43$ and $-42$. These integer translations give the
+same fractional obstruction with smaller coefficients; they do not
+settle the irrationality of $S$. The exact offsets are reproduced by
+\texttt{scripts/check\_erdos68\_channel\_moment.py}.
 
 The finite-support vector $\lambda=2e_3-e_4$ has, by kernel check,
 $\chn2\lambda=0$, factorial moment $-12$, $\chn3\lambda=-2$,
@@ -2769,6 +2876,10 @@ any of those unbounded assertions.
 % , - part back , -
 \section*{Acknowledgements}
 The author thanks Wouter van Doorn for advice on exposition: explaining notation when it first appears, avoiding private terminology, and saying how restrictive a conditional hypothesis is. His advice concerned the writing of another note; he has not reviewed the mathematics of this paper.
+An AI research pass supplied by Will Cook derived the depth-four dual
+congruence and shorter vectors from the factorial-channel definitions
+and general moment-ideal theory developed earlier here. OpenAI Codex
+checked and integrated them; a separate AI pass reviewed the proof.
 
 \begin{thebibliography}{99}
 
@@ -2902,7 +3013,6 @@ Paul Erd{\H o}s and John L. Selfridge. \href{https://doi.org/10.1215/ijm/1256050
 \S1.3(ii), formula~(1.3.13). Online resource, consulted 18 September 2026.
 
 \end{thebibliography}
-
 % ---- part extended_record ----
 % ---- part family_catalogue ----
 % ---- part back ----

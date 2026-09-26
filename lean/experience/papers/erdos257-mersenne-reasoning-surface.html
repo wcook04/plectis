@@ -1031,29 +1031,43 @@ the fixed rational lattice then excludes rationality. ◻</p>
 <p>The positive-weight variant of Theorem 1.2, with its hereditary
 all-base conclusion, also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19">kernel-checked
-Lean proof</a>. Theorem 1.3 does not establish strict enlargement over
-both individual classes. No separation between the two classes is proved
-here: neither a weighted support with no strengthened cover nor a
-support with such a cover but no finite weighted mass is constructed.
-The theorem also leaves universal irrationality and the quantitative and
-prime-power thinning claims open.</p>
-<p>With arbitrary positive cover weights, the class of subsets of such
-mixed hosts is closed under finite unions and finite changes. For
-weighted supports use the union of the two finite prime sets: the prime
-part grows and
+Lean proof</a>. Theorem 1.3 alone does not exhibit a host outside both
+individual classes. The short paper now supplies the missing ordinary
+constructions: one infinite host has a finite-prime weighted witness at
+base two but no strengthened positive cover, while a fresh-prime host
+has such a cover but no finite-prime weighted witness at any integer
+base. Their union satisfies neither individual criterion, and this
+theorem gives every infinite subset an irrational sum at every integer
+base. Those exact host constructions and the strictness corollary have
+not been formalised in Lean or independently reviewed; the mixed
+implication itself is kernel-checked. Universal irrationality and the
+quantitative and prime-power thinning claims remain open.</p>
+<p>The class of subsets of mixed hosts is closed under finite unions and
+finite changes even with the literal dyadic cover cost in
+<code>[eq:257-strengthened-cover]</code>. For two covers, interleave
+their
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>th
+finite sets at positions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>j</mi></mrow><annotation encoding="application/x-tex">2j-1,2j</annotation></semantics></math>,
+halve each exponent, and keep the nonnegative coefficient columns.
+Integer divisor counts satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msup><mo>≤</mo><msup><mi>f</mi><mi>α</mi></msup></mrow><annotation encoding="application/x-tex">f^{\alpha/2}\le f^\alpha</annotation></semantics></math>,
+while the full reindexed cost of each column grows by at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">1+\sqrt2</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+covers, positions at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>j</mi></mrow><annotation encoding="application/x-tex">rj</annotation></semantics></math>
+and exponents divided by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+give a cost ratio below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">2r</annotation></semantics></math>.
+For weighted supports combine the finite prime witnesses: the prime part
+grows and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h/(2^h-1)</annotation></semantics></math>
-decreases. For two covers, interleave their finite sets with weights
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\eta_j/2</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\theta_j/2</annotation></semantics></math>;
-the total cost grows by at most two, since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2^{\alpha_j}\le2</annotation></semantics></math>.
-Subsets inherit the same hosts, and finite sets have finite weighted
-mass. This argument uses the positive-weight variant; it does not
-silently reindex the dyadic weights
-in <code>[eq:257-strengthened-cover]</code>. Countable unions require a
-tail budget. Every prime singleton is admitted, but for the full prime
-support
+decreases. Subsets inherit the same hosts, and finite sets have finite
+weighted mass. Countable unions require a tail budget. Every prime
+singleton is admitted, but for the full prime support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
 one has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\Delta_{2,\mathcal P}(N)&gt;1/3</annotation></semantics></math>

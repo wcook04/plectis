@@ -11,26 +11,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.pdf",
-      "source_sha256": "0c5f920369deabf815f42ed11ee28c8e26dcff2b45d4ced289be575270c76690",
-      "bytes": 131432,
+      "source_sha256": "4e0706cade2867001edd645156be3170149709c27fe90402b50465ecf3ade082",
+      "bytes": 134924,
       "source_tex_path": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex",
-      "hosted_tex_sha256": "ee993e3113845a16b22814949ca5039a9eecb51180a12fec6e36b0ae902a838e",
-      "tex_bytes": 58295
+      "hosted_tex_sha256": "260525ba1e5a4b98ca0b951ebf35f36dd7cef3d42ae0ce39a5666abd33dd7f1f",
+      "tex_bytes": 60560
     },
     {
       "hosted_path": "papers/erdos68-factorial-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.pdf",
-      "source_sha256": "f43e878d2f295fb3af1963397c724cc7244940c145d369925c1670dc478f855a",
-      "bytes": 292302,
+      "source_sha256": "6fba0036b9d67d1ad5140c6641a1aa6e5dc75eba023ff22c9967cd6e4b179cee",
+      "bytes": 300996,
       "source_tex_path": "paper/68/erdos68-factorial-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos68-factorial-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex",
-      "hosted_tex_sha256": "7c48b01f9f24f796511ca13781dbaf91200017ff609e7dae6201d2dd8d9d20b9",
-      "tex_bytes": 151863
+      "hosted_tex_sha256": "9c7466de76bfd6c91fcd05522c23c63e9549652f7da01385269c4253cc85d1b8",
+      "tex_bytes": 157157
     },
     {
       "hosted_path": "papers/erdos-243-reciprocal-tail-rigidity.pdf",
@@ -115,26 +115,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "8299007a02ee0a4dbdab043f6bd290464849dbbcae7f1afb162be5a30311c397",
-      "bytes": 165421,
+      "source_sha256": "055cb823afe0c70c6298b78ad4df1f7769bf2471938c4349092b1660ff038a46",
+      "bytes": 174923,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "390ac1fb088c08e0778ef700b1effa2fc2cf0f6bf3c51c7be82af62e4298b08f",
-      "tex_bytes": 65561
+      "hosted_tex_sha256": "dc324514dec8da33763c8fe510eadec675fc8feb94586d3a5ce408b28e04f78b",
+      "tex_bytes": 70547
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf",
-      "source_sha256": "aac336c1bd2a7775ca1527bed9be5dd27622974506fcb7a4f37245aa62a03395",
-      "bytes": 796931,
+      "source_sha256": "2822938d8295bd8096ba11172df46e7c4a1d9c22da796184504e74d08ded549e",
+      "bytes": 797294,
       "source_tex_path": "paper/257/erdos257-mersenne-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-mersenne-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex",
-      "hosted_tex_sha256": "f416aae7069e05033ec6bb58a69f660fe37ce823cb3e06311e0e8e8119859733",
-      "tex_bytes": 472681
+      "hosted_tex_sha256": "16d6e9dd68f0e21145acc771c5a996d4a68f6f211272db43fa33ccd186ebf86a",
+      "tex_bytes": 473164
     },
     {
       "hosted_path": "papers/erdos269-running-lcm-reasoning-surface.pdf",
@@ -219,52 +219,52 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.pdf",
-      "source_sha256": "af9f67bb5d86f91fc4fc7fd788174c2d3c3261b111ff9a922526872079ec4808",
-      "bytes": 211610,
+      "source_sha256": "5e420944fe5b07e81e20145eadd7eaf4c895f7fa9ad4bfc7e9d3511a46b07b35",
+      "bytes": 220052,
       "source_tex_path": "paper/synthesis/optimal-sparse-perturbations.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/synthesis/optimal-sparse-perturbations.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex",
-      "hosted_tex_sha256": "73b61adcdb44439c93f3cdfa0a46bfe0719a7ccc5171bd2ebc66203a3b9c8f06",
-      "tex_bytes": 92851
+      "hosted_tex_sha256": "62b30a66e6e9ea5f1a22c258be646c0953ef5d4030f0a7c344d5417a0efa529a",
+      "tex_bytes": 97871
     },
     {
       "hosted_path": "papers/claim-faithful-publication-systems-paper.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "13ee864e842de94844077262413aa137da48cb47996734d8dc35bfd8516afdab",
-      "bytes": 128737,
+      "source_sha256": "41eb5d3a8fb37440bd38bcd69dfabd72c75cc5ce0d68582e217b6866ce5e25d7",
+      "bytes": 129034,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "a95860ed2e1af4038248300cdd62cc7e8b8833e2f5531f720f45a391c3d68846",
-      "tex_bytes": 62054
+      "hosted_tex_sha256": "6d01a38e0ce0ca5df07d0369a1e15566e400a9f60d3c2daff8dd1a69798facb2",
+      "tex_bytes": 62412
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf",
-      "source_sha256": "4648b461a4ab85f24f4c9f5bf9ced1e7a295cda1e8b05ea84af463a7c51a8d62",
-      "bytes": 87537,
+      "source_sha256": "bb085154793359bbd79de6dffb05b5277a61d615f6ba1eeef8eeb16e84a1b1cd",
+      "bytes": 88652,
       "source_tex_path": "paper/systems/cold-clone-to-proof-receipt.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/cold-clone-to-proof-receipt.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex",
-      "hosted_tex_sha256": "dc5dd4b37231bf70084adee1043b7423326ee2139b097aa2b400eadc361ae747",
-      "tex_bytes": 40432
+      "hosted_tex_sha256": "7d629bd4139ae382eb72aa9c77e3303846f99c832f8800b3c0c6e9c2bd9f5289",
+      "tex_bytes": 40939
     },
     {
       "hosted_path": "papers/open-source-mathematics-strategy.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf",
-      "source_sha256": "7c4df5ffb4b6954d49f26a1283ca0c3bc9291f05927b657412bb9aff20ce442c",
-      "bytes": 160008,
+      "source_sha256": "4159374e00fcfbace38a62143e350cc3077bfdcd6941fe4351ea7d775b490495",
+      "bytes": 160573,
       "source_tex_path": "paper/systems/open-source-mathematics-strategy.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/open-source-mathematics-strategy.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex",
-      "hosted_tex_sha256": "93ed028ed9917075b4588e6cd4eef66966518071da9cd5607a53d1b0204069e0",
-      "tex_bytes": 99749
+      "hosted_tex_sha256": "35a129f690176e6aa9eed97fe0b52f971f67502bd96891a4189a5df99d961654",
+      "tex_bytes": 100425
     },
     {
       "hosted_path": "papers/plectis-public-system.pdf",
@@ -318,7 +318,7 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/evidence/erdos-68-factorial-denominator-irrationality.tex",
-      "source_sha256": "d72fa348b8310a7c469c6cc1916e4ebc8230e191fc9e05d4934cea13f7dff028",
+      "source_sha256": "9cf6b25c5701093c1d78ab871cfe7889211783c3b535a66fe26afc6905aca765",
       "bytes": 2795
     },
     {
@@ -350,7 +350,7 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/evidence/erdos-257-mersenne-support-subseries.tex",
-      "source_sha256": "b3c344fe99976cbcd5c9c2c1d1b88b30d1b3bd08a572abf7ba365a6424f28d98",
+      "source_sha256": "438476a344285d01a40281dd9c216fc661d1ae9cc7452d72d487cdcaa4760d64",
       "bytes": 3765
     },
     {
@@ -382,7 +382,7 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_path": "paper/evidence/erdos68-factorial-reasoning-surface.tex",
-      "source_sha256": "e7c09d8511e1fe512de4180955ac341e9b4688b3d4ed5d353edfaee8596db9cb",
+      "source_sha256": "8007fd950b74568c5f62ab0a763319e69261b8f7222f9d6133a1b0371ef86434",
       "bytes": 7171
     },
     {

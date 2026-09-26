@@ -296,8 +296,19 @@ For an infinite support `A` and an integer base `b ≥ 2`, finiteness of
 `∑_{a∈A} h(a)/(a(b^{h(a)}−1))` implies irrationality of
 `∑_{a∈A} 1/(b^a−1)`. The
 [long paper explains the proof](../paper/257/erdos257-mersenne-reasoning-surface.pdf):
-average the residues along multiples of increasingly divisible moduli, then
-choose a finite range of averaging lengths to control the error uniformly.
+if this sum were rational with denominator `v`, every positive displacement
+from an integer would be at least `1/v`. Choose a finite part of `A` and make
+its exponents divide an observation modulus `Q`, so their displacements vanish.
+For the remaining exponents, a complete residue orbit gives the weighted main
+term. Averaging over a finite block of dyadic observation lengths charges the
+incomplete orbits by weighted reciprocal mass, uniformly over finite
+subfamilies; this uniform bound permits the passage to the infinite support.
+The [short paper](../paper/257/erdos-257-mersenne-support-subseries.pdf)
+then chooses the modulus and block length so that its error charged to the
+whole weighted mass tends to zero. The Lean proof first makes the remaining
+tail weight small and uses a different block-length schedule. Both produce a
+positive displacement below `1/v`; their parameter schedules should be read
+with their respective error bounds.
 Lean proves this as `divisibilityWeightedClaim` in
 [`WeightedReturn.lean`](../lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean).
 The short paper gives a shorter proof and an
@@ -314,6 +325,18 @@ diverges while the weighted sum converges. The theorem gives irrationality
 at every integer base for every infinite subset of `A★`. It does not cover
 full support, all odd exponents, or the full prime support; Tao–Teräväinen
 prove the latter at base two by another method.
+The [#257 reader exercise](research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis)
+tests how changing a layer cutoff alters this certificate, and why a failed
+weighted test is not a rationality result.
+A [second test](research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-a-changing-prime-set)
+shows why a prime set fitted separately to each finite prefix cannot certify
+the infinite hypothesis.
+The [weighted-support transfer exercise](../research/experiments/weighted_support_transfer/README.md#a-host-that-needs-every-chosen-prime)
+gives the complementary fixed-host phenomenon: for any prescribed finite
+nonempty prime set, its binary weighted certificate can require every prime
+in that set. This is a calculation about the sufficient criterion, not a
+claim that each infinite subset needs the same witness or that the example
+has been formalised separately in Lean.
 The comparison identifies the added class and proof mechanism, but does not
 settle independent novelty or priority assessment. See the
 [short paper's theorem, example and sources](papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability).

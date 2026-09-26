@@ -491,6 +491,77 @@ long paper, §5.1, proves that divisibility by Legendre’s formula, checks
 the attaining vector, and gives the different minimum <span
 class="math inline" data-term-auto="off">\(4140\)</span> when support is restricted to <span
 class="math inline" data-term-auto="off">\(n\le6\)</span>.</p>
+<p>There is also a short certificate for this depth-four value that does
+not require computing the entire tail gcd. For every <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>,</p>
+<div class="math-display" id="eq:depth-four-dual" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+  1380\mid 11n!-46W_{2,n}+12W_{4,n}.
+  \label{eq:depth-four-dual}
+\end{equation}\]</span></div>
+<p>For <span class="math inline" data-term-auto="off">\(n=2,3,4\)</span>
+the expression is zero. For <span class="math inline" data-term-auto="off">\(n\ge4\)</span>,
+each summand is divisible by <span class="math inline" data-term-auto="off">\(12\)</span>:
+<span class="math inline" data-term-auto="off">\(12\mid n!\)</span>, while <span
+class="math inline" data-term-auto="off">\(6\mid W_{2,n}\)</span> because <span
+class="math inline" data-term-auto="off">\(W_{2,2r}=r!\prod_{j=1}^{r}(2j-1)\)</span> for
+<span class="math inline" data-term-auto="off">\(r\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(W_{2,2r+1}=(2r+1)W_{2,2r}\)</span>. For <span
+class="math inline" data-term-auto="off">\(n\ge5\)</span>, each summand is divisible by <span
+class="math inline" data-term-auto="off">\(5\)</span>, since the denominators removed from
+<span class="math inline" data-term-auto="off">\(n!\)</span> in <span
+class="math inline" data-term-auto="off">\(W_{2,n}\)</span> and <span
+class="math inline" data-term-auto="off">\(W_{4,n}\)</span> are powers of <span
+class="math inline" data-term-auto="off">\(2\)</span> and <span
+class="math inline" data-term-auto="off">\(24\)</span>. Finally, <span
+class="math inline" data-term-auto="off">\(n!=24^{\lfloor n/4\rfloor}W_{4,n}\equiv
+W_{4,n}\pmod{23}\)</span> and <span
+class="math inline" data-term-auto="off">\(46W_{2,n}\equiv0\pmod{23}\)</span>. The factors
+<span class="math inline" data-term-auto="off">\(12\)</span>, <span
+class="math inline" data-term-auto="off">\(5\)</span> and <span
+class="math inline" data-term-auto="off">\(23\)</span> are coprime, proving <a class="math-ref" data-equation-ref="true" href="#eq:depth-four-dual">eq:depth-four-dual</a>.</p>
+<p>Summing against a finite integer vector gives <span
+class="math inline" data-term-auto="off">\(1380\mid 11M-46V_2+12V_4\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span> implies <span
+class="math inline" data-term-auto="off">\(1380\mid M\)</span>, since <span
+class="math inline" data-term-auto="off">\(11\)</span> is coprime to <span
+class="math inline" data-term-auto="off">\(1380\)</span>. Equality is attained even with the
+third channel cancelled:</p>
+<div class="math-display" id="eq:depth-four-short-vector" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+  \lambda=1482e_2-784e_3-136e_5+83e_6-e_8,
+  \qquad (M,V_2,V_3,V_4)=(1380,0,0,0).
+  \label{eq:depth-four-short-vector}
+\end{equation}\]</span></div>
+<p>These values follow directly from the five rows
+<span class="math inline" data-term-auto="off">\((n!,W_{2,n},W_{3,n},W_{4,n})\)</span> at
+<span class="math inline" data-term-auto="off">\(n=2,3,5,6,8\)</span>: <span
+class="math inline" data-term-auto="off">\((2,1,2,2)\)</span>, <span
+class="math inline" data-term-auto="off">\((6,3,1,6)\)</span>, <span
+class="math inline" data-term-auto="off">\((120,30,20,5)\)</span>, <span
+class="math inline" data-term-auto="off">\((720,90,20,30)\)</span> and <span
+class="math inline" data-term-auto="off">\((40320,2520,1120,70)\)</span>. Hence imposing
+<span class="math inline" data-term-auto="off">\(V_3=0\)</span> does not change the
+attainable <em>moments</em>; it does restrict the vectors, since <span
+class="math inline" data-term-auto="off">\(3e_2-e_3\)</span> has <span
+class="math inline" data-term-auto="off">\(M=V_2=V_4=0\)</span> but <span
+class="math inline" data-term-auto="off">\(V_3=5\)</span>.</p>
+<p>The first possible maximum index of a vector attaining moment <span
+class="math inline" data-term-auto="off">\(1380\)</span> under <span
+class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span> is <span
+class="math inline" data-term-auto="off">\(8\)</span>. Indeed, the expression in <a class="math-ref" data-equation-ref="true" href="#eq:depth-four-dual">eq:depth-four-dual</a> is zero at
+<span class="math inline" data-term-auto="off">\(n=2,3,4,5\)</span> and equals <span
+class="math inline" data-term-auto="off">\(4140\)</span> and <span
+class="math inline" data-term-auto="off">\(28980=7\cdot4140\)</span> at <span
+class="math inline" data-term-auto="off">\(n=6,7\)</span>. For support at most <span
+class="math inline" data-term-auto="off">\(7\)</span>, <span
+class="math inline" data-term-auto="off">\(11M=4140(\lambda_6+7\lambda_7)\)</span> when the
+two channels vanish; coprimality of <span
+class="math inline" data-term-auto="off">\(11\)</span> and <span
+class="math inline" data-term-auto="off">\(4140\)</span> forces <span
+class="math inline" data-term-auto="off">\(4140\mid M\)</span>. The vector in <a class="math-ref" data-equation-ref="true" href="#eq:depth-four-short-vector">eq:depth-four-short-vector</a>
+reaches index <span class="math inline" data-term-auto="off">\(8\)</span>. All of these
+statements concern finite cancellation; they do not prove irrationality
+of the series.</p>
 </section>
 </section>
 </section>
@@ -1395,7 +1466,11 @@ come from a separate exact modular scan.</p>
 explaining notation when it first appears, avoiding private terminology,
 and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
-mathematics of this paper.</p>
+mathematics of this paper. An AI research pass supplied by Will Cook
+derived the depth-four dual congruence and shorter vectors from the
+factorial-channel definitions and general moment-ideal theory developed
+earlier here. OpenAI Codex checked and integrated them; a separate AI
+pass reviewed the proof.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

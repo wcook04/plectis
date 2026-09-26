@@ -1566,6 +1566,150 @@ The least positive moment is then <span
 class="math inline" data-term-auto="off">\(115\cdot180/\gcd(180,55)=4140\)</span>. Minimising
 the moment and minimising the largest supported index are therefore
 different problems.</p>
+<p>The same minimum has a direct certificate using only the second and
+fourth channels. For every <span class="math inline" data-term-auto="off">\(n\ge2\)</span>,</p>
+<div class="math-display" id="long68:eq:depth-four-dual" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+1380\mid 11n!-46W_{2,n}+12W_{4,n}.
+\label{long68:eq:depth-four-dual}
+\end{equation}\]</span></div>
+<p>The expression is zero for <span
+class="math inline" data-term-auto="off">\(n=2,3,4\)</span>. For <span
+class="math inline" data-term-auto="off">\(n\ge4\)</span>, it is divisible by <span
+class="math inline" data-term-auto="off">\(12\)</span>: <span class="math inline" data-term-auto="off">\(12\mid
+n!\)</span> and <span class="math inline" data-term-auto="off">\(6\mid W_{2,n}\)</span>, as
+follows from <span
+class="math inline" data-term-auto="off">\(W_{2,2r}=r!\prod_{j=1}^r(2j-1)\)</span> for <span
+class="math inline" data-term-auto="off">\(r\ge2\)</span> and the corresponding odd-index
+recurrence. For <span class="math inline" data-term-auto="off">\(n\ge5\)</span>, it is
+divisible by <span class="math inline" data-term-auto="off">\(5\)</span> because <span
+class="math inline" data-term-auto="off">\(5\mid n!\)</span> and the denominators removed to
+form <span class="math inline" data-term-auto="off">\(W_{2,n}\)</span> and <span
+class="math inline" data-term-auto="off">\(W_{4,n}\)</span> are coprime to <span
+class="math inline" data-term-auto="off">\(5\)</span>. Modulo <span
+class="math inline" data-term-auto="off">\(23\)</span>, <span class="math inline" data-term-auto="off">\(n!\equiv
+W_{4,n}\)</span> and <span
+class="math inline" data-term-auto="off">\(46W_{2,n}\equiv0\)</span>. This proves the
+congruence. Consequently <span class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span>
+forces <span class="math inline" data-term-auto="off">\(1380\mid M\)</span>, without a
+restriction on the largest supported index. Conversely, <span
+class="math inline" data-term-auto="off">\(1482e_2-784e_3-136e_5+83e_6-e_8\)</span> has
+moment <span class="math inline" data-term-auto="off">\(1380\)</span> and <span
+class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span>. Thus adding the third
+channel does not change the moment ideal, although <span
+class="math inline" data-term-auto="off">\(3e_2-e_3\)</span> shows that it changes the set of
+admissible vectors.</p>
+<p>At support horizon <span class="math inline" data-term-auto="off">\(8\)</span>, this
+five-term vector is sparsest among attaining vectors. More precisely,
+every integer vector supported on <span
+class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span> with <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> and <span
+class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span> has, for some <span
+class="math inline" data-term-auto="off">\(t,x,y\in\Z\)</span>, the coefficients</p>
+<div class="math-display" id="long68:eq:depth-four-family" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\begin{aligned}
+\lambda_2&amp;=1482-4200t,&amp;\lambda_3&amp;=-784+2240t,\\
+\lambda_4&amp;=-680+1890t-5x,&amp;\lambda_5&amp;=x,\\
+\lambda_6&amp;=83-238t-7y,&amp;\lambda_7&amp;=y,\\
+\lambda_8&amp;=-1+3t.
+\end{aligned}
+\label{long68:eq:depth-four-family}
+\end{equation}\]</span></div>
+<p>Indeed, the values of the expression in <a class="math-ref" data-equation-ref="true" href="#long68:eq:depth-four-dual">long68:eq:depth-four-dual</a> at
+indices <span class="math inline" data-term-auto="off">\(2,\ldots,8\)</span> are</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(0,0,0,0,4140,28980,328440).\]</span></div>
+<p>Therefore
+the dual identity and <span class="math inline" data-term-auto="off">\(M=1380\)</span> give
+<span
+class="math inline" data-term-auto="off">\(11=3\lambda_6+21\lambda_7+238\lambda_8\)</span>.
+Modulo <span class="math inline" data-term-auto="off">\(3\)</span> this yields <span
+class="math inline" data-term-auto="off">\(\lambda_8=-1+3t\)</span>, then <span
+class="math inline" data-term-auto="off">\(\lambda_6+7\lambda_7=83-238t\)</span>. Set <span
+class="math inline" data-term-auto="off">\(x=\lambda_5\)</span> and <span
+class="math inline" data-term-auto="off">\(y=\lambda_7\)</span>; solving the three channel
+equations for indices <span class="math inline" data-term-auto="off">\(2,3,4\)</span> gives
+<a class="math-ref" data-equation-ref="true" href="#long68:eq:depth-four-family">long68:eq:depth-four-family</a>. The
+coefficient matrix is <span
+class="math inline" data-term-auto="off">\(\left(\begin{smallmatrix}1&amp;3&amp;6\\2&amp;1&amp;4\\2&amp;6&amp;1\end{smallmatrix}\right)\)</span>,
+with determinant <span class="math inline" data-term-auto="off">\(55\)</span>, and
+substitution verifies the converse. Indices <span
+class="math inline" data-term-auto="off">\(2,3,8\)</span> are nonzero for every integral
+<span class="math inline" data-term-auto="off">\(t\)</span>; neither the pair <span
+class="math inline" data-term-auto="off">\((\lambda_4,\lambda_5)\)</span> nor <span
+class="math inline" data-term-auto="off">\((\lambda_6,\lambda_7)\)</span> can vanish
+together. Thus five nonzero entries are necessary at this horizon.</p>
+<p>The smallest coefficient <span class="math inline" data-term-auto="off">\(\ell^1\)</span>
+norm at horizon <span class="math inline" data-term-auto="off">\(8\)</span> is <span
+class="math inline" data-term-auto="off">\(2416\)</span>, attained by <span
+class="math inline" data-term-auto="off">\((\lambda_2,\ldots,\lambda_8)=(1482,-784,0,-136,-1,12,-1)\)</span>.
+For <span class="math inline" data-term-auto="off">\(t\ge1\)</span>, the absolute values at
+indices <span class="math inline" data-term-auto="off">\(2,3,8\)</span> alone sum to <span
+class="math inline" data-term-auto="off">\(6443t-2267\ge4176\)</span>; for <span
+class="math inline" data-term-auto="off">\(t\le-1\)</span> they sum to <span
+class="math inline" data-term-auto="off">\(2267-6443t\ge8710\)</span>. Thus a minimizer has
+<span class="math inline" data-term-auto="off">\(t=0\)</span>. The remaining independent
+minima are <span
+class="math inline" data-term-auto="off">\(\min_x(|-680-5x|+|x|)=136\)</span> at <span
+class="math inline" data-term-auto="off">\(x=-136\)</span> and <span
+class="math inline" data-term-auto="off">\(\min_y(|83-7y|+|y|)=13\)</span> at <span
+class="math inline" data-term-auto="off">\(y=12\)</span>. For the first, <span
+class="math inline" data-term-auto="off">\(680\le|-680-5x|+5|x|\)</span> is at most five
+times the objective. For the second, the objective is at least <span
+class="math inline" data-term-auto="off">\(83\)</span> when <span
+class="math inline" data-term-auto="off">\(y\le0\)</span>, at least <span
+class="math inline" data-term-auto="off">\(17\)</span> when <span class="math inline" data-term-auto="off">\(0\le
+y\le11\)</span>, and equals <span
+class="math inline" data-term-auto="off">\(8y-83\ge13\)</span> when <span
+class="math inline" data-term-auto="off">\(y\ge12\)</span>. Adding the fixed contribution
+<span class="math inline" data-term-auto="off">\(1482+784+1=2267\)</span> gives <span
+class="math inline" data-term-auto="off">\(2416\)</span>. Equality forces <span
+class="math inline" data-term-auto="off">\(t=0\)</span>, <span
+class="math inline" data-term-auto="off">\(x=-136\)</span> and <span
+class="math inline" data-term-auto="off">\(y=12\)</span>, so this norm minimizer is unique.
+Among the five-term vectors, <span class="math inline" data-term-auto="off">\(t=0\)</span> is
+again necessary for the least norm; the pair <span
+class="math inline" data-term-auto="off">\((\lambda_6,\lambda_7)\)</span> can then have one
+nonzero entry only when <span class="math inline" data-term-auto="off">\(y=0\)</span>, since
+<span class="math inline" data-term-auto="off">\(7\nmid83\)</span>. The pair <span
+class="math inline" data-term-auto="off">\((\lambda_4,\lambda_5)\)</span> has one nonzero
+entry only at <span class="math inline" data-term-auto="off">\(x=0\)</span> or <span
+class="math inline" data-term-auto="off">\(x=-136\)</span>, and the latter is smaller. Hence
+the displayed five-term vector is the unique least-norm vector among
+those of minimum support, with norm <span
+class="math inline" data-term-auto="off">\(2486\)</span>.</p>
+<p>The third channel changes these optimization costs even though it
+does not change the moment ideal. With only <span
+class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span>, group the seven coefficients
+by <span class="math inline" data-term-auto="off">\(a=\lambda_2+3\lambda_3\)</span>, <span
+class="math inline" data-term-auto="off">\(b=\lambda_4+5\lambda_5\)</span>, <span
+class="math inline" data-term-auto="off">\(c=\lambda_6+7\lambda_7\)</span> and <span
+class="math inline" data-term-auto="off">\(d=\lambda_8\)</span>. Solving the two channel
+equations and <span class="math inline" data-term-auto="off">\(M=1380\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(a,b,c,d)=(-870+2520t,-680+1890t,83-238t,-1+3t),
+\qquad t\in\Z.\]</span></div>
+<p>Each coordinate is nonzero for integral <span
+class="math inline" data-term-auto="off">\(t\)</span>, so four nonzero coefficients are
+necessary and sufficient. One four-term witness is <span
+class="math inline" data-term-auto="off">\(-290e_3-136e_5+83e_6-e_8\)</span>, with norm <span
+class="math inline" data-term-auto="off">\(510\)</span>. For the unrestricted coefficient
+norm at this horizon, <span
+class="math inline" data-term-auto="off">\(|\lambda_2|+|\lambda_3|\ge|a|/3\)</span> and <span
+class="math inline" data-term-auto="off">\(|\lambda_4|+|\lambda_5|\ge|b|/5\)</span>; when
+<span class="math inline" data-term-auto="off">\(t\ne0\)</span>, these bounds together with
+<span class="math inline" data-term-auto="off">\(|d|\)</span> already sum to at least <span
+class="math inline" data-term-auto="off">\(794\)</span>. At <span
+class="math inline" data-term-auto="off">\(t=0\)</span>, the four groups have unique norm
+minima <span class="math inline" data-term-auto="off">\(290\)</span>, <span
+class="math inline" data-term-auto="off">\(136\)</span>, <span
+class="math inline" data-term-auto="off">\(13\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span>, respectively. Thus the unique norm
+minimizer under only <span class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span> is
+<span class="math inline" data-term-auto="off">\(-290e_3-136e_5-e_6+12e_7-e_8\)</span>, with
+norm <span class="math inline" data-term-auto="off">\(440\)</span>. The support-horizon,
+sparsity and norm optima here concern this depth-four finite problem;
+they make no assertion about the series’ irrationality.</p>
 <p>The factor beyond <span class="math inline" data-term-auto="off">\(L_D\)</span> is not
 always <span class="math inline" data-term-auto="off">\(12\)</span>. At <span
 class="math inline" data-term-auto="off">\(D=6\)</span>, the same recurrence gives</p>
@@ -3728,7 +3872,20 @@ class="math inline" data-term-auto="off">\(256\)</span>. Its fractional part, ra
 size of the remainder itself, is what excludes denominators dividing
 <span class="math inline" data-term-auto="off">\(1380\)</span>. This small instance explains
 the signed-part comparison in the short note; the headline finite
-exclusions already imply its denominator restriction.</p>
+exclusions already imply its denominator restriction. The five-term
+vector in §<a class="math-ref" href="#long68:sec:channels">5</a> has the same
+moment and residual <span class="math inline" data-term-auto="off">\(1380(S-H_4)-44\)</span>,
+exactly <span class="math inline" data-term-auto="off">\(286\)</span> less than the preceding
+remainder, hence strictly between <span
+class="math inline" data-term-auto="off">\(-31\)</span> and <span
+class="math inline" data-term-auto="off">\(-30\)</span>. The horizon-eight norm minimizer has
+residual <span class="math inline" data-term-auto="off">\(1380(S-H_4)-56\)</span>, strictly
+between <span class="math inline" data-term-auto="off">\(-43\)</span> and <span
+class="math inline" data-term-auto="off">\(-42\)</span>. These integer translations give the
+same fractional obstruction with smaller coefficients; they do not
+settle the irrationality of <span class="math inline" data-term-auto="off">\(S\)</span>. The
+exact offsets are reproduced by
+<code>scripts/check_erdos68_channel_moment.py</code>.</p>
 <p>The finite-support vector <span
 class="math inline" data-term-auto="off">\(\lambda=2e_3-e_4\)</span> has, by kernel check,
 <span class="math inline" data-term-auto="off">\(V_{2}(\lambda)=0\)</span>, factorial moment
@@ -3913,7 +4070,11 @@ denominators without proving any of those unbounded assertions.</p>
 explaining notation when it first appears, avoiding private terminology,
 and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
-mathematics of this paper.</p>
+mathematics of this paper. An AI research pass supplied by Will Cook
+derived the depth-four dual congruence and shorter vectors from the
+factorial-channel definitions and general moment-ideal theory developed
+earlier here. OpenAI Codex checked and integrated them; a separate AI
+pass reviewed the proof.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

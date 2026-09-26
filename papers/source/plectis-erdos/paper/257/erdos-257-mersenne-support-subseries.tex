@@ -37,7 +37,9 @@ sum, but excludes full support and all odd exponents.  The proof averages
 positive displacements over multiples of a finite modulus; a second,
 dyadic average controls incomplete periods.  We also prove the
 reciprocal-summable criterion stated by Erd\H{o}s and a common-average
-extension using positive divisor covers.  Supplementary results concern
+extension using positive divisor covers.  The two sufficient classes are
+incomparable; their mixed criterion admits supports in neither class.
+Supplementary results concern
 finite denominators and conditional rational-membership tests, not a
 resolution of the universal problem.
 
@@ -557,11 +559,91 @@ bound for ordinary initial intervals are proved in the companion, Section~13;
 those proofs were first worked out in an AI-assisted note of 17 September
 2026.  The three results of that section also have Lean proofs, each
 compared independently by Comparator; the ordinary proofs have not had
-independent human review.  Those arguments concern finite
-functionals, not a comparison of the infinite-support irrationality
-classes.  No separation between the weighted supports of
-Theorem~\ref{res:weighted-support} and the cover supports of
-Theorem~\ref{thm:variable-fractional-cover} is proved here.
+independent human review.  Those arguments concern finite functionals.
+The next construction uses the divisor cubes to compare the infinite-support
+criteria.  Write $\mathcal W_b$ for the supports satisfying the
+finite-prime weighted hypothesis at base $b$, and $\mathcal C$ for
+supports admitting a strengthened positive cover as in
+\eqref{eq:strengthened-cover}.
+
+\begin{proposition}[incomparable support criteria]
+\label{res:weighted-cover-incomparability}
+There are infinite positive supports $E$ and $V$ such that
+\[
+ E\in\mathcal W_2,\quad E\notin\mathcal C,\qquad
+ V\in\mathcal C,\quad V\notin\mathcal W_b\ (b\ge2),\qquad
+ \sum_{a\in V}\frac1a=\infty.
+\]
+\end{proposition}
+\begin{proof}
+The reciprocal sum over odd primes diverges, even after finitely many
+are removed.  Otherwise $\prod_{p\text{ odd}}(1+1/p)$ would bound the reciprocal
+mass of odd squarefree integers; the decomposition $n=ds^2$ would
+then make the odd harmonic series converge.
+
+Choose pairwise disjoint finite sets $P_k$ of odd primes such that
+$2^k/4\le S_k:=\sum_{p\in P_k}1/p<2^k/4+1$.  Put
+$M_k=\prod_{p\in P_k}p$ and
+$E=\bigcup_{k\ge1}\{2^kd:d\mid M_k\}$.
+The witness $\{2\}$ has weighted mass
+\[
+ \sum_{k\ge1}\frac{\prod_{p\in P_k}(1+1/p)}{2^{2^k}-1}
+ \le 2e\sum_{k\ge1}
+       \exp\bigl(-(\log2-1/4)2^k\bigr)<\infty.
+\]
+For the union $F_m$ of the first $m$ frames, average
+$\log^+ f_{F_m}$ over one period.  On $v_2(n)=k<m$, the $k$th frame
+contributes $2^{Z_k(n)}$ divisors, where
+$Z_k(n)=\sum_{p\in P_k}\mathbf1_{p\mid n}$.  This event has density
+$2^{-(k+1)}$ and is independent of odd-prime divisibility.  Thus
+\[
+ \mathbb E_{F_m}\log^+f_{F_m}
+ \ge(\log2)\sum_{k=1}^{m-1}2^{-(k+1)}S_k
+ \ge\frac{m-1}{8}\log2.
+\]
+Bound~\eqref{eq:cover-log-obstruction} makes these means uniformly
+bounded for every strengthened cover, so $E\notin\mathcal C$.
+
+For the reverse direction, choose unused odd primes $q_j\ge4^j$ and
+disjoint finite sets $P_j$ of unused odd primes.  Stop each $P_j$
+at the first prefix with $R_j:=\prod_{p\in P_j}(1+1/p)\ge q_j$.
+Prime reciprocal divergence permits this, and minimality gives
+$q_j\le R_j<4q_j/3$.
+Put $S_j=\sum_{p\in P_j}1/p$, $M_j=\prod_{p\in P_j}p$, and
+$V=\bigcup_{j\ge1}F_j$, where $F_j=\{q_jd:d\mid M_j\}$.
+The frames have disjoint prime alphabets, and
+\[
+ \sum_{a\in F_j}\frac1a=\frac{R_j}{q_j}\in[1,4/3).
+\]
+Thus the reciprocal sum diverges.  Every finite prime set misses all
+factors of all but finitely many frames; each missed frame has
+base-$b$ weighted mass $R_j/[q_j(b-1)]\ge1/(b-1)$.
+Hence $V\notin\mathcal W_b$ for every integer $b\ge2$.
+
+For the full infinite-cover cost, from
+$\log(1+x)\ge x-x^2/2$ and $\sum_{p\in P_j}p^{-2}\le1$ we have
+$S_j\le\log R_j+1/2<\log q_j+1$.  Set
+\[
+ z_j=(j+S_j)^{-1},\qquad
+ \alpha_j=\log_2(1+z_j),\qquad
+ c_{j,q_jd}=z_j^{\omega(d)}\quad(d\mid M_j),
+\]
+with other coefficients zero and $\omega(d)$ the number of prime
+factors of $d$.  If $q_j\mid n$ and $Z$ primes in $P_j$ divide $n$,
+the divisor majorant equals $(1+z_j)^Z=f_{F_j}(n)^{\alpha_j}$;
+otherwise both sides vanish.  The column cost is
+$C_j=q_j^{-1}\prod_{p\in P_j}(1+z_j/p)$, whence
+\[
+ \frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}
+ =\frac{(1+z_j)^j}{q_jz_j}
+    \prod_{p\in P_j}(1+z_j/p)
+ \le\frac{e(j+S_j)}{q_j}
+ \le e\bigl((1+\log4)j+1\bigr)4^{-j}.
+\]
+The last bound uses that $(j+\log x+1)/x$ decreases for $x\ge4^j$.
+Its sum converges, including the frame-index factor in
+\eqref{eq:strengthened-cover}; hence $V\in\mathcal C$.
+\end{proof}
 
 \subsection{Combining the two support criteria}
 Separate small-displacement witnesses need not occur at the same index.
@@ -621,17 +703,51 @@ proof transfers arbitrarily small displacements to every integer base;
 the fixed rational lattice then excludes rationality.
 \end{proof}
 
-The proof does not establish strict containment of either individual
-class in the mixed class.
+The combination is strict as a comparison of sufficient criteria.
+\begin{corollary}[a host requiring the mixed criterion]
+\label{res:strict-mixed-supports}
+There is an infinite positive support $U$ with
+$U\notin\mathcal C$ and $U\notin\mathcal W_b$ for every integer $b\ge2$,
+such that $X_A(b)$ is irrational for every infinite $A\subseteq U$
+and every integer $b\ge2$.
+\end{corollary}
+\begin{proof}
+Take $E,V$ from Proposition~\ref{res:weighted-cover-incomparability}
+and put $U=E\cup V$.  A strengthened cover of $U$ would cover $E$.
+A finite-prime weighted witness for $U$ at any fixed base would also
+witness $V$, since its summands are nonnegative.  Both conclusions
+contradict the proposition.  Theorem~\ref{res:mixed-supports} applies
+to the actual pair $E,V$ and proves the all-base hereditary conclusion;
+no addition of irrational numbers is involved.
+\end{proof}
+The mixed implication has a Lean declaration in the public corpus.
+Proposition~\ref{res:weighted-cover-incomparability} and this corollary
+have ordinary proofs here, but these particular constructions have not
+been formalised in Lean or independently reviewed.  The weighted-only
+construction follows the first-logarithmic-moment method; the
+bounded-mass reverse construction was developed in an AI-assisted
+continuation on 25 September 2026.  No historical priority claim is
+made for the comparison.
 
-With arbitrary positive cover weights, the class of subsets of such mixed
-hosts is closed under finite unions and finite changes.  For weighted
-supports use the union of the two finite prime sets: the prime part grows
-and $h/(2^h-1)$ decreases.  For two covers, interleave their finite sets with
-weights $\eta_j/2$ and $\theta_j/2$; the total cost grows by at most two,
-since $2^{\alpha_j}\le2$.  Subsets inherit the same hosts, and finite sets
-have finite weighted mass.  This argument uses the positive-weight variant;
-it does not silently reindex the dyadic weights in (V).
+Even the fixed-dyadic cover class in (V) is closed under finite unions.
+For two covers, interleave their $j$th frames at positions $2j-1,2j$,
+halve each exponent, and retain the nonnegative coefficient columns.
+The majorants persist since $f^{\alpha/2}\le f^\alpha$ for every
+nonnegative integer $f$.  Writing
+$T_j=C_j2^{j\alpha_j}/(2^{\alpha_j}-1)$ for an old column, its new
+cost is at most
+\[
+ \frac{C_j2^{j\alpha_j}}{2^{\alpha_j/2}-1}
+ =(1+2^{\alpha_j/2})T_j\le(1+\sqrt2)T_j.
+\]
+For $r$ covers, interleave at positions at most $rj$ and divide each
+exponent by $r$; the cost ratio is
+$(2^\alpha-1)/(2^{\alpha/r}-1)<2r$.  Weighted supports are likewise
+closed under finite unions: combine their finite prime witnesses, so
+the prime part grows and $h/(b^h-1)$ decreases.  Finite supports
+admit both criteria; subsets inherit each host.  Thus the mixed class
+is closed under finite unions and finite changes using the literal
+dyadic condition (V), without changing to arbitrary cover weights.
 Countable unions require a tail budget.  Every prime singleton is admitted,
 but for the full prime support $\mathcal P$ one has
 $\Delta_{2,\mathcal P}(N)>1/3$ for every $N\ge1$: indeed
@@ -1221,6 +1337,7 @@ notation, and writing for a first-time reader.  His comments concerned a
 note on Problem~243; this acknowledgement does not imply that he reviewed
 the mathematics of the present paper.
 
+\begingroup\small
 \begin{thebibliography}{99}
 \bibitem{duverneytachiya} D.~Duverney and Y.~Tachiya,
   \href{https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf}
@@ -1301,6 +1418,7 @@ Monatshefte f\"ur Mathematik und Physik \textbf{49} (1941), 316--320.
   Page references use \url{https://arxiv.org/abs/2509.24971v3}.
 
 \end{thebibliography}
+\endgroup
 
 
 \end{document}

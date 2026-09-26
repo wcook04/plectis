@@ -52,7 +52,8 @@ repository architecture that separates first-contact comprehension from proof
 checking. At the audited revision, a cold clone exposes a public proof cockpit
 that composes checkout and toolchain identity, corpus scale, exact open
 propositions, problem obligations, and committed workbench receipts. Beneath
-that card sit a bounded tour card, a mathematical map of ten programmes, a
+that card sit a bounded tour card, a mathematical map of ten thematic
+programmes across eight indexed Erd\H{o}s problems, a
 reviewed public claim map with explicit open propositions, and an
 elaborated loaded-root reference graph joined to source coordinates. These are
 committed navigation products: they require no Lean build and make omissions
@@ -66,8 +67,9 @@ so the true machine-generated share is substantially higher.
 
 Navigation does not receive proof authority. A session notary records an
 agent's observations, falsifiable conjectures, abandoned routes, exact Lean
-probes, and claims. Probe verdicts come from the pinned Lean process and cannot
-be authored by the agent; claims must cite an accepted probe, and replay reruns
+probes, and claims. The notary derives probe verdicts from the pinned Lean
+process; an agent cannot supply them through its interface. Claims must cite
+an accepted probe, and replay reruns
 the stored bytes. Compilation is similarly separated from orientation. Lake
 outputs and content traces support focused or changed-cone builds, while an
 exact cached receipt prevents an unchanged dependency-index check from
@@ -87,8 +89,9 @@ external cold-clone use had been recorded.
 \begin{paperresult}{What this paper establishes}
 \textbf{Result.} A cold clone exposes the library's complete declaration
 inventory, reviewed mathematical routes, public claim boundaries, and exact
-source links before Lean is built.  Accepted proof probes are issued by the
-pinned Lean process and can be replayed byte for byte.  \textbf{Evidence.}
+source links before Lean is built. The notary derives accepted proof-probe
+verdicts from pinned Lean execution and can replay the stored bytes.
+\textbf{Evidence.}
 The audited repository contains 1,019 modules and 153,253 declarations; the
 paper includes a replayed session case study.  \textbf{Limit.} This is a
 single-environment prototype with no recorded external cold-clone use.
@@ -115,8 +118,10 @@ context was meant to reveal. A useful first-contact surface must therefore be
 small, expandable, and honest about what it omits.
 
 The \href{\repobase}{development studied here} indexes eight Erd\H{o}s
-problem programmes. The claim registry now covers selected statements from
-all eight; a paper's inclusion does not give every statement in it formal
+problem programmes. The ten map entries are thematic routes across these
+problems, not ten separately indexed problems. The claim registry now covers
+selected statements from all eight; a paper's inclusion does not give every
+statement in it formal
 status. The degree-seven counterexample due to the erdosproblems.com
 contributor
 \href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
@@ -231,7 +236,8 @@ explanation.
 \paragraph{Authored mathematical interpretation.}
 The semantic graph contains authored statement nodes, typed relations, and an
 exact source-structural floor. At the audited revision all
-\SemanticAuthoredTheoremLike\ authored theorem-like declarations are linked.
+\SemanticAuthoredTheoremLike\ theorem-like declarations in the source scope
+are linked.
 Of these, \SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participate
 in authored mathematical interpretations: \SemanticDirectEvidence\ are exact
 proposition evidence and \SemanticContextual\ are bounded contextual links to
@@ -241,6 +247,8 @@ navigation, not a mathematical paraphrase. Keeping the tiers visible prevents
 exhaustive linkage or bulk helper assignment from being misreported as
 exhaustive direct understanding. A paper-seeded population query continues to
 rank exact live citations whose best route is structural rather than authored.
+The declaration count does not measure distinct discoveries, human-authored
+proofs, or individually reviewed mathematical interpretations.
 
 \paragraph{Reviewed public claims.}
 At the audited revision the claim map selected 101 results for public exposition.
@@ -355,7 +363,8 @@ closes a goal, or that an English interpretation is mathematically faithful.
   {PROOF \(\cdot\) exact input, pinned process, replayable};
 \end{tikzpicture}
 \caption{The shortest path from first contact to an authoritative receipt.
-The agent chooses the route; the pinned Lean process supplies the verdict.}
+The agent chooses the route; the notary derives the verdict from pinned Lean
+execution.}
 \label{fig:sequence}
 \end{figure}
 
@@ -367,8 +376,9 @@ the record instead of being rewritten into a linear success story.
 A probe is different. The notary stores the exact Lean input bytes, runs the
 pinned Lean process, and computes one of three verdicts from the process
 result: accepted, accepted with an admitted placeholder, or rejected. The
-agent cannot type a verdict into the ledger. A claim must cite an accepted
-probe receipt; the notary rejects weaker citations. Replay reruns every stored
+agent cannot supply a verdict through the supported notary interface. A claim
+must cite an accepted probe receipt; the notary rejects weaker citations.
+Replay reruns every stored
 probe and compares the current result with the recorded verdict.
 
 Workflow-provenance systems already record what ran, when and where it ran,
@@ -377,8 +387,10 @@ distinguish a planned workflow from the trace of an executed one
 \cite{workflowprovenance}. That is the closest established role for the
 notary's execution metadata. The notary adds a different contract: its ledger
 types an agent's conjectures, abandonments, probes, and claims, while the
-pinned Lean process alone supplies probe verdicts. The comparison does not show
-that the resulting record improves the agent's research choices.
+notary derives probe verdicts from the pinned Lean process. This interface
+rule does not prevent an actor with filesystem access from changing the
+implementation or stored record. The comparison does not show that the
+resulting record improves the agent's research choices.
 
 This design deliberately leaves search policy open. LeanDojo couples an open
 programmatic Lean environment with extracted proof data, premise annotations,

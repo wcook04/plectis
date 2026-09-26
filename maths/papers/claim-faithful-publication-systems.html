@@ -598,12 +598,14 @@ it. The corpus replay, run in the companion repository
 <code>plectis-erdos-lean</code>, also passes every compared proof
 through nanoda, an independent kernel <span class="citation"
 data-cites="nanodalib"><a href="#ref-19">[19]</a></span>. In this repository, continuous
-integration requires a deliberately altered statement to fail
-Comparator, so the harness cannot pass vacuously. Comparator cannot
-decide whether a statement is the right translation of the problem. It
-guarantees that the separately written statement, which a reader can
-inspect, is the statement that was proved, so “Comparator-checked” is
-accurate where “independently verified” would overclaim.</p>
+integration also requires Comparator to reject a deliberately altered
+statement. This control exercises that mismatch path; the surrounding
+invocation and verdict contract have separate obligations. Comparator
+cannot decide whether a statement is the right translation of the
+problem. It guarantees that the separately written statement, which a
+reader can inspect, is the statement that was proved, so
+“Comparator-checked” is accurate where “independently verified” would
+overclaim.</p>
 <p>The paper-to-Lean ledger makes both formal questions countable for
 the papers’ own statements. It holds one row for each result asserted in
 the sixteen problem papers, 674 in all, counting a result stated in both
@@ -1190,13 +1192,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110
 </tbody>
 </table>
 </div>
-<p>A fresh clone reproduces the control card and the structural checks
-without Lean:</p>
+<p>A fresh clone can inspect the control card and check its committed
+navigation without Lean:</p>
 <pre><code>python3 scripts/proof_cockpit.py --format card
-python3 scripts/proof_cockpit.py --check
-python3 scripts/check_release.py</code></pre>
-<p>Formal authority begins with the pinned <code>lake build</code> named
-by the card. The paper inventory,
+python3 scripts/proof_cockpit.py --check</code></pre>
+<p>Release-surface validation is a separate operation using the pinned
+Python requirements in <a
+href="https://github.com/wcook04/plectis-erdos/blob/3aea812a5fb031b14e0911cc9110885cd8a10bfd/docs/REPRODUCIBILITY.md"><code>the reproduction guide</code></a>;
+it runs <code>python3 scripts/check_release.py</code>. Formal replay
+additionally uses the pinned Lean and Comparator environment named by
+the card and guide. The paper inventory,
 <code>docs/publication_contract.json</code>, records source and PDF
 hashes and validation commands, and the evidence for the checker study
 in Section <a class="math-ref" href="#sec:checks">4</a> is
@@ -1383,7 +1388,7 @@ post</a>.</p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:a95860ed2e1af403</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:6d01a38e0ce0ca5d</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

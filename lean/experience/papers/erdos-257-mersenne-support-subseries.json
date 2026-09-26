@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 21,
+  "pages": 22,
   "question": "Which weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erdős #257 question?",
   "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "390ac1fb088c08e0778ef700b1effa2fc2cf0f6bf3c51c7be82af62e4298b08f",
+    "source_sha256": "dc324514dec8da33763c8fe510eadec675fc8feb94586d3a5ce408b28e04f78b",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 711,
+    "mathml_node_count": 786,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -44,8 +44,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d5a23fc1352ff97ca931766cea72ff06af357b9778a94be48a19e28fd49483ac",
-    "html_exact_tex_sha256": "7fa9d9932fd5f767c51a2d65e097cb61ea9833c613f474955e3d972c8a662056"
+    "html_mathml_sha256": "2c2d4f83f4bb254d2eaf083db215e7c9ff881a3e78ae4fc6cc7b51cdee587136",
+    "html_exact_tex_sha256": "efd6f1b0c60b98cab39ce23c01c075434c3753d0031c48c8ba14be2c9d95ca42"
   },
   "sections": [
     {

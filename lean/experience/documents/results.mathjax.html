@@ -410,10 +410,22 @@ infinite support <code>A</code> and an integer base <code>b ≥ 2</code>,
 finiteness of <code>∑_{a∈A} h(a)/(a(b^{h(a)}−1))</code> implies
 irrationality of <code>∑_{a∈A} 1/(b^a−1)</code>. The <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">long paper
-explains the proof</a>: average the residues along multiples of
-increasingly divisible moduli, then choose a finite range of averaging
-lengths to control the error uniformly. Lean proves this as
-<code>divisibilityWeightedClaim</code> in <a
+explains the proof</a>: if this sum were rational with denominator
+<code>v</code>, every positive displacement from an integer would be at
+least <code>1/v</code>. Choose a finite part of <code>A</code> and make
+its exponents divide an observation modulus <code>Q</code>, so their
+displacements vanish. For the remaining exponents, a complete residue
+orbit gives the weighted main term. Averaging over a finite block of
+dyadic observation lengths charges the incomplete orbits by weighted
+reciprocal mass, uniformly over finite subfamilies; this uniform bound
+permits the passage to the infinite support. The <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
+paper</a> then chooses the modulus and block length so that its error
+charged to the whole weighted mass tends to zero. The Lean proof first
+makes the remaining tail weight small and uses a different block-length
+schedule. Both produce a positive displacement below <code>1/v</code>;
+their parameter schedules should be read with their respective error
+bounds. Lean proves this as <code>divisibilityWeightedClaim</code> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean"><code>WeightedReturn.lean</code></a>.
 The short paper gives a shorter proof and an explicit support with
 divergent reciprocal sum satisfying the criterion. The comparison is
@@ -430,9 +442,23 @@ base-two weighted sum. The ordinary reciprocal sum diverges while the
 weighted sum converges. The theorem gives irrationality at every integer
 base for every infinite subset of <code>A★</code>. It does not cover
 full support, all odd exponents, or the full prime support;
-Tao–Teräväinen prove the latter at base two by another method. The
-comparison identifies the added class and proof mechanism, but does not
-settle independent novelty or priority assessment. See the <a
+Tao–Teräväinen prove the latter at base two by another method. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">#257
+reader exercise</a> tests how changing a layer cutoff alters this
+certificate, and why a failed weighted test is not a rationality result.
+A <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-a-changing-prime-set">second
+test</a> shows why a prime set fitted separately to each finite prefix
+cannot certify the infinite hypothesis. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/weighted_support_transfer/README.md#a-host-that-needs-every-chosen-prime">weighted-support
+transfer exercise</a> gives the complementary fixed-host phenomenon: for
+any prescribed finite nonempty prime set, its binary weighted
+certificate can require every prime in that set. This is a calculation
+about the sufficient criterion, not a claim that each infinite subset
+needs the same witness or that the example has been formalised
+separately in Lean. The comparison identifies the added class and proof
+mechanism, but does not settle independent novelty or priority
+assessment. See the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability">short
 paper’s theorem, example and sources</a>. At base two, the weighted
 condition can also be combined with the positive divisor-cover

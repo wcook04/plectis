@@ -55,7 +55,9 @@ classify the shift families that detect irrationality in every integer-digit
 dyadic recurrence: at every threshold $0<c<\tau$, precisely those containing
 a multiple of each positive integer suffice, where $\tau$ is the Thue--Morse
 constant in a cited sharp bound. Factorial shifts suffice; power-of-two
-shifts do not. The main
+shifts do not. For polynomially selected shifts, the condition becomes a
+root modulo every integer, or a unit root modulo every integer when the
+polynomial argument must be prime. The main
 arguments are ordinary proofs, with formal ingredients and external results
 identified separately; no original Erd\H{o}s problem is settled here.
 \end{abstract}
@@ -1342,6 +1344,84 @@ large $d$ leaves a family of density $1-1/d$ that fails the test; factorial
 shifts have density zero and succeed. This criterion does not establish
 irrationality for the actual prime-gap tail in \#251.
 
+Divisor coverage also implies that $H\cap d\Z_{>0}$ is unbounded for every
+$d>0$: apply coverage to the multiples $kd$ as $k$ grows. Consequently
+deleting finitely many shifts from a working family preserves the criterion.
+
+\subsection{Polynomially selected shifts}\label{sec:polynomial-shifts}
+
+For a polynomial $P\in\Z[x]$ with positive leading coefficient, set
+\[
+ H_P=\{P(n):n\ge0,\ P(n)>0\},\qquad
+ H_P^{\mathrm{prime}}=\{P(p):p\text{ prime},\ P(p)>0\}.
+\]
+The argument of $P$ in the second family is prime; this is different from
+checking whether $P$ has a root modulo every prime.
+
+\begin{corollary}[Polynomial shift families]\label{cor:polynomial-shifts}
+Fix $0<c<\tau$. The $H_P$-selected test detects irrationality for every
+integer-digit dyadic recurrence if and only if $P$ has a root modulo every
+positive integer. The $H_P^{\mathrm{prime}}$-selected test has this property
+if and only if, for every positive integer $d$, there is a root $r$ of $P$
+modulo $d$ with $\gcd(r,d)=1$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:restricted-dyadic-shifts}, each assertion reduces to
+whether every $d>0$ divides a member of the selected family. If
+$P(r)\equiv0\pmod d$, all sufficiently large integers $n\equiv r\pmod d$
+give positive multiples $P(n)$ of $d$. This proves the first assertion in
+both directions.
+
+For the prime-argument family, a root $r$ coprime to $d$ gives arbitrarily
+large primes $p\equiv r\pmod d$ by Dirichlet's theorem, and hence positive
+multiples $P(p)$ of $d$. Conversely, suppose there is no unit root modulo
+some $d$. Every prime $p$ for which $d\mid P(p)$ then satisfies
+$\gcd(p,d)>1$, so $p$ is one of the finitely many prime divisors of $d$.
+Thus $H_P^{\mathrm{prime}}\cap d\Z$ is bounded. Divisor coverage would make
+this intersection unbounded, since for every $k>0$ it supplies a member
+divisible by $kd$. This is a contradiction.
+\end{proof}
+
+The first condition is the usual intersectivity condition~\cite{leintersective}.
+The unit-root condition for prime arguments is $P$-intersectivity, also
+called intersectivity of the second kind~\cite[\S1.2]{ricepintersective}. For
+example, $P(n)=n^2$ works with integer arguments, while $n^2+1$ fails
+modulo $3$. At prime arguments, $P(p)=p$ fails already modulo $6$, while
+$p-1$ and $p^2-1$ work: the residue $1$ is a unit root modulo every $d$.
+
+Intersectivity need not come from an integer root. Mishra lists
+$F(x)=(x^2-13)(x^2-17)(x^2-221)$ as a polynomial with a root modulo
+every positive integer but no rational root~\cite{mishraquadratic}. In
+fact, it also has a \emph{unit} root modulo every positive integer. For
+odd primes other than $13$ and $17$, at least one of $13,17,221$ is a
+nonzero quadratic residue, since $221=13\cdot17$; its root lifts to every
+prime power. Modulo powers of $13$, use $x^2-17$ with $x\equiv2\pmod{13}$;
+modulo powers of $17$, use $x^2-13$ with $x\equiv8\pmod{17}$. At powers
+of $2$, the unit $17\equiv1\pmod8$ has a square root. The Chinese
+remainder theorem supplies unit roots modulo arbitrary $d$. Thus both
+$H_F$ and $H_F^{\mathrm{prime}}$ pass the criterion, without relying on a
+single global root.
+
+Prime moduli alone do not suffice for the first condition. Let
+$Q(x)=(x^2-2)(x^2-3)(x^2-6)$. It has a root modulo every prime: for
+odd primes not dividing $6$, if neither $2$ nor $3$ is a square, their
+product $6$ is; the primes $2$ and $3$ are immediate. But $Q(n)\equiv4$
+when $n$ is even and $Q(n)\equiv6$ when $n$ is odd, modulo $8$.
+Therefore neither $H_Q$ nor its prime-argument subfamily contains a multiple
+of $8$. L\^e's cited arXiv v1 introduction lists this $Q$ as
+intersective~\cite[p.~1]{leintersective}; the modulo-$8$ calculation
+corrects that example, without affecting the local-root criterion stated
+there. The failure is visible without the general counterexample
+construction: take the rational orbit
+$T_N=\{2^N/255\}$. Since $2^8\equiv1\pmod{255}$, for every positive
+shift $h=Q(n)$, indices $N\equiv3\pmod8$ when $h\equiv4\pmod8$ give
+$\|T_{N+h}-T_N\|=120/255$, and indices $N\equiv1\pmod8$ when
+$h\equiv6\pmod8$ give $126/255$. Both distances exceed
+$7/16>\tau$, so this rational orbit passes every $Q$-selected test at
+$0<c<\tau$. The modular root and orbit calculations are ordinary proofs;
+this polynomial extension is not claimed as Lean checked.
+
 \section{Limits on methods}\label{sec:second}\label{sec:inventory}
 
 
@@ -1610,6 +1690,18 @@ does not separate dimension zero from full-dimensional null sets. Outside
 integer divisibility chains the prefix lattice changes, so no corresponding
 necessity is asserted here.
 \begin{thebibliography}{99}
+\bibitem{leintersective} T.~H. L\^e,
+\emph{Intersective polynomials and the primes},
+\href{https://arxiv.org/abs/0910.1880v1}{arXiv:0910.1880v1}.
+
+\bibitem{ricepintersective} A.~Rice,
+\emph{S\'ark\"ozy's theorem for $P$-intersective polynomials},
+\href{https://arxiv.org/abs/1111.6559}{arXiv:1111.6559}.
+
+\bibitem{mishraquadratic} B.~Mishra,
+\emph{Polynomials consisting of quadratic factors with roots modulo any
+positive integer}, Amer. Math. Monthly \textbf{129} (2022), 178--182,
+\href{https://arxiv.org/abs/2102.08379}{arXiv:2102.08379}.
 \bibitem{akiyamakaneko} S.~Akiyama and H.~Kaneko, \emph{Multiplicative analogue
 of Markoff--Lagrange spectrum and Pisot numbers}, Adv.\ Math.\ 380 (2021),
 107547, p.~3, reporting the theorem of A.~Dubickas,

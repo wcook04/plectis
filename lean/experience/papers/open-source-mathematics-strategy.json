@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "93ed028ed9917075b4588e6cd4eef66966518071da9cd5607a53d1b0204069e0",
+    "source_sha256": "35a129f690176e6aa9eed97fe0b52f971f67502bd96891a4189a5df99d961654",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 16,
@@ -55,8 +55,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "11db77fe64983da96430a68f09dab554c69ca25e7b1aad81998eb3c869b2b764",
-    "html_exact_tex_sha256": "8f6b58ed9f732eb7f6068f530ba7b973cfe290dd2b9caf77135ef9872af50bc2"
+    "html_mathml_sha256": "f83820b4b8ead800bca0eaef910577202043342d83c380973d5c3c8ade49bc5f",
+    "html_exact_tex_sha256": "443acaebfa2814ba6a9b4f23c0c01d54e724994dcb512f00f024ba5988ea3341"
   },
   "sections": [
     {
@@ -197,7 +197,7 @@
     {
       "level": 2,
       "anchor": "sec:execution",
-      "label": "The next decision"
+      "label": "The next decision and its dependencies"
     },
     {
       "level": 2,
