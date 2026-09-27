@@ -209,12 +209,12 @@ follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 The reviewed layer a mathematician should judge: 150 curated claim records in 33 contribution families, reaching Lean source through 468 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 87% of the 163,651 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 87% of the 163,947 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,828 |
-| Formal results and supporting lemmas | 159,737 |
+| Lean modules (the two library roots) | 1,860 |
+| Formal results and supporting lemmas | 159,982 |
 | Curated claim records | 150 |
 | Contribution families | 33 |
 

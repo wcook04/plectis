@@ -676,7 +676,7 @@ are positive on every multiple of
 For any splitting into two sequences the two coefficient supports
 therefore cover a set of positive lower density, which is incompatible
 with the support-counting conditions <span class="citation"
-data-cites="kanekosuzukitachiya"><a href="#ref-5">[5]</a></span> requiring both counts to be
+data-cites="kanekosuzukitachiya"><a href="#ref-6">[6]</a></span> requiring both counts to be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mi>/</mi><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(x_n/z_n)</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>n</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_n\ge1</annotation></semantics></math>.
@@ -697,6 +697,161 @@ modulus that freezes a finite part of
 the weighted proof adds the dyadic
 average <code>[eq:257-weighted-dyadic-average]</code>.</p>
 </section>
+</section>
+<section id="sec:257-finite-witness-rules" class="level5">
+<h5>Finite rules for prime witnesses</h5>
+<p>Theorem 1.1 asks for one prime set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
+with finite weighted mass. A single host can make the answer follow any
+monotone rule on a finite set of primes, simultaneously at every base.
+In the next statement
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒫</mi><mo>=</mo><mi>⌀</mi></mrow><annotation encoding="application/x-tex">\mathcal P=\varnothing</annotation></semantics></math>
+is allowed, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h(a)=1</annotation></semantics></math>.</p>
+<div class="prop">
+<p><strong>Proposition 1.2</strong> (realising finite monotone witness
+rules). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+be a finite set of primes, and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒰</mi><annotation encoding="application/x-tex">\mathcal U</annotation></semantics></math>
+be an upward-closed family of subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">E\in\mathcal U</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>⌀</mi><mo>∉</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">\varnothing\notin\mathcal U</annotation></semantics></math>.
+There is a set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A_{\mathcal U}\subseteq\mathbb N_{&gt;0}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A_{\mathcal U}}1/a=\infty</annotation></semantics></math>
+such that, for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+and every finite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
+of primes,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi mathvariant="script">𝒫</mi><mo>∩</mo><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:257-finite-witness-rule}
+ W_{b,\mathcal P}(A_{\mathcal U})&lt;\infty
+ \quad\Longleftrightarrow\quad \mathcal P\cap E\in\mathcal U.
+\end{equation}</annotation></semantics></math> Moreover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
+is irrational for every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub></mrow><annotation encoding="application/x-tex">B\subseteq A_{\mathcal U}</annotation></semantics></math>
+and every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For each nonempty
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>⊆</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">C\subseteq E</annotation></semantics></math>
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>C</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>C</mi></mrow></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">D_C=\prod_{p\in C}p</annotation></semantics></math>
+and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>C</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>D</mi><mi>C</mi><mi>k</mi></msubsup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msubsup><mi>D</mi><mi>C</mi><mi>k</mi></msubsup></msup><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>,</mo><msub><mi>D</mi><mi>C</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">B_C=\{D_C^km:k\ge1,\ 1\le m\le2^{D_C^k},\ \gcd(m,D_C)=1\},</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>C</mi><mo>∩</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">g=\prod_{p\in C\cap\mathcal P}p</annotation></semantics></math>.
+The weighted mass of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>th
+layer lies between positive multiples, depending only on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>∪</mo><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">C\cup\mathcal P</annotation></semantics></math>,
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mi>k</mi></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><msup><mi>g</mi><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g^k/(b^{g^k}-1)</annotation></semantics></math>.
+Above: an element
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>D</mi><mi>C</mi><mi>k</mi></msubsup><mi>m</mi></mrow><annotation encoding="application/x-tex">D_C^km</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>-part
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mi>k</mi></msup><mi>u</mi></mrow><annotation encoding="application/x-tex">g^ku</annotation></semantics></math>,
+and raising the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>-part
+from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>g</mi><mi>k</mi></msup><annotation encoding="application/x-tex">g^k</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mi>k</mi></msup><mi>u</mi></mrow><annotation encoding="application/x-tex">g^ku</annotation></semantics></math>
+multiplies the weight by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>b</mi><msup><mi>g</mi><mi>k</mi></msup></msup><mo>+</mo><mi>⋯</mi><mo>+</mo><msup><mi>b</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>g</mi><mi>k</mi></msup></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u/(1+b^{g^k}+\cdots+b^{(u-1)g^k})\le1</annotation></semantics></math>,
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi><mo>≤</mo><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">\sum_{m\le2^r}1/m\le2r</annotation></semantics></math>.
+Below: the cofactors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">m\equiv1\pmod Q</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>C</mi><mo>∪</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">Q=\prod_{p\in C\cup\mathcal P}p</annotation></semantics></math>,
+have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>-part
+exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>g</mi><mi>k</mi></msup><annotation encoding="application/x-tex">g^k</annotation></semantics></math>,
+and grouping
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><msup><mn>2</mn><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">1,\dots,2^r</annotation></semantics></math>
+into blocks of at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+integers gives reciprocal sum at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><msup><mn>2</mn><mi>r</mi></msup></msub><mi>/</mi><mi>Q</mi><mo>≥</mo><mi>r</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_{2^r}/Q\ge r/(2Q)</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><msubsup><mi>D</mi><mi>C</mi><mi>k</mi></msubsup></mrow><annotation encoding="application/x-tex">r=D_C^k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≤</mo><mi>n</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>j</mi></mrow><annotation encoding="application/x-tex">H_n=\sum_{j\le n}1/j</annotation></semantics></math>.
+The comparison terms equal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(b-1)</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g=1</annotation></semantics></math>
+and are summable when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">g\ge2</annotation></semantics></math>,
+since consecutive ratios are at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>/</mi><msup><mi>b</mi><msup><mi>g</mi><mi>k</mi></msup></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g/b^{g^k}\to0</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>C</mi></msub><annotation encoding="application/x-tex">B_C</annotation></semantics></math>
+has finite weighted mass exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
+meets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
+and the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><msub><mi>D</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex">Q=D_C</annotation></semantics></math>
+shows that each layer adds at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msub><mi>D</mi><mi>C</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2D_C)</annotation></semantics></math>
+to the ordinary reciprocal sum.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub><annotation encoding="application/x-tex">A_{\mathcal U}</annotation></semantics></math>
+be the union of the blocks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>E</mi><mo>∖</mo><mi>M</mi></mrow></msub><annotation encoding="application/x-tex">B_{E\smallsetminus M}</annotation></semantics></math>
+over the forbidden sets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>⊆</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">M\subseteq E</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∉</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">M\notin\mathcal U</annotation></semantics></math>;
+each clause
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∖</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">E\smallsetminus M</annotation></semantics></math>
+is nonempty because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">E\in\mathcal U</annotation></semantics></math>.
+A subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+lies in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒰</mi><annotation encoding="application/x-tex">\mathcal U</annotation></semantics></math>
+exactly when it meets every clause: an allowed set cannot lie inside a
+forbidden one, and a forbidden set misses its own clause. This finite
+correspondence is standard <span class="citation"
+data-cites="sedaghatstephenchindelevitch"><a href="#ref-5">[5]</a></span>. Nonnegative weights
+make summability on a finite union equivalent to summability on each
+block, which gives <code>[eq:257-finite-witness-rule]</code> and
+reciprocal divergence. Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">E\in\mathcal U</annotation></semantics></math>,
+<code>[eq:257-finite-witness-rule]</code> with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒫</mi><mo>=</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">\mathcal P=E</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>E</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>E</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">W_{b,E}(B)\le W_{b,E}(A_{\mathcal U})&lt;\infty</annotation></semantics></math>
+for every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><msub><mi>A</mi><mi mathvariant="script">𝒰</mi></msub></mrow><annotation encoding="application/x-tex">B\subseteq A_{\mathcal U}</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
+so Theorem 1.1 makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
+irrational. ◻</p>
+</div>
+<p>For the subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
+with at least two elements, no single prime is mandatory and none is
+sufficient. The maximal forbidden sets alone give the clauses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,5\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{3,5\}</annotation></semantics></math>,
+which are also the minimal witnesses; that smaller host has the same
+classification, while the Lean statement uses every forbidden set. The
+novelty of the arithmetic realisation has not yet been assessed.</p>
 </section>
 <section id="sec:257-common-kernel" class="level5">
 <h5>A finite estimate on common observation scales</h5>
@@ -781,7 +936,7 @@ put
 The next theorem bounds a fractional power of this count by a
 nonnegative sum over divisors.</p>
 <div class="thm">
-<p><strong>Theorem 1.2</strong> (A summable family of divisor majorants).
+<p><strong>Theorem 1.3</strong> (A summable family of divisor majorants).
 <em> For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>,
 let
@@ -927,7 +1082,7 @@ of <code>[eq:257-mixed-finite-kernel]</code> is its uniformity in the
 moving modulus: the positive-cover argument can use the exact
 observation window selected by the weighted proof.</p>
 <div class="thm">
-<p><strong>Theorem 1.3</strong> (mixed weighted and cover supports). <em>
+<p><strong>Theorem 1.4</strong> (mixed weighted and cover supports). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>,</mo><mi>V</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E,V\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>.
 Suppose
@@ -938,7 +1093,7 @@ for a finite nonempty prime set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
 Suppose also that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>⊆</mo><msub><mo>⋃</mo><mi>j</mi></msub><msub><mi>F</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">V\subseteq\bigcup_jF_j</annotation></semantics></math>
-for sets and majorants satisfying Theorem 1.2,
+for sets and majorants satisfying Theorem 1.3,
 with <code>[eq:257-strengthened-cover]</code> or its positive-weight
 variant. Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
@@ -1028,20 +1183,29 @@ makes its displacement positive. The atom comparison used in the cover
 proof transfers arbitrarily small displacements to every integer base;
 the fixed rational lattice then excludes rationality. ◻</p>
 </div>
-<p>The positive-weight variant of Theorem 1.2, with its hereditary
+<p>The positive-weight variant of Theorem 1.3, with its hereditary
 all-base conclusion, also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19">kernel-checked
-Lean proof</a>. Theorem 1.3 alone does not exhibit a host outside both
+Lean proof</a>. Theorem 1.4 alone does not exhibit a host outside both
 individual classes. The short paper now supplies the missing ordinary
 constructions: one infinite host has a finite-prime weighted witness at
 base two but no strengthened positive cover, while a fresh-prime host
 has such a cover but no finite-prime weighted witness at any integer
 base. Their union satisfies neither individual criterion, and this
 theorem gives every infinite subset an irrational sum at every integer
-base. Those exact host constructions and the strictness corollary have
-not been formalised in Lean or independently reviewed; the mixed
-implication itself is kernel-checked. Universal irrationality and the
-quantitative and prime-power thinning claims remain open.</p>
+base. The existence of the two hosts has a <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L53">Lean
+proof</a> whose reverse host is a squarefree divisor-cube host with a
+different row schedule. The printed fresh-prime construction and the
+strictness corollary have ordinary proofs, and none of these
+constructions has been independently reviewed. The Lean reverse host
+also admits no cover with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>C</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty</annotation></semantics></math>,
+so this stronger cost defines a <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L41">strictly
+smaller support class</a>. The mixed implication itself is
+kernel-checked. Universal irrationality and the quantitative and
+prime-power thinning claims remain open.</p>
 <p>The class of subsets of mixed hosts is closed under finite unions and
 finite changes even with the literal dyadic cover cost in
 <code>[eq:257-strengthened-cover]</code>. For two covers, interleave
@@ -1066,8 +1230,14 @@ For weighted supports combine the finite prime witnesses: the prime part
 grows and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h/(2^h-1)</annotation></semantics></math>
 decreases. Subsets inherit the same hosts, and finite sets have finite
-weighted mass. Countable unions require a tail budget. Every prime
-singleton is admitted, but for the full prime support
+weighted mass. <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/StrengthenedCoverFiniteUnion.lean#L167">Lean
+proves</a> these closures with the constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
+in place of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">1+\sqrt2</annotation></semantics></math>.
+Countable unions require a tail budget. Every prime singleton is
+admitted, but for the full prime support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
 one has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\Delta_{2,\mathcal P}(N)&gt;1/3</annotation></semantics></math>
@@ -1134,14 +1304,14 @@ the sum always converges, since
 Erdős’s Problem #257 asks a single universally quantified question about
 this family.</p>
 <div class="defn">
-<p><strong>Definition 1.4</strong> (Universal #257, written (U)). Is
+<p><strong>Definition 1.5</strong> (Universal #257, written (U)). Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_A = \sum_{n \in A} 1/(2^n-1)</annotation></semantics></math>
 irrational for <em>every</em> infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb N_{&gt;0}</annotation></semantics></math>?
 <strong>OPEN.</strong></p>
 </div>
 <div class="defn">
-<p><strong>Definition 1.5</strong> (The half-value question, written (H)).
+<p><strong>Definition 1.6</strong> (The half-value question, written (H)).
 Let the <em>Mersenne achievement set</em> be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒜</mi><mo>:=</mo><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><mi>y</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi><mo>:</mo><mo>∃</mo><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>∉</mo><mi>A</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>y</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>x</mi><mi>n</mi></msub><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{A} := \{\, y \in \mathbb{R} : \exists A \subseteq \mathbb{N},\ 0 \notin A,\ y = \sum_{n \in A} x_n \,\}</annotation></semantics></math>
 (<a
@@ -1382,7 +1552,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 also requires interpretation: an unbounded sequence can still satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">u(N)=o(2^N)</annotation></semantics></math>.</p>
 <div class="rem">
-<p><em>Remark 1.6</em> (What is and is not covered in the universal
+<p><em>Remark 1.7</em> (What is and is not covered in the universal
 direction). The Lean sources contain no theorem for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">A=</annotation></semantics></math>
 the primes, but this is a formalisation boundary, not a mathematical
@@ -1423,9 +1593,9 @@ theorem.</p>
 <section id="a-separate-denominator-growth-criterion." class="level7">
 <p class="heading">A separate denominator-growth criterion.</p>
 <p>Erdős’s growth theorem <span class="citation"
-data-cites="erdos1975"><a href="#ref-20">[20]</a></span>, as restated and recovered by Barreto,
+data-cites="erdos1975"><a href="#ref-21">[21]</a></span>, as restated and recovered by Barreto,
 Kang, Kim, Kovač and Zhang <span class="citation"
-data-cites="bkkkz2026"><a href="#ref-21">[21]</a></span>, gives irrationality of
+data-cites="bkkkz2026"><a href="#ref-22">[22]</a></span>, gives irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
 for an increasing integer sequence with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>τ</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a_n\ge n^{1+\tau}</annotation></semantics></math>
@@ -1478,7 +1648,7 @@ hypotheses, not every support criterion in this paper.</p>
 <section id="geometry-and-rational-target-membership" class="level5">
 <h5>Geometry and rational-target membership</h5>
 <div class="thm">
-<p><strong>Theorem 1.7</strong> (Achievement-set geometry). <em>
+<p><strong>Theorem 1.8</strong> (Achievement-set geometry). <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
 is compact, closed, perfect, totally disconnected and nowhere dense, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">volume</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="script">𝒜</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\operatorname{volume}(\mathcal{A}) = 1</annotation></semantics></math>.
@@ -1493,7 +1663,7 @@ is injective: each achievable real has <em>exactly one</em>
 support.</em></p>
 </div>
 <div class="thm">
-<p><strong>Theorem 1.8</strong> (Support-restricted refinement). <em> Use
+<p><strong>Theorem 1.9</strong> (Support-restricted refinement). <em> Use
 zero-based indices in this statement: coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">j\in\mathbb{N}</annotation></semantics></math>
 carries weight
@@ -1598,7 +1768,7 @@ as required. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d=0</annotation></semantics></math>
 the lower bound is automatic.</p>
 <div class="rem">
-<p><em>Remark 1.9</em> (Achievement-set terminology and sources). We use
+<p><em>Remark 1.10</em> (Achievement-set terminology and sources). We use
 the modern term <em>achievement set</em> for the subsum set that <a
 href="https://doi.org/10.11429/ptmps1907.7.14_250">Kakeya’s 1914
 note</a> describes as a set of partial sums. For an infinite summable
@@ -1620,7 +1790,7 @@ their relation to the divisor-incidence coefficients of these subseries
 is recorded after Theorem 1.1.</p>
 </div>
 <div class="thm">
-<p><strong>Theorem 1.10</strong> (Membership equals greedy survival; the
+<p><strong>Theorem 1.11</strong> (Membership equals greedy survival; the
 fatal-gap dichotomy). <em> For a real target
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x\ge0</annotation></semantics></math>,
 let
@@ -1732,7 +1902,7 @@ run</a>). The reset rows
 are also verified in Lean by direct evaluation (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78"><code>seamUpperResetDyadicBandEscape_through_thirty</code></a>).</p>
 <div class="rem">
-<p><em>Remark 1.11</em> (Literature, exactly).
+<p><em>Remark 1.12</em> (Literature, exactly).
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
 is irrational <span class="citation" data-cites="erdos1948"><a href="#ref-1">[1]</a></span>.
 Zudilin proves the irrationality measure bound
@@ -1741,7 +1911,7 @@ class="citation" data-cites="zudilin2004"></span>, correcting an earlier
 computation (see the remark at the end of his Section 3, p. 159).
 Transcendence of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
-is unknown <span class="citation" data-cites="duverneytachiya"><a href="#ref-6">[6]</a></span>,
+is unknown <span class="citation" data-cites="duverneytachiya"><a href="#ref-7">[7]</a></span>,
 and the Erdős–Graham conjecture that every such subset sum is
 irrational, i.e. (U), is itself open. For the binary digits of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>,
@@ -1750,7 +1920,7 @@ whether the block <code>11</code> occurs infinitely often in the binary
 expansion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>,
 and Campbell proves that it does <span class="citation"
-data-cites="campbell2026"><a href="#ref-9">[9]</a></span>.</p>
+data-cites="campbell2026"><a href="#ref-10">[10]</a></span>.</p>
 </div>
 <p>The cited digit results establish the occurrence of particular
 patterns. An irrationality-measure estimate gives a different kind of
@@ -1794,7 +1964,7 @@ depth.</p>
 <div class="obs">
 <p><em>Observation 2.1</em> (Uniqueness within the fixed-target coding).
 Each Mersenne weight exceeds the sum of all subsequent weights.
-Consequently the digit coding is injective (Theorem 1.7): a represented
+Consequently the digit coding is injective (Theorem 1.8): a represented
 target has only one support, recovered by the greedy rule. For the
 integer weights, both the scale and the cutoff matter. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">2\le k\le M</annotation></semantics></math>
@@ -2366,7 +2536,7 @@ Thus the strict inequality
 when true, is witnessed by some finite cutoff and a comparison of
 rational numbers. Enumerating ranks and cutoffs gives the asserted
 finite-certificate search. Membership requires the survival inequality
-at every rank (Theorem 1.10). Checking a finite initial segment alone
+at every rank (Theorem 1.11). Checking a finite initial segment alone
 does not supply the later inequalities; a separate uniform argument or
 induction would be needed. ◻</p>
 </div>
@@ -2383,7 +2553,7 @@ should not be reported as a single verification depth.</p>
 <div class="rem">
 <p><em>Remark 2.12</em> (Achievement-set geometry does not decide
 rational-target membership). The achievement set has positive measure
-and is nowhere dense (Theorem 1.7). Neither fact alone decides
+and is nowhere dense (Theorem 1.8). Neither fact alone decides
 membership of a specified rational. Injectivity fixes the support of an
 achievable value, but it does not exclude averaging over indices,
 shifts, residues, observation scales or auxiliary constructions. The
@@ -2391,7 +2561,7 @@ recorded calculations obstruct the particular models and estimates
 analysed here; no impossibility theorem for all probabilistic,
 measure-theoretic or averaging methods is claimed.</p>
 </div>
-<p>The geometry itself is Lean-checked in Theorem 1.7:
+<p>The geometry itself is Lean-checked in Theorem 1.8:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
 has Lebesgue measure exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
@@ -4381,7 +4551,7 @@ Its exact denominator is
 </div>
 <div class="proof">
 <p><em>Proof.</em> Apply Bertrand’s postulate <span class="citation"
-data-cites="erdos1932bertrand"><a href="#ref-23">[23]</a></span> to
+data-cites="erdos1932bertrand"><a href="#ref-24">[24]</a></span> to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mi>t</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌉</mo><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m=\lceil t/2\rceil\ge3</annotation></semantics></math>.
 There is a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mi>p</mi><mo>&lt;</mo><mn>2</mn><mi>m</mi></mrow><annotation encoding="application/x-tex">m&lt;p&lt;2m</annotation></semantics></math>,
@@ -4491,7 +4661,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 Möbius function). <em> The absolutely convergent signed series satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{d\ge1}\frac{\mu(d)}{2^d-1}=\frac12.</annotation></semantics></math>
 This classical identity is also recorded in <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-6">[6]</a></span>. Expand each denominator
+data-cites="duverneytachiya"><a href="#ref-7">[7]</a></span>. Expand each denominator
 geometrically and interchange the absolutely convergent sums. The
 coefficient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><annotation encoding="application/x-tex">2^{-n}</annotation></semantics></math>
@@ -10459,7 +10629,7 @@ a fatal remainder
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msub><mi>R</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">r_n(x)&gt;R_n</annotation></semantics></math>
 forces every subsequent weight to be taken, because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>n</mi></msub><mo>=</mo><msub><mi>w</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>R</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">R_n=w_{n+1}+R_{n+1}</annotation></semantics></math>.
-Hence infinitely many skips exclude a fatal remainder, and Theorem 1.10
+Hence infinitely many skips exclude a fatal remainder, and Theorem 1.11
 gives membership. For the forward implication, membership identifies the
 greedy sum with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
@@ -10891,7 +11061,7 @@ choose the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msub><mi>R</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">r_m(x)&gt;R_m</annotation></semantics></math>
-using Theorem 1.10. Since
+using Theorem 1.11. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>x</mi><mo>≤</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">r_0(x)=x\le E</annotation></semantics></math>,
 we have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m\ge1</annotation></semantics></math>
@@ -12308,7 +12478,7 @@ has, in almost all windows
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">h\to\infty</annotation></semantics></math>,
 essentially its long average <span class="citation"
-data-cites="matomakiradziwill"><a href="#ref-10">[10]</a></span>. Mangerel extends such bounds to
+data-cites="matomakiradziwill"><a href="#ref-11">[11]</a></span>. Mangerel extends such bounds to
 a class of divisor-bounded multiplicative functions <span
 class="citation" data-cites="mangerel2021"></span>, and Sun describes
 the almost-all transition profile of the
@@ -12949,7 +13119,7 @@ Necessity follows by subtraction. For sufficiency, keep the strongest
 prime-power modulus for each prime; compatibility makes all weaker
 prescriptions agree with it, and the ordinary CRT combines the resulting
 coprime prime powers <span class="citation"
-data-cites="conradcrt"><a href="#ref-22">[22]</a></span>. For example,
+data-cites="conradcrt"><a href="#ref-23">[23]</a></span>. For example,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N\equiv1\pmod4</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N\equiv1\pmod6</annotation></semantics></math>
@@ -13900,7 +14070,7 @@ in an AI-assisted note of 17 September 2026 and given here in full. All
 three results also have Lean proofs, each compared independently
 (margin); the ordinary proofs have not had independent human review. For
 the underlying Lambert subseries, Kovač–Tao treat the same fixed-base
-object in <span class="citation" data-cites="kovactao"><a href="#ref-18">[18]</a></span>; their
+object in <span class="citation" data-cites="kovactao"><a href="#ref-19">[19]</a></span>; their
 strict-tail argument gives distinct support coding and Cantor topology.
 Van Doorn–Kovač treat a freely chosen denominator sequence. Their
 convention is
@@ -13913,7 +14083,7 @@ every rational in
 no sequence with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n_{i+1}/n_i\ge2</annotation></semantics></math>
 can do this on any nonempty open interval <span class="citation"
-data-cites="vandoornkovac"><a href="#ref-19">[19]</a></span>. This is a statement about the
+data-cites="vandoornkovac"><a href="#ref-20">[20]</a></span>. This is a statement about the
 rational points of an interval, not an interval consisting entirely of
 finite sums; there are only countably many finite subsets. Those results
 provide context, not an arithmetic logarithmic estimate or a solution of
@@ -13992,7 +14162,7 @@ The covering sets need not be disjoint or contained in
 Covers of infinite cost do not lower the infimum, and a finite-cost
 cover exists, for example the single set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
-with exponent one. This is the fractional cost of Theorem 1.2, not a
+with exponent one. This is the fractional cost of Theorem 1.3, not a
 redefinition of the logarithmic cost.</p>
 <div class="thm">
 <p><strong>Theorem 13.1</strong> (arithmetic logarithmic counterexample).
@@ -14412,14 +14582,14 @@ data-cites="lucatachiya2014periodic lucatachiya2014independence lucatachiya2017"
 Their theorem formulations used here were read in the author-written
 overview; the two original publisher PDFs were not retrieved. Van
 Assche’s nonvanishing and small-linear-form argument for the full
-Lambert series <span class="citation" data-cites="vanassche2001"><a href="#ref-15">[15]</a></span>
+Lambert series <span class="citation" data-cites="vanassche2001"><a href="#ref-16">[16]</a></span>
 is a comparator for the missing upper-height control, not a result for
 arbitrary thinnings.</p>
 <p>For achievement-set background, Hornich’s original bibliographic
-record <span class="citation" data-cites="hornich1941"><a href="#ref-16">[16]</a></span> is
+record <span class="citation" data-cites="hornich1941"><a href="#ref-17">[17]</a></span> is
 separated from the exposition actually used here <span class="citation"
 data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>. Głąb and Prus-Wiśniowski’s survey
-<span class="citation" data-cites="glabprus2025"><a href="#ref-17">[17]</a></span> provides a
+<span class="citation" data-cites="glabprus2025"><a href="#ref-18">[18]</a></span> provides a
 modern map of geometry and cardinality questions, not a
 rational-membership theorem for the present set.</p>
 </section>
@@ -14498,7 +14668,12 @@ where
 is the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
 tail, and credits this to H. Hornich (1941).</p></li>
-<li id="ref-5"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
+<li id="ref-5"><p>N. Sedaghat, T. Stephen, and L. Chindelevitch, <a
+href="https://doi.org/10.4230/LIPIcs.SEA.2018.6"><em>Speeding up
+dualization in the Fredman–Khachiyan Algorithm B</em></a>, 17th
+International Symposium on Experimental Algorithms (SEA 2018), LIPIcs
+103 (2018), 6:1–6:13.</p></li>
+<li id="ref-6"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
 href="https://arxiv.org/abs/2601.20743v1"><em>Refinements of Erdős’s
 irrationality criterion for certain sparse infinite series</em></a>,
 arXiv:2601.20743v1 (2026). The averaged tail
@@ -14510,7 +14685,7 @@ is on p. 5. Lemma 1 (pp. 6–7) derives irrationality from arbitrarily
 small nonzero scaled tails, and Lemma 2 (pp. 7–8) shows that most scaled
 tails in a range are small under a counting condition on the support.
 Their criteria assume sparse coefficient supports.</p></li>
-<li id="ref-6"><p>D. Duverney and Y. Tachiya, <a
+<li id="ref-7"><p>D. Duverney and Y. Tachiya, <a
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
@@ -14529,7 +14704,7 @@ Example 1.1 gives the joint squarefree family at all bases
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>.
 Both are on p. 4, which also relates Corollary 1.2 to the conjecture of
 Erdős and Graham; the proof of Corollary 1.2 is on pp. 10–11.</p></li>
-<li id="ref-7"><p>T. Tao and J. Teräväinen, <a
+<li id="ref-8"><p>T. Tao and J. Teräväinen, <a
 href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
 and some problems on prime factors of consecutive integers</em></a>,
 arXiv:2512.01739v2 (submitted December 2025, revised April 2026).
@@ -14546,7 +14721,7 @@ The modifications for those two assertions are left to the reader;
 arbitrary subsets of the primes or prime powers are not treated there.
 Theorem 3.1 is on p. 24, and the proof of Theorem 1.3 is Section 5,
 pp. 44–56.</p></li>
-<li id="ref-8"><p>W. Zudilin, <em>Heine’s basic transform and a permutation group
+<li id="ref-9"><p>W. Zudilin, <em>Heine’s basic transform and a permutation group
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-harmonic
 series</em>, Acta Arith. 111 (2004), no. 2, 153–164, <a
@@ -14561,50 +14736,50 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|p|\ge2</annotation></semantics></math>;
 the remark at the end of Section 3 (p. 159) corrects the computation of
 the author’s earlier paper.</p></li>
-<li id="ref-9"><p>J. M. Campbell, <a
+<li id="ref-10"><p>J. M. Campbell, <a
 href="https://arxiv.org/abs/2605.24160v1"><em>On the binary digits of
 the Erdős–Borwein constant</em></a>, arXiv:2605.24160v1 (2026).
 Theorem 1 (p. 12) proves that the block <code>11</code> occurs
 infinitely often in the binary expansion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}1/(2^n-1)</annotation></semantics></math>,
 answering a question of Crandall recalled in the introduction.</p></li>
-<li id="ref-10"><p>K. Matomäki and M. Radziwiłł, <em>Multiplicative functions in
+<li id="ref-11"><p>K. Matomäki and M. Radziwiłł, <em>Multiplicative functions in
 short intervals</em>, Ann. of Math. (2) 183 (2016), no. 3, 1015–1056, <a
 href="https://doi.org/10.4007/annals.2016.183.3.6">DOI</a>. Page numbers
 refer to arXiv:1501.04585v4.</p></li>
-<li id="ref-11"><p>A. P. Mangerel, <em>Divisor-bounded multiplicative functions in
+<li id="ref-12"><p>A. P. Mangerel, <em>Divisor-bounded multiplicative functions in
 short intervals</em>, Res. Math. Sci. 10 (2023), no. 1, Paper No. 12, <a
 href="https://doi.org/10.1007/s40687-023-00376-0">DOI</a>. Page numbers
 refer to arXiv:2108.11401v2.</p></li>
-<li id="ref-12"><p>Y.-C. Sun, <a href="https://arxiv.org/abs/2401.08432v3"><em>The
+<li id="ref-13"><p>Y.-C. Sun, <a href="https://arxiv.org/abs/2401.08432v3"><em>The
 critical-window profile for the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-fold
 divisor function in almost all short intervals</em></a>,
 arXiv:2401.08432v3 (2026).</p></li>
-<li id="ref-13"><p>F. Luca and Y. Tachiya, <em>Irrationality of Lambert series
+<li id="ref-14"><p>F. Luca and Y. Tachiya, <em>Irrationality of Lambert series
 associated with a periodic sequence</em>, International Journal of
 Number Theory <strong>10</strong> (2014), no. 3, 623–636. <a
 href="https://doi.org/10.1142/S1793042113501121">doi:10.1142/S1793042113501121</a>.</p></li>
-<li id="ref-14"><p>F. Luca and Y. Tachiya, <em>Linear independence of certain
+<li id="ref-15"><p>F. Luca and Y. Tachiya, <em>Linear independence of certain
 Lambert series</em>, Proceedings of the American Mathematical Society
 <strong>142</strong> (2014), no. 10, 3411–3419. <a
 href="https://doi.org/10.1090/S0002-9939-2014-12102-2">doi:10.1090/S0002-9939-2014-12102-2</a>.</p></li>
-<li id="ref-15"><p>W. Van Assche, <em>Little
+<li id="ref-16"><p>W. Van Assche, <em>Little
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-Legendre
 polynomials and irrationality of certain Lambert series</em>, The
 Ramanujan Journal <strong>5</strong> (2001), 295–310. <a
 href="https://doi.org/10.1023/A:1012930828917">doi:10.1023/A:1012930828917</a>;
 <a
 href="https://arxiv.org/abs/math/0101187v1">arXiv:math/0101187v1</a>.</p></li>
-<li id="ref-16"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
+<li id="ref-17"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
 Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
 (1941), 316–320. <a
 href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
-<li id="ref-17"><p>S. Głąb and F. Prus-Wiśniowski, <em>Achievement sets – current
+<li id="ref-18"><p>S. Głąb and F. Prus-Wiśniowski, <em>Achievement sets – current
 results and open problems</em>, arXiv:2512.17285v1 (2025), preprint. <a
 href="https://arxiv.org/abs/2512.17285v1"
 class="uri">https://arxiv.org/abs/2512.17285v1</a>.</p></li>
-<li id="ref-18"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
+<li id="ref-19"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
 Ahmes series</em>, Acta Math. Hungar. 175 (2025), no. 2, 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Page numbers
 refer to arXiv:2406.17593v4. Remark 4.1 (p. 13) records the strict tail
@@ -14612,7 +14787,7 @@ inequality and the Cantor structure. Theorem 2.3 (p. 5; proof pp. 13–14)
 constructs rational merged sums from several bases under its mass
 hypothesis; the construction merges several bases and leaves fixed-base
 #257 untouched.</p></li>
-<li id="ref-19"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
+<li id="ref-20"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
 reciprocal sums represent all rational numbers in an interval</em>, Acta
 Arith. 223 (2026), 275–295, <a
 href="https://doi.org/10.4064/aa251001-13-1">DOI</a>. The theorem and
@@ -14620,18 +14795,18 @@ page references used here refer to arXiv:2509.24971v3 (3 December 2025),
 <a href="https://arxiv.org/abs/2509.24971v3"
 class="uri">https://arxiv.org/abs/2509.24971v3</a>. Theorem 1 is on
 p. 2; Lemma 4 and Corollary 5 are on pp. 5–7.</p></li>
-<li id="ref-20"><p>P. Erdős, <em>Some problems and results on the irrationality of
+<li id="ref-21"><p>P. Erdős, <em>Some problems and results on the irrationality of
 the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7.</p></li>
-<li id="ref-21"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
+<li id="ref-22"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
 href="https://arxiv.org/abs/2601.21442v3"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
 arXiv:2601.21442v3 (2026), to appear in Bull. London Math. Soc.</p></li>
-<li id="ref-22"><p>K. Conrad, <a
+<li id="ref-23"><p>K. Conrad, <a
 href="https://kconrad.math.uconn.edu/blurbs/ugradnumthy/crt.pdf"><em>The
 Chinese remainder theorem</em></a>, expository notes, Theorem 3.1
 (pp. 2–3). The compatibility criterion for noncoprime moduli used above
 is obtained by the displayed prime-power reduction.</p></li>
-<li id="ref-23"><p>P. Erdős, <a
+<li id="ref-24"><p>P. Erdős, <a
 href="https://www.renyi.hu/~p_erdos/1932-01.pdf">Beweis eines Satzes von
 Tschebyschef</a>, 1932, pp. 194–198, especially §§4–5.</p></li>
 </ol>

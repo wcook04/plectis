@@ -460,11 +460,25 @@ separately in Lean. The comparison identifies the added class and proof
 mechanism, but does not settle independent novelty or priority
 assessment. See the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability">short
-paper’s theorem, example and sources</a>. At base two, the weighted
-condition can also be combined with the positive divisor-cover
-criterion: the long paper proves that a common finite averaging window
-makes both displacements small. Every infinite subset of their union
-then has irrational subseries at every integer base. Lean proves this as
+paper’s theorem, example and sources</a>. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos257-mersenne-reasoning-surface.md#finite-rules-for-prime-witnesses">One
+host realises any finite monotone witness rule</a>, checked in Lean as
+<code>finite_monotone_witness_rule_realised</code>. Given a finite set
+<span class="math inline" data-term-auto="off">\(E\)</span> of primes and a nonconstant
+upward-closed rule on its subsets, a finite union of prime-cofactor
+blocks has divergent reciprocal sum, its weighted test converges at
+every base exactly when the witness primes in <span
+class="math inline" data-term-auto="off">\(E\)</span> satisfy the rule, and every infinite
+subset has irrational subseries at every integer base. For three primes,
+any two suffice and none is individually mandatory. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/weighted_support_transfer/README.md#a-host-with-several-minimal-witnesses">worked
+variants</a> compare this host with a different required-prime
+construction. The construction is AI-assisted and its novelty has not
+been independently assessed. At base two, the weighted condition can
+also be combined with the positive divisor-cover criterion: the long
+paper proves that a common finite averaging window makes both
+displacements small. Every infinite subset of their union then has
+irrational subseries at every integer base. Lean proves this as
 <code>mixedSupportClaim</code> in the same module. Neither theorem
 establishes the separately proposed hosts separating the two classes.
 Every infinite reciprocal-summable support satisfies it, yielding the

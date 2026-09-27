@@ -353,6 +353,14 @@ $c_A$: for nonempty $A$, it is positive on every multiple of $\min A$.
 The companion, Section~1.2, gives the counting argument and distinguishes
 their remote-tail average from the displacement used here.
 
+One host realises any monotone rule on a finite set $E$ of primes: if
+$\mathcal U$ is an upward-closed family of subsets of $E$ with
+$E\in\mathcal U\not\ni\varnothing$, a finite union of prime-cofactor blocks
+has divergent reciprocal sum and $W_{b,P}<\infty$ exactly when
+$P\cap E\in\mathcal U$, for every $b\ge2$ and finite prime set $P$, so every
+infinite subset is irrational at every base.  The companion proves this and
+Lean checks it.
+
 \subsection{A common finite average for the extensions}\label{sec:common-kernel}
 To combine the weighted criterion with positive divisor majorants, both
 arguments must use the same indices.  The following estimate supplies
@@ -492,9 +500,9 @@ $\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2<\infty$
 implies~\eqref{eq:strengthened-cover}, since each of its summands is the
 corresponding summand of~\eqref{eq:strengthened-cover} multiplied by
 $2^{\alpha_j}/(2^{\alpha_j}-1)>1$.
-This proves inclusion of the hypotheses for a given cover, not strict
-inclusion of the resulting support classes after optimisation over
-all covers.  No separating construction is proved here.
+This proves inclusion of the hypotheses for a given cover; after
+optimisation over all covers, the inclusion of support classes is
+strict by a \href{https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean\#L41}{Lean proof}.
 
 \subsection{What every positive cover must pay}
 A necessary lower bound on the cost holds for every choice of cover.  For finite $F$, write
@@ -720,10 +728,11 @@ contradict the proposition.  Theorem~\ref{res:mixed-supports} applies
 to the actual pair $E,V$ and proves the all-base hereditary conclusion;
 no addition of irrational numbers is involved.
 \end{proof}
-The mixed implication has a Lean declaration in the public corpus.
-Proposition~\ref{res:weighted-cover-incomparability} and this corollary
-have ordinary proofs here, but these particular constructions have not
-been formalised in Lean or independently reviewed.  The weighted-only
+The mixed implication and
+Proposition~\ref{res:weighted-cover-incomparability} have Lean proofs,
+the latter with a squarefree divisor-cube host as $V$.  The printed
+construction and this corollary have ordinary proofs, and none has been
+independently reviewed.  The weighted-only
 construction follows the first-logarithmic-moment method; the
 bounded-mass reverse construction was developed in an AI-assisted
 continuation on 25 September 2026.  No historical priority claim is

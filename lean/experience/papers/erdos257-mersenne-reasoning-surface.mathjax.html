@@ -569,7 +569,7 @@ every multiple of <span class="math inline" data-term-auto="off">\(\min A\)</spa
 splitting into two sequences the two coefficient supports therefore
 cover a set of positive lower density, which is incompatible with the
 support-counting conditions <span class="citation"
-data-cites="kanekosuzukitachiya"><a href="#ref-5">[5]</a></span> requiring both counts to be
+data-cites="kanekosuzukitachiya"><a href="#ref-6">[6]</a></span> requiring both counts to be
 <span class="math inline" data-term-auto="off">\(o(x_n/z_n)\)</span> with <span
 class="math inline" data-term-auto="off">\(z_n\ge1\)</span>. Their remote-tail quantity <span
 class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> sums only offsets <span
@@ -584,6 +584,112 @@ the displacement instead, along multiples of a modulus that freezes a
 finite part of <span class="math inline" data-term-auto="off">\(A\)</span>; the weighted
 proof adds the dyadic average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-dyadic-average">eq:257-weighted-dyadic-average</a>.</p>
 </section>
+</section>
+<section id="sec:257-finite-witness-rules" class="level5">
+<h5>Finite rules for prime witnesses</h5>
+<p>Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a>
+asks for one prime set <span class="math inline" data-term-auto="off">\(\mathcal P\)</span>
+with finite weighted mass. A single host can make the answer follow any
+monotone rule on a finite set of primes, simultaneously at every base.
+In the next statement <span class="math inline" data-term-auto="off">\(\mathcal
+P=\varnothing\)</span> is allowed, with <span
+class="math inline" data-term-auto="off">\(h(a)=1\)</span>.</p>
+<div class="prop" id="prop:257-finite-witness-rule">
+<p><strong>Proposition 1.2</strong> (realising finite monotone witness
+rules). <em> Let <span class="math inline" data-term-auto="off">\(E\)</span> be a finite set
+of primes, and let <span class="math inline" data-term-auto="off">\(\mathcal U\)</span> be an
+upward-closed family of subsets of <span
+class="math inline" data-term-auto="off">\(E\)</span> with <span
+class="math inline" data-term-auto="off">\(E\in\mathcal U\)</span> and <span
+class="math inline" data-term-auto="off">\(\varnothing\notin\mathcal U\)</span>. There is a
+set <span class="math inline" data-term-auto="off">\(A_{\mathcal U}\subseteq\mathbb
+N_{&gt;0}\)</span> with <span class="math inline" data-term-auto="off">\(\sum_{a\in
+A_{\mathcal U}}1/a=\infty\)</span> such that, for every integer <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span> and every finite set <span
+class="math inline" data-term-auto="off">\(\mathcal P\)</span> of primes, </em></p>
+<div class="math-display" id="eq:257-finite-witness-rule" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:257-finite-witness-rule}
+W_{b,\mathcal P}(A_{\mathcal U})&lt;\infty
+\quad\Longleftrightarrow\quad \mathcal P\cap E\in\mathcal U.
+\end{equation}\]</span></div>
+<p><em> Moreover <span
+class="math inline" data-term-auto="off">\(X_B(b)\)</span> is irrational for every infinite
+<span class="math inline" data-term-auto="off">\(B\subseteq A_{\mathcal U}\)</span> and every
+integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For each nonempty <span
+class="math inline" data-term-auto="off">\(C\subseteq E\)</span> put <span
+class="math inline" data-term-auto="off">\(D_C=\prod_{p\in C}p\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[B_C=\{D_C^km:k\ge1,\ 1\le m\le2^{D_C^k},\
+\gcd(m,D_C)=1\},\]</span></div>
+<p class="display-continue">and let <span
+class="math inline" data-term-auto="off">\(g=\prod_{p\in C\cap\mathcal P}p\)</span>. The
+weighted mass of the <span class="math inline" data-term-auto="off">\(k\)</span>th layer lies
+between positive multiples, depending only on <span
+class="math inline" data-term-auto="off">\(C\cup\mathcal P\)</span>, of <span
+class="math inline" data-term-auto="off">\(g^k/(b^{g^k}-1)\)</span>. Above: an element <span
+class="math inline" data-term-auto="off">\(D_C^km\)</span> has <span
+class="math inline" data-term-auto="off">\(\mathcal P\)</span>-part <span
+class="math inline" data-term-auto="off">\(g^ku\)</span>, and raising the <span
+class="math inline" data-term-auto="off">\(\mathcal P\)</span>-part from <span
+class="math inline" data-term-auto="off">\(g^k\)</span> to <span
+class="math inline" data-term-auto="off">\(g^ku\)</span> multiplies the weight by <span
+class="math inline" data-term-auto="off">\(u/(1+b^{g^k}+\cdots+b^{(u-1)g^k})\le1\)</span>,
+while <span class="math inline" data-term-auto="off">\(\sum_{m\le2^r}1/m\le2r\)</span>.
+Below: the cofactors <span class="math inline" data-term-auto="off">\(m\equiv1\pmod
+Q\)</span>, with <span class="math inline" data-term-auto="off">\(Q=\prod_{p\in C\cup\mathcal
+P}p\)</span>, have <span class="math inline" data-term-auto="off">\(\mathcal P\)</span>-part
+exactly <span class="math inline" data-term-auto="off">\(g^k\)</span>, and grouping <span
+class="math inline" data-term-auto="off">\(1,\dots,2^r\)</span> into blocks of at most <span
+class="math inline" data-term-auto="off">\(Q\)</span> integers gives reciprocal sum at least
+<span class="math inline" data-term-auto="off">\(H_{2^r}/Q\ge r/(2Q)\)</span>, where <span
+class="math inline" data-term-auto="off">\(r=D_C^k\)</span> and <span
+class="math inline" data-term-auto="off">\(H_n=\sum_{j\le n}1/j\)</span>. The comparison
+terms equal <span class="math inline" data-term-auto="off">\(1/(b-1)\)</span> when <span
+class="math inline" data-term-auto="off">\(g=1\)</span> and are summable when <span
+class="math inline" data-term-auto="off">\(g\ge2\)</span>, since consecutive ratios are at
+most <span class="math inline" data-term-auto="off">\(g/b^{g^k}\to0\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(B_C\)</span> has finite weighted mass exactly when
+<span class="math inline" data-term-auto="off">\(\mathcal P\)</span> meets <span
+class="math inline" data-term-auto="off">\(C\)</span>, and the case <span
+class="math inline" data-term-auto="off">\(Q=D_C\)</span> shows that each layer adds at least
+<span class="math inline" data-term-auto="off">\(1/(2D_C)\)</span> to the ordinary reciprocal
+sum.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(A_{\mathcal U}\)</span> be the union
+of the blocks <span class="math inline" data-term-auto="off">\(B_{E\smallsetminus M}\)</span>
+over the forbidden sets <span class="math inline" data-term-auto="off">\(M\subseteq
+E\)</span>, <span class="math inline" data-term-auto="off">\(M\notin\mathcal U\)</span>; each
+clause <span class="math inline" data-term-auto="off">\(E\smallsetminus M\)</span> is
+nonempty because <span class="math inline" data-term-auto="off">\(E\in\mathcal U\)</span>. A
+subset of <span class="math inline" data-term-auto="off">\(E\)</span> lies in <span
+class="math inline" data-term-auto="off">\(\mathcal U\)</span> exactly when it meets every
+clause: an allowed set cannot lie inside a forbidden one, and a
+forbidden set misses its own clause. This finite correspondence is
+standard <span class="citation"
+data-cites="sedaghatstephenchindelevitch"><a href="#ref-5">[5]</a></span>. Nonnegative weights
+make summability on a finite union equivalent to summability on each
+block, which gives <a class="math-ref" data-equation-ref="true" href="#eq:257-finite-witness-rule">eq:257-finite-witness-rule</a> and
+reciprocal divergence. Since <span class="math inline" data-term-auto="off">\(E\in\mathcal
+U\)</span>, <a class="math-ref" data-equation-ref="true" href="#eq:257-finite-witness-rule">eq:257-finite-witness-rule</a> with
+<span class="math inline" data-term-auto="off">\(\mathcal P=E\)</span> gives <span
+class="math inline" data-term-auto="off">\(W_{b,E}(B)\le W_{b,E}(A_{\mathcal
+U})&lt;\infty\)</span> for every infinite <span
+class="math inline" data-term-auto="off">\(B\subseteq A_{\mathcal U}\)</span> and every <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>, so Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a> makes <span
+class="math inline" data-term-auto="off">\(X_B(b)\)</span> irrational. ◻</p>
+</div>
+<p>For the subsets of <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
+with at least two elements, no single prime is mandatory and none is
+sufficient. The maximal forbidden sets alone give the clauses <span
+class="math inline" data-term-auto="off">\(\{2,3\}\)</span>, <span
+class="math inline" data-term-auto="off">\(\{2,5\}\)</span>, <span
+class="math inline" data-term-auto="off">\(\{3,5\}\)</span>, which are also the minimal
+witnesses; that smaller host has the same classification, while the Lean
+statement uses every forbidden set. The novelty of the arithmetic
+realisation has not yet been assessed.</p>
 </section>
 <section id="sec:257-common-kernel" class="level5">
 <h5>A finite estimate on common observation scales</h5>
@@ -653,7 +759,7 @@ class="math inline" data-term-auto="off">\(f_F(n)=\#\{a\in F:a\mid n\}\)</span>.
 theorem bounds a fractional power of this count by a nonnegative sum
 over divisors.</p>
 <div class="thm" id="thm:257-variable-fractional-cover">
-<p><strong>Theorem 1.2</strong> (A summable family of divisor majorants).
+<p><strong>Theorem 1.3</strong> (A summable family of divisor majorants).
 <em> For each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>, let <span
 class="math inline" data-term-auto="off">\(F_j\subseteq\mathbb{N}_{&gt;0}\)</span> be finite,
 let <span class="math inline" data-term-auto="off">\(0&lt;\alpha_j\le1\)</span>, and let
@@ -767,14 +873,14 @@ of <a class="math-ref" data-equation-ref="true" href="#eq:257-mixed-finite-kern
 uniformity in the moving modulus: the positive-cover argument can use
 the exact observation window selected by the weighted proof.</p>
 <div class="thm" id="thm:257-mixed-supports">
-<p><strong>Theorem 1.3</strong> (mixed weighted and cover supports). <em>
+<p><strong>Theorem 1.4</strong> (mixed weighted and cover supports). <em>
 Let <span class="math inline" data-term-auto="off">\(E,V\subseteq\mathbb{N}_{&gt;0}\)</span>.
 Suppose <span class="math inline" data-term-auto="off">\(E\)</span> has finite weighted mass
 <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-mass">eq:257-weighted-mass</a> at
 <span class="math inline" data-term-auto="off">\(b=2\)</span> for a finite nonempty prime set
 <span class="math inline" data-term-auto="off">\(\mathcal P\)</span>. Suppose also that <span
 class="math inline" data-term-auto="off">\(V\subseteq\bigcup_jF_j\)</span> for sets and
-majorants satisfying Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.2</a>,
+majorants satisfying Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.3</a>,
 with <a class="math-ref" data-equation-ref="true" href="#eq:257-strengthened-cover">eq:257-strengthened-cover</a> or its
 positive-weight variant. Then <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every infinite
@@ -844,21 +950,30 @@ atom comparison used in the cover proof transfers arbitrarily small
 displacements to every integer base; the fixed rational lattice then
 excludes rationality. ◻</p>
 </div>
-<p>The positive-weight variant of Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.2</a>,
+<p>The positive-weight variant of Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.3</a>,
 with its hereditary all-base conclusion, also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19">kernel-checked
-Lean proof</a>. Theorem <a class="math-ref" href="#thm:257-mixed-supports">1.3</a> alone does
+Lean proof</a>. Theorem <a class="math-ref" href="#thm:257-mixed-supports">1.4</a> alone does
 not exhibit a host outside both individual classes. The short paper now
 supplies the missing ordinary constructions: one infinite host has a
 finite-prime weighted witness at base two but no strengthened positive
 cover, while a fresh-prime host has such a cover but no finite-prime
 weighted witness at any integer base. Their union satisfies neither
 individual criterion, and this theorem gives every infinite subset an
-irrational sum at every integer base. Those exact host constructions and
-the strictness corollary have not been formalised in Lean or
-independently reviewed; the mixed implication itself is kernel-checked.
-Universal irrationality and the quantitative and prime-power thinning
-claims remain open.</p>
+irrational sum at every integer base. The existence of the two hosts has
+a <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L53">Lean
+proof</a> whose reverse host is a squarefree divisor-cube host with a
+different row schedule. The printed fresh-prime construction and the
+strictness corollary have ordinary proofs, and none of these
+constructions has been independently reviewed. The Lean reverse host
+also admits no cover with <span
+class="math inline" data-term-auto="off">\(\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty\)</span>,
+so this stronger cost defines a <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L41">strictly
+smaller support class</a>. The mixed implication itself is
+kernel-checked. Universal irrationality and the quantitative and
+prime-power thinning claims remain open.</p>
 <p>The class of subsets of mixed hosts is closed under finite unions and
 finite changes even with the literal dyadic cover cost in <a class="math-ref" data-equation-ref="true" href="#eq:257-strengthened-cover">eq:257-strengthened-cover</a>. For
 two covers, interleave their <span class="math inline" data-term-auto="off">\(j\)</span>th
@@ -874,11 +989,15 @@ class="math inline" data-term-auto="off">\(r\)</span> give a cost ratio below <s
 class="math inline" data-term-auto="off">\(2r\)</span>. For weighted supports combine the
 finite prime witnesses: the prime part grows and <span
 class="math inline" data-term-auto="off">\(h/(2^h-1)\)</span> decreases. Subsets inherit the
-same hosts, and finite sets have finite weighted mass. Countable unions
-require a tail budget. Every prime singleton is admitted, but for the
-full prime support <span class="math inline" data-term-auto="off">\(\mathcal P\)</span> one
-has <span class="math inline" data-term-auto="off">\(\Delta_{2,\mathcal P}(N)&gt;1/3\)</span>
-for every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>: indeed <span
+same hosts, and finite sets have finite weighted mass. <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/StrengthenedCoverFiniteUnion.lean#L167">Lean
+proves</a> these closures with the constant <span
+class="math inline" data-term-auto="off">\(3\)</span> in place of <span
+class="math inline" data-term-auto="off">\(1+\sqrt2\)</span>. Countable unions require a tail
+budget. Every prime singleton is admitted, but for the full prime
+support <span class="math inline" data-term-auto="off">\(\mathcal P\)</span> one has <span
+class="math inline" data-term-auto="off">\(\Delta_{2,\mathcal P}(N)&gt;1/3\)</span> for every
+<span class="math inline" data-term-auto="off">\(N\ge1\)</span>: indeed <span
 class="math inline" data-term-auto="off">\(\sum_{r\ge1}2^{-r}\omega(N+r)\ge1\)</span>,
 whereas <span class="math inline" data-term-auto="off">\(X_{\mathcal
 P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}&lt;2/3\)</span>. Here <span
@@ -919,13 +1038,13 @@ converges, since <span class="math inline" data-term-auto="off">\(x_n = O(2^{-n}
 Erdős’s Problem #257 asks a single universally quantified question about
 this family.</p>
 <div class="defn" id="defn:U">
-<p><strong>Definition 1.4</strong> (Universal #257, written (U)). Is <span
+<p><strong>Definition 1.5</strong> (Universal #257, written (U)). Is <span
 class="math inline" data-term-auto="off">\(x_A = \sum_{n \in A} 1/(2^n-1)\)</span> irrational
 for <em>every</em> infinite <span class="math inline" data-term-auto="off">\(A \subseteq
 \mathbb N_{&gt;0}\)</span>? <strong>OPEN.</strong></p>
 </div>
 <div class="defn" id="defn:H">
-<p><strong>Definition 1.5</strong> (The half-value question, written (H)).
+<p><strong>Definition 1.6</strong> (The half-value question, written (H)).
 Let the <em>Mersenne achievement set</em> be <span
 class="math inline" data-term-auto="off">\(\mathcal{A} := \{\, y \in \mathbb{R}: \exists A
 \subseteq \mathbb{N},\ 0 \notin A,\ y = \sum_{n \in A} x_n \,\}\)</span>
@@ -1143,7 +1262,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 also requires interpretation: an unbounded sequence can still satisfy
 <span class="math inline" data-term-auto="off">\(u(N)=o(2^N)\)</span>.</p>
 <div class="rem">
-<p><em>Remark 1.6</em> (What is and is not covered in the universal
+<p><em>Remark 1.7</em> (What is and is not covered in the universal
 direction). The Lean sources contain no theorem for <span
 class="math inline" data-term-auto="off">\(A=\)</span> the primes, but this is a
 formalisation boundary, not a mathematical open case: Tao and Teräväinen
@@ -1179,9 +1298,9 @@ transcription of every clause of the published theorem.</p>
 <section id="a-separate-denominator-growth-criterion." class="level7">
 <p class="heading">A separate denominator-growth criterion.</p>
 <p>Erdős’s growth theorem <span class="citation"
-data-cites="erdos1975"><a href="#ref-20">[20]</a></span>, as restated and recovered by Barreto,
+data-cites="erdos1975"><a href="#ref-21">[21]</a></span>, as restated and recovered by Barreto,
 Kang, Kim, Kovač and Zhang <span class="citation"
-data-cites="bkkkz2026"><a href="#ref-21">[21]</a></span>, gives irrationality of <span
+data-cites="bkkkz2026"><a href="#ref-22">[22]</a></span>, gives irrationality of <span
 class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> for an increasing integer
 sequence with <span class="math inline" data-term-auto="off">\(a_n\ge n^{1+\tau}\)</span> for
 some <span class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and <span
@@ -1220,7 +1339,7 @@ support criterion in this paper.</p>
 <section id="geometry-and-rational-target-membership" class="level5">
 <h5>Geometry and rational-target membership</h5>
 <div class="thm" id="thm:geometry">
-<p><strong>Theorem 1.7</strong> (Achievement-set geometry). <em> <span
+<p><strong>Theorem 1.8</strong> (Achievement-set geometry). <em> <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> is compact, closed, perfect,
 totally disconnected and nowhere dense, and <span
 class="math inline" data-term-auto="off">\(\operatorname{volume}(\mathcal{A}) = 1\)</span>.
@@ -1232,7 +1351,7 @@ injective: each achievable real has <em>exactly one</em>
 support.</em></p>
 </div>
 <div class="thm" id="thm:supported-dichotomy">
-<p><strong>Theorem 1.8</strong> (Support-restricted refinement). <em> Use
+<p><strong>Theorem 1.9</strong> (Support-restricted refinement). <em> Use
 zero-based indices in this statement: coordinate <span
 class="math inline" data-term-auto="off">\(j\in\mathbb{N}\)</span> carries weight <span
 class="math inline" data-term-auto="off">\(w_{j+1}\)</span>. For <span
@@ -1307,7 +1426,7 @@ diameters. The map above now yields <span class="math inline" data-term-auto="of
 S_J\ge d\)</span>, as required. For <span
 class="math inline" data-term-auto="off">\(d=0\)</span> the lower bound is automatic.</p>
 <div class="rem">
-<p><em>Remark 1.9</em> (Achievement-set terminology and sources). We use
+<p><em>Remark 1.10</em> (Achievement-set terminology and sources). We use
 the modern term <em>achievement set</em> for the subsum set that <a
 href="https://doi.org/10.11429/ptmps1907.7.14_250">Kakeya’s 1914
 note</a> describes as a set of partial sums. For an infinite summable
@@ -1328,7 +1447,7 @@ their relation to the divisor-incidence coefficients of these subseries
 is recorded after Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a>.</p>
 </div>
 <div class="thm" id="thm:greedy-survival">
-<p><strong>Theorem 1.10</strong> (Membership equals greedy survival; the
+<p><strong>Theorem 1.11</strong> (Membership equals greedy survival; the
 fatal-gap dichotomy). <em> For a real target <span
 class="math inline" data-term-auto="off">\(x\ge0\)</span>, let <span
 class="math inline" data-term-auto="off">\(r_n(x)\)</span> be the remainder after the greedy
@@ -1411,7 +1530,7 @@ class="math inline" data-term-auto="off">\(30\)</span> are also verified in Lean
 evaluation (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78"><code>seamUpperResetDyadicBandEscape_through_thirty</code></a>).</p>
 <div class="rem">
-<p><em>Remark 1.11</em> (Literature, exactly). <span
+<p><em>Remark 1.12</em> (Literature, exactly). <span
 class="math inline" data-term-auto="off">\(E\)</span> is irrational <span class="citation"
 data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. Zudilin proves the irrationality measure
 bound <span
@@ -1464,7 +1583,7 @@ depth.</p>
 <div class="obs" id="obs:no-ensemble">
 <p><em>Observation 2.1</em> (Uniqueness within the fixed-target coding).
 Each Mersenne weight exceeds the sum of all subsequent weights.
-Consequently the digit coding is injective (Theorem <a class="math-ref" href="#thm:geometry">1.7</a>): a represented target
+Consequently the digit coding is injective (Theorem <a class="math-ref" href="#thm:geometry">1.8</a>): a represented target
 has only one support, recovered by the greedy rule. For the integer
 weights, both the scale and the cutoff matter. If <span
 class="math inline" data-term-auto="off">\(2\le k\le M\)</span> and <span
@@ -1935,7 +2054,7 @@ inequality <span class="math inline" data-term-auto="off">\(r_n(1/2)&gt;R_n\)</s
 true, is witnessed by some finite cutoff and a comparison of rational
 numbers. Enumerating ranks and cutoffs gives the asserted
 finite-certificate search. Membership requires the survival inequality
-at every rank (Theorem <a class="math-ref" href="#thm:greedy-survival">1.10</a>). Checking a
+at every rank (Theorem <a class="math-ref" href="#thm:greedy-survival">1.11</a>). Checking a
 finite initial segment alone does not supply the later inequalities; a
 separate uniform argument or induction would be needed. ◻</p>
 </div>
@@ -1952,7 +2071,7 @@ should not be reported as a single verification depth.</p>
 <div class="rem" id="prop:soft">
 <p><em>Remark 2.12</em> (Achievement-set geometry does not decide
 rational-target membership). The achievement set has positive measure
-and is nowhere dense (Theorem <a class="math-ref" href="#thm:geometry">1.7</a>). Neither fact alone
+and is nowhere dense (Theorem <a class="math-ref" href="#thm:geometry">1.8</a>). Neither fact alone
 decides membership of a specified rational. Injectivity fixes the
 support of an achievable value, but it does not exclude averaging over
 indices, shifts, residues, observation scales or auxiliary
@@ -1960,7 +2079,7 @@ constructions. The recorded calculations obstruct the particular models
 and estimates analysed here; no impossibility theorem for all
 probabilistic, measure-theoretic or averaging methods is claimed.</p>
 </div>
-<p>The geometry itself is Lean-checked in Theorem <a class="math-ref" href="#thm:geometry">1.7</a>: <span
+<p>The geometry itself is Lean-checked in Theorem <a class="math-ref" href="#thm:geometry">1.8</a>: <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> has Lebesgue measure exactly
 <span class="math inline" data-term-auto="off">\(1\)</span> inside an ambient span of <span
 class="math inline" data-term-auto="off">\(E \approx 1.6067\)</span>, a relative density of
@@ -3619,7 +3738,7 @@ class="math display" data-term-auto="off">\[D_t=\frac{2^{r_t}-1}{\gcd(2^{r_t}-1,
 </div>
 <div class="proof">
 <p><em>Proof.</em> Apply Bertrand’s postulate <span class="citation"
-data-cites="erdos1932bertrand"><a href="#ref-23">[23]</a></span> to <span
+data-cites="erdos1932bertrand"><a href="#ref-24">[24]</a></span> to <span
 class="math inline" data-term-auto="off">\(m=\lceil t/2\rceil\ge3\)</span>. There is a prime
 <span class="math inline" data-term-auto="off">\(m&lt;p&lt;2m\)</span>, hence <span
 class="math inline" data-term-auto="off">\(p\le t\)</span> and <span
@@ -3706,7 +3825,7 @@ Möbius function). <em> The absolutely convergent signed series satisfies
 class="math display" data-term-auto="off">\[\sum_{d\ge1}\frac{\mu(d)}{2^d-1}=\frac12.\]</span></div>
 <p><em>
 This classical identity is also recorded in <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-6">[6]</a></span>. Expand each denominator
+data-cites="duverneytachiya"><a href="#ref-7">[7]</a></span>. Expand each denominator
 geometrically and interchange the absolutely convergent sums. The
 coefficient of <span class="math inline" data-term-auto="off">\(2^{-n}\)</span> is <span
 class="math inline" data-term-auto="off">\(\sum_{d\mid n}\mu(d)\)</span>, equal to <span
@@ -8596,7 +8715,7 @@ class="math inline" data-term-auto="off">\(x\ge0\)</span>: a fatal remainder <sp
 class="math inline" data-term-auto="off">\(r_n(x)&gt;R_n\)</span> forces every subsequent
 weight to be taken, because <span
 class="math inline" data-term-auto="off">\(R_n=w_{n+1}+R_{n+1}\)</span>. Hence infinitely
-many skips exclude a fatal remainder, and Theorem <a class="math-ref" href="#thm:greedy-survival">1.10</a> gives
+many skips exclude a fatal remainder, and Theorem <a class="math-ref" href="#thm:greedy-survival">1.11</a> gives
 membership. For the forward implication, membership identifies the
 greedy sum with <span class="math inline" data-term-auto="off">\(x\)</span>. Finitely many
 skips would make that sum <span class="math inline" data-term-auto="off">\(E\)</span> minus a
@@ -8940,7 +9059,7 @@ class="math inline" data-term-auto="off">\(R_m=\sum_{j&gt;m}w_j\)</span>. The im
 the right has a short greedy proof. If <span
 class="math inline" data-term-auto="off">\(x\notin\mathcal A\)</span>, choose the first <span
 class="math inline" data-term-auto="off">\(m\)</span> with <span
-class="math inline" data-term-auto="off">\(r_m(x)&gt;R_m\)</span> using Theorem <a class="math-ref" href="#thm:greedy-survival">1.10</a>. Since <span
+class="math inline" data-term-auto="off">\(r_m(x)&gt;R_m\)</span> using Theorem <a class="math-ref" href="#thm:greedy-survival">1.11</a>. Since <span
 class="math inline" data-term-auto="off">\(r_0(x)=x\le E\)</span>, we have <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(r_{m-1}(x)\le R_{m-1}=w_m+R_m\)</span>. A take at
@@ -10117,10 +10236,10 @@ Matomäki and Radziwiłł prove that a real-valued multiplicative function
 bounded by <span class="math inline" data-term-auto="off">\(1\)</span> has, in almost all
 windows <span class="math inline" data-term-auto="off">\([x,x+h]\)</span> with <span
 class="math inline" data-term-auto="off">\(h\to\infty\)</span>, essentially its long
-average <span class="citation" data-cites="matomakiradziwill"><a href="#ref-10">[10]</a></span>.
+average <span class="citation" data-cites="matomakiradziwill"><a href="#ref-11">[11]</a></span>.
 Mangerel extends such bounds to a class of divisor-bounded
 multiplicative functions <span class="citation"
-data-cites="mangerel2021"><a href="#ref-11">[11]</a></span>, and Sun describes the almost-all
+data-cites="mangerel2021"><a href="#ref-12">[12]</a></span>, and Sun describes the almost-all
 transition profile of the <span class="math inline" data-term-auto="off">\(k\)</span>-fold
 divisor function at its critical polylogarithmic window <span
 class="citation" data-cites="sun2026"></span>. These results control
@@ -10706,7 +10825,7 @@ a_j\pmod{\gcd(m_i,m_j)}\qquad\text{for every }i,j.\]</span></div>
 follows by subtraction. For sufficiency, keep the strongest prime-power
 modulus for each prime; compatibility makes all weaker prescriptions
 agree with it, and the ordinary CRT combines the resulting coprime prime
-powers <span class="citation" data-cites="conradcrt"><a href="#ref-22">[22]</a></span>. For
+powers <span class="citation" data-cites="conradcrt"><a href="#ref-23">[23]</a></span>. For
 example, <span class="math inline" data-term-auto="off">\(N\equiv1\pmod4\)</span> and <span
 class="math inline" data-term-auto="off">\(N\equiv1\pmod6\)</span> give <span
 class="math inline" data-term-auto="off">\(N\equiv1\pmod{12}\)</span>, whereas <span
@@ -11582,7 +11701,7 @@ in an AI-assisted note of 17 September 2026 and given here in full. All
 three results also have Lean proofs, each compared independently
 (margin); the ordinary proofs have not had independent human review. For
 the underlying Lambert subseries, Kovač–Tao treat the same fixed-base
-object in <span class="citation" data-cites="kovactao"><a href="#ref-18">[18]</a></span>; their
+object in <span class="citation" data-cites="kovactao"><a href="#ref-19">[19]</a></span>; their
 strict-tail argument gives distinct support coding and Cantor topology.
 Van Doorn–Kovač treat a freely chosen denominator sequence. Their
 convention is <span class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge\lambda\)</span>
@@ -11592,7 +11711,7 @@ sequence whose finite reciprocal sums include every rational in <span
 class="math inline" data-term-auto="off">\([0,2]\)</span>; no sequence with <span
 class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge2\)</span> can do this on any
 nonempty open interval <span class="citation"
-data-cites="vandoornkovac"><a href="#ref-19">[19]</a></span>. This is a statement about the
+data-cites="vandoornkovac"><a href="#ref-20">[20]</a></span>. This is a statement about the
 rational points of an interval, not an interval consisting entirely of
 finite sums; there are only countably many finite subsets. Those results
 provide context, not an arithmetic logarithmic estimate or a solution of
@@ -11653,7 +11772,7 @@ The covering sets need not be disjoint or contained in <span
 class="math inline" data-term-auto="off">\(F\)</span>. Covers of infinite cost do not lower
 the infimum, and a finite-cost cover exists, for example the single set
 <span class="math inline" data-term-auto="off">\(F\)</span> with exponent one. This is the
-fractional cost of Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.2</a>,
+fractional cost of Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.3</a>,
 not a redefinition of the logarithmic cost.</p>
 <div class="thm" id="thm:257-logarithmic-counterexample">
 <p><strong>Theorem 13.1</strong> (arithmetic logarithmic counterexample).
@@ -11994,14 +12113,14 @@ data-cites="lucatachiya2014periodic lucatachiya2014independence lucatachiya2017"
 Their theorem formulations used here were read in the author-written
 overview; the two original publisher PDFs were not retrieved. Van
 Assche’s nonvanishing and small-linear-form argument for the full
-Lambert series <span class="citation" data-cites="vanassche2001"><a href="#ref-15">[15]</a></span>
+Lambert series <span class="citation" data-cites="vanassche2001"><a href="#ref-16">[16]</a></span>
 is a comparator for the missing upper-height control, not a result for
 arbitrary thinnings.</p>
 <p>For achievement-set background, Hornich’s original bibliographic
-record <span class="citation" data-cites="hornich1941"><a href="#ref-16">[16]</a></span> is
+record <span class="citation" data-cites="hornich1941"><a href="#ref-17">[17]</a></span> is
 separated from the exposition actually used here <span class="citation"
 data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>. Głąb and Prus-Wiśniowski’s survey
-<span class="citation" data-cites="glabprus2025"><a href="#ref-17">[17]</a></span> provides a
+<span class="citation" data-cites="glabprus2025"><a href="#ref-18">[18]</a></span> provides a
 modern map of geometry and cardinality questions, not a
 rational-membership theorem for the present set.</p>
 </section>
@@ -12075,7 +12194,12 @@ class="math inline" data-term-auto="off">\(\lim_n2^nX_n\)</span>, where <span
 class="math inline" data-term-auto="off">\(X_n\)</span> is the <span
 class="math inline" data-term-auto="off">\(n\)</span>th tail, and credits this to H. Hornich
 (1941).</p></li>
-<li id="ref-5"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
+<li id="ref-5"><p>N. Sedaghat, T. Stephen, and L. Chindelevitch, <a
+href="https://doi.org/10.4230/LIPIcs.SEA.2018.6"><em>Speeding up
+dualization in the Fredman–Khachiyan Algorithm B</em></a>, 17th
+International Symposium on Experimental Algorithms (SEA 2018), LIPIcs
+103 (2018), 6:1–6:13.</p></li>
+<li id="ref-6"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
 href="https://arxiv.org/abs/2601.20743v1"><em>Refinements of Erdős’s
 irrationality criterion for certain sparse infinite series</em></a>,
 arXiv:2601.20743v1 (2026). The averaged tail <span
@@ -12086,7 +12210,7 @@ p. 3; its rational-integer form, Theorem 3, is on p. 5. Lemma 1
 tails, and Lemma 2 (pp. 7–8) shows that most scaled tails in a range are
 small under a counting condition on the support. Their criteria assume
 sparse coefficient supports.</p></li>
-<li id="ref-6"><p>D. Duverney and Y. Tachiya, <a
+<li id="ref-7"><p>D. Duverney and Y. Tachiya, <a
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
@@ -12103,7 +12227,7 @@ squarefree family at all bases <span class="math inline" data-term-auto="off">\(
 <span class="math inline" data-term-auto="off">\(j\ge1\)</span>. Both are on p. 4, which also
 relates Corollary 1.2 to the conjecture of Erdős and Graham; the proof
 of Corollary 1.2 is on pp. 10–11.</p></li>
-<li id="ref-7"><p>T. Tao and J. Teräväinen, <a
+<li id="ref-8"><p>T. Tao and J. Teräväinen, <a
 href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
 and some problems on prime factors of consecutive integers</em></a>,
 arXiv:2512.01739v2 (submitted December 2025, revised April 2026).
@@ -12118,7 +12242,7 @@ class="math inline" data-term-auto="off">\(2\)</span>. The modifications for tho
 assertions are left to the reader; arbitrary subsets of the primes or
 prime powers are not treated there. Theorem 3.1 is on p. 24, and the
 proof of Theorem 1.3 is Section 5, pp. 44–56.</p></li>
-<li id="ref-8"><p>W. Zudilin, <em>Heine’s basic transform and a permutation group
+<li id="ref-9"><p>W. Zudilin, <em>Heine’s basic transform and a permutation group
 for <span class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em>, Acta
 Arith. 111 (2004), no. 2, 153–164, <a
 href="https://doi.org/10.4064/aa111-2-4">DOI</a>. Theorem 1 (p. 154)
@@ -12129,49 +12253,49 @@ in the integer <span class="math inline" data-term-auto="off">\(p\)</span> with 
 class="math inline" data-term-auto="off">\(|p|\ge2\)</span>; the remark at the end of
 Section 3 (p. 159) corrects the computation of the author’s earlier
 paper.</p></li>
-<li id="ref-9"><p>J. M. Campbell, <a
+<li id="ref-10"><p>J. M. Campbell, <a
 href="https://arxiv.org/abs/2605.24160v1"><em>On the binary digits of
 the Erdős–Borwein constant</em></a>, arXiv:2605.24160v1 (2026).
 Theorem 1 (p. 12) proves that the block <code>11</code> occurs
 infinitely often in the binary expansion of <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}1/(2^n-1)\)</span>, answering a
 question of Crandall recalled in the introduction.</p></li>
-<li id="ref-10"><p>K. Matomäki and M. Radziwiłł, <em>Multiplicative functions in
+<li id="ref-11"><p>K. Matomäki and M. Radziwiłł, <em>Multiplicative functions in
 short intervals</em>, Ann. of Math. (2) 183 (2016), no. 3, 1015–1056, <a
 href="https://doi.org/10.4007/annals.2016.183.3.6">DOI</a>. Page numbers
 refer to arXiv:1501.04585v4.</p></li>
-<li id="ref-11"><p>A. P. Mangerel, <em>Divisor-bounded multiplicative functions in
+<li id="ref-12"><p>A. P. Mangerel, <em>Divisor-bounded multiplicative functions in
 short intervals</em>, Res. Math. Sci. 10 (2023), no. 1, Paper No. 12, <a
 href="https://doi.org/10.1007/s40687-023-00376-0">DOI</a>. Page numbers
 refer to arXiv:2108.11401v2.</p></li>
-<li id="ref-12"><p>Y.-C. Sun, <a href="https://arxiv.org/abs/2401.08432v3"><em>The
+<li id="ref-13"><p>Y.-C. Sun, <a href="https://arxiv.org/abs/2401.08432v3"><em>The
 critical-window profile for the <span
 class="math inline" data-term-auto="off">\(k\)</span>-fold divisor function in almost all
 short intervals</em></a>, arXiv:2401.08432v3 (2026).</p></li>
-<li id="ref-13"><p>F. Luca and Y. Tachiya, <em>Irrationality of Lambert series
+<li id="ref-14"><p>F. Luca and Y. Tachiya, <em>Irrationality of Lambert series
 associated with a periodic sequence</em>, International Journal of
 Number Theory <strong>10</strong> (2014), no. 3, 623–636. <a
 href="https://doi.org/10.1142/S1793042113501121">doi:10.1142/S1793042113501121</a>.</p></li>
-<li id="ref-14"><p>F. Luca and Y. Tachiya, <em>Linear independence of certain
+<li id="ref-15"><p>F. Luca and Y. Tachiya, <em>Linear independence of certain
 Lambert series</em>, Proceedings of the American Mathematical Society
 <strong>142</strong> (2014), no. 10, 3411–3419. <a
 href="https://doi.org/10.1090/S0002-9939-2014-12102-2">doi:10.1090/S0002-9939-2014-12102-2</a>.</p></li>
-<li id="ref-15"><p>W. Van Assche, <em>Little <span
+<li id="ref-16"><p>W. Van Assche, <em>Little <span
 class="math inline" data-term-auto="off">\(q\)</span>-Legendre polynomials and irrationality
 of certain Lambert series</em>, The Ramanujan Journal <strong>5</strong>
 (2001), 295–310. <a
 href="https://doi.org/10.1023/A:1012930828917">doi:10.1023/A:1012930828917</a>;
 <a
 href="https://arxiv.org/abs/math/0101187v1">arXiv:math/0101187v1</a>.</p></li>
-<li id="ref-16"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
+<li id="ref-17"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
 Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
 (1941), 316–320. <a
 href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
-<li id="ref-17"><p>S. Głąb and F. Prus-Wiśniowski, <em>Achievement sets – current
+<li id="ref-18"><p>S. Głąb and F. Prus-Wiśniowski, <em>Achievement sets – current
 results and open problems</em>, arXiv:2512.17285v1 (2025), preprint. <a
 href="https://arxiv.org/abs/2512.17285v1"
 class="uri">https://arxiv.org/abs/2512.17285v1</a>.</p></li>
-<li id="ref-18"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
+<li id="ref-19"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
 Ahmes series</em>, Acta Math. Hungar. 175 (2025), no. 2, 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Page numbers
 refer to arXiv:2406.17593v4. Remark 4.1 (p. 13) records the strict tail
@@ -12179,7 +12303,7 @@ inequality and the Cantor structure. Theorem 2.3 (p. 5; proof pp. 13–14)
 constructs rational merged sums from several bases under its mass
 hypothesis; the construction merges several bases and leaves fixed-base
 #257 untouched.</p></li>
-<li id="ref-19"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
+<li id="ref-20"><p>W. van Doorn and V. Kovač, <em>Lacunary sequences whose
 reciprocal sums represent all rational numbers in an interval</em>, Acta
 Arith. 223 (2026), 275–295, <a
 href="https://doi.org/10.4064/aa251001-13-1">DOI</a>. The theorem and
@@ -12187,18 +12311,18 @@ page references used here refer to arXiv:2509.24971v3 (3 December 2025),
 <a href="https://arxiv.org/abs/2509.24971v3"
 class="uri">https://arxiv.org/abs/2509.24971v3</a>. Theorem 1 is on
 p. 2; Lemma 4 and Corollary 5 are on pp. 5–7.</p></li>
-<li id="ref-20"><p>P. Erdős, <em>Some problems and results on the irrationality of
+<li id="ref-21"><p>P. Erdős, <em>Some problems and results on the irrationality of
 the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7.</p></li>
-<li id="ref-21"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
+<li id="ref-22"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
 href="https://arxiv.org/abs/2601.21442v3"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
 arXiv:2601.21442v3 (2026), to appear in Bull. London Math. Soc.</p></li>
-<li id="ref-22"><p>K. Conrad, <a
+<li id="ref-23"><p>K. Conrad, <a
 href="https://kconrad.math.uconn.edu/blurbs/ugradnumthy/crt.pdf"><em>The
 Chinese remainder theorem</em></a>, expository notes, Theorem 3.1
 (pp. 2–3). The compatibility criterion for noncoprime moduli used above
 is obtained by the displayed prime-power reduction.</p></li>
-<li id="ref-23"><p>P. Erdős, <a
+<li id="ref-24"><p>P. Erdős, <a
 href="https://www.renyi.hu/~p_erdos/1932-01.pdf">Beweis eines Satzes von
 Tschebyschef</a>, 1932, pp. 194–198, especially §§4–5.</p></li>
 </ol>

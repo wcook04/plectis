@@ -34,9 +34,9 @@ programme can suggest a different theorem in another. The
 [reading edition](reading-edition/README.md) gives a short research instruction
 and the opening of each short paper in one file. For #257, follow the weighted
 theorem, its averaging proof, the long record and Lean source. Then try the
-[changed-base exercise](../research/experiments/weighted_support_transfer/README.md):
-the failed sufficient test proves no rationality claim, and the universal
-question remains open. The
+[weighted-support examples](../research/experiments/weighted_support_transfer/README.md):
+change the base, or build a host with three minimal prime witnesses. A failed
+sufficient test proves nothing about rationality. The
 [dyadic shift exercise](../research/experiments/premise_exchange/shift_family_exercise.md)
 tests another change of hypothesis.
 

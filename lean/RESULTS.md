@@ -340,6 +340,17 @@ has been formalised separately in Lean.
 The comparison identifies the added class and proof mechanism, but does not
 settle independent novelty or priority assessment. See the
 [short paper's theorem, example and sources](papers/full-text/erdos-257-mersenne-support-subseries.md#an-example-beyond-reciprocal-summability).
+[One host realises any finite monotone witness rule](papers/full-text/erdos257-mersenne-reasoning-surface.md#finite-rules-for-prime-witnesses),
+checked in Lean as `finite_monotone_witness_rule_realised`. Given a finite
+set $E$ of primes and a nonconstant upward-closed rule on its subsets, a
+finite union of prime-cofactor blocks has divergent reciprocal sum, its
+weighted test converges at every base exactly when the witness primes in $E$
+satisfy the rule, and every infinite subset has irrational subseries at every
+integer base. For three primes, any two suffice and none is individually
+mandatory. The [worked variants](../research/experiments/weighted_support_transfer/README.md#a-host-with-several-minimal-witnesses)
+compare this host with a different required-prime construction. The
+construction is AI-assisted and its novelty has not been independently
+assessed.
 At base two, the weighted condition can also be combined with the positive
 divisor-cover criterion: the long paper proves that a common finite averaging
 window makes both displacements small. Every infinite subset of their union

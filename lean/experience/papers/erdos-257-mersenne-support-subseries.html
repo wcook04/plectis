@@ -553,6 +553,24 @@ it is positive on every multiple of
 The companion, Section 1.2, gives the counting argument and
 distinguishes their remote-tail average from the displacement used
 here.</p>
+<p>One host realises any monotone rule on a finite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+of primes: if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒰</mi><annotation encoding="application/x-tex">\mathcal U</annotation></semantics></math>
+is an upward-closed family of subsets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi><mo>∌</mo><mi>⌀</mi></mrow><annotation encoding="application/x-tex">E\in\mathcal U\not\ni\varnothing</annotation></semantics></math>,
+a finite union of prime-cofactor blocks has divergent reciprocal sum and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">W_{b,P}&lt;\infty</annotation></semantics></math>
+exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∩</mo><mi>E</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi></mrow><annotation encoding="application/x-tex">P\cap E\in\mathcal U</annotation></semantics></math>,
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+and finite prime set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+so every infinite subset is irrational at every base. The companion
+proves this and Lean checks it.</p>
 </section>
 <section id="sec:common-kernel" class="level3">
 <h3>A common finite average for the extensions</h3>
@@ -790,9 +808,11 @@ implies <code>[eq:strengthened-cover]</code>, since each of its summands
 is the corresponding summand of <code>[eq:strengthened-cover]</code>
 multiplied by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{\alpha_j}/(2^{\alpha_j}-1)&gt;1</annotation></semantics></math>.
-This proves inclusion of the hypotheses for a given cover, not strict
-inclusion of the resulting support classes after optimisation over all
-covers. No separating construction is proved here.</p>
+This proves inclusion of the hypotheses for a given cover; after
+optimisation over all covers, the inclusion of support classes is strict
+by a <a
+href="https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L41">Lean
+proof</a>.</p>
 </section>
 <section id="what-every-positive-cover-must-pay" class="level3">
 <h3>What every positive cover must pay</h3>
@@ -1189,13 +1209,15 @@ proposition. Theorem 3.3 applies to the actual pair
 and proves the all-base hereditary conclusion; no addition of irrational
 numbers is involved. ◻</p>
 </div>
-<p>The mixed implication has a Lean declaration in the public corpus.
-Proposition 3.2 and this corollary have ordinary proofs here, but these
-particular constructions have not been formalised in Lean or
-independently reviewed. The weighted-only construction follows the
-first-logarithmic-moment method; the bounded-mass reverse construction
-was developed in an AI-assisted continuation on 25 September 2026. No
-historical priority claim is made for the comparison.</p>
+<p>The mixed implication and Proposition 3.2 have Lean proofs, the
+latter with a squarefree divisor-cube host as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.
+The printed construction and this corollary have ordinary proofs, and
+none has been independently reviewed. The weighted-only construction
+follows the first-logarithmic-moment method; the bounded-mass reverse
+construction was developed in an AI-assisted continuation on 25
+September 2026. No historical priority claim is made for the
+comparison.</p>
 <p>Even the fixed-dyadic cover class in (V) is closed under finite
 unions. For two covers, interleave their
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>th
