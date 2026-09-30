@@ -25,10 +25,11 @@ and results drawn from the literature. Source maps and query tools
 connect those explanations to their supporting records.</p>
 <p>The reviewed claim registry covers #68, #243, #249, #251, #257, #269,
 #1041 and #1049. The two Lean roots reflect the development’s history,
-not different standards of evidence. A declaration has the public status
-recorded for it in the registry; adding a file or compiling a library
-does not create that status. <a href="methodology.mathjax.html">Methodology</a>
-explains the review and change rules.</p>
+not different standards of evidence. The registry assigns status to
+selected public claims; supporting declarations need not have a claim
+record. Adding a file or compiling a library does not establish a public
+claim. <a href="methodology.mathjax.html">Methodology</a> explains the review and
+change rules.</p>
 <p>Using the degree-seven polynomial constructed by the
 erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-lemniscate set containing two distinct roots has one-dimensional
@@ -40,6 +41,25 @@ recorded. Comparator checks only selected exact statements, axioms and
 kernel acceptance; it does not assess novelty or historical
 correspondence. This is a self-contained public release: its use and its
 mathematical claims do not depend on private files.</p>
+</section>
+<section id="why-preserve-explanations-and-failed-approaches"
+class="level2">
+<h2>Why preserve explanations and failed approaches?</h2>
+<p>Henry Cohn’s <a
+href="https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/">The
+technical debt of AI-generated mathematics</a> argues that producers owe
+readers explanation, attribution and integration. Tim Gowers’s <a
+href="https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/">Why
+I didn’t sign the Fields medallists’ letter</a> emphasises selective,
+active reading and considers on-demand model explanations as an
+alternative to a maintained database.</p>
+<p>Plectis preserves the arguments, sources and failed routes. AI can
+prepare an explanation; readers still have to reconstruct the argument
+and assess its use. Whether this record helps more than papers, source
+and an on-demand model remains untested. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
+Compute to Cumulative Mathematics</a> describes the contribution
+process.</p>
 </section>
 <section id="the-architecture-in-one-page" class="level2">
 <h2>The architecture in one page</h2>
@@ -67,11 +87,8 @@ theorem does not require a Lean proof, and a finite computation
 establishes only its finite domain. Outside reading, criticism and reuse
 are observed separately; none follows from passing through this
 diagram.</p>
-<p>These are two directions through the same records. Starting from a
-paper selects what needs checking; it does not make the paper proof
-authority. A stronger Lean theorem needs a checked implication to the
-printed statement. An unproved condition or a proof of only part of a
-statement stays explicit.</p>
+<p>A stronger Lean theorem needs a checked implication to the printed
+statement. Unproved conditions and partial coverage stay explicit.</p>
 <p>For selected statements, <a
 href="external-verification.mathjax.html">Comparator</a> compares the separately
 declared challenge with the solution under a configured axiom budget.
@@ -239,25 +256,36 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/research/examples/Examp
 <td>Reading guides, claim records and generated indexes.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts">scripts/</a></td>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/README.md">scripts/</a></td>
 <td>Queries, builders, release checks and tests.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification">verification/</a></td>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification/README.md">verification/</a></td>
 <td>Comparator statements and configuration, replay tools and
 external-statement comparisons.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/evidence/README.md">evidence/</a></td>
+<td>Paper-to-proof records and stored Comparator replay reports.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/computations/README.md">computations/</a></td>
+<td>Exact arithmetic certificates with independent recomputation
+programs.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md">skills/</a></td>
 <td>Workflows for research, validation and contribution.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments">research/experiments/</a></td>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/erdos251/README.md">Rerun the
-finite #251 computations and compare their outputs with saved
-results</a>, or inspect <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/publication_mutations.json">test changes
-used to exercise the release checker</a>.</td>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research/README.md">research/</a></td>
+<td>Runnable experiments, downstream examples, adapters and session
+records.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/README.md">research_corpus/</a></td>
+<td>Dated research returns with source manifests, corrections and
+explicit local evidence boundaries.</td>
 </tr>
 </tbody>
 </table>
@@ -270,10 +298,25 @@ crosswalk</a> provides the corresponding routes into the pinned upstream
 statement collection.</p>
 <p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md">research commons</a>
 explains how independent work returns to the repository with its
-starting commit, evidence and credit. The companion <a
-href="https://github.com/wcook04/plectis">Plectis software
-repository</a> contains the general workflow components. This checkout
-contains the mathematics and the tools needed to work with it.</p>
+starting commit, evidence and credit. This checkout contains the
+mathematics and the tools needed to work with it. The companion <a
+href="https://github.com/wcook04/plectis-erdos-lean">selected
+verification repository</a> packages individual statements for external
+checking; it is not required to read or build this corpus.</p>
+<section id="directory-and-naming-conventions" class="level3">
+<h3>Directory and naming conventions</h3>
+<p><code>paper/</code> holds manuscripts and PDFs;
+<code>docs/papers/</code> holds generated full text and its catalogue.
+<code>verification/</code> holds formal interfaces and configuration;
+<code>docs/verification/</code> holds instructions.
+<code>research/</code> contains experiments and tools;
+<code>research_corpus/</code> preserves dated returns.</p>
+<p>Lean source names follow namespaces and Lake configuration. The older
+<code>Erdos249257</code> name remains in imports, citations and recorded
+checks; use the <a href="source-map.mathjax.html">source map</a> to locate results
+across both libraries. Renaming a source requires updating those
+consumers together.</p>
+</section>
 </section>
 <section id="a-complete-example" class="level2">
 <h2>A complete example</h2>
@@ -299,14 +342,10 @@ the earlier deposits through 64 already covered every value up to 66.
 Each scale is nevertheless an independent construction — the two
 supporting modules share no prime — so the band buys reach, not
 leverage.</p>
-<p>The phrase <em>verified finite instance</em> is not a score or a
-project-specific milestone. It means only that Lean checked a stated
-finite set of inputs. The open problem requires cases beyond every fixed
-cutoff, so the finite list does not settle it. The development also
-proves an exact equivalence: a supply of cases beyond every fixed cutoff
-would settle the open problem itself. An edit that erased this boundary
-would therefore be a false mathematical announcement, not a small
-wording change.</p>
+<p><em>Verified finite instance</em> means Lean checked the stated
+finite inputs. A supply of successful cases beyond every fixed cutoff
+would settle the open problem by a proved equivalence; the finite list
+does not supply it.</p>
 <p>This one record connects the layers:</p>
 <ol type="1">
 <li>The named declarations in the Lean files are the formal
@@ -424,46 +463,9 @@ illustrates the checks recorded for that exercise.</p>
 </section>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
-<table>
-<colgroup>
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th>Your next step</th>
-<th>Guide</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Read one mathematical argument</td>
-<td><a href="paper-guide.mathjax.html#problem-papers">Individual problem
-papers</a></td>
-</tr>
-<tr>
-<td>Inspect a result and its remaining question</td>
-<td><a href="results.mathjax.html">Results and limits</a>, then <a
-href="scope.mathjax.html">scope</a></td>
-</tr>
-<tr>
-<td>Find the proof behind a statement</td>
-<td><a href="source-map.mathjax.html">Source map</a></td>
-</tr>
-<tr>
-<td>Reproduce a check on your machine</td>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Reproducibility</a></td>
-</tr>
-<tr>
-<td>Work with a coding agent</td>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md">Agent guides</a></td>
-</tr>
-<tr>
-<td>Propose a correction or continuation</td>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contributing</a></td>
-</tr>
-</tbody>
-</table>
+<p>Read a <a href="paper-guide.mathjax.html#problem-papers">problem paper</a>,
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">reproduce a check</a>, or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">propose a contribution</a>.</p>
 <p>The archived combined #249/#257 PDF is not a default reading route.
 <a href="documentation.mathjax.html">The documentation index</a> lists the current guides
 and specialist references.</p>

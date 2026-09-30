@@ -22,7 +22,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "d11c6bb56424dba68584d98726d9240f64490de6bc77a35d6435b090bb75196d",
+        "source_sha256": "5aa9c649dfa5f04decddb5eb0c55b4806930d72c5ff19f6d56f4dd7acd0ade67",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -37,10 +37,20 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "232773f8823445bd6cef84e4ca1e7b883e99cffdc47d08790e28d681b5d0964c",
-        "html_exact_tex_sha256": "fc6f2c1a26814798826bb9ce26b542e62799a88bd5986113cf2ceb4c93635cdf"
+        "html_mathml_sha256": "810414b9abe512675bda8cf40591496f8043502ab02ac37c9eb51444e8e89082",
+        "html_exact_tex_sha256": "1474745a7997206e2dd354db9360e0a3c7f6120dd46cbabfc7dcfc630bb84403"
       },
       "sections": [
+        {
+          "level": 2,
+          "anchor": "for-a-first-look-257",
+          "label": "For a first look: #257"
+        },
+        {
+          "level": 2,
+          "anchor": "results-and-their-limits",
+          "label": "Results and their limits"
+        },
         {
           "level": 2,
           "anchor": "where-to-start",
@@ -48,8 +58,8 @@
         },
         {
           "level": 2,
-          "anchor": "why-this-exists",
-          "label": "Why this exists"
+          "anchor": "why-keep-the-whole-research-record",
+          "label": "Why keep the whole research record?"
         },
         {
           "level": 2,
@@ -72,14 +82,14 @@
           "label": "Read or verify locally"
         },
         {
-          "level": 2,
-          "anchor": "corpus-at-a-glance",
-          "label": "Corpus at a glance"
+          "level": 3,
+          "anchor": "repository-map",
+          "label": "Repository map"
         },
         {
           "level": 2,
-          "anchor": "formal-conjectures-contributions",
-          "label": "Formal Conjectures contributions"
+          "anchor": "corpus-at-a-glance",
+          "label": "Corpus at a glance"
         },
         {
           "level": 2,
@@ -88,8 +98,8 @@
         },
         {
           "level": 2,
-          "anchor": "about-the-project",
-          "label": "About the project"
+          "anchor": "formal-conjectures-contributions",
+          "label": "Formal Conjectures contributions"
         },
         {
           "level": 2,
@@ -264,7 +274,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "06be14c01321e8523be8733d3fbe306b54baeb90436ab92284e3f4f3cba3f9ea",
+        "source_sha256": "266d05fccf645f9a7ffb2110364fbbc5cf6a60fb0e6841369ec8420d01023794",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -279,8 +289,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "6ff827988a5da4d536c99cea775f40ffb15004e09c17a06bf5b02e03cb5e8736",
-        "html_exact_tex_sha256": "1c6815b2efd894aa5dba512281f0d97195afbec80a4f8c66322925c10952b633"
+        "html_mathml_sha256": "069401d9e1779aa3845c6a3ac30f6d830e13de5ec34b32bde6ca8bec6a0ac38d",
+        "html_exact_tex_sha256": "55f73c56fa29c26236412d7ab9ae900c75e934aa420dc598ce1b54b9701789f3"
       },
       "sections": [
         {
@@ -1215,7 +1225,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "236df0cb3385af8b15b78471ac6d6c8164a931196a9f10b00cfc01f3405a20f4",
+        "source_sha256": "659a9bc139f98f0fe4405ff6a927bcbeb4a4233ce45b3cdb16e3350dd89806ba",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "f4d15df6dc782e78",
@@ -1230,14 +1240,19 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "a7361b1455b3e00279d8653a9635307357cacd24917a81da43930472a9750150",
-        "html_exact_tex_sha256": "c5df3570b9a20d3a7ce7df5d6dbfa266b4db88899372c2a4922ea9be6453733b"
+        "html_mathml_sha256": "e9d2c8e5aa3d0c5549dfcbd04c0e11d3aa56afde40f3e9cde0e20adfb634ad19",
+        "html_exact_tex_sha256": "82bcda384fbd18fe24a007f2b1815a1535653268a5eff776d70ee9e6e8ec3391"
       },
       "sections": [
         {
           "level": 2,
           "anchor": "what-this-repository-is",
           "label": "What this repository is"
+        },
+        {
+          "level": 2,
+          "anchor": "why-preserve-explanations-and-failed-approaches",
+          "label": "Why preserve explanations and failed approaches?"
         },
         {
           "level": 2,
@@ -1253,6 +1268,11 @@
           "level": 2,
           "anchor": "repository-map",
           "label": "Repository map"
+        },
+        {
+          "level": 3,
+          "anchor": "directory-and-naming-conventions",
+          "label": "Directory and naming conventions"
         },
         {
           "level": 2,

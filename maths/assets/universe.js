@@ -21,9 +21,9 @@
    or Lean module — carries the reason it sits there (the record names it,
    its Lean namespace or folder, its statement, the step it builds on), which
    the inspector states and which the map uses to keep a problem's whole
-   sector lit when the problem is focused. The core's containment spokes to
-   its 1,200-odd modules are implied by that placement and are drawn only
-   when the core or a module is focused. */
+   sector lit when the problem is focused. Module containment and imports
+   appear as bounded local connections when an object is inspected; the
+   universe itself stays an overview of the programmes. */
 (function () {
   'use strict';
 
@@ -160,7 +160,6 @@
 
     var nodes = [];
     var edges = [];
-    var edgeHub = [];
     var relations = [];
     var captions = [];
     var adj = [];
@@ -243,6 +242,7 @@
 
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
+      if (nodes[i].kind === 'universe') { fit(); draw(); return; }
       viewIsFitted = false;
       if (view.k < 1.1) view.k = 1.6;
       view.tx = canvas.clientWidth / 2 - nodes[i].x * view.k;
@@ -267,8 +267,10 @@
       if (i < 0) return set;
       var rows = adj[i] || [];
       var j;
-      for (j = 0; j < rows.length; j++) set[rows[j].to] = true;
       var n = nodes[i];
+      for (j = 0; j < rows.length; j++) {
+        if (n.kind !== 'universe' || nodes[rows[j].to].kind === 'problem') set[rows[j].to] = true;
+      }
       if (n.kind === 'problem' && n.sector) {
         for (j = 0; j < nodes.length; j++) {
           if (j !== i && nodes[j].sector && sectorProblems(nodes[j]).indexOf(n.sector) !== -1) set[j] = true;
@@ -319,23 +321,44 @@
       ctx.stroke();
     }
 
-    /* Edge classes: 0 is an ordinary edge; 1 is a spoke from the core to a
-       first-screen object; 2 is the core's containment of a Lean module,
-       which the module's placement already shows, so it is drawn only when
-       the core or that module is focused. */
-    var EDGE_PLAIN = 0, EDGE_SPOKE = 1, EDGE_CONTAINS = 2;
+    /* Placement gives the overview its hierarchy. Imports and redundant
+       hub spokes are explored locally; painting them all at once obscures
+       the very objects they connect. The full adjacency stays inspectable. */
+    function incidentEdges(focus) {
+      if (focus < 0) return [];
+      var rows = [];
+      for (var i = 0; i < edges.length; i++) {
+        var e = edges[i];
+        if (e[0] !== focus && e[1] !== focus) continue;
+        var other = e[0] === focus ? e[1] : e[0];
+        if (!visible(nodes[focus]) || !visible(nodes[other])) continue;
+        if (nodes[focus].kind === 'universe' && nodes[other].kind !== 'problem') continue;
+        rows.push({ edge: i, other: other });
+      }
+      rows.sort(function (a, b) {
+        return kindOrder(nodes[a.other].kind) - kindOrder(nodes[b.other].kind) ||
+          nodes[a.other].label.localeCompare(nodes[b.other].label) || a.edge - b.edge;
+      });
+      return rows.slice(0, canvas.clientWidth < 600 ? 12 : 24).map(function (row) { return row.edge; });
+    }
 
-    function drawEdgeSet(cls, alpha, width, color) {
+    function overviewEdge(i) {
+      var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
+      if (a.kind === 'lean_module' || b.kind === 'lean_module') return false;
+      if (a.kind === 'universe' || b.kind === 'universe') {
+        return a.kind === 'problem' || b.kind === 'problem';
+      }
+      return true;
+    }
+
+    function drawEdgeSet(indices, alpha, width, color) {
       ctx.lineWidth = width;
       ctx.strokeStyle = color;
       ctx.globalAlpha = alpha;
       ctx.beginPath();
-      var focus = focusIndex();
-      for (var i = 0; i < edges.length; i++) {
-        if (edgeHub[i] !== cls) continue;
+      for (var j = 0; j < indices.length; j++) {
+        var i = indices[j];
         var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
-        if (!a || !b || !visible(a) || !visible(b)) continue;
-        if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
         ctx.moveTo(a.x * view.k + view.tx, a.y * view.k + view.ty);
         ctx.lineTo(b.x * view.k + view.tx, b.y * view.k + view.ty);
       }
@@ -362,40 +385,53 @@
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
 
-      /* Quiet edges first. The spokes from the core to every claim are the
-         busiest lines on the field and say the least, so they stay faint;
-         when something is focused the rest recede further. */
-      var shownEdges = 0;
+      var hot = incidentEdges(focus), hotSet = {};
+      hot.forEach(function (at) { hotSet[at] = true; });
+      var quiet = [], availableEdges = 0;
       for (i = 0; i < edges.length; i++) {
         var ea = nodes[edges[i][0]], eb = nodes[edges[i][1]];
         if (!ea || !eb || !visible(ea) || !visible(eb)) continue;
-        if (edgeHub[i] === EDGE_CONTAINS && edges[i][0] !== focus && edges[i][1] !== focus) continue;
-        shownEdges++;
+        availableEdges++;
+        if (overviewEdge(i) && !hotSet[i]) quiet.push(i);
       }
-      drawEdgeSet(EDGE_SPOKE, focus >= 0 ? 0.12 : 0.3, 0.6, palette.edge);
-      drawEdgeSet(EDGE_PLAIN, focus >= 0 ? 0.35 : 1, 0.7, palette.edge);
+      var shownEdges = quiet.length + hot.length;
+      drawEdgeSet(quiet, focus >= 0 ? 0.3 : 0.65, 0.65, palette.edge);
+      drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
 
-      if (focus >= 0) {
-        ctx.lineWidth = 1.6;
-        ctx.strokeStyle = palette.edgeHot;
-        ctx.beginPath();
-        for (i = 0; i < edges.length; i++) {
-          if (edges[i][0] !== focus && edges[i][1] !== focus) continue;
-          var ha = nodes[edges[i][0]], hb = nodes[edges[i][1]];
-          if (!ha || !hb || !visible(ha) || !visible(hb)) continue;
-          ctx.moveTo(ha.x * view.k + view.tx, ha.y * view.k + view.ty);
-          ctx.lineTo(hb.x * view.k + view.tx, hb.y * view.k + view.ty);
-        }
-        ctx.stroke();
-      }
-
-      /* Sector captions sit under the objects, as quiet field notes. They
-         run away from the core so the core's own label keeps its room. */
+      /* A shared sector must remain named in the fitted overview. Its
+         compact callout sits beyond the claim band; the line identifies
+         that band and is an annotation, not a new graph relationship. */
       ctx.textBaseline = 'middle';
-      for (i = 0; i < captions.length && view.k >= 1.1; i++) {
+      for (i = 0; i < captions.length; i++) {
         var c = captions[i];
         var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
         if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
+        if (view.k < 1.1) {
+          var compactText = c.text.replace(/^shared by /, 'Shared: ');
+          ctx.font = '600 10px ' + SERIF;
+          var captionHalf = ctx.measureText(compactText).width / 2 + 6;
+          // Leave the right-hand zoom controls their own column.
+          var captionRight = Math.max(captionHalf, w - 74 - captionHalf);
+          var calloutX = Math.max(captionHalf, Math.min(captionRight, c.x * view.k * 2.35 + view.tx));
+          var calloutY = Math.max(14, Math.min(h - 14, c.y * view.k * 2.35 + view.ty));
+          ctx.globalAlpha = 0.85;
+          ctx.strokeStyle = palette.faint;
+          ctx.lineWidth = 0.65;
+          ctx.setLineDash([2, 3]);
+          ctx.beginPath();
+          ctx.moveTo(c.x * view.k * 1.8 + view.tx, c.y * view.k * 1.8 + view.ty);
+          ctx.lineTo(calloutX, calloutY - 8);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.textAlign = 'center';
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = palette.ground;
+          ctx.strokeText(compactText, calloutX, calloutY);
+          ctx.fillStyle = palette.ink;
+          ctx.fillText(compactText, calloutX, calloutY);
+          ctx.globalAlpha = 1;
+          continue;
+        }
         ctx.textAlign = c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
         ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
         ctx.fillStyle = palette.faint;
@@ -418,9 +454,14 @@
         y = n.y * view.k + view.ty;
         if (x < -24 || y < -24 || x > w + 24 || y > h + 24) continue;
         var r = n.r * rs;
+        if (n.kind === 'lean_module' && i !== focus) {
+          r = Math.min(r, Math.max(0.45, view.k * 1.5));
+        }
         var alpha = 1;
         if (n.tier === 'open') alpha = 0.7;
-        if (searching && !matches(n)) alpha = 0.12;
+        if (n.kind === 'lean_module' && i !== focus) alpha = 0.45;
+        var anchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
+        if (searching && !matches(n) && !anchor) alpha = 0.12;
         if (focus >= 0 && i !== focus && !near[i]) alpha = Math.min(alpha, 0.25);
         ctx.globalAlpha = alpha;
         if (i === hover || i === selected) {
@@ -449,25 +490,38 @@
             n.kind === 'registry_review_unit')) ||
           (view.k > 3.4 && n.kind === 'public_claim');
         if (!wantLabel) continue;
-        if (searching && !matches(n) && !isFocus) continue;
-        if (focus >= 0 && i !== focus && !near[i] && !isFocus) continue;
+        var isAnchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
+        if (searching && !matches(n) && !isFocus && !isAnchor) continue;
+        if (focus >= 0 && i !== focus && !near[i] && !isFocus && !isAnchor) continue;
         var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
         if (lx < -60 || ly < -60 || lx > w + 60 || ly > h + 60) continue;
         var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         ctx.font = (big ? '700 13px ' : '600 12px ') + SERIF;
         var text = clip(n.shortLabel, isFocus ? 60 : 42);
+        if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
+          var number = n.id.match(/(?:^|[:_])(\d+)$/);
+          if (number) text = '#' + number[1];
+        }
         // A label near the edge slides inward so it is never cut off.
         var half = ctx.measureText(text).width / 2 + 6;
+        var labelY = ly + n.r * rs + 15;
+        if (n.kind === 'problem') {
+          var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
+          var offset = n.r * rs + 17;
+          lx += n.x / distance * offset;
+          labelY = ly + n.y / distance * offset + 4;
+        }
         lx = Math.max(half, Math.min(w - half, lx));
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = palette.ground;
-        ctx.strokeText(text, lx, ly + n.r * rs + 15);
+        ctx.strokeText(text, lx, labelY);
         ctx.fillStyle = palette.ink;
-        ctx.fillText(text, lx, ly + n.r * rs + 15);
+        ctx.fillText(text, lx, labelY);
       }
 
       if (countOut) {
-        var line = String(shown) + ' objects, ' + String(shownEdges) + ' connections shown';
+        var line = String(shown) + ' objects · ' + String(shownEdges) + ' of ' +
+          String(availableEdges) + ' connections drawn';
         if (searching) {
           line += ' · ' + String(matchList.length) + (matchList.length === 1 ? ' match' : ' matches');
         }
@@ -558,7 +612,7 @@
         parts.push('<p class="universe-inspector__note">The band on the field is ' +
           escapeHtml(captions[c].sub || '') + ', ' + escapeHtml(captions[c].text) + '.</p>');
       }
-      parts.push('<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin. Every claim, argument step and Lean module is drawn with the problem it belongs to; the card says why.</p>');
+      parts.push('<p class="universe-inspector__hint">Select an object to inspect its connections. The overview shows programme and result relationships; module links appear around the selected object. All connections remain available in its card. Press Esc to unpin.</p>');
       return parts.join('');
     }
 
@@ -570,20 +624,27 @@
         if (byKind) return byKind;
         return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
       });
-      var cap = 24;
-      var html = '';
-      for (var j = 0; j < rows.length && j < cap; j++) {
+      var groups = {}, order = [];
+      for (var j = 0; j < rows.length; j++) {
         var row = rows[j];
         var m = nodes[row.to];
-        html += '<li><button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
+        var key = m.kind + ':' + row.rel + ':' + row.out;
+        if (!groups[key]) { groups[key] = { kind: m.kind, rel: row.rel, out: row.out, rows: [] }; order.push(key); }
+        groups[key].rows.push('<li><button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
           dotHtml(m.kind) +
           '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span>' +
           '<span class="universe-goto__rel">' + (row.out ? '→ ' : '← ') +
           escapeHtml(relText(row.rel)) + '</span>' +
-          '</button></li>';
+          '</button></li>');
       }
-      if (rows.length > cap) {
-        html += '<li class="universe-goto__more">… and ' + (rows.length - cap) + ' more</li>';
+      var html = '';
+      for (var g = 0; g < order.length; g++) {
+        var group = groups[order[g]];
+        html += '<details class="universe-connections"' + (group.kind === 'problem' || rows.length <= 12 ? ' open' : '') + '>' +
+          '<summary>' + escapeHtml(KIND_PLURAL[group.kind] || group.kind) +
+          ' · ' + (group.out ? '→ ' : '← ') + escapeHtml(relText(group.rel)) +
+          ' <b>' + group.rows.length + '</b></summary>' +
+          '<ul class="universe-inspector__list">' + group.rows.join('') + '</ul></details>';
       }
       return { html: html, total: rows.length };
     }
@@ -733,7 +794,9 @@
         var rows = connectionRows(i);
         if (rows.total) {
           parts.push('<h4 class="universe-inspector__sub">Connections (' + rows.total + ')</h4>');
-          parts.push('<ul class="universe-inspector__list">' + rows.html + '</ul>');
+          parts.push('<p class="universe-inspector__hint">The map highlights up to ' +
+            (canvas.clientWidth < 600 ? 12 : 24) + ' local connections. Expand a group below to inspect every connection, including those outside the current filters.</p>');
+          parts.push(rows.html);
         }
         if (canCopy) {
           parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy link to this object</button>');
@@ -816,6 +879,7 @@
 
     function ingest(data) {
       var keepId = selected >= 0 && nodes[selected] ? nodes[selected].id : null;
+      var keepView = nodes.length > 0;
       nodes = data.nodes.map(function (n) {
         var row = {
           id: n.id, kind: n.kind, label: n.label,
@@ -842,7 +906,6 @@
       adj = new Array(nodes.length);
       byId = {};
       problemIndex = {};
-      edgeHub = new Array(edges.length);
       var degree = new Array(nodes.length);
       var i;
       for (i = 0; i < nodes.length; i++) {
@@ -855,12 +918,6 @@
         var a = edges[i][0], b = edges[i][1];
         var rel = relations[edges[i][2]] || null;
         if (!nodes[a] || !nodes[b]) continue;
-        if (nodes[a].kind === 'universe' || nodes[b].kind === 'universe') {
-          edgeHub[i] = (nodes[a].kind === 'lean_module' || nodes[b].kind === 'lean_module') ?
-            EDGE_CONTAINS : EDGE_SPOKE;
-        } else {
-          edgeHub[i] = EDGE_PLAIN;
-        }
         adj[a].push({ to: b, rel: rel, out: true });
         adj[b].push({ to: a, rel: rel, out: false });
         degree[a]++;
@@ -870,10 +927,11 @@
         nodes[i].r += degreeBonus(nodes[i].kind, degree[i]);
       }
       hover = -1;
-      selected = -1;
-      if (keepId && !pendingId) pendingId = keepId;
+      selected = keepId && byId[keepId] !== undefined ? byId[keepId] : -1;
       countMatches();
-      fit();
+      // A fitted overview follows the new extent. An explored camera keeps
+      // its exact scale and centre when complete data arrives.
+      if (!keepView || viewIsFitted) fit();
       draw();
       renderInspector();
       resolvePending();

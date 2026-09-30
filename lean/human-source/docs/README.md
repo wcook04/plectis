@@ -93,6 +93,14 @@ indexes help locate evidence. You can read the papers without opening these
 files. [Generated technical navigation](ORIENTATION.md) is a compact entry for
 readers who want to use the indexes.
 
+Outside `docs/`, the [repository map](../README.md#repository-map) distinguishes
+the proof libraries, manuscripts and working records. Folder indexes cover
+[experiments](../research/README.md), [returned research](../research_corpus/README.md),
+[tools](../scripts/README.md) and [formal verification files](../verification/README.md).
+The [naming conventions](ARCHITECTURE.md#directory-and-naming-conventions)
+explain why similarly named source and documentation folders have different
+roles.
+
 ## Files at the repository root
 
 `README.md` introduces the work and `CONTRIBUTING.md` explains how to help.

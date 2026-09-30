@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "d11c6bb56424dba68584d98726d9240f64490de6bc77a35d6435b090bb75196d",
+    "source_sha256": "5aa9c649dfa5f04decddb5eb0c55b4806930d72c5ff19f6d56f4dd7acd0ade67",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
@@ -31,10 +31,20 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "232773f8823445bd6cef84e4ca1e7b883e99cffdc47d08790e28d681b5d0964c",
-    "html_exact_tex_sha256": "fc6f2c1a26814798826bb9ce26b542e62799a88bd5986113cf2ceb4c93635cdf"
+    "html_mathml_sha256": "810414b9abe512675bda8cf40591496f8043502ab02ac37c9eb51444e8e89082",
+    "html_exact_tex_sha256": "1474745a7997206e2dd354db9360e0a3c7f6120dd46cbabfc7dcfc630bb84403"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": "for-a-first-look-257",
+      "label": "For a first look: #257"
+    },
+    {
+      "level": 2,
+      "anchor": "results-and-their-limits",
+      "label": "Results and their limits"
+    },
     {
       "level": 2,
       "anchor": "where-to-start",
@@ -42,8 +52,8 @@
     },
     {
       "level": 2,
-      "anchor": "why-this-exists",
-      "label": "Why this exists"
+      "anchor": "why-keep-the-whole-research-record",
+      "label": "Why keep the whole research record?"
     },
     {
       "level": 2,
@@ -66,14 +76,14 @@
       "label": "Read or verify locally"
     },
     {
-      "level": 2,
-      "anchor": "corpus-at-a-glance",
-      "label": "Corpus at a glance"
+      "level": 3,
+      "anchor": "repository-map",
+      "label": "Repository map"
     },
     {
       "level": 2,
-      "anchor": "formal-conjectures-contributions",
-      "label": "Formal Conjectures contributions"
+      "anchor": "corpus-at-a-glance",
+      "label": "Corpus at a glance"
     },
     {
       "level": 2,
@@ -82,8 +92,8 @@
     },
     {
       "level": 2,
-      "anchor": "about-the-project",
-      "label": "About the project"
+      "anchor": "formal-conjectures-contributions",
+      "label": "Formal Conjectures contributions"
     },
     {
       "level": 2,

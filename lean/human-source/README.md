@@ -1,42 +1,50 @@
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-# Plectis: research on eight Erdős problem programmes
+# Plectis: open mathematical research with Lean
 
-Plectis is an open-source, AI-assisted prototype for turning mathematical
-exposition into further research. Eight Erdős programmes offer papers, Lean
-source, methods and failed routes for others to question and extend.
-[Problem-Sized Lean Worlds](paper/systems/claim-faithful-publication-systems-paper.pdf)
-explains the system: how a result moves through its paper, Lean proof,
-selected Comparator check, claim record and credited return. The repository
-contains those sources and checks, so a reader can inspect the chain from a
-clone.
+Plectis brings together research on eight Erdős problems: papers you can read,
+formal proofs you can check, and experiments and failed approaches you can
+continue. It is an independent, AI-assisted prototype by Will Cook. Lean is the
+proof assistant used to check the formal statements; the papers explain the
+arguments and identify what remains open.
 
-Start with [#257's short paper](paper/257/erdos-257-mersenne-support-subseries.pdf).
-If `h_P(a)` is the part of an exponent `a` supported on a finite nonempty set of primes,
-the Lean-checked theorem proves irrationality at every integer base for each
-infinite support `A` with finite base-two weighted mass
-`∑_{a∈A} h_P(a)/(a(2^{h_P(a)}−1))`. Some such supports have divergent
-`∑_{a∈A} 1/a`. The question for *every* infinite support remains open.
-[Longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf) ·
-[Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120).
-Other seven programmes: [results guide](docs/RESULTS.md#problem-by-problem-guide).
-
-[#257 exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis) · [#243/#257 proofs](docs/research-commons/README.md#native-prove2me-theorems).
-
-Start with the [systems paper](paper/systems/claim-faithful-publication-systems-paper.pdf)
-for the research method, [#257's paper](paper/257/erdos-257-mersenne-support-subseries.pdf)
-for one checked result, or [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
-
-**[Clone and reproduce](docs/REPRODUCIBILITY.md)** ·
+**[Read the mathematics](https://wcook04.github.io/plectis/maths/)** ·
 [All papers](paper/README.md) ·
-[Reading edition](docs/reading-edition/README.md) ·
-[Replay #257 theorem](docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay) ·
+[Clone and reproduce](docs/REPRODUCIBILITY.md) ·
 [Contribute or correct](CONTRIBUTING.md)
+
+## For a first look: #257
+
+[Problem 257](https://www.erdosproblems.com/257) asks whether adding
+`1/(2^a − 1)` over **any infinite set of positive integers** always gives an
+irrational number. Our [short paper](paper/257/erdos-257-mersenne-support-subseries.pdf)
+proves a sufficient condition that Lean checks: if a set of positive integer exponents
+has finite base-two prime-weighted mass, every infinite subset gives an
+irrational sum at **every integer base at least two**.
+
+Precisely, choose a finite nonempty set of primes `P`, and let `h_P(a)` be the
+largest divisor of `a` whose prime factors lie in `P`. The condition is
+`∑_{a∈H} h_P(a)/(a(2^{h_P(a)}−1)) < ∞` for a set `H` of positive integers.
+For every infinite `A ⊆ H` and every integer `b ≥ 2`, the sum
+`∑_{a∈A} 1/(b^a−1)` is irrational. The paper constructs sets satisfying this
+condition even though `∑_{a∈H} 1/a` diverges; those example calculations are
+ordinary proofs. The question for every infinite support remains open.
+
+The difficult step is controlling infinitely many unfinished periods in an
+averaging argument. A second average, over window lengths that are powers of
+two, supplies the needed bound. Follow the [short proof](paper/257/erdos-257-mersenne-support-subseries.pdf),
+[longer proof record](paper/257/erdos257-mersenne-reasoning-surface.pdf),
+[Lean declaration](lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120),
+or [selected theorem replay](docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay).
+The [weighted-support exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis)
+lets you investigate how the hypotheses matter.
 
 ![Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue](.github/system-map.png)
 
-**Using the degree-seven polynomial constructed by the erdosproblems.com
+## Results and their limits
+
+Using the degree-seven polynomial constructed by the erdosproblems.com
 contributor ani, Lean proves that every preconnected strict-lemniscate set
 containing two distinct roots has one-dimensional Hausdorff measure greater
 than two. This refutes the exact Formal Conjectures path-image-length
@@ -44,76 +52,55 @@ statement; the separate total-variation bound is also checked. The other
 seven targets remain open. Independent human review of correspondence with
 the 1958 wording has not been recorded. Comparator checks only selected exact
 statements, axioms and kernel acceptance; it does not assess novelty or
-historical correspondence.**
+historical correspondence.
 
-Attribution: [ani's 7 September 2026 forum post](https://www.erdosproblems.com/forum/thread/1041#post-8861).
-
-See [Formal Conjectures work](#formal-conjectures-contributions).
+[ani's original counterexample](https://www.erdosproblems.com/forum/thread/1041#post-8861)
+is credited in the [#1041 case study](docs/case-studies/formal-conjectures-1041.md).
+[Results and limits](docs/RESULTS.md) gives each programme's strongest results,
+prior work and exact remaining questions. It distinguishes ordinary proofs,
+Lean-checked statements, conditional results and finite computations.
 
 ## Where to start
 
-**Read the mathematics. Find what comes next.** Use the papers and research
-records to continue a question or develop a new direction. Work with your own
-AI or without one; returned work keeps its sources, checks and credit visible.
+- **Read and understand.** [A reader's way in](docs/READING_GUIDE.md) introduces
+  the questions. The [reading edition](docs/reading-edition/README.md) collects
+  the opening of each paper in one file, also suitable for sharing with an AI.
+  You can read the papers without a clone, Lean or a model account.
+- **Inspect or reproduce.** [Follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean)
+  with Git and Python, or [rerun an exact-rational experiment](docs/REPRODUCIBILITY.md#reproduce-the-257-exact-rational-example)
+  using Python alone after cloning. The guide separates these checks from
+  compiling a proof. The experiment is a finite exclusion test; it does not
+  reproduce the weighted theorem above.
+- **Work with an agent.** The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
+  gives clone commands and a copyable prompt. Ask it to explain a result,
+  investigate a question, or improve a tool; the public checkout contains the
+  required instructions. [How the repository works](docs/ARCHITECTURE.md)
+  explains the software behind those routes.
 
-- **Work in the repository.** The [reproduction guide](docs/REPRODUCIBILITY.md)
-  gives clone commands and separates no-Lean claim inspection from proof builds.
-  The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
-  gives a copyable research prompt. The
-  [agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
-  explains the workbench design.
-- **Read without a clone.** The [reading edition](docs/reading-edition/README.md)
-  introduces each problem and its paper. A reader can also ask a question or
-  return a correction without running Lean.
+<a id="about-the-project"></a>
 
-The short papers explain results; longer records keep calculations and failed
-routes. Both are readable without Lean. [A reader's way in](docs/READING_GUIDE.md)
-introduces the questions; [Results and limits](docs/RESULTS.md) names what remains open.
+## Why keep the whole research record?
 
-Use the [source map](docs/SOURCE_MAP.md) to follow a statement into Lean, the
-proof assistant that checks its formal proof. [CONTRIBUTING](CONTRIBUTING.md)
-explains how to return work with credit. No model account or private system is
-required to [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
+I want other people to be able to work on these questions with me.
+A checked proof still needs an explanation of what it establishes, why the
+argument works and where it can be used. The longer records preserve calculations
+and routes that stopped at a precise obstruction, so someone else can examine it
+or continue the investigation.
 
-## Why this exists
-
-I prioritised expository quality and a collaborative structure so others can
-work on these questions with me. The records include routes that stopped at a
-precise obstruction, where another researcher can test or repair the argument.
-
-I am responsible for all claims, sources and the release. Plectis is an
-independent, AI-assisted prototype, not something I am declaring finished.
-It has had no independent mathematical review. Meaning, novelty and significance
-still need human judgement; corpus counts are navigation counts, not novelty claims.
+I am responsible for the claims, sources and release. AI assists research,
+formalisation and exposition; formal checking, readable prose and human
+understanding remain separate responsibilities. Novelty and significance need
+human judgement. The [system paper](paper/systems/claim-faithful-publication-systems-paper.pdf)
+explains how results, corrections and credited contributions move through the
+repository. The [design discussion](docs/ARCHITECTURE.md#why-preserve-explanations-and-failed-approaches)
+relates this approach to Cohn's and Gowers's writing on AI and mathematics.
+Independent mathematical review of the corpus has not been recorded.
 
 ## Problem papers
 
-For a first look, start with **#257**: Lean checks weighted support conditions
-for irrational reciprocal Mersenne subseries at every integer base, including
-some supports with divergent reciprocal sum. Erdős stated the simpler
-reciprocal-summable extension; Lean checks it here. The unrestricted question
-remains open. **#249** gives exact ranks of totient kernels. Each paper names
-its ordinary proofs, Lean-checked results and open questions.
-
-For **#243**, Lean checks irrationality of the reciprocal sum of a strictly
-increasing positive integer sequence under
-`a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)` in zero-based indexing. The paper gives the
-one-based finite-prefix argument and a bounded-increment criterion for an
-eventual Sylvester tail. The unrestricted question remains open.
-
-For **#1049**, the paper proves irrationality of
-`F(a/b) = ∑_(n≥1) 1/((a/b)^n−1)` for coprime `a>b≥1` when
-`log b/log a < 0.4056830213840605…`, using Zudilin's forms with cyclotomic
-cancellation and denominator accounting. Lean checks the region theorem and
-`F((31/4)^r)` for positive integers `r`. The earlier Bundschuh–Väänänen
-sufficient bound excludes `31/4`; irrationality at `3/2` remains open.
-
-**Reading the eight together.** The [cross-problem paper](paper/synthesis/optimal-sparse-perturbations.pdf)
-studies entire `f(z) = ∑_(n≥1) e_n z^n/n!` with nonnegative integer
-`e_n≤n^c` eventually and `q|e_n` eventually for each integer `q≥1`.
-For `c>0`, integer `d≥1`, the set of vectors
-`(f(1), …, f^(d−1)(1))` has Hausdorff dimension `min(c,d)` and contains an
-open set exactly when `c>d`. The proof is ordinary.
+Each programme has a short paper and a longer research record. The
+[results guide](docs/RESULTS.md#problem-by-problem-guide) keeps the statements
+beside their qualifications and sources.
 
 | Problem | Topic | Papers |
 |---|---|---|
@@ -126,75 +113,81 @@ open set exactly when `c>d`. The proof is ordinary.
 | [#1041](https://www.erdosproblems.com/1041) | [Lemniscates and Newton flow](https://wcook04.github.io/plectis/maths/problems/erdos_1041.html) | [short paper](paper/1041/erdos-1041-lemniscate-newton-flow.pdf) · [longer paper](paper/1041/erdos1041-lemniscate-reasoning-surface.pdf) |
 | [#1049](https://www.erdosproblems.com/1049) | [Rational-base Lambert series](https://wcook04.github.io/plectis/maths/problems/erdos_1049.html) | [short paper](paper/1049/erdos-1049-rational-base-lambert.pdf) · [longer paper](paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) |
 
-[Read the result summaries and their limits](docs/RESULTS.md#problem-by-problem-guide),
-including prior work, what was checked, and the questions that remain.
+
+The [cross-problem paper, Reading Eight Erdős Problems Together](paper/synthesis/optimal-sparse-perturbations.pdf)
+develops connections through factorial series, Lambert subsums and the limits
+of shared methods. Its main theorems are ordinary proofs; Lean checks specified
+ingredients. The [synthesis guide](paper/synthesis/README.md) identifies ways to
+continue that work. The [agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
+explains the workbench; [all papers](paper/README.md) includes the system papers.
 
 <a id="what-the-checks-establish"></a>
 
 ## What Lean and Comparator verify
 
-Lean verifies that a compiled proof establishes the formal statement written
-in the source. Use the [source map](docs/SOURCE_MAP.md) to locate a declaration
-cited in a paper. The [claim records](docs/claims.json) list the published
-statements and their status; [prior art](docs/PRIOR_ART.md) lists earlier
-results and their relationship to the work here.
+Lean checks whether a proof establishes the exact formal statement written in
+its source. The [source map](docs/SOURCE_MAP.md) connects paper passages to
+those declarations. [Claim records](docs/claims.json) state their public status
+and limits; [prior art](docs/PRIOR_ART.md) identifies earlier results and their
+relationship to this work.
 
-Comparator compares a separately declared statement with the statement
-established by its Lean solution, using an explicit list of allowed assumptions.
-[`formalization.yaml`](formalization.yaml) lists the **selected statements**;
-the comparison does not cover every theorem in this repository. The
-[verification dossier](docs/EXTERNAL_VERIFICATION.md) identifies the selected
-statements across all eight problems and the limits of the comparison.
+Comparator checks a solution against a separately declared formal statement,
+with an explicit list of permitted axioms. [`formalization.yaml`](formalization.yaml)
+lists the selected statements. The [verification dossier](docs/EXTERNAL_VERIFICATION.md)
+records selected statements across all eight problems and their replay requirements;
+it does not cover every argument in the papers.
 
-Researchers still have to judge whether a formal statement expresses the
-intended problem, whether it is new, and whether it is worth studying.
-[Methodology](docs/METHODOLOGY.md) records the evidence and review required
-before changing a public claim. Do not infer results from private or
-unreleased work.
+Researchers still judge whether the formal statement captures the intended
+mathematics, whether a result is new, and whether it is useful. A successful
+build or platform submission does not establish those judgements.
+[Methodology](docs/METHODOLOGY.md) explains the review required to change a claim.
 
 ## Contribute
 
-Contribute an idea, correction, counterexample, checked failed route,
-explanation or infrastructure change. You need not solve a problem or write
-Lean. Will can help formalise an argument while keeping each contribution's
-attribution.
+An idea, correction, earlier reference, counterexample, useful failed approach
+or clearer explanation can help. You need not solve an Erdős problem or write
+Lean. I can help formalise an argument while preserving its attribution.
 
-Start with [a paper](docs/CONTRIBUTE_BY_PAPER.md),
-[develop a method](paper/synthesis/README.md), or
-[improve the machinery](docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md).
-The [submission and credit process](CONTRIBUTING.md#return-what-you-learned)
-also covers email and work without a clone.
-
-- **Ideas, corrections or review:** use the
+- **Mathematics or exposition:** [work on a paper](docs/CONTRIBUTE_BY_PAPER.md)
+  or [develop a method across problems](paper/synthesis/README.md).
+- **Software:** improve navigation, checks or the contributor experience through
+  the [architecture contribution guide](docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md).
+- **A question or correction:** use the
   [research-progress form](https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml)
   or [email me](https://wcook04.github.io/plectis/#contact).
-- **Changes to the repository:** follow [CONTRIBUTING](CONTRIBUTING.md).
-- **Your own agent and spare compute:** use the [frontier relay](docs/FRONTIER_RELAY.md)
-  to choose a starting point and return what you find with its evidence.
+- **An investigation with your own agent:** the [frontier relay](docs/FRONTIER_RELAY.md)
+  explains how to return the argument, evidence, limits and next question.
 
-Accepted work receives a public receipt naming its contributor and evidence.
-The [credit policy](docs/research-commons/CREDIT_POLICY.md) and
-[source attributions](docs/research-commons/SOURCE_ATTRIBUTIONS.md) explain credit.
-
-If you solve a problem, the credit and the result are all yours. If this repo
-or my intermediary progress helped, please cite this release and say how, so
-others find it and we make progress together instead of hoarding partial
-results out of fear of being scooped, or rebuilding the same infrastructure
-instead of improving one cumulatively.
-
-<a id="citation-and-prior-work"></a>
+[CONTRIBUTING](CONTRIBUTING.md) explains what to send,
+including work without a clone. Accepted contributions receive a public record
+of their evidence and credit under the [credit policy](docs/research-commons/CREDIT_POLICY.md).
+If you solve a problem, the credit for your solution is yours. If this repo
+or an intermediate result helped, please cite the relevant work and say how.
 
 ## Read or verify locally
 
-[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) owns clone, claim-inspection and proof
-build instructions. The clone is hundreds of megabytes; building proofs also
-downloads Lean and Mathlib. Cloning runs no project code; the
-[security policy](.github/SECURITY.md) explains the execution boundary.
+### Repository map
 
-Use the [documentation index](docs/README.md) for the file map and specialist
-guides. [How the repository works](docs/ARCHITECTURE.md) explains the roles of
-proofs, papers and checks. Coding agents start at [`AGENTS.md`](AGENTS.md) and
-follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
+| Location | Contents |
+|---|---|
+| [paper/](paper/README.md) | PDFs and manuscript sources by problem. |
+| [lean/](docs/SOURCE_MAP.md) | Formal proofs in the `Erdos249257` and `ErdosProblems` libraries. |
+| [docs/](docs/README.md) | Guides, claim records and source maps. |
+| [research/](research/README.md) | Experiments, examples and investigations. |
+| [research_corpus/](research_corpus/README.md) | Dated research returns and unresolved obligations. |
+| [computations/](computations/README.md) | Exact arithmetic certificates and scripts. |
+| [verification/](verification/README.md) | Selected formal interfaces, solutions and replay configuration. |
+| [evidence/](evidence/README.md) | Paper-to-proof records and stored Comparator reports. |
+| [scripts/](scripts/README.md) | Query tools, projection builders and validation programs. |
+| [skills/](skills/README.md) | Workflows for coding agents using this checkout. |
+
+[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) owns installation, commands and build
+requirements. The checkout is hundreds of megabytes; Lean builds download
+additional toolchains and dependencies. The [security policy](.github/SECURITY.md)
+explains the execution boundary. Agents enter through [AGENTS.md](AGENTS.md)
+and the [agent workbench](docs/agents/AGENT_WORKBENCH.md). The
+[architecture guide](docs/ARCHITECTURE.md#repository-map) explains the directory
+and naming conventions in more detail.
 
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
@@ -222,14 +215,6 @@ These are navigation counts, not novelty claims. They still need expert validati
 </details>
 <!-- END generated_corpus_at_a_glance -->
 
-## Formal Conjectures contributions
-
-Four merged changes: [#257](https://github.com/google-deepmind/formal-conjectures/pull/6506),
-[#258](https://github.com/google-deepmind/formal-conjectures/pull/5034), and
-[#1049](https://github.com/google-deepmind/formal-conjectures/pull/6507) proof links
-for solved variants of Erdős's 1948 theorem; a [#1041 correction](https://github.com/google-deepmind/formal-conjectures/pull/6505)
-using ani's counterexample. [Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
-
 <!-- BEGIN generated_principal_declaration_anchors -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 ## Following a result into Lean
@@ -239,24 +224,33 @@ topic, start with the [source map](docs/SOURCE_MAP.md); it gives the module
 order without asking you to decode Lean declaration names first.
 <!-- END generated_principal_declaration_anchors -->
 
-## About the project
+<a id="citation-and-prior-work"></a>
 
-[Problem-Sized Lean Worlds](paper/systems/claim-faithful-publication-systems-paper.pdf)
-describes the research system: each problem kept as a persistent, checkable
-record, the path from a proof to a public claim, and the contribution cycle.
-[From Spare Compute to Cumulative Mathematics](paper/systems/open-source-mathematics-strategy.pdf)
-explains the collaborative research process. Selected external verification
-entries live in [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean).
-The mathematics and tools in this checkout are self-contained.
+## Formal Conjectures contributions
+
+Four merged changes: [#257](https://github.com/google-deepmind/formal-conjectures/pull/6506),
+[#258](https://github.com/google-deepmind/formal-conjectures/pull/5034), and
+[#1049](https://github.com/google-deepmind/formal-conjectures/pull/6507) proof links
+for solved variants of Erdős's 1948 theorem; a [#1041 correction](https://github.com/google-deepmind/formal-conjectures/pull/6505)
+using ani's counterexample. [Trace the #1041 Lean proof](docs/case-studies/formal-conjectures-1041.md).
+
+The [Prove2Me #243/#257 proof packets](docs/research-commons/README.md#native-prove2me-theorems)
+and [plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean) provide
+additional selected statement checks and their recorded outcomes.
+The [paper catalogue](docs/papers/README.md) links versioned aiXiv editions;
+the [verification guides](docs/verification/README.md) explain submission and
+registry records. An archived edition may differ from the current paper.
+This main checkout contains the mathematics and tools needed to work with the corpus.
+Do not infer results from private or unreleased work.
 
 ## Citation and licence
 
-Use [CITATION.cff](CITATION.cff) to cite release `v0.10.0`, and give your commit
-for work beyond it. Cite the relevant [problem paper](paper/README.md) and its
-original sources for mathematics. [Prior art](docs/PRIOR_ART.md) and
-[source attributions](docs/research-commons/SOURCE_ATTRIBUTIONS.md) distinguish
-earlier results, formalisation and local use; a repository citation does not
-replace the original author's credit.
+Use [CITATION.cff](CITATION.cff) for the tagged release and record the commit
+when using later work. For mathematics, cite the relevant
+[problem paper](paper/README.md) and the original sources it uses. A repository
+citation does not replace the original author's credit:
+[prior art](docs/PRIOR_ART.md) and [source attributions](docs/research-commons/SOURCE_ATTRIBUTIONS.md)
+distinguish earlier results, formalisation and local use.
 
 Code, scripts and documentation are Apache-2.0; manuscript sources and PDFs
 are CC-BY-4.0. [REUSE.toml](REUSE.toml) records exceptions. See also

@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "236df0cb3385af8b15b78471ac6d6c8164a931196a9f10b00cfc01f3405a20f4",
+    "source_sha256": "659a9bc139f98f0fe4405ff6a927bcbeb4a4233ce45b3cdb16e3350dd89806ba",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
@@ -31,14 +31,19 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "a7361b1455b3e00279d8653a9635307357cacd24917a81da43930472a9750150",
-    "html_exact_tex_sha256": "c5df3570b9a20d3a7ce7df5d6dbfa266b4db88899372c2a4922ea9be6453733b"
+    "html_mathml_sha256": "e9d2c8e5aa3d0c5549dfcbd04c0e11d3aa56afde40f3e9cde0e20adfb634ad19",
+    "html_exact_tex_sha256": "82bcda384fbd18fe24a007f2b1815a1535653268a5eff776d70ee9e6e8ec3391"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "what-this-repository-is",
       "label": "What this repository is"
+    },
+    {
+      "level": 2,
+      "anchor": "why-preserve-explanations-and-failed-approaches",
+      "label": "Why preserve explanations and failed approaches?"
     },
     {
       "level": 2,
@@ -54,6 +59,11 @@
       "level": 2,
       "anchor": "repository-map",
       "label": "Repository map"
+    },
+    {
+      "level": 3,
+      "anchor": "directory-and-naming-conventions",
+      "label": "Directory and naming conventions"
     },
     {
       "level": 2,

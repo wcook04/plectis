@@ -1469,6 +1469,21 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-size: var(--fs-small);
   line-height: var(--lh-body);
 }
+.universe-connections {
+  border-top: 1px solid var(--rule);
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+}
+.universe-connections summary {
+  cursor: pointer;
+  padding: var(--space-2) 0;
+  color: var(--ink-soft);
+}
+.universe-connections summary b { font-variant-numeric: tabular-nums; }
+.universe-connections summary:focus-visible {
+  outline: 2px solid var(--u-edge-hot);
+  outline-offset: 3px;
+}
 .universe-inspector__links {
   display: flex;
   flex-wrap: wrap;

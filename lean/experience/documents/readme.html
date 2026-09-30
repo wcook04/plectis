@@ -6,57 +6,62 @@
   <div class="lean-document__body" data-source="README.md">
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-<section id="plectis-research-on-eight-erdős-problem-programmes"
+<section id="plectis-open-mathematical-research-with-lean"
 class="level1">
-<h1>Plectis: research on eight Erdős problem programmes</h1>
-<p>Plectis is an open-source, AI-assisted prototype for turning
-mathematical exposition into further research. Eight Erdős programmes
-offer papers, Lean source, methods and failed routes for others to
-question and extend. <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
-Lean Worlds</a> explains the system: how a result moves through its
-paper, Lean proof, selected Comparator check, claim record and credited
-return. The repository contains those sources and checks, so a reader
-can inspect the chain from a clone.</p>
-<p>Start with <a
-href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s short
-paper</a>. If <code>h_P(a)</code> is the part of an exponent
-<code>a</code> supported on a finite nonempty set of primes, the
-Lean-checked theorem proves irrationality at every integer base for each
-infinite support <code>A</code> with finite base-two weighted mass
-<code>∑_{a∈A} h_P(a)/(a(2^{h_P(a)}−1))</code>. Some such supports have
-divergent <code>∑_{a∈A} 1/a</code>. The question for <em>every</em>
-infinite support remains open. <a
-href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">Longer proof
-record</a> · <a
+<h1>Plectis: open mathematical research with Lean</h1>
+<p>Plectis brings together research on eight Erdős problems: papers you
+can read, formal proofs you can check, and experiments and failed
+approaches you can continue. It is an independent, AI-assisted prototype
+by Will Cook. Lean is the proof assistant used to check the formal
+statements; the papers explain the arguments and identify what remains
+open.</p>
+<p><strong><a href="https://wcook04.github.io/plectis/maths/">Read the
+mathematics</a></strong> · <a href="paper-guide.html">All papers</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Clone and reproduce</a> · <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or correct</a></p>
+<section id="for-a-first-look-257" class="level2">
+<h2>For a first look: #257</h2>
+<p><a href="https://www.erdosproblems.com/257">Problem 257</a> asks
+whether adding <code>1/(2^a − 1)</code> over <strong>any infinite set of
+positive integers</strong> always gives an irrational number. Our <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
+paper</a> proves a sufficient condition that Lean checks: if a set of
+positive integer exponents has finite base-two prime-weighted mass,
+every infinite subset gives an irrational sum at <strong>every integer
+base at least two</strong>.</p>
+<p>Precisely, choose a finite nonempty set of primes <code>P</code>, and
+let <code>h_P(a)</code> be the largest divisor of <code>a</code> whose
+prime factors lie in <code>P</code>. The condition is
+<code>∑_{a∈H} h_P(a)/(a(2^{h_P(a)}−1)) &lt; ∞</code> for a set
+<code>H</code> of positive integers. For every infinite
+<code>A ⊆ H</code> and every integer <code>b ≥ 2</code>, the sum
+<code>∑_{a∈A} 1/(b^a−1)</code> is irrational. The paper constructs sets
+satisfying this condition even though <code>∑_{a∈H} 1/a</code> diverges;
+those example calculations are ordinary proofs. The question for every
+infinite support remains open.</p>
+<p>The difficult step is controlling infinitely many unfinished periods
+in an averaging argument. A second average, over window lengths that are
+powers of two, supplies the needed bound. Follow the <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">short
+proof</a>, <a
+href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">longer proof
+record</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120">Lean
-declaration</a>. Other seven programmes: <a
-href="results.html#problem-by-problem-guide">results guide</a>.</p>
-<p><a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">#257
-exercise</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md#native-prove2me-theorems">#243/#257
-proofs</a>.</p>
-<p>Start with the <a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf">systems
-paper</a> for the research method, <a
-href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s
-paper</a> for one checked result, or <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
-correction</a>.</p>
-<p><strong><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">Clone and
-reproduce</a></strong> · <a href="paper-guide.html">All papers</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">Reading edition</a> · <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">Replay
-#257 theorem</a> · <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute or
-correct</a></p>
+declaration</a>, or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">selected
+theorem replay</a>. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis">weighted-support
+exercise</a> lets you investigate how the hypotheses matter.</p>
 <figure>
 Eight Erdős problem programmes: papers, checked results, failed routes, and questions another researcher can continue
 <figcaption aria-hidden="true">Eight Erdős problem programmes: papers,
 checked results, failed routes, and questions another researcher can
 continue</figcaption>
 </figure>
-<p><strong>Using the degree-seven polynomial constructed by the
+</section>
+<section id="results-and-their-limits" class="level2">
+<h2>Results and their limits</h2>
+<p>Using the degree-seven polynomial constructed by the
 erdosproblems.com contributor ani, Lean proves that every preconnected
 strict-lemniscate set containing two distinct roots has one-dimensional
 Hausdorff measure greater than two. This refutes the exact Formal
@@ -65,87 +70,67 @@ bound is also checked. The other seven targets remain open. Independent
 human review of correspondence with the 1958 wording has not been
 recorded. Comparator checks only selected exact statements, axioms and
 kernel acceptance; it does not assess novelty or historical
-correspondence.</strong></p>
-<p>Attribution: <a
-href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s 7
-September 2026 forum post</a>.</p>
-<p>See <a href="#formal-conjectures-contributions">Formal Conjectures
-work</a>.</p>
+correspondence.</p>
+<p><a
+href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s
+original counterexample</a> is credited in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/formal-conjectures-1041.md">#1041 case
+study</a>. <a href="results.html">Results and limits</a> gives each
+programme’s strongest results, prior work and exact remaining questions.
+It distinguishes ordinary proofs, Lean-checked statements, conditional
+results and finite computations.</p>
+</section>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
-<p><strong>Read the mathematics. Find what comes next.</strong> Use the
-papers and research records to continue a question or develop a new
-direction. Work with your own AI or without one; returned work keeps its
-sources, checks and credit visible.</p>
 <ul>
-<li><strong>Work in the repository.</strong> The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">reproduction guide</a> gives clone
-commands and separates no-Lean claim inspection from proof builds. The
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">agent
-quickstart</a> gives a copyable research prompt. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">agent-navigation
-paper</a> explains the workbench design.</li>
-<li><strong>Read without a clone.</strong> The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a> introduces
-each problem and its paper. A reader can also ask a question or return a
-correction without running Lean.</li>
-</ul>
-<p>The short papers explain results; longer records keep calculations
-and failed routes. Both are readable without Lean. <a
+<li><strong>Read and understand.</strong> <a
 href="reading-guide.html">A reader’s way in</a> introduces the
-questions; <a href="results.html">Results and limits</a> names what
-remains open.</p>
-<p>Use the <a href="source-map.html">source map</a> to follow a
-statement into Lean, the proof assistant that checks its formal proof.
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a> explains how to return work
-with credit. No model account or private system is required to <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">follow one
-claim</a>.</p>
+questions. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading
+edition</a> collects the opening of each paper in one file, also
+suitable for sharing with an AI. You can read the papers without a
+clone, Lean or a model account.</li>
+<li><strong>Inspect or reproduce.</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">Follow one
+claim</a> with Git and Python, or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#reproduce-the-257-exact-rational-example">rerun
+an exact-rational experiment</a> using Python alone after cloning. The
+guide separates these checks from compiling a proof. The experiment is a
+finite exclusion test; it does not reproduce the weighted theorem
+above.</li>
+<li><strong>Work with an agent.</strong> The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">agent
+quickstart</a> gives clone commands and a copyable prompt. Ask it to
+explain a result, investigate a question, or improve a tool; the public
+checkout contains the required instructions. <a
+href="architecture.html">How the repository works</a> explains the
+software behind those routes.</li>
+</ul>
+<p><a id="about-the-project"></a></p>
 </section>
-<section id="why-this-exists" class="level2">
-<h2>Why this exists</h2>
-<p>I prioritised expository quality and a collaborative structure so
-others can work on these questions with me. The records include routes
-that stopped at a precise obstruction, where another researcher can test
-or repair the argument.</p>
-<p>I am responsible for all claims, sources and the release. Plectis is
-an independent, AI-assisted prototype, not something I am declaring
-finished. It has had no independent mathematical review. Meaning,
-novelty and significance still need human judgement; corpus counts are
-navigation counts, not novelty claims.</p>
+<section id="why-keep-the-whole-research-record" class="level2">
+<h2>Why keep the whole research record?</h2>
+<p>I want other people to be able to work on these questions with me. A
+checked proof still needs an explanation of what it establishes, why the
+argument works and where it can be used. The longer records preserve
+calculations and routes that stopped at a precise obstruction, so
+someone else can examine it or continue the investigation.</p>
+<p>I am responsible for the claims, sources and release. AI assists
+research, formalisation and exposition; formal checking, readable prose
+and human understanding remain separate responsibilities. Novelty and
+significance need human judgement. The <a
+href="../../../papers/claim-faithful-publication-systems-paper.pdf">system
+paper</a> explains how results, corrections and credited contributions
+move through the repository. The <a
+href="architecture.html#why-preserve-explanations-and-failed-approaches">design
+discussion</a> relates this approach to Cohn’s and Gowers’s writing on
+AI and mathematics. Independent mathematical review of the corpus has
+not been recorded.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>For a first look, start with <strong>#257</strong>: Lean checks
-weighted support conditions for irrational reciprocal Mersenne subseries
-at every integer base, including some supports with divergent reciprocal
-sum. Erdős stated the simpler reciprocal-summable extension; Lean checks
-it here. The unrestricted question remains open. <strong>#249</strong>
-gives exact ranks of totient kernels. Each paper names its ordinary
-proofs, Lean-checked results and open questions.</p>
-<p>For <strong>#243</strong>, Lean checks irrationality of the
-reciprocal sum of a strictly increasing positive integer sequence under
-<code>a_n²/a_(n+1) = 1 + 3/n + o(n⁻³)</code> in zero-based indexing. The
-paper gives the one-based finite-prefix argument and a bounded-increment
-criterion for an eventual Sylvester tail. The unrestricted question
-remains open.</p>
-<p>For <strong>#1049</strong>, the paper proves irrationality of
-<code>F(a/b) = ∑_(n≥1) 1/((a/b)^n−1)</code> for coprime
-<code>a&gt;b≥1</code> when
-<code>log b/log a &lt; 0.4056830213840605…</code>, using Zudilin’s forms
-with cyclotomic cancellation and denominator accounting. Lean checks the
-region theorem and <code>F((31/4)^r)</code> for positive integers
-<code>r</code>. The earlier Bundschuh–Väänänen sufficient bound excludes
-<code>31/4</code>; irrationality at <code>3/2</code> remains open.</p>
-<p><strong>Reading the eight together.</strong> The <a
-href="../../../papers/optimal-sparse-perturbations.pdf">cross-problem
-paper</a> studies entire <code>f(z) = ∑_(n≥1) e_n z^n/n!</code> with
-nonnegative integer <code>e_n≤n^c</code> eventually and
-<code>q|e_n</code> eventually for each integer <code>q≥1</code>. For
-<code>c&gt;0</code>, integer <code>d≥1</code>, the set of vectors
-<code>(f(1), …, f^(d−1)(1))</code> has Hausdorff dimension
-<code>min(c,d)</code> and contains an open set exactly when
-<code>c&gt;d</code>. The proof is ordinary.</p>
+<p>Each programme has a short paper and a longer research record. The <a
+href="results.html#problem-by-problem-guide">results guide</a> keeps
+the statements beside their qualifications and sources.</p>
 <table>
 <colgroup>
 <col />
@@ -243,88 +228,145 @@ paper</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="results.html#problem-by-problem-guide">Read the result
-summaries and their limits</a>, including prior work, what was checked,
-and the questions that remain.</p>
+<p>The <a
+href="../../../papers/optimal-sparse-perturbations.pdf">cross-problem
+paper, Reading Eight Erdős Problems Together</a> develops connections
+through factorial series, Lambert subsums and the limits of shared
+methods. Its main theorems are ordinary proofs; Lean checks specified
+ingredients. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">synthesis guide</a>
+identifies ways to continue that work. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">agent-navigation
+paper</a> explains the workbench; <a href="paper-guide.html">all
+papers</a> includes the system papers.</p>
 <p><a id="what-the-checks-establish"></a></p>
 </section>
 <section id="what-lean-and-comparator-verify" class="level2">
 <h2>What Lean and Comparator verify</h2>
-<p>Lean verifies that a compiled proof establishes the formal statement
-written in the source. Use the <a href="source-map.html">source
-map</a> to locate a declaration cited in a paper. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claim records</a> list the published statements
-and their status; <a href="prior-art.html">prior art</a> lists
-earlier results and their relationship to the work here.</p>
-<p>Comparator compares a separately declared statement with the
-statement established by its Lean solution, using an explicit list of
-allowed assumptions. <a
+<p>Lean checks whether a proof establishes the exact formal statement
+written in its source. The <a href="source-map.html">source map</a>
+connects paper passages to those declarations. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">Claim records</a> state their public status and
+limits; <a href="prior-art.html">prior art</a> identifies earlier
+results and their relationship to this work.</p>
+<p>Comparator checks a solution against a separately declared formal
+statement, with an explicit list of permitted axioms. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a> lists the
-<strong>selected statements</strong>; the comparison does not cover
-every theorem in this repository. The <a
-href="external-verification.html">verification dossier</a> identifies
-the selected statements across all eight problems and the limits of the
-comparison.</p>
-<p>Researchers still have to judge whether a formal statement expresses
-the intended problem, whether it is new, and whether it is worth
-studying. <a href="methodology.html">Methodology</a> records the
-evidence and review required before changing a public claim. Do not
-infer results from private or unreleased work.</p>
+selected statements. The <a
+href="external-verification.html">verification dossier</a> records
+selected statements across all eight problems and their replay
+requirements; it does not cover every argument in the papers.</p>
+<p>Researchers still judge whether the formal statement captures the
+intended mathematics, whether a result is new, and whether it is useful.
+A successful build or platform submission does not establish those
+judgements. <a href="methodology.html">Methodology</a> explains the
+review required to change a claim.</p>
 </section>
 <section id="contribute" class="level2">
 <h2>Contribute</h2>
-<p>Contribute an idea, correction, counterexample, checked failed route,
-explanation or infrastructure change. You need not solve a problem or
-write Lean. Will can help formalise an argument while keeping each
-contribution’s attribution.</p>
-<p>Start with <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md">a paper</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">develop a method</a>, or <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">improve the
-machinery</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">submission and credit
-process</a> also covers email and work without a clone.</p>
+<p>An idea, correction, earlier reference, counterexample, useful failed
+approach or clearer explanation can help. You need not solve an Erdős
+problem or write Lean. I can help formalise an argument while preserving
+its attribution.</p>
 <ul>
-<li><strong>Ideas, corrections or review:</strong> use the <a
+<li><strong>Mathematics or exposition:</strong> <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md">work on a paper</a> or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">develop a method across
+problems</a>.</li>
+<li><strong>Software:</strong> improve navigation, checks or the
+contributor experience through the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">architecture
+contribution guide</a>.</li>
+<li><strong>A question or correction:</strong> use the <a
 href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml">research-progress
 form</a> or <a href="https://wcook04.github.io/plectis/#contact">email
 me</a>.</li>
-<li><strong>Changes to the repository:</strong> follow <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>.</li>
-<li><strong>Your own agent and spare compute:</strong> use the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> to choose a starting
-point and return what you find with its evidence.</li>
+<li><strong>An investigation with your own agent:</strong> the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> explains how to return
+the argument, evidence, limits and next question.</li>
 </ul>
-<p>Accepted work receives a public receipt naming its contributor and
-evidence. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit
-policy</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md">source
-attributions</a> explain credit.</p>
-<p>If you solve a problem, the credit and the result are all yours. If
-this repo or my intermediary progress helped, please cite this release
-and say how, so others find it and we make progress together instead of
-hoarding partial results out of fear of being scooped, or rebuilding the
-same infrastructure instead of improving one cumulatively.</p>
-<p><a id="citation-and-prior-work"></a></p>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a> explains what to send,
+including work without a clone. Accepted contributions receive a public
+record of their evidence and credit under the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit policy</a>. If you
+solve a problem, the credit for your solution is yours. If this repo or
+an intermediate result helped, please cite the relevant work and say
+how.</p>
 </section>
 <section id="read-or-verify-locally" class="level2">
 <h2>Read or verify locally</h2>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> owns clone,
-claim-inspection and proof build instructions. The clone is hundreds of
-megabytes; building proofs also downloads Lean and Mathlib. Cloning runs
-no project code; the <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md">security policy</a>
-explains the execution boundary.</p>
-<p>Use the <a href="documentation.html">documentation index</a> for the file
-map and specialist guides. <a href="architecture.html">How the
-repository works</a> explains the roles of proofs, papers and checks.
-Coding agents start at <a href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md"><code>AGENTS.md</code></a>
-and follow the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md">agent
-workbench</a>.</p>
+<section id="repository-map" class="level3">
+<h3>Repository map</h3>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Location</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="paper-guide.html">paper/</a></td>
+<td>PDFs and manuscript sources by problem.</td>
+</tr>
+<tr>
+<td><a href="source-map.html">lean/</a></td>
+<td>Formal proofs in the <code>Erdos249257</code> and
+<code>ErdosProblems</code> libraries.</td>
+</tr>
+<tr>
+<td><a href="documentation.html">docs/</a></td>
+<td>Guides, claim records and source maps.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research/README.md">research/</a></td>
+<td>Experiments, examples and investigations.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/README.md">research_corpus/</a></td>
+<td>Dated research returns and unresolved obligations.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/computations/README.md">computations/</a></td>
+<td>Exact arithmetic certificates and scripts.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification/README.md">verification/</a></td>
+<td>Selected formal interfaces, solutions and replay configuration.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/evidence/README.md">evidence/</a></td>
+<td>Paper-to-proof records and stored Comparator reports.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/README.md">scripts/</a></td>
+<td>Query tools, projection builders and validation programs.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md">skills/</a></td>
+<td>Workflows for coding agents using this checkout.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> owns
+installation, commands and build requirements. The checkout is hundreds
+of megabytes; Lean builds download additional toolchains and
+dependencies. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md">security policy</a>
+explains the execution boundary. Agents enter through <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md">AGENTS.md</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md">agent workbench</a>. The <a
+href="architecture.html#repository-map">architecture guide</a>
+explains the directory and naming conventions in more detail.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 <details>
 <summary>
 Corpus inventory and counting limits
 </summary>
+</section>
 </section>
 <section id="corpus-at-a-glance" class="level2">
 <h2>Corpus at a glance</h2>
@@ -369,6 +411,17 @@ and open, and are partitioned once. These are navigation counts, not
 novelty claims. They still need expert validation.</p>
 </details>
 <!-- END generated_corpus_at_a_glance -->
+<!-- BEGIN generated_principal_declaration_anchors -->
+<!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
+</section>
+<section id="following-a-result-into-lean" class="level2">
+<h2>Following a result into Lean</h2>
+<p>The paper links each headline result to the relevant source. For a
+particular topic, start with the <a href="source-map.html">source
+map</a>; it gives the module order without asking you to decode Lean
+declaration names first.
+<!-- END generated_principal_declaration_anchors --></p>
+<p><a id="citation-and-prior-work"></a></p>
 </section>
 <section id="formal-conjectures-contributions" class="level2">
 <h2>Formal Conjectures contributions</h2>
@@ -383,40 +436,29 @@ href="https://github.com/google-deepmind/formal-conjectures/pull/6505">#1041
 correction</a> using ani’s counterexample. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/case-studies/formal-conjectures-1041.md">Trace the #1041 Lean
 proof</a>.</p>
-<!-- BEGIN generated_principal_declaration_anchors -->
-<!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
-</section>
-<section id="following-a-result-into-lean" class="level2">
-<h2>Following a result into Lean</h2>
-<p>The paper links each headline result to the relevant source. For a
-particular topic, start with the <a href="source-map.html">source
-map</a>; it gives the module order without asking you to decode Lean
-declaration names first.
-<!-- END generated_principal_declaration_anchors --></p>
-</section>
-<section id="about-the-project" class="level2">
-<h2>About the project</h2>
-<p><a
-href="../../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
-Lean Worlds</a> describes the research system: each problem kept as a
-persistent, checkable record, the path from a proof to a public claim,
-and the contribution cycle. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
-Compute to Cumulative Mathematics</a> explains the collaborative
-research process. Selected external verification entries live in <a
-href="https://github.com/wcook04/plectis-erdos-lean">plectis-erdos-lean</a>.
-The mathematics and tools in this checkout are self-contained.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md#native-prove2me-theorems">Prove2Me
+#243/#257 proof packets</a> and <a
+href="https://github.com/wcook04/plectis-erdos-lean">plectis-erdos-lean</a>
+provide additional selected statement checks and their recorded
+outcomes. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md">paper catalogue</a> links
+versioned aiXiv editions; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/README.md">verification guides</a> explain
+submission and registry records. An archived edition may differ from the
+current paper. This main checkout contains the mathematics and tools
+needed to work with the corpus. Do not infer results from private or
+unreleased work.</p>
 </section>
 <section id="citation-and-licence" class="level2">
 <h2>Citation and licence</h2>
-<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">CITATION.cff</a> to cite release
-<code>v0.10.0</code>, and give your commit for work beyond it. Cite the
-relevant <a href="paper-guide.html">problem paper</a> and its original
-sources for mathematics. <a href="prior-art.html">Prior art</a> and
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md">source
+<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">CITATION.cff</a> for the tagged release
+and record the commit when using later work. For mathematics, cite the
+relevant <a href="paper-guide.html">problem paper</a> and the original
+sources it uses. A repository citation does not replace the original
+author’s credit: <a href="prior-art.html">prior art</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md">source
 attributions</a> distinguish earlier results, formalisation and local
-use; a repository citation does not replace the original author’s
-credit.</p>
+use.</p>
 <p>Code, scripts and documentation are Apache-2.0; manuscript sources
 and PDFs are CC-BY-4.0. <a href="https://github.com/wcook04/plectis-erdos/blob/main/REUSE.toml">REUSE.toml</a> records
 exceptions. See also <a href="scope.html">scope</a>, <a

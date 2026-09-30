@@ -21,8 +21,9 @@ their supporting records.
 
 The reviewed claim registry covers #68, #243, #249, #251, #257, #269, #1041 and
 #1049. The two Lean roots reflect the development's history, not different
-standards of evidence. A declaration has the public status recorded for it in
-the registry; adding a file or compiling a library does not create that status.
+standards of evidence. The registry assigns status to selected public claims;
+supporting declarations need not have a claim record. Adding a file or compiling
+a library does not establish a public claim.
 [Methodology](METHODOLOGY.md) explains the review and change rules.
 
 Using the degree-seven polynomial constructed by the erdosproblems.com
@@ -35,6 +36,20 @@ the 1958 wording has not been recorded. Comparator checks only selected exact
 statements, axioms and kernel acceptance; it does not assess novelty or
 historical correspondence. This is a self-contained public release: its use
 and its mathematical claims do not depend on private files.
+
+## Why preserve explanations and failed approaches?
+
+Henry Cohn's [The technical debt of AI-generated mathematics](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/)
+argues that producers owe readers explanation, attribution and integration.
+Tim Gowers's [Why I didn't sign the Fields medallists' letter](https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/)
+emphasises selective, active reading and considers on-demand model explanations
+as an alternative to a maintained database.
+
+Plectis preserves the arguments, sources and failed routes. AI can prepare an
+explanation; readers still have to reconstruct the argument and assess its use.
+Whether this record helps more than papers, source and an on-demand model remains
+untested. [From Spare Compute to Cumulative Mathematics](../paper/systems/open-source-mathematics-strategy.pdf)
+describes the contribution process.
 
 ## The architecture in one page
 
@@ -66,10 +81,8 @@ does not require a Lean proof, and a finite computation establishes only its
 finite domain. Outside reading, criticism and reuse are observed separately;
 none follows from passing through this diagram.
 
-These are two directions through the same records. Starting from a paper
-selects what needs checking; it does not make the paper proof authority. A
-stronger Lean theorem needs a checked implication to the printed statement.
-An unproved condition or a proof of only part of a statement stays explicit.
+A stronger Lean theorem needs a checked implication to the printed statement.
+Unproved conditions and partial coverage stay explicit.
 
 For selected statements, [Comparator](EXTERNAL_VERIFICATION.md) compares the
 separately declared challenge with the solution under a configured axiom
@@ -134,10 +147,13 @@ is archived provenance only, not an active gateway.
 | [lean/ErdosProblems.lean](../lean/ErdosProblems.lean) and [lean/ErdosProblems/](../lean/ErdosProblems/) | Formal work grouped by problem; claim status is recorded separately. |
 | [research/examples/](../research/examples/Examples.lean) | A small downstream Lean user of the library. |
 | [docs/](README.md) | Reading guides, claim records and generated indexes. |
-| [scripts/](../scripts/) | Queries, builders, release checks and tests. |
-| [verification/](../verification/) | Comparator statements and configuration, replay tools and external-statement comparisons. |
+| [scripts/](../scripts/README.md) | Queries, builders, release checks and tests. |
+| [verification/](../verification/README.md) | Comparator statements and configuration, replay tools and external-statement comparisons. |
+| [evidence/](../evidence/README.md) | Paper-to-proof records and stored Comparator replay reports. |
+| [computations/](../computations/README.md) | Exact arithmetic certificates with independent recomputation programs. |
 | [skills/](../skills/README.md) | Workflows for research, validation and contribution. |
-| [research/experiments/](../research/experiments/) | [Rerun the finite #251 computations and compare their outputs with saved results](../research/experiments/erdos251/README.md), or inspect [test changes used to exercise the release checker](../research/experiments/publication_mutations.json). |
+| [research/](../research/README.md) | Runnable experiments, downstream examples, adapters and session records. |
+| [research_corpus/](../research_corpus/README.md) | Dated research returns with source manifests, corrections and explicit local evidence boundaries. |
 
 Start from a problem or a statement, then follow the source map to its
 modules. The [agent workbench](agents/AGENT_WORKBENCH.md) documents the query
@@ -147,9 +163,22 @@ provides the corresponding routes into the pinned upstream statement collection.
 
 The [research commons](research-commons/README.md) explains how independent
 work returns to the repository with its starting commit, evidence and credit.
-The companion [Plectis software repository](https://github.com/wcook04/plectis)
-contains the general workflow components. This checkout contains the
-mathematics and the tools needed to work with it.
+This checkout contains the mathematics and the tools needed to work with it.
+The companion [selected verification repository](https://github.com/wcook04/plectis-erdos-lean)
+packages individual statements for external checking; it is not required to
+read or build this corpus.
+
+### Directory and naming conventions
+
+`paper/` holds manuscripts and PDFs; `docs/papers/` holds generated full text
+and its catalogue. `verification/` holds formal interfaces and configuration;
+`docs/verification/` holds instructions. `research/` contains experiments and
+tools; `research_corpus/` preserves dated returns.
+
+Lean source names follow namespaces and Lake configuration. The older
+`Erdos249257` name remains in imports, citations and recorded checks; use the
+[source map](SOURCE_MAP.md) to locate results across both libraries. Renaming a
+source requires updating those consumers together.
 
 ## A complete example
 
@@ -177,13 +206,9 @@ through 64 already covered every value up to 66. Each scale is nevertheless an
 independent construction — the two supporting modules share no prime — so the
 band buys reach, not leverage.
 
-The phrase *verified finite instance* is not a score or a project-specific
-milestone. It means only that Lean checked a stated finite set of inputs. The
-open problem requires cases beyond every fixed cutoff, so the finite list does
-not settle it. The development also proves an exact equivalence: a supply of
-cases beyond every fixed cutoff would settle the open problem itself. An edit
-that erased this boundary would therefore be a false mathematical
-announcement, not a small wording change.
+*Verified finite instance* means Lean checked the stated finite inputs. A
+supply of successful cases beyond every fixed cutoff would settle the open
+problem by a proved equivalence; the finite list does not supply it.
 
 This one record connects the layers:
 
@@ -266,14 +291,9 @@ it illustrates the checks recorded for that exercise.
 
 ## Where to start
 
-| Your next step | Guide |
-|---|---|
-| Read one mathematical argument | [Individual problem papers](../paper/README.md#problem-papers) |
-| Inspect a result and its remaining question | [Results and limits](RESULTS.md), then [scope](SCOPE.md) |
-| Find the proof behind a statement | [Source map](SOURCE_MAP.md) |
-| Reproduce a check on your machine | [Reproducibility](REPRODUCIBILITY.md) |
-| Work with a coding agent | [Agent guides](agents/README.md) |
-| Propose a correction or continuation | [Contributing](../CONTRIBUTING.md) |
+Read a [problem paper](../paper/README.md#problem-papers),
+[reproduce a check](REPRODUCIBILITY.md), or
+[propose a contribution](../CONTRIBUTING.md).
 
 The archived combined #249/#257 PDF is not a default reading route.
 [The documentation index](README.md) lists the current guides and specialist
