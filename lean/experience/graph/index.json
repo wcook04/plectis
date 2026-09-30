@@ -4,10 +4,10 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 270,
-    "edges": 339,
+    "nodes": 283,
+    "edges": 357,
     "deferred_node_kinds": {
-      "lean_module": 1858,
+      "lean_module": 1901,
       "mathematical_object": 105
     }
   },
@@ -104,6 +104,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:calibrated_rational_hankel_countermodel",
+      "kind": "public_claim",
+      "label": "Rational-value countermodel to a Hankel-signature inference",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:campbell_shift_synchronization_boundary",
       "kind": "public_claim",
       "label": "Campbell shift-synchronization strategy boundary",
@@ -149,7 +156,7 @@
       "id": "claim:coefficient_pencil_finite_rank",
       "kind": "public_claim",
       "label": "Coefficient-pencil positivity and root interlacing through rank eight",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -191,7 +198,7 @@
       "id": "claim:cubic_rate_irrationality_unconditional",
       "kind": "public_claim",
       "label": "Cubic-rate reciprocal-sum irrationality under the stated asymptotic",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -205,7 +212,7 @@
       "id": "claim:denominator_exclusion",
       "kind": "public_claim",
       "label": "Unconditional denominator exclusion for the totient constant",
-      "status": "formalised here",
+      "status": "verified finite instance",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -275,7 +282,7 @@
       "id": "claim:erdos_1041",
       "kind": "public_claim",
       "label": "Erdős #1041: short connections inside polynomial lemniscates",
-      "status": "open",
+      "status": "formal statement refuted",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -359,13 +366,20 @@
       "id": "claim:finite_prime_weighted_support",
       "kind": "public_claim",
       "label": "Finite-prime weighted support irrationality",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
       "id": "claim:first_harmonic_certificate_interface",
       "kind": "public_claim",
       "label": "First-harmonic gap implies a finite certificate",
+      "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:first_harmonic_good_index_reduction",
+      "kind": "public_claim",
+      "label": "Irrationality of the totient series from one first-harmonic bound on the good indices",
       "status": "conditional reduction",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -422,7 +436,7 @@
       "id": "claim:greedy_achievement_geometry",
       "kind": "public_claim",
       "label": "Greedy geometry of the Mersenne achievement set",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -472,6 +486,13 @@
       "kind": "public_claim",
       "label": "Half-trapping reverse-carry interface",
       "status": "conditional reduction",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:independent_clock_channel_relations",
+      "kind": "public_claim",
+      "label": "Complete rational relations for integer-radix independent-clock sums",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -562,7 +583,7 @@
       "id": "claim:mixed_weighted_cover_support",
       "kind": "public_claim",
       "label": "Mixed weighted and positive-cover support irrationality",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -576,6 +597,13 @@
       "id": "claim:newton_ray_separation_consumer",
       "kind": "public_claim",
       "label": "Finite Newton-flow ray separation and perturbation consumer",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:nonintegral_regular_rate_irrationality",
+      "kind": "public_claim",
+      "label": "Nonintegral regular-rate reciprocal-sum irrationality",
       "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -716,7 +744,7 @@
       "id": "claim:reciprocal_summable_support",
       "kind": "public_claim",
       "label": "Reciprocal-summable support irrationality at every integer base",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -762,6 +790,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:selected_staircase_integral_height_boundary",
+      "kind": "public_claim",
+      "label": "Smith index and primitive one-target border boundary",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:selected_suffix_cylinder_propagation",
       "kind": "public_claim",
       "label": "Conditional suffix-cylinder feedback and child-gap recurrence",
@@ -783,6 +818,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:separated_cut_algebraic_lambert_transcendence",
+      "kind": "public_claim",
+      "label": "Algebraic-base transcendence on separated divisibility supports",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:sigma_transcendence",
       "kind": "public_claim",
       "label": "Transcendence of ∑ σ(m)/2^m",
@@ -794,6 +836,13 @@
       "kind": "public_claim",
       "label": "Signed dyadic-moment algebra",
       "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:signed_totient_entire_defect_interpolation",
+      "kind": "public_claim",
+      "label": "Arbitrarily slow signed interpolation preserving Dirichlet singularities",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -835,14 +884,14 @@
       "id": "claim:stern_brocot_run_fibonacci_stability",
       "kind": "public_claim",
       "label": "Fibonacci and continuant stability of Stern–Brocot runs",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
       "id": "claim:strengthened_positive_cover_support",
       "kind": "public_claim",
       "label": "Strengthened positive-cover support irrationality",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -947,7 +996,7 @@
       "id": "claim:totient_carry_kernel_anti_compression",
       "kind": "public_claim",
       "label": "Totient carry anti-compression",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -955,6 +1004,27 @@
       "kind": "public_claim",
       "label": "Fair-coin coprimality form of the totient constant",
       "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_residue_series_classification",
+      "kind": "public_claim",
+      "label": "Irrational totient residue series and the rational dyadic residue observables",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_residue_series_dilations",
+      "kind": "public_claim",
+      "label": "Linear independence of dilated totient residue series",
+      "status": "unconditional progress",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:totient_residue_series_integer_radix",
+      "kind": "public_claim",
+      "label": "Totient residue series in every integer base",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1052,7 +1122,7 @@
       "id": "claim:zudilin_all_rank_hankel_order",
       "kind": "public_claim",
       "label": "All-rank normalized Hankel order and leading coefficient",
-      "status": "formalised here",
+      "status": "unconditional progress",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1213,18 +1283,9 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex"
     },
     {
-      "id": "paper:cold-clone-to-proof-receipt",
-      "kind": "paper",
-      "label": "From a Cold Clone to a Proof Receipt",
-      "subject": "Systems paper",
-      "form": "Agent navigation",
-      "href": "papers/cold-clone-to-proof-receipt.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex"
-    },
-    {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria",
+      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -1278,7 +1339,7 @@
     {
       "id": "paper:erdos-269-three-prime-running-lcm",
       "kind": "paper",
-      "label": "No Finite Separable Representation at Three Prime Generators",
+      "label": "Irrational Distinct-Height Sums for Finite Prime Sets",
       "subject": "Erdős #269",
       "form": "Problem note",
       "href": "papers/erdos-269-three-prime-running-lcm.json",
@@ -1296,7 +1357,7 @@
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria",
+      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
@@ -1366,15 +1427,6 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex"
     },
     {
-      "id": "paper:open-source-mathematics-strategy",
-      "kind": "paper",
-      "label": "From Spare Compute to Cumulative Mathematics",
-      "subject": "Systems paper",
-      "form": "Open-source research strategy",
-      "href": "papers/open-source-mathematics-strategy.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex"
-    },
-    {
       "id": "paper:optimal-sparse-perturbations",
       "kind": "paper",
       "label": "Reading Eight Erdős Problems Together",
@@ -1396,7 +1448,7 @@
       "id": "problem:erdos_1041",
       "kind": "problem",
       "label": "Short connections inside polynomial lemniscates",
-      "status": "open",
+      "status": "formal statement refuted",
       "href": "problems/erdos_1041.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json"
     },
@@ -1498,6 +1550,12 @@
       "id": "review-family:erdos_1041:translation_avoidance",
       "kind": "comparator_review_family",
       "label": "Collision translations are parameterised by real affine lines and an arbitrarily small common translation avoids finitely many of them.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_1049:calibrated_rational_hankel_countermodel",
+      "kind": "comparator_review_family",
+      "label": "An explicit positive atomic moment family and integer formal series have all-rank Hankel order sum_{j<N} j^2 and leading coefficient (N!)^2(N+1)!/2^N, with the same fixed-base asymptotic shape including N^(-8 xi), while xi=G_{2/3}(2/3)=1. For n>=1 the exact reduced moment denominator is 3^(31n+62)(3^(n+1)-2^(n+1))^4; the determinant denominator has logarithmic size Theta(N^3), and a proposed rank-two row-product clearer leaves denominator625. These are ordinary proofs with independent exact finite checks and AI proof reviews, not a Lean proof of the infinite family or human peer review.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1606,6 +1664,12 @@
       "id": "review-family:erdos_249:lcm_factor_ideal_shift_algebra_no_go",
       "kind": "comparator_review_family",
       "label": "For every t at least 3, a nonzero synthetic dyadic coboundary survives every finite integer shift polynomial while retaining the period-LCM totient factor ideals, exact cleared-prefix cancellation, and uniform state and letter bounds.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_249:signed_totient_entire_defect_interpolation",
+      "kind": "comparator_review_family",
+      "label": "For any integer beta>=2 and positive allowance f(n) tending to infinity, an interval around the totient value is filled by integer sequences b=phi+e with 0<=b(n)<=n and |e(n)|<=f(n). One target-independent even support has upper Banach density zero, leaving any fixed prefix and odd coefficients unchanged. The construction preserves every fixed eventual coefficient and cumulative congruence, gives eventually constant progression moment defects outside common hulls of density zero, entire progression Dirichlet defects, and smooth root-of-unity radial germs with prescribed finite zero jets. The full proof includes the allowance-dependent block bound and first-harmonic rational countermodels. It is an ordinary proof with two AI proof reviews, not a Lean proof of the infinite theorem or independent human review.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1801,6 +1865,12 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "review-family:erdos_257:separated_cut_algebraic_lambert_transcendence",
+      "kind": "comparator_review_family",
+      "label": "For an infinite positive-integer host with cuts L_j < M_j, L_j tending to infinity and M_j-L_j tending to infinity, every host exponent at most L_j dividing L_j and every later exponent divisible by M_j, every infinite thinning with bounded positive integer weights has transcendental Lambert sum at every real algebraic base t > 1. This includes all divisibility chains and an explicit host of unbounded divisibility width and divergent reciprocal sum. The full number-field Subspace Theorem argument has two AI proof reviews; it is an ordinary proof with no Lean transcendence theorem, independent human review or asserted historical priority.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "review-family:erdos_257:shifted_odd_tail_state",
       "kind": "comparator_review_family",
       "label": "A rational support fraction produces a positive natural shifted tail state satisfying the exact binary recurrence and modular doubling orbit modulo v.",
@@ -1831,9 +1901,21 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "review-family:erdos_269:independent_clock_channel_relations",
+      "kind": "comparator_review_family",
+      "label": "For positive rationally independent clock rates with no simultaneous positive crossings, and integer radices b_i >= 2, all rational relations among 1 and the channel sums S_i are multiples of (-1,b_1-1,...,b_d-1). The proof uses genuine late swaps with a common infinite suffix in one orbit closure, a fixed rational lattice, and density of the clock section. The explicit rates 1,sqrt(2),sqrt(3),sqrt(6) and radices 2,3,5,7 give rational span dimension four. This is an ordinary proof reviewed by AI agents, without Lean or independent human verification of the infinite theorem.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "review-family:erdos_269:rank_two_kernel_no_go",
       "kind": "comparator_review_family",
       "label": "The 2,3,5 kernel is not rank one and its smallest displayed minor equals -1/15.",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "review-family:erdos_269:selected_staircase_integral_height_boundary",
+      "kind": "comparator_review_family",
+      "label": "The selected staircase matrix with ones on and below the diagonal and integer r>=2 above it has Smith factors 1,r-1,...,r-1. For the selected {2,3,5} kernel, any entrywise-integral diagonal clearing has determinant magnitude at least 4^(N-1), whereas the reduced rational determinant has numerator one up to sign. A rational single-target border has primitive polynomial plus or minus (tX-s), where s/t is the reduced Schur complement. These ordinary arithmetic arguments were reviewed by AI agents; they are not the existing Lean nonvanishing theorem and have no independent human review.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1932,6 +2014,11 @@
     {
       "source": "integration:comparator",
       "relation": "reviews",
+      "target": "review-family:erdos_1049:calibrated_rational_hankel_countermodel"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
       "target": "review-family:erdos_1049:coordinatewise_corridor_no_go"
     },
     {
@@ -2018,6 +2105,11 @@
       "source": "integration:comparator",
       "relation": "reviews",
       "target": "review-family:erdos_249:lcm_factor_ideal_shift_algebra_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_249:signed_totient_entire_defect_interpolation"
     },
     {
       "source": "integration:comparator",
@@ -2182,6 +2274,11 @@
     {
       "source": "integration:comparator",
       "relation": "reviews",
+      "target": "review-family:erdos_257:separated_cut_algebraic_lambert_transcendence"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
       "target": "review-family:erdos_257:shifted_odd_tail_state"
     },
     {
@@ -2207,7 +2304,17 @@
     {
       "source": "integration:comparator",
       "relation": "reviews",
+      "target": "review-family:erdos_269:independent_clock_channel_relations"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
       "target": "review-family:erdos_269:rank_two_kernel_no_go"
+    },
+    {
+      "source": "integration:comparator",
+      "relation": "reviews",
+      "target": "review-family:erdos_269:selected_staircase_integral_height_boundary"
     },
     {
       "source": "integration:comparator",
@@ -2298,6 +2405,11 @@
       "source": "problem:erdos_1049",
       "relation": "explained_by",
       "target": "paper:erdos-1049-rational-base-lambert"
+    },
+    {
+      "source": "problem:erdos_1049",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_1049:calibrated_rational_hankel_countermodel"
     },
     {
       "source": "problem:erdos_1049",
@@ -2403,6 +2515,11 @@
       "source": "problem:erdos_249",
       "relation": "has_review_family",
       "target": "review-family:erdos_249:lcm_factor_ideal_shift_algebra_no_go"
+    },
+    {
+      "source": "problem:erdos_249",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_249:signed_totient_entire_defect_interpolation"
     },
     {
       "source": "problem:erdos_249",
@@ -2577,6 +2694,11 @@
     {
       "source": "problem:erdos_257",
       "relation": "has_review_family",
+      "target": "review-family:erdos_257:separated_cut_algebraic_lambert_transcendence"
+    },
+    {
+      "source": "problem:erdos_257",
+      "relation": "has_review_family",
       "target": "review-family:erdos_257:shifted_odd_tail_state"
     },
     {
@@ -2607,7 +2729,17 @@
     {
       "source": "problem:erdos_269",
       "relation": "has_review_family",
+      "target": "review-family:erdos_269:independent_clock_channel_relations"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
       "target": "review-family:erdos_269:rank_two_kernel_no_go"
+    },
+    {
+      "source": "problem:erdos_269",
+      "relation": "has_review_family",
+      "target": "review-family:erdos_269:selected_staircase_integral_height_boundary"
     },
     {
       "source": "problem:erdos_269",
@@ -2707,11 +2839,6 @@
     {
       "source": "universe:plectis-lean",
       "relation": "explained_by",
-      "target": "paper:cold-clone-to-proof-receipt"
-    },
-    {
-      "source": "universe:plectis-lean",
-      "relation": "explained_by",
       "target": "paper:erdos1041-lemniscate-reasoning-surface"
     },
     {
@@ -2748,11 +2875,6 @@
       "source": "universe:plectis-lean",
       "relation": "explained_by",
       "target": "paper:erdos68-factorial-reasoning-surface"
-    },
-    {
-      "source": "universe:plectis-lean",
-      "relation": "explained_by",
-      "target": "paper:open-source-mathematics-strategy"
     },
     {
       "source": "universe:plectis-lean",
@@ -2908,6 +3030,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:bounded_rise_fresh_modulus_barrier"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:calibrated_rational_hankel_countermodel"
     },
     {
       "source": "universe:plectis-lean",
@@ -3102,6 +3229,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:first_harmonic_good_index_reduction"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:first_harmonic_pivot_decomposition"
     },
     {
@@ -3177,6 +3309,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:independent_clock_channel_relations"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:integer_greedy_first_wrap_reduction"
     },
     {
@@ -3248,6 +3385,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:newton_ray_separation_consumer"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:nonintegral_regular_rate_irrationality"
     },
     {
       "source": "universe:plectis-lean",
@@ -3382,6 +3524,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:selected_staircase_integral_height_boundary"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:selected_suffix_cylinder_propagation"
     },
     {
@@ -3397,12 +3544,22 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:separated_cut_algebraic_lambert_transcendence"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:sigma_transcendence"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:signed_dyadic_moment_substrate"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:signed_totient_entire_defect_interpolation"
     },
     {
       "source": "universe:plectis-lean",
@@ -3518,6 +3675,21 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:totient_coprimality_probability"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_residue_series_classification"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_residue_series_dilations"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:totient_residue_series_integer_radix"
     },
     {
       "source": "universe:plectis-lean",

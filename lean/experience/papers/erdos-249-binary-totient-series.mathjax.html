@@ -442,28 +442,34 @@ class="math inline" data-term-auto="off">\(n\ge3\)</span>. Constancy on the even
 makes all terms after <span class="math inline" data-term-auto="off">\(n=2\)</span> constant,
 giving the stated rational value without a recurrence hypothesis. ◻</p>
 </div>
-<p>There is an earlier coefficient-level obstruction: for each <span
-class="math inline" data-term-auto="off">\(m\ge3\)</span>, <span
-class="math inline" data-term-auto="off">\(\varphi(n)\bmod m\)</span> is not automatic in any
-integer base <span class="math inline" data-term-auto="off">\(k\ge2\)</span> <span
-class="citation" data-cites="yazdani2001"></span>; see also <span
-class="citation" data-cites="allouche-shallit-yassawi"></span>.
-Nonautomaticity does not prove irrationality of this sum: when <span
-class="math inline" data-term-auto="off">\(m&gt;2\)</span>, the residues are not binary
-digits. The preceding proof instead uses the isolated coefficient and
-the bounded tail. Erick Wong posted a proof that <span
-class="math inline" data-term-auto="off">\(\sum_{n\ge1}(\ph(n)\bmod k)k^{-n}\)</span> is
-irrational for every integer <span
-class="math inline" data-term-auto="off">\(k&gt;2\)</span>, with the base equal to the
-modulus, as an answer on Mathematics Stack Exchange on 29 March
-2015 <span class="citation" data-cites="wong2015"><a href="#ref-5">[5]</a></span>. Theorem <a class="math-ref" href="#res:residueseries">2.1</a> fixes the base at
-<span class="math inline" data-term-auto="off">\(2\)</span> for every modulus <span
-class="math inline" data-term-auto="off">\(m\ge3\)</span> and classifies the dyadic residue
-observables.</p>
-<p>The preceding proof fixes its coefficient bound before choosing the
-zero blocks. For <span class="math inline" data-term-auto="off">\(S\)</span>, the termwise
-condition <span class="math inline" data-term-auto="off">\(2^L\mid\ph(N+L)\)</span>, with
-<span class="math inline" data-term-auto="off">\(N+L&gt;1\)</span>, forces <span
+<p>Erdős’s Lemma 1 <span class="citation" data-cites="erdos1957"><a href="#ref-6">[6]</a></span>
+already gives the first assertion: <span
+class="math inline" data-term-auto="off">\(\sum_ka_kt^{-k}\)</span> is irrational for every
+integer <span class="math inline" data-term-auto="off">\(t\ge2\)</span> when the integers
+<span class="math inline" data-term-auto="off">\(a_k\ge0\)</span> have bounded averages and
+infinitely many nonzero terms, forming a set of density zero. Here <span
+class="math inline" data-term-auto="off">\(\ph(n)\bmod m\ne0\)</span> forces <span
+class="math inline" data-term-auto="off">\(n\)</span> to have no prime factor <span
+class="math inline" data-term-auto="off">\(p\equiv1\pmod m\)</span>, and such <span
+class="math inline" data-term-auto="off">\(n\)</span> have density zero; Theorem 3 of <span
+class="citation" data-cites="kst2026"></span> applies in the same way.
+When the values <span class="math inline" data-term-auto="off">\(f(r)-f(0)\)</span> take both
+signs those criteria need a further spacing hypothesis, which the
+isolated coefficient avoids. Wong posted the case in which the base
+equals the modulus <span class="citation" data-cites="wong2015"><a href="#ref-5">[5]</a></span>.
+The companion checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR7/RationalIntegerRadixClassification.lean#L128">the
+first assertion</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR7/RationalIntegerRadixClassification.lean#L145">the
+second</a> in Lean in every integer base <span
+class="math inline" data-term-auto="off">\(t\ge2\)</span> and proves that <span
+class="math inline" data-term-auto="off">\(1\)</span> and the series <span
+class="math inline" data-term-auto="off">\(\sum_n(\ph(n)\bmod m)t^{-dn}\)</span>, <span
+class="math inline" data-term-auto="off">\(d\ge1\)</span>, are linearly independent
+over <span class="math inline" data-term-auto="off">\(\Q\)</span>.</p>
+<p>For <span class="math inline" data-term-auto="off">\(S\)</span>, the termwise condition
+<span class="math inline" data-term-auto="off">\(2^L\mid\ph(N+L)\)</span>, with <span
+class="math inline" data-term-auto="off">\(N+L&gt;1\)</span>, forces <span
 class="math inline" data-term-auto="off">\(2^L\le\ph(N+L)\le N+L-1\)</span>. Hence the tail
 envelope <span class="math inline" data-term-auto="off">\((N+L+2)2^{-L}&gt;1\)</span> cannot
 exclude any positive denominator. The following criterion instead
@@ -788,9 +794,9 @@ absolutely convergent. Amiram Eldar posted the corresponding formula
 <span
 class="math inline" data-term-auto="off">\(S=\tfrac12+\sum_{d\ge1}\mu(d)/(2^d-1)^2\)</span>,
 together with its coprimality interpretation, to OEIS A256936 on 15
-March 2026 <span class="citation" data-cites="eldar2026oeis"><a href="#ref-6">[6]</a></span>,
+March 2026 <span class="citation" data-cites="eldar2026oeis"><a href="#ref-8">[8]</a></span>,
 and Steve Fan posted the formula on the problem’s forum thread on 16 May
-2026 <span class="citation" data-cites="fan2026totient"><a href="#ref-7">[7]</a></span>. The
+2026 <span class="citation" data-cites="fan2026totient"><a href="#ref-9">[9]</a></span>. The
 companion proves the lower bound <span
 class="math inline" data-term-auto="off">\(1/480\)</span> for these quotients; the following
 theorem gives the exact extremum.</p>
@@ -825,6 +831,40 @@ may be chosen freely, continued-fraction convergents show that the
 criterion is equivalent to irrationality, just as <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">eq:canonical-gap</a> is. The theorem
 above excludes the displayed rank-one quotients and their positive
 averages, not other approximation families.</p>
+<section id="sec:signed-interpolation-transfer" class="level3">
+<h3>Preserving Dirichlet singularities under signed changes</h3>
+<p>The companion <a
+href="../../../papers/erdos249-totient-reasoning-surface.pdf"><em>The Binary Totient
+Series</em></a>, subsection “Signed interpolation with entire Dirichlet
+defects”, proves the following stronger comparison theorem by an
+ordinary argument. Fix an integer <span
+class="math inline" data-term-auto="off">\(\beta\ge2\)</span>, a prefix and finitely many
+prescribed zero moments. For every positive allowance <span
+class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>, even a nonmonotone one, an
+interval around <span
+class="math inline" data-term-auto="off">\(\sum\varphi(n)\beta^{-n}\)</span> is filled by
+values of integer sequences <span
+class="math inline" data-term-auto="off">\(b=\varphi+e\)</span> with <span
+class="math inline" data-term-auto="off">\(0\le b(n)\le n\)</span> and <span
+class="math inline" data-term-auto="off">\(|e(n)|\le f(n)\)</span>. The correction is
+supported on even indices of upper Banach density zero; it leaves the
+prefix and odd coefficients unchanged. Each fixed coefficient and
+cumulative congruence is eventually preserved. In each fixed arithmetic
+progression the Dirichlet defect is entire, and every root-of-unity
+radial germ is smooth, with the prescribed finite jets zero. Thus both
+rational and irrational values coexist with those observations. The
+proof also quantifies the block lengths preserved for the chosen
+allowance.</p>
+<p>The corrections have both signs. Entire defects preserve
+singularities, not the regular parts or zeros of the Dirichlet
+functions; smooth finite jets do not preserve the entire radial germ.
+Rational comparison values force first harmonics larger than the <span
+class="math inline" data-term-auto="off">\(603X/1000\)</span> cancellation threshold on the
+actual totient good-index set at all sufficiently large admissible
+scales. These comparisons identify information insufficient to prove the
+needed bound. They do not supply that bound for the unchanged totient,
+nor a Lean proof of the interpolation theorem.</p>
+</section>
 </section>
 <section id="sec:open" class="level2">
 <h2>A remaining exponential-sum estimate</h2>
@@ -935,14 +975,37 @@ Mertens’ theorems. The excluded-cofactor bound is <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L654">proved
 in Lean</a> with the prime number theorem and the existence of the
 density of <span class="math inline" data-term-auto="off">\(\{m:\ph(m)&lt;\eta m\}\)</span>
-taken as hypotheses. An elementary mean-value estimate also gives the
-explicit sufficient cutoff <span
-class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> for the excluded-cofactor
-bound. The two remaining estimates concern the group means and their
-weighted, mean-subtracted phases. They must hold at the same depth and
-for the same choice of <span class="math inline" data-term-auto="off">\(\eta\)</span>; the
-existence of a cutoff that controls the excluded indices does not
-establish either of them.</p>
+taken as hypotheses. At the explicit cutoff <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> the excluded-cofactor bound
+is <a
+href="https://github.com/wcook04/plectis-erdos/blob/57941a741fceaae33ab7e2513a9cd11fee060081/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L910">proved
+in Lean</a> with no hypotheses: an elementary mean-value estimate bounds
+the upper density of <span
+class="math inline" data-term-auto="off">\(\{m:\ph(m)&lt;m/1000\}\)</span> by <span
+class="math inline" data-term-auto="off">\(3/1000\)</span>, and Chebyshev’s bound <span
+class="math inline" data-term-auto="off">\(\prod_{a+1&lt;p\le2a+1}p\le\binom{2a+1}{a}\le4^a\)</span>
+replaces the prime number theorem at the cost of a factor <span
+class="math inline" data-term-auto="off">\(\log4\)</span>, so at most <span
+class="math inline" data-term-auto="off">\((3\log4/1000+o(1))X&lt;X/100\)</span> indices are
+excluded. The same argument <a
+href="https://github.com/wcook04/plectis-erdos/blob/ab690b0aa515faa3a432e9d47de288704ebf6bb5/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L930">proves</a>
+the bound with no hypotheses for every <span
+class="math inline" data-term-auto="off">\(\eta\)</span> with <span
+class="math inline" data-term-auto="off">\(0&lt;\eta&lt;1/(300\log4)\)</span>. The two
+remaining estimates concern the group means and their weighted,
+mean-subtracted phases. Since, for all large <span
+class="math inline" data-term-auto="off">\(X\)</span>, more than <span
+class="math inline" data-term-auto="off">\(67X/100\)</span> indices lie in <span
+class="math inline" data-term-auto="off">\(\mathcal G\)</span> at <span
+class="math inline" data-term-auto="off">\(s=26\)</span>, <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> and minimal depth, the
+companion <a
+href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249Endpoint.lean#L100">proves</a>
+that the single open bound <span
+class="math inline" data-term-auto="off">\(\operatorname{Re}\sum_{N\in\mathcal
+G}E_N\le603X/1000\)</span>, for each <span
+class="math inline" data-term-auto="off">\(h\)</span> and arbitrarily large <span
+class="math inline" data-term-auto="off">\(X\)</span>, replaces both.</p>
 <p>Balasubramanian, Giri and Srivastav estimate the finite sums <span
 class="math inline" data-term-auto="off">\(\sum_{1\le n\le x}F(n)G(n-h)\)</span> for <span
 class="math inline" data-term-auto="off">\(F=f*1\)</span>, <span
@@ -954,11 +1017,8 @@ class="math inline" data-term-auto="off">\(f(n)=g(n)=\mu(n)/n\)</span> gives <sp
 class="math inline" data-term-auto="off">\(F(n)=G(n)=\ph(n)/n\)</span> for <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span>; the estimate is uniform for <span
 class="math inline" data-term-auto="off">\(|h|\le x/2\)</span> <span class="citation"
-data-cites="bgs2016"><a href="#ref-9">[9]</a></span>. Their partial-summation extension allows
-differentiable weights with bounded derivative on the summation
-interval <span class="citation" data-cites="bgs2016"><a href="#ref-9">[9]</a></span>. The
-missing input here is a useful error bound for the present phase and
-residual weight, not shift uniformity or partial summation itself.
+data-cites="bgs2016"><a href="#ref-11">[11]</a></span>. The missing input here is a useful error
+bound for the present phase and residual weight.
 <strong>Acknowledgement.</strong> I thank Wouter van Doorn for advice on
 writing for a first-time reader and on explaining the strength of a
 hypothesis. His advice concerned a different note; it was not a
@@ -1021,9 +1081,9 @@ literature</h3>
 Theorem 2, explicitly credited there to Shallit, uses the Chinese
 remainder theorem and Dirichlet’s theorem to distinguish kernel sections
 modulo a fixed modulus <span class="citation"
-data-cites="yazdani2001"><a href="#ref-10">[10]</a></span>. For a later account see Allouche,
+data-cites="yazdani2001"><a href="#ref-12">[12]</a></span>. For a later account see Allouche,
 Shallit and Yassawi <span class="citation"
-data-cites="allouche-shallit-yassawi"><a href="#ref-11">[11]</a></span>. Here one separates a
+data-cites="allouche-shallit-yassawi"><a href="#ref-13">[13]</a></span>. Here one separates a
 chosen column from every other column of a finite evaluation matrix.
 Nonsingularity, not merely distinctness of infinitely many sections,
 gives linear independence.</p>
@@ -1077,7 +1137,7 @@ criterion of Adamczewski, Bell and Smertnig already implies that an
 integer-coefficient <span class="math inline" data-term-auto="off">\(k\)</span>-Mahler series
 with polynomially bounded coefficients is <span
 class="math inline" data-term-auto="off">\(k\)</span>-regular <span class="citation"
-data-cites="adamczewski-bell-smertnig2023"><a href="#ref-14">[14]</a></span>. Indeed, the
+data-cites="adamczewski-bell-smertnig2023"><a href="#ref-16">[16]</a></span>. Indeed, the
 logarithmic height of an integer <span class="math inline" data-term-auto="off">\(a\)</span>
 is <span class="math inline" data-term-auto="off">\(\log\max(1,|a|)\)</span>. Since <span
 class="math inline" data-term-auto="off">\(0\le\ph(n)\le n\)</span>, nonregularity rules out
@@ -1087,7 +1147,7 @@ every base <span class="math inline" data-term-auto="off">\(k\ge2\)</span>; no
 multiplicativity hypothesis is needed for this deduction. The
 multiplicative classification in Bell and Smertnig’s later preprint also
 gives this conclusion <span class="citation"
-data-cites="bell-smertnig2026"><a href="#ref-12">[12]</a></span>. Bell, Bruin and Coons give
+data-cites="bell-smertnig2026"><a href="#ref-14">[14]</a></span>. Bell, Bruin and Coons give
 related classifications for algebraic or <span
 class="math inline" data-term-auto="off">\(D\)</span>-finite generating functions <span
 class="citation" data-cites="bell-bruin-coons"></span>; <span
@@ -1136,7 +1196,7 @@ a positive integer multiple of a basis element at the next level, not
 necessarily to a basis element itself.</p>
 <p>Erdős and Graham list the irrationality question for <span
 class="math inline" data-term-auto="off">\(S\)</span> <span class="citation"
-data-cites="erdosgraham1980"><a href="#ref-8">[8]</a></span>.</p>
+data-cites="erdosgraham1980"><a href="#ref-10">[10]</a></span>.</p>
 </section>
 <section id="a-finite-denominator-exclusion" class="level3 unnumbered">
 <h3 class="unnumbered">A finite denominator exclusion</h3>
@@ -1539,46 +1599,53 @@ href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to
 <em>An infinite sum based on the mod-parity of Euler’s totient
 function</em>, Mathematics Stack Exchange, 29 March 2015, accessed 15
 September 2026.</p></li>
-<li id="ref-6"><p>A. Eldar, comment and formula added to OEIS A256936 (revisions 28
+<li id="ref-6"><p>P. Erdős, <em>On the irrationality of certain series</em>,
+Indag. Math. <strong>19</strong> (1957), 212–219. Lemmas 1 and 4,
+pp. 213–218.</p></li>
+<li id="ref-7"><p>H. Kaneko, Y. Suzuki and Y. Tachiya, <em>Refinements of Erdős’s
+irrationality criterion for certain sparse infinite series</em>,
+arXiv:<a href="https://arxiv.org/abs/2601.20743v1">2601.20743v1</a>.
+Theorem 3, p. 5.</p></li>
+<li id="ref-8"><p>A. Eldar, comment and formula added to OEIS A256936 (revisions 28
 and 31), 15 March 2026, <a href="https://oeis.org/history?seq=A256936"
 class="uri">https://oeis.org/history?seq=A256936</a>, accessed 16
 September 2026.</p></li>
-<li id="ref-7"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a
+<li id="ref-9"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a
 href="https://www.erdosproblems.com/forum/thread/249">Erdős Problems
 discussion thread</a>, accessed 16 September 2026.</p></li>
-<li id="ref-8"><p>P. Erdős and R. L. Graham, <em>Old and New Problems and Results
+<li id="ref-10"><p>P. Erdős and R. L. Graham, <em>Old and New Problems and Results
 in Combinatorial Number Theory</em>, Monographies de L’Enseignement
 Mathématique <strong>28</strong>, 1980, p. 61.</p></li>
-<li id="ref-9"><p>R. Balasubramanian, S. Giri and P. Srivastav, <em>On correlations
+<li id="ref-11"><p>R. Balasubramanian, S. Giri and P. Srivastav, <em>On correlations
 of certain multiplicative functions</em>, J. Number Theory
 <strong>174</strong> (2017), 221–238, doi:<a
 href="https://doi.org/10.1016/j.jnt.2016.10.001">10.1016/j.jnt.2016.10.001</a>;
 arXiv:<a href="https://arxiv.org/abs/1511.02221v3">1511.02221v3</a>.
 Theorem 2.2 is cited with the arXiv v3 pagination, p. 2.</p></li>
-<li id="ref-10"><p>S. Yazdani, <em>Multiplicative functions and <span
+<li id="ref-12"><p>S. Yazdani, <em>Multiplicative functions and <span
 class="math inline" data-term-auto="off">\(k\)</span>-automatic sequences</em>,
 J. Théor. Nombres Bordeaux <strong>13</strong> (2001), no. 2, 651–658,
 <a href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/"
 class="uri">https://www.numdam.org/item/JTNB_2001__13_2_651_0/</a>.
 Theorem 2 and its proof, pp. 652–653; Corollary 4, p. 654.</p></li>
-<li id="ref-11"><p>J.-P. Allouche, J. Shallit and R. Yassawi, <em>How to prove that
+<li id="ref-13"><p>J.-P. Allouche, J. Shallit and R. Yassawi, <em>How to prove that
 a sequence is not automatic</em>, Exposition. Math. <strong>40</strong>
 (2022), no. 1, 1–22, doi:<a
 href="https://doi.org/10.1016/j.exmath.2021.08.001">10.1016/j.exmath.2021.08.001</a>;
 arXiv:<a href="https://arxiv.org/abs/2104.13072v1">2104.13072v1</a>.
 Theorem and example numbering follows the arXiv v1 (2021).</p></li>
-<li id="ref-12"><p>J. Bell and D. Smertnig, <em>Mahler series with multiplicative
+<li id="ref-14"><p>J. Bell and D. Smertnig, <em>Mahler series with multiplicative
 coefficient sequences</em>, arXiv:<a
 href="https://arxiv.org/abs/2603.23456v1">2603.23456v1</a>, 24 March
 2026, preprint. Theorem 1.3, p. 2; Lemma 3.3, p. 9.</p></li>
-<li id="ref-13"><p>J. P. Bell, N. Bruin and M. Coons, <em>Transcendence of
+<li id="ref-15"><p>J. P. Bell, N. Bruin and M. Coons, <em>Transcendence of
 generating functions whose coefficients are multiplicative</em>,
 Trans. Amer. Math. Soc. <strong>364</strong> (2012), no. 2, 933–959,
 doi:<a
 href="https://doi.org/10.1090/S0002-9947-2011-05479-6">10.1090/S0002-9947-2011-05479-6</a>;
 arXiv:<a href="https://arxiv.org/abs/1003.2221v2">1003.2221v2</a>.
 Theorems 1.5–1.6 are cited with the arXiv v2 pagination, p. 2.</p></li>
-<li id="ref-14"><p>B. Adamczewski, J. Bell and D. Smertnig, <em>A height gap theorem
+<li id="ref-16"><p>B. Adamczewski, J. Bell and D. Smertnig, <em>A height gap theorem
 for coefficients of Mahler functions</em>,
 J. Eur. Math. Soc. <strong>25</strong> (2023), no. 7, 2525–2571, doi:<a
 href="https://doi.org/10.4171/JEMS/1244">10.4171/JEMS/1244</a>.

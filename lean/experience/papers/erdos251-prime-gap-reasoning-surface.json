@@ -5,7 +5,7 @@
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 44,
+  "pages": 45,
   "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
   "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
   "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "5e366351cb650eb751151f50081cf3a6b6456d6409de706a19c9adaa09b86091",
+    "source_sha256": "9b99cf04e8ef427f4b7ff9129f6a26e389c2f256a08de056086b08f4cbe141e4",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1535,
+    "mathml_node_count": 1536,
     "raw_math_fallback_count": 7,
     "warnings": {
       "mathml": [
@@ -110,8 +110,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "ffd053ceb228414054281f0f1a2b7a672b083d9b34d53f3378a22f81aa1202dd",
-    "html_exact_tex_sha256": "f5c32c86c349f508de4cd0873452429a15f5e478e7e732f2a48aa6218d563f63"
+    "html_mathml_sha256": "84f2cfa95faeca8c40eb850394a368ee13dd8d0f9c35da054b0122bd6606da45",
+    "html_exact_tex_sha256": "a9bbf6ce5cdea5f3bc980d99159a3102b2f7ac781068c59bfb02747eda798f16"
   },
   "sections": [
     {
@@ -348,6 +348,11 @@
       "level": 2,
       "anchor": "long251:app:affine-detail",
       "label": "Arithmetic-progression reformulations of integrality"
+    },
+    {
+      "level": 3,
+      "anchor": "long251:sec:signed-dirichlet-comparison",
+      "label": "A signed comparison with more analytic data"
     },
     {
       "level": 2,

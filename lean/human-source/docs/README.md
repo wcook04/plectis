@@ -27,6 +27,7 @@ else to inspect the argument and continue from it.
 | Read the mathematics | [The papers](../paper/README.md) | A short paper for each problem, then a longer record when you need the details. |
 | Read the comparison across problems | [The cross-problem paper](../paper/synthesis/optimal-sparse-perturbations.pdf) | Capacity and congruences, Lambert subsums, method obstructions and their full research record. |
 | Find what has been established and what is missing | [Results and limits](RESULTS.md) | The results beside their remaining open questions, with routes to the evidence. |
+| See what is open and what would settle it | [The argument graph](ARGUMENT_GRAPH.md) | Every conditional theorem read out of the Lean kernel: what is proved, what reduces to what, which open statements are the same problem in other coordinates, and what a missing input would settle. |
 | Check a result yourself | [Reproducibility](REPRODUCIBILITY.md) | Inspect one claim without Lean, then install the pinned environment if you want to rebuild proofs. |
 | Continue the work or send a correction | [Contributing](../CONTRIBUTING.md) | A plain-language issue or a focused pull request, with evidence and credit. |
 | Understand the software and research process | [How this repository works](ARCHITECTURE.md) | The roles of proofs, claim records, papers, query tools and release checks. |

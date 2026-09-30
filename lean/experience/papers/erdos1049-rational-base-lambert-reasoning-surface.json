@@ -5,7 +5,7 @@
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 69,
+  "pages": 73,
   "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
   "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "79483f26d8a9d3a856891fbf95af01db6c073782d4bb61e05dc7c51c4ebccb6e",
+    "source_sha256": "053d9288870abc63a26f77d50d1702d0fd81f241c3248e08e19ced350f20ad25",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 2692,
+    "mathml_node_count": 2846,
     "raw_math_fallback_count": 2,
     "warnings": {
       "mathml": [
@@ -57,8 +57,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "6b06f93a306aadb533525a81271bd9c227eaa4efb5372a6079c4a690f6195057",
-    "html_exact_tex_sha256": "bc106bf582a05a4c38f9d8baf9ec06dbe10dc982d45f1f4a163ef94bd828e79d"
+    "html_mathml_sha256": "7b581dfe73dedec17053774c79ea3b5a1f50080874d6b4c31e757ba29fe595a0",
+    "html_exact_tex_sha256": "39b740d6a3581220138c61ced274d708545ccf938ff9c64bebd33ef7cf6a6eb5"
   },
   "sections": [
     {
@@ -180,6 +180,11 @@
       "level": 5,
       "anchor": "what-the-sharp-estimate-settles-and-what-it-leaves.",
       "label": "What the sharp estimate settles, and what it leaves."
+    },
+    {
+      "level": 3,
+      "anchor": "long1049:sec:calibrated-countermodel",
+      "label": "A rational-value model with the same Hankel signature"
     },
     {
       "level": 3,

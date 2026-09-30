@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "7f388c3d3570bcfc7a3704b9eea787dc697ac54c6cb60bb45755947b8cbffa74",
+  "source_fingerprint": "adf9092ce65c69f4a410309c44c25ded6401ee0d78aba931e3e2ea55d4bad56a",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -29,19 +29,20 @@
   },
   "counts": {
     "problems": 8,
-    "papers": 21,
+    "papers": 19,
     "human_documents": 16,
-    "graph_nodes": 2233,
-    "graph_edges": 6051
+    "graph_nodes": 2289,
+    "graph_edges": 6492
   },
   "source_identity": {
     "human_document_navigation": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
-    "lean_manifest": "1807366a3f0d1dc280e20d3b7e63f5843d92c3e2fba39d5255a7c2cfcff62270",
-    "paper_manifest": "88e43d4b7e00b10f44d2c3ab20859aa0366f47d849cb25fdd11b9ff28fd4d568",
-    "claims": "feb55fb47d87766dad74774f3f91eda37843625d45a19d0a8a14a118219b3ba7",
-    "problems": "b9d666ef4b9766a47d0e81dcda6ceccfd227196664625172ffc4df53ba392476",
-    "problem_library": "529f2d51fcf51190b08ad45e2eb2f14a88be44a256ec0c815b6a8d12f2deffea",
-    "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965"
+    "lean_manifest": "599022f3c6a2f8d24241a298ec2855c6adb011fd09f06fb2e36ace2f8f83691c",
+    "paper_manifest": "bd6f7a477f7e3233574b8d59a45e26c39ce4a8b874e30cdcf87613992f357443",
+    "claims": "e139025a2c23905ec32f2937ff82c20b1b0bd9388ecdd891d715eb89ca763f5e",
+    "problems": "be3b87f076834f4047f90492acc2ecd3857a4b390aeea1a2385b0f1c6a120e87",
+    "problem_library": "100e77adf8639236ddf67ceace51b57b9e1f3e8bf4445aaa2be0d818603a0136",
+    "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965",
+    "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
   "frontend_handoff": {
     "status": "backend_complete_frontend_unimplemented",
@@ -57,8 +58,8 @@
     "progressive_graph": {
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
-      "first_screen_nodes": 270,
-      "complete_nodes": 2233
+      "first_screen_nodes": 283,
+      "complete_nodes": 2289
     }
   }
 }

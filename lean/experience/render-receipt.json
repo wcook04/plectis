@@ -3,8 +3,8 @@
   "papers": {
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
-    "paper_count": 21,
-    "papers_with_warnings": 11,
+    "paper_count": 19,
+    "papers_with_warnings": 10,
     "warnings": {
       "erdos68-factorial-reasoning-surface": {
         "mathml": [
@@ -237,27 +237,6 @@
           "^",
           "unexpected control sequence \\tag",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
-        ],
-        "mathjax": []
-      },
-      "open-source-mathematics-strategy": {
-        "mathml": [
-          "[WARNING] Could not convert TeX math \\begin{aligned}",
-          "K_{t+1}&=K_t+\\Delta_t^\\mathrm{theorem}",
-          "+\\Delta_t^\\mathrm{counterexample}",
-          "+\\Delta_t^{\\rm no\\mbox{-}go}",
-          "+\\Delta_t^\\mathrm{computation}",
-          "+\\Delta_t^\\mathrm{correction},\\\\",
-          "I_{t+1}&=I_t+\\Delta_t^\\mathrm{navigation}",
-          "+\\Delta_t^\\mathrm{validation}",
-          "+\\Delta_t^\\mathrm{reproducibility}",
-          "+\\Delta_t^\\mathrm{governance}.",
-          "\\end{aligned}",
-          "\\tag{2.3}\\label{eq:feedback}, rendering as TeX:",
-          "+\\Delta_t^{\\rm no\\mbox{-}go}",
-          "^",
-          "unexpected \"^\"",
-          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
         ],
         "mathjax": []
       }

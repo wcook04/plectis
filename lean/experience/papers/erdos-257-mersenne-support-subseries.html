@@ -1275,6 +1275,65 @@ leaving the modifications to the reader. It does not treat arbitrary
 infinite thinnings. The proposed thinning extension is not a premise of
 any theorem here.</p>
 </section>
+<section id="sec:separated-support-transfer" class="level3">
+<h3>Algebraic bases on separated supports</h3>
+<p>The weighted theorem above concerns integer bases. A different
+argument gives a stronger conclusion on another explicit class of
+supports. Suppose an infinite host
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+has cuts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>&lt;</mo><msub><mi>M</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">L_j&lt;M_j</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">L_j\to\infty</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mo>−</mo><msub><mi>L</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">M_j-L_j\to\infty</annotation></semantics></math>,
+such that every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">n\in H</annotation></semantics></math>
+below or equal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>j</mi></msub><annotation encoding="application/x-tex">L_j</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>j</mi></msub><annotation encoding="application/x-tex">L_j</annotation></semantics></math>,
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">n\in H</annotation></semantics></math>
+above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>j</mi></msub><annotation encoding="application/x-tex">L_j</annotation></semantics></math>
+is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>.
+For every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">B\subseteq H</annotation></semantics></math>,
+bounded positive integer weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>n</mi></msub><annotation encoding="application/x-tex">w_n</annotation></semantics></math>,
+and real algebraic
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t&gt;1</annotation></semantics></math>,
+the sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>B</mi></mrow></msub><msub><mi>w</mi><mi>n</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\in B}w_n/(t^n-1)</annotation></semantics></math>
+is transcendental. The full ordinary proof is in the companion <a
+href="../../../papers/optimal-sparse-perturbations.pdf"><em>Reading eight Erdős problems
+together</em></a>, subsection “Divisibility cuts at every algebraic
+base”. It uses the number-field Subspace Theorem, not the formal
+weighted proof.</p>
+<p>Every divisibility chain has such cuts. The host
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mo>*</mo></msub><mo>=</mo><msub><mo>⋃</mo><mi>j</mi></msub><msub><mi>N</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><msup><mn>2</mn><msub><mi>N</mi><mi>j</mi></msub></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">H_* = \bigcup_j N_j\{1,\ldots,2^{N_j}\}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N_0=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>N</mi><mi>j</mi></msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><msup><mn>2</mn><msub><mi>N</mi><mi>j</mi></msub></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N_{j+1}=2N_j\operatorname{lcm}(1,\ldots,2^{N_j})</annotation></semantics></math>,
+also does. Each block contributes at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><msub><mi>H</mi><mo>*</mo></msub></mrow></msub><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\sum_{n\in H_*}1/n</annotation></semantics></math>
+and has an antichain whose size tends to infinity. Nevertheless its
+one-prime weighted mass at every real
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t&gt;1</annotation></semantics></math>
+is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>t</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2t^2/(t-1)^3</annotation></semantics></math>.
+This example connects the weighted criterion to algebraic-base
+transcendence without asserting that all weighted hosts satisfy the cut
+condition. Arbitrary infinite supports at base two remain unresolved.
+The transfer theorem has two AI proof reviews; it has no Lean proof of
+transcendence, independent human review or asserted historical
+priority.</p>
+</section>
 </section>
 <section id="sec:period" class="level2">
 <h2>Finite-support denominator periods</h2>

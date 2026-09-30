@@ -973,6 +973,46 @@ leaving the modifications to the reader. It does not treat arbitrary
 infinite thinnings. The proposed thinning extension is not a premise of
 any theorem here.</p>
 </section>
+<section id="sec:separated-support-transfer" class="level3">
+<h3>Algebraic bases on separated supports</h3>
+<p>The weighted theorem above concerns integer bases. A different
+argument gives a stronger conclusion on another explicit class of
+supports. Suppose an infinite host <span
+class="math inline" data-term-auto="off">\(H\)</span> has cuts <span
+class="math inline" data-term-auto="off">\(L_j&lt;M_j\)</span> with <span
+class="math inline" data-term-auto="off">\(L_j\to\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(M_j-L_j\to\infty\)</span>, such that every <span
+class="math inline" data-term-auto="off">\(n\in H\)</span> below or equal to <span
+class="math inline" data-term-auto="off">\(L_j\)</span> divides <span
+class="math inline" data-term-auto="off">\(L_j\)</span>, and every <span
+class="math inline" data-term-auto="off">\(n\in H\)</span> above <span
+class="math inline" data-term-auto="off">\(L_j\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(M_j\)</span>. For every infinite <span
+class="math inline" data-term-auto="off">\(B\subseteq H\)</span>, bounded positive integer
+weights <span class="math inline" data-term-auto="off">\(w_n\)</span>, and real algebraic
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, the sum <span
+class="math inline" data-term-auto="off">\(\sum_{n\in B}w_n/(t^n-1)\)</span> is
+transcendental. The full ordinary proof is in the companion <a
+href="../../../papers/optimal-sparse-perturbations.pdf"><em>Reading eight Erdős problems
+together</em></a>, subsection “Divisibility cuts at every algebraic
+base”. It uses the number-field Subspace Theorem, not the formal
+weighted proof.</p>
+<p>Every divisibility chain has such cuts. The host <span
+class="math inline" data-term-auto="off">\(H_* = \bigcup_j N_j\{1,\ldots,2^{N_j}\}\)</span>,
+where <span class="math inline" data-term-auto="off">\(N_0=1\)</span> and <span
+class="math inline" data-term-auto="off">\(N_{j+1}=2N_j\operatorname{lcm}(1,\ldots,2^{N_j})\)</span>,
+also does. Each block contributes at least <span
+class="math inline" data-term-auto="off">\(1/2\)</span> to <span
+class="math inline" data-term-auto="off">\(\sum_{n\in H_*}1/n\)</span> and has an antichain
+whose size tends to infinity. Nevertheless its one-prime weighted mass
+at every real <span class="math inline" data-term-auto="off">\(t&gt;1\)</span> is at most
+<span class="math inline" data-term-auto="off">\(2t^2/(t-1)^3\)</span>. This example connects
+the weighted criterion to algebraic-base transcendence without asserting
+that all weighted hosts satisfy the cut condition. Arbitrary infinite
+supports at base two remain unresolved. The transfer theorem has two AI
+proof reviews; it has no Lean proof of transcendence, independent human
+review or asserted historical priority.</p>
+</section>
 </section>
 <section id="sec:period" class="level2">
 <h2>Finite-support denominator periods</h2>

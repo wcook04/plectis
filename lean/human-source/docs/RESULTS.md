@@ -41,8 +41,8 @@ step. Mathematical importance requires separate judgement.
 
 | Problem | A result to start with | Where the result stops |
 |---|---|---|
-| [#68](#result-68) | Two exact finite denominator exclusions and a Lean-checked `3/2` lower growth exponent; the paper also gives a finite calculation of attainable factorial moments after prescribed cancellations. | No cofinal non-unit factorial carries have been produced; irrationality remains open. |
-| [#243](#result-243) | Lean checks irrationality under the precise cubic-rate hypothesis; the paper transfers it to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
+| [#68](#result-68) | Two exact finite denominator exclusions and a Lean-checked `3/2` lower growth exponent; the paper also gives a finite calculation of attainable factorial moments after prescribed cancellations. | Lean proves irrationality equivalent to cofinally many non-unit factorial carries; no cofinal supply of such carries has been produced, so irrationality is still unproved. |
+| [#243](#result-243) | Lean checks irrationality under the precise cubic rate and every nonintegral regular rate above one; the paper transfers these zero-indexed statements to one-based indexing. Signed-error criteria also force eventual Sylvester behaviour under their stated premises. | The unrestricted Sylvester-tail hypotheses remain unproved. |
 | [#249](#result-249) | The short paper and Lean classify the fixed-base-two totient-residue series for every positive modulus and every rational-valued observable at dyadic moduli. They also give the exact all-base totient-kernel rank `k^e+1`. | The original series with unreduced totients remains open; the conditional routes still need their cofinal arithmetic inputs. |
 | [#251](#result-251) | Lean checks a rich synthetic prime-gap countermodel, and the paper gives a separate sparse-perturbation obstruction. | These are not actual prime gaps; the prime-specific producer for irrationality remains open. |
 | [#257](#result-257) | Lean checks the finite-prime weighted-support theorem at every integer base, including supports with divergent reciprocal sum. | It does not cover every infinite support. [Palomar registered version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000009&version=1) of the exact five-declaration `E257_01` selection. |
@@ -137,6 +137,15 @@ Dedekind-zeta simple pole; the short paper transfers it to one-based indexing
 by an ordinary finite-prefix argument. Its printed proof uses classical
 Chebotarev instead. This rate does not cover the unrestricted Sylvester-tail
 question.
+
+More generally, the [nonintegral regular-rate theorem](../lean/ErdosProblems/Erdos243/PaperCompleteR21/NonintegralRegularRate.lean)
+checks irrationality when `λ > 1` is nonintegral and
+`a_n²/a_(n+1)=1+λ/n+o(n⁻λ)`. Its Lean statement derives convergence
+for a positive, strictly increasing sequence indexed from zero. The long
+paper gives the ordinary finite-prefix transfer to one-based indexing.
+The integer-extraction lemma rules out nonintegral coefficients; the
+separate cubic argument rules out coefficient three. No rational examples
+are asserted for the remaining integer coefficients.
 
 The rounded sequence `a_1 = 8`,
 `a_(n+1) = ⌈n a_n²/(n+3)⌉` has precisely this rate and product-ratio
@@ -574,17 +583,29 @@ a claim to settle the seven unresolved targets or the unadjudicated historical
   support. This is a change of coordinates for hypothetical rational support,
   not a contradiction or a universal #257 proof; arbitrary infinite support
   and the `1/2` membership boundary remain open.
-- **A separate #1041 positive route remains open.** The source frontier identifies
-  `min_c L(c) ≤ 2` over admissible
-  hubs on the ray-separated locus as the surviving parent carrier; lower
-  semicontinuity would turn it into the theorem. Its degree-five `SPOKE-5`
-  instance would settle that degree. This is source-only research evidence,
-  not a Lean theorem: hub choice, path containment, and the `SPOKE-5` supply
-  remain open, while the earlier minimum-critical and aggregate shortcuts are
-  explicitly refuted (`research_corpus/Erdos1041/FRONTIER.md`).
-- **#249, an endpoint-facing conditional route plus a finite-level rank
-  spine.** The actual-LCM orbit route gives a genuinely endpoint-facing
-  reduction: an explicit approximation of the orbit by an odd-rank raw block,
+- **Degree-restricted #1041 positive routes remain open.** The source
+  frontier's parent carrier is `min_c L(c) ≤ 2` over admissible hubs on the
+  ray-separated locus. Its Corollary G, with Theorem L and Corollary S,
+  ordinary proofs in the research corpus with no human review, shows that the
+  carrier in degree `n` gives the degree-`n` case of
+  #1041, so ani's example makes the carrier fail in degree seven. Its
+  degree-five `SPOKE-5` instance would settle degree five. This is source-only
+  research evidence with no Lean counterpart: hub choice, path containment,
+  and the `SPOKE-5` supply remain open, and the earlier minimum-critical and
+  aggregate shortcuts are explicitly refuted
+  (`research_corpus/Erdos1041/FRONTIER.md`).
+- **#249, one open bound.** Lean proves that `S = ∑ φ(n)/2ⁿ` is irrational if,
+  for every shift `h ≥ 1`, there are arbitrarily large `X` at which the real
+  part of the first-harmonic sum over the good indices is at most `603X/1000`,
+  at `s = 26`, `η = 1/1000` and minimal depth
+  (`irrational_totient_series_of_goodBase_gap`,
+  `ArgumentGraph/Results/Erdos249Endpoint.lean`). For all large `X` more than
+  `67X/100` of the indices in `[X, 2X)` are good
+  (`eventually_card_pivotGoodBases_gt`), so the bound asks for the average
+  first-harmonic cosine over them to stay below `9/10`. At these parameters the
+  four pivot budgets imply it, and it asks less than the prime-number-theorem
+  route's `11X/20`. The bound is open. The actual-LCM orbit route is a second
+  sufficient route: an explicit approximation of the orbit by an odd-rank raw block,
   with an error radius, turns cofinal distance at least `1/32` plus that radius
   from every integer into the existing signed-margin producer. The exact
   source calls this `PowerTwoActualLcmOrbitSeparationSupply` and then derives
@@ -1315,8 +1336,9 @@ core)**
   ray-separation consumer, not a theorem (`:315`).
 - A Cassini example refutes the printed global tree budget of a March 2026
   manuscript's Proposition 12; that obstruction is not a disproof of
-  Erdős #1041. The source-only frontier still records hub selection on the
-  ray-separated locus as an open parent carrier
+  Erdős #1041. The source-only frontier records hub selection on the
+  ray-separated locus as a parent carrier; by its Corollary G the carrier
+  fails in degree seven, so only degree-restricted versions stay open
   (`research_corpus/Erdos1041/FRONTIER.md`).
 - Checked counterexample: using the explicit degree-seven polynomial of
   erdosproblems.com contributor
@@ -1494,7 +1516,9 @@ The Mersenne achievement set consists of subsums of
 rational subseries, which would refute the universal statement in Problem 257.
 The repository does not prove this membership.
 
-The checked chain includes:
+The chain includes the declarations below. Public CI does not compile the
+files cited here under `ErdosProblems/Skip`, `Bit`, `Decl` or `Hlow`; the
+two `Erdos249257` files are in the default build.
 
 - `half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite` in
   `Erdos249257/GreedyAchievementSet.lean`: membership of `1/2` is equivalent to
@@ -1594,9 +1618,14 @@ at arbitrarily large scales. The theorem says nothing at `t = 83`.
 ### Finite off-diagonal certificates
 
 The source-bound roster records 125 verified rows at positions not constrained
-to equal `periodLcm t`. Two pairs of rows repeat the same `(h,N,L)` triple, so
-the roster contains 123 distinct certificates matched to 123 public Lean
-theorems across 122 files. Its largest recorded position is:
+to equal `periodLcm t`; "verified" is the `lean_verified` flag of the source log
+`lean/ErdosProblems/FreePosition/data.jsonl`. Two pairs of rows repeat the same
+`(h,N,L)` triple, so the roster contains 123 distinct certificates matched to
+123 public Lean theorems across 122 files. Public CI does not compile the
+`ErdosProblems/FreePosition` files. The source-bound reproduction plan in
+`scripts/run_source_bound_reproduction.py` includes a focused recompilation of
+`FreeKill64OneHundredFifteenDI.lean`; no receipt of a run is committed. Its
+largest recorded position is:
 
 ```text
 freeKill_64OneHundredFifteenDI :
@@ -1683,7 +1712,8 @@ not supply the unbounded theorem required by #249.
 ### Scoped no-go theorems
 
 These theorems rule out particular proof mechanisms. They do not rule out other
-arguments.
+arguments. Public CI compiles none of the `Lift`, `Half`, `Rem`, `Three` and
+`Decl` files cited in this list.
 
 - `no_lift_from_lower_totient_data`, `ErdosProblems/Lift/AngleA5.lean` — no
   universal lift of the displayed form can follow only from the stated lower
@@ -1781,7 +1811,8 @@ emitted source and receipt handles.
 ## Historical corrections retained in source
 
 The current Lean module headers and declarations retain the operative
-boundaries. The principal corrections were:
+boundaries. Public CI compiles none of the files listed below. The principal
+corrections were:
 
 - `Lift/AngleB2.lean` no longer says that the survivor set is empty. Its theorem
   is conditional on a false `hcof` instance at each surviving class and on an
@@ -1999,8 +2030,10 @@ The irrationality of
 ∑_{n≥1} φ(n)/2^n
 ```
 
-is not proved in this release. The short paper proves all-base finite-level
-rank `k^e+1` for `k≥2, e≥1`, with canonical integral coordinates and all
+is not proved in this release; Lean proves it from one open bound, a real part
+at most `603X/1000` for the first-harmonic sum over the good indices at
+arbitrarily large `X` (`irrational_totient_series_of_goodBase_gap`). The short
+paper proves all-base finite-level rank `k^e+1` for `k≥2, e≥1`, with canonical integral coordinates and all
 integral relations; at prime base the rank is exponential in the level `e`.
 A rational `5/4` control agreeing with totient on odd arguments has tempered
 carry rank at least `2^e−1` at every depth, so a generic rationality-driven
@@ -2079,10 +2112,11 @@ anchor, kept separate from the source currently under validation.
 Farey's method supplies the number directly; it is not an improvement on the
 classical bound.
 
-Labels are descriptions, not scores. **Formalised here** means a statement
-rendered and kernel-checked in Lean, which for a known theorem is a checked
-rendering and not a priority claim; **proved here** means the argument is this
-project's. **Verified finite instance** means
+The labels describe evidence. **Formalised here** means known mathematics
+rendered and kernel-checked in Lean; it makes no priority claim. **Proved
+here** means the argument is this project's.
+**Unconditional progress** marks a theorem that does not settle the open
+problem and asserts neither novelty nor prior knowledge. **Verified finite instance** means
 Lean checked only the listed inputs; **conditional reduction** means the
 conclusion depends on a named open condition.
 
@@ -2134,6 +2168,9 @@ states its own open questions. For the two problems with working records:
 
 - Prove that `S = ∑ φ(n)/2ⁿ` is irrational without placing a bound on a possible
   rational denominator.
+- Prove the single #249 bound: for every shift, a real part at most `603X/1000`
+  for the first-harmonic sum over the good indices at arbitrarily large `X`,
+  which Lean turns into irrationality.
 - Produce the unbounded certificate supply required by the exact #249
   reduction.
 - Prove irrationality of `∑_{n∈A} 1/(2ⁿ - 1)` for every infinite

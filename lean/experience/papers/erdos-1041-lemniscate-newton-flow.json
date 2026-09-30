@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1041-lemniscate-newton-flow",
-  "title": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample\\\\and Two Short-Path Criteria",
+  "title": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Problem note",
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "412131a7027afa04b97d61da5f9445249b0be0dd7c0c80dfc12dc8579c008ef9",
-    "html_exact_tex_sha256": "6ad9c93738c0f83913af31cbd5cb73d1e7fdeb04b1bed9802d200ca915f2856a"
+    "html_mathml_sha256": "392c444bf41ef65fedf3198d25923bd0383b1bdf7ac0c42ae3e86d71f3288455",
+    "html_exact_tex_sha256": "0edbdfd038ed3c202d8fcf56ba94688df47267630690100f50a4e63aba416cb2"
   },
   "sections": [
     {

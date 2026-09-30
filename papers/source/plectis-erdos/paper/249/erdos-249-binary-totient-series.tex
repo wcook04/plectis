@@ -357,20 +357,23 @@ Conversely, $\ph(n)$ is even for every $n\ge3$. Constancy on the even
 classes makes all terms after $n=2$ constant, giving the stated rational
 value without a recurrence hypothesis.
 \end{proof}
-There is an earlier coefficient-level obstruction: for each $m\ge3$,
-$\varphi(n)\bmod m$ is not automatic in any integer base $k\ge2$
-\cite[Cor.~4, p.~654]{yazdani2001}; see also
-\cite[Thm.~3 and Ex.~4]{allouche-shallit-yassawi}.
-Nonautomaticity does not prove irrationality of this sum: when $m>2$,
-the residues are not binary digits. The preceding proof instead uses
-the isolated coefficient and the bounded tail.
-Erick Wong posted a proof that $\sum_{n\ge1}(\ph(n)\bmod k)k^{-n}$ is
-irrational for every integer $k>2$, with the base equal to the modulus, as an
-answer on Mathematics Stack Exchange on 29 March 2015~\cite{wong2015}.
-Theorem~\ref{res:residueseries} fixes the base at $2$ for every modulus
-$m\ge3$ and classifies the dyadic residue observables.
+Erd\H{o}s's Lemma~1~\cite[p.~213]{erdos1957} already gives the first
+assertion: $\sum_ka_kt^{-k}$ is irrational for every integer $t\ge2$ when
+the integers $a_k\ge0$ have bounded averages and infinitely many nonzero
+terms, forming a set of density zero. Here $\ph(n)\bmod m\ne0$ forces $n$
+to have no prime factor $p\equiv1\pmod m$, and such $n$ have density zero;
+Theorem~3 of~\cite{kst2026} applies in the same way. When the values
+$f(r)-f(0)$ take both signs those criteria need a further spacing
+hypothesis, which the isolated coefficient avoids. Wong posted the case in
+which the base equals the modulus~\cite{wong2015}. The companion
+checks
+\href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR7/RationalIntegerRadixClassification.lean\#L128}{the first assertion}
+and
+\href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/Erdos249/PaperCompleteR7/RationalIntegerRadixClassification.lean\#L145}{the second}
+in Lean in every integer base $t\ge2$ and proves
+that $1$ and the series $\sum_n(\ph(n)\bmod m)t^{-dn}$, $d\ge1$, are
+linearly independent over~$\Q$.
 
-The preceding proof fixes its coefficient bound before choosing the zero blocks.
 For $S$, the termwise condition $2^L\mid\ph(N+L)$, with $N+L>1$, forces
 $2^L\le\ph(N+L)\le N+L-1$. Hence the tail envelope
 $(N+L+2)2^{-L}>1$ cannot exclude any positive denominator.
@@ -641,6 +644,34 @@ criterion is equivalent to irrationality, just as
 rank-one quotients and their positive averages, not other approximation
 families.
 
+\subsection{Preserving Dirichlet singularities under signed changes}
+\label{sec:signed-interpolation-transfer}
+The companion
+\href{erdos249-totient-reasoning-surface.pdf}{\emph{The Binary Totient Series}},
+subsection ``Signed interpolation with entire Dirichlet defects'', proves
+the following stronger comparison theorem by an ordinary argument.
+Fix an integer $\beta\ge2$, a prefix and finitely many prescribed zero
+moments. For every positive allowance $f(n)\to\infty$, even a nonmonotone
+one, an interval around $\sum\varphi(n)\beta^{-n}$ is filled by values of
+integer sequences $b=\varphi+e$ with $0\le b(n)\le n$ and
+$|e(n)|\le f(n)$. The correction is supported on even indices of upper
+Banach density zero; it leaves the prefix and odd coefficients unchanged.
+Each fixed coefficient and cumulative congruence is eventually preserved.
+In each fixed arithmetic progression the Dirichlet defect is entire, and
+every root-of-unity radial germ is smooth, with the prescribed finite
+jets zero. Thus both rational and irrational values coexist with those
+observations. The proof also quantifies the block lengths preserved for
+the chosen allowance.
+
+The corrections have both signs. Entire defects preserve singularities,
+not the regular parts or zeros of the Dirichlet functions; smooth finite
+jets do not preserve the entire radial germ. Rational comparison values
+force first harmonics larger than the $603X/1000$ cancellation threshold
+on the actual totient good-index set at all sufficiently large admissible
+scales. These comparisons identify information insufficient to prove the
+needed bound. They do not supply that bound for the unchanged totient,
+nor a Lean proof of the interpolation theorem.
+
 \section{A remaining exponential-sum estimate}\label{sec:open}
 A sufficient analytic target is a bound on an explicit finite sum:
 for every $h\ge1$ and every $X_0$, find integers $X\ge\max(X_0,1)$ and
@@ -725,22 +756,30 @@ The excluded-cofactor bound is
 \href{https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L654}{proved in Lean}
 with the prime number theorem and the existence of the density of
 $\{m:\ph(m)<\eta m\}$ taken as hypotheses.
-An elementary mean-value estimate also
-gives the explicit sufficient cutoff $\eta=1/1000$ for the
-excluded-cofactor bound. The two remaining estimates concern the group
-means and their weighted, mean-subtracted phases. They must hold at the
-same depth and for the same choice of $\eta$; the existence of a cutoff
-that controls the excluded indices does not establish either of them.
+At the explicit cutoff $\eta=1/1000$ the excluded-cofactor bound is
+\href{https://github.com/wcook04/plectis-erdos/blob/57941a741fceaae33ab7e2513a9cd11fee060081/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L910}{proved in Lean}
+with no hypotheses: an elementary mean-value estimate bounds the upper
+density of $\{m:\ph(m)<m/1000\}$ by $3/1000$, and Chebyshev's bound
+$\prod_{a+1<p\le2a+1}p\le\binom{2a+1}{a}\le4^a$ replaces the prime number
+theorem at the cost of a factor $\log4$, so at most
+$(3\log4/1000+o(1))X<X/100$ indices are excluded. The same argument
+\href{https://github.com/wcook04/plectis-erdos/blob/ab690b0aa515faa3a432e9d47de288704ebf6bb5/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L930}{proves}
+the bound with no hypotheses for every $\eta$ with $0<\eta<1/(300\log4)$. The two remaining estimates concern the group
+means and their weighted, mean-subtracted phases. Since, for all large $X$,
+more than $67X/100$ indices lie in $\mathcal G$ at $s=26$, $\eta=1/1000$
+and minimal depth, the
+companion \href{https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad0b9dd0d69675/lean/ErdosProblems/ArgumentGraph/Results/Erdos249Endpoint.lean\#L100}{proves}
+that the single open bound
+$\operatorname{Re}\sum_{N\in\mathcal G}E_N\le603X/1000$, for each $h$ and
+arbitrarily large $X$, replaces both.
 
 Balasubramanian, Giri and Srivastav estimate the finite sums
 $\sum_{1\le n\le x}F(n)G(n-h)$ for $F=f*1$, $G=g*1$ with decaying
 $f,g$, setting $F(n)=G(n)=0$ for $n\le0$. Taking
 $f(n)=g(n)=\mu(n)/n$ gives $F(n)=G(n)=\ph(n)/n$ for $n\ge1$;
 the estimate is uniform for $|h|\le x/2$~\cite[Thm.~2.2]{bgs2016}.
-Their partial-summation extension allows differentiable weights with
-bounded derivative on the summation interval~\cite[Rem.~2.9]{bgs2016}.
 The missing input here is a useful error bound for the present phase
-and residual weight, not shift uniformity or partial summation itself.
+and residual weight.
 \medskip
 \noindent\textbf{Acknowledgement.} I thank Wouter van Doorn for advice on
 writing for a first-time reader and on explaining the strength of a
@@ -1080,6 +1119,12 @@ Theorem~1, pp.~1--2.
 \href{https://math.stackexchange.com/a/1211557}{answer 1211557}
 to \emph{An infinite sum based on the mod-parity of Euler's totient function},
 Mathematics Stack Exchange, 29 March 2015, accessed 15 September 2026.
+\bibitem{erdos1957} P.~Erd\H{o}s, \emph{On the irrationality of certain
+series}, Indag.\ Math.\ \textbf{19} (1957), 212--219. Lemmas~1 and~4,
+pp.~213--218.
+\bibitem{kst2026} H.~Kaneko, Y.~Suzuki and Y.~Tachiya, \emph{Refinements of
+Erd\H{o}s's irrationality criterion for certain sparse infinite series},
+arXiv:\href{https://arxiv.org/abs/2601.20743v1}{2601.20743v1}. Theorem~3, p.~5.
 \bibitem{eldar2026oeis} A.~Eldar, comment and formula added to OEIS A256936
 (revisions 28 and 31), 15 March 2026,
 \url{https://oeis.org/history?seq=A256936}, accessed 16 September 2026.

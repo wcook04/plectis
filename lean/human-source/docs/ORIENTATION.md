@@ -105,6 +105,7 @@ The prior-art record, not this table, supplies antecedents.
 | verified finite instance | Kernel-checked computation at a bounded range |
 | cited only | External theorem used for positioning, not formalised |
 | open | Not proved by this release |
+| formal statement refuted | Lean refutes the exact Formal Conjectures statement; correspondence with the original wording awaits independent review |
 
 ## Exact open boundary
 
@@ -121,7 +122,7 @@ The prior-art record, not this table, supplies antecedents.
 - `remaining_open.erdos_243_eventual_recurrence` — Prove the Erdős #243 assertion: if 1 ≤ a₁ < a₂ < ··· has aₙ/aₙ₋₁² → 1 and rational reciprocal sum, then aₙ = aₙ₋₁² − aₙ₋₁ + 1 eventually; the checked barrier does not settle the mixed-sign unbounded regime.
 - `remaining_open.erdos_269_reduced_tail_nonintegrality` — Prove that B·T_a ∉ ℤ for every B ≥ 1 coprime to 30 and every a ≥ 1.
 - `remaining_open.erdos_269_cofinal_local_window_escape` — Prove that for every B ≥ 1 coprime to 30 and every a₀ ≥ 1 there are ℓ ≥ a₀ and h ≥ 1 with lpr_{W(ℓ,h)}(−B·F(ℓ,h)) > K(B, ℓ+h), where K is the defined long-paper cap.
-- `remaining_open.erdos_269_two_dimensional_representation` — Represent D_{2,3,5} faithfully by a specified two-dimensional Mahler-type value theorem with every hypothesis verified, give a conditional theorem under explicit logarithmic nondegeneracy, or prove no such representation exists.
+- `remaining_open.erdos_269_two_dimensional_representation` — Transcendence of D_{2,3,5}, which is irrational: represent it faithfully by a specified two-dimensional Mahler-type value theorem with every hypothesis verified, give a conditional theorem under explicit logarithmic nondegeneracy, or prove no such representation exists.
 - `remaining_open.erdos_243_overlap_height_growth` — Decide whether every nonterminal canonical orbit of the reduced-orbit problem has limsup_n (log M_n)/n > 0, equivalently 2^n ≤ M_n^K infinitely often for some K ≥ 1.
 - `remaining_open.erdos_249_first_harmonic_anti_concentration` — Decide whether, for each h ≥ 1, some s ≥ 1 and 0 < η < 1 give, for every X₀, admissible X and L meeting the displayed size conditions for which the four first-harmonic bounds hold.
 - `remaining_open.twenty_one_scaled_remainder_cofinal_return` — Decide whether the scaled actual greedy remainder returns cofinally to one bounded interval: whether some B < ∞ has 2^N r_N ≤ B at arbitrarily large N.
@@ -151,8 +152,8 @@ opens with a ten-minute verdict.
 
 Navigation inventory, not results. Generated certificate shards are
 counted as formal source, never as separate mathematical claims. The
-two roots currently expose 1,860 modules and
-163,947 declarations across #68, #243, #249,
+two roots currently expose 1,903 modules and
+164,639 declarations across #68, #243, #249,
 #251, #257, #269, #1041, and #1049; exact counts and atlas handles
 remain in `docs/orientation.json`.
 
@@ -187,7 +188,7 @@ order, never a significance proxy.
 The descriptor exposes the authored flagship spine, broader gateway cohort,
 and lower-signal dispositions with their reasons and open obligations.
 
-Flagship families: 7; gateway cohort: 15; lower-signal families: 18;
+Flagship families: 7; gateway cohort: 15; lower-signal families: 23;
 these are visibility tiers, not significance rankings.
 Use `python3 scripts/query_corpus.py --publication-architecture` for the
 selection decisions and `--publication-family <family_id>` for each full

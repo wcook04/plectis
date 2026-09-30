@@ -6,6 +6,11 @@
 Plectis is an open-source, AI-assisted prototype for turning mathematical
 exposition into further research. Eight Erdős programmes offer papers, Lean
 source, methods and failed routes for others to question and extend.
+[Problem-Sized Lean Worlds](paper/systems/claim-faithful-publication-systems-paper.pdf)
+explains the system: how a result moves through its paper, Lean proof,
+selected Comparator check, claim record and credited return. The repository
+contains those sources and checks, so a reader can inspect the chain from a
+clone.
 
 Start with [#257's short paper](paper/257/erdos-257-mersenne-support-subseries.pdf).
 If `h_P(a)` is the part of an exponent `a` supported on a finite nonempty set of primes,
@@ -19,11 +24,12 @@ Other seven programmes: [results guide](docs/RESULTS.md#problem-by-problem-guide
 
 [#257 exercise](docs/research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis) · [#243/#257 proofs](docs/research-commons/README.md#native-prove2me-theorems).
 
-Start with the [paper](paper/257/erdos-257-mersenne-support-subseries.pdf),
-[an exact-rational test you can vary](research/experiments/choices_contraction/README.md#the-probe)
-(not the weighted theorem), or [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
+Start with the [systems paper](paper/systems/claim-faithful-publication-systems-paper.pdf)
+for the research method, [#257's paper](paper/257/erdos-257-mersenne-support-subseries.pdf)
+for one checked result, or [return a question or correction](CONTRIBUTING.md#return-what-you-learned).
 
-**[All papers](paper/README.md)** ·
+**[Clone and reproduce](docs/REPRODUCIBILITY.md)** ·
+[All papers](paper/README.md) ·
 [Reading edition](docs/reading-edition/README.md) ·
 [Replay #257 theorem](docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay) ·
 [Contribute or correct](CONTRIBUTING.md)
@@ -50,25 +56,15 @@ See [Formal Conjectures work](#formal-conjectures-contributions).
 records to continue a question or develop a new direction. Work with your own
 AI or without one; returned work keeps its sources, checks and credit visible.
 
-- **Explore with your AI, no clone needed.** Give your model the
-  [reading edition](docs/reading-edition/README.md): one file with an
-  introduction, a short research instruction and the opening of each paper.
-  [One open investigation](research/experiments/choices_contraction/README.md)
-  shows the route and ends with five ways to continue it.
-- **Work in the repository.** The
-  [agent quickstart](docs/agents/README.md#start-with-current-public-work)
-  provides clone commands and a copyable prompt. Name a question, or ask your
-  agent to read the corpus and decide what is worth developing. The
+- **Work in the repository.** The [reproduction guide](docs/REPRODUCIBILITY.md)
+  gives clone commands and separates no-Lean claim inspection from proof builds.
+  The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
+  gives a copyable research prompt. The
   [agent-navigation paper](paper/systems/cold-clone-to-proof-receipt.pdf)
   explains the workbench design.
-- **Test a rational candidate with Python 3, no Lean.** From a clone, run
-  `python3 research/experiments/choices_contraction/rational_membership_probe.py --target 189/388 --depth 16 17 --horizon 160`.
-  The exact output shows no exclusion through step 16 and a strict gap at
-  step 17, ruling out this rational as a subsum of `1/(2^n-1)`. Change
-  `--target` to test your own positive fraction; the
-  [probe guide](research/experiments/choices_contraction/README.md#the-probe)
-  explains the outcomes and host choices. Surviving a finite depth never
-  proves membership, and this test does not settle Problem 257.
+- **Read without a clone.** The [reading edition](docs/reading-edition/README.md)
+  introduces each problem and its paper. A reader can also ask a question or
+  return a correction without running Lean.
 
 The short papers explain results; longer records keep calculations and failed
 routes. Both are readable without Lean. [A reader's way in](docs/READING_GUIDE.md)
@@ -207,16 +203,16 @@ follow the [agent workbench](docs/agents/AGENT_WORKBENCH.md).
 
 ## Corpus at a glance
 
-The reviewed layer a mathematician should judge: 150 curated claim records in 33 contribution families, reaching Lean source through 468 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
+The reviewed layer a mathematician should judge: 160 curated claim records in 38 contribution families, reaching Lean source through 478 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 87% of the 163,947 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 87% of the 164,639 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,860 |
-| Formal results and supporting lemmas | 159,982 |
-| Curated claim records | 150 |
-| Contribution families | 33 |
+| Lean modules (the two library roots) | 1,903 |
+| Formal results and supporting lemmas | 160,373 |
+| Curated claim records | 160 |
+| Contribution families | 38 |
 
 Generated shards are counted as formal source and never as separate
 mathematical claims. Claim records cover every status, including cited and

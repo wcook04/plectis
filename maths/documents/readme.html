@@ -98,7 +98,12 @@
 <p>Plectis is an open-source, AI-assisted prototype for turning
 mathematical exposition into further research. Eight Erdős programmes
 offer papers, Lean source, methods and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed routes</a> for others to
-question and extend.</p>
+question and extend. <a
+href="../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
+Lean Worlds</a> explains the system: how a result moves through its
+paper, Lean proof, selected <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> check, claim record and credited
+return. The repository contains those sources and checks, so a reader
+can inspect the chain from a clone.</p>
 <p>Start with <a
 href="../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s short
 paper</a>. If <span class="math inline" data-term-auto="off" data-tex="\(h_{P}(a)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>h</mi><mrow data-mjx-texclass="ORD"><mi>P</mi></mrow></msub><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is the part of an exponent
@@ -119,12 +124,14 @@ exercise</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md#native-prove2me-theorems">#243/#257
 proofs</a>.</p>
 <p>Start with the <a
-href="../../papers/erdos-257-mersenne-support-subseries.pdf">paper</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md#the-probe">an
-exact-rational test you can vary</a> (not the weighted theorem), or <a
+href="../../papers/claim-faithful-publication-systems-paper.pdf">systems
+paper</a> for the research method, <a
+href="../../papers/erdos-257-mersenne-support-subseries.pdf">#257’s
+paper</a> for one checked result, or <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">return a question or
 correction</a>.</p>
-<p><strong><a href="paper-guide.html">All papers</a></strong> · <a
+<p><strong><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">Clone and
+reproduce</a></strong> · <a href="paper-guide.html">All papers</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">Reading edition</a> · <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md#reviewer-replay">Replay
 #257 theorem</a> · <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">Contribute or
@@ -137,7 +144,7 @@ Hausdorff measure</a> greater than two. This refutes the exact Formal
 Conjectures path-image-length statement; the separate total-variation
 bound is also checked. The other seven targets remain open. Independent
 human review of correspondence with the 1958 wording has not been
-recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> checks only selected exact statements, axioms and
+recorded. Comparator checks only selected exact statements, axioms and
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">kernel acceptance</a>; it does not assess novelty or historical
 correspondence.</strong></p>
 <p>Attribution: <a
@@ -152,30 +159,17 @@ papers and research records to continue a question or develop a new
 direction. Work with your own AI or without one; returned work keeps its
 sources, checks and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> visible.</p>
 <ul>
-<li><strong>Explore with your AI, no clone needed.</strong> Give your
-model the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md" data-link-kind="exogenous" rel="external noopener">reading edition</a>:
-one file with an introduction, a short research instruction and the
-opening of each paper. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">One open
-investigation</a> shows the route and ends with five ways to continue
-it.</li>
 <li><strong>Work in the repository.</strong> The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">agent
-quickstart</a> provides clone commands and a copyable prompt. Name a
-question, or ask your agent to read the corpus and decide what is worth
-developing. The <a
-href="../../papers/cold-clone-to-proof-receipt.pdf">agent-navigation
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">reproduction guide</a> gives clone
+commands and separates no-Lean claim inspection from proof builds. The
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work" data-link-kind="exogenous" rel="external noopener">agent
+quickstart</a> gives a copyable research prompt. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">agent-navigation
 paper</a> explains the workbench design.</li>
-<li><strong>Test a rational candidate with Python 3, no Lean.</strong>
-From a clone, run
-<code>python3 research/experiments/choices_contraction/rational_membership_probe.py --target 189/388 --depth 16 17 --horizon 160</code>.
-The exact output shows no exclusion through step 16 and a strict gap at
-step 17, ruling out this rational as a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a> of <span class="math inline" data-term-auto="off" data-tex="\(1/(2^{n}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mi>n</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>.
-Change <code>--target</code> to test your own positive fraction; the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md#the-probe">probe
-guide</a> explains the outcomes and host choices. Surviving a finite
-depth never proves membership, and this test does not settle Problem
-257.</li>
+<li><strong>Read without a clone.</strong> The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a> introduces
+each problem and its paper. A reader can also ask a question or return a
+correction without running Lean.</li>
 </ul>
 <p>The short papers explain results; longer records keep calculations
 and failed routes. Both are readable without Lean. <a
@@ -415,12 +409,12 @@ Corpus inventory and counting limits
 </section>
 <section id="corpus-at-a-glance" class="level2">
 <h2>Corpus at a glance</h2>
-<p>The reviewed layer a mathematician should judge: 150 curated claim
-records in 33 contribution families, reaching Lean source through 468
+<p>The reviewed layer a mathematician should judge: 160 curated claim
+records in 38 contribution families, reaching Lean source through 478
 principal declaration links. <code>docs/SCOPE.md</code> gives its shape
 and <code>docs/RESULTS.md</code> gives the strongest checked result per
 problem. The website and the papers are the human reading path.</p>
-<p>The rest is engineering inventory. About 87% of the 163,947
+<p>The rest is engineering inventory. About 87% of the 164,639
 declarations (142,668 across 695 modules) are machine-emitted
 certificate shards: one integer checked prime, one position excluded.
 The remainder is not all hand-written either.</p>
@@ -434,19 +428,19 @@ The remainder is not all hand-written either.</p>
 <tbody>
 <tr>
 <td>Lean modules (the two library roots)</td>
-<td class="ta-r">1,860</td>
+<td class="ta-r">1,903</td>
 </tr>
 <tr>
 <td>Formal results and supporting lemmas</td>
-<td class="ta-r">159,982</td>
+<td class="ta-r">160,373</td>
 </tr>
 <tr>
 <td>Curated claim records</td>
-<td class="ta-r">150</td>
+<td class="ta-r">160</td>
 </tr>
 <tr>
 <td>Contribution families</td>
-<td class="ta-r">33</td>
+<td class="ta-r">38</td>
 </tr>
 </tbody>
 </table>
@@ -488,7 +482,7 @@ href="../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
 Lean Worlds</a> describes the research system: each problem kept as a
 persistent, checkable record, the path from a proof to a public claim,
 and the contribution cycle. <a
-href="../../papers/open-source-mathematics-strategy.pdf">From Spare
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
 Compute to Cumulative Mathematics</a> explains the collaborative
 research process. Selected external verification entries live in <a
 href="https://github.com/wcook04/plectis-erdos-lean">plectis-erdos-lean</a>.

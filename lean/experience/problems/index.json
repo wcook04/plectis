@@ -78,7 +78,7 @@
       "problem_id": "erdos_1041",
       "erdos_number": 1041,
       "title": "Short connections inside polynomial lemniscates",
-      "status": "open",
+      "status": "formal statement refuted",
       "question": "Must two roots of a monic polynomial in the open unit disc be joined by a sub-two-length curve inside its unit lemniscate? Ani’s degree-seven example refutes the exact Formal Conjectures statement; correspondence with the 1958 wording awaits human review.",
       "href": "problems/erdos_1041.json",
       "paper_id": "erdos-1041-lemniscate-newton-flow",

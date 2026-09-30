@@ -107,6 +107,7 @@ project's authorship and current review position.
 | Where is the evidence for one result? | [docs/SOURCE_MAP.md](SOURCE_MAP.md) | Routes between problems, claims, paper passages and Lean source. |
 | Which statement does Comparator compare? | [verification/comparator.json](../verification/comparator.json) and [external verification](EXTERNAL_VERIFICATION.md) | The selected challenge, solution, permitted axioms and replay boundary. |
 | What is ready for Palomar? | [docs/verification/PALOMAR_QUALIFICATION.md](verification/PALOMAR_QUALIFICATION.md) and [docs/PALOMAR_POLICY_RECONCILIATION.json](PALOMAR_POLICY_RECONCILIATION.json) | Repository qualification, with external actions and outcomes recorded separately. |
+| What did a research round return, and what does it still owe? | [The research record](reference/RESEARCH_RECORD.md) | Custody of each return, its dispositions, computed milestones, relation rows and contrasts. |
 | Which checks govern a release? | [scripts/check_release.py](../scripts/check_release.py) and [the GitHub workflow](../.github/workflows/lean.yml) | The local checks and the checks run on pushes and pull requests. |
 
 Keep mathematical explanations and reviewed interpretations authored. Generate

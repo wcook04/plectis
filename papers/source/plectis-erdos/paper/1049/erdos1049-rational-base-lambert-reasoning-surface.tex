@@ -2153,6 +2153,268 @@ factorisation describes the same weights in a new way; it does not license
 substituting their denominator for the denominator of a cleared linear form.
 
 
+\subsection{A rational-value model with the same Hankel signature}
+\label{long1049:sec:calibrated-countermodel}
+
+The preceding fixed-base asymptotic describes the actual normalised
+Zudilin moments.  It does not, on its own, clear a determinant after
+rational specialisation.  The following explicit family separates these
+two kinds of information.  It has positive moments, an integer formal
+$q$-series, the same leading Hankel coefficient at every rank and the
+same \emph{shape} of fixed-base asymptotic, including a power of $N$
+whose exponent is the associated special value.  That value is rational.
+The example is a countermodel to an inference from those properties
+alone.  It does not reproduce Zudilin's moment recurrence, polynomial
+factorisation or cyclotomic divisors, and says nothing about whether
+$F(3/2)$ is irrational.
+
+Put
+\[
+ c_k=\frac{(k+1)^2(k+2)}2,\qquad
+ d_k=\frac{(k+1)(k+2)}2,\qquad
+ R(w)=\sum_{k\ge0}c_kw^k=\frac{1+2w}{(1-w)^4}.
+\]
+For $0<q\le2/3$ define, with a single fixed cut-off $32$,
+\begin{equation}\label{long1049:eq:calibrated-weights}
+ a_k(q)=\begin{cases}
+ c_k(1-q)^{32},&1\le k<32,\\
+ c_k-12q d_k,&k\ge32,
+ \end{cases}
+ \qquad a_0(q)=1-\sum_{k\ge1}a_k(q)q^k.
+\end{equation}
+This is a closed rational construction.  In fact, if
+\[
+ T_q(w)=R(w)-\frac{12q}{(1-w)^3}
+            -\sum_{k=0}^{31}(c_k-12qd_k)w^k,
+\]
+then $A_q(w)=\sum_{k\ge0}a_k(q)w^k$ equals
+\[
+ a_0(q)+(1-q)^{32}\sum_{k=1}^{31}c_kw^k+T_q(w),\quad
+ a_0(q)=1-(1-q)^{32}\sum_{k=1}^{31}c_kq^k-T_q(q).
+\]
+Set $\mu_m(q)=A_q(q^{m+1})$, $\nu_m(q)=\mu_m(q)-q\mu_{m+1}(q)$,
+and $G_q(z)=\sum_{m\ge0}\nu_m(q)z^m$.
+
+\begin{theorem}[calibrated rational-value Hankel model]
+\label{long1049:thm:calibrated-model}
+All the weights in~\eqref{long1049:eq:calibrated-weights} are positive
+for $0<q\le2/3$.  The two moment banks $\mu_m$ and $\nu_m$ have positive
+Hankel determinants of every rank, $G_q$ is not a rational function, and
+$G_q(q)=1$.  Their formal Hankel determinants both begin with
+\[
+ C_Nq^{B_N},\qquad B_N=\sum_{j<N}j^2,\quad
+ C_N=\frac{(N!)^2(N+1)!}{2^N}\qquad(N\ge1).
+\]
+At the fixed base $q_0=2/3$, with
+$P(q)=\prod_{j\ge1}(1-q^j)$ and
+$\mathcal M(q)=\prod_{j\ge1}(1-q^j)^{-j}$,
+there is an explicit $\mathcal A>0$ such that
+\[
+ \det(\mu_{i+j}(q_0))_{0\le i,j<N}
+ \sim\mathcal A\mathcal M(q_0)^3 C_Nq_0^{B_N}
+             P(q_0)^{2N}N^{-8\xi},\qquad \xi=G_{q_0}(q_0)=1.
+\]
+\end{theorem}
+
+This countermodel and its denominator calculation have ordinary proofs
+below; they have not been Lean-checked or externally peer reviewed.
+
+\begin{proof}
+For $k\ge32$ we have $a_k(q)=d_k(k+1-12q)>0$, and the smaller-index
+weights are plainly positive.  Write
+$M(q)=(1-q)^{32}\sum_{k=1}^{31}c_kq^k$.
+The generating function for the $c_k$ gives
+$R(q)-1\le6q(1-q)^{-4}$, whence
+$M(q)\le6q(1-q)^{28}\le6/29<1/4$.
+For $k\ge32$,
+\[
+ \frac{d}{dq}\bigl(d_k(k+1-12q)q^k\bigr)
+   =d_k(k+1)q^{k-1}(k-12q)>0.
+\]
+Direct substitution into the rational expression for $T_q$ gives
+\[
+ T_{2/3}(2/3)
+   =\frac{24794846199808}{205891132094649}<\frac14.
+\]
+Therefore $1/2<a_0(q)=1-M(q)-T_q(q)<1$.
+
+The moments have positive atomic representations
+\[
+ \mu_m=\sum_{k\ge0}a_kq^k(q^k)^m,\qquad
+ \nu_m=\sum_{k\ge0}a_kq^k(1-q^{k+1})(q^k)^m.
+\]
+Infinitely many distinct atoms have positive mass.  The Gram
+quadratic form of a nonzero polynomial of degree below $N$ is strictly
+positive for either measure, proving positive definiteness of every
+$N$-by-$N$ Hankel matrix.  Summing the geometric series in $m$ gives
+\[
+ G_q(z)=\sum_{k\ge0}\frac{a_kq^k(1-q^{k+1})}{1-zq^k}.
+\]
+Each $z=q^{-k}$ is a genuine pole: its residue is nonzero and the other
+terms are analytic there.  Hence $G_q$ is not rational.  Telescoping
+shows $G_q(q)=\mu_0(q)=A_q(q)=1$ and, for
+$S_{n-1}=\sum_{m<n}q^m\nu_m$, gives
+\[
+ 1-S_{n-1}=q^n\mu_n\in(0,q^n]
+ \qquad(n\ge0).
+\]
+
+Every $a_k(q)$ belongs to $\Z[[q]]$ and has constant term $c_k$,
+including $a_0$, for which the defining sum is coefficientwise finite.
+The same is true of $\mu_m,\nu_m$.  Their rational expressions have no
+poles for $|q|<1$, so these formal series converge at $q_0$.
+For $H_N(q)=\det(\mu_{i+j}(q))_{i,j<N}$, the Gram determinant expansion is
+\[
+ H_N(q)=\sum_{0\le k_0<\cdots<k_{N-1}}
+     \left(\prod_{i<N}a_{k_i}(q)q^{k_i}\right)
+     \prod_{i<j}(q^{k_i}-q^{k_j})^2.
+\]
+It holds first for finitely many atoms and then coefficientwise.
+The lowest possible degree of one summand is
+$\sum_{i<N}(2N-1-2i)k_i$.  Its unique minimum is attained at
+$k_i=i$ and equals $B_N$; the coefficient is
+$\prod_{i<N}c_i=C_N$.  Replacing $a_k$ by
+$a_k(1-q^{k+1})$ proves the same leading term for the $\nu$ bank.
+
+At $q_0$ set $\varepsilon=3^{-32}$ and $b_0=a_0(q_0)>0$.  For $k\ge32$,
+$a_k(q_0)/c_k=(k-7)/(k+1)$; all these ratios lie in
+$[\varepsilon,1]$.  Hence for fixed $h$,
+$a_{k+h}/a_k\to1$ as $k\to\infty$, and uniformly
+$a_{k+h}/a_k\le3^{32}(1+h)^3$.
+These are precisely the weight hypotheses of
+Theorem~\ref{long1049:thm:geometric-universality}, whose conclusion is
+\[
+ H_N(q_0)\sim\mathcal M(q_0)^3q_0^{B_N}P(q_0)^{2N}
+                  \prod_{k<N}a_k(q_0).
+\]
+The finite product has the exact form, for $N\ge32$,
+\[
+ \frac{\prod_{k<N}a_k(q_0)}{C_N}
+ =b_0\varepsilon^{31}\frac{32!}{24!}\frac{(N-8)!}{N!}.
+\]
+Thus $\mathcal A=b_0\varepsilon^{31}32!/24!$, and
+$N^8(N-8)!/N!\to1$.  The displayed exponent is exactly $-8\xi$
+because $\xi=1$; it is asserted at this one fixed base, not as a
+uniform special-value formula for this family.
+\end{proof}
+
+\begin{theorem}[exact denominators of the calibrated moments]
+\label{long1049:thm:calibrated-denominators}
+Let $q_0=2/3$ and $\delta_n=3^{n+1}-2^{n+1}$.  For every $n\ge1$,
+the reduced denominators are
+\[
+ \operatorname{den}\mu_n(q_0)=3^{31n+62}\delta_n^4,
+ \qquad
+ \operatorname{den}(q_0^n\mu_n(q_0))=3^{32n+62}\delta_n^4.
+\]
+The least integer clearing both rational coefficients in
+$\mu_n=q_0^{-n}\xi-q_0^{-n}S_{n-1}$ is
+$2^n3^{31n+62}\delta_n^4$.  At $n=0$ the moment and tail equal one.
+\end{theorem}
+
+\begin{proof}
+At $q_0$, split the rational seed into a pole part and a polynomial:
+\[
+ A_{q_0}(w)=\frac{-7+10w}{(1-w)^4}+Q(w),\qquad
+ Q(w)=p_0+\sum_{k=1}^{31}p_kw^k,
+\]
+where $p_0=b_0+7$ and
+$p_k=(3^{-32}-1)c_k+8d_k$.  These coefficients have only powers
+of three in their denominators.  The finite formulas give
+$v_3(p_0)\ge-63$, $v_3(p_k)\ge-32$ for $1\le k\le30$, and
+$v_3(p_{31})=-31$: in the last calculation $c_{31}=16896$ has
+$v_3(c_{31})=1$ and the other numerator terms are multiples of
+$3^{32}$.  At $w=(2/3)^{n+1}$, $n\ge1$, the term
+$p_{31}w^{31}$ has valuation $-31n-62$, uniquely lower than all
+other terms of $Q(w)$.  The pole part equals
+\[
+ \frac{3^{3n+3}(-7\cdot3^{n+1}+10\cdot2^{n+1})}{\delta_n^4}
+\]
+and has positive $3$-adic valuation.  Hence
+$v_3(\mu_n)=-31n-62$.
+
+Every prime $\ell\mid\delta_n$ differs from $2,3$.
+Its numerator in the displayed pole part is congruent to
+$3\cdot2^{n+1}\pmod{\delta_n}$ and is coprime to $\delta_n$.
+The polynomial part is $\ell$-integral, so it cannot cancel the
+pole part's $\ell$-denominator of order $4v_\ell(\delta_n)$.
+There are no other denominator primes.  Multiplying by
+$q_0^n=2^n/3^n$ adds exactly $n$ factors of three, proving the second
+formula.  In the affine error, $q_0^{-n}=3^n/2^n$ has denominator
+$2^n$, coprime to the odd denominator of $\mu_n$.  Subtraction does
+not reduce either negative valuation, proving the joint clearer.
+\end{proof}
+
+Each individual $\mu_n$ has logarithmic height linear in $n$:
+$\log\operatorname{den}\mu_n=(35n+66)\log3+o(1)$.
+The determinant has a different scale.
+
+\begin{proposition}[the determinant height and a failed row clearer]
+\label{long1049:prop:calibrated-height}
+For $D_N=\operatorname{den}H_N(q_0)$ in lowest terms,
+\[
+ \liminf_{N\to\infty}\frac{\log D_N}{N^3}
+       \ge\frac{\log(3/2)}3,
+ \qquad \log D_N=O(N^3).
+\]
+Already at rank two, multiplying $H_2=\mu_2-\mu_1^2$ by
+$\operatorname{den}\mu_1\operatorname{den}\mu_2$ leaves reduced
+denominator $625$.
+\end{proposition}
+
+\begin{proof}
+The positive Heine expansion above gives a bound independent of the
+asymptotic theorem.  Since $0<a_k(q_0)\le c_k$, write $k_i=i+s_i$.
+Dropping the ordering restriction and bounding
+$c_{i+s_i}/c_i\le(1+s_i)^3$ and each residual Vandermonde factor by
+one gives
+\[
+ 0<H_N(q_0)\le C_Nq_0^{B_N}
+   \prod_{j\ge0}\sum_{s\ge0}(s+1)^3q_0^{(2j+1)s}.
+\]
+For $A(t)=\sum_{s\ge0}(s+1)^3t^s=(1+4t+t^2)/(1-t)^4$,
+$\log A(t)\le A(t)-1\le8t/(1-t)^4$.  The product is therefore at
+most $\exp(3888/5)$.  Since $D_NH_N$ is a positive integer,
+\[
+ \log D_N\ge B_N\log(3/2)-\log C_N-3888/5.
+\]
+Here $B_N\sim N^3/3$ and $\log C_N=O(N\log N)$.
+Conversely,
+\[
+ E_N=3^{31N(N-1)+62N}\prod_{0\le i,j<N}\delta_{i+j}^{4}
+\]
+clears every term in the determinant expansion, by the preceding
+denominator formula.  Thus $D_N\mid E_N$; using
+$\log\delta_m\le(m+1)\log3$ and
+$\sum_{i,j<N}(i+j+1)=N^3$ gives the asserted cubic upper bound.
+
+For the rank-two assertion,
+$\operatorname{den}\mu_1=3^{93}5^4$ and
+$\operatorname{den}\mu_2=3^{124}19^4$.
+At five, $v_5(\mu_2)=0$ and $v_5(\mu_1^2)=-8$,
+while the proposed product contributes only $5^4$.
+At three and nineteen that product clears the denominator, and no
+other prime occurs.  The remaining denominator is therefore $5^4=625$.
+\end{proof}
+
+Zudilin's determinantal criterion retains a divisibility condition on
+its successive clearing integers~\cite[Props.~1--2]{zudilin2017detv2};
+the rank-two calculation refutes replacing it with their numerical
+ordering, not the criterion itself.  The usual integer-polynomial
+height criterion likewise needs a coefficient clearer for the
+\emph{same} polynomial being evaluated.  The model's exact partial
+errors alone cannot supply one cheaply.  In fact, with
+$\alpha_m=q_0^{-m}$ and $\beta_m=\alpha_m-\mu_m(q_0)$, the pencil
+$\det(\alpha_{i+j}X-\beta_{i+j})_{i,j<N}$ is affine in $X$ because
+$(\alpha_{i+j})$ has rank one.  At $X=1$ it is the positive rational
+$H_N(q_0)$; after primitive integral clearing its value is a positive
+integer.  Matching Hankel order, positivity, fixed-base asymptotic and
+a small \emph{rational} value thus leaves the rational-base denominator
+problem exactly where it was.  The Christoffel-type reweighting
+$a_kq^k\mapsto a_kq^k(1-q^{k+1})$ is standard moment machinery, not a
+new transform~\cite[Intro., (3)--(4)]{kozhanvaktnas2024}; this example's claim is
+the explicit combination and its arithmetic obstruction.
+
 \subsection{Coefficient moments and cyclotomic content}
 \label{long1049:sec:coefficient-questions}
 The positive measure just constructed belongs to the remainders $v_m^*$.
@@ -4467,6 +4729,10 @@ formal proofs used here are those described above.
   doi:\href{https://doi.org/10.1007/s00365-016-9333-7}{10.1007/s00365-016-9333-7};
   arXiv:\href{https://arxiv.org/abs/1507.05697v1}{1507.05697v1}.
   Page and equation references are to arXiv:1507.05697v1.
+\bibitem{zudilin2017detv2} W.~Zudilin, \emph{A determinantal approach to
+  irrationality}, arXiv:\href{https://arxiv.org/abs/1507.05697v2}{1507.05697v2}.
+  Propositions 1--2 are cited from v2; the preceding Heine-expansion
+  locators retain their separately cited v1 edition.
 \bibitem{bundschuhzudilin2008} P.~Bundschuh and W.~Zudilin, \emph{Rational
   approximations to a \(q\)-analogue of \(\pi\) and some other \(q\)-series},
   in H.~P. Schlickewei, K.~Schmidt and R.~F. Tichy (eds.), \emph{Diophantine
@@ -4580,6 +4846,10 @@ formal proofs used here are those described above.
   no.~1, 119--154,
   doi:\href{https://doi.org/10.1016/j.jnt.2006.11.011}{10.1016/j.jnt.2006.11.011}.
   Page references are to arXiv:math/0604312v1 (2006).
+\bibitem{kozhanvaktnas2024} R.~Kozhan and M.~Vaktn\"{a}s,
+  \emph{Christoffel transform and multiple orthogonal polynomials},
+  arXiv:\href{https://arxiv.org/abs/2407.13946v1}{2407.13946v1} (2024).
+  The moment-transform comparison uses the introduction, (3)--(4), of v1.
 \bibitem{krattenthaler2021} C.~Krattenthaler,
   \href{https://arxiv.org/abs/2103.03969v1}{\emph{A determinant identity for
   moments of orthogonal polynomials that implies Uvarov's formula for the

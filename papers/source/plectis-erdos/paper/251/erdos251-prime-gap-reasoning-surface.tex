@@ -1552,8 +1552,10 @@ fixed-block polynomial nonconcentration, and vanishing total variation distance 
  \qquad P_n\sim n\log n.
 \]
 \end{corollary}
-\evidenceremark{The Lean proof assumes Schlage-Puchta's Lemma~4
-\cite{schlagepuchta2011} and the prime number theorem.}
+\evidenceremark{Lean proves this for every $\varepsilon>0$, assuming
+Schlage-Puchta's Lemma~4 \cite{schlagepuchta2011} only for the
+nonconcentration clause and the prime number theorem only for
+$P_n\sim n\log n$.}
 \end{samepage}
 \begin{proof}
 Apply Theorem~\ref{long251:res:sparse-rationalisation} at a rational target.
@@ -2816,6 +2818,28 @@ with the bound on the remaining tail.  When $D_N$ is nonintegral, the
 growth hypothesis makes the former larger than twice the latter at a
 suitable scale.  Rewriting the
 test does not provide an estimate about the distribution of consecutive primes.
+
+\subsection{A signed comparison with more analytic data}
+\label{long251:sec:signed-dirichlet-comparison}
+The totient companion
+\href{erdos249-totient-reasoning-surface.pdf}{\emph{The Binary Totient Series}},
+subsection ``Signed interpolation with entire Dirichlet defects'', gives
+a comparison for the sparse-digit method. Around the totient sequence,
+signed integer changes bounded by any positive $f(n)\to\infty$ fill an
+interval at every reciprocal integer base. They can preserve the odd
+coefficients, every fixed eventual congruence, all arithmetic-progression
+Dirichlet singularities, and prescribed finite root-of-unity jets. The
+proof uses increasingly high finite differences on separated packets.
+The changing support has upper Banach density zero, while the full packet
+hulls have ordinary density zero and upper Banach density one.
+
+This theorem permits arbitrarily slow allowance growth and retains more
+analytic observations. It uses both signs, however, and does not subsume
+the one-sided prime-gap perturbation theorem proved here. In particular,
+it constructs comparison integer sequences, not consecutive prime gaps,
+and neither theorem supplies an irrationality proof for the actual prime
+series. The companion contains a full ordinary proof and the precise
+allowance-dependent block estimate; no infinite formal theorem is claimed.
 
 \section{Conclusions}\label{sec:erdos-251-complete-family-map}
 The sparse construction attains every value in an interval while preserving

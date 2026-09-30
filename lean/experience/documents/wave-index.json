@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "cf3ece1b49582a33b6e6a259304fa03911ef84041c0d57c8dbf369dd1b25770e",
+    "source_sha256": "3b7ba9ec389c832d2883a8cbfd32df7dccd78196103665930bffa9e138bcf263",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "f4d15df6dc782e78",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "8cfe0698fa1d391cf70c207c9cf863c6a8d906d09db9948e8c58e36e6d45b9e6",
-    "html_exact_tex_sha256": "508dd657343a7c7e8c3a4361a5beaa0c5e65dde418c4b4c9fc368b77ab442f35"
+    "html_mathml_sha256": "f959ef084918b1020fc2211a239fb1c4f5a7a6056cd769a82b53d5beab51a626",
+    "html_exact_tex_sha256": "61ec408893edc342d88034543eb0a33ab2b904a2491ca08a7401d546bff17203"
   },
   "sections": [
     {

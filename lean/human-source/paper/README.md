@@ -167,6 +167,22 @@ with the digest of the PDF and of every TeX input it was compiled from, and a
 build output older than one of its inputs is refused. The release checks fail
 when a committed PDF is not the recorded build of its committed inputs.
 
+The problem PDFs also depend on their generated evidence links. Tectonic keeps
+the `.aux` files so that, after a layout change, the evidence builder can read
+the current result numbers and pages:
+
+```sh
+python3 scripts/paper_evidence.py build --corpus-repo /path/to/plectis-erdos-lean \
+  --aux-dir paper --aux-paper <paper-id>
+```
+
+Review and commit changed evidence records before pointing that paper's
+`record_commit_overrides` entry in `evidence/config.json` at the new commit.
+Run the evidence builder again, rebuild the affected PDF and synchronize it.
+`python3 scripts/check_paper_evidence_pdfs.py` checks each margin link against
+the heading and page in the resulting PDF; `make -C paper check` includes
+this check. It needs the dependencies in `scripts/requirements-release.txt`.
+
 After editing a manuscript, rebuild its PDF before updating its recorded
 digests. The following command previews digest changes; add `--apply` only
 after reviewing the source and rebuilt PDF:
@@ -192,9 +208,8 @@ output in your pull request. If the remaining failure is a generated copy
 made stale by your manuscript edit, say so in the pull request; do not
 hand-edit the copy to make the check pass.
 
-Maintainers refresh the generated full text and paper-corpus records through
-their export step, then run `python3 scripts/refresh_projections.py` and
-`python3 docs/papers/check_paper_corpus.py` before merging. The full-text
-exporter is not included in this checkout. You do not need access to a private
-repository to propose a manuscript change; include the check output so the
-maintainer can complete that part of the update.
+Refresh generated full text and paper-corpus records with
+`python3 docs/papers/refresh_paper_corpus.py --write`, then run
+`python3 scripts/refresh_projections.py` and
+`python3 docs/papers/check_paper_corpus.py` before merging. These owners are
+included in the public checkout; do not edit their generated output by hand.

@@ -1731,6 +1731,53 @@ The residue-specific version is in the long record, Section 10.1. The
 multiplicity bound is what prevents a zero remainder; polynomial
 nonvanishing does not.</p>
 </section>
+<section id="sec:round8-transfer-boundaries" class="level3">
+<h3>Two transfer tests for the denominator problem</h3>
+<p>Sparse subseries admit a conclusion that is unavailable for the full
+support. If an infinite host has cuts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>&lt;</mo><msub><mi>M</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">L_j&lt;M_j</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">L_j\to\infty</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mo>−</mo><msub><mi>L</mi><mi>j</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">M_j-L_j\to\infty</annotation></semantics></math>,
+every earlier exponent dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>j</mi></msub><annotation encoding="application/x-tex">L_j</annotation></semantics></math>
+and every later exponent divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>,
+then every infinite subseries with bounded positive integer weights is
+transcendental at every real algebraic base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t&gt;1</annotation></semantics></math>.
+Every divisibility chain and explicit non-chain hosts of unbounded
+divisibility width satisfy these hypotheses. The ordinary proof,
+including its conjugate-height estimates, is in <a
+href="../../../papers/optimal-sparse-perturbations.pdf"><em>Reading eight Erdős problems
+together</em></a>, subsection “Divisibility cuts at every algebraic
+base”. The full support fails the hypotheses, so this does not settle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(3/2)</annotation></semantics></math>.</p>
+<p>There is a separate obstruction to reasoning from the Hankel
+signature alone. The companion <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf">long
+record</a>, subsection “A rational-value model with the same Hankel
+signature”, constructs positive moments
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mu_n(q)</annotation></semantics></math>
+and an integer formal series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>q</mi></msub><annotation encoding="application/x-tex">G_q</annotation></semantics></math>
+whose Hankel determinants have the same all-rank leading coefficient and
+order as above, and the same fixed-base asymptotic shape, yet
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G_{2/3}(2/3)=1</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>
+it proves the exact formula
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><msub><mi>μ</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>3</mn><mrow><mn>31</mn><mi>n</mi><mo>+</mo><mn>62</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>3</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{den}\mu_n(2/3)
+   =3^{31n+62}(3^{n+1}-2^{n+1})^4.</annotation></semantics></math> The
+reduced Hankel denominator has logarithmic size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>3</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Theta(N^3)</annotation></semantics></math>.
+Already at rank two the product of the two individual moment
+denominators leaves denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>625</mn><annotation encoding="application/x-tex">625</annotation></semantics></math>.
+These ordinary proofs isolate the missing arithmetic clearing data. The
+model is not Zudilin’s moment family and does not refute his criterion
+or prove rationality of the original series.</p>
+</section>
 <section id="the-remaining-construction-problem" class="level3">
 <h3>The remaining construction problem</h3>
 <p>The next question specifies the required integer forms, not an

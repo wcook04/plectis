@@ -1101,6 +1101,38 @@ divided real remainder has absolute value strictly between $0$ and $1/n$.
 The residue-specific version is in the long record, Section~10.1. The multiplicity bound
 is what prevents a zero remainder; polynomial nonvanishing does not.
 
+\subsection{Two transfer tests for the denominator problem}
+\label{sec:round8-transfer-boundaries}
+Sparse subseries admit a conclusion that is unavailable for the full
+support. If an infinite host has cuts $L_j<M_j$ with $L_j\to\infty$,
+$M_j-L_j\to\infty$, every earlier exponent dividing $L_j$ and every
+later exponent divisible by $M_j$, then every infinite subseries with
+bounded positive integer weights is transcendental at every real
+algebraic base $t>1$. Every divisibility chain and explicit non-chain
+hosts of unbounded divisibility width satisfy these hypotheses. The
+ordinary proof, including its conjugate-height estimates, is in
+\href{optimal-sparse-perturbations.pdf}{\emph{Reading eight Erd\H{o}s
+problems together}}, subsection ``Divisibility cuts at every algebraic base''.
+The full support fails the hypotheses, so this does not settle $F(3/2)$.
+
+There is a separate obstruction to reasoning from the Hankel signature
+alone. The companion
+\href{erdos1049-rational-base-lambert-reasoning-surface.pdf}{long record},
+subsection ``A rational-value model with the same Hankel signature'',
+constructs positive moments $\mu_n(q)$ and an integer formal series $G_q$
+whose Hankel determinants have the same all-rank leading coefficient and
+order as above, and the same fixed-base asymptotic shape, yet $G_{2/3}(2/3)=1$.
+For $n\ge1$ it proves the exact formula
+\[
+ \operatorname{den}\mu_n(2/3)
+   =3^{31n+62}(3^{n+1}-2^{n+1})^4.
+\]
+The reduced Hankel denominator has logarithmic size $\Theta(N^3)$.
+Already at rank two the product of the two individual moment denominators
+leaves denominator $625$. These ordinary proofs isolate the missing
+arithmetic clearing data. The model is not Zudilin's moment family and
+does not refute his criterion or prove rationality of the original series.
+
 \subsection{The remaining construction problem}
 
 The next question specifies the required integer forms, not an

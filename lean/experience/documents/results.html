@@ -63,14 +63,17 @@ separate judgement.</p>
 <code>3/2</code> lower growth exponent; the paper also gives a finite
 calculation of attainable factorial moments after prescribed
 cancellations.</td>
-<td>No cofinal non-unit factorial carries have been produced;
-irrationality remains open.</td>
+<td>Lean proves irrationality equivalent to cofinally many non-unit
+factorial carries; no cofinal supply of such carries has been produced,
+so irrationality is still unproved.</td>
 </tr>
 <tr>
 <td><a href="#result-243">#243</a></td>
-<td>Lean checks irrationality under the precise cubic-rate hypothesis;
-the paper transfers it to one-based indexing. Signed-error criteria also
-force eventual Sylvester behaviour under their stated premises.</td>
+<td>Lean checks irrationality under the precise cubic rate and every
+nonintegral regular rate above one; the paper transfers these
+zero-indexed statements to one-based indexing. Signed-error criteria
+also force eventual Sylvester behaviour under their stated
+premises.</td>
 <td>The unrestricted Sylvester-tail hypotheses remain unproved.</td>
 </tr>
 <tr>
@@ -136,9 +139,9 @@ claim without Lean. For the system’s design and its open-source
 collaboration model, read <a
 href="../../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
 Lean Worlds</a>, <a
-href="../../../papers/cold-clone-to-proof-receipt.pdf">From a Cold
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">From a Cold
 Clone to a Proof Receipt</a>, or <a
-href="../../../papers/open-source-mathematics-strategy.pdf">From Spare
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
 Compute to Cumulative Mathematics</a>. To improve a proof, explanation
 or the architecture itself, use the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">contribution route</a>, <a
@@ -228,6 +231,16 @@ argument using Mathlib’s Dedekind-zeta simple pole; the short paper
 transfers it to one-based indexing by an ordinary finite-prefix
 argument. Its printed proof uses classical Chebotarev instead. This rate
 does not cover the unrestricted Sylvester-tail question.</p>
+<p>More generally, the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/NonintegralRegularRate.lean">nonintegral
+regular-rate theorem</a> checks irrationality when <code>λ &gt; 1</code>
+is nonintegral and <code>a_n²/a_(n+1)=1+λ/n+o(n⁻λ)</code>. Its Lean
+statement derives convergence for a positive, strictly increasing
+sequence indexed from zero. The long paper gives the ordinary
+finite-prefix transfer to one-based indexing. The integer-extraction
+lemma rules out nonintegral coefficients; the separate cubic argument
+rules out coefficient three. No rational examples are asserted for the
+remaining integer coefficients.</p>
 <p>The rounded sequence <code>a_1 = 8</code>,
 <code>a_(n+1) = ⌈n a_n²/(n+3)⌉</code> has precisely this rate and
 product-ratio increments of order <code>n²</code>. Thus the separate
@@ -736,21 +749,37 @@ integer carry orbit whose quotient reconstructs the support. This is a
 change of coordinates for hypothetical rational support, not a
 contradiction or a universal #257 proof; arbitrary infinite support and
 the <code>1/2</code> membership boundary remain open.</li>
-<li><strong>A separate #1041 positive route remains open.</strong> The
-source frontier identifies <code>min_c L(c) ≤ 2</code> over admissible
-hubs on the ray-separated locus as the surviving parent carrier; lower
-semicontinuity would turn it into the theorem. Its degree-five
-<code>SPOKE-5</code> instance would settle that degree. This is
-source-only research evidence, not a Lean theorem: hub choice, path
-containment, and the <code>SPOKE-5</code> supply remain open, while the
+<li><strong>Degree-restricted #1041 positive routes remain
+open.</strong> The source frontier’s parent carrier is
+<code>min_c L(c) ≤ 2</code> over admissible hubs on the ray-separated
+locus. Its Corollary G, with Theorem L and Corollary S, ordinary proofs
+in the research corpus with no human review, shows that the carrier in
+degree <code>n</code> gives the degree-<code>n</code> case of #1041, so
+ani’s example makes the carrier fail in degree seven. Its degree-five
+<code>SPOKE-5</code> instance would settle degree five. This is
+source-only research evidence with no Lean counterpart: hub choice, path
+containment, and the <code>SPOKE-5</code> supply remain open, and the
 earlier minimum-critical and aggregate shortcuts are explicitly refuted
 (<code>research_corpus/Erdos1041/FRONTIER.md</code>).</li>
-<li><strong>#249, an endpoint-facing conditional route plus a
-finite-level rank spine.</strong> The actual-LCM orbit route gives a
-genuinely endpoint-facing reduction: an explicit approximation of the
-orbit by an odd-rank raw block, with an error radius, turns cofinal
-distance at least <code>1/32</code> plus that radius from every integer
-into the existing signed-margin producer. The exact source calls this
+<li><strong>#249, one open bound.</strong> Lean proves that
+<code>S = ∑ φ(n)/2ⁿ</code> is irrational if, for every shift
+<code>h ≥ 1</code>, there are arbitrarily large <code>X</code> at which
+the real part of the first-harmonic sum over the good indices is at most
+<code>603X/1000</code>, at <code>s = 26</code>, <code>η = 1/1000</code>
+and minimal depth
+(<code>irrational_totient_series_of_goodBase_gap</code>,
+<code>ArgumentGraph/Results/Erdos249Endpoint.lean</code>). For all large
+<code>X</code> more than <code>67X/100</code> of the indices in
+<code>[X, 2X)</code> are good
+(<code>eventually_card_pivotGoodBases_gt</code>), so the bound asks for
+the average first-harmonic cosine over them to stay below
+<code>9/10</code>. At these parameters the four pivot budgets imply it,
+and it asks less than the prime-number-theorem route’s
+<code>11X/20</code>. The bound is open. The actual-LCM orbit route is a
+second sufficient route: an explicit approximation of the orbit by an
+odd-rank raw block, with an error radius, turns cofinal distance at
+least <code>1/32</code> plus that radius from every integer into the
+existing signed-margin producer. The exact source calls this
 <code>PowerTwoActualLcmOrbitSeparationSupply</code> and then derives
 irrationality from it, but this is a sufficient route, not an
 equivalence to the separate non-integrality criterion. The supply itself
@@ -1806,9 +1835,10 @@ exponential-decay connection equation is a hypothesis of the local
 ray-separation consumer, not a theorem (<code>:315</code>).</p></li>
 <li><p>A Cassini example refutes the printed global tree budget of a
 March 2026 manuscript’s Proposition 12; that obstruction is not a
-disproof of Erdős #1041. The source-only frontier still records hub
-selection on the ray-separated locus as an open parent carrier
-(<code>research_corpus/Erdos1041/FRONTIER.md</code>).</p></li>
+disproof of Erdős #1041. The source-only frontier records hub selection
+on the ray-separated locus as a parent carrier; by its Corollary G the
+carrier fails in degree seven, so only degree-restricted versions stay
+open (<code>research_corpus/Erdos1041/FRONTIER.md</code>).</p></li>
 <li><p>Checked counterexample: using the explicit degree-seven
 polynomial of erdosproblems.com contributor <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>,
@@ -2013,7 +2043,10 @@ class="level3">
 gives an infinite set with a rational subseries, which would refute the
 universal statement in Problem 257. The repository does not prove this
 membership.</p>
-<p>The checked chain includes:</p>
+<p>The chain includes the declarations below. Public CI does not compile
+the files cited here under <code>ErdosProblems/Skip</code>,
+<code>Bit</code>, <code>Decl</code> or <code>Hlow</code>; the two
+<code>Erdos249257</code> files are in the default build.</p>
 <ul>
 <li><code>half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite</code>
 in <code>Erdos249257/GreedyAchievementSet.lean</code>: membership of
@@ -2148,10 +2181,17 @@ certificates at arbitrarily large scales. The theorem says nothing at
 <section id="finite-off-diagonal-certificates" class="level3">
 <h3>Finite off-diagonal certificates</h3>
 <p>The source-bound roster records 125 verified rows at positions not
-constrained to equal <code>periodLcm t</code>. Two pairs of rows repeat
-the same <code>(h,N,L)</code> triple, so the roster contains 123
-distinct certificates matched to 123 public Lean theorems across 122
-files. Its largest recorded position is:</p>
+constrained to equal <code>periodLcm t</code>; “verified” is the
+<code>lean_verified</code> flag of the source log
+<code>lean/ErdosProblems/FreePosition/data.jsonl</code>. Two pairs of
+rows repeat the same <code>(h,N,L)</code> triple, so the roster contains
+123 distinct certificates matched to 123 public Lean theorems across 122
+files. Public CI does not compile the
+<code>ErdosProblems/FreePosition</code> files. The source-bound
+reproduction plan in
+<code>scripts/run_source_bound_reproduction.py</code> includes a focused
+recompilation of <code>FreeKill64OneHundredFifteenDI.lean</code>; no
+receipt of a run is committed. Its largest recorded position is:</p>
 <pre class="text"><code>freeKill_64OneHundredFifteenDI :
   certifiedKill 1 135960691671824579163806583999 101</code></pre>
 <p>Source:
@@ -2242,7 +2282,9 @@ required by #249.</p>
 <section id="scoped-no-go-theorems" class="level3">
 <h3>Scoped no-go theorems</h3>
 <p>These theorems rule out particular proof mechanisms. They do not rule
-out other arguments.</p>
+out other arguments. Public CI compiles none of the <code>Lift</code>,
+<code>Half</code>, <code>Rem</code>, <code>Three</code> and
+<code>Decl</code> files cited in this list.</p>
 <ul>
 <li><code>no_lift_from_lower_totient_data</code>,
 <code>ErdosProblems/Lift/AngleA5.lean</code> — no universal lift of the
@@ -2361,7 +2403,8 @@ and their emitted source and receipt handles.</p>
 <section id="historical-corrections-retained-in-source" class="level2">
 <h2>Historical corrections retained in source</h2>
 <p>The current Lean module headers and declarations retain the operative
-boundaries. The principal corrections were:</p>
+boundaries. Public CI compiles none of the files listed below. The
+principal corrections were:</p>
 <ul>
 <li><code>Lift/AngleB2.lean</code> no longer says that the survivor set
 is empty. Its theorem is conditional on a false <code>hcof</code>
@@ -2573,19 +2616,23 @@ respondent-facing output omits the evaluator’s scalar answer key.</p>
 <h3>Erdős Problem 249</h3>
 <p>The irrationality of</p>
 <pre class="text"><code>∑_{n≥1} φ(n)/2^n</code></pre>
-<p>is not proved in this release. The short paper proves all-base
-finite-level rank <code>k^e+1</code> for <code>k≥2, e≥1</code>, with
-canonical integral coordinates and all integral relations; at prime base
-the rank is exponential in the level <code>e</code>. A rational
-<code>5/4</code> control agreeing with totient on odd arguments has
-tempered carry rank at least <code>2^e−1</code> at every depth, so a
-generic rationality-driven carry-rank ceiling is false, and that control
-is distinct from the bounded <code>3/2</code> parity-and-aperiodicity
-analysis. The finite band through <code>t=82</code> and the 123
-historical off-diagonal certificates do not supply a cofinal diagonal or
-an all-ray seed. Coons non-regularity, Martin affine independence, and
-Yazdani–Shallit CRT–Dirichlet separation are credited antecedents, not
-new claims of this release.</p>
+<p>is not proved in this release; Lean proves it from one open bound, a
+real part at most <code>603X/1000</code> for the first-harmonic sum over
+the good indices at arbitrarily large <code>X</code>
+(<code>irrational_totient_series_of_goodBase_gap</code>). The short
+paper proves all-base finite-level rank <code>k^e+1</code> for
+<code>k≥2, e≥1</code>, with canonical integral coordinates and all
+integral relations; at prime base the rank is exponential in the level
+<code>e</code>. A rational <code>5/4</code> control agreeing with
+totient on odd arguments has tempered carry rank at least
+<code>2^e−1</code> at every depth, so a generic rationality-driven
+carry-rank ceiling is false, and that control is distinct from the
+bounded <code>3/2</code> parity-and-aperiodicity analysis. The finite
+band through <code>t=82</code> and the 123 historical off-diagonal
+certificates do not supply a cofinal diagonal or an all-ray seed. Coons
+non-regularity, Martin affine independence, and Yazdani–Shallit
+CRT–Dirichlet separation are credited antecedents, not new claims of
+this release.</p>
 </section>
 <section id="erdős-problem-257" class="level3">
 <h3>Erdős Problem 257</h3>
@@ -2708,13 +2755,14 @@ under validation.</p>
 <h3>What the formal source establishes</h3>
 <p>Farey’s method supplies the number directly; it is not an improvement
 on the classical bound.</p>
-<p>Labels are descriptions, not scores. <strong>Formalised here</strong>
-means a statement rendered and kernel-checked in Lean, which for a known
-theorem is a checked rendering and not a priority claim; <strong>proved
-here</strong> means the argument is this project’s. <strong>Verified
-finite instance</strong> means Lean checked only the listed inputs;
-<strong>conditional reduction</strong> means the conclusion depends on a
-named open condition.</p>
+<p>The labels describe evidence. <strong>Formalised here</strong> means
+known mathematics rendered and kernel-checked in Lean; it makes no
+priority claim. <strong>Proved here</strong> means the argument is this
+project’s. <strong>Unconditional progress</strong> marks a theorem that
+does not settle the open problem and asserts neither novelty nor prior
+knowledge. <strong>Verified finite instance</strong> means Lean checked
+only the listed inputs; <strong>conditional reduction</strong> means the
+conclusion depends on a named open condition.</p>
 <table>
 <colgroup>
 <col />
@@ -2889,6 +2937,10 @@ own open questions. For the two problems with working records:</p>
 <ul>
 <li>Prove that <code>S = ∑ φ(n)/2ⁿ</code> is irrational without placing
 a bound on a possible rational denominator.</li>
+<li>Prove the single #249 bound: for every shift, a real part at most
+<code>603X/1000</code> for the first-harmonic sum over the good indices
+at arbitrarily large <code>X</code>, which Lean turns into
+irrationality.</li>
 <li>Produce the unbounded certificate supply required by the exact #249
 reduction.</li>
 <li>Prove irrationality of <code>∑_{n∈A} 1/(2ⁿ - 1)</code> for every

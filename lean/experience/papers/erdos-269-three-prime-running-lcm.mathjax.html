@@ -1,12 +1,18 @@
 <article class="lean-paper" data-paper-id="erdos-269-three-prime-running-lcm" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>No Finite Separable Representation at Three Prime Generators</h1>
+    <h1>Irrational Distinct-Height Sums for Finite Prime Sets</h1>
     <p class="lean-paper__subject">Erdős #269</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/269/erdos-269-three-prime-running-lcm.tex">
 <section id="sec:problem" class="level2">
-<h2>Introduction</h2>
+<h2>Two sums from running least common multiples</h2>
+<p>The main result is the distinct-height irrationality theorem of
+Section <a class="math-ref" href="#sec:distinct">2</a>. It
+applies to every finite prime set containing at least two primes. It
+does not settle the irrationality of the repeated-value series that
+motivated it. We introduce both sums here, keeping that distinction
+visible before the proof.</p>
 <p>For a finite prime set <span class="math inline" data-term-auto="off">\(P\)</span>, let
 <span class="math inline" data-term-auto="off">\(\mathcal S_P\)</span> consist of the
 positive integers whose prime factors lie in <span
@@ -30,16 +36,346 @@ r^{\lfloor\log_r x\rfloor},\qquad
 \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span></div>
 <p>Prime-power divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
-(Proposition <a class="math-ref" href="#res:lcm">4.1</a>). Fan
-used this identity to separate the two-prime kernel <span
-class="citation" data-cites="fan2026comment"></span>. With three primes,
-even a finite sum of separated products is impossible. This is a
-statement about the kernel, not the arithmetic nature of its sum.</p>
+(Proposition <a class="math-ref" href="#res:lcm">5.1</a>). The
+running LCM is therefore constant between consecutive prime powers <span
+class="math inline" data-term-auto="off">\(p^n,q^n,r^n\)</span> (<span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>), and at each of them it is
+multiplied by the corresponding prime (Proposition <a class="math-ref" href="#res:cell">5.2</a>). Counting each of its
+values once gives the <em>distinct-height sum</em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal
+D_P=1+\sum_{t}\operatorname{H}(t)^{-1},\]</span></div>
+<p class="display-continue">where <span
+class="math inline" data-term-auto="off">\(t\)</span> runs over the prime powers <span
+class="math inline" data-term-auto="off">\(p^n,q^n,r^n\)</span> with <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>. The two sums differ because the
+running LCM repeats: <span class="math inline" data-term-auto="off">\(5\)</span> and <span
+class="math inline" data-term-auto="off">\(6\)</span> both have running LCM <span
+class="math inline" data-term-auto="off">\(60\)</span>, which contributes <span
+class="math inline" data-term-auto="off">\(2/60\)</span> to <span
+class="math inline" data-term-auto="off">\(\mathcal R_{\{2,3,5\}}\)</span> and <span
+class="math inline" data-term-auto="off">\(1/60\)</span> to <span
+class="math inline" data-term-auto="off">\(\mathcal D_{\{2,3,5\}}\)</span>. In a letter dated
+1 January 1973, Erdős called the irrationality of <span
+class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> a conjecture he could not
+prove and wrote that he could show the distinct-height sum to be
+irrational; the letter prints no argument <span class="citation"
+data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>. Erdős and Graham state only the
+question for <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> <span
+class="citation" data-cites="erdosgraham1980"></span>, and we have not
+found a proof in print (the companion’s Section 11.1 lists the sources
+searched). Section <a class="math-ref" href="#sec:distinct">2</a> proves the
+irrationality of <span class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> for
+every finite <span class="math inline" data-term-auto="off">\(P\)</span> with <span
+class="math inline" data-term-auto="off">\(|P|\ge2\)</span>.</p>
+<p>Fan used the identity <span
+class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span> to
+separate the two-prime kernel <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. With three primes, even a finite
+sum of separated products is impossible (Section <a class="math-ref" href="#sec:rank">3</a>). That theorem is about
+the kernel and says nothing about the arithmetic of its sum.
+Sections <a class="math-ref" href="#sec:lcm">5</a> and <a class="math-ref" href="#sec:escape">6</a> turn to the repeated
+<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> sum and state exactly
+what its irrationality still requires.</p>
+</section>
+<section id="sec:distinct" class="level2">
+<h2>Irrationality for finite prime sets</h2>
+<p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a finite set of primes
+with <span class="math inline" data-term-auto="off">\(|P|\ge2\)</span> and put <span
+class="math inline" data-term-auto="off">\(\operatorname{H}_P(t)=\prod_{r\in
+P}r^{\lfloor\log_rt\rfloor}\)</span>. The proof of Proposition <a class="math-ref" href="#res:lcm">5.1</a> applies to any finite set
+of primes: the running LCM of the <span
+class="math inline" data-term-auto="off">\(P\)</span>-smooth integers up to <span
+class="math inline" data-term-auto="off">\(t\)</span> is <span
+class="math inline" data-term-auto="off">\(\operatorname{H}_P(t)\)</span>, and it changes
+only at the prime powers <span class="math inline" data-term-auto="off">\(r^n\)</span> (<span
+class="math inline" data-term-auto="off">\(r\in P\)</span>, <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>), where it is multiplied by <span
+class="math inline" data-term-auto="off">\(r\)</span>. List these prime powers as <span
+class="math inline" data-term-auto="off">\(t_1&lt;t_2&lt;\cdots\)</span>, let <span
+class="math inline" data-term-auto="off">\(q_k\)</span> be the prime of <span
+class="math inline" data-term-auto="off">\(t_k\)</span>, and put <span
+class="math inline" data-term-auto="off">\(Q_k=q_1\cdots
+q_k=\operatorname{H}_P(t_k)\)</span>. Then</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal D_P=1+\sum_{k\ge1}\frac1{Q_k}.\]</span></div>
+<p>For <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> the prime powers
+<span class="math inline" data-term-auto="off">\(2,3,4,5,8,9,16,25,27,32,\ldots\)</span>
+carry the heights <span
+class="math inline" data-term-auto="off">\(2,6,12,60,120,360,720,3600,10800,21600,\ldots\)</span>,
+so <span class="math inline" data-term-auto="off">\(\mathcal
+D_{\{2,3,5\}}=1.7796169832947490504\ldots\)</span>.</p>
+<div class="theorem" id="res:distinct-height-all">
+<p><strong>Theorem 2.1</strong> (the distinct-height sums). <em> For every
+finite set <span class="math inline" data-term-auto="off">\(P\)</span> of primes with <span
+class="math inline" data-term-auto="off">\(|P|\ge2\)</span>, the number <span
+class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> is irrational.</em></p>
+</div>
+<p>For <span class="math inline" data-term-auto="off">\(|P|=2\)</span> the theorem is
+contained in Theorem <a class="math-ref" href="#res:two-prime-transcendence">4.1</a>: <span
+class="math inline" data-term-auto="off">\(\mathcal D_{\{p,q\}}\)</span> is an affine
+function of one Hecke–Mahler value, which is transcendental by Loxton
+and van der Poorten <span class="citation"
+data-cites="loxtonvdp1977"><a href="#ref-6">[6]</a></span> and Bugeaud and Laurent <span
+class="citation" data-cites="bugeaudlaurent2023"></span>. For <span
+class="math inline" data-term-auto="off">\(|P|\ge3\)</span> every Hecke–Mahler theorem we
+found has a single slope.</p>
+<p>The proof compares two tails of the series. A rational value makes
+every scaled tail an integer, so two tails closer than the scale are
+equal. The tails after <span class="math inline" data-term-auto="off">\(t_k\)</span> and
+after <span class="math inline" data-term-auto="off">\(t_kp^n\)</span>, for a suitable <span
+class="math inline" data-term-auto="off">\(n\)</span>, are that close. Their words of primes
+differ only by rearranging short runs, and equality of the tails forces
+an integer invariant <span class="math inline" data-term-auto="off">\(f\)</span> to agree on
+each run and its rearrangement. A run of two primes violates this, and a
+point of a torus on exactly two coordinate walls produces one.</p>
+<section id="words." class="level5">
+<h5>Words.</h5>
+<p>For an infinite word <span
+class="math inline" data-term-auto="off">\(u=u_1u_2\cdots\)</span> over <span
+class="math inline" data-term-auto="off">\(P\)</span> put <span
+class="math inline" data-term-auto="off">\(V(u)=\sum_{i\ge1}(u_1\cdots u_i)^{-1}\)</span>.
+For a finite word <span
+class="math inline" data-term-auto="off">\(\sigma=\sigma_1\cdots\sigma_n\)</span> put <span
+class="math inline" data-term-auto="off">\(\Pi(\sigma)=\sigma_1\cdots\sigma_n\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[f(\sigma)=\sum_{t=1}^{n}\sigma_{t+1}\cdots\sigma_n
+,\]</span></div>
+<p class="display-continue">the term <span class="math inline" data-term-auto="off">\(t=n\)</span> being <span
+class="math inline" data-term-auto="off">\(1\)</span>. Then <span
+class="math inline" data-term-auto="off">\(f(\sigma)\)</span> is a positive integer and</p>
+<div class="math-display" id="eq:word-shift" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:word-shift}
+V(\sigma u)=\frac{f(\sigma)+V(u)}{\Pi(\sigma)}.
+\end{equation}\]</span></div>
+<p>Put <span
+class="math inline" data-term-auto="off">\(x_k=V(q_{k+1}q_{k+2}\cdots)=\sum_{j&gt;k}Q_k/Q_j\)</span>.
+Every suffix of <span class="math inline" data-term-auto="off">\(q_1q_2\cdots\)</span>
+contains every prime of <span class="math inline" data-term-auto="off">\(P\)</span>, in
+particular one larger than <span class="math inline" data-term-auto="off">\(\min P\)</span>,
+so its value lies in <span class="math inline" data-term-auto="off">\((0,1/(\min
+P-1))\subseteq(0,1)\)</span>.</p>
+<div class="lemma" id="res:dp-integral-tails">
+<p><strong>Lemma 2.2</strong> (integral tails). <em> If <span
+class="math inline" data-term-auto="off">\(\mathcal D_P=N/K\)</span> with integers <span
+class="math inline" data-term-auto="off">\(N\)</span> and <span
+class="math inline" data-term-auto="off">\(K\ge1\)</span>, then <span
+class="math inline" data-term-auto="off">\(Kx_k\)</span> is an integer for every <span
+class="math inline" data-term-auto="off">\(k\ge1\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> <span class="math inline" data-term-auto="off">\(Q_k\mathcal
+D_P=Q_k+\sum_{i\le k}Q_k/Q_i+x_k\)</span>, and <span
+class="math inline" data-term-auto="off">\(Q_i\)</span> divides <span
+class="math inline" data-term-auto="off">\(Q_k\)</span> for <span class="math inline" data-term-auto="off">\(i\le
+k\)</span>. So <span
+class="math inline" data-term-auto="off">\(Kx_k=Q_kN-K\bigl(Q_k+\sum_{i\le
+k}Q_k/Q_i\bigr)\)</span>. ◻</p>
+</div>
+<div class="lemma" id="res:dp-blocks">
+<p><strong>Lemma 2.3</strong> (rearranged blocks). <em> Let <span
+class="math inline" data-term-auto="off">\(u=\sigma_1\sigma_2\cdots\)</span> and <span
+class="math inline" data-term-auto="off">\(u&#39;=\sigma&#39;_1\sigma&#39;_2\cdots\)</span>
+be infinite words, where each <span
+class="math inline" data-term-auto="off">\(\sigma_i\)</span> is a nonempty finite word and
+<span class="math inline" data-term-auto="off">\(\sigma&#39;_i\)</span> is a rearrangement of
+it, and suppose that every suffix of <span
+class="math inline" data-term-auto="off">\(u\)</span> or <span
+class="math inline" data-term-auto="off">\(u&#39;\)</span> starting at a block boundary has
+value in <span class="math inline" data-term-auto="off">\((0,1)\)</span>.</em></p>
+<ol>
+<li><p><em>If <span class="math inline" data-term-auto="off">\(V(u)=V(u&#39;)\)</span>, then
+<span class="math inline" data-term-auto="off">\(f(\sigma_i)=f(\sigma&#39;_i)\)</span> for
+every <span class="math inline" data-term-auto="off">\(i\)</span>.</em></p></li>
+<li><p><em>If <span
+class="math inline" data-term-auto="off">\(\sigma_i=\sigma&#39;_i\)</span> for every <span
+class="math inline" data-term-auto="off">\(i&lt;i_0\)</span>, then <span
+class="math inline" data-term-auto="off">\(|V(u)-V(u&#39;)|&lt;1/\Pi(\sigma_1\cdots\sigma_{i_0-1})\)</span>.</em></p></li>
+</ol>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Let <span class="math inline" data-term-auto="off">\(U_i\)</span> and
+<span class="math inline" data-term-auto="off">\(U&#39;_i\)</span> be the values of the
+suffixes starting at block <span class="math inline" data-term-auto="off">\(i\)</span>. Since
+<span class="math inline" data-term-auto="off">\(\Pi(\sigma_i)=\Pi(\sigma&#39;_i)\)</span>,
+<a class="math-ref" data-equation-ref="true" href="#eq:word-shift">eq:word-shift</a> gives <span
+class="math inline" data-term-auto="off">\(\Pi(\sigma_i)(U_i-U&#39;_i)=f(\sigma_i)-f(\sigma&#39;_i)+U_{i+1}-U&#39;_{i+1}\)</span>.
+If <span class="math inline" data-term-auto="off">\(U_i=U&#39;_i\)</span>, the integer <span
+class="math inline" data-term-auto="off">\(f(\sigma_i)-f(\sigma&#39;_i)\)</span> equals <span
+class="math inline" data-term-auto="off">\(U&#39;_{i+1}-U_{i+1}\in(-1,1)\)</span>, so both
+vanish. Induction from <span
+class="math inline" data-term-auto="off">\(U_1=V(u)=V(u&#39;)\)</span> proves (i). For (ii),
+<span
+class="math inline" data-term-auto="off">\(V(u)-V(u&#39;)=(U_{i_0}-U&#39;_{i_0})/\Pi(\sigma_1\cdots\sigma_{i_0-1})\)</span>. ◻</p>
+</div>
+<div class="lemma" id="res:dp-short">
+<p><strong>Lemma 2.4</strong> (short rearrangements). <em> The map <span
+class="math inline" data-term-auto="off">\(f\)</span> is injective on the orderings of any
+set of at most three distinct primes.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For two primes, <span
+class="math inline" data-term-auto="off">\(f(ab)=1+b\)</span>. For three, <span
+class="math inline" data-term-auto="off">\(f(\sigma_1\sigma_2\sigma_3)=1+\sigma_3(1+\sigma_2)\)</span>.
+Let <span class="math inline" data-term-auto="off">\(\sigma,\sigma&#39;\)</span> be orderings
+of <span class="math inline" data-term-auto="off">\(\{a,b,c\}\)</span> with <span
+class="math inline" data-term-auto="off">\(f(\sigma)=f(\sigma&#39;)\)</span>. If <span
+class="math inline" data-term-auto="off">\(\sigma_3=\sigma&#39;_3\)</span>, then <span
+class="math inline" data-term-auto="off">\(\sigma_2=\sigma&#39;_2\)</span> and <span
+class="math inline" data-term-auto="off">\(\sigma=\sigma&#39;\)</span>. Otherwise say <span
+class="math inline" data-term-auto="off">\(\sigma_3=a\)</span> and <span
+class="math inline" data-term-auto="off">\(\sigma&#39;_3=b\)</span>, so <span
+class="math inline" data-term-auto="off">\(a(1+\sigma_2)=b(1+\sigma&#39;_2)\)</span> with
+<span class="math inline" data-term-auto="off">\(\sigma_2\in\{b,c\}\)</span> and <span
+class="math inline" data-term-auto="off">\(\sigma&#39;_2\in\{a,c\}\)</span>. The pairs <span
+class="math inline" data-term-auto="off">\((b,a)\)</span> and <span
+class="math inline" data-term-auto="off">\((c,c)\)</span> give <span
+class="math inline" data-term-auto="off">\(a=b\)</span>, the pair <span
+class="math inline" data-term-auto="off">\((b,c)\)</span> gives <span
+class="math inline" data-term-auto="off">\(b\mid a\)</span>, and <span
+class="math inline" data-term-auto="off">\((c,a)\)</span> gives <span
+class="math inline" data-term-auto="off">\(a\mid b\)</span>. ◻</p>
+</div>
+<p>For four primes injectivity fails: <span
+class="math inline" data-term-auto="off">\(f(5,7,3,2)=f(7,2,3,5)=51\)</span>. The proof
+therefore looks for a run of two primes, for which <span
+class="math inline" data-term-auto="off">\(f(ab)-f(ba)=b-a\ne0\)</span>.</p>
+</section>
+<section id="the-torus." class="level5">
+<h5>The torus.</h5>
+<p>Let <span class="math inline" data-term-auto="off">\(\mathbb T=\prod_{q\in P}\R/(\log
+q)\Z\)</span> and <span class="math inline" data-term-auto="off">\(\Theta(s)=(s\bmod\log
+q)_{q\in P}\)</span> for <span class="math inline" data-term-auto="off">\(s\in\R\)</span>.
+For <span class="math inline" data-term-auto="off">\(\theta\in\mathbb T\)</span> a <em><span
+class="math inline" data-term-auto="off">\(q\)</span>-crossing</em> is a real <span
+class="math inline" data-term-auto="off">\(t\)</span> with <span
+class="math inline" data-term-auto="off">\(\theta_q+t\in(\log q)\Z\)</span>, and <span
+class="math inline" data-term-auto="off">\(W(\theta)\)</span> is the word of the primes of
+the positive crossings in increasing order of time. For <span
+class="math inline" data-term-auto="off">\(\theta_k=\Theta(\log t_k)\)</span> the positive
+<span class="math inline" data-term-auto="off">\(q\)</span>-crossings are the times <span
+class="math inline" data-term-auto="off">\(\log(q^j/t_k)\)</span> with <span
+class="math inline" data-term-auto="off">\(q^j&gt;t_k\)</span>, so <span
+class="math inline" data-term-auto="off">\(W(\theta_k)=q_{k+1}q_{k+2}\cdots\)</span>, and
+crossings of different primes never coincide.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(T_0\)</span> be the closure of <span
+class="math inline" data-term-auto="off">\(\Theta(\R)\)</span>, a subtorus containing every
+<span class="math inline" data-term-auto="off">\(\theta_k\)</span>. Every forward orbit <span
+class="math inline" data-term-auto="off">\(\{\theta+\Theta(t):t\ge t_0\}\)</span> with <span
+class="math inline" data-term-auto="off">\(\theta\in T_0\)</span> is dense in <span
+class="math inline" data-term-auto="off">\(T_0\)</span>, by Kronecker’s theorem or a one-line
+pigeonhole argument (the companion’s Section 4.1).</p>
+<p>In the coordinates <span
+class="math inline" data-term-auto="off">\(\varphi_q=\theta_q/\log q\)</span> the torus is
+<span class="math inline" data-term-auto="off">\(\R^P/\Z^P\)</span>, and by Kronecker’s
+theorem <span class="math inline" data-term-auto="off">\(T_0\)</span> is the image of the
+smallest rational subspace <span
+class="math inline" data-term-auto="off">\(L\subseteq\R^P\)</span> containing <span
+class="math inline" data-term-auto="off">\(\omega=(1/\log q)_{q\in P}\)</span>. The
+annihilator of <span class="math inline" data-term-auto="off">\(L\)</span> is a rational
+subspace spanned by the integer vectors <span
+class="math inline" data-term-auto="off">\(c\)</span> with <span
+class="math inline" data-term-auto="off">\(\sum_qc_q/\log q=0\)</span>. If it contained a
+nonzero vector supported on at most two primes <span
+class="math inline" data-term-auto="off">\(a,b\)</span>, it would contain an integer one, and
+<span class="math inline" data-term-auto="off">\(\log a/\log b\)</span> would be rational,
+which is false because no power of <span
+class="math inline" data-term-auto="off">\(a\)</span> is a power of <span
+class="math inline" data-term-auto="off">\(b\)</span>. So each <span
+class="math inline" data-term-auto="off">\(\varphi_q\)</span> is nonzero on <span
+class="math inline" data-term-auto="off">\(L\)</span> and any two are linearly independent on
+<span class="math inline" data-term-auto="off">\(L\)</span>. In particular the linear form
+<span class="math inline" data-term-auto="off">\(\theta_b-\theta_a=(\log b)\varphi_b-(\log
+a)\varphi_a\)</span> is nonzero on <span
+class="math inline" data-term-auto="off">\(L\)</span>, although it vanishes on the flow
+direction <span class="math inline" data-term-auto="off">\(\omega\)</span>.</p>
+<div class="lemma" id="res:dp-two-walls">
+<p><strong>Lemma 2.5</strong> (two walls). <em> If <span
+class="math inline" data-term-auto="off">\(|P|\ge4\)</span>, there is <span
+class="math inline" data-term-auto="off">\(x\in T_0\)</span> with <span
+class="math inline" data-term-auto="off">\(\theta_q(x)=0\)</span> for exactly two primes
+<span class="math inline" data-term-auto="off">\(q\in P\)</span>.</em></p>
+</div>
+<p>The companion proves Lemma <a class="math-ref" href="#res:dp-two-walls">2.5</a> (its Lemma 4.4) on
+a two-dimensional rational subtorus of <span
+class="math inline" data-term-auto="off">\(T_0\)</span>, where the sets <span
+class="math inline" data-term-auto="off">\(\{\theta_q=0\}\)</span> are families of parallel
+closed geodesics, by an Euler-characteristic count on their
+arrangement.</p>
+<div class="proof">
+<p><em>Outline of the proof of Theorem <a class="math-ref" href="#res:distinct-height-all">2.1</a>.</em> The
+companion, Section 4.1, gives every estimate. Suppose <span
+class="math inline" data-term-auto="off">\(\mathcal D_P=N/K\)</span>, fix <span
+class="math inline" data-term-auto="off">\(p\in P\)</span> and an index <span
+class="math inline" data-term-auto="off">\(k\)</span> with <span
+class="math inline" data-term-auto="off">\(q_k=p\)</span>, and let <span
+class="math inline" data-term-auto="off">\(t_m=t_kp^n\)</span>, so that <span
+class="math inline" data-term-auto="off">\(\theta_m=\theta_k+\Theta(n\log p)\)</span>.
+Dirichlet’s simultaneous approximation theorem gives <span
+class="math inline" data-term-auto="off">\(n\)</span> for which this shift moves every
+crossing by less than a small <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>. Cutting the positive
+crossings of <span class="math inline" data-term-auto="off">\(\theta_k\)</span> where
+consecutive ones are more than <span
+class="math inline" data-term-auto="off">\(2\varepsilon\)</span> apart gives <em>chains</em>;
+<span class="math inline" data-term-auto="off">\(W(\theta_m)\)</span> is the concatenation of
+the same chains in the same order, each rearranged, and a chain consists
+of at most <span class="math inline" data-term-auto="off">\(|P|\)</span> distinct primes. The
+chains among the first <span class="math inline" data-term-auto="off">\(\nu\)</span>
+crossings, with <span class="math inline" data-term-auto="off">\(2^\nu\ge K\)</span>, are
+single crossings, so Lemmas <a class="math-ref" href="#res:dp-blocks">2.3</a>(ii) and <a class="math-ref" href="#res:dp-integral-tails">2.2</a> give <span
+class="math inline" data-term-auto="off">\(x_k=x_m\)</span>, and Lemma <a class="math-ref" href="#res:dp-blocks">2.3</a>(i) gives <span
+class="math inline" data-term-auto="off">\(f(C)=f(C&#39;)\)</span> for every chain <span
+class="math inline" data-term-auto="off">\(C\)</span> and its rearrangement <span
+class="math inline" data-term-auto="off">\(C&#39;\)</span>. If <span
+class="math inline" data-term-auto="off">\(|P|\le3\)</span>, density of the differences <span
+class="math inline" data-term-auto="off">\(j\log p-i\log q\)</span> gives a chain in which a
+<span class="math inline" data-term-auto="off">\(p\)</span>-crossing and a <span
+class="math inline" data-term-auto="off">\(q\)</span>-crossing change order, contradicting
+Lemma <a class="math-ref" href="#res:dp-short">2.4</a>. If <span
+class="math inline" data-term-auto="off">\(|P|\ge4\)</span>, a return of the orbit of <span
+class="math inline" data-term-auto="off">\(\theta_k\)</span> near the point of Lemma <a class="math-ref" href="#res:dp-two-walls">2.5</a>, perturbed along
+the form <span class="math inline" data-term-auto="off">\(\theta_b-\theta_a\)</span>, which
+is nonzero on <span class="math inline" data-term-auto="off">\(L\)</span>, gives a chain
+<span class="math inline" data-term-auto="off">\(C=ab\)</span> with <span
+class="math inline" data-term-auto="off">\(C&#39;=ba\)</span>, and <span
+class="math inline" data-term-auto="off">\(f(ab)-f(ba)=b-a\ne0\)</span>. ◻</p>
+</div>
+<p>The companion’s Section 11.1 compares <span
+class="math inline" data-term-auto="off">\(\mathcal D_P\)</span>, written as a Cantor series,
+with the criteria of Erdős–Straus <span class="citation"
+data-cites="erdosstraus1974"><a href="#ref-9">[9]</a></span>, Hančl–Tijdeman <span
+class="citation" data-cites="hancltijdeman2004"></span> and Diananda and
+Oppenheim <span class="citation"
+data-cites="dianandaoppenheim1955"><a href="#ref-8">[8]</a></span>, none of which decides
+it.</p>
+</section>
+<section id="sec:distinct-235" class="level3">
+<h3>The case <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>, checked in
+Lean</h3>
+<div class="theorem" id="res:distinct-height-235">
+<p><strong>Theorem 2.6</strong> (the distinct-height sum for <span
+class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>). <em> The number <span
+class="math inline" data-term-auto="off">\(\mathcal D_{\{2,3,5\}}\)</span> is
+irrational.</em></p>
+</div>
+<p>The Lean proof takes a different route (companion, Sections 4.2
+and 4.3): each dyadic block acts on the normalised tail by one of five
+affine maps with disjoint images, so a tail determines every later
+block, and a rational value would make the blocks eventually periodic,
+which the powers of <span class="math inline" data-term-auto="off">\(3\)</span> prevent. With
+an automaton recording how recently each prime appeared, the same method
+proves every set of three primes at most <span
+class="math inline" data-term-auto="off">\(31\)</span> by exact computation, and it fails for
+<span class="math inline" data-term-auto="off">\(\{2,3,5,7\}\)</span>, where two words of
+blocks have the same affine map (companion, Sections 4.4 and 4.5).</p>
+</section>
 </section>
 <section id="sec:rank" class="level2">
 <h2>Nonsingular minors of every order</h2>
 <div class="theorem" id="res:infinite-rank">
-<p><strong>Theorem 2.1</strong> (no finite separation of the kernel). <em>
+<p><strong>Theorem 3.1</strong> (no finite separation of the kernel). <em>
 Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be primes with <span
 class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math inline" data-term-auto="off">\(p\ne
 r\)</span> and <span class="math inline" data-term-auto="off">\(q\ne r\)</span>. For every
@@ -138,7 +474,7 @@ would vanish, contrary to the minor just constructed. ◻</p>
 <p>No continuity or boundedness is assumed for the separated
 factors.</p>
 <div class="corollary" id="res:admissible-modular-minors">
-<p><strong>Corollary 2.2</strong> (the same minors modulo integers coprime
+<p><strong>Corollary 3.2</strong> (the same minors modulo integers coprime
 to <span class="math inline" data-term-auto="off">\(30\)</span>). <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> and every <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span>, there are injective maps <span
@@ -154,7 +490,7 @@ Z\)</span>, with each reciprocal prime power interpreted by its modular
 inverse.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a>. Every row and
+<p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">3.1</a>. Every row and
 column factor is a unit modulo <span class="math inline" data-term-auto="off">\(B\)</span>.
 The normalised determinant is <span
 class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. ◻</p>
@@ -166,7 +502,7 @@ class="math inline" data-term-auto="off">\(30\)</span> makes both the reciprocal
 the determinant units: the latter introduces only a power of <span
 class="math inline" data-term-auto="off">\(4\)</span> in its numerator.</p>
 <div class="example" id="res:rank">
-<p><strong>Example 2.3</strong>. <em> For <span
+<p><strong>Example 3.3</strong>. <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
 determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: its four
 entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</span>, so it
@@ -186,7 +522,7 @@ class="math inline" data-term-auto="off">\(j=4\)</span>, <span
 class="math inline" data-term-auto="off">\(\operatorname{K}(3,4,0)-\operatorname{K}(0,4,0)/120=-1/19440000\)</span>.
 Thus the leading minors do not supply the arbitrary-order theorem.</p>
 <div class="proposition" id="res:finite-cut-rank">
-<p><strong>Proposition 2.4</strong> (rank of a matrix of threshold
+<p><strong>Proposition 3.4</strong> (rank of a matrix of threshold
 columns). <em> Let <span class="math inline" data-term-auto="off">\(m\ge1\)</span> and let
 <span class="math inline" data-term-auto="off">\(c\)</span> lie in a field with <span
 class="math inline" data-term-auto="off">\(c\ne 0,1\)</span>. For <span
@@ -231,7 +567,7 @@ class="math inline" data-term-auto="off">\(k\)</span>, ordering the sampled row 
 every column in the stated form. The formula therefore determines the
 rank of each nonempty rectangular sample. For fixed row and column
 indices this rank is independent of <span
-class="math inline" data-term-auto="off">\(k\)</span>. Section 4 of the companion paper,
+class="math inline" data-term-auto="off">\(k\)</span>. Section 5 of the companion paper,
 <em>The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic</em>,
 gives the exact rational comparisons.</p>
 </section>
@@ -249,7 +585,7 @@ class="math inline" data-term-auto="off">\((1-1/r)/2\)</span> from the matrices 
 rank. Rescaling preserves exact rank but removes the decay responsible
 for the first approximation. The companion proves both assertions,
 including the distinction between finite restrictions and the full
-infinite matrix, in Section 4.1.</p>
+infinite matrix, in Section 5.1.</p>
 </section>
 </section>
 <section id="sec:two-prime" class="level2">
@@ -262,7 +598,7 @@ powers of each prime also gives the affine formula for the
 distinct-height sum below. The calculation fixes the normalisations and
 distinguishes the two sums.</p>
 <div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
-<p><strong>Theorem 3.1</strong> (both two-prime sums). <em> Let <span
+<p><strong>Theorem 4.1</strong> (both two-prime sums). <em> Let <span
 class="math inline" data-term-auto="off">\(p&lt;q\)</span> be distinct primes. Put <span
 class="math inline" data-term-auto="off">\(\theta=\log p/\log q\)</span> and <span
 class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}p^{-n}q^{-\lfloor
@@ -350,16 +686,16 @@ class="math inline" data-term-auto="off">\(4,9\)</span>, but need not describe a
 supported on their prime factors. The companion’s Section 3 gives this
 extension and the failure for <span
 class="math inline" data-term-auto="off">\(4,8\)</span>.</p>
-<p>The three-prime tail argument starts again from the running LCM,
-retaining every multiplicity; it does not use the rank theorem. The
-distinct-height assertion is a separate historical statement <span
-class="citation" data-cites="erdos1974letter"></span>.</p>
+<p>The distinct-height sums for every finite set of primes were treated
+in Section <a class="math-ref" href="#sec:distinct">2</a>. The
+tail argument of the next two sections starts again from the running LCM
+and retains every multiplicity; it does not use the rank theorem.</p>
 </section>
 <section id="sec:lcm" class="level2">
 <h2>The recurrence for the repeated sum</h2>
 <p> </p>
 <div class="proposition" id="res:lcm">
-<p><strong>Proposition 4.1</strong> (the running least common multiple).
+<p><strong>Proposition 5.1</strong> (the running least common multiple).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
 primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then the running
 LCM equals the three-prime height: <span
@@ -381,7 +717,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
 \end{equation}\]</span></div>
 <div class="proposition" id="res:cell">
-<p><strong>Proposition 4.2</strong> (cells and jumps). <em> The running
+<p><strong>Proposition 5.2</strong> (cells and jumps). <em> The running
 LCM is constant when the three integer logarithms are constant. A jump
 in exactly one logarithm multiplies it by the corresponding prime. The
 first <span class="math inline" data-term-auto="off">\(n\)</span> positive powers of each
@@ -393,18 +729,17 @@ class="math inline" data-term-auto="off">\(3n+1\)</span> distinct points.</em></
 Positive powers of different primes cannot coincide, by unique
 factorisation, and none is <span class="math inline" data-term-auto="off">\(1\)</span>. ◻</p>
 </div>
-<p>For <span class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the smooth
+<p>For <span class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> the smooth
 numbers <span class="math inline" data-term-auto="off">\(5\)</span> and <span
-class="math inline" data-term-auto="off">\(6\)</span> have the same running LCM, <span
-class="math inline" data-term-auto="off">\(60\)</span>. They contribute <span
-class="math inline" data-term-auto="off">\(2/60\)</span> to the repeated sum, whereas the
-height <span class="math inline" data-term-auto="off">\(60\)</span> contributes only <span
-class="math inline" data-term-auto="off">\(1/60\)</span> to the distinct-height sum. The next
-identity retains this multiplicity when equal heights are grouped.</p>
+class="math inline" data-term-auto="off">\(6\)</span> share the height <span
+class="math inline" data-term-auto="off">\(60\)</span>, as noted in the introduction. The
+next identity retains such multiplicities when equal heights are
+grouped.</p>
 <div class="proposition" id="res:fibre-prop">
-<p><strong>Proposition 4.3</strong> (grouping terms with the same height).
-<em> For a finite exponent box <span class="math inline" data-term-auto="off">\(\mathcal
-B\)</span>, set <span class="math inline" data-term-auto="off">\(F(H)=\{(i,j,k)\in\mathcal
+<p><strong>Proposition 5.3</strong> (grouping terms with the same
+height). <em> For a finite exponent box <span
+class="math inline" data-term-auto="off">\(\mathcal B\)</span>, set <span
+class="math inline" data-term-auto="off">\(F(H)=\{(i,j,k)\in\mathcal
 B:\operatorname{H}(p^iq^jr^k)=H\}\)</span>. Then </em></p>
 <div class="math-display" id="res:fibre" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -447,7 +782,7 @@ m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></div>
 <div class="lemma" id="res:dyadic-alphabet">
-<p><strong>Lemma 4.4</strong> (integer coefficients and four possible
+<p><strong>Lemma 5.4</strong> (integer coefficients and four possible
 bases). <em> For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(m_a\)</span> is a positive integer and <span
 class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>. The word “numerator”
@@ -483,7 +818,7 @@ not positional digits: <span
 class="math inline" data-term-auto="off">\(m_4=65&gt;b_4=30\)</span>. The companion computes
 the carried digits separately.</p>
 <div class="proposition" id="res:actual-orbit">
-<p><strong>Proposition 4.5</strong> (the tail recurrence and a quadratic
+<p><strong>Proposition 5.5</strong> (the tail recurrence and a quadratic
 bound). <em> The series defining <span
 class="math inline" data-term-auto="off">\(S,T_a\)</span> converge. For every <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span>, </em></p>
@@ -532,16 +867,16 @@ to vanish; integrality then propagates by the recurrence. ◻</p>
 class="math inline" data-term-auto="off">\(S/2=\sum_{a\ge0}m_a/(b_0\cdots b_a)\)</span>
 places the recurrence in the setting of Cantor series. The classical
 criteria of Erdős–Straus <span class="citation"
-data-cites="erdosstraus1974"><a href="#ref-8">[8]</a></span> and Hančl–Tijdeman <span
+data-cites="erdosstraus1974"><a href="#ref-9">[9]</a></span> and Hančl–Tijdeman <span
 class="citation" data-cites="hancltijdeman2004"></span> require <span
 class="math inline" data-term-auto="off">\(m_a/(b_{a-1}b_a)\to0\)</span>. That hypothesis
 fails here: the numerators grow quadratically while the bases are
-bounded. The companion’s Section 6 proves the growth assertion and gives
+bounded. The companion’s Section 7 proves the growth assertion and gives
 the precise carry conditions. The argument below instead uses the
 recurrence and the proved bound <span
 class="math inline" data-term-auto="off">\(90B(a+1)^2\)</span> directly.</p>
 <div class="theorem" id="res:denominator-reduction">
-<p><strong>Theorem 4.6</strong> (rationality gives positive integer
+<p><strong>Theorem 5.6</strong> (rationality gives positive integer
 tails). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
 terms, where <span class="math inline" data-term-auto="off">\(D=2^u3^v5^wB\)</span> and <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span>, then for every <span
@@ -576,7 +911,7 @@ class="math inline" data-term-auto="off">\(2^u3^v5^w\mid h_a\)</span> after the 
 and <span class="math inline" data-term-auto="off">\(BX_a\)</span> differs from <span
 class="math inline" data-term-auto="off">\(h_aA/(2^u3^v5^w)\)</span> by an integer and is
 therefore integral. Positivity, the recurrence and the bound follow from
-Proposition <a class="math-ref" href="#res:actual-orbit">4.5</a>. ◻</p>
+Proposition <a class="math-ref" href="#res:actual-orbit">5.5</a>. ◻</p>
 </div>
 <p>Every positive denominator splits in the required way: <span
 class="math inline" data-term-auto="off">\(B\)</span> is what remains after removing all
@@ -589,7 +924,7 @@ first integral <span class="math inline" data-term-auto="off">\(7X_a\)</span> at
 class="math inline" data-term-auto="off">\(a=4\)</span>, whereas the sufficient bound above
 gives <span class="math inline" data-term-auto="off">\(a_0=11\)</span>.</p>
 <div class="corollary" id="res:exact-onset">
-<p><strong>Corollary 4.7</strong> (the first index at which the
+<p><strong>Corollary 5.7</strong> (the first index at which the
 denominator clears). <em> Under the same lowest-terms hypothesis, put
 <span class="math inline" data-term-auto="off">\(M=2^u3^v5^w\)</span> and let <span
 class="math inline" data-term-auto="off">\(\operatorname{den}\)</span> denote the positive
@@ -613,6 +948,39 @@ the displayed denominator. The three divisibility conditions for <span
 class="math inline" data-term-auto="off">\(h_a\)</span> are precisely the three inequalities
 stated above. ◻</p>
 </div>
+<p>The companion’s Section 4.6 shows where the dyadic and two-tail
+arguments stop for the repeated sum, whose scaled tails are
+unbounded.</p>
+<p>The comparison does close on part of the catalogue series. For <span
+class="math inline" data-term-auto="off">\(p\in P\)</span> let <span
+class="math inline" data-term-auto="off">\(E_p=\sum_{\alpha\ge0}\operatorname{L}(p^\alpha)^{-1}\)</span>
+be the sub-sum of <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> over
+the powers of <span class="math inline" data-term-auto="off">\(p\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\mathcal D_P=\sum_{q\in P}E_q-(|P|-1)\)</span>,
+and for two primes <span class="math inline" data-term-auto="off">\(\mathcal
+R_{\{p,q\}}=E_pE_q\)</span>, which is the factorisation in the proof of
+Theorem <a class="math-ref" href="#res:two-prime-transcendence">4.1</a>.</p>
+<div class="theorem" id="res:single-prime-subsums">
+<p><strong>Theorem 5.8</strong> (the single-prime sub-sums). <em> For
+every finite set <span class="math inline" data-term-auto="off">\(P\)</span> of primes with
+<span class="math inline" data-term-auto="off">\(|P|\ge2\)</span> and every <span
+class="math inline" data-term-auto="off">\(p\in P\)</span>, the number <span
+class="math inline" data-term-auto="off">\(E_p\)</span> is irrational.</em></p>
+</div>
+<p>The proof compares the tails after <span
+class="math inline" data-term-auto="off">\(p^\alpha\)</span> and <span
+class="math inline" data-term-auto="off">\(p^{\alpha+n}\)</span> as in Section <a class="math-ref" href="#sec:distinct">2</a>, with the invariant
+replaced by the product of the primes that follow <span
+class="math inline" data-term-auto="off">\(p\)</span> in a run, and takes the run at a
+passage of the flow near the origin of the torus; no two-wall lemma is
+needed. For <span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> itself the
+comparison fails at its first step: between the two scales the tail of
+<span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> gains the early terms
+of every ray <span class="math inline" data-term-auto="off">\(p^\alpha w\)</span>, with <span
+class="math inline" data-term-auto="off">\(w\)</span> a <span
+class="math inline" data-term-auto="off">\((P\smallsetminus\{p\})\)</span>-smooth integer,
+that enters there, and <span class="math inline" data-term-auto="off">\(E_p\)</span> is the
+case <span class="math inline" data-term-auto="off">\(w=1\)</span>, where nothing enters.</p>
 </section>
 <section id="sec:escape" class="level2">
 <h2>A window test and the remaining arithmetic</h2>
@@ -654,7 +1022,7 @@ bound</p>
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
 <div class="lemma" id="res:consumer">
-<p><strong>Lemma 5.1</strong> (least positive residues). <em> If <span
+<p><strong>Lemma 6.1</strong> (least positive residues). <em> If <span
 class="math inline" data-term-auto="off">\(d\)</span> is a positive integer with <span
 class="math inline" data-term-auto="off">\(d\le K\)</span> and <span
 class="math inline" data-term-auto="off">\(d\equiv -BF\pmod W\)</span>, where <span
@@ -680,7 +1048,7 @@ that would clear only at a later index. The theorem therefore asks for
 windows beyond every prescribed starting index, as well as for every
 eligible denominator.</p>
 <div class="theorem" id="res:windowconsumer">
-<p><strong>Theorem 5.2</strong> (a residue criterion for irrationality).
+<p><strong>Theorem 6.2</strong> (a residue criterion for irrationality).
 <em> The number <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if
 and only if </em></p>
 <div class="math-display" id="eq:escape" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -695,13 +1063,13 @@ and only if </em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Assume <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> and suppose <span
-class="math inline" data-term-auto="off">\(S\)</span> is rational. Theorem <a class="math-ref" href="#res:denominator-reduction">4.6</a> supplies
+class="math inline" data-term-auto="off">\(S\)</span> is rational. Theorem <a class="math-ref" href="#res:denominator-reduction">5.6</a> supplies
 a positive integral carry <span class="math inline" data-term-auto="off">\(d_a=BX_a\)</span>
 after its onset. Choose a window in <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> beyond that onset.
 Equation <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a>
 gives <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
-contradicting Lemma <a class="math-ref" href="#res:consumer">5.1</a> and the upper
+contradicting Lemma <a class="math-ref" href="#res:consumer">6.1</a> and the upper
 bound.</p>
 <p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be irrational
 and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#eq:prefix-lattice">eq:prefix-lattice</a> makes <span
@@ -730,18 +1098,18 @@ fixed start. ◻</p>
 controls every positive integral <span
 class="math inline" data-term-auto="off">\(BX_a\)</span> that rationality would force.
 Polynomial growth alone does not suffice: the zero bound would make the
-residue inequality automatic. The companion, Section 7, treats smaller
+residue inequality automatic. The companion, Section 8, treats smaller
 and more general bounds. No finite search establishes the unbounded
 quantifiers in <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a>.</p>
 <p>The remaining task has the following three equivalent
 formulations.</p>
 <div class="problem">
-<p><strong>Problem 5.3</strong> (the repeated three-prime target).
+<p><strong>Problem 6.3</strong> (the repeated three-prime target).
 <em>Prove that <span class="math inline" data-term-auto="off">\(S=\mathcal
 R_{\{2,3,5\}}\)</span> is irrational.</em></p>
 </div>
 <div class="problem" id="prob:tails269">
-<p><strong>Problem 5.4</strong> (no reduced tail is an integer). <em>
+<p><strong>Problem 6.4</strong> (no reduced tail is an integer). <em>
 Prove that for every <span class="math inline" data-term-auto="off">\(a\ge1\)</span> and
 every integer <span class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to
 <span class="math inline" data-term-auto="off">\(30\)</span>, </em></p>
@@ -752,28 +1120,40 @@ BX_a\notin\mathbb Z.
 \end{equation}\]</span></div>
 </div>
 <div class="problem" id="prob:producer">
-<p><strong>Problem 5.5</strong> (residue inequalities after every
+<p><strong>Problem 6.5</strong> (residue inequalities after every
 starting index). <em> Prove <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a>.</em></p>
 </div>
 <p>Indeed, one integral scaled tail makes <span
 class="math inline" data-term-auto="off">\(S\)</span> rational by <a class="math-ref" data-equation-ref="true" href="#eq:prefix-lattice">eq:prefix-lattice</a>, whereas
 denominator clearing gives such tails from a rational <span
-class="math inline" data-term-auto="off">\(S\)</span>. Theorem <a class="math-ref" href="#res:windowconsumer">5.2</a> supplies the
+class="math inline" data-term-auto="off">\(S\)</span>. Theorem <a class="math-ref" href="#res:windowconsumer">6.2</a> supplies the
 third equivalence. These arithmetic assertions remain unproved. The
-companion’s finite certificate (Section 8) and comparisons with other
-approaches (Section 9) are supplementary, not premises of this
-argument.</p>
+companion’s finite certificates (Section 9) and its comparisons with
+other approaches (Section 10) are supplementary; the argument here does
+not rely on them.</p>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>Theorem <a class="math-ref" href="#res:two-prime-transcendence">3.1</a> uses
+<p>Theorem <a class="math-ref" href="#res:two-prime-transcendence">4.1</a> uses
 the transcendence theorem of Bugeaud and Laurent, which its Lean proof
 assumes. Fan’s post of 26 June 2026 on the erdosproblems.com forum has
 priority for the two-prime deduction <span class="citation"
-data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. Every other theorem, proposition,
-lemma and corollary has a Lean proof of its whole statement, marked in
-the margin; Appendix <a class="math-ref" href="#app:sources">A</a> describes the formal
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. Theorem <a class="math-ref" href="#res:distinct-height-all">2.1</a> and
+Lemmas <a class="math-ref" href="#res:dp-integral-tails">2.2</a>–<a class="math-ref" href="#res:dp-two-walls">2.5</a> have ordinary
+proofs, outlined in Section <a class="math-ref" href="#sec:distinct">2</a> and given in full in
+the companion, Section 4.1, and no Lean proofs; a formal proof would
+need Kronecker’s theorem on the closure of a line in a torus and the
+Euler characteristic count of Lemma <a class="math-ref" href="#res:dp-two-walls">2.5</a>. The proof of
+Theorem <a class="math-ref" href="#res:distinct-height-all">2.1</a> was found
+by an AI agent on 26 September 2026 and checked by a second AI agent
+working independently, who re-derived every step and closed five small
+gaps; it has had no human review. Theorem <a class="math-ref" href="#res:single-prime-subsums">5.8</a> has the
+ordinary proof in the companion, checked in the same way, and no Lean
+proof. Theorem <a class="math-ref" href="#res:distinct-height-235">2.6</a> is checked
+in Lean, as the remark below it states; Comparator has not yet compared
+it. Every other theorem, proposition, lemma and corollary has a Lean
+proof of its whole statement, marked in the margin; Appendix <a class="math-ref" href="#app:sources">A</a> describes the formal
 sources. Neither these proofs nor the finite calculations supply the
 required windows for every eligible denominator and arbitrarily late
 starts.</p>
@@ -782,7 +1162,13 @@ starts.</p>
 <h5>Artefact and data availability.</h5>
 <p>The companion contains the detailed bounds and supplementary
 arguments; its source inventory explains the normalisation conventions
-of the Lean sources. AI agents carried out most of the research and
+of the Lean sources. The <a
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">distinct-height
+programs</a> recompute the constants of Theorem <a class="math-ref" href="#res:distinct-height-235">2.6</a> and the
+companion’s three- and four-prime certificates in exact rational
+arithmetic, and store their outputs; the same directory holds exact
+illustrations of the proof of Theorem <a class="math-ref" href="#res:distinct-height-all">2.1</a>, which the
+proof does not use. AI agents carried out most of the research and
 drafting. The work has not had independent human mathematical
 review.</p>
 </section>
@@ -806,18 +1192,37 @@ reviewed the mathematics of this paper.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>There are two separate arguments. The rank proof uses the height
-formula, row and column rescaling, and a threshold determinant. The
-arithmetic argument uses the shell coefficients, the tail recurrence,
-denominator clearing and least positive residues. The Lean proof of
-Theorem <a class="math-ref" href="#res:windowconsumer">5.2</a>
-establishes the equivalence of the residue condition with irrationality;
-it does not establish the residue condition itself.</p>
+<p>There are four separate arguments. The proof of Theorem <a class="math-ref" href="#res:distinct-height-all">2.1</a> uses
+integral tails, rearranged blocks, a closed subtorus and an Euler
+characteristic count, and has no Lean proof. The proof of Theorem <a class="math-ref" href="#res:distinct-height-235">2.6</a> uses dyadic
+blocks, the disjoint images of five affine maps and the irrationality of
+<span class="math inline" data-term-auto="off">\(\log2/\log3\)</span>; its Lean proof follows
+the same route. The rank proof uses the height formula, row and column
+rescaling, and a threshold determinant. The arithmetic argument uses the
+shell coefficients, the tail recurrence, denominator clearing and least
+positive residues. The Lean proof of Theorem <a class="math-ref" href="#res:windowconsumer">6.2</a> establishes the
+equivalence of the residue condition with irrationality; it does not
+establish the residue condition itself.</p>
 <section id="library-declarations." class="level5">
 <h5>Library declarations.</h5>
 <p>The margin marks link each result to its Lean proof. The main steps
 rest on the following library declarations, each opened at a fixed
-revision. Running LCM: <a
+revision. Distinct heights: <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L60">the
+height is the running LCM</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L698">the
+sum counts each distinct value once</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L437">a
+power of <span class="math inline" data-term-auto="off">\(5\)</span> in every three
+consecutive blocks</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L494">the
+blocks containing a power of <span class="math inline" data-term-auto="off">\(3\)</span> are
+not eventually periodic</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightBlockRadix.lean#L340">the
+criterion for the five block letters</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L689">the
+irrationality of <span class="math inline" data-term-auto="off">\(\mathcal
+D_{\{2,3,5\}}\)</span></a>. Running LCM: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">the
 exact height formula</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L179">constancy
@@ -873,30 +1278,30 @@ finite-dimensional factorisation gives a finite realised span</a>.</p>
 <section id="scope-of-the-supplementary-literature." class="level5">
 <h5>Scope of the supplementary literature.</h5>
 <p>The companion develops the comparisons omitted from the main
-argument. Its Section 5 relates the bounded-ratio argument to
-Erdős–Taylor <span class="citation" data-cites="erdostaylor1957"><a href="#ref-10">[10]</a></span>
-and Fan <span class="citation" data-cites="fan2026strongly"><a href="#ref-11">[11]</a></span>;
-Section 6 compares the exact carry restrictions and polynomial-radix
+argument. Its Section 6 relates the bounded-ratio argument to
+Erdős–Taylor <span class="citation" data-cites="erdostaylor1957"><a href="#ref-11">[11]</a></span>
+and Fan <span class="citation" data-cites="fan2026strongly"><a href="#ref-12">[12]</a></span>;
+Section 7 compares the exact carry restrictions and polynomial-radix
 assumptions of Hančl–Tijdeman <span class="citation"
-data-cites="hancltijdeman2008"><a href="#ref-12">[12]</a></span>. The Isabelle development of
+data-cites="hancltijdeman2008"><a href="#ref-13">[13]</a></span>. The Isabelle development of
 Koutsoukou-Argyraki and Li <span class="citation"
-data-cites="afperdosstraus2020"><a href="#ref-18">[18]</a></span> verifies classical criteria, not
+data-cites="afperdosstraus2020"><a href="#ref-19">[19]</a></span> verifies classical criteria, not
 the present series.</p>
-<p>Section 9 of the companion separates the finite-difference hypotheses
-of Luca–Ouaknine–Worrell <span class="citation"
-data-cites="lucaouaknineworrell2025"><a href="#ref-13">[13]</a></span> from quadratic growth
+<p>Section 10 of the companion separates the finite-difference
+hypotheses of Luca–Ouaknine–Worrell <span class="citation"
+data-cites="lucaouaknineworrell2025"><a href="#ref-14">[14]</a></span> from quadratic growth
 alone, and checks the obstacles to using the echoing <span
 class="citation" data-cites="kebis2024echoing"></span>, digit-complexity
-<span class="citation" data-cites="adamczewskibugeaud2007"><a href="#ref-19">[19]</a></span> and
+<span class="citation" data-cites="adamczewskibugeaud2007"><a href="#ref-20">[20]</a></span> and
 multivariate Mahler <span class="citation"
-data-cites="adamczewskifaverjon2026"><a href="#ref-20">[20]</a></span> results. These comparisons
+data-cites="adamczewskifaverjon2026"><a href="#ref-21">[21]</a></span> results. These comparisons
 do not establish the missing hypotheses for <span
 class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <p>For broader background, the companion distinguishes work on
 fixed-prime semigroups <span class="citation"
-data-cites="tijdemanmeijer1974 languasco2025"><a href="#ref-15">[15]</a><a href="#ref-16">[16]</a></span> from other
+data-cites="tijdemanmeijer1974 languasco2025"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span> from other
 unit-fraction irrationality problems <span class="citation"
-data-cites="kovactao2024"><a href="#ref-17">[17]</a></span>. No estimate from those papers is used
+data-cites="kovactao2024"><a href="#ref-18">[18]</a></span>. No estimate from those papers is used
 in this note’s counting argument.</p>
 </section>
 </section>
@@ -933,69 +1338,75 @@ href="https://doi.org/10.1017/S0004972700022978">doi:<code>10.1017/S000497270002
 7218</em> (2026), <a
 href="https://www.erdosproblems.com/forum/thread/269#post-7218">source</a>.
 Public forum post, 26 June 2026, thread 269, post 7218.</p></li>
-<li id="ref-8"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
+<li id="ref-8"><p>P. H. Diananda and A. Oppenheim, <em>Criteria for irrationality
+of certain classes of numbers II</em>, American Mathematical Monthly
+<strong>62</strong>, no. 4 (1955), 222–225. Cited in the form stated by
+Serbenyuk, arXiv:<a
+href="https://arxiv.org/abs/1706.03124">1706.03124</a>,
+Theorem 1.</p></li>
+<li id="ref-9"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
 certain series</em>, Pacific Journal of Mathematics <strong>55</strong>,
 no. 1 (1974), 85–92, <a
 href="https://doi.org/10.2140/pjm.1974.55.85">doi:<code>10.2140/pjm.1974.55.85</code></a>.</p></li>
-<li id="ref-9"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
+<li id="ref-10"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
 Cantor and Ahmes series</em>, Publicationes Mathematicae Debrecen
 <strong>65</strong>, no. 3–4 (2004), 371–380, <a
 href="https://doi.org/10.5486/PMD.2004.3254">doi:<code>10.5486/PMD.2004.3254</code></a>.</p></li>
-<li id="ref-10"><p>Paul Erdős and S. James Taylor, <em>On the set of points of
+<li id="ref-11"><p>Paul Erdős and S. James Taylor, <em>On the set of points of
 convergence of a lacunary trigonometric series and the equidistribution
 properties of related sequences</em>, Proceedings of the London
 Mathematical Society <strong>s3-7</strong>, no. 1 (1957), 598–615, <a
 href="https://doi.org/10.1112/plms/s3-7.1.598">doi:<code>10.1112/plms/s3-7.1.598</code></a>.</p></li>
-<li id="ref-11"><p>Steve Fan, <em>Strongly complete sets and a conjecture of
+<li id="ref-12"><p>Steve Fan, <em>Strongly complete sets and a conjecture of
 Erdős</em> (2026), <a
 href="https://arxiv.org/abs/2607.14071v1">source</a>; arXiv:<a
 href="https://arxiv.org/abs/2607.14071">2607.14071</a>. The cited
 Lemma 3.1 is in arXiv v1, 15 July 2026.</p></li>
-<li id="ref-12"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
+<li id="ref-13"><p>Jaroslav Hančl and Robert Tijdeman, <em>On the irrationality of
 polynomial Cantor series</em>, Acta Arithmetica <strong>133</strong>,
 no. 1 (2008), 37–52, <a
 href="https://doi.org/10.4064/aa133-1-3">doi:<code>10.4064/aa133-1-3</code></a>.</p></li>
-<li id="ref-13"><p>Florian Luca, Joël Ouaknine and James Worrell, <em>Transcendence
+<li id="ref-14"><p>Florian Luca, Joël Ouaknine and James Worrell, <em>Transcendence
 of Hecke–Mahler Series</em>, Bulletin of the London Mathematical Society
 <strong>57</strong>, no. 5 (2025), 1360–1368, <a
 href="https://doi.org/10.1112/blms.70033">doi:<code>10.1112/blms.70033</code></a>;
 arXiv:<a href="https://arxiv.org/abs/2412.07908">2412.07908</a>.
 Numbered references use the published article.</p></li>
-<li id="ref-14"><p>Pavol Kebis, Florian Luca, Joël Ouaknine, Andrew Scoones and
+<li id="ref-15"><p>Pavol Kebis, Florian Luca, Joël Ouaknine, Andrew Scoones and
 James Worrell, <em>On Transcendence of Numbers Related to Sturmian and
 Arnoux-Rauzy Words</em>, in <em>51st International Colloquium on
 Automata, Languages, and Programming (ICALP 2024)</em>, Leibniz
 International Proceedings in Informatics <strong>297</strong>, Schloss
 Dagstuhl – Leibniz-Zentrum für Informatik (2024), 144:1–144:15, <a
 href="https://doi.org/10.4230/LIPIcs.ICALP.2024.144">doi:<code>10.4230/LIPIcs.ICALP.2024.144</code></a>.</p></li>
-<li id="ref-15"><p>Robert Tijdeman and H. G. Meijer, <em>On integers generated by a
+<li id="ref-16"><p>Robert Tijdeman and H. G. Meijer, <em>On integers generated by a
 finite number of fixed primes</em>, Compositio Mathematica
 <strong>29</strong>, no. 3 (1974), 273–286, <a
 href="https://www.numdam.org/article/CM_1974__29_3_273_0.pdf">source</a>.</p></li>
-<li id="ref-16"><p>Alessandro Languasco, Florian Luca, Pieter Moree and Alain Togbé,
+<li id="ref-17"><p>Alessandro Languasco, Florian Luca, Pieter Moree and Alain Togbé,
 <em>Sequences of integers generated by two fixed primes</em>,
 Abhandlungen aus dem Mathematischen Seminar der Universität Hamburg
 <strong>95</strong> (2025), 123–148, <a
 href="https://doi.org/10.1007/s12188-025-00293-9">doi:<code>10.1007/s12188-025-00293-9</code></a>;
 arXiv:<a
 href="https://arxiv.org/abs/2309.12806">2309.12806</a>.</p></li>
-<li id="ref-17"><p>Vjekoslav Kovač and Terence Tao, <em>On several irrationality
+<li id="ref-18"><p>Vjekoslav Kovač and Terence Tao, <em>On several irrationality
 problems for Ahmes series</em>, Acta Mathematica Hungarica
 <strong>175</strong> (2025), 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">doi:<code>10.1007/s10474-025-01528-0</code></a>;
 arXiv:<a
 href="https://arxiv.org/abs/2406.17593">2406.17593</a>.</p></li>
-<li id="ref-18"><p>Angeliki Koutsoukou-Argyraki and Wenda Li, <em>Irrationality
+<li id="ref-19"><p>Angeliki Koutsoukou-Argyraki and Wenda Li, <em>Irrationality
 Criteria for Series by Erdős and Straus</em>, Archive of Formal Proofs
 (2020), <a
 href="https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html">source</a>.
 Entry dated 12 May 2020; proof-document version consulted: 6 February
 2026.</p></li>
-<li id="ref-19"><p>Boris Adamczewski and Yann Bugeaud, <em>On the complexity of
+<li id="ref-20"><p>Boris Adamczewski and Yann Bugeaud, <em>On the complexity of
 algebraic numbers I. Expansions in integer bases</em>, Annals of
 Mathematics <strong>165</strong>, no. 2 (2007), 547–565, <a
 href="https://doi.org/10.4007/annals.2007.165.547">doi:<code>10.4007/annals.2007.165.547</code></a>.</p></li>
-<li id="ref-20"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
+<li id="ref-21"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
 several variables and finite automata</em>, Annals of Mathematics
 <strong>204</strong>, no. 2 (2026), 455–533, <a
 href="https://doi.org/10.4007/annals.2026.204.2.1">doi:<code>10.4007/annals.2026.204.2.1</code></a>.

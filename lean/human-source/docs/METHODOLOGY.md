@@ -90,7 +90,7 @@ Does not decide: Whether the Lean kernel accepts the proof term.
 
 ### Blinded recovery evaluation
 
-Decides: Whether an agent given the development as it stood before a declaration landed, and a stated subset of the derived layers, reconstructs that declaration's statement or proof mechanism. The holdout is a git checkout predating the target, so the target is absent by construction rather than by the agent's restraint.
+Decides: Whether a participant reconstructs a held-out statement or proof mechanism under a specified question, source snapshot, derived layers, and matched evaluation protocol. The packet builder exports a registered historical cut without Git history and verifies that the target declaration is absent. It does not isolate the participant from other files, the network, or prior knowledge. Packet preparation is not evaluation evidence: current explanatory prose needs a hint review, controls need capsule and workload matching, and a scored run needs fresh participants and independent scoring.
 
 Does not decide: Whether the recovered statement is novel, significant, or correctly proved; whether the mechanism credited for the recovery is the one the original proof used; or whether a recovery generalises beyond the held-out case.
 

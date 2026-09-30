@@ -286,14 +286,14 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-fai
 <tr>
 <td>How does an agent find a task, use the tools and record what was
 checked?</td>
-<td><a href="../../papers/cold-clone-to-proof-receipt.pdf">From a Cold Clone
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf" data-link-kind="exogenous" rel="external noopener">From a Cold Clone
 to a Proof Receipt</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex">source</a>)</td>
 </tr>
 <tr>
 <td>How can people contribute research or compute while keeping evidence
 and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a>?</td>
-<td><a href="../../papers/open-source-mathematics-strategy.pdf">From Spare
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf" data-link-kind="exogenous" rel="external noopener">From Spare
 Compute to Cumulative Mathematics</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex">source</a>)</td>
 </tr>
@@ -423,31 +423,43 @@ digest of the PDF and of every TeX input it was compiled from, and a
 build output older than one of its inputs is refused. The release checks
 fail when a committed PDF is not the recorded build of its committed
 inputs.</p>
+<p>The problem PDFs also depend on their generated evidence links.
+Tectonic keeps the <code>.aux</code> files so that, after a layout
+change, the evidence builder can read the current result numbers and
+pages:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/paper_evidence.py build <span class="at">--corpus-repo</span> /path/to/plectis-erdos-lean <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aux-dir</span> paper <span class="at">--aux-paper</span> <span class="op">&lt;</span>paper-id<span class="op">&gt;</span></span></code></pre></div>
+<p>Review and commit changed evidence records before pointing that
+paper’s <code>record_commit_overrides</code> entry in
+<code>evidence/config.json</code> at the new commit. Run the evidence
+builder again, rebuild the affected PDF and synchronize it.
+<code>python3 scripts/check_paper_evidence_pdfs.py</code> checks each
+margin link against the heading and page in the resulting PDF;
+<code>make -C paper check</code> includes this check. It needs the
+dependencies in <code>scripts/requirements-release.txt</code>.</p>
 <p>After editing a manuscript, rebuild its PDF before updating its
 recorded digests. The following command previews digest changes; add
 <code>--apply</code> only after reviewing the source and rebuilt
 PDF:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_publication_contract.py <span class="at">--restamp</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_publication_contract.py <span class="at">--restamp</span></span></code></pre></div>
 <p>The statement links inside a paper identify the exact proof-source
 revision used for that paper. They serve reproducibility. They are not a
 reason to keep an older manuscript on the reading path. When the source
 changes, update the explanation and source links together, rebuild the
 PDF, and check its coverage against the current proofs:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_problem_note_sources.py <span class="at">--coverage</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> docs/papers/check_paper_corpus.py</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_problem_note_sources.py <span class="at">--coverage</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> docs/papers/check_paper_corpus.py</span></code></pre></div>
 <p>The last check rejects a Markdown mirror or recorded PDF that no
 longer matches its manuscript. Include the edited source, rebuilt PDF
 and check output in your pull request. If the remaining failure is a
 generated copy made stale by your manuscript edit, say so in the pull
 request; do not hand-edit the copy to make the check pass.</p>
-<p>Maintainers refresh the generated full text and paper-corpus records
-through their export step, then run
-<code>python3 scripts/refresh_projections.py</code> and
+<p>Refresh generated full text and paper-corpus records with
+<code>python3 docs/papers/refresh_paper_corpus.py --write</code>, then
+run <code>python3 scripts/refresh_projections.py</code> and
 <code>python3 docs/papers/check_paper_corpus.py</code> before merging.
-The full-text exporter is not included in this checkout. You do not need
-access to a private repository to propose a manuscript change; include
-the check output so the maintainer can complete that part of the
-update.</p>
+These owners are included in the public checkout; do not edit their
+generated output by hand.</p>
 </section>
 </section>
   </div>

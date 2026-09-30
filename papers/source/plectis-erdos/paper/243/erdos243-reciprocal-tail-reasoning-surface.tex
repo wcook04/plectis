@@ -5,9 +5,9 @@
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
 \input{evidence/erdos243-reciprocal-tail-reasoning-surface}
-% Pinned revision includes the checked cubic-rate theorem.
-\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
-\renewcommand{\commitshort}{7380b7871687}
+% Pinned revision includes the checked cubic and nonintegral regular-rate theorems.
+\renewcommand{\commit}{be89e72217ec9c5f05aa5ec7b915c1ebf0816fdd}
+\renewcommand{\commitshort}{be89e72217ec}
 % That revision keeps the Lean roots under lean/, so the links name it.
 \renewcommand{\PX}{lean/ErdosProblems}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
@@ -152,11 +152,25 @@ If strictly increasing positive integers satisfy
 $a_n^2/a_{n+1}=1+3/n+o(n^{-3})$, then $\sum_n1/a_n$ is irrational.
 \end{theorem}
 
+The integer-extraction argument also rules out every nonintegral regular
+rate above one, without the arithmetic obstruction needed at the cubic rate.
 
-\noindent\emph{Index translation for the Lean statement.} The Lean declaration
-uses $b:\N\to\N$, including a positive $b_0$, whereas the theorem above
-starts at $a_1$. A simple shift would change $3/n$ by order $n^{-2}$,
-so it would lose the stated $o(n^{-3})$ precision. Instead choose a
+\begin{theorem}[nonintegral regular-rate irrationality]\label{long243:res:nonintegralrate}
+Let $\lambda>1$ be a real number that is not an integer. If strictly
+increasing positive integers satisfy
+$a_n^2/a_{n+1}=1+\lambda/n+o(n^{-\lambda})$, then
+$\sum_n1/a_n$ is irrational.
+\end{theorem}
+
+The \lword{Erdos243/PaperCompleteR21/NonintegralRegularRate.lean}{196}{nonintegral_regular_rate_irrational}{zero-indexed Lean theorem}
+also derives convergence of the reciprocal series from the rate.
+
+
+\noindent\emph{Index translation for the Lean statements.} Both Lean
+declarations use $b:\N\to\N$, including a positive $b_0$, whereas the
+theorems above start at $a_1$. A simple shift changes $\lambda/n$ by
+order $n^{-2}$ and may lose the stated $o(n^{-\lambda})$ precision.
+Instead choose a
 large $N$ with $a_N>N$. Such an $N$ exists: strict increase gives
 $a_n\ge n$ and the rate gives $a_n^2/a_{n+1}<2$ eventually, hence
 $a_{n+1}>a_n^2/2\ge n^2/2>n+1$ for large $n$. Define
@@ -171,9 +185,9 @@ for every $n\ge N$. Moreover
 \]
 The series converge by the stated rapid-growth rate. If the original
 sum were rational, so would be the sum for $b$, contradicting the
-zero-indexed Lean theorem. This finite-prefix implication is proved
-here in ordinary mathematics; the Lean declaration checks the
-zero-indexed theorem itself.
+corresponding zero-indexed Lean theorem. This finite-prefix implication
+is proved here in ordinary mathematics; the Lean declarations check the
+zero-indexed theorems themselves.
 
 For a concrete sequence satisfying the hypothesis, take
 \[
@@ -397,13 +411,16 @@ hypothesis.
 The Lean proof of Lemma~\ref{long243:res:squarespec}
 avoids the Chebotarev density theorem. It uses only the fact that an
 algebraic integer $b$ of a number field $K$ that is not a square in $K$ is
-zero or a nonsquare modulo infinitely many primes of $K$ of degree one. If
+nonsquare modulo infinitely many primes of $K$ of degree one. The underlying
+zeta-function argument first gives zero or a nonsquare. The zero case is
+excluded beyond the prime divisors of the nonzero constant coefficient of the
+minimal polynomial of $b$. If
 $H(\alpha)$ is not a square in $K=\Q(\alpha)$, this applies to
 $b=m^2H(\alpha)$, where the nonzero integer $m$ makes $b$ an algebraic
 integer, and the residue map at such a prime, of norm $\ell$, sends $\alpha$
-to a root $r\in\Fp_\ell$ of the reduction of $f$ at which $H(r)$ is not a
-nonzero square. That fact
-(\href{\laterepobase/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean\#L40}{nonsquares modulo primes})
+to a root $r\in\Fp_\ell$ of the reduction of $f$ at which $H(r)$ is a
+nonsquare. The prime-reduction argument
+(\href{https://github.com/wcook04/plectis-erdos/blob/e21782a3e5edf1d7e2e7bfca67341356dacfc042/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean\#L160-L192}{nonsquares modulo primes})
 is proved from the simple pole of the Dedekind zeta function at $s=1$, which
 is in Mathlib. If $b$ were a nonzero square modulo all but finitely many
 primes of degree one, these primes would split in $K(\sqrt b)$, and for real
@@ -679,8 +696,12 @@ The precision in \eqref{long243:eq:regularrate} carries weight.  The positive in
 $C_n=n(n+1)(n+2)+(-1)^n$ satisfy $C_{n+1}/C_n=1+3/n+O(n^{-3})$ and are not
 eventually polynomial, so the little-$o$ remainder cannot in general be replaced by a big-$O$
 remainder at the same exponent.
-That countermodel is a scalar sequence rather than an exact orbit, and it bears
-on Lemma~\ref{long243:res:extraction} alone.
+Likewise $C_n=\lceil n^{3/2}\rceil$ satisfies
+$C_{n+1}/C_n=1+3/(2n)+O(n^{-3/2})$: rounding contributes
+$O(n^{-3/2})$, while the unrounded ratio has error $O(n^{-2})$.
+It does not make $3/2$ an integer. These are scalar-sequence
+countermodels to weakening Lemma~\ref{long243:res:extraction}; neither is
+asserted to be an exact reciprocal-tail orbit.
 
 \begin{lemma}[the tail ratio reads the growth defect]\label{long243:res:tailratio}
 Let $a_n$ be strictly increasing positive integers with $a_{n+1}/a_n^2\to1$ and
@@ -718,6 +739,34 @@ $0<\gamma_n+E_n/C_n<3/a_n$ eventually. The identity follows from
 Theorem~\ref{long243:res:defect}; its bound also uses vanishing relative
 error and near-quadratic growth. Equation~\eqref{long243:eq:weightedgrowth}
 is the resulting weighted-sum application, not the identity itself.
+
+\begin{proof}[Proof of Theorem~\ref{long243:res:nonintegralrate}]
+The stated rate implies $a_{n+1}/a_n^2\to1$ and convergence of the
+reciprocal series. Suppose its sum were rational, and form the positive
+integer tail numerators $C_n$. Lemma~\ref{long243:res:tailratio} gives
+$C_{n+1}/C_n=a_n^2/a_{n+1}+O(a_n^{-1})$ and an eventual bound
+$a_n\ge\exp(c2^n)$ for some $c>0$. Hence $a_n^{-1}=o(n^{-\lambda})$ and
+\[
+ \frac{C_{n+1}}{C_n}=1+\frac{\lambda}{n}+o(n^{-\lambda}).
+\]
+Lemma~\ref{long243:res:extraction} forces $\lambda$ to be an integer,
+contrary to the hypothesis. The Lean proof uses the general real-parameter
+extraction theorem and the quantitative canonical-tail ratio bound; it
+derives summability rather than assuming it.
+\end{proof}
+
+For a concrete nonintegral rate, take $a_1=8$ and
+\[
+ a_{n+1}=\left\lceil\frac{2n a_n^2}{2n+3}\right\rceil
+ \quad(n\ge1).
+\]
+The first terms are $8,26,387,99846$. Writing
+$r_n=1+3/(2n)$ gives $a_{n+1}=\lceil a_n^2/r_n\rceil$ and
+$0\le r_n-a_n^2/a_{n+1}<r_n^2/a_n^2\le25/(4a_n^2)$.
+Also $a_{n+1}\ge(2/5)a_n^2$, which from $a_1=8$ proves strict
+increase and exponential lower growth. Thus the ratio error is
+$o(n^{-3/2})$, and Theorem~\ref{long243:res:nonintegralrate}
+proves this reciprocal sum irrational.
 
 \begin{proof}[Proof of Theorem~\ref{long243:res:cubicrate}]
 The hypothesis $a_n^2/a_{n+1}=1+3/n+o(n^{-3})$ gives $a_{n+1}/a_n^2\to1$.
@@ -4047,7 +4096,6 @@ counterexample. The static examples and local identities supply neither.
   The cited definition is also in \S1.2 of
   arXiv:\href{https://arxiv.org/abs/1311.3752v3}{1311.3752v3}.
 \end{thebibliography}
-
 % ---- part family_catalogue ----
 % ---- part back ----
 \end{document}

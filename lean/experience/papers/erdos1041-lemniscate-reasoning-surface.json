@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos1041-lemniscate-reasoning-surface",
-  "title": "Paths in Polynomial Lemniscates:\\\\A Degree-Seven Counterexample and Two Short-Path Criteria",
+  "title": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Reasoning surface",
@@ -57,8 +57,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "3adbf1e9a2a706bd1c53c31c4f93bfa8a0669182c28cf073684b1bd1a079b60c",
-    "html_exact_tex_sha256": "069e805dff247f3776933aa4d0408b4ab464683c8586ba75bd02f2160f926bb2"
+    "html_mathml_sha256": "f6c4fa0636a26395d63e4ad558cea1cdeb1cc08e00193db452fe4efc589308a4",
+    "html_exact_tex_sha256": "1dda83684e89699067307efdcb1da74dbd0394b8e61adb5153d3b0e7b3572c45"
   },
   "sections": [
     {

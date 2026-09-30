@@ -36,11 +36,13 @@ lower derivatives; Sections <a class="math-ref" href="#capacity:sec:jets-proof"
 argument and the rationality obstruction.</p>
 <p>The common Lambert series in #257 and #1049 gives a second comparison
 in Section <a class="math-ref" href="#sec:results">6</a>: a
-base below two permits rational subsums, while nested denominators force
-irrationality on certain thin supports. Neither interval filling nor a
-measure estimate decides whether one specified rational is a subsum at
-base two. Sections <a class="math-ref" href="#sec:base2">6.3</a>
-and <a class="math-ref" href="#sec:misread">9</a> explain that
+base below two permits rational subsums, while on every support with
+separated divisibility cuts the sum is transcendental at every real
+algebraic base greater than one, even with bounded positive integer
+weights. Section <a class="math-ref" href="#sec:separated-cuts">6.3</a> gives the proof
+and a non-chain host. Neither interval filling nor a measure estimate
+decides whether one specified rational is a subsum at base two.
+Sections <a class="math-ref" href="#sec:base2">6.4</a> and <a class="math-ref" href="#sec:misread">9</a> explain that
 obstruction, including the exact computation that disproved a proposed
 stopping rule. Section <a class="math-ref" href="#sec:second">8</a> retains the other method
 limits without claiming that they have one common cause.</p>
@@ -1186,7 +1188,7 @@ null.</em></p>
 </div>
 <p>Part (b) is proved in the companion note on #257, Section 7, from
 Hornich’s theorem as proved by Nitecki <span class="citation"
-data-cites="plectis257 hornich1941 nitecki2013"><a href="#ref-27">[27]</a><a href="#ref-9">[9]</a><a href="#ref-10">[10]</a></span>; Kovač and Tao
+data-cites="plectis257 hornich1941 nitecki2013"><a href="#ref-33">[33]</a><a href="#ref-9">[9]</a><a href="#ref-10">[10]</a></span>; Kovač and Tao
 record the strict inequality <span
 class="math inline" data-term-auto="off">\(w_N&gt;R_N\)</span> and the Cantor-set conclusion
 for every fixed base <span class="math inline" data-term-auto="off">\(t\ge2\)</span> <span
@@ -1243,13 +1245,13 @@ irrationality of the full sum <span
 class="math inline" data-term-auto="off">\(X_{\N_{&gt;0}}(a/b)\)</span> when <span
 class="math inline" data-term-auto="off">\(\log b/\log
 a&lt;0.4056830213840605\ldots\)</span>, using Zudilin’s linear forms
-<span class="citation" data-cites="plectis1049"><a href="#ref-29">[29]</a></span>, <span
+<span class="citation" data-cites="plectis1049"><a href="#ref-35">[35]</a></span>, <span
 class="citation" data-cites="zudilin2004"></span>, and proves that the
 sufficient cutoff supplied by one integer-polynomial family with common
 leading degree, coefficient-height and decay bounds at every fixed real
 base <span class="math inline" data-term-auto="off">\(x&gt;1\)</span> is at most <span
 class="math inline" data-term-auto="off">\(1/2\)</span> <span class="citation"
-data-cites="plectis1049"><a href="#ref-29">[29]</a></span>. This restriction does not exclude
+data-cites="plectis1049"><a href="#ref-35">[35]</a></span>. This restriction does not exclude
 stronger estimates at a particular base or a different choice of family
 there. Thin supports reach further than the full sum because the
 denominators divide one another.</p>
@@ -1281,11 +1283,11 @@ class="math inline" data-term-auto="off">\(1/E=0.62239\ldots\)</span>.</em></p>
 <p>The limit <span class="math inline" data-term-auto="off">\(2^NR_N/E\)</span> does not
 depend on whether #257 is true. Agreement with this fixed-depth limiting
 proportion therefore does not establish membership. An exact computation
-in <span class="citation" data-cites="plectisinvestigation"><a href="#ref-30">[30]</a></span>
+in <span class="citation" data-cites="plectisinvestigation"><a href="#ref-36">[36]</a></span>
 first read a surviving share near <span
 class="math inline" data-term-auto="off">\(62\%\)</span> as evidence that most such fractions
 are subsums; Theorem <a class="math-ref" href="#thm:forced">6.4</a> is the correction.
-Section <a class="math-ref" href="#sec:base2">6.3</a> states what
+Section <a class="math-ref" href="#sec:base2">6.4</a> states what
 remains.</p>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
@@ -1340,7 +1342,7 @@ of irrationality for one member has to use something that distinguishes
 it inside the family. Two constructions in the companion notes are
 families of this kind.</p>
 <p><em>Problem #251.</em> Proposition 1 of <span class="citation"
-data-cites="plectis251"><a href="#ref-26">[26]</a></span> (ordinary proof), applied in its
+data-cites="plectis251"><a href="#ref-32">[32]</a></span> (ordinary proof), applied in its
 Corollary 2 to the prime gaps, changes the gaps on a set of upper Banach
 density zero, by nonnegative integers below any prescribed function
 tending to infinity, keeping every congruence modulo every fixed <span
@@ -1364,7 +1366,7 @@ distributions of unnormalised blocks therefore do not suffice to prove
 <span class="math inline" data-term-auto="off">\(\sum p_n2^{-n}\)</span> irrational; neither
 primality nor every quantitative correlation is preserved.</p>
 <p><em>Problem #249.</em> Section 5 of <span class="citation"
-data-cites="plectis249"><a href="#ref-25">[25]</a></span> gives an integer sequence <span
+data-cites="plectis249"><a href="#ref-31">[31]</a></span> gives an integer sequence <span
 class="math inline" data-term-auto="off">\(c\)</span> with <span
 class="math inline" data-term-auto="off">\(c(n)=\varphi(n)\)</span> for odd <span
 class="math inline" data-term-auto="off">\(n\)</span>, <span
@@ -1532,14 +1534,541 @@ nonperiodic ratio word. The probe is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/01de6282/research/experiments/interestingness/periodic_chain_probe.py"><code>research/experiments/interestingness/periodic_chain_probe.py</code></a>.
 Those finite checks test the formulas; the block decomposition above
 proves the equation at every degree.</p>
-<p>We do not know whether <span
-class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> can be removed from the
-universal statement in (a). At base <span
-class="math inline" data-term-auto="off">\(4/3\)</span>, chains with a
-non-eventually-periodic word of ratios <span
-class="math inline" data-term-auto="off">\(2,3\)</span> remain outside the argument.
-Arbitrarily grouping such ratios into blocks does not supply a single
-functional equation.</p>
+<div class="theorem" id="thm:chain-transcendence">
+<p><strong>Theorem 6.5</strong> (divisibility chains at every rational
+base). <em> Let <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be
+coprime integers and let <span
+class="math inline" data-term-auto="off">\(S=\{n_1&lt;n_2&lt;\cdots\}\)</span> be infinite
+with <span class="math inline" data-term-auto="off">\(n_j\mid n_{j+1}\)</span> for every
+<span class="math inline" data-term-auto="off">\(j\)</span>. Then <span
+class="math inline" data-term-auto="off">\(X_S(a/b)\)</span> is transcendental.</em></p>
+</div>
+<p>Theorem <a class="math-ref" href="#thm:chain-transcendence">6.5</a> strengthens
+the rational-base conclusion of Theorem <a class="math-ref" href="#thm:chains">6.3</a>. It removes the
+hypothesis <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> from part (a)
+and strengthens the conclusion there from irrationality to
+transcendence. In particular every divisibility chain at bases <span
+class="math inline" data-term-auto="off">\(4/3\)</span> and <span
+class="math inline" data-term-auto="off">\(5/4\)</span> has a transcendental sum, including
+the chains at base <span class="math inline" data-term-auto="off">\(4/3\)</span> whose ratios
+are <span class="math inline" data-term-auto="off">\(2\)</span> except for infinitely many
+<span class="math inline" data-term-auto="off">\(3\)</span>s, the first case left open by
+Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a). At
+rational bases it also gives part (b) without Mahler’s method; part (b)
+also covers irrational algebraic bases. The proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a) compares one partial
+sum with the whole tail, and at base <span
+class="math inline" data-term-auto="off">\(4/3\)</span> with ratio <span
+class="math inline" data-term-auto="off">\(n_{j+1}/n_j=2\)</span> that comparison fails:
+<span class="math inline" data-term-auto="off">\(D_j(X_S(4/3)-S_j)\)</span> grows like <span
+class="math inline" data-term-auto="off">\((9/4)^{n_j}\)</span>. The proof below keeps the
+first few terms of the tail as separate coordinates of an integer
+vector. Those coordinates are products of powers of <span
+class="math inline" data-term-auto="off">\(a\)</span> and <span
+class="math inline" data-term-auto="off">\(b\)</span>, and by the product formula they
+contribute nothing to the product of absolute values over the
+archimedean place and the primes dividing <span
+class="math inline" data-term-auto="off">\(ab\)</span>. Only one linear form and the
+coordinate carrying the partial sum remain, and the Subspace Theorem
+applies.</p>
+<section id="evidence.-1" class="level5">
+<h5>Evidence.</h5>
+<p>Ordinary proof, with the <span class="math inline" data-term-auto="off">\(p\)</span>-adic
+Subspace Theorem as an external premise, awaiting specialist review; it
+is not checked in Lean. Exact finite checks of the formulas used below
+are in <code>research/experiments/chain_transcendence/</code> of the
+repository. They check the bookkeeping and form no part of the
+proof.</p>
+<div class="proof">
+<p><em>Proof.</em> As in the proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>, write <span
+class="math inline" data-term-auto="off">\(\rho=b/a\)</span>, <span
+class="math inline" data-term-auto="off">\(D_j=a^{n_j}-b^{n_j}\)</span> and <span
+class="math inline" data-term-auto="off">\(S_j=\sum_{i\le
+j}b^{n_i}/(a^{n_i}-b^{n_i})\)</span>; then <span
+class="math inline" data-term-auto="off">\(D_jS_j\)</span> is a positive integer. Suppose
+that <span class="math inline" data-term-auto="off">\(x=X_S(a/b)\)</span> is algebraic.</p>
+<p><em>The tail.</em> Fix <span class="math inline" data-term-auto="off">\(j\)</span> and put
+<span class="math inline" data-term-auto="off">\(N=n_j\)</span> and <span
+class="math inline" data-term-auto="off">\(M=n_{j+1}\)</span>. Each <span
+class="math inline" data-term-auto="off">\(n_l\)</span> with <span
+class="math inline" data-term-auto="off">\(l&gt;j\)</span> is a multiple of <span
+class="math inline" data-term-auto="off">\(M\)</span>, and <span
+class="math inline" data-term-auto="off">\(\rho^n/(1-\rho^n)=\sum_{i\ge1}\rho^{in}\)</span>,
+so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[x-S_j=\sum_{k\ge1}c_j(k)\,\rho^{kM},\qquad
+c_j(k)=\#\{l&gt;j:\ n_l\mid kM\}.\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(n_{j+1}=M\)</span> and <span
+class="math inline" data-term-auto="off">\(n_{j+s}\ge2^{s-1}M\)</span>, we have <span
+class="math inline" data-term-auto="off">\(1\le c_j(k)\le1+\log_2k\)</span>. For an integer
+<span class="math inline" data-term-auto="off">\(K\ge1\)</span> put <span
+class="math inline" data-term-auto="off">\(E_j=\sum_{k\ge K}c_j(k)\rho^{kM}\)</span>. Then
+<span class="math inline" data-term-auto="off">\(0&lt;E_j\le C_K\rho^{KM}\)</span>, where
+<span
+class="math inline" data-term-auto="off">\(C_K=\sum_{i\ge0}(1+\log_2(K+i))\rho^{i}\)</span>
+does not depend on <span class="math inline" data-term-auto="off">\(j\)</span>.</p>
+<p><em>Choice of <span class="math inline" data-term-auto="off">\(K\)</span>.</em> The ratios
+<span class="math inline" data-term-auto="off">\(r_j=n_{j+1}/n_j\)</span> are integers at
+least <span class="math inline" data-term-auto="off">\(2\)</span>. Choose an infinite set
+<span class="math inline" data-term-auto="off">\(J_0\)</span> of indices on which either
+<span class="math inline" data-term-auto="off">\(r_j\)</span> equals a constant <span
+class="math inline" data-term-auto="off">\(r\)</span>, or <span
+class="math inline" data-term-auto="off">\(r_j\to\infty\)</span>. In the first case fix <span
+class="math inline" data-term-auto="off">\(K\ge1\)</span> with <span
+class="math inline" data-term-auto="off">\(Kr\log(a/b)&gt;\log a\)</span>; at base <span
+class="math inline" data-term-auto="off">\(4/3\)</span> with <span
+class="math inline" data-term-auto="off">\(r=2\)</span> the least such <span
+class="math inline" data-term-auto="off">\(K\)</span> is <span
+class="math inline" data-term-auto="off">\(3\)</span>. In the second case put <span
+class="math inline" data-term-auto="off">\(K=1\)</span>. The vector <span
+class="math inline" data-term-auto="off">\((c_j(1),\dots,c_j(K-1))\)</span> takes only
+finitely many values, so it equals a fixed <span
+class="math inline" data-term-auto="off">\((c_1,\dots,c_{K-1})\)</span> for all <span
+class="math inline" data-term-auto="off">\(j\)</span> in an infinite set <span
+class="math inline" data-term-auto="off">\(J\subseteq J_0\)</span>.</p>
+<p><em>Integer points and one linear form.</em> For <span
+class="math inline" data-term-auto="off">\(j\in J\)</span> put <span
+class="math inline" data-term-auto="off">\(H=a^{N+(K-1)M}\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[Y_j=\bigl(H,\ H\rho^{N},\ a^{(K-1)M}D_jS_j,\
+H\rho^{M},\ H\rho^{N+M},\ \dots,\
+H\rho^{(K-1)M},\ H\rho^{N+(K-1)M}\bigr)\in\Z^{2K+1}.\]</span></div>
+<p>Every
+coordinate except the third is an integer whose prime factors divide
+<span class="math inline" data-term-auto="off">\(ab\)</span>; for example <span
+class="math inline" data-term-auto="off">\(H\rho^{N+kM}=a^{(K-1-k)M}b^{N+kM}\)</span>. For
+<span class="math inline" data-term-auto="off">\(y=(y_1,\dots,y_{2K+1})\)</span> put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[L(y)=xy_1-xy_2-y_3-\sum_{k=1}^{K-1}c_k\,(y_{2k+2}-y_{2k+3}).\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(a^{(K-1)M}D_jS_j=H(1-\rho^N)S_j\)</span>, the
+expansion of the tail gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[L(Y_j)=H(1-\rho^N)\Bigl(x-S_j-\sum_{k=1}^{K-1}c_k\rho^{kM}\Bigr)
+=H(1-\rho^N)E_j .\]</span></div>
+<p><em>The product over places.</em> Let <span
+class="math inline" data-term-auto="off">\(\Sigma\)</span> consist of the archimedean place
+and the primes dividing <span class="math inline" data-term-auto="off">\(ab\)</span>, with
+<span class="math inline" data-term-auto="off">\(|p|_p=p^{-1}\)</span>. At the archimedean
+place take the <span class="math inline" data-term-auto="off">\(2K+1\)</span> forms <span
+class="math inline" data-term-auto="off">\(L\)</span> and <span
+class="math inline" data-term-auto="off">\(y_i\)</span> for <span
+class="math inline" data-term-auto="off">\(i\ne3\)</span>; at each prime <span
+class="math inline" data-term-auto="off">\(p\mid ab\)</span> take the <span
+class="math inline" data-term-auto="off">\(2K+1\)</span> coordinate forms. The coordinate
+forms are linearly independent, and so are the forms at the archimedean
+place, because the coefficient of <span
+class="math inline" data-term-auto="off">\(y_3\)</span> in <span
+class="math inline" data-term-auto="off">\(L\)</span> is <span
+class="math inline" data-term-auto="off">\(-1\)</span>. By the product formula, <span
+class="math inline" data-term-auto="off">\(\prod_{v\in\Sigma}|y|_v=1\)</span> for every
+nonzero integer <span class="math inline" data-term-auto="off">\(y\)</span> whose prime
+factors divide <span class="math inline" data-term-auto="off">\(ab\)</span>. Hence, in the
+product of <span class="math inline" data-term-auto="off">\(|F(Y_j)|_v\)</span> over all
+<span class="math inline" data-term-auto="off">\(v\in\Sigma\)</span> and all forms <span
+class="math inline" data-term-auto="off">\(F\)</span> chosen at <span
+class="math inline" data-term-auto="off">\(v\)</span>, only <span
+class="math inline" data-term-auto="off">\(L\)</span> and the third coordinate at the primes
+remain:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\Pi_j=|L(Y_j)|\prod_{p\mid
+ab}\bigl|a^{(K-1)M}D_jS_j\bigr|_p
+\le HE_j\,a^{-(K-1)M}\le C_K\,a^{N}\rho^{KM},\]</span></div>
+<p class="display-continue">by <span
+class="math inline" data-term-auto="off">\(|D_jS_j|_p\le1\)</span> and <span
+class="math inline" data-term-auto="off">\(\prod_{p\mid ab}|a|_p=a^{-1}\)</span>. Also <span
+class="math inline" data-term-auto="off">\(\|Y_j\|=\max_i|Y_{j,i}|\le\max(1,x)\,a^{N+(K-1)M}\)</span>.
+In the first case <span class="math inline" data-term-auto="off">\(M=rN\)</span> and <span
+class="math inline" data-term-auto="off">\(a^N\rho^{KM}=a^{-\delta N}\)</span> with <span
+class="math inline" data-term-auto="off">\(\delta=Kr\log(a/b)/\log a-1&gt;0\)</span>, so
+<span class="math inline" data-term-auto="off">\(\Pi_j\le\|Y_j\|^{-\varepsilon}\)</span> for
+all large <span class="math inline" data-term-auto="off">\(j\in J\)</span>, where <span
+class="math inline" data-term-auto="off">\(\varepsilon=\delta/(2+2(K-1)r)\)</span>. In the
+second case <span class="math inline" data-term-auto="off">\(K=1\)</span>, <span
+class="math inline" data-term-auto="off">\(\|Y_j\|\le\max(1,x)\,a^N\)</span> and <span
+class="math inline" data-term-auto="off">\(a^N\rho^M\le a^{-N}\)</span> once <span
+class="math inline" data-term-auto="off">\(r_j\log(a/b)\ge2\log a\)</span>, so <span
+class="math inline" data-term-auto="off">\(\Pi_j\le\|Y_j\|^{-1/2}\)</span> for all large
+<span class="math inline" data-term-auto="off">\(j\in J\)</span>.</p>
+<p><em>The Subspace Theorem.</em> We use Schmidt’s Subspace Theorem in
+the <span class="math inline" data-term-auto="off">\(p\)</span>-adic form due to Schlickewei
+<span class="citation" data-cites="schmidt1972 schlickewei1976"><a href="#ref-20">[20]</a><a href="#ref-21">[21]</a></span>,
+as stated in <span class="citation" data-cites="bilu2008"><a href="#ref-22">[22]</a></span>. Let
+<span class="math inline" data-term-auto="off">\(\Sigma\)</span> be a finite set of places of
+<span class="math inline" data-term-auto="off">\(\Q\)</span> containing the archimedean one
+and, for each <span class="math inline" data-term-auto="off">\(v\in\Sigma\)</span>, let <span
+class="math inline" data-term-auto="off">\(F_{v,1},\dots,F_{v,m}\)</span> be linearly
+independent linear forms in <span class="math inline" data-term-auto="off">\(m\)</span>
+variables with algebraic coefficients. Then for every <span
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> the vectors <span
+class="math inline" data-term-auto="off">\(y\in\Z^m\)</span> with <span
+class="math inline" data-term-auto="off">\(\prod_{v\in\Sigma}\prod_{i=1}^m|F_{v,i}(y)|_v\le\|y\|^{-\varepsilon}\)</span>
+lie in finitely many proper linear subspaces of <span
+class="math inline" data-term-auto="off">\(\Q^m\)</span>. Here every form has rational
+coefficients except possibly <span class="math inline" data-term-auto="off">\(L\)</span>, at
+the archimedean place, whose coefficients lie in <span
+class="math inline" data-term-auto="off">\(\Q(x)\)</span> with <span
+class="math inline" data-term-auto="off">\(x\)</span> real algebraic. The vectors <span
+class="math inline" data-term-auto="off">\(Y_j\)</span> are pairwise distinct, so there are
+<span
+class="math inline" data-term-auto="off">\(\lambda\in\Q^{2K+1}\smallsetminus\{0\}\)</span>
+and an infinite <span class="math inline" data-term-auto="off">\(J&#39;\subseteq J\)</span>
+with <span class="math inline" data-term-auto="off">\(\lambda\cdot Y_j=0\)</span> for every
+<span class="math inline" data-term-auto="off">\(j\in J&#39;\)</span>.</p>
+<p><em>No fixed relation.</em> Divide <span
+class="math inline" data-term-auto="off">\(\lambda\cdot Y_j=0\)</span> by <span
+class="math inline" data-term-auto="off">\(H\)</span> and put <span
+class="math inline" data-term-auto="off">\(z=\rho^{n_j}\)</span>, which tends to <span
+class="math inline" data-term-auto="off">\(0\)</span> along <span
+class="math inline" data-term-auto="off">\(J&#39;\)</span>. In the first case <span
+class="math inline" data-term-auto="off">\(\rho^{kM}=z^{kr}\)</span>, and substituting <span
+class="math inline" data-term-auto="off">\(S_j=x-\sum_{k&lt;K}c_kz^{kr}-E_j\)</span> gives
+<span class="math inline" data-term-auto="off">\(Q(z)=\lambda_3(1-z)E_j\)</span> for the
+polynomial</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[Q(z)=\lambda_1+\lambda_3x+(\lambda_2-\lambda_3x)z
++\sum_{k=1}^{K-1}\bigl((\lambda_{2k+2}-\lambda_3c_k)z^{kr}
++(\lambda_{2k+3}+\lambda_3c_k)z^{1+kr}\bigr).\]</span></div>
+<p>Because <span
+class="math inline" data-term-auto="off">\(r\ge2\)</span>, the exponents <span
+class="math inline" data-term-auto="off">\(0\)</span>, <span
+class="math inline" data-term-auto="off">\(1\)</span>, <span
+class="math inline" data-term-auto="off">\(kr\)</span> and <span
+class="math inline" data-term-auto="off">\(1+kr\)</span> with <span
+class="math inline" data-term-auto="off">\(1\le k&lt;K\)</span> are distinct and smaller than
+<span class="math inline" data-term-auto="off">\(Kr\)</span>. The polynomial <span
+class="math inline" data-term-auto="off">\(Q\)</span> does not depend on <span
+class="math inline" data-term-auto="off">\(j\)</span> and <span
+class="math inline" data-term-auto="off">\(|Q(z)|\le|\lambda_3|C_Kz^{Kr}\)</span> along <span
+class="math inline" data-term-auto="off">\(J&#39;\)</span>, so every coefficient of <span
+class="math inline" data-term-auto="off">\(Q\)</span> vanishes; otherwise its lowest nonzero
+term would dominate as <span class="math inline" data-term-auto="off">\(z\to0\)</span>. Then
+<span class="math inline" data-term-auto="off">\(\lambda_3(1-z)E_j=0\)</span>, and <span
+class="math inline" data-term-auto="off">\(E_j&gt;0\)</span> gives <span
+class="math inline" data-term-auto="off">\(\lambda_3=0\)</span>. The coefficients of <span
+class="math inline" data-term-auto="off">\(Q\)</span> are now <span
+class="math inline" data-term-auto="off">\(\lambda_1\)</span>, <span
+class="math inline" data-term-auto="off">\(\lambda_2\)</span>, <span
+class="math inline" data-term-auto="off">\(\lambda_{2k+2}\)</span> and <span
+class="math inline" data-term-auto="off">\(\lambda_{2k+3}\)</span>, so <span
+class="math inline" data-term-auto="off">\(\lambda=0\)</span>, a contradiction. In the second
+case the same substitution gives <span
+class="math inline" data-term-auto="off">\(\lambda_1+\lambda_3x+(\lambda_2-\lambda_3x)z=\lambda_3(1-z)E_j\)</span>
+with <span class="math inline" data-term-auto="off">\(0&lt;E_j\le C_1z^{r_j}\le
+C_1z^2\)</span>, and the same comparison gives <span
+class="math inline" data-term-auto="off">\(\lambda=0\)</span>. Therefore <span
+class="math inline" data-term-auto="off">\(x\)</span> is transcendental. ◻</p>
+</div>
+<p>The last step uses that the ratios of the chain are at least <span
+class="math inline" data-term-auto="off">\(2\)</span>. The identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{j\ge0}\frac{z^{2^j}}{1-z^{2^{j+1}}}=\frac{z}{1-z}\qquad(|z|&lt;1)\]</span></div>
+<p class="display-continue">shows what happens without this. Let <span
+class="math inline" data-term-auto="off">\(\mu_j\)</span> be its <span
+class="math inline" data-term-auto="off">\(j\)</span>th partial sum and <span
+class="math inline" data-term-auto="off">\(w=z^{2^{j+1}}\)</span>. Then <span
+class="math inline" data-term-auto="off">\((1-w)\mu_j\)</span> is a polynomial in <span
+class="math inline" data-term-auto="off">\(z\)</span> with integer coefficients of degree
+less than <span class="math inline" data-term-auto="off">\(2^{j+1}\)</span>, so at <span
+class="math inline" data-term-auto="off">\(z=b/a\)</span> it becomes an integer after
+multiplication by <span class="math inline" data-term-auto="off">\(a^{2^{j+1}}\)</span>, as
+<span class="math inline" data-term-auto="off">\(D_jS_j\)</span> does above. The tail,
+however, begins at the exponent of <span
+class="math inline" data-term-auto="off">\(w\)</span> itself: <span
+class="math inline" data-term-auto="off">\((1-w)(z/(1-z)-\mu_j)=w\)</span> exactly. At <span
+class="math inline" data-term-auto="off">\(z=b/a\)</span> this is a fixed linear relation
+between <span class="math inline" data-term-auto="off">\(a^{2^{j+1}}\)</span>, <span
+class="math inline" data-term-auto="off">\(b^{2^{j+1}}\)</span> and the cleared partial sum,
+the situation that the last step excludes when the ratios are at least
+<span class="math inline" data-term-auto="off">\(2\)</span>, and the value is rational.</p>
+<p>The same proof applies when the terms of <span
+class="math inline" data-term-auto="off">\(X_S(a/b)\)</span> carry bounded positive integer
+weights, since the tail coefficients <span
+class="math inline" data-term-auto="off">\(c_j(k)\)</span> then remain positive integers
+bounded in terms of <span class="math inline" data-term-auto="off">\(k\)</span>.</p>
+<p>The argument is an instance of the method of Corvaja and Zannier, who
+apply the Subspace Theorem when a fixed linear combination of numbers
+composed of finitely many fixed primes approximates an integer <span
+class="citation" data-cites="corvajazannier2002"></span>. Here those
+numbers are products of powers of <span class="math inline" data-term-auto="off">\(a\)</span>
+and <span class="math inline" data-term-auto="off">\(b\)</span>, and divisibility along the
+chain supplies the integer <span
+class="math inline" data-term-auto="off">\(a^{(K-1)M}D_jS_j\)</span>. Two older methods bear
+on parts of Theorem <a class="math-ref" href="#thm:chain-transcendence">6.5</a>. When the
+ratios <span class="math inline" data-term-auto="off">\(r_j\)</span> are unbounded, Roth’s
+theorem <span class="citation" data-cites="roth1955"><a href="#ref-25">[25]</a></span> suffices:
+once <span class="math inline" data-term-auto="off">\(r_j\log(a/b)\ge3\log a\)</span>, the
+rational <span class="math inline" data-term-auto="off">\(S_j\)</span>, of height at most
+<span class="math inline" data-term-auto="off">\(\max(1,X_S(a/b))\,a^{n_j}\)</span>,
+satisfies <span class="math inline" data-term-auto="off">\(0&lt;X_S(a/b)-S_j\le
+Ca^{-3n_j}\)</span> with <span class="math inline" data-term-auto="off">\(C\)</span>
+independent of <span class="math inline" data-term-auto="off">\(j\)</span>, and irrationality
+follows as in the proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>. When the ratios are
+bounded, the extension of Mahler’s method to chains of functional
+equations by Loxton and van der Poorten <span class="citation"
+data-cites="loxtonvanderpoorten1977"><a href="#ref-24">[24]</a></span> applies to <span
+class="math inline" data-term-auto="off">\(\sum_h\varphi(\alpha^{n_h})\)</span> with <span
+class="math inline" data-term-auto="off">\(\varphi(z)=z/(1-z)\)</span> at algebraic <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> with <span
+class="math inline" data-term-auto="off">\(0&lt;|\alpha|&lt;1\)</span>, provided the
+functions <span class="math inline" data-term-auto="off">\(f_k(z)=\sum_{h\ge
+k}\varphi(z^{n_h/n_k})\)</span> satisfy their hypothesis of strong
+transcendence, a transcendence condition uniform in <span
+class="math inline" data-term-auto="off">\(k\)</span>. That hypothesis fails for unbounded
+ratios, since <span class="math inline" data-term-auto="off">\((1-z)f_k(z)-z\)</span>
+vanishes at <span class="math inline" data-term-auto="off">\(0\)</span> to order <span
+class="math inline" data-term-auto="off">\(n_{k+1}/n_k\)</span>. We have not checked it for
+bounded ratios; if it holds, their theorem gives such chains at every
+real algebraic base greater than <span class="math inline" data-term-auto="off">\(1\)</span>.
+We did not find Theorem <a class="math-ref" href="#thm:chain-transcendence">6.5</a> stated in
+the literature. The search, with locators, is recorded in
+<code>research/experiments/chain_transcendence/README.md</code> and
+ended on 26 September 2026.</p>
+<p>The preceding integer-vector argument uses a rational base. The next
+number-field argument controls the conjugates explicitly and extends the
+conclusion to every real algebraic base greater than one. It also
+permits non-chain blocks with separated divisibility cuts. Arbitrary
+supports, including the full support at <span
+class="math inline" data-term-auto="off">\(3/2\)</span>, remain outside its hypotheses.</p>
+</section>
+</section>
+<section id="sec:separated-cuts" class="level3">
+<h3>Divisibility cuts at every algebraic base</h3>
+<p>A support need not be a chain for the prefix-clearing argument to
+work. What it needs is a place to cut: every earlier exponent divides
+one integer <span class="math inline" data-term-auto="off">\(L\)</span>, while every later
+exponent is a multiple of a larger integer <span
+class="math inline" data-term-auto="off">\(M\)</span>. The prefix then becomes a polynomial
+of degree at most <span class="math inline" data-term-auto="off">\(L\)</span>, and the tail
+has a bounded number of possible initial coefficient patterns in powers
+of <span class="math inline" data-term-auto="off">\(t^{-M}\)</span>. Keeping several of those
+powers as separate coordinates pays for the height of the prefix,
+including all its algebraic conjugates.</p>
+<div class="theorem" id="thm:separated-cuts">
+<p><strong>Theorem 6.6</strong> (Lambert sums across divisibility cuts).
+<em> Let <span class="math inline" data-term-auto="off">\(H\)</span> be an infinite subset of
+the positive integers. Suppose that positive integers <span
+class="math inline" data-term-auto="off">\(L_j,M_j\)</span> satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[L_j\longrightarrow\infty,\qquad M_j&gt;L_j,\qquad
+M_j-L_j\longrightarrow\infty,\]</span></div>
+<p class="display-continue"><em> and, for every <span
+class="math inline" data-term-auto="off">\(j\)</span> and <span class="math inline" data-term-auto="off">\(n\in
+H\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[n\le L_j\ \Longrightarrow\
+n\mid L_j,
+\qquad n&gt;L_j\ \Longrightarrow\ M_j\mid n.\]</span></div>
+<p><em> For every infinite
+<span class="math inline" data-term-auto="off">\(B\subseteq H\)</span>, every bounded family
+of positive integer weights <span class="math inline" data-term-auto="off">\((w_n)_{n\in
+B}\)</span>, and every real algebraic <span
+class="math inline" data-term-auto="off">\(t&gt;1\)</span>, the sum </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n\in B}\frac{w_n}{t^n-1}\]</span></div>
+<p class="display-continue"><em> is
+transcendental.</em></p>
+</div>
+<p>These hypotheses hold for every increasing divisibility chain, taking
+<span class="math inline" data-term-auto="off">\(L_j=n_j\)</span> and <span
+class="math inline" data-term-auto="off">\(M_j=n_{j+1}\)</span>. They also allow arbitrarily
+large sets of pairwise incomparable exponents in one block, as the
+example below shows. They do not hold for the full positive support. The
+theorem therefore does not settle the rationality of the full Lambert
+series at <span class="math inline" data-term-auto="off">\(3/2\)</span>.</p>
+<p>The proof uses the number-field Subspace Theorem in the normalization
+of Evertse and Ferretti <span class="citation"
+data-cites="evertseferretti2013"><a href="#ref-44">[44]</a></span>. It extends the preceding
+argument based on the method of Corvaja and Zannier <span
+class="citation" data-cites="corvajazannier2002"></span>. This is an
+ordinary proof; neither a Lean proof of the transcendence conclusion nor
+historical priority is asserted.</p>
+<div class="proof">
+<p><em>Proof.</em> Write <span
+class="math inline" data-term-auto="off">\(\rho=t^{-1}\in(0,1)\)</span> and <span
+class="math inline" data-term-auto="off">\(1\le w_n\le W\)</span>. The series converges by
+comparison with a geometric series. Suppose its value <span
+class="math inline" data-term-auto="off">\(x\)</span> is algebraic, and put <span
+class="math inline" data-term-auto="off">\(K=\Q(\rho,x)\)</span>, <span
+class="math inline" data-term-auto="off">\(d=[K:\Q]\)</span>. Use absolute values <span
+class="math inline" data-term-auto="off">\(|\cdot|_v\)</span> normalized by the product
+formula. At the specified real embedding <span
+class="math inline" data-term-auto="off">\(v_0\)</span>, <span
+class="math inline" data-term-auto="off">\(|a|_{v_0}=|a|^{1/d}\)</span>. Let <span
+class="math inline" data-term-auto="off">\(S\)</span> contain the archimedean places and
+every finite place where <span class="math inline" data-term-auto="off">\(\rho\)</span> is
+not a unit. Then <span class="math inline" data-term-auto="off">\(\rho\)</span> is an <span
+class="math inline" data-term-auto="off">\(S\)</span>-unit. Write <span
+class="math inline" data-term-auto="off">\(h=\log H(\rho)&gt;0\)</span>, where <span
+class="math inline" data-term-auto="off">\(H\)</span> is the multiplicative projective
+height.</p>
+<p>For one cut, abbreviate <span class="math inline" data-term-auto="off">\(L=L_j\)</span>,
+<span class="math inline" data-term-auto="off">\(M=M_j\)</span>, and set</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[s_j=\sum_{\substack{n\in B\\n\le L}}
+       \frac{w_n\rho^n}{1-\rho^n},
+\qquad z_j=(1-\rho^L)s_j=P_j(\rho).\]</span></div>
+<p>For <span
+class="math inline" data-term-auto="off">\(n\mid L\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(1-X^L)\frac{X^n}{1-X^n}=X^n+X^{2n}+\cdots+X^L.\]</span></div>
+<p>Thus <span class="math inline" data-term-auto="off">\(P_j\in\Z[X]\)</span>, its degree is at
+most <span class="math inline" data-term-auto="off">\(L\)</span>, and its coefficient sum is
+at most <span class="math inline" data-term-auto="off">\(B_j=WL^2\)</span>. Consequently, at
+a finite place, <span
+class="math inline" data-term-auto="off">\(|z_j|_v\le\max(1,|\rho|_v)^L\)</span>; at an
+archimedean place the additional factor is <span
+class="math inline" data-term-auto="off">\(B_j^{d_v/d}\)</span>, where <span
+class="math inline" data-term-auto="off">\(d_v\)</span> is its local degree. Since the
+archimedean exponents sum to one,</p>
+<div class="math-display" id="eq:cuts-conjugates" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:cuts-conjugates}
+\prod_{v\in S\smallsetminus\{v_0\}}|z_j|_v\le B_j H(\rho)^L.
+\end{equation}\]</span></div>
+<p>All coordinates used below are <span
+class="math inline" data-term-auto="off">\(S\)</span>-integers. Discard finitely many cuts so
+that the prefix is nonempty.</p>
+<p>Every remaining exponent is a multiple of <span
+class="math inline" data-term-auto="off">\(M\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[x-s_j=\sum_{k\ge1}c_j(k)\rho^{kM},\qquad
+c_j(k)=\sum_{\substack{n\in B,\ n&gt;L\\ n\mid kM}}w_n.\]</span></div>
+<p>Writing
+<span class="math inline" data-term-auto="off">\(n=Mr\)</span> shows <span
+class="math inline" data-term-auto="off">\(0\le c_j(k)\le W\tau(k)\le Wk\)</span>. Choose a
+fixed integer <span class="math inline" data-term-auto="off">\(R\ge2\)</span> such that <span
+class="math inline" data-term-auto="off">\(\gamma=R(-\log\rho)/d-h&gt;0\)</span>. On an
+infinite subsequence the vector <span
+class="math inline" data-term-auto="off">\((c_j(1),\ldots,c_j(R-1))\)</span> is constant;
+denote it by <span class="math inline" data-term-auto="off">\((c_1,\ldots,c_{R-1})\)</span>.
+The remaining tail satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0&lt;E_j:=x-s_j-\sum_{k=1}^{R-1}c_k\rho^{kM}
+\le C_R\rho^{RM},\qquad
+C_R=W\left(\frac{R}{1-\rho}+\frac{\rho}{(1-\rho)^2}\right).\]</span></div>
+<p>Strict positivity follows from the infinite positive support, even if
+some of the frozen coefficients are zero.</p>
+<p>Consider the <span class="math inline" data-term-auto="off">\(2R+1\)</span> coordinates</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Y_j=(1,\rho^L,z_j,\rho^M,\rho^{L+M},\ldots,
+          \rho^{(R-1)M},\rho^{L+(R-1)M}).\]</span></div>
+<p>Put <span
+class="math inline" data-term-auto="off">\(D=L+(R-1)M\)</span>. The coordinates <span
+class="math inline" data-term-auto="off">\(1,\rho^D\)</span> give the lower height bound; the
+polynomial estimate for <span class="math inline" data-term-auto="off">\(z_j\)</span> gives
+the upper bound:</p>
+<div class="math-display" id="eq:cuts-height" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:cuts-height}
+H(\rho)^D\le H(Y_j)\le B_j H(\rho)^D.
+\end{equation}\]</span></div>
+<p>At every place of <span
+class="math inline" data-term-auto="off">\(S\)</span> use the coordinate linear forms, except
+that at <span class="math inline" data-term-auto="off">\(v_0\)</span> replace the <span
+class="math inline" data-term-auto="off">\(z\)</span>-coordinate form by</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[F(Y)=xY_0-xY_1-Y_z-\sum_{k=1}^{R-1}c_k(Y_{k,0}-Y_{k,1}).\]</span></div>
+<p>Its coefficient of <span class="math inline" data-term-auto="off">\(Y_z\)</span> is <span
+class="math inline" data-term-auto="off">\(-1\)</span>, so the forms remain independent, and
+<span class="math inline" data-term-auto="off">\(F(Y_j)=(1-\rho^L)E_j\)</span>. Every other
+coordinate is an <span class="math inline" data-term-auto="off">\(S\)</span>-unit and its
+product of absolute values over <span class="math inline" data-term-auto="off">\(S\)</span>
+is one. Hence</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\prod_{v\in
+S}\prod_i|F_{v,i}(Y_j)|_v
+\le C_R^{1/d} B_j\exp(-\gamma M).\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(L&lt;M\)</span>, <span class="math inline" data-term-auto="off">\(\log
+B_j=o(M)\)</span> and <span class="math inline" data-term-auto="off">\(\log
+H(Y_j)\le(Rh+1)M\)</span> eventually. The last product is at most <span
+class="math inline" data-term-auto="off">\(H(Y_j)^{-\epsilon}\)</span> for some fixed <span
+class="math inline" data-term-auto="off">\(\epsilon&gt;0\)</span>. Outside <span
+class="math inline" data-term-auto="off">\(S\)</span> the local vector norm is exactly one,
+because the coordinates are integral and the first is one. Dividing the
+displayed product by <span class="math inline" data-term-auto="off">\(H(Y_j)^{2R+1}\)</span>
+therefore gives precisely the normalized hypothesis of the Subspace
+Theorem. Infinitely many of the <span class="math inline" data-term-auto="off">\(Y_j\)</span>
+lie in one proper <span class="math inline" data-term-auto="off">\(K\)</span>-linear
+subspace, and hence in one fixed nonzero hyperplane.</p>
+<p>Substitute</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[z_j=(1-\rho^L)\left(x-\sum_{k=1}^{R-1}c_k\rho^{kM}-E_j\right)\]</span></div>
+<p class="display-continue">in that hyperplane equation. It becomes a fixed linear combination of
+the monomials with exponents</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0,L,M,L+M,\ldots,(R-1)M,L+(R-1)M\]</span></div>
+<p class="display-continue">equal
+to a fixed multiple of <span
+class="math inline" data-term-auto="off">\((1-\rho^L)E_j\)</span>. Successive exponent gaps
+are <span class="math inline" data-term-auto="off">\(L\)</span> or <span
+class="math inline" data-term-auto="off">\(M-L\)</span>, both tending to infinity; the
+remainder starts at <span class="math inline" data-term-auto="off">\(RM\)</span>, also a gap
+<span class="math inline" data-term-auto="off">\(M-L\)</span> beyond the last exponent. If
+any monomial coefficient were nonzero, divide by the first such monomial
+and let <span class="math inline" data-term-auto="off">\(j\)</span> tend to infinity. All
+other terms tend to zero, a contradiction. Thus all these coefficients
+vanish. The strict inequality <span
+class="math inline" data-term-auto="off">\(E_j&gt;0\)</span> then forces the hyperplane’s
+<span class="math inline" data-term-auto="off">\(z\)</span> coefficient to vanish, and
+substitution forces every other coefficient to vanish. This contradicts
+the chosen nonzero hyperplane and proves the theorem. ◻</p>
+</div>
+<div class="corollary" id="cor:cuts-wide-host">
+<p><strong>Corollary 6.7</strong> (A host of unbounded divisibility
+width). <em> Define </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{gathered}
+N_0=1,\quad m_j=2^{N_j},\quad
+L_j=N_j\operatorname{lcm}(1,\ldots,m_j),\quad N_{j+1}=2L_j,\\
+H_* = \bigcup_{j\ge0}\{N_j,2N_j,\ldots,m_jN_j\}.
+\end{gathered}\]</span></div>
+<p><em> Then <span class="math inline" data-term-auto="off">\(\sum_{n\in
+H_*}1/n=\infty\)</span>, and <span class="math inline" data-term-auto="off">\(H_*\)</span> is
+not contained in any finite union of divisibility chains. Nevertheless
+every infinite subset of <span class="math inline" data-term-auto="off">\(H_*\)</span>, with
+bounded positive integer weights, has a transcendental Lambert sum at
+every real algebraic base greater than one.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Every exponent in the first <span
+class="math inline" data-term-auto="off">\(j+1\)</span> blocks divides <span
+class="math inline" data-term-auto="off">\(L_j\)</span>; all later exponents are multiples of
+<span class="math inline" data-term-auto="off">\(N_{j+1}=2L_j\)</span>. The blocks are
+disjoint and ordered. These are the required cuts, with <span
+class="math inline" data-term-auto="off">\(M_j=2L_j\)</span>. Dyadic grouping gives <span
+class="math inline" data-term-auto="off">\(\sum_{k\le2^{N_j}}1/k\ge N_j/2\)</span>, so each
+block contributes at least <span class="math inline" data-term-auto="off">\(1/2\)</span> to
+the reciprocal sum. In the upper half of the <span
+class="math inline" data-term-auto="off">\(j\)</span>th block, two different coefficients
+have ratio less than two and neither divides the other. The resulting
+antichains have unbounded cardinality. A union of finitely many chains
+cannot contain them. Apply the theorem. ◻</p>
+</div>
+<p>This example also lies in the one-prime weighted class used for #257.
+For <span class="math inline" data-term-auto="off">\(h(n)=2^{v_2(n)}\)</span> and every real
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, its weighted mass obeys</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{n\in H_*}\frac{h(n)}{n(t^{h(n)}-1)}
+\le \frac{2t^2}{(t-1)^3}.\]</span></div>
+<p>Indeed, <span
+class="math inline" data-term-auto="off">\(h_j=h(N_j)\)</span> at least doubles. For <span
+class="math inline" data-term-auto="off">\(n=N_jk\)</span>, the inequality <span
+class="math inline" data-term-auto="off">\(t^{h_jh(k)}-1\ge h(k)(t^{h_j}-1)\)</span> bounds
+one block by <span
+class="math inline" data-term-auto="off">\([h_j/(t^{h_j}-1)]\sum_{k\le2^{N_j}}1/(N_jk)\)</span>,
+which is at most <span class="math inline" data-term-auto="off">\(2h_j/(t^{h_j}-1)\)</span>.
+Summing over distinct positive integers <span
+class="math inline" data-term-auto="off">\(h_j\)</span> and using <span
+class="math inline" data-term-auto="off">\(t^r-1\ge(t-1)t^{r-1}\)</span> proves the displayed
+bound. Thus the new conclusion here is algebraic-base transcendence on
+every infinite subset, not merely another instance of the existing
+integer-base irrationality criterion.</p>
+<p>For a smaller example take <span
+class="math inline" data-term-auto="off">\(H=\bigcup_{j\ge0}\{12^j,2\cdot12^j,3\cdot12^j\}\)</span>,
+with cuts <span class="math inline" data-term-auto="off">\(L_j=6\cdot12^j\)</span>, <span
+class="math inline" data-term-auto="off">\(M_j=12^{j+1}\)</span>. Every infinite thinning
+satisfies the theorem, including the terms <span
+class="math inline" data-term-auto="off">\(2\cdot12^p,3\cdot12^p\)</span> for prime <span
+class="math inline" data-term-auto="off">\(p\)</span> at base <span
+class="math inline" data-term-auto="off">\(3/2\)</span>. The theorem is hereditary under
+thinning because the same cuts continue to work. Arbitrary supports do
+not have this property; the earlier rational subsums below base two
+remain a necessary warning.</p>
 </section>
 <section id="sec:base2" class="level3">
 <h3>Base two</h3>
@@ -1554,7 +2083,7 @@ class="math inline" data-term-auto="off">\(X_F=\sum_{n\in F}w_n\)</span> for fin
 class="math inline" data-term-auto="off">\(F\)</span>, and <span
 class="math inline" data-term-auto="off">\(\mathcal A\)</span> is the set of all subsums.</p>
 <div class="lemma" id="lem:gaps">
-<p><strong>Lemma 6.5</strong> (the removed intervals). <em> <span
+<p><strong>Lemma 6.8</strong> (the removed intervals). <em> <span
 class="math inline" data-term-auto="off">\([0,E]\smallsetminus\mathcal A\)</span> is the
 disjoint union, over finite nonempty <span
 class="math inline" data-term-auto="off">\(F\)</span>, of the open intervals <span
@@ -1581,13 +2110,13 @@ nonempty <span class="math inline" data-term-auto="off">\(F\)</span> arises once
 length is <span class="math inline" data-term-auto="off">\(E\)</span> minus the measure of
 <span class="math inline" data-term-auto="off">\(\mathcal A\)</span>, which is <span
 class="math inline" data-term-auto="off">\(1\)</span> <span class="citation"
-data-cites="plectis257"><a href="#ref-27">[27]</a></span>. The series for <span
+data-cites="plectis257"><a href="#ref-33">[33]</a></span>. The series for <span
 class="math inline" data-term-auto="off">\(g_n\)</span> follows from <span
 class="math inline" data-term-auto="off">\(w_n=\sum_{j\ge1}2^{-jn}\)</span> and <span
 class="math inline" data-term-auto="off">\(R_n=\sum_{j\ge1}2^{-jn}/(2^j-1)\)</span>. ◻</p>
 </div>
 <div class="lemma" id="lem:translate">
-<p><strong>Lemma 6.6</strong> (translation by a finite subsum). <em> Let
+<p><strong>Lemma 6.9</strong> (translation by a finite subsum). <em> Let
 <span class="math inline" data-term-auto="off">\(F\)</span> be finite with largest element
 <span class="math inline" data-term-auto="off">\(n\)</span> and let <span
 class="math inline" data-term-auto="off">\(0\le x\le R_n\)</span>. The greedy rule applied to
@@ -1709,9 +2238,9 @@ both depth and height grow, is needed. Measure does not decide either.
 Boes, Darst and Erdős construct symmetric Cantor sets of every measure
 in <span class="math inline" data-term-auto="off">\([0,1)\)</span> that contain essentially
 no rationals <span class="citation"
-data-cites="boesdarsterdos1981"><a href="#ref-20">[20]</a></span>.</p>
+data-cites="boesdarsterdos1981"><a href="#ref-26">[26]</a></span>.</p>
 <p>The exact computation in <span class="citation"
-data-cites="plectisinvestigation"><a href="#ref-30">[30]</a></span> agrees with Theorem <a class="math-ref" href="#thm:forced">6.4</a> step by step. Among the
+data-cites="plectisinvestigation"><a href="#ref-36">[36]</a></span> agrees with Theorem <a class="math-ref" href="#thm:forced">6.4</a> step by step. Among the
 <span class="math inline" data-term-auto="off">\(19{,}653\)</span> reduced fractions with
 <span class="math inline" data-term-auto="off">\(2\le q\le200\)</span>, the numbers rejected
 at steps <span class="math inline" data-term-auto="off">\(1\)</span>, <span
@@ -1749,7 +2278,7 @@ prove membership. No rational is known to have an infinite <span
 class="math inline" data-term-auto="off">\(S\)</span> at base <span
 class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <div class="problem" id="prob:membership">
-<p><strong>Problem 6.7</strong>. <em> Decide whether <span
+<p><strong>Problem 6.10</strong>. <em> Decide whether <span
 class="math inline" data-term-auto="off">\(1/2\)</span> is a subsum of <span
 class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>. By <span
 class="citation" data-cites="plectis257"></span> this holds if and only
@@ -1758,9 +2287,9 @@ infinitely many steps.</em></p>
 </div>
 <p>The rational-point counting papers examined here concern null Cantor
 sets such as the middle-third set <span class="citation"
-data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-21">[21]</a><a href="#ref-22">[22]</a></span>. We did not locate a
+data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-27">[27]</a><a href="#ref-28">[28]</a></span>. We did not locate a
 theorem settling the present positive-measure subsum problem.
-Problem <a class="math-ref" href="#prob:membership">6.7</a> asks
+Problem <a class="math-ref" href="#prob:membership">6.10</a> asks
 about one explicit rational point.</p>
 </section>
 </section>
@@ -2107,7 +2636,7 @@ an ordinary proof there, C for cited there.</p>
 <tbody>
 <tr>
 <td class="ta-l">#68 <span class="citation"
-data-cites="plectis68"><a href="#ref-23">[23]</a></span></td>
+data-cites="plectis68"><a href="#ref-29">[29]</a></span></td>
 <td class="ta-l">Section 6</td>
 <td class="ta-l">Under the displayed cancellation
 hypotheses, the integer-gap comparison fails at cutoffs <span
@@ -2118,7 +2647,7 @@ the strict comparison.</td>
 </tr>
 <tr>
 <td class="ta-l">#243 <span class="citation"
-data-cites="plectis243"><a href="#ref-24">[24]</a></span></td>
+data-cites="plectis243"><a href="#ref-30">[30]</a></span></td>
 <td class="ta-l">Proposition 17</td>
 <td class="ta-l">A counterexample has errors that are
 eventually nonzero, relatively small, with unbounded negative parts.
@@ -2129,7 +2658,7 @@ discussion.</td>
 </tr>
 <tr>
 <td class="ta-l">#249 <span class="citation"
-data-cites="plectis249"><a href="#ref-25">[25]</a></span></td>
+data-cites="plectis249"><a href="#ref-31">[31]</a></span></td>
 <td class="ta-l">Section 5</td>
 <td class="ta-l">A rational series with the totient’s
 values at odd indices, within <span class="math inline" data-term-auto="off">\(2\)</span> at
@@ -2139,7 +2668,7 @@ tail differences need not be nonintegral.</td>
 </tr>
 <tr>
 <td class="ta-l">#249 <span class="citation"
-data-cites="plectis249"><a href="#ref-25">[25]</a></span></td>
+data-cites="plectis249"><a href="#ref-31">[31]</a></span></td>
 <td class="ta-l">Theorem 9</td>
 <td class="ta-l">Every admissible rank-one quotient stays
 more than <span class="math inline" data-term-auto="off">\(21/320\)</span> from its
@@ -2148,7 +2677,7 @@ target.</td>
 </tr>
 <tr>
 <td class="ta-l">#251 <span class="citation"
-data-cites="plectis251"><a href="#ref-26">[26]</a></span></td>
+data-cites="plectis251"><a href="#ref-32">[32]</a></span></td>
 <td class="ta-l">Proposition 1, Corollary 2</td>
 <td class="ta-l">For every allowance <span
 class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>, sparse nonnegative
@@ -2158,23 +2687,23 @@ bounded allowance is impossible under these congruences. Sources: <span
 class="citation" data-cites="fridy1966"></span>, <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-12">[12]</a></span>, <span class="citation"
 data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>, <span class="citation"
-data-cites="vandoornkovac2025"><a href="#ref-32">[32]</a></span>.</td>
+data-cites="vandoornkovac2025"><a href="#ref-38">[38]</a></span>.</td>
 <td class="ta-l">O</td>
 </tr>
 <tr>
 <td class="ta-l">#257 <span class="citation"
-data-cites="plectis257"><a href="#ref-27">[27]</a></span></td>
+data-cites="plectis257"><a href="#ref-33">[33]</a></span></td>
 <td class="ta-l">Section 6</td>
 <td class="ta-l">The small-displacement quantity stays
 above <span class="math inline" data-term-auto="off">\(1/2\)</span> at full support, where
 the value is irrational <span class="citation"
-data-cites="erdos1948"><a href="#ref-31">[31]</a></span>. No proof covering full support can rest
+data-cites="erdos1948"><a href="#ref-37">[37]</a></span>. No proof covering full support can rest
 on it.</td>
 <td class="ta-l">L, O</td>
 </tr>
 <tr>
 <td class="ta-l">#257 <span class="citation"
-data-cites="plectis257"><a href="#ref-27">[27]</a></span></td>
+data-cites="plectis257"><a href="#ref-33">[33]</a></span></td>
 <td class="ta-l">Section 3</td>
 <td class="ta-l">Every positive divisor cover costs at
 least <span class="math inline" data-term-auto="off">\(e\)</span> times the mean of <span
@@ -2186,7 +2715,7 @@ data-cites="taoteravainen2025"><a href="#ref-15">[15]</a></span>.</td>
 </tr>
 <tr>
 <td class="ta-l">#269 <span class="citation"
-data-cites="plectis269"><a href="#ref-28">[28]</a></span></td>
+data-cites="plectis269"><a href="#ref-34">[34]</a></span></td>
 <td class="ta-l">Theorem 1</td>
 <td class="ta-l">Nonsingular minors of every order: no
 finite sum of products separates one exponent from the other two. Fan
@@ -2197,7 +2726,7 @@ note’s.</td>
 </tr>
 <tr>
 <td class="ta-l">#1049 <span class="citation"
-data-cites="plectis1049"><a href="#ref-29">[29]</a></span></td>
+data-cites="plectis1049"><a href="#ref-35">[35]</a></span></td>
 <td class="ta-l">Theorem 5</td>
 <td class="ta-l">One family of nonzero integer-polynomial
 linear forms with common leading degree, coefficient-height and decay
@@ -2212,7 +2741,7 @@ class="math inline" data-term-auto="off">\(1/2\)</span> checked in Lean.</td>
 </tr>
 <tr>
 <td class="ta-l">#1049 <span class="citation"
-data-cites="plectis1049"><a href="#ref-29">[29]</a></span></td>
+data-cites="plectis1049"><a href="#ref-35">[35]</a></span></td>
 <td class="ta-l">Theorem 7</td>
 <td class="ta-l">The stated clearing conditions cannot be
 met at base <span class="math inline" data-term-auto="off">\(3/2\)</span>.</td>
@@ -2234,7 +2763,7 @@ claim the rows share a cause.</p>
 <section id="sec:misread" class="level2">
 <h2>The computation and its limits</h2>
 <p>The computation <span class="citation"
-data-cites="plectisinvestigation"><a href="#ref-30">[30]</a></span> runs the greedy rule in exact
+data-cites="plectisinvestigation"><a href="#ref-36">[36]</a></span> runs the greedy rule in exact
 arithmetic on every reduced fraction in <span
 class="math inline" data-term-auto="off">\((0,E]\)</span> with <span
 class="math inline" data-term-auto="off">\(2\le q\le Q\)</span>.</p>
@@ -2302,7 +2831,7 @@ class="math display" data-term-auto="off">\[R_n\le2^{-n}+\frac{2}{3\cdot4^n}.\]<
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[R_{17}\le\frac{196609}{25769803776}&lt;r&lt;\frac1{131071}=w_{17}.\]</span></div>
 <p>The same rejection occurs for <span
-class="math inline" data-term-auto="off">\(577/388=1+189/388\)</span> by Lemma <a class="math-ref" href="#lem:translate">6.6</a>. The independent
+class="math inline" data-term-auto="off">\(577/388=1+189/388\)</span> by Lemma <a class="math-ref" href="#lem:translate">6.9</a>. The independent
 reproduction, including every earlier skipped step, is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/research/experiments/sparse_interpolation/late_rejection.py"><code>research/experiments/sparse_interpolation/late_rejection.py</code></a>.
 This certificate shows that deeper computation can add exclusions. It
@@ -2329,7 +2858,7 @@ class="math inline" data-term-auto="off">\(133\)</span>, <span
 class="math inline" data-term-auto="off">\(65\)</span>, <span
 class="math inline" data-term-auto="off">\(32\)</span>, <span
 class="math inline" data-term-auto="off">\(16\)</span>, <span
-class="math inline" data-term-auto="off">\(8\)</span> from the measures of Lemma <a class="math-ref" href="#lem:gaps">6.5</a>; steps <span
+class="math inline" data-term-auto="off">\(8\)</span> from the measures of Lemma <a class="math-ref" href="#lem:gaps">6.8</a>; steps <span
 class="math inline" data-term-auto="off">\(10\)</span> and <span
 class="math inline" data-term-auto="off">\(11\)</span> have none against <span
 class="math inline" data-term-auto="off">\(4\)</span> and <span
@@ -2338,7 +2867,7 @@ class="math inline" data-term-auto="off">\(12\)</span> has <span
 class="math inline" data-term-auto="off">\(4\)</span> against <span
 class="math inline" data-term-auto="off">\(1\)</span>. The late counts fluctuate more than
 independent events would, because rejections arrive in the families of
-Lemma <a class="math-ref" href="#lem:translate">6.6</a>.</p>
+Lemma <a class="math-ref" href="#lem:translate">6.9</a>.</p>
 </section>
 <section id="sec:eliminated" class="level2">
 <h2>Eliminated ideas</h2>
@@ -2407,12 +2936,12 @@ fixed <span class="math inline" data-term-auto="off">\(t\ge2\)</span> is <span
 class="citation" data-cites="kovactao2024"></span>.</p></li>
 <li><p>A closed set of positive measure can contain essentially no
 rationals <span class="citation"
-data-cites="boesdarsterdos1981"><a href="#ref-20">[20]</a></span>, so the heuristic of
-Section <a class="math-ref" href="#sec:base2">6.3</a> cannot be a
+data-cites="boesdarsterdos1981"><a href="#ref-26">[26]</a></span>, so the heuristic of
+Section <a class="math-ref" href="#sec:base2">6.4</a> cannot be a
 consequence of measure.</p></li>
 <li><p>The rational-point counting papers examined here concern null
 Cantor sets <span class="citation"
-data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-21">[21]</a><a href="#ref-22">[22]</a></span>. We did not locate a
+data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-27">[27]</a><a href="#ref-28">[28]</a></span>. We did not locate a
 theorem settling the present positive-measure subsum problem. The
 searches were made on 20 September 2026 and are listed in the repository
 record.</p></li>
@@ -2425,11 +2954,11 @@ class="math inline" data-term-auto="off">\(\tfrac12(X_{\mathrm{sf}}(b)\pm1/b)\)<
 Duverney and Tachiya prove that <span
 class="math inline" data-term-auto="off">\(X_{\mathrm{sf}}(2^j)\)</span> is irrational <span
 class="citation" data-cites="duverneytachiya"></span>, as quoted in
-<span class="citation" data-cites="plectis257"><a href="#ref-27">[27]</a></span>, so both sums are
+<span class="citation" data-cites="plectis257"><a href="#ref-33">[33]</a></span>, so both sums are
 irrational at every base <span class="math inline" data-term-auto="off">\(2^j\)</span>. Both
 supports have divergent reciprocal sums. The identity at base <span
 class="math inline" data-term-auto="off">\(2\)</span> is derived in <span class="citation"
-data-cites="plectis249"><a href="#ref-25">[25]</a></span>; the corollary may be known.</p></li>
+data-cites="plectis249"><a href="#ref-31">[31]</a></span>; the corollary may be known.</p></li>
 </ul>
 </section>
 <section id="capacity:sec:sources" class="level2">
@@ -2464,7 +2993,7 @@ comparison of rank, arithmetic and analytic obstructions; their
 endpoints are not premises here.</p>
 <p>Hurwitz functions and interpolation by vanishing polynomials are
 classical. Waldschmidt’s survey <span class="citation"
-data-cites="waldschmidt2022"><a href="#ref-36">[36]</a></span> describes growth and multipoint
+data-cites="waldschmidt2022"><a href="#ref-42">[42]</a></span> describes growth and multipoint
 derivative questions. Here we fix a polynomial bound on the integer
 Taylor coefficients and study the dimension and interior of a finite
 real derivative image, as well as rationality of finitely many
@@ -2472,7 +3001,7 @@ derivatives under eventual coefficient divisibility. This last
 hypothesis is restrictive: it is not an unrestricted rational-value
 theorem for Hurwitz functions. For the classical scalar dimension
 formula, see Wegmann <span class="citation"
-data-cites="wegmann1968"><a href="#ref-37">[37]</a></span>, who credits Šalát. Our additional task
+data-cites="wegmann1968"><a href="#ref-43">[43]</a></span>, who credits Šalát. Our additional task
 is to separate a joint derivative image after several carry
 constructions have been added. Neither the definition of a Hurwitz
 function nor the mass-distribution argument is new. The precise
@@ -2480,7 +3009,7 @@ dimension formula and the two sharp thresholds are proved here;
 historical priority remains unestablished.</p>
 <p>Airey, Mance and Vandehey already use digit sets eventually divisible
 by every fixed integer while retaining asymptotically full digit entropy
-<span class="citation" data-cites="amv2015"><a href="#ref-35">[35]</a></span>. Their theorem
+<span class="citation" data-cites="amv2015"><a href="#ref-41">[41]</a></span>. Their theorem
 concerns normality and Hausdorff dimension for chosen Cantor bases. Here
 a fixed divisibility chain and arbitrary summable allowances are given,
 and the conclusion distinguishes interval filling from nullity and
@@ -2527,8 +3056,8 @@ allowances.</p>
 <ol>
 <li><p>Is <span class="math inline" data-term-auto="off">\(1/2\)</span> a subsum of <span
 class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>? The exact obligation is
-in <span class="citation" data-cites="plectis257"><a href="#ref-27">[27]</a></span>. By
-Lemma <a class="math-ref" href="#lem:gaps">6.5</a> the general
+in <span class="citation" data-cites="plectis257"><a href="#ref-33">[33]</a></span>. By
+Lemma <a class="math-ref" href="#lem:gaps">6.8</a> the general
 question is one-sided approximation of a rational by finite subsums
 <span class="math inline" data-term-auto="off">\(X_F\)</span> to within <span
 class="math inline" data-term-auto="off">\(g_{\max F}\)</span>.</p></li>
@@ -2537,14 +3066,15 @@ class="math inline" data-term-auto="off">\(Q\)</span> rejected at step <span
 class="math inline" data-term-auto="off">\(n\)</span> stay close to <span
 class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span> in the joint range
 <span class="math inline" data-term-auto="off">\(n\le(2-\varepsilon)\log_2Q\)</span>, counted
-modulo the translations of Lemma <a class="math-ref" href="#lem:translate">6.6</a>? A persistent excess
+modulo the translations of Lemma <a class="math-ref" href="#lem:translate">6.9</a>? A persistent excess
 would be the first sign of an arithmetic mechanism for #257.</p></li>
-<li><p>Can <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> be removed
-from Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a)?
-At base <span class="math inline" data-term-auto="off">\(4/3\)</span>, the remaining case
-includes chains with a non-eventually-periodic word of ratios <span
-class="math inline" data-term-auto="off">\(2,3\)</span>; periodic words are transcendental by
-part (b).</p></li>
+<li><p>Theorem <a class="math-ref" href="#thm:separated-cuts">6.6</a> settles every
+divisibility chain at every real algebraic base <span
+class="math inline" data-term-auto="off">\(t&gt;1\)</span>, and includes non-chain hosts of
+unbounded width. Which supports lacking separated cuts admit comparable
+control of the cleared prefix height and the initial tail patterns? The
+full support at <span class="math inline" data-term-auto="off">\(3/2\)</span> still has
+neither conclusion nor such a transfer here.</p></li>
 <li><p>Is there one inequality behind #1049 Theorem 5 and the cover cost
 of #257?</p></li>
 </ol>
@@ -2653,87 +3183,113 @@ automatiques</em></a>, arXiv:1508.07158v2 (2016), Theorem 1.1,
 p. 3.</p></li>
 <li id="ref-19"><p>Ku. Nishioka, <em>Mahler Functions and Transcendence</em>,
 Lecture Notes in Math. 1631, Springer, Berlin, 1996.</p></li>
-<li id="ref-20"><p>D. Boes, R. Darst and P. Erdős, <a
+<li id="ref-20"><p>W. M. Schmidt, <em>Norm form equations</em>, Ann. of Math. (2)
+<strong>96</strong> (1972), 526–551.</p></li>
+<li id="ref-21"><p>H. P. Schlickewei, <em>Die <span
+class="math inline" data-term-auto="off">\(p\)</span>-adische Verallgemeinerung des Satzes
+von Thue–Siegel–Roth–Schmidt</em>, J. Reine
+Angew. Math. <strong>288</strong> (1976), 86–105.</p></li>
+<li id="ref-22"><p>Yu. F. Bilu, <em>The many faces of the subspace theorem [after
+Adamczewski, Bugeaud, Corvaja, Zannier…]</em>, Séminaire Bourbaki,
+Vol. 2006/2007, Exp. No. 967, Astérisque <strong>317</strong> (2008),
+1–38; <a href="https://arxiv.org/abs/0907.2098">arXiv:0907.2098</a>.
+Theorem 2.3 is the statement used here.</p></li>
+<li id="ref-23"><p>P. Corvaja and U. Zannier, <em>Some new applications of the
+subspace theorem</em>, Compositio Math. <strong>131</strong> (2002),
+319–340, doi:<a
+href="https://doi.org/10.1023/A:1015594913393"><code>10.1023/A:1015594913393</code></a>.</p></li>
+<li id="ref-24"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
+of certain functions in several variables III</em>,
+Bull. Austral. Math. Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978"><code>10.1017/S0004972700022978</code></a>.</p></li>
+<li id="ref-25"><p>K. F. Roth, <em>Rational approximations to algebraic
+numbers</em>, Mathematika <strong>2</strong> (1955), 1–20.</p></li>
+<li id="ref-26"><p>D. Boes, R. Darst and P. Erdős, <a
 href="https://www.tandfonline.com/doi/abs/10.1080/00029890.1981.11995266"><em>Fat,
 symmetric, irrational Cantor sets</em></a>, Amer. Math. Monthly
 <strong>88</strong> (1981), 340–341.</p></li>
-<li id="ref-21"><p>A. Rahm, N. Solomon, T. Trauthwein and B. Weiss, <a
+<li id="ref-27"><p>A. Rahm, N. Solomon, T. Trauthwein and B. Weiss, <a
 href="https://arxiv.org/abs/1909.01198"><em>The distribution of rational
 numbers on Cantor’s middle thirds set</em></a>,
 arXiv:1909.01198.</p></li>
-<li id="ref-22"><p>S. Chow, P. Varjú and H. Yu, <a
+<li id="ref-28"><p>S. Chow, P. Varjú and H. Yu, <a
 href="https://arxiv.org/abs/2402.18395"><em>Counting rationals and
 diophantine approximation in missing-digit Cantor sets</em></a>,
 arXiv:2402.18395.</p></li>
-<li id="ref-23"><p>W. Cook, <a
+<li id="ref-29"><p>W. Cook, <a
 href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf"><em>Two
 incomparable denominator exclusions for <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge2}(n!-1)^{-1}\)</span></em></a>, Erdős
 Problem Notes, 2026.</p></li>
-<li id="ref-24"><p>W. Cook, <a
+<li id="ref-30"><p>W. Cook, <a
 href="../../../papers/erdos-243-reciprocal-tail-rigidity.pdf"><em>Bounded increments and
 rational reciprocal sums</em></a>, Erdős Problem Notes, 2026.</p></li>
-<li id="ref-25"><p>W. Cook, <a href="../../../papers/erdos-249-binary-totient-series.pdf"><em>Bases
+<li id="ref-31"><p>W. Cook, <a href="../../../papers/erdos-249-binary-totient-series.pdf"><em>Bases
 and integral relations for the <span
 class="math inline" data-term-auto="off">\(k\)</span>-kernel of Euler’s totient</em></a>,
 Erdős Problem Notes, 2026.</p></li>
-<li id="ref-26"><p>W. Cook, <a
+<li id="ref-32"><p>W. Cook, <a
 href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf"><em>Sparse
 congruence-preserving perturbations of dyadic series</em></a>, Erdős
 Problem Notes, 2026.</p></li>
-<li id="ref-27"><p>W. Cook, <a
+<li id="ref-33"><p>W. Cook, <a
 href="../../../papers/erdos-257-mersenne-support-subseries.pdf"><em>Weighted support
 criteria for reciprocal Mersenne subseries</em></a>, Erdős Problem
 Notes, 2026.</p></li>
-<li id="ref-28"><p>W. Cook, <a href="../../../papers/erdos-269-three-prime-running-lcm.pdf"><em>No
+<li id="ref-34"><p>W. Cook, <a href="../../../papers/erdos-269-three-prime-running-lcm.pdf"><em>No
 finite separable representation at three prime generators</em></a>,
 Erdős Problem Notes, 2026.</p></li>
-<li id="ref-29"><p>W. Cook, <a
+<li id="ref-35"><p>W. Cook, <a
 href="../../../papers/erdos-1049-rational-base-lambert.pdf"><em>Zudilin’s forms at
 rational bases and the exact normalised Hankel order</em></a>, Erdős
 Problem Notes, 2026.</p></li>
-<li id="ref-30"><p>W. Cook, <em>Choices, contraction and rational membership</em>,
+<li id="ref-36"><p>W. Cook, <em>Choices, contraction and rational membership</em>,
 exact computation with saved outputs in
 <code>research/experiments/choices_contraction/</code> of the
 repository, 2026.</p></li>
-<li id="ref-31"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
+<li id="ref-37"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
 J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
-<li id="ref-32"><p>Wouter van Doorn and Vjekoslav Kovač, <a
+<li id="ref-38"><p>Wouter van Doorn and Vjekoslav Kovač, <a
 href="https://arxiv.org/abs/2509.24971v3"><em>Lacunary sequences whose
 reciprocal sums represent all rational numbers in an interval</em></a>.
 Acta Arithmetica <strong>223</strong> (2026), 275–295, doi:<a
 href="https://doi.org/10.4064/aa251001-13-1">10.4064/aa251001-13-1</a>;
 arXiv:<a href="https://arxiv.org/abs/2509.24971v3">2509.24971v3</a>.
 Statement numbers refer to arXiv version 3.</p></li>
-<li id="ref-33"><p>D. Duverney and Y. Tachiya, <a
+<li id="ref-39"><p>D. Duverney and Y. Tachiya, <a
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
 href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
 refer to the linked author preprint.</p></li>
-<li id="ref-34"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
+<li id="ref-40"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
 several variables and finite automata</em>, Annals of Mathematics
 <strong>204</strong>, no. 2 (2026), 455–533, <a
 href="https://doi.org/10.4007/annals.2026.204.2.1">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
 Locators refer to the <a
 href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf">68-page
 author manuscript</a>.</p></li>
-<li id="ref-35"><p>D. Airey, B. Mance and J. Vandehey, <em>Normality preserving
+<li id="ref-41"><p>D. Airey, B. Mance and J. Vandehey, <em>Normality preserving
 operations for Cantor series expansions and associated fractals.
 II</em>, New York J. Math. <strong>21</strong> (2015), 1311–1326. <a
 href="https://nyjm.albany.edu/j/2015/21-60v.pdf"
 class="uri">https://nyjm.albany.edu/j/2015/21-60v.pdf</a>.</p></li>
-<li id="ref-36"><p>M. Waldschmidt, <em>Integer-valued functions, Hurwitz functions,
+<li id="ref-42"><p>M. Waldschmidt, <em>Integer-valued functions, Hurwitz functions,
 and related topics: a survey</em>, in K. Kurşungöz and A. Zeytin (eds.),
 <em>Number Theory: Proceedings of the Journées Arithmétiques 2019</em>,
 De Gruyter, 2022, pp. 61–82. <a
 href="https://doi.org/10.1515/9783110761115-005"
 class="uri">https://doi.org/10.1515/9783110761115-005</a>.</p></li>
-<li id="ref-37"><p>H. Wegmann, <em>Die Hausdorffsche Dimension von Mengen reeller
+<li id="ref-43"><p>H. Wegmann, <em>Die Hausdorffsche Dimension von Mengen reeller
 Zahlen, die durch Zifferneigenschaften einer Cantorentwicklung
 charakterisiert sind</em>, Czechoslovak Math. J. <strong>18</strong>
 (1968), 622–632. <a href="https://dml.cz/handle/10338.dmlcz/100861"
 class="uri">https://dml.cz/handle/10338.dmlcz/100861</a>.</p></li>
+<li id="ref-44"><p>J.-H. Evertse and R. Ferretti, <em>A further improvement of the
+quantitative Subspace Theorem</em>, Ann. of Math. <strong>177</strong>
+(2013), 513–590. Normalizations refer to §1.1, (1.1), and §2.1 of the <a
+href="https://pub.math.leidenuniv.nl/~evertsejh/10-subspace.pdf">3 May
+2012 author version</a>.</p></li>
 </ol>
 </section>
   </div>
