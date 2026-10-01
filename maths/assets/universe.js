@@ -195,6 +195,14 @@
       }
     }
 
+    function normalizeSearchText(text) {
+      // Friendly labels use spaces where source titles use typographic
+      // dashes. Keep other punctuation (including qualified IDs) literal;
+      // this is separator equivalence, not fuzzy spelling or word order.
+      return text.toLowerCase().replace(/[-\u2010-\u2014]/g, ' ')
+        .replace(/\s+/g, ' ').trim();
+    }
+
     function visible(node) {
       if (lensOff[node.kind]) return false;
       return !(node.tier && tierOff[node.tier]);
@@ -896,8 +904,8 @@
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
         row.tier = tierOf(row);
-        row.search = [row.label, row.id, row.status || '', row.disposition || '',
-          row.subject || '', row.statement || ''].join(' ').toLowerCase();
+        row.search = normalizeSearchText([row.label, row.id, row.status || '', row.disposition || '',
+          row.subject || '', row.statement || ''].join(' '));
         return row;
       });
       edges = data.edges;
@@ -1115,7 +1123,7 @@
 
     if (searchIn) {
       searchIn.addEventListener('input', function () {
-        query = searchIn.value.trim().toLowerCase();
+        query = normalizeSearchText(searchIn.value);
         countMatches();
         draw();
       });
