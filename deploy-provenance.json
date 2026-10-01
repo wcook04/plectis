@@ -4,31 +4,31 @@
       "maths/assets/universe.js": {
         "after": {
           "mode": 420,
-          "sha256": "29fd71576a4c7db1ef998a11c58d23a4a10aae7bc68ca7d8b208c8f01f8c1fab"
+          "sha256": "ac23cffbb1e3dbd900fcae9576c8f50f0fb9bd4834a956f96d94af00298448a5"
         },
         "before": {
           "mode": 420,
-          "sha256": "343228cb74ab75c2f5d6540b9f77c72b989f692810e07f80e00c6b68da617049"
+          "sha256": "29fd71576a4c7db1ef998a11c58d23a4a10aae7bc68ca7d8b208c8f01f8c1fab"
         }
       },
       "maths/index.html": {
         "after": {
           "mode": 420,
-          "sha256": "1464da649b3ec9cc02f2c4a51f050b07aa7f65fdf0fb508af631975a9d2dd3fd"
+          "sha256": "d826099eb9f4e298d55c3ca0b52198cec139a236f8fb698977198cc51ab9d14c"
         },
         "before": {
           "mode": 420,
-          "sha256": "79d59ac45626c7b6f293512c5f669bb9736e29a3c3d5129adbc6d39cba96f266"
+          "sha256": "1464da649b3ec9cc02f2c4a51f050b07aa7f65fdf0fb508af631975a9d2dd3fd"
         }
       },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "271c6f9fac01dc7990e66a0f1bc8c9ca54acf330afd0d22ec0e58a9d29f58eda"
+          "sha256": "aac8f9178bd8ac9352bf492bc7d22360652baca88a37ff622f7ea9d459cdac47"
         },
         "before": {
           "mode": 420,
-          "sha256": "d465c38c5969c12d2af3d8f9aab94641483fbf292265a109365224dfc4eb8ab9"
+          "sha256": "271c6f9fac01dc7990e66a0f1bc8c9ca54acf330afd0d22ec0e58a9d29f58eda"
         }
       }
     },
@@ -39,8 +39,8 @@
       "maths/assets/universe.js",
       "maths/universe.html"
     ],
-    "generator_commit": "da9b5ac79f6aa68e486133b8bae0a646cd05a6c3",
-    "pages_base_commit": "4b9342eb6e6faaa811ad3a66b492d68167010c60",
+    "generator_commit": "820f9be58717842b1ee2b97b8f61dbeaf72de7be",
+    "pages_base_commit": "49c72d2e830308e2f95206423d38adcad7eff0e9",
     "private_root_released": false,
     "protected_file_count": 461,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",

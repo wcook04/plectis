@@ -936,6 +936,8 @@
       }
       hover = -1;
       selected = keepId && byId[keepId] !== undefined ? byId[keepId] : -1;
+      // A history-restored form value can predate this data response.
+      if (searchIn) query = normalizeSearchText(searchIn.value);
       countMatches();
       // A fitted overview follows the new extent. An explored camera keeps
       // its exact scale and centre when complete data arrives.
@@ -1122,11 +1124,20 @@
     });
 
     if (searchIn) {
-      searchIn.addEventListener('input', function () {
-        query = normalizeSearchText(searchIn.value);
+      function syncSearchFromInput() {
+        var restoredQuery = normalizeSearchText(searchIn.value);
+        if (restoredQuery === query) return;
+        query = restoredQuery;
         countMatches();
         draw();
-      });
+      }
+      searchIn.addEventListener('input', syncSearchFromInput);
+      searchIn.addEventListener('focus', syncSearchFromInput);
+      // History traversal may restore form state after lifecycle handlers.
+      // Reconcile in the following task, without changing the pin or view.
+      function syncRestoredSearch() { setTimeout(syncSearchFromInput, 0); }
+      window.addEventListener('pageshow', syncRestoredSearch);
+      window.addEventListener('popstate', syncRestoredSearch);
       /* Enter steps through the matches in kind order, so a search for a
          word can be walked object by object without leaving the keyboard. */
       searchIn.addEventListener('keydown', function (event) {
@@ -1138,7 +1149,9 @@
           event.stopPropagation();
           return;
         }
-        if (event.key !== 'Enter' || !matchList.length) return;
+        if (event.key !== 'Enter') return;
+        syncSearchFromInput();
+        if (!matchList.length) return;
         event.preventDefault();
         var at = matchList.indexOf(selected);
         var next = at < 0 ? 0 : (at + (event.shiftKey ? matchList.length - 1 : 1)) % matchList.length;
