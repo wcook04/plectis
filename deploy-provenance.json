@@ -1,34 +1,14 @@
 {
   "last_scoped_release": {
     "changed_paths": {
-      "maths/assets/universe.js": {
-        "after": {
-          "mode": 420,
-          "sha256": "ac23cffbb1e3dbd900fcae9576c8f50f0fb9bd4834a956f96d94af00298448a5"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "29fd71576a4c7db1ef998a11c58d23a4a10aae7bc68ca7d8b208c8f01f8c1fab"
-        }
-      },
-      "maths/index.html": {
-        "after": {
-          "mode": 420,
-          "sha256": "d826099eb9f4e298d55c3ca0b52198cec139a236f8fb698977198cc51ab9d14c"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "1464da649b3ec9cc02f2c4a51f050b07aa7f65fdf0fb508af631975a9d2dd3fd"
-        }
-      },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "aac8f9178bd8ac9352bf492bc7d22360652baca88a37ff622f7ea9d459cdac47"
+          "sha256": "aeb3b8b97f43ccf2c07930c9aaf02113c961ed4d460bb52893d7866b6f5b336d"
         },
         "before": {
           "mode": 420,
-          "sha256": "271c6f9fac01dc7990e66a0f1bc8c9ca54acf330afd0d22ec0e58a9d29f58eda"
+          "sha256": "aac8f9178bd8ac9352bf492bc7d22360652baca88a37ff622f7ea9d459cdac47"
         }
       }
     },
@@ -39,8 +19,8 @@
       "maths/assets/universe.js",
       "maths/universe.html"
     ],
-    "generator_commit": "820f9be58717842b1ee2b97b8f61dbeaf72de7be",
-    "pages_base_commit": "49c72d2e830308e2f95206423d38adcad7eff0e9",
+    "generator_commit": "4a7149c251b50cb283a64f780f468d8e2ad08a9a",
+    "pages_base_commit": "0ef0c90f4f95fa932659f2b7749bd373d5522de8",
     "private_root_released": false,
     "protected_file_count": 461,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
