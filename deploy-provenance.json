@@ -1,17 +1,6 @@
 {
   "last_scoped_release": {
-    "changed_paths": {
-      "maths/universe.html": {
-        "after": {
-          "mode": 420,
-          "sha256": "aeb3b8b97f43ccf2c07930c9aaf02113c961ed4d460bb52893d7866b6f5b336d"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "aac8f9178bd8ac9352bf492bc7d22360652baca88a37ff622f7ea9d459cdac47"
-        }
-      }
-    },
+    "changed_paths": {},
     "current_universe_paths": [
       "maths/assets/maths.css",
       "maths/assets/universe-data.json",
@@ -19,8 +8,8 @@
       "maths/assets/universe.js",
       "maths/universe.html"
     ],
-    "generator_commit": "4a7149c251b50cb283a64f780f468d8e2ad08a9a",
-    "pages_base_commit": "0ef0c90f4f95fa932659f2b7749bd373d5522de8",
+    "generator_commit": "84502f043dfa571bef5fe64fe23a25bd4d6fccc3",
+    "pages_base_commit": "5b500ff2d7871ae330807615954e47a1d85ca254",
     "private_root_released": false,
     "protected_file_count": 461,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
@@ -44,7 +33,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "8eb2684873aa856847a4aedbebc61f7774ce829f",
+      "commit": "6d23a8bcb6fe49651f795f2512ce4dc5565b6ac2",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }
