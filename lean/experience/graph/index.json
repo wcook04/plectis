@@ -1276,7 +1276,7 @@
     {
       "id": "paper:claim-faithful-publication-systems",
       "kind": "paper",
-      "label": "Problem-Sized Lean Worlds",
+      "label": "Publishing Mathematical Results from a Lean Repository",
       "subject": "Systems paper",
       "form": "Research architecture",
       "href": "papers/claim-faithful-publication-systems.json",
@@ -1285,7 +1285,7 @@
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
+      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -1294,7 +1294,7 @@
     {
       "id": "paper:erdos-1049-rational-base-lambert",
       "kind": "paper",
-      "label": "Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order",
+      "label": "Hankel Determinants of Geometric Moments and Rational Lambert Values",
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
@@ -1312,7 +1312,7 @@
     {
       "id": "paper:erdos-249-binary-totient-series",
       "kind": "paper",
-      "label": "Bases and Integral Relations for the $k$-Kernel of Euler's Totient",
+      "label": "Integral Relations among Totient Sections",
       "subject": "Erdős #249",
       "form": "Problem note",
       "href": "papers/erdos-249-binary-totient-series.json",
@@ -1330,7 +1330,7 @@
     {
       "id": "paper:erdos-257-mersenne-support-subseries",
       "kind": "paper",
-      "label": "Weighted Support Criteria for Reciprocal Mersenne Subseries",
+      "label": "Weighted and Covered Supports for Mersenne Subseries",
       "subject": "Erdős #257",
       "form": "Problem note",
       "href": "papers/erdos-257-mersenne-support-subseries.json",
@@ -1339,7 +1339,7 @@
     {
       "id": "paper:erdos-269-three-prime-running-lcm",
       "kind": "paper",
-      "label": "Irrational Distinct-Height Sums for Finite Prime Sets",
+      "label": "Distinct running least common multiples",
       "subject": "Erdős #269",
       "form": "Problem note",
       "href": "papers/erdos-269-three-prime-running-lcm.json",
@@ -1348,7 +1348,7 @@
     {
       "id": "paper:erdos-68-factorial-denominator-irrationality",
       "kind": "paper",
-      "label": "Two Incomparable Denominator Exclusions for $\\sum_{n\\ge2}(n!-1)^{-1}$",
+      "label": "Integer Linear Forms for a Factorial Reciprocal Series",
       "subject": "Erdős #68",
       "form": "Problem note",
       "href": "papers/erdos-68-factorial-denominator-irrationality.json",
@@ -1357,7 +1357,7 @@
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
       "kind": "paper",
-      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Two Short-Path Criteria",
+      "label": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections",
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
@@ -1366,7 +1366,7 @@
     {
       "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
       "kind": "paper",
-      "label": "Zudilin's Forms at Rational Bases: Proofs and Research Record",
+      "label": "Geometric Moments and Rational Lambert Values: Proofs and Further Results",
       "subject": "Erdős #1049",
       "form": "Reasoning surface",
       "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
@@ -1411,7 +1411,7 @@
     {
       "id": "paper:erdos269-running-lcm-reasoning-surface",
       "kind": "paper",
-      "label": "The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic",
+      "label": "Running least common multiples: distinct heights and repeated sums",
       "subject": "Erdős #269",
       "form": "Reasoning surface",
       "href": "papers/erdos269-running-lcm-reasoning-surface.json",
@@ -1420,7 +1420,7 @@
     {
       "id": "paper:erdos68-factorial-reasoning-surface",
       "kind": "paper",
-      "label": "Denominators and Rationality Criteria for $\\sum_{n\\ge2}(n!-1)^{-1}$",
+      "label": "Factorial Linear Forms and Denominators Detailed Proofs and Rationality Criteria",
       "subject": "Erdős #68",
       "form": "Reasoning surface",
       "href": "papers/erdos68-factorial-reasoning-surface.json",

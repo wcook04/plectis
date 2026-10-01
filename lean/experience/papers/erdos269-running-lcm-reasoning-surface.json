@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos269-running-lcm-reasoning-surface",
-  "title": "The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic",
+  "title": "Running least common multiples: distinct heights and repeated sums",
   "subject": "Erdős #269",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 69,
+  "pages": 71,
   "question": "What infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?",
   "precis": "The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.",
   "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "e51b60188e07ef4da04dd0b35d6eacc976a44f3475c149b68a5885aaf105ded9",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "ffa13b92eb6cd062a1605044676927ad665e2c8807c4582761e4a6b8524fb633",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3055,
+    "mathml_node_count": 2886,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -47,24 +47,19 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d87af019ec1ef65239e8c580a4b121aebf7e84cbecd29520cb900f9fbbfc72f9",
-    "html_exact_tex_sha256": "65f8bbce463bcaf39ce5da58bfedefada5a6b03715ee8616cbdbd587a2f48505"
+    "html_mathml_sha256": "e28b079a8dd1ed5eb1fb1620c3b58c3142108b4207e8f0a0d5229ff47bd718d5",
+    "html_exact_tex_sha256": "6ba5f1433b85d39e6d268cc86fb99caf77c0180d2a4efff5d01243908dc18476"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "long269:sec:problem",
-      "label": "The problem, and what is settled"
+      "label": "Two sums from running least common multiples"
     },
     {
-      "level": 5,
-      "anchor": "what-the-third-prime-changes.",
-      "label": "What the third prime changes."
-    },
-    {
-      "level": 5,
-      "anchor": "relation-to-the-short-paper.",
-      "label": "Relation to the short paper."
+      "level": 2,
+      "anchor": "long269:sec:distinct-235",
+      "label": "Recovering the prime-power jumps"
     },
     {
       "level": 2,
@@ -74,7 +69,7 @@
     {
       "level": 2,
       "anchor": "long269:sec:two-prime",
-      "label": "One Hecke–Mahler value controls both two-prime sums"
+      "label": "The two-prime Hecke–Mahler reduction"
     },
     {
       "level": 2,
@@ -84,27 +79,27 @@
     {
       "level": 3,
       "anchor": "long269:sec:distinct-all",
-      "label": "Every finite set of primes"
+      "label": "Proof for an arbitrary finite prime set"
     },
     {
       "level": 5,
-      "anchor": "words.",
-      "label": "Words."
+      "anchor": "long269:sec:words",
+      "label": "Words and tails."
     },
     {
       "level": 5,
-      "anchor": "the-torus.",
-      "label": "The torus."
+      "anchor": "long269:sec:flow",
+      "label": "The logarithmic flow."
     },
     {
       "level": 5,
-      "anchor": "the-second-agents-corrections.",
-      "label": "The second agent’s corrections."
+      "anchor": "long269:sec:tail-comparison",
+      "label": "Comparison of two tails."
     },
     {
       "level": 5,
-      "anchor": "why-the-two-walls-are-needed.",
-      "label": "Why the two walls are needed."
+      "anchor": "reversals-near-the-origin.",
+      "label": "Reversals near the origin."
     },
     {
       "level": 5,
@@ -115,11 +110,6 @@
       "level": 3,
       "anchor": "long269:sec:distinct-blocks",
       "label": "Dyadic blocks and affine maps"
-    },
-    {
-      "level": 3,
-      "anchor": "long269:sec:distinct-235",
-      "label": "Proof of Theorem 1.2"
     },
     {
       "level": 3,
@@ -134,12 +124,12 @@
     {
       "level": 3,
       "anchor": "long269:sec:distinct-stop",
-      "label": "Where the argument stops for the repeated sums"
+      "label": "Repeated tails and prime-power subseries"
     },
     {
       "level": 5,
-      "anchor": "the-single-prime-sub-sums.",
-      "label": "The single-prime sub-sums."
+      "anchor": "prime-power-subseries.",
+      "label": "Prime-power subseries."
     },
     {
       "level": 2,
@@ -149,7 +139,7 @@
     {
       "level": 2,
       "anchor": "long269:sec:rank",
-      "label": "Why the third prime prevents finite separation"
+      "label": "Separation of the three-prime kernel"
     },
     {
       "level": 5,
@@ -159,12 +149,12 @@
     {
       "level": 3,
       "anchor": "long269:sec:selected-kernel-height",
-      "label": "The selected kernel’s integral index and height boundary"
+      "label": "Smith factors of the selected staircase"
     },
     {
       "level": 3,
-      "anchor": "the-exact-uniform-approximation-error",
-      "label": "The exact uniform approximation error"
+      "anchor": "long269:sec:approximation",
+      "label": "Uniform approximation of the rescaled kernel"
     },
     {
       "level": 2,
@@ -178,8 +168,8 @@
     },
     {
       "level": 3,
-      "anchor": "a-smaller-bound-from-the-order-of-the-prime-power-jumps",
-      "label": "A smaller bound from the order of the prime-power jumps"
+      "anchor": "long269:sec:smaller-bound",
+      "label": "A bound using the order of the jumps"
     },
     {
       "level": 5,
@@ -244,7 +234,7 @@
     {
       "level": 3,
       "anchor": "long269:sec:boundary-difference",
-      "label": "Why the growing boundary need not cancel"
+      "label": "Boundary terms in weighted finite differences"
     },
     {
       "level": 5,
@@ -258,8 +248,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-a-function-theoretic-proof-would-require",
-      "label": "What a function-theoretic proof would require"
+      "anchor": "long269:sec:function-representation",
+      "label": "Function-theoretic representations"
     },
     {
       "level": 5,
@@ -268,18 +258,18 @@
     },
     {
       "level": 3,
-      "anchor": "what-the-auxiliary-carry-results-assume",
-      "label": "What the auxiliary carry results assume"
+      "anchor": "long269:sec:carry-hypotheses",
+      "label": "Hypotheses for auxiliary carry arguments"
     },
     {
       "level": 3,
-      "anchor": "where-the-problem-stands",
-      "label": "Where the problem stands"
+      "anchor": "long269:sec:remaining-question",
+      "label": "The unresolved repeated-sum question"
     },
     {
       "level": 3,
-      "anchor": "statements-and-declarations",
-      "label": "Statements and declarations"
+      "anchor": "long269:sec:proof-sources",
+      "label": "Proof sources and declarations"
     },
     {
       "level": 5,
@@ -339,12 +329,12 @@
     {
       "level": 2,
       "anchor": "sec:erdos-269-complete-family-map",
-      "label": "What the results use and what they do not prove"
+      "label": "Dependencies and remaining questions"
     },
     {
       "level": 3,
       "anchor": "long269:sec:coverage",
-      "label": "What the Lean proof of the two-prime theorem assumes"
+      "label": "The formal two-prime reduction"
     },
     {
       "level": 2,
@@ -358,12 +348,12 @@
     "sections": [
       {
         "id": "long269:sec:problem",
-        "title": "The problem, and what is settled",
+        "title": "Two sums from running least common multiples",
         "level": 2
       },
       {
         "id": "long269:sec:rank",
-        "title": "Why the third prime prevents finite separation",
+        "title": "Separation of the three-prime kernel",
         "level": 2
       },
       {
@@ -373,7 +363,7 @@
       },
       {
         "id": "sec:erdos-269-complete-family-map",
-        "title": "What the results use and what they do not prove",
+        "title": "Dependencies and remaining questions",
         "level": 2
       }
     ]

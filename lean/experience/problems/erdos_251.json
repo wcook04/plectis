@@ -202,7 +202,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6ad095ac4ca073207e3bf997f25c9d3bfe747f7c277542e2e17a72d49bf4c9e4",
+    "source_sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -245,18 +245,18 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "f4d15df6dc782e78",
-      "source_sha256": "4d63f86b6113dfad6f969385faaa97f2b48b95742379a1c7f6148d283d06add0",
+      "renderer_fingerprint": "c99e605a77c1d13d",
+      "source_sha256": "2d5f8e7a4afcd1d91f0211c7652a8016a1999d6fdda87d61fd0633b3570a9f96",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 382,
+      "mathml_node_count": 406,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "03497d1f3a7a97b99b7bacbaf7490f46c67418315fb598f5e0a8732a49b3558f",
-      "html_exact_tex_sha256": "0b4a0e8bfbd722eb9a8662154d6ac57e55cd20428a934c49af3fbda3c48ca066"
+      "html_mathml_sha256": "33cba521793bca3f251875ff7f6f3d35a566b3f811941283155bde499b0b7c20",
+      "html_exact_tex_sha256": "f4d6543820c5268ce0ddc44e285946a981322ea7610aba3d55e4d681025d684c"
     },
     "sections": [
       {
@@ -265,14 +265,14 @@
         "label": "Introduction"
       },
       {
-        "level": 5,
-        "anchor": "density-and-block-conventions.",
-        "label": "Density and block conventions."
+        "level": 2,
+        "anchor": "sec:construction",
+        "label": "Proof of Proposition 1.1"
       },
       {
-        "level": 5,
-        "anchor": "relation-to-prior-work.",
-        "label": "Relation to prior work."
+        "level": 2,
+        "anchor": "sec:prime-application",
+        "label": "Application to prime gaps"
       },
       {
         "level": 2,
@@ -280,34 +280,29 @@
         "label": "The prime series and its actual tails"
       },
       {
-        "level": 2,
+        "level": 3,
         "anchor": "sec:tail",
-        "label": "Integral shifts: an exact algebraic classification"
+        "label": "Integral shifts"
       },
       {
         "level": 2,
         "anchor": "sec:local-certificate",
-        "label": "A local certificate and the missing prime input"
+        "label": "Small tail differences and finite tests"
       },
       {
         "level": 3,
-        "anchor": "finite-exact-tests",
-        "label": "Finite, exact tests"
-      },
-      {
-        "level": 2,
-        "anchor": "sec:carry",
-        "label": "Nonperiodic coefficients with a rational sum"
+        "anchor": "finite-separation-from-the-integers",
+        "label": "Finite separation from the integers"
       },
       {
         "level": 2,
         "anchor": "sec:open",
-        "label": "Consequences and limits"
+        "label": "Further consequences and questions"
       },
       {
         "level": 3,
-        "anchor": "formal-proofs-and-acknowledgements",
-        "label": "Formal proofs and acknowledgements"
+        "anchor": "sec:carry",
+        "label": "Nonperiodic coefficients"
       },
       {
         "level": 2,
@@ -315,9 +310,9 @@
         "label": "Sources and further comparisons"
       },
       {
-        "level": 5,
-        "anchor": "further-comparisons.",
-        "label": "Further comparisons."
+        "level": 3,
+        "anchor": "acknowledgements",
+        "label": "Acknowledgements"
       },
       {
         "level": 2,
@@ -336,17 +331,17 @@
         },
         {
           "id": "sec:tail",
-          "title": "Integral shifts: an exact algebraic classification",
-          "level": 2
+          "title": "Integral shifts",
+          "level": 3
         },
         {
           "id": "sec:local-certificate",
-          "title": "A local certificate and the missing prime input",
+          "title": "Small tail differences and finite tests",
           "level": 2
         },
         {
           "id": "sec:open",
-          "title": "Consequences and limits",
+          "title": "Further consequences and questions",
           "level": 2
         }
       ]
@@ -389,18 +384,18 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "4d63f86b6113dfad6f969385faaa97f2b48b95742379a1c7f6148d283d06add0",
+        "renderer_fingerprint": "c99e605a77c1d13d",
+        "source_sha256": "2d5f8e7a4afcd1d91f0211c7652a8016a1999d6fdda87d61fd0633b3570a9f96",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 382,
+        "mathml_node_count": 406,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "03497d1f3a7a97b99b7bacbaf7490f46c67418315fb598f5e0a8732a49b3558f",
-        "html_exact_tex_sha256": "0b4a0e8bfbd722eb9a8662154d6ac57e55cd20428a934c49af3fbda3c48ca066"
+        "html_mathml_sha256": "33cba521793bca3f251875ff7f6f3d35a566b3f811941283155bde499b0b7c20",
+        "html_exact_tex_sha256": "f4d6543820c5268ce0ddc44e285946a981322ea7610aba3d55e4d681025d684c"
       },
       "sections": [
         {
@@ -409,14 +404,14 @@
           "label": "Introduction"
         },
         {
-          "level": 5,
-          "anchor": "density-and-block-conventions.",
-          "label": "Density and block conventions."
+          "level": 2,
+          "anchor": "sec:construction",
+          "label": "Proof of Proposition 1.1"
         },
         {
-          "level": 5,
-          "anchor": "relation-to-prior-work.",
-          "label": "Relation to prior work."
+          "level": 2,
+          "anchor": "sec:prime-application",
+          "label": "Application to prime gaps"
         },
         {
           "level": 2,
@@ -424,34 +419,29 @@
           "label": "The prime series and its actual tails"
         },
         {
-          "level": 2,
+          "level": 3,
           "anchor": "sec:tail",
-          "label": "Integral shifts: an exact algebraic classification"
+          "label": "Integral shifts"
         },
         {
           "level": 2,
           "anchor": "sec:local-certificate",
-          "label": "A local certificate and the missing prime input"
+          "label": "Small tail differences and finite tests"
         },
         {
           "level": 3,
-          "anchor": "finite-exact-tests",
-          "label": "Finite, exact tests"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:carry",
-          "label": "Nonperiodic coefficients with a rational sum"
+          "anchor": "finite-separation-from-the-integers",
+          "label": "Finite separation from the integers"
         },
         {
           "level": 2,
           "anchor": "sec:open",
-          "label": "Consequences and limits"
+          "label": "Further consequences and questions"
         },
         {
           "level": 3,
-          "anchor": "formal-proofs-and-acknowledgements",
-          "label": "Formal proofs and acknowledgements"
+          "anchor": "sec:carry",
+          "label": "Nonperiodic coefficients"
         },
         {
           "level": 2,
@@ -459,9 +449,9 @@
           "label": "Sources and further comparisons"
         },
         {
-          "level": 5,
-          "anchor": "further-comparisons.",
-          "label": "Further comparisons."
+          "level": 3,
+          "anchor": "acknowledgements",
+          "label": "Acknowledgements"
         },
         {
           "level": 2,
@@ -480,17 +470,17 @@
           },
           {
             "id": "sec:tail",
-            "title": "Integral shifts: an exact algebraic classification",
-            "level": 2
+            "title": "Integral shifts",
+            "level": 3
           },
           {
             "id": "sec:local-certificate",
-            "title": "A local certificate and the missing prime input",
+            "title": "Small tail differences and finite tests",
             "level": 2
           },
           {
             "id": "sec:open",
-            "title": "Consequences and limits",
+            "title": "Further consequences and questions",
             "level": 2
           }
         ]
@@ -510,7 +500,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 45,
+      "pages": 46,
       "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
       "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -533,11 +523,11 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "9b99cf04e8ef427f4b7ff9129f6a26e389c2f256a08de056086b08f4cbe141e4",
+        "renderer_fingerprint": "c99e605a77c1d13d",
+        "source_sha256": "001380c18f6042394b42f30a1780277962491b10080ddf145d290c28a743329d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1536,
+        "mathml_node_count": 1544,
         "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
@@ -615,8 +605,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "84f2cfa95faeca8c40eb850394a368ee13dd8d0f9c35da054b0122bd6606da45",
-        "html_exact_tex_sha256": "a9bbf6ce5cdea5f3bc980d99159a3102b2f7ac781068c59bfb02747eda798f16"
+        "html_mathml_sha256": "ce3a19fc6e63e101906f70abb95dac86842eff52d570bc1ea7cb2a18fa9ec927",
+        "html_exact_tex_sha256": "0fd567cb0a757dd4fa5f6a07aae95cf6f0737ffcb936cd459357b0451d4cdd24"
       },
       "sections": [
         {
@@ -646,28 +636,33 @@
         },
         {
           "level": 5,
-          "anchor": "relation-to-prior-work.",
-          "label": "Relation to prior work."
+          "anchor": "conditional-prime-pattern-results.",
+          "label": "Conditional prime-pattern results."
         },
         {
           "level": 5,
-          "anchor": "automatic-sequences-and-the-limit-of-the-analogy.",
-          "label": "Automatic sequences and the limit of the analogy."
+          "anchor": "related-irrationality-problems.",
+          "label": "Related irrationality problems."
         },
         {
           "level": 5,
-          "anchor": "the-uniformity-required-from-prime-statistics.",
-          "label": "The uniformity required from prime statistics."
+          "anchor": "interval-covering-and-divisibility.",
+          "label": "Interval covering and divisibility."
         },
         {
           "level": 5,
-          "anchor": "the-strategy.",
-          "label": "The strategy."
+          "anchor": "binary-subsums.",
+          "label": "Binary subsums."
         },
         {
           "level": 5,
-          "anchor": "proof-dependencies.",
-          "label": "Proof dependencies."
+          "anchor": "uniformity-and-finite-state-comparisons.",
+          "label": "Uniformity and finite-state comparisons."
+        },
+        {
+          "level": 5,
+          "anchor": "the-tail-argument.",
+          "label": "The tail argument."
         },
         {
           "level": 2,
@@ -863,6 +858,11 @@
           "level": 2,
           "anchor": "sec:erdos-251-complete-family-map",
           "label": "Conclusions"
+        },
+        {
+          "level": 2,
+          "anchor": "long251:app:short-source-index",
+          "label": "Source index for the short paper"
         },
         {
           "level": 2,

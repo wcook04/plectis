@@ -5,27 +5,51 @@
     <p class="lean-paper__subject">Erdős #257</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/257/erdos257-mersenne-reasoning-surface.tex">
-<section id="how-to-read-this-document" class="level4 unnumbered">
-<h4 class="unnumbered">How to read this document</h4>
-<p>Section 1 proves the support criteria and compares them with the
-literature. Sections 5–8 develop the finite arithmetic used in the
-rational-membership tests. Sections 9–12 distinguish the hypotheses of
-conditional implications from the finite evidence for them. Section 13
-proves the arithmetic-sampling counterexample cited in the short paper
-<em>Weighted Support Criteria for Reciprocal Mersenne Subseries</em>.
-The global notation below is supplemented by definitions where each
-specialised recurrence is used.</p>
-<p>A sufficient condition need not be necessary; an equivalent condition
-does not prove either side. Counterexamples concern the specified
-estimate, and a finite computation establishes only its stated
-range.</p>
-<p>A link marked <span class="smallcaps">Lean source</span> beside an
-observation or a proof step opens the declaration for that step. Such
-links are for checking precise definitions; they are not additional
-hypotheses. A finite computation is described as one where it is used: a
-result at specified values or below a bound is not a result at
-arbitrarily large values. Neither the universal problem nor either
-rational-target question is resolved in this paper.</p>
+<section id="introduction" class="level4 unnumbered">
+<h4 class="unnumbered">Introduction</h4>
+<p>The series <span class="math inline" data-term-auto="off">\(X_A(b)=\sum_{a\in
+A}(b^a-1)^{-1}\)</span> is irrational for several classes of infinite
+supports <span class="math inline" data-term-auto="off">\(A\)</span>. Erdős proved the
+full-support case and later stated a criterion assuming only convergence
+of <span class="math inline" data-term-auto="off">\(\sum_{a\in A}1/a\)</span>; the
+periodic-support results belong to Luca and Tachiya. We begin with these
+antecedents and prove two hereditary criteria which also admit supports
+of divergent reciprocal sum. Their proofs use positive displacements
+from a rational lattice. The obstruction appears already in a finite
+mean: the error from an incomplete residue period lacks the
+reciprocal-exponent factor needed for summation. A second average over
+window lengths restores that factor. Keeping its modulus dependence
+explicit then permits both criteria to use the same observation
+index.</p>
+<p>Part I gives the support theorems and the proofs followed by the
+short paper, <em>Weighted and Covered Supports for Mersenne
+Subseries</em>. The subsequent parts concern a different question:
+whether a prescribed rational number belongs to the Mersenne achievement
+set. The finite identities in Sections 5–8 describe the integer
+quotients and their relation to the real greedy sequence. Sections 9–12
+state the additional uniform or unbounded-depth assertions needed to
+apply them. Notation specific to a recurrence is introduced with that
+recurrence.</p>
+<p>Section 13 returns to the support criteria. A logarithmic divisor
+cost cannot uniformly replace the fractional-cover cost when sampling on
+multiples of a prescribed modulus, even over complete periods. We prove
+the counterexample and an initial-interval estimate that survives
+it.</p>
+<p>None of these arguments decides the universal problem,
+half-membership or <span class="math inline" data-term-auto="off">\(1/21\)</span>-membership.
+The conditional results specify sufficient hypotheses or equivalent
+membership conditions, and the computations cover only the stated finite
+ranges. Each counterexample concerns the particular estimate under
+discussion.</p>
+<p>Links marked <span class="smallcaps">Lean source</span> open the
+exact declarations associated with a statement or proof step. They
+introduce no extra hypotheses. The ordinary arguments added here,
+including the integer-quotient proof for <span
+class="math inline" data-term-auto="off">\(1/21\)</span>, have not undergone independent
+human review or a new formal verification in this revision. The
+accompanying checking records concern the propositions and source
+revisions they name. The bibliography separates original results from
+later expositions used to read them.</p>
 <section id="notation-used-throughout" class="level5 unnumbered">
 <h5 class="unnumbered">Notation used throughout</h5>
 <p>For <span class="math inline" data-term-auto="off">\(A\subseteq\mathbb N_{&gt;0}\)</span>
@@ -94,6 +118,12 @@ class="level2 unnumbered">
 <h2 class="unnumbered">I. Support theorems and their proofs</h2>
 <section id="sec:257-problem" class="level4">
 <h4>Support criteria and their proofs</h4>
+<p>Reciprocal summability lets us average with a fixed modulus and then
+enlarge that modulus. We begin with this proof of the extension stated
+by Erdős. For the weighted and cover criteria the estimates must instead
+remain controlled on a finite window as the modulus grows. That
+common-window estimate is what permits the two conditions to be used
+together.</p>
 <section id="reciprocal-summable-supports" class="level5">
 <h5>Reciprocal-summable supports</h5>
 <p>For every infinite set <span class="math inline" data-term-auto="off">\(A\)</span> of
@@ -103,9 +133,9 @@ A}1/a&lt;\infty\)</span>, the series</p>
 class="math display" data-term-auto="off">\[X_A(b)=\sum_{a\in A}\frac1{b^a-1}\]</span></div>
 <p class="display-continue">is
 irrational at every integer base <span
-class="math inline" data-term-auto="off">\(b\ge2\)</span>. The proof below is ordinary
-mathematics and is the proof of the short paper’s Theorem 1.2. Erdős’s
-<a href="https://users.renyi.hu/~p_erdos/1969-09.pdf">1968 paper,
+class="math inline" data-term-auto="off">\(b\ge2\)</span>. This is the reciprocal-summable
+theorem also stated in the short paper’s Appendix A. Erdős’s <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf">1968 paper,
 p. 222</a> proves the pairwise-coprime case at every integer base and
 states the removal of coprimality without printing the details. The
 proof below gives the stated extension by averaging; no comparison with
@@ -118,9 +148,9 @@ pairwise coprime supports Brun’s method could probably replace it by
 (p. 226). Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a> below proves
 irrationality under one explicit weaker condition without coprimality;
 no identification with his suggestions is asserted.</p>
-<p>The mechanism is to make positive displacements arbitrarily small.
-For <span class="math inline" data-term-auto="off">\(N&gt;0\)</span>, write <span
-class="math inline" data-term-auto="off">\(N=q_a a+r_a\)</span>, <span
+<p>We shall find positive displacements smaller than every fixed
+rational spacing. For <span class="math inline" data-term-auto="off">\(N&gt;0\)</span>, write
+<span class="math inline" data-term-auto="off">\(N=q_a a+r_a\)</span>, <span
 class="math inline" data-term-auto="off">\(0\le r_a&lt;a\)</span>. The identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{b^N-1}{b^a-1}
@@ -148,8 +178,8 @@ class="math inline" data-term-auto="off">\(d/g\)</span>. Its geometric sum gives
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
 =M_{Q,b}(d):=\frac{g}{d(b^g-1)}\le\frac1d.\]</span></div>
-<p>The important
-interchange is with the infinite support. Expanding the atom as <span
+<p>To interchange this
+limit with the sum over the support, expand the atom as <span
 class="math inline" data-term-auto="off">\(\sum_{r\ge1}b^{-r}{\bf1}_{d\mid Qm+r}\)</span> and
 counting positive multiples of <span class="math inline" data-term-auto="off">\(d\)</span>
 gives the bound</p>
@@ -157,10 +187,10 @@ gives the bound</p>
 class="math display" data-term-auto="off">\[\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
 \le\sum_{r\ge1}b^{-r}\frac{Q+r}{d}
 \le\frac{Q+2}{d}.\]</span></div>
-<p>Here <span class="math inline" data-term-auto="off">\(Q\)</span>
-is fixed. Dominated convergence therefore identifies the limiting mean
-of <span class="math inline" data-term-auto="off">\(\sum_{d\in A}w_{b,d}(Qm)\)</span> with
-<span class="math inline" data-term-auto="off">\(\sum_{d\in A}M_{Q,b}(d)\)</span>.</p>
+<p>With <span class="math inline" data-term-auto="off">\(Q\)</span>
+fixed, dominated convergence identifies the limiting mean of <span
+class="math inline" data-term-auto="off">\(\sum_{d\in A}w_{b,d}(Qm)\)</span> with <span
+class="math inline" data-term-auto="off">\(\sum_{d\in A}M_{Q,b}(d)\)</span>.</p>
 <p>Now choose <span
 class="math inline" data-term-auto="off">\(Q_t=\operatorname{lcm}(1,\ldots,t)\)</span>. For
 each fixed <span class="math inline" data-term-auto="off">\(d\)</span>, eventually <span
@@ -184,25 +214,25 @@ class="math inline" data-term-auto="off">\(A\)</span>, and summability of <span
 class="math inline" data-term-auto="off">\(a\mapsto\mathbf1_A(a)/a\)</span>, has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395">kernel-checked
 Lean proof</a>.</p>
-<p>The order of the two limits matters: the observation length increases
-with <span class="math inline" data-term-auto="off">\(Q_t\)</span> fixed before <span
-class="math inline" data-term-auto="off">\(t\)</span> increases. No independence of different
-divisibility events is assumed. The mechanism also has a definite limit.
-At base two and full support, the contribution of exponents <span
-class="math inline" data-term-auto="off">\(a&gt;N\)</span> alone gives <span
+<p>We increased the observation length with <span
+class="math inline" data-term-auto="off">\(Q_t\)</span> fixed, and only then increased <span
+class="math inline" data-term-auto="off">\(t\)</span>; no independence of divisibility events
+was used. At base two and full support, the contribution of exponents
+<span class="math inline" data-term-auto="off">\(a&gt;N\)</span> alone gives <span
 class="math inline" data-term-auto="off">\(\Delta_{2,\mathbb
 N_{&gt;0}}(N)&gt;1-2^{-N}\ge1/2\)</span>. Full-support irrationality
 therefore uses a different argument; see Theorem <a class="math-ref" href="#thm:full-support">5.4</a>.</p>
 </section>
 <section id="a-weighted-condition-on-the-support" class="level5">
 <h5>A weighted condition on the support</h5>
-<p>The reciprocal-summable case is a useful model, but powers of a fixed
-prime can make an exponent cheaper than its reciprocal suggests. For
-example, with <span class="math inline" data-term-auto="off">\(a=2^km\)</span> and <span
-class="math inline" data-term-auto="off">\(m\)</span> odd, the weight below becomes <span
-class="math inline" data-term-auto="off">\(1/[m(b^{2^k}-1)]\)</span>. The exponential
-denominator permits a large collection of odd factors at large <span
-class="math inline" data-term-auto="off">\(k\)</span>.</p>
+<p>A prime-power factor can compensate for a large reciprocal mass of
+cofactors. If <span class="math inline" data-term-auto="off">\(a=2^km\)</span> with <span
+class="math inline" data-term-auto="off">\(m\)</span> odd, the weighted term below is <span
+class="math inline" data-term-auto="off">\(1/[m(b^{2^k}-1)]\)</span>. Thus we can allow
+increasingly many odd cofactors as <span
+class="math inline" data-term-auto="off">\(k\)</span> grows while keeping the weighted sum
+finite. The theorem extends this observation to a finite set of
+primes.</p>
 <div class="thm" id="thm:257-weighted">
 <p><strong>Theorem 1.1</strong> (A weighted summability criterion). <em>
 Let <span class="math inline" data-term-auto="off">\(b\ge2\)</span> be an integer, let <span
@@ -304,10 +334,12 @@ summable. The theorem therefore proves irrationality at every integer
 base for every infinite subset of this set, although its reciprocal sum
 diverges.</p>
 <div class="proof">
-<p><em>Proof.</em> We first record the rational obstruction and three
-finite estimates used to defeat it. If <span
-class="math inline" data-term-auto="off">\(m=qa+r\)</span>, <span class="math inline" data-term-auto="off">\(0\le
-r&lt;a\)</span>, then</p>
+<p><em>Proof.</em> We first express the displacement as a
+rational-lattice quantity, then estimate its finite average. Division of
+<span class="math inline" data-term-auto="off">\(m\)</span> by <span
+class="math inline" data-term-auto="off">\(a\)</span>, say <span
+class="math inline" data-term-auto="off">\(m=qa+r\)</span> with <span
+class="math inline" data-term-auto="off">\(0\le r&lt;a\)</span>, gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{b^m-1}{b^a-1}-\frac{b^r-1}{b^a-1}
    =\sum_{j=1}^{q}b^{m-ja}.\]</span></div>
@@ -336,8 +368,8 @@ whence</p>
 \label{eq:257-weighted-gap}
 \Delta_{b,A}(m)\ge \frac1v\qquad(m\ge1).
 \end{equation}\]</span></div>
-<p>It is therefore enough to construct arbitrarily
-small positive displacements.</p>
+<p>We therefore seek positive indices at which the
+displacement is arbitrarily small.</p>
 <p>Put</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\phi_a(m)=\frac{b^{m\bmod
 a}}{b^a-1},
@@ -385,11 +417,20 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \frac1T\sum_{t=1}^{T}
 \sum_{\substack{a\in A\\a&gt;QT}}d_a(tQ)\le\frac4T.
 \end{equation}\]</span></div>
-<p>Finally, let <span class="math inline" data-term-auto="off">\(\alpha_a\ge0\)</span> with
-<span class="math inline" data-term-auto="off">\(\sum_a\alpha_a/a&lt;\infty\)</span>. For
-<span class="math inline" data-term-auto="off">\(Q,M\ge1\)</span>, finite rearrangement and a
-geometric sum give</p>
-<div class="math-display" id="eq:257-weighted-dyadic-average" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>The incomplete-period term in <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-gcd-average">eq:257-weighted-gcd-average</a> has
+no factor <span class="math inline" data-term-auto="off">\(1/a\)</span>. Although it tends to
+zero for a fixed exponent, there are more observed exponents as the
+window grows. To recover a summable bound, average over lengths and sum
+in the other order. An exponent <span class="math inline" data-term-auto="off">\(a\)</span>
+first enters when the window reaches <span
+class="math inline" data-term-auto="off">\(a/Q\)</span>; choosing geometrically spaced
+lengths makes the sum of their later reciprocals at most <span
+class="math inline" data-term-auto="off">\(2Q/a\)</span>. Let <span
+class="math inline" data-term-auto="off">\(\alpha_a\ge0\)</span> with <span
+class="math inline" data-term-auto="off">\(\sum_a\alpha_a/a&lt;\infty\)</span>. For <span
+class="math inline" data-term-auto="off">\(Q,M\ge1\)</span>, finite rearrangement gives</p>
+<div class="math-display" id="eq:257-weighted-dyadic-average" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:257-weighted-dyadic-average}
 \sum_{j=M}^{2M-1}\frac1{2^j}
        \sum_{a\le Q2^j}\alpha_a
@@ -403,9 +444,11 @@ class="math display" data-term-auto="off">\[\sum_{\substack{M\le j&lt;2M\\a\le
 Q2^j}}2^{-j}\le\frac{2Q}{a}.\]</span></div>
 <p>Only finitely many terms occur on
 the left, so no infinite interchange is hidden here.</p>
-<p>We now choose the modulus and the observation lengths. Fix <span
-class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and a lower bound <span
-class="math inline" data-term-auto="off">\(N\)</span>. Select a finite <span
+<p>We now choose the modulus. It will first absorb a finite subset of
+the support, then contain all prime powers from <span
+class="math inline" data-term-auto="off">\(\mathcal P\)</span> up to a growing threshold. Fix
+<span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and a lower bound
+<span class="math inline" data-term-auto="off">\(N\)</span>. Select a finite <span
 class="math inline" data-term-auto="off">\(F\subseteq A\)</span> such that</p>
 <div class="math-display" id="eq:257-weighted-tail-choice" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -482,18 +525,23 @@ gives</p>
        \frac1{b^{h(a)}-1}
 +\frac{G(1+\log(QT))+Q}{b^G-1}+\frac4T.
 \end{equation}\]</span></div>
-<p>After the second average, the competing errors
-will be of orders <span class="math inline" data-term-auto="off">\(Q/M\)</span> and <span
-class="math inline" data-term-auto="off">\(GM/b^G\)</span>. With <span
-class="math inline" data-term-auto="off">\(L\)</span> fixed, <span
-class="math inline" data-term-auto="off">\(Q\)</span> grows polynomially in <span
+<p>Increasing the number <span
+class="math inline" data-term-auto="off">\(M\)</span> of dyadic lengths reduces the
+incomplete-period error to order <span
+class="math inline" data-term-auto="off">\(Q/M\)</span>. It also makes <span
+class="math inline" data-term-auto="off">\(\log T\)</span> of order <span
+class="math inline" data-term-auto="off">\(M\)</span> on the largest window, increasing the
+large-gcd contribution to order <span
+class="math inline" data-term-auto="off">\(GM/b^G\)</span>. Thus the two quantities must be
+made small together. With <span class="math inline" data-term-auto="off">\(L\)</span> fixed,
+<span class="math inline" data-term-auto="off">\(Q\)</span> grows polynomially in <span
 class="math inline" data-term-auto="off">\(H\)</span> and <span
 class="math inline" data-term-auto="off">\(G\)</span> grows linearly, so an intermediate
-exponential scale makes both errors tend to zero. Choose</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[M=\left\lfloor b^{G/2}\right\rfloor\]</span></div>
-<p class="display-continue">and
-average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-master-average">eq:257-weighted-master-average</a>
+exponential choice of <span class="math inline" data-term-auto="off">\(M\)</span> has both
+properties. Choose</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M=\left\lfloor
+b^{G/2}\right\rfloor\]</span></div>
+<p class="display-continue">and average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-master-average">eq:257-weighted-master-average</a>
 over <span class="math inline" data-term-auto="off">\(T=2^j\)</span>, <span
 class="math inline" data-term-auto="off">\(M\le j&lt;2M\)</span>. Apply <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-dyadic-average">eq:257-weighted-dyadic-average</a>
 with <span
@@ -587,13 +635,12 @@ proof adds the dyadic average <a class="math-ref" data-equation-ref="true" href
 </section>
 <section id="sec:257-finite-witness-rules" class="level5">
 <h5>Finite rules for prime witnesses</h5>
-<p>Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a>
-asks for one prime set <span class="math inline" data-term-auto="off">\(\mathcal P\)</span>
-with finite weighted mass. A single host can make the answer follow any
-monotone rule on a finite set of primes, simultaneously at every base.
-In the next statement <span class="math inline" data-term-auto="off">\(\mathcal
-P=\varnothing\)</span> is allowed, with <span
-class="math inline" data-term-auto="off">\(h(a)=1\)</span>.</p>
+<p>The finite set of witness primes need not contain a distinguished
+prime. We can construct a support for which the allowed witnesses follow
+any prescribed upward-closed rule on a finite prime set. The rule holds
+at every integer base. In this statement an empty witness is permitted,
+with <span class="math inline" data-term-auto="off">\(h(a)=1\)</span>; it fails because the
+constructed support has divergent reciprocal sum.</p>
 <div class="prop" id="prop:257-finite-witness-rule">
 <p><strong>Proposition 1.2</strong> (realising finite monotone witness
 rules). <em> Let <span class="math inline" data-term-auto="off">\(E\)</span> be a finite set
@@ -681,18 +728,26 @@ class="math inline" data-term-auto="off">\(B\subseteq A_{\mathcal U}\)</span> an
 class="math inline" data-term-auto="off">\(b\ge2\)</span>, so Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a> makes <span
 class="math inline" data-term-auto="off">\(X_B(b)\)</span> irrational. ◻</p>
 </div>
-<p>For the subsets of <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
-with at least two elements, no single prime is mandatory and none is
-sufficient. The maximal forbidden sets alone give the clauses <span
-class="math inline" data-term-auto="off">\(\{2,3\}\)</span>, <span
-class="math inline" data-term-auto="off">\(\{2,5\}\)</span>, <span
-class="math inline" data-term-auto="off">\(\{3,5\}\)</span>, which are also the minimal
-witnesses; that smaller host has the same classification, while the Lean
-statement uses every forbidden set. The novelty of the arithmetic
-realisation has not yet been assessed.</p>
+<p>For example, require a witness to contain at least two of <span
+class="math inline" data-term-auto="off">\(2,3,5\)</span>. Then no prime is mandatory and no
+single prime suffices. The maximal forbidden sets give the three clauses
+<span class="math inline" data-term-auto="off">\(\{2,3\}\)</span>, <span
+class="math inline" data-term-auto="off">\(\{2,5\}\)</span> and <span
+class="math inline" data-term-auto="off">\(\{3,5\}\)</span>. Using only these clauses gives
+the same witness classification as the formal statement, which uses
+every forbidden set. Historical novelty of this arithmetic realisation
+has not been assessed.</p>
 </section>
 <section id="sec:257-common-kernel" class="level5">
 <h5>A finite estimate on common observation scales</h5>
+<p>The cover argument raises a shifted tail to a fractional power <span
+class="math inline" data-term-auto="off">\(\alpha\)</span>, replacing its base <span
+class="math inline" data-term-auto="off">\(2\)</span> by <span
+class="math inline" data-term-auto="off">\(B=2^\alpha\)</span>. The following estimate
+therefore allows <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>. It
+also keeps the modulus, first dyadic scale and number of scales
+separate, because the mixed theorem must use the windows already chosen
+by the weighted proof.</p>
 <p>For <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, positive
 integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and an integer
 <span class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
@@ -701,25 +756,39 @@ class="math display" data-term-auto="off">\[w_{B,d}(n)=\frac{B^{n\bmod d}}{B^d-1
 \mathscr D_{L;R,M}F
 =\frac1M\sum_{j=R}^{R+M-1}\frac1{2^j}
       \sum_{m=1}^{2^j}F(Lm).\]</span></div>
+<p>To read this as sampling, first
+choose <span class="math inline" data-term-auto="off">\(j\)</span> uniformly from <span
+class="math inline" data-term-auto="off">\(R,\ldots,R+M-1\)</span>. Conditional on that
+scale, choose <span class="math inline" data-term-auto="off">\(m\)</span> uniformly from
+<span class="math inline" data-term-auto="off">\(1,\ldots,2^j\)</span> and observe <span
+class="math inline" data-term-auto="off">\(N=Lm\)</span>. The scales have equal total weight;
+the observations within a longer scale have smaller individual weights.
+Repeated occurrences of an integer <span
+class="math inline" data-term-auto="off">\(N\)</span> retain their contributions to the sum.
+This is the distribution used for both parts of the mixed proof.</p>
 <p>The finite estimate</p>
-<div class="math-display" id="eq:257-mixed-finite-kernel" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:257-mixed-finite-kernel" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \mathscr D_{L;R,M}w_{B,d}
 \le\frac{1+4L/M}{d(B-1)}
 \label{eq:257-mixed-finite-kernel}
 \end{equation}\]</span></div>
 <p class="display-continue">equivalently bounds <span
 class="math inline" data-term-auto="off">\((B-1)\mathscr D_{L;R,M}w_{B,d}\)</span> by <span
-class="math inline" data-term-auto="off">\((1+4L/M)/d\)</span>. This normalized bound is
-uniform as <span class="math inline" data-term-auto="off">\(B\downarrow1\)</span>; the
-unnormalized right side grows like <span
-class="math inline" data-term-auto="off">\((B-1)^{-1}\)</span>. The ratio <span
+class="math inline" data-term-auto="off">\((1+4L/M)/d\)</span>. This normalised bound is
+uniform as <span class="math inline" data-term-auto="off">\(B\downarrow1\)</span>. The
+unnormalised right side grows like <span
+class="math inline" data-term-auto="off">\((B-1)^{-1}\)</span>. In the cover argument <span
+class="math inline" data-term-auto="off">\(B=2^\alpha\)</span> can approach <span
+class="math inline" data-term-auto="off">\(1\)</span>, so the factor <span
+class="math inline" data-term-auto="off">\((2^\alpha-1)^{-1}\)</span> must remain in the
+summability condition. The ratio <span
 class="math inline" data-term-auto="off">\(L/M\)</span> measures the cost of incomplete
 modular periods.</p>
-<p>To prove it, fix <span class="math inline" data-term-auto="off">\(T=2^j\)</span> and
-average over <span class="math inline" data-term-auto="off">\(1\le m\le T\)</span>. When
-<span class="math inline" data-term-auto="off">\(d\le LT\)</span>, the complete orbit has
-length <span class="math inline" data-term-auto="off">\(d/g\)</span>, with <span
+<p>Fix <span class="math inline" data-term-auto="off">\(T=2^j\)</span>. We separate the
+complete-orbit range <span class="math inline" data-term-auto="off">\(d\le LT\)</span> from
+the range without wrap, then treat the one possible transition scale.
+When <span class="math inline" data-term-auto="off">\(d\le LT\)</span>, the complete orbit
+has length <span class="math inline" data-term-auto="off">\(d/g\)</span>, with <span
 class="math inline" data-term-auto="off">\(g=(L,d)\)</span>, and total weight <span
 class="math inline" data-term-auto="off">\(1/(B^g-1)\)</span>. Complete cycles and one
 remaining piece give</p>
@@ -730,14 +799,15 @@ w_{B,d}(Lm)
 <p>Across dyadic lengths
 satisfying <span class="math inline" data-term-auto="off">\(d\le L2^j\)</span>, the
 reciprocal-length errors sum to at most <span
-class="math inline" data-term-auto="off">\(2L/[d(B-1)]\)</span>. When <span
-class="math inline" data-term-auto="off">\(d&gt;2LT\)</span>, there is no wrap and <span
-class="math inline" data-term-auto="off">\(2Lm\le d-1\)</span>; hence <span
+class="math inline" data-term-auto="off">\(2L/[d(B-1)]\)</span>.</p>
+<p> When <span class="math inline" data-term-auto="off">\(d&gt;2LT\)</span>, there is no wrap
+and <span class="math inline" data-term-auto="off">\(2Lm\le d-1\)</span>; hence <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{d-1}B^i\ge dB^{(d-1)/2}\ge
 dB^{Lm}\)</span>. Each atom is then at most <span
-class="math inline" data-term-auto="off">\(1/[d(B-1)]\)</span>. Finally, at most one dyadic
-length satisfies <span class="math inline" data-term-auto="off">\(LT&lt;d\le2LT\)</span>. For
-that length the geometric sum and convexity give</p>
+class="math inline" data-term-auto="off">\(1/[d(B-1)]\)</span>.</p>
+<p>Finally, at most one dyadic length satisfies <span
+class="math inline" data-term-auto="off">\(LT&lt;d\le2LT\)</span>. For that length the
+geometric sum and convexity give</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1T\sum_{m=1}^T w_{B,d}(Lm)
 =\frac{B^L}{T(B^L-1)}\frac{B^{LT}-1}{B^d-1}
@@ -755,9 +825,30 @@ class="math inline" data-term-auto="off">\(\sum_dc_d/d&lt;\infty\)</span>.</p>
 <h5>Positive divisor majorants</h5>
 <p>For a finite set <span
 class="math inline" data-term-auto="off">\(F\subseteq\mathbb{N}_{&gt;0}\)</span>, put <span
-class="math inline" data-term-auto="off">\(f_F(n)=\#\{a\in F:a\mid n\}\)</span>. The next
-theorem bounds a fractional power of this count by a nonnegative sum
-over divisors.</p>
+class="math inline" data-term-auto="off">\(f_F(n)=\#\{a\in F:a\mid n\}\)</span>. The simplest
+divisor cube with two independent prime choices is <span
+class="math inline" data-term-auto="off">\(F=\{2,6,10,30\}\)</span>. For <span
+class="math inline" data-term-auto="off">\(0&lt;\alpha\le1\)</span> and <span
+class="math inline" data-term-auto="off">\(z=2^\alpha-1\)</span>, its count has the exact
+expansion</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[f_F(n)^\alpha
+=\mathbf1_{2\mid n}+z\mathbf1_{6\mid n}
+  +z\mathbf1_{10\mid n}+z^2\mathbf1_{30\mid n}.\]</span></div>
+<p>Indeed,
+conditional on <span class="math inline" data-term-auto="off">\(2\mid n\)</span>, each of
+<span class="math inline" data-term-auto="off">\(3\)</span> and <span
+class="math inline" data-term-auto="off">\(5\)</span> dividing <span
+class="math inline" data-term-auto="off">\(n\)</span> doubles <span
+class="math inline" data-term-auto="off">\(f_F(n)\)</span> and multiplies its fractional
+power by <span class="math inline" data-term-auto="off">\(1+z\)</span>. The coefficient sum
+weighted by reciprocal divisors is <span
+class="math inline" data-term-auto="off">\((1+z/3)(1+z/5)/2\)</span>. This illustrates the
+general positive expansion used in the separating constructions. The
+extra factor <span class="math inline" data-term-auto="off">\((2^\alpha-1)^{-1}\)</span> from
+the kernel must still be paid; making <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> small does not by itself give a
+cheap cover. The theorem permits a different fractional power for each
+finite set.</p>
 <div class="thm" id="thm:257-variable-fractional-cover">
 <p><strong>Theorem 1.3</strong> (A summable family of divisor majorants).
 <em> For each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>, let <span
@@ -804,15 +895,21 @@ taking a fractional power. Subadditivity and the divisor majorant give</p>
 \le\sum_{d\ge1}c_{j,d}
        \sum_{\substack{r\ge1\\d\mid N+r}}B_j^{-r}
 =V_j(N).\]</span></div>
-<p>The last identity sums a geometric progression in each
-residue class. The geometric-series identity also gives</p>
+<p></p>
+<div class="minipage">
+<p>The last identity sums a geometric progression in each residue class.
+The geometric-series identity also gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta_{2,F_j}(N)=U_j(N)-X_{F_j}(2)\le
 U_j(N).\]</span></div>
-<p>Consequently, once the first <span
-class="math inline" data-term-auto="off">\(J\)</span> covering sets have zero displacement,
-nonnegativity bounds the displacement of their union by <span
-class="math inline" data-term-auto="off">\(\sum_{j&gt;J}U_j(N)\)</span>.</p>
+</div>
+<p>For the first <span class="math inline" data-term-auto="off">\(J\)</span> covering sets we
+will impose divisibility, making <span
+class="math inline" data-term-auto="off">\(\Delta_{2,F_j}(N)\)</span> vanish. At those
+indices the identity above gives <span
+class="math inline" data-term-auto="off">\(U_j(N)=X_{F_j}(2)\)</span>, which need not be
+zero. We bound only the remaining displacements by the corresponding
+tails <span class="math inline" data-term-auto="off">\(U_j(N)\)</span>.</p>
 <p>Fix <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, set <span
 class="math inline" data-term-auto="off">\(t_j=\varepsilon2^{-j}\)</span>, and choose <span
 class="math inline" data-term-auto="off">\(J\)</span> with</p>
@@ -866,12 +963,12 @@ class="math inline" data-term-auto="off">\(t_j=\varepsilon\eta_j\)</span>.</p>
 </section>
 <section id="combining-the-two-support-criteria" class="level5">
 <h5>Combining the two support criteria</h5>
-<p>Separate small-displacement witnesses need not occur at the same
-index. For example, a sequence small only at even indices and one small
-only at odd indices need never have a small sum. The useful feature
-of <a class="math-ref" data-equation-ref="true" href="#eq:257-mixed-finite-kernel">eq:257-mixed-finite-kernel</a> is its
-uniformity in the moving modulus: the positive-cover argument can use
-the exact observation window selected by the weighted proof.</p>
+<p>We use the weighted proof to choose a finite distribution and apply
+the cover estimate <a class="math-ref" data-equation-ref="true" href="#eq:257-mixed-finite-kernel">eq:257-mixed-finite-kernel</a> to it.
+The explicit modulus dependence lets us check that the cover error also
+tends to zero with this choice. Separate sequences of small weighted and
+covered displacements would not give a small sum: their small values
+could occur on disjoint sets of indices.</p>
 <div class="thm" id="thm:257-mixed-supports">
 <p><strong>Theorem 1.4</strong> (mixed weighted and cover supports). <em>
 Let <span class="math inline" data-term-auto="off">\(E,V\subseteq\mathbb{N}_{&gt;0}\)</span>.
@@ -904,15 +1001,20 @@ class="math inline" data-term-auto="off">\(\kappa&lt;\rho/16\)</span>. Let <span
 class="math inline" data-term-auto="off">\(L\)</span> be a positive common multiple of <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, all members of <span
 class="math inline" data-term-auto="off">\(F\)</span>, and all members of the first <span
-class="math inline" data-term-auto="off">\(J\)</span> covering sets. For large <span
-class="math inline" data-term-auto="off">\(H\)</span>, choose the modulus and averaging
-length from the base-two weighted proof:</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[Q=L\prod_{p\in\mathcal
+class="math inline" data-term-auto="off">\(J\)</span> covering sets. With the finite sets and
+<span class="math inline" data-term-auto="off">\(L\)</span> fixed, choose the base-two
+weighted parameters</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q=L\prod_{p\in\mathcal
 P}p^{\lfloor\log_pH\rfloor},\qquad
 G=\lfloor H/\max\mathcal P\rfloor,\qquad
 M=\lfloor2^{G/2}\rfloor.\]</span></div>
-<p>The finite estimate <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-final-diagonal">eq:257-weighted-final-diagonal</a>,
+<p>We use <span
+class="math inline" data-term-auto="off">\(\mathscr D_{Q;M,M}\)</span> throughout the
+following estimates. Its scales run from <span
+class="math inline" data-term-auto="off">\(M\)</span> to <span
+class="math inline" data-term-auto="off">\(2M-1\)</span>, and both quantities are evaluated
+at the same sampled multiple <span class="math inline" data-term-auto="off">\(N=Qm\)</span>.
+The finite estimate <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-final-diagonal">eq:257-weighted-final-diagonal</a>,
 with complementary weighted mass <span
 class="math inline" data-term-auto="off">\(\kappa\)</span>, remains valid for this <span
 class="math inline" data-term-auto="off">\(L\)</span>: its proof requires only that every
@@ -930,15 +1032,25 @@ nonnegative interchange give</p>
 D_{Q;M,M}S_J\le(1+4Q/M)K_J&lt;\frac18,
 \qquad S_J=\sum_{j&gt;J}t_j^{-\alpha_j}V_j,\]</span></div>
 <p class="display-continue">because <span
-class="math inline" data-term-auto="off">\(Q/M\to0\)</span>. Hence some sample <span
-class="math inline" data-term-auto="off">\(N=Qm\)</span> satisfies <span
-class="math inline" data-term-auto="off">\(\Delta_{2,E}(N)/\rho+S_J(N)&lt;1\)</span>. At this
-index the weighted displacement is below <span
-class="math inline" data-term-auto="off">\(\rho\)</span> and <span
+class="math inline" data-term-auto="off">\(Q/M\to0\)</span>. Here the cover estimate is
+applied with modulus <span class="math inline" data-term-auto="off">\(Q\)</span>, not merely
+with the fixed divisor <span class="math inline" data-term-auto="off">\(L\)</span>; this is
+why its explicit modulus dependence was needed. On this one
+distribution,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathscr
+D_{Q;M,M}(\Delta_{2,E}/\rho+S_J)&lt;\frac14.\]</span></div>
+<p>Choose a sampled
+<span class="math inline" data-term-auto="off">\(N=Qm\)</span> at which the nonnegative sum
+is less than <span class="math inline" data-term-auto="off">\(1\)</span>. Nonnegativity of
+both quantities and of every summand of <span
+class="math inline" data-term-auto="off">\(S_J\)</span> gives <span
+class="math inline" data-term-auto="off">\(\Delta_{2,E}(N)&lt;\rho\)</span> and <span
 class="math inline" data-term-auto="off">\(U_j(N)&lt;t_j\)</span> for every <span
-class="math inline" data-term-auto="off">\(j&gt;J\)</span>. The earlier terms vanish because
-every exponent in their finite sets divides <span
-class="math inline" data-term-auto="off">\(L\)</span>, and hence divides <span
+class="math inline" data-term-auto="off">\(j&gt;J\)</span>. For <span
+class="math inline" data-term-auto="off">\(j\le J\)</span>, it is the displacement <span
+class="math inline" data-term-auto="off">\(\Delta_{2,F_j}(N)\)</span> that vanishes, since
+every exponent in <span class="math inline" data-term-auto="off">\(F_j\)</span> divides <span
+class="math inline" data-term-auto="off">\(L\)</span> and hence divides <span
 class="math inline" data-term-auto="off">\(N\)</span>. Therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta_{2,A}(N)\le\Delta_{2,E}(N)+\Delta_{2,V}(N)&lt;2\rho&lt;\varepsilon,
@@ -950,6 +1062,26 @@ atom comparison used in the cover proof transfers arbitrarily small
 displacements to every integer base; the fixed rational lattice then
 excludes rationality. ◻</p>
 </div>
+<section id="record257:strict-mixed-proof" class="level7">
+<p class="heading">Why the mixed criterion is strict.</p>
+<p>Take an infinite weighted host <span class="math inline" data-term-auto="off">\(E\)</span>
+with no strengthened positive cover, and an infinite covered host <span
+class="math inline" data-term-auto="off">\(V\)</span> with no finite-prime weighted witness
+at any integer base. The two constructions in the short paper’s section
+on comparison of support classes supply these sets. Put <span
+class="math inline" data-term-auto="off">\(U=E\cup V\)</span>. A strengthened cover of <span
+class="math inline" data-term-auto="off">\(U\)</span> restricts to one of <span
+class="math inline" data-term-auto="off">\(E\)</span>, since each divisor count decreases on
+a subset. A weighted witness for <span class="math inline" data-term-auto="off">\(U\)</span>
+restricts to one for <span class="math inline" data-term-auto="off">\(V\)</span>, since every
+summand is nonnegative. Hence <span class="math inline" data-term-auto="off">\(U\)</span>
+belongs to neither individual class. For every infinite <span
+class="math inline" data-term-auto="off">\(A\subseteq U\)</span>, Theorem <a class="math-ref" href="#thm:257-mixed-supports">1.4</a> applies with
+these same sets <span class="math inline" data-term-auto="off">\(E,V\)</span> and gives
+irrationality at every integer base. Irrationality of the two summands
+separately would not suffice. This proves the short paper’s strictness
+corollary from the two constructions, under the review qualification
+given in the introduction.</p>
 <p>The positive-weight variant of Theorem <a class="math-ref" href="#thm:257-variable-fractional-cover">1.3</a>,
 with its hereditary all-base conclusion, also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19">kernel-checked
@@ -1003,6 +1135,7 @@ whereas <span class="math inline" data-term-auto="off">\(X_{\mathcal
 P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}&lt;2/3\)</span>. Here <span
 class="math inline" data-term-auto="off">\(\omega(n)\)</span> is the number of distinct prime
 divisors of <span class="math inline" data-term-auto="off">\(n\)</span>.</p>
+</section>
 <section id="the-elementary-independence-boundary." class="level7">
 <p class="heading">The elementary independence boundary.</p>
 <p>For the divisor counts <span class="math inline" data-term-auto="off">\(c_A\)</span> and a
@@ -1053,21 +1186,21 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 Is <span class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span>?
 <strong>OPEN.</strong></p>
 </div>
-<p>The two are joined by one elementary and completely one-sided
-implication. Every <span class="math inline" data-term-auto="off">\(2^n-1\)</span> is odd, so
-every <em>finite</em> subset sum of <span
-class="math inline" data-term-auto="off">\(\{x_n\}\)</span> has odd reduced denominator and
-cannot equal <span class="math inline" data-term-auto="off">\(1/2\)</span> (<a
+<p>A representation of <span class="math inline" data-term-auto="off">\(1/2\)</span> would
+disprove the universal assertion. Every <span
+class="math inline" data-term-auto="off">\(2^n-1\)</span> is odd, so every <em>finite</em>
+subset sum of <span class="math inline" data-term-auto="off">\(\{x_n\}\)</span> has odd
+reduced denominator and cannot equal <span
+class="math inline" data-term-auto="off">\(1/2\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCutLocator.lean#L243"><code>positiveMersenneSupportValue_coe_finset_ne_half</code></a>).
 Hence a witness to <span class="math inline" data-term-auto="off">\(1/2 \in
 \mathcal{A}\)</span> is necessarily an infinite <span
 class="math inline" data-term-auto="off">\(A\)</span> with <span class="math inline" data-term-auto="off">\(x_A =
-1/2\)</span> rational, which refutes (U) outright. Conversely, (U)
-implies <span class="math inline" data-term-auto="off">\(1/2 \notin \mathcal{A}\)</span> as
-one instance among uncountably many, and a proof of <span
-class="math inline" data-term-auto="off">\(1/2 \notin \mathcal{A}\)</span> leaves (U)
-entirely open. Thus (H) is one candidate counterexample to (U), not a
-restatement of it. Section <a class="math-ref" href="#bar:asym">2.5</a> explains the corresponding
+1/2\)</span> rational, which refutes (U). Conversely, (U) implies <span
+class="math inline" data-term-auto="off">\(1/2 \notin \mathcal{A}\)</span> as one instance
+among uncountably many, and a proof of <span class="math inline" data-term-auto="off">\(1/2
+\notin \mathcal{A}\)</span> leaves (U) entirely open. Thus (H) asks for
+one particular possible counterexample to (U). Section <a class="math-ref" href="#bar:asym">2.5</a> explains the corresponding
 difference between a finite certificate of nonmembership and an
 unbounded survival condition.</p>
 <p>The reciprocal-summable and finite-prime weighted theorems, together
@@ -1089,15 +1222,15 @@ periodic, residue-class, odd-support and periodic-weight rows below
 follow from their theorem, and odd support is their Example 2 <span
 class="citation" data-cites="lucatachiya2017"></span>. The lcm-gap
 supports, including factorials and powers of two, have summable
-reciprocals, so they fall under the reciprocal-summable theorem stated
-by Erdős. The Lean declarations in the table are formal proofs of these
-statements.</p>
-<p>The following table includes two proof mechanisms: block certificates
-for the divisor counts <span class="math inline" data-term-auto="off">\(c_A(n)\)</span>, and
-rational-approximation estimates for a growing least-common-multiple
-gap. The latter need not be presented as instances of the former. The
-notation <span class="math inline" data-term-auto="off">\(\operatorname{sc}_A(n)\)</span> in
-later source excerpts means the same function as <span
+reciprocals, as the calculation following the table shows. They are
+consequently included in the reciprocal-summable theorem stated by
+Erdős. The final column locates the corresponding declarations.</p>
+<p>The two kinds of argument in the table use different data:
+divisibility of blocks of <span class="math inline" data-term-auto="off">\(c_A(n)\)</span>,
+or rational approximations obtained from a growing lcm gap. The
+hypotheses are stated separately for each row. The notation <span
+class="math inline" data-term-auto="off">\(\operatorname{sc}_A(n)\)</span> in later source
+excerpts means the same function as <span
 class="math inline" data-term-auto="off">\(c_A(n)\)</span>. All bases in the table are
 integers <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. For the lcm-gap row
 write <span
@@ -1212,17 +1345,13 @@ inclusion claimed above, rather than using “lacunary” as a substitute
 for a growth hypothesis. For eventually periodic weights, the periodic
 tail must not be identically zero: an eventually zero weight sequence
 gives only a finite rational sum.</p>
-<p>Full-support irrationality for every integer base <span
-class="math inline" data-term-auto="off">\(b\ge2\)</span> is classical (Erdős, 1948). The
-contribution recorded here is its Lean formalisation and the explicitly
-delimited structured-support developments, not a new extension from base
-two to arbitrary integer bases. Each support family retains its stated
-hypotheses; none establishes irrationality for every infinite support.
-The <span class="math inline" data-term-auto="off">\(b=2\)</span> case of the first row
-recovers the Erdős–Borwein constant <span class="math inline" data-term-auto="off">\(E =
-\sum_{n \ge 1} 1/(2^n-1)\)</span> as a one-line corollary of that
-classical theorem. Separately, the independence and tail estimates used
-by a particular certificate construction must be checked for that
+<p>For <span class="math inline" data-term-auto="off">\(b=2\)</span>, the first row is the
+irrationality of the Erdős–Borwein constant <span
+class="math inline" data-term-auto="off">\(E=\sum_{n\ge1}(2^n-1)^{-1}\)</span>. The all-base
+scope belongs to Erdős’s 1948 theorem; this record contributes its
+formalisation. The other rows retain their displayed restrictions and
+leave arbitrary infinite support open. A block-certificate argument may
+additionally require independence or a tail estimate for its particular
 support. Barrier <a class="math-ref" href="#bar:box">2.7</a>
 discusses those construction requirements; the averaging proof above
 does not assume pairwise coprimality or independence of divisor
@@ -1317,8 +1446,7 @@ class="math inline" data-term-auto="off">\(\log_b(b^{c_n}-1)=c_n+O(1)\)</span>. 
 lower bound suffices: deleting finitely many terms subtracts a rational
 number and changes <span class="math inline" data-term-auto="off">\(2^n\)</span> only by a
 fixed factor after reindexing.</p>
-<p>This is not the reciprocal-summability condition of the
-reciprocal-support theorem in Section 1.1. The squares <span
+<p>The two hypotheses can be separated explicitly. The squares <span
 class="math inline" data-term-auto="off">\(c_n=n^2\)</span> have convergent reciprocal sum
 but <span class="math inline" data-term-auto="off">\(c_n/2^n\to0\)</span>. In the other
 direction, set <span class="math inline" data-term-auto="off">\(n_1=1\)</span> and <span
@@ -1332,12 +1460,20 @@ class="math inline" data-term-auto="off">\(c_{n_k}=4^{n_k}\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(c_{n_k}/2^{n_k}=2^{n_k}\to\infty\)</span>, whereas
 each block has reciprocal sum at least <span
 class="math inline" data-term-auto="off">\(1/2\)</span>. Its reciprocal sum therefore
-diverges. These examples separate these two hypotheses, not every
-support criterion in this paper.</p>
+diverges. These examples compare denominator growth with reciprocal
+summability only; they leave the other support criteria out of the
+comparison.</p>
 </section>
 </section>
 <section id="geometry-and-rational-target-membership" class="level5">
 <h5>Geometry and rational-target membership</h5>
+<p>At the first differing digit, <span
+class="math inline" data-term-auto="off">\(w_n&gt;R_n\)</span> prevents all later digits from
+cancelling the difference. This proves uniqueness of the support coding.
+Uniform convergence on the product of the two-point digit spaces gives
+compactness. These facts have distinct uses below: uniqueness recovers a
+represented target by the greedy rule, while closedness turns a
+convergent sequence of finite subseries into a represented value.</p>
 <div class="thm" id="thm:geometry">
 <p><strong>Theorem 1.8</strong> (Achievement-set geometry). <em> <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> is compact, closed, perfect,
@@ -1571,15 +1707,17 @@ class="level2 unnumbered">
 methods</h2>
 <section id="sec:257-wall" class="level4">
 <h4>Limitations of the recorded methods</h4>
+<p>A bound for the actual greedy sequence and a bound uniform over a
+class of supports are different assertions. The following examples
+separate those assertions, starting with uniqueness at a fixed target.
+They exclude the specified estimates or their proposed uniformity,
+without giving an obstruction to every possible method.</p>
 <section id="what-the-obstructions-do-and-do-not-show" class="level5">
 <h5>What the obstructions do and do not show</h5>
-<p>This section studies the scope of particular reformulations and
-certificate mechanisms. Several share the greedy representation, but no
-proof identifies a single necessary obstruction to all methods. The
-statements below are useful insofar as they specify which hypotheses
-fail, which implications are equivalences, and which parameters must be
-uniform. The first structural fact is uniqueness at a fixed target and
-depth.</p>
+<p>We begin with uniqueness at a fixed target and depth, then compare
+the quantifiers required by the different estimates. The counterexamples
+identify a failed hypothesis or a missing uniformity, while the
+equivalences retain the full difficulty of their target statements.</p>
 <div class="obs" id="obs:no-ensemble">
 <p><em>Observation 2.1</em> (Uniqueness within the fixed-target coding).
 Each Mersenne weight exceeds the sum of all subsequent weights.
@@ -2141,13 +2279,12 @@ themselves supply either required uniform estimate.</p>
 </section>
 <section id="sec:257-survivors" class="level4">
 <h4>Unproved inputs for further arguments</h4>
-<p>The following proposals isolate inputs not supplied by the preceding
-results. Some are sufficient conditions, some are equivalent
-formulations, and one concerns reproducing an already known
-prime-support theorem. They are not an exhaustive list of possible
-approaches. The relevant question in each case is what must be proved,
-and whether the cited obstruction applies to that particular
-statement.</p>
+<p>The preceding counterexamples leave estimates that could still be
+used in the conditional arguments. Some would imply membership; others
+are equivalent to it. The prime-support question asks for a formal
+recovery of a known theorem. For each proposed estimate we compare its
+hypotheses with the relevant counterexample. The list is not
+exhaustive.</p>
 <section id="two-further-analytic-tests" class="level5 unnumbered">
 <h5 class="unnumbered">Two further analytic tests</h5>
 <p>Small displacements at a real base do not by themselves give the
@@ -2473,40 +2610,21 @@ estimate would imply.</p>
 </section>
 <section id="sec:257-howto" class="level4">
 <h4>Reading the detailed record</h4>
-<p>The longer record has two different reading modes, and they should
-not be confused.</p>
-<section id="read-linearly." class="level7">
-<p class="heading">Read linearly.</p>
-<p>Sections <a class="math-ref" href="#sec:257-wall">2</a> and
-<a class="math-ref" href="#sec:257-survivors">3</a> form one
-argument: the first identifies the recurring obstructions, and the
-second isolates the routes those obstructions do not exclude. Read them
-in order before selecting a new attack.</p>
-</section>
-<section id="use-as-reference." class="level7">
-<p class="heading">Use as reference.</p>
-<p>The catalogue in Part III may be entered by topic: the certificate
-method and universal-direction record; the greedy and achievement-set
-geometry; the integer-quotient model, quotient identity, and dynamics;
-the half-carry and Boolean–Möbius formulations; and the support rigidity
-results. The later implication tables record what chains with what,
-while the near-miss index gives the exact mismatch at each open
-obligation.</p>
-</section>
-<section id="finite-ranges-and-unbounded-statements." class="level7">
-<p class="heading">Finite ranges and unbounded statements.</p>
-<p>The directly verified instances stay in finite ranges: rungs <span
-class="math inline" data-term-auto="off">\(J \le 22\)</span>, seam rows <span
-class="math inline" data-term-auto="off">\(\le 200{,}000\)</span>, ranks <span
-class="math inline" data-term-auto="off">\(\le 3000\)</span>, and depth <span
-class="math inline" data-term-auto="off">\(\le 13{,}548{,}057\)</span> in the further
-computation; the open obligations require arbitrarily large parameters.
-Theorem <a class="math-ref" href="#thm:one-sided">2.11</a> shows
-that extending a bounded range does not establish such a statement.
-Likewise, an obstruction proved in one representation, for example the
-greedy recurrence, the integer quotients or the Diophantine formulation,
-does not transfer to another representation without a proved map. </p>
-</section>
+<p>Part III groups the finite arithmetic by object: divisor
+certificates, greedy coding, quotient identities, carries and support
+restrictions. The implication tables show how to pass between these
+descriptions and where an additional hypothesis is needed. The preceding
+two sections supply the corresponding comparisons with failed estimates
+and remaining analytic questions.</p>
+<p>The reported calculations concern <span
+class="math inline" data-term-auto="off">\(J\le22\)</span>, quotient rows at most <span
+class="math inline" data-term-auto="off">\(200{,}000\)</span>, ranks at most <span
+class="math inline" data-term-auto="off">\(3000\)</span>, and, in a separate calculation,
+depth at most <span class="math inline" data-term-auto="off">\(13{,}548{,}057\)</span>. Their
+respective predicates and ranges are retained below. Theorem <a class="math-ref" href="#thm:one-sided">2.11</a> explains why a larger
+finite range does not establish an assertion at unbounded depths. An
+obstruction for one recurrence also needs a proved map before it can be
+applied to another formulation. </p>
 </section>
 </section>
 <section id="iii.-detailed-statement-and-arithmetic-catalogue"
@@ -2516,6 +2634,11 @@ catalogue</h2>
 <section id="the-series-the-greedy-rule-and-finite-identities"
 class="level4">
 <h4>The series, the greedy rule and finite identities</h4>
+<p>Expanding a Mersenne weight as a binary geometric series converts a
+support into its divisor counts. We use that identity to compare real
+greedy remainders with finite integer quotients. Rounding introduces an
+error depending on both the scale and the cutoff; keeping those
+parameters separate is necessary for the later orbit estimates.</p>
 <section id="the-object" class="level5">
 <h5>The object</h5>
 <p>In this part, write <span
@@ -2600,7 +2723,7 @@ class="math inline" data-term-auto="off">\(2\)</span>. The base-<span
 class="math inline" data-term-auto="off">\(2\)</span> instance recovering the classical
 Erdős–Borwein constant’s irrationality is a one-line corollary.</em></p>
 </div>
-<p>This formalizes the positive-integer-base scope of <a
+<p>This formalises the positive-integer-base scope of <a
 href="https://www.renyi.hu/~p_erdos/1948-04.pdf">Erdős’s classical 1948
 full-support theorem</a>, which already covered integer bases of
 absolute value greater than one. The base-two Erdős–Borwein constant is
@@ -3124,21 +3247,12 @@ problem.</p>
 </section>
 <section id="detailed-results-and-their-hypotheses" class="level4">
 <h4>Detailed results and their hypotheses</h4>
-<p>This section catalogues machinery for Erdős #257 (is <span
-class="math inline" data-term-auto="off">\(\sum_{n\in A} 1/(2^n-1)\)</span> irrational for
-every infinite <span
-class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}_{\ge1}\)</span>?) drawn from
-the half-membership route (is <span class="math inline" data-term-auto="off">\(1/2\)</span>
-in the Mersenne achievement set?) and the support-rigidity /
-full-support route (irrationality of <span
-class="math inline" data-term-auto="off">\(\sum_{a\in A} 1/(2^a-1)\)</span> for named
-families <span class="math inline" data-term-auto="off">\(A\)</span>). Every entry states
-exact hypotheses and an exact conclusion; the Lean proof of each is
-linked in the margin. None of these results decides #257. Entries are
-grouped into <strong>conditional implications</strong> (with any
-unproved hypothesis identified) and <strong>equivalences and exact
-identities</strong> (including structural properties, definitions and
-exact finite values).</p>
+<p>The catalogue begins with conditional membership tests, then gives
+the identities and invariants used in their proofs. Its final groups
+record consequences and counterexamples. Each result retains its
+hypotheses, and the margin identifies its associated formal proposition.
+The support results and these conditional tests leave the universal
+irrationality assertion unresolved.</p>
 <section id="conditional-membership-tests" class="level5">
 <h5>Conditional membership tests</h5>
 <p>The finite tests below use <span
@@ -5726,6 +5840,12 @@ weaker hypothesis or a new existence result.</em></p>
 <section id="bounds-for-a-general-coefficient-sequence"
 class="level6 unnumbered">
 <h6 class="unnumbered">Bounds for a general coefficient sequence</h6>
+<p>Rationality of a binary coefficient series gives an integer
+recurrence. The necessary decay condition is on the scaled recurrence,
+and allows unbounded integer values. We first bound the coefficient
+tail, then recover the series value by telescoping. For support series,
+Möbius inversion imposes an additional condition on the
+coefficients.</p>
 <div class="thm" id="record:257bm-i2">
 <p><strong>Theorem 6.104</strong> (An upper bound for a binary coefficient
 tail). <em> Let <span
@@ -5766,7 +5886,7 @@ class="math inline" data-term-auto="off">\(c=\varphi\)</span>; the identificatio
 separate formal #249 development, including its indexing conventions, is
 not asserted here.</em></p>
 </div>
-<p>The equivalence follows by telescoping the recurrence:</p>
+<p>To prove the forward implication from a recurrence, we telescope:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{u(N)}{2^N}=u(0)-v\sum_{n=1}^N\frac{c(n)}{2^n}.\]</span></div>
 <p>The limit condition gives the rational value <span
@@ -6637,13 +6757,23 @@ estimate</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\left|\sum_{d\in
 D_j}\frac1{2^d-1}-\frac12\right|
 \le\frac{|K_{D_j}(M_j)|+2\sqrt{M_j}+4}{2^{M_j}}\]</span></div>
-<p class="display-continue">explains the
-hypothesis: it makes the finite values converge to <span
-class="math inline" data-term-auto="off">\(1/2\)</span>. Compactness then gives membership,
-but not the finite approximants needed to apply the theorem. A
-square-root terminal bound is sufficient and stronger as a bound on
-these particular witnesses; no claim of a strict logical separation
-between the corresponding existence statements follows.</p>
+<p class="display-continue">follows by
+expanding each Mersenne weight. Indeed,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[X_D(2)-\frac12=-2^{-M}K_D(M)
+       +\sum_{n&gt;M}c_D(n)2^{-n}.\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(c_D(n)\le\tau(n)\le2\sqrt n\)</span>, and <span
+class="math inline" data-term-auto="off">\(\sqrt{M+r}\le\sqrt M+r\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{r\ge1}2^{-r}c_D(M+r)\le2\sqrt M+4.\]</span></div>
+<p>This proves the bound with an error independent of <span
+class="math inline" data-term-auto="off">\(D\)</span>, and the hypothesis makes the finite
+values converge to <span class="math inline" data-term-auto="off">\(1/2\)</span>. Compactness
+then gives membership, but not the finite approximants needed to apply
+the theorem. A square-root terminal bound is sufficient and stronger as
+a bound on these particular witnesses; no claim of a strict logical
+separation between the corresponding existence statements follows.</p>
 <p>Here is the finite family used in the cited construction. Put <span
 class="math inline" data-term-auto="off">\(B(m)=2\lfloor\sqrt m\rfloor+4\)</span>. A
 depth-<span class="math inline" data-term-auto="off">\(M\)</span> family with a shared prefix
@@ -6704,6 +6834,16 @@ depths and is unproved. The terminal bound then implies half-membership.
 This is a sufficient condition; no converse or strict comparison with
 other sufficient conditions is established here.</p>
 </div>
+<p>For the conditional implication, choose the member with terminal
+carry <span class="math inline" data-term-auto="off">\(1\)</span> from each shared-prefix
+family. Its error in approximating <span
+class="math inline" data-term-auto="off">\(1/2\)</span> is at most <span
+class="math inline" data-term-auto="off">\((1+2\sqrt M+4)2^{-M}\)</span> by the preceding
+estimate. At unbounded depths these errors tend to zero, so compactness
+gives a representation. Every finite sum has odd reduced denominator;
+hence that representation uses an infinite support. This deduction needs
+no compatibility between the chosen members of different families. It
+still assumes that the stated families exist at unbounded depths.</p>
 </section>
 <section id="removing-one-case-from-a-sufficient-tail-condition"
 class="level6">
@@ -6907,9 +7047,11 @@ support digits.</p>
 <section id="integer-quotient-tests-for-one-twenty-first"
 class="level6">
 <h6>Integer-quotient tests for one twenty-first</h6>
-<p>The later quotient-greedy analysis removes the diffuse alternatives.
+<p>For <span class="math inline" data-term-auto="off">\(x=1/21\)</span>, nonmembership forces
+the real greedy sequence eventually to select every exponent. The
+integer quotient rows then agree with that sequence at growing cutoffs.
 Let <span class="math inline" data-term-auto="off">\(\mathcal F_{21}\)</span> denote the
-explicit branch consisting of a fatal greedy gap, finite skipped support
+conjunction consisting of a fatal greedy gap, finite skipped support
 (hence cofinite selection), eventual alignment between the quotient rows
 and the rational greedy prefix, and eventual visits to every doubling
 block. Then</p>
@@ -6934,12 +7076,121 @@ class="math inline" data-term-auto="off">\(1/21\)</span> in the achievement set 
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5554"><code>twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows</code></a>;
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5458"><code>one_div_twenty_one_mem_mersenneAchievementSet_of_cofinalGreedyDecay</code></a>).</p>
-<p>This is the exact current contribution: membership has been reduced
-to excluding one named permanent affine-supercapacity regime. No theorem
-excludes that regime, forces unbounded closed returns, or proves
-membership. Combined with the finite-support obstruction above,
-membership would provide an infinite-support rational counterexample to
-universal #257; it remains open. </p>
+<p>We give the definitions and the complete ordinary proof, including
+the rounding estimate and the agreement through rank <span
+class="math inline" data-term-auto="off">\(2R\)</span> needed in the short paper. Put <span
+class="math inline" data-term-auto="off">\(T_M=\lfloor2^M/21\rfloor\)</span> and <span
+class="math inline" data-term-auto="off">\(q_M(d)=\lfloor2^M/(2^d-1)\rfloor\)</span>.
+Starting with <span class="math inline" data-term-auto="off">\(T_{2R}\)</span>, apply the
+integer greedy rule to the weights <span
+class="math inline" data-term-auto="off">\(q_{2R}(d)\)</span>, in increasing order of <span
+class="math inline" data-term-auto="off">\(d\)</span>, selecting a weight exactly when it
+does not exceed the current remainder. Let <span
+class="math inline" data-term-auto="off">\(D_R\)</span> be the selected exponents in <span
+class="math inline" data-term-auto="off">\(\{2,\ldots,R\}\)</span>, and let</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[s_R=T_{2R}-\sum_{d\in D_R}q_{2R}(d).\]</span></div>
+<p>The
+alignment in <span class="math inline" data-term-auto="off">\(\mathcal F_{21}\)</span> refers
+to the full integer word through <span class="math inline" data-term-auto="off">\(2R\)</span>
+agreeing with the real greedy word through <span
+class="math inline" data-term-auto="off">\(2R\)</span>, for all sufficiently large <span
+class="math inline" data-term-auto="off">\(R\)</span>. Its other clauses are a finite fatal
+gap <span class="math inline" data-term-auto="off">\(r_n(1/21)&gt;R_n\)</span> with all later
+exponents selected, and a selected exponent in every sufficiently late
+block <span class="math inline" data-term-auto="off">\((K,2K]\)</span>. On this conjunction,
+the eventual recurrence is</p>
+<div class="math-display" id="eq:record257-twenty-one-recurrence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\begin{split}
+s_{R+1}={}&amp;4s_R+
+\left\lfloor\frac{4(4^R\bmod21)}{21}\right\rfloor
+-2c_{D_R}(2R+1)-c_{D_R}(2R+2)\\
+&amp;{}-(2^{R+1}+1),\qquad
+D_{R+1}=D_R\cup\{R+1\},\quad s_R&gt;2^R.
+\end{split}
+\label{eq:record257-twenty-one-recurrence}
+\end{equation}\]</span></div>
+<div class="proof">
+<p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(x=1/21\)</span>, let
+<span class="math inline" data-term-auto="off">\(G=G_{1/21}\)</span>, and write <span
+class="math inline" data-term-auto="off">\(\delta=x-X_G(2)\ge0\)</span>. If <span
+class="math inline" data-term-auto="off">\(x\notin\mathcal A\)</span>, then <span
+class="math inline" data-term-auto="off">\(\delta&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(r_n\downarrow\delta\)</span>. Since <span
+class="math inline" data-term-auto="off">\(w_n\to0\)</span>, every sufficiently large
+exponent is selected. Choose <span class="math inline" data-term-auto="off">\(n\)</span>
+beyond that point with <span
+class="math inline" data-term-auto="off">\(R_n&lt;\delta\)</span>. This proves the first
+clause of <span class="math inline" data-term-auto="off">\(\mathcal F_{21}\)</span>, and
+cofinite support gives its third clause.</p>
+<p>We verify the integer comparisons as well. Set <span
+class="math inline" data-term-auto="off">\(B=2^{2R}\)</span>. When the integer and real rules
+agree through <span class="math inline" data-term-auto="off">\(d-1\)</span>, their remainders
+after normalisation by <span class="math inline" data-term-auto="off">\(B\)</span> differ by
+at most <span class="math inline" data-term-auto="off">\(d/B\)</span>, because each floor
+changes its argument by less than one. The normalised integer weight
+differs from <span class="math inline" data-term-auto="off">\(w_d\)</span> by less than <span
+class="math inline" data-term-auto="off">\(1/B\)</span>. Each fixed real comparison is
+strict: equality would give a finite representation of <span
+class="math inline" data-term-auto="off">\(x\)</span>, and hence <span
+class="math inline" data-term-auto="off">\(x\in\mathcal A\)</span>. Choose <span
+class="math inline" data-term-auto="off">\(d_0\)</span> such that <span
+class="math inline" data-term-auto="off">\(w_d&lt;\delta/2\)</span> for <span
+class="math inline" data-term-auto="off">\(d&gt;d_0\)</span>. For large <span
+class="math inline" data-term-auto="off">\(R\)</span> the finitely many comparisons through
+<span class="math inline" data-term-auto="off">\(d_0\)</span> agree, and <span
+class="math inline" data-term-auto="off">\(2R/B&lt;\delta/2\)</span>. At every subsequent
+step <span class="math inline" data-term-auto="off">\(d\le2R\)</span>, the normalised integer
+remainder is at least <span
+class="math inline" data-term-auto="off">\(\delta-d/B&gt;\delta/2&gt;w_d\)</span>, so that
+both rules select <span class="math inline" data-term-auto="off">\(d\)</span>. Induction
+proves the second clause. Conversely, a represented target is recovered
+by the real greedy rule, and its remainder always satisfies <span
+class="math inline" data-term-auto="off">\(r_n\le R_n\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(\mathcal F_{21}\)</span> is impossible for a
+represented target, proving the membership equivalence.</p>
+<p>For any <span class="math inline" data-term-auto="off">\(R\)</span>, rounding the target
+and the selected weights gives</p>
+<div class="math-display" id="eq:record257-twenty-one-rounding" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\left|x-X_{D_R}(2)-\frac{s_R}{4^R}\right|
+\le\frac{R+1}{4^R}.
+\label{eq:record257-twenty-one-rounding}
+\end{equation}\]</span></div>
+<p>If <span
+class="math inline" data-term-auto="off">\(s_R\le2^R\)</span> on an unbounded sequence, the
+finite subseries values <span class="math inline" data-term-auto="off">\(X_{D_R}(2)\)</span>
+tend to <span class="math inline" data-term-auto="off">\(x\)</span>. The achievement set is
+closed, so <span class="math inline" data-term-auto="off">\(x\in\mathcal A\)</span>. This
+proves the closed-return implication. A finite representation is
+excluded by the finite-denominator argument already given.</p>
+<p>On <span class="math inline" data-term-auto="off">\(\mathcal F_{21}\)</span>, the integer
+comparison and cofinite support give <span
+class="math inline" data-term-auto="off">\(D_R=G\cap\{2,\ldots,R\}\)</span> and <span
+class="math inline" data-term-auto="off">\(D_{R+1}=D_R\cup\{R+1\}\)</span> for all large
+<span class="math inline" data-term-auto="off">\(R\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#eq:record257-twenty-one-rounding">eq:record257-twenty-one-rounding</a>
+yields <span class="math inline" data-term-auto="off">\(s_R/4^R\to\delta&gt;0\)</span>, and
+hence <span class="math inline" data-term-auto="off">\(s_R&gt;2^R\)</span> eventually. For
+<span class="math inline" data-term-auto="off">\(d\ge2\)</span>, the finite geometric
+expansion of <span class="math inline" data-term-auto="off">\(q_M(d)\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[q_{M+2}(d)=4q_M(d)+2\mathbf1_{d\mid
+M+1}+\mathbf1_{d\mid M+2}.\]</span></div>
+<p>Also</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_{2R+2}=4T_{2R}+
+\left\lfloor\frac{4(2^{2R}\bmod21)}{21}\right\rfloor,
+\qquad q_{2R+2}(R+1)=2^{R+1}+1.\]</span></div>
+<p>Subtract the contributions of
+<span class="math inline" data-term-auto="off">\(D_R\)</span> and of the new exponent <span
+class="math inline" data-term-auto="off">\(R+1\)</span> to obtain <a class="math-ref" data-equation-ref="true" href="#eq:record257-twenty-one-recurrence">eq:record257-twenty-one-recurrence</a>. ◻</p>
+</div>
+<p>The remaining question is whether this eventual recurrence can occur
+for the actual greedy word, or whether closed returns occur at unbounded
+depths. Neither assertion is established here. Since no finite support
+represents <span class="math inline" data-term-auto="off">\(1/21\)</span>, membership would
+give an infinite-support rational counterexample to the universal
+problem.</p>
 </section>
 </section>
 </section>
@@ -6950,39 +7201,28 @@ class="level2 unnumbered">
 inputs</h2>
 <section id="sec:scale-ladder" class="level4">
 <h4>Finite ranges and unbounded parameters</h4>
-<p>Two kinds of information matter to a reader deciding whether a result
-can be used as a premise: the kind of support behind it (a Lean proof,
-an exact finite computation, an ordinary argument, a cited theorem, or
-none, for an unproved hypothesis) and the range of its parameters. A
-result may concern one specified value; a finite tested range, or a
-witness bounded in terms of the input; every index in its stated range,
-with its hypotheses retained, which need not make it unconditional; or
-unboundedly many indices, in the form <span
-class="math inline" data-term-auto="off">\(\forall N\,\exists n\ge N,\ P(n)\)</span>.
-Compatibility between witnesses of the last kind is an additional
-requirement only when explicitly imposed.</p>
-<p>The important distinction is between obtaining a witness in a finite
-range and proving the quantified assertion used by a membership test.
-For example, half-membership follows from unbounded successful exact
-rows or from infinitely many greedy skips. A different sufficient
-condition asks for a bound at every reset beyond its threshold. These
-statements have different quantifiers, even when the same transition
-formulas occur in their proofs. Each row must retain its predicate,
-quantified variable, and every premise. An unconditional eventual
-assertion <span class="math inline" data-term-auto="off">\(\forall n\ge N_0,\,P(n)\)</span>
-does give cofinal witnesses to that same predicate, by taking <span
-class="math inline" data-term-auto="off">\(n=\max(N,N_0)\)</span>. A uniform conditional
-implication <span class="math inline" data-term-auto="off">\(H(n)\Rightarrow C(n)\)</span>
-supplies no witness until <span class="math inline" data-term-auto="off">\(H(n)\)</span> is
-established, and a checked finite band supplies no assertion beyond its
-endpoints. These are different logical shapes and are recorded
-separately below.</p>
+<p>Half-membership follows from exact rows at unbounded depths or from
+infinitely many greedy skips. The reset criterion has a different form:
+it assumes a bound at every reset beyond a threshold. We compare these
+quantifiers before using the shared transition identities. A finite
+witness cannot replace either unbounded existence or a uniform
+bound.</p>
+<p>For example, <span class="math inline" data-term-auto="off">\(\forall n\ge
+N_0,\,P(n)\)</span> yields cofinal witnesses to <span
+class="math inline" data-term-auto="off">\(P\)</span>, by taking <span
+class="math inline" data-term-auto="off">\(n=\max\{N,N_0\}\)</span>. An implication <span
+class="math inline" data-term-auto="off">\(H(n)\Rightarrow C(n)\)</span> yields no such
+witness before <span class="math inline" data-term-auto="off">\(H(n)\)</span> is proved, and
+a finite verified band says nothing about later indices. Compatibility
+between cofinal witnesses is a further condition only where it is
+imposed explicitly.</p>
 <p>Table <a class="math-ref" href="#tab:scale-ladder">tab:scale-ladder</a>
-separates established finite or quantified results from unproved
-membership hypotheses and the proved implications that use them. Its
-lower part therefore contains proved theorems as well as open
-assumptions. The range alone determines neither the support nor the
-truth status; the stated predicate and premises do.</p>
+records both the exact parameter ranges and the reasons for the
+assertions: ordinary or formal proofs, cited theorems, finite
+calculations and unproved hypotheses. The lower rows include proved
+conditional implications as well as open antecedents. Neither their
+truth nor their evidence is determined by the quantifier prefix
+alone.</p>
 <div id="tab:scale-ladder">
 <table>
 <caption>Quantifiers for the stated results. The groups separate finite
@@ -7304,6 +7544,11 @@ tactic a finite proof uses.</p>
 </section>
 <section id="sec:four-coordinates" class="level4">
 <h4>Approximations to the greedy orbit</h4>
+<p>Finite quotient procedures approximate the real greedy sequence for
+<span class="math inline" data-term-auto="off">\(1/2\)</span>. Agreement on a fixed prefix
+does not give agreement at a cutoff that grows with the scale. We track
+the cutoff in each of the four calculations below and state the uniform
+estimate that would be needed to pass to unbounded depths.</p>
 <section id="four-reported-calculations" class="level5 unnumbered">
 <h5 class="unnumbered">Four reported calculations</h5>
 <p>Fix the weights <span class="math inline" data-term-auto="off">\(x_n:=1/(2^n-1)\)</span>,
@@ -7691,15 +7936,11 @@ unbounded-index assertion is still unproved. Twenty verified values of
 </section>
 <section id="which-hypotheses-remain-unproved" class="level4">
 <h4>Which hypotheses remain unproved</h4>
-<p>This section compares the stated results with the remaining
-hypotheses. Each result is tested against three exact open obligations:
-what it yields, where it falls short of the obligation (a stronger
-hypothesis, a different parameter range, a different quantifier order, a
-different expression of the same condition, or several of these), and
-the exact auxiliary statement that would close the gap. Nothing here
-decides #249 or #257. A conditional reduction is a result with a
-hypothesis, not a proof of that hypothesis, and a finite verified list
-does not supply witnesses at unbounded depths.</p>
+<p>Three quantified conditions underlie the membership arguments below.
+We compare the available estimates with each condition, distinguishing a
+stronger assumption from an equivalent reformulation and a finite range
+from an unbounded assertion. The missing estimates remain open; these
+comparisons decide neither #249 nor #257.</p>
 <section id="the-three-257-obligations-stated-exactly" class="level5">
 <h5>The three #257 obligations, stated exactly</h5>
 <div class="defn">
@@ -9160,25 +9401,20 @@ half-membership. The hypothesis concerns every actual reset beyond the
 threshold; neither a long finite check nor an asserted run-length
 asymptotic supplies it.</em></p>
 </div>
-<div class="rem">
-<p><em>Remark 9.47</em> (B: rigidity of dangerous resets). A dangerous
-reset (one within <span class="math inline" data-term-auto="off">\(2^{(r+5)/2}\)</span> of
-the square-root escape threshold) that is preceded by a long pure R-run
-pins the deviation at the preceding reset to one of at most two adjacent
-pulse-determined integers, where one might expect a free real number:
-the affine excess recurrence (Observation <a class="math-ref" href="#obs:affine-excess-recurrence">9.5</a>) is
-exact, so once the run length and the pulse word are fixed, <span
-class="math inline" data-term-auto="off">\(w_{r_0+1}\)</span> has no remaining degree of
-freedom. Observation <a class="math-ref" href="#obs:dangerous-reset-rigidity">12.9</a> states
-the hypotheses and the run-length threshold. Consequently a chain of
-<span class="math inline" data-term-auto="off">\(n\)</span> consecutive dangerous resets with
-long runs is a tower of <span class="math inline" data-term-auto="off">\(n{-}1\)</span>
-nested exact integer conditions, none free to vary once the pulse stream
-is fixed. Failure of square-root escape therefore requires such an
-integer-coincidence tower. No probability model is supplied, so these
-conditions do not by themselves make dangerous resets unlikely; the open
-step is excluding the two pinned values. This is an ordinary
-argument.</p>
+<div class="rem" id="rem:dangerous-reset-chain-scope">
+<p><em>Remark 9.47</em> (B: rigidity of dangerous resets). For a
+dangerous reset preceded by a sufficiently long pure right run,
+Observation <a class="math-ref" href="#obs:dangerous-reset-rigidity">12.9</a>
+confines the deviation at the preceding reset to at most two adjacent
+integers determined by the divisor-pulse stream. Applying that
+observation along a chain of <span class="math inline" data-term-auto="off">\(n\)</span>
+dangerous resets gives <span class="math inline" data-term-auto="off">\(n-1\)</span> nested
+integer conditions, provided each intervening run meets its length
+threshold. The argument leaves a dangerous reset after a short run
+untouched. In particular, failure of square-root escape alone has not
+been shown to produce such a chain. No probability model is supplied and
+the pinned values are not excluded. This is an ordinary argument under
+the stated long-run hypotheses.</p>
 </div>
 <div class="thm" id="thm:one-sided-finite-decision-boundary">
 <p><strong>Theorem 9.48</strong> (C: the one-sided finite decision
@@ -9285,15 +9521,15 @@ witnesses.</p>
 </section>
 <section id="hypothesis-specific-obstructions" class="level4">
 <h4>Hypothesis-specific obstructions</h4>
-<p>The examples in this section test particular proposed implications
-for the reset estimate. Some give counterexamples in abstract recurrence
-models; others compute an exact finite orbit or compare two quantitative
-bounds. An abstract counterexample is not a state of the actual greedy
-orbit unless that correspondence is established. Additional arithmetic
-hypotheses may therefore change the conclusion.</p>
+<p>An abstract recurrence can satisfy some identities of the greedy
+orbit and still violate the proposed reset bound. Such a counterexample
+applies to the actual orbit only after the correspondence of states has
+been proved. We keep these examples separate from calculations on
+genuine finite orbits. Additional arithmetic hypotheses may exclude the
+abstract counterexamples.</p>
 <p>Throughout, <span class="math inline" data-term-auto="off">\(\mathrm{rem}(s)\)</span> is
 the quotient-row remainder, <span class="math inline" data-term-auto="off">\(\lambda_n :=
-\Delta_n/2^n\)</span> the normalized seam deviation of Theorem <a class="math-ref" href="#thm:dynamics">5.16</a>, and <span
+\Delta_n/2^n\)</span> the normalised seam deviation of Theorem <a class="math-ref" href="#thm:dynamics">5.16</a>, and <span
 class="math inline" data-term-auto="off">\(\mathcal A\)</span> the Mersenne achievement set.
 Reset square-root escape from row 10 is the statement <span
 class="math inline" data-term-auto="off">\(|\mathrm{rem}(r+1)-2^{r+1}| &gt;
@@ -9967,13 +10203,11 @@ and from an assertion at every later reset.</p>
 </section>
 <section id="sec:invent-257" class="level4">
 <h4>Unproved inputs for the recorded implications</h4>
-<p>The preceding parts prove support criteria, finite identities and
-conditional implications. They do not decide the universal problem or
-either rational target. This section states the remaining hypotheses for
-particular implications and compares them with the estimates already
-available. Ordinary arguments, reported finite computations and unproved
-proposals are distinguished in the text. No single necessary obstruction
-is claimed to account for every unsuccessful estimate.</p>
+<p>The following estimates would supply inputs to particular conditional
+arguments. We compare each with the bounds and finite calculations
+already available, retaining its quantifiers and evidence basis. The
+comparisons leave both rational targets and the universal problem open,
+and do not supply a single obstruction common to all approaches.</p>
 <p>For example, the first two weighted divisor counts after <span
 class="math inline" data-term-auto="off">\(M=3\)</span> give <span
 class="math inline" data-term-auto="off">\((\tau(4)-1)/2+(\tau(5)-1)/4=5/4\)</span>. The
@@ -10872,15 +11106,15 @@ class="math inline" data-term-auto="off">\(1\)</span> to the support. The series
 the rational number <span class="math inline" data-term-auto="off">\((b-1)^{-1}\)</span>, so
 its irrationality is unchanged, while the incidence becomes <span
 class="math inline" data-term-auto="off">\(2^{\omega(n)}\)</span>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L314"><code>ErdosProblems.Erdos257.SquarefreeSupportIncidence.supportCoeff_squarefreeShiftedSupport</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L314"><code>ErdosProblems.Erdos257.supportCoeff_squarefreeShiftedSupport</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L335"><code>ErdosProblems.Erdos257.SquarefreeSupportIncidence.irrational_erdosSupportSeries_squarefreeSupport_iff_shifted</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L335"><code>ErdosProblems.Erdos257.irrational_erdosSupportSeries_squarefreeSupport_iff_shifted</code></a>.
 At base <span class="math inline" data-term-auto="off">\(2\)</span>, CRT then supplies
 arbitrarily long opening blocks with <span
 class="math inline" data-term-auto="off">\(\omega(N+r)\ge r\)</span>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L441"><code>ErdosProblems.Erdos257.SquarefreeSupportIncidence.exists_omega_ge_block</code></a>
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L441"><code>ErdosProblems.Erdos257.exists_omega_ge_block</code></a>
 and <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L485"><code>ErdosProblems.Erdos257.SquarefreeSupportIncidence.exists_digitwise_block_squarefreeShiftedSupport</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L485"><code>ErdosProblems.Erdos257.exists_digitwise_block_squarefreeShiftedSupport</code></a>.
 The middle-window and height conditions remain; no certificate or new
 irrationality proof follows. The durable conclusion is methodological:
 test a no-go statement under rational finite changes before attributing
@@ -10988,20 +11222,14 @@ class="level2 unnumbered">
 <h2 class="unnumbered">V. Outstanding obligations and provenance</h2>
 <section id="what-is-open-stated-exactly" class="level4">
 <h4>What is open, stated exactly</h4>
-<p>Erdős #257 asks whether <span class="math inline" data-term-auto="off">\(\sum_{n\in
-A}1/(2^n-1)\)</span> is irrational for <em>every</em> infinite <span
-class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}_{\ge 1}\)</span>. Nothing in
-this paper decides this, in either the universal form or the
-single-target half-value form below. Parts I–IV do prove unconditional
-theorems for specified support classes, as well as uniform
-finite-denominator and achievement-set results. The unresolved
-membership conditions must be distinguished from those results: some are
-equivalences, some are unproved sufficient conditions, and some have
-only finite computational checks. This section states the exact open
-targets, their Lean sources where formalised, and their logical
-relationships. The implication table in §<a class="math-ref" href="#sec:v-table">12.8</a> shows that several
-apparent intermediate steps are <em>equivalent</em> to the full
-problem.</p>
+<p>The support theorems and finite arithmetic leave three target
+questions: the universal base-two assertion, half-membership and <span
+class="math inline" data-term-auto="off">\(1/21\)</span>-membership. We collect their
+quantified forms here. Some are equivalent formulations, some are
+sufficient conditions, and some have only finite computed instances. The
+table in §<a class="math-ref" href="#sec:v-table">12.8</a>
+identifies the equivalences; none of them supplies the missing
+membership argument.</p>
 <section id="notation-fixed-for-this-section" class="level5">
 <h5>Notation fixed for this section</h5>
 <p>The base-<span class="math inline" data-term-auto="off">\(2\)</span> support series is
@@ -11060,7 +11288,7 @@ class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}\)</span> is actually
 incidence is <span class="math inline" data-term-auto="off">\(2^{\omega(n)}-1\)</span>, hence
 odd for every <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, and the
 digitwise certificate schema has no instance at any even base (<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L292"><code>ErdosProblems.Erdos257.SquarefreeSupportIncidence.not_exists_digitwise_certificates_squarefreeSupport</code></a>).
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean#L292"><code>ErdosProblems.Erdos257.not_exists_digitwise_certificates_squarefreeSupport</code></a>).
 This is a limit of the method, not a counterexample to irrationality:
 Duverney–Tachiya prove the squarefree value irrational at every
 power-of-two base. Likewise the pairwise-coprime theorem does not cover
@@ -11471,7 +11699,9 @@ reduction.</p>
 </section>
 <section id="whether-one-twenty-first-is-represented" class="level5">
 <h5>Whether one twenty-first is represented</h5>
-<p>For the second rational target, the recorded equivalence is</p>
+<p>The integer-quotient proof at <a
+href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:twenty-one-quotients">the
+end of the detailed finite results</a> gives the equivalence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{21}\in\mathcal A
 \quad\Longleftrightarrow\quad
@@ -11689,27 +11919,25 @@ but do not resolve either rational target or the universal problem.</p>
 </section>
 <section id="sec:257-logarithmic-sampling" class="level4">
 <h4>Logarithmic cost under arithmetic sampling</h4>
-<p>Positive fractional covers retain their geometric-kernel estimate,
-but their optimised cost cannot be bounded uniformly by a positive
-logarithmic divisor cost. The obstruction occurs on complete arithmetic
-periods, rather than only in incomplete-period errors. We give the
-construction and the surviving initial-interval estimate here; the short
-paper records their consequences beside its bound for the family <span
-class="math inline" data-term-auto="off">\(F(q,P)\)</span>.</p>
-<p>The proofs in this section are ordinary arguments, first worked out
-in an AI-assisted note of 17 September 2026 and given here in full. All
-three results also have Lean proofs, each compared independently
-(margin); the ordinary proofs have not had independent human review. For
-the underlying Lambert subseries, Kovač–Tao treat the same fixed-base
-object in <span class="citation" data-cites="kovactao"><a href="#ref-19">[19]</a></span>; their
-strict-tail argument gives distinct support coding and Cantor topology.
-Van Doorn–Kovač treat a freely chosen denominator sequence. Their
-convention is <span class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge\lambda\)</span>
-at every index. For each <span
-class="math inline" data-term-auto="off">\(1&lt;\lambda&lt;2\)</span>, they construct such a
-sequence whose finite reciprocal sums include every rational in <span
-class="math inline" data-term-auto="off">\([0,2]\)</span>; no sequence with <span
-class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge2\)</span> can do this on any
+<p>A logarithmic divisor majorant is too weak to give the uniform
+arithmetic-progression estimate suggested by the fractional-cover proof.
+We construct a counterexample already visible on complete periods, so an
+improved incomplete-period error cannot remove it. We then prove an
+initial-interval estimate. This distinguishes the available logarithmic
+bound from a converse to the short paper’s divisor-cube estimates.</p>
+<p>The ordinary proofs originate in an AI-assisted note of 17 September
+2026. The margin gives the three corresponding formal results and their
+separate comparison records. The ordinary proofs have not had
+independent human review. For the underlying Lambert subseries,
+Kovač–Tao treat the same fixed-base object in <span class="citation"
+data-cites="kovactao"><a href="#ref-19">[19]</a></span>; their strict-tail argument gives distinct
+support coding and Cantor topology. Van Doorn–Kovač treat a freely
+chosen denominator sequence. Their convention is <span
+class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge\lambda\)</span> at every index. For
+each <span class="math inline" data-term-auto="off">\(1&lt;\lambda&lt;2\)</span>, they
+construct such a sequence whose finite reciprocal sums include every
+rational in <span class="math inline" data-term-auto="off">\([0,2]\)</span>; no sequence with
+<span class="math inline" data-term-auto="off">\(n_{i+1}/n_i\ge2\)</span> can do this on any
 nonempty open interval <span class="citation"
 data-cites="vandoornkovac"><a href="#ref-20">[20]</a></span>. This is a statement about the
 rational points of an interval, not an interval consisting entirely of
@@ -11804,12 +12032,12 @@ class="math inline" data-term-auto="off">\(R\ge0\)</span>, and <span
 class="math inline" data-term-auto="off">\(0&lt;t\le1\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The modulus makes many small divisor conditions
-automatic. Fresh tag primes then make the remaining incidences
-independent, and taking all least common multiples turns their number
-into an exponential incidence. A logarithm pays only for the individual
-tags, while the shifted potential can exceed one at many different
-offsets.</p>
+<p><em>Proof.</em> We choose the modulus so that several small
+divisibility conditions hold automatically. Fresh tag primes make the
+remaining conditions independent. Taking all least common multiples then
+makes the divisor count exponential in the number of tags. Its logarithm
+has small cost, but the shifted potential exceeds one at sufficiently
+many offsets to prevent the proposed uniform bound.</p>
 <p>Choose a finite set of primes <span class="math inline" data-term-auto="off">\(P\)</span>
 such that, with</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L=\prod_{p\in P}p,\qquad
@@ -12089,14 +12317,15 @@ class="math inline" data-term-auto="off">\(1/21\)</span>.</p>
 </section>
 <section id="two-proof-details-and-sources" class="level4 unnumbered">
 <h4 class="unnumbered">Two proof details and sources</h4>
-<p>The elementary atom comparison can be sharpened to <span
-class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\le\Delta_{2,A}(N)\)</span> for all
-real <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. After cancelling <span
-class="math inline" data-term-auto="off">\(b-1\)</span>, differentiate the ratio <span
-class="math inline" data-term-auto="off">\(\sum_{i&lt;r}b^i/\sum_{i&lt;d}b^i\)</span>: its
-numerator is <span class="math inline" data-term-auto="off">\(\sum_{i&lt;r\le
-j&lt;d}(i-j)b^{i+j-1}\le0\)</span>. Only the rational-lattice step needs
-an integer base.</p>
+<p>The comparison of displacement atoms works for real bases: <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\le\Delta_{2,A}(N)\)</span>
+whenever <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. To see this, cancel
+<span class="math inline" data-term-auto="off">\(b-1\)</span> and differentiate <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;r}b^i/\sum_{i&lt;d}b^i\)</span>. The
+numerator of the derivative is <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;r\le
+j&lt;d}(i-j)b^{i+j-1}\le0\)</span>. An integer base is needed only when
+the displacement is placed on a rational lattice.</p>
 <p>For the scalar positive-cover cost, put <span
 class="math inline" data-term-auto="off">\(z=\log_2t\)</span>. Direct differentiation of
 <span class="math inline" data-term-auto="off">\(y^z/(y-1)\)</span> on <span
@@ -12104,8 +12333,8 @@ class="math inline" data-term-auto="off">\(1&lt;y\le2\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Psi(t)=t\quad(1\le t\le4),\qquad
 \Psi(t)=\frac{z^z}{(z-1)^{z-1}}\quad(t&gt;4).\]</span></div>
-<p>These are
-ordinary proof details.</p>
+<p>These two
+calculations supply the elementary details used in the short paper.</p>
 <p>The original periodic and linear-independence papers of Luca and
 Tachiya are now distinguished from their later overview <span
 class="citation"
@@ -12123,6 +12352,85 @@ data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>. Głąb and Prus-Wiśni
 <span class="citation" data-cites="glabprus2025"><a href="#ref-18">[18]</a></span> provides a
 modern map of geometry and cardinality questions, not a
 rational-membership theorem for the present set.</p>
+<section id="library-declarations." class="level7">
+<p class="heading">Library declarations.</p>
+<p>The following fixed-revision links locate the supplementary formal
+statements used in this note and its companion. Pairwise-coprime
+supports: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6082">factorial-support
+instance</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L6090">powers-of-two-support
+instance</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">pairwise-coprime
+theorem</a>. Eventually periodic weights: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L12811">irrationality
+for the stated eventually periodic weights</a>. Fixed-core supports: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L531">carry
+certificates for the stated fixed-core support</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SupportSunflowerDichotomy.lean#L540">irrationality
+for the stated fixed-core support</a>. Finite supports and denominators:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5246">noncollapse
+for the reduced rational denominator</a>. Rational values and carries:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCarry.lean#L949">rational
+support values and Möbius-inverted carries</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L426">rationality
+and integer recurrences with vanishing scaled error</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L1480">a
+lower bound for reciprocal mass</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/RationalSupportCarrySkeleton.lean#L2383">unboundedness
+of the shifted odd-tail recurrence</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/SublogDivisorCoverage.lean#L392">lengths
+of intervals with zero divisor count</a>. Composite dilation: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L30">the
+divisor-count identity under dilation</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L151">the
+upper bound for the dilation correction</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CompositeDilationDefect.lean#L218">the
+example with exponents two and six</a>. The achievement set: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L996">Lebesgue
+measure one</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1656">perfect</a>;
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1672">totally
+disconnected</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1681">nowhere
+dense</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1458">membership
+and greedy tail bounds</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1784">non-membership
+of <span class="math inline" data-term-auto="off">\(3/4\)</span></a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L2583">the
+greedy form</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCarryReachability.lean#L589">the
+finite-support exclusion</a>. Restricted achievement sets: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L397">the
+formal dichotomy</a>. Greedy skips and exact rows: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L22">the
+cofinal-skip hypothesis</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L55">an
+exact finite sum from one greedy skip</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L84">exact
+finite sums from arbitrarily late greedy skips</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L97">membership
+from infinitely many greedy skips</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkippedCoreExactRow.lean#L228">the
+upper-half Boolean fill</a>. Membership of <span
+class="math inline" data-term-auto="off">\(1/2\)</span>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126">the
+terminal-bit form</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L213">the
+skipped-rank form</a>. The two-thirds band: <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L88">general
+band localization</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L127">two-thirds
+band</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L185">integral
+safety</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231">odd
+numerator bound</a>.</p>
+</section>
 </section>
 <section id="acknowledgements" class="level4 unnumbered">
 <h4 class="unnumbered">Acknowledgements</h4>

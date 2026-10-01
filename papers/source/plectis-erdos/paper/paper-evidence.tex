@@ -9,14 +9,16 @@
 %
 %   \DeclareResultEvidence{<label>}{<mark>}{<Lean URL>}{<Comparator URL>}
 %
-% and nothing else.  When the result's \label is set, its marks are placed in
+% plus its record and evidence status. When the result's \label is set, its marks are placed in
 % the right margin beside it: "Lean" (or "Lean" with a dagger when the Lean
 % proof assumes a named input) and, when the result was compared, "Comparator".
-% No text is added to the page.  A declared result whose label never occurs is
+% The same links appear inline beside the heading. A declared result whose label never occurs is
 % an error, so a mark cannot silently go missing; so is a label declared twice.
 % Do not edit the per-paper files by hand.
 
 \usepackage{marginnote}
+% Companion-PDF links use the same readable external-link colour in grayscale.
+\hypersetup{filecolor=linkexternal}
 \renewcommand*{\marginfont}{\footnotesize\sffamily\upshape}
 \setlength{\marginparwidth}{56pt}
 \setlength{\marginparsep}{14pt}
@@ -29,7 +31,42 @@
       {Regenerate the paper's evidence file with scripts/paper_evidence.py.}%
   \else
     \expandafter\gdef\csname ev@map@#1\endcsname{\ev@marks{#1}{#2}{#3}{#4}}%
+    \expandafter\gdef\csname ev@inline@#1\endcsname{\ev@inline{#1}{#2}{#3}{#4}}%
     \g@addto@macro\ev@all{\do{#1}}%
+  \fi}
+% Generated record targets also cover statements without a complete Lean proof.
+% They let an authored inline reference use the very same result identity as
+% the margin, rather than copying a source pin or a declaration coordinate.
+\newcommand{\DeclareResultEvidenceRecord}[4]{%
+  \expandafter\gdef\csname ev@record@#1\endcsname{#2}%
+  \expandafter\gdef\csname ev@leanstatus@#1\endcsname{#3}%
+  \expandafter\gdef\csname ev@cmpstatus@#1\endcsname{#4}}
+\newcommand{\ev@inline}[4]{%
+  \begingroup\normalfont\scriptsize
+  \href{#3}{#2}%
+  \if\relax\detokenize{#4}\relax
+    \ifcsname ev@cmpstatus@#1\endcsname
+      \edef\ev@status{\csname ev@cmpstatus@#1\endcsname}%
+      \def\ev@pending{pending}%
+      \ifx\ev@status\ev@pending
+        \enspace\textperiodcentered\enspace
+        \href{\csname ev@record@#1\endcsname-comparator}{Comparator pending}%
+      \fi
+    \fi
+  \else
+    \enspace\textperiodcentered\enspace\href{#4}{Comparator}%
+  \fi
+  \endgroup}
+\newcommand{\resultevidence}[1]{%
+  \ifcsname ev@inline@#1\endcsname
+    \csname ev@inline@#1\endcsname
+  \else
+    \ifcsname ev@record@#1\endcsname
+      \href{\csname ev@record@#1\endcsname}{evidence record}%
+    \else
+      \PackageError{paper-evidence}{No evidence record for #1}%
+        {Use the label of a result recorded by scripts/paper_evidence.py.}%
+    \fi
   \fi}
 \newcommand{\ev@marks}[4]{%
   \ifcsname ev@placed@#1\endcsname\else
@@ -40,6 +77,8 @@
     \else
       \ev@place{\raggedright\href{#3}{#2}%
         \if\relax\detokenize{#4}\relax\else\\[1pt]\href{#4}{Comparator}\fi}%
+      \leavevmode\allowbreak\hspace{0.4em}\ev@inline{#1}{#2}{#3}{#4}%
+      \allowbreak\hspace{0.6em}%
     \fi
   \fi}
 % \marginnote sits level with the line where the label is set, which is the
@@ -67,17 +106,21 @@
 % record.
 \newcommand{\evidenceparagraph}[1]{%
   \par\smallskip\noindent\emph{Formal proofs.}
-  A result with a kernel-checked Lean proof carries a mark in the margin.
+  A result with a kernel-checked Lean proof carries links beside its heading
+  and in the margin; both open the same evidence.
   \emph{Lean} opens the proof: the declaration itself when one declaration
   states the whole result, otherwise the list of declarations that together
-  state it.  \emph{Comparator} opens the record of an independent check, in
+  state it. Inline citations to individual declarations elsewhere may identify
+  ingredients of a proof. \emph{Comparator} opens the recorded comparison, in
   which the same statement, written again from Mathlib alone in a separate
   repository, was compared with our proof by Lean's Comparator tool, allowing
-  only the three standard axioms.  A dagger on the Lean mark means that the
+  only the three standard axioms. \emph{Comparator pending} means that the
+  complete statement has no recorded comparison yet. A dagger on the Lean mark means that the
   Lean proof assumes an input named just below the result.  A result without a
   mark has no Lean proof of its whole statement; what is checked is said below
   it.  The \href{#1}{evidence record} gives every declaration, version and
-  check.  These checks show that the stated propositions are proved; whether
+  check. Comparator checks statements, axioms and kernel acceptance; it does
+  not establish novelty or peer review. These checks show that the stated propositions are proved; whether
   they are the right propositions is a question the reader can settle by
   comparing them with the text.}
 

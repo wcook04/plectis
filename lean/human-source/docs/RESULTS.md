@@ -59,9 +59,9 @@ across the eight. To inspect a claim, use the [source map](SOURCE_MAP.md),
 formal statements, not every theorem or its novelty. The
 [reproduction guide](REPRODUCIBILITY.md) starts with one claim without Lean.
 For the system's design and its open-source collaboration model, read
-[Problem-Sized Lean Worlds](../paper/systems/claim-faithful-publication-systems-paper.pdf),
-[From a Cold Clone to a Proof Receipt](../paper/systems/cold-clone-to-proof-receipt.pdf),
-or [From Spare Compute to Cumulative Mathematics](../paper/systems/open-source-mathematics-strategy.pdf).
+[the systems paper](../paper/systems/claim-faithful-publication-systems-paper.pdf).
+The [systems paper index](../paper/systems/README.md) identifies the earlier
+accounts retained for historical detail.
 To improve a proof, explanation or the architecture itself, use the
 [contribution route](../CONTRIBUTING.md),
 [architecture guide](research-commons/ARCHITECTURE_CONTRIBUTIONS.md) and

@@ -4,8 +4,21 @@
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
     "paper_count": 19,
-    "papers_with_warnings": 10,
+    "papers_with_warnings": 12,
     "warnings": {
+      "erdos-68-factorial-denominator-irrationality": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\begin{equation}",
+          "\\operatorname{lcm}(1,\\ldots,n)\\mid u_n",
+          "\\label{eq:channel-lcm-envelope}",
+          "\\end{equation}, rendering as TeX:",
+          "\\label{eq:channel-lcm-envelope}",
+          "^",
+          "unexpected control sequence \\label",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+        ],
+        "mathjax": []
+      },
       "erdos68-factorial-reasoning-surface": {
         "mathml": [
           "[WARNING] Could not convert TeX math S\\notin\\mathbb{Q}\\quad\\Longleftrightarrow\\quad",
@@ -206,8 +219,52 @@
         ],
         "mathjax": []
       },
+      "erdos-1049-rational-base-lambert": {
+        "mathml": [
+          "[WARNING] Could not convert TeX math \\begin{equation}",
+          "\\label{eq:partition-summand}",
+          "\\begin{split}",
+          "W_N(\\mu)={}&q^{\\sum_{j\\le N}(2j-1)\\mu_j}",
+          "\\prod_{j\\le N}\\frac{a_{N-j+\\mu_j}}{a_{N-j}}\\\\",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "\\left(\\frac{1-q^{k-j+\\mu_j-\\mu_k}}{1-q^{k-j}}\\right)^2.",
+          "\\end{split}",
+          "\\end{equation}, rendering as TeX:",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "^",
+          "unexpected \"\\\\\"",
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
+        ],
+        "mathjax": []
+      },
       "erdos1049-rational-base-lambert-reasoning-surface": {
         "mathml": [
+          "[WARNING] Could not convert TeX math \\begin{equation}",
+          "\\label{long1049:eq:polynomial-partition}",
+          "\\begin{split}",
+          "W_N(\\mu)={}&q^{\\sum_{j\\le N}(2j-1)\\mu_j}",
+          "\\prod_{j\\le N}\\frac{a_{N-j+\\mu_j}}{a_{N-j}}\\\\",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "\\left(\\frac{1-q^{k-j+\\mu_j-\\mu_k}}{1-q^{k-j}}\\right)^2.",
+          "\\end{split}",
+          "\\end{equation}, rendering as TeX:",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "^",
+          "unexpected \"\\\\\"",
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
+          "[WARNING] Could not convert TeX math \\begin{equation}",
+          "\\label{long1049:eq:ratio-partition}",
+          "\\begin{split}",
+          "W_N(\\mu)={}&q^{\\sum_{j\\le N}(2j-1)\\mu_j}",
+          "\\prod_{j\\le N}\\frac{a_{N-j+\\mu_j}}{a_{N-j}}\\\\",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "\\left(\\frac{1-q^{k-j+\\mu_j-\\mu_k}}{1-q^{k-j}}\\right)^2.",
+          "\\end{split}",
+          "\\end{equation}, rendering as TeX:",
+          "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+          "^",
+          "unexpected \"\\\\\"",
+          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
           "[WARNING] Could not convert TeX math \\sum_{m\\ge0}s_m(p)z^m",
           "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfrac{\\lambda_2z}{1-\\cdots}}},, rendering as TeX:",
           "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfra",

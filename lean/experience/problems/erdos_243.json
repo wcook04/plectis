@@ -250,7 +250,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6ad095ac4ca073207e3bf997f25c9d3bfe747f7c277542e2e17a72d49bf4c9e4",
+    "source_sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -270,7 +270,7 @@
     "subject": "Erdős #243",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 18,
+    "pages": 20,
     "question": "For Erdős #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?",
     "precis": "Every strictly increasing sequence of positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n²→1 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=∏_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erdős #243 remains open.",
     "owns": "the cubic-rate irrationality theorem and the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate",
@@ -293,18 +293,18 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "f4d15df6dc782e78",
-      "source_sha256": "3a2910fc8e47636c6438c7bf9deaa7582b7dbb0e58bc960618055bd5783a83ec",
+      "renderer_fingerprint": "c99e605a77c1d13d",
+      "source_sha256": "c497aca2739da70f89d3804e83455c9f87c80a4763596cbb8c16927c0820dd28",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 541,
+      "mathml_node_count": 714,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "d20a8347686c90eab9b8b5e069767185885e286e12cba59152b244b136d3ba05",
-      "html_exact_tex_sha256": "bc064055f7f2a799976134a1ad0a36174a9fa75984888f4a3ecb32af1be0a7c4"
+      "html_mathml_sha256": "ebfa7348f893819d4d0a308167841860e0b9668215d2ebb7d7a2bf1fae9fb3cd",
+      "html_exact_tex_sha256": "9a658fffe6339b5141b10becc5c13b63ba5904cfb870d2609876026877763401"
     },
     "sections": [
       {
@@ -314,38 +314,58 @@
       },
       {
         "level": 2,
-        "anchor": "sec:bounded",
-        "label": "Proof under a lower bound on the error"
+        "anchor": "sec:transfer",
+        "label": "Integer tails"
       },
       {
         "level": 2,
-        "anchor": "sec:state",
-        "label": "The arithmetic ingredients"
+        "anchor": "sec:secondaryrate",
+        "label": "Proof of cubic-rate irrationality"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:cubic-extraction",
+        "label": "Polynomial extraction"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:cubic-normalisation",
+        "label": "Reduction and the constant term"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:cubic-field",
+        "label": "A square forced by a zero numerator"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:cubic-trace",
+        "label": "Traces in the cubic field"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:cubic-mod-seven",
+        "label": "The contradiction modulo seven"
+      },
+      {
+        "level": 2,
+        "anchor": "sec:bounded",
+        "label": "Bounded increases"
       },
       {
         "level": 3,
         "anchor": "sec:defect",
-        "label": "Error, absorption and descent"
+        "label": "Zero errors and descent"
       },
       {
         "level": 3,
         "anchor": "sec:barrier",
-        "label": "The first-crossing obstruction"
+        "label": "A stable gcd and a forbidden block"
       },
       {
         "level": 3,
-        "anchor": "reduction-and-stabilisation",
-        "label": "Reduction and stabilisation"
-      },
-      {
-        "level": 2,
-        "anchor": "sec:transfer",
-        "label": "Constructing the integers from a reciprocal series"
-      },
-      {
-        "level": 5,
-        "anchor": "an-example-with-positive-limiting-increments.",
-        "label": "An example with positive limiting increments."
+        "anchor": "sec:product-bound",
+        "label": "The condition in the original sequence"
       },
       {
         "level": 2,
@@ -355,17 +375,17 @@
       {
         "level": 2,
         "anchor": "sec:lcmrecords",
-        "label": "A criterion using new maxima of an LCM numerator"
-      },
-      {
-        "level": 2,
-        "anchor": "sec:secondaryrate",
-        "label": "Cubic-rate irrationality and further consequences"
+        "label": "New maxima of an LCM numerator"
       },
       {
         "level": 2,
         "anchor": "sec:open",
-        "label": "The remaining arithmetic estimate"
+        "label": "Further questions"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:scalar-limit",
+        "label": "Arithmetic compatibility"
       },
       {
         "level": 5,
@@ -374,28 +394,23 @@
       },
       {
         "level": 2,
-        "anchor": "app:index",
-        "label": "Sources and related methods"
-      },
-      {
-        "level": 5,
-        "anchor": "earlier-remainder-methods-and-related-problems.",
-        "label": "Earlier remainder methods and related problems."
-      },
-      {
-        "level": 5,
-        "anchor": "main-criterion-and-arithmetic-lemmas.",
-        "label": "Main criterion and arithmetic lemmas."
-      },
-      {
-        "level": 5,
-        "anchor": "the-scalar-criterion.",
-        "label": "The scalar criterion."
+        "anchor": "app:residue",
+        "label": "A factorial residue reduction for forced orbits"
       },
       {
         "level": 2,
-        "anchor": "app:residue",
-        "label": "A factorial residue reduction for forced orbits"
+        "anchor": "app:index",
+        "label": "Sources and related work"
+      },
+      {
+        "level": 5,
+        "anchor": "indexing-of-the-canonical-tails.",
+        "label": "Indexing of the canonical tails."
+      },
+      {
+        "level": 5,
+        "anchor": "verification.",
+        "label": "Verification."
       },
       {
         "level": 2,
@@ -414,17 +429,17 @@
         },
         {
           "id": "sec:secondaryrate",
-          "title": "Cubic-rate irrationality and further consequences",
+          "title": "Proof of cubic-rate irrationality",
           "level": 2
         },
         {
           "id": "sec:bounded",
-          "title": "Proof under a lower bound on the error",
+          "title": "Bounded increases",
           "level": 2
         },
         {
           "id": "sec:open",
-          "title": "The remaining arithmetic estimate",
+          "title": "Further questions",
           "level": 2
         }
       ]
@@ -444,7 +459,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 18,
+      "pages": 20,
       "question": "For Erdős #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?",
       "precis": "Every strictly increasing sequence of positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n²→1 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=∏_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erdős #243 remains open.",
       "owns": "the cubic-rate irrationality theorem and the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate",
@@ -467,18 +482,18 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "3a2910fc8e47636c6438c7bf9deaa7582b7dbb0e58bc960618055bd5783a83ec",
+        "renderer_fingerprint": "c99e605a77c1d13d",
+        "source_sha256": "c497aca2739da70f89d3804e83455c9f87c80a4763596cbb8c16927c0820dd28",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 541,
+        "mathml_node_count": 714,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d20a8347686c90eab9b8b5e069767185885e286e12cba59152b244b136d3ba05",
-        "html_exact_tex_sha256": "bc064055f7f2a799976134a1ad0a36174a9fa75984888f4a3ecb32af1be0a7c4"
+        "html_mathml_sha256": "ebfa7348f893819d4d0a308167841860e0b9668215d2ebb7d7a2bf1fae9fb3cd",
+        "html_exact_tex_sha256": "9a658fffe6339b5141b10becc5c13b63ba5904cfb870d2609876026877763401"
       },
       "sections": [
         {
@@ -488,38 +503,58 @@
         },
         {
           "level": 2,
-          "anchor": "sec:bounded",
-          "label": "Proof under a lower bound on the error"
+          "anchor": "sec:transfer",
+          "label": "Integer tails"
         },
         {
           "level": 2,
-          "anchor": "sec:state",
-          "label": "The arithmetic ingredients"
+          "anchor": "sec:secondaryrate",
+          "label": "Proof of cubic-rate irrationality"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:cubic-extraction",
+          "label": "Polynomial extraction"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:cubic-normalisation",
+          "label": "Reduction and the constant term"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:cubic-field",
+          "label": "A square forced by a zero numerator"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:cubic-trace",
+          "label": "Traces in the cubic field"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:cubic-mod-seven",
+          "label": "The contradiction modulo seven"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:bounded",
+          "label": "Bounded increases"
         },
         {
           "level": 3,
           "anchor": "sec:defect",
-          "label": "Error, absorption and descent"
+          "label": "Zero errors and descent"
         },
         {
           "level": 3,
           "anchor": "sec:barrier",
-          "label": "The first-crossing obstruction"
+          "label": "A stable gcd and a forbidden block"
         },
         {
           "level": 3,
-          "anchor": "reduction-and-stabilisation",
-          "label": "Reduction and stabilisation"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:transfer",
-          "label": "Constructing the integers from a reciprocal series"
-        },
-        {
-          "level": 5,
-          "anchor": "an-example-with-positive-limiting-increments.",
-          "label": "An example with positive limiting increments."
+          "anchor": "sec:product-bound",
+          "label": "The condition in the original sequence"
         },
         {
           "level": 2,
@@ -529,17 +564,17 @@
         {
           "level": 2,
           "anchor": "sec:lcmrecords",
-          "label": "A criterion using new maxima of an LCM numerator"
-        },
-        {
-          "level": 2,
-          "anchor": "sec:secondaryrate",
-          "label": "Cubic-rate irrationality and further consequences"
+          "label": "New maxima of an LCM numerator"
         },
         {
           "level": 2,
           "anchor": "sec:open",
-          "label": "The remaining arithmetic estimate"
+          "label": "Further questions"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:scalar-limit",
+          "label": "Arithmetic compatibility"
         },
         {
           "level": 5,
@@ -548,28 +583,23 @@
         },
         {
           "level": 2,
-          "anchor": "app:index",
-          "label": "Sources and related methods"
-        },
-        {
-          "level": 5,
-          "anchor": "earlier-remainder-methods-and-related-problems.",
-          "label": "Earlier remainder methods and related problems."
-        },
-        {
-          "level": 5,
-          "anchor": "main-criterion-and-arithmetic-lemmas.",
-          "label": "Main criterion and arithmetic lemmas."
-        },
-        {
-          "level": 5,
-          "anchor": "the-scalar-criterion.",
-          "label": "The scalar criterion."
+          "anchor": "app:residue",
+          "label": "A factorial residue reduction for forced orbits"
         },
         {
           "level": 2,
-          "anchor": "app:residue",
-          "label": "A factorial residue reduction for forced orbits"
+          "anchor": "app:index",
+          "label": "Sources and related work"
+        },
+        {
+          "level": 5,
+          "anchor": "indexing-of-the-canonical-tails.",
+          "label": "Indexing of the canonical tails."
+        },
+        {
+          "level": 5,
+          "anchor": "verification.",
+          "label": "Verification."
         },
         {
           "level": 2,
@@ -588,17 +618,17 @@
           },
           {
             "id": "sec:secondaryrate",
-            "title": "Cubic-rate irrationality and further consequences",
+            "title": "Proof of cubic-rate irrationality",
             "level": 2
           },
           {
             "id": "sec:bounded",
-            "title": "Proof under a lower bound on the error",
+            "title": "Bounded increases",
             "level": 2
           },
           {
             "id": "sec:open",
-            "title": "The remaining arithmetic estimate",
+            "title": "Further questions",
             "level": 2
           }
         ]
@@ -618,7 +648,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 59,
+      "pages": 60,
       "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
       "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -641,11 +671,11 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4d15df6dc782e78",
-        "source_sha256": "e05756b2513617d5d33753d394edf8eb0953128755a51a0f6bdccea2edfab77e",
+        "renderer_fingerprint": "c99e605a77c1d13d",
+        "source_sha256": "788725e42fce533a945f6b15cb56008f20a74f186e4e71ef77daabfad1c28758",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2480,
+        "mathml_node_count": 2474,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -661,8 +691,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "78de3a9105285d564e415998b41253341d4f46025866cb7d00b852210a696f24",
-        "html_exact_tex_sha256": "cbb1632b41cc11dc1b6e7d08f11d360eba78960dde7d20c3be97d1acd1d66dd2"
+        "html_mathml_sha256": "c63a22313f896267e1374fea5842b11772b150764ca49e9a215df79963e55c5c",
+        "html_exact_tex_sha256": "2b09974698ec2ce1248e034cc8ceb14e00cd8e90e0000a87dee0d5af211e7a17"
       },
       "sections": [
         {
@@ -682,13 +712,13 @@
         },
         {
           "level": 3,
-          "anchor": "reduction-under-the-zero-lower-density-assumption",
-          "label": "Reduction under the zero lower-density assumption"
+          "anchor": "reduction-and-lower-density",
+          "label": "Reduction and lower density"
         },
         {
           "level": 3,
-          "anchor": "a-square-condition-from-three-consecutive-numerators",
-          "label": "A square condition from three consecutive numerators"
+          "anchor": "square-specialisation",
+          "label": "Square specialisation"
         },
         {
           "level": 3,
@@ -702,8 +732,8 @@
         },
         {
           "level": 3,
-          "anchor": "from-an-asymptotic-ratio-to-an-exact-polynomial",
-          "label": "From an asymptotic ratio to an exact polynomial"
+          "anchor": "polynomial-extraction-at-a-regular-rate",
+          "label": "Polynomial extraction at a regular rate"
         },
         {
           "level": 2,
@@ -714,11 +744,6 @@
           "level": 5,
           "anchor": "classical-criteria-and-pseudo-greedy-expansions.",
           "label": "Classical criteria and pseudo-greedy expansions."
-        },
-        {
-          "level": 5,
-          "anchor": "status.",
-          "label": "Status."
         },
         {
           "level": 2,
@@ -733,7 +758,7 @@
         {
           "level": 2,
           "anchor": "long243:sec:defect",
-          "label": "When a zero error forces the Sylvester recurrence"
+          "label": "Zero errors and the Sylvester recurrence"
         },
         {
           "level": 3,
@@ -743,7 +768,7 @@
         {
           "level": 2,
           "anchor": "long243:sec:lcmrecords",
-          "label": "A criterion using new maxima of an LCM numerator"
+          "label": "LCM numerators and weighted records"
         },
         {
           "level": 5,
@@ -767,8 +792,8 @@
         },
         {
           "level": 3,
-          "anchor": "how-fast-the-running-maximum-must-increase",
-          "label": "How fast the running maximum must increase"
+          "anchor": "growth-of-the-running-maximum",
+          "label": "Growth of the running maximum"
         },
         {
           "level": 5,
@@ -818,27 +843,27 @@
         {
           "level": 2,
           "anchor": "long243:sec:descent",
-          "label": "Descent when the error is nonnegative"
+          "label": "Nonnegative errors"
         },
         {
           "level": 2,
           "anchor": "long243:sec:constant",
-          "label": "When the negative error is constant"
+          "label": "Constant negative errors"
         },
         {
           "level": 2,
           "anchor": "long243:sec:periodic",
-          "label": "When the negative error is periodic"
+          "label": "Periodic negative errors"
         },
         {
           "level": 2,
           "anchor": "long243:sec:barrier",
-          "label": "Bounded increases and coprimality to earlier moduli"
+          "label": "Bounded increases and coprimality"
         },
         {
           "level": 2,
           "anchor": "long243:sec:bounded",
-          "label": "A lower bound on the error forces eventual zero"
+          "label": "Bounded negative part"
         },
         {
           "level": 2,
@@ -848,7 +873,7 @@
         {
           "level": 2,
           "anchor": "long243:sec:open",
-          "label": "Complements and further questions"
+          "label": "Further questions"
         },
         {
           "level": 5,
@@ -862,8 +887,8 @@
         },
         {
           "level": 3,
-          "anchor": "cancellation-before-a-numerator-regains-its-former-value",
-          "label": "Cancellation before a numerator regains its former value"
+          "anchor": "cancellation-during-recovery-intervals",
+          "label": "Cancellation during recovery intervals"
         },
         {
           "level": 3,
@@ -872,8 +897,8 @@
         },
         {
           "level": 3,
-          "anchor": "what-changes-when-upward-increments-are-not-bounded",
-          "label": "What changes when upward increments are not bounded"
+          "anchor": "unbounded-upward-increments",
+          "label": "Unbounded upward increments"
         },
         {
           "level": 3,
@@ -914,6 +939,21 @@
           "level": 2,
           "anchor": "long243:app:index",
           "label": "Guide to the formal sources"
+        },
+        {
+          "level": 3,
+          "anchor": "indexing-of-the-regular-rate-theorems",
+          "label": "Indexing of the regular-rate theorems"
+        },
+        {
+          "level": 3,
+          "anchor": "the-square-specialisation-proofs",
+          "label": "The square-specialisation proofs"
+        },
+        {
+          "level": 3,
+          "anchor": "recurrence-declarations",
+          "label": "Recurrence declarations"
         },
         {
           "level": 2,
@@ -972,12 +1012,12 @@
           },
           {
             "id": "long243:sec:bounded",
-            "title": "A lower bound on the error forces eventual zero",
+            "title": "Bounded negative part",
             "level": 2
           },
           {
             "id": "long243:sec:open",
-            "title": "Complements and further questions",
+            "title": "Further questions",
             "level": 2
           },
           {

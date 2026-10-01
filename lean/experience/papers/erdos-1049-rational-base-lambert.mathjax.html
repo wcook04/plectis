@@ -1,114 +1,715 @@
 <article class="lean-paper" data-paper-id="erdos-1049-rational-base-lambert" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Zudilin&#x27;s Forms at Rational Bases and the Exact Normalised Hankel Order</h1>
+    <h1>Hankel Determinants of Geometric Moments and Rational Lambert Values</h1>
     <p class="lean-paper__subject">Erdős #1049</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/1049/erdos-1049-rational-base-lambert.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
-<p>For <span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, expansion of each
-geometric series gives</p>
+<p>For each fixed real <span class="math inline" data-term-auto="off">\(q\in(0,1)\)</span>,
+we determine the asymptotic size of the Hankel determinants arising from
+Zudilin’s <span class="math inline" data-term-auto="off">\(q\)</span>-logarithm
+approximations. Write <span
+class="math inline" data-term-auto="off">\((z;q)_m=\prod_{j=0}^{m-1}(1-zq^j)\)</span> and
+<span class="math inline" data-term-auto="off">\(F(t)=\sum_{n\ge1}(t^n-1)^{-1}\)</span> for
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>. At the auxiliary parameters
+<span class="math inline" data-term-auto="off">\(x=z=1\)</span>, the normalisation in <span
+class="citation" data-cites="zudilin2016"></span> gives</p>
+<div class="math-display" id="eq:normalised-moments" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:normalised-moments}
+v_m^*(q)=\sum_{t\ge0}q^{(m+1)t}
+\frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
+\qquad V_N^*(q)=\det(v_{i+j}^*(q))_{0\le i,j&lt;N}.
+\end{equation}\]</span></div>
+<p>The sums converge for <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. They also define formal
+series, since the <span class="math inline" data-term-auto="off">\(t\)</span>th summand has
+<span class="math inline" data-term-auto="off">\(q\)</span>-order <span
+class="math inline" data-term-auto="off">\((m+1)t\)</span>.</p>
+<div class="theorem" id="res:sharp-fixed-base">
+<p><strong>Theorem 1.1</strong> (the size of <span
+class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Fix <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> and write <span
+class="math inline" data-term-auto="off">\(P=(q;q)_\infty\)</span>, <span
+class="math inline" data-term-auto="off">\(B_N=N(N-1)(2N-1)/6\)</span> and <span
+class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>. There is a <span
+class="math inline" data-term-auto="off">\(K(q)&gt;0\)</span> with </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[F(t)=\sum_{n\ge1}\frac1{t^n-1}
-     =\sum_{n\ge1}\frac{\tau(n)}{t^n},\]</span></div>
-<p class="display-continue">where <span
-class="math inline" data-term-auto="off">\(\tau(n)\)</span> is the number of positive
-divisors of <span class="math inline" data-term-auto="off">\(n\)</span>. With <span
-class="math inline" data-term-auto="off">\(q=1/t\)</span>, this is the <span
-class="math inline" data-term-auto="off">\(q\)</span>-harmonic series <span
-class="math inline" data-term-auto="off">\(\sum_{n\ge1}q^n/(1-q^n)\)</span>. The
-rearrangement is justified by nonnegativity, and the resulting series
-converges since <span class="math inline" data-term-auto="off">\(\tau(n)\le n\)</span> and
-<span class="math inline" data-term-auto="off">\(\sum_{n\ge1}nt^{-n}&lt;\infty\)</span>.</p>
-<p>Chowla conjectured that <span class="math inline" data-term-auto="off">\(F(t)\)</span> is
-irrational for every rational <span
-class="math inline" data-term-auto="off">\(t&gt;1\)</span>, as Erdős records <span
-class="citation" data-cites="erdos1988"></span>; this is Erdős
-Problem #1049. The conjecture remains open. We prove a sufficient
-condition on the numerator and denominator of <span
-class="math inline" data-term-auto="off">\(t\)</span>, using Zudilin’s 2004
-construction <span class="citation" data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>.
-The condition includes <span class="math inline" data-term-auto="off">\(31/4\)</span> and
-every positive integral power of <span
-class="math inline" data-term-auto="off">\(31/4\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">proved
-in Lean</a>), and it excludes <span class="math inline" data-term-auto="off">\(3/2\)</span>
-(<a
-href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122">also
-proved in Lean</a>).</p>
-<p>The extra difficulty at a rational base is the denominator. If <span
-class="math inline" data-term-auto="off">\(U,V\in\Z[X]\)</span> have degree at most <span
-class="math inline" data-term-auto="off">\(W\)</span>, then <span
-class="math inline" data-term-auto="off">\(b^WU(a/b)\)</span> and <span
-class="math inline" data-term-auto="off">\(b^WV(a/b)\)</span> are integers. To prove
-irrationality by these forms, their positive remainders <span
-class="math inline" data-term-auto="off">\(U(a/b)F(a/b)-V(a/b)\)</span> must remain small
-after multiplication by <span class="math inline" data-term-auto="off">\(b^W\)</span>.</p>
-<p>A small example shows why cancellation should come first. At <span
-class="math inline" data-term-auto="off">\(3/2\)</span>, the pair <span
-class="math inline" data-term-auto="off">\((X+1)(X+2),(X+1)(X+3)\)</span>, cleared with
-degree bound <span class="math inline" data-term-auto="off">\(2\)</span>, gives <span
-class="math inline" data-term-auto="off">\((35,45)\)</span>. Cancelling <span
-class="math inline" data-term-auto="off">\(X+1\)</span> in the polynomial ring and then using
-degree bound <span class="math inline" data-term-auto="off">\(1\)</span> gives <span
-class="math inline" data-term-auto="off">\((7,9)\)</span>. The example is not an
-approximation to <span class="math inline" data-term-auto="off">\(F\)</span>; it illustrates
-how a common polynomial factor changes the required power of the
-denominator. For Zudilin’s polynomials the corresponding factors are
-cyclotomic, and their degrees determine the cutoff below.</p>
-<p>For the cancelled polynomials <span
-class="math inline" data-term-auto="off">\(U_n,V_n\)</span> used here, put <span
-class="math inline" data-term-auto="off">\(\Lambda_n=U_nF-V_n\)</span> and <span
-class="math inline" data-term-auto="off">\(W_n=\deg U_n\)</span>. We prove <span
-class="math inline" data-term-auto="off">\(\deg V_n=W_n-1\)</span> and</p>
+class="math display" data-term-auto="off">\[V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
+\qquad(N\to\infty).\]</span></div>
+</div>
+<p>The constant <span class="math inline" data-term-auto="off">\(K(q)\)</span> is the
+convergent product in <a class="math-ref" data-equation-ref="true" href="#eq:fixed-constant">eq:fixed-constant</a>. Zudilin proved
+<span class="math inline" data-term-auto="off">\(\operatorname{ord}_q V_N^*\ge B_N\)</span>
+and the estimate <span class="math inline" data-term-auto="off">\(|V_N^*|\le
+q^{N^3/3}\exp(O_q(N^2))\)</span> <span class="citation"
+data-cites="zudilin2016"><a href="#ref-5">[5]</a></span>. We obtain the factorial and
+exponential factors concealed by this estimate, as well as its power of
+<span class="math inline" data-term-auto="off">\(N\)</span>. We also recover the exact first
+formal term <span class="math inline" data-term-auto="off">\(C_Nq^{B_N}\)</span>. These are
+different limiting questions: multiplying by <span
+class="math inline" data-term-auto="off">\((1-q)^{N^3}\)</span> preserves that first term and
+changes the fixed-base logarithm by a cubic quantity. No uniformity as
+<span class="math inline" data-term-auto="off">\(q\to1\)</span> is asserted.</p>
+<p>The determinant becomes tractable when we write <span
+class="math inline" data-term-auto="off">\(v_m^*\)</span> as a positive moment on <span
+class="math inline" data-term-auto="off">\(1,q,q^2,\ldots\)</span>. Heine’s identity
+expresses it as a sum over choices of <span
+class="math inline" data-term-auto="off">\(N\)</span> nodes, with a squared Vandermonde for
+each choice <span class="citation" data-cites="zudilin2017det"><a href="#ref-7">[7]</a></span>.
+The first <span class="math inline" data-term-auto="off">\(N\)</span> nodes give the scale
+<span class="math inline" data-term-auto="off">\(q^{B_N}P^{2N}\prod_{k&lt;N}a_k\)</span>.
+Other choices still contribute at that scale: even shifting the last
+node by one place gives a term of comparable size. Partitions record
+these displacements. For a fixed partition, the weight ratios tend to
+<span class="math inline" data-term-auto="off">\(1\)</span>, so its limiting contribution is
+the same as for constant weights, where a Cauchy determinant gives an
+exact answer. The main estimate makes this comparison uniform over all
+partitions.</p>
+<p>The remaining calculation concerns the weights themselves. They are a
+product of two finite convolution sums, of lengths two and three. Their
+first relative corrections are <span
+class="math inline" data-term-auto="off">\(-2F(1/q)/(k+1)\)</span> and <span
+class="math inline" data-term-auto="off">\(-6F(1/q)/(k+2)\)</span>. Adding these corrections
+and then multiplying the weights over <span
+class="math inline" data-term-auto="off">\(k&lt;N\)</span> gives the power <span
+class="math inline" data-term-auto="off">\(N^{-8F(1/q)}\)</span>. Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a> isolates the
+determinant argument from this coefficient calculation; it also
+evaluates the determinant with entries <span
+class="math inline" data-term-auto="off">\((1-q^{i+j+1})^{-2}\)</span>.</p>
+<p>Chowla’s conjecture, recorded by Erdős <span class="citation"
+data-cites="erdos1988"><a href="#ref-1">[1]</a></span>, asks whether <span
+class="math inline" data-term-auto="off">\(F(t)\)</span> is irrational for every rational
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>. This is a related
+arithmetic question, and the fixed-base asymptotic alone does not answer
+it. In Section <a class="math-ref" href="#sec:rational-base-irrationality">4</a> we
+use the different 2004 construction <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span> to prove irrationality for coprime
+<span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> satisfying</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\log\!\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
-=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2),\]</span></div>
-<p class="display-continue">where <span
-class="math inline" data-term-auto="off">\(C_0,C_1\)</span> are defined below. If the
-coefficient of <span class="math inline" data-term-auto="off">\(n^2\)</span> is negative, the
-forms have integer coefficients and positive values tending to zero. If
-<span class="math inline" data-term-auto="off">\(F(a/b)\)</span> were rational, multiplying
-by its fixed denominator would give positive integers tending to zero, a
-contradiction.</p>
-<p>The proof of the rational-base result occupies Section <a class="math-ref" href="#sec:rational-base-irrationality">2</a>.
-The independent argument in Section <a class="math-ref" href="#sec:hankel-order">3</a> computes the first
-nonzero term of a Hankel determinant from the 2016 construction. Neither
-proof uses Section <a class="math-ref" href="#sec:open">4</a>,
-which records supplementary tests for congruence-based arguments at
-<span class="math inline" data-term-auto="off">\(3/2\)</span>. The companion <em>Zudilin’s
-Forms at Rational Bases: Proofs and Research Record</em>, called the
-long record below, gives the additional moment calculations, source
-comparisons and computational certificates.</p>
-<p>Links in the running text go to Lean proofs of single steps, such as
-a finite inequality; such a link does not cover the surrounding
-argument.</p>
-<p>Throughout, logarithms are natural. Empty products and determinants
-have value <span class="math inline" data-term-auto="off">\(1\)</span>, and a subscripted
-constant in <span class="math inline" data-term-auto="off">\(O_x(\cdot)\)</span> may depend
-on the fixed base <span class="math inline" data-term-auto="off">\(x\)</span>. Other notation
-is introduced where it is used.</p>
+class="math display" data-term-auto="off">\[\frac{\log b}{\log a}&lt;\theta^*
+=0.4056830213840605\ldots,\]</span></div>
+<p class="display-continue">where <a class="math-ref" data-equation-ref="true" href="#eq:threshold-constants">eq:threshold-constants</a> defines
+<span class="math inline" data-term-auto="off">\(\theta^*\)</span> exactly. The calculation
+cancels the common polynomial factors before clearing denominators at
+<span class="math inline" data-term-auto="off">\(a/b\)</span>. It includes every positive
+integral power of <span class="math inline" data-term-auto="off">\(31/4\)</span>. Neither
+this region nor the determinant argument settles the case <span
+class="math inline" data-term-auto="off">\(3/2\)</span>.</p>
+<p>Section <a class="math-ref" href="#sec:geometric-moments">2</a> proves the
+general determinant formula. Section <a class="math-ref" href="#sec:weights">3</a> constructs the weights
+and proves Theorem <a class="math-ref" href="#res:sharp-fixed-base">1.1</a>. The
+rational-base argument is self-contained in Section <a class="math-ref" href="#sec:rational-base-irrationality">4</a>,
+with longer calculations and complementary questions linked in
+Section <a class="math-ref" href="#sec:open">5</a>. All
+logarithms are natural, empty products and determinants equal <span
+class="math inline" data-term-auto="off">\(1\)</span>, and constants in <span
+class="math inline" data-term-auto="off">\(O_q(\cdot)\)</span> may depend on the fixed <span
+class="math inline" data-term-auto="off">\(q\)</span>.</p>
+</section>
+<section id="sec:geometric-moments" class="level2">
+<h2>Geometric moment determinants</h2>
+<p>For constant weights, the moments are geometric series: <span
+class="math inline" data-term-auto="off">\(M_m=\sum_{k\ge0}q^{(m+1)k}=(1-q^{m+1})^{-1}\)</span>.
+Cauchy’s determinant formula evaluates their determinant exactly.
+Writing</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P=(q;q)_\infty,\qquad
+\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
+B_N=\sum_{j&lt;N}j^2,\]</span></div>
+<p class="display-continue">we obtain</p>
+<div class="math-display" id="eq:cauchy-model" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:cauchy-model}
+D_N^{(0)}:=\det\left(\frac1{1-q^{i+j+1}}\right)_{0\le i,j&lt;N}
+=\frac{q^{B_N}\Delta_N}{\prod_{0\le i,j&lt;N}(1-q^{i+j+1})},
+\qquad
+\Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
+\end{equation}\]</span></div>
+<p>For each fixed <span
+class="math inline" data-term-auto="off">\(d\)</span>, the multiplicity of <span
+class="math inline" data-term-auto="off">\(1-q^d\)</span> in the denominator increases to
+<span class="math inline" data-term-auto="off">\(d\)</span>, giving the factor <span
+class="math inline" data-term-auto="off">\(\mathcal M(q)\)</span> in the limit. The numerator
+supplies two more copies:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{\Delta_N}{P^{2N}}
+=\prod_{d&lt;N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+\longrightarrow\mathcal M(q)^2.\]</span></div>
+<p>Indeed, <span
+class="math inline" data-term-auto="off">\(\sum d|\log(1-q^d)|&lt;\infty\)</span>, and the
+logarithm of the second product is <span
+class="math inline" data-term-auto="off">\(O_q(Nq^N)\)</span>. Thus</p>
+<div class="math-display" id="eq:cauchy-model-limit" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:cauchy-model-limit}
+D_N^{(0)}\sim\mathcal M(q)^3q^{B_N}P^{2N}.
+\end{equation}\]</span></div>
+<p>The next theorem shows that positive weights
+satisfying the two shift conditions below alter this answer only by
+their first <span class="math inline" data-term-auto="off">\(N\)</span> factors. Its second
+hypothesis controls large displacements of the nodes; its first says
+that a fixed displacement eventually has negligible effect on a weight.
+Both hypotheses allow <span class="math inline" data-term-auto="off">\(a_k=(k+1)^s\)</span>
+for every real <span class="math inline" data-term-auto="off">\(s\)</span>.</p>
+<div class="theorem" id="thm:geometric-moments">
+<p><strong>Theorem 2.1</strong> (geometric moment determinants). <em> Let
+<span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(a_k&gt;0\)</span> for <span
+class="math inline" data-term-auto="off">\(k\ge0\)</span>. Suppose that, for fixed constants
+<span class="math inline" data-term-auto="off">\(C&gt;0\)</span> and <span
+class="math inline" data-term-auto="off">\(\kappa\ge0\)</span>, </em></p>
+<div class="math-display" id="eq:automatic-shift-bound" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:automatic-shift-bound}
+\frac{a_{k+h}}{a_k}\longrightarrow1\quad(k\to\infty)
+\text{ for each fixed }h\ge0,
+\qquad
+\frac{a_{k+h}}{a_k}\le C(1+h)^\kappa\quad(k,h\ge0).
+\end{equation}\]</span></div>
+<p><em> For <span
+class="math inline" data-term-auto="off">\(M_m=\sum_{k\ge0}a_kq^{(m+1)k}\)</span> and <span
+class="math inline" data-term-auto="off">\(D_N=\det(M_{i+j})_{0\le i,j&lt;N}\)</span>, we
+have </em></p>
+<div class="math-display" id="eq:geometric-limit" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:geometric-limit}
+D_N\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
+\qquad(N\to\infty).
+\end{equation}\]</span></div>
+</div>
+<p>For every real <span class="math inline" data-term-auto="off">\(s\)</span>, the weights
+<span class="math inline" data-term-auto="off">\(a_k=(k+1)^s\)</span> satisfy <a class="math-ref" data-equation-ref="true" href="#eq:automatic-shift-bound">eq:automatic-shift-bound</a> with
+<span class="math inline" data-term-auto="off">\(C=1\)</span> and <span
+class="math inline" data-term-auto="off">\(\kappa=\max(s,0)\)</span>, and their first <span
+class="math inline" data-term-auto="off">\(N\)</span> terms have product <span
+class="math inline" data-term-auto="off">\((N!)^s\)</span>. Taking <span
+class="math inline" data-term-auto="off">\(s=1\)</span> and summing the moments gives</p>
+<div class="math-display" id="eq:squared-cauchy-example" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:squared-cauchy-example}
+\det\left(\frac1{(1-q^{i+j+1})^2}\right)_{0\le i,j&lt;N}
+\sim\mathcal M(q)^3N!q^{B_N}P^{2N}.
+\end{equation}\]</span></div>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a>.</em> The
+bound <span class="math inline" data-term-auto="off">\(a_h\le Ca_0(1+h)^\kappa\)</span>
+ensures convergence of every moment. Apply Cauchy–Binet to a finite set
+of nodes and let its size tend to infinity. The matrix entries converge,
+while positivity permits passage to the limit in the sum, giving</p>
+<div class="math-display" id="eq:heine-geometric" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:heine-geometric}
+D_N=\sum_{0\le k_0&lt;\cdots&lt;k_{N-1}}
+\prod_{i&lt;N}a_{k_i}q^{k_i}
+\prod_{i&lt;j&lt;N}(q^{k_i}-q^{k_j})^2.
+\end{equation}\]</span></div>
+<p>The tuple <span
+class="math inline" data-term-auto="off">\(k_i=i\)</span> contributes <span
+class="math inline" data-term-auto="off">\(q^{B_N}\Delta_N\prod_{i&lt;N}a_i\)</span>. It does
+not account for the whole asymptotic. For example, replace <span
+class="math inline" data-term-auto="off">\((0,1,\ldots,N-2,N-1)\)</span> by <span
+class="math inline" data-term-auto="off">\((0,1,\ldots,N-2,N)\)</span>. The ratio of its
+contribution to that of the original tuple is</p>
+<div class="math-display" id="eq:last-node-shift" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:last-node-shift}
+q\frac{a_N}{a_{N-1}}
+\prod_{d=1}^{N-1}\left(\frac{1-q^{d+1}}{1-q^d}\right)^2
+=q\frac{a_N}{a_{N-1}}\left(\frac{1-q^N}{1-q}\right)^2
+\longrightarrow\frac{q}{(1-q)^2}.
+\end{equation}\]</span></div>
+<p>Only pairs involving the moved node change, so
+the product telescopes. At <span class="math inline" data-term-auto="off">\(q=1/2\)</span>
+the limiting ratio is <span class="math inline" data-term-auto="off">\(2\)</span>. We must
+therefore retain the displaced tuples, even at large rank.</p>
+<p>Subtracting the baseline tuple gives shifts <span
+class="math inline" data-term-auto="off">\(\lambda_i=k_i-i\)</span>. They are nonnegative and
+weakly increasing, since <span class="math inline" data-term-auto="off">\(k_{i+1}\ge
+k_i+1\)</span>. Reversing them gives a partition. For example, at rank
+four,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\underbrace{(0,1,3,5)}_{(k_i)}
+\longmapsto\underbrace{(0,0,1,2)}_{(\lambda_i)}
+\longmapsto\underbrace{(2,1,0,0)}_{(\mu_j)}.\]</span></div>
+<p>In general, put
+<span class="math inline" data-term-auto="off">\(\mu_j=\lambda_{N-j}\)</span> for <span
+class="math inline" data-term-auto="off">\(1\le j\le N\)</span>, so that <span
+class="math inline" data-term-auto="off">\(\mu_1\ge\cdots\ge\mu_N\ge0\)</span>. Division by
+the contribution of <span class="math inline" data-term-auto="off">\(k_i=i\)</span> turns the
+summand for this tuple into</p>
+<div class="math-display" id="eq:partition-summand" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:partition-summand}
+\begin{split}
+W_N(\mu)={}&amp;q^{\sum_{j\le N}(2j-1)\mu_j}
+\prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}\\
+&amp;\hspace{2mm}\cdot\prod_{1\le j&lt;k\le N}
+\left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
+\end{split}
+\end{equation}\]</span></div>
+<p>The exponent <span
+class="math inline" data-term-auto="off">\(2j-1\)</span> has a direct meaning. The <span
+class="math inline" data-term-auto="off">\(j\)</span>th index from the right contributes once
+through its mass <span class="math inline" data-term-auto="off">\(q^{k_i}\)</span> and twice
+through each of its <span class="math inline" data-term-auto="off">\(j-1\)</span> pairs with
+later indices in the squared Vandermonde. This gives <span
+class="math inline" data-term-auto="off">\(1+2(j-1)\)</span>.</p>
+<p>Set <span class="math inline" data-term-auto="off">\(W_N(\mu)=0\)</span> when <span
+class="math inline" data-term-auto="off">\(\mu\)</span> has more than <span
+class="math inline" data-term-auto="off">\(N\)</span> positive parts. The sum now has an
+index set independent of <span class="math inline" data-term-auto="off">\(N\)</span>. A fixed
+partition shifts only the last indices of the baseline tuple: <span
+class="math inline" data-term-auto="off">\((2,1)\)</span> shifts its last two indices,
+whatever the rank <span class="math inline" data-term-auto="off">\(N\ge2\)</span>. These
+indices tend to infinity with <span class="math inline" data-term-auto="off">\(N\)</span>, so
+the fixed-shift hypothesis removes the weights from each limiting
+summand. The remaining issue is the total contribution of partitions
+with many or large parts. We use the polynomial bound for this step.</p>
+<p>For a partition of length <span class="math inline" data-term-auto="off">\(\ell\)</span>,
+only the factors with <span class="math inline" data-term-auto="off">\(j\le\ell\)</span> can
+differ from <span class="math inline" data-term-auto="off">\(1\)</span>. For each such <span
+class="math inline" data-term-auto="off">\(j\)</span>, the denominator product in the
+Vandermonde quotient is at least <span class="math inline" data-term-auto="off">\(P\)</span>,
+and its numerator product is at most <span
+class="math inline" data-term-auto="off">\(1\)</span>. Consequently</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[W_N(\mu)\le(CP^{-2})^\ell
+\prod_{j=1}^\ell(1+\mu_j)^\kappa q^{(2j-1)\mu_j}.\]</span></div>
+<p>Let <span
+class="math inline" data-term-auto="off">\(A=\sum_{u\ge1}(1+u)^\kappa
+q^{u-1}&lt;\infty\)</span>. Dropping the ordering of the positive parts,
+we obtain</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
+\sum_{\ell(\mu)=\ell}\sup_N W_N(\mu)
+&amp;\le(CP^{-2})^\ell\prod_{j=1}^\ell
+       \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}\\
+&amp;\le(CP^{-2}A)^\ell q^{\ell^2}.
+\end{align*}\]</span></div>
+<p>The last inequality follows from <span
+class="math inline" data-term-auto="off">\(q^{(2j-1)u}\le q^{2j-1}q^{u-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(1+3+\cdots+(2\ell-1)=\ell^2\)</span>. Thus the
+cost of having <span class="math inline" data-term-auto="off">\(\ell\)</span> positive parts
+gives a factor <span class="math inline" data-term-auto="off">\(q^{\ell^2}\)</span>, and
+summing over <span class="math inline" data-term-auto="off">\(\ell\)</span> gives a finite
+bound, uniform in the determinant rank.</p>
+<p>For a fixed partition of length <span
+class="math inline" data-term-auto="off">\(\ell\)</span>, the shifts <span
+class="math inline" data-term-auto="off">\(\mu_j\)</span> are fixed and the indices <span
+class="math inline" data-term-auto="off">\(N-j\)</span> tend to infinity for <span
+class="math inline" data-term-auto="off">\(j\le\ell\)</span>. Hence all the weight ratios in
+<a class="math-ref" data-equation-ref="true" href="#eq:partition-summand">eq:partition-summand</a> tend
+to <span class="math inline" data-term-auto="off">\(1\)</span>. Its Vandermonde quotient also
+converges: there are only finitely many nontrivial first indices, and
+the logarithms of the remaining factors have geometric tails. Dominated
+convergence shows that <span class="math inline" data-term-auto="off">\(\sum_\mu
+W_N(\mu)\)</span> has the same limit as for <span
+class="math inline" data-term-auto="off">\(a_k=1\)</span>. This common limit is positive,
+since the empty partition contributes <span
+class="math inline" data-term-auto="off">\(1\)</span>. Restoring the reference-tuple factors,
+we obtain</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{D_N}{D_N^{(0)}\prod_{k&lt;N}a_k}\longrightarrow1.\]</span></div>
+<p>The model asymptotic <a class="math-ref" data-equation-ref="true" href="#eq:cauchy-model-limit">eq:cauchy-model-limit</a> now proves
+the theorem. The comparison explains why the normalised limit retains
+the geometric spacing of the nodes but loses the individual
+weights. ◻</p>
+</div>
+</section>
+<section id="sec:weights" class="level2">
+<h2>The weights of Zudilin’s moments</h2>
+<p>We apply Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a> by collecting
+the dependence on <span class="math inline" data-term-auto="off">\(m\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:normalised-moments">eq:normalised-moments</a> into the
+single variable <span class="math inline" data-term-auto="off">\(w=q^{m+1}\)</span>. For this
+purpose, set</p>
+<div class="math-display" id="eq:weight-generating-function" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:weight-generating-function}
+G_q(w)=\frac1{(w;q)_\infty^3}
+\sum_{t\ge0}\frac{w^t}{(q;q)_t}
+       \frac{(q^tw^2;q)_\infty}{(q^tw;q)_\infty^2},
+\qquad a_k(q)=[w^k]P^4G_q(w).
+\end{equation}\]</span></div>
+<p>The product identities <span
+class="math inline" data-term-auto="off">\((q;q)_m=P/(q^{m+1};q)_\infty\)</span> and <span
+class="math inline" data-term-auto="off">\((q^a;q)_m=(q^a;q)_\infty/(q^{a+m};q)_\infty\)</span>
+give</p>
+<div class="math-display" id="eq:positive-moments" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:positive-moments}
+v_m^*=P^4G_q(q^{m+1})=\sum_{k\ge0}a_k(q)q^{(m+1)k}.
+\end{equation}\]</span></div>
+<p>These identities hold formally in <span
+class="math inline" data-term-auto="off">\(\Z[[q,w]]\)</span> and, for fixed <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>, analytically for <span
+class="math inline" data-term-auto="off">\(|w|&lt;1\)</span>. In the formal identity only
+finitely many <span class="math inline" data-term-auto="off">\(t\)</span> contribute to any
+<span class="math inline" data-term-auto="off">\(w\)</span>-coefficient. For the analytic
+identity, we use the absence of denominator zeros in that disc and the
+locally uniform bounds on the product tails. The factor <span
+class="math inline" data-term-auto="off">\(w^t\)</span> then gives locally uniform
+convergence of the sum. To prove positivity and obtain a bound uniform
+in the shift, we express its coefficients as finite sums.</p>
+<section id="sec:weight-factorisation" class="level3">
+<h3>Positive weights</h3>
+<p>For <span class="math inline" data-term-auto="off">\(r\ge1\)</span> and <span
+class="math inline" data-term-auto="off">\(k\ge0\)</span> define the finite sum</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_k^{(r)}(q)=\sum_{n_1+\cdots+n_r=k}
+              \frac{(q;q)_k}{\prod_{j=1}^r(q;q)_{n_j}},\]</span></div>
+<p class="display-continue">over
+<span class="math inline" data-term-auto="off">\(r\)</span> nonnegative parts. These are the
+multivariate Rogers–Szegő polynomials at unit arguments, written as sums
+of Gaussian multinomial polynomials <span class="citation"
+data-cites="vinroot2010"><a href="#ref-19">[19]</a></span>. At <span
+class="math inline" data-term-auto="off">\(q=0\)</span> they count compositions, and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[c_k:=R_k^{(2)}(0)R_k^{(3)}(0)=\frac{(k+1)^2(k+2)}2,
+\qquad \prod_{k&lt;N}c_k=C_N.\]</span></div>
+<div class="proposition" id="prop:weight-factorisation">
+<p><strong>Proposition 3.1</strong> (the positive moment weights). <em>
+For every <span class="math inline" data-term-auto="off">\(k\ge0\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k}.\]</span></div>
+<p><em>
+At fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> these weights
+satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P^5c_k\le a_k\le P^{-1}c_k,
+\qquad \frac{a_{k+h}}{a_k}\le
+P^{-6}(1+h)^3\quad(k,h\ge0).\]</span></div>
+</div>
+<div class="proof">
+<p><em>Proof.</em> We use the Gaussian binomial coefficients <span
+class="math inline" data-term-auto="off">\(\genfrac{[}{]}{0pt}{}{n}{j}_q=(q;q)_n/((q;q)_j(q;q)_{n-j})\)</span>
+for <span class="math inline" data-term-auto="off">\(0\le j\le n\)</span>, and put <span
+class="math inline" data-term-auto="off">\(\mathcal E(z)=(z;q)_\infty^{-1}\)</span>. Euler’s
+expansion gives <span class="math inline" data-term-auto="off">\(\mathcal
+E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n\)</span>. To obtain the product
+<span class="math inline" data-term-auto="off">\(R_k^{(2)}R_k^{(3)}\)</span>, we need to
+shift the coefficients of <span class="math inline" data-term-auto="off">\(\mathcal
+E^3\)</span> and then sum over all splittings of the index. The operator
+<span class="math inline" data-term-auto="off">\(\partial_qf(z)=(f(z)-f(qz))/z\)</span> does
+this without introducing extra factorials: <span
+class="math inline" data-term-auto="off">\(\partial_qz^j=(1-q^j)z^{j-1}\)</span> cancels the
+last factor of <span class="math inline" data-term-auto="off">\((q;q)_j\)</span>. In
+particular,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\partial_q\mathcal E=\mathcal
+E,\qquad
+\partial_q^n\mathcal E(z)^3
+=\sum_{j\ge0}\frac{R_{n+j}^{(3)}}{(q;q)_j}z^j.\]</span></div>
+<p>The <span
+class="math inline" data-term-auto="off">\(q\)</span>-Leibniz rule, obtained by induction
+from the product rule, is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\partial_q^n(fg)(z)=\sum_{j=0}^n\genfrac{[}{]}{0pt}{}{n}{j}_q
+(\partial_q^jf)(q^{n-j}z)\,(\partial_q^{n-j}g)(z).\]</span></div>
+<p>Let <span
+class="math inline" data-term-auto="off">\(h_k(z)=\sum_{j=0}^k\genfrac{[}{]}{0pt}{}{k}{j}_q(z;q)_j\)</span>.
+Applying the rule to <span class="math inline" data-term-auto="off">\(\mathcal E\cdot\mathcal
+E\)</span> and using <span class="math inline" data-term-auto="off">\(\mathcal
+E(q^mz)=(z;q)_m\mathcal E(z)\)</span>, we obtain <span
+class="math inline" data-term-auto="off">\(\partial_q^k\mathcal E(z)^2=\mathcal
+E(z)^2h_k(z)\)</span> (for <span class="math inline" data-term-auto="off">\(k=1\)</span>,
+both sides equal <span class="math inline" data-term-auto="off">\(\mathcal
+E(z)^2(2-z)\)</span>). A second application, this time to <span
+class="math inline" data-term-auto="off">\(\mathcal E\cdot\mathcal E^2\)</span>, gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\partial_q^n\mathcal E(z)^3
+=\mathcal
+E(z)^3\sum_{k=0}^n\genfrac{[}{]}{0pt}{}{n}{k}_q(z;q)_kh_k(z),\]</span></div>
+<p class="display-continue">and hence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{w^n}{(q;q)_n}\partial_q^n\mathcal
+E(z)^3
+=\mathcal E(w)\mathcal E(z)^3
+  \sum_{k\ge0}\frac{w^k(z;q)_k}{(q;q)_k}h_k(z).\]</span></div>
+<p>The left-hand
+side is <span
+class="math inline" data-term-auto="off">\(\sum_{n,j\ge0}R_{n+j}^{(3)}w^nz^j/((q;q)_n(q;q)_j)\)</span>.
+Putting <span class="math inline" data-term-auto="off">\(z=w\)</span> collects all pairs with
+the same sum <span class="math inline" data-term-auto="off">\(n+j\)</span>. The coefficient
+of <span class="math inline" data-term-auto="off">\(w^k\)</span> is consequently <span
+class="math inline" data-term-auto="off">\(R_k^{(3)}\sum_{j\le
+k}\bigl((q;q)_j(q;q)_{k-j}\bigr)^{-1}
+=R_k^{(2)}R_k^{(3)}/(q;q)_k\)</span>. To evaluate the right-hand side,
+we expand <span class="math inline" data-term-auto="off">\(h_k\)</span>, put <span
+class="math inline" data-term-auto="off">\(k=j+t\)</span>, and use the <span
+class="math inline" data-term-auto="off">\(q\)</span>-binomial theorem in the form</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
+=\frac{(w^2q^j;q)_\infty}{(w;q)_\infty}.\]</span></div>
+<p>The resulting
+expression is <span class="math inline" data-term-auto="off">\(G_q(w)\)</span>, as required.
+We may read each identity coefficientwise, or as an absolutely
+convergent expansion when <span class="math inline" data-term-auto="off">\(|z|\)</span> and
+<span class="math inline" data-term-auto="off">\(|w|\)</span> are sufficiently small.</p>
+<p>For the bounds, we write <span
+class="math inline" data-term-auto="off">\(b_k^{(r)}=[z^k](z;q)_\infty^{-r}\)</span>, so that
+<span class="math inline" data-term-auto="off">\(R_k^{(r)}=(q;q)_kb_k^{(r)}\)</span> and
+<span class="math inline" data-term-auto="off">\(a_k=P^4(q;q)_kb_k^{(2)}b_k^{(3)}\)</span>.
+By Euler’s expansion, <span class="math inline" data-term-auto="off">\(b_k^{(r)}\)</span> is
+an <span class="math inline" data-term-auto="off">\(r\)</span>-fold convolution of <span
+class="math inline" data-term-auto="off">\(1/(q;q)_n\)</span>, whose terms lie in <span
+class="math inline" data-term-auto="off">\([1,P^{-1}]\)</span>. There are <span
+class="math inline" data-term-auto="off">\(\binom{k+r-1}{r-1}\)</span> compositions of <span
+class="math inline" data-term-auto="off">\(k\)</span> into <span
+class="math inline" data-term-auto="off">\(r\)</span> nonnegative parts, and we deduce</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\binom{k+r-1}{r-1}\le b_k^{(r)}\le
+P^{-r}\binom{k+r-1}{r-1}.\]</span></div>
+<p>Combining these at <span
+class="math inline" data-term-auto="off">\(r=2,3\)</span> with <span
+class="math inline" data-term-auto="off">\(P\le(q;q)_k\le1\)</span> and <span
+class="math inline" data-term-auto="off">\(c_k=(k+1)\binom{k+2}2\)</span> gives <span
+class="math inline" data-term-auto="off">\(P^5c_k\le a_k\le P^{-1}c_k\)</span>. The shift
+bound follows from <span
+class="math inline" data-term-auto="off">\(c_{k+h}/c_k\le(1+h)^3\)</span>. ◻</p>
+</div>
+<p>The bounds above control shifts uniformly. We now calculate the first
+correction to <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span>; this will
+give the fixed-shift limit and the power of <span
+class="math inline" data-term-auto="off">\(N\)</span> in Theorem <a class="math-ref" href="#res:sharp-fixed-base">1.1</a>.</p>
+</section>
+<section id="sec:coefficient-asymptotic" class="level3">
+<h3>The coefficient asymptotic</h3>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#res:sharp-fixed-base">1.1</a>.</em> Put
+<span class="math inline" data-term-auto="off">\(L=F(1/q)\)</span>, <span
+class="math inline" data-term-auto="off">\(e_k=(q;q)_k^{-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(E=P^{-1}\)</span>. Replacing every <span
+class="math inline" data-term-auto="off">\(e_k\)</span> by <span
+class="math inline" data-term-auto="off">\(E\)</span> in the two convolution sums gives <span
+class="math inline" data-term-auto="off">\(E^2(k+1)\)</span> and <span
+class="math inline" data-term-auto="off">\(E^3\binom{k+2}{2}\)</span>. These count,
+respectively, the nonnegative pairs and triples with sum <span
+class="math inline" data-term-auto="off">\(k\)</span>. They explain the leading cubic term of
+<span class="math inline" data-term-auto="off">\(a_k\)</span>, but we also need its first
+correction. For a fixed index <span class="math inline" data-term-auto="off">\(i\)</span>,
+there is one pair <span class="math inline" data-term-auto="off">\((i,k-i)\)</span> and there
+are <span class="math inline" data-term-auto="off">\(k-i+1\)</span> triples whose first
+coordinate is <span class="math inline" data-term-auto="off">\(i\)</span>. Thus a summable
+deficit in the sequence <span class="math inline" data-term-auto="off">\(e_i\)</span>
+produces a constant correction in the two-fold sum and a linear
+correction in the three-fold sum. We calculate that deficit and bound
+the terms containing it twice.</p>
+<p>Writing <span class="math inline" data-term-auto="off">\(d_k=E-e_k\)</span>, the identity
+<span class="math inline" data-term-auto="off">\(e_{k+1}-e_k=q^{k+1}e_{k+1}\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_k=\sum_{j&gt;k}q^je_j,\qquad
+0\le d_k\le\frac{E q^{k+1}}{1-q}.\]</span></div>
+<p>Thus <span
+class="math inline" data-term-auto="off">\(\sum d_k\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum k d_k\)</span> converge. To evaluate the
+former, use Euler’s identity <span class="math inline" data-term-auto="off">\(\mathcal
+E(z)=\sum_{k\ge0}e_kz^k=(z;q)_\infty^{-1}\)</span> for <span
+class="math inline" data-term-auto="off">\(|z|&lt;1\)</span>. Tonelli’s theorem and
+logarithmic differentiation at <span class="math inline" data-term-auto="off">\(z=q\)</span>
+give</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S:=\sum_{k\ge0}d_k
+=\sum_{j\ge1}j q^je_j
+=q\mathcal E&#39;(q)
+=E\sum_{r\ge1}\frac{q^r}{1-q^r}=EL.\]</span></div>
+<p>The differentiation is
+justified by locally uniform convergence on <span
+class="math inline" data-term-auto="off">\(|z|&lt;1\)</span>.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(b_k^{(r)}=[z^k]\mathcal
+E(z)^r\)</span>. The finite-sum formula in Proposition <a class="math-ref" href="#prop:weight-factorisation">3.1</a> becomes</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[a_k=P^4(q;q)_k b_k^{(2)}b_k^{(3)}.\]</span></div>
+<p>We expand each finite convolution using <span
+class="math inline" data-term-auto="off">\(e_k=E-d_k\)</span>. For two factors,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[b_k^{(2)}=E^2(k+1)-2E\sum_{i=0}^k d_i
+              +\sum_{i=0}^k d_i d_{k-i}
+=E^2(k+1-2L)+O_q((k+1)q^k).\]</span></div>
+<p>For three factors, the terms with
+one <span class="math inline" data-term-auto="off">\(d_i\)</span> contribute <span
+class="math inline" data-term-auto="off">\(-3E^2\sum_{i=0}^k(k-i+1)d_i\)</span>. Here the sum
+equals <span class="math inline" data-term-auto="off">\((k+1)S+O_q(1)\)</span> because <span
+class="math inline" data-term-auto="off">\(\sum i d_i&lt;\infty\)</span>. Terms with two
+<span class="math inline" data-term-auto="off">\(d_i\)</span> are bounded by <span
+class="math inline" data-term-auto="off">\(3E S^2\)</span>, and the term with three is <span
+class="math inline" data-term-auto="off">\(O_q((k+1)^2q^k)\)</span>. It follows that</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[b_k^{(3)}=E^3\left(\binom{k+2}{2}-3L(k+1)\right)+O_q(1).\]</span></div>
+<p>Dividing the correction <span class="math inline" data-term-auto="off">\(-3L(k+1)\)</span> by
+the leading term <span class="math inline" data-term-auto="off">\(\binom{k+2}{2}\)</span>
+gives the relative correction <span
+class="math inline" data-term-auto="off">\(-6L/(k+2)\)</span>. The two-fold convolution
+contributes <span class="math inline" data-term-auto="off">\(-2L/(k+1)\)</span> in the same
+way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>
+and <span class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>,
+multiplication yields</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
+\frac{a_k}{c_k}
+&amp;=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
+   \left(1-\frac{6L}{k+2}+O_q((k+1)^{-2})\right)
+   \left(1+O_q(q^k)\right)\\
+&amp;=1-\frac{8L}{k+1}+O_q((k+1)^{-2}).
+\end{align*}\]</span></div>
+<p>In particular <span
+class="math inline" data-term-auto="off">\(a_{k+1}/a_k\to1\)</span>, and multiplication of
+finitely many adjacent ratios gives <span
+class="math inline" data-term-auto="off">\(a_{k+h}/a_k\to1\)</span> for each fixed <span
+class="math inline" data-term-auto="off">\(h\)</span>. The uniform shift bound follows from
+Proposition <a class="math-ref" href="#prop:weight-factorisation">3.1</a>, so
+Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a>
+applies.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(\gamma_{\!E}\)</span> denote Euler’s
+constant and put</p>
+<div class="math-display" id="eq:fixed-constant" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:fixed-constant}
+\mathcal A(q)=e^{-8\gamma_{\!E}L}
+\prod_{k\ge0}\left(\frac{a_k}{c_k}e^{8L/(k+1)}\right),
+\qquad K(q)=\mathcal A(q)\mathcal M(q)^3.
+\end{equation}\]</span></div>
+<p>Positivity of <span
+class="math inline" data-term-auto="off">\(a_k\)</span> and summability of <span
+class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>
+show that <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> converges
+to a positive number. In the logarithm of the product, the first-order
+term contributes <span
+class="math inline" data-term-auto="off">\(-8L\sum_{k&lt;N}(k+1)^{-1}\)</span>, while the
+summable remainder contributes a finite constant. Using <span
+class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
+N+\gamma_{\!E}+o(1)\)</span>, we obtain</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\prod_{k&lt;N}a_k\sim\mathcal
+A(q)C_NN^{-8L}.\]</span></div>
+<p>Substitution in <a class="math-ref" data-equation-ref="true" href="#eq:geometric-limit">eq:geometric-limit</a> proves the
+theorem, or equivalently</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log V_N^*=B_N\log
+q+\log C_N+2N\log P
+             -8L\log N+\log K(q)+o(1).\]</span></div>
+<p>◻</p>
+</div>
+<p>The power of <span class="math inline" data-term-auto="off">\(N\)</span> thus comes from
+the first-order corrections in the two convolutions. Replacing <span
+class="math inline" data-term-auto="off">\(a_k\)</span> by its leading cubic term <span
+class="math inline" data-term-auto="off">\(c_k\)</span> would lose both corrections and hence
+the factor <span class="math inline" data-term-auto="off">\(N^{-8F(1/q)}\)</span>.</p>
+</section>
+<section id="sec:hankel-order" class="level3">
+<h3>The first nonzero formal term</h3>
+<p>The order of a nonzero formal series is the least exponent with
+nonzero coefficient. We now let <span class="math inline" data-term-auto="off">\(q\)</span>
+tend formally to zero at fixed rank, rather than increasing the rank at
+fixed <span class="math inline" data-term-auto="off">\(q\)</span>. The shifted term in <a class="math-ref" data-equation-ref="true" href="#eq:last-node-shift">eq:last-node-shift</a> then has an
+extra factor of <span class="math inline" data-term-auto="off">\(q\)</span>. More generally,
+every nonempty partition has positive displacement exponent. Thus a
+single tuple determines the first formal term, although all partitions
+were needed for the fixed-base constant.</p>
+<div class="theorem" id="res:zudilin-sharp-qorder">
+<p><strong>Theorem 3.2</strong> (the first nonzero term of the Hankel
+determinant). <em> For every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>,
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{ord}_q
+V_N^*=\frac{N(N-1)(2N-1)}6,\]</span></div>
+<p class="display-continue"><em> and the coefficient of the first
+nonzero monomial is </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[[q^{N(N-1)(2N-1)/6}]V_N^*
+   =\frac{(N!)^2(N+1)!}{2^N}.\]</span></div>
+</div>
+<div class="proof">
+<p><em>Proof.</em> At <span class="math inline" data-term-auto="off">\(q=0\)</span>, the
+<span class="math inline" data-term-auto="off">\(t=0\)</span> term of <span
+class="math inline" data-term-auto="off">\(G_q(w)\)</span> is <span
+class="math inline" data-term-auto="off">\((1-w^2)/(1-w)^5\)</span>, while the remaining
+terms sum to <span class="math inline" data-term-auto="off">\(w/(1-w)^4\)</span>. Thus</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[G_0(w)=\frac{1+2w}{(1-w)^4},\qquad
+a_k(0)=c_k&gt;0.\]</span></div>
+<p>We compute modulo <span
+class="math inline" data-term-auto="off">\(q^{M+1}\)</span> by truncating each moment sum in
+<a class="math-ref" data-equation-ref="true" href="#eq:positive-moments">eq:positive-moments</a> at
+<span class="math inline" data-term-auto="off">\(k=M\)</span>. Since all omitted terms are
+divisible by <span class="math inline" data-term-auto="off">\(q^{M+1}\)</span>,
+multilinearity leaves the determinant unchanged modulo that power.
+Applying finite Cauchy–Binet and then allowing <span
+class="math inline" data-term-auto="off">\(M\)</span> to increase, we obtain the
+coefficientwise identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[V_N^*=\sum_{k_0&lt;\cdots&lt;k_{N-1}}
+\left(\prod_{i&lt;N}a_{k_i}(q)q^{k_i}\right)
+\prod_{i&lt;j&lt;N}(q^{k_i}-q^{k_j})^2.\]</span></div>
+<p>The order of the
+summand indexed by <span class="math inline" data-term-auto="off">\((k_i)\)</span> is <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;N}(2N-1-2i)k_i\)</span>. Because <span
+class="math inline" data-term-auto="off">\(k_i\ge i\)</span> and all the weights <span
+class="math inline" data-term-auto="off">\(2N-1-2i\)</span> are positive, we obtain the
+unique minimum at <span class="math inline" data-term-auto="off">\(k_i=i\)</span>, with order
+and coefficient</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{i&lt;N}(2N-1-2i)i=B_N,\qquad
+\prod_{i&lt;N}c_i=C_N.\]</span></div>
+<p>No other tuple can cancel that
+coefficient. For example, at rank two the pair <span
+class="math inline" data-term-auto="off">\((0,1)\)</span> contributes <span
+class="math inline" data-term-auto="off">\(6q+O(q^2)\)</span>, and every other increasing
+pair has order at least two. ◻</p>
+</div>
+<p>This proves equality in Zudilin’s bound <span class="citation"
+data-cites="zudilin2016"><a href="#ref-5">[5]</a></span>. An alternative argument, which
+computes the first nonzero term of every transformed row, is given in <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-formal-rows">the
+companion paper</a>.</p>
+</section>
 </section>
 <section id="sec:rational-base-irrationality" class="level2">
-<h2>A region of rational bases at which <span
-class="math inline" data-term-auto="off">\(F\)</span> is irrational</h2>
-<p>The parameter choice, thirteen intervals and constants <span
-class="math inline" data-term-auto="off">\(C_1,C_0\)</span> below come from Zudilin’s
-construction <span class="citation" data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>;
-there <span class="math inline" data-term-auto="off">\(C_1/C_0=2.46497868\ldots\)</span> is
-his bound for the irrationality exponent at integer bases <span
-class="citation" data-cites="zudilin2004"></span>. Write <span
-class="math inline" data-term-auto="off">\(\psi_1(u)=\sum_{k\ge0}(k+u)^{-2}\)</span> for the
-trigamma function on <span class="math inline" data-term-auto="off">\(u&gt;0\)</span>. Let
-<span class="math inline" data-term-auto="off">\(\mathcal I\)</span> be the thirteen
-intervals listed in the proof and put</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[C_1=\frac{1091}{2},\qquad
+<h2>Rational bases</h2>
+<p>We now use the 2004 coefficient family. If <span
+class="math inline" data-term-auto="off">\(U,V\in\Z[X]\)</span> have degree at most <span
+class="math inline" data-term-auto="off">\(W\)</span>, evaluation at <span
+class="math inline" data-term-auto="off">\(a/b\)</span> requires the factor <span
+class="math inline" data-term-auto="off">\(b^W\)</span> to produce integer coefficients. A
+common polynomial factor should therefore be cancelled first. For
+example, at <span class="math inline" data-term-auto="off">\(3/2\)</span> the pair <span
+class="math inline" data-term-auto="off">\((X+1)(X+2),(X+1)(X+3)\)</span> gives <span
+class="math inline" data-term-auto="off">\((35,45)\)</span> after clearing to degree <span
+class="math inline" data-term-auto="off">\(2\)</span>. After cancelling <span
+class="math inline" data-term-auto="off">\(X+1\)</span>, clearing to degree <span
+class="math inline" data-term-auto="off">\(1\)</span> gives <span
+class="math inline" data-term-auto="off">\((7,9)\)</span>. For Zudilin’s forms, the degrees
+are of quadratic order in the index <span
+class="math inline" data-term-auto="off">\(n\)</span>. Write <span
+class="math inline" data-term-auto="off">\(K_n\)</span> for the degree of the original
+coefficient and <span class="math inline" data-term-auto="off">\(W_n\)</span> for its degree
+after cancellation. The cancelled remainder has leading size <span
+class="math inline" data-term-auto="off">\(x^{-(K_n-W_n)}\)</span> at a fixed real base <span
+class="math inline" data-term-auto="off">\(x&gt;1\)</span>. At <span
+class="math inline" data-term-auto="off">\(x=a/b\)</span>, clearing the coefficients
+therefore has the balance</p>
+<div class="math-display" id="eq:degree-balance" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:degree-balance}
+b^{W_n}(a/b)^{-(K_n-W_n)}
+=\frac{b^{K_n}}{a^{K_n-W_n}}.
+\end{equation}\]</span></div>
+<p>This is the degree contribution; the proof below
+also controls the remaining factors. The quadratic limits <span
+class="math inline" data-term-auto="off">\(K_n/n^2\to C_1\)</span> and <span
+class="math inline" data-term-auto="off">\((K_n-W_n)/n^2\to C_0\)</span> yield the sufficient
+inequality <span class="math inline" data-term-auto="off">\(C_1\log b&lt;C_0\log a\)</span>
+once the remaining factors have been bounded. The work is to justify
+cancellation over <span class="math inline" data-term-auto="off">\(\Z[X]\)</span> and
+calculate the two degrees before specialising <span
+class="math inline" data-term-auto="off">\(X\)</span> to <span
+class="math inline" data-term-auto="off">\(a/b\)</span>.</p>
+<p>We use the parameter direction from Zudilin’s construction <span
+class="citation" data-cites="zudilin2004"></span>, together with its
+thirteen intervals and constants <span
+class="math inline" data-term-auto="off">\(C_1,C_0\)</span>. At integer bases his theorem
+gives the irrationality-exponent bound <span
+class="math inline" data-term-auto="off">\(C_1/C_0=2.46497868\ldots\)</span> <span
+class="citation" data-cites="zudilin2004"></span>. Let <span
+class="math inline" data-term-auto="off">\(\psi_1(u)=\sum_{k\ge0}(k+u)^{-2}\)</span> for
+<span class="math inline" data-term-auto="off">\(u&gt;0\)</span>, and let <span
+class="math inline" data-term-auto="off">\(\mathcal I\)</span> consist of the thirteen
+intervals listed in the proof. We put</p>
+<div class="math-display" id="eq:threshold-constants" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:threshold-constants}
+C_1=\frac{1091}{2},\qquad
 J=\sum_{[u,v)\in\mathcal I}\bigl(\psi_1(u)-\psi_1(v)\bigr),\qquad
-C_0=266-\frac3{\pi^2}(225-J).\]</span></div>
-<p>The intervals are disjoint and
-lie in <span class="math inline" data-term-auto="off">\([1/14,1)\)</span>, so <span
+C_0=266-\frac3{\pi^2}(225-J).
+\end{equation}\]</span></div>
+<p>The intervals are disjoint and lie in <span
+class="math inline" data-term-auto="off">\([1/14,1)\)</span>, so <span
 class="math inline" data-term-auto="off">\(0\le J\le\psi_1(1/14)-\psi_1(1)&lt;196\)</span>.
 Together with <span class="math inline" data-term-auto="off">\(\pi&gt;3\)</span>, these
 bounds give <span
@@ -117,9 +718,10 @@ class="math inline" data-term-auto="off">\(\theta^*=C_0/C_1\)</span> and <span
 class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are positive reciprocal
 constants. The notation <span class="math inline" data-term-auto="off">\(\mu_{\rm
 irr}(\xi)\)</span> instead denotes the irrationality exponent of a
-value. The cutoff is sufficient, not asserted optimal.</p>
+value. The estimates below give a sufficient cutoff; its optimality is
+unknown.</p>
 <div class="theorem" id="res:rational-base-threshold">
-<p><strong>Theorem 2.1</strong> (rational-base region for Zudilin’s
+<p><strong>Theorem 4.1</strong> (rational-base region for Zudilin’s
 forms). <em> Let <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be
 coprime integers with </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{gathered}
@@ -141,26 +743,29 @@ infinitely many reduced noninteger rational bases for each such <span
 class="math inline" data-term-auto="off">\(b\)</span>. The base <span
 class="math inline" data-term-auto="off">\(31/4\)</span> satisfies the condition, and taking
 a common positive integer power of the numerator and denominator leaves
-their logarithmic ratio unchanged. The base <span
-class="math inline" data-term-auto="off">\(3/2\)</span> is excluded since <span
-class="math inline" data-term-auto="off">\(\theta^*&lt;1/2&lt;\log2/\log3\)</span>. At
-equality <span class="math inline" data-term-auto="off">\(\log b/\log a=\theta^*\)</span> the
+their logarithmic ratio unchanged. Since <span
+class="math inline" data-term-auto="off">\(\theta^*&lt;1/2&lt;\log2/\log3\)</span>, the
+condition fails at <span class="math inline" data-term-auto="off">\(3/2\)</span>. At equality
+<span class="math inline" data-term-auto="off">\(\log b/\log a=\theta^*\)</span> the
 quadratic exponent vanishes, so the estimates below give no
 conclusion.</p>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a>.</em>
-We construct positive forms, cancel their common factors, and compare
-the remaining degree with their decay. Fix <span
+<p><em>Proof of Theorem <a class="math-ref" href="#res:rational-base-threshold">4.1</a>.</em>
+We first identify the integral polynomials obtained by cancellation. We
+then compute their degrees and the size of the cleared remainder, which
+will justify <a class="math-ref" data-equation-ref="true" href="#eq:degree-balance">eq:degree-balance</a> to quadratic
+order.</p>
+<p><em>The source forms and polynomial cancellation.</em> Fix <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span> and set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[a_0=14n+1,\quad a_1=12n+1,\quad
 a_2=14n+1,\quad\beta=27n+2,
 \qquad N=15n.\]</span></div>
 <p>In this proof <span
-class="math inline" data-term-auto="off">\(N\)</span> is a cyclotomic cutoff, not a Hankel
-rank. Use the coefficient pair <span
-class="math inline" data-term-auto="off">\(A_n,B_n\)</span> of the source identities <span
-class="citation" data-cites="zudilin2004"></span>, with <span
+class="math inline" data-term-auto="off">\(N\)</span> denotes the cyclotomic cutoff. We use
+the coefficient pair <span class="math inline" data-term-auto="off">\(A_n,B_n\)</span> of the
+source identities <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>, with <span
 class="math inline" data-term-auto="off">\(H_n=A_nF-B_n\)</span>. Let <span
 class="math inline" data-term-auto="off">\(\Phi_\ell\)</span> be the cyclotomic polynomial
 whose roots are the primitive <span
@@ -194,18 +799,11 @@ class="math inline" data-term-auto="off">\(J\)</span>. The function <span
 class="math inline" data-term-auto="off">\(\omega\)</span>, these thirteen intervals and the
 exponents <span class="math inline" data-term-auto="off">\(\nu_\ell=\omega(n/\ell)\)</span>
 of the source’s (22) are printed at <span class="citation"
-data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. Lean checks the zero-one values and
-this <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297">interval
-formula for <span class="math inline" data-term-auto="off">\(\omega\)</span></a>.</p>
-<section id="the-positive-source-expression." class="level5">
-<h5>The positive source expression.</h5>
-<p>For <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>, put <span
-class="math inline" data-term-auto="off">\(q=1/x\)</span>. The <span
-class="math inline" data-term-auto="off">\(q\)</span>-Pochhammer symbol, also called the
-shifted <span class="math inline" data-term-auto="off">\(q\)</span>-factorial, is <span
-class="math inline" data-term-auto="off">\((z;q)_m=\prod_{j=0}^{m-1}(1-zq^j)\)</span>. The
-source identity (9) on p. 156 gives the positive representation</p>
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>.</p>
+<p>We first bound the remainder before cancellation. For <span
+class="math inline" data-term-auto="off">\(x&gt;1\)</span> we put <span
+class="math inline" data-term-auto="off">\(q=1/x\)</span> and use identity (9) on p. 156 of
+the source, which gives the positive representation</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[H_n(x)=\sum_{t\ge0}q^{a_0t}
 \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}
@@ -224,13 +822,15 @@ H_n(x)\le\frac{P^{-2}}{1-q^{a_0}}.\]</span></div>
 <p>In particular <span
 class="math inline" data-term-auto="off">\(H_n(x)&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(\log H_n(x)=O_x(1)\)</span>.</p>
-</section>
-<section id="integral-polynomials-and-their-degrees." class="level5">
-<h5>Integral polynomials and their degrees.</h5>
-<p>The source’s polynomial inclusion is Lemma 7, display (23) <span
-class="citation" data-cites="zudilin2004"></span>. Its parameter vector
-is <span class="math inline" data-term-auto="off">\(n(13,14,12,14,15,13)\)</span>, its
-maximum is <span class="math inline" data-term-auto="off">\(15n\)</span>, and <span
+<p>To identify the integral polynomials we use the inclusion in
+Zudilin’s Lemma 7, display (23) <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. The proof compares the cyclotomic
+valuations of the coefficient polynomials under six admissible parameter
+permutations, and gives the divisibility in <span
+class="math inline" data-term-auto="off">\(\Z[X]\)</span> that we need before evaluation. Its
+parameter vector is <span
+class="math inline" data-term-auto="off">\(n(13,14,12,14,15,13)\)</span>, its maximum is
+<span class="math inline" data-term-auto="off">\(15n\)</span>, and <span
 class="math inline" data-term-auto="off">\(\beta-a_1-a_2=n&gt;0\)</span>, which is the
 positivity condition <span class="math inline" data-term-auto="off">\(s&gt;0\)</span> of the
 lemma. The conditions (14) of <span class="citation"
@@ -253,22 +853,24 @@ V_n=X^{-M_n}(D_N/\Omega_n)B_n.\]</span></div>
 class="math inline" data-term-auto="off">\(F\)</span> and <span
 class="math inline" data-term-auto="off">\(1\)</span> over <span
 class="math inline" data-term-auto="off">\(\Q(X)\)</span> are unique because <span
-class="math inline" data-term-auto="off">\(F\)</span> is not a rational function. For
-completeness, as <span class="math inline" data-term-auto="off">\(h\downarrow0\)</span>,
-split <span class="math inline" data-term-auto="off">\(F(e^h)\)</span> into <span
-class="math inline" data-term-auto="off">\(m\le1/h\)</span> and <span
-class="math inline" data-term-auto="off">\(m&gt;1/h\)</span>. The first part is <span
-class="math inline" data-term-auto="off">\(h^{-1}\sum_{m\le1/h}m^{-1}+O(h^{-1})\)</span>,
-using <span class="math inline" data-term-auto="off">\(y^{-1}-1\le(e^y-1)^{-1}\le
-y^{-1}\)</span> for <span class="math inline" data-term-auto="off">\(0&lt;y\le1\)</span>; the
-geometric tail is <span class="math inline" data-term-auto="off">\(O(h^{-1})\)</span>. Thus
-<span class="math inline" data-term-auto="off">\(F(e^h)=h^{-1}\log(1/h)+O(h^{-1})\)</span>,
-which has no rational-function pole order at <span
+class="math inline" data-term-auto="off">\(F\)</span> is not a rational function. To see
+this, we split <span class="math inline" data-term-auto="off">\(F(e^h)\)</span> at <span
+class="math inline" data-term-auto="off">\(m=1/h\)</span> as <span
+class="math inline" data-term-auto="off">\(h\downarrow0\)</span>. For <span
+class="math inline" data-term-auto="off">\(m\le1/h\)</span>, the inequalities <span
+class="math inline" data-term-auto="off">\(y^{-1}-1\le(e^y-1)^{-1}\le y^{-1}\)</span> for
+<span class="math inline" data-term-auto="off">\(0&lt;y\le1\)</span> give <span
+class="math inline" data-term-auto="off">\(h^{-1}\sum_{m\le1/h}m^{-1}+O(h^{-1})\)</span>.
+Bounding the remaining terms by a geometric tail gives a further <span
+class="math inline" data-term-auto="off">\(O(h^{-1})\)</span>, and therefore <span
+class="math inline" data-term-auto="off">\(F(e^h)=h^{-1}\log(1/h)+O(h^{-1})\)</span>, which
+has no rational-function pole order at <span
 class="math inline" data-term-auto="off">\(X=1\)</span>. The cancelled remainder is positive
 for <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>, since <span
 class="math inline" data-term-auto="off">\(D_N/\Omega_n\)</span> is a product of cyclotomic
 polynomials positive there.</p>
-<p>The Gaussian binomial polynomial <span
+<p><em>The degrees after cancellation.</em> The Gaussian binomial
+polynomial <span
 class="math inline" data-term-auto="off">\(\genfrac{[}{]}{0pt}{}{m}{k}_X=\prod_{j=1}^k(1-X^{m-k+j})/(1-X^j)\)</span>
 is monic of degree <span class="math inline" data-term-auto="off">\(k(m-k)\)</span> for
 integers <span class="math inline" data-term-auto="off">\(0\le k\le m\)</span>. The
@@ -279,12 +881,11 @@ class="math display" data-term-auto="off">\[A_n(X)=\sum_{k=a_2}^{\beta-1}(-1)^{a
 X^{a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}}
 \genfrac{[}{]}{0pt}{}{k-1}{a_1-1}_X
 \genfrac{[}{]}{0pt}{}{\beta-a_2-1}{\beta-k-1}_X.\]</span></div>
-<p>The degree
-increases by <span class="math inline" data-term-auto="off">\(40n+1-k&gt;0\)</span> from
-summand <span class="math inline" data-term-auto="off">\(k\)</span> to summand <span
-class="math inline" data-term-auto="off">\(k+1\)</span> for <span
-class="math inline" data-term-auto="off">\(a_2\le k\le\beta-2\)</span>. Thus the last summand
-alone determines the leading term, and</p>
+<p>On comparing
+successive summands, we find that the degree increases by <span
+class="math inline" data-term-auto="off">\(40n+1-k&gt;0\)</span> for <span
+class="math inline" data-term-auto="off">\(a_2\le k\le\beta-2\)</span>. The last summand
+alone therefore determines the leading term, giving</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_n:=\deg A_n=\frac{1091n^2+81n+2}{2},\qquad
 W_n:=\deg
@@ -323,17 +924,17 @@ a^{W_n}\not\equiv0\pmod p.\]</span></div>
 <p>Thus <span
 class="math inline" data-term-auto="off">\(U_n(a/b)\)</span> has reduced denominator exactly
 <span class="math inline" data-term-auto="off">\(b^{W_n}\)</span>, the least common clearing
-denominator for this pair. Any common integer divisor of the cleared row
-is coprime to <span class="math inline" data-term-auto="off">\(b\)</span>; other common
-factors, or savings from different rows, require separate analysis.</p>
-<p>This degree calculation fixes <span class="math inline" data-term-auto="off">\(n\)</span>
-and lets <span class="math inline" data-term-auto="off">\(x\to\infty\)</span>; the decay
-calculation below fixes <span class="math inline" data-term-auto="off">\(x\)</span> and lets
-<span class="math inline" data-term-auto="off">\(n\to\infty\)</span>.</p>
-</section>
-<section id="the-limiting-degree-cost." class="level5">
-<h5>The limiting degree cost.</h5>
-<p>The limits below are the cyclotomic limits of <span class="citation"
+denominator for this pair. Every common integer divisor of the cleared
+row is consequently coprime to <span class="math inline" data-term-auto="off">\(b\)</span>.
+This leaves common factors at other primes and savings from combinations
+of different rows to be analysed separately.</p>
+<p><em>The quadratic degree limits.</em> The degree calculation kept
+<span class="math inline" data-term-auto="off">\(n\)</span> fixed and let <span
+class="math inline" data-term-auto="off">\(x\to\infty\)</span>. For the irrationality
+argument we now keep <span class="math inline" data-term-auto="off">\(x\)</span> fixed and
+let <span class="math inline" data-term-auto="off">\(n\to\infty\)</span>. We first find the
+quadratic part of the degree removed by cancellation. The limits below
+are the cyclotomic limits of <span class="citation"
 data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. The proof uses the argument through
 reciprocal intervals, the summatory totient estimate and the trigamma
 function from the proof of <span class="citation"
@@ -347,14 +948,15 @@ class="math display" data-term-auto="off">\[\frac1{n^2}\sum_{\ell\le15n}\varphi(
 condition <span class="math inline" data-term-auto="off">\(\{n/\ell\}\in[u,v)\)</span> is the
 disjoint union of intervals <span
 class="math inline" data-term-auto="off">\(n/(k+v)&lt;\ell\le n/(k+u)\)</span> for <span
-class="math inline" data-term-auto="off">\(k\ge0\)</span>. For finitely many <span
-class="math inline" data-term-auto="off">\(k\)</span> the same summatory estimate applies
-term by term. For <span class="math inline" data-term-auto="off">\(K\ge1\)</span>, the
-omitted blocks have <span class="math inline" data-term-auto="off">\(\ell\le
-n/(K+u)\)</span>. The elementary bound <span
-class="math inline" data-term-auto="off">\(\sum_{\ell\le y}\varphi(\ell)\le y^2\)</span> for
-<span class="math inline" data-term-auto="off">\(y\ge0\)</span> bounds their total normalised
-contribution by</p>
+class="math inline" data-term-auto="off">\(k\ge0\)</span>. We may apply the same summatory
+estimate term by term to any finite set of <span
+class="math inline" data-term-auto="off">\(k\)</span>. If we stop before <span
+class="math inline" data-term-auto="off">\(k=K\)</span>, with <span
+class="math inline" data-term-auto="off">\(K\ge1\)</span>, every omitted block has <span
+class="math inline" data-term-auto="off">\(\ell\le n/(K+u)\)</span>. Thus the elementary
+bound <span class="math inline" data-term-auto="off">\(\sum_{\ell\le y}\varphi(\ell)\le
+y^2\)</span> for <span class="math inline" data-term-auto="off">\(y\ge0\)</span> gives the
+uniform estimate</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac1{n^2}\sum_{\ell\le
 n/(K+u)}\varphi(\ell)
 \le\frac1{(K+u)^2}.\]</span></div>
@@ -363,9 +965,9 @@ class="math inline" data-term-auto="off">\(y\ge1\)</span> one can bound <span
 class="math inline" data-term-auto="off">\(\varphi(\ell)\)</span> by <span
 class="math inline" data-term-auto="off">\(\ell\)</span> and sum; for <span
 class="math inline" data-term-auto="off">\(0\le y&lt;1\)</span> the sum is empty. This bound
-is uniform in <span class="math inline" data-term-auto="off">\(n\)</span>. Letting first
+is uniform in <span class="math inline" data-term-auto="off">\(n\)</span>. We can now let
 <span class="math inline" data-term-auto="off">\(n\)</span> and then <span
-class="math inline" data-term-auto="off">\(K\)</span> tend to infinity proves</p>
+class="math inline" data-term-auto="off">\(K\)</span> tend to infinity, obtaining</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{n^2}\sum_{\ell\le15n}\nu_\ell\varphi(\ell)
 \longrightarrow\frac3{\pi^2}
@@ -377,20 +979,18 @@ class="math inline" data-term-auto="off">\(u\ge1/14\)</span>. Consequently</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_n/n^2\longrightarrow C_1,\qquad
 (K_n-W_n)/n^2\longrightarrow C_0.\]</span></div>
-</section>
-<section id="the-size-after-cancellation." class="level5">
-<h5>The size after cancellation.</h5>
-<p>Let <span class="math inline" data-term-auto="off">\(\mu_{\rm Mob}\)</span> denote the
-Möbius function. For fixed <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>,
-the cyclotomic identity</p>
+<p><em>The cleared remainder.</em> We return to a fixed real base <span
+class="math inline" data-term-auto="off">\(x&gt;1\)</span> and estimate the cyclotomic
+product. Writing <span class="math inline" data-term-auto="off">\(\mu_{\rm Mob}\)</span> for
+the Möbius function, we have</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\log\Phi_\ell(x)-\varphi(\ell)\log x
-=\sum_{d\mid\ell}\mu_{\rm Mob}(d)\log(1-x^{-\ell/d})\]</span></div>
-<p class="display-continue">has total
-absolute error <span class="math inline" data-term-auto="off">\(O_x(n)\)</span> over <span
-class="math inline" data-term-auto="off">\(\ell\le15n\)</span>. Indeed, it is at most</p>
+=\sum_{d\mid\ell}\mu_{\rm Mob}(d)\log(1-x^{-\ell/d}).\]</span></div>
+<p>The total
+absolute error over <span class="math inline" data-term-auto="off">\(\ell\le15n\)</span> is
+<span class="math inline" data-term-auto="off">\(O_x(n)\)</span>, since it is at most</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[15n\sum_{d\ge1}\frac{-\log(1-x^{-d})}{d},\]</span></div>
+class="math display" data-term-auto="off">\[15n\sum_{d\ge1}\frac{-\log(1-x^{-d})}{d}.\]</span></div>
 <p>The series converges because <span
 class="math inline" data-term-auto="off">\(-\log(1-x^{-d})\le x^{-d}/(1-x^{-1})\)</span>.
 Since <span class="math inline" data-term-auto="off">\(0\le1-\nu_\ell\le1\)</span>, it
@@ -398,18 +998,12 @@ follows that</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\log\Lambda_n(x)=-(K_n-W_n)\log
 x+O_x(n).\]</span></div>
-</section>
-<section id="homogenisation." class="level5">
-<h5>Homogenisation.</h5>
-<p>Because <span class="math inline" data-term-auto="off">\(U_n,V_n\)</span> are integral
-polynomials of degree at most <span class="math inline" data-term-auto="off">\(W_n\)</span>,
-<span class="math inline" data-term-auto="off">\(b^{W_n}U_n(a/b)\)</span> and <span
-class="math inline" data-term-auto="off">\(b^{W_n}V_n(a/b)\)</span> are integers; Lean checks
-this integrality and the resulting <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean#L61">cleared
-linear-form identity</a>. Moreover</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{split}
+<p>We can now clear the denominators at the rational base. Since <span
+class="math inline" data-term-auto="off">\(U_n,V_n\in\Z[X]\)</span> and their degrees are at
+most <span class="math inline" data-term-auto="off">\(W_n\)</span>, the numbers <span
+class="math inline" data-term-auto="off">\(b^{W_n}U_n(a/b)\)</span> and <span
+class="math inline" data-term-auto="off">\(b^{W_n}V_n(a/b)\)</span> are integers. Moreover</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{split}
 \log\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
 &amp;=K_n\log b-(K_n-W_n)\log a+O_{a/b}(n)\\
 &amp;=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
@@ -421,13 +1015,10 @@ class="math inline" data-term-auto="off">\(F(a/b)=r/s\)</span> with integers <sp
 class="math inline" data-term-auto="off">\(r,s\)</span> and <span
 class="math inline" data-term-auto="off">\(s\ne0\)</span>, every nonzero value would have
 absolute value at least <span class="math inline" data-term-auto="off">\(1/|s|\)</span>, a
-contradiction; Lean checks this <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean#L128">separation
-bound</a> for a nonzero integral form at a rational target. ◻</p>
-</section>
+contradiction. ◻</p>
 </div>
 <div class="corollary" id="res:thirtyone-four">
-<p><strong>Corollary 2.2</strong>. <em> <span
+<p><strong>Corollary 4.2</strong>. <em> <span
 class="math inline" data-term-auto="off">\(F\bigl((31/4)^r\bigr)\)</span> is irrational for
 every integer <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
 </div>
@@ -446,11 +1037,13 @@ bound</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\theta^*&gt;\frac{2359630009523263}{5820307922172744}
            &gt;\frac{81}{200}.\]</span></div>
-<p>Finally, the logarithmic ratio
-and coprimality are preserved by a common positive integer power. ◻</p>
+<p>Taking a common positive integer
+power preserves both the logarithmic ratio and coprimality, so the same
+criterion applies for every <span
+class="math inline" data-term-auto="off">\(r\ge1\)</span>. ◻</p>
 </div>
 <div class="corollary" id="cor:rational-base-measure">
-<p><strong>Corollary 2.3</strong> (an irrationality measure uniform over
+<p><strong>Corollary 4.3</strong> (an irrationality measure uniform over
 powers). <em> For coprime <span
 class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\theta=\log b/\log a&lt;\theta^*\)</span> and
@@ -467,15 +1060,13 @@ class="math inline" data-term-auto="off">\(\mu_{\rm irr}(F((31/4)^r))&lt;301\)</
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The passage from the forms to an exponent bound is
-the standard one that Zudilin uses at integer bases <span
-class="citation" data-cites="zudilin2004"></span>; the estimates below
-give an exponent bound independent of <span
-class="math inline" data-term-auto="off">\(r\)</span>, although the estimates are applied
-separately at each fixed base <span
-class="math inline" data-term-auto="off">\((a/b)^r\)</span>. Use the polynomials <span
-class="math inline" data-term-auto="off">\(U_n,V_n\)</span> constructed in the proof of
-Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a>, with
+<p><em>Proof.</em> We follow the passage from linear forms to an
+exponent bound used by Zudilin at integer bases <span class="citation"
+data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>. Applying the estimates separately at
+each fixed base <span class="math inline" data-term-auto="off">\((a/b)^r\)</span> will give a
+bound independent of <span class="math inline" data-term-auto="off">\(r\)</span>. We use the
+polynomials <span class="math inline" data-term-auto="off">\(U_n,V_n\)</span> from
+Theorem <a class="math-ref" href="#res:rational-base-threshold">4.1</a>, with
 <span class="math inline" data-term-auto="off">\(W_n=\deg U_n\)</span>. In that construction
 the coefficient of <span class="math inline" data-term-auto="off">\(F\)</span> before
 cancellation is a sum of <span class="math inline" data-term-auto="off">\(O(n)\)</span>
@@ -513,17 +1104,19 @@ class="math display" data-term-auto="off">\[|L|\le |A|\,|\xi-p/q|.\]</span></div
 class="math inline" data-term-auto="off">\(Ap-Bq=0\)</span> this is equality. Otherwise the
 nonzero integer <span class="math inline" data-term-auto="off">\(Ap-Bq\)</span> gives <span
 class="math inline" data-term-auto="off">\(1/q\le |L|+|A|\,|\xi-p/q|\)</span>, which proves
-the inequality. Fix <span
-class="math inline" data-term-auto="off">\(0&lt;\eta&lt;\tau\)</span>. For all sufficiently
-large <span class="math inline" data-term-auto="off">\(n\)</span>, the estimates above give</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le
+the inequality. We fix <span
+class="math inline" data-term-auto="off">\(0&lt;\eta&lt;\tau\)</span> and use the preceding
+estimates in the form</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le
 e^{-(\tau-\eta)n^2},
-\qquad |Q_n|\le e^{(\alpha+\eta)n^2}.\]</span></div>
-<p>For every sufficiently
-large denominator <span class="math inline" data-term-auto="off">\(q\)</span>, choose <span
-class="math inline" data-term-auto="off">\(n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil\)</span>.
-Then <span class="math inline" data-term-auto="off">\(2q(Q_n\xi-P_n)\le1\)</span>, so the
-preceding integer argument applies to <span
+\qquad |Q_n|\le e^{(\alpha+\eta)n^2}\]</span></div>
+<p class="display-continue">for all sufficiently large
+<span class="math inline" data-term-auto="off">\(n\)</span>. Given a sufficiently large
+denominator <span class="math inline" data-term-auto="off">\(q\)</span>, we choose <span
+class="math inline" data-term-auto="off">\(n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil\)</span>,
+so that <span class="math inline" data-term-auto="off">\(2q(Q_n\xi-P_n)\le1\)</span>. The
+preceding integer argument now applies to <span
 class="math inline" data-term-auto="off">\((A,B)=(Q_n,P_n)\)</span> for every numerator <span
 class="math inline" data-term-auto="off">\(p\)</span>. Also <span
 class="math inline" data-term-auto="off">\(Q_n\ne0\)</span>: otherwise <span
@@ -536,41 +1129,30 @@ class="math display" data-term-auto="off">\[|\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)
 <p class="display-continue">since
 <span class="math inline" data-term-auto="off">\(n^2=\log(2q)/(\tau-\eta)+O_\eta(\sqrt{\log
 q}+1)\)</span>.</p>
-<p>Let <span class="math inline" data-term-auto="off">\(\eta\downarrow0\)</span>. The
-resulting bound is <span
+<p>Letting <span class="math inline" data-term-auto="off">\(\eta\downarrow0\)</span>, we
+deduce the bound <span
 class="math inline" data-term-auto="off">\(1+\alpha/\tau=(1-\theta)/(\theta^*-\theta)\)</span>.
-Taking a common power multiplies <span
-class="math inline" data-term-auto="off">\(\alpha,\tau\)</span> by <span
-class="math inline" data-term-auto="off">\(r\)</span>, leaving this quotient unchanged; the
-constants in the approximation inequality may depend on <span
+A common power multiplies <span class="math inline" data-term-auto="off">\(\alpha\)</span>
+and <span class="math inline" data-term-auto="off">\(\tau\)</span> by <span
+class="math inline" data-term-auto="off">\(r\)</span>, so the quotient is unchanged, although
+the constants in the approximation inequality may depend on <span
 class="math inline" data-term-auto="off">\(r\)</span>. For <span
 class="math inline" data-term-auto="off">\(31/4\)</span>, the exact interval bounds in the
-long record, Section 2.5, give <span
-class="math inline" data-term-auto="off">\(\theta&lt;0.4036982\)</span> and <span
+companion record, <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-regionbracket">Section 2.5</a>,
+give <span class="math inline" data-term-auto="off">\(\theta&lt;0.4036982\)</span> and <span
 class="math inline" data-term-auto="off">\(\theta^*&gt;0.40568\)</span>. The quotient
 increases with <span class="math inline" data-term-auto="off">\(\theta\)</span> and decreases
 with <span class="math inline" data-term-auto="off">\(\theta^*\)</span> in this range, so</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{1-\theta}{\theta^*-\theta}
 &lt;\frac{1-0.4036982}{0.40568-0.4036982}
 =\frac{2981509}{9909}&lt;301.\]</span></div>
-<p>Lean checks these bounds,
-including <span class="math inline" data-term-auto="off">\(2981509/9909&lt;301\)</span>, and
-the printed digits of <span class="math inline" data-term-auto="off">\(\theta^*\)</span> and
-<span class="math inline" data-term-auto="off">\(\mu\)</span> in Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a>. Long
-Section 2.5 also gives independent exact computations of sharper
-enclosures. ◻</p>
+<p>The same section gives the
+rational certificates for these bounds and sharper enclosures of the
+constants. ◻</p>
 </div>
-<section id="formal-sources." class="level5">
-<h5>Formal sources.</h5>
-<p>The Lean proofs of Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a> and its
-two corollaries construct the cancelled coefficient polynomials and
-prove the remainder estimates. Of Zudilin’s two constructions <span
-class="citation" data-cites="zudilin2004 zudilin2016"></span>, the
-argument here uses the 2004 forms; Section <a class="math-ref" href="#sec:hankel-order">3</a> uses the 2016
-sequence.</p>
-</section>
-<section id="comparison-and-scope." class="level5">
-<h5>Comparison and scope.</h5>
+<section id="comparison-with-earlier-criteria" class="level3">
+<h3>Comparison with earlier criteria</h3>
 <p>Bundschuh and Väänänen’s Theorem 2 at <span
 class="math inline" data-term-auto="off">\(\alpha=-1\)</span> <span class="citation"
 data-cites="bv1994"><a href="#ref-2">[2]</a></span> gives irrationality for <span
@@ -599,868 +1181,163 @@ class="citation" data-cites="zudilin2016"></span>. For <span
 class="math inline" data-term-auto="off">\(F\)</span>, the specialisation above gives <span
 class="math inline" data-term-auto="off">\(c=\mu\)</span>, the exponent bound of <span
 class="citation" data-cites="zudilin2004"></span>.</p>
-<div class="theorem" id="res:sevenhalves">
-<p><strong>Theorem 2.4</strong> (the <span
-class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32">integer
-power certificate</a> <span class="math inline" data-term-auto="off">\(2^{18}&lt;7^7\)</span>
-yields the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83">Archimedean
-height condition</a> </em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{\log
-7}{\log(7/2)}
-&lt;
-\left(\frac12+\frac1{\pi^2}\right)^{-1}.\]</span></div>
-</div>
-<div class="proof">
-<p><em>Proof.</em> The power comparison gives <span
-class="math inline" data-term-auto="off">\(\log2/\log7&lt;7/18\)</span>, whereas <span
-class="math inline" data-term-auto="off">\(\pi&gt;3\)</span> gives <span
-class="math inline" data-term-auto="off">\(1/2+1/\pi^2&lt;11/18\)</span>. Taking reciprocals
-of positive quantities,</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\frac{\log7}{\log(7/2)}
-=\frac1{1-\log2/\log7}&lt;\frac{18}{11}
-&lt;\left(\frac12+\frac1{\pi^2}\right)^{-1}.\]</span></div>
-<p>◻</p>
-</div>
-<p>This is the elementary parameter check at <span
-class="math inline" data-term-auto="off">\(q=7/2\)</span> in Bundschuh and Väänänen’s
-Theorem 2 (<span class="math inline" data-term-auto="off">\(\alpha=-1\)</span>). Their
-analytic irrationality theorem is not a Lean result here.</p>
-<p>Negative bases are not treated: the positive-remainder estimates used
-here assume <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>. The boundary
-<span class="math inline" data-term-auto="off">\(x=1\)</span> is excluded because the Lambert
-series diverges there.</p>
-</section>
-<section id="why-the-same-estimates-at-every-base-impose-a-restriction"
-class="level3">
-<h3>Why the same estimates at every base impose a restriction</h3>
-<p>The next restriction requires one polynomial family and common
-leading degree, height and decay constants at every fixed real base
-<span class="math inline" data-term-auto="off">\(x&gt;1\)</span>. The error terms may depend
-on <span class="math inline" data-term-auto="off">\(x\)</span>. Here <span
-class="math inline" data-term-auto="off">\(H\)</span> is the sum of the absolute
-coefficients, and <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> are
-integers. Reducing <span class="math inline" data-term-auto="off">\(a/b\)</span> avoids an
-unnecessary clearing factor, but coprimality is not needed for this
-estimate.</p>
-<div class="theorem" id="res:archimedean-cap">
-<p><strong>Theorem 2.5</strong> (a degree restriction for estimates valid
-at every base). <em> Let <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span>
-be pairs in <span class="math inline" data-term-auto="off">\(\mathbb Z[X]^2\)</span>
-satisfying <span
-class="math inline" data-term-auto="off">\(\Lambda_n(x)=U_n(x)F(x)-V_n(x)\ne0\)</span>, <span
-class="math inline" data-term-auto="off">\(\deg U_n,\deg V_n\le\delta n^2(1+o(1))\)</span>,
-<span class="math inline" data-term-auto="off">\(\log\max(H(U_n),H(V_n))\le h
-n^2(1+o(1))\)</span> with <span class="math inline" data-term-auto="off">\(H\)</span> the
-<span class="math inline" data-term-auto="off">\(\ell^1\)</span> coefficient norm, and <span
-class="math inline" data-term-auto="off">\(\log|\Lambda_n(x)|=-\sigma n^2\log
-x\,(1+o(1))\)</span> for every real <span
-class="math inline" data-term-auto="off">\(x&gt;1\)</span>, with <span
-class="math inline" data-term-auto="off">\(\sigma,\delta&gt;0\)</span> and <span
-class="math inline" data-term-auto="off">\(h\ge0\)</span> independent of <span
-class="math inline" data-term-auto="off">\(x\)</span>. Then with <span
-class="math inline" data-term-auto="off">\(d_n=\max(\deg U_n,\deg V_n)\)</span>, the
-homogenised forms <span
-class="math inline" data-term-auto="off">\(b^{d_n}\Lambda_n(a/b)\)</span> tend to zero
-whenever <span class="math inline" data-term-auto="off">\(\log b/\log
-a&lt;\sigma/(\sigma+\delta)\)</span>, and <span
-class="math inline" data-term-auto="off">\(\sigma/(\sigma+\delta)\le1/2\)</span>.</em></p>
-</div>
-<div class="proof">
-<p><em>Proof.</em> For real <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>,
-the sum of the absolute values of the coefficients gives <span
-class="math inline" data-term-auto="off">\(|U_n(x)|,|V_n(x)|\le\max(H(U_n),H(V_n))x^{d_n}\)</span>.
-Suppose <span class="math inline" data-term-auto="off">\(\sigma&gt;\delta\)</span> and choose
-an integer <span class="math inline" data-term-auto="off">\(p\ge2\)</span> with <span
-class="math inline" data-term-auto="off">\((\sigma-\delta)\log p&gt;h\)</span>. Set <span
-class="math inline" data-term-auto="off">\(a_n=U_n(p)\)</span>, <span
-class="math inline" data-term-auto="off">\(b_n=V_n(p)\)</span> and <span
-class="math inline" data-term-auto="off">\(L_n=a_n F(p)-b_n\)</span>. Hypotheses on height
-and degree give <span class="math inline" data-term-auto="off">\(|a_n|\le\exp((h+\delta\log
-p)n^2+o(n^2))\)</span>, while <span
-class="math inline" data-term-auto="off">\(|L_n|=\exp(-\sigma\log p\,n^2+o(n^2))\)</span>.
-The adjacent integer</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[a_nb_{n+1}-a_{n+1}b_n=a_{n+1}L_n-a_n
-L_{n+1}\]</span></div>
-<p class="display-continue">is then <span class="math inline" data-term-auto="off">\(o(1)\)</span>,
-hence eventually zero. Also <span class="math inline" data-term-auto="off">\(a_n\ne0\)</span>
-for large <span class="math inline" data-term-auto="off">\(n\)</span>: otherwise the nonzero
-integer <span class="math inline" data-term-auto="off">\(L_n=-b_n\)</span> would have
-absolute value less than <span class="math inline" data-term-auto="off">\(1\)</span>. Thus
-<span class="math inline" data-term-auto="off">\(b_n/a_n\)</span> is eventually a fixed
-rational <span class="math inline" data-term-auto="off">\(r\)</span>. If <span
-class="math inline" data-term-auto="off">\(F(p)\ne r\)</span> then <span
-class="math inline" data-term-auto="off">\(|L_n|\ge|F(p)-r|\)</span>; if <span
-class="math inline" data-term-auto="off">\(F(p)=r\)</span> then <span
-class="math inline" data-term-auto="off">\(L_n=0\)</span>. Both contradict the hypotheses, so
-<span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>. The homogenised
-logarithm satisfies</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\limsup_{n\to\infty}
-n^{-2}\log\bigl|b^{d_n}\Lambda_n(a/b)\bigr|
-\le \delta\log b-\sigma\log(a/b),\]</span></div>
-<p class="display-continue">which is negative on the
-stated sufficient region. The conclusion bounds the sufficient cutoff
-furnished by the displayed degree estimate. An exclusion for a
-particular family requires its actual degree and remainder
-asymptotics. ◻</p>
-</div>
-<p>A general irrationality-exponent estimate retains the
-coefficient-height term. The stronger evaluated bound in Corollary <a class="math-ref" href="#cor:rational-base-measure">2.3</a> removes
-it for Zudilin’s family, not for every family in this theorem. Long
-Section 2.6 gives the general formula and explains why, at <span
-class="math inline" data-term-auto="off">\(h=0\)</span>, the permitted additive bound <span
-class="math inline" data-term-auto="off">\(hn^2+o(n^2)\)</span> is weaker than the literal
-<span class="math inline" data-term-auto="off">\(hn^2(1+o(1))\)</span>.</p>
-<p>Estimates proved only at <span class="math inline" data-term-auto="off">\(3/2\)</span>, or
-for a different family at each base, do not verify the all-base
-hypotheses. The theorem also does not treat forms in several independent
-target values. For example, Postelmans and Van Assche prove the <span
-class="math inline" data-term-auto="off">\(\Q\)</span>-linear independence of <span
-class="math inline" data-term-auto="off">\(1,\zeta_q(1),\zeta_q(2)\)</span> for <span
-class="math inline" data-term-auto="off">\(q=1/p\)</span> with integer <span
-class="math inline" data-term-auto="off">\(p\ge2\)</span> <span class="citation"
-data-cites="postelmansvanassche2007"><a href="#ref-13">[13]</a></span>. That simultaneous
-construction is not an instance of the theorem.</p>
-</section>
-</section>
-<section id="sec:hankel-order" class="level2">
-<h2>The first nonzero term of Zudilin’s Hankel determinant</h2>
-<p>The order of a nonzero formal series is its least exponent with
-nonzero coefficient. Matrix-entry orders alone give only a lower bound
-for the determinant, because terms can cancel. Here a moment expansion
-has a unique least-order term. We work in formal power series; values at
-a fixed real <span class="math inline" data-term-auto="off">\(q\)</span> require a separate
-estimate.</p>
-<p>Here <span class="math inline" data-term-auto="off">\(N\)</span> denotes the Hankel rank
-and <span class="math inline" data-term-auto="off">\(q\)</span> is a formal variable. At
-<span class="math inline" data-term-auto="off">\(x=z=1\)</span>, Zudilin’s normalised
-moments <span class="citation" data-cites="zudilin2016"><a href="#ref-5">[5]</a></span> are</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[v_m^*=\sum_{t\ge0}q^{(m+1)t}
-\frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
-\qquad
-V_N^*=\det_{0\le i,j&lt;N}(v_{i+j}^*).\]</span></div>
-<p>The source uses <span
-class="math inline" data-term-auto="off">\(\ell_p(x,z)=x\sum_{r\ge1}z^r/(p^r-x)\)</span>,
-with <span class="math inline" data-term-auto="off">\(p=q^{-1}\)</span>, so <span
-class="math inline" data-term-auto="off">\(\ell_p(1,1)=F(p)\)</span>. Here <span
-class="math inline" data-term-auto="off">\(x\)</span> is an auxiliary parameter, not the real
-base of the preceding section. These series are well defined
-coefficientwise: the <span class="math inline" data-term-auto="off">\(t\)</span>th summand
-has order <span class="math inline" data-term-auto="off">\((m+1)t\)</span>, and every product
-in its denominator has constant term <span
-class="math inline" data-term-auto="off">\(1\)</span>. His row transformation proves</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\operatorname{ord}_q V_N^*\ge
-\frac{N(N-1)(2N-1)}6\]</span></div>
-<p class="display-continue">for every <span
-class="math inline" data-term-auto="off">\(N\ge1\)</span> <span class="citation"
-data-cites="zudilin2016"><a href="#ref-5">[5]</a></span>. A formal moment expansion identifies
-the unique least-order term and shows that this estimate is always
-sharp.</p>
-<div class="theorem" id="res:zudilin-sharp-qorder">
-<p><strong>Theorem 3.1</strong> (the first nonzero term of the Hankel
-determinant). <em> For every <span class="math inline" data-term-auto="off">\(N\ge1\)</span>,
-</em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\operatorname{ord}_q
-V_N^*=\frac{N(N-1)(2N-1)}6,\]</span></div>
-<p class="display-continue"><em> and the coefficient of the first
-nonzero monomial is </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[[q^{N(N-1)(2N-1)/6}]V_N^*
-   =\frac{(N!)^2(N+1)!}{2^N}.\]</span></div>
-</div>
-<div class="proof">
-<p><em>Proof.</em> To obtain moments at the nodes <span
-class="math inline" data-term-auto="off">\(q^k\)</span>, collect the dependence on <span
-class="math inline" data-term-auto="off">\(m\)</span> into <span
-class="math inline" data-term-auto="off">\(w=q^{m+1}\)</span>. Write <span
-class="math inline" data-term-auto="off">\(P=(q;q)_\infty\)</span> and set</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[G_q(w)=\frac1{(w;q)_\infty^3}
-\sum_{t\ge0}\frac{w^t}{(q;q)_t}
-       \frac{(q^tw^2;q)_\infty}{(q^tw;q)_\infty^2},
-\qquad a_k(q)=[w^k]P^4G_q(w).\]</span></div>
-<p>The expression belongs to <span
-class="math inline" data-term-auto="off">\(\Z[[q,w]]\)</span>: only finitely many <span
-class="math inline" data-term-auto="off">\(t\)</span> contribute to each <span
-class="math inline" data-term-auto="off">\(w\)</span>-coefficient, and the remaining products
-define power series in <span class="math inline" data-term-auto="off">\(q\)</span>. The
-product identities <span
-class="math inline" data-term-auto="off">\((q;q)_m=P/(q^{m+1};q)_\infty\)</span> and <span
-class="math inline" data-term-auto="off">\((q^a;q)_m=(q^a;q)_\infty/(q^{a+m};q)_\infty\)</span>
-give the exact formal identity</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[v_m^*=P^4G_q(q^{m+1})
-      =\sum_{k\ge0}a_k(q)q^{(m+1)k}.\]</span></div>
-<p>At <span
-class="math inline" data-term-auto="off">\(q=0\)</span>, the <span
-class="math inline" data-term-auto="off">\(t=0\)</span> term is <span
-class="math inline" data-term-auto="off">\((1-w^2)/(1-w)^5\)</span>, while the remaining
-terms sum to <span class="math inline" data-term-auto="off">\(w/(1-w)^4\)</span>. Hence</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[G_0(w)=\frac{1+2w}{(1-w)^4},\qquad
-a_k(0)=\frac{(k+1)^2(k+2)}2=:c_k&gt;0.\]</span></div>
-<p>The expansion below is Heine’s formula for a Hankel determinant of
-moments as a sum of squared Vandermonde products; Zudilin uses its
-integral form and reproduces its proof in <span class="citation"
-data-cites="zudilin2017det"><a href="#ref-7">[7]</a></span>. To compute modulo <span
-class="math inline" data-term-auto="off">\(q^{M+1}\)</span>, truncate each moment sum at
-<span class="math inline" data-term-auto="off">\(k=M\)</span>. Every omitted term is
-divisible by <span class="math inline" data-term-auto="off">\(q^{M+1}\)</span>, so
-multilinearity shows that the determinant is unchanged modulo <span
-class="math inline" data-term-auto="off">\(q^{M+1}\)</span>. Finite Cauchy–Binet then gives,
-coefficient by coefficient,</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[V_N^*=\sum_{k_0&lt;\cdots&lt;k_{N-1}}
-\left(\prod_{i=0}^{N-1}a_{k_i}(q)q^{k_i}\right)
-\prod_{0\le i&lt;j&lt;N}(q^{k_i}-q^{k_j})^2.\]</span></div>
-<p>At rank two, the
-pair <span class="math inline" data-term-auto="off">\((k_0,k_1)=(0,1)\)</span> contributes
-<span class="math inline" data-term-auto="off">\(6q+O(q^2)\)</span>. Every other increasing
-pair has order at least two: its order is <span
-class="math inline" data-term-auto="off">\(3k_0+k_1\)</span>. This already gives <span
-class="math inline" data-term-auto="off">\(V_2^*=6q+O(q^2)\)</span>. At general rank, the
-summand indexed by <span class="math inline" data-term-auto="off">\((k_i)\)</span> has order</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{i=0}^{N-1}(2N-1-2i)k_i.\]</span></div>
-<p>Each
-<span class="math inline" data-term-auto="off">\(a_k(q)\)</span> has <span
-class="math inline" data-term-auto="off">\(q\)</span>-order zero with positive initial
-coefficient <span class="math inline" data-term-auto="off">\(c_k\)</span>, and <span
-class="math inline" data-term-auto="off">\(k_i\ge i\)</span>. Equality with the least
-possible order occurs uniquely when <span
-class="math inline" data-term-auto="off">\(k_i=i\)</span> for every <span
-class="math inline" data-term-auto="off">\(i\)</span>. That tuple contributes</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{i=0}^{N-1}(2N-1-2i)i=\frac{N(N-1)(2N-1)}6\]</span></div>
-<p class="display-continue">and leading coefficient</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\prod_{i=0}^{N-1}c_i=\frac{(N!)^2(N+1)!}{2^N}.\]</span></div>
-<p>No other tuple can cancel this coefficient. ◻</p>
-</div>
-<p>The Lean proof follows a different route, through Zudilin’s
-transformed rows.</p>
-<section id="from-formal-order-to-size-at-a-fixed-base." class="level5">
-<h5>From formal order to size at a fixed base.</h5>
-<p>Formal order alone does not bound the value at a fixed <span
-class="math inline" data-term-auto="off">\(q\)</span>: multiplication by <span
-class="math inline" data-term-auto="off">\((1-q)^{N^3}\)</span> leaves the first term
-unchanged but changes its logarithm by a cubic quantity. The long
-record, Section 3.1, proves separately that <span
-class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and that <span
-class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)</span> for
-fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The same
-positive-measure argument, carried further, settles the size within that
-band. Lean derives the theorem below from the long record’s <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">form</a>
-with the explicit constant <span class="math inline" data-term-auto="off">\(K(q)=\mathcal
-A(q)\mathcal M(q)^3\)</span>, using the <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">exact
-factorisation</a> of the moment weights, from which it also obtains the
-second-order behaviour of <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span>,
-and a <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinant
-limit</a> for weights of this shape.</p>
-<div class="theorem" id="res:sharp-fixed-base">
-<p><strong>Theorem 3.2</strong> (the size of <span
-class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Fix <span
-class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> and write <span
-class="math inline" data-term-auto="off">\(P=(q;q)_\infty\)</span>, <span
-class="math inline" data-term-auto="off">\(B_N=N(N-1)(2N-1)/6\)</span> and <span
-class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>. There is a <span
-class="math inline" data-term-auto="off">\(K(q)&gt;0\)</span> with </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
-\qquad(N\to\infty).\]</span></div>
-</div>
-<div class="proof">
-<p><em>Outline; the full proof is in the long record.</em> Collecting
-the moment dependence in <span class="math inline" data-term-auto="off">\(w=q^{m+1}\)</span>
-as above writes <span
-class="math inline" data-term-auto="off">\(v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}\)</span> with
-<span class="math inline" data-term-auto="off">\(a_k=[w^k]P^4G_q(w)\)</span>. Two facts about
-these weights suffice. First, they factor exactly as</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k},
-\qquad
-R_k^{(r)}=\sum_{n_1+\cdots+n_r=k}\frac{(q;q)_k}{\prod_j(q;q)_{n_j}},\]</span></div>
-<p class="display-continue">which gives <span class="math inline" data-term-auto="off">\(P^5c_k\le a_k\le
-P^{-1}c_k\)</span> and a polynomial bound on the ratios <span
-class="math inline" data-term-auto="off">\(a_{k+h}/a_k\)</span>. Second, <span
-class="math inline" data-term-auto="off">\(P^4(1-w)^4G_q(w)\)</span> is analytic past the
-unit circle with value <span class="math inline" data-term-auto="off">\(3\)</span> and
-derivative <span class="math inline" data-term-auto="off">\(2+8F(1/q)\)</span> at <span
-class="math inline" data-term-auto="off">\(w=1\)</span>, so <span
-class="math inline" data-term-auto="off">\(a_k/c_k=1-8F(1/q)/(k+1)+O_q((k+1)^{-2})\)</span>
-and <span class="math inline" data-term-auto="off">\(\prod_{k&lt;N}a_k\sim\mathcal
-A(q)C_NN^{-8F(1/q)}\)</span> for a convergent product <span
-class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span>.</p>
-<p>In Heine’s expansion of the determinant, write each increasing tuple
-as <span class="math inline" data-term-auto="off">\(k_i=i+\lambda_i\)</span> and reverse the
-shifts to obtain a partition. The least tuple contributes <span
-class="math inline" data-term-auto="off">\(q^{B_N}\prod_{k&lt;N}a_k\)</span> times its own
-Vandermonde product <span
-class="math inline" data-term-auto="off">\(\Delta_N=\prod_{d&lt;N}(1-q^d)^{2(N-d)}\)</span>;
-the first bound on the weights majorises every other tuple by a summand
-that is summable over partitions and independent of <span
-class="math inline" data-term-auto="off">\(N\)</span>. Dominated convergence then reduces the
-normalised sum to the case <span
-class="math inline" data-term-auto="off">\(a_k\equiv1\)</span>, where Cauchy’s determinant
-evaluates it, and that sum tends to <span class="math inline" data-term-auto="off">\(\mathcal
-M(q)=\prod_{d\ge1}(1-q^d)^{-d}\)</span>. Separately <span
-class="math inline" data-term-auto="off">\(\Delta_N/P^{2N}\to\mathcal M(q)^2\)</span>.
-Writing <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> for the
-convergent product above, the constant is <span
-class="math inline" data-term-auto="off">\(K(q)=\mathcal A(q)\mathcal M(q)^3\)</span>. ◻</p>
-</div>
-<p>One of those three factors of <span class="math inline" data-term-auto="off">\(\mathcal
-M(q)\)</span> comes from the tuples other than the least one, and is
-therefore invisible to the order calculation; the other two come from
-comparing the least tuple’s own Vandermonde product with <span
-class="math inline" data-term-auto="off">\(P^{2N}\)</span>. The long record proves both
-ingredients in full, including the degree <span
-class="math inline" data-term-auto="off">\(\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor\)</span>
-and coefficient sum <span class="math inline" data-term-auto="off">\(6^k\)</span> of the
-product <span class="math inline" data-term-auto="off">\(R_k^{(2)}R_k^{(3)}\)</span>.</p>
-</section>
-<section id="what-neither-calculation-implies." class="level5">
-<h5>What neither calculation implies.</h5>
-<p>Theorem <a class="math-ref" href="#res:sharp-fixed-base">3.2</a> replaces that
-band by explicit linear and logarithmic terms and a constant. It changes
-no cubic coefficient and no prime-power valuation, so it supplies no
-divisor for the 2004 polynomial forms. Against the two proposed degree
-savings of long Section 3, the shortfall at <span
-class="math inline" data-term-auto="off">\(3/2\)</span> is exactly <span
-class="math inline" data-term-auto="off">\(N(74N^2-117N+41)/41&gt;0\)</span> for <span
-class="math inline" data-term-auto="off">\(N\ge2\)</span>, and the new estimate closes no
-part of it. Neither assertion supplies the cyclotomic divisibility
-proved for a different recurrence in <span class="citation"
-data-cites="krvz2009"><a href="#ref-14">[14]</a></span>. Long Section 3.3 gives the separate
-coefficient and content calculations; Appendix <a class="math-ref" href="#app:index">A</a> separates its fixed-rank
-Lean results from its finite computations.</p>
+<p>The positive-remainder estimates require <span
+class="math inline" data-term-auto="off">\(x&gt;1\)</span>, so they give no statement for
+negative bases. The series diverges at <span
+class="math inline" data-term-auto="off">\(x=1\)</span>. The companion record also checks the
+parameters at <span class="math inline" data-term-auto="off">\(7/2\)</span> in its section on
+Bundschuh and Väänänen’s height criterion. The analytic irrationality
+result used there is their cited theorem.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
-<h2>Supplementary arithmetic at <span
-class="math inline" data-term-auto="off">\(3/2\)</span></h2>
-<p>The principal proofs are complete. The question here is whether
-combinations of evaluated rows can be divided by a common integer
-without losing nonvanishing or smallness of the remainder. This is a
-different operation from the polynomial cancellation in Section <a class="math-ref" href="#sec:rational-base-irrationality">2</a>.
-The results below give necessary tests and conditional counting
-arguments, not such a family.</p>
-<p>For natural <span class="math inline" data-term-auto="off">\(a,b,N,K,Q,D\)</span>,
-consider the clearing conditions</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[a,Q,D&gt;0,\quad D\le N+K,\quad a^K\mid QD,
-\quad Qb^{N+K+1}&lt;a^{K+1}.\]</span></div>
-<p>Since <span
-class="math inline" data-term-auto="off">\(QD&gt;0\)</span>, divisibility gives <span
-class="math inline" data-term-auto="off">\(a^K\le QD\le Q(N+K)\)</span>. Combining this with
-the last inequality and cancelling <span
-class="math inline" data-term-auto="off">\(Q&gt;0\)</span> yields <span
-class="math inline" data-term-auto="off">\(b^{N+K+1}&lt;a(N+K)\)</span>. At <span
-class="math inline" data-term-auto="off">\((a,b)=(3,2)\)</span> this contradicts <span
-class="math inline" data-term-auto="off">\(3x&lt;2^{x+1}\)</span> for <span
-class="math inline" data-term-auto="off">\(x=N+K\ge2\)</span>. The last inequality tests only
-a lower bound for the omitted tail: for <span
-class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span>,</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[Q a^N\sum_{m\ge N+K+1}\tau(m)(b/a)^m
-&gt;\frac{Qb^{N+K+1}}{a^{K+1}}.\]</span></div>
-<p>Thus it is necessary for the
-scaled tail to be less than <span class="math inline" data-term-auto="off">\(1\)</span>, not
-sufficient. The long record, Section 6, gives counterexamples to the
-converse and to clearing all coordinates from the last-coordinate test.
-The following theorem excludes these stated conditions at <span
-class="math inline" data-term-auto="off">\(3/2\)</span>, not every rational approximation
-argument.</p>
-<div class="theorem" id="res:nocorridor">
-<p><strong>Theorem 4.1</strong> (failure of the stated clearing conditions
-at <span class="math inline" data-term-auto="off">\(3/2\)</span>). <em> For all <span
-class="math inline" data-term-auto="off">\(N\ge1\)</span> and <span
-class="math inline" data-term-auto="off">\(K\ge1\)</span> and all natural <span
-class="math inline" data-term-auto="off">\(Q,D\)</span>, the tuple <span
-class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> does not satisfy the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">clearing
-conditions above</a>.</em></p>
-</div>
-<p>For <span class="math inline" data-term-auto="off">\(r,s,B,\xi\in\Q\)</span> with <span
-class="math inline" data-term-auto="off">\(r\ne0\)</span> and <span
-class="math inline" data-term-auto="off">\(c:\N\to\Q\)</span>, put</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[U_N=Br^N\left(\xi-\sum_{m=0}^{N-1}
-c(m+1)\frac{s^{m+1}}{r^{m+1}}\right).\]</span></div>
-<p>The rational <span
-class="math inline" data-term-auto="off">\(\xi\)</span> is arbitrary; in an irrationality
-argument it would be a hypothetical value of the series.</p>
-<div class="theorem" id="res:tailrec">
-<p><strong>Theorem 4.2</strong> (recurrence for the scaled remainder).
-<em> Let <span class="math inline" data-term-auto="off">\(r,s,B,\xi\in\Q\)</span> with <span
-class="math inline" data-term-auto="off">\(r\ne0\)</span>, let <span
-class="math inline" data-term-auto="off">\(c:\N\to\Q\)</span>, and define <span
-class="math inline" data-term-auto="off">\(U_N\)</span> as above. Then for every <span
-class="math inline" data-term-auto="off">\(N\)</span> the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">recurrence
-for the scaled remainder</a> is </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></div>
-</div>
-<p>Subtracting successive partial sums proves the identity. Neither
-convergence nor equality of <span class="math inline" data-term-auto="off">\(\xi\)</span>
-with the infinite series is assumed.</p>
-<div class="theorem" id="res:forcing">
-<p><strong>Theorem 4.3</strong> (the forcing term). <em> Let <span
-class="math inline" data-term-auto="off">\(s,B\)</span> be natural numbers and <span
-class="math inline" data-term-auto="off">\(c:\N\to\N\)</span>.</em></p>
-<ol>
-<li><p><em>If <span class="math inline" data-term-auto="off">\(s\ge2\)</span>, <span
-class="math inline" data-term-auto="off">\(B\ge1\)</span> and <span
-class="math inline" data-term-auto="off">\(c(N+1)\ge1\)</span>, then <span
-class="math inline" data-term-auto="off">\(2^{\,N+1}\le
-B\,c(N+1)\,s^{\,N+1}\)</span>.</em></p></li>
-<li><p><em>If <span class="math inline" data-term-auto="off">\(s=1\)</span>, then <span
-class="math inline" data-term-auto="off">\(B\,c(N+1)\,s^{\,N+1}=B\,c(N+1)\)</span>.</em></p></li>
-</ol>
-</div>
-<div class="proof">
-<p><em>Proof.</em> In the first case, <span
-class="math inline" data-term-auto="off">\(2^{N+1}\le s^{N+1}\le Bc(N+1)s^{N+1}\)</span>. The
-second case follows by substituting <span
-class="math inline" data-term-auto="off">\(s=1\)</span>. ◻</p>
-</div>
-<p>For fixed <span class="math inline" data-term-auto="off">\(r\)</span>, the recurrence
-gives <span
-class="math inline" data-term-auto="off">\(\max(|U_N|,|U_{N+1}|)\ge2^{N+1}/(1+|r|)\)</span>
-under the first case’s hypotheses. It excludes a bounded full sequence
-when those hypotheses hold for every <span
-class="math inline" data-term-auto="off">\(N\)</span>, not a bounded subsequence. The long
-record, Section 7, gives the triangle-inequality proof and a
-cancellation example.</p>
-<p>Fix <span class="math inline" data-term-auto="off">\(W\ge0\)</span>. For any <span
-class="math inline" data-term-auto="off">\(P\in\Z[X]\)</span>, let <span
-class="math inline" data-term-auto="off">\([P]_i\)</span> denote its coefficient of <span
-class="math inline" data-term-auto="off">\(X^i\)</span> and define</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[H_W(P)=\sum_{i=0}^W[P]_i3^i2^{W-i}.\]</span></div>
-<p>This
-is <span class="math inline" data-term-auto="off">\(2^WP(3/2)\)</span> when <span
-class="math inline" data-term-auto="off">\(\deg P\le W\)</span> and a truncated evaluation
-otherwise. The congruence counts use either interpretation; statements
-about the actual remainder require the degree bound. Primitivity means
-that the two evaluated coordinates have gcd one, not that the polynomial
-coefficients do: at <span class="math inline" data-term-auto="off">\(W=1\)</span>, <span
-class="math inline" data-term-auto="off">\((X,3)\)</span> has coefficient content one but
-gives <span class="math inline" data-term-auto="off">\((3,6)\)</span>. The counts below
-require neither normalisation. Any division must be applied to both the
-rows and their remainders before the residue map is formed. For depths
-<span class="math inline" data-term-auto="off">\(R,S\ge0\)</span>, define</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[J_{3,R}(P)=H_W(P)\pmod{3^R},\qquad
-J_{2,S}(P)=H_W(P)\pmod{2^S}.\]</span></div>
-<div class="lemma" id="res:bottomjet">
-<p><strong>Lemma 4.4</strong> (a residue and divisibility by <span
-class="math inline" data-term-auto="off">\(3^R\)</span>). <em> Vanishing of the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191">residue
-modulo <span class="math inline" data-term-auto="off">\(3^R\)</span></a> is exactly
-divisibility by the corresponding power of three: <span
-class="math inline" data-term-auto="off">\(J_{3,R}(P)=0\)</span> if and only if <span
-class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
-</div>
-<p>All four residues of <span class="math inline" data-term-auto="off">\((U,V)\)</span>
-vanish precisely when <span class="math inline" data-term-auto="off">\(D=3^R2^S\)</span>
-divides both integers <span class="math inline" data-term-auto="off">\(H_W(U)\)</span> and
-<span class="math inline" data-term-auto="off">\(H_W(V)\)</span>. Use the same <span
-class="math inline" data-term-auto="off">\(W\)</span> for all rows: even when <span
-class="math inline" data-term-auto="off">\(W\)</span> bounds every degree, replacing it by
-<span class="math inline" data-term-auto="off">\(W+1\)</span> doubles the cleared values and
-changes their <span class="math inline" data-term-auto="off">\(2\)</span>-adic divisibility.
-The general truncation identity and endpoint congruences are given in
-long Section 5.</p>
-<div class="theorem" id="res:jetkernel">
-<p><strong>Theorem 4.5</strong> (equal residues for two subset sums).
-<em> Fix a truncation index <span class="math inline" data-term-auto="off">\(W\)</span> and
-depths <span class="math inline" data-term-auto="off">\(R,S\)</span>, and let <span
-class="math inline" data-term-auto="off">\((U_j,V_j)_{j&lt;M}\)</span> be any <span
-class="math inline" data-term-auto="off">\(M\)</span> pairs of integral polynomials.
-Represent each subset of <span
-class="math inline" data-term-auto="off">\(\{0,\dots,M-1\}\)</span> by its indicator vector
-in <span class="math inline" data-term-auto="off">\(\{0,1\}^M\)</span>. If the <span
-class="math inline" data-term-auto="off">\(2^M\)</span> subsets outnumber the possible
-residue vectors in </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[(\Z/3^R\Z)^2\times(\Z/2^S\Z)^2,\]</span></div>
-<p class="display-continue"><em> then two
-distinct subsets have the same residue vector. Subtracting their
-indicator vectors gives a nonzero coefficient vector in <span
-class="math inline" data-term-auto="off">\(\{-1,0,1\}^M\)</span> cancelling all four
-residues. The target has exact cardinality </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2.\]</span></div>
-<p><em> In particular, if <span
-class="math inline" data-term-auto="off">\(R&gt;0\)</span> and <span
-class="math inline" data-term-auto="off">\(4R+2S\le M\)</span>, such a collision
-exists.</em></p>
-</div>
-<div class="proof">
-<p><em>Proof.</em> Send each subset to the sum of the residue vectors of
-its members. The pigeonhole principle gives two distinct subsets with
-the same image. The target size is the product of its four moduli. For
-<span class="math inline" data-term-auto="off">\(R&gt;0\)</span>,</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[(3^R)^2(2^S)^2&lt;(4^R)^2(2^S)^2=2^{4R+2S}\le2^M,\]</span></div>
-<p class="display-continue">which proves the stated sufficient threshold. ◻</p>
-</div>
-<p>The ambient count does not use relations between the two residue
-coordinates. Vanishing minors can reduce that cost to one
-coordinate.</p>
-<div class="theorem" id="res:plucker-collapse">
-<p><strong>Theorem 4.6</strong> (vanishing minors and a residue count).
-<em> Let <span class="math inline" data-term-auto="off">\(R_0\)</span> be a commutative ring
-and let <span class="math inline" data-term-auto="off">\(w_n=(A_n,B_n)\in R_0^2\)</span>.
-Suppose that every row is unimodular (<span class="math inline" data-term-auto="off">\(u_n
-A_n+v_n B_n=1\)</span> for some <span
-class="math inline" data-term-auto="off">\(u_n,v_n\)</span>) and every adjacent minor
-vanishes: </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[A_nB_{n+1}-B_nA_{n+1}=0\qquad(n\ge0).\]</span></div>
-<p><em>
-Then every pairwise minor <span
-class="math inline" data-term-auto="off">\(A_iB_j-B_iA_j\)</span> vanishes. In particular,
-take <span class="math inline" data-term-auto="off">\(R_0=\Z/(2^S3^R)\Z\)</span> with <span
-class="math inline" data-term-auto="off">\(R&gt;0\)</span>. If <span
-class="math inline" data-term-auto="off">\(S+2R\le k\)</span>, there are two distinct binary
-selectors <span class="math inline" data-term-auto="off">\(s,t\in\{0,1\}^{k}\)</span> such
-that </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{i&lt;k}s_iw_i=\sum_{i&lt;k}t_iw_i.\]</span></div>
-<p><em>
-Thus <span class="math inline" data-term-auto="off">\(S+2R\)</span> rows suffice, in place of
-the sufficient bound <span class="math inline" data-term-auto="off">\(2S+4R\)</span> from the
-ambient two-coordinate count.</em></p>
-</div>
-<div class="proof">
-<p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(uA+vB=1\)</span> and
-<span class="math inline" data-term-auto="off">\(AB&#39;-BA&#39;=0\)</span>, then <span
-class="math inline" data-term-auto="off">\((A&#39;,B&#39;)=(uA&#39;+vB&#39;)(A,B)\)</span>.
-Applying this identity to consecutive rows and then inducting shows that
-every row is a multiple of <span class="math inline" data-term-auto="off">\(w_0\)</span>.
-This proves that every pairwise minor is zero. Right multiplication by</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{pmatrix}u_0&amp;-B_0\\v_0&amp;A_0\end{pmatrix}\]</span></div>
-<p class="display-continue">has determinant <span class="math inline" data-term-auto="off">\(u_0A_0+v_0B_0=1\)</span> and
-sends <span class="math inline" data-term-auto="off">\(w_0\)</span> to <span
-class="math inline" data-term-auto="off">\((1,0)\)</span>. Consequently all transformed
-subset sums have second coordinate zero and take at most <span
-class="math inline" data-term-auto="off">\(2^S3^R\)</span> values. Finally</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[2^S3^R&lt;2^S4^R=2^{S+2R}\le2^k,\]</span></div>
-<p class="display-continue">and
-pigeonhole gives the two selectors. ◻</p>
-</div>
-<p>Primitive integer rows are unimodular modulo every modulus: for <span
-class="math inline" data-term-auto="off">\((2,3)\)</span> modulo <span
-class="math inline" data-term-auto="off">\(6\)</span>, neither coordinate is a unit, but
-<span class="math inline" data-term-auto="off">\(-2+3=1\)</span>. Vanishing minors is an
-extra assumption. It is imposed in the quotient ring, not in <span
-class="math inline" data-term-auto="off">\(\Z\)</span>: the rows <span
-class="math inline" data-term-auto="off">\((1,0),(1,6)\)</span> below have determinant <span
-class="math inline" data-term-auto="off">\(6\)</span> and coincide modulo <span
-class="math inline" data-term-auto="off">\(6\)</span>. Arbitrary primitive rows need not
-satisfy it; <span class="math inline" data-term-auto="off">\((1,0),(0,1)\)</span> have
-determinant <span class="math inline" data-term-auto="off">\(1\)</span>. No such
-approximation family is constructed here.</p>
-<section id="an-exponent-model-and-row-normalisation" class="level3">
-<h3>An exponent model and row normalisation</h3>
-<p>The next proposition checks an exponent model, not an approximation
-construction: no coefficient polynomials producing these exponents are
-specified.</p>
-<div class="proposition" id="res:pade">
-<p><strong>Proposition 4.7</strong> (exponent model: summand bound and
-exact gap). <em> Let <span
-class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span> and put </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),\]</span></div>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\widetilde{Q}(n,m)=2(n^{2}-n)+j^{2}+2jm+j-m^{2}+3m,
-\qquad j=n-m-1 .\]</span></div>
-<p><em> Then, for integers <span
-class="math inline" data-term-auto="off">\(n,k,m\)</span>:</em></p>
-<ol>
-<li><p><em>if <span class="math inline" data-term-auto="off">\(0\le k\le n\)</span>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30">summand
-exponent bound</a> is <span
-class="math inline" data-term-auto="off">\(\widetilde{P}(n,k)\le\widetilde{E}_n\)</span>, and
-the gap factors as <span
-class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)\)</span>;</em></p></li>
-<li><p><em>the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52">exact
-gap identity</a> is <span
-class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
-</ol>
-</div>
-<p>For the first inequality the gap is zero at <span
-class="math inline" data-term-auto="off">\(n=k=0\)</span>; otherwise both factors are
-nonnegative. Substituting <span class="math inline" data-term-auto="off">\(j=n-m-1\)</span>
-gives the second identity for every integer <span
-class="math inline" data-term-auto="off">\(m\)</span>.</p>
-<div class="proposition" id="res:content">
-<p><strong>Proposition 4.8</strong> (rescaling two integer rows). <em>
-Multiplying two integer rows by <span class="math inline" data-term-auto="off">\(c_1\)</span>
-and <span class="math inline" data-term-auto="off">\(c_2\)</span> multiplies their <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124">determinant</a>
-by <span class="math inline" data-term-auto="off">\(c_1c_2\)</span>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94">integer
-identity</a> and its <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104">absolute-value
-form</a> show that the added divisibility is accompanied by exactly the
-same factor in the real absolute value.</em></p>
-</div>
-<p>For nonzero row contents <span
-class="math inline" data-term-auto="off">\(c_1,c_2\)</span>, write <span
-class="math inline" data-term-auto="off">\(r_i=c_ir_i^{\rm prim}\)</span>. Then <span
-class="math inline" data-term-auto="off">\(\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm
-prim})\)</span> and <span class="math inline" data-term-auto="off">\(r_i\cdot(\xi,-1)=c_i
-r_i^{\rm prim}\cdot(\xi,-1)\)</span>. These identities concern
-multiplication or division of whole integer rows, not cancellation of a
-polynomial factor before specialisation. Nor does dividing different
-rows by different contents preserve a fixed residue relation: <span
-class="math inline" data-term-auto="off">\((1,1)+(5,5)\)</span> is zero modulo <span
-class="math inline" data-term-auto="off">\(6\)</span>, but the sum of the primitive rows is
-<span class="math inline" data-term-auto="off">\((2,2)\)</span>. Even contents coprime to the
-modulus require the residue map to be formed again after row-by-row
-normalisation.</p>
-</section>
-<section id="residue-counts-and-the-index-after-division"
-class="level3">
-<h3>Residue counts and the index after division</h3>
-<p>The primitive rows <span class="math inline" data-term-auto="off">\((1,0),(1,6)\)</span>
-generate <span class="math inline" data-term-auto="off">\(\Z\oplus6\Z\)</span>. Modulo <span
-class="math inline" data-term-auto="off">\(2\)</span> this lattice has only two residue
-vectors, but dividing its even vectors by <span
-class="math inline" data-term-auto="off">\(2\)</span> gives <span
-class="math inline" data-term-auto="off">\(\Z\oplus3\Z\)</span>, which still has index <span
-class="math inline" data-term-auto="off">\(3\)</span> in <span
-class="math inline" data-term-auto="off">\(\Z^2\)</span>. Thus a small residue space need not
-become the full integer lattice after division. Smith normal form gives
-both quantities in general.</p>
-<p>Let a rank-two lattice <span
-class="math inline" data-term-auto="off">\(\Lambda\subset\Z^2\)</span> be generated by
-primitive rows, and let <span class="math inline" data-term-auto="off">\(g&gt;0\)</span> be
-the gcd of their <span class="math inline" data-term-auto="off">\(2\times2\)</span> minors.
-By the description of Smith invariants through gcds of minors <span
-class="citation" data-cites="stanley2016"></span>, its Smith invariants
-are <span class="math inline" data-term-auto="off">\(1,g\)</span>. For <span
-class="math inline" data-term-auto="off">\(D\ge1\)</span>, therefore</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\bigl|\operatorname{im}(\Lambda\bmod D)\bigr|
-       =\frac{D^2}{\gcd(g,D)},\qquad
-\left[\Z^2:\frac{\Lambda\cap D\Z^2}{D}\right]
-       =\frac{g}{\gcd(g,D)}.\]</span></div>
-<p>A unimodular change of coordinates
-preserves <span class="math inline" data-term-auto="off">\(D\Z^2\)</span> and reduces both
-calculations to <span class="math inline" data-term-auto="off">\(\Z\oplus g\Z\)</span>. Thus,
-when <span class="math inline" data-term-auto="off">\(D\mid g\)</span>, there are only <span
-class="math inline" data-term-auto="off">\(D\)</span> residues, but the divided lattice still
-has index <span class="math inline" data-term-auto="off">\(g/D\)</span>. The general formulas
-without primitive generators are in the long record, Section 10.1.</p>
-<p>If two independent divided rows <span
-class="math inline" data-term-auto="off">\((A_i,B_i)\)</span> have <span
-class="math inline" data-term-auto="off">\(|A_i|\le H\)</span> and <span
-class="math inline" data-term-auto="off">\(|A_i\xi-B_i|\le\varepsilon\)</span>, their
-determinant gives</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2H\varepsilon\ge
-\frac{g}{\gcd(g,D)}.\]</span></div>
-<p>This is a restriction on two independent
-forms in the divided lattice. For one nonzero integral form tending to
-zero, no additional product <span
-class="math inline" data-term-auto="off">\(H\varepsilon\to0\)</span> is required.</p>
-</section>
-<section id="a-collision-must-have-a-small-nonzero-real-remainder"
-class="level3">
-<h3>A collision must have a small nonzero real remainder</h3>
-<p>Counting residues within short intervals gives small differences. To
-keep a difference nonzero, one must also bound the number of selectors
-with the same residues and the same real value.</p>
-<div class="theorem" id="res:boundedfibre">
-<p><strong>Theorem 4.9</strong> (equal residues with close, distinct
-values). <em> Let <span class="math inline" data-term-auto="off">\(A,B,J\)</span> be finite
-sets and let <span class="math inline" data-term-auto="off">\(f:A\to B\)</span>, <span
-class="math inline" data-term-auto="off">\(g:A\to\mathbb R\)</span> and <span
-class="math inline" data-term-auto="off">\(\iota:A\to J\)</span>. Suppose that each
-simultaneous fibre of <span class="math inline" data-term-auto="off">\((f,g)\)</span> has at
-most <span class="math inline" data-term-auto="off">\(k\)</span> elements and that, for some
-<span class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>, </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\iota(x)=\iota(y)\quad\Longrightarrow\quad
-|g(x)-g(y)|&lt;\delta.\]</span></div>
-<p><em> If <span
-class="math inline" data-term-auto="off">\(|B||J|k&lt;|A|\)</span>, then some distinct <span
-class="math inline" data-term-auto="off">\(x,y\in A\)</span> satisfy </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[f(x)=f(y),\qquad
-0&lt;|g(x)-g(y)|&lt;\delta.\]</span></div>
-</div>
-<div class="proof">
-<p><em>Proof.</em> Partition <span class="math inline" data-term-auto="off">\(A\)</span> by
-<span class="math inline" data-term-auto="off">\((f,\iota)\)</span>. Some cell has more than
-<span class="math inline" data-term-auto="off">\(k\)</span> elements, so its <span
-class="math inline" data-term-auto="off">\(g\)</span>-values cannot all agree. Two unequal
-values in that cell have the same residue vector and differ by less than
-<span class="math inline" data-term-auto="off">\(\delta\)</span>. ◻</p>
-</div>
-<p>Primitivity gives no useful bound on <span
-class="math inline" data-term-auto="off">\(k\)</span>: repeated rows <span
-class="math inline" data-term-auto="off">\((1,0)\)</span> produce the same sum and remainder
-for every subset of a given size. The application below therefore needs
-a separate multiplicity estimate.</p>
-<p>Fix positive integers <span class="math inline" data-term-auto="off">\(n,D\)</span> and
-<span class="math inline" data-term-auto="off">\(M\)</span> primitive integer rows <span
-class="math inline" data-term-auto="off">\((A_j,B_j)\)</span>, indexed by <span
-class="math inline" data-term-auto="off">\(0\le j&lt;M\)</span>. Put <span
-class="math inline" data-term-auto="off">\(e_j=A_jF(3/2)-B_j\)</span> and apply Theorem <a class="math-ref" href="#res:boundedfibre">4.9</a> to binary
-selectors, with</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[f(\varepsilon)=\sum_j\varepsilon_j(A_j,B_j)\pmod
-D,
-\qquad g(\varepsilon)=\sum_j\varepsilon_j e_j.\]</span></div>
-<p>Let <span
-class="math inline" data-term-auto="off">\(Q\)</span> be the number of attained residue
-vectors and let <span class="math inline" data-term-auto="off">\(k\)</span> bound the
-simultaneous <span class="math inline" data-term-auto="off">\((f,g)\)</span> fibres. For a
-rank-two lattice generated by these rows, the preceding Smith formula
-gives <span class="math inline" data-term-auto="off">\(Q\le D^2/\gcd(g_0,D)\)</span>, where
-<span class="math inline" data-term-auto="off">\(g_0\)</span> is the gcd of the minors; it
-gives no bound on <span class="math inline" data-term-auto="off">\(k\)</span>. The selector
-remainders span an interval of length <span
-class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. Subtract its minimum,
-multiply by <span class="math inline" data-term-auto="off">\(n/D\)</span>, and take floors.
-The resulting indices range from <span class="math inline" data-term-auto="off">\(0\)</span>
-to <span class="math inline" data-term-auto="off">\(\lfloor nT/D\rfloor\)</span>, and two
-remainders with the same index differ by less than <span
-class="math inline" data-term-auto="off">\(D/n\)</span>. Thus a sufficient inequality is</p>
-<div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
-\label{eq:quantitative-selector-budget}
-2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right).
-\end{equation}\]</span></div>
-<p>It yields a signed row sum divisible
-coordinatewise by <span class="math inline" data-term-auto="off">\(D\)</span>, whose divided
-real remainder has absolute value strictly between <span
-class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1/n\)</span>. The residue-specific version is in
-the long record, Section 10.1. The multiplicity bound is what prevents a
-zero remainder; polynomial nonvanishing does not.</p>
-</section>
+<h2>Further questions</h2>
+<p>To use the determinant asymptotic in an irrationality proof, we would
+need to clear its rational coefficients at a cost compatible with its
+decay. Positivity and the growth of the moment weights do not estimate
+this cost. For comparison, the <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-countermodel">rational-value
+model in the companion paper</a> has the same formal orders, leading
+coefficients and type of fixed-base power correction, although its
+target value is rational. The model and its denominator calculation are
+retained there with ordinary proofs as unformalised remarks. The long
+record also gives an <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-ratio-extension">ordinary
+argument for the ratio-limit extension</a> under <span
+class="math inline" data-term-auto="off">\(a_{k+1}/a_k\to\rho\in(0,q^{-1})\)</span>, without
+the polynomial shift bound in Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a>. That
+extension remains unformalised.</p>
+<p>A different question concerns the polynomial coefficients of the
+approximants, rather than their remainders. Van Assche’s little-<span
+class="math inline" data-term-auto="off">\(q\)</span>-Legendre construction <span
+class="citation" data-cites="vanassche2001"></span> and the
+multiple-orthogonality construction of Postelmans and Van Assche <span
+class="citation" data-cites="postelmansvanassche2007"></span> make the
+normalisation important. In the 2016 family, the companion paper proves
+positivity of the first matrix of a coefficient pencil through rank
+eight, with real, interlacing roots below <span
+class="math inline" data-term-auto="off">\(F(p)\)</span> for <span
+class="math inline" data-term-auto="off">\(p&gt;1\)</span>. The shifted minors and
+coefficientwise positivity are supported by the stated finite polynomial
+computations. The <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-coefficients">coefficient-moment
+section</a> gives the definitions and the precise ranges. It leaves
+all-rank positivity and convergence of the largest root open. The
+general moment criteria of Wang and Zhu <span class="citation"
+data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span> and Sokal and Walrad <span
+class="citation" data-cites="sw2024"></span>, Berg’s factorial-power
+example <span class="citation" data-cites="berg2007"><a href="#ref-16">[16]</a></span>, and the
+quadrature construction of Golub and Welsch <span class="citation"
+data-cites="golubwelsch1969"><a href="#ref-18">[18]</a></span> provide the relevant comparisons.
+Using a recurrence from another family would require a proof that it
+holds for these coefficients. The root-of-unity method of Krattenthaler,
+Rochev, Väänänen and Zudilin <span class="citation"
+data-cites="krvz2009"><a href="#ref-14">[14]</a></span>, for example, concerns a separate
+construction.</p>
 <section id="sec:round8-transfer-boundaries" class="level3">
-<h3>Two transfer tests for the denominator problem</h3>
-<p>Sparse subseries admit a conclusion that is unavailable for the full
-support. If an infinite host has cuts <span
-class="math inline" data-term-auto="off">\(L_j&lt;M_j\)</span> with <span
-class="math inline" data-term-auto="off">\(L_j\to\infty\)</span>, <span
-class="math inline" data-term-auto="off">\(M_j-L_j\to\infty\)</span>, every earlier exponent
-dividing <span class="math inline" data-term-auto="off">\(L_j\)</span> and every later
-exponent divisible by <span class="math inline" data-term-auto="off">\(M_j\)</span>, then
-every infinite subseries with bounded positive integer weights is
-transcendental at every real algebraic base <span
-class="math inline" data-term-auto="off">\(t&gt;1\)</span>. Every divisibility chain and
-explicit non-chain hosts of unbounded divisibility width satisfy these
-hypotheses. The ordinary proof, including its conjugate-height
-estimates, is in <a href="../../../papers/optimal-sparse-perturbations.pdf"><em>Reading
-eight Erdős problems together</em></a>, subsection “Divisibility cuts at
-every algebraic base”. The full support fails the hypotheses, so this
-does not settle <span class="math inline" data-term-auto="off">\(F(3/2)\)</span>.</p>
-<p>There is a separate obstruction to reasoning from the Hankel
-signature alone. The companion <a
-href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf">long
-record</a>, subsection “A rational-value model with the same Hankel
-signature”, constructs positive moments <span
-class="math inline" data-term-auto="off">\(\mu_n(q)\)</span> and an integer formal series
-<span class="math inline" data-term-auto="off">\(G_q\)</span> whose Hankel determinants have
-the same all-rank leading coefficient and order as above, and the same
-fixed-base asymptotic shape, yet <span
-class="math inline" data-term-auto="off">\(G_{2/3}(2/3)=1\)</span>. For <span
-class="math inline" data-term-auto="off">\(n\ge1\)</span> it proves the exact formula</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\operatorname{den}\mu_n(2/3)
-   =3^{31n+62}(3^{n+1}-2^{n+1})^4.\]</span></div>
-<p>The reduced Hankel
-denominator has logarithmic size <span
-class="math inline" data-term-auto="off">\(\Theta(N^3)\)</span>. Already at rank two the
-product of the two individual moment denominators leaves denominator
-<span class="math inline" data-term-auto="off">\(625\)</span>. These ordinary proofs isolate
-the missing arithmetic clearing data. The model is not Zudilin’s moment
-family and does not refute his criterion or prove rationality of the
-original series.</p>
+<h3>Congruences and divided forms</h3>
+<p>At <span class="math inline" data-term-auto="off">\(3/2\)</span>, a polynomial <span
+class="math inline" data-term-auto="off">\(Q\)</span> of degree at most <span
+class="math inline" data-term-auto="off">\(W\)</span> has integral homogenised value <span
+class="math inline" data-term-auto="off">\(H_W(Q)=2^WQ(3/2)\)</span>. Congruences at powers
+of <span class="math inline" data-term-auto="off">\(2\)</span> and <span
+class="math inline" data-term-auto="off">\(3\)</span> give finite counting criteria for
+combinations of such values. The companion paper treats <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-arithmetic">integer
+rescaling</a> and <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-endpoints">endpoint
+congruences and signed sums</a>. It also treats the rank-one case and
+proves the quantitative finite-fibre estimate used below. Equal residues
+give a useful irrationality form only when the divided remainder is also
+nonzero and small. Smith normal form describes the image of the
+evaluated lattice <span class="citation"
+data-cites="stanley2016"><a href="#ref-6">[6]</a></span>, but does not estimate these real
+remainders.</p>
+<p>For example, suppose that <span class="math inline" data-term-auto="off">\(M\)</span>
+integral rows <span class="math inline" data-term-auto="off">\((A_j,B_j)\)</span> have
+remainders <span class="math inline" data-term-auto="off">\(e_j=A_jF(3/2)-B_j\)</span>, and
+that the subset sums take <span class="math inline" data-term-auto="off">\(Q\)</span> residue
+values modulo a positive integer <span class="math inline" data-term-auto="off">\(D\)</span>.
+Put <span class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span> and suppose that
+at most <span class="math inline" data-term-auto="off">\(k\)</span> selectors give the same
+exact remainder within a residue class. For each positive integer <span
+class="math inline" data-term-auto="off">\(n\)</span>, the sufficient inequality</p>
+<div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:quantitative-selector-budget}
+2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right)
+\end{equation}\]</span></div>
+<p class="display-continue">gives two equal-residue selectors whose
+remainders differ by a nonzero quantity of absolute value less than
+<span class="math inline" data-term-auto="off">\(D/n\)</span>. Indeed, in each residue class
+partition the interval of attained remainders into bins of width <span
+class="math inline" data-term-auto="off">\(D/n\)</span>, beginning at its least value. If
+every bin contained only one real value, its multiplicity would be at
+most <span class="math inline" data-term-auto="off">\(k\)</span>, contrary to <a class="math-ref" data-equation-ref="true" href="#eq:quantitative-selector-budget">eq:quantitative-selector-budget</a>.
+Subtracting the selectors and dividing by <span
+class="math inline" data-term-auto="off">\(D\)</span> gives an integral linear form of
+nonzero absolute value less than <span
+class="math inline" data-term-auto="off">\(1/n\)</span>. The <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-selectors">quantitative
+lemma and its proof</a> state the finite-set version without assumptions
+about Lambert series.</p>
+<p>The elementary integer-base method provides a different comparison.
+Vandehey <span class="citation" data-cites="vandehey2013"><a href="#ref-10">[10]</a></span> and
+Duverney and Tachiya <span class="citation"
+data-cites="duverneytachiya2019"><a href="#ref-11">[11]</a></span> use integer-base expansions. At
+a noninteger rational base the cleared tails satisfy a recurrence with a
+growing denominator contribution. The <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-clearing">clearing
+and tail-recurrence calculations</a> in the companion paper rule out one
+coordinatewise scheme at <span class="math inline" data-term-auto="off">\(3/2\)</span>. They
+make no assertion about other approximation families. At the function
+level, Bell and Smertnig <span class="citation"
+data-cites="bellsmertnig2026"><a href="#ref-9">[9]</a></span> exclude Mahler equations for the
+divisor generating series, while leaving the arithmetic of a single
+rational argument undecided.</p>
+<section id="prob:kernel" class="level5">
+<h5>A construction problem.</h5>
+<p>The unrestricted request for primitive polynomial rows and a signed
+combination whose divided remainder lies strictly between <span
+class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(1/n\)</span> is equivalent to the irrationality of
+the target. The companion paper retains the full statement and proves
+this equivalence in its <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-open-construction">section
+on divided linear forms</a>. A more specific question must prescribe the
+approximation family. For the 2004 family one can instead ask whether a
+parameter direction improves <span
+class="math inline" data-term-auto="off">\(\theta^*\)</span>. The <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-region-extensions">all-base
+degree restriction</a> proves the upper bound <span
+class="math inline" data-term-auto="off">\(1/2\)</span> for the degree cutoff under its
+stated uniform-in-base hypotheses. Thus this sufficient criterion does
+not include <span class="math inline" data-term-auto="off">\(3/2\)</span>. When the degrees
+have a quadratic limit, the stronger conclusion there excludes decay of
+the undivided forms at <span class="math inline" data-term-auto="off">\(3/2\)</span>.
+Division by additional base-dependent content and other families remain
+unclassified. Equality in the rational-base cutoff is also unresolved by
+the estimates of Section <a class="math-ref" href="#sec:rational-base-irrationality">4</a>.</p>
 </section>
-<section id="the-remaining-construction-problem" class="level3">
-<h3>The remaining construction problem</h3>
-<p>The next question specifies the required integer forms, not an
-approximation family. Unrestricted, it is equivalent to irrationality of
-<span class="math inline" data-term-auto="off">\(F(3/2)\)</span>; the long record,
-Section 10, proves the converse even with the stated index bounds and
-coefficient height <span class="math inline" data-term-auto="off">\(\exp(O(n^2))\)</span>. A
-method-specific problem must additionally fix its coefficient formulas,
-parameter set and permitted normalisations.</p>
-<div class="problem" id="prob:kernel">
-<p><strong>Problem 4.10</strong> (a divided linear form with small nonzero
-remainder). <em> Exhibit an integer constant <span
-class="math inline" data-term-auto="off">\(C\ge1\)</span> and, for every sufficiently large
-positive integer <span class="math inline" data-term-auto="off">\(n\)</span>, positive
-integers <span class="math inline" data-term-auto="off">\(W_n,R_n,S_n,M_n\)</span> such that
-</em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[n^2\le W_n,R_n,S_n\le Cn^2,
-\qquad 4R_n+2S_n\le M_n\le Cn^2,\]</span></div>
-<p class="display-continue"><em> together with polynomial pairs
-<span class="math inline" data-term-auto="off">\((U_{n,j},V_{n,j})\in\Z[X]^2\)</span> for
-<span class="math inline" data-term-auto="off">\(0\le j&lt;M_n\)</span>, each of degree at
-most the common degree bound <span class="math inline" data-term-auto="off">\(W_n\)</span>,
-whose specialised integer rows are primitive: </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\gcd\!\bigl(H_{W_n}(U_{n,j}),H_{W_n}(V_{n,j})\bigr)=1.\]</span></div>
-<p><em>
-Find a nonzero vector <span
-class="math inline" data-term-auto="off">\(\lambda^{(n)}\in\{-1,0,1\}^{M_n}\)</span> for
-which, on putting </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[U_n=\sum_{j&lt;M_n}\lambda^{(n)}_jU_{n,j},
-\qquad V_n=\sum_{j&lt;M_n}\lambda^{(n)}_jV_{n,j},\]</span></div>
-<p class="display-continue"><em> the pair
-<span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> is not <span
-class="math inline" data-term-auto="off">\((0,0)\)</span>, all four residues vanish, </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[J_{3,R_n}(U_n)=J_{3,R_n}(V_n)=0,
-\qquad J_{2,S_n}(U_n)=J_{2,S_n}(V_n)=0,\]</span></div>
-<p class="display-continue"><em> where every residue in
-this display is formed using the common degree bound <span
-class="math inline" data-term-auto="off">\(W_n\)</span>, and the resulting divided integer
-linear form </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[A_n=\frac{H_{W_n}(U_n)}{3^{R_n}2^{S_n}},
-\qquad
-B_n=\frac{H_{W_n}(V_n)}{3^{R_n}2^{S_n}},
-\qquad
-\rho_n=A_nF(3/2)-B_n\]</span></div>
-<p class="display-continue"><em> satisfies the explicit analytic condition
-</em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0&lt;|\rho_n|&lt;\frac1n.\]</span></div>
-</div>
-<p>The residues make <span class="math inline" data-term-auto="off">\(A_n,B_n\)</span>
-integers. If <span class="math inline" data-term-auto="off">\(F(3/2)=a/b\)</span>, then <span
-class="math inline" data-term-auto="off">\(|\rho_n|\ge1/|b|\)</span> whenever <span
-class="math inline" data-term-auto="off">\(\rho_n\ne0\)</span>, contradicting the bound for
-arbitrarily large indices <span class="math inline" data-term-auto="off">\(n\)</span>. Such
-indices suffice; see long Section 10.</p>
 </section>
-<section id="statements-and-declarations" class="level3 unnumbered">
-<h3 class="unnumbered">Statements and declarations</h3>
+</section>
+<section id="app:index" class="level2">
+<h2>Proofs and source records</h2>
+<p>The links beside each statement and in the margin give the existing
+Lean proofs and recorded Comparator comparisons, indexed in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> at the <a
+href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">source revision</a>. Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a> is the
+polynomial-bound specialisation of the <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">geometric-moment
+proof</a> cited in the long record; its Comparator association remains
+pending. The broader ratio-limit argument and rational-value model there
+have ordinary proofs only. This revision has had no fresh Lean or
+Comparator run and no independent review.</p>
 <section id="data-availability." class="level5">
 <h5>Data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">formal-source revision</a> contains the Lean
-sources, the toolchain and the library manifest; the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> lists every declaration
-and check.</p>
+<p>The cited source revision contains the Lean sources, toolchain and
+library manifest. The companion paper supplies the longer algebraic
+arguments and the precise scope of the finite computations.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -1469,95 +1346,12 @@ competing interests.</p>
 </section>
 <section id="acknowledgements." class="level5">
 <h5>Acknowledgements.</h5>
-<p>The problem numbering and status follow the Erdős Problems catalogue
-maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. I thank Wouter van Doorn for advice
-on writing for a first-time reader, using fewer names and symbols, and
-explaining the force of a theorem’s hypotheses. His advice was given on
-another note and does not constitute mathematical review or endorsement
-of the results here.</p>
-</section>
-</section>
-</section>
-<section id="app:index" class="level2">
-<h2>Source comparisons and finite computations</h2>
-<section id="integer-base-methods." class="level5">
-<h5>Integer-base methods.</h5>
-<p>Vandehey treats signed coefficients in the digit argument <span
-class="citation" data-cites="vandehey2013"></span>; Duverney and Tachiya
-prove linear-independence refinements <span class="citation"
-data-cites="duverneytachiya2019"><a href="#ref-11">[11]</a></span>. Van Assche gives a little
-<span class="math inline" data-term-auto="off">\(q\)</span>-Legendre construction <span
-class="citation" data-cites="vanassche2001"></span>. These integer-base
-methods are compared in the long record’s related-work section; they are
-not inputs to the rational specialisation in Section 2.</p>
-</section>
-<section id="coefficient-moments." class="level5">
-<h5>Coefficient moments.</h5>
-<p>The coefficient polynomials in <span class="citation"
-data-cites="zudilin2016"><a href="#ref-5">[5]</a></span> give a moment problem different from
-the remainder moments in Section 3. Long Section 3.3 treats it at fixed
-ranks only; the all-rank criterion of <span class="citation"
-data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span> is not addressed. Write <span
-class="math inline" data-term-auto="off">\(A_N\)</span> and <span
-class="math inline" data-term-auto="off">\(B_N\)</span> for the <span
-class="math inline" data-term-auto="off">\(N\times N\)</span> Hankel matrices of the
-coefficients <span class="math inline" data-term-auto="off">\(\alpha_m,\beta_m\)</span> in
-<span class="math inline" data-term-auto="off">\(v_m^*=\alpha_mF(p)-\beta_m\)</span>, where
-<span class="math inline" data-term-auto="off">\(p=1/q\)</span>. Lean proves the <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">finite-pencil
-proposition</a>: for real <span class="math inline" data-term-auto="off">\(p&gt;1\)</span>
-and every rank <span class="math inline" data-term-auto="off">\(N\le8\)</span>, <span
-class="math inline" data-term-auto="off">\(A_N\)</span> is positive definite, all roots of
-<span class="math inline" data-term-auto="off">\(\det(YA_N-B_N)\)</span> are real and less
-than <span class="math inline" data-term-auto="off">\(F(p)\)</span>, and roots at adjacent
-ranks interlace non-strictly. It also proves the <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">positivity
-of the leading Hankel determinants</a> behind the first conclusion,
-through rank eight at every real <span
-class="math inline" data-term-auto="off">\(p\ge1\)</span>. The other finite results are exact
-computations outside Lean, with their certificate lists and reproduction
-scripts in the long record: positivity of the shifted Hankel
-determinants through rank eight, complete polynomial contents through
-rank five and specified cyclotomic residue tests through rank eight.
-From these the long record proves a finite moment representation, and it
-discusses <span class="math inline" data-term-auto="off">\((m!)^3\)</span> at the endpoint
-<span class="citation" data-cites="berg2007"><a href="#ref-16">[16]</a></span>, formal continued
-fractions and finite quadrature <span class="citation"
-data-cites="sw2024 golubwelsch1969"><a href="#ref-17">[17]</a><a href="#ref-18">[18]</a></span>. None of these results
-asserts all-rank coefficient positivity or divisibility.</p>
-</section>
-<section id="functional-equations." class="level5">
-<h5>Functional equations.</h5>
-<p>Bell and Smertnig’s classification <span class="citation"
-data-cites="bellsmertnig2026"><a href="#ref-9">[9]</a></span> excludes <span
-class="math inline" data-term-auto="off">\(k\)</span>-Mahler equations for <span
-class="math inline" data-term-auto="off">\(L(z)=\sum_{n\ge1}\tau(n)z^n\)</span> when <span
-class="math inline" data-term-auto="off">\(k\ge2\)</span>: there is no polynomial-coefficient
-relation among <span
-class="math inline" data-term-auto="off">\(L(z),L(z^k),\ldots,L(z^{k^d})\)</span> with a
-nonzero coefficient of <span class="math inline" data-term-auto="off">\(L(z)\)</span>. The
-single-base exclusion is also a <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">Lean
-theorem</a>, in the form that for every <span
-class="math inline" data-term-auto="off">\(k\ge2\)</span> no finite-dimensional <span
-class="math inline" data-term-auto="off">\(\Q(z)\)</span>-subspace of <span
-class="math inline" data-term-auto="off">\(\Q((z))\)</span> containing <span
-class="math inline" data-term-auto="off">\(L\)</span> is stable under <span
-class="math inline" data-term-auto="off">\(z\mapsto z^k\)</span>. Long Section 10.3 explains
-this functional obstruction; it gives no irrationality statement for
-<span class="math inline" data-term-auto="off">\(L(2/3)=F(3/2)\)</span>.</p>
-</section>
-<section id="rectangular-exponent-model." class="level5">
-<h5>Rectangular exponent model.</h5>
-<p>Long Section 10.4 shows that within the rectangular two-function
-exponent model the threshold never exceeds the classical one-function
-margin, with equality only at the classical endpoint. Lean proves the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">bound
-for the rectangular exponent expression</a> and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126">equality
-case for that bound</a>. The bound concerns only that exponent
-model.</p>
+<p>The problem numbering follows the catalogue maintained by Thomas
+Bloom <span class="citation" data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. I thank
+Wouter van Doorn for advice on writing for a first-time reader and
+explaining the force of a hypothesis. This advice concerned another note
+and does not imply mathematical review or endorsement of the present
+results.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1670,6 +1464,15 @@ The classical Stieltjes criterion is recalled on pp. 1–2.</p></li>
 Rules</em>, Math. Comp. <strong>23</strong> (1969), no. 106, 221–230,
 doi:<a
 href="https://doi.org/10.1090/S0025-5718-69-99647-1">10.1090/S0025-5718-69-99647-1</a>.</p></li>
+<li id="ref-19"><p>C. R. Vinroot, <a
+href="https://arxiv.org/abs/1011.0984"><em>Multivariate Rogers–Szegő
+polynomials and flags in finite vector spaces</em></a>,
+arXiv:1011.0984v1, 3 November 2010, abstract accessed 20 September 2026.
+Cited for the identification of the sum of all <span
+class="math inline" data-term-auto="off">\(q\)</span>-multinomial coefficients of fixed
+degree and length with a flag count, and for its recursion generalising
+the Galois numbers. The factorisation of the moment weights is proved
+here.</p></li>
 </ol>
 </section>
   </div>

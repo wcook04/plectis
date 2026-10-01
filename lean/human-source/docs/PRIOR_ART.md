@@ -16,12 +16,12 @@ numbering and status context rather than mathematical priority.
 Each current [problem paper and research record](../paper/README.md) carries
 its own bibliography and credits sources at the point of use. The
 [joint #249/#257 exposition](../paper/archive/erdos249-257-main-paper.tex) is
-archival. [CITATION.cff](../CITATION.cff) supplies the software release citation
+archival. [CITATION.cff](../CITATION.cff) supplies the current repository citation
 and selected mathematical and software references; it is not a duplicate of
 all the paper bibliographies. Its linked source records explain the local use
-and limits of the selected references. When citing work added after that
-release, also record the commit used. This map explains why the principal
-sources are credited.
+and limits of the selected references. Record the commit used; for a historical
+release, use the citation file from that tag. This map explains why the
+principal sources are credited.
 
 ## Browse all source credits
 

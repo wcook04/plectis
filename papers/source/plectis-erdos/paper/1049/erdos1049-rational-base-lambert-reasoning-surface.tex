@@ -15,13 +15,13 @@
 \newcommand{\latecommit}{035c414b25fda09ae0d2e56358b8716d321ebd99}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
-  pdftitle={Zudilin forms at rational bases: proofs and research record for Erdos Problem 1049},
+  pdftitle={Geometric moments and rational Lambert values: proofs and further results},
   pdfsubject={Erdős Problem Notes: Problem 1049},
   pdfkeywords={irrationality, Lambert series, rational base, Padé approximation, Lean 4},
 }
 
-\runninghead{Erd\H{o}s \#1049: proofs and research record}
-\title{Zudilin's Forms at Rational Bases:\\Proofs and Research Record}
+\runninghead{Geometric moments and rational Lambert values}
+\title{Geometric Moments and Rational Lambert Values:\\Proofs and Further Results}
 \subtitle{Erd\H{o}s Problem~\#1049}
 \author{Will Cook}
 \date{September 2026}
@@ -34,130 +34,117 @@
 \noteprovenance
 
 \begin{abstract}
-For coprime integers $a>b\ge1$, set $\theta=\log b/\log a$.
-We specialise Zudilin's 2004 linear forms to show that
-$F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}$ is irrational when
-$\theta<\theta^*=0.4056830213840605\ldots$, with
-\[
- \mu_{\rm irr}\!\left(F((a/b)^r)\right)
- \le\frac{1-\theta}{\theta^*-\theta}\qquad(r\ge1\text{ an integer}).
-\]
-Here $\mu_{\rm irr}$ is the irrationality exponent. In particular,
-the bound is less than $301$ for every positive integral power of
-$31/4$. The construction and its constants are Zudilin's; the proof
-cancels common cyclotomic factors before rational specialisation and
-accounts for the denominator introduced by the remaining degree.
-
-For the distinct Hankel construction of 2016, with its auxiliary parameters
-$x=z=1$, we compute
-the first nonzero term of the normalised determinant at every rank:
-\[
- \operatorname{ord}_q V_N^*=\frac{N(N-1)(2N-1)}6,
- \qquad [q^{\operatorname{ord}_q V_N^*}]V_N^*
-       =\frac{(N!)^2(N+1)!}{2^N}.
-\]
-For each fixed real $0<q<1$ a separate positive-measure argument proves
-positivity at every rank and, carried further, an asymptotic formula as
-the rank grows, with an explicit constant.
-
-Two further kinds of result are finite. Lean checks a coefficient
-pencil through rank eight only: positive definiteness, real roots below
-$F(p)$ and non-strict interlacing. Exact computations outside Lean treat
-shifted coefficient matrices and common factors at fixed ranks. The
-final sections explain the limits of the stated clearing and congruence
-arguments at $3/2$. No small nonzero sequence of divided remainders is
-constructed at that base, and the full rational-base conjecture remains
-open.
+We give complete proofs of the fixed-base Hankel asymptotic for
+Zudilin's normalised moments and the rational-base irrationality
+criterion $\log b/\log a<0.4056830213840605\ldots$ for the Lambert
+series $F(a/b)$. The determinant proof uses positive geometric
+moments; the irrationality argument uses the cancelled degrees of
+a different family of forms. We include coefficient-moment
+calculations, congruence criteria and limitations of the clearing
+methods at $3/2$. The broader ratio-limit argument and a
+rational-value model are retained as unformalised remarks.
+The full rational-base conjecture remains open.
 \end{abstract}
 
 \section{Introduction}\label{long1049:sec:problem}
 
-Let $t>1$ be a rational number and let $\tau(n)$ count the divisors of $n$.
-Erd\H{o}s Problem~\#1049 asks whether
+For $t>1$, the Lambert series
 \[
- F(t)=\sum_{n\ge1}\frac{1}{t^{n}-1}=\sum_{n\ge1}\frac{\tau(n)}{t^{n}}
+ F(t)=\sum_{n\ge1}\frac1{t^n-1}
+     =\sum_{n\ge1}\frac{\tau(n)}{t^n}
 \]
-is irrational~\cite[p.~102]{erdos1988}.
+has two useful descriptions: as a sum of simple fractions and as
+a divisor generating series. Here $\tau(n)$ counts the positive
+divisors of $n$. The equality follows by expanding each fraction,
+since all terms are nonnegative; the bound $\tau(n)\le n$ ensures
+convergence. Chowla conjectured that $F(t)$ is irrational for every
+rational $t>1$, as recorded by Erd\H{o}s \cite[p.~102]{erdos1988}
+and in Bloom's catalogue \cite{erdosproblems}. Erd\H{o}s proved the
+integer case in 1948 \cite{erdos1948}.
 
-The two series agree by expanding
-$(t^{n}-1)^{-1}=\sum_{k\ge1}t^{-nk}$ and collecting equal exponents.
-Nonnegativity justifies the rearrangement, while $\tau(m)\le m$ proves
-absolute convergence for every real $t>1$. With $q=1/t$, the same
-function is the $q$-harmonic series $\sum_{n\ge1}q^n/(1-q^n)$.
-Chowla conjectured that the answer is yes for every rational $t>1$.
-Erd\H{o}s proved the integer case $t\ge2$ in 1948~\cite{erdos1948};
-the rational-base question is recorded in the catalogue~\cite{erdosproblems}.
-The full conjecture remains open.
+We study two constructions of Zudilin. The 2016 approximation
+\cite{zudilin2016} supplies positive moments whose Hankel determinants
+we evaluate asymptotically. His 2004 forms \cite{zudilin2004} give
+an irrationality region after their coefficients are cleared at a
+rational base. The shorter companion, \emph{Hankel Determinants of
+Geometric Moments and Rational Lambert Values}, begins with the
+determinant result. Here we develop the polynomial forms first,
+so that their denominator calculation is available for the later
+arithmetic comparisons.
 
-We specialise Zudilin's 2004 construction~\cite{zudilin2004} to prove
-irrationality whenever $a>b\ge1$ are coprime and
-$\log b/\log a<\theta^{*}=0.40568302138406054\ldots$.
-This includes $31/4$ and every positive integral power of $31/4$.
-Earlier results already treat noninteger rational bases, including
-$7/2$; the point here is the explicit condition obtained from these
-particular forms, not a first noninteger example.
+For positive weights with fixed-shift ratios tending to $1$ and a
+uniform polynomial bound on those ratios, we prove
+\[
+ \det\left(\sum_{k\ge0}a_kq^{(i+j+1)k}\right)_{i,j<N}
+ \sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k,
+ \qquad 0<q<1,
+\]
+where $P=(q;q)_\infty$, $B_N=\sum_{j<N}j^2$ and
+$\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d}$.
+Heine's identity expands the determinant into squared Vandermonde
+products. We divide by the contribution from the first $N$ nodes
+and index the remaining tuples by partitions. A bound summable
+uniformly in $N$ reduces their limiting sum to the unit-weight
+Cauchy determinant. For Zudilin's moments, two finite convolutions
+then give the correction $N^{-8F(1/q)}$ and its constant.
+We also determine the first formal term $C_Nq^{B_N}$, where
+$C_N=(N!)^2(N+1)!/2^N$.
 
-For a reduced positive fraction $r/s$ with $r>s\ge1$, its height is
-$\max(r,s)=r$. Among
-noninteger rational numbers greater than one, $3/2$ has the smallest
-height. It is also outside both the region proved here and the region
-of Bundschuh and V\"a\"an\"anen
-\cite[Thm.~2, p.~177; hypotheses pp.~175--176]{bv1994}, which contains
-$7/2$. We use $3/2$ to examine why clearing denominators can destroy an
-otherwise small approximation error.
+The formal first term and the fixed-base limit describe different
+aspects of the determinant. Neither supplies a bound for the cost
+of clearing its coefficients at $3/2$. The ordinary arguments in
+the \hyperref[long1049:thm:geometric-ratio]{ratio-limit remark} and
+Section~\ref{long1049:sec:calibrated-countermodel} extend the moment
+calculation to limiting adjacent-weight ratios and construct a
+rational-value model with the same Hankel features. These arguments
+have no Lean proofs in the supplied record and are presented as
+unformalised remarks. They are not needed for the checked determinant
+asymptotic.
 
-The denominator cost can be read from the degrees. If $U,V\in\Z[X]$ have
-degree at most $W$, then $b^WU(a/b)$ and $b^WV(a/b)$ are integers.
-For this clearing argument, a small remainder
-$U(a/b)F(a/b)-V(a/b)$ must remain small after multiplication by $b^W$.
-Cancelling a common
-polynomial factor first can reduce this cost. For example, the pair
-$(X+1)(X+2),(X+1)(X+3)$ gives the cleared pair $(35,45)$ at $3/2$
-with degree bound $2$; after cancelling $X+1$, degree bound $1$ gives $(7,9)$.
-These illustrative polynomials are not approximants to $F$.
-
-For the actual polynomials, Section~\ref{long1049:sec:region} proves
+For the 2004 forms, we calculate the degree after cancelling the
+common polynomial factors. At a reduced rational base $a/b>1$,
+the resulting polynomials $U_n,V_n$ have degrees $W_n,W_n-1$ and
+satisfy
 \[
  \log\!\left(b^{W_n}\bigl(U_n(a/b)F(a/b)-V_n(a/b)\bigr)\right)
- =\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2),
+ =\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
 \]
-with a positive expression inside the logarithm. Here $W_n=\deg U_n$
-and $\deg V_n=W_n-1$; the constants are defined in that section. A negative coefficient
-of $n^2$ makes the positive values of these integer-coefficient forms
-tend to zero. If $F(a/b)$
-were rational, multiplication by its fixed denominator would give
-positive integers tending to zero, a contradiction.
+The form inside the logarithm is positive. Thus it tends to zero
+when $\log b/\log a<\theta^*=C_0/C_1
+=0.4056830213840605\ldots$. Rationality of $F(a/b)$ would make a
+fixed integer multiple of every such value a positive integer,
+giving a contradiction. The constants and parameter direction are
+Zudilin's; the cancellation and rational evaluation give the region
+used here. It contains $31/4$ and all its positive integral powers.
+Bundschuh and V\"a\"an\"anen already treated a smaller rational-base
+region containing $7/2$ \cite[Theorem~2, p.~177]{bv1994};
+Section~\ref{long1049:sec:sevenhalves} checks that specialisation.
+The value $3/2$
+lies outside both regions and remains unresolved by these arguments.
+It has the smallest height among reduced noninteger rationals
+greater than $1$, where the height of $r/s$ is $\max(r,s)$.
 
-The Hankel determinant uses a different remainder sequence, from
-Zudilin's 2016 construction. Its proof begins in
-Section~\ref{long1049:sec:hankel-order}. We first compute its least
-nonzero power of $q$ by row operations, then prove a separate estimate
-at fixed real $q$. Neither argument transfers the cyclotomic factors
-of the 2004 polynomials to this determinant.
+Section~\ref{long1049:sec:region} gives the rational-base proof and
+its degree restrictions. Section~\ref{long1049:sec:sharp} contains
+the determinant arguments and the coefficient-moment calculations.
+The coefficient pencil is treated through rank eight for every
+$p>1$; shifted minors and coefficientwise positivity have the finite
+computational ranges specified there. All-rank positivity and
+convergence of the largest root remain open.
+Sections~\ref{long1049:sec:primitive}--\ref{long1049:sec:endpoints}
+apply rescaling and additive congruences to divided forms, including
+a quantitative bounded-fibre criterion.
+Sections~\ref{long1049:sec:corridor}--\ref{long1049:sec:pade} give
+the clearing, tail and exponent calculations, and
+Section~\ref{long1049:sec:open} distinguishes unrestricted
+reformulations of irrationality from questions about specified
+approximation families.
 
-The shorter companion, \emph{Zudilin's Forms at Rational Bases and
-the Exact Normalised Hankel Order}, gives the principal proofs in
-Sections~2 and~3; neither uses its supplementary Section~4. Here
-Section~\ref{long1049:sec:coefficient-questions} contains separate
-coefficient-moment and spectral calculations,
-not inputs to the order formula. Sections~\ref{long1049:sec:primitive}--\ref{long1049:sec:endpoints}
-compare rescaling integer rows with imposing congruences by addition;
-Sections~\ref{long1049:sec:corridor}--\ref{long1049:sec:tail} examine partial sums.
-Sections~\ref{long1049:sec:sevenhalves}--\ref{long1049:sec:pade} treat $7/2$
-and a specified denominator-exponent model.
-Section~\ref{long1049:sec:open} distinguishes a reformulation of
-irrationality from questions about specified families, with an example
-of a nonzero remainder that does not decay after division. Literature
-comparisons follow, and Appendix~\ref{long1049:app:index} separates
-formal proofs from finite computations.
-
-\evidenceparagraph{\evidencerecordurl}
-Links in the running text go to Lean proofs of single steps, such as a
-finite inequality; such a link does not cover the surrounding argument.
-
-All logarithms are natural. Empty products and determinants equal
-$1$. A subscripted constant in $O_x(\cdot)$ may depend on the fixed
-base $x$. We introduce the notation for each construction locally.
+All logarithms are natural, and empty products and determinants
+equal $1$. Constants in $O_x(\cdot)$ may depend on the fixed base.
+We introduce the notation for each construction as it is needed.
+Appendix~\ref{long1049:app:index} identifies the formal sources and
+the separate finite computations.
 
 \medskip
 \noindent\textbf{Keywords.} irrationality; Lambert series; rational base;
@@ -167,8 +154,26 @@ Pad\'e approximation; Lean~4.
 
 \section{The region \texorpdfstring{$b^{\mu}<a$}{b\textasciicircum mu < a} and the base \texorpdfstring{$31/4$}{31/4}}\label{long1049:sec:region}
 
-We use Zudilin's parameter ratios $(14,12,14;27)$
-\cite[Sec.~5, pp.~161--162]{zudilin2004}. Their degree calculation gives
+The rational-base calculation compares a gain in the remainder
+with the cost of making its coefficients integral. If the original
+coefficient has degree $K_n$ and the cancelled coefficient has
+degree $W_n$, the leading balance is
+\begin{equation}\label{long1049:eq:degree-balance}
+ b^{W_n}(a/b)^{-(K_n-W_n)}
+ =b^{K_n}a^{-(K_n-W_n)}.
+\end{equation}
+The polynomial identities and remainder estimates below justify
+this balance, including its lower-order factors. With
+$K_n/n^2\to C_1$ and $(K_n-W_n)/n^2\to C_0$, the cleared
+remainder tends to zero when $C_1\log b<C_0\log a$.
+This is why the degree after cancellation must be known before
+rational evaluation.
+
+We evaluate Zudilin's 2004 forms at $a/b$ after cancelling their
+common polynomial factors. His direction $(14,12,14;27)$
+\cite[Sec.~5, pp.~161--162]{zudilin2004} gives the constants below;
+the comparison between decay and the remaining degree determines
+the irrationality region:
 \[
  C_1=(14+12+14)27-\tfrac12(12^2+14^2+27^2)=\frac{1091}{2},
  \qquad
@@ -277,9 +282,9 @@ specialisation and its degree and remainder estimates are proved below.
 
 \subsection{The polynomial forms and their common factors}\label{long1049:sec:source-forms}
 
-We first form $U_n$ and $V_n$ in $\Z[X]$, before choosing a rational
-base. This is the step that permits cancellation to reduce the
-power of the denominator needed later.
+We construct $U_n,V_n$ as integral polynomials before evaluating
+them. Cancelling their common factors at this stage lowers the degree
+and hence the power of $b$ required at a rational base $a/b$.
 
 For each $n\ge1$, the coefficient formulas below are rational functions
 of an indeterminate $X$. We evaluate them at real $x>1$ and put $q=x^{-1}$
@@ -388,9 +393,10 @@ For $x>1$, write the cancelled remainder as
 
 \subsection{Exact degrees}\label{long1049:sec:degrees}
 
-The denominator cost is the degree left after cancellation. We first
-identify the unique highest-degree term of $A_n$, then subtract the
-degrees of the known factors.
+The final summand of $A_n$ has strictly larger degree than all the
+others. We use it to determine the leading coefficient as well as the
+degree. After cancellation, this will give the least common power
+of the base denominator that clears the pair.
 
 Let $d_{n,k}=\deg\bigl(c_{n,k}(X)X^{a_0k}\bigr)$.  The Gaussian-binomial degree
 formula gives
@@ -478,11 +484,12 @@ fixes $x$ and varies $n$.
 
 \subsection{The cyclotomic limit}\label{long1049:sec:cyclotomic-limit}
 
-The limits proved in this subsection are those of
-\cite[Lemmas~1--2, p.~155]{zudilin2004}.  The proof splits the condition
-$\{n/l\}\in[u,v)$ into reciprocal blocks and applies the summatory totient
-estimate on each, as in the proof of \cite[Lemma~1, p.~466]{zudilin2002}, and
-adds an explicit truncation estimate.
+We prove the cyclotomic limits of Zudilin
+\cite[Lemmas~1--2, p.~155]{zudilin2004} by summing over reciprocal
+intervals, following \cite[Lemma~1, p.~466]{zudilin2002}. The
+summatory totient estimate handles each finite set of intervals.
+A bound on the remaining small indices permits passage to their
+infinite union.
 
 Write $\Sigma_n=\sum_{2\le l\le N}\nu_{n,l}\varphi(l)$.  The elementary
 summatory estimate is $\sum_{l\le y}\varphi(l)=3\pi^{-2}y^{2}+O(y\log(2y))$.
@@ -536,10 +543,11 @@ $x\downarrow1$ is asserted.
 
 \subsection{Positive linear forms with integer coefficients}\label{long1049:sec:integer-forms}
 
-Fix the base $x=a/b>1$, put $q=1/x$ and write $P_q=(q;q)_\infty>0$.  Each of the four finite
-$q$-Pochhammer products in~\eqref{long1049:eq:positive-source-form} is a product of
-factors $1-q^{j}$ with $j\ge1$, hence lies in $[P_q,1]$, so each of the two
-ratios lies in $[P_q,P_q^{-1}]$, every summand is positive, and
+We now specialise at $x=a/b>1$. Put $q=1/x$ and $P_q=(q;q)_\infty$.
+Every finite $q$-Pochhammer product in
+\eqref{long1049:eq:positive-source-form} has factors $1-q^j$ with $j\ge1$,
+so it lies between $P_q$ and $1$. Each of the two ratios therefore lies
+between $P_q$ and $P_q^{-1}$. Summing the resulting geometric bounds gives
 \[
  P_q^{2}\le H_n(x)\le\frac{P_q^{-2}}{1-q^{a_0}}\le\frac{P_q^{-2}}{1-q},
 \]
@@ -726,11 +734,13 @@ exact computation outside Lean.
 \end{proof}
 
 \subsection{The rational bracket around \texorpdfstring{$\theta^{*}$}{theta*}}\label{long1049:sec:regionbracket}
+\papersectiontarget{long1049-regionbracket}
 
-To check a strict comparison with $\theta^{*}$, we enclose the constant
-between rational numbers. The coarse bounds needed for $31/4$ and
-$3/2$ follow from finite rational inequalities, without using a decimal
-expansion.
+Rational bounds for the trigamma differences locate $\theta^*$
+without a numerical approximation to the full sums. Their first
+terms already place $31/4$ inside the region and $3/2$ outside it.
+A sharper enclosure then gives the irrationality-exponent bound
+$301$.
 
 For the lower bound, keep only the $k=0$ term of each of the thirteen
 differences $\psi_1(u_i)-\psi_1(v_i)$.  All later terms are positive, so
@@ -802,39 +812,14 @@ $225-J$ is positive, so the interval endpoints for $C_0$ have the
 claimed order. This verifies the displayed decimal truncations; \href{https://github.com/wcook04/plectis-erdos/blob/4beca4ad0c00a626def9c73f2420e20ebf8d1968/research/experiments/erdos1049/threshold_digits.py}{the program} and
 its \href{https://github.com/wcook04/plectis-erdos/blob/4beca4ad0c00a626def9c73f2420e20ebf8d1968/research/experiments/erdos1049/receipts/threshold-digits.json}{recorded result} are public. The proofs use the exact definitions and never these decimal values.
 
-\subsection{Proofs, earlier work and limitations}
+\subsection{Earlier criteria and changes of direction}\label{long1049:sec:region-extensions}
+\papersectiontarget{long1049-region-extensions}
 
-\paragraph{Formal verification and computations.}
-The printed proofs of Theorems~\ref{long1049:res:region}
-and~\ref{long1049:res:31over4} use Zudilin's construction: his Lemma~7 in its polynomial reading, together with the
-inputs of that lemma's own proof, namely his Lemma~3, the exponent $M(a;b)$
-of~(16) proved by his Lemma~4, the group stability of his Lemma~5, and the
-identity~(9)--(11), all in \cite[pp.~156--161]{zudilin2004}, and his direction and
-constants \cite[p.~162]{zudilin2004}.  Proved here are
-the nonrationality of $F$ as a function, the identification of the
-polynomial coefficients in Lemma~7, the exact degrees of $U_n$ and $V_n$,
-positivity, the Archimedean size estimate, and the limit
-$(K_n-W_n)/n^{2}\to C_0$.  That last limit rests on Zudilin's Lemmas~1 and~2
-\cite[p.~155]{zudilin2004}, whose method goes back to
-\cite[Lemma~1, p.~466]{zudilin2002}; Section~\ref{long1049:sec:cyclotomic-limit}
-proves them by that method with an explicit truncation estimate.  Lean
-proves both theorems and the measure bound of
-Corollary~\ref{long1049:cor:rational-base-measure}; it constructs the
-polynomials and proves their remainder estimates.  The Lean sources also
-contain the finite comparisons, the rational bracket in
-Section~\ref{long1049:sec:regionbracket} and the degree identities in
-Section~\ref{long1049:sec:degrees}. Appendix~\ref{long1049:app:index}
-distinguishes these proofs from computer algebra.
-
-Exact computations outside Lean certify the rational interval
-bounds, $U_n,V_n$ for $1\le n\le4$, the sixteen coefficient-positivity
-tests through rank eight, and the finite parameter search. The five complete
-polynomial contents and seventy-six residue certificates are described in
-Section~\ref{long1049:sec:coefficient-questions}. The historical
-high-precision real remainder evaluations are separate numerical reports,
-not reproduced by these exact computations. None of these finite
-computations is needed for the proof of
-Theorem~\ref{long1049:res:region}.
+Zudilin's parameters and constants give a rational-base condition
+that can be compared directly with the earlier height criterion.
+We make that comparison before varying the parameter direction.
+A single family valid at every real base greater than $1$ is subject
+to the degree restriction proved below.
 
 \paragraph{Attribution.}
 Bundschuh and V\"a\"an\"anen proved the irrationality of $F(a/b)$ on the
@@ -917,8 +902,8 @@ base, or for a different family at each base, do not verify them.
 The conclusion concerns
 these two-coordinate linear forms, not simultaneous forms in several
 independent target values. Here height means the largest absolute
-coefficient. The short paper uses the sum of the absolute coefficients;
-for a polynomial of degree at most $d$,
+coefficient. To compare it with the sum of the absolute coefficients,
+note that for a polynomial of degree at most $d$,
 \[
  \max_j|p_j|\le\sum_j|p_j|\le(d+1)\max_j|p_j|.
 \]
@@ -930,8 +915,8 @@ $2$. In particular, when $h=0$, the displayed bound
 $hn^2(1+o(1))$ is zero, not an arbitrary $o(n^2)$ term.
 The proof below also works with the additive bound $hn^2+o(n^2)$;
 its evaluation estimate absorbs the $O(\log n)$ difference.
-Alternatively, either norm convention satisfies the other paper's
-hypothesis after replacing $h$ by any larger positive constant.
+Alternatively, either norm convention implies the hypothesis for the
+other norm after replacing $h$ by any larger positive constant.
 The degree conclusion is independent of that replacement.
 In the rational-base conclusions, write $a/b$ with integers $a>b\ge1$.
 The estimates hold without coprimality; a reduced representation gives
@@ -1241,11 +1226,11 @@ it is not an application at $3/2$.
 
 \subsection{Finite calculations}\label{long1049:sec:receipts}
 
-This subsection separates exact checks from historical
-numerical reports. The polynomial reconstruction below covers
-$n=1,2,3,4$, and the preceding parameter search has an exact
-comparison for every tuple in its finite box. Both exact checks are
-public, with the other finite calculations of this paper, in the
+The polynomial reconstruction below determines the forms for
+$n=1,2,3,4$. Together with the exact comparison of all directions in
+the preceding finite box, it provides small cases against which to
+check the general formulas. The two calculations are available,
+along with the other finite calculations, in the
 \href{https://github.com/wcook04/plectis-erdos/blob/f5c9e560df38cd32e9b49473a409384aab00d9ae/research/experiments/erdos1049/README.md}{reproduction guide}, and a
 \href{https://github.com/wcook04/plectis-erdos/blob/f5c9e560df38cd32e9b49473a409384aab00d9ae/research/experiments/erdos1049/replay.py}{single script}
 reruns them and compares each with its recorded result. The historical
@@ -1331,15 +1316,14 @@ N&1&2&3&4&5&6&7\\\hline
 
 \section{Power comparisons and Hankel determinants}\label{long1049:sec:sharp}
 
-The main Hankel calculation begins in Section~\ref{long1049:sec:hankel-order}
-and uses none of the three numerical comparisons preceding it. Those
-comparisons give bounds for the later scalar and residue-count tests. The power bracket gives
-$\log3/\log2<65/41$ and shows that $65$ is the least
-integer exponent $q$ for which $3^{41}<2^q$. Failure of the rank-$41$
-selector count one row earlier uses the separate comparison
-$2^{129}<3^{82}$. These comparisons settle the stated numerical
-inequalities, not the existence of the approximation families to
-which one might apply them.
+Three integer comparisons will be used to estimate residue counts
+and scalar exponents. The first gives $\log3/\log2<65/41$ and shows
+that $65$ is the least integer $q$ with $3^{41}<2^q$; the inequality
+$2^{129}<3^{82}$ checks the failure of the rank-$41$ selector count
+one row earlier. They determine numerical thresholds, leaving the
+coefficient and remainder hypotheses to be checked for any family
+of approximants. Readers interested first in the determinant
+asymptotic may begin at Section~\ref{long1049:sec:hankel-order}.
 
 \begin{theorem}[sharp power bracket]\label{long1049:res:powerbracket}
 One has
@@ -1448,14 +1432,14 @@ or another proof of irrationality at $3/2$.
 
 \subsection{The sharp \texorpdfstring{$q$}{q}-order of the normalised Hankel
 determinant}\label{long1049:sec:hankel-order}
+\papersectiontarget{long1049-formal-rows}
 
-The preceding inequalities concern degrees used to clear denominators.
-We now determine a different quantity: the first nonzero term, as a
-formal power series in $q$, of Zudilin's normalised Hankel determinant
-at $x=z=1$. Its order does not by itself give a divisor of an integer
-evaluation. That requires an integral normalisation and a separate
-divisibility proof.  Zudilin
-builds the determinant by combining the Pad\'e-type approximations of Bundschuh
+We begin with the formal expansion of Zudilin's normalised Hankel
+determinant at $x=z=1$. Determining its first nonzero term is a
+calculation in power series in $q$; an interpretation as a divisor
+after integer evaluation would additionally require an integral
+normalisation and a divisibility argument. Zudilin constructs the
+determinant by combining the Pad\'e-type approximations of Bundschuh
 and Zudilin \cite{bundschuhzudilin2008} with B\'ezivin's method as developed
 in \cite{krvz2009}; see \cite[Sec.~2, p.~3]{zudilin2016}.  His passage from the
 $q$-order to the size of the determinant borrows the proofs of
@@ -1688,8 +1672,8 @@ converges uniformly and absolutely on each such disk. The individual
 products converge there as well, since their tails are bounded by
 geometric series in $q$. Thus $G_q$ is holomorphic for $|w|<1$,
 and its Taylor series may be evaluated at $w=q^{m+1}$ to obtain the
-moment expansion. This analytic argument is separate from the formal
-substitution in the short note.
+moment expansion. For formal series, the corresponding substitution is
+justified coefficient by coefficient, as in the short paper.
 The $q$-binomial theorem \cite[Eq.~17.2.37]{dlmf}
 \[
  \frac{(Aw;q)_\infty}{(w;q)_\infty}
@@ -1810,13 +1794,13 @@ give that row calculation.  Nothing in
 this subsection decides the arithmetic nature of $F(3/2)$.
 
 
-\subsection{The size of $V_N^*$ at a fixed base}
+\subsection{The size of \texorpdfstring{$V_N^*$}{V(N)} at a fixed base}
 \label{long1049:sec:sharp-fixed-base}
 
-The positive-measure argument traps $\log(V_N^*(q)/(C_Nq^{B_N}))$ between two
-multiples of $N$. It leaves the exponential rate inside that band undetermined,
-and says nothing about the correction below it. Both are determined here.
-Throughout this subsection $0<q<1$ is fixed and
+We now determine the exponential factor within the bounds just
+proved, together with the power of $N$ and its leading constant.
+The argument applies first to general positive weights on geometric
+nodes. Throughout this subsection $0<q<1$ is fixed, and we write
 \[
  P=(q;q)_\infty,\qquad
  \mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
@@ -1826,12 +1810,34 @@ with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
 Both products converge to positive finite values, and the abbreviation $L$ is
 used only in this subsection; it is the value at $q$ of the divisor series
 $\mathcal L$ of Section~\ref{long1049:sec:open}.
-Nothing in this subsection changes a denominator valuation or
-supplies a divisor for the 2004 polynomial forms.
+The estimates in this subsection concern real determinants at fixed
+$q$. Denominator valuations for the 2004 forms were treated separately
+in Section~\ref{long1049:sec:region}.
 
-The first step isolates what a Hankel determinant needs from its weights. The
-hypotheses are two ratio conditions on the weights, so the theorem covers
-other moment families of the same geometric shape as well.
+For $a_k=1$, the moments are $(1-q^{m+1})^{-1}$, so Cauchy's
+determinant formula gives the model calculation
+\begin{equation}\label{long1049:eq:cauchy-model}
+ D_N^{(0)}:=\det\left(\frac1{1-q^{i+j+1}}\right)_{0\le i,j<N}
+ =\frac{q^{B_N}\Delta_N}{\prod_{0\le i,j<N}(1-q^{i+j+1})},
+ \qquad
+ \Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
+\end{equation}
+The denominator has limiting multiplicity $d$ at $1-q^d$, while
+\[
+ \frac{\Delta_N}{P^{2N}}
+ =\prod_{d<N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+ \longrightarrow\mathcal M(q)^2.
+\]
+The convergence follows from $\sum d|\log(1-q^d)|<\infty$ and the
+bound $O_q(Nq^N)$ for the logarithm of the second product. Hence
+\begin{equation}\label{long1049:eq:cauchy-model-limit}
+ D_N^{(0)}\sim\mathcal M(q)^3q^{B_N}P^{2N}.
+\end{equation}
+Two copies of $\mathcal M(q)$ come from the squared Vandermonde
+and one from the Cauchy denominator. We shall compare general
+weights with this exact model. Fixed displacements of the last
+few node indices have weight ratios tending to $1$; the polynomial
+bound in the theorem controls the sum over all displacements.
 
 \begin{theorem}[determinants of geometric moments]
 \label{long1049:thm:geometric-universality}
@@ -1849,88 +1855,110 @@ Put $M_m=\sum_{k\ge0}a_kq^{(m+1)k}$ and $D_N=\det(M_{i+j})_{0\le i,j<N}$. Then
 \]
 \end{theorem}
 
-\begin{proof}
-Taking $k=0$ in the ratio bound gives $a_h\le Ca_0(1+h)^\kappa$, so every moment
-converges. Heine's expansion, as in
-Section~\ref{long1049:sec:sharp}, writes
-\[
- D_N=\sum_{k_0<\cdots<k_{N-1}}
- \prod_{i<N}\bigl(a_{k_i}q^{k_i}\bigr)
- \prod_{i<j<N}(q^{k_i}-q^{k_j})^2,
-\]
-a sum of positive terms. Write $k_i=i+\lambda_i$ with
-$0\le\lambda_0\le\cdots\le\lambda_{N-1}$. The tuple $\lambda=0$ contributes
-\[
- q^{B_N}\prod_{i<N}a_i\cdot\Delta_N,
- \qquad
- \Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
-\]
-Reverse the shifts by setting $\mu_j=\lambda_{N-j}$ for $1\le j\le N$, so that
-$\mu_1\ge\mu_2\ge\cdots\ge\mu_N\ge0$ is a partition. Dividing the general
-summand by the displayed contribution leaves
-\[
- W_N(\mu)=
- q^{\sum_{j\le N}(2j-1)\mu_j}
- \prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}
- \prod_{1\le j<k\le N}
- \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2,
-\]
-because the summand indexed by $(k_i)$ has $q$-exponent
-$B_N+\sum_i(2N-1-2i)\lambda_i$ and the weight $2N-1-2i$ becomes $2j-1$ under
-$i=N-j$. Thus $D_N/(q^{B_N}\Delta_N\prod_{i<N}a_i)=\sum_\mu W_N(\mu)$.
+\begin{proof}[Proof of Theorem~\ref{long1049:thm:geometric-universality}]
+We may increase $C$ to at least $1$ and $\kappa$ to at least $0$.
+The bound $a_h\le Ca_0(1+h)^\kappa$ ensures convergence of every
+moment. Apply Cauchy--Binet to a finite set of nodes and let its
+size tend to infinity. The matrix entries converge, while positivity
+permits passage to the limit in the sum, giving
+\begin{equation}\label{long1049:eq:polynomial-heine}
+ D_N=\sum_{0\le k_0<\cdots<k_{N-1}}
+ \prod_{i<N}a_{k_i}q^{k_i}
+ \prod_{i<j<N}(q^{k_i}-q^{k_j})^2.
+\end{equation}
+The tuple $k_i=i$ contributes $q^{B_N}\Delta_N\prod_{i<N}a_i$.
+It does not account for the whole asymptotic. For example, replace
+$(0,1,\ldots,N-2,N-1)$ by $(0,1,\ldots,N-2,N)$. The ratio of
+its contribution to that of the original tuple is
+\begin{equation}\label{long1049:eq:last-node-shift}
+ q\frac{a_N}{a_{N-1}}
+ \prod_{d=1}^{N-1}\left(\frac{1-q^{d+1}}{1-q^d}\right)^2
+ =q\frac{a_N}{a_{N-1}}\left(\frac{1-q^N}{1-q}\right)^2
+ \longrightarrow\frac{q}{(1-q)^2}.
+\end{equation}
+Only pairs involving the moved node change, so the product
+telescopes. At $q=1/2$ the limiting ratio is $2$.
+We must therefore retain the displaced tuples, even at large rank.
 
-Let $\ell$ be the length of $\mu$, that is, the number of positive parts. Only
-the indices $j\le\ell$ contribute a ratio different from $1$. For fixed
-$j\le\ell$ the partition is decreasing, so $k-j+\mu_j-\mu_k\ge k-j$ for every
-$k>j$; the numerators are at most $1$ and the denominators multiply to at least
-$P$. Each of the $\ell$ squared factors is therefore at most $P^{-2}$, and the
-weight ratios contribute at most $\prod_{j\le\ell}C(1+\mu_j)^\kappa$. Hence
+Subtracting the baseline tuple gives shifts $\lambda_i=k_i-i$.
+They are nonnegative and weakly increasing, since
+$k_{i+1}\ge k_i+1$. Reversing them gives a partition. For example,
+at rank four,
 \[
- W_N(\mu)\le(CP^{-2})^{\ell}
- \prod_{j=1}^{\ell}(1+\mu_j)^\kappa q^{(2j-1)\mu_j}
- \qquad\text{for every }N.
+ \underbrace{(0,1,3,5)}_{(k_i)}
+ \longmapsto\underbrace{(0,0,1,2)}_{(\lambda_i)}
+ \longmapsto\underbrace{(2,1,0,0)}_{(\mu_j)}.
 \]
-Summing this majorant over all partitions of length exactly $\ell$, after
-dropping the ordering constraint on the positive parts, factorises it into
-\[
- (CP^{-2})^{\ell}\prod_{j=1}^{\ell}
- \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}
- \le C_q^{\ell}q^{\ell^2},
- \qquad
- C_q=CP^{-2}\sum_{u\ge1}(1+u)^\kappa q^{u-1},
-\]
-using $q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and $\sum_{j\le\ell}(2j-1)=\ell^2$. The
-resulting bound is summable in $\ell$, and it does not depend on $N$.
+In general, put $\mu_j=\lambda_{N-j}$ for $1\le j\le N$, so that
+$\mu_1\ge\cdots\ge\mu_N\ge0$. Division by the contribution of
+$k_i=i$ turns the summand for this tuple into
+\begin{equation}\label{long1049:eq:polynomial-partition}
+\begin{split}
+ W_N(\mu)={}&q^{\sum_{j\le N}(2j-1)\mu_j}
+ \prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}\\
+ &\hspace{2mm}\cdot\prod_{1\le j<k\le N}
+ \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
+\end{split}
+\end{equation}
+The exponent $2j-1$ has a direct meaning. The $j$th index from
+the right contributes once through its mass $q^{k_i}$ and twice
+through each of its $j-1$ pairs with later indices in the squared
+Vandermonde. This gives $1+2(j-1)$.
 
-For each fixed partition $\mu$, the weight ratios tend to $1$ as $N\to\infty$
-by the first hypothesis, and the Vandermonde quotient converges to the
-corresponding infinite product. The limit of $W_N(\mu)$ is therefore the same
-function of $\mu$ that the weights $a_k\equiv1$ produce, since those weights
-give ratio $1$ identically and leave the Vandermonde quotient unchanged.
-Dominated convergence over partitions now identifies
-$\lim_N\sum_\mu W_N(\mu)$ with the corresponding limit in the unit-weight case.
+Set $W_N(\mu)=0$ when $\mu$ has more than $N$ positive parts.
+The sum now has an index set independent of $N$.
+A fixed partition shifts only the last indices of the baseline tuple:
+$(2,1)$ shifts its last two indices, whatever the rank $N\ge2$.
+These indices tend to infinity with $N$, so the fixed-shift
+hypothesis removes the weights from each limiting summand.
+The remaining issue is the total contribution of partitions with
+many or large parts. We use the polynomial bound for this step.
 
-For $a_k\equiv1$ the moments are $M_m=(1-q^{m+1})^{-1}$, and Cauchy's
-determinant evaluates
+For a partition of length $\ell$, only the factors with $j\le\ell$
+can differ from $1$. For each such $j$, the denominator product in
+the Vandermonde quotient is at least $P$, and its numerator product
+is at most $1$. Consequently
 \[
- D_N=\frac{q^{B_N}\Delta_N}{\prod_{0\le i,j<N}(1-q^{i+j+1})}.
+ W_N(\mu)\le(CP^{-2})^\ell
+ \prod_{j=1}^\ell(1+\mu_j)^\kappa q^{(2j-1)\mu_j}.
 \]
-The exponent of $1-q^m$ in that denominator is $\min(m,N,2N-m)$, which
-increases to $m$, so the denominator tends to $\mathcal M(q)^{-1}$ and the
-quotient $\sum_\mu W_N(\mu)$ tends to $\mathcal M(q)$. Finally
+Let $A=\sum_{u\ge1}(1+u)^\kappa q^{u-1}<\infty$.
+Dropping the ordering of the positive parts, we obtain
+\begin{align*}
+ \sum_{\ell(\mu)=\ell}\sup_N W_N(\mu)
+ &\le(CP^{-2})^\ell\prod_{j=1}^\ell
+       \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}\\
+ &\le(CP^{-2}A)^\ell q^{\ell^2}.
+\end{align*}
+The last inequality follows from
+$q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and
+$1+3+\cdots+(2\ell-1)=\ell^2$. Thus the cost of having $\ell$
+positive parts gives a factor $q^{\ell^2}$, and summing over $\ell$
+gives a finite bound, uniform in the determinant rank.
+
+For a fixed partition of length $\ell$, the shifts $\mu_j$
+are fixed and the indices $N-j$ tend to infinity for $j\le\ell$.
+Hence all the weight ratios in \eqref{long1049:eq:polynomial-partition} tend to $1$.
+Its Vandermonde quotient
+also converges: there are only finitely many nontrivial first indices,
+and the logarithms of the remaining factors have geometric tails.
+Dominated convergence shows that $\sum_\mu W_N(\mu)$ has the
+same limit as for $a_k=1$. This common limit is positive, since the
+empty partition contributes $1$. Restoring the reference-tuple
+factors, we obtain
 \[
- \frac{\Delta_N}{P^{2N}}
- =\prod_{d<N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
- \longrightarrow\mathcal M(q)^2,
+ \frac{D_N}{D_N^{(0)}\prod_{k<N}a_k}\longrightarrow1.
 \]
-because the logarithm of the second product is $O_q(Nq^N)$. Multiplying the two
-limits proves the theorem.
+The model asymptotic \eqref{long1049:eq:cauchy-model-limit} now proves
+the theorem. The comparison explains why the normalised limit
+retains the geometric spacing of the nodes but loses the individual
+weights.
 \end{proof}
 
-The hypotheses hold for the actual weights $a_k=P^4\gamma_k$, and the reason is
-an exact algebraic identity. It also sharpens the comparison
-$(Q/3)c_k\le\gamma_k\le T(P^{-4}+P^{-6})c_k$ of the previous subsection to two
-explicit powers of $P$.
+We return to the actual weights $a_k=P^4\gamma_k$. A product formula
+in finite Gaussian multinomial sums improves the preceding estimates
+to explicit powers of $P$. The coefficient asymptotic that follows
+will establish $a_{k+1}/a_k\to1$.
 
 \begin{proposition}[the moment weights as a product of two finite sums]
 \label{long1049:prop:rogers-factorisation}
@@ -1963,10 +1991,20 @@ Theorem~\ref{long1049:thm:geometric-universality} hold with $\kappa=3$.
 \end{proposition}
 
 \begin{proof}
-Write $\mathcal E(z)=(z;q)_\infty^{-1}$ and
-$\partial_qf(z)=(f(z)-f(qz))/z$, so that $\partial_q\mathcal E=\mathcal E$ and
-$\mathcal E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n$ by Euler's expansion. The
-$q$-Leibniz rule, which follows by induction from the product rule, is
+Write $\mathcal E(z)=(z;q)_\infty^{-1}$. Euler's expansion gives
+$\mathcal E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n$.
+The product of coefficient sums can be obtained by shifting the
+coefficients of $\mathcal E^3$ and then collecting equal total
+indices in two variables. For the shift, use
+$\partial_qf(z)=(f(z)-f(qz))/z$: the factor $1-q^j$ in
+$\partial_qz^j=(1-q^j)z^{j-1}$ cancels the last factor of
+$(q;q)_j$. Consequently
+\[
+ \partial_q\mathcal E=\mathcal E,\qquad
+ \partial_q^n\mathcal E(z)^3
+ =\sum_{j\ge0}\frac{R_{n+j}^{(3)}}{(q;q)_j}z^j.
+\]
+The $q$-Leibniz rule, obtained by induction from the product rule, is
 \[
  \partial_q^n(fg)(z)=\sum_{j=0}^n\genfrac{[}{]}{0pt}{}{n}{j}_q
  (\partial_q^jf)(q^{n-j}z)\,(\partial_q^{n-j}g)(z).
@@ -1987,9 +2025,13 @@ the power of $\mathcal E$ being $3$ and not $2$ here. Hence
  =\mathcal E(w)\mathcal E(z)^3
   \sum_{k\ge0}\frac{w^k(z;q)_k}{(q;q)_k}h_k(z).
 \]
-Put $z=w$. On the left the coefficient of $w^n$ is
-$R_n^{(3)}\sum_{j\le n}\bigl((q;q)_j(q;q)_{n-j}\bigr)^{-1}
-=R_n^{(2)}R_n^{(3)}/(q;q)_n$. On the right, expand $h_k$ and set $k=j+t$; the
+The left-hand side is
+$\sum_{n,j\ge0}R_{n+j}^{(3)}w^nz^j/((q;q)_n(q;q)_j)$.
+On setting $z=w$, all pairs with the same sum contribute to a
+single coefficient. Thus the coefficient of $w^k$ is
+$R_k^{(3)}\sum_{j\le k}\bigl((q;q)_j(q;q)_{k-j}\bigr)^{-1}
+=R_k^{(2)}R_k^{(3)}/(q;q)_k$.
+On the right, expand $h_k$ and set $k=j+t$; the
 inner sum is evaluated by the $q$-binomial theorem as
 \[
  \sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
@@ -2049,9 +2091,9 @@ The Lean proof obtains the
 by the same steps.
 \end{proof}
 
-Only one analytic input is still missing, namely the behaviour of $a_k/c_k$ to
-second order. It is supplied by the two leading coefficients of $G_q$ at its
-singularity $w=1$.
+The leading cubic growth of $a_k$ does not determine the power of $N$
+in the determinant. We need the first correction to $a_k/c_k$,
+which the two finite convolutions make explicit.
 
 \begin{theorem}[the size of $V_N^*$ at a fixed base]
 \label{long1049:thm:sharp-fixed-base}
@@ -2070,7 +2112,97 @@ equivalently
 \]
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Proof of Theorem~\ref{long1049:thm:sharp-fixed-base}]
+Put $L=F(1/q)$, $e_k=(q;q)_k^{-1}$ and $E=P^{-1}$.
+Replacing every $e_k$ by $E$ in the two convolution sums gives
+$E^2(k+1)$ and $E^3\binom{k+2}{2}$. These count, respectively,
+the nonnegative pairs and triples with sum $k$. They explain the
+leading cubic term of $a_k$, but we also need its first correction.
+For a fixed index $i$, there is one pair $(i,k-i)$ and there are
+$k-i+1$ triples whose first coordinate is $i$. Thus a summable
+deficit in the sequence $e_i$ produces a constant correction in the
+two-fold sum and a linear correction in the three-fold sum.
+We calculate that deficit and bound the terms containing it twice.
+
+Writing $d_k=E-e_k$, the identity
+$e_{k+1}-e_k=q^{k+1}e_{k+1}$ gives
+\[
+ d_k=\sum_{j>k}q^je_j,\qquad
+ 0\le d_k\le\frac{E q^{k+1}}{1-q}.
+\]
+Thus $\sum d_k$ and $\sum k d_k$ converge. To evaluate the former,
+use Euler's identity
+$\mathcal E(z)=\sum_{k\ge0}e_kz^k=(z;q)_\infty^{-1}$ for $|z|<1$.
+Tonelli's theorem and logarithmic differentiation at $z=q$ give
+\[
+ S:=\sum_{k\ge0}d_k
+ =\sum_{j\ge1}j q^je_j
+ =q\mathcal E'(q)
+ =E\sum_{r\ge1}\frac{q^r}{1-q^r}=EL.
+\]
+The differentiation is justified by locally uniform convergence on
+$|z|<1$.
+
+Let $b_k^{(r)}=[z^k]\mathcal E(z)^r$. The finite-sum formula in
+Proposition~\ref{long1049:prop:rogers-factorisation} becomes
+\[
+ a_k=P^4(q;q)_k b_k^{(2)}b_k^{(3)}.
+\]
+We expand each finite convolution using $e_k=E-d_k$. For two factors,
+\[
+ b_k^{(2)}=E^2(k+1)-2E\sum_{i=0}^k d_i
+              +\sum_{i=0}^k d_i d_{k-i}
+ =E^2(k+1-2L)+O_q((k+1)q^k).
+\]
+For three factors, the terms with one $d_i$ contribute
+$-3E^2\sum_{i=0}^k(k-i+1)d_i$.
+Here the sum equals $(k+1)S+O_q(1)$ because
+$\sum i d_i<\infty$. Terms with two $d_i$ are bounded by
+$3E S^2$, and the term with three is $O_q((k+1)^2q^k)$.
+It follows that
+\[
+ b_k^{(3)}=E^3\left(\binom{k+2}{2}-3L(k+1)\right)+O_q(1).
+\]
+Dividing the correction $-3L(k+1)$ by the leading term
+$\binom{k+2}{2}$ gives the relative correction $-6L/(k+2)$.
+The two-fold convolution contributes $-2L/(k+1)$ in the same way.
+Since $(q;q)_k=P(1+O_q(q^k))$ and
+$c_k=(k+1)^2(k+2)/2$, multiplication yields
+\begin{align*}
+ \frac{a_k}{c_k}
+ &=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
+   \left(1-\frac{6L}{k+2}+O_q((k+1)^{-2})\right)
+   \left(1+O_q(q^k)\right)\\
+ &=1-\frac{8L}{k+1}+O_q((k+1)^{-2}).
+\end{align*}
+In particular $a_{k+1}/a_k\to1$, and multiplication of finitely
+many adjacent ratios gives $a_{k+h}/a_k\to1$ for each fixed $h$.
+The uniform shift bound follows from
+Proposition~\ref{long1049:prop:rogers-factorisation}, so
+Theorem~\ref{long1049:thm:geometric-universality} applies.
+
+Positivity of $a_k$ and summability of
+$\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})$
+show that $\mathcal A(q)$ converges to a positive number.
+In the logarithm of the product, the first-order term contributes
+$-8L\sum_{k<N}(k+1)^{-1}$, while the summable remainder contributes
+a finite constant. Using
+$\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$, we obtain
+\[
+ \prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8L}.
+\]
+Theorem~\ref{long1049:thm:geometric-universality} now gives the
+stated determinant asymptotic. Taking logarithms yields
+\[
+ \log V_N^*=B_N\log q+\log C_N+2N\log P
+             -8L\log N+\log K(q)+o(1).
+\]
+\end{proof}
+
+The coefficient $8L$ is the sum of the corrections $2L$ and $6L$
+from the two convolutions. For comparison, the same coefficient can
+be recovered from the generating function at its dominant pole.
+\begin{proof}[An alternative coefficient calculation]
 Write $\Pi(w)=(qw;q)_\infty$, so that $(w;q)_\infty=(1-w)\Pi(w)$, and for
 $t\ge1$ put
 \[
@@ -2124,49 +2256,174 @@ Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
 $V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
 asymptotic proves both displays.
 
-The Lean proof reaches the same expansion of $a_k/c_k$ from the factorisation
-$\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}$ of
-Proposition~\ref{long1049:prop:rogers-factorisation}, through the identity
-$\sum_{n\ge0}\bigl(P^{-1}-1/(q;q)_n\bigr)=L/P$, which it proves from the
-$q$-difference equations of $\sum_nx^n/(q;q)_n$ and $\sum_nnx^n/(q;q)_n$.
 \end{proof}
 
-\paragraph{What the sharp estimate settles, and what it leaves.}
-The positive-measure argument of the previous subsection had recorded this
-shape as a candidate without its constant. The proof, the limiting Gram factor
-$\mathcal M(q)^3$ and the convergent expression for the constant are supplied
-here. The estimate replaces the band $O_q(N)$ by the explicit terms
-$2N\log P$, $-8F(1/q)\log N$ and the constant $\log K(q)$, with an $o(1)$
-error, and the weights now have an exact finite description rather than an
-infinite-product representation alone.
-
-The cubic exponent of $q$ is untouched, and so is every prime-power valuation.
-At $3/2$ the deficit is unchanged and is exactly
+\paragraph{Comparison with the cubic bound.}
+The estimate identifies the terms $2N\log P$, $-8F(1/q)\log N$
+and $\log K(q)$ within the previous $O_q(N)$ error. It leaves the
+cubic coefficient unchanged and has no effect on prime-power
+valuations. For the denominator estimate at $3/2$, the difference
+of the relevant exponents is
 \[
  \frac{39}{41}\bigl(4N^3-3N^2\bigr)-\bigl(2N^3-N\bigr)
  =\frac{N(74N^2-117N+41)}{41}>0\qquad(N\ge2),
 \]
 the positivity being immediate from
 $74N^2-117N+41=74(N-2)^2+179(N-2)+103$. Its leading size is $(74/41)N^3$, so no
-estimate that leaves the cubic coefficient alone can close it. The finite
-factorisation describes the same weights in a new way; it does not license
-substituting their denominator for the denominator of a cleared linear form.
+estimate that leaves the cubic coefficient alone can close it. The finite factorisation concerns the moment weights. An irrationality
+form still requires a separate denominator estimate for its own
+rational coefficients.
+
+
+\subsubsection*{An extension with limiting weight ratio}
+\papersectiontarget{long1049-ratio-extension}
+
+For $0<\rho<q^{-1}$ set
+\[
+ \mathcal M(\rho;q)=\prod_{d\ge1}(1-\rho q^d)^{-d},
+ \qquad \mathcal M(1;q)=\mathcal M(q).
+\]
+The following extension has an ordinary proof, reproduced below, but no
+Lean proof in the supplied record. We retain it as an unformalised
+remark; it is not used in the checked fixed-base argument.
+
+\phantomsection
+\begin{remark}[limiting weight ratios; unformalised]\label{long1049:thm:geometric-ratio}
+Let $0<q<1$ and $0<\rho<q^{-1}$. Suppose that $a_k>0$ for $k\ge0$ and
+\[
+ \frac{a_{k+1}}{a_k}\longrightarrow\rho\qquad(k\to\infty).
+\]
+Define
+\[
+ M_m=\sum_{k\ge0}a_kq^{(m+1)k},\qquad
+ D_N=\det(M_{i+j})_{0\le i,j<N}.
+\]
+Then, as $N\to\infty$,
+\begin{equation}\label{long1049:eq:ratio-limit}
+ D_N\sim \mathcal M(1;q)^2\mathcal M(\rho;q)\,
+ q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k.
+\end{equation}
+\end{remark}
+
+\begin{proof}[Ordinary argument for the ratio-limit remark]
+Choose $\widehat\rho$ with $\rho<\widehat\rho<q^{-1}$.
+There is a $K$ such that $a_{j+1}/a_j\le\widehat\rho$ for $j\ge K$.
+With
+\[
+ C=\prod_{j<K}\max\left(1,\frac{a_{j+1}}{\widehat\rho a_j}\right),
+\]
+we obtain, by multiplying adjacent ratios,
+\begin{equation}\label{long1049:eq:ratio-shift-bound}
+ \frac{a_{k+h}}{a_k}\le C\widehat\rho^{\,h}\qquad(k,h\ge0).
+\end{equation}
+This also gives $a_h\le Ca_0\widehat\rho^{\,h}$, so every moment
+converges because $q\widehat\rho<1$.
+For finitely many nodes,
+Cauchy--Binet expands their moment determinant as a sum of squared
+Vandermonde products. We let the number of nodes tend to infinity.
+Entrywise convergence gives the limit of the determinant, while
+positivity gives the limit of the sum. Hence
+\begin{equation}\label{long1049:eq:ratio-heine}
+ D_N=\sum_{0\le k_0<\cdots<k_{N-1}}
+ \prod_{i<N}a_{k_i}q^{k_i}
+ \prod_{i<j<N}(q^{k_i}-q^{k_j})^2.
+\end{equation}
+The tuple $k_i=i$ contributes
+\[
+ q^{B_N}\Delta_N\prod_{i<N}a_i,\qquad
+ \Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
+\]
+Write $k_i=i+\lambda_i$ and reverse the displacements:
+$\mu_j=\lambda_{N-j}$ for $1\le j\le N$. Then
+$\mu_1\ge\cdots\ge\mu_N\ge0$. After division by the least-tuple
+contribution, the summand becomes
+\begin{equation}\label{long1049:eq:ratio-partition}
+\begin{split}
+ W_N(\mu)={}&q^{\sum_{j\le N}(2j-1)\mu_j}
+ \prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}\\
+ &\hspace{2mm}\cdot\prod_{1\le j<k\le N}
+ \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
+\end{split}
+\end{equation}
+For partitions of length greater than $N$, set $W_N(\mu)=0$.
+All the sums now have the same countable index set.
+
+Suppose that $\mu$ has $\ell$ positive parts. Only the factors with
+$j\le\ell$ can differ from $1$. For a fixed such $j$, the denominators
+in the Vandermonde quotient multiply to at least $P$, and its
+numerators are at most $1$. We therefore have the rank-independent
+bound
+\[
+ W_N(\mu)\le (CP^{-2})^\ell
+ \prod_{j=1}^{\ell}\widehat\rho^{\,\mu_j}q^{(2j-1)\mu_j}.
+\]
+We sum this majorant by first fixing $\ell$ and then dropping the
+ordering condition on the positive parts. This gives
+\begin{align*}
+ \sum_{\ell(\mu)=\ell}\sup_N W_N(\mu)
+ &\le(CP^{-2})^\ell\prod_{j=1}^{\ell}
+        \sum_{u\ge1}\widehat\rho^{\,u} q^{(2j-1)u}\\
+ &\le C_*^{\ell}q^{\ell^2},\qquad
+ C_*=\frac{C\widehat\rho P^{-2}}{1-\widehat\rho q}.
+\end{align*}
+Here $\sum_{j\le\ell}(2j-1)=\ell^2$ and
+$1-\widehat\rho q^{2j-1}\ge1-\widehat\rho q>0$.
+The series $\sum_{\ell\ge0}C_*^{\ell}q^{\ell^2}$ converges.
+
+For fixed $h$, telescoping the adjacent ratios shows that
+$a_{k+h}/a_k\to \rho^h$. Thus, for each fixed partition, the weight
+ratios in \eqref{long1049:eq:ratio-partition} have the same limit as for
+$a_k=\rho^k$. Its Vandermonde quotient also converges: only finitely
+many first indices occur, and the logarithms of the remaining
+factors have geometrically summable tails. Dominated convergence
+therefore reduces the limit of $\sum_\mu W_N(\mu)$ to the case
+$a_k=\rho^k$.
+
+In that case $M_m=(1-\rho q^{m+1})^{-1}$, and Cauchy's determinant gives
+\[
+ D_N=\frac{\rho^{N(N-1)/2}q^{B_N}\Delta_N}
+ {\prod_{0\le i,j<N}(1-\rho q^{i+j+1})}.
+\]
+The multiplicity of $1-\rho q^d$ in the denominator increases to $d$,
+so the normalised sum tends to $\mathcal M(\rho;q)$. Finally,
+\[
+ \frac{\Delta_N}{P^{2N}}
+ =\prod_{d<N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+ \longrightarrow\mathcal M(1;q)^2,
+\]
+since the logarithm of the second product is $O_q(Nq^N)$.
+Combining the two limits proves \eqref{long1049:eq:ratio-limit}.
+\end{proof}
+
+For example, $a_k=\rho^k(k+1)^s$, with $s\in\mathbb R$, satisfies
+the ratio hypothesis, and
+$\prod_{k<N}a_k=\rho^{N(N-1)/2}(N!)^s$.
+For $s=1$ the moments are $(1-\rho q^{m+1})^{-2}$, giving
+\[
+ \det\left((1-\rho q^{i+j+1})^{-2}\right)_{i,j<N}
+ \sim\mathcal M(q)^2\mathcal M(\rho;q)
+       q^{B_N}P^{2N}\rho^{N(N-1)/2}N!.
+\]
+The choice $a_k=\rho^k\exp(\sqrt{k})$ also satisfies the ratio
+hypothesis, since $\sqrt{k+1}-\sqrt{k}\to0$.
+For $\rho=1$, its relative growth at $k=0$ exceeds every polynomial in the shift.
+Thus this argument extends beyond the polynomial-bound hypotheses of
+Theorem~\ref{long1049:thm:geometric-universality}.
+
 
 
 \subsection{A rational-value model with the same Hankel signature}
 \label{long1049:sec:calibrated-countermodel}
+\papersectiontarget{long1049-countermodel}
 
-The preceding fixed-base asymptotic describes the actual normalised
-Zudilin moments.  It does not, on its own, clear a determinant after
-rational specialisation.  The following explicit family separates these
-two kinds of information.  It has positive moments, an integer formal
-$q$-series, the same leading Hankel coefficient at every rank and the
-same \emph{shape} of fixed-base asymptotic, including a power of $N$
-whose exponent is the associated special value.  That value is rational.
-The example is a countermodel to an inference from those properties
-alone.  It does not reproduce Zudilin's moment recurrence, polynomial
-factorisation or cyclotomic divisors, and says nothing about whether
-$F(3/2)$ is irrational.
+The following rational construction separates the moment properties
+from the arithmetic of the target value. Its determinants have the
+same formal orders, leading coefficients and type of fixed-base
+power correction as the Zudilin moments. The target value is $1$.
+The calculations are retained as unformalised remarks with ordinary
+proofs. They use neither Zudilin's recurrence nor his polynomial
+factorisation or cyclotomic divisors, and give no conclusion about
+$F(3/2)$.
 
 Put
 \[
@@ -2195,7 +2452,8 @@ then $A_q(w)=\sum_{k\ge0}a_k(q)w^k$ equals
 Set $\mu_m(q)=A_q(q^{m+1})$, $\nu_m(q)=\mu_m(q)-q\mu_{m+1}(q)$,
 and $G_q(z)=\sum_{m\ge0}\nu_m(q)z^m$.
 
-\begin{theorem}[calibrated rational-value Hankel model]
+\phantomsection
+\begin{remark}[calibrated rational-value Hankel model]
 \label{long1049:thm:calibrated-model}
 All the weights in~\eqref{long1049:eq:calibrated-weights} are positive
 for $0<q\le2/3$.  The two moment banks $\mu_m$ and $\nu_m$ have positive
@@ -2214,7 +2472,7 @@ there is an explicit $\mathcal A>0$ such that
  \sim\mathcal A\mathcal M(q_0)^3 C_Nq_0^{B_N}
              P(q_0)^{2N}N^{-8\xi},\qquad \xi=G_{q_0}(q_0)=1.
 \]
-\end{theorem}
+\end{remark}
 
 This countermodel and its denominator calculation have ordinary proofs
 below; they have not been Lean-checked or externally peer reviewed.
@@ -2298,7 +2556,11 @@ because $\xi=1$; it is asserted at this one fixed base, not as a
 uniform special-value formula for this family.
 \end{proof}
 
-\begin{theorem}[exact denominators of the calibrated moments]
+The following calculation is retained with its ordinary proof. It has
+no Lean proof in the supplied record.
+
+\phantomsection
+\begin{remark}[exact denominators of the calibrated moments]
 \label{long1049:thm:calibrated-denominators}
 Let $q_0=2/3$ and $\delta_n=3^{n+1}-2^{n+1}$.  For every $n\ge1$,
 the reduced denominators are
@@ -2310,7 +2572,7 @@ the reduced denominators are
 The least integer clearing both rational coefficients in
 $\mu_n=q_0^{-n}\xi-q_0^{-n}S_{n-1}$ is
 $2^n3^{31n+62}\delta_n^4$.  At $n=0$ the moment and tail equal one.
-\end{theorem}
+\end{remark}
 
 \begin{proof}
 At $q_0$, split the rational seed into a pole part and a polynomial:
@@ -2349,7 +2611,11 @@ Each individual $\mu_n$ has logarithmic height linear in $n$:
 $\log\operatorname{den}\mu_n=(35n+66)\log3+o(1)$.
 The determinant has a different scale.
 
-\begin{proposition}[the determinant height and a failed row clearer]
+The following calculation is retained with its ordinary proof. It has
+no Lean proof in the supplied record.
+
+\phantomsection
+\begin{remark}[the determinant height and a failed row clearer]
 \label{long1049:prop:calibrated-height}
 For $D_N=\operatorname{den}H_N(q_0)$ in lowest terms,
 \[
@@ -2360,7 +2626,7 @@ For $D_N=\operatorname{den}H_N(q_0)$ in lowest terms,
 Already at rank two, multiplying $H_2=\mu_2-\mu_1^2$ by
 $\operatorname{den}\mu_1\operatorname{den}\mu_2$ leaves reduced
 denominator $625$.
-\end{proposition}
+\end{remark}
 
 \begin{proof}
 The positive Heine expansion above gives a bound independent of the
@@ -2417,9 +2683,12 @@ the explicit combination and its arithmetic obstruction.
 
 \subsection{Coefficient moments and cyclotomic content}
 \label{long1049:sec:coefficient-questions}
-The positive measure just constructed belongs to the remainders $v_m^*$.
-It is not a measure for their coefficients in $F(p)$. To make the latter
-question precise, fix $p>1$, use Gaussian binomial polynomials, and put
+\papersectiontarget{long1049-coefficients}
+We turn from the remainders $v_m^*$ to the coefficients of $F(p)$
+in the corresponding forms. A positive measure for the remainders
+does not establish positivity of these coefficients, so a separate
+calculation is needed. Fix $p>1$ and define, using Gaussian binomial
+polynomials,
 \[
  \begin{aligned}
  R_m(p)&=\sum_{k=0}^m(-1)^{m+k}p^{k(k+1)/2}
@@ -2841,16 +3110,16 @@ systematically, and whether $s_m$ is a Stieltjes sequence, remain separate
 questions. The remainder measure answers neither.
 
 \section{Rescaling integer rows}\label{long1049:sec:primitive}
+\papersectiontarget{long1049-arithmetic}
 
-Fix a rational base $a/b>1$. An irrationality argument constructs
-integer-coefficient forms in $1$ and $F(a/b)$ that are nonzero and
-tend to zero. Bounds on coefficient height help construct those forms or bound an
-irrationality exponent, but height times error need not tend to zero for
-the one-form irrationality criterion.
-An integer row $(U,V)$ is primitive when $\gcd(|U|,|V|)=1$.
-Dividing a nonzero row by this gcd divides its remainder by the same
-integer. For an integer coefficient pair \((U,V)\) and a real target
-\(S\), put
+An irrationality form needs integral coefficients and a nonzero
+remainder tending to zero. We may divide a row $(U,V)$ by
+$\gcd(|U|,|V|)$ to reduce its remainder while preserving integrality;
+a row with gcd $1$ is called primitive. This one-form criterion
+requires no decay of height times error, although an irrationality
+measure does require height estimates. At a fixed rational base
+$a/b>1$, the following elementary identities describe the effect of
+integer rescaling. For a real target $S$, put
 \[
  L_S(U,V)=US-V,
  \qquad
@@ -2929,21 +3198,14 @@ factors before evaluation, finding factors common to several minors,
 and adding different rows remain separate operations.
 
 \section{Congruences after evaluation at \texorpdfstring{$3/2$}{3/2}}\label{long1049:sec:endpoints}
+\papersectiontarget{long1049-endpoints}
 
-The polynomials in Zudilin's construction give integer rows after
-evaluation and denominator clearing~\cite[Secs.~3--5]{zudilin2004}.
-The next results apply to arbitrary polynomials in $\Z[X]$, not just
-those polynomials. We first compute the evaluated integers modulo $2$
-and $3$, then count their possible residues modulo powers of these
-primes. The tools are elementary congruences, the pigeonhole principle
-and B\'ezout's identity. The final scalar inequality,
-Theorem~\ref{long1049:res:scalar}, concerns the parameters of Zudilin's
-construction rather than its coefficient polynomials.
-
-Substituting \(X=3/2\) into an integer polynomial produces a rational
-number whose denominator is cleared by a sufficiently large power of
-\(2\). To use the same operation when adding polynomials, first fix a
-truncation index \(W\ge0\). For \(P(X)=\sum_i p_iX^i\in\Z[X]\), put
+We use congruences modulo powers of $2$ and $3$ to find combinations
+of evaluated polynomials with prescribed divisibility. The argument
+applies to arbitrary integral polynomials, including the forms of
+\cite[Sections~3--5]{zudilin2004}. To preserve additivity during
+evaluation, fix a common truncation index $W\ge0$ and, for
+$P(X)=\sum_i p_iX^i\in\Z[X]$, put
 \[
  H_W(P)=\sum_{i=0}^{W}p_i\,3^i2^{W-i}.
 \]
@@ -3123,15 +3385,21 @@ below.
 We first raise the two congruences to prime powers.  Fix depths \(R,S\ge0\).
 For $P\in\Z[X]$, let $J_{3,R}(P)$ and $J_{2,S}(P)$ be the residues of
 $H_W(P)$ modulo $3^R$ and $2^S$, respectively.
-Theorem~\ref{long1049:res:endpoints} computes them when $R=S=1$.  Their
-vanishing is exactly the requested divisibility:
-\[
- J_{3,R}(P)=0\iff 3^R\mid H_W(P),\qquad
- J_{2,S}(P)=0\iff 2^S\mid H_W(P).
-\]
-Lean checks both, as the
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}{criterion for divisibility by $3^R$} and the
-\lword{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}{criterion for divisibility by $2^S$}.
+Theorem~\ref{long1049:res:endpoints} computes the depth-one residues.
+
+\begin{lemma}[a residue and divisibility by $3^R$]\label{res:bottomjet}
+Vanishing of the
+\lword{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}{residue modulo $3^R$}
+is exactly divisibility by the corresponding power of three:
+$J_{3,R}(P)=0$ if and only if $3^R\mid H_W(P)$.
+\end{lemma}
+\begin{proof}
+By definition $J_{3,R}(P)$ is the image of the integer $H_W(P)$ in
+$\mathbb Z/3^R\mathbb Z$. The kernel of this quotient map is
+$3^R\mathbb Z$, which proves the equivalence, including $R=0$.
+\end{proof}
+The same argument gives
+$J_{2,S}(P)=0\iff2^S\mid H_W(P)$ for $S\ge0$.
 
 The \emph{vector of four residues} of a coefficient pair
 \((U,V)\) is then the quadruple
@@ -3253,8 +3521,50 @@ with a useful small $k$ for subset sums: repeated input rows produce
 many equal sums, even when every row is primitive. The theorem assumes
 a bound on every fibre of $g$, not merely on the fibres of $(f,g)$.
 It gives a nonzero difference but no upper bound on its real size.
-The short paper states a different, quantitative version using both
-residues and intervals of real values.
+To bound the size as well, we partition the range of $g$ into small
+intervals. This gives the following quantitative version, whose fibre
+condition concerns the joint map $(f,g)$.
+
+\papersectiontarget{long1049-selectors}
+\begin{theorem}[equal residues with close, distinct values]\label{res:boundedfibre}
+Let $A,B,J$ be finite sets and let $f:A\to B$, $g:A\to\mathbb R$ and
+$\iota:A\to J$.  Suppose that each simultaneous fibre of $(f,g)$ has at
+most $k$ elements and that, for some $\delta>0$,
+\[
+ \iota(x)=\iota(y)\quad\Longrightarrow\quad |g(x)-g(y)|<\delta.
+\]
+If $|B||J|k<|A|$, then some distinct $x,y\in A$ satisfy
+\[
+ f(x)=f(y),\qquad 0<|g(x)-g(y)|<\delta.
+\]
+\end{theorem}
+\begin{proof}
+Suppose that no such pair exists. Two points in a fibre of
+$(f,\iota)$ have equal $f$-values and $g$-values less than $\delta$
+apart, so their $g$-values must be equal. Thus each fibre of
+$(f,\iota)$ lies in a fibre of $(f,g)$ and contains at most $k$
+points. Summing over its at most $|B||J|$ fibres gives
+$|A|\le |B||J|k$, a contradiction.
+\end{proof}
+
+For an application, let $M$ integral rows have real remainders $e_j$,
+and suppose their subset sums have $Q$ possible residues modulo a
+positive integer $D$. Put $T=\sum_j|e_j|$. All subset sums of the
+remainders lie in an interval of length $T$. Divide it into half-open
+intervals of width $D/n$, using a final interval for the right
+endpoint if necessary. At most $\lfloor nT/D\rfloor+1$ intervals
+are needed. If each simultaneous residue-and-remainder fibre has
+size at most $k$, the inequality
+\[
+ 2^M>Qk\bigl(\lfloor nT/D\rfloor+1\bigr)
+\]
+therefore gives equal residues with remainder difference strictly
+between $0$ and $D/n$ in absolute value. Subtracting the selectors
+and dividing the two coefficients by $D$ gives an integral form
+of nonzero absolute value less than $1/n$. For a prescribed family,
+the number $Q$, the width $T$ and the multiplicity bound $k$ must
+all be justified. We have no such bounds giving the required forms
+for the Zudilin family at $3/2$.
 
 
 The next improvement needs a much stronger hypothesis than
@@ -3345,7 +3655,8 @@ is a vector in \(\{-1,0,1\}^{6}\), not identically zero, killing all four residu
 \end{example}
 
 The following elementary comparison concerns only the two scalar
-exponents, not the coefficient polynomials.
+exponents of Zudilin's construction; it makes no assertion about
+the coefficient polynomials or their real remainders.
 
 \begin{theorem}[a restriction on the two scalar exponents]\label{long1049:res:scalar}
 Let \(C_1>0\).  If \(C_0\le0\) or \(2C_0\le C_1\), then
@@ -3385,20 +3696,25 @@ only the displayed inequality; it neither constructs a new family at
 $3/2$ nor formalises a universal exclusion of linear-form methods.
 
 \section{Failure of the stated clearing conditions at \texorpdfstring{$3/2$}{3/2}}\label{long1049:sec:corridor}
+\papersectiontarget{long1049-clearing}
 
-\paragraph{Erd\H{o}s's integer-base argument, in outline.}
-For an integer $b\ge2$, Erd\H{o}s rewrites
-$F(b)=\sum_{n\ge1}\tau(n)b^{-n}$.  A Chinese-remainder construction forces
-arbitrarily long blocks in which the divisor coefficients have the powers of
-$b$ needed to make the corresponding base-$b$ digits zero. Tail estimates
-control carries, and the argument also establishes that the expansion
-does not terminate. These are separate requirements: arbitrarily long
-zero blocks without eventual termination exclude eventual periodicity,
-and hence rationality~\cite[pp.~63--66]{erdos1948}.
+At an integer base, congruences for divisor coefficients can produce
+long blocks of zero digits. We recall that argument before comparing
+it with the coordinatewise clearing conditions below.
+
+\paragraph{The integer-base argument.}
+For an integer $b\ge2$, Erd\H{o}s uses the expansion
+$F(b)=\sum_{n\ge1}\tau(n)b^{-n}$ and the Chinese remainder theorem to
+produce arbitrarily long blocks of divisor coefficients with prescribed
+powers of $b$. After controlling carries from the tail, he obtains
+arbitrarily long blocks of zero digits and proves that the expansion
+does not terminate. An eventually periodic expansion with arbitrarily
+long zero blocks must terminate, so these two facts imply irrationality
+\cite[pp.~63--66]{erdos1948}.
 Positivity of the original summands alone would not prove nontermination;
 for example, $\sum_{n\ge1}(b-1)b^{-n}=1$.
 
-\paragraph{The direct cut-and-clear attempt studied here.}
+\paragraph{Direct clearing of a partial sum.}
 A more naive attempt is to suppose $F(b)=p/q$, cut at $N$, and multiply the
 remaining identity by $qb^N$.  This does not by itself trap a positive integer
 below $1$: the first uncleared tail contribution is
@@ -3532,11 +3848,11 @@ clearing schemes with different conditions.
 
 \section{Successive scaled remainders}\label{long1049:sec:tail}
 
-The preceding clearing test concerns a chosen partial sum. The
-recurrence below instead compares successive scaled differences from
-an arbitrary rational number. It is an algebraic identity; to regard
-those differences as tails one must also identify that number with
-the sum of a convergent series.
+Consecutive partial sums differ by one term. After clearing the
+powers of a rational base, this identity gives a recurrence for
+the scaled differences from a rational number. We derive it for
+arbitrary coefficients; the differences are tails only when the
+series converges to the chosen rational number.
 
 Let $r,s,B,\xi$ be rationals with $r\ne0$ and let $c:\N\to\Q$ be arbitrary.
 Define the prefix and the scaled remainder by
@@ -3621,12 +3937,11 @@ nonzero integer forms.
 
 \section{The height criterion at \texorpdfstring{$7/2$}{7/2}}\label{long1049:sec:sevenhalves}
 
-In 1994 Bundschuh and V\"a\"an\"anen proved an irrationality criterion for a
-family of rational bases cut out by a height condition
-\cite[Theorem~2, p.~177; hypotheses pp.~175--176]{bv1994}.  We keep their
-notation: $q$ is the base, and $\alpha$
-and $\lambda$ are the parameters of the criterion.  In its special case
-$\alpha=-1$, the printed hypothesis is
+The base $7/2$ already lies in the irrationality region of
+Bundschuh and V\"a\"an\"anen
+\cite[Theorem~2, p.~177; hypotheses pp.~175--176]{bv1994}.
+We check their height condition in their notation, with $q$
+denoting the base. At $\alpha=-1$ it reads
 \[
  \lambda<\left(\frac12+\frac1{\pi^2}\right)^{-1}.
 \]
@@ -3692,8 +4007,8 @@ Consider the rational-height region
  \frac{\log b}{\log a}<\frac{81}{200}
  \qquad(a>b>0).
 \]
-We use $81/200$ as a rational lower bound on $\theta^{*}$, not as a
-separately derived analytic threshold. The bracket
+The number $81/200$ is the rational lower bound on $\theta^*$
+proved earlier. The bracket
 $81/200<\theta^{*}<1/2$ in Section~\ref{long1049:sec:regionbracket}
 puts this entire smaller region inside
 Theorem~\ref{long1049:res:region}. Membership of the smaller region is
@@ -3738,17 +4053,13 @@ $\log2/\log3\approx0.6309$.
 \section{A denominator-exponent model for Pad\'e-type
 forms}\label{long1049:sec:pade}
 
-To clear the rational coefficients in a Pad\'e approximation, a
-proposed common denominator must dominate every summand's denominator.
-The calculation below checks two explicit exponent expressions against
-one proposed bound. No approximation family is specified for these
-expressions, so the result is an algebraic comparison only. Applying
-it would require a coefficient formula, an integrality proof, and a
-nonzero remainder estimate for that formula.
-
-The proposed denominator exponent is $(3n^2-n)/2$. We compare twice
-each exponent, so every displayed identity is over $\Z$. The doubled
-exponent is $\widetilde E_n=3n^2-n$.
+For a sum of Pad\'e-type terms, a common denominator must clear
+each summand. The two exponent expressions below are bounded by
+$(3n^2-n)/2$, as their differences factor over $\Z$. We double all
+exponents to avoid fractions and write $\widetilde E_n=3n^2-n$.
+These are algebraic comparisons only: no approximation family is
+specified, so integral coefficients and a nonzero remainder estimate
+would still be needed for an arithmetic application.
 
 \begin{proposition}[exponent model: summand bound and exact gap]\label{long1049:res:pade}
 Let $\widetilde{E}_n=3n^{2}-n$ and put
@@ -3798,14 +4109,14 @@ analytic obligations, and none of them is treated here, so nothing in this
 section is an irrationality measure.
 
 \section{Complements and further questions}\label{long1049:sec:open}
+\papersectiontarget{long1049-open-construction}
 
-The next question asks for integer combinations whose two evaluated
-coefficients are divisible by large powers of $2$ and $3$, and whose
-remainder is nonzero and small after division. With unrestricted input
-polynomials, it is equivalent to irrationality at $3/2$, as we prove
-below. The quadratic bounds in its statement do not themselves isolate
-a method of proving irrationality. A question about a specified
-approximation family must impose that restriction separately.
+Prescribing small divided remainders is useful only after the
+polynomial family has been fixed. Without that restriction, the
+following problem is equivalent to irrationality at $3/2$, even
+with its quadratic degree and height bounds. We prove the
+equivalence and then discuss more specific congruence and
+approximation questions.
 
 \begin{problem}[a divided linear form with small nonzero remainder]\label{long1049:prob:kernel}
 Exhibit an integer constant \(C\ge1\) and, for every sufficiently large
@@ -3890,7 +4201,8 @@ the unrestricted construction problem for a real target $\xi$ is
 equivalent to the irrationality of $\xi$. It does not establish either
 assertion for $F(3/2)$.
 
-The short paper records the same unrestricted construction requirements.
+The short paper refers to this formulation and to its equivalence with
+irrationality.
 To pose a more specific question, one must replace the free choice of
 polynomial pairs by an actual set given by coefficient formulas,
 admissible parameters and permitted normalisations. A family name or
@@ -3915,11 +4227,13 @@ hypothesis of the elementary irrationality criterion above.
 
 \subsection{A congruence relation with nonzero remainder}
 
-Fix, for each $n$, a common degree bound $W_n$ and a specified family
+We make the congruence condition explicit for a fixed family. For each
+$n$, let $W_n$ be a common degree bound and let
 \[
- (U_{n,j},V_{n,j},\mathcal R_{n,j})_{j<M_n},
+ (U_{n,j},V_{n,j},\mathcal R_{n,j})_{j<M_n}
 \]
-where $U_{n,j},V_{n,j}\in\Z[X]$ have degree at most $W_n$ and
+be the chosen forms, with $U_{n,j},V_{n,j}\in\Z[X]$ of degree at most
+$W_n$ and
 \[
  \mathcal R_{n,j}(t)=U_{n,j}(t)F(t)-V_{n,j}(t)\qquad(t>1).
 \]
@@ -4105,10 +4419,12 @@ producing a single nonzero form.
 If the specialised rows are not primitive, let $d_1\mid d_2$ be the
 positive Smith invariants instead. For $D\ge1$ the corresponding formulas are
 \[
- |\operatorname{im}(L\bmod D)|=
- \frac{D^2}{\gcd(d_1,D)\gcd(d_2,D)},\qquad
- [\Z^2:(L\cap D\Z^2)/D]=
- \frac{d_1d_2}{\gcd(d_1,D)\gcd(d_2,D)}.
+\begin{aligned}
+ |\operatorname{im}(L\bmod D)|
+ &=\frac{D^2}{\gcd(d_1,D)\gcd(d_2,D)},\\
+ [\Z^2:(L\cap D\Z^2)/D]
+ &=\frac{d_1d_2}{\gcd(d_1,D)\gcd(d_2,D)}.
+\end{aligned}
 \]
 They follow by applying the one-dimensional calculation to each summand
 $d_i\Z$. Polynomial coefficient content alone does not determine either
@@ -4180,18 +4496,18 @@ remainders are still nonzero and small.
 
 \subsection{Estimating the divided remainder}
 
-The next displayed margin is an additional research target for a specified
-comparison of height and remainder, not a necessary irrationality criterion.
-First fix such a construction and define its height $H_n\ge1$, undivided
-nonzero remainder $L_n$ and exactly once-counted certified divisor
-$D_n=3^{R_n}2^{S_n}$. If another divisor is used, replace the two logarithmic
-terms below by $\log D_n$. A scalar-form height and an exterior-determinant
-height cannot be interchanged: the comparison with a nonzero integer must
-be derived for the actual objects selected. For a scalar construction,
-integral coefficients and $0<|L_n|/D_n\to0$ already suffice, with no
-extra height factor. Conversely, the proposed negative margin would
-imply this scalar decay because $H_n\ge1$. Allowing an arbitrarily
-small positive $H_n$ would lose that implication.
+Once a construction is fixed, let $H_n\ge1$ be its height, $L_n\ne0$
+its undivided remainder, and $D_n=3^{R_n}2^{S_n}$ its proved divisor,
+counted once. We ask for the additional height and remainder estimate
+below. With a different divisor, the two logarithmic terms should be
+replaced by $\log D_n$. The estimate must use the height of the objects
+that enter the comparison with a nonzero integer; scalar and
+exterior-determinant heights cannot be interchanged.
+For scalar forms, integral coefficients and $0<|L_n|/D_n\to0$
+already suffice for irrationality, without a height factor. The
+proposed estimate implies that decay because $H_n\ge1$, although it
+is not necessary for the scalar criterion. Allowing arbitrarily
+small positive heights would lose this implication.
 
 \begin{problem}[an additional height and remainder estimate]
 Prove the explicit estimate
@@ -4211,16 +4527,17 @@ of the same explicitly normalised objects.
 
 \subsection{A restriction on Mahler functional equations}
 
-Mahler's method requires suitable functional equations. For the divisor
-generating series $\mathcal L(z)=\sum_{n\ge1}\tau(n)z^n$, Bell and
-Smertnig's classification rules out a $k$-Mahler equation for every $k\ge2$
-\cite[Thm.~1.3 and the consequences on p.~3]{bellsmertnig2026}.  The
-proposition below proves the simultaneous $2$/$3$ case using the theorem
-of Adamczewski and Bell and the functional nonrationality already
-proved in Section~\ref{long1049:sec:source-forms}.
-The 2026 works are cited as the identified preprints, not as journal
-publications. A function-level obstruction to these functional equations
-does not determine the arithmetic nature of any one rational-base value.
+For the divisor generating series
+$\mathcal L(z)=\sum_{n\ge1}\tau(n)z^n$, the classification of Bell and
+Smertnig excludes a $k$-Mahler equation for every $k\ge2$
+\cite[Thm.~1.3 and the consequences on p.~3]{bellsmertnig2026}.
+We first explain its application to $\tau$. We then prove the weaker
+simultaneous $2$/$3$ statement by combining the Adamczewski--Bell theorem
+with the functional nonrationality from
+Section~\ref{long1049:sec:source-forms}.
+The cited 2026 works have the status of the identified preprints.
+These functional statements leave the arithmetic nature of an
+individual rational-base value undecided.
 
 To apply the classification, note that $\tau$ is multiplicative:
 for coprime integers $m,n$, each divisor of $mn$ has a unique
@@ -4309,9 +4626,9 @@ $z\mapsto z^k$ alone
 
 \subsection{A limitation of the rectangular exponent model}
 
-Consider the two-parameter expression $\Theta_{\mathrm{HP}}$ defined in
-Section~\ref{long1049:sec:sharp}. On the domain $\rho\ge0$,
-$\sigma\ge1+\rho$, its denominator
+We conclude the comparison of exponent models by bounding
+$\Theta_{\mathrm{HP}}$, defined in Section~\ref{long1049:sec:sharp}.
+For $\rho\ge0$ and $\sigma\ge1+\rho$ its denominator
 \[
  \frac{(1+\rho)^2}{2}+\sigma(1+\rho)+\frac{1+\rho^2}{2}+\sigma
 \]
@@ -4432,9 +4749,10 @@ The unrestricted question of which rational bases give irrational values
 is not settled here and is not reduced to any one of these problems.
 
 \section*{Related work and comparison of constructions}
-The following comparisons place the two constructions in their
-literature. The distinction between an integer base, a rational base and
-a statement about a function is essential in each comparison.
+We close with comparisons that depend on the normalisation or the
+choice of target. A functional equation concerns the whole Lambert
+function, whereas a value theorem may depend on whether the base is
+an integer or a noninteger rational.
 
 \paragraph{Functional nonrationality is not value irrationality.}
 At the level of functions, Rivin proves that if a sequence \(\gamma\) and its
@@ -4601,12 +4919,12 @@ printed regions for $F$ compared here reaches $\log4/\log31$.
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 
-\paragraph{Data availability.} The
-\href{\sourceurl}{formal-source revision} contains the Lean sources, the
-toolchain and the library manifest; the
-\href{\evidencerecordurl}{evidence record} lists every declaration and
-check. The mathematical proofs are given in the text; ordinary arguments
-and finite computations are identified separately.
+\paragraph{Data availability.}
+The \href{\sourceurl}{formal-source revision} contains the Lean sources
+with their toolchain and library manifest. The
+\href{\evidencerecordurl}{evidence record} lists the declarations and
+recorded checks. Proofs are given in the text, with ordinary arguments
+and finite computations distinguished from the formal results.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -4621,10 +4939,53 @@ mathematical review or endorsement of the results here.
 \appendix
 \section{Guide to the formal sources}\label{long1049:app:index}
 
-The margin marks link each result to its Lean proof, and the
-\href{\evidencerecordurl}{evidence record} lists every declaration and
-check. The formal results are of two kinds, and both are distinct from
-the finite computations.
+The links beside each statement and in the margin identify the supplied
+Lean declarations and their recorded Comparator comparisons. The
+\href{\evidencerecordurl}{evidence record} lists those checks;
+no fresh execution or independent review of this revision is
+reported. Theorem~\ref{long1049:thm:geometric-universality}
+retains its checked polynomial shift-bound hypotheses, and its
+proof does not use the \hyperref[long1049:thm:geometric-ratio]{ratio-limit remark}.
+That broader argument, the
+\hyperref[long1049:thm:calibrated-model]{rational-value model}, its
+\hyperref[long1049:thm:calibrated-denominators]{denominator calculation}
+and the \hyperref[long1049:prop:calibrated-height]{height bound}
+have ordinary proofs here but no Lean proofs in the supplied record. The unformalised material
+is kept separate from the checked fixed-base theorem.
+
+\paragraph{Formal verification and computations.}
+The printed proofs of Theorems~\ref{long1049:res:region}
+and~\ref{long1049:res:31over4} use Zudilin's construction: his Lemma~7 in its polynomial reading, together with the
+inputs of that lemma's own proof, namely his Lemma~3, the exponent $M(a;b)$
+of~(16) proved by his Lemma~4, the group stability of his Lemma~5, and the
+identity~(9)--(11), all in \cite[pp.~156--161]{zudilin2004}, and his direction and
+constants \cite[p.~162]{zudilin2004}.  Proved here are
+the nonrationality of $F$ as a function, the identification of the
+polynomial coefficients in Lemma~7, the exact degrees of $U_n$ and $V_n$,
+positivity, the Archimedean size estimate, and the limit
+$(K_n-W_n)/n^{2}\to C_0$.  That last limit rests on Zudilin's Lemmas~1 and~2
+\cite[p.~155]{zudilin2004}, whose method goes back to
+\cite[Lemma~1, p.~466]{zudilin2002}; Section~\ref{long1049:sec:cyclotomic-limit}
+proves them by that method with an explicit truncation estimate.  Lean
+proves both theorems and the measure bound of
+Corollary~\ref{long1049:cor:rational-base-measure}; it constructs the
+polynomials and proves their remainder estimates.  The Lean sources also
+contain the finite comparisons, the rational bracket in
+Section~\ref{long1049:sec:regionbracket} and the degree identities in
+Section~\ref{long1049:sec:degrees}. Appendix~\ref{long1049:app:index}
+distinguishes these proofs from computer algebra.
+
+Exact computations outside Lean certify the rational interval
+bounds, $U_n,V_n$ for $1\le n\le4$, the sixteen coefficient-positivity
+tests through rank eight, and the finite parameter search. The five complete
+polynomial contents and seventy-six residue certificates are described in
+Section~\ref{long1049:sec:coefficient-questions}. The historical
+high-precision real remainder evaluations are separate numerical reports,
+not reproduced by these exact computations. None of these finite
+computations is needed for the proof of
+Theorem~\ref{long1049:res:region}.
+
+
 
 \paragraph{Statements for every rank or every base.}
 Lean constructs the cancelled polynomial forms of

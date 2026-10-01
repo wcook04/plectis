@@ -7,7 +7,7 @@
 
 **What this is.** Plectis is an AI-assisted research system. This public surface shows one checked frontier for each of eight Erdős problem programmes. For each programme, read the question, the exact checked object, and the remaining open step before opening the technical registry.
 
-**How verification works.** The 49 selected propositions are declared again without proofs. Comparator checks that the proof-bearing modules match those independent statements and a fixed axiom budget. A named altered statement must fail. This checks formal propositions only. It does not assess exposition, citations, intended meaning, novelty, or significance. Technical detail is in the [Comparator interface appendix](#comparator-interface-appendix).
+**How verification works.** This dossier describes 49 selected interfaces. The executable [Comparator roster](../verification/comparator.json) contains 53 theorem declarations, including those interfaces and companion declarations. Their statements are declared again without proofs. Comparator checks that the selected proof declarations match those separately declared statements and respect the configured axiom budget. A named altered statement must fail. This checks formal propositions only. It does not assess exposition, citations, intended meaning, novelty, or significance. Technical detail is in the [Comparator interface appendix](#comparator-interface-appendix).
 
 ## Mathematical signal spine
 
@@ -183,7 +183,7 @@ These checked obstructions are an alphabetical, deliberately unranked tier. They
 
 ### Complete inventory, kept subordinate
 
-Every contribution family and every statement-isolated interface remains queryable in the programme dossiers and the [Comparator interface appendix](#comparator-interface-appendix). Subordination is a presentation judgement, not deletion or an adverse mathematical disposition.
+Every contribution family and the documented statement-isolated interfaces remain queryable in the programme dossiers and the [Comparator interface appendix](#comparator-interface-appendix). Subordination is a presentation judgement, not deletion or an adverse mathematical disposition.
 
 ### Complete serious-result universe
 
@@ -1471,7 +1471,7 @@ Exact registry keys and Comparator routing are listed separately.
 ## Comparator interface appendix
 
 <details>
-<summary>Show all 49 statement-isolated interfaces</summary>
+<summary>Show 49 documented statement-isolated interfaces</summary>
 
 **#68: Factorial-denominator series**
 
@@ -1839,7 +1839,7 @@ Exact registry keys and Comparator routing are listed separately.
 
 Comparator is used only for exact Lean-owned propositions that can be isolated without importing their proofs; paper deductions, cited theorems, and external computations retain their own evidence classes.
 The `main_results` key in `formalization.yaml` is the format's list of selected executable interfaces. It is not the canonical claim registry and does not make an unregistered declaration a principal result.
-The 49 exact interfaces cover all eight programmes. Local proof provenance is recorded separately from novelty, which remains unassessed unless a source-fidelity row says otherwise. The trusted challenge contains one proposition-package fixture and imports only `ExternalVerification.Statements` and Mathlib.
+The 49 documented interfaces cover all eight programmes. Local proof provenance is recorded separately from novelty, which remains unassessed unless a source-fidelity row says otherwise. The trusted challenge contains one proposition-package fixture and imports only `ExternalVerification.Statements` and Mathlib.
 The proof-bearing modules occur only in `ExternalVerification.Solution`.
 CI runs the pinned real Linux sandbox and uploads a commit-bound JSON receipt.
 For a reviewer-run Linux check and the immutable release-asset contract, see `docs/verification/EXTERNAL_VERIFICATION_REPLAY.md`.

@@ -11,7 +11,7 @@
 \renewcommand{\commitshort}{92b88dc1bbe0}
 \usepackage{longtable}
 \hypersetup{
-  pdftitle={Denominators and rationality criteria for the factorial-denominator series (Erdős Problem 68)},
+  pdftitle={Factorial linear forms and denominators: detailed proofs and rationality criteria},
   pdfsubject={Erdős Problem Notes: Problem 68},
   pdfkeywords={irrationality, factorial denominators, factorial digits, prime-power cancellation, support bounds, Lean 4},
 }
@@ -22,11 +22,11 @@
 \newcommand{\Lc}{L}
 \newcommand{\den}{\operatorname{den}}
 
-\runninghead{Erd\H{o}s \#68: denominators and rationality criteria}
-\title{Denominators and Rationality Criteria\\for $\sum_{n\ge2}(n!-1)^{-1}$}
+\runninghead{Factorial linear forms: proofs and denominator criteria}
+\title{Factorial Linear Forms and Denominators\\Detailed Proofs and Rationality Criteria}
 \subtitle{Detailed proofs and further deductions for Erd\H{o}s Problem~\#68}
 \author{Will Cook}
-\date{1 September 2026; revised 18 September 2026}
+\date{1 September 2026; revised 30 September 2026}
 
 \setlength{\emergencystretch}{3em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -38,941 +38,117 @@
 \noteprovenance
 
 \begin{abstract}
-Let $S=\sum_{n\ge2}(n!-1)^{-1}$ and
-$\Lc_N=\lcm(2!-1,\ldots,N!-1)$. We prove
-\[
- \liminf_{N\to\infty}\frac{\log\Lc_N}{N^{3/2}\log N}
- \ge\frac{2\sqrt2}{3}.
-\]
-The proof compares the product of a terminal block of denominators with
-their pairwise gcds, using
-$\gcd(i!-1,j!-1)\mid j!/i!-1$ rather than an external multiplicity theorem. This is a bound before reduction. To study
-the reduced partial sums, we specialise a valuation formula of Louwsma
-and Martino to reciprocal sums. Exact examples show that the primes $139$ and
-$2593$ are absent from the reduced denominators of every partial sum from
-indices $137$ and $2591$ onward, respectively.
-
-The coefficient constructions give integer linear forms $MS+k$.
-We classify the vectors that cancel prescribed initial weighted sums,
-determine their attainable moments $M$ on indices at least $2$, and give a
-lower bound for their largest support index when the moment obeys a stated
-upper bound there. At fixed moment the remainder changes only by an integer.
-The rationality criteria use factorial digits and the next integer above
-a scaled partial sum. The digit argument also applies to
-$\sum_{n\ge2}1/(n!+t)$ for integers $t\ge-1$, recovering the irrationality
-of $e$ at $t=0$.
-
-Finally, two exact finite calculations give
-$q\nmid299999!$ and $q\ge2^{39990}>10^{12038}$ for any rational
-representation $S=a/q$, $q>0$. The full carry calculation and the
-continued-fraction calculation are external to Lean. These exclusions do not prove irrationality; the additional tail and
-residue inequalities that would suffice are stated separately.
+We give the integer-coordinate classification and finite-gcd calculation
+for factorial-weighted cancellation, together with support and coefficient
+norm refinements. For $S=\sum_{n\ge2}(n!-1)^{-1}$, we derive lower bounds
+on common denominators and describe prime-power cancellation in reduced
+partial sums. Carry and factorial-digit criteria isolate the remaining
+nonintegrality questions. Recorded exact computations exclude
+$q\mid299999!$ and $q<2^{39990}$ when $S=a/q$; these computations are
+outside Lean and do not settle irrationality.
 \end{abstract}
-
-\paragraph{Organisation.}
-The first two sections keep two different questions separate: which prime
-powers survive reduction (\S\ref{long68:sec:prime-powers}), and how large a
-common denominator must be before reduction (\S\ref{long68:sec:lcm}).
-The tail comparisons in \S\ref{long68:sec:residue} require information not
-supplied by either answer. For the finite exclusions, only the carry
-criterion in \S\ref{long68:sec:carry} and the computations in
-\S\ref{long68:sec:finite} are needed. The coefficient constructions in
-\S\ref{long68:sec:channels} are a separate approach; \S\ref{long68:sec:open}
-identifies the remaining inequalities, and the appendices give further
-deductions, unsuccessful approaches, and formal-source links.
-
-\statusboundary
-
-\evidenceparagraph{\evidencerecordurl}
-
-\section{Which prime powers survive reduction}\label{long68:sec:prime-powers}
 
 \begin{problem}[Erd\H{o}s \#68]\label{long68:res:problem}
 Is $\Ser=\sum_{n\ge2}(n!-1)^{-1}$ irrational?
 \end{problem}
 
-\noindent Erd\H{o}s states the question on p.~102 of his 1988 survey and, in
-the same passage, records the expectation that $\sum_n1/(n!+t)$ is
-irrational, indeed transcendental, for every integer $t$
-\cite[p.~102]{erdos1988}. Here the sum starts sufficiently far out that
-$n!+t>0$; changing that starting index adds or removes only a rational
-number. In particular, no term with zero denominator is included. The
-expectation for all integer shifts is not proved here. Numbering follows
-\href{https://www.erdosproblems.com/68}{Bloom's Erd\H{o}s problem catalogue}
-\cite{bloom}.
+Erd\H{o}s posed this question in 1988, together with the expectation that
+the corresponding series with denominators $n!+t$ should be
+transcendental for every integer $t$ \cite[p.~102]{erdos1988}.
+For negative $t$, the sum begins after all zero or negative denominators.
+Any further change of starting index adds a rational number. The
+expectation for all integer shifts remains unproved here.
+The problem number follows Bloom's catalogue \cite{bloom}.
 
-Put
+The coefficient problem treated first asks which factorial moments can
+occur when a finite integer vector cancels its first weighted sums.
+The answer is an explicitly computable ideal of $\mathbb Z$.
+Adjacent factorial differences isolate the divisors of their index;
+correcting proper divisors then gives an integral basis. Prescribing
+cancellation fixes its lower coordinates, and excluding index one
+leaves a single Diophantine equation. The accompanying short paper
+gives this argument, the finite-gcd proof, and the construction of a
+vector with least positive moment $1380$ at depth four.
+
+This record also studies restrictions on the support, coefficient norms,
+and a primitive progression construction. These ask more of a vector
+than merely having a permitted moment. The later carry, digit and
+reduced-denominator arguments concern the real value of the resulting
+form. In particular, changing coefficients at a fixed moment can change
+its integer part, but cannot change whether it is integral. The separate
+nonintegrality requirement is retained throughout.
+
+Throughout, write
 \[
- d_n=n!-1,\qquad H_M=\sum_{n=2}^{M}\frac1{d_n},\qquad
- \Lc_M=\lcm(d_2,\ldots,d_M),\qquad
- A_M=\sum_{n=2}^{M}\frac{\Lc_M}{d_n},
+ d_n=n!-1,\qquad H_N=\sum_{n=2}^N\frac1{d_n},\qquad
+ \Lc_N=\lcm(d_2,\ldots,d_N),\qquad
+ A_N=\sum_{n=2}^N\frac{\Lc_N}{d_n}.
 \]
-so that $H_M=A_M/\Lc_M$.  Throughout, $\den(x)$ is the positive denominator
-of a rational number in lowest terms, and $v_p(a)$ is the exponent of the
-prime $p$ in a positive integer $a$. The first question is which prime
-power present in $\Lc_M$ remains in $\den(H_M)$.  For the largest exponent the
-answer follows by specialising Louwsma and Martino's valuation formula
-for an elementary symmetric sum \cite[Lemma~4.1, p.~10]{louwsma-martino}.
-Indeed, $\sum_i1/x_i=(\sum_i\prod_{j\ne i}x_j)/\prod_i x_i$ for positive
-integers $x_i$. Their lemma evaluates the numerator's valuation; subtracting
-the product's valuation gives the reciprocal-sum form. The proof below
-uses the least common multiple instead of the product.
+Thus $H_N=A_N/\Lc_N$. We write $\den(x)$ for the positive reduced
+denominator of a rational number $x$. The coefficient constructions
+give forms $MS+k$ with $M,k\in\mathbb Z$. Under $S=a/q$, any such
+form with $q\mid M$ is integral. For each positive integer $q$, an irrationality argument of this kind
+must produce a nonintegral form with $q\mid M$. Both properties must
+hold for the same vector; cancellation and growth of $M$ alone do not
+establish this.
 
-The need to check cancellation is already visible in $1/3+1/15=2/5$:
-the common denominator contains $3$, but the reduced denominator does not.
-By contrast, $1/9+1/45=2/15$ only lowers the exponent of $3$ from $2$ to $1$.
-The theorem below tests whether the largest exponent is preserved; a
-failure of that test need not remove the prime completely. The formula
-is standard, whereas the two factorial-prefix examples below and the later
-tail comparison concern this particular series.
+The table below separates the short paper's main argument from the
+additional material retained here.
+After the coefficient theory, \S\ref{long68:sec:prime-powers} treats
+reduction of finite sums and \S\ref{long68:sec:lcm} proves
+$\liminf\log\Lc_N/(N^{3/2}\log N)\ge2\sqrt2/3$.
+Sections~\ref{long68:sec:carry} and \ref{long68:sec:residue} give the
+carry and residue criteria. We then describe the finite computations
+and the estimates still needed for irrationality. The appendices contain
+additional examples, the precise limits of unsuccessful arguments, and
+the concordance with the formal sources.
 
-\label{long68:res:lead-prime-pole}\phantomsection
-\begin{theorem}[maximal prime-power survival]\label{long68:res:prime-pole}
-Let $M\ge2$, let $p$ be a prime dividing $\Lc_M$, and put $e=v_p(\Lc_M)$.
-Let $J=\{n:2\le n\le M,\ v_p(d_n)=e\}$ and write $d_n=p^eu_n$ for $n\in J$.
-Then, with inverses in $\mathbb F_p$,
-\begin{equation}\label{long68:eq:prime-pole-survival}
- v_p\bigl(\den(H_M)\bigr)=e
- \quad\Longleftrightarrow\quad
- \sum_{n\in J}u_n^{-1}\ne0\quad\hbox{in }\mathbb F_p.
-\end{equation}
-\end{theorem}
-
-\begin{proof}
-Write $\Lc_M=p^eW$ with $p\nmid W$.  If $v_p(d_n)<e$, then $p\mid\Lc_M/d_n$.
-If $n\in J$, then $u_n(\Lc_M/d_n)=W$, so $\Lc_M/d_n\equiv Wu_n^{-1}\pmod p$.
-Summing over $2\le n\le M$ gives
-\begin{equation}\label{long68:eq:prime-pole-residue}
- A_M\equiv \frac{\Lc_M}{p^e}\sum_{n\in J}u_n^{-1}\pmod p.
-\end{equation}
-
-
-Finally $\den(H_M)=\Lc_M/\gcd(A_M,\Lc_M)$, whose $p$-valuation is $e$ exactly
-when $p\nmid A_M$.  Since $W$ is invertible modulo $p$, that is exactly the
-stated condition.
-\end{proof}
-
-The complete valuation identity is
-\[
- v_p\bigl(\den(H_M)\bigr)=\max\{0,e-v_p(A_M)\}.
-\]
-A zero residue in \eqref{long68:eq:prime-pole-survival} therefore lowers
-the exponent, whereas complete cancellation requires $v_p(A_M)\ge e$.
-For $e>1$, reduction modulo $p$ alone cannot distinguish partial from
-complete cancellation.  The proof uses no property of factorials beyond the
-displayed denominators, so it applies to any finite sum of reciprocals of positive integers.
-For $d_n=n!-1$, the examples below show that complete cancellation can
-actually occur; the general valuation formula alone does not predict it.
-
-\paragraph{Two complete cancellations.}
-
-A unique maximal exponent makes the residue sum a single nonzero term,
-so the condition holds automatically. With several maximal terms it can
-fail. The following examples show cancellation in the factorial sequence
-itself, not just in arbitrary rational sums.
-Take $M=p-1$. The table lists every index with $p\mid d_n$, and every
-one has valuation exactly one.
-\begin{center}
-\small
-\begin{tabular}{rlll}
+\begin{center}\small
+\begin{tabular}{p{.46\linewidth}p{.43\linewidth}}
 \toprule
 \papertablehead
-$p$ & indices $n$ & $d_n/p\pmod p$ & inverses modulo $p$\\
+Argument or supplementary topic & Full account here\\
 \midrule
-$139$ & $69,\ 122,\ 137$ & $6,\ 49,\ 73$ & $116,\ 122,\ 40$\\
-$2593$ & $349,\ 2243,\ 2591$ & $1508,\ 1566,\ 1678$ & $1367,\ 356,\ 870$\\
+Integral basis and finite gcd & \S\ref{long68:sec:basis}\\
+Moment $1380$ and its nonintegral remainder &
+\S\ref{long68:sec:basis}, \S\ref{long68:sec:ext-certificates}\\
+Common-denominator growth & \S\ref{long68:sec:lcm}\\
+Carries and factorial digits & \S\ref{long68:sec:carry}\\
+Exact finite denominator exclusions & \S\ref{long68:sec:finite}\\
+Declaration links formerly in the short appendix &
+Appendix~\ref{long68:sec:short-concordance}\\
 \bottomrule
 \end{tabular}
 \end{center}
-The inverse sums are $278=2\cdot139$ and $2593$.  By
-Theorem~\ref{long68:res:prime-pole}, $139\nmid\den(H_{138})$ and
-$2593\nmid\den(H_{2592})$: each prime divides the common denominator of its
-prefix and vanishes from the reduced one.  Both hit lists and both valuations
-are checked by the recurrence
-\[
- r_1=1,\qquad r_n\equiv nr_{n-1}\pmod{p^2},\qquad 0\le r_n<p^2,
-\]
-run through $n=p-1$.  A hit is an index with $r_n\equiv1\pmod p$, its lifted
-cofactor is $(r_n-1)/p$ modulo $p$. Valuation at least two would give
-$r_n=1$, which occurs for neither prime among the tested indices
-$2\le n\le p-1$.  That enumeration is a finite calculation
-separate from the theorem.
 
-The recurrence is run modulo $p^2$, not merely modulo $p$: reduction
-modulo $p$ would locate hits but could not establish that their valuations
-are exactly one. This is why the zero inverse sums prove complete
-cancellation in these examples.
+\section{Integer coefficient vectors and cancellation}\label{long68:sec:channels}
 
-For each prime $p\ge3$, the exponent $v_p(\den(H_M))$ is constant for
-$M\ge\max(2,p-2)$. Wilson's theorem gives
-$(p-1)!-1\equiv-2\pmod p$, and $n!-1\equiv-1\pmod p$ for $n\ge p$.
-Hence every summand after index $p-2$ has denominator coprime to $p$. If a reduced fraction
-$a/b$ is followed by a summand $1/d$ with $p\nmid d$, their sum has
-numerator $ad+b$ over $bd$. When $p\mid b$, this numerator is nonzero
-modulo $p$, so the exponent of $p$ in the reduced denominator stays the
-same. When $p\nmid b$, the new denominator remains coprime to $p$.
-Consequently, the two cancellations persist in every later partial sum:
-\[
- 139\nmid\den(H_M)\quad(M\ge137),\qquad
- 2593\nmid\den(H_M)\quad(M\ge2591).
-\]
-The primes still divide the corresponding common denominators $L_M$.
-These are assertions about the partial sums; they do not constrain a
-hypothetical denominator of their real limit $S$ without a further
-approximation estimate.
-
-We next ask where a prime first divides a denominator $d_m$. This means
-it divides none of $d_2,\ldots,d_{m-1}$; it may still divide a later
-denominator, so uniqueness at its first occurrence gives no uniqueness
-in every larger block.
-
-\begin{proposition}[cofinal first prime occurrences]\label{long68:res:wilson-cofinality}
-For every integer $B\ge0$ there are a prime $q$ and an integer $m>B$ with
-$m<q$, $q\mid m!-1$ and $\gcd(q,k!-1)=1$ for every $k$ with $2\le k<m$.
-\end{proposition}
-
-\begin{proof}
-Choose a prime $q\ge B!+5$.  Wilson's theorem gives $(q-2)!\equiv1\pmod q$,
-so there is a least index $m\ge2$ with $q\mid m!-1$, and $m\le q-2$.
-If $m\le B$, then
-$q\le m!-1\le B!-1$, contradicting the choice of $q$.  Hence $m>B$, and
-minimality gives the coprimality assertions.
-\end{proof}
-
-The construction proves cofinality of first occurrences, but not the
-inequality involving $q$ needed for the additional two-factor test in
-\S\ref{long68:sec:residue}. The sufficient tail inequality there does not
-require choosing a prime $q$. Wilson reflection limits what can be inferred
-from a large prime factor alone: for odd $2\le n<q$ with $q\mid n!-1$,
-the identity $(q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q$ gives the reflected
-congruence at $q-n-1$. It gives a second summand denominator only when
-$q\ne2n+1$ and $n\le q-3$. At the Wilson endpoint $n=q-2$, it instead
-returns index $1$, where $1!-1=0$ is not a denominator of this series.  The reflection identity is classical; see Stewart
-\cite[p.~462, (4)]{stewart2004}.
-
-\section{The growth of the common denominator}\label{long68:sec:lcm}
-
-Theorem~\ref{long68:res:prime-pole} concerns the denominator after reduction.  The
-common denominator before reduction admits an unconditional lower bound of
-its own, by an elementary argument.
-
-\begin{lemma}[product, least common multiple, pairwise gcd]
-\label{long68:res:product-lcm}
-For positive integers $x_1,\ldots,x_k$,
-\[
- \prod_{i=1}^{k}x_i\ \Big|\ \lcm(x_1,\ldots,x_k)\prod_{i<j}\gcd(x_i,x_j).
-\]
-\end{lemma}
-
-\begin{proof}
-Fix a prime $r$ and relabel so that $a_1\le\cdots\le a_k$, where
-$a_i=v_r(x_i)$.  The right-hand side has $r$-valuation
-$a_k+\sum_{i<j}\min(a_i,a_j)=a_k+\sum_{i=1}^{k-1}(k-i)a_i$, and the left-hand
-side has $\sum_{i=1}^{k}a_i$.  The difference is
-$\sum_{i=1}^{k-1}(k-i-1)a_i$, which is nonnegative.
-\end{proof}
-
-\noindent The next divisibility is the case $P=-1$ of the relation
-$\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)$ for $P\in\Z[X]$, obtained by
-multiplying $i!+P(i)$ by $j!/i!$ and subtracting $j!+P(j)$.  Luca and
-Shparlinski use this relation to bound a common divisor of $n!+P(n)$ and
-$(n+h)!+P(n+h)$ in the proof of their Lemma~5~\cite{luca-shparlinski}, and Lai
-uses it for a common prime-power divisor
-\cite[proof of Lemma~2.4, display~(2.5)]{lai}.
-
-The earlier spacing method of Erd\H{o}s and Stewart
-\cite[\S3, pp.~516--517]{erdos-stewart1976} is related background.
-We now state only the subtraction needed for the lcm argument, rather than
-importing the prime-factor estimates of those papers.
-
-\begin{lemma}[factorial-gap gcd]\label{long68:res:gap-gcd}
-For $2\le i<j$, the integer $g=\gcd(i!-1,j!-1)$ divides $j!/i!-1$, and
-$g\le j!/i!-1<j^{\,j-i}$.
-\end{lemma}
-
-\begin{proof}
-Both $i!$ and $j!$ are congruent to $1$ modulo $g$.  The quotient
-$j!/i!=(i+1)(i+2)\cdots j$ is an integer, and $j!=i!\cdot(j!/i!)$, so
-$j!/i!\equiv1\pmod g$.  Since $j!/i!\ge i+1>1$, the positive integer
-$j!/i!-1$ is a multiple of $g$, whence $g\le j!/i!-1$.  Finally
-$j!/i!$ is a product of $j-i$ integers each at most $j$.
-\end{proof}
-
-\begin{lemma}[segment inequality]\label{long68:res:segment}
-For $2\le k\le N-1$,
-\begin{equation}\label{long68:eq:segment}
- \sum_{n=N-k+1}^{N}\log(n!-1)
- \ \le\ \log \Lc_N+\binom{k+1}{3}\log N.
-\end{equation}
-
-
-\end{lemma}
-
-\begin{proof}
-Apply Lemma~\ref{long68:res:product-lcm} to $x_n=d_n$ for $N-k+1\le n\le N$.  Their
-least common multiple divides $\Lc_N$.  By Lemma~\ref{long68:res:gap-gcd} each
-pairwise gcd is smaller than $N^{\,j-i}$, and over a block of $k$ consecutive
-indices
-\[
- \sum_{i<j}(j-i)=\sum_{d=1}^{k-1}d(k-d)=\binom{k+1}{3}.
-\]
-Taking logarithms of the resulting divisibility gives \eqref{long68:eq:segment}.
-\end{proof}
-
-\begin{theorem}[common-denominator growth]\label{long68:res:lcm-growth}
-\[
- \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}
- \ \ge\ \frac{2\sqrt2}{3}.
-\]
-\end{theorem}
-
-\begin{proof}
-A terminal block keeps every factorial near $N!$, but increasing its
-length also increases the total pairwise-gcd loss.  The gain is of order
-$kN\log N$ and the loss of order $k^3\log N$, so the useful balance is
-$k$ of order $\sqrt N$.  Fix $\alpha>0$ and take
-$k=\lfloor\alpha\sqrt N\rfloor$, which satisfies
-$2\le k\le N-1$ for all large $N$.  Put $u=N-k+1$.
-
-For the left-hand side of \eqref{long68:eq:segment}, use $n!-1\ge n!/2$ and
-$\log n!\ge n\log n-n$.  Since $n\mapsto n\log n-n$ increases,
-\[
- \sum_{n=u}^{N}\log(n!-1)\ \ge\ k\,(u\log u-u)-k\log2 .
-\]
-Here $u\ge N-\alpha\sqrt N$ and $k=\alpha\sqrt N+O(1)$, so
-$k\,u\log u=\alpha N^{3/2}\log N+O(N\log N)$, while $k\,u=O(N^{3/2})$ and
-$k\log2=O(\sqrt N)$.  Hence the left-hand side is at least
-$\alpha N^{3/2}\log N+o(N^{3/2}\log N)$.
-
-For the right-hand side, $\binom{k+1}{3}\le(k+1)^3/6$, so
-$\binom{k+1}{3}\log N=\tfrac{\alpha^3}{6}N^{3/2}\log N+o(N^{3/2}\log N)$.
-Therefore
-\[
- \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}
- \ \ge\ \alpha-\frac{\alpha^3}{6}.
-\]
-The right-hand side is maximised at $\alpha=\sqrt2$, with value
-$\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}$.
-\end{proof}
-
-The displayed proof of the lcm bound uses only
-Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}.
-Theorem~12 of Garaev, Luca and Shparlinski
-\cite[arXiv v1, p.~16]{garaev-luca-shparlinski} supplies a different input:
-a uniform $O(N^{2/3})$ bound for the number of solutions of
-$n!\equiv a\pmod p$, for fixed $a\not\equiv0\pmod p$, in an interval of
-length $N$ contained in $1\le n<p$.  The weaker lcm deduction
-from it is retained in \S\ref{long68:sec:ext-superseded}, not used here.
-No exhaustive priority claim is made for the lcm estimate;
-its precise elementary derivation and the inherited subtraction are stated
-so that the claim can be assessed without relying on a search conclusion.
-
-\begin{remark}[polynomial shifts]
-Fix $P\in\Z[X]\smallsetminus\{0\}$.  By Lemma~3 of Luca and
-Shparlinski~\cite{luca-shparlinski}, in the form given by
-Lai~\cite[Lemma~2.1]{lai}, there is $n_0\ge2$, depending only on $P$, such
-that $n!+P(n)>1$ for all $n\ge n_0$ and $P(n)(n+1)\cdots(n+h)\ne P(n+h)$ for
-all $n\ge n_0$ and $h\ge1$. The nonvanishing has a short direct proof.
-Beyond a cutoff, $P$ has constant nonzero sign and
-$P(n+1)/P(n)\to1$, so $0<P(n+1)/P(n)<n+1$ for every sufficiently
-large $n$. Multiplying these inequalities gives
-\[
- 0<\frac{P(n+h)}{P(n)}<\prod_{j=1}^{h}(n+j)\qquad(h\ge1).
-\]
-Thus the required subtraction is nonzero for every gap $h$, not merely
-for each fixed $h$ after a separate cutoff. Increasing $n_0$ also makes
-$n!+P(n)>1$. The proof of Theorem~\ref{long68:res:lcm-growth} then gives
-\[
- \liminf_{N\to\infty}
- \frac{\log\lcm\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
- \ \ge\ \frac{2\sqrt2}{3}.
-\]
-For $n_0\le i<j\le N$, multiplying $i!+P(i)$ by $j!/i!$ and subtracting
-$j!+P(j)$ gives
-\[
- \gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\ \frac{j!}{i!}P(i)-P(j),
-\]
-which replaces Lemma~\ref{long68:res:gap-gcd}.  The right-hand side is
-nonzero by the choice of $n_0$, and its absolute value is at most
-$C_PN^{\,j-i+\deg P}$ for a constant $C_P$.  Over a block of $k$ indices the
-pairwise loss therefore grows by $O_P(k^2\log N)$, which is $O_P(N\log N)$
-when $k=\lfloor\alpha\sqrt N\rfloor$.  Since $n!+P(n)\ge n!/2$ for large $n$,
-the lower estimate for the sum of logarithms is unchanged.  The cutoff is
-needed, since for $P=-2$ the factor at $n=2$ vanishes.  The hypothesis
-$P\ne0$ is needed as well, since for $P=0$ the least common multiple is $N!$
-whatever the cutoff.
-\end{remark}
-
-\paragraph{A non-polynomial comparison.}
-For $n!+2^n-1$, Luca and Shparlinski
-\cite[Lemmas~2.1--2.3, pp.~860--862]{luca-shparlinski-exp} eliminate the
-exponential term using three hits; multiplicative order enters the counting.
-Their valuation-layer identity \cite[(3.2), p.~863]{luca-shparlinski-exp}
-records repeated prime-power divisibility.  These are related tools, not
-inputs to Theorem~\ref{long68:res:lcm-growth}, and no extension to general
-non-polynomial perturbations is asserted.
-
-Within the terminal-block estimate just proved, maximising
-$\alpha-\alpha^3/6$ gives $2\sqrt2/3$.  This is an optimisation of that
-one-parameter bound, not an optimality theorem for all block selections or
-all gcd arguments.  The discarded factorial term has size $N^{3/2}$,
-so a finite normalised ratio need not be close to the limiting lower bound.
-
-Theorem~\ref{long68:res:lcm-growth} concerns $\Lc_N$, not $\den(H_N)$.
-Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and $2593$
-show why these cannot be interchanged: a prime present in the common
-denominator may be absent after reduction. The two examples establish this
-possibility, not an asymptotic estimate for cancellation.
-
-Even two consecutive denominators obstruct clearing by the full lcm. For
-$N\ge3$, the gcd of $(N-1)!-1$ and $N!-1$ divides $N-1$, whereas
-$(N-1)!-1$ is coprime to $N-1$. Thus those denominators are coprime, and
-\[
-\Lc_N(\Ser-H_N)>
-\frac{((N-1)!-1)(N!-1)}{(N+1)!-1}\longrightarrow\infty.
-\]
-This argument does not use the stronger asymptotic growth theorem.
-
-The direction of denominator control matters.  Write $H_N=\widehat A_N/Q_N$ in lowest
-terms, reserving $A_N$ above for the numerator over the full common denominator.  Under the hypothetical identity $\Ser=a/q$, with $a\in\Z$ and
-$q\ge1$, positivity of the tail gives
-\[
- qQ_N(\Ser-H_N)=aQ_N-q\widehat A_N\in\Z_{>0}.
-\]
-A direct clearing contradiction therefore requires an upper estimate that
-makes $qQ_N(\Ser-H_N)<1$ for some $N$; equivalently, it needs $Q_N$ to be
-small relative to the reciprocal tail.  A lower bound on $Q_N$ points in the
-opposite direction.  Indeed, the rational limit $1$ and the approximants
-$1-1/Q_N$ have arbitrarily large reduced denominators without any
-irrationality.  The inequality $d_N(\Ser-H_N)<1$ alone would not repair the
-argument, because $d_N$ generally does not clear the earlier summands of
-$H_N$.  The prime-power analysis describes which factors survive reduction,
-but it does not yet supply the required upper control on $Q_N$.
-
-For linear forms in $p$-adic zeta values, with $p\ge5$ a fixed prime and $n$
-the index of the form, Lai, Lupu and Sprang quantify a saving of this kind.
-They bound the denominators of the coefficients by powers of
-$\lcm(1,\ldots,n)$, show that the bound may be divided by a product $\Phi_n$
-of prime powers, and compute the growth rate of
-$\Phi_n$~\cite[Lemmas~5.3--5.7 and~7.3]{lai-lupu-sprang}.  That saving enters
-the inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
-which have integer coefficients, meet the irrationality criterion
-\cite[Lemma~2.1, p.~3]{lai-lupu-sprang} that they quote from Lai
-\cite[Lemma~2.1, p.~4]{lai-2adic}. Along one unbounded subsequence, the forms
-must be nonzero and their $p$-adic absolute values, multiplied by the
-largest ordinary absolute value of an integer coefficient, must tend to
-zero. The coefficient bound is archimedean; the bound on the value is
-$p$-adic. The conclusion is that at least one of the finitely many
-$p$-adic numbers in the forms is irrational, not that each is irrational.
-The corresponding saving for $H_N$ is the ratio $\Lc_N/Q_N$.
-
-This ratio is an integer.  Merely naming it supplies neither its growth
-nor a small linear form; the analogy is about what an eventual estimate
-would have to accomplish.
-Theorem~\ref{long68:res:prime-pole} decides, for each prime $p\mid\Lc_N$,
-whether $p$ divides this ratio; no asymptotic lower bound for the ratio is
-established here.  This paragraph compares the two methods; no $p$-adic
-theorem is applied to $\Ser$.
-
-\section{Rationality and the next integer above a scaled partial sum}\label{long68:sec:carry}
-
-For each scaled partial sum, take the least integer strictly above it.
-This differs from the ordinary ceiling when the scaled sum is an integer.
-Write
-\[
- Z_m=\lfloor m!H_m\rfloor+1,\qquad
- \Delta_m=Z_{m-1}-(m-1)!H_{m-1}\quad(m\ge3).
-\]
-Thus $\Delta_m$ is the distance from the preceding scaled partial sum
-to the next integer, and $0<\Delta_m\le1$. Define an integer $b_m$ by
-\begin{equation}\label{long68:eq:carry-recurrence}
- Z_m=mZ_{m-1}+1-b_m .
-\end{equation}
-
-
-Call $b_m=1$ a \emph{unit carry}.  Put
-$E_m=m!(\Ser-H_m)$ and $\varepsilon_m=1/(m!-1)$.  Since
-$d_{n+1}>(n+1)d_n$, a geometric majorant gives the tail estimate
-\begin{equation}\label{long68:eq:tail-bound}
- 0<E_m<\frac{2\,m!}{(m+1)!-1}<\frac2m\le1\qquad(m\ge2).
-\end{equation}
-Compare the factorial scaling in Han\v{c}l and Tijdeman's tail-integrality
-lemma for factorial series with integer coefficients
-\cite[Lemma~2.1 and the following remark,
-p.~385]{hancl-tijdeman}. Their scaled partial sums are integers; ours
-need not be, since already $3!H_3=36/5$. The next proof instead uses the
-short positive tail to identify the least integer above a scaled prefix
-under a rationality assumption. The carry-defect expansion in
-\S\ref{long68:sec:ext-literature} gives a separate, direct application of
-factorial-series rationality criteria.
-
-\label{long68:res:lead-carry-equivalence}\phantomsection
-\label{long68:res:strict-successor-complete-characterization}\phantomsection
-\begin{theorem}[an exact criterion from successive partial sums]\label{long68:res:carry-equivalence}
-For $m\ge3$,
-\begin{equation}\label{long68:eq:unit-window}
- b_m=1
- \iff m\mid Z_m
- \iff 1+\varepsilon_m<m\Delta_m\le2+\varepsilon_m .
-\end{equation}
-
-
-Moreover
-\begin{align}
- \Ser\in\Q
- &\iff b_m=1\ \hbox{for all sufficiently large }m,
- \label{long68:eq:carry-rationality}\\
- \Ser\notin\Q
- &\iff \forall B\ \exists m>B:\ m\nmid Z_m .
- \label{long68:eq:strict-misses}
-\end{align}
-If $\Ser=a/q$ with $a\in\Z$, $q\ge1$ and $b_m\ne1$, then $q\nmid(m-1)!$ and
-$q\ge m$.
-\end{theorem}
-
-\begin{proof}
-From $m!H_m=mZ_{m-1}-m\Delta_m+1+\varepsilon_m$ one gets
-$b_m=\lceil m\Delta_m-1-\varepsilon_m\rceil$ with $-1\le b_m\le m-1$, which
-gives both equivalences in \eqref{long68:eq:unit-window}, endpoints included.
-
-Suppose $\Ser=a/q$ and $q\mid(m-1)!$.  For $j=m-1$ and $j=m$ the number
-$j!\,\Ser$ is an integer, and $j!H_j=j!\,\Ser-E_j$ with $0<E_j<1$ by
-\eqref{long68:eq:tail-bound}, so $Z_j=j!\,\Ser$.  Substituting into
-\eqref{long68:eq:carry-recurrence} forces $b_m=1$.  Every fixed $q$ divides
-$(m-1)!$ eventually, which gives one direction of
-\eqref{long68:eq:carry-rationality} and, by contraposition, the final assertion;
-$q<m$ would imply $q\mid(m-1)!$.  Conversely, an eventual unit-carry tail
-makes $Z_m/m!$ eventually constant, and $0<Z_m/m!-H_m\le1/m!$ with
-$H_m\to\Ser$ identifies that constant as $\Ser$, which is then rational.
-Negating \eqref{long68:eq:carry-rationality} gives \eqref{long68:eq:strict-misses}.
-\end{proof}
-
-The conclusion $q\nmid(m-1)!$ is about prime-power multiplicities, not
-just prime factors. It permits all prime factors of $q$ to be at most
-$m-1$ if one occurs to a larger exponent than in $(m-1)!$.
-
-\subsection{Why one proposed window argument is circular}
-\label{long68:sec:adjacent-unit-no-go}
-
-A proposed argument starts by assuming $b_m=b_{m+1}=1$, clears the
-denominators in the resulting inequalities, and tries to contradict the
-size of a prime-power divisor. The following calculation shows why the
-resulting size bound alone cannot provide that contradiction.
-
-Write $\Delta_k=P^\Delta_k/Q^\Delta_k$ in lowest terms, with $P^\Delta_k,Q^\Delta_k>0$.
-In one recurrence step the unreduced denominator is $Q^\Delta_k(k!-1)$;
-let $G_k=Q^\Delta_k(k!-1)/Q^\Delta_{k+1}$ be the positive integer cancelled in reduction.
-For $m\ge3$, put
-\[
- \begin{aligned}
- D_m&=Q^\Delta_m(m!-1)((m+1)!-1),\\
- \Omega_m&=D_m\left(m(m+1)\Delta_m-m-2
-       -\frac{m+1}{m!-1}-\frac1{(m+1)!-1}\right).
- \end{aligned}
-\]
-Both are integers. The two unit carries are equivalent to
-$0<\Omega_m\le D_m$. Independently of the carries, cancellation in two
-successive steps gives
-\[
- D_m=Q^\Delta_{m+2}G_{m+1}G_m=Q^\Delta_m(m!-1)\bigl((m+1)!-1\bigr),
-\]
-and under the pair assumption the offset factors to match,
-$\Omega_m=P^\Delta_{m+2}G_{m+1}G_m$.  Dividing by $G_{m+1}G_m>0$ reduces the proposed bound to
-\[
- 0<P^\Delta_{m+2}\le Q^\Delta_{m+2},
-\]
-which every reduced positive gap in $(0,1]$ already satisfies.  Thus the resulting gap bound is not an additional restriction on a
-pair of unit carries. This calculation does not exclude an independent
-arithmetic obstruction involving the transition numerators or their
-valuations. Such an obstruction would need information not already
-implied by the pair assumption; it need not take the form of a bound on
-the preceding gap $\Delta_m$.
-
-\subsection{Factorial digits of \texorpdfstring{$S-e+2$}{S-e+2}}
-
-Let $C=\sum_{n\ge2}\bigl(n!(n!-1)\bigr)^{-1}$.  The identity
-$1/(n!-1)=1/n!+1/(n!(n!-1))$ and absolute convergence give
-\begin{equation}\label{long68:eq:companion-decomposition}
- \Ser=C+e-2 .
-\end{equation}
-The canonical factorial digits of a real $x$ are
-$a_m(x)=\lfloor m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}$
-for $m\ge2$. At a rational endpoint, the floor convention selects the
-terminating representation. For example, $1/2=1/2!$ also equals
-$\sum_{m\ge3}(m-1)/m!$, but its canonical digits are $a_2=1$ and
-$a_m=0$ for $m\ge3$, not an eventually maximal tail. With this convention,
-$x$ is rational exactly when its digits vanish from some index on. The criterion
-goes back to Cantor \cite{cantor1869}; Galambos treats the rationality of
-Cantor series in \cite[Ch.~II, \S2.1, pp.~21--22]{galambos1976}, and Koepf
-and Schmersau prove the irrationality direction for nonterminating factorial
-expansions whose digits are not eventually maximal
-\cite[Example~3.2, p.~121]{koepf-schmersau}.
-
-\label{long68:res:lead-companion-orbit}\phantomsection
-\begin{proposition}[rationality and factorial residues]\label{long68:res:companion-orbit}
-\[
- \Ser\in\Q
- \quad\Longleftrightarrow\quad
- \lfloor m!C\rfloor\equiv-2\pmod m
- \quad\hbox{for all sufficiently large }m.
-\]
-\end{proposition}
-
-\begin{proof}
-Put $J_m=\sum_{k=0}^{m}m!/k!$.  Then $J_m$ is an integer, every summand with
-$k<m$ is divisible by $m$ and the summand at $k=m$ is $1$, so
-$J_m\equiv1\pmod m$; and $0<m!\,e-J_m<1$ for $m\ge2$.
-
-Suppose $\Ser$ is rational.  For all large $m$ both $(m-1)!\,\Ser$ and
-$m!\,\Ser$ are integers, so $m\mid m!\,\Ser$.  Multiplying
-\eqref{long68:eq:companion-decomposition} by $m!$ and using
-$\lfloor -m!\,e\rfloor=-J_m-1$ gives
-$\lfloor m!C\rfloor=m!\,\Ser+2\,m!-J_m-1\equiv-2\pmod m$.
-
-Conversely, assume the congruence from some index on.  Because
-$0\le a_m(C)<m$, for $m\ge3$ the congruence is equivalent to $a_m(C)=m-2$.
-Choose $N$ beyond the exceptional indices.  The canonical expansion gives
-\[
- C=\frac{\lfloor N!C\rfloor}{N!}+\sum_{m>N}\frac{m-2}{m!},
-\]
-and the telescope $\sum_{m>N}(m-1)/m!=1/N!$ turns this into
-\[
- \Ser=C+e-2
- =\frac{\lfloor N!C\rfloor+1}{N!}+\sum_{m=2}^{N}\frac1{m!},
-\]
-which is rational.
-\end{proof}
-
-The condition is eventual equality, not equality at many computed
-indices. The proof works for any real $C$: it holds exactly when
-$C+e-2$ is rational. For example, $C=2-e$ gives a rational sum, whereas
-$C=0$ gives the irrational number $e-2$. The issue here is to decide the
-condition for the particular positive series defining $C$.
-
-\subsection{Escape from a smaller interval}
-
-Write $\theta_m=\{m!\,\Ser\}$. We ask whether $\theta_{m-1}$ lies outside
-$[0,E_m/m)$, an interval of width less than $2/m^2$.
-
-\begin{proposition}[lower-interval criterion]\label{long68:res:lower-escape}
-\begin{equation}\label{long68:eq:lower-escape}
- \Ser\notin\Q
- \quad\Longleftrightarrow\quad
- \forall B\ \exists m>B:\ E_m\le m\theta_{m-1}.
-\end{equation}
-For $m\ge3$ the finite condition
-\begin{equation}\label{long68:eq:finite-escape}
- m\Delta_m\le1+\varepsilon_m
- \quad\hbox{or}\quad
- 1+\varepsilon_m+\frac2m\le m\Delta_m
-\end{equation}
-implies the escape inequality in \eqref{long68:eq:lower-escape}.  Cofinally many
-instances of \eqref{long68:eq:finite-escape} therefore imply $\Ser\notin\Q$.
-\end{proposition}
-
-\begin{proof}
-If $\Ser$ is rational, the remainders $\theta_{m-1}$ vanish eventually while
-$E_m>0$, so the escape inequality fails eventually.  Conversely, suppose
-$m\theta_{m-1}<E_m$ for every sufficiently large $m$.  By
-\eqref{long68:eq:tail-bound} this gives $m\theta_{m-1}<1$, so $a_m(\Ser)=0$ and
-$\theta_m=m\theta_{m-1}$. Fix $N$ after this recurrence begins.
-Then $\theta_{N+k}=((N+k)!/N!)\theta_N<1$ for every $k\ge0$, forcing
-$\theta_N=0$. Hence $N!\Ser$ is an integer and $\Ser$ is rational.
-
-For the finite implication, suppose $m\theta_{m-1}<E_m$.  The tail recurrence
-is $mE_{m-1}=1+\varepsilon_m+E_m$, so $E_{m-1}>E_m/m>\theta_{m-1}\ge0$, and
-with $0<E_{m-1}<1$ the strict-successor identity gives
-$\Delta_m=E_{m-1}-\theta_{m-1}$.  Hence
-\[
- 1+\varepsilon_m<m\Delta_m=1+\varepsilon_m+E_m-m\theta_{m-1}
- \le1+\varepsilon_m+E_m<1+\varepsilon_m+\frac2m,
-\]
-which contradicts \eqref{long68:eq:finite-escape}.
-\end{proof}
-
-Escape at a single index does not give a non-unit carry there.
-
-The finite test excludes only the open interval
-$1+\varepsilon_m<m\Delta_m<1+\varepsilon_m+2/m$; it accepts either endpoint
-and all values outside. The width $2/m$ refers to $m\Delta_m$; the interval
-for $\Delta_m$ has width $2/m^2$. At one index this is a sufficient test
-for escape, obtained by replacing $E_m$ with the upper bound $2/m$.
-
-At arbitrarily large integer indices, however, the finite test itself
-characterises irrationality:
-\[
- S\notin\Q\quad\Longleftrightarrow\quad
- \text{\eqref{long68:eq:finite-escape} holds for arbitrarily large integers }m.
-\]
-Only the forward implication remains to be shown. If $S$ is irrational,
-Theorem~\ref{long68:res:carry-equivalence} gives $b_m\ne1$ at arbitrarily
-large indices. By \eqref{long68:eq:unit-window}, each such index satisfies
-$m\Delta_m\le1+\varepsilon_m$ or $m\Delta_m>2+\varepsilon_m$.
-Since $2/m<1$ for $m\ge3$, either alternative implies
-\eqref{long68:eq:finite-escape}. The converse is Proposition~\ref{long68:res:lower-escape}.
-This is an ordinary consequence of the two proved criteria, not a proof
-that either occurs infinitely often for $S$. The equivalence is over all
-integer indices; restricting to primes is only a sufficient condition here.
-
-For comparison at a single index, the exact classification is
-\begin{equation}\label{long68:eq:escape-classification}
- E_m\le m\theta_{m-1}
- \quad\Longleftrightarrow\quad
- b_m\ne1\ \hbox{ or }\ a_m(\Ser)=m-1
- \qquad(m\ge3).
-\end{equation}
-
-To verify the classification, use $0<E_j<1$ to write
-\[
- Z_j=\lfloor j!S\rfloor+\mathbf1_{\{\theta_j\ge E_j\}}.
-\]
-Substitution in the carry recurrence gives
-\[
- b_m=1-a_m(S)+m\mathbf1_{\{\theta_{m-1}\ge E_{m-1}\}}
-                 -\mathbf1_{\{\theta_m\ge E_m\}}.
-\]
-Since $0\le a_m(S)\le m-1$, a unit carry has exactly two possibilities:
-both indicators are zero and $a_m(S)=0$, or both are one and
-$a_m(S)=m-1$. In the first case $m\theta_{m-1}=\theta_m<E_m$;
-in the second, $m\theta_{m-1}\ge m-1>E_m$.
-Conversely, $m\theta_{m-1}<E_m<1$ forces $a_m(S)=0$ and both
-indicators to be zero, using
-$mE_{m-1}=1+\varepsilon_m+E_m$. It therefore forces a unit carry with
-zero digit. This proves \eqref{long68:eq:escape-classification}, including
-the equality case in its left-hand inequality.
-
-Thus escape can occur even when $b_m=1$, provided the digit is $m-1$.
-This happens at $m=52$: exact
-rational arithmetic gives $b_{52}=1$ together with
-$52\,\Delta_{52}>1+\varepsilon_{52}+2/52$, the margin being about
-$0.5689674908$.  This example separates the two events at a single index: the finite test
-can hold at a unit carry. Their occurrence at arbitrarily large indices
-nevertheless gives equivalent rationality criteria. Since $52$ is
-composite, the example supplies no prime-index instance.
-
-\subsection{The series with denominators \texorpdfstring{$n!+t$}{n!+t}}
-
-The same digit argument applies to the other shifts mentioned by
-Erd\H{o}s.  For an integer $t\ge-1$ put
-$\Ser_t=\sum_{n\ge2}1/(n!+t)$ and $C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)$,
-so that $\Ser_t=-tC_t+(e-2)$.
-
-The restriction $t\ge-1$ keeps every denominator positive for $n\ge2$;
-$t=-2$ is excluded because its first denominator is zero. All series in
-this identity converge absolutely. The familiar case $t=0$ is $e-2$;
-this example will make the residue condition explicit.
-
-\begin{theorem}[a criterion for the shifts $t\ge-1$]\label{long68:res:shift-family}
-For every integer $t\ge-1$, the series $\Ser_t$ is rational exactly when
-\[
- \bigl\lceil t\,m!\,C_t\bigr\rceil\equiv2\pmod m
-\]
-for all sufficiently large $m$, and irrational exactly when that residue is
-missed cofinally.  The member $t=-1$ is $\Ser$, and the member $t=0$ is
-$e-2$, for which the scaled correction is always $0$ and hence misses the residue class
-at every $m\ge3$, proving the irrationality of $e$.
-\end{theorem}
-
-\begin{proof}
-Put $Y=-tC_t$, so that $\Ser_t=Y+e-2$.  The proof of
-Proposition~\ref{long68:res:companion-orbit} applies to any real $Y$:
-rationality of $Y+e-2$ forces
-$\lfloor m!Y\rfloor\equiv-2\pmod m$ eventually.  Conversely, that congruence
-forces the canonical digits of $Y$ to equal $m-2$ eventually; adding the
-factorial series of $e-2$ leaves an eventually telescoping tail, hence a
-rational sum.  Finally
-$\lceil t m!C_t\rceil=-\lfloor m!Y\rfloor$ translates the congruence.
-Negation gives the cofinal statement.  For $t=0$, the left side is zero,
-which is not congruent to $2$ for $m\ge3$.
-\end{proof}
-
-The $t=0$ specialisation recovers the classical irrationality of $e$.
-For $t\ne0$, no estimate proving failure of the displayed congruence at
-arbitrarily large indices is supplied here.
-This is a statement about the scope of the present argument, not an assertion
-that every other member has the same current literature status.
-
-\section{A sufficient comparison between the tail and an integer gap}\label{long68:sec:residue}
-
-We choose to clear every prime-power level shared by two summand
-denominators. Each remaining prime then occurs in just one scaled
-summand denominator, so its maximal exponent cannot cancel. This is a
-sufficient construction, not a necessary size for a clearing factor:
-cancellation in the partial sum can make a smaller scale suffice.
-The remaining denominator will determine the gap to the next integer. For an integer $p\ge3$, not necessarily prime, put
-$I_p=\{2,\ldots,2p-1\}$ and $F_p=(p-1)!$, and define
-\begin{align*}
- D_p&=\lcm_{\substack{i,j\in I_p\\ i<j}}\gcd(d_i,d_j),
- &C_p&=\lcm(F_p,D_p),\\
- \Lc^{\mathrm{blk}}_p&=\lcm(F_p,d_2,\ldots,d_{2p-1}),
- &R_p&=\Lc^{\mathrm{blk}}_p/C_p .
-\end{align*}
-The integer $D_p$ contains the prime powers shared by at least two
-of the denominators. The integer $C_p$ also contains the factorial base
-$F_p$, and $R_p$ is the quotient left in the full common denominator.
-The factors $C_p$ and $R_p$ need not be coprime: a prime absent from $F_p$
-with largest exponent $5$ and second-largest exponent $2$ occurs to powers
-$2$ and $3$ in the two factors. This is an illustration of the valuation
-calculation, not a claimed pattern in a particular factorial block.
-It will be useful to retain the ratio $\widetilde C_p=C_p/F_p$, so that
-\begin{equation}\label{long68:eq:core-normalisation}
- \Lc^{\mathrm{blk}}_p=C_pR_p=F_p\widetilde C_pR_p .
-\end{equation}
-
-
-Including $F_p$ in both $C_p$ and $\Lc_p^{\mathrm{blk}}$ ensures that
-a fixed rational denominator divides $C_p$ for all large $p$.
-The ratio $\widetilde C_p$ removes precisely that factorial factor when
-we estimate the shared part. Put
-\[
- T_p=\sum_{i\in I_p}\frac{\Lc^{\mathrm{blk}}_p}{d_i},\qquad
- \rho_p=(-T_p)\bmod R_p,\qquad
- K_p=2p^2(2p-1)! ,
-\]
-with $\rho_p$ the least nonnegative representative.  All of these depend only
-on a finite prefix.
-
-For each prime, $C_p$ contains the larger of its exponent in $F_p$ and
-its second-largest exponent among the denominators.  A prime dividing $R_p$ therefore has a unique
-denominator whose exponent is maximal and exceeds the exponent in $F_p$, so the argument of
-Theorem~\ref{long68:res:prime-pole} applies to it and gives $\gcd(T_p,R_p)=1$.
-Thus $R_p=\den(C_pH_{2p-1})$, the reduced denominator of the scaled
-prefix, not generally of $H_{2p-1}$. When $R_p>1$, this ratio is
-nonintegral and
-\begin{equation}\label{long68:eq:gap-normalisation}
- \frac{\rho_p}{R_p}
- =\bigl\lceil C_pH_{2p-1}\bigr\rceil-C_pH_{2p-1}\in(0,1),
-\end{equation}
-the distance to the next integer. When $R_p=1$, $\rho_p=0$ but the
-scaled partial sum is integral, so the least strictly larger integer is at
-distance $1$. The theorem below uses only $R_p>1$.
-
-At $p=3$, the denominators $1,5,23,119$ are pairwise coprime. Thus $D_3=1$,
-$C_3=2$, $R_3=13685$, and
-\[
-C_3H_5=\frac{34264}{13685},\qquad
-\frac{\rho_3}{R_3}=3-\frac{34264}{13685}=\frac{6791}{13685}.
-\]
-The tail estimate in the proof below gives
-$C_3(\Ser-H_5)<7/1080<6791/13685$. This verifies the comparison for one
-actual prefix. The theorem needs such prefixes at arbitrarily large $p$,
-so that $F_p$ can absorb any fixed rational denominator.
-
-\begin{theorem}[a sufficient tail inequality]\label{long68:res:global-residue}
-Suppose that for every $B$ there is a natural parameter $p\ge3$ with
-$p>B$, $R_p>1$, and
-\begin{equation}\label{long68:eq:global-scale}
- (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p .
-\end{equation}
-Then $\Ser$ is irrational.
-\end{theorem}
-
-\begin{proof}
-Suppose $\Ser=a/q$ with $q\ge1$, and choose a parameter in the hypothesis
-with $p>q$. Since $q\mid F_p\mid C_p$, the number $C_p\Ser$ is an integer
-strictly above $C_pH_{2p-1}$. The gap identity
-\eqref{long68:eq:gap-normalisation} gives
-\[
- C_p(\Ser-H_{2p-1})\ge\frac{\rho_p}{R_p}.
-\]
-On the other hand, $1/(n!-1)<2/n!$ for $n\ge2p$, and comparison with a
-geometric series of ratio $1/(2p+1)$ gives
-\[
- \Ser-H_{2p-1}<\frac{2}{(2p)!}\frac{2p+1}{2p}=\frac{2p+1}{K_p}.
-\]
-Multiplication by $C_p$ and \eqref{long68:eq:global-scale}, with
-$\Lc_p^{\mathrm{blk}}=C_pR_p$, now give
-$C_p(\Ser-H_{2p-1})<\rho_p/R_p$, a contradiction.
-\end{proof}
-
-Cancelling $R_p$ in \eqref{long68:eq:global-scale} through
-\eqref{long68:eq:core-normalisation} displays the quantitative issue directly:
-\begin{equation}\label{long68:eq:core-gap-scale}
- (2p+1)C_p<K_p\frac{\rho_p}{R_p}.
-\end{equation}
-The factor $R_p$ has cancelled. Thus new prime divisors, even large ones,
-do not by themselves bound $C_p$ or keep $\rho_p/R_p$ away from zero.
-Proposition~\ref{long68:res:wilson-cofinality} supplies the primes but not
-these two estimates.
-
-Under $R_p>1$, we have $\rho_p>0$, and taking logarithms gives
-\[
- \log\widetilde C_p-\log\frac{\rho_p}{R_p}
- <\log\frac{2p^2(2p-1)!}{(2p+1)(p-1)!}
- =p\log p+(2\log2-1)p+O(\log p).
-\]
-Both terms on the left must be controlled at the same $p$. The elementary
-bound $\rho_p\ge1$ gives only $\rho_p/R_p\ge1/R_p$, which may be too small.
-For a concrete comparison, a gap of at least $1/2$ would reduce the sufficient
-test to $(2p+1)C_p<K_p/2$. At the opposite extreme, the gap $1/R_p$ requires
-the stronger bound $(2p+1)C_p<K_p/R_p$. Neither type of favourable behaviour
-is proved here for an unbounded family of these particular prefixes.
-
-\label{long68:res:lead-moving-factor-split}\phantomsection
-\label{long68:res:moving-factor-scale-split}\phantomsection
-A more restrictive test also uses a prime $q$ that first divides $m!-1$
-at an index $m\ge4$. Choose $p=\lfloor m/2\rfloor+1$, which need not be
-prime. This choice puts $m$ in the block and gives $q\mid R_p$. Indeed,
-$q>m\ge p$, so $q\nmid F_p$, and no earlier denominator contains $q$.
-The only possible later index in the block is $m+1$; when it occurs,
-$(m+1)!-1\equiv m\not\equiv0\pmod q$. Thus $q$ occurs in just one block
-denominator and is absent from $C_p$.
-
-The additional comparison uses the integer $R_p/q$. Requiring the tail
-bound to be smaller than both $\rho_p$ and $R_p/q$ gives
-$\min(\rho_p,R_p/q)$ and is equivalent to the following two inequalities:
-\begin{equation}\label{long68:eq:factor-split}
- (2p+1)\Lc^{\mathrm{blk}}_p<K_p\min(\rho_p,R_p/q)
- \quad\Longleftrightarrow\quad
- \begin{cases}
- (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p,\\
- (2p+1)C_pq<K_p .
- \end{cases}
-\end{equation}
-
-
-The equivalence follows by testing each entry of the minimum and using
-\eqref{long68:eq:core-normalisation}. Both inequalities must hold for the
-same arbitrarily large parameters. The first alone is already sufficient
-by Theorem~\ref{long68:res:global-residue}; the second is an extra restriction,
-not an equivalent formulation of irrationality.
-
-\label{long68:res:split-factor-normalized-collision}\phantomsection
-\label{long68:bdry:fixed-owner-absorption}\phantomsection
-A fixed small index cannot supply new factors indefinitely. If $n$ is
-fixed and $p>n!-1$, then $n!-1$ divides $(p-1)!$, so none of its prime
-powers remains outside the factorial base. For example, the factor $719$
-of $6!-1$ is useful only over a finite range of $p$. Any argument using
-such factors at arbitrarily large $p$ must let their indices increase.
-
-\section{What can be achieved by cancelling finitely many weighted sums}\label{long68:sec:channels}
-
-We next try to remove the first few terms of a remainder by integer linear
-combinations. The weights are chosen so that their difference from ordinary
-factorial weights is divisible by $d!-1$. This preserves fractional parts
-after division by $d!-1$, while allowing the contributions at selected
-denominators to vanish.
-For a finitely supported integer vector $c=(c_i)$ on indices $i\ge2$, put
+We need weights that preserve the fractional part of $i!/(d!-1)$
+and whose adjacent differences have a simple form. Both requirements
+are met by removing one factor $d!$ for each complete block of $d$
+indices. For a finitely supported integer vector $c=(c_i)$ on $i\ge2$,
+put
 \[
  M(c)=\sum_i c_i\,i!,\qquad
  W_{d,i}=\frac{i!}{(d!)^{\lfloor i/d\rfloor}},\qquad
  \chn dc=\sum_i c_iW_{d,i}\quad(d\ge2).
 \]
-We call $M(c)$ the moment; it and the weighted sums $V_d(c)$ may be
-negative. The remainder is
+We call $M(c)$ the factorial moment and allow either sign for it and
+for $V_d(c)$. The associated remainder is
 \[
  \mathcal R(c)=\sum_{d\ge2}\frac{V_d(c)}{d!-1}.
 \]
-Beyond the support, $V_d(c)=M(c)$, so this series converges absolutely.
-Cancelling its first weighted sums leaves a finite signed block followed
-by $M(c)$ times the original tail. The congruence below explains why this
-is still an integer linear form in $1$ and $S$.
-The power $(d!)^{\lfloor i/d\rfloor}$ need not be the largest power
-of $d!$ dividing $i!$: at $d=2$, $i=6$, the chosen exponent is $3$,
-although $2^4\mid6!$. We use the floor exponent because it changes
-between $i-1$ and $i$ exactly when $d\mid i$. Adjacent differences will therefore affect
-only divisor-indexed weighted sums, which is the reason the elimination
-in \S5.1 works.
+For $d$ beyond the support, all floor exponents vanish and $V_d(c)=M(c)$,
+so the series converges absolutely. If its first weighted sums cancel,
+the remainder consists of a finite signed sum followed by $M(c)$ times
+the original tail. We show below that it differs from $M(c)S$ by an
+integer.
+
+The chosen exponent is a floor, rather than the largest possible power
+of $d!$ dividing $i!$. For example, at $d=2$, $i=6$, it is $3$
+although $2^4\mid6!$. What matters is that it changes between $i-1$
+and $i$ exactly when $d\mid i$. This makes adjacent differences
+amenable to divisor elimination in \S\ref{long68:sec:basis}.
 Each $W_{d,i}$ is an integer: writing $i=kd+r$ with $0\le r<d$, the quotient
 $i!/\bigl((d!)^kr!\bigr)$ is a multinomial coefficient.  Since
 $i!=(d!)^{\lfloor i/d\rfloor}W_{d,i}$ and $d!\equiv1\pmod{d!-1}$,
@@ -1000,11 +176,13 @@ with $d>N$ equal $M(c)/(d!-1)$. Therefore
 The sum is finite and each term is integral by
 \eqref{long68:eq:channel-congruence}. This argument also holds when
 index $1$ is temporarily allowed in the basis calculation below.
-In particular, a zero-moment vector has integral remainder, and fixed
-moment fixes the fractional part. These facts do not depend on solving
-the cancellation equations.
+In particular, a zero moment gives an integral remainder, and fixing
+$M(c)$ fixes its fractional part. These conclusions hold for every
+finite vector, before imposing cancellation.
 
-In the next theorem, the parameters $d,k$ and the support indices are integers.
+There is also an immediate support restriction. If the integer indices
+lie where one floor exponent is constant, the corresponding weighted
+sum is proportional to the moment.
 
 \begin{theorem}[constant values of the floor in the weights]\label{long68:res:bandbreakpoint}
 Let $d\ge2$ and $k\ge0$, and suppose every supported index $i$ satisfies
@@ -1021,12 +199,11 @@ out of the sum.  The two consequences follow by taking $k=1$ and by
 contraposition.
 \end{proof}
 
-\noindent The hypothesis means that all supported indices lie in one
-interval on which $\lfloor i/d\rfloor$ is constant. A single supported
-index always has this property; indices on opposite sides of a multiple
-of $d$ need not. The conclusion restricts the support of a solution with
-$V_d(c)=0$ and $M(c)\ne0$. It neither constructs such a solution nor bounds
-its infinite remainder.
+\noindent A single supported index lies in one such interval, while
+indices straddling a multiple of $d$ may not. The theorem restricts
+where a solution with $V_d(c)=0$ and $M(c)\ne0$ can be supported.
+It supplies neither a construction of that solution nor an estimate
+for its infinite remainder.
 
 By \eqref{long68:eq:channel-congruence}, a vanishing $d$-th weighted sum forces $(d!-1)\mid M(c)$,
 and annihilating every weighted sum $2\le d\le D$ forces $\Lc_D\mid M(c)$, where
@@ -1034,79 +211,115 @@ $\Lc_D=\lcm_{2\le d\le D}(d!-1)$ is the same quantity as in
 \S\ref{long68:sec:lcm}. At fixed moment, the same congruence fixes the
 fractional part of each quotient $V_d(c)/(d!-1)$ separately.
 
-\subsection{All solutions and their remainders modulo integers}
+\subsection{An integral basis and the attainable moments}\label{long68:sec:basis}
+\papersectiontarget{r12-moment}
 
-Fix $D\ge2$. We will solve $V_2=\cdots=V_D=0$, impose the restriction
-that the coefficient at index $1$ vanish, and then calculate the resulting
-infinite remainder. The support restriction is an additional equation,
-not a consequence of cancelling the weighted sums.
+Fix $D\ge2$. We temporarily allow a coefficient at index one so that
+the adjacent-difference vectors form a triangular basis. After solving
+$V_2=\cdots=V_D=0$, we impose one further equation to remove that
+coordinate. Only the coefficient space is enlarged; the series $S$
+continues to start at $d=2$, with no term $1/(1!-1)$.
 
-Temporarily allow finitely supported integer vectors on $n\ge1$, with
-$M$ and $\chn d{\cdot}$ given by the same formulas; this introduces no term
-$1/(1!-1)$ into $\Ser$. Let $e_n$ have coefficient $1$ at index $n$ and
-zero elsewhere. Adjacent factorials suggest starting with
+Let $e_n$ be the unit vector at index $n$. For $n\ge2$ put
 \[
- T_n=ne_{n-1}-e_n\quad(n\ge2),
+ T_n=ne_{n-1}-e_n.
 \]
-which has moment zero. The quotient $\lfloor i/d\rfloor$ changes between
-$i=n-1$ and $i=n$ exactly when $d\mid n$, so
+Its moment is zero. If $d\nmid n$, the two floor exponents in its weighted
+sum agree, and $nW_{d,n-1}=W_{d,n}$. If $d\mid n$, the exponent increases
+by one, so $nW_{d,n-1}=d!W_{d,n}$. Hence
 \[
- \chn d{T_n}=(d!-1)W_{d,n}\mathbf1_{d\mid n}.
+ V_d(T_n)=(d!-1)W_{d,n}\mathbf1_{d\mid n}.
 \]
-For example, $T_4=4e_3-e_4$ has $V_2(T_4)=6$ and $V_4(T_4)=23$, with
-all other weighted sums zero. Since $U_2:=T_2=2e_1-e_2$ has only
-$V_2(U_2)=1$ nonzero, subtracting $6U_2$ leaves only the fourth weighted
-sum. This suggests removing the contribution of each proper divisor:
+For example, $T_4=4e_3-e_4$ has weighted sums $V_2=6$ and $V_4=23$,
+and all its other weighted sums vanish. Since $T_2=2e_1-e_2$ has only
+$V_2=1$ nonzero, $T_4-6T_2$ isolates the fourth weighted sum.
+
+We therefore define, in increasing order of $n$,
 \[
- U_n=T_n-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}U_d\quad(n\ge2).
+ U_n=T_n-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}U_d.
 \]
-Induction gives $M(U_n)=0$ and
-$\chn d{U_n}=(d!-1)\mathbf1_{d=n}$.
-On each finite initial segment, the columns $e_1,T_2,T_3,\ldots$ form a
-triangular integer matrix with diagonal entries $1,-1,-1,\ldots$.
-Its determinant is $\pm1$, so it is unimodular. The change from $T_n$ to
-$U_n$ is triangular over $\mathbb Z$ with diagonal entries $1$.
-Thus $e_1,U_2,U_3,\ldots$ is a $\mathbb Z$-basis of the finitely supported
-integer vectors. Applying $M$ and each $\chn d{\cdot}$ gives the unique expansion
+Assume the construction has isolated the weighted sums below $n$.
+Subtracting $W_{d,n}U_d$ removes the contribution at a proper divisor
+$d$ and changes no other weighted sum. At $d=n$ we have $W_{n,n}=1$.
+Induction therefore gives $M(U_n)=0$ and
+$V_d(U_n)=(d!-1)\mathbf1_{d=n}$ for every $d\ge2$.
+
+For the basis claim, restrict to indices $1,\ldots,N$. The matrix with
+columns $e_1,T_2,\ldots,T_N$ is triangular over $\mathbb Z$ with
+diagonal $1,-1,\ldots,-1$. The change from $T_n$ to $U_n$ is
+triangular with diagonal one. Both determinants are units in $\Z$,
+so both inverses have integer entries. In back-substitution the only
+divisors are $1$ and $-1$; no rational coefficients are needed.
+Thus $e_1,U_2,\ldots,U_N$ represents every integer vector uniquely.
+If this expansion is $b e_1+\sum z_dU_d$, then $M(c)=b$ and
+$V_d(c)=b+(d!-1)z_d$. These identities determine the coordinates:
 \[
- c=M(c)\,e_1+\sum_{d\ge2}\frac{\chn dc-M(c)}{d!-1}\,U_d .
+ c=M(c)e_1+\sum_{d\ge2}\frac{V_d(c)-M(c)}{d!-1}U_d.
 \]
-When $V_2=\cdots=V_D=0$, the congruences above force $\Lc_D\mid M(c)$.
-To obtain moment $\Lc_D$, define
+The congruence \eqref{long68:eq:channel-congruence} also verifies the
+integrality of the displayed coefficients. They vanish for $d>N$,
+since then $V_d(c)=M(c)$, so the expansion is finite.
+
+Cancellation through $D$ forces $\Lc_D\mid M(c)$. To attain this
+moment in the enlarged space, start with $\Lc_De_1$, whose weighted
+sums all equal $\Lc_D$. The vector $U_d$ changes only the $d$th sum,
+by $d!-1$. Hence define
 \[
- K_D=\Lc_De_1-\sum_{d=2}^{D}\frac{\Lc_D}{d!-1}U_d.
+ K_D=\Lc_De_1-\sum_{d=2}^D\frac{\Lc_D}{d!-1}U_d.
 \]
-Then $M(K_D)=\Lc_D$ and $\chn d{K_D}=0$ for $2\le d\le D$.
-Consequently every vector of the enlarged space whose weighted sums $2,\ldots,D$
-vanish has a unique expression
+This vector has moment $\Lc_D$ and vanishing weighted sums $2,\ldots,D$.
+All solutions in the enlarged coefficient space consequently have the
+unique form
 \begin{equation}\label{long68:eq:low-channel-basis}
- c=tK_D+\sum_{n>D}z_nU_n,
- \qquad M(c)=tL_D,
+ c=tK_D+\sum_{n>D}z_nU_n,\qquad M(c)=tL_D,
 \end{equation}
-with finitely many nonzero integers $z_n$.  Let $a_D$ and $u_n$ denote the coefficients at index $1$ in $K_D$ and
-$U_n$, respectively.  Requiring support on $n\ge2$ adds precisely the scalar
-equation
+where $t,z_n$ are integers and only finitely many $z_n$ are nonzero.
+The only forbidden coefficient is now the one at index $1$.
+Write $a_D=(K_D)_1$ and $u_n=(U_n)_1$. Removing this coefficient
+is equivalent to
 \begin{equation}\label{long68:eq:low-channel-support}
  ta_D+\sum_{n>D}z_nu_n=0.
 \end{equation}
-The scalar coefficients satisfy $u_2=2$ and
-$u_n=-\sum_{d\mid n,\ 2\le d<n}W_{d,n}u_d$ for $n>2$.
-Every proper divisor of an odd $n$ is odd, so induction gives $u_n=0$
-for odd $n>1$. At $n=2p$ with $p$ prime, only $d=2$ contributes a
-nonzero term; hence $u_{2p}=-(2p)!/2^{p-1}$, also for $p=2$.
-If $p$ is a prime with
-$D/2<p\le D$ and $H=D(2p-1)$, then
+The free higher coordinates can change the first coefficient by every
+multiple of $\gcd\{u_n:n>D\}$, and only by such a multiple. Thus the
+gcd gives the exact solvability condition. We next show how to compute
+it using a bounded list of coefficients.
+Here $u_2=2$, whereas for $n>2$ the recurrence reads
+\[
+ u_n=-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}u_d.
+\]
+It gives $u_n=0$ for odd $n>1$. If $p$ is prime, the only proper divisor
+of $2p$ with a nonzero contribution is $2$, and therefore
+$u_{2p}=-(2p)!/2^{p-1}$, including $p=2$.
+
+Choose a prime $p$ with $D/2<p\le D$ and put $H=D(2p-1)$. Such a prime
+exists by Bertrand's postulate when $D\ge3$, and $p=2$ works when $D=2$.
+We claim that
 \begin{equation}\label{long68:eq:finite-horizon}
- \gcd\{u_n:n>D\}=\gcd(u_{D+1},\ldots,u_H)>0,\qquad H<2D^2 .
+ \gcd\{u_n:n>D\}=\gcd(u_{D+1},\ldots,u_H)>0,\qquad H<2D^2.
 \end{equation}
-Indeed, the finite gcd $g$ divides $u_{2p}\ne0$ and hence $(2p)!$.  For $n>H$
-and a divisor $d\le D$ of $n$ one has $n/d\ge2p$. The quotient
-$W_{d,n}/(n/d)!$ counts partitions of $n$ points into $n/d$ unordered
-blocks of size $d$, so $(n/d)!\mid W_{d,n}$ and hence $g\mid W_{d,n}$.  Strong induction in the
-recurrence handles the remaining divisors $D<d<n$, so $g$ divides every $u_n$
-with $n>D$.  Bertrand's postulate supplies $p$ for $D\ge3$, and $p=2$ serves
-for $D=2$; finally $H\le D(2D-1)<2D^2$.  The short note proves the same
-determination in its theorem ``a finite formula for the gcd''.
+Let $g$ be the finite gcd on the right. Its value could in principle
+decrease if we included later coefficients. To rule this out, we prove
+$g\mid u_n$ for every $n>D$ by strong induction.
+The index $2p$ lies in the finite interval and has a nonzero coefficient,
+so $g>0$ and $g\mid(2p)!$. The definition proves the induction claim
+through $H$.
+
+For $n>H$, each term of the recurrence is $W_{d,n}u_d$ with $d<n$.
+If $d>D$, divisibility comes from $u_d$ by induction. If $d\le D$,
+we cannot use that hypothesis and instead use the weight. Put $k=n/d$.
+The cutoff was chosen so that $n>D(2p-1)$ forces $k\ge2p$ for
+every such divisor. Also,
+\[
+ \frac{W_{d,n}}{k!}=\frac{n!}{(d!)^k k!}\in\mathbb Z,
+\]
+because the quotient counts partitions of $n$ labelled objects into
+$k$ unordered blocks of size $d$. Hence
+$g\mid(2p)!\mid k!\mid W_{d,n}$. Thus every product in the recurrence
+is divisible by $g$, completing the induction.
+The finite gcd divides the entire tail, and inclusion of the finite
+interval gives the reverse divisibility. Finally,
+$H\le D(2D-1)<2D^2$.
 
 \begin{theorem}[the set of attainable moments]\label{long68:res:moment-ideal}
 Fix $D\ge2$ and a prime $p$ with $D/2<p\le D$.  Put
@@ -1122,43 +335,73 @@ coefficients with gcd one, that is, by a primitive vector.
 \end{theorem}
 
 \begin{proof}
-By \eqref{long68:eq:finite-horizon}, $G_D>0$ is the gcd of the whole tail
-$\{u_n:n>D\}$, and $H<2D^2$.  Thus the finite integer
-combinations in \eqref{long68:eq:low-channel-support} form $G_D\Z$, so that the
-equation is soluble exactly when $G_D\mid ta_D$.  Dividing by
-$\gcd(G_D,a_D)$ shows that $t$ is a multiple of
-$G_D/\gcd(G_D,a_D)$, and \eqref{long68:eq:low-channel-basis} gives the displayed
-moment ideal.  Bezout coefficients attain its positive generator.  If an
-attaining vector had a nontrivial common coefficient divisor, division by that
-divisor would produce a smaller positive attainable moment.  Hence its coefficients have gcd one. Since the set of attainable moments
-does not depend on the chosen prime, neither does its least positive element.
+Equation~\eqref{long68:eq:finite-horizon} identifies $G_D$ with the gcd of
+all $u_n$ for $n>D$. Their finite integer combinations are exactly
+$G_D\Z$. Hence \eqref{long68:eq:low-channel-support} has a solution if
+and only if $G_D\mid ta_D$, or equivalently
+$G_D/\gcd(G_D,a_D)\mid t$. Substitution in
+\eqref{long68:eq:low-channel-basis} gives the claimed set of moments.
+B\'ezout's identity applied to the finite list through $H$ supplies a
+vector attaining its least positive element. A common coefficient divisor
+larger than one could be divided out, giving a smaller positive attainable
+moment. The attaining vector is therefore primitive. Finally, the set of
+moments is intrinsic to the cancellation equations, so its positive
+generator is independent of the eligible prime $p$.
 \end{proof}
 
-For a concrete instance, take $D=4$. One first needs
-$\lcm(1,\ldots,n)\mid u_n$, not just a list of computed coefficients.
-For $d\mid n$, Legendre's formula shows that the valuation of $W_{d,n}$
-at a prime $r$ is at least the number of powers of $r$ in $(d,n]$:
-each such power contributes at least $1$ to
-$\sum_{j\ge1}(\lfloor n/r^j\rfloor-(n/d)\lfloor d/r^j\rfloor)$,
-and the other terms are nonnegative. Hence
-$\lcm(1,\ldots,n)\mid W_{d,n}\lcm(1,\ldots,d)$, and induction in the
-recurrence for $u_n$ proves the divisibility. It follows that $60$ divides
-every $u_n$ with $n>4$. Conversely,
-$u_6=-180$, $u_8=-4200$ and $23u_6-u_8=60$, so $G_4=60$.
-Since $L_4=115$ and $a_4=-55$, the least positive moment is therefore
-$115\cdot60/\gcd(60,55)=1380$. The vector
-$12K_4+253U_6-11U_8$ attains it: its coefficient at index $1$ is
-$12(-55)+253(-180)-11(-4200)=0$. This example uses the gcd of the
-entire tail, not only the observed coefficients.
+For $D=4$ we need a common divisor of the entire coefficient tail,
+as well as a finite combination attaining it. Put
+$\Lambda_n=\lcm(1,\ldots,n)$. We first prove $\Lambda_n\mid u_n$.
+For $d\mid n$ and a prime $r$, Legendre's formula gives
+\[
+ v_r(W_{d,n})=\sum_{j\ge1}
+ \left(\left\lfloor\frac n{r^j}\right\rfloor
+       -\frac nd\left\lfloor\frac d{r^j}\right\rfloor\right).
+\]
+Every summand is nonnegative. If $d<r^j\le n$, the second floor
+is zero and the first is at least one. Counting these powers gives
+$v_r(W_{d,n})\ge v_r(\Lambda_n)-v_r(\Lambda_d)$, and therefore
+$\Lambda_n\mid W_{d,n}\Lambda_d$. Starting from $u_2=2$, induction
+in the recurrence proves $\Lambda_n\mid u_n$.
+
+Thus $60\mid u_n$ for all $n>4$. Conversely, the finite calculation
+$u_6=-180$, $u_8=-4200$ gives $23u_6-u_8=60$. The gcd is consequently
+$G_4=60$.
+Since $L_4=115$ and $a_4=-55$, we obtain
+\[
+ \mu_4=115\frac{60}{\gcd(60,55)}=1380.
+\]
+The vector $12K_4+253U_6-11U_8$ attains this value: its coefficient at
+index $1$ is $12(-55)+253(-180)-11(-4200)=0$.
+
+The five-term vector used in the short paper is obtained from the same
+coordinates. The equality $12(-55)-27(-180)-4200=0$ first gives
+$12K_4-27U_6+U_8$. Its coefficients at indices four and seven are
+removed by $-26U_5+8U_7$, respectively. Both corrections leave the first
+coordinate zero. Consequently
+\begin{equation}
+\begin{split}
+ 12K_4-26U_5-27U_6+8U_7+U_8
+ &=1482e_2-784e_3-136e_5\\
+ &\quad+83e_6-e_8.
+\end{split}
+\label{long68:eq:constructed-depth-four}
+\end{equation}
+Its remainder is $1380(S-H_4)-44$, since the coefficients of the $U_n$
+in this expansion sum to $-44$. The exact interval calculation appears
+in \S\ref{long68:sec:ext-certificates}. The coordinate calculation gives
+the moment and cancellations independently of a search over supports.
 
 If support is additionally restricted to $n\le6$, only $u_5=0$ and
 $u_6=-180$ remain available in \eqref{long68:eq:low-channel-support}.
 The least positive moment is then $115\cdot180/\gcd(180,55)=4140$.
-Minimising the moment and minimising the largest supported index are
-therefore different problems.
+Thus a restriction on the largest supported index can increase the
+least attainable moment. The following refinements keep the horizon
+explicit.
 
-The same minimum has a direct certificate using only the second and
-fourth channels. For every $n\ge2$,
+\papersectiontarget{r5-depth-refinements}
+There is also a direct congruence proof using only the second and
+fourth weighted sums. For every $n\ge2$,
 \begin{equation}
 1380\mid 11n!-46W_{2,n}+12W_{4,n}.
 \label{long68:eq:depth-four-dual}
@@ -1252,9 +495,8 @@ At $t=0$, the four groups have unique norm minima $290$, $136$,
 $13$ and $1$, respectively. Thus the unique norm minimizer under
 only $V_2=V_4=0$ is
 $-290e_3-136e_5-e_6+12e_7-e_8$, with norm $440$.
-The support-horizon, sparsity and norm optima here concern this
-depth-four finite problem; they make no assertion about the series'
-irrationality.
+These optima concern the depth-four problem on the stated finite
+support. They give no irrationality conclusion for the infinite series.
 
 The factor beyond $L_D$ is not always $12$. At $D=6$, the same recurrence
 gives
@@ -1266,9 +508,8 @@ every $u_n$ for $n\ge8$ by the preceding divisibility. Conversely,
 $u_8=-4200$, $u_{12}=-14386680$ and $\gcd(u_8,u_{12})=840$.
 Thus $\gcd(G_6,a_6)=35$ and the least positive moment is $\mu_6=24L_6$,
 not $12L_6$. It is attained by $24K_6-16240U_8+U_{12}$: the coefficient
-at index $1$ is zero and the coefficient at $12$ is $-1$. The
-attainable-moment formula records restrictions that the uniform factor
-$12$ alone does not capture.
+at index $1$ is zero and the coefficient at $12$ is $-1$. The finite-gcd formula thus detects the extra factor at depth six,
+which the uniform divisibility by $12L_D$ misses.
 
 We can now express the remainder using the basis coefficients in
 \eqref{long68:eq:low-channel-basis}. This refines the integer-difference
@@ -1342,15 +583,15 @@ tends to zero. For an integral remainder, the eventual gap equals the
 omitted tail itself and is smaller than that upper bound. At any one
 cutoff, success places the remainder strictly above the finite part and
 below the least integer strictly exceeding it, so it implies nonintegrality.
-The short note writes out the inequality in its section ``The remaining
-real comparison''; increasing the cutoff alone does not prove that it succeeds. This is a truncation choice, distinct from prescribing
+The \href{erdos-68-factorial-denominator-irrationality.pdf\#r12-short-gap}{remainder comparison in the short paper}
+writes out the inequality; increasing the cutoff alone does not prove that it succeeds. This is a truncation choice, distinct from prescribing
 the largest nonzero coefficient index.
 
 To impose this small-tail comparison at the largest supported index, one
 needs more than $L_D\mid M$: the positive moment must also fit below a
 factorial at that index. The next theorem combines those two demands at
 $D=2t^2$. Its variable $R$ is a support parameter, not the remainder or
-the modulus $R_p$ of the preceding section. If a larger truncation cutoff
+the modulus $R_p$ of \S\ref{long68:sec:residue}. If a larger truncation cutoff
 is used instead, the same numerical bound applies to that cutoff, not
 to the vector's actual support. The extra size assumption on $M$ is not
 a consequence of cancelling the weighted sums.
@@ -1501,7 +742,8 @@ formula establishes the existence of a representative in the stated
 interval; it does not independently certify that this representative is
 nonzero.
 
-\paragraph{A primitive solution on an arithmetic progression.}
+\paragraph{A primitive solution on an arithmetic progression.}\label{long68:sec:progression}
+\papersectiontarget{r5-progression}
 To extend the example $-6e_2+e_4$ to cancellation at larger $D$, place
 the support on an arithmetic progression with its first index prescribed.
 Let $D,r\ge2$ and let $\ell$ be a positive multiple of $2,\ldots,D$. Equal
@@ -1583,90 +825,978 @@ bound tending to zero does not supply the required comparison. Neither
 this size estimate nor the divisibility proves nonintegrality of the
 remainders.
 
+
+\section{Prime powers in reduced denominators}\label{long68:sec:prime-powers}
+
+Let $p$ be a prime, and let $v_p(a)$ denote the exponent of $p$ in a
+positive integer $a$. We determine which prime powers of $\Lc_M$ survive in $\den(H_M)$.
+At the largest exponent, this follows by specialising Louwsma and
+Martino's valuation formula
+for an elementary symmetric sum \cite[Lemma~4.1, p.~10]{louwsma-martino}.
+Indeed, $\sum_i1/x_i=(\sum_i\prod_{j\ne i}x_j)/\prod_i x_i$ for positive
+integers $x_i$. Their lemma evaluates the numerator's valuation; subtracting
+the product's valuation gives the reciprocal-sum form. The proof below
+uses the least common multiple instead of the product.
+
+The need to check cancellation is already visible in $1/3+1/15=2/5$:
+the common denominator contains $3$, but the reduced denominator does not.
+By contrast, $1/9+1/45=2/15$ only lowers the exponent of $3$ from $2$ to $1$.
+The theorem below tests whether the largest exponent is preserved; a
+failure of that test need not remove the prime completely. The formula
+is standard, whereas the two factorial-prefix examples below and the later
+tail comparison concern this particular series.
+
+\label{long68:res:lead-prime-pole}\phantomsection
+\begin{theorem}[maximal prime-power survival]\label{long68:res:prime-pole}
+Let $M\ge2$, let $p$ be a prime dividing $\Lc_M$, and put $e=v_p(\Lc_M)$.
+Let $J=\{n:2\le n\le M,\ v_p(d_n)=e\}$ and write $d_n=p^eu_n$ for $n\in J$.
+Then, with inverses in $\mathbb F_p$,
+\begin{equation}\label{long68:eq:prime-pole-survival}
+ v_p\bigl(\den(H_M)\bigr)=e
+ \quad\Longleftrightarrow\quad
+ \sum_{n\in J}u_n^{-1}\ne0\quad\hbox{in }\mathbb F_p.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Write $\Lc_M=p^eW$ with $p\nmid W$.  If $v_p(d_n)<e$, then $p\mid\Lc_M/d_n$.
+If $n\in J$, then $u_n(\Lc_M/d_n)=W$, so $\Lc_M/d_n\equiv Wu_n^{-1}\pmod p$.
+Summing over $2\le n\le M$ gives
+\begin{equation}\label{long68:eq:prime-pole-residue}
+ A_M\equiv \frac{\Lc_M}{p^e}\sum_{n\in J}u_n^{-1}\pmod p.
+\end{equation}
+
+
+Finally $\den(H_M)=\Lc_M/\gcd(A_M,\Lc_M)$, whose $p$-valuation is $e$ exactly
+when $p\nmid A_M$.  Since $W$ is invertible modulo $p$, that is exactly the
+stated condition.
+\end{proof}
+
+The complete valuation identity is
+\[
+ v_p\bigl(\den(H_M)\bigr)=\max\{0,e-v_p(A_M)\}.
+\]
+A zero residue in \eqref{long68:eq:prime-pole-survival} therefore lowers
+the exponent, whereas complete cancellation requires $v_p(A_M)\ge e$.
+For $e>1$, reduction modulo $p$ alone cannot distinguish partial from
+complete cancellation.  The proof uses no property of factorials beyond the
+displayed denominators, so it applies to any finite sum of reciprocals of positive integers.
+For $d_n=n!-1$, the examples below show that complete cancellation can
+actually occur; the general valuation formula alone does not predict it.
+
+\paragraph{Two complete cancellations.}
+
+A unique maximal exponent makes the residue sum a single nonzero term,
+so the condition holds automatically. With several maximal terms it can
+fail. The following examples show cancellation in the factorial sequence
+itself, not just in arbitrary rational sums.
+Take $M=p-1$. The table lists every index with $p\mid d_n$, and every
+one has valuation exactly one.
+\begin{center}
+\small
+\begin{tabular}{rlll}
+\toprule
+\papertablehead
+$p$ & indices $n$ & $d_n/p\pmod p$ & inverses modulo $p$\\
+\midrule
+$139$ & $69,\ 122,\ 137$ & $6,\ 49,\ 73$ & $116,\ 122,\ 40$\\
+$2593$ & $349,\ 2243,\ 2591$ & $1508,\ 1566,\ 1678$ & $1367,\ 356,\ 870$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The inverse sums are $278=2\cdot139$ and $2593$.  By
+Theorem~\ref{long68:res:prime-pole}, $139\nmid\den(H_{138})$ and
+$2593\nmid\den(H_{2592})$: each prime divides the common denominator of its
+prefix and vanishes from the reduced one.  Both hit lists and both valuations
+are checked by the recurrence
+\[
+ r_1=1,\qquad r_n\equiv nr_{n-1}\pmod{p^2},\qquad 0\le r_n<p^2,
+\]
+run through $n=p-1$.  A hit is an index with $r_n\equiv1\pmod p$, its lifted
+cofactor is $(r_n-1)/p$ modulo $p$. Valuation at least two would give
+$r_n=1$, which occurs for neither prime among the tested indices
+$2\le n\le p-1$.  That enumeration is a finite calculation
+separate from the theorem.
+
+The recurrence is run modulo $p^2$, not merely modulo $p$: reduction
+modulo $p$ would locate hits but could not establish that their valuations
+are exactly one. This is why the zero inverse sums prove complete
+cancellation in these examples.
+
+For each prime $p\ge3$, the exponent $v_p(\den(H_M))$ is constant for
+$M\ge\max(2,p-2)$. Wilson's theorem gives
+$(p-1)!-1\equiv-2\pmod p$, and $n!-1\equiv-1\pmod p$ for $n\ge p$.
+Hence every summand after index $p-2$ has denominator coprime to $p$. If a reduced fraction
+$a/b$ is followed by a summand $1/d$ with $p\nmid d$, their sum has
+numerator $ad+b$ over $bd$. When $p\mid b$, this numerator is nonzero
+modulo $p$, so the exponent of $p$ in the reduced denominator stays the
+same. When $p\nmid b$, the new denominator remains coprime to $p$.
+Consequently, the two cancellations persist in every later partial sum:
+\[
+ 139\nmid\den(H_M)\quad(M\ge137),\qquad
+ 2593\nmid\den(H_M)\quad(M\ge2591).
+\]
+The primes still divide the corresponding common denominators $L_M$.
+These are assertions about the partial sums; they do not constrain a
+hypothetical denominator of their real limit $S$ without a further
+approximation estimate.
+
+We next ask where a prime first divides a denominator $d_m$. This means
+it divides none of $d_2,\ldots,d_{m-1}$; it may still divide a later
+denominator, so uniqueness at its first occurrence gives no uniqueness
+in every larger block.
+
+\begin{proposition}[cofinal first prime occurrences]\label{long68:res:wilson-cofinality}
+For every integer $B\ge0$ there are a prime $q$ and an integer $m>B$ with
+$m<q$, $q\mid m!-1$ and $\gcd(q,k!-1)=1$ for every $k$ with $2\le k<m$.
+\end{proposition}
+
+\begin{proof}
+Choose a prime $q\ge B!+5$.  Wilson's theorem gives $(q-2)!\equiv1\pmod q$,
+so there is a least index $m\ge2$ with $q\mid m!-1$, and $m\le q-2$.
+If $m\le B$, then
+$q\le m!-1\le B!-1$, contradicting the choice of $q$.  Hence $m>B$, and
+minimality gives the coprimality assertions.
+\end{proof}
+
+The construction proves cofinality of first occurrences, but not the
+inequality involving $q$ needed for the additional two-factor test in
+\S\ref{long68:sec:residue}. The sufficient tail inequality there does not
+require choosing a prime $q$. Wilson reflection limits what can be inferred
+from a large prime factor alone: for odd $2\le n<q$ with $q\mid n!-1$,
+the identity $(q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q$ gives the reflected
+congruence at $q-n-1$. It gives a second summand denominator only when
+$q\ne2n+1$ and $n\le q-3$. At the Wilson endpoint $n=q-2$, it instead
+returns index $1$, where $1!-1=0$ is not a denominator of this series.  The reflection identity is classical; see Stewart
+\cite[p.~462, (4)]{stewart2004}.
+
+\section{Growth of the common denominator}\label{long68:sec:lcm}
+\papersectiontarget{r12-lcm}
+
+We obtain a lower bound for $\Lc_N$ from a terminal block of factorial
+denominators. The block product is large, while subtraction bounds each
+pairwise gcd by a product over the gap between its indices. Comparing
+these quantities and choosing a block of length about $\sqrt{2N}$
+gives the constant $2\sqrt2/3$. Throughout this section, $\Lc_N$ is
+the common denominator before reduction of the partial sum.
+
+\begin{lemma}[product, least common multiple, pairwise gcd]
+\label{long68:res:product-lcm}
+For positive integers $x_1,\ldots,x_k$,
+\[
+ \prod_{i=1}^{k}x_i\ \Big|\ \lcm(x_1,\ldots,x_k)\prod_{i<j}\gcd(x_i,x_j).
+\]
+\end{lemma}
+
+\begin{proof}
+For each prime $r$, arrange $a_i=v_r(x_i)$ in increasing order.
+The valuation of the right-hand side is
+$a_k+\sum_{i=1}^{k-1}(k-i)a_i$, whereas that of the left-hand side is
+$\sum_{i=1}^k a_i$. Their difference is
+$\sum_{i=1}^{k-1}(k-i-1)a_i\ge0$. This proves divisibility at every prime.
+\end{proof}
+
+\noindent The next divisibility is the case $P=-1$ of the relation
+$\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)$ for $P\in\Z[X]$, obtained by
+multiplying $i!+P(i)$ by $j!/i!$ and subtracting $j!+P(j)$.  Luca and
+Shparlinski use this relation to bound a common divisor of $n!+P(n)$ and
+$(n+h)!+P(n+h)$ in the proof of their Lemma~5~\cite{luca-shparlinski}, and Lai
+uses it for a common prime-power divisor
+\cite[proof of Lemma~2.4, display~(2.5)]{lai}.
+
+The earlier spacing method of Erd\H{o}s and Stewart
+\cite[\S3, pp.~516--517]{erdos-stewart1976} is related background.
+We now state only the subtraction needed for the lcm argument, rather than
+importing the prime-factor estimates of those papers.
+
+\begin{lemma}[factorial-gap gcd]\label{long68:res:gap-gcd}
+For $2\le i<j$, the integer $g=\gcd(i!-1,j!-1)$ divides $j!/i!-1$, and
+$g\le j!/i!-1<j^{\,j-i}$.
+\end{lemma}
+
+\begin{proof}
+The identity
+$(j!/i!)(i!-1)-(j!-1)=1-j!/i!$ shows that $g$ divides $j!/i!-1$.
+This integer is positive. Moreover, $j!/i!$ is a product of $j-i$ integers
+at most $j$, so $g\le j!/i!-1<j^{j-i}$.
+\end{proof}
+
+\begin{lemma}[segment inequality]\label{long68:res:segment}
+For $2\le k\le N-1$,
+\begin{equation}\label{long68:eq:segment}
+ \sum_{n=N-k+1}^{N}\log(n!-1)
+ \ \le\ \log \Lc_N+\binom{k+1}{3}\log N.
+\end{equation}
+
+
+\end{lemma}
+
+\begin{proof}
+Apply Lemma~\ref{long68:res:product-lcm} to the $k$ denominators with
+indices $N-k+1,\ldots,N$. Their lcm divides $\Lc_N$.
+Lemma~\ref{long68:res:gap-gcd} bounds the logarithm of each pairwise gcd
+by $(j-i)\log N$. Since
+\[
+ \sum_{N-k+1\le i<j\le N}(j-i)
+ =\sum_{h=1}^{k-1}h(k-h)=\binom{k+1}{3},
+\]
+taking logarithms gives \eqref{long68:eq:segment}.
+\end{proof}
+
+\begin{theorem}[common-denominator growth]\label{long68:res:lcm-growth}
+\[
+ \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}
+ \ \ge\ \frac{2\sqrt2}{3}.
+\]
+\end{theorem}
+
+\begin{proof}
+The sum of the logarithms on a terminal block of length $k$ is of order
+$kN\log N$, while the gcd estimate costs order $k^3\log N$.
+We therefore fix $\alpha>0$ and take $k=\lfloor\alpha\sqrt N\rfloor$.
+For large $N$ this is an admissible block length. If $u=N-k+1$, then
+$n!-1\ge n!/2$ and $\log n!\ge n\log n-n$ give
+\[
+ \sum_{n=u}^N\log(n!-1)\ge k(u\log u-u)-k\log2.
+\]
+Here $k=\alpha\sqrt N+O(1)$ and $u=N+O(\sqrt N)$, so
+$ku\log u=\alpha N^{3/2}\log N+O(N\log N)$.
+The remaining two terms are $O(N^{3/2})$. Also
+\[
+ \binom{k+1}{3}\log N
+ =\frac{\alpha^3}{6}N^{3/2}\log N+o(N^{3/2}\log N).
+\]
+After division by $N^{3/2}\log N$, Lemma~\ref{long68:res:segment}
+therefore yields a lower limit of at least $\alpha-\alpha^3/6$.
+This expression is maximised at $\alpha=\sqrt2$, giving $2\sqrt2/3$.
+\end{proof}
+
+The displayed proof of the lcm bound uses only
+Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}.
+Theorem~12 of Garaev, Luca and Shparlinski
+\cite[arXiv v1, p.~16]{garaev-luca-shparlinski} supplies a different input:
+a uniform $O(N^{2/3})$ bound for the number of solutions of
+$n!\equiv a\pmod p$, for fixed $a\not\equiv0\pmod p$, in an interval of
+length $N$ contained in $1\le n<p$.  The weaker lcm deduction
+from it is retained in \S\ref{long68:sec:ext-superseded}, not used here.
+No exhaustive priority claim is made for the lcm estimate;
+its precise elementary derivation and the inherited subtraction are stated
+so that the claim can be assessed without relying on a search conclusion.
+
+\begin{remark}[polynomial shifts]
+Fix $P\in\Z[X]\smallsetminus\{0\}$.  By Lemma~3 of Luca and
+Shparlinski~\cite{luca-shparlinski}, in the form given by
+Lai~\cite[Lemma~2.1]{lai}, there is $n_0\ge2$, depending only on $P$, such
+that $n!+P(n)>1$ for all $n\ge n_0$ and $P(n)(n+1)\cdots(n+h)\ne P(n+h)$ for
+all $n\ge n_0$ and $h\ge1$. The nonvanishing has a short direct proof.
+Beyond a cutoff, $P$ has constant nonzero sign and
+$P(n+1)/P(n)\to1$, so $0<P(n+1)/P(n)<n+1$ for every sufficiently
+large $n$. Multiplying these inequalities gives
+\[
+ 0<\frac{P(n+h)}{P(n)}<\prod_{j=1}^{h}(n+j)\qquad(h\ge1).
+\]
+Thus the required subtraction is nonzero for every gap $h$, not merely
+for each fixed $h$ after a separate cutoff. Increasing $n_0$ also makes
+$n!+P(n)>1$. The proof of Theorem~\ref{long68:res:lcm-growth} then gives
+\[
+ \liminf_{N\to\infty}
+ \frac{\log\lcm\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
+ \ \ge\ \frac{2\sqrt2}{3}.
+\]
+For $n_0\le i<j\le N$, multiplying $i!+P(i)$ by $j!/i!$ and subtracting
+$j!+P(j)$ gives
+\[
+ \gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\ \frac{j!}{i!}P(i)-P(j),
+\]
+which replaces Lemma~\ref{long68:res:gap-gcd}.  The right-hand side is
+nonzero by the choice of $n_0$, and its absolute value is at most
+$C_PN^{\,j-i+\deg P}$ for a constant $C_P$.  Over a block of $k$ indices the
+pairwise loss therefore grows by $O_P(k^2\log N)$, which is $O_P(N\log N)$
+when $k=\lfloor\alpha\sqrt N\rfloor$.  Since $n!+P(n)\ge n!/2$ for large $n$,
+the lower estimate for the sum of logarithms is unchanged.  The cutoff is
+needed, since for $P=-2$ the factor at $n=2$ vanishes.  The hypothesis
+$P\ne0$ is needed as well, since for $P=0$ the least common multiple is $N!$
+whatever the cutoff.
+\end{remark}
+
+\paragraph{A non-polynomial comparison.}
+For $n!+2^n-1$, Luca and Shparlinski
+\cite[Lemmas~2.1--2.3, pp.~860--862]{luca-shparlinski-exp} eliminate the
+exponential term using three hits; multiplicative order enters the counting.
+Their valuation-layer identity \cite[(3.2), p.~863]{luca-shparlinski-exp}
+records repeated prime-power divisibility.  These are related tools, not
+inputs to Theorem~\ref{long68:res:lcm-growth}, and no extension to general
+non-polynomial perturbations is asserted.
+
+Within the terminal-block estimate just proved, maximising
+$\alpha-\alpha^3/6$ gives $2\sqrt2/3$.  This is an optimisation of that
+one-parameter bound, not an optimality theorem for all block selections or
+all gcd arguments.  The discarded factorial term has size $N^{3/2}$,
+so a finite normalised ratio need not be close to the limiting lower bound.
+
+Theorem~\ref{long68:res:lcm-growth} concerns $\Lc_N$, not $\den(H_N)$.
+Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and $2593$
+show why these cannot be interchanged: a prime present in the common
+denominator may be absent after reduction. The two examples establish this
+possibility, not an asymptotic estimate for cancellation.
+
+Even two consecutive denominators obstruct clearing by the full lcm. For
+$N\ge3$, the gcd of $(N-1)!-1$ and $N!-1$ divides $N-1$, whereas
+$(N-1)!-1$ is coprime to $N-1$. Thus those denominators are coprime, and
+\[
+\Lc_N(\Ser-H_N)>
+\frac{((N-1)!-1)(N!-1)}{(N+1)!-1}\longrightarrow\infty.
+\]
+This argument does not use the stronger asymptotic growth theorem.
+
+The direction of denominator control matters.  Write $H_N=\widehat A_N/Q_N$ in lowest
+terms, reserving $A_N$ above for the numerator over the full common denominator.  Under the hypothetical identity $\Ser=a/q$, with $a\in\Z$ and
+$q\ge1$, positivity of the tail gives
+\[
+ qQ_N(\Ser-H_N)=aQ_N-q\widehat A_N\in\Z_{>0}.
+\]
+A direct clearing contradiction therefore requires an upper estimate that
+makes $qQ_N(\Ser-H_N)<1$ for some $N$; equivalently, it needs $Q_N$ to be
+small relative to the reciprocal tail.  A lower bound on $Q_N$ points in the
+opposite direction.  Indeed, the rational limit $1$ and the approximants
+$1-1/Q_N$ have arbitrarily large reduced denominators without any
+irrationality.  The inequality $d_N(\Ser-H_N)<1$ alone would not repair the
+argument, because $d_N$ generally does not clear the earlier summands of
+$H_N$.  The prime-power analysis describes which factors survive reduction,
+but it does not yet supply the required upper control on $Q_N$.
+
+For linear forms in $p$-adic zeta values, with $p\ge5$ a fixed prime and $n$
+the index of the form, Lai, Lupu and Sprang quantify a saving of this kind.
+They bound the denominators of the coefficients by powers of
+$\lcm(1,\ldots,n)$, show that the bound may be divided by a product $\Phi_n$
+of prime powers, and compute the growth rate of
+$\Phi_n$~\cite[Lemmas~5.3--5.7 and~7.3]{lai-lupu-sprang}.  That saving enters
+the inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
+which have integer coefficients, meet the irrationality criterion
+\cite[Lemma~2.1, p.~3]{lai-lupu-sprang} that they quote from Lai
+\cite[Lemma~2.1, p.~4]{lai-2adic}. Along one unbounded subsequence, the forms
+must be nonzero and their $p$-adic absolute values, multiplied by the
+largest ordinary absolute value of an integer coefficient, must tend to
+zero. The coefficient bound is archimedean; the bound on the value is
+$p$-adic. The conclusion is that at least one of the finitely many
+$p$-adic numbers in the forms is irrational, not that each is irrational.
+The corresponding saving for $H_N$ is the ratio $\Lc_N/Q_N$.
+
+This ratio is an integer.  Merely naming it supplies neither its growth
+nor a small linear form; the analogy is about what an eventual estimate
+would have to accomplish.
+Theorem~\ref{long68:res:prime-pole} decides, for each prime $p\mid\Lc_N$,
+whether $p$ divides this ratio; no asymptotic lower bound for the ratio is
+established here.  This paragraph compares the two methods; no $p$-adic
+theorem is applied to $\Ser$.
+
+\section{Carries and factorial digits}\label{long68:sec:carry}
+\papersectiontarget{r5-carry}
+
+Suppose first that $S$ is rational. For all sufficiently large $m$,
+the number $m!S$ is an integer, and $0<m!(S-H_m)<1$ identifies it
+as the next integer above $m!H_m$. We use this observation to define
+the carries, then prove the converse implication. Put
+\[
+ Z_m=\lfloor m!H_m\rfloor+1,\qquad
+ \Delta_m=Z_{m-1}-(m-1)!H_{m-1}\quad(m\ge3).
+\]
+Thus $0<\Delta_m\le1$, with $\Delta_m=1$ when the preceding
+scaled partial sum is integral. Define the integer carry $b_m$ by
+\begin{equation}\label{long68:eq:carry-recurrence}
+ Z_m=mZ_{m-1}+1-b_m .
+\end{equation}
+
+
+Call $b_m=1$ a \emph{unit carry}.  Put
+$E_m=m!(\Ser-H_m)$ and $\varepsilon_m=1/(m!-1)$.  Since
+$d_{n+1}>(n+1)d_n$, a geometric majorant gives the tail estimate
+\begin{equation}\label{long68:eq:tail-bound}
+ 0<E_m<\frac{2\,m!}{(m+1)!-1}<\frac2m\le1\qquad(m\ge2).
+\end{equation}
+Compare the factorial scaling in Han\v{c}l and Tijdeman's tail-integrality
+lemma for factorial series with integer coefficients
+\cite[Lemma~2.1 and the following remark,
+p.~385]{hancl-tijdeman}. Their scaled partial sums are integers; ours
+need not be, since already $3!H_3=36/5$. The next proof instead uses the
+short positive tail to identify the least integer above a scaled prefix
+under a rationality assumption. The carry-defect expansion in
+\S\ref{long68:sec:ext-literature} gives a separate, direct application of
+factorial-series rationality criteria.
+
+\label{long68:res:lead-carry-equivalence}\phantomsection
+\label{long68:res:strict-successor-complete-characterization}\phantomsection
+\begin{theorem}[an exact criterion from successive partial sums]\label{long68:res:carry-equivalence}
+For $m\ge3$,
+\begin{equation}\label{long68:eq:unit-window}
+ b_m=1
+ \iff m\mid Z_m
+ \iff 1+\varepsilon_m<m\Delta_m\le2+\varepsilon_m .
+\end{equation}
+
+
+Moreover
+\begin{align}
+ \Ser\in\Q
+ &\iff b_m=1\ \hbox{for all sufficiently large }m,
+ \label{long68:eq:carry-rationality}\\
+ \Ser\notin\Q
+ &\iff \forall B\ \exists m>B:\ m\nmid Z_m .
+ \label{long68:eq:strict-misses}
+\end{align}
+If $\Ser=a/q$ with $a\in\Z$, $q\ge1$ and $b_m\ne1$, then $q\nmid(m-1)!$ and
+$q\ge m$.
+\end{theorem}
+
+\begin{proof}
+From $m!H_m=mZ_{m-1}-m\Delta_m+1+\varepsilon_m$ one gets
+$b_m=\lceil m\Delta_m-1-\varepsilon_m\rceil$ with $-1\le b_m\le m-1$, which
+gives both equivalences in \eqref{long68:eq:unit-window}, endpoints included.
+
+Suppose $\Ser=a/q$ and $q\mid(m-1)!$.  For $j=m-1$ and $j=m$ the number
+$j!\,\Ser$ is an integer, and $j!H_j=j!\,\Ser-E_j$ with $0<E_j<1$ by
+\eqref{long68:eq:tail-bound}, so $Z_j=j!\,\Ser$.  Substituting into
+\eqref{long68:eq:carry-recurrence} forces $b_m=1$.  Every fixed $q$ divides
+$(m-1)!$ eventually, which gives one direction of
+\eqref{long68:eq:carry-rationality} and, by contraposition, the final assertion;
+$q<m$ would imply $q\mid(m-1)!$.  Conversely, an eventual unit-carry tail
+makes $Z_m/m!$ eventually constant, and $0<Z_m/m!-H_m\le1/m!$ with
+$H_m\to\Ser$ identifies that constant as $\Ser$, which is then rational.
+Negating \eqref{long68:eq:carry-rationality} gives \eqref{long68:eq:strict-misses}.
+\end{proof}
+
+The conclusion $q\nmid(m-1)!$ is about prime-power multiplicities, not
+just prime factors. It permits all prime factors of $q$ to be at most
+$m-1$ if one occurs to a larger exponent than in $(m-1)!$.
+
+\subsection{The adjacent-unit window condition}
+\label{long68:sec:adjacent-unit-no-go}
+
+Two successive unit carries imply a prime-power size condition after
+clearing denominators in their defining inequalities. The calculation
+below shows that the condition follows already from those carries.
+An additional arithmetic estimate is therefore needed to turn it into
+a contradiction.
+
+Write $\Delta_k=P^\Delta_k/Q^\Delta_k$ in lowest terms, with $P^\Delta_k,Q^\Delta_k>0$.
+In one recurrence step the unreduced denominator is $Q^\Delta_k(k!-1)$;
+let $G_k=Q^\Delta_k(k!-1)/Q^\Delta_{k+1}$ be the positive integer cancelled in reduction.
+For $m\ge3$, put
+\[
+ \begin{aligned}
+ D_m&=Q^\Delta_m(m!-1)((m+1)!-1),\\
+ \Omega_m&=D_m\left(m(m+1)\Delta_m-m-2
+       -\frac{m+1}{m!-1}-\frac1{(m+1)!-1}\right).
+ \end{aligned}
+\]
+Both are integers. The two unit carries are equivalent to
+$0<\Omega_m\le D_m$. Independently of the carries, cancellation in two
+successive steps gives
+\[
+ D_m=Q^\Delta_{m+2}G_{m+1}G_m=Q^\Delta_m(m!-1)\bigl((m+1)!-1\bigr),
+\]
+and under the pair assumption the offset factors to match,
+$\Omega_m=P^\Delta_{m+2}G_{m+1}G_m$.  Dividing by $G_{m+1}G_m>0$ reduces the proposed bound to
+\[
+ 0<P^\Delta_{m+2}\le Q^\Delta_{m+2},
+\]
+which every reduced positive gap in $(0,1]$ already satisfies.  Thus the resulting gap bound is not an additional restriction on a
+pair of unit carries. This calculation does not exclude an independent
+arithmetic obstruction involving the transition numerators or their
+valuations. Such an obstruction would need information not already
+implied by the pair assumption; it need not take the form of a bound on
+the preceding gap $\Delta_m$.
+
+\subsection{Factorial digits of \texorpdfstring{$S-e+2$}{S-e+2}}\label{long68:sec:companion-digits}
+\papersectiontarget{r5-digits}
+
+Subtracting $\sum_{n\ge2}1/n!=e-2$ leaves the absolutely convergent
+series $C=\sum_{n\ge2}\bigl(n!(n!-1)\bigr)^{-1}$. The termwise
+identity $1/(n!-1)=1/n!+1/(n!(n!-1))$ gives
+\begin{equation}\label{long68:eq:companion-decomposition}
+ \Ser=C+e-2 .
+\end{equation}
+The canonical factorial digits of a real $x$ are
+$a_m(x)=\lfloor m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}$
+for $m\ge2$. At a rational endpoint, the floor convention selects the
+terminating representation. For example, $1/2=1/2!$ also equals
+$\sum_{m\ge3}(m-1)/m!$, but its canonical digits are $a_2=1$ and
+$a_m=0$ for $m\ge3$, not an eventually maximal tail. With this convention,
+$x$ is rational exactly when its digits vanish from some index on. The criterion
+goes back to Cantor \cite{cantor1869}; Galambos treats the rationality of
+Cantor series in \cite[Ch.~II, \S2.1, pp.~21--22]{galambos1976}, and Koepf
+and Schmersau prove the irrationality direction for nonterminating factorial
+expansions whose digits are not eventually maximal
+\cite[Example~3.2, p.~121]{koepf-schmersau}.
+
+\label{long68:res:lead-companion-orbit}\phantomsection
+\begin{proposition}[rationality and factorial residues]\label{long68:res:companion-orbit}
+\[
+ \Ser\in\Q
+ \quad\Longleftrightarrow\quad
+ \lfloor m!C\rfloor\equiv-2\pmod m
+ \quad\hbox{for all sufficiently large }m.
+\]
+\end{proposition}
+
+\begin{proof}
+Put $J_m=\sum_{k=0}^{m}m!/k!$.  Then $J_m$ is an integer, every summand with
+$k<m$ is divisible by $m$ and the summand at $k=m$ is $1$, so
+$J_m\equiv1\pmod m$; and $0<m!\,e-J_m<1$ for $m\ge2$.
+
+Suppose $\Ser$ is rational.  For all large $m$ both $(m-1)!\,\Ser$ and
+$m!\,\Ser$ are integers, so $m\mid m!\,\Ser$.  Multiplying
+\eqref{long68:eq:companion-decomposition} by $m!$ and using
+$\lfloor -m!\,e\rfloor=-J_m-1$ gives
+$\lfloor m!C\rfloor=m!\,\Ser+2\,m!-J_m-1\equiv-2\pmod m$.
+
+Conversely, assume the congruence from some index on.  Because
+$0\le a_m(C)<m$, for $m\ge3$ the congruence is equivalent to $a_m(C)=m-2$.
+Choose $N$ beyond the exceptional indices.  The canonical expansion gives
+\[
+ C=\frac{\lfloor N!C\rfloor}{N!}+\sum_{m>N}\frac{m-2}{m!},
+\]
+and the telescope $\sum_{m>N}(m-1)/m!=1/N!$ turns this into
+\[
+ \Ser=C+e-2
+ =\frac{\lfloor N!C\rfloor+1}{N!}+\sum_{m=2}^{N}\frac1{m!},
+\]
+which is rational.
+\end{proof}
+
+The condition is eventual equality, not equality at many computed
+indices. The proof works for any real $C$: it holds exactly when
+$C+e-2$ is rational. For example, $C=2-e$ gives a rational sum, whereas
+$C=0$ gives the irrational number $e-2$. The issue here is to decide the
+condition for the particular positive series defining $C$.
+
+Negating the eventual congruence gives the equivalent formulation
+\begin{equation}
+ S\notin\mathbb Q\quad\Longleftrightarrow\quad
+ (\forall B)(\exists m>B)\ (\lfloor m!C\rfloor+2)\bmod m\ne0.
+ \label{long68:eq:companion-cofinal}
+\end{equation}
+It remains to prove failures of this congruence at arbitrarily large
+indices for this particular $C$. A finite list of failures does not
+settle this question, and the equivalence gives no distribution estimate.
+
+\paragraph{Recovering the finite carries.}\label{long68:sec:floor-correction}
+To compare canonical digits with the carries, we must account for the
+tail removed before taking a floor. Set
+\[
+ \delta_m=m!\sum_{n>m}\frac1{n!(n!-1)},\qquad
+ \sigma_m=\mathbf1_{\{\{m!C\}<\delta_m\}}.
+\]
+Here $\{x\}=x-\lfloor x\rfloor$. The factorial-tail bound gives
+$0<\delta_m<1/((m+1)!-1)<1$. Subtracting $\delta_m$ from $m!C$
+lowers its floor by one exactly when $\{m!C\}<\delta_m$. Therefore
+\[
+ Z_m=m!\sum_{n=2}^m\frac1{n!}+\lfloor m!C\rfloor+1-\sigma_m.
+\]
+Substitution in \eqref{long68:eq:carry-recurrence} gives
+\begin{equation}
+ b_m=m-1-a_m(C)+\sigma_m-m\sigma_{m-1}\qquad(m\ge3).
+ \label{long68:eq:companion-wrap}
+\end{equation}
+When $\{m!C\}=\delta_m$, the prefix is integral and $\sigma_m=0$.
+For a smaller fractional part, subtracting even this small tail crosses
+an integer. Tail size alone therefore permits neither correction term
+to be omitted.
+
+\subsection{Escape from a smaller interval}
+
+Write $\theta_m=\{m!\,\Ser\}$. We now express the irrationality
+condition as departure from a short interval: $\theta_{m-1}$ must lie
+outside $[0,E_m/m)$ at arbitrarily large indices. This interval has
+width less than $2/m^2$.
+
+\begin{proposition}[lower-interval criterion]\label{long68:res:lower-escape}
+\begin{equation}\label{long68:eq:lower-escape}
+ \Ser\notin\Q
+ \quad\Longleftrightarrow\quad
+ \forall B\ \exists m>B:\ E_m\le m\theta_{m-1}.
+\end{equation}
+For $m\ge3$ the finite condition
+\begin{equation}\label{long68:eq:finite-escape}
+ m\Delta_m\le1+\varepsilon_m
+ \quad\hbox{or}\quad
+ 1+\varepsilon_m+\frac2m\le m\Delta_m
+\end{equation}
+implies the escape inequality in \eqref{long68:eq:lower-escape}.  Cofinally many
+instances of \eqref{long68:eq:finite-escape} therefore imply $\Ser\notin\Q$.
+\end{proposition}
+
+\begin{proof}
+If $\Ser$ is rational, the remainders $\theta_{m-1}$ vanish eventually while
+$E_m>0$, so the escape inequality fails eventually.  Conversely, suppose
+$m\theta_{m-1}<E_m$ for every sufficiently large $m$.  By
+\eqref{long68:eq:tail-bound} this gives $m\theta_{m-1}<1$, so $a_m(\Ser)=0$ and
+$\theta_m=m\theta_{m-1}$. Fix $N$ after this recurrence begins.
+Then $\theta_{N+k}=((N+k)!/N!)\theta_N<1$ for every $k\ge0$, forcing
+$\theta_N=0$. Hence $N!\Ser$ is an integer and $\Ser$ is rational.
+
+For the finite implication, suppose $m\theta_{m-1}<E_m$.  The tail recurrence
+is $mE_{m-1}=1+\varepsilon_m+E_m$, so $E_{m-1}>E_m/m>\theta_{m-1}\ge0$, and
+with $0<E_{m-1}<1$ the strict-successor identity gives
+$\Delta_m=E_{m-1}-\theta_{m-1}$.  Hence
+\[
+ 1+\varepsilon_m<m\Delta_m=1+\varepsilon_m+E_m-m\theta_{m-1}
+ \le1+\varepsilon_m+E_m<1+\varepsilon_m+\frac2m,
+\]
+which contradicts \eqref{long68:eq:finite-escape}.
+\end{proof}
+
+Escape at a single index does not give a non-unit carry there.
+
+The finite test excludes only the open interval
+$1+\varepsilon_m<m\Delta_m<1+\varepsilon_m+2/m$; it accepts either endpoint
+and all values outside. The width $2/m$ refers to $m\Delta_m$; the interval
+for $\Delta_m$ has width $2/m^2$. At one index this is a sufficient test
+for escape, obtained by replacing $E_m$ with the upper bound $2/m$.
+
+At arbitrarily large integer indices, however, the finite test itself
+characterises irrationality:
+\[
+ S\notin\Q\quad\Longleftrightarrow\quad
+ \text{\eqref{long68:eq:finite-escape} holds for arbitrarily large integers }m.
+\]
+Only the forward implication remains to be shown. If $S$ is irrational,
+Theorem~\ref{long68:res:carry-equivalence} gives $b_m\ne1$ at arbitrarily
+large indices. By \eqref{long68:eq:unit-window}, each such index satisfies
+$m\Delta_m\le1+\varepsilon_m$ or $m\Delta_m>2+\varepsilon_m$.
+Since $2/m<1$ for $m\ge3$, either alternative implies
+\eqref{long68:eq:finite-escape}. The converse is Proposition~\ref{long68:res:lower-escape}.
+This is an ordinary consequence of the two proved criteria, not a proof
+that either occurs infinitely often for $S$. The equivalence is over all
+integer indices; restricting to primes is only a sufficient condition here.
+
+For comparison at a single index, the exact classification is
+\begin{equation}\label{long68:eq:escape-classification}
+ E_m\le m\theta_{m-1}
+ \quad\Longleftrightarrow\quad
+ b_m\ne1\ \hbox{ or }\ a_m(\Ser)=m-1
+ \qquad(m\ge3).
+\end{equation}
+
+To verify the classification, use $0<E_j<1$ to write
+\[
+ Z_j=\lfloor j!S\rfloor+\mathbf1_{\{\theta_j\ge E_j\}}.
+\]
+Substitution in the carry recurrence gives
+\[
+ b_m=1-a_m(S)+m\mathbf1_{\{\theta_{m-1}\ge E_{m-1}\}}
+                 -\mathbf1_{\{\theta_m\ge E_m\}}.
+\]
+Since $0\le a_m(S)\le m-1$, a unit carry has exactly two possibilities:
+both indicators are zero and $a_m(S)=0$, or both are one and
+$a_m(S)=m-1$. In the first case $m\theta_{m-1}=\theta_m<E_m$;
+in the second, $m\theta_{m-1}\ge m-1>E_m$.
+Conversely, $m\theta_{m-1}<E_m<1$ forces $a_m(S)=0$ and both
+indicators to be zero, using
+$mE_{m-1}=1+\varepsilon_m+E_m$. It therefore forces a unit carry with
+zero digit. This proves \eqref{long68:eq:escape-classification}, including
+the equality case in its left-hand inequality.
+
+Thus escape can occur even when $b_m=1$, provided the digit is $m-1$.
+This happens at $m=52$: exact
+rational arithmetic gives $b_{52}=1$ together with
+$52\,\Delta_{52}>1+\varepsilon_{52}+2/52$, the margin being about
+$0.5689674908$.  This example separates the two events at a single index: the finite test
+can hold at a unit carry. Their occurrence at arbitrarily large indices
+nevertheless gives equivalent rationality criteria. Since $52$ is
+composite, the example supplies no prime-index instance.
+
+\subsection{The series with denominators \texorpdfstring{$n!+t$}{n!+t}}
+
+The digit argument also applies to the other shifts mentioned by
+Erd\H{o}s. We restrict here to $t\ge-1$ so that every denominator
+from index two onwards is positive. Put
+$\Ser_t=\sum_{n\ge2}1/(n!+t)$ and $C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)$,
+so that $\Ser_t=-tC_t+(e-2)$.
+
+The restriction $t\ge-1$ keeps every denominator positive for $n\ge2$;
+$t=-2$ is excluded because its first denominator is zero. All series in
+this identity converge absolutely. The familiar case $t=0$ is $e-2$;
+this example will make the residue condition explicit.
+
+\begin{theorem}[a criterion for the shifts $t\ge-1$]\label{long68:res:shift-family}
+For every integer $t\ge-1$, the series $\Ser_t$ is rational exactly when
+\[
+ \bigl\lceil t\,m!\,C_t\bigr\rceil\equiv2\pmod m
+\]
+for all sufficiently large $m$, and irrational exactly when that residue is
+missed cofinally.  The member $t=-1$ is $\Ser$, and the member $t=0$ is
+$e-2$, for which the scaled correction is always $0$ and hence misses the residue class
+at every $m\ge3$, proving the irrationality of $e$.
+\end{theorem}
+
+\begin{proof}
+Put $Y=-tC_t$, so that $\Ser_t=Y+e-2$.  The proof of
+Proposition~\ref{long68:res:companion-orbit} applies to any real $Y$:
+rationality of $Y+e-2$ forces
+$\lfloor m!Y\rfloor\equiv-2\pmod m$ eventually.  Conversely, that congruence
+forces the canonical digits of $Y$ to equal $m-2$ eventually; adding the
+factorial series of $e-2$ leaves an eventually telescoping tail, hence a
+rational sum.  Finally
+$\lceil t m!C_t\rceil=-\lfloor m!Y\rfloor$ translates the congruence.
+Negation gives the cofinal statement.  For $t=0$, the left side is zero,
+which is not congruent to $2$ for $m\ge3$.
+\end{proof}
+
+The $t=0$ specialisation recovers the classical irrationality of $e$.
+For $t\ne0$, no estimate proving failure of the displayed congruence at
+arbitrarily large indices is supplied here.
+This is a statement about the scope of the present argument, not an assertion
+that every other member has the same current literature status.
+
+\section{A complementary-denominator criterion}\label{long68:sec:residue}
+\papersectiontarget{r5-complement}
+
+We choose a multiplier that removes all prime-power levels shared
+by two denominators. Each remaining maximal level belongs to a unique
+summand, so it survives reduction. This gives the reduced denominator
+of the scaled sum and hence its gap to the next integer. The multiplier
+is sufficient; cancellation in the original sum may allow a smaller
+one. For an integer $p\ge3$, not necessarily prime, put
+$I_p=\{2,\ldots,2p-1\}$ and $F_p=(p-1)!$, and define
+\begin{align*}
+ D_p&=\lcm_{\substack{i,j\in I_p\\ i<j}}\gcd(d_i,d_j),
+ &C_p&=\lcm(F_p,D_p),\\
+ \Lc^{\mathrm{blk}}_p&=\lcm(F_p,d_2,\ldots,d_{2p-1}),
+ &R_p&=\Lc^{\mathrm{blk}}_p/C_p .
+\end{align*}
+The integer $D_p$ contains the prime powers shared by at least two
+of the denominators. The integer $C_p$ also contains the factorial base
+$F_p$, and $R_p$ is the quotient left in the full common denominator.
+The factors $C_p$ and $R_p$ need not be coprime: a prime absent from $F_p$
+with largest exponent $5$ and second-largest exponent $2$ occurs to powers
+$2$ and $3$ in the two factors. This is an illustration of the valuation
+calculation, not a claimed pattern in a particular factorial block.
+It will be useful to retain the ratio $\widetilde C_p=C_p/F_p$, so that
+\begin{equation}\label{long68:eq:core-normalisation}
+ \Lc^{\mathrm{blk}}_p=C_pR_p=F_p\widetilde C_pR_p .
+\end{equation}
+
+
+Including $F_p$ in both $C_p$ and $\Lc_p^{\mathrm{blk}}$ ensures that
+a fixed rational denominator divides $C_p$ for all large $p$.
+The ratio $\widetilde C_p$ removes precisely that factorial factor when
+we estimate the shared part. Put
+\[
+ T_p=\sum_{i\in I_p}\frac{\Lc^{\mathrm{blk}}_p}{d_i},\qquad
+ \rho_p=(-T_p)\bmod R_p,\qquad
+ K_p=2p^2(2p-1)! ,
+\]
+with $\rho_p$ the least nonnegative representative.  All of these depend only
+on a finite prefix.
+
+For each prime, $C_p$ contains the larger of its exponent in $F_p$ and
+its second-largest exponent among the denominators.  A prime dividing $R_p$ therefore has a unique
+denominator whose exponent is maximal and exceeds the exponent in $F_p$, so the argument of
+Theorem~\ref{long68:res:prime-pole} applies to it and gives $\gcd(T_p,R_p)=1$.
+Thus $R_p=\den(C_pH_{2p-1})$, the reduced denominator of the scaled
+prefix, not generally of $H_{2p-1}$. When $R_p>1$, this ratio is
+nonintegral and
+\begin{equation}\label{long68:eq:gap-normalisation}
+ \frac{\rho_p}{R_p}
+ =\bigl\lceil C_pH_{2p-1}\bigr\rceil-C_pH_{2p-1}\in(0,1),
+\end{equation}
+the distance to the next integer. When $R_p=1$, $\rho_p=0$ but the
+scaled partial sum is integral, so the least strictly larger integer is at
+distance $1$. The theorem below uses only $R_p>1$.
+
+At $p=3$, the denominators $1,5,23,119$ are pairwise coprime. Thus $D_3=1$,
+$C_3=2$, $R_3=13685$, and
+\[
+C_3H_5=\frac{34264}{13685},\qquad
+\frac{\rho_3}{R_3}=3-\frac{34264}{13685}=\frac{6791}{13685}.
+\]
+The tail estimate in the proof below gives
+$C_3(\Ser-H_5)<7/1080<6791/13685$. This verifies the comparison for one
+actual prefix. The theorem needs such prefixes at arbitrarily large $p$,
+so that $F_p$ can absorb any fixed rational denominator.
+
+\begin{theorem}[a sufficient tail inequality]\label{long68:res:global-residue}
+Suppose that for every $B$ there is a natural parameter $p\ge3$ with
+$p>B$, $R_p>1$, and
+\begin{equation}\label{long68:eq:global-scale}
+ (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p .
+\end{equation}
+Then $\Ser$ is irrational.
+\end{theorem}
+
+\begin{proof}
+Suppose $\Ser=a/q$ with $q\ge1$, and choose a parameter in the hypothesis
+with $p>q$. Since $q\mid F_p\mid C_p$, the number $C_p\Ser$ is an integer
+strictly above $C_pH_{2p-1}$. The gap identity
+\eqref{long68:eq:gap-normalisation} gives
+\[
+ C_p(\Ser-H_{2p-1})\ge\frac{\rho_p}{R_p}.
+\]
+On the other hand, $1/(n!-1)<2/n!$ for $n\ge2p$, and comparison with a
+geometric series of ratio $1/(2p+1)$ gives
+\[
+ \Ser-H_{2p-1}<\frac{2}{(2p)!}\frac{2p+1}{2p}=\frac{2p+1}{K_p}.
+\]
+Multiplication by $C_p$ and \eqref{long68:eq:global-scale}, with
+$\Lc_p^{\mathrm{blk}}=C_pR_p$, now give
+$C_p(\Ser-H_{2p-1})<\rho_p/R_p$, a contradiction.
+\end{proof}
+
+Cancelling $R_p$ in \eqref{long68:eq:global-scale} through
+\eqref{long68:eq:core-normalisation} displays the quantitative issue directly:
+\begin{equation}\label{long68:eq:core-gap-scale}
+ (2p+1)C_p<K_p\frac{\rho_p}{R_p}.
+\end{equation}
+The factor $R_p$ has cancelled. Thus new prime divisors, even large ones,
+do not by themselves bound $C_p$ or keep $\rho_p/R_p$ away from zero.
+Proposition~\ref{long68:res:wilson-cofinality} supplies the primes but not
+these two estimates.
+
+Under $R_p>1$, we have $\rho_p>0$, and taking logarithms gives
+\[
+ \log\widetilde C_p-\log\frac{\rho_p}{R_p}
+ <\log\frac{2p^2(2p-1)!}{(2p+1)(p-1)!}
+ =p\log p+(2\log2-1)p+O(\log p).
+\]
+Both terms on the left must be controlled at the same $p$. The elementary
+bound $\rho_p\ge1$ gives only $\rho_p/R_p\ge1/R_p$, which may be too small.
+For a concrete comparison, a gap of at least $1/2$ would reduce the sufficient
+test to $(2p+1)C_p<K_p/2$. At the opposite extreme, the gap $1/R_p$ requires
+the stronger bound $(2p+1)C_p<K_p/R_p$. Neither type of favourable behaviour
+is proved here for an unbounded family of these particular prefixes.
+
+\label{long68:res:lead-moving-factor-split}\phantomsection
+\label{long68:res:moving-factor-scale-split}\phantomsection
+A more restrictive test also uses a prime $q$ that first divides $m!-1$
+at an index $m\ge4$. Choose $p=\lfloor m/2\rfloor+1$, which need not be
+prime. This choice puts $m$ in the block and gives $q\mid R_p$. Indeed,
+$q>m\ge p$, so $q\nmid F_p$, and no earlier denominator contains $q$.
+The only possible later index in the block is $m+1$; when it occurs,
+$(m+1)!-1\equiv m\not\equiv0\pmod q$. Thus $q$ occurs in just one block
+denominator and is absent from $C_p$.
+
+The additional comparison uses the integer $R_p/q$. Requiring the tail
+bound to be smaller than both $\rho_p$ and $R_p/q$ gives
+$\min(\rho_p,R_p/q)$ and is equivalent to the following two inequalities:
+\begin{equation}\label{long68:eq:factor-split}
+ (2p+1)\Lc^{\mathrm{blk}}_p<K_p\min(\rho_p,R_p/q)
+ \quad\Longleftrightarrow\quad
+ \begin{cases}
+ (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p,\\
+ (2p+1)C_pq<K_p .
+ \end{cases}
+\end{equation}
+
+
+The equivalence follows by testing each entry of the minimum and using
+\eqref{long68:eq:core-normalisation}. Both inequalities must hold for the
+same arbitrarily large parameters. The first alone is already sufficient
+by Theorem~\ref{long68:res:global-residue}; the second is an extra restriction,
+not an equivalent formulation of irrationality.
+
+\label{long68:res:split-factor-normalized-collision}\phantomsection
+\label{long68:bdry:fixed-owner-absorption}\phantomsection
+A fixed small index cannot supply new factors indefinitely. If $n$ is
+fixed and $p>n!-1$, then $n!-1$ divides $(p-1)!$, so none of its prime
+powers remains outside the factorial base. For example, the factor $719$
+of $6!-1$ is useful only over a finite range of $p$. Any argument using
+such factors at arbitrarily large $p$ must let their indices increase.
+
 \section{Finite denominator exclusions}\label{long68:sec:finite}
 \label{long68:res:lead-denominator-exclusions}\phantomsection
+\papersectiontarget{r12-finite}
 
-Two finite computations constrain a hypothetical denominator $q$ in
-$\Ser=a/q$, and they constrain different features of it:
+Two recorded computations give different restrictions on a hypothetical
+rational denominator. The carry calculation concerns divisibility, and
+the continued-fraction enclosure concerns size:
 \begin{equation}\label{long68:eq:finite-bounds}
- q\nmid299999!,\qquad q\ge2^{39990}>10^{12038}.
+ q\nmid299999!,\qquad q\ge2^{39990}>10^{12038}
 \end{equation}
-The size bound holds for every integer $a$ and positive natural $q$ with
-$\Ser=a/q$; no reducedness assumption is needed. Its evidence is the exact
-continued-fraction computation described below. The stronger candidate
-\href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58}{finite-size Lean certificate}
-is not cited as kernel verification: its source records that the computation
-has not yet been kernel checked. The factorial-grid exclusion
-$q\nmid299999!$ is supported separately by the external GMP computation;
-its full Lean certificate also remains an outstanding formal obligation.
+Both restrictions hold whenever $S=a/q$, with $a\in\Z$ and $q>0$.
+The size bound holds even for an unreduced representation, whose
+denominator is a multiple of the reduced denominator. The computations
+were performed outside Lean. The
+\href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58}{candidate finite-size certificate}
+records that its computation has not been kernel checked, and the full
+carry certificate has the same outstanding formal obligation.
 
-Neither condition implies the other. The prime $300007$
-fails to divide $299999!$ but is smaller than $2^{39990}$, whereas $299999!$
-satisfies the size lower bound but fails the nondivisibility condition.
-High powers of small primes further show why nondivisibility is not a
-smoothness exclusion.
+The two restrictions concern different properties of $q$. The prime
+$300007$ does not divide $299999!$, but lies below the size bound;
+$299999!$ exceeds that bound, but fails the nondivisibility condition.
+A sufficiently high power of a small prime need not divide $299999!$
+either. Thus the carry exclusion is not an exclusion of all denominators
+with small prime factors. In Sondow's terminology, it says that the least
+$r$ for which $q\mid r!$ is at least $300000$
+\cite[\S3, Theorem~1]{sondow2006}. His approximation estimates for $e$
+are not being applied to $S$.
 
-The first exclusion comes from an exact interval carry census: an
-independently implemented GMP integer computation certifies all $299998$
-carry cells for $3\le m\le300000$ with a scale of $2^{5025679}$ and $96$
-guard bits, using no floating-point arithmetic; at every step the outward
-interval is proved to lie inside one half-open unit cell before the carry is
-recorded.  Its unit carries occur exactly at
+\paragraph{Carry intervals.}
+The GMP calculation encloses each scaled sum by outward-rounded rational
+intervals, using scale $2^{5025679}$ and $96$ guard bits. It uses integer
+arithmetic throughout. A carry is entered only after the entire interval
+has been located in one half-open unit cell. All $299998$ cells for
+$3\le m\le300000$ were certified in the recorded run. The indices with
+$b_m=1$ were exactly
 \[
- 52,\ 591,\ 1030,\ 1407,\ 1438,\ 2164,\ 4258,\ 10991,\ 21236,
+52,\quad591,\quad1030,\quad1407,\quad1438,\quad2164,\quad4258,
+\quad10991,\quad21236.
 \]
-so $b_{300000}\ne1$.  Theorem~\ref{long68:res:carry-equivalence} then gives
-$q\nmid299999!$ and in particular $q\ge300000$. A separate computation through
-$m=4000$ reproduces the unit-carry prefix $52,591,1030,1407,1438,2164$ with
-a non-unit carry at the endpoint, giving $q\ge4000$ on its own. These are
-external computations; the implication from a non-unit carry to a
-factorial-divisibility exclusion is the kernel-checked statement.
+In particular $b_{300000}\ne1$, which gives the first restriction in
+\eqref{long68:eq:finite-bounds} by
+Theorem~\ref{long68:res:carry-equivalence}, and hence also $q\ge300000$.
+The independently implemented GMP census is separate from the earlier
+calculation through $4000$. That calculation gives the first six entries
+of this list and a non-unit carry at its endpoint, so it alone gives
+$q\ge4000$. The implication from a non-unit carry to factorial
+nondivisibility is the recorded kernel-checked result; the full census
+is not thereby a kernel-checked computation.
 
-The first exclusion says that the least positive integer $r$ with
-$q\mid r!$ is at least $300000$. This is the factorial index used by Sondow
-\cite[\S3, Theorem~1]{sondow2006}, not the largest prime factor of $q$.
-No approximation bound for $e$ is being applied to $\Ser$.
-
-The second exclusion has a short integer description.  Put $D=2^{80000}$ and
-let $N$ be the first integer with $N!-1>D$.  Define
+\paragraph{A rational enclosure and continued fractions.}
+Set $D=2^{80000}$ and let $N$ be the first integer satisfying $N!-1>D$.
+Put
 \[
  \ell=\sum_{n=2}^{N-1}\left\lfloor\frac D{n!-1}\right\rfloor,
  \qquad
- u=\ell+(N-2)+\left\lfloor\frac{2D}{N!-1}\right\rfloor+1 .
+ u=\ell+(N-2)+\left\lfloor\frac{2D}{N!-1}\right\rfloor+1.
 \]
-Each rounded prefix term loses less than one. Since
-$(n+1)!-1>(n+1)(n!-1)$, successive terms in the tail from $N$ have ratio
-less than $1/(N+1)$. Their sum is consequently smaller than
-$(N+1)/(N(N!-1))<2/(N!-1)$, proving $\ell/D<\Ser<u/D$.
+Each of the $N-2$ rounded terms loses less than one. Moreover,
+$(n+1)!-1>(n+1)(n!-1)$, so the positive tail from $N$ is less than
+$(N+1)/(N(N!-1))<2/(N!-1)$. These inequalities give the strict enclosure
+$\ell/D<S<u/D$. The omitted positive tail makes the lower endpoint strict,
+and the final $+1$ makes the upper endpoint strict even when
+$2D/(N!-1)$ is an integer.
 
-There are exactly $N-2$ rounded prefix terms.  The extra $+1$ in $u$
-keeps the upper enclosure strict even if $2D/(N!-1)$ happens to be an
-integer; the positive omitted tail keeps the lower enclosure strict.  Here
-$N=7054$ and $u-\ell=7053$.  Apply the continued-fraction algorithm to both
-endpoints at once, retaining a quotient only while the integer parts agree
-and both remainders are nonzero, and reversing the endpoint order at each
-inversion.  There are $23449$ common quotients, and the convergent
-denominators
+The recorded values are $N=7054$ and $u-\ell=7053$.
+Apply Euclid's continued-fraction algorithm simultaneously to the two
+endpoints, stopping as soon as their integer parts differ or a remainder
+vanishes. At an inversion, reverse the order of the endpoints. There
+are $23449$ common partial quotients $a_0,\ldots,a_{23448}$.
+Their convergent denominators satisfy
 \[
- Q_{-2}=1,\quad Q_{-1}=0,\quad Q_j=a_jQ_{j-1}+Q_{j-2}
+ Q_{-2}=1,\qquad Q_{-1}=0,\qquad
+ Q_j=a_jQ_{j-1}+Q_{j-2},\qquad Q_{23448}\ge2^{39990}.
 \]
-satisfy $Q_{23448}\ge2^{39990}$.  Every rational in the open enclosure shares
-this initial segment, so its reduced denominator is at least $Q_{23448}$.
-Indeed, write $P_j$ for the convergent numerators.  Such a rational either
-equals $P_{23448}/Q_{23448}$ or has a complete quotient $A/B>1$ after the
-segment, with $A$ and $B$ coprime, and then equals
-$(P_{23448}A+P_{23447}B)/(Q_{23448}A+Q_{23447}B)$; the determinant identity
-$P_jQ_{j-1}-P_{j-1}Q_j=\pm1$ makes both fractions reduced
-\cite[\S1.12(ii), (1.12.5)--(1.12.7), (1.12.20)--(1.12.21)]{nist-dlmf}.  The
-argument is about a common prefix and does not require the last convergent to
-lie inside the enclosure.  The integer comparison $2^{39990}>10^{12038}$
-closes \eqref{long68:eq:finite-bounds}.  The
-\href{https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/scripts/check_erdos68_continued_fraction.py}{integer
-program} and its
-\href{https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/verification/erdos68-continued-fraction.json}{output}
-list the scale of $80000$ bits, bracket width $7053$, $23449$ certified partial
-quotients, power-of-two exponent $39990$ and strict decimal exponent $12038$.
-
+Every rational in the open enclosure shares these quotients. Such a
+rational either equals the last convergent $P_{23448}/Q_{23448}$,
+or has a subsequent complete quotient $A/B>1$, with coprime positive
+integers $A,B$, and equals
+\[
+ \frac{P_{23448}A+P_{23447}B}{Q_{23448}A+Q_{23447}B}.
+\]
+The determinant identity
+$P_jQ_{j-1}-P_{j-1}Q_j=\pm1$ proves that this fraction is reduced and
+its denominator is at least $Q_{23448}$
+\cite[\S1.12(ii), (1.12.5)--(1.12.7), (1.12.20)--(1.12.21)]{nist-dlmf}.
+No assumption that the last convergent lies inside the enclosure is
+needed. The integer inequality $2^{39990}>10^{12038}$ then gives the
+decimal bound in \eqref{long68:eq:finite-bounds}.
+The
+\href{https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/scripts/check_erdos68_continued_fraction.py}{integer program}
+and its
+\href{https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/verification/erdos68-continued-fraction.json}{recorded output}
+give the $80000$-bit scale, width $7053$, prefix length $23449$,
+binary exponent $39990$ and strict decimal exponent $12038$.
 
 \paragraph{Carry computation record.}
 The carry census is the program \path{scripts/check_erdos68_strict_successor.py}
@@ -1681,27 +1811,25 @@ Backend: \path{43308ddc3902dd537b789ae6e0648054a0d752adf07e5d6e1d829811e9342083}
 Payload: \path{044ef27a60f7294c39b8279b7f04e22e1234a942e2862e9e8c64eb66505af29b}.
 \end{quote}
 
-Both certificates are finite. A further computation can enlarge an
-exclusion, but need not do so: a narrower enclosure may retain the same
-common continued-fraction prefix, and a later unit carry supplies no new
-carry exclusion. Neither finite calculation excludes an eventual
-unit-carry tail.  The continued-fraction identities are classical
-\cite[\S1.12(ii)]{nist-dlmf}; the enclosure, the prefix length and the
-exponent are outputs of the computation above.
 
-\section{The remaining arithmetic inputs}\label{long68:sec:open}
+Both calculations cover finite data. Refining an enclosure can leave the
+common prefix unchanged, and a later unit carry gives no new carry
+exclusion. In particular, neither calculation excludes an eventual
+tail of unit carries. The continued-fraction identities are classical
+\cite[\S1.12(ii)]{nist-dlmf}; the numerical parameters in this section
+are the outputs of the stated computations.
 
-The exact target is $m\nmid Z_m$ at arbitrarily large indices, as in
-\eqref{long68:eq:strict-misses}; the equivalent comparison with fractional
-parts is \eqref{long68:eq:lower-escape}. The estimates discussed below
-would suffice for this target but are not proved here. The finite test
-\eqref{long68:eq:finite-escape} implies escape at each index; its occurrence
-at arbitrarily large integer indices is also equivalent to irrationality,
-as proved in \S\ref{long68:sec:carry}. Thus the missing step is to prove
-that this actual rational sequence meets the test at arbitrarily large
-indices, not to supply another equivalence. Restricting to a prime subsequence or replacing
-a numerator by a residue imposes additional conditions. A model obeying
-only selected congruences is not the actual sequence.
+\section{Further arithmetic questions}\label{long68:sec:open}
+
+It remains to prove $m\nmid Z_m$ at arbitrarily large indices.
+Section~\ref{long68:sec:carry} gives equivalent formulations through the
+actual remainders in \eqref{long68:eq:lower-escape} and the finite
+condition \eqref{long68:eq:finite-escape}, when all integer indices are
+allowed. The estimates below identify what the proposed arguments still
+need; none establishes the required unbounded set. Restricting indices
+to primes introduces an additional condition. Likewise, selected
+congruences do not identify the sequence defined by $S$ without its
+floor relations.
 
 \paragraph{Value sets do not determine the weighted residue sum.}
 Garaev, Luca and Shparlinski's harmonic-sum estimate
@@ -2042,14 +2170,16 @@ The criteria above require a condition at arbitrarily large indices.
 Extending either finite computation alone does not establish it.
 
 \section*{Sources and evidence}
+\evidenceparagraph{\evidencerecordurl}
 
-Each numbered result carries its Lean proof in the margin. The table
-below links Lean statements of the main steps and of further displayed
-formulas, at fixed earlier revisions of the sources. The two prefix
-cancellations, the index-$52$ example and the continued-fraction
-enclosure are finite integer calculations with the procedures displayed
-above. The carry census through $300000$ is a separate exact-interval
-computation outside Lean, recorded in \S\ref{long68:sec:finite}.
+The margin marks and the table below identify the recorded Lean
+statements and supporting formulas at their original revisions. A link
+to a nearby statement does not certify a further deduction in the prose.
+The two prefix cancellations, the index-$52$ example and the
+continued-fraction enclosure use the finite integer calculations
+described above. The carry census through $300000$ uses a separate
+exact-interval computation outside Lean, described in
+\S\ref{long68:sec:finite}.
 
 \begingroup\small
 \begin{longtable}{@{}p{.46\linewidth}p{.48\linewidth}@{}}
@@ -2161,8 +2291,10 @@ claim is inferred from this comparison.
 \label{long68:sec:coverage}
 \papersectiontarget{coverage}
 
-The following links identify further Lean statements used in the
-arguments above, at fixed earlier revisions of the sources.
+This concordance lists the floor, support and divisibility identities
+used alongside the principal results. All links retain their original
+source revisions. The last subsection contains the historical links
+from the short paper, with their targets unchanged.
 
 \begin{itemize}[leftmargin=*]
 \item \lword{Erdos68/CanonicalFactorialDigits.lean}{47}{facFloor_rat_eq_cleared}{the factorial-scaled floor of a rational number}
@@ -2219,6 +2351,59 @@ arguments above, at fixed earlier revisions of the sources.
 \item \lword{Erdos68/EndpointWeightedPrivateSupport.lean}{5389}{factorialBlock_primePower_dvd_normalizedCollisionCore_iff_one_lt_hitCount_of_endpoint_lt_base}{the exact repeated-power criterion above the factorial base}
 \end{itemize}
 
+\subsection{Source links from the short paper}\label{long68:sec:short-concordance}
+\papersectiontarget{r12-short-sources}
+
+These links collect the declarations formerly listed in the short
+paper's source appendix, at the same historical revisions and paths.
+They supplement the concordance above. No fresh compilation or
+independent review is asserted by a link, and a theorem about a
+conditional family leaves its hypotheses to be established.
+
+\begingroup\small\raggedright
+\begin{itemize}[leftmargin=*]
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118}{maximal prime power survival}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L17}{the explicit vector $U_9$}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L45}{its weighted sums}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean#L53}{divisibility of $V_d(\lambda)-M(\lambda)$ by $d!-1$}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.lean}{the Lean file on the integer basis}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/DivisorChannelBasis.md}{an account of the integer basis}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompressedPrimitiveChannelKernel.md}{an account of the primitive vector}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean}{the finite formula for the gcd}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_finite_source.py}{the finite gcd verification script}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_moment_saturation.py}{a script}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean}{Generic gcd lemmas in the Lean sources}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{the liminf bound for the common denominator}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{the inequality for a terminal block}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L101}{the vector $2e_3-e_4$}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean}{the exact floor correction for the companion series}.
+\item \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean}{the prime-power noncancellation criterion}.
+\end{itemize}
+\endgroup
+
+The remaining links from the short paper use revision
+\texttt{99f4bf47422a}; the links in the preceding concordance use this
+record's own revision. The following numbers link to source lines within
+each named module, retaining both revisions where they differ.
+
+\begingroup\small\raggedright
+\begin{description}[leftmargin=1.2em,style=nextline]
+\item[\texttt{AdjacentUnitCarryWindow.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148}{148}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215}{215}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243}{243}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337}{337}.
+\item[\texttt{ChannelBreakpointRigidity.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71}{71}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91}{91}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101}{101}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130}{130}.
+\item[\texttt{ChannelIntegralCongruence.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868}{868}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885}{885}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905}{905}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084}{1084}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103}{1103}.
+\item[\texttt{DivisorFactorialCentre.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L34}{34}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L39}{39}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L44}{44}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L49}{49}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L80}{80}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L88}{88}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L102}{102}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L129}{129}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L146}{146}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L170}{170}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L179}{179}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/DivisorFactorialCentre.lean#L188}{188}.
+\item[\texttt{EndpointWeightedPrivateSupport.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766}{4766}.
+\item[\texttt{FactorialChannelCertificate.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25}{25}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L39}{39}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43}{43}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L51}{51}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L55}{55}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L59}{59}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65}{65}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L105}{105}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L109}{109}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L112}{112}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L119}{119}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L126}{126}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L133}{133}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L140}{140}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L151}{151}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156}{156}.
+\item[\texttt{FactorialZeroPlateau.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876}{876}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L940}{940}.
+\item[\texttt{PrimeUnitTranslator.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559}{1559}.
+\item[\texttt{PrimeZeroBranch.lean}] \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099}{6099}.
+\end{description}
+\endgroup
+
+The hypotheses about short intervals, least prime factors, and the
+nonzero real remainders are stated in the mathematical sections above.
+They remain hypotheses when a declaration link is followed.
+
 % , - part extended_record , -
 % Long-only authored mathematics for the Erdős #68 reasoning record.
 % Everything here was in the short note before the September 2026 revision and
@@ -2226,21 +2411,35 @@ arguments above, at fixed earlier revisions of the sources.
 % superseded deductions, and the failed routes with their exact boundaries.
 
 
+\paragraph{Earlier links for the consolidated criteria.}\label{long68:sec:short-criteria-sources}
+The four criteria treated here retain the short paper's earlier source
+and comparison links below. These identify historical declarations and
+recorded comparisons; they are not new executions.
+\begin{itemize}
+\item The constant-floor support statement: \href{https://github.com/wcook04/plectis-erdos/blob/897f55801d7d184aaa2ce8fb19e7b701c9c23d94/evidence/erdos-68-factorial-denominator-irrationality.md#res-bandbreakpoint}{the recorded declaration list}, \href{https://github.com/wcook04/plectis-erdos/blob/897f55801d7d184aaa2ce8fb19e7b701c9c23d94/evidence/erdos-68-factorial-denominator-irrationality.md#res-bandbreakpoint-comparator}{the comparison record}.
+\item The carry characterisation: \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L953}{the earlier non-unit-carry implication}, \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090}{the next-integer criterion}, \href{https://github.com/wcook04/plectis-erdos/blob/436f55ebdafa67e4af0fff79f621c13f2ded12bf/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L27}{the recorded combined statement}, \href{https://github.com/wcook04/plectis-erdos/blob/897f55801d7d184aaa2ce8fb19e7b701c9c23d94/evidence/erdos-68-factorial-denominator-irrationality.md#res-carry-characterization-comparator}{the comparison record}.
+\item The complementary-denominator criterion: \href{https://github.com/wcook04/plectis-erdos/blob/897f55801d7d184aaa2ce8fb19e7b701c9c23d94/evidence/erdos-68-factorial-denominator-irrationality.md#res-global-complementary-criterion-comparator}{the comparison record}.
+\item The companion-digit criterion: \href{https://github.com/wcook04/plectis-erdos/blob/436f55ebdafa67e4af0fff79f621c13f2ded12bf/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L45}{the recorded formal statement}, \href{https://github.com/wcook04/plectis-erdos/blob/897f55801d7d184aaa2ce8fb19e7b701c9c23d94/evidence/erdos-68-factorial-denominator-irrationality.md#res-companion-orbit-rationality-boundary-comparator}{the comparison record}.
+\end{itemize}
+
 \section{Further deductions and limitations}\label{long68:sec:extended-record}
 
-This appendix supplies details used by the earlier sections: factorial
-digits and their remainders, exact gcd and lcm identities, and additional
-finite examples. It also records weaker deductions and explains why several
-proposed irrationality arguments do not establish their needed hypotheses.
+The following sections give additional digit identities, denominator
+calculations and finite examples. For each unsuccessful argument we
+specify the missing estimate or the counterexample to its inference.
+The resulting limitations apply to those arguments, without ruling out
+other uses of the same identities.
 
 \subsection{Factorial digits and their remainders}\label{long68:sec:ext-digits}
 
-For a real number $x$, write $\theta_0=\{x\}$ and, for $m\ge1$,
+We derive the factorial-digit identities used in
+\S\ref{long68:sec:carry} directly from their remainders. For a real
+$x$, start with $\theta_0=\{x\}$ and, for $m\ge1$, put
 \[
  a_m=\lfloor m\,\theta_{m-1}\rfloor,\qquad \theta_m=m\,\theta_{m-1}-a_m ,
 \]
-so that $\theta_m=\{m!\,x\}$ for $m\ge1$.  The kernel checks the floor
-formula, the digit bounds $0\le a_m<m$, the recurrence
+so that $\theta_m=\{m!\,x\}$ for $m\ge1$.  The recorded formal identities give the floor
+formula and the digit bounds $0\le a_m<m$, the recurrence
 $\theta_{m+1}=(m+1)\theta_m-a_{m+1}$, the finite telescoping expansion
 \[
  x=\lfloor x\rfloor+\sum_{m=2}^{N}\frac{a_m}{m!}+\frac{\theta_N}{N!},
@@ -2435,8 +2634,10 @@ of it. It proves an equivalence, not the nonvanishing needed for irrationality.
 
 \subsection{A superseded deduction}\label{long68:sec:ext-superseded}
 
-A multiplicity theorem gives a weaker lcm bound, which is useful for
-comparison with the elementary proof in \S\ref{long68:sec:lcm}.
+Factorial-congruence multiplicities give another lower bound for
+$\Lc_N$. Its exponent is weaker than that of the terminal-block
+argument in \S\ref{long68:sec:lcm}. We include the deduction to specify
+what follows from this external input.
 For an odd prime $r$, let $m_r$ count the
 indices $2\le n\le N$ with $r\mid n!-1$; such an index satisfies $n<r$.  The
 factorial-congruence multiplicity estimate of Garaev, Luca and Shparlinski
@@ -2467,8 +2668,8 @@ nonintegral. No formalised primitive cofactor construction is claimed here.
 \subsection{Rational grid points and first crossings}
 \label{long68:sec:ext-plateau}
 
-One can instead compare a partial sum $H$ with the rational numbers
-having a fixed positive denominator $q$. The next such number above $H$
+Fix $q>0$. To compare a partial sum $H$ with a rational number of
+denominator $q$, consider the grid $q^{-1}\Z$. Its next point above $H$
 is $(\lfloor qH\rfloor+1)/q$. It is at most $\Ser$ exactly when
 $\lfloor qH\rfloor+1\le q\Ser$.  Suppose $H<G\le S$, the number $n!G$ is an integer, and
 $n!(S-H)<1$. Then
@@ -2554,9 +2755,9 @@ holds for the actual partial sums at every odd prime.
 
 \subsection{Exact identities for shared prime powers}\label{long68:sec:ext-collision}
 
-The following identities make it possible to update the shared part of
-a common denominator and to calculate the prime powers left after removal
-of a factorial factor. Let $I\subseteq\{2,3,\ldots\}$ be finite.
+Let $I\subseteq\{2,3,\ldots\}$ be finite. We first compute the
+prime-power levels common to two summand denominators. We then compare
+those exponents with the ones already supplied by a factorial factor.
 
 Write $D(I)=\lcm_{i<j,\ i,j\in I}\gcd(d_i,d_j)$, with $D(I)=1$
 for an empty or singleton family. For each prime $r$, its valuation is the
@@ -2720,10 +2921,12 @@ $\min(Q_1,Q_2)\le T$: otherwise both residues would equal $T$.
 
 \subsection{Finite vectors and exact numerical examples}\label{long68:sec:ext-certificates}
 
-The minimum-moment vector $12K_4+253U_6-11U_8$ from
-\S\ref{long68:sec:channels} also gives a finite nonintegral remainder.
-By Theorem~\ref{long68:res:residual-transparency}, its remainder is
-$242+1380(S-H_4)$. Exact rational arithmetic gives
+The vector $12K_4+253U_6-11U_8$ constructed in
+\S\ref{long68:sec:channels} has moment $1380$. By
+Theorem~\ref{long68:res:residual-transparency}, its remainder is
+$242+1380(S-H_4)$. The five-term vector in the short paper has the
+same moment and remainder $1380(S-H_4)-44$, smaller by $286$.
+We can bound both using the same finite rational calculation:
 \[
  255+\frac45
  <242+1380\sum_{d=5}^{8}\frac1{d!-1}
@@ -2731,10 +2934,10 @@ $242+1380(S-H_4)$. Exact rational arithmetic gives
  \qquad \frac{2\cdot1380}{9!-1}<\frac1{100}.
 \]
 The tail bound therefore places the remainder strictly between $255$ and
-$256$. Its fractional part, rather than the size of the remainder itself,
-is what excludes denominators dividing $1380$. This small instance explains
-the signed-part comparison in the short note; the headline finite
-exclusions already imply its denominator restriction.
+$256$. The fractional part excludes denominators dividing $1380$, regardless
+of this remainder's integer part. This illustrates the signed-sum test
+in the short paper; the larger finite exclusions already imply the same
+denominator restriction.
 The five-term vector in \S\ref{long68:sec:channels} has the same moment
 and residual $1380(S-H_4)-44$, exactly $286$ less than the preceding
 remainder, hence strictly between $-31$ and $-30$.
@@ -2784,6 +2987,11 @@ outside the Lean development.
 
 \subsection{Limits of the recurrences and clearing factors used here}\label{long68:sec:ext-nogo}
 
+Two distinctions are needed in using these identities: a recurrence
+may have solutions that violate the defining floor relations, and a
+fixed factor may eventually be absorbed by a growing factorial. The
+examples below keep these cases separate.
+
 \begin{itemize}
 \item Without the defining floor relation, the carry recurrence and its
   range allow $Z_m/m!$ to be the constant $3/2$. Taking $Z_m=3m!/2$ for
@@ -2820,9 +3028,9 @@ outside the Lean development.
 \subsection{An elementary criterion for any real number}
 \label{long68:sec:ext-generic}
 
-The fractional-part condition in \eqref{long68:eq:lower-escape} follows
-from the following consequence of Cantor's termination criterion.  For a real
-$x$ and any positive sequence $c_m$ with $c_m\le1/m$ eventually,
+The fractional-part condition in \eqref{long68:eq:lower-escape} is an
+instance of Cantor's termination criterion. For any real $x$ and
+positive sequence $c_m$ satisfying $c_m\le1/m$ eventually, we have
 \[
  x\notin\Q
  \quad\Longleftrightarrow\quad
@@ -2856,22 +3064,21 @@ examples explain the two assumptions without imposing any
 equidistribution hypothesis.
 % , - part family_catalogue , -
 \section{Relations among the criteria}\label{sec:erdos-68-complete-family-map}
-The two finite exclusions in \S\ref{long68:sec:finite} use only the carry
-criterion and a rational enclosure. The coefficient constructions do not
-enter either calculation. They instead produce integer linear forms
-$\mathcal R(c)=M(c)S+k$, $k\in\Z$. At fixed moment, changing coefficients
-changes only $k$; primitive cofactors on the stated progression reproduce
-the explicit progression vector rather than a new family.
+The carry test gives a factorial-divisibility restriction, and the
+rational enclosure gives the denominator-size restriction in
+\S\ref{long68:sec:finite}. The coefficient construction gives forms
+$\mathcal R(c)=M(c)S+k$, $k\in\Z$. At a fixed moment, varying the
+coefficients changes only the integer $k$. The primitive cofactor
+construction on the stated progression gives the same vector up to
+sign, so it does not supply an additional family.
 
 For a rational value $S=a/q$, such a form is integral whenever $q\mid M(c)$.
-To extend this method beyond finite exclusions, one therefore needs
-nonintegral remainders with moments covering every positive denominator
-in this divisibility sense. The common-denominator lower bound and the
-prime-power survival test do not supply the needed upper bound for a
-remainder relative to its integer gap. Likewise, the equivalent carry,
-digit and interval criteria still require events at arbitrarily large
-indices. A finite calculation can rule out denominators without proving
-any of those unbounded assertions.
+To exclude all rational values by this method, we need, for each
+positive integer $q$, a nonintegral remainder with $q\mid M(c)$. The common-denominator lower bound and prime-power survival
+test do not establish the required comparison with the next integer.
+The equivalent carry, digit and interval conditions also remain to be
+proved at arbitrarily large indices. The finite exclusions establish
+none of these unbounded assertions.
 
 % , - part back , -
 \section*{Acknowledgements}

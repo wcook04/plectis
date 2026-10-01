@@ -29,9 +29,10 @@ paper</a> proves a sufficient condition that Lean checks: if a set of
 positive integer exponents has finite base-two prime-weighted mass,
 every infinite subset gives an irrational sum at <strong>every integer
 base at least two</strong>.</p>
-<p>Precisely, choose a finite nonempty set of primes <code>P</code>, and
-let <code>h_P(a)</code> be the largest divisor of <code>a</code> whose
-prime factors lie in <code>P</code>. The condition is
+<p>Choose a finite nonempty set of primes <code>P</code>, and let
+<code>h_P(a)</code> be the largest divisor of <code>a</code> whose prime
+factors lie in <code>P</code>. For example, <code>P = {2}</code> gives
+<code>h_P(12) = 4</code>. The required bound is
 <code>∑_{a∈H} h_P(a)/(a(2^{h_P(a)}−1)) &lt; ∞</code> for a set
 <code>H</code> of positive integers. For every infinite
 <code>A ⊆ H</code> and every integer <code>b ≥ 2</code>, the sum
@@ -87,8 +88,10 @@ results and finite computations.</p>
 href="reading-guide.html">A reader’s way in</a> introduces the
 questions. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading
 edition</a> collects the opening of each paper in one file, also
-suitable for sharing with an AI. You can read the papers without a
-clone, Lean or a model account.</li>
+suitable for sharing with an AI. <a
+href="reading-guide.html#work-through-an-argument">Work through one
+argument</a> on your own or ask an agent for hints. No clone, Lean or
+model account is needed to read the papers.</li>
 <li><strong>Inspect or reproduce.</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">Follow one
 claim</a> with Git and Python, or <a
@@ -110,10 +113,10 @@ software behind those routes.</li>
 <section id="why-keep-the-whole-research-record" class="level2">
 <h2>Why keep the whole research record?</h2>
 <p>I want other people to be able to work on these questions with me. A
-checked proof still needs an explanation of what it establishes, why the
-argument works and where it can be used. The longer records preserve
-calculations and routes that stopped at a precise obstruction, so
-someone else can examine it or continue the investigation.</p>
+checked proof still needs an explanation of why the argument works and
+how someone might arrive at it. The longer records preserve calculations
+and routes that stopped at a precise obstruction, so another reader can
+question the approach, repair it or try the idea elsewhere.</p>
 <p>I am responsible for the claims, sources and release. AI assists
 research, formalisation and exposition; formal checking, readable prose
 and human understanding remain separate responsibilities. Novelty and
@@ -122,15 +125,14 @@ href="../../../papers/claim-faithful-publication-systems-paper.pdf">system
 paper</a> explains how results, corrections and credited contributions
 move through the repository. The <a
 href="architecture.html#why-preserve-explanations-and-failed-approaches">design
-discussion</a> relates this approach to Cohn’s and Gowers’s writing on
-AI and mathematics. Independent mathematical review of the corpus has
-not been recorded.</p>
+discussion</a> sets out the reasoning and its limits. Independent
+mathematical review of the corpus has not been recorded.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>Each programme has a short paper and a longer research record. The <a
-href="results.html#problem-by-problem-guide">results guide</a> keeps
-the statements beside their qualifications and sources.</p>
+<p>The <a href="results.html#problem-by-problem-guide">results
+guide</a> keeps the statements beside their qualifications and
+sources.</p>
 <table>
 <colgroup>
 <col />
@@ -235,9 +237,8 @@ through factorial series, Lambert subsums and the limits of shared
 methods. Its main theorems are ordinary proofs; Lean checks specified
 ingredients. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">synthesis guide</a>
 identifies ways to continue that work. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">agent-navigation
-paper</a> explains the workbench; <a href="paper-guide.html">all
-papers</a> includes the system papers.</p>
+href="paper-guide.html">paper index</a> also identifies the main systems
+paper and the earlier accounts retained for historical context.</p>
 <p><a id="what-the-checks-establish"></a></p>
 </section>
 <section id="what-lean-and-comparator-verify" class="level2">
@@ -359,7 +360,7 @@ explains the execution boundary. Agents enter through <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md">AGENTS.md</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md">agent workbench</a>. The <a
 href="architecture.html#repository-map">architecture guide</a>
-explains the directory and naming conventions in more detail.</p>
+explains the folder names.</p>
 <!-- BEGIN generated_corpus_at_a_glance -->
 <!-- Generated by scripts/build_corpus_descriptor.py; do not edit this region. -->
 <details>
@@ -451,11 +452,12 @@ unreleased work.</p>
 </section>
 <section id="citation-and-licence" class="level2">
 <h2>Citation and licence</h2>
-<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">CITATION.cff</a> for the tagged release
-and record the commit when using later work. For mathematics, cite the
-relevant <a href="paper-guide.html">problem paper</a> and the original
-sources it uses. A repository citation does not replace the original
-author’s credit: <a href="prior-art.html">prior art</a> and <a
+<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">CITATION.cff</a> and record the commit
+used. For a tagged release, use that tag’s citation file. For
+mathematics, cite the relevant <a href="paper-guide.html">problem
+paper</a> and the original sources it uses. A repository citation does
+not replace the original author’s credit: <a
+href="prior-art.html">prior art</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/SOURCE_ATTRIBUTIONS.md">source
 attributions</a> distinguish earlier results, formalisation and local
 use.</p>

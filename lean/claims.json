@@ -940,85 +940,88 @@
       "claim_anchor_field": "paper_label",
       "companion_sources": [
         {
-          "title": "Factorial Denominator Series: a complete working record of Erdős Problem 68",
+          "title": "Integer Linear Forms for a Factorial Reciprocal Series",
           "source": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
           "rendered": "paper/68/erdos-68-factorial-denominator-irrationality.pdf",
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
-          "role": "Standalone theorem-led problem note for Erdős #68 and the factorial-channel breakpoint boundary.",
+          "role": "Standalone theorem-led problem note for Erdős #68: integral coordinates and finite gcd moment certificates for the factorial reciprocal series; the nonintegrality needed for irrationality remains open.",
           "anchor_label_allowlist": [
-            "res:bandbreakpoint"
+            "res:divisor-channel-coordinates",
+            "res:finite-channel-moment-certificate"
           ]
         },
         {
-          "title": "Running LCM Reciprocal Sums for Finite Prime Sets",
+          "title": "Distinct running least common multiples",
           "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
           "rendered": "paper/269/erdos-269-three-prime-running-lcm.pdf",
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
-          "role": "Standalone theorem-led problem note for Erdős #269: irrationality of the distinct-height sum for every finite prime set (Lean-checked at {2,3,5}), its three-prime certificates, irrationality of the single-prime sub-sums of the catalogue sum, and the three-prime residue-escape boundary of the catalogue sum.",
+          "role": "Standalone theorem-led problem note for Erdős #269: the distinct-height {2,3,5} theorem and a repeated-sum residue criterion; the general finite-prime argument is in the long record, and the catalogue-sum problem remains open.",
           "anchor_label_allowlist": [
-            "res:distinct-height-all",
             "res:distinct-height-235",
-            "res:distinct-height-triples",
             "res:consumer",
-            "res:windowconsumer",
-            "res:single-prime-subsums"
+            "res:windowconsumer"
           ]
         },
         {
-          "title": "An Integral-Shift Criterion for Dyadic Tail Recurrences",
+          "title": "Sparse Congruence-Preserving Perturbations of Dyadic Series",
           "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
           "rendered": null,
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
-          "role": "Standalone theorem-led problem note for Erdős #251 and the prime-gap tail-shift boundary.",
+          "role": "Standalone theorem-led problem note for Erdős #251: sparse congruence-preserving rationalising perturbations and a joint prime-gap countermodel; cumulative positions are not asserted to be prime, and the prime dyadic sum remains open.",
           "anchor_label_allowlist": [
             "res:irr-equivalence",
-            "res:gap-nonperiodic"
+            "res:gap-nonperiodic",
+            "res:sparserationalisation",
+            "res:jointcountermodel"
           ]
         },
         {
-          "title": "Newton Flow and Ray Separation in Polynomial Lemniscates",
+          "title": "Paths in Polynomial Lemniscates: A Degree-Seven Counterexample and Radial Connections",
           "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
           "rendered": "paper/1041/erdos-1041-lemniscate-newton-flow.pdf",
           "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
-          "role": "Standalone theorem-led problem note for Erdős #1041 and the finite ray-separation boundary.",
+          "role": "Standalone theorem-led problem note for Erdős #1041: a degree-seven formal-statement refutation and radial trinomial connections; the low-critical-value assertion is unformalised and its scaling implication is Lean-checked only under the named input; historical correspondence awaits human review.",
           "anchor_label_allowlist": [
-            "res:ray"
+            "res:ray",
+            "res:ani-degree-seven-counterexample",
+            "res:trinomial-all-degree",
+            "res:low-critical-thirteen-twentyfifths"
           ]
         },
         {
-          "title": "Arithmetic Boundaries at Base 3/2 for Erdős Problem 1049",
+          "title": "Hankel Determinants of Geometric Moments and Rational Lambert Values",
           "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
           "rendered": "paper/1049/erdos-1049-rational-base-lambert.pdf",
           "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
-          "role": "Standalone theorem-led problem note for Erdős #1049 and the coordinatewise-corridor and cleared-tail boundaries.",
+          "role": "Standalone theorem-led problem note for Erdős #1049: fixed-base Hankel asymptotics and geometric moments, with a rational-base irrationality-measure region; irrationality at 3/2 remains open.",
           "anchor_label_allowlist": [
-            "res:nocorridor",
-            "res:tailrec",
-            "res:forcing"
+            "cor:rational-base-measure",
+            "res:sharp-fixed-base"
           ]
         },
         {
-          "title": "Reciprocal-Tail Rigidity for Erdős Problem 243",
+          "title": "Cubic-Rate Irrationality and Reciprocal-Tail Rigidity",
           "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
           "rendered": "paper/243/erdos-243-reciprocal-tail-rigidity.pdf",
           "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500",
-          "role": "Standalone theorem-led problem note for Erdős #243 and the bounded-rise fresh-modulus barrier.",
+          "role": "Standalone theorem-led problem note for Erdős #243: a cubic-rate irrationality theorem, separate reciprocal-tail criteria under bounded negative parts or bounded increments, and the fresh-modulus barrier; the unrestricted problem remains open.",
           "anchor_label_allowlist": [
-            "res:barrier"
+            "res:barrier",
+            "res:originalbounded",
+            "res:bounded",
+            "res:cubicrate"
           ]
         },
         {
-          "title": "A Basis for the 2-Kernel of Euler's Totient",
+          "title": "Integral Relations among Totient Sections",
           "source": "paper/249/erdos-249-binary-totient-series.tex",
           "rendered": "paper/249/erdos-249-binary-totient-series.pdf",
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
-          "role": "Standalone theorem-led problem note for Erdős #249 and the dyadic/all-base totient-kernel boundary.",
+          "role": "Standalone theorem-led problem note for Erdős #249: all-base totient-section independence and integral relations; the original unreduced totient-series irrationality remains open.",
           "anchor_label_allowlist": [
             "res:basis",
             "thm:kkernelrank",
-            "res:factorideal",
-            "res:actualorbit",
-            "res:actualsign"
+            "cor:integral-normal-form"
           ]
         },
         {
@@ -1028,7 +1031,10 @@
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
           "role": "Full problem-specific reasoning record for Erdős #249.",
           "anchor_label_allowlist": [
-            "thm:goodbasegap"
+            "thm:goodbasegap",
+            "res:factorideal",
+            "res:actualorbit",
+            "res:actualsign"
           ]
         },
         {
@@ -1075,6 +1081,11 @@
           "source": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex",
           "rendered": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #1049.",
+          "anchor_label_allowlist": [
+            "long1049:res:nocorridor",
+            "long1049:res:tailrec",
+            "long1049:res:forcing"
+          ],
           "formal_source_ref": "7380b7871687b6bcc41ca0143c61f232e8af6500"
         },
         {
@@ -1107,7 +1118,11 @@
           "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
           "rendered": "paper/269/erdos269-running-lcm-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #269.",
-          "formal_source_ref": "ee650b32b8b2cb98b94e5500df5370d85f7403b8"
+          "formal_source_ref": "ee650b32b8b2cb98b94e5500df5370d85f7403b8",
+          "anchor_label_allowlist": [
+            "long269:res:distinct-height-all",
+            "long269:res:single-prime-subsums"
+          ]
         },
         {
           "title": "Reading Eight Erdős Problems Together",
@@ -21867,8 +21882,8 @@
       "paper_anchor": {
         "source": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
         "environment": "problem",
-        "title": "Erdős #68",
-        "line": 33
+        "title": "Erdős Problem~#68",
+        "line": 51
       }
     },
     {
@@ -21892,7 +21907,7 @@
         "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 50
+        "line": 43
       }
     },
     {
@@ -21928,7 +21943,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1218
+        "line": 1373
       }
     },
     {
@@ -21952,7 +21967,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "section",
         "title": "Two sums from running least common multiples",
-        "line": 71
+        "line": 56
       }
     },
     {
@@ -21964,7 +21979,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 66
+        "line": 74
       }
     },
     {
@@ -21976,7 +21991,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 62
+        "line": 46
       }
     },
     {
@@ -21987,8 +22002,8 @@
       "paper_anchor": {
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
-        "title": "Erdős #243",
-        "line": 156
+        "title": "Erdős Problem 243",
+        "line": 59
       }
     },
     {
@@ -22000,7 +22015,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "no reduced tail is an integer",
-        "line": 854
+        "line": 575
       }
     },
     {
@@ -22012,7 +22027,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "residue inequalities after every starting index",
-        "line": 860
+        "line": 581
       }
     },
     {
@@ -22024,7 +22039,7 @@
         "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
         "title": "an exact function representing the distinct-height sum",
-        "line": 3449
+        "line": 3503
       }
     },
     {
@@ -22036,7 +22051,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "growth of repeated denominator factors",
-        "line": 851
+        "line": 1072
       }
     },
     {
@@ -22048,7 +22063,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "Four estimates for the first-harmonic sum",
-        "line": 735
+        "line": 730
       }
     },
     {
@@ -22060,7 +22075,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "bounded returns of the scaled remainder",
-        "line": 1234
+        "line": 1389
       }
     },
     {
@@ -22072,7 +22087,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "arithmetic tests for the greedy sequence",
-        "line": 1243
+        "line": 1398
       }
     },
     {
@@ -22084,7 +22099,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1254
+        "line": 1409
       }
     }
   ],
@@ -22313,7 +22328,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_68_irrationality"
       ],
-      "paper_label": "res:bandbreakpoint",
+      "paper_label": "long68:res:bandbreakpoint",
       "readme_headline": false,
       "declarations": [
         {
@@ -25732,7 +25747,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_1049_irrationality"
       ],
-      "paper_label": "res:nocorridor",
+      "paper_label": "long1049:res:nocorridor",
       "readme_headline": false,
       "declarations": [
         {
@@ -25750,7 +25765,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_1049_irrationality"
       ],
-      "paper_label": "res:tailrec",
+      "paper_label": "long1049:res:tailrec",
       "readme_headline": false,
       "declarations": [
         {
@@ -25768,7 +25783,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_1049_irrationality"
       ],
-      "paper_label": "res:forcing",
+      "paper_label": "long1049:res:forcing",
       "readme_headline": false,
       "declarations": [
         {

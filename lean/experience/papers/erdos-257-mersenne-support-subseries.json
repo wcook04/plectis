@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-257-mersenne-support-subseries",
-  "title": "Weighted Support Criteria for Reciprocal Mersenne Subseries",
+  "title": "Weighted and Covered Supports for Mersenne Subseries",
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 23,
+  "pages": 25,
   "question": "Which weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erdős #257 question?",
   "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "e0740093fdedf21b91be319010c01f6ef91da81f4fc3ef7f6f2706777e4f2afa",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "69d394b5af4878100d9ae1bebdebfa8059dd9ab0124100f443906ecdb47c38ae",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 816,
+    "mathml_node_count": 944,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -44,29 +44,19 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "b0857d8d537624547af35acf772cf6dcb8d5697162d53d104b58b39c011ab093",
-    "html_exact_tex_sha256": "e15c70464f0ebe9a69ec7150d85953b7c3e94c6a5a77a089f677a3589200e5bb"
+    "html_mathml_sha256": "4bacb6d825e15b6762f5fb42d3c4cc428b63ab2d10e3920a38bd745620d333f4",
+    "html_exact_tex_sha256": "3bf44edea7a8c5cdd58edcf4a4964cf100a82a9cc68e8a079aa5700ef5c6087a"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "sec:problem",
-      "label": "Introduction and main results"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:reciprocal-support",
-      "label": "Reciprocal-summable supports at every integer base"
+      "label": "Introduction"
     },
     {
       "level": 2,
       "anchor": "sec:eight-return-extensions",
-      "label": "Extensions beyond reciprocal summability"
-    },
-    {
-      "level": 3,
-      "anchor": "proof-of-the-weighted-criterion",
-      "label": "Proof of the weighted criterion"
+      "label": "Finite averages and the weighted criterion"
     },
     {
       "level": 3,
@@ -74,24 +64,54 @@
       "label": "An example beyond reciprocal summability"
     },
     {
-      "level": 3,
+      "level": 2,
       "anchor": "sec:common-kernel",
-      "label": "A common finite average for the extensions"
+      "label": "Positive divisor covers"
     },
     {
       "level": 3,
-      "anchor": "positive-divisor-majorants",
-      "label": "Positive divisor majorants"
+      "anchor": "a-divisor-cube-and-the-cover-condition",
+      "label": "A divisor cube and the cover condition"
     },
     {
       "level": 3,
-      "anchor": "what-every-positive-cover-must-pay",
-      "label": "What every positive cover must pay"
+      "anchor": "a-finite-mean-for-shifted-divisor-tails",
+      "label": "A finite mean for shifted divisor tails"
     },
     {
       "level": 3,
-      "anchor": "combining-the-two-support-criteria",
-      "label": "Combining the two support criteria"
+      "anchor": "proof-of-the-cover-criterion",
+      "label": "Proof of the cover criterion"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:mixed",
+      "label": "A common index for the two criteria"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:comparison",
+      "label": "Comparison of the support classes"
+    },
+    {
+      "level": 3,
+      "anchor": "a-lower-bound-independent-of-the-cover",
+      "label": "A lower bound independent of the cover"
+    },
+    {
+      "level": 3,
+      "anchor": "two-separating-constructions",
+      "label": "Two separating constructions"
+    },
+    {
+      "level": 3,
+      "anchor": "a-strict-enlargement-and-finite-unions",
+      "label": "A strict enlargement and finite unions"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:map",
+      "label": "Limits of the small-displacement criterion"
     },
     {
       "level": 3,
@@ -100,33 +120,38 @@
     },
     {
       "level": 2,
+      "anchor": "sec:reciprocal-support",
+      "label": "Reciprocal-summable supports"
+    },
+    {
+      "level": 2,
       "anchor": "sec:period",
       "label": "Finite-support denominator periods"
     },
     {
       "level": 2,
+      "anchor": "sec:rational-membership",
+      "label": "Rational membership"
+    },
+    {
+      "level": 3,
       "anchor": "sec:forced",
       "label": "Rational values and scaled tails"
     },
     {
-      "level": 2,
-      "anchor": "sec:map",
-      "label": "Limits of the small-displacement criterion"
-    },
-    {
-      "level": 2,
+      "level": 3,
       "anchor": "sec:geometry",
-      "label": "Unique coding and arithmetic membership"
+      "label": "The achievement set"
     },
     {
-      "level": 2,
+      "level": 3,
       "anchor": "sec:actual-repairs",
-      "label": "Greedy membership and an integer recurrence"
+      "label": "The greedy recurrence"
     },
     {
       "level": 2,
       "anchor": "sec:open",
-      "label": "Further questions"
+      "label": "Integer quotients, approximation and further questions"
     },
     {
       "level": 5,
@@ -159,6 +184,11 @@
       "label": "Exact scalar cover cost."
     },
     {
+      "level": 3,
+      "anchor": "the-cost-of-a-divisor-cube",
+      "label": "The cost of a divisor cube"
+    },
+    {
       "level": 2,
       "anchor": "app:sources",
       "label": "Sources"
@@ -167,11 +197,6 @@
       "level": 5,
       "anchor": "reproducing-the-weighted-theorem.",
       "label": "Reproducing the weighted theorem."
-    },
-    {
-      "level": 5,
-      "anchor": "library-declarations.",
-      "label": "Library declarations."
     },
     {
       "level": 2,
@@ -190,22 +215,22 @@
     "sections": [
       {
         "id": "sec:problem",
-        "title": "Introduction and main results",
+        "title": "Introduction",
         "level": 2
       },
       {
         "id": "sec:reciprocal-support",
-        "title": "Reciprocal-summable supports at every integer base",
+        "title": "Reciprocal-summable supports",
         "level": 2
       },
       {
         "id": "sec:eight-return-extensions",
-        "title": "Extensions beyond reciprocal summability",
+        "title": "Finite averages and the weighted criterion",
         "level": 2
       },
       {
         "id": "sec:open",
-        "title": "Further questions",
+        "title": "Integer quotients, approximation and further questions",
         "level": 2
       }
     ]

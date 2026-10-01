@@ -3,27 +3,22 @@
 
 # How this repository works
 
-This is a public Lean project about eight mathematical problem programmes.
-It keeps the proofs, papers, computations and research records together so
-another researcher can inspect the work and continue it. This guide explains
-how those files fit together and what the checks establish.
-
-You do not need to know Lean or the project history to use this guide. To read
-the mathematics first, choose a [problem paper](../paper/README.md#problem-papers).
+This repository studies eight mathematical problem programmes. This guide
+connects the proofs, papers, computations and research records.
+You do not need to know Lean or the project history. For the mathematics,
+start with a [problem paper](../paper/README.md#problem-papers).
 
 ## What this repository is
 
-The repository has two jobs: preserve the mathematical work and publish an
-account of it that a reader can check. Lean checks formal proofs. The papers
-explain the mathematics, including ordinary arguments and results drawn from
-the literature. Source maps and query tools connect those explanations to
-their supporting records.
+Lean checks formal proofs. The papers explain the mathematics, including
+ordinary arguments and cited results. Source maps connect those explanations
+to their supporting records.
 
 The reviewed claim registry covers #68, #243, #249, #251, #257, #269, #1041 and
-#1049. The two Lean roots reflect the development's history, not different
-standards of evidence. The registry assigns status to selected public claims;
-supporting declarations need not have a claim record. Adding a file or compiling
-a library does not establish a public claim.
+#1049. It describes selected public claims and their status.
+Supporting declarations need not have a claim record; a new file or successful
+build creates no public claim. The two Lean roots reflect the development's
+history, not different standards of evidence.
 [Methodology](METHODOLOGY.md) explains the review and change rules.
 
 Using the degree-seven polynomial constructed by the erdosproblems.com
@@ -42,14 +37,17 @@ and its mathematical claims do not depend on private files.
 Henry Cohn's [The technical debt of AI-generated mathematics](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/)
 argues that producers owe readers explanation, attribution and integration.
 Tim Gowers's [Why I didn't sign the Fields medallists' letter](https://gowers.wordpress.com/2026/09/17/why-i-didnt-sign-the-fields-medallists-letter/)
-emphasises selective, active reading and considers on-demand model explanations
-as an alternative to a maintained database.
+discusses selecting what to study and using hints for active reading.
+Grant Sanderson's [essay on explanations](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/)
+asks writers to show why a construction is needed and how one might arrive at it.
 
-Plectis preserves the arguments, sources and failed routes. AI can prepare an
-explanation; readers still have to reconstruct the argument and assess its use.
+Plectis keeps arguments, sources and failed routes together. The
+[reading guide](READING_GUIDE.md#work-through-an-argument) offers an active way
+in; [contributions](../CONTRIBUTING.md) include explanations of existing results.
+An explanation still needs a reader to work through it and assess its use.
 Whether this record helps more than papers, source and an on-demand model remains
-untested. [From Spare Compute to Cumulative Mathematics](../paper/systems/open-source-mathematics-strategy.pdf)
-describes the contribution process.
+untested. The [systems paper](../paper/systems/claim-faithful-publication-systems-paper.pdf)
+describes the contribution process and its evidence boundaries.
 
 ## The architecture in one page
 
@@ -284,7 +282,7 @@ also does not prove that every important sentence was selected for checking.
 comparisons and their limits.
 
 The printable
-[Problem-Sized Lean Worlds](../paper/systems/claim-faithful-publication-systems-paper.pdf)
+[systems paper](../paper/systems/claim-faithful-publication-systems-paper.pdf)
 explains the publication architecture in more depth. Its historical checker
 example is documented in [docs/publication_evidence.json](publication_evidence.json);
 it illustrates the checks recorded for that exercise.

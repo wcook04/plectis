@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos1049-rational-base-lambert-reasoning-surface",
-  "title": "Zudilin's Forms at Rational Bases: Proofs and Research Record",
+  "title": "Geometric Moments and Rational Lambert Values: Proofs and Further Results",
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 73,
+  "pages": 78,
   "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
   "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -28,14 +28,40 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "053d9288870abc63a26f77d50d1702d0fd81f241c3248e08e19ced350f20ad25",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "335826ba9916688d6b6ad9c45dd2a9eb632960c457b187dd94206916f051483d",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 2846,
-    "raw_math_fallback_count": 2,
+    "mathml_node_count": 3004,
+    "raw_math_fallback_count": 4,
     "warnings": {
       "mathml": [
+        "[WARNING] Could not convert TeX math \\begin{equation}",
+        "\\label{long1049:eq:polynomial-partition}",
+        "\\begin{split}",
+        "W_N(\\mu)={}&q^{\\sum_{j\\le N}(2j-1)\\mu_j}",
+        "\\prod_{j\\le N}\\frac{a_{N-j+\\mu_j}}{a_{N-j}}\\\\",
+        "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+        "\\left(\\frac{1-q^{k-j+\\mu_j-\\mu_k}}{1-q^{k-j}}\\right)^2.",
+        "\\end{split}",
+        "\\end{equation}, rendering as TeX:",
+        "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+        "^",
+        "unexpected \"\\\\\"",
+        "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
+        "[WARNING] Could not convert TeX math \\begin{equation}",
+        "\\label{long1049:eq:ratio-partition}",
+        "\\begin{split}",
+        "W_N(\\mu)={}&q^{\\sum_{j\\le N}(2j-1)\\mu_j}",
+        "\\prod_{j\\le N}\\frac{a_{N-j+\\mu_j}}{a_{N-j}}\\\\",
+        "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+        "\\left(\\frac{1-q^{k-j+\\mu_j-\\mu_k}}{1-q^{k-j}}\\right)^2.",
+        "\\end{split}",
+        "\\end{equation}, rendering as TeX:",
+        "&\\hspace{2mm}\\cdot\\prod_{1\\le j<k\\le N}",
+        "^",
+        "unexpected \"\\\\\"",
+        "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\"",
         "[WARNING] Could not convert TeX math \\sum_{m\\ge0}s_m(p)z^m",
         "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfrac{\\lambda_2z}{1-\\cdots}}},, rendering as TeX:",
         "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfra",
@@ -57,8 +83,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "7b581dfe73dedec17053774c79ea3b5a1f50080874d6b4c31e757ba29fe595a0",
-    "html_exact_tex_sha256": "39b740d6a3581220138c61ced274d708545ccf938ff9c64bebd33ef7cf6a6eb5"
+    "html_mathml_sha256": "b64342a9583c61d28184a6dc6edd3e66b9308c252a91145afd5c25256673e388",
+    "html_exact_tex_sha256": "79c94b44286a20a647a1ab9a1db00922030dcfacc5fb27ff52a24382653b72be"
   },
   "sections": [
     {
@@ -98,13 +124,8 @@
     },
     {
       "level": 3,
-      "anchor": "proofs-earlier-work-and-limitations",
-      "label": "Proofs, earlier work and limitations"
-    },
-    {
-      "level": 5,
-      "anchor": "formal-verification-and-computations.",
-      "label": "Formal verification and computations."
+      "anchor": "long1049:sec:region-extensions",
+      "label": "Earlier criteria and changes of direction"
     },
     {
       "level": 5,
@@ -163,7 +184,7 @@
     },
     {
       "level": 5,
-      "anchor": "formal-verification-and-computations.-1",
+      "anchor": "formal-verification-and-computations.",
       "label": "Formal verification and computations."
     },
     {
@@ -178,8 +199,13 @@
     },
     {
       "level": 5,
-      "anchor": "what-the-sharp-estimate-settles-and-what-it-leaves.",
-      "label": "What the sharp estimate settles, and what it leaves."
+      "anchor": "comparison-with-the-cubic-bound.",
+      "label": "Comparison with the cubic bound."
+    },
+    {
+      "level": 4,
+      "anchor": "an-extension-with-limiting-weight-ratio",
+      "label": "An extension with limiting weight ratio"
     },
     {
       "level": 3,
@@ -233,13 +259,13 @@
     },
     {
       "level": 5,
-      "anchor": "erdőss-integer-base-argument-in-outline.",
-      "label": "Erdős’s integer-base argument, in outline."
+      "anchor": "the-integer-base-argument.",
+      "label": "The integer-base argument."
     },
     {
       "level": 5,
-      "anchor": "the-direct-cut-and-clear-attempt-studied-here.",
-      "label": "The direct cut-and-clear attempt studied here."
+      "anchor": "direct-clearing-of-a-partial-sum.",
+      "label": "Direct clearing of a partial sum."
     },
     {
       "level": 2,
@@ -350,6 +376,11 @@
       "level": 2,
       "anchor": "long1049:app:index",
       "label": "Guide to the formal sources"
+    },
+    {
+      "level": 5,
+      "anchor": "formal-verification-and-computations.-1",
+      "label": "Formal verification and computations."
     },
     {
       "level": 5,

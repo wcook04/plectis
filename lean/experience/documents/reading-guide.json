@@ -16,10 +16,10 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "31168506ae830a88e1123d6bfae4014bc0e4571ed3f1e40803ec4d70f78248c7",
+    "source_sha256": "1996d83b320807116e6d70ac051c2483a0705a5549f292aa8f146a71c033d4b1",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
+    "renderer_fingerprint": "c99e605a77c1d13d",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -31,14 +31,19 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "069037b9a5de937475a966df21d81bf96f4ecabeafde3fcaf5bf1e8676b7d2f0",
-    "html_exact_tex_sha256": "155074c2d8d919ce40c20680f270bb3f64cd378e47052b785589244fd9a5c3e0"
+    "html_mathml_sha256": "397dc6a48046c2b16a2c9be5d193c28ce2790b0b2a76ef4ba1ed66f5037a7a43",
+    "html_exact_tex_sha256": "ca79af4a76798033a27d5182e383582e093f69ad77171eb3ade93d82bd6274d1"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "two-ways-to-begin",
       "label": "Two ways to begin"
+    },
+    {
+      "level": 2,
+      "anchor": "work-through-an-argument",
+      "label": "Work through an argument"
     },
     {
       "level": 2,

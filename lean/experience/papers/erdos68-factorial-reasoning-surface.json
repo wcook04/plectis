@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos68-factorial-reasoning-surface",
-  "title": "Denominators and Rationality Criteria for $\\sum_{n\\ge2}(n!-1)^{-1}$",
+  "title": "Factorial Linear Forms and Denominators Detailed Proofs and Rationality Criteria",
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 47,
+  "pages": 50,
   "question": "What growth, valuation, and finite-denominator facts are proved for ∑_{n≥2}(n!−1)^{-1}, and which tail inequalities remain?",
   "precis": "The record proves liminf (log L_N)/(N^{3/2} log N) ≥ 2√2/3 for L_N=lcm(2!−1,…,N!−1), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma–Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q∤299999! and q≥2^39990>10^12038. These exclusions do not prove irrationality.",
   "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "9c7466de76bfd6c91fcd05522c23c63e9549652f7da01385269c4253cc85d1b8",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "7753df4ef82197c6aa50140f5aee418de2b422a73e7a6ae3e42274a5f129fa7c",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1957,
+    "mathml_node_count": 1997,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -45,19 +45,29 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "ead24026ba165eb707bea122239f7c65b7f73a66a25f26e3f158aa0ade8aa113",
-    "html_exact_tex_sha256": "b23c62f75e977607dfc5d05b20340a8cb35f7876b1dd177fdc4275f3b6a7e619"
+    "html_mathml_sha256": "21c52a9c9cebc5ca611b5df86171b51e0885c9455ac77f142710025778648614",
+    "html_exact_tex_sha256": "22438153eb16c737a749deb6e09f305834cc79f0344d71f6424ae5b7f11966a1"
   },
   "sections": [
     {
+      "level": 2,
+      "anchor": "long68:sec:channels",
+      "label": "Integer coefficient vectors and cancellation"
+    },
+    {
+      "level": 3,
+      "anchor": "long68:sec:basis",
+      "label": "An integral basis and the attainable moments"
+    },
+    {
       "level": 5,
-      "anchor": "organisation.",
-      "label": "Organisation."
+      "anchor": "long68:sec:progression",
+      "label": "A primitive solution on an arithmetic progression."
     },
     {
       "level": 2,
       "anchor": "long68:sec:prime-powers",
-      "label": "Which prime powers survive reduction"
+      "label": "Prime powers in reduced denominators"
     },
     {
       "level": 5,
@@ -67,7 +77,7 @@
     {
       "level": 2,
       "anchor": "long68:sec:lcm",
-      "label": "The growth of the common denominator"
+      "label": "Growth of the common denominator"
     },
     {
       "level": 5,
@@ -77,17 +87,22 @@
     {
       "level": 2,
       "anchor": "long68:sec:carry",
-      "label": "Rationality and the next integer above a scaled partial sum"
+      "label": "Carries and factorial digits"
     },
     {
       "level": 3,
       "anchor": "long68:sec:adjacent-unit-no-go",
-      "label": "Why one proposed window argument is circular"
+      "label": "The adjacent-unit window condition"
     },
     {
       "level": 3,
-      "anchor": "factorial-digits-of-s-e2",
+      "anchor": "long68:sec:companion-digits",
       "label": "Factorial digits of S−e+2S-e+2"
+    },
+    {
+      "level": 5,
+      "anchor": "long68:sec:floor-correction",
+      "label": "Recovering the finite carries."
     },
     {
       "level": 3,
@@ -102,27 +117,22 @@
     {
       "level": 2,
       "anchor": "long68:sec:residue",
-      "label": "A sufficient comparison between the tail and an integer gap"
-    },
-    {
-      "level": 2,
-      "anchor": "long68:sec:channels",
-      "label": "What can be achieved by cancelling finitely many weighted sums"
-    },
-    {
-      "level": 3,
-      "anchor": "all-solutions-and-their-remainders-modulo-integers",
-      "label": "All solutions and their remainders modulo integers"
-    },
-    {
-      "level": 5,
-      "anchor": "a-primitive-solution-on-an-arithmetic-progression.",
-      "label": "A primitive solution on an arithmetic progression."
+      "label": "A complementary-denominator criterion"
     },
     {
       "level": 2,
       "anchor": "long68:sec:finite",
       "label": "Finite denominator exclusions"
+    },
+    {
+      "level": 5,
+      "anchor": "carry-intervals.",
+      "label": "Carry intervals."
+    },
+    {
+      "level": 5,
+      "anchor": "a-rational-enclosure-and-continued-fractions.",
+      "label": "A rational enclosure and continued fractions."
     },
     {
       "level": 5,
@@ -132,7 +142,7 @@
     {
       "level": 2,
       "anchor": "long68:sec:open",
-      "label": "The remaining arithmetic inputs"
+      "label": "Further arithmetic questions"
     },
     {
       "level": 5,
@@ -183,6 +193,16 @@
       "level": 2,
       "anchor": "long68:app:sources",
       "label": "Guide to the formal sources"
+    },
+    {
+      "level": 3,
+      "anchor": "long68:sec:short-concordance",
+      "label": "Source links from the short paper"
+    },
+    {
+      "level": 5,
+      "anchor": "long68:sec:short-criteria-sources",
+      "label": "Earlier links for the consolidated criteria."
     },
     {
       "level": 2,
@@ -251,7 +271,7 @@
     "sections": [
       {
         "id": "long68:sec:carry",
-        "title": "Rationality and the next integer above a scaled partial sum",
+        "title": "Carries and factorial digits",
         "level": 2
       },
       {
@@ -261,7 +281,7 @@
       },
       {
         "id": "long68:sec:open",
-        "title": "The remaining arithmetic inputs",
+        "title": "Further arithmetic questions",
         "level": 2
       },
       {

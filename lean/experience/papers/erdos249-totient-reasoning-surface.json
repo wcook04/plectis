@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 149,
+  "pages": 158,
   "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
   "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "05232d93f348e1e5debc6d73c2e78b76c4d57dddfbb956d0f0a65b6f007e6c49",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "947e2a28a4e166c56a7ff9e10f23aa50ba4ee29d7c86d8def0d62ec8163d6605",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 4971,
+    "mathml_node_count": 5199,
     "raw_math_fallback_count": 2,
     "warnings": {
       "mathml": [
@@ -57,14 +57,14 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "bfd408b8c63b0f5bc3726e6c8abb1ff65dd110b05fd98e75367aa70584ade71f",
-    "html_exact_tex_sha256": "7865198745e30bbee3a0a4801c5c6bc5674c048e20d96f25978366e72e33c382"
+    "html_mathml_sha256": "bf734ff73f931311210bbb8356b220aaf36bd27f8ddd0ca4c30dc49bd36f31ad",
+    "html_exact_tex_sha256": "808719492aff28a745703a54d8055b386efa473aea95407c84ba791df6382fca"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": "reading-guide",
-      "label": "Reading guide"
+      "anchor": "organisation",
+      "label": "Organisation"
     },
     {
       "level": 2,
@@ -88,8 +88,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-finite-information-does-not-determine",
-      "label": "What finite information does not determine"
+      "anchor": "finite-data-and-rational-continuations",
+      "label": "Finite data and rational continuations"
     },
     {
       "level": 3,
@@ -103,8 +103,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-the-counterexamples-establish",
-      "label": "What the counterexamples establish"
+      "anchor": "consequences-of-the-comparisons",
+      "label": "Consequences of the comparisons"
     },
     {
       "level": 2,
@@ -348,8 +348,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-extending-a-finite-calculation-would-require",
-      "label": "What extending a finite calculation would require"
+      "anchor": "finite-extension-and-cofinal-estimates",
+      "label": "Finite extension and cofinal estimates"
     },
     {
       "level": 2,
@@ -368,8 +368,8 @@
     },
     {
       "level": 3,
-      "anchor": "how-to-use-the-index",
-      "label": "How to use the index"
+      "anchor": "scope-of-the-index",
+      "label": "Scope of the index"
     },
     {
       "level": 3,
@@ -448,8 +448,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-the-preceding-comparisons-show",
-      "label": "What the preceding comparisons show"
+      "anchor": "relations-between-the-sufficient-conditions",
+      "label": "Relations between the sufficient conditions"
     },
     {
       "level": 2,
@@ -468,8 +468,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-the-square-crt-construction-proves",
-      "label": "What the square-CRT construction proves"
+      "anchor": "square-crt-factorisations",
+      "label": "Square-CRT factorisations"
     },
     {
       "level": 3,
@@ -483,8 +483,8 @@
     },
     {
       "level": 3,
-      "anchor": "column-rescaling-does-not-certify-cancellation",
-      "label": "Column rescaling does not certify cancellation"
+      "anchor": "column-rescaling-and-cancellation",
+      "label": "Column rescaling and cancellation"
     },
     {
       "level": 3,
@@ -514,7 +514,7 @@
     {
       "level": 2,
       "anchor": "sec:promotion-audit",
-      "label": "Why the stated hypotheses cannot be omitted"
+      "label": "Hypotheses of the conditional implications"
     },
     {
       "level": 3,
@@ -689,7 +689,7 @@
     {
       "level": 3,
       "anchor": "sub:generic-carry-rank",
-      "label": "Why rationality does not bound carry rank"
+      "label": "A rational series with unbounded carry rank"
     },
     {
       "level": 5,
@@ -704,7 +704,7 @@
     {
       "level": 3,
       "anchor": "sub:shape",
-      "label": "What the available results suggest"
+      "label": "Finite observations and quantified conditions"
     },
     {
       "level": 5,
@@ -833,8 +833,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-remains-to-be-proved",
-      "label": "What remains to be proved"
+      "anchor": "remaining-estimates",
+      "label": "Remaining estimates"
     },
     {
       "level": 5,
@@ -845,6 +845,41 @@
       "level": 5,
       "anchor": "the-last-totient-difference.",
       "label": "The last totient difference."
+    },
+    {
+      "level": 2,
+      "anchor": "app:r3-complements",
+      "label": "Complementary proofs for the short paper"
+    },
+    {
+      "level": 3,
+      "anchor": "long249:r3-ray",
+      "label": "Propagation of nonintegral tail differences"
+    },
+    {
+      "level": 5,
+      "anchor": "the-finite-test.",
+      "label": "The finite test."
+    },
+    {
+      "level": 3,
+      "anchor": "long249:r3-mersenne",
+      "label": "Residues modulo divisors of Mersenne numbers"
+    },
+    {
+      "level": 3,
+      "anchor": "long249:r3-comparisons",
+      "label": "LCM tails and rational comparisons"
+    },
+    {
+      "level": 3,
+      "anchor": "long249:r3-rankone",
+      "label": "The sharp rank-one quotient bound"
+    },
+    {
+      "level": 2,
+      "anchor": "app:r3-declarations",
+      "label": "Formal declaration guide"
     },
     {
       "level": 2,

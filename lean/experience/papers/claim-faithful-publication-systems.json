@@ -1,14 +1,14 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "claim-faithful-publication-systems",
-  "title": "Problem-Sized Lean Worlds",
+  "title": "Publishing Mathematical Results from a Lean Repository",
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Research architecture",
-  "pages": 22,
+  "pages": 19,
   "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
-  "precis": "The paper opens with an irrationality criterion for Erdős Problem 257, checked in Lean and by Comparator, that admits supports with divergent reciprocal sum, and shows what a problem-sized world keeps for it: the mechanism, the credited antecedent, the formal evidence and the open question. A world keeps one research problem with its results, failed routes, experiments, literature and exact open obligations, and records four decisions about every result separately: its evidence, its appraisal, its exposition and the next unit of work. Lean checks the formal proofs, Comparator checks selected ones against separately written statements, and a claim registry records the wording, evidence class and limits of every public claim. A public Lean repository maintains eight Erdős problems this way, with a contribution cycle published as agent skills. The paper compares the design with Prove2Me and blueprint systems and states what remains a mathematician's judgement.",
-  "owns": "the research architecture: problem-sized worlds, the path from a proof to a public claim, and the contribution cycle",
+  "precis": "A correct Lean theorem can be misrepresented when its hypotheses disappear from a paper. This account follows a weighted-support criterion for Erdős Problem 257 through its mathematical argument, two registered formal supports and written explanation. It describes source inspection, publication checks, editorial revision and contributions in a repository covering eight problems. A historical test rejected nine false edits but missed a false completion claim; the paper distinguishes that record from the limited follow-up check. Source-byte agreement and repository adoption do not establish mathematical meaning, independent review or recognition by the community. The paper retains its mathematical antecedents and compares the recorded relations with blueprints and Prove2Me, without claiming comparative benefit.",
+  "owns": "the research architecture: problem-centred collections, the path from a proof to a public claim, and the contribution cycle",
   "not_authority_for": "the mathematics it uses as examples, which the problem papers own, or the novelty and significance of those results",
   "problem_id": null,
   "routes": {
@@ -28,169 +28,99 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "f4d15df6dc782e78",
-    "source_sha256": "3af1deaaf478d291f0920667479322c783d9b819871495074c7c5b0a81a59f96",
+    "renderer_fingerprint": "c99e605a77c1d13d",
+    "source_sha256": "3d83804d8e0a97914e009f07656ab7c7d6cb460bcbda554b9063e68ef1b2b688",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 245,
+    "mathml_node_count": 102,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "257f1ae6bb4c3c559cbad850b1f99bfe6a88a90c27a909180e02343b3ea530a2",
-    "html_exact_tex_sha256": "a113b5784489fc5f6b2d7905e07335a57bf50bd48e09e920bc171baad08654b4"
+    "html_mathml_sha256": "e4a44e7c4bec57ebb2cbb5872f5e14a89c99e147c3ae48ca50af9a8765b02929",
+    "html_exact_tex_sha256": "1c62f90705e980f6116a4723be55bde3b23c82462ca5f49693555e5cc496275c"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "sec:intro",
-      "label": "A theorem and the explanation it needs"
+      "label": "Introduction"
     },
     {
       "level": 2,
       "anchor": "sec:world",
-      "label": "A problem-sized world"
+      "label": "A repository organised around problems"
     },
     {
       "level": 2,
-      "anchor": "sec:graph",
-      "label": "The argument graph"
+      "anchor": "sec:example",
+      "label": "A theorem and the reason for its hypothesis"
     },
     {
       "level": 5,
-      "anchor": "export.",
-      "label": "Export."
+      "anchor": "a-positive-displacement.",
+      "label": "A positive displacement."
     },
     {
       "level": 5,
-      "anchor": "the-graph.",
-      "label": "The graph."
+      "anchor": "a-finite-orbit-and-its-unfinished-end.",
+      "label": "A finite orbit and its unfinished end."
     },
     {
       "level": 5,
-      "anchor": "what-it-shows.",
-      "label": "What it shows."
-    },
-    {
-      "level": 5,
-      "anchor": "what-a-proof-uses-of-its-input.",
-      "label": "What a proof uses of its input."
-    },
-    {
-      "level": 5,
-      "anchor": "the-findings-as-library-theorems.",
-      "label": "The findings as library theorems."
-    },
-    {
-      "level": 5,
-      "anchor": "research-with-the-graph.",
-      "label": "Research with the graph."
-    },
-    {
-      "level": 5,
-      "anchor": "what-it-does-not-establish.",
-      "label": "What it does not establish."
-    },
-    {
-      "level": 2,
-      "anchor": "sec:production",
-      "label": "From corpus to insight"
-    },
-    {
-      "level": 5,
-      "anchor": "discovery-and-stewardship.",
-      "label": "Discovery and stewardship."
-    },
-    {
-      "level": 5,
-      "anchor": "testing-a-proposed-measure-of-value.",
-      "label": "Testing a proposed measure of value."
-    },
-    {
-      "level": 2,
-      "anchor": "sec:loop",
-      "label": "The research loop as it runs"
-    },
-    {
-      "level": 5,
-      "anchor": "the-research-record.",
-      "label": "The research record."
-    },
-    {
-      "level": 5,
-      "anchor": "what-the-record-measures.",
-      "label": "What the record measures."
-    },
-    {
-      "level": 5,
-      "anchor": "replaying-the-record.",
-      "label": "Replaying the record."
-    },
-    {
-      "level": 2,
-      "anchor": "sec:evaluation",
-      "label": "Testing decisions made from the record"
+      "anchor": "a-second-average-restores-the-missing-factor.",
+      "label": "A second average restores the missing factor."
     },
     {
       "level": 2,
       "anchor": "sec:checks",
-      "label": "From a proof to a public claim"
+      "label": "Proof and publication checks"
     },
     {
       "level": 2,
-      "anchor": "sec:cycle",
-      "label": "The contribution cycle"
-    },
-    {
-      "level": 5,
-      "anchor": "credit.",
-      "label": "Credit."
+      "anchor": "sec:paper",
+      "label": "From a Lean corpus to a paper"
     },
     {
       "level": 3,
-      "anchor": "sec:example",
-      "label": "Worked example: Problem 1041"
+      "anchor": "source-frozen-editorial-refinement",
+      "label": "Source-frozen editorial refinement"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:contribute",
+      "label": "An open route for contributions"
     },
     {
       "level": 2,
       "anchor": "sec:instance",
-      "label": "Eight problems in one repository"
+      "label": "Recorded observations"
     },
     {
       "level": 2,
       "anchor": "sec:related",
-      "label": "Relation to Prove2Me and other systems"
-    },
-    {
-      "level": 5,
-      "anchor": "other-systems.",
-      "label": "Other systems."
-    },
-    {
-      "level": 5,
-      "anchor": "precedents-for-the-argument-graph.",
-      "label": "Precedents for the argument graph."
-    },
-    {
-      "level": 5,
-      "anchor": "libraries-grown-from-proofs.",
-      "label": "Libraries grown from proofs."
+      "label": "Related work"
     },
     {
       "level": 2,
       "anchor": "sec:limits",
-      "label": "Limits, and what stronger models change"
-    },
-    {
-      "level": 2,
-      "anchor": "sec:conclusion",
-      "label": "Conclusion"
+      "label": "Limits"
     },
     {
       "level": 2,
       "anchor": "app:repro",
-      "label": "Inspection routes and reproducibility"
+      "label": "Inspection and reproduction"
+    },
+    {
+      "level": 3,
+      "anchor": "editorial-roles-and-acceptance",
+      "label": "Editorial roles and acceptance"
+    },
+    {
+      "level": 2,
+      "anchor": "app:source-map",
+      "label": "Sources by role"
     },
     {
       "level": 2,
@@ -204,27 +134,27 @@
     "sections": [
       {
         "id": "sec:intro",
-        "title": "A theorem and the explanation it needs",
+        "title": "Introduction",
         "level": 2
       },
       {
         "id": "sec:example",
-        "title": "Worked example: Problem 1041",
-        "level": 3
+        "title": "A theorem and the reason for its hypothesis",
+        "level": 2
       },
       {
-        "id": "sec:production",
-        "title": "From corpus to insight",
+        "id": "sec:paper",
+        "title": "From a Lean corpus to a paper",
         "level": 2
       },
       {
         "id": "sec:checks",
-        "title": "From a proof to a public claim",
+        "title": "Proof and publication checks",
         "level": 2
       },
       {
         "id": "sec:limits",
-        "title": "Limits, and what stronger models change",
+        "title": "Limits",
         "level": 2
       }
     ]

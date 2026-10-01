@@ -40,16 +40,24 @@ sufficient test proves nothing about rationality. The
 [dyadic shift exercise](../research/experiments/premise_exchange/shift_family_exercise.md)
 tests another change of hypothesis.
 
+## Work through an argument
+
+Try a small example before reading the proof. Note where your approach gets
+stuck, then find the step that overcomes that difficulty. Reconstruct it with
+the paper closed, or change a hypothesis and see what breaks.
+
+If you use an agent, you can ask: “Help me work through this theorem. Give me
+one hint at a time and wait for my attempt before revealing more.” Name the
+paper, statement and your background. You choose the amount of help. The
+[weighted-support exercise](research-commons/PROVE2ME_WEIGHTED_257_PACKET.md#try-changing-a-hypothesis)
+offers a place to start.
+
 ## What is here
 
-The [front page](../README.md) lists the eight problems with a short paper and
-a longer paper for each. The short paper states the question, strongest results,
-and main arguments. The longer record keeps technical detail,
-failed routes, finite experiments, and the exact obligations that
-survive. The other seven target problems are not resolved here; those papers
-make their surviving questions explicit. The [paper catalogue](../paper/README.md)
-includes *Problem-Sized Lean Worlds* on proof and claim boundaries and
-*From Spare Compute to Cumulative Mathematics* on contribution and credit.
+Each [problem paper](../paper/README.md) states the question, results and main
+arguments. The longer record keeps technical detail, failed routes, experiments
+and surviving obligations. The catalogue also includes system papers on proof
+boundaries, contribution and credit.
 
 The [results guide](RESULTS.md) states the strongest checked result for each
 problem next to what still blocks its endpoint. [Prior work](PRIOR_ART.md)
@@ -65,15 +73,12 @@ Each paper distinguishes ordinary mathematical arguments, formalised results
 and remaining gaps. Follow a statement's source link and verification record
 to see what has been checked; a build alone does not establish that every
 argument in a paper has been formalised.
-Independent human review of correspondence with the historical curve-length
-formulation has not been recorded.
 
 ## The eight problems in brief
 
-Choose a question below to open its short paper. The
-[problem-by-problem results guide](RESULTS.md#problem-by-problem-guide) explains
-the main arguments, their formalisation and the questions left open. Keeping
-those assessments in one place avoids conflicting summaries.
+Open a short paper below, or use the
+[results guide](RESULTS.md#problem-by-problem-guide) for its arguments,
+formalisation and remaining questions.
 
 <!-- BEGIN problem_programme_card -->
 [Problem 68](../paper/68/erdos-68-factorial-denominator-irrationality.pdf). Is the series sum_{n >= 2} 1/(n! - 1) irrational? [Work on this paper](CONTRIBUTE_BY_PAPER.md#problem-68).
@@ -129,12 +134,10 @@ AI tools did much of the research, code, and drafting under my direction. I am
 responsible for the claims, the sources, and the release. Nothing here has had
 independent mathematical review.
 
-The most useful contribution is a mathematical one: a proof correction, a
-clearer explanation of a hard step, an attribution correction, a counterexample
-to an intermediate claim, or an earlier reference. The
-[contributor guide](../CONTRIBUTING.md) explains how to send that back with its
-evidence and credit intact. If this work helps you solve one of the eight, the
-solution and the credit are yours.
+Corrections, explanations, counterexamples and earlier references are welcome.
+The [contributor guide](../CONTRIBUTING.md) explains how to return them with
+evidence and credit intact. If this work helps you solve a problem, the solution
+and credit are yours.
 
 An insight is welcome before it has a formal proof. Will can work with you to
 develop the argument and formalise it, with the originating insight credited
