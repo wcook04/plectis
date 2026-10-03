@@ -1638,7 +1638,7 @@
       "alternate_labels": [],
       "canonical_object_id": "page:open-questions",
       "generated": true,
-      "nav_group": "Site",
+      "nav_group": "Earlier software",
       "output_path": "docs/open-questions.html",
       "public_label": "Open Questions",
       "route_alias_for": null,
@@ -1681,7 +1681,7 @@
       "alternate_labels": [],
       "canonical_object_id": "page:papers",
       "generated": true,
-      "nav_group": "The system",
+      "nav_group": "Research",
       "output_path": "docs/papers.html",
       "public_label": "The papers",
       "route_alias_for": null,
@@ -5772,7 +5772,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:a3555fae70cceadaba6c99ef21dff6047347ad12bec1f046304eb1f4b042d9de",
+    "sites/microcosm/index.html": "sha256:04e0f39c7241c7967fb32c2f229ab264649b7069530e3be917ba38071783861c",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:39576e20db3a8f8819d700305e813fda3efe63525c93e748c9c9c99fad550e03"
   },
   "source_of_truth_contract": {

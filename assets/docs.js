@@ -4817,7 +4817,7 @@
     tipRule.hidden = true;
     var tipDeep = el('div', 'term-tip__deep');
     tipDeep.hidden = true;
-    var tipFull = el('a', 'term-tip__full', 'See this in the glossary ->');
+    var tipFull = el('a', 'term-tip__full', 'See this in the glossary →');
     tipFull.hidden = true;
     var tipBack = el('button', 'term-tip__back', 'Back to page');
     tipBack.type = 'button';
@@ -5213,8 +5213,8 @@
      the homepage has it before docs.js's idle slot; docs.js carries the same
      IIFE for maths/docs pages and is a no-op if this already ran
      (data-glossary-hint). Keep the two copies in sync. It sits opposite the
-     bottom-left "back" pill. It stays open, saying one line, until the
-     reader closes it; the close control puts it away for good (localStorage).
+     bottom-left "back" pill. It says its line once and folds to its mark when
+     reading starts; the close control puts it away for good (localStorage).
      On touch screens it starts folded to its mark and unfolds on a press. The glossary
      page itself does not need it. Not in landing HTML: the visible-word budget
      is full. */
@@ -5335,9 +5335,29 @@
       }
     });
 
-    /* Desktop: the cue stays open until the reader closes it. Touch: it
-       starts folded so the small screen stays clear. */
-    if (touch) setCompact(true);
+    /* Desktop: the cue says its line once, then folds to its mark when the
+       reader starts reading (the first real scroll) or uses a term, so it
+       never sits over a button or a figure for the rest of the page. Touch:
+       it starts folded so the small screen stays clear. */
+    if (touch) {
+      setCompact(true);
+    } else {
+      var folded = false;
+      var onScroll = function () { if ((window.scrollY || 0) > 240) foldOnce(); };
+      var onTerm = function (ev) {
+        var t = ev.target;
+        if (t && t.closest && t.closest('a.narrative-ref--term, [data-term-preview-only]')) foldOnce();
+      };
+      var foldOnce = function () {
+        if (folded || gone) return;
+        folded = true;
+        if (!hint.classList.contains('is-compact')) setCompact(true);
+        window.removeEventListener('scroll', onScroll);
+        document.removeEventListener('pointerover', onTerm, true);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      document.addEventListener('pointerover', onTerm, true);
+    }
   })();
 
 })();

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
+const HOT_EDGE = '#13579b';
 const source = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe.js', import.meta.url), 'utf8');
 
 function element(attrs = {}) {
@@ -12,43 +13,59 @@ function element(attrs = {}) {
     innerHTML: '', textContent: '', value: '', disabled: false, hidden: false,
     getAttribute: name => attrs[name] ?? null,
     setAttribute: (name, value) => { attrs[name] = value; },
-    contains: () => false,
+    contains: () => false, focus() {}, select() {},
     querySelector: () => null,
     classList: { contains: name => classes.has(name), add: name => classes.add(name),
       remove: name => classes.delete(name), toggle(name, on) { on ? classes.add(name) : classes.delete(name); } },
     addEventListener(name, fn) { (events[name] ||= []).push(fn); },
-    fire(name, event = {}) { for (const fn of events[name] || []) fn(event); },
+    fire(name, event = {}) {
+      const dispatched = {preventDefault() {}, stopPropagation() {}, ...event};
+      for (const fn of events[name] || []) fn(dispatched);
+    },
   };
 }
 
-async function mount() {
-  let arcs = [];
+async function mount(options = {}) {
+  let arcs = [], strokes = [], labels = [], path = [], pen;
   const context = new Proxy({
-    clearRect() { arcs = []; },
+    clearRect() { arcs = []; strokes = []; labels = []; },
+    beginPath() { path = []; pen = null; },
+    moveTo(x, y) { pen = [x, y]; },
+    lineTo(x, y) {
+      if (pen) path.push({from: pen, to: [x, y]});
+      pen = [x, y];
+    },
+    stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, segments: path.slice()}); },
     arc(x, y, r) { arcs.push({x, y, r}); },
+    measureText(text) { return {width: String(text).length * 6}; },
+    fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
   }, { get: (target, key) => target[key] ?? (() => {}) });
   const canvas = Object.assign(element({'data-universe-src': 'initial'}), {
-    clientWidth: 292, clientHeight: 340, getContext: () => context,
+    clientWidth: options.width ?? 292, clientHeight: 340, getContext: () => context,
+    getBoundingClientRect: () => ({left: 0, top: 0}),
   });
   canvas.classList.add('universe-canvas--page');
   const count = element();
   const inspector = element();
   const search = element();
+  search.value = options.searchValue ?? '';
+  const modules = element({'data-universe-lens': 'lean_module', 'aria-pressed': 'true'});
   const claims = element({'data-universe-lens': 'public_claim', 'aria-pressed': 'true'});
   const zoom = element({'data-universe-zoom': 'out'});
+  const fit = element({'data-universe-zoom': 'fit'});
   const full = element({'data-graph-src': 'graph', 'data-layout-src': 'layout'});
   const stage = Object.assign(element(), {
     querySelector: s => s === 'canvas' ? canvas : null,
-    querySelectorAll: s => s === '[data-universe-zoom]' ? [zoom] : [],
+    querySelectorAll: s => s === '[data-universe-zoom]' ? [zoom, fit] : [],
   });
   const selectors = {'[data-universe-inspector]': inspector, '[data-universe-count]': count,
     '[data-universe-search]': search, '[data-universe-load-full]': full};
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     querySelector: s => selectors[s] || null,
-    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : s === '[data-universe-lens]' ? [claims] : [],
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : s === '[data-universe-lens]' ? [claims, modules] : [],
   });
-  const location = {pathname: '/maths/universe.html', search: '', hash: ''};
+  const location = {pathname: '/maths/universe.html', search: '', hash: options.hash ?? ''};
   const window = Object.assign(element(), {
     location, devicePixelRatio: 1, isSecureContext: false,
     history: {replaceState(_a, _b, url) { location.hash = new URL(url, 'http://test').hash; }},
@@ -60,20 +77,24 @@ async function mount() {
   ];
   const module = {id: 'lean-module:Deep', kind: 'lean_module', label: 'Deep module'};
   const requests = [];
-  const data = {
+  const data = options.data ?? {
     initial: {nodes, edges: [[0, 2], [1, 2], [0, 1]]},
     graph: {nodes: [...nodes, module], edges: [{source: module.id, target: nodes[0].id}]},
     layout: {positions: Object.fromEntries([...nodes, {...module, x: 0, y: 200}].map(n => [n.id, [n.x, n.y]]))},
   };
+  const timers = [];
+  const flushTimers = () => { for (const fn of timers.splice(0)) fn(); };
   vm.runInNewContext(source, {document, window, navigator: {},
-    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    getComputedStyle: () => ({getPropertyValue: name => name === '--u-edge-hot' ? HOT_EDGE : ''}),
     fetch: async url => { requests.push(url); return {json: async () => data[url]}; },
-    setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
+    setTimeout: fn => { if (options.queueTimers) timers.push(fn); else fn(); return 1; }, clearTimeout() {},
   });
   const settle = () => new Promise(resolve => setImmediate(resolve));
   await settle();
-  return {canvas, count, inspector, search, claims, zoom, full, location, window,
-    requests, settle, arcs: () => arcs,
+  return {canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window,
+    document, requests, settle, flushTimers, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
+    drawnSegments: () => strokes.flatMap(stroke => stroke.segments),
+    hotSegments: () => strokes.filter(stroke => stroke.style === HOT_EDGE).flatMap(stroke => stroke.segments),
     span: () => Math.max(...arcs.map(a => a.x)) - Math.min(...arcs.map(a => a.x)),
   };
 }
@@ -89,11 +110,11 @@ test('zoom out shrinks a map already fitted below the desktop zoom floor', async
 
 test('filter feedback counts only connections whose endpoints remain visible', async () => {
   const map = await mount();
-  assert.equal(map.count.textContent, '3 objects, 3 connections shown');
+  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '2 objects, 1 connections shown');
+  assert.equal(map.count.textContent, '2 objects, 1 of 1 connections drawn');
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '3 objects, 3 connections shown');
+  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
 });
 
 test('resizing preserves an explored scale instead of refitting the graph', async () => {
@@ -103,6 +124,30 @@ test('resizing preserves an explored scale instead of refitting the graph', asyn
   map.canvas.clientWidth = 500;
   map.window.fire('resize');
   assert.ok(Math.abs(map.span() - before) < 1e-9);
+});
+
+test('the shared claim band stays named in a fitted phone view with another programme pinned', async () => {
+  const data = {initial: {
+    nodes: [
+      {id: 'universe:all', kind: 'universe', label: 'Universe', x: 0, y: 0},
+      {id: 'problem:erdos_68', kind: 'problem', label: 'Programme 68', x: 0, y: -320},
+      {id: 'problem:erdos_249', kind: 'problem', label: 'Programme 249', x: 320, y: 0},
+      {id: 'problem:erdos_257', kind: 'problem', label: 'Programme 257', x: 0, y: 320},
+      {id: 'claim:shared', kind: 'public_claim', label: 'Shared claim', x: 250, y: 250},
+    ],
+    edges: [[0, 1], [0, 2], [0, 3], [0, 4]],
+    captions: [{x: 145, y: 145, text: 'shared by #249 and #257', sub: '74 claims in one Lean namespace'}],
+  }};
+  const map = await mount({data, hash: '#o=problem%3Aerdos_68'});
+  map.fit.fire('click');
+  const label = map.labels().find(mark => mark.text === 'Shared: #249 and #257');
+  assert.ok(label, 'the fitted view identifies both programmes even when neither is selected');
+  assert.ok(label.alpha >= 0.8, 'an unrelated pin does not make the label unreadable');
+  assert.ok(label.x >= 0 && label.x <= map.canvas.clientWidth && label.y >= 0 && label.y <= map.canvas.clientHeight);
+  assert.ok(label.x + label.text.length * 3 <= map.canvas.clientWidth - 74,
+    'the whole caption stays outside the zoom control column');
+  assert.match(map.inspector.innerHTML, /Programme 68/);
+  assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
 });
 
 test('a deep object hash loads the full corpus and takes precedence over the old pin', async () => {
@@ -118,4 +163,331 @@ test('a deep object hash loads the full corpus and takes precedence over the old
   assert.match(map.inspector.innerHTML, /Deep module/);
   assert.equal(map.location.hash, '#o=lean-module%3ADeep');
   assert.equal(map.requests.filter(url => url === 'graph').length, 1, 'concurrent hashes share the load');
+});
+
+function hierarchyFixture() {
+  const core = {id: 'universe:all', kind: 'universe', label: 'Universe', x: 0, y: 0};
+  const anchors = [
+    {id: 'problem:east', kind: 'problem', label: 'East problem', x: 130, y: -70},
+    {id: 'problem:west', kind: 'problem', label: 'West problem', x: -130, y: -70},
+  ];
+  const claim = {id: 'claim:checked', kind: 'public_claim', label: 'Checked claim', x: 80, y: 70};
+  const modules = Array.from({length: 96}, (_, i) => ({
+    id: `lean-module:Fan${String(i).padStart(2, '0')}`, kind: 'lean_module',
+    label: `Fan module ${String(i).padStart(2, '0')}`,
+    x: 90 * Math.cos(i * Math.PI / 48), y: 90 * Math.sin(i * Math.PI / 48),
+  }));
+  const nodes = [core, ...anchors, claim, ...modules];
+  const edges = [
+    ...anchors.map(n => ({source: core.id, target: n.id, relation: 'contains'})),
+    ...modules.map(n => ({source: core.id, target: n.id, relation: 'contains'})),
+    {source: modules[0].id, target: claim.id, relation: 'proves'},
+    {source: modules[0].id, target: modules[1].id, relation: 'imports'},
+  ];
+  return {
+    initial: {nodes: [core, ...anchors, claim], edges: [[0, 1], [0, 2]]},
+    graph: {nodes, edges},
+    layout: {positions: Object.fromEntries(nodes.map(n => [n.id, [n.x, n.y]]))},
+  };
+}
+
+async function fullHierarchy(options = {}) {
+  const map = await mount({data: hierarchyFixture(), ...options});
+  map.full.fire('click');
+  await map.settle();
+  assert.equal(map.full.textContent, 'Complete universe loaded');
+  return map;
+}
+
+test('a narrow Universe selection keeps anchors without lighting the containment fan', async () => {
+  const map = await fullHierarchy();
+  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  assert.equal(map.drawnSegments().length, 2, 'overview omits every global module edge');
+  // Click the rendered core at the fitted canvas centre: no test calls an
+  // internal selector or reimplements the renderer's edge classification.
+  const core = map.arcs().reduce((largest, arc) => arc.r > largest.r ? arc : largest);
+  map.canvas.fire('click', {clientX: core.x, clientY: core.y});
+  assert.equal(map.location.hash, '#o=universe%3Aall');
+  assert.match(map.inspector.innerHTML, /Connections \(98\)/);
+  assert.equal((map.inspector.innerHTML.match(/data-universe-go=/g) || []).length, 98, 'every adjacency remains reachable in the inspector');
+  assert.match(map.inspector.innerHTML, /Fan module 95/, 'the last containment entry is not truncated');
+  const moduleGroup = [...map.inspector.innerHTML.matchAll(/<details([^>]*)><summary>([^<]*)/g)]
+    .find(([, , title]) => title.startsWith('Lean modules'));
+  assert.ok(moduleGroup, 'module adjacency is grouped behind a disclosure');
+  assert.doesNotMatch(moduleGroup[1], /\bopen\b/, 'the dense module group starts collapsed');
+  const hot = map.hotSegments();
+  assert.equal(hot.length, 2, 'only the two overview anchors are highlighted, not 96 module spokes');
+  assert.equal(map.drawnSegments().length, 2);
+  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  for (const anchor of ['Universe', 'East problem', 'West problem']) {
+    assert.ok(map.labels().some(label => label.text === anchor), `${anchor} remains labelled`);
+  }
+});
+
+test('a full-corpus module keeps its incident links through hash, search and lenses', async () => {
+  const map = await mount({data: hierarchyFixture(), hash: '#o=lean-module%3AFan00'});
+  await map.settle();
+  assert.equal(map.requests.filter(url => url === 'graph').length, 1);
+  assert.match(map.inspector.innerHTML, /Fan module 00/);
+  assert.match(map.inspector.innerHTML, /Connections \(3\)/);
+  assert.equal(map.hotSegments().length, 3, 'module containment, proof and import are all drawn');
+  assert.equal(map.drawnSegments().length, 5, 'two anchors remain in the background');
+  assert.equal(map.count.textContent, '100 objects, 5 of 100 connections drawn');
+  assert.ok(map.hotSegments().every(segment => segment.from.every(Number.isFinite) && segment.to.every(Number.isFinite)));
+
+  map.search.value = 'Fan module 95';
+  map.search.fire('input');
+  assert.match(map.count.textContent, / · 1 match$/);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=lean-module%3AFan95');
+  assert.match(map.inspector.innerHTML, /Fan module 95/);
+  assert.equal(map.hotSegments().length, 1, 'the last module in the complete corpus remains selectable');
+  map.search.fire('keydown', {key: 'Escape'});
+  assert.equal(map.count.textContent, '100 objects, 3 of 100 connections drawn');
+
+  map.modules.fire('click');
+  assert.equal(map.location.hash, '', 'hiding the selected kind clears its pin');
+  assert.equal(map.count.textContent, '4 objects, 2 of 2 connections drawn');
+  assert.equal(map.hotSegments().length, 0);
+  map.modules.fire('click');
+  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  map.location.hash = '#o=lean-module%3AFan00';
+  map.window.fire('hashchange');
+  assert.equal(map.hotSegments().length, 3);
+  map.claims.fire('click');
+  assert.equal(map.count.textContent, '99 objects, 4 of 99 connections drawn');
+  assert.equal(map.hotSegments().length, 2, 'hidden claim removes exactly its incident proof link');
+  map.claims.fire('click');
+  assert.equal(map.count.textContent, '100 objects, 5 of 100 connections drawn');
+  assert.equal(map.hotSegments().length, 3);
+});
+
+test('Universe search and deep hash retain all eight programme anchors in the fitted view', async () => {
+  const anchors = Array.from({length: 8}, (_, i) => ({
+    id: `problem:${101 + i}`, kind: 'problem', label: `Erdős problem #${101 + i}`,
+    short: `#${101 + i}`, x: 130 * Math.cos(i * Math.PI / 4), y: 90 * Math.sin(i * Math.PI / 4),
+  }));
+  const data = {initial: {
+    nodes: [{id: 'universe:all', kind: 'universe', label: 'Universe', x: 0, y: 0}, ...anchors],
+    edges: anchors.map((_, i) => [0, i + 1]),
+  }};
+  const map = await mount({data, hash: '#o=universe%3Aall'});
+  const fittedSpan = map.span();
+  assert.ok(fittedSpan <= map.canvas.clientWidth - 70, 'root hash leaves the entire programme fitted');
+  map.search.value = 'Universe';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=universe%3Aall');
+  assert.equal(map.hotSegments().length, 8);
+  for (let i = 0; i < 8; i++) {
+    const label = map.labels().find(mark => mark.text === `#${101 + i}`);
+    assert.ok(label, `programme #${101 + i} remains labelled while searching Universe`);
+    assert.ok(label.x >= 0 && label.x <= map.canvas.clientWidth && label.y >= 0 && label.y <= map.canvas.clientHeight);
+    assert.ok(label.alpha >= 0.7, 'programme label remains legible');
+  }
+  assert.equal(map.span(), fittedSpan, 'searching the root does not magnify the programme out of view');
+});
+
+test('dense module focus bounds actual strokes at phone and desktop sizes', async () => {
+  const claims = Array.from({length: 30}, (_, i) => ({
+    id: `claim:${i}`, kind: 'public_claim', label: `Claim ${String(i).padStart(2, '0')}`,
+    x: (i + 1) * 10, y: 50,
+  }));
+  const data = {initial: {
+    nodes: [{id: 'lean-module:hub', kind: 'lean_module', label: 'Dense module', x: 0, y: 0}, ...claims,
+      {id: 'problem:anchor', kind: 'problem', label: 'Programme anchor', x: -20, y: -40}],
+    // Reversed ingestion order must not decide which neighbours can be read.
+    edges: [...claims.map((_, i) => [0, 30 - i]), [0, 31]],
+  }};
+  for (const [width, cap] of [[292, 12], [599, 12], [600, 24], [800, 24]]) {
+    const map = await mount({width, data, hash: '#o=lean-module%3Ahub'});
+    assert.match(map.inspector.innerHTML, /Connections \(31\)/);
+    assert.equal((map.inspector.innerHTML.match(/data-universe-go=/g) || []).length, 31, 'canvas cap does not truncate navigable adjacency');
+    const hot = map.hotSegments();
+    assert.equal(hot.length, cap, `actual focused strokes are bounded at ${width}px`);
+    assert.equal(map.drawnSegments().length, cap);
+    assert.equal(map.count.textContent, `32 objects, ${cap} of 31 connections drawn`);
+    const endpointXs = hot.map(segment => segment.to[0]);
+    assert.ok(endpointXs[0] < hot[0].from[0], 'the problem anchor takes priority over claims ingested earlier');
+    assert.deepEqual(endpointXs, endpointXs.slice().sort((a, b) => a - b), 'label order wins over reversed edge ingestion');
+    const step = endpointXs[2] - endpointXs[1];
+    assert.ok(Math.abs(endpointXs[1] - hot[1].from[0] - step) < 1e-9, 'the first named claim starts the bounded set');
+    assert.ok(Math.abs(endpointXs.at(-1) - hot.at(-1).from[0] - (cap - 1) * step) < 1e-9);
+  }
+});
+
+test('loading the complete corpus preserves an explored camera, pin and lens', async () => {
+  const map = await mount();
+  map.claims.fire('click');
+  map.search.value = 'First';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  map.zoom.fire('click');
+  const before = map.span();
+  map.full.fire('click');
+  await map.settle();
+  assert.equal(map.location.hash, '#o=problem%3Aone');
+  assert.match(map.inspector.innerHTML, /First problem/);
+  assert.equal(map.claims.getAttribute('aria-pressed'), 'false');
+  assert.equal(map.count.textContent, '3 objects, 1 of 1 connections drawn · 1 match');
+  assert.ok(Math.abs(map.span() - before) < 1e-9, 'full loading leaves the existing world-to-canvas scale intact');
+});
+
+test('overview retains semantic edges while root-to-claim spokes stay quiet', async () => {
+  const data = {initial: {
+    nodes: [
+      {id: 'universe:all', kind: 'universe', label: 'Universe', x: 0, y: 0},
+      {id: 'problem:one', kind: 'problem', label: 'Programme', x: -100, y: 50},
+      {id: 'claim:one', kind: 'public_claim', label: 'Semantic claim', x: 100, y: 50},
+    ], edges: [[0, 1], [0, 2], [1, 2]],
+  }};
+  const map = await mount({data, hash: '#o=universe%3Aall'});
+  assert.equal(map.hotSegments().length, 1, 'root highlights the programme only');
+  assert.equal(map.drawnSegments().length, 2, 'the ordinary problem-to-claim edge remains drawn');
+  assert.equal(map.count.textContent, '3 objects, 2 of 3 connections drawn');
+  map.location.hash = '#o=claim%3Aone';
+  map.window.fire('hashchange');
+  assert.equal(map.hotSegments().length, 2, 'focusing the claim reveals both incident relationships');
+  assert.equal(map.drawnSegments().length, 3);
+  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
+});
+
+
+test('friendly programme search normalizes only dashes and whitespace', async () => {
+  const data = {initial: {nodes: [
+    {id: 'problem:erdos_68', kind: 'problem', label: 'The factorial-denominator series',
+      status: 'open', question: 'Factorial reciprocal irrationality remains open.', x: -100, y: 0},
+    {id: 'claim:other', kind: 'public_claim', label: 'Erdos68.theorem', x: 100, y: 0},
+  ], edges: [[0, 1]]}};
+  const map = await mount({data});
+  for (const query of ['Factorial denominator', 'The factorial-denominator series',
+    ' FACTORIAL\t denominator ', 'factorial\u2011denominator', 'factorial\u2014denominator']) {
+    map.search.value = query;
+    map.search.fire('input');
+    assert.match(map.count.textContent, / · 1 match$/, query);
+    map.search.fire('keydown', {key: 'Enter'});
+    assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
+    assert.match(map.inspector.innerHTML, /The factorial-denominator series/);
+    assert.match(map.inspector.innerHTML, /Factorial reciprocal irrationality remains open/);
+  }
+  for (const query of ['Factorial denominater', 'Denominator factorial', 'erdos 68', 'Erdos68 theorem']) {
+    map.search.value = query;
+    map.search.fire('input');
+    assert.match(map.count.textContent, / · 0 matches$/, query);
+    map.search.fire('keydown', {key: 'Enter'});
+    assert.equal(map.location.hash, '#o=problem%3Aerdos_68', 'no-match Enter preserves the exact pin');
+  }
+  map.search.value = 'Erdos68.theorem';
+  map.search.fire('input');
+  assert.match(map.count.textContent, / · 1 match$/);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=claim%3Aother', 'qualified identifiers remain literal');
+  map.search.value = '---';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=claim%3Aother', 'punctuation alone creates no selectable matches');
+});
+
+test('normalized search preserves Enter kind order and reverse stepping', async () => {
+  const data = {initial: {nodes: [
+    {id: 'claim:factorial', kind: 'public_claim', label: 'A factorial-denominator criterion', x: 100, y: 0},
+    {id: 'problem:erdos_68', kind: 'problem', label: 'The factorial-denominator series', x: -100, y: 0},
+  ], edges: [[0, 1]]}};
+  const map = await mount({data});
+  map.search.value = 'Factorial denominator';
+  map.search.fire('input');
+  assert.match(map.count.textContent, / · 2 matches$/);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=claim%3Afactorial');
+  map.search.fire('keydown', {key: 'Enter', shiftKey: true});
+  assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
+});
+
+
+function restoredSearchFixture() {
+  return {initial: {nodes: [
+    {id: 'claim:factorial', kind: 'public_claim', label: 'A factorial-denominator criterion', x: 100, y: 0},
+    {id: 'problem:erdos_68', kind: 'problem', label: 'The factorial-denominator series',
+      status: 'open', question: 'Factorial reciprocal irrationality remains open.', x: -100, y: 0},
+  ], edges: [[0, 1]]}};
+}
+
+test('cold history restoration reads the existing search value when data arrives', async () => {
+  const map = await mount({data: restoredSearchFixture(), searchValue: 'Factorial denominator',
+    hash: '#o=problem%3Aerdos_68'});
+  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.match(map.inspector.innerHTML, /Factorial reciprocal irrationality remains open/);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=claim%3Afactorial', 'restored pin advances in existing kind order');
+  map.search.fire('keydown', {key: 'Enter', shiftKey: true});
+  assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
+});
+
+test('history lifecycle reconciles form values restored after the event task', async () => {
+  const map = await mount({data: restoredSearchFixture(), queueTimers: true,
+    hash: '#o=problem%3Aerdos_68'});
+  map.zoom.fire('click');
+  const before = map.span();
+  map.window.fire('pageshow', {persisted: false});
+  map.search.value = 'Factorial denominator'; // UA restoration after pageshow; no input event.
+  map.flushTimers();
+  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.equal(map.location.hash, '#o=problem%3Aerdos_68', 'reconciliation does not repin');
+  assert.equal(map.span(), before, 'reconciliation does not reset the camera');
+  map.window.fire('popstate');
+  map.search.value = 'criterion'; // Same-document traversal restores state after popstate.
+  map.flushTimers();
+  assert.match(map.count.textContent, / · 1 match$/);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=claim%3Afactorial');
+});
+
+test('BFcache pageshow preserves complete data, pin, lens and explored camera', async () => {
+  const map = await fullHierarchy({queueTimers: true});
+  map.claims.fire('click');
+  map.search.value = 'Fan module';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  map.zoom.fire('click');
+  const before = map.span();
+  const hash = map.location.hash;
+  const count = map.count.textContent;
+  map.window.fire('pageshow', {persisted: true});
+  map.flushTimers();
+  assert.equal(map.count.textContent, count);
+  assert.match(map.count.textContent, / · 96 matches$/);
+  assert.equal(map.location.hash, hash);
+  assert.equal(map.claims.getAttribute('aria-pressed'), 'false');
+  assert.equal(map.full.textContent, 'Complete universe loaded');
+  assert.equal(map.requests.filter(url => url === 'graph').length, 1);
+  assert.equal(map.span(), before);
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.location.hash, '#o=lean-module%3AFan01');
+});
+
+test('focus and Enter reconcile late restored values without creating false matches', async () => {
+  const map = await mount({data: restoredSearchFixture(), hash: '#o=problem%3Aerdos_68'});
+  map.search.value = 'Factorial denominator';
+  map.search.fire('focus'); // Restored/autofilled DOM value need not emit input.
+  assert.match(map.count.textContent, / · 2 matches$/);
+  map.search.value = 'criterion';
+  map.search.fire('keydown', {key: 'Enter'}); // Also correct if focus preceded late restoration.
+  assert.match(map.count.textContent, / · 1 match$/);
+  assert.equal(map.location.hash, '#o=claim%3Afactorial');
+  map.search.value = 'Factorial denominater';
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.match(map.count.textContent, / · 0 matches$/);
+  assert.equal(map.location.hash, '#o=claim%3Afactorial', 'no-match Enter retains the pin');
+  let stopped = false;
+  map.search.fire('keydown', {key: 'Escape', stopPropagation() { stopped = true; }});
+  assert.equal(stopped, true, 'search Escape stops the document pin-clear handler');
+  assert.equal(map.search.value, '');
+  assert.doesNotMatch(map.count.textContent, /matches?$/);
+  assert.equal(map.location.hash, '#o=claim%3Afactorial', 'first Escape clears search only');
+  stopped = false;
+  map.search.fire('keydown', {key: 'Escape', stopPropagation() { stopped = true; }});
+  if (!stopped) map.document.fire('keydown', {key: 'Escape', target: {tagName: 'INPUT'}});
+  assert.equal(map.location.hash, '', 'second Escape bubbles to clear the pin');
 });

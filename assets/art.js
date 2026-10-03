@@ -1,30 +1,22 @@
-/* Plectis — the living field, low-power architecture.
-   The reference image as living matter behind the landing: crimson spatter
-   in three registers, droplets with dark cores and bright vermilion rims,
-   deep navy cell-texture, a dust-fine starfield, one thin magenta streak,
-   a thin warm breath along the top edge, film grain. No central mass, no
-   disc; the drama lives at the frame edges and the text spine stays dark.
+/* Plectis: the plait.
+   Two cables of fine thread, one ember and one ultramarine, plaited across
+   the top of the landing. The mark is two woven strands; this is the same
+   weave at the scale of the page. Each cable is a rope of hairline threads
+   wound round its own axis, and the two cables cross with real over and
+   under breaks, the way a braid or knot diagram is drawn.
 
-   Motion and heat contract:
-   - WebGL is a one-shot paint tool, not an ambient process. It renders one
-     deliberately soft frame into a 2D canvas, releases its context, and does
-     no recurring work while the page is idle. There is no ambient rAF loop to
-     leave running, so a backgrounded tab costs exactly nothing.
-   - Nothing is compiled or painted while the document is hidden. A prerender
-     or a background tab waits for its first visible moment.
-   - Scrolling only adjusts the retained still's wrapper opacity once per
-     animation frame. It never invokes the shader, and it writes opacity with
-     the wrapper's CSS transition disabled so the recession tracks the scroll
-     instead of chasing a 240ms transition restarted on every frame.
-   - A resize or rotation repaints once, debounced, into the SAME retained
-     still, so the field never stretches and never flickers back to the flat
-     wash mid-gesture. Sub-threshold height changes (a mobile URL bar) are
-     ignored.
-   - prefers-reduced-motion keeps the static CSS field and starts no WebGL.
-   - The static CSS field in style.css stays authoritative for no-JS,
-     no-WebGL, save-data, small-device, and lost-context visitors; this
-     file crossfades over it and removes itself cleanly on any failure,
-     including a GPU context loss and an evicted 2D backing store.
+   Motion and heat contract (unchanged from the earlier field):
+   - One paint, then nothing. The weave is drawn once into an offscreen
+     canvas and revealed left to right over about a second and a half. No
+     ambient animation loop survives the reveal, so an idle or background
+     tab costs nothing.
+   - Nothing is painted while the document is hidden.
+   - prefers-reduced-motion paints the finished weave with no reveal.
+   - Save-data keeps the static CSS composition and starts nothing.
+   - A resize repaints once, debounced. A theme change repaints once.
+   - The static CSS wash in style.css stays authoritative for no-JS readers
+     and for any failure; this file fades in over it and removes itself
+     cleanly if the canvas cannot be created.
    - Nothing leaves the page: no fetches, no storage, no third-party code
      (CSP: 'self'). */
 (function () {
@@ -34,194 +26,21 @@
   var doc = document;
   var root = doc.documentElement;
 
-  /* Kindness gates: explicit data saving or a very small device budget means
-     the static CSS composition stays in charge and no ambient GPU work starts. */
   try {
     if (navigator.connection && navigator.connection.saveData) return;
-    if (navigator.deviceMemory && navigator.deviceMemory <= 4) return;
-    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) return;
   } catch (e) {}
 
   var mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var mqDark = window.matchMedia('(prefers-color-scheme: dark)');
-  if (mqMotion.matches) return;
 
-  var VERT = [
-    'attribute vec2 a;',
-    'void main(){ gl_Position = vec4(a, 0.0, 1.0); }'
-  ].join('\n');
-
-  /* Design space: x in [0, aspect] left to right, y in [0,1] top to bottom,
-     so masses sit where the CSS field puts them and the two layers agree.
-     Colour law, earned: spatter is deep crimson through ember vermilion —
-     never rose, never pink; rose exists ONLY in the single thin streak, the
-     way the reference keeps its one magenta interference line. Blue stays
-     navy-deep: saturated hue at low luminance, colour in the dark. */
-  var FRAG = [
-    '#ifdef GL_FRAGMENT_PRECISION_HIGH',
-    'precision highp float;',
-    '#else',
-    'precision mediump float;',
-    '#endif',
-    'uniform vec2 u_res;',
-    'uniform float u_time;',
-    'uniform float u_theme;',     /* 0 dark textured matter, 1 light pigment on paper */
-    'uniform vec3 u_ground;',
-    'uniform vec3 u_warm;',
-    'uniform vec3 u_cool;',
-    'uniform vec3 u_rose;',
-    'uniform vec3 u_ember;',
-    'uniform vec4 u_a;',          /* strengths: warm, cool, rose, ember */
-    '',
-    'float hash21(vec2 p){',
-    '  p = fract(p * vec2(234.34, 435.345));',
-    '  p += dot(p, p + 34.23);',
-    '  return fract(p.x * p.y);',
-    '}',
-    'float vnoise(vec2 p){',
-    '  vec2 i = floor(p); vec2 f = fract(p);',
-    '  vec2 u = f * f * (3.0 - 2.0 * f);',
-    '  float a = hash21(i);',
-    '  float b = hash21(i + vec2(1.0, 0.0));',
-    '  float c = hash21(i + vec2(0.0, 1.0));',
-    '  float d = hash21(i + vec2(1.0, 1.0));',
-    '  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);',
-    '}',
-    'const mat2 ROT = mat2(0.8, 0.6, -0.6, 0.8);',
-    'float fbm(vec2 p){',
-    '  float v = 0.0; float amp = 0.5;',
-    '  for (int i = 0; i < 5; i++){',
-    '    v += amp * vnoise(p);',
-    '    p = ROT * p * 2.03 + vec2(11.7, 7.3);',
-    '    amp *= 0.5;',
-    '  }',
-    '  return v;',
-    '}',
-    '',
-    'void main(){',
-    '  float aspect = u_res.x / u_res.y;',
-    '  vec2 p = gl_FragCoord.xy / u_res;',
-    '  p.y = 1.0 - p.y;',
-    '  p.x *= aspect;',
-    '  float t = u_time;',
-    '',
-    /* Domain warp, glacial time: the drift that makes each painted frame a
-       slightly different weather than the last. */
-    '  vec2 q = vec2(fbm(p * 1.9 + vec2(0.0, 0.0) + 0.018 * t),',
-    '                fbm(p * 1.9 + vec2(5.2, 1.3) - 0.014 * t));',
-    '  vec2 r = vec2(fbm(p * 1.9 + 1.7 * q + vec2(1.7, 9.2) + 0.006 * t),',
-    '                fbm(p * 1.9 + 1.7 * q + vec2(8.3, 2.8) - 0.005 * t));',
-    '  float f = fbm(p * 2.6 + 2.2 * r);',
-    '',
-    /* Reading protection first and absolute: a calm band over the column
-       region, deepest where prose sits; only the star dust is exempt. */
-    '  float shade = 1.0 - 0.78 * smoothstep(0.16, 0.38, p.y) * smoothstep(1.08, 0.86, p.y);',
-    '  vec2 cuv = p - vec2(0.5 * aspect, 0.52);',
-    '  float edgew = smoothstep(0.30, 1.0, length(cuv * vec2(1.0, 1.3)));',
-    '  float portrait = smoothstep(0.9, 0.55, aspect);',
-    '',
-    /* Cluster gate: spatter drifts in weather systems, denser toward the
-       frame edges, reusing the big warp field for its migration. */
-    '  float gate = (0.30 + 0.70 * smoothstep(0.42, 0.66, f)) * (0.35 + 0.65 * edgew);',
-    '',
-    /* Three registers of spatter in the crimson-vermilion register. */
-    '  float h1 = fbm(p * 26.0 + r * 3.0);',
-    '  float spray = smoothstep(0.635, 0.675, h1);',
-    '  float h2 = fbm(p * 9.5 - r * 2.2 + 4.7);',
-    '  float drops = smoothstep(0.655, 0.70, h2);',
-    '  float h3 = fbm(p * 4.2 + r * 1.1 + 8.9);',
-    '  float blobs = smoothstep(0.665, 0.705, h3);',
-    '  float blobRim = smoothstep(0.640, 0.665, h3) * (1.0 - smoothstep(0.678, 0.700, h3));',
-    '  float twinkle = 0.72 + 0.28 * sin(t * 0.5 + h1 * 41.0);',
-    '  vec3 deepRed = u_ember * vec3(0.92, 0.42, 0.38);',
-    '  vec3 sprayCol = mix(deepRed, u_ember, smoothstep(0.71, 0.85, h1));',
-    '',
-    /* Navy depth: cells breathing on the warp, colour without brightness. */
-    '  float water = 0.30 + 0.70 * q.x;',
-    '',
-    /* The one warm edge: a thin full-width breath along the very top. */
-    '  float topglow = exp(-max(p.y, 0.0) * 16.0) * (0.78 + 0.22 * vnoise(vec2(p.x * 2.6, t * 0.02)));',
-    '',
-    /* The single thin magenta streak, upper-right corner — the only rose. */
-    '  float th = 0.50 + 0.07 * sin(t * 0.011);',
-    '  vec2 bdir = vec2(cos(th), sin(th));',
-    '  vec2 bnrm = vec2(-bdir.y, bdir.x);',
-    '  vec2 rel = p - vec2(0.88 * aspect, 0.05);',
-    '  float dline = dot(rel, bnrm);',
-    '  float along = dot(rel, bdir);',
-    '  float beam = exp(-dline * dline * 300.0) * exp(-along * along * 1.4);',
-    '  beam *= 0.6 + 0.4 * fbm(vec2(along * 2.5, dline * 10.0) + 0.03 * t);',
-    '',
-    /* A small vermilion breath low on the left frame edge. */
-    '  float demb = distance(p * vec2(1.0, 1.2), vec2(0.06 * aspect, 1.32));',
-    '  float lowmass = smoothstep(0.75, 0.08, demb) * (0.5 + 0.5 * f);',
-    '',
-    '  vec3 col;',
-    '  if (u_theme < 0.5) {',
-    /* Dark: textured matter over wine-black water, luminance held down. */
-    '    float sg2 = gate * shade;',
-    '    vec3 add = vec3(0.0);',
-    '    add += u_cool * water * u_a.y * 0.7 * mix(shade, 1.0, 0.45);',
-    '    add += (u_warm * 0.6 + u_ember * 0.4) * topglow * u_a.x * 0.85;',
-    '    add += sprayCol * spray * twinkle * u_a.w * 2.2 * sg2;',
-    '    add += mix(deepRed, u_ember, 0.5) * drops * u_a.w * 2.0 * sg2;',
-    '    add += deepRed * blobs * u_a.w * 1.0 * sg2;',
-    '    add += vec3(0.97, 0.55, 0.22) * blobRim * u_a.w * 2.6 * sg2;',
-    '    add += u_rose * beam * u_a.z * 1.1 * shade;',
-    '    add += u_ember * lowmass * u_a.w * 1.2;',
-    '',
-    '    add *= 1.0 + 0.35 * portrait;',
-    '    add = add / (1.0 + 0.5 * add);',    /* firm shoulder, text first */
-    '',
-    /* Dust-fine starfield, unshaded — it is part of the dark itself. */
-    '    vec2 sg = p * vec2(120.0, 78.0);',
-    '    vec2 cell = floor(sg);',
-    '    float sh2 = hash21(cell);',
-    '    float sd = length(fract(sg) - 0.5);',
-    '    float star = smoothstep(0.30, 0.02, sd) * step(0.984, sh2);',
-    '    star *= 0.55 + 0.45 * sin(t * 0.7 + sh2 * 90.0);',
-    '    add += mix(vec3(0.78, 0.83, 0.95), u_cool, 0.4) * star * (1.0 - blobs) * 0.5;',
-    '',
-    '    float vig = smoothstep(1.7, 0.45, length(cuv * vec2(1.0, 1.25)));',
-    '    col = u_ground * mix(0.82, 1.0, vig) + add;',
-    '  } else {',
-    /* Light: pigment specks on warm paper, same geometry, quieter still. */
-    '    col = u_ground;',
-    '    col *= mix(vec3(1.0), u_warm,  clamp(topglow * u_a.x * 0.8, 0.0, 0.5));',
-    '    col *= mix(vec3(1.0), u_cool,  clamp(water * edgew * u_a.y * 0.5, 0.0, 0.4));',
-    '    col *= mix(vec3(1.0), u_rose,  clamp(beam * u_a.z * 0.8, 0.0, 0.45));',
-    '    col *= mix(vec3(1.0), u_ember, clamp((spray * 0.8 + drops + blobRim) * gate * u_a.w, 0.0, 0.5));',
-    '    col = mix(u_ground, col, mix(1.0, shade, 0.7));',
-    '  }',
-    '',
-    /* Film grain per painted frame; doubles as dither against banding. The
-       hash must be decorrelated from the pixel axes — an axis-biased hash
-       reads as vertical lines. Static within a frame; the crossfade between
-       frames is what animates it, gently. */
-    '  float gt = floor(t * 8.0) * 7.13;',
-    '  float grain = fract(sin(dot(gl_FragCoord.xy + vec2(gt, gt * 1.7), vec2(12.9898, 78.233))) * 43758.5453) - 0.5;',
-    '  col += grain * (u_theme < 0.5 ? 0.018 : 0.008);',
-    '',
-    '  gl_FragColor = vec4(col, 1.0);',
-    '}'
-  ].join('\n');
-
-  var wrap, glCanvas, still, stillCtx, gl, program;
-  var U = {};
-  var vt = 47 + Math.random() * 180;
-  var scrollRaf = 0;
-  /* Set while this file deliberately drops its own context after the single
-     paint, so the WEBGL_lose_context event that release fires is not mistaken
-     for a real GPU loss. */
-  var releasing = false;
-  /* Effective darkness of the frame currently on screen; null until first
-     paint. Guards the repaint triggers against redrawing an identical frame. */
-  var paintedDark = null;
-  /* Viewport the current still was composed for. */
-  var lastVW = 0, lastVH = 0;
+  var wrap = null;
+  var canvas = null;
+  var ctx = null;
   var resizeTimer = 0;
-  var settleTimer = 0;
-  var pendingRepaint = false;
+  var revealFrame = 0;
+  var lastW = 0;
+  var lastH = 0;
+  var generation = 0;
 
   function isDark() {
     var t = root.getAttribute('data-theme');
@@ -230,397 +49,400 @@
     return mqDark.matches;
   }
 
-  function token(name) {
-    return getComputedStyle(root).getPropertyValue(name).trim();
-  }
-  function colorOf(name, fb) {
-    var v = token(name);
-    var m = /^#([0-9a-f]{6})$/i.exec(v);
-    if (!m) {
-      m = /^#([0-9a-f]{3})$/i.exec(v);
-      if (m) {
-        var s = m[1];
-        v = '#' + s.charAt(0) + s.charAt(0) + s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2);
-        m = /^#([0-9a-f]{6})$/i.exec(v);
-      }
-    }
-    if (!m) return fb;
-    var n = parseInt(m[1], 16);
-    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
-  }
-  function alphaOf(name, fb) {
-    var v = parseFloat(token(name));
-    return isNaN(v) ? fb : v / 100;
+  /* Deterministic noise, so the weave is the same picture on every visit. */
+  function rng(seed) {
+    var s = seed >>> 0;
+    return function () {
+      s = (s + 0x6D2B79F5) >>> 0;
+      var t = s;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
   }
 
-  /* Lift a token's chroma without lifting its light. The stylesheet's washes
-     are archival on purpose; the field speaks the same hues, saturated. */
-  function ignite(rgb, satMul, lumMul) {
-    var r = rgb[0], g = rgb[1], b = rgb[2];
-    var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
-    var l = (mx + mn) / 2;
-    var h = 0, s = 0;
-    if (mx !== mn) {
-      var d = mx - mn;
-      s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
-      if (mx === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
-      else if (mx === g) h = ((b - r) / d + 2) / 6;
-      else h = ((r - g) / d + 4) / 6;
-    }
-    s = Math.min(1, s * satMul);
-    l = Math.min(0.72, l * lumMul);
-    if (s === 0) return [l, l, l];
-    var q2 = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    var p2 = 2 * l - q2;
-    function hue(tt) {
-      if (tt < 0) tt += 1;
-      if (tt > 1) tt -= 1;
-      if (tt < 1 / 6) return p2 + (q2 - p2) * 6 * tt;
-      if (tt < 1 / 2) return q2;
-      if (tt < 2 / 3) return p2 + (q2 - p2) * (2 / 3 - tt) * 6;
-      return p2;
-    }
-    return [hue(h + 1 / 3), hue(h), hue(h - 1 / 3)];
+  function smooth(a, b, x) {
+    var t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
   }
 
-  function applyPalette() {
-    if (!gl) return;
-    var dark = isDark();
-    paintedDark = dark;
-    gl.uniform1f(U.u_theme, dark ? 0 : 1);
-    gl.uniform3fv(U.u_ground, colorOf('--page', dark ? [0.09, 0.063, 0.125] : [0.973, 0.941, 0.886]));
-    gl.uniform3fv(U.u_warm, ignite(colorOf('--wash-warm', [0.878, 0.635, 0.247]), dark ? 1.25 : 1.12, 1.0));
-    gl.uniform3fv(U.u_cool, ignite(colorOf('--wash-cool', [0.263, 0.345, 0.733]), dark ? 1.2 : 1.1, 1.0));
-    gl.uniform3fv(U.u_rose, ignite(colorOf('--wash-rose', [0.769, 0.314, 0.557]), 1.2, 1.0));
-    gl.uniform3fv(U.u_ember, ignite(colorOf('--wash-ember', [0.784, 0.333, 0.180]), dark ? 1.35 : 1.15, 1.0));
-    var aw = alphaOf('--wash-warm-a', 0.13);
-    var ac = alphaOf('--wash-cool-a', 0.10);
-    var ar = alphaOf('--wash-rose-a', 0.06);
-    var ae = alphaOf('--wash-ember-a', 0.06);
+  function mix(a, b, t) {
+    return [
+      Math.round(a[0] + (b[0] - a[0]) * t),
+      Math.round(a[1] + (b[1] - a[1]) * t),
+      Math.round(a[2] + (b[2] - a[2]) * t)
+    ];
+  }
+
+  /* Palettes. Night: the ember stays in the orange register (never yellow or
+     white-gold) and the cool cable is a real ultramarine that lifts to ice at
+     its front threads. Day: the same two inks printed on paper. */
+  function palette(dark) {
     if (dark) {
-      gl.uniform4f(U.u_a, aw * 3.3, ac * 3.1, ar * 4.2, ae * 3.4);
-    } else {
-      gl.uniform4f(U.u_a, aw * 4.6, ac * 3.6, ar * 4.4, ae * 3.8);
+      return {
+        warmBack: [176, 66, 34], warmFront: [255, 158, 92],
+        coolBack: [52, 74, 186], coolFront: [184, 204, 255],
+        alpha: 0.62, glow: 0.5, width: 1.0, blend: 'lighter'
+      };
     }
+    return {
+      warmBack: [190, 100, 64], warmFront: [140, 46, 16],
+      coolBack: [110, 130, 200], coolFront: [30, 52, 142],
+      alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over'
+    };
   }
 
-  var sizeRetry = 0;
-  function size() {
-    if (!gl) return false;
-    /* A detached or not-yet-laid-out viewport reports zero dimensions;
-       painting a 2px frame there would stretch to a smear. Wait for real
-       dimensions instead. */
-    if (window.innerWidth < 4 || window.innerHeight < 4) {
-      if (!sizeRetry) {
-        sizeRetry = setTimeout(function () {
-          sizeRetry = 0;
-          if (size()) { applyPalette(); paintStill(); }
-        }, 300);
-      }
+  /* The weave lives inside an empty band the page reserves for it, between
+     the introduction and the figures, so it never sits under a line of text.
+     The canvas spans the full width at the band's position. */
+  function stage() {
+    return doc.querySelector('[data-plait-band]');
+  }
+
+  function stageBox() {
+    var el = stage();
+    if (!el) return null;
+    var r = el.getBoundingClientRect();
+    if (r.height < 40) return null;
+    return { top: Math.round(r.top + (window.pageYOffset || 0)), height: Math.round(r.height) };
+  }
+
+  function stageHeight() {
+    var box = stageBox();
+    return box ? box.height : 0;
+  }
+
+  function build() {
+    wrap = doc.createElement('div');
+    wrap.className = 'plait';
+    wrap.setAttribute('aria-hidden', 'true');
+    canvas = doc.createElement('canvas');
+    wrap.appendChild(canvas);
+    try {
+      ctx = canvas.getContext('2d');
+    } catch (e) {
+      ctx = null;
+    }
+    if (!ctx) {
+      wrap = null;
+      canvas = null;
       return false;
     }
-    /* The field is intentionally diffuse. More than three quarters of a CSS
-       pixel per backing pixel adds heat and memory, not visible detail. */
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var scale = Math.min(0.75, Math.max(0.5, dpr * 0.45));
-    var w = Math.max(2, Math.round(window.innerWidth * scale));
-    var h = Math.max(2, Math.round(window.innerHeight * scale));
-    lastVW = window.innerWidth;
-    lastVH = window.innerHeight;
-    if (glCanvas.width !== w || glCanvas.height !== h) {
-      glCanvas.width = w;
-      glCanvas.height = h;
-      still.width = w;
-      still.height = h;
-      gl.viewport(0, 0, w, h);
-      gl.uniform2f(U.u_res, w, h);
-    }
+    doc.body.insertBefore(wrap, doc.body.firstChild);
     return true;
   }
 
-  /* The deliberate drop after one frame. `releasing` stays true until the next
-     renderer starts: WEBGL_lose_context dispatches its event in a later task,
-     and a flag survives that gap where removeEventListener alone would race. */
-  function releaseRenderer() {
-    if (!gl) return;
-    releasing = true;
-    try {
-      gl.flush();
-      var lose = gl.getExtension('WEBGL_lose_context');
-      if (lose) lose.loseContext();
-    } catch (e) {}
-    if (glCanvas) {
-      glCanvas.removeEventListener('webglcontextlost', onGlContextLost, false);
-      if (glCanvas.parentNode) glCanvas.parentNode.removeChild(glCanvas);
-      glCanvas.width = 1;
-      glCanvas.height = 1;
+  /* Geometry, in CSS pixels. u runs 0..1 across the width, H is the band.
+     The plait swells towards the middle of the page and thins at the edges,
+     where the mask fades it out, and its axis undulates gently. */
+  function geometry(W, H) {
+    var narrow = W < 760;
+    var swell = function (u) { return Math.sin(Math.PI * Math.max(0, Math.min(1, u))); };
+    return {
+      W: W,
+      H: H,
+      period: Math.max(240, Math.min(400, W * 0.235)),
+      ropeTwist: Math.max(54, Math.min(84, W * 0.05)),
+      strands: narrow ? 10 : 13,
+      centre: function (u) {
+        return H * (0.5 + 0.075 * Math.sin(Math.PI * 2 * (0.82 * u + 0.08)));
+      },
+      sep: function (u) {
+        return H * (0.13 + 0.07 * swell(u));
+      },
+      rope: function (u) {
+        return H * (0.05 + 0.03 * swell(u));
+      }
+    };
+  }
+
+  function cableY(g, x, k) {
+    var u = x / g.W;
+    var phi = (Math.PI * 2 * x) / g.period;
+    return g.centre(u) + g.sep(u) * Math.cos(phi + k * Math.PI);
+  }
+
+  function cableDepth(g, x, k) {
+    var phi = (Math.PI * 2 * x) / g.period;
+    return Math.sin(phi + k * Math.PI);
+  }
+
+  /* Draw one cable's threads between x0 and x1. Opacity follows depth twice:
+     a thread at the front of its rope is brighter, and the whole cable dims
+     while it passes behind the other. Segments are grouped into opacity
+     buckets so a thread is a handful of strokes, not hundreds. */
+  function drawCable(c, g, pal, k, x0, x1, scale) {
+    var n = g.strands;
+    var step = 2;
+    var back = k === 0 ? pal.warmBack : pal.coolBack;
+    var front = k === 0 ? pal.warmFront : pal.coolFront;
+    var buckets = 7;
+    var j, x, b;
+    for (j = 0; j < n; j += 1) {
+      var theta = (Math.PI * 2 * j) / n;
+      var paths = [];
+      for (b = 0; b < buckets; b += 1) paths.push([]);
+      var prev = null;
+      for (x = x0; x <= x1 + 0.01; x += step) {
+        var u = x / g.W;
+        var psi = (Math.PI * 2 * x) / g.ropeTwist + theta;
+        var y = cableY(g, x, k) + g.rope(u) * Math.cos(psi);
+        if (prev) {
+          var d = (Math.sin(psi) + 1) / 2;
+          var z = (cableDepth(g, x, k) + 1) / 2;
+          var level = Math.pow(d, 1.6) * (0.5 + 0.5 * z);
+          var bucket = Math.min(buckets - 1, Math.floor(level * buckets));
+          paths[bucket].push(prev[0], prev[1], x, y);
+        }
+        prev = [x, y];
+      }
+      for (b = 0; b < buckets; b += 1) {
+        var segs = paths[b];
+        if (!segs.length) continue;
+        var t = (b + 0.5) / buckets;
+        var col = mix(back, front, t);
+        var a = pal.alpha * (0.14 + 0.86 * t);
+        c.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')';
+        c.lineWidth = scale * pal.width * (0.55 + 0.75 * t);
+        c.beginPath();
+        for (var s = 0; s < segs.length; s += 4) {
+          c.moveTo(segs[s], segs[s + 1]);
+          c.lineTo(segs[s + 2], segs[s + 3]);
+        }
+        c.stroke();
+      }
     }
-    glCanvas = null;
-    gl = null;
-    program = null;
-    U = {};
   }
 
-  /* A real GPU loss during the single paint. Cancelling the default would ask
-     for a restore this file has no ambient loop to use, so hand the room back
-     to the CSS field instead — that is the documented fallback. */
-  function onGlContextLost() {
-    if (releasing) return;
-    teardown();
+  /* The break where one cable passes over the other: erase a band along the
+     front cable before drawing it, as in a knot diagram. */
+  function eraseUnder(c, g, k, x0, x1, scale) {
+    c.save();
+    c.globalCompositeOperation = 'destination-out';
+    c.strokeStyle = 'rgba(0,0,0,0.9)';
+    c.lineCap = 'round';
+    c.lineJoin = 'round';
+    c.beginPath();
+    var first = true;
+    for (var x = x0; x <= x1 + 0.01; x += 3) {
+      var y = cableY(g, x, k);
+      if (first) { c.moveTo(x, y); first = false; } else { c.lineTo(x, y); }
+    }
+    c.lineWidth = 2 * g.rope(((x0 + x1) / 2) / g.W) + 7 * scale;
+    c.stroke();
+    c.restore();
   }
 
-  /* Chrome can evict a 2D backing store under memory pressure. The retained
-     still is what the reader is actually looking at, and mc-field-live has
-     already faded the CSS wash out behind it, so a lost still would read as a
-     void rather than a fallback. Withdraw and let the wash return. */
-  function onStillContextLost() {
-    teardown();
+  /* A few loose fibres leave the cables and drift, so the weave reads as
+     thread rather than as a diagram. */
+  function drawFibres(c, g, pal, scale) {
+    var rand = rng(2604);
+    var count = g.W < 760 ? 4 : 8;
+    for (var i = 0; i < count; i += 1) {
+      var k = i % 2;
+      var xStart = g.W * (0.08 + 0.84 * rand());
+      var len = 120 + 220 * rand();
+      var dir = rand() < 0.5 ? -1 : 1;
+      var bend = g.H * (0.06 + 0.14 * rand()) * dir;
+      var col = k === 0 ? pal.warmFront : pal.coolFront;
+      var steps = Math.ceil(len / 3);
+      for (var s = 0; s < steps; s += 1) {
+        var t0 = s / steps;
+        var t1 = (s + 1) / steps;
+        var xa = xStart + len * t0;
+        var xb = xStart + len * t1;
+        var ya = cableY(g, xa, k) + bend * t0 * t0;
+        var yb = cableY(g, xb, k) + bend * t1 * t1;
+        var a = pal.alpha * 0.55 * Math.sin(Math.PI * t0) * (1 - t0 * 0.6);
+        c.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')';
+        c.lineWidth = scale * 0.6;
+        c.beginPath();
+        c.moveTo(xa, ya);
+        c.lineTo(xb, yb);
+        c.stroke();
+      }
+    }
+  }
+
+  function paintInto(target, W, H, dpr, dark) {
+    var c = target.getContext('2d');
+    var pal = palette(dark);
+    var g = geometry(W, H);
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, W, H);
+    c.globalCompositeOperation = pal.blend;
+    c.lineCap = 'round';
+
+    /* Chunks run between the points where the cables are furthest apart, so
+       each chunk holds exactly one crossing and one cable is in front. */
+    var half = g.period / 2;
+    var start = -half;
+    var chunk = 0;
+    while (start < W + half) {
+      var end = start + half;
+      var frontK = chunk % 2 === 0 ? 0 : 1;
+      var backK = 1 - frontK;
+      var x0 = Math.max(-20, start);
+      var x1 = Math.min(W + 20, end);
+      if (x1 > x0) {
+        drawCable(c, g, pal, backK, x0, x1, 1);
+        eraseUnder(c, g, frontK, x0, x1, 1);
+        c.globalCompositeOperation = pal.blend;
+        drawCable(c, g, pal, frontK, x0, x1, 1);
+      }
+      start = end;
+      chunk += 1;
+    }
+    drawFibres(c, g, pal, 1);
+
+    /* Night only: a soft halo, as if the threads carried their own light. */
+    if (pal.glow > 0 && typeof c.filter === 'string') {
+      try {
+        var copy = doc.createElement('canvas');
+        copy.width = target.width;
+        copy.height = target.height;
+        copy.getContext('2d').drawImage(target, 0, 0);
+        c.save();
+        c.setTransform(1, 0, 0, 1, 0, 0);
+        c.globalCompositeOperation = 'lighter';
+        c.globalAlpha = pal.glow;
+        c.filter = 'blur(' + Math.round(7 * dpr) + 'px)';
+        c.drawImage(copy, 0, 0);
+        c.restore();
+      } catch (e) {}
+    }
+  }
+
+  function reveal(off, W, H, dpr, immediate, gen) {
+    if (!ctx) return;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (immediate) {
+      ctx.drawImage(off, 0, 0);
+      return;
+    }
+    var t0 = 0;
+    var dur = 1500;
+    function frame(now) {
+      if (gen !== generation || !ctx) return;
+      if (!t0) t0 = now;
+      var p = Math.min(1, (now - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      var w = Math.max(1, Math.round(canvas.width * e));
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(off, 0, 0, w, canvas.height, 0, 0, w, canvas.height);
+      if (p < 1) {
+        revealFrame = window.requestAnimationFrame(frame);
+      } else {
+        revealFrame = 0;
+      }
+    }
+    revealFrame = window.requestAnimationFrame(frame);
+  }
+
+  function paint(animate) {
+    if (!wrap && !build()) return;
+    var W = Math.max(320, root.clientWidth || window.innerWidth);
+    var box = stageBox();
+    if (!box) return;
+    var H = box.height;
+    lastW = W;
+    lastH = H;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    wrap.style.top = box.top + 'px';
+    wrap.style.height = H + 'px';
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+
+    var off = doc.createElement('canvas');
+    off.width = canvas.width;
+    off.height = canvas.height;
+    try {
+      paintInto(off, W, H, dpr, isDark());
+    } catch (e) {
+      teardown();
+      return;
+    }
+    generation += 1;
+    if (revealFrame) {
+      window.cancelAnimationFrame(revealFrame);
+      revealFrame = 0;
+    }
+    reveal(off, W, H, dpr, !animate || mqMotion.matches, generation);
+    root.classList.add('plait-live');
   }
 
   function teardown() {
-    if (sizeRetry) { clearTimeout(sizeRetry); sizeRetry = 0; }
-    if (resizeTimer) { clearTimeout(resizeTimer); resizeTimer = 0; }
-    if (settleTimer) { clearTimeout(settleTimer); settleTimer = 0; }
-    if (scrollRaf) { cancelAnimationFrame(scrollRaf); scrollRaf = 0; }
-    pendingRepaint = false;
-    paintedDark = null;
-    releaseRenderer();
-    root.classList.remove('mc-field-live');
-    root.removeAttribute('data-plectis-field-mode');
-    if (still) still.removeEventListener('contextlost', onStillContextLost, false);
+    if (revealFrame) window.cancelAnimationFrame(revealFrame);
+    revealFrame = 0;
+    root.classList.remove('plait-live');
     if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
-    wrap = null; still = null; stillCtx = null;
+    wrap = null;
+    canvas = null;
+    ctx = null;
   }
 
-  /* Paint once, retain the pixels in an ordinary 2D canvas, then release the
-     shader context. Idle Plectis should be indistinguishable from a still. */
-  function paintStill() {
-    if (!gl || !stillCtx) return;
-    gl.uniform1f(U.u_time, vt % 7200);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-    try {
-      stillCtx.drawImage(glCanvas, 0, 0);
-    } catch (e) { teardown(); return; }
-    root.setAttribute('data-plectis-field-mode', 'still');
-    root.classList.add('mc-field-live');
-    applyScrollOpacity();
-    settleWrapper();
-    releaseRenderer();
-  }
-
-  /* The wrapper's entry crossfade is a CSS transition on opacity. Scroll
-     recession writes that same property every animation frame, which restarts
-     the transition sixty times a second and leaves the field trailing a quarter
-     of a second behind the scroll. Once the entry fade has finished, take
-     direct control of it. A theme flip tears the wrapper down and mounts a
-     fresh one, so the crossfade still introduces every repainted field; a
-     resize repaints into the existing wrapper and correctly keeps the
-     direct-write behaviour it already has. */
-  function settleWrapper() {
-    if (settleTimer || !wrap || wrap.style.transition === 'none') return;
-    settleTimer = window.setTimeout(function () {
-      settleTimer = 0;
-      if (wrap) wrap.style.transition = 'none';
-    }, 340);
-  }
-
-  /* Scroll recession updates at most once per display frame and never touches
-     a drawing context. */
-  function applyScrollOpacity() {
-    scrollRaf = 0;
+  /* Late fonts and reflow can move the band without resizing the window, so
+     the wrapper follows its top; only a change of size repaints. */
+  function follow() {
     if (!wrap) return;
-    var vh = Math.max(1, window.innerHeight);
-    var sy = (window.pageYOffset || root.scrollTop || 0) / vh;
-    var k = Math.min(1, Math.max(0, (sy - 0.12) / 1.25));
-    k = k * k * (3 - 2 * k);
-    wrap.style.opacity = String(1 - 0.55 * k);
-  }
-  function onScroll() {
-    if (!scrollRaf) scrollRaf = requestAnimationFrame(applyScrollOpacity);
-  }
-
-  /* Renderer setup, kept separate from the wrapper mount so a resize can
-     repaint into the SAME retained still. size(), applyPalette() and
-     paintStill() run in one synchronous task, so the moment where the still is
-     resized (and therefore cleared) never reaches a presented frame — the
-     reader sees the old field, then the new one, and never the bare wash. */
-  function startRenderer() {
-    if (!wrap || !still || !stillCtx) return false;
-    if (gl) releaseRenderer();
-    releasing = false;
-
-    glCanvas = doc.createElement('canvas');
-    /* Behind the still, matching the original stacking: both canvases are
-       absolutely positioned, so document order decides which is on top. */
-    wrap.insertBefore(glCanvas, still);
-    glCanvas.addEventListener('webglcontextlost', onGlContextLost, false);
-
-    /* Preserve only long enough to copy the one frame into the retained 2D
-       canvas. releaseRenderer() drops the context immediately afterwards. */
-    var opts = { alpha: false, depth: false, stencil: false, antialias: false, powerPreference: 'low-power', preserveDrawingBuffer: true };
-    try {
-      gl = glCanvas.getContext('webgl', opts) || glCanvas.getContext('experimental-webgl', opts);
-    } catch (e) { gl = null; }
-    if (!gl) return false;
-
-    function shader(type, src) {
-      var s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) return null;
-      return s;
+    var box = stageBox();
+    if (!box) return;
+    var W = root.clientWidth || window.innerWidth;
+    if (Math.abs(W - lastW) >= 2 || Math.abs(box.height - lastH) >= 4) {
+      paint(false);
+      return;
     }
-    var vs = shader(gl.VERTEX_SHADER, VERT);
-    var fs = shader(gl.FRAGMENT_SHADER, FRAG);
-    if (!vs || !fs) return false;
-    program = gl.createProgram();
-    gl.attachShader(program, vs);
-    gl.attachShader(program, fs);
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return false;
-    gl.useProgram(program);
-
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(program, 'a');
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-    ['u_res', 'u_time', 'u_theme', 'u_ground', 'u_warm',
-     'u_cool', 'u_rose', 'u_ember', 'u_a'].forEach(function (n) {
-      U[n] = gl.getUniformLocation(program, n);
-    });
-
-    if (!size()) return true;   /* size() schedules its own retry and repaint */
-    applyPalette();
-    paintStill();
-    return true;
+    wrap.style.top = box.top + 'px';
   }
 
-  function init() {
-    if (!doc.body || retired) return;
-    if (!wrap) {
-      wrap = doc.createElement('div');
-      wrap.className = 'mc-field';
-      wrap.setAttribute('aria-hidden', 'true');
-      still = doc.createElement('canvas');
-      wrap.appendChild(still);
-      doc.body.appendChild(wrap);
-      stillCtx = still.getContext('2d', { alpha: false });
-      still.addEventListener('contextlost', onStillContextLost, false);
-    }
-    if (!stillCtx || !startRenderer()) { teardown(); return; }
-  }
-
-  /* A palette change REPAINTS the field rather than retiring it.
-     This used to tear down permanently, on the reasoning that recreating a GPU
-     context for a decorative toggle would violate the heat budget. That reading
-     of the cost was wrong: paintStill() already draws exactly one frame, copies
-     it into the retained 2D canvas and drops the GL context, so there is no
-     standing context to preserve and a flip costs precisely what the initial
-     load costs — one compile, one frame, then nothing. What the old behaviour
-     actually bought was a landing page that fell back to the flat CSS wash on
-     the first toggle and stayed there for the rest of the session, including
-     after toggling back. That is the part a reader notices.
-
-     Everything below binds ONCE, outside init(), because init() now runs more
-     than once and re-registering inside it would stack a fresh observer,
-     listener and scroll handler on every flip. */
-  var restartTimer = 0;
-  var retired = false;
-
-  /* Nothing is compiled or painted for a document the reader cannot see. A
-     prerender or a background tab records the intent and spends the work on
-     its first visible moment instead. */
-  function start() {
-    if (retired) return;
-    if (doc.hidden) { pendingRepaint = true; return; }
-    init();
-  }
-
-  function onVisibility() {
-    if (doc.hidden || retired || !pendingRepaint) return;
-    pendingRepaint = false;
-    if (wrap) repaint();
-    else init();
-  }
-
-  /* Same wrapper, same retained still, new frame. Used for resize and rotation,
-     where a full teardown would drop the reader back to the flat CSS wash for
-     the length of the restart delay. */
-  function repaint() {
-    if (retired) return;
-    if (!wrap) { start(); return; }
-    if (doc.hidden) { pendingRepaint = true; return; }
-    if (!startRenderer()) teardown();
-  }
-
-  function restart() {
-    if (retired) return;
-    teardown();
-    if (restartTimer) clearTimeout(restartTimer);
-    /* One tick of delay: it coalesces a mashed toggle into a single repaint and
-       lets the new theme's custom properties settle before applyPalette() reads
-       them off the computed style. */
-    restartTimer = window.setTimeout(function () {
-      restartTimer = 0;
-      start();
-    }, 60);
-  }
-
-  /* Only a change in effective darkness changes the palette: every --wash-*
-     value is declared under :root, :root[data-theme="dark"] and the
-     prefers-color-scheme mirror of that. A system-scheme flip on a page whose
-     theme is pinned, or a data-theme write landing on the value already in
-     force, would otherwise recompile a shader to draw the identical frame. */
-  function onThemeChange() {
-    if (paintedDark !== null && isDark() === paintedDark) return;
-    restart();
-  }
-
-  /* The composition is aspect-dependent, so a resized viewport was stretching
-     the retained still rather than recomposing it. Mobile browsers also fire
-     resize when the URL bar slides — height only, and by a little — which is
-     not a recomposition and must not cost one. */
   function onResize() {
-    if (retired || !wrap || !lastVW) return;
-    var w = window.innerWidth;
-    var h = window.innerHeight;
-    if (w === lastVW && Math.abs(h - lastVH) <= Math.max(90, lastVH * 0.18)) return;
-    if (resizeTimer) clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(function () {
-      resizeTimer = 0;
-      repaint();
-    }, 240);
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(follow, 160);
   }
 
-  /* Reduced motion is the one flip that is meant to be terminal. Guard on the
-     query's current state: the old listener retired on ANY change to it, so a
-     reader who turned reduced motion off lost the field until a reload. */
-  function onMotionChange() {
-    if (!mqMotion.matches) return;
-    retired = true;
-    if (restartTimer) { clearTimeout(restartTimer); restartTimer = 0; }
-    teardown();
+  function onTheme() {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () { paint(false); }, 60);
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onResize, { passive: true });
-  window.addEventListener('orientationchange', onResize, { passive: true });
-  doc.addEventListener('visibilitychange', onVisibility, false);
-  if (window.MutationObserver) {
-    new MutationObserver(onThemeChange)
-      .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  function start() {
+    if (!stage()) return;
+    paint(true);
+    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('load', follow);
+    try {
+      if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(follow);
+    } catch (e) {}
+    if (window.MutationObserver) {
+      new MutationObserver(onTheme)
+        .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    }
+    try {
+      mqDark.addEventListener('change', onTheme);
+    } catch (e) {
+      if (mqDark.addListener) mqDark.addListener(onTheme);
+    }
   }
-  if (mqDark.addEventListener) mqDark.addEventListener('change', onThemeChange);
-  else if (mqDark.addListener) mqDark.addListener(onThemeChange);
-  if (mqMotion.addEventListener) mqMotion.addEventListener('change', onMotionChange);
-  else if (mqMotion.addListener) mqMotion.addListener(onMotionChange);
+
+  function whenVisible() {
+    if (doc.visibilityState !== 'hidden') {
+      start();
+      return;
+    }
+    function onVis() {
+      if (doc.visibilityState === 'hidden') return;
+      doc.removeEventListener('visibilitychange', onVis);
+      start();
+    }
+    doc.addEventListener('visibilitychange', onVis);
+  }
 
   if (doc.readyState === 'loading') {
-    doc.addEventListener('DOMContentLoaded', start, { once: true });
+    doc.addEventListener('DOMContentLoaded', whenVisible);
   } else {
-    start();
+    whenVisible();
   }
 })();

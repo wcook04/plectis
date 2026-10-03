@@ -218,7 +218,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "190ec0c743f338a3",
+      "renderer_fingerprint": "9f993bf338f10bce",
       "source_sha256": "45023b21834d082bc5de9b502eb8183d14ab23daf3c92980fa2eb5dc062df7db",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -228,8 +228,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "8e9155a23fda23b02e206b64744cd13146d63240f159999b3fbad853969410ee",
-      "html_exact_tex_sha256": "5632cfcf11f176a8962c818f0f60d775c4c46a282ef1094c0212fcc5bd836079"
+      "html_mathml_sha256": "5bb73ce8650574564564458b3b9d1ee1aeae0cd5a58ddcc5e3679121d19f9b6a",
+      "html_exact_tex_sha256": "3787043d21ba66fd741a6744be9c30dc581b9a9d885fff8b6630c55937b84634"
     },
     "sections": [
       {
@@ -427,7 +427,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "190ec0c743f338a3",
+        "renderer_fingerprint": "9f993bf338f10bce",
         "source_sha256": "45023b21834d082bc5de9b502eb8183d14ab23daf3c92980fa2eb5dc062df7db",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -437,8 +437,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "8e9155a23fda23b02e206b64744cd13146d63240f159999b3fbad853969410ee",
-        "html_exact_tex_sha256": "5632cfcf11f176a8962c818f0f60d775c4c46a282ef1094c0212fcc5bd836079"
+        "html_mathml_sha256": "5bb73ce8650574564564458b3b9d1ee1aeae0cd5a58ddcc5e3679121d19f9b6a",
+        "html_exact_tex_sha256": "3787043d21ba66fd741a6744be9c30dc581b9a9d885fff8b6630c55937b84634"
       },
       "sections": [
         {
@@ -636,7 +636,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "190ec0c743f338a3",
+        "renderer_fingerprint": "9f993bf338f10bce",
         "source_sha256": "477b8fa928f6ac20781d85b036d2f50070389fc389e2edc57b8c13ed49d92a49",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -665,8 +665,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "5fa30513f91f9373a1c98061c9ad8f0f26203be06ad3b10ec2c18ceb8b9c0b87",
-        "html_exact_tex_sha256": "29ad170849d3f24a1a831afad898c4e6785adf244b790846d2fe1ddff9bbf7c6"
+        "html_mathml_sha256": "1fe16b8cfe08bf57fb74ba883adf78a8ffa6a1cc77ba8a87874c361298e28c13",
+        "html_exact_tex_sha256": "635865e5f9eb41c4c7b79cbd64cccf3d995262413fd52a028849fef1f9627438"
       },
       "sections": [
         {

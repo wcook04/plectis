@@ -52,6 +52,67 @@ readers find and understand that work; private working state is outside its scop
 
 ## Audience route contract
 
+### Front door (October 2026)
+
+The landing has one subject, the mathematics. In order: the introduction and
+the featured film; the eight problems beside the universe map teaser; three
+papers to start with; the films; why the project exists and how to take part;
+one line for the earlier software. Every route is visible without opening
+anything. Only the transcripts fold.
+
+Copy is Will's own sentences: the hero is the site's title line and the
+sentence he opens the films with. No taglines, em dashes or "not X, Y"
+constructions. Counts sit in `data-mc-fact` spans; the problem list and the
+papers band are the generated `mc:landing-problems` and `mc:landing-papers`
+regions.
+
+The one image is the plait in `assets/art.js`: two cables of thread drawn in
+the band the hero reserves for it (`data-plait-band`), never under text. The
+wash behind every page is two soft corner lights.
+
+Every page carries the same five destinations, defined once as
+`SITE_PRIMARY_NAV` in `build_microcosm_public_site.py`: Mathematics, Papers,
+Videos, Glossary, About. The wordmark returns to the landing on every page.
+The earlier software is reached from the landing's last line and the footer.
+The landing is glossary-linked by the builder, and the hover definitions and
+the first-visit glossary chip stay on.
+
+To feature a new film, edit the `home-film` figure and its card in the videos
+list; nothing else depends on which film it is. Judge the first screen at
+1440 × 900 and 1280 × 800: the introduction, the film, the weave and the
+figures fit together.
+
+Design changes follow the `public-web-design` skill
+(`.agents/skills/public-web-design/SKILL.md`). Before calling a change done,
+read the page screen by screen and run the rubric audit at laptop and monitor
+viewports in both schemes:
+
+    ./repo-python tools/meta/frontend/public_web_audit.py capture http://localhost:8766/ --pages 8 --out <dir>
+    ./repo-python tools/meta/frontend/public_web_audit.py audit http://localhost:8766/
+
+What the October 2026 pass settled: no tracked-caps eyebrows, middle-dot
+strings or monospace labels on the landing (the result card keeps one plain
+label); a paper's page count rides on its PDF link; headings stack over their
+sentence; the AI-packet routes sit under "Why I am building it" and the
+take-part card holds only the human routes; the landing header shares the
+docs and maths bar's container so the wordmark never moves between pages; the
+first-visit glossary chip folds to its mark once reading starts. The eight
+problems read as one index (number, title, status on a line). The #257 card
+typesets its series (1/1 + 1/3 + 1/7 + 1/15 + …, each denominator labelled
+2ⁿ−1, `aria-hidden` because the question sentence says it) and sets the
+theorem's variables in `<var>`. Bold or colour meant for a paragraph's one
+plain link must exclude `.narrative-ref--term`, or glossary terms turn into
+random bold words. Preserve
+incoming fragment links when simplifying a page (old landing ids survive as
+`.anchor-alias` spans), and rebuild both page families after changing their
+shared shell or assets.
+
+The shared stylesheet is `assets/style.css`. Mathematics-specific assets are
+owned by `tools/meta/dissemination/maths_site_assets/` and copied into
+`maths/assets/` by the maths builder; edit their source and regenerate. On long
+documents, keep the margin contents to major sections and offer the full list
+in a collapsed disclosure that remains available at laptop widths.
+
 The public Contact page is a conversion map, not a generic inbox. Its generated
 route rail must keep distinct, non-invasive next steps for:
 
@@ -60,7 +121,9 @@ route rail must keep distinct, non-invasive next steps for:
 - reuse or adaptation (`source.html#license`);
 - correction or critique;
 - collaboration or research review;
-- funding or hiring; and
+- a conversation about the work, with no money asked up front (it replaced
+  the funding-or-hiring enquiry on 3 October 2026, and says plainly that
+  Will's own funding runs out in early November 2026); and
 - partnership or licensing.
 
 Those links are authored in the owner builder, not by hand in generated HTML.
@@ -86,6 +149,60 @@ the destination:
 | `funding` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[funding]` |
 | `hiring` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[hiring]` |
 | `partnership` | `docs/contact.html#audience-routes` | `public_experience_route_contract.routes[partnership]` |
+
+### Universe map (October 2026)
+
+The map (`maths/universe.html`, and every teaser drawn from
+`maths/assets/universe-data.json`) shows every asserting statement of the
+sixteen problem papers. Its sources are the public coverage ledger
+(`docs/paper_lean_coverage.json`) and the paper evidence projection
+(`evidence/paper_evidence.json`), hosted byte-identical under `lean/`. The
+ledger owns each statement's status; the evidence adds printed numbers,
+declaration lines, Lean statements and Comparator checks. The build stops when
+the ledger, the evidence or the rendered papers come from different editions.
+
+- Comparator's colour fills a replayed result, the Lean colour fills an exact
+  Lean result whose replay is queued, a ring marks Lean under named inputs and
+  a faint ring marks no Lean statement. Comparator and Palomar link only to the
+  results the ledger records them reaching.
+- The first screen is the title, a one-line lede, four figures, one toolbar and
+  the field. The legend under the field is the filter. How the map is drawn sits
+  below it. Documents start switched off.
+- Band names and counts are set along the ring. Horizontal labels were pushed
+  back over the bands at the canvas edge.
+- Opening a hub frames the whole field and draws no spokes; its reach is the lit
+  band and one fading wedge per band, stronger where more of it is replayed.
+- Structure (problems, papers, claims) is drawn in low-chroma inks; saturated
+  colour is kept for evidence. Each problem's marker carries an evidence ring.
+  Palomar is a hollow ring because it holds a prepared corpus.
+- A plain wheel scrolls the page past the field; a held modifier or a pinch
+  zooms. A pinned card stays put while the pointer crosses other dots. With a
+  result pinned, the arrow keys and the card's buttons walk its paper.
+- The field reads from the centre out, one ring per layer: the Lean universe
+  with Comparator and Palomar below it; the problems on one orbit, each between
+  its two papers; the claims of each record, on plates; then every result, on
+  plates. Each problem owns one sector, sized by its results plus a floor, so
+  the results ring keeps one depth all the way round. A shared namespace's
+  claims sit in one block on the edge between its two sectors. The rail at rest
+  names the rings in that order.
+- Labels are placed in priority order (selected object, core, checking
+  surfaces, problems) after the band titles, and none may cover another or a
+  disc; a label tries its fallback spot before it gives way. Problem numbers sit
+  inward of their discs. At small scale (phone, teaser) band titles shorten to
+  the number and a count, and no title leans more than 15 degrees past upright.
+- A result's card lists every place it is stated: its own paper and, when the
+  other paper states it under the same label or through a Lean declaration both
+  cite, that one too, each opening the rendered paper at the result and its TeX
+  line on GitHub (`main`, the ref the hosted sources come from). The map draws
+  a dashed thread between the two.
+- The toolkit's system paper keeps its live position: the deploy restores it,
+  so the system-paper arc is built to end exactly there.
+- New per-node label or band data travels as lists in
+  `universe-layout-full.json`, because the deploy's toolkit-fragment guard
+  compares every id-keyed table with the live layout.
+- Never claim Palomar submission or acceptance, per-declaration kernel
+  acceptance (receipts are per corpus entry), or that Comparator checks a
+  Challenge against the printed statement.
 
 ### Route namespace boundary
 
@@ -146,11 +263,13 @@ must still preserve the configured public/private boundary and the operator
 must separately authorize any external release action.
 
 The repository front door is part of this same audience contract. The
-`microcosm-substrate/README.md` route table must retain the seven labels above
+`microcosm-substrate/README.md` route table must retain six of the labels above
 (`Inspect or verify a claim`, `Clone or reproduce the public slice`, `Use or
 adapt the public source`, `Suggest a correction or critique`, `Collaborate or
-arrange a research review`, `Discuss funding or hiring`, and `Discuss a
-partnership or license`). A site-only route is incomplete: cold readers should
+arrange a research review`, and `Discuss a partnership or license`). Its row
+still reads `Discuss funding or hiring` where the site now reads `Talk about
+the work`; agents leave the toolkit repository alone, so that row changes when
+Will next edits it. A site-only route is incomplete: cold readers should
 be able to move from the repository to the human route map without losing the
 purpose they selected. The parity evaluator is
 `tools/meta/dissemination/tests/test_public_site_route_identity_contract.py`.

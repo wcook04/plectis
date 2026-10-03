@@ -25,9 +25,11 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
-  <link rel="stylesheet" href="../assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <style>
@@ -46,27 +48,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
-        <a href="../index.html">Mathematics</a>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html" aria-current="true">Mathematics</a>
         <a href="../../docs/papers.html">Papers</a>
-        <a href="../../index.html#demo-videos">Videos</a>
-        <a href="../../index.html#why">About</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="../index.html">Mathematics</a>
-          <a href="../../docs/papers.html">Papers</a>
-          <a href="../../index.html#demo-videos">Videos</a>
-          <a href="../../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -265,7 +259,7 @@ and a real number <span class="math inline" data-term-auto="off" data-tex="\(b&g
 <p>This series converges by comparison with a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-geometric-series" data-term="geometric_series" data-term-auto="1">geometric series</a>, since <span
 class="math inline" data-term-auto="off" data-tex="\((b^a-1)^{-1}\le b^{1-a}/(b-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-msup space="4"><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>1</mn></mrow></msup><mo>≤</mo><msup><mi>b</mi><mrow data-mjx-texclass="ORD"><mn>1</mn><mo>−</mo><mi>a</mi></mrow></msup><mo>/</mo><mo stretchy="false">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. Erdős
 proved irrationality for full support at integer bases <span
-class="citation" data-cites="erdos1948"></span>, and later proved the
+class="citation" data-cites="erdos1948"><a href="#erdos-257-mersenne-support-subseries__ref-5">[5]</a></span>, and later proved the
 same conclusion for pairwise coprime supports of finite reciprocal sum
 <span class="citation" data-cites="erdos1968"><a href="#erdos-257-mersenne-support-subseries__ref-7">[7]</a></span>. On that page he
 stated that the coprimality assumption could be removed, without giving
@@ -1316,7 +1310,7 @@ whose sum is already known to be irrational. For full support we have</p>
 \qquad(N\ge1).\]" data-math-rendered="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow" display="true"><mjx-math display="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c394">Δ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-msub><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c2115 STX-DS">ℕ</mjx-c></mjx-mi></mjx-TeXAtom><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mo space="4" class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-a992c46c64f653c1"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mo space="3"><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-munder space="2"><mjx-row><mjx-base class="mjx-s-e1d8aa93f9bbf92c"><mjx-mo class="mjx-s-1a4bae6f18762d72"><mjx-c class="mjx-c2211 STX-LO">∑</mjx-c></mjx-mo></mjx-base></mjx-row><mjx-row><mjx-under class="mjx-s-411c2f9597fa29d6"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-TeXAtom></mjx-under></mjx-row></mjx-munder><mjx-msup space="2"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-a992c46c64f653c1"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo space="4"><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo space="3"><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-msup space="3"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-a992c46c64f653c1"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup><mjx-mo space="4"><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mfrac space="4"><mjx-frac type="d" class="mjx-s-69e6a23d343339f3"><mjx-num><mjx-nstrut type="d" class="mjx-s-cdeefbb125f5541d"></mjx-nstrut><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-num><mjx-dbox><mjx-dtable><mjx-line type="d" class="mjx-s-ba894e74902e5029"></mjx-line><mjx-row><mjx-den><mjx-dstrut type="d" class="mjx-s-37542700fc467905"></mjx-dstrut><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-mspace class="mjx-s-3df1c7fdac1409ed"></mjx-mspace><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo space="4"><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2E">.</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi mathvariant="normal">Δ</mi><mrow data-mjx-texclass="ORD"><mn>2</mn><mo>,</mo><msub><mrow data-mjx-texclass="ORD"><mi mathvariant="double-struck">N</mi></mrow><mrow data-mjx-texclass="ORD"><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow></msub><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>a</mi><mo>&gt;</mo><mi>N</mi></mrow></munder><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mo>−</mo><mi>a</mi></mrow></msup><mo>=</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><mo>−</mo><mi>N</mi></mrow></msup><mo>≥</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mspace width="2em"></mspace><mo stretchy="false">(</mo><mi>N</mi><mo>≥</mo><mn>1</mn><mo stretchy="false">)</mo><mo>.</mo></math></mjx-assistive-mml></mjx-container></span></div>
 <p>The full-support value is nevertheless <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">irrational</a> <span
-class="citation" data-cites="erdos1948"></span>. Thus a proof for
+class="citation" data-cites="erdos1948"><a href="#erdos-257-mersenne-support-subseries__ref-5">[5]</a></span>. Thus a proof for
 arbitrary support would have to use more than this particular family of
 small displacements. The example leaves other <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-form" data-term="linear_form" data-term-auto="1">integer linear forms</a> and
 averaging arguments available.</p>
@@ -1514,7 +1508,7 @@ class="math inline" data-term-auto="off" data-tex="\(u^2v^3\)" data-math-rendere
 most <span class="math inline" data-term-auto="off" data-tex="\(\zeta(2)\zeta(3)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D701">𝜁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D701">𝜁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ζ</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mi>ζ</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, and the
 theorem applies to every infinite subset of the powerful integers. For
 full perfect-power supports, compare Duverney–Tachiya <span
-class="citation" data-cites="duverneytachiya"></span> and the earlier
+class="citation" data-cites="duverneytachiya"><a href="#erdos-257-mersenne-support-subseries__ref-1">[1]</a></span> and the earlier
 linear-independence results of Luca–Tachiya <span class="citation"
 data-cites="lucatachiya2014independence"><a href="#erdos-257-mersenne-support-subseries__ref-13">[13]</a></span>.</p>
 </section>
@@ -1584,7 +1578,7 @@ denominator bounds give no upper height control for infinite <a class="narrative
 sums</a> and do not decide an infinite-support value. Van Assche instead
 constructs approximants for the full <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lambert-series" data-term="lambert_series" data-term-auto="1">Lambert series</a> and proves both
 nonvanishing and decay of the associated integer linear forms <span
-class="citation" data-cites="vanassche2001"></span>. That approximation
+class="citation" data-cites="vanassche2001"><a href="#erdos-257-mersenne-support-subseries__ref-14">[14]</a></span>. That approximation
 mechanism does not follow from denominator survival alone.</p>
 <p>In particular, <span class="math inline" data-term-auto="off" data-tex="\(1/21\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-2eee1a5a67edef6b mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>21</mn></math></mjx-assistive-mml></mjx-container></span> is not a
 finite subseries sum. If it were, the order of <span
@@ -1667,7 +1661,7 @@ class="math inline" data-term-auto="off" data-tex="\(w_n=2^{-n}+4^{-n}/(1-2^{-n}
 <span class="math inline" data-term-auto="off" data-tex="\(n\ge N+1\ge2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2B">+</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi><mo>≥</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span>. Since every weight
 exceeds its tail, Hornich’s theorem <span class="citation"
 data-cites="hornich1941"><a href="#erdos-257-mersenne-support-subseries__ref-15">[15]</a></span>, as proved by Nitecki <span
-class="citation" data-cites="nitecki2013"></span>, shows that the coding
+class="citation" data-cites="nitecki2013"><a href="#erdos-257-mersenne-support-subseries__ref-10">[10]</a></span>, shows that the coding
 image is a Cantor set of measure <span
 class="math inline" data-term-auto="off" data-tex="\(\lim_N2^NR_N\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c69" noic="true">i</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6D">m</mjx-c></mjx-mo><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-munder><mjx-msup space="2"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-msub><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo data-mjx-texclass="OP" movablelimits="true">lim</mo><mi>N</mi></munder><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub></math></mjx-assistive-mml></mjx-container></span>; the estimate above gives
 <span class="math inline" data-term-auto="off" data-tex="\(2^NR_N\to1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-msub><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub><mo accent="false" stretchy="false">→</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span>, so <span
@@ -2278,7 +2272,7 @@ class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="tr
 <p>For Erdős’s reciprocal-summable extension and fractional-part
 argument, see pp. 222 and 226 of <span class="citation"
 data-cites="erdos1968"><a href="#erdos-257-mersenne-support-subseries__ref-7">[7]</a></span>. The periodic theorem <span
-class="citation" data-cites="lucatachiya2014periodic"></span> is also
+class="citation" data-cites="lucatachiya2014periodic"><a href="#erdos-257-mersenne-support-subseries__ref-12">[12]</a></span> is also
 stated in Luca and Tachiya’s account <span class="citation"
 data-cites="lucatachiya2017"><a href="#erdos-257-mersenne-support-subseries__ref-11">[11]</a></span>, and Hornich’s strict-tail theorem
 is proved in Nitecki’s exposition <span class="citation"

@@ -25,9 +25,11 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
-  <link rel="stylesheet" href="../assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
@@ -43,27 +45,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
         <a href="../index.html">Mathematics</a>
-        <a href="../../docs/papers.html">Papers</a>
-        <a href="../../index.html#demo-videos">Videos</a>
-        <a href="../../index.html#why">About</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="../index.html">Mathematics</a>
-          <a href="../../docs/papers.html">Papers</a>
-          <a href="../../index.html#demo-videos">Videos</a>
-          <a href="../../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -1237,7 +1231,7 @@ w_n=\frac{1}{t^n-1},\qquad R_N=\sum_{n&gt;N}w_n .\]" data-math-rendered="true"><
 asks whether <span class="math inline" data-term-auto="off" data-tex="\(X_S(t)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-script class="mjx-s-b4ca2e60bc5952f5"><mjx-mi size="s"><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>X</mi><mi>S</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is irrational
 for every infinite <span class="math inline" data-term-auto="off" data-tex="\(S\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math></mjx-assistive-mml></mjx-container></span> at every
 integer <span class="math inline" data-term-auto="off" data-tex="\(t\ge2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> <span
-class="citation" data-cites="erdosgraham1980"></span>; Problem #1049
+class="citation" data-cites="erdosgraham1980"><a href="#ref-6">[6]</a></span>; Problem #1049
 asks about <span class="math inline" data-term-auto="off" data-tex="\(X_{\N_{&gt;0}}(t)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-script class="mjx-s-b4ca2e60bc5952f5"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c2115 STX-DS">ℕ</mjx-c></mjx-mi></mjx-TeXAtom><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>X</mi><mrow data-mjx-texclass="ORD"><msub><mrow data-mjx-texclass="ORD"><mi mathvariant="double-struck">N</mi></mrow><mrow data-mjx-texclass="ORD"><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> at
 rational <span class="math inline" data-term-auto="off" data-tex="\(t\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math></mjx-assistive-mml></mjx-container></span>.</p>
 <p>The comparison behind everything is stated for weights with
@@ -1278,7 +1272,7 @@ class="math inline" data-term-auto="off" data-tex="\(D+1\ge\beta\)" data-math-re
 covering bound; both are classical <span class="citation"
 data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-9">[9]</a><a href="#ref-10">[10]</a><a href="#ref-11">[11]</a></span>, and Kovač and
 Tao give a scalar reciprocal-choice covering lemma <span
-class="citation" data-cites="kovactao2024"></span>; their
+class="citation" data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>; their
 higher-dimensional approximation lemma is Lemma 7.2 of the same paper.
 We claim no novelty for Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>. Its use here is to
 say which side each problem lies on.</p>
@@ -1320,7 +1314,7 @@ data-cites="plectis257 hornich1941 nitecki2013"><a href="#ref-33">[33]</a><a hre
 record the strict inequality <span
 class="math inline" data-term-auto="off" data-tex="\(w_N&gt;R_N\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D464">𝑤</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-msub space="4"><mjx-mi><mjx-c class="mjx-c1D445">𝑅</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>w</mi><mi>N</mi></msub><mo>&gt;</mo><msub><mi>R</mi><mi>N</mi></msub></math></mjx-assistive-mml></mjx-container></span> and the Cantor-set conclusion
 for every fixed base <span class="math inline" data-term-auto="off" data-tex="\(t\ge2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> <span
-class="citation" data-cites="kovactao2024"></span>. Parts (a) and (c)
+class="citation" data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>. Parts (a) and (c)
 follow from Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a> in a few lines. We
 have not found part (a) stated for non-integer bases and it may be
 known. It shows that the statement asked in #257 is false at every
@@ -1363,8 +1357,8 @@ class="math inline" data-term-auto="off" data-tex="\(4/3\)" data-math-rendered="
 class="math inline" data-term-auto="off" data-tex="\(5/4\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c35">5</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>5</mn><mo>/</mo><mn>4</mn></math></mjx-assistive-mml></mjx-container></span>. At integer bases part (a) is
 contained in the theorem of Erdős on supports with <span
 class="math inline" data-term-auto="off" data-tex="\(\sum_{n\in S}1/n&lt;\infty\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c221E">∞</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>∈</mo><mi>S</mi></mrow></munder><mn>1</mn><mo>/</mo><mi>n</mi><mo>&lt;</mo><mi mathvariant="normal">∞</mi></math></mjx-assistive-mml></mjx-container></span> <span
-class="citation" data-cites="erdos1968"></span>, proved in full in <span
-class="citation" data-cites="plectis257"></span>. At base <span
+class="citation" data-cites="erdos1968"><a href="#ref-8">[8]</a></span>, proved in full in <span
+class="citation" data-cites="plectis257"><a href="#ref-33">[33]</a></span>. At base <span
 class="math inline" data-term-auto="off" data-tex="\(3/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> it sits inside the regime of
 Theorem <a class="math-ref" href="#thm:bases">6.2</a>(a):
 rational values occur there, and exact divisibility still forces
@@ -1374,7 +1368,7 @@ class="math inline" data-term-auto="off" data-tex="\(X_{\N_{&gt;0}}(a/b)\)" data
 class="math inline" data-term-auto="off" data-tex="\(\log b/\log
 a&lt;0.4056830213840605\ldots\)" data-math-rendered="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2E" noic="true">.</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c35" noic="true">5</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c31" noic="true">1</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c33" noic="true">3</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c30" noic="true">0</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c35">5</mjx-c></mjx-mn><mjx-mo space="2"><mjx-c class="mjx-c2026">…</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>b</mi><mo>/</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>a</mi><mo>&lt;</mo><mn>0.4056830213840605</mn><mo>…</mo></math></mjx-assistive-mml></mjx-container></span>, using Zudilin’s <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-form" data-term="linear_form" data-term-auto="1">linear forms</a>
 <span class="citation" data-cites="plectis1049"><a href="#ref-35">[35]</a></span>, <span
-class="citation" data-cites="zudilin2004"></span>, and proves that the
+class="citation" data-cites="zudilin2004"><a href="#ref-14">[14]</a></span>, and proves that the
 sufficient cutoff supplied by one integer-polynomial family with common
 leading degree, coefficient-height and decay bounds at every fixed real
 base <span class="math inline" data-term-auto="off" data-tex="\(x&gt;1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&gt;</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> is at most <span
@@ -1629,7 +1623,7 @@ give infinitely many singularities, whereas an algebraic function over
 <span class="math inline" data-term-auto="off" data-tex="\(\mathbb C(z)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-c2102 STX-DS">ℂ</mjx-c></mjx-mi></mjx-TeXAtom><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"><mi mathvariant="double-struck">C</mi></mrow><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> has only finitely
 many.</p>
 <p>We use Nishioka’s value theorem for Mahler systems <span
-class="citation" data-cites="nishioka1996"></span>, in the precise form
+class="citation" data-cites="nishioka1996"><a href="#ref-19">[19]</a></span>, in the precise form
 quoted by Adamczewski and Faverjon <span class="citation"
 data-cites="adamczewskifaverjon2016"><a href="#ref-18">[18]</a></span>. At an algebraic regular
 point it equates the transcendence degree of the function values with
@@ -1920,7 +1914,7 @@ bounded in terms of <span class="math inline" data-term-auto="off" data-tex="\(k
 <p>The argument is an instance of the method of Corvaja and Zannier, who
 apply the Subspace Theorem when a fixed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-linear-combination" data-term="linear_combination" data-term-auto="1">linear combination</a> of numbers
 composed of finitely many fixed primes approximates an integer <span
-class="citation" data-cites="corvajazannier2002"></span>. Here those
+class="citation" data-cites="corvajazannier2002"><a href="#ref-23">[23]</a></span>. Here those
 numbers are products of powers of <span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span>
 and <span class="math inline" data-term-auto="off" data-tex="\(b\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi></math></mjx-assistive-mml></mjx-container></span>, and divisibility along the
 chain supplies the integer <span
@@ -2010,7 +2004,7 @@ series at <span class="math inline" data-term-auto="off" data-tex="\(3/2\)" data
 of Evertse and Ferretti <span class="citation"
 data-cites="evertseferretti2013"><a href="#ref-44">[44]</a></span>. It extends the preceding
 argument based on the method of Corvaja and Zannier <span
-class="citation" data-cites="corvajazannier2002"></span>. This is an
+class="citation" data-cites="corvajazannier2002"><a href="#ref-23">[23]</a></span>. This is an
 ordinary proof; neither a Lean proof of the transcendence conclusion nor
 historical priority is asserted.</p>
 <div class="proof">
@@ -2413,7 +2407,7 @@ class="math inline" data-term-auto="off" data-tex="\(2\)" data-math-rendered="tr
 <p><strong>Problem 6.10</strong>. <em> Decide whether <span
 class="math inline" data-term-auto="off" data-tex="\(1/2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>/</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> is a subsum of <span
 class="math inline" data-term-auto="off" data-tex="\(\sum(2^n-1)^{-1}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>1</mn></mrow></msup></math></mjx-assistive-mml></mjx-container></span>. By <span
-class="citation" data-cites="plectis257"></span> this holds if and only
+class="citation" data-cites="plectis257"><a href="#ref-33">[33]</a></span> this holds if and only
 if the integer remainders of the greedy rule fail to increase at
 infinitely many steps.</em></p>
 </div>
@@ -2553,7 +2547,7 @@ class="math inline" data-term-auto="off" data-tex="\(h_0\in H\)" data-math-rende
 class="math inline" data-term-auto="off" data-tex="\(T_0=\tau/(2^{h_0}-1)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D447">𝑇</mjx-c></mjx-mi><mjx-script class="mjx-s-a2c1ec1c99ad594d"><mjx-mn size="s"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c210E">ℎ</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mn size="s"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-script></mjx-msub></mjx-TeXAtom></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>T</mi><mn>0</mn></msub><mo>=</mo><mi>τ</mi><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mrow data-mjx-texclass="ORD"><msub><mi>h</mi><mn>0</mn></msub></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> and <span
 class="math inline" data-term-auto="off" data-tex="\(g_N=0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D454">𝑔</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>g</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></math></mjx-assistive-mml></mjx-container></span>. The cited sharp-bound construction
 identifies <span class="math inline" data-term-auto="off" data-tex="\(\tau\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>τ</mi></math></mjx-assistive-mml></mjx-container></span> as irrational <span
-class="citation" data-cites="akiyamakaneko"></span>. The strict endpoint
+class="citation" data-cites="akiyamakaneko"><a href="#ref-4">[4]</a></span>. The strict endpoint
 inequality <span class="math inline" data-term-auto="off" data-tex="\(\|2^N\tau\|&lt;\tau\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f0f31f51e9c5e561"><mjx-c class="mjx-c2016">‖</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mi><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi><mjx-mo class="mjx-s-f0f31f51e9c5e561"><mjx-c class="mjx-c2016">‖</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D70F">𝜏</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo data-mjx-texclass="ORD" fence="false" stretchy="false">‖</mo><msup><mn>2</mn><mi>N</mi></msup><mi>τ</mi><mo data-mjx-texclass="ORD" fence="false" stretchy="false">‖</mo><mo>&lt;</mo><mi>τ</mi></math></mjx-assistive-mml></mjx-container></span> for
 every <span class="math inline" data-term-auto="off" data-tex="\(N\ge1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi><mo>≥</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> follows from the
 Thue–Morse shift argument just below. Equation <a class="math-ref" data-equation-ref="true" href="#eq:dyadic-shift-identity">(4)</a> makes
@@ -2588,7 +2582,7 @@ proves <span class="math inline" data-term-auto="off" data-tex="\(\|2^N\tau\|&lt
 href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/research/experiments/premise_exchange/README.md#how-the-question-closed">research
 record</a> retains the longer historical calculation. Related
 extremal-word constructions appear in Allouche, Clarke and Sidorov <span
-class="citation" data-cites="alloucheclarkesidorov"></span>, whose
+class="citation" data-cites="alloucheclarkesidorov"><a href="#ref-5">[5]</a></span>, whose
 published bibliography points to earlier work of Allouche and Cosnard.
 The linked research record gives the longer nearest-integer calculation;
 no historical priority for the specific formulation above is
@@ -2670,7 +2664,7 @@ divisible by <span class="math inline" data-term-auto="off" data-tex="\(kd\)" da
 contradiction. ◻</p>
 </div>
 <p>The first condition is the usual intersectivity condition <span
-class="citation" data-cites="leintersective"></span>. The unit-root
+class="citation" data-cites="leintersective"><a href="#ref-1">[1]</a></span>. The unit-root
 condition for prime arguments is <span
 class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span>-intersectivity, also called
 intersectivity of the second kind <span class="citation"
@@ -2816,7 +2810,7 @@ class="math inline" data-term-auto="off" data-tex="\(f(n)\to\infty\)" data-math-
 corrections reach every real in an interval while every fixed modulus
 eventually divides both the corrections and their cumulative sums. A
 bounded allowance is impossible under these congruences. Sources: <span
-class="citation" data-cites="fridy1966"></span>, <span class="citation"
+class="citation" data-cites="fridy1966"><a href="#ref-11">[11]</a></span>, <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-12">[12]</a></span>, <span class="citation"
 data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>, <span class="citation"
 data-cites="vandoornkovac2025"><a href="#ref-38">[38]</a></span>.</td>
@@ -3031,7 +3025,7 @@ full support.</p></li>
 <li><p><em>The share of surviving fractions as evidence.</em>
 Section <a class="math-ref" href="#sec:misread">9</a>.</p></li>
 <li><p><em>A wrong locator.</em> A draft of Theorem <a class="math-ref" href="#thm:chains">6.3</a>(b) cited Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a> of <span
-class="citation" data-cites="adamczewskifaverjon2026"></span> as
+class="citation" data-cites="adamczewskifaverjon2026"><a href="#ref-40">[40]</a></span> as
 Nishioka’s theorem. That theorem says a value of a Mahler function at an
 algebraic point is rational or transcendental, which cannot prove
 irrationality. The proof in Section <a class="math-ref" href="#sec:bases">6.2</a> uses Nishioka’s value
@@ -3061,11 +3055,11 @@ rational series inside a class defined by soft data is the method of
 Kovač and Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>,
 of Crmarić and Kovač <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-12">[12]</a></span> and of van Doorn and Kovač <span
-class="citation" data-cites="vandoornkovac2025"></span>.</p></li>
+class="citation" data-cites="vandoornkovac2025"><a href="#ref-38">[38]</a></span>.</p></li>
 <li><p>That the subsums of <span
 class="math inline" data-term-auto="off" data-tex="\(\sum(t^n-1)^{-1}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mo stretchy="false">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>1</mn></mrow></msup></math></mjx-assistive-mml></mjx-container></span> form a Cantor set at
 fixed <span class="math inline" data-term-auto="off" data-tex="\(t\ge2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> is <span
-class="citation" data-cites="kovactao2024"></span>.</p></li>
+class="citation" data-cites="kovactao2024"><a href="#ref-13">[13]</a></span>.</p></li>
 <li><p>A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-set" data-term="closed_set" data-term-auto="1">closed set</a> of positive measure can contain essentially no
 rationals <span class="citation"
 data-cites="boesdarsterdos1981"><a href="#ref-26">[26]</a></span>, so the heuristic of
@@ -3085,7 +3079,7 @@ number of prime factors are <span
 class="math inline" data-term-auto="off" data-tex="\(\tfrac12(X_{\mathrm{sf}}(b)\pm1/b)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mfrac><mjx-frac class="mjx-s-48b3ee6548d68a88"><mjx-num><mjx-nstrut class="mjx-s-f7164b1a8a5c3f97"></mjx-nstrut><mjx-mn size="s"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-num><mjx-dbox><mjx-dtable><mjx-line class="mjx-s-be41b6ed4a16c367"></mjx-line><mjx-row><mjx-den><mjx-dstrut class="mjx-s-00360db46923e363"></mjx-dstrut><mjx-mn size="s"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-script class="mjx-s-b4ca2e60bc5952f5"><mjx-TeXAtom size="s" texclass="ORD"><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-s-e926b69711aa3b35 mjx-c73" noic="true">s</mjx-c><mjx-c class="mjx-s-e926b69711aa3b35 mjx-c66">f</mjx-c></mjx-mi></mjx-TeXAtom></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-cB1">±</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D44F">𝑏</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">(</mo><msub><mi>X</mi><mrow data-mjx-texclass="ORD"><mrow data-mjx-texclass="ORD"><mi data-mjx-auto-op="false">sf</mi></mrow></mrow></msub><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo><mo>±</mo><mn>1</mn><mo>/</mo><mi>b</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>.
 Duverney and Tachiya prove that <span
 class="math inline" data-term-auto="off" data-tex="\(X_{\mathrm{sf}}(2^j)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D44B">𝑋</mjx-c></mjx-mi><mjx-script class="mjx-s-b4ca2e60bc5952f5"><mjx-TeXAtom size="s" texclass="ORD"><mjx-TeXAtom texclass="ORD"><mjx-mi><mjx-c class="mjx-s-e926b69711aa3b35 mjx-c73" noic="true">s</mjx-c><mjx-c class="mjx-s-e926b69711aa3b35 mjx-c66">f</mjx-c></mjx-mi></mjx-TeXAtom></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>X</mi><mrow data-mjx-texclass="ORD"><mrow data-mjx-texclass="ORD"><mi data-mjx-auto-op="false">sf</mi></mrow></mrow></msub><mo stretchy="false">(</mo><msup><mn>2</mn><mi>j</mi></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> is irrational <span
-class="citation" data-cites="duverneytachiya"></span>, as quoted in
+class="citation" data-cites="duverneytachiya"><a href="#ref-39">[39]</a></span>, as quoted in
 <span class="citation" data-cites="plectis257"><a href="#ref-33">[33]</a></span>, so both sums are
 irrational at every base <span class="math inline" data-term-auto="off" data-tex="\(2^j\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mi>j</mi></msup></math></mjx-assistive-mml></mjx-container></span>. Both
 supports have divergent reciprocal sums. The identity at base <span

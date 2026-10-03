@@ -92,8 +92,8 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 
 /* ---- Maths sidebar refinements ---------------------------------------- */
 .maths-nav-number {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
+  font-size: var(--fs-small);
+  font-variant-numeric: tabular-nums;
   color: var(--faint);
 }
 .docs-nav a.is-active .maths-nav-number { color: inherit; }
@@ -250,7 +250,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .maths-route__step {
   margin: 0;
   color: var(--maths-gold);
-  font-family: var(--font-mono);
   font-size: .76rem;
   font-weight: 650;
   letter-spacing: .08em;
@@ -1017,7 +1016,9 @@ html:not(.scripting) .universe-nojs { display: block; }
   text-rendering: optimizeLegibility;
   font-kerning: normal;
   font-variant-ligatures: common-ligatures;
-  font-variant-numeric: oldstyle-nums proportional-nums;
+  /* Lining figures: MathJax sets the formulas' numbers in lining STIX Two
+     Math, so a number in the prose matches the same number in a formula. */
+  font-variant-numeric: lining-nums proportional-nums;
   hanging-punctuation: first;
 }
 .paper-stage p {
@@ -2047,7 +2048,7 @@ html:not(.scripting) .universe-nojs { display: block; }
    they can help it -- a summation sign orphaned from its summand reads as a
    rendering fault. */
 .math {
-  font-family: var(--font-math, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif);
+  font-family: var(--font-serif);
   font-feature-settings: "tnum" 1, "lnum" 1;
   white-space: nowrap;
 }
@@ -2122,7 +2123,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-entry { border-top: 1px solid var(--u-edge); padding: 1.5rem 0; }
 .problem-entry__title { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; text-decoration: none; }
 .problem-entry__title strong { font-size: 1.25rem; font-weight: 500; }
-.problem-entry__title > span { font-family: var(--font-mono); color: var(--muted); }
+.problem-entry__title > span { color: var(--muted); font-variant-numeric: tabular-nums; }
 .problem-entry > p { margin: .5rem 0 0 5.5rem; max-width: 65ch; }
 .problem-entry__question { color: var(--ink-soft); }
 .problem-entry__note { color: var(--muted); font-size: var(--fs-meta); line-height: var(--lh-body); }

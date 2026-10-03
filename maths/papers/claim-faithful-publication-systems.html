@@ -25,9 +25,11 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
-  <link rel="stylesheet" href="../assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
@@ -43,27 +45,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
         <a href="../index.html">Mathematics</a>
-        <a href="../../docs/papers.html">Papers</a>
-        <a href="../../index.html#demo-videos">Videos</a>
-        <a href="../../index.html#why">About</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="../index.html">Mathematics</a>
-          <a href="../../docs/papers.html">Papers</a>
-          <a href="../../index.html#demo-videos">Videos</a>
-          <a href="../../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -155,7 +149,7 @@ remain distinct responsibilities.</p>
 <p class="figure-elsewhere" id="fig:lifecycle" data-term-auto="off">This figure is drawn in the <a href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>.</p>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">mathlib</a> supply the formal language and library <span
-class="citation" data-cites="erdosproblems lean4 mathlib"></span>.
+class="citation" data-cites="erdosproblems lean4 mathlib"><a href="#ref-1">[1]</a><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a></span>.
 Formalisation blueprints link a written mathematical argument to named
 Lean declarations <span class="citation"
 data-cites="leanblueprint leanarchitect"><a href="#ref-35">[35]</a><a href="#ref-74">[74]</a></span>. Persistent problem
@@ -568,7 +562,7 @@ judging what was learned requires the comparison with earlier work.</p>
 <p>Generalising a local result requires a separate literature and
 library comparison, a proof of the proposed extension, and a second
 useful instance before an expert takes it to an upstream project <span
-class="citation" data-cites="mathlibcontrib"></span>. That route is not
+class="citation" data-cites="mathlibcontrib"><a href="#ref-100">[100]</a></span>. That route is not
 automated and has produced no reported Mathlib contribution in the
 supplied record. We distinguish credit for an idea from credit for its
 implementation, formalisation or exposition, using CRediT as a role
@@ -717,14 +711,14 @@ they record. Lean and mathlib provide formal statements and proofs;
 blueprints link declarations to exposition; Prove2Me organises
 formalisation missions, reusable statements and contributions <span
 class="citation"
-data-cites="lean4 mathlib leanblueprint prove2me"></span>. The
+data-cites="lean4 mathlib leanblueprint prove2me"><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a><a href="#ref-35">[35]</a><a href="#ref-31">[31]</a></span>. The
 additional records here follow all registered supports and the source
 passages used in prose. Appendix <a class="math-ref" href="#app:source-map">C</a> preserves the wider
 source map of the three original accounts. Prove2Me's first arXiv
 version appeared on 28 August 2026, before the first public version of
 this paper, and already described public agent contributions, task
 decomposition, reusable statements and credit for reuse <span
-class="citation" data-cites="prove2me"></span>. Its hosted verification
+class="citation" data-cites="prove2me"><a href="#ref-31">[31]</a></span>. Its hosted verification
 service and this repository-based record provide different places for
 those activities; we claim neither priority for persistent research
 records nor a measured advantage over these systems. Polymath, BOINC and
@@ -732,7 +726,7 @@ GIMPS supply precedents for small mathematical contributions and donated
 compute <span class="citation"
 data-cites="polymath boinc gimps"><a href="#ref-99">[99]</a><a href="#ref-97">[97]</a><a href="#ref-98">[98]</a></span>, while the Carleson blueprint
 shows formalisation organised into publicly claimable tasks <span
-class="citation" data-cites="carleson"></span>.</p>
+class="citation" data-cites="carleson"><a href="#ref-87">[87]</a></span>.</p>
 <p>Our fixed-order regeneration and freshness checks address the
 build-system problem of keeping derived views consistent with their
 inputs <span class="citation" data-cites="buildsystems"><a href="#ref-48">[48]</a></span>. The
@@ -1172,7 +1166,7 @@ class="level3">
 <p>The relation to the motivating problem must also survive compression:
 the Problem 269 record distinguishes distinct running-LCM heights from
 the heights counted with multiplicity in the original question <span
-class="citation" data-cites="paper269"></span>.</p>
+class="citation" data-cites="paper269"><a href="#ref-28">[28]</a></span>.</p>
 <p>A result about the former is not automatically a result about the
 latter.</p>
 <p>When a statement is sharpened, merged or moved, its complete support
@@ -1236,7 +1230,7 @@ data-cites="leandojo pantograph leanexplore leansearchv2 theoremgraph leanatlas"
 <tr>
 <td class="ta-l">Proof automation</td>
 <td class="ta-l"> Premise selection and tactic search <span
-class="citation" data-cites="leanhammer aesop judgementday"></span></td>
+class="citation" data-cites="leanhammer aesop judgementday"><a href="#ref-49">[49]</a><a href="#ref-50">[50]</a><a href="#ref-59">[59]</a></span></td>
 </tr>
 <tr>
 <td class="ta-l">Library structure</td>

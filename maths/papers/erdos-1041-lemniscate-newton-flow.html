@@ -25,9 +25,11 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
-  <link rel="stylesheet" href="../assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
@@ -43,27 +45,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
         <a href="../index.html">Mathematics</a>
-        <a href="../../docs/papers.html">Papers</a>
-        <a href="../../index.html#demo-videos">Videos</a>
-        <a href="../../index.html#why">About</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="../index.html">Mathematics</a>
-          <a href="../../docs/papers.html">Papers</a>
-          <a href="../../index.html#demo-videos">Videos</a>
-          <a href="../../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -143,7 +137,7 @@ For a monic polynomial <span class="math inline" data-term-auto="off" data-tex="
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off" data-tex="\[\Omega_f=\{z:|f(z)|&lt;1\},\qquad
 K_t(f)=\{z:|f(z)|\le t\}.\]" data-math-rendered="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow" display="true"><mjx-math display="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c3A9">Ω</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo space="4"><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mo space="4" class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7B">{</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-mo space="4"><mjx-c class="mjx-c3A">:</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7D">}</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mspace class="mjx-s-3df1c7fdac1409ed"></mjx-mspace><mjx-msub space="2"><mjx-mi><mjx-c class="mjx-c1D43E">𝐾</mjx-c></mjx-mi><mjx-script class="mjx-s-0d520f87f1fd953b"><mjx-mi size="s"><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mo space="4" class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7B">{</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-mo space="4"><mjx-c class="mjx-c3A">:</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-mo class="mjx-s-a47e4be61538a0f6"><mjx-c class="mjx-c7D">}</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2E">.</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi mathvariant="normal">Ω</mi><mi>f</mi></msub><mo>=</mo><mo fence="false" stretchy="false">{</mo><mi>z</mi><mo>:</mo><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>&lt;</mo><mn>1</mn><mo fence="false" stretchy="false">}</mo><mo>,</mo><mspace width="2em"></mspace><msub><mi>K</mi><mi>t</mi></msub><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo><mo>=</mo><mo fence="false" stretchy="false">{</mo><mi>z</mi><mo>:</mo><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>≤</mo><mi>t</mi><mo fence="false" stretchy="false">}</mo><mo>.</mo></math></mjx-assistive-mml></mjx-container></span></div>
 <p>Erdős, Herzog and Piranian <span
-class="citation" data-cites="ehp1958"></span> asked whether two zeros in
+class="citation" data-cites="ehp1958"><a href="#ref-2">[2]</a></span> asked whether two zeros in
 the open unit disc could always be connected by a short curve in <span
 class="math inline" data-term-auto="off" data-tex="\(\Omega_f\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c3A9">Ω</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi mathvariant="normal">Ω</mi><mi>f</mi></msub></math></mjx-assistive-mml></mjx-container></span>. Their question is listed as
 Problem 1041 in Bloom’s catalogue <span class="citation"
@@ -214,7 +208,7 @@ data-cites="eks2010"><a href="#ref-8">[8]</a></span> together with Pólya’s ar
 the forms given by Crane <span class="citation"
 data-cites="crane"><a href="#ref-7">[7]</a></span>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-inverse-branch" data-term="inverse_branch" data-term-auto="1">Inverse branches</a>, slit domains and capacity
 also occur in Crane’s work on Smale’s mean-value conjecture <span
-class="citation" data-cites="crane2007smale"></span>, whose derivative
+class="citation" data-cites="crane2007smale"><a href="#ref-17">[17]</a></span>, whose derivative
 normalisation differs from the monic normalisation here. The <a
 href="../../papers/erdos1041-lemniscate-reasoning-surface.pdf">companion paper</a>
 gives the rational tests for the degree-seven polynomial and the full
@@ -964,7 +958,7 @@ component capacity one at level <span
 class="math inline" data-term-auto="off" data-tex="\(2\mu\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mi><mjx-c class="mjx-c1D707">𝜇</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>μ</mi></math></mjx-assistive-mml></mjx-container></span>. The normalisation uses the standard
 identity <span
 class="math inline" data-term-auto="off" data-tex="\(\operatorname{cap}(K_t(f))=t^{1/n}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-s-82e6b45b32da46ea mjx-c63" noic="true">c</mjx-c><mjx-c class="mjx-s-82e6b45b32da46ea mjx-c61" noic="true">a</mjx-c><mjx-c class="mjx-s-82e6b45b32da46ea mjx-c70">p</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D43E">𝐾</mjx-c></mjx-mi><mjx-script class="mjx-s-0d520f87f1fd953b"><mjx-mi size="s"><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D453">𝑓</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-msup space="4"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>cap</mi><mo data-mjx-texclass="NONE">⁡</mo><mo stretchy="false">(</mo><msub><mi>K</mi><mi>t</mi></msub><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><msup><mi>t</mi><mrow data-mjx-texclass="ORD"><mn>1</mn><mo>/</mo><mi>n</mi></mrow></msup></math></mjx-assistive-mml></mjx-container></span> <span
-class="citation" data-cites="ransford1995"></span>.</p>
+class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>.</p>
 <p> Finally, <span class="math inline" data-term-auto="off" data-tex="\(z^8-(3/2)z\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msup><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mn size="s"><mjx-c class="mjx-c38">8</mjx-c></mjx-mn></mjx-script></mjx-msup><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mo space="3" class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c33">3</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D467">𝑧</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>z</mi><mn>8</mn></msup><mo>−</mo><mo stretchy="false">(</mo><mn>3</mn><mo>/</mo><mn>2</mn><mo stretchy="false">)</mo><mi>z</mi></math></mjx-assistive-mml></mjx-container></span> has a
 one-root unit-level component with perimeter larger than the proposed
 constant <span class="math inline" data-term-auto="off" data-tex="\(\Gamma(1/4)^2/(2\sqrt\pi)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c393">Γ</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c34">4</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mn size="s"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-script></mjx-msup><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-msqrt><mjx-sqrt><mjx-surd><mjx-mo><mjx-c class="mjx-c221A">√</mjx-c></mjx-mo></mjx-surd><mjx-box class="mjx-s-f505be44bcab4fec"><mjx-mi><mjx-c class="mjx-c1D70B">𝜋</mjx-c></mjx-mi></mjx-box></mjx-sqrt></mjx-msqrt><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Γ</mi><mo stretchy="false">(</mo><mn>1</mn><mo>/</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><msqrt><mi>π</mi></msqrt><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>.
@@ -1230,7 +1224,7 @@ Lempert <span class="citation" data-cites="eremenko-lempert"><a href="#ref-11">[
 and its equality analysis <span class="citation"
 data-cites="eremenko-markov"><a href="#ref-12">[12]</a></span> optimise different quantities from
 an internal root-to-root path. Kuznetsova and Tkachev <span
-class="citation" data-cites="kuznetsova2003"></span> study length
+class="citation" data-cites="kuznetsova2003"><a href="#ref-19">[19]</a></span> study length
 functions on regular levels; their log-convexity does not imply a
 uniform one-root perimeter bound at a critical endpoint. Dubinin’s
 four-point distortion theorem <span class="citation"

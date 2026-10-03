@@ -51,8 +51,6 @@ function harness() {
       return [];
     },
     querySelector() { return null; },
-    /* The collapsed-bands module looks up #main and the expand control and
-       returns before touching anything else when either is absent. */
     getElementById() { return null; },
     createElement: element,
     addEventListener() {},
@@ -79,17 +77,20 @@ function harness() {
   return { frames, idle, preloads, scripts, roots };
 }
 
-test('recordings band stays open while the other landing bands start closed', () => {
-  assert.match(SOURCE, /stayOpen: section\.id === 'demo-videos'/);
-  assert.match(SOURCE, /if \(band\.stayOpen\) open = true;/);
-  assert.match(SOURCE, /b\.set\(open \|\| b\.stayOpen\)/);
-  assert.match(SOURCE, /band\.set\(band\.stayOpen\)/);
-  assert.doesNotMatch(SOURCE, /band\.set\(false\);/);
+test('landing bands stay open and never fold behind chevrons', () => {
+  // 2026-10-03. Will, on the folded bands: they "didn't make any sense, and
+  // nobody's going to read them". Every band on the front door is open; only
+  // the video transcripts fold.
+  assert.doesNotMatch(SOURCE, /collapsedBands/);
+  assert.doesNotMatch(SOURCE, /stayOpen/);
+  assert.doesNotMatch(HTML, /data-landing-expand/);
+  assert.doesNotMatch(HTML, /<details class="fold"/);
 });
 
 test('landing keeps heavyweight runtimes inert behind the small scheduler', () => {
   assert.match(HTML, /<template data-plectis-runtime="docs"><script src="assets\/docs\.js\?v=/);
   assert.match(HTML, /<template data-plectis-runtime="art"><script src="assets\/art\.js\?v=/);
+  assert.match(HTML, /<template data-plectis-runtime="universe"><script src="maths\/assets\/universe\.js\?v=/);
   assert.match(HTML, /<script async src="assets\/landing\.js\?v=/);
   assert.doesNotMatch(HTML, /<script async src="assets\/(?:docs|art)\.js/);
   assert.match(SOURCE, /var eased = 1 - Math\.pow\(1 - p, 3\)/);

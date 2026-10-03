@@ -25,12 +25,14 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=fa54c39f3877"></script></template>
+  <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="assets/maths.js?v=f7f9cf4b00ed"></script>
-  <script defer src="assets/universe.js?v=17b72678e9a4"></script>
+  <script defer src="assets/universe.js?v=e40cf6b34df0"></script>
   <link rel="preload" href="assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/math/a305a8a7e66f12f5.css">
@@ -39,27 +41,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
-        <a href="index.html">Mathematics</a>
+        <a class="wordmark" href="../index.html"><img class="wordmark__mark" src="../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Mathematics</a>
         <a href="../docs/papers.html">Papers</a>
-        <a href="../index.html#demo-videos">Videos</a>
-        <a href="../index.html#why">About</a>
+        <a href="../index.html#videos">Videos</a>
+        <a href="../docs/glossary.html">Glossary</a>
+        <a href="../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="index.html">Mathematics</a>
-          <a href="../docs/papers.html">Papers</a>
-          <a href="../index.html#demo-videos">Videos</a>
-          <a href="../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -87,9 +81,21 @@
 <div class="wrap reading-index">
       <header class="maths-hero">
         <p class="eyebrow">Plectis · Mathematics</p>
-        <h1>Mathematics</h1>
-        <p class="maths-hero__lede">Eight <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> programmes, with public papers and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-checked proofs. Each page names the result and what remains open.</p>
-        <p class="maths-hero__routes"><a href="#problems">Choose a problem</a> · <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">AI reading edition</a> · <a href="https://github.com/wcook04/plectis-erdos">Lean repository</a></p>
+        <h1>Read the mathematics. Find what comes next.</h1>
+        <p class="maths-hero__lede">Plectis is a prototype for mathematical exposition and collaborative research. Start with the short papers: the questions, the strongest results and the ideas behind their proofs. Follow the longer records, <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> source and computations in the <a href="https://github.com/wcook04/plectis-erdos">maths repository</a>, then develop what comes next.</p>
+        <ul class="maths-hero__starts">
+          <li><a href="#problems"><strong>Choose a problem</strong></a>. Eight programmes, each with a short expository paper and a longer research record.</li>
+          <li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md"><strong>Explore with your AI</strong></a>. One reading file, no clone: an introduction, a short research instruction and the opening of each paper.</li>
+          <li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work"><strong>Work in the repository</strong></a>. Clone it, name a question, or ask your agent to read the corpus and decide what is worth developing.</li>
+        </ul>
+        <div class="maths-hero__more">
+          <p>For a guided introduction, start with <a href="documents/reading-guide.html">A reader's way in</a>.</p>
+          <p class="note maths-hero__map"><a href="universe.html">See the universe map</a>: every claim drawn with its problem, 2,902 objects on one field.</p>
+        </div>
+        <div class="maths-hero__about">
+          <p>Will Cook built and directs this AI-assisted research environment and maintains its public release. AI agents did most of the research and drafting. The papers name earlier sources and contributors to particular results, including <a href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani's #1041 construction</a>. For a result, cite its paper and relevant earlier sources; for software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+          <p>You can <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">contribute an insight</a> before writing a <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>. Will can work with you to develop and formalise it, with <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> for the insight and the subsequent work kept distinct. The whole collection is also material for new mathematics: connections, reusable methods and questions across problems.</p>
+        </div>
       </header>
       <section id="problems" class="problem-section" aria-labelledby="problems-title">
         <div class="problem-section__head">
@@ -170,15 +176,7 @@
         <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contribute</a>
         <a href="https://github.com/wcook04/plectis-erdos/issues/105">Open research questions</a>
       </nav>
-      <details class="maths-hero__context"><summary>About the research and contributors</summary>
-        <p>For a guided introduction, start with <a href="documents/reading-guide.html">A reader's way in</a>.</p>
-        <p class="note maths-hero__map"><a href="universe.html">See the universe map</a>: every claim drawn with its problem, 2,902 objects on one field.</p>
-        <div class="maths-hero__about">
-          <p>Will Cook built and directs this AI-assisted research environment and maintains its public release. AI agents did most of the research and drafting. The papers name earlier sources and contributors to particular results, including <a href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani's #1041 construction</a>. For a result, cite its paper and relevant earlier sources; for software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
-          <p>You can <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">contribute an insight</a> before writing a <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>. Will can work with you to develop and formalise it, with <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">credit</a> for the insight and the subsequent work kept distinct. The whole collection is also material for new mathematics: connections, reusable methods and questions across problems.</p>
-        </div>
-      </details>
-      <details class="dossier-section" id="papers"><summary>Current papers</summary><ul class="reading-shelf"><li><span class="reading-shelf__title"><a href="papers/erdos-68-factorial-denominator-irrationality.html">Integer Linear Forms for a Factorial Reciprocal Series</a><small>Erdős #68 · Short paper</small></span>
+      <details class="dossier-section" id="papers"><summary>Current papers</summary><ul class="reading-shelf"><li><span class="reading-shelf__title"><a href="papers/erdos-68-factorial-denominator-irrationality.html">Integer Linear Forms for a Factorial Reciprocal Series</a><small><a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #68</a> · Short paper</small></span>
           <a class="btn btn--ghost btn--file" href="../papers/erdos-68-factorial-denominator-irrationality.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 9&#8202;pp</a></li><li><span class="reading-shelf__title"><a href="papers/erdos68-factorial-reasoning-surface.html">Factorial Linear Forms and Denominators Detailed Proofs and Rationality Criteria</a><small>Erdős #68 · Long paper</small></span>
           <a class="btn btn--ghost btn--file" href="../papers/erdos68-factorial-reasoning-surface.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 51&#8202;pp</a></li><li><span class="reading-shelf__title"><a href="papers/erdos-243-reciprocal-tail-rigidity.html">Reciprocal Sums and the Sylvester Recurrence</a><small>Erdős #243 · Short paper</small></span>
           <a class="btn btn--ghost btn--file" href="../papers/erdos-243-reciprocal-tail-rigidity.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 20&#8202;pp</a></li><li><span class="reading-shelf__title"><a href="papers/erdos243-reciprocal-tail-reasoning-surface.html">Reciprocal Sums and the Sylvester Recurrence:\newline Further Results and Proofs</a><small>Erdős #243 · Long paper</small></span>
@@ -198,7 +196,6 @@
           <a class="btn btn--ghost btn--file" href="../papers/optimal-sparse-perturbations.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 38&#8202;pp</a></li><li><span class="reading-shelf__title"><a href="papers/claim-faithful-publication-systems.html">A Repository-Based System for Research and Publication</a><small>Systems paper · Research architecture</small></span>
           <a class="btn btn--ghost btn--file" href="../papers/claim-faithful-publication-systems-paper.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 21&#8202;pp</a></li><li><span class="reading-shelf__title"><a href="papers/plectis-public-system.html">Plectis: What a Stranger Can Check</a><small>Systems paper · Evidence boundary</small></span>
           <a class="btn btn--ghost btn--file" href="../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 22&#8202;pp</a></li></ul></details>
-      <details class="dossier-section" id="paper-archive"><summary>Archived papers</summary><p>Retired papers preserved for citation and history.</p><ul class="reading-shelf"><li><span class="reading-shelf__title"><a href="../papers/cold-clone-to-proof-receipt.pdf">From a Cold Clone to a Proof Receipt</a><small>Retired · superseded · 12 pages</small></span></li><li><span class="reading-shelf__title"><a href="../papers/open-source-mathematics-strategy.pdf">From Spare Compute to Cumulative Mathematics</a><small>Retired · superseded · 26 pages</small></span></li></ul></details>
       <section class="dossier-section" id="documents" aria-labelledby="guides-title"><h2 id="guides-title">Reading and checking the work</h2><ul class="fact-list"><li><a href="documents/readme.html">Repository overview</a></li><li><a href="documents/reading-guide.html">A reader&#x27;s way in</a></li><li><a href="documents/paper-guide.html">Current papers</a></li><li><a href="documents/documentation.html">Documentation guide</a></li><li><a href="documents/results.html">Results and open boundaries</a></li><li><a href="documents/source-map.html">Source map</a></li><li><a href="documents/related-problems.html">Related problems</a></li><li><a href="documents/prior-art.html">Prior art</a></li><li><a href="documents/methodology.html">Methodology</a></li><li><a href="documents/scope.html">Scope and claim boundary</a></li><li><a href="documents/external-verification.html">External verification</a></li></ul></section>
       <details class="dossier-section" id="reference"><summary>Technical reference and history</summary><ul class="fact-list"><li><a href="documents/comparator-1049.html">Comparator #1049 fixture</a></li><li><a href="documents/architecture.html">Repository architecture</a></li><li><a href="documents/residual-progress.html">Residual progress</a></li><li><a href="documents/wave-index.html">Development index</a></li><li><a href="documents/orientation.html">Technical orientation</a></li></ul></details>
       <details class="maths-receipt" id="receipt"><summary>About this edition</summary>

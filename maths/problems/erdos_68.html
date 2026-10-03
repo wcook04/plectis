@@ -25,9 +25,11 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
-  <link rel="stylesheet" href="../assets/maths.css?v=3e8f64256acb">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <style>
@@ -46,27 +48,19 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
-      <a class="brand-ladder brand-ladder--home" href="../../index.html">
-        <span class="brand-ladder__up">Will Cook</span>
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
-        <span class="wordmark">Plectis</span>
-      </a>
-      <nav class="docs-topbar__links site-primary" aria-label="Primary">
-        <a href="../index.html">Mathematics</a>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html" aria-current="true">Mathematics</a>
         <a href="../../docs/papers.html">Papers</a>
-        <a href="../../index.html#demo-videos">Videos</a>
-        <a href="../../index.html#why">About</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
       </nav>
-      <details class="site-menu">
-        <summary>Menu</summary>
-        <nav class="site-menu__links" aria-label="Primary mobile">
-          <a href="../index.html">Mathematics</a>
-          <a href="../../docs/papers.html">Papers</a>
-          <a href="../../index.html#demo-videos">Videos</a>
-          <a href="../../index.html#why">About</a>
-        </nav>
-      </details>
     </div>
   </header>
 

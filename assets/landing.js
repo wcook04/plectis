@@ -22,8 +22,8 @@
   if (!doc.querySelectorAll || !doc.createElement || !doc.body) return;
 
   var refs = {};
-  var states = { docs: 'staged', art: 'staged' };
-  var callbacks = { docs: [], art: [] };
+  var states = { docs: 'staged', art: 'staged', universe: 'staged' };
+  var callbacks = { docs: [], art: [], universe: [] };
   var templates = doc.querySelectorAll('template[data-plectis-runtime]');
   var i;
 
@@ -123,9 +123,32 @@
     }
   }
 
+  /* The universe map teaser fetches about 300KB of map data, so it starts
+     only when the mathematics band comes within a screen of the viewport. */
+  function queueUniverse() {
+    var stage = doc.querySelector('[data-universe-stage]');
+    if (!stage || !refs.universe) { mark('universe', 'skipped'); return; }
+    var run = function () { activate('universe'); };
+    if (!('IntersectionObserver' in window)) {
+      window.setTimeout(run, 1200);
+      return;
+    }
+    var watcher = new IntersectionObserver(function (entries) {
+      for (var n = 0; n < entries.length; n += 1) {
+        if (entries[n].isIntersecting) {
+          watcher.disconnect();
+          run();
+          return;
+        }
+      }
+    }, { rootMargin: '700px 0px' });
+    watcher.observe(stage);
+  }
+
   function docsSettled() {
     removeIntentListeners();
     queueArt();
+    queueUniverse();
   }
 
   function startDocs(callback) {
@@ -417,8 +440,8 @@
    the homepage has it before docs.js's idle slot; docs.js carries the same
    IIFE for maths/docs pages and is a no-op if this already ran
    (data-glossary-hint). Keep the two copies in sync. It sits opposite the
-   bottom-left "back" pill. It stays open, saying one line, until the
-   reader closes it; the close control puts it away for good (localStorage).
+   bottom-left "back" pill. It says its line once and folds to its mark when
+   reading starts; the close control puts it away for good (localStorage).
    On touch screens it starts folded to its mark and unfolds on a press. The glossary
    page itself does not need it. Not in landing HTML: the visible-word budget
    is full. */
@@ -539,122 +562,27 @@
     }
   });
 
-  /* Desktop: the cue stays open until the reader closes it. Touch: it
-     starts folded so the small screen stays clear. */
-  if (touch) setCompact(true);
-})();
-
-/* Collapsed bands (2026-09-14). Below the hero the landing is a list of
-   section headings. Each band is closed until its heading is clicked,
-   except the recordings band (#demo-videos), which stays open so the three
-   walkthroughs are in view. "Expand all" in the page tools opens every band
-   and every disclosure, and turns into "Collapse all". Collapse all leaves
-   the recordings open. A link into a band opens it. Without scripts
-   nothing is collapsed: the page stays complete. */
-(function collapsedBands() {
-  'use strict';
-  var doc = document;
-  var main = doc.getElementById('main');
-  var toggle = doc.querySelector('[data-landing-expand]');
-  if (!main || !toggle) return;
-
-  var bands = [];
-  var sections = Array.prototype.slice.call(main.querySelectorAll('section.section'));
-  sections.forEach(function (section) {
-    if (section.id === 'short-link-reader' || section.classList.contains('hero')) return;
-    var head = section.querySelector('.section__head') || section.querySelector('.eyebrow');
-    if (!head) return;
-    var extra = [];
-    if (section.id === 'problems') {
-      var tail = doc.getElementById('boundaries');
-      if (tail) extra.push(tail);
-    }
-    var band = {
-      section: section,
-      head: head,
-      extra: extra,
-      open: false,
-      stayOpen: section.id === 'demo-videos'
+  /* Desktop: the cue says its line once, then folds to its mark when the
+     reader starts reading (the first real scroll) or uses a term, so it
+     never sits over a button or a figure for the rest of the page. Touch:
+     it starts folded so the small screen stays clear. */
+  if (touch) {
+    setCompact(true);
+  } else {
+    var folded = false;
+    var onScroll = function () { if ((window.scrollY || 0) > 240) foldOnce(); };
+    var onTerm = function (ev) {
+      var t = ev.target;
+      if (t && t.closest && t.closest('a.narrative-ref--term, [data-term-preview-only]')) foldOnce();
     };
-    head.classList.add('band-head');
-    head.setAttribute('role', 'button');
-    head.setAttribute('tabindex', '0');
-    /* The closed band shows one line of its first sentence. When the sentence
-       is longer than the line, the stylesheet fades the line out at its edge
-       instead of cutting it with an ellipsis; a sentence that fits is left
-       whole, so the flag is measured rather than assumed. */
-    var gist = head.querySelector('h2 + p');
-    band.measure = function () {
-      if (!gist || band.open) return;
-      gist.removeAttribute('data-band-overflow');
-      if (gist.scrollWidth > gist.clientWidth + 1) gist.setAttribute('data-band-overflow', '');
+    var foldOnce = function () {
+      if (folded || gone) return;
+      folded = true;
+      if (!hint.classList.contains('is-compact')) setCompact(true);
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('pointerover', onTerm, true);
     };
-    band.set = function (open) {
-      if (band.stayOpen) open = true;
-      band.open = open;
-      section.classList.toggle('is-collapsed', !open);
-      extra.forEach(function (el) { el.classList.toggle('is-collapsed', !open); });
-      head.setAttribute('aria-expanded', open ? 'true' : 'false');
-      band.measure();
-    };
-    function onActivate(ev) {
-      if (ev.target && ev.target.closest && ev.target.closest('a')) return;
-      ev.preventDefault();
-      band.set(!band.open);
-      syncToggle();
-    }
-    head.addEventListener('click', onActivate);
-    head.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Enter' || ev.key === ' ') onActivate(ev);
-    });
-    band.set(band.stayOpen);
-    bands.push(band);
-  });
-  if (!bands.length) return;
-
-  var expanded = false;
-  function syncToggle() {
-    expanded = bands.every(function (b) { return b.open; });
-    toggle.setAttribute('aria-pressed', expanded ? 'true' : 'false');
-    var label = toggle.querySelector('.docs-pagetool__text') || toggle;
-    label.textContent = expanded ? 'Collapse all' : 'Expand all';
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('pointerover', onTerm, true);
   }
-  toggle.hidden = false;
-  toggle.addEventListener('click', function () {
-    var open = !expanded;
-    bands.forEach(function (b) { b.set(open || b.stayOpen); });
-    var details = main.querySelectorAll('details');
-    for (var i = 0; i < details.length; i += 1) details[i].open = open;
-    syncToggle();
-  });
-
-  /* A hash link into a band opens that band, so deep links keep working. */
-  function openForHash() {
-    var raw = window.location.hash;
-    if (!raw || raw.length < 2) return;
-    var id;
-    try { id = decodeURIComponent(raw.slice(1)); } catch (e) { id = raw.slice(1); }
-    var target = doc.getElementById(id);
-    if (!target) return;
-    bands.forEach(function (b) {
-      if (b.section.contains(target) || b.extra.some(function (el) { return el.contains(target); })) {
-        b.set(true);
-      }
-    });
-    syncToggle();
-  }
-  window.addEventListener('hashchange', openForHash);
-  openForHash();
-  syncToggle();
-  doc.documentElement.setAttribute('data-landing-bands', 'on');
-  /* The band styles apply once the attribute is on, so measure after them. */
-  bands.forEach(function (b) { b.measure(); });
-  var measureTimer = 0;
-  window.addEventListener('resize', function () {
-    window.clearTimeout(measureTimer);
-    measureTimer = window.setTimeout(function () {
-      bands.forEach(function (b) { b.measure(); });
-    }, 120);
-  }, { passive: true });
 })();
-

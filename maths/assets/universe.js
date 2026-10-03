@@ -131,7 +131,7 @@
   };
   var STATUS_ORDER = ['proved here', 'formalised here', 'verified finite instance',
     'unconditional progress', 'conditional reduction', 'open', 'cited only'];
-  var SERIF = '"Iowan Old Style", Palatino, Georgia, serif';
+  var SERIF = '"Plectis Serif", "Plectis Math", "Iowan Old Style", Georgia, serif';
 
   function cssColor(styles, name, fallback) {
     var v = styles.getPropertyValue(name).trim();
@@ -2138,6 +2138,14 @@
     }).catch(function () {
       stage.classList.add('is-unavailable');
     });
+    // A canvas neither waits for a web font nor redraws when one arrives, so
+    // ask for the serif faces the labels use and draw again once they load.
+    if (document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load('600 10px "Plectis Serif"'),
+        document.fonts.load('italic 600 11px "Plectis Serif"')
+      ]).then(function () { if (nodes.length) draw(); }, function () {});
+    }
 
     /* ---- Pointer ------------------------------------------------------ */
 

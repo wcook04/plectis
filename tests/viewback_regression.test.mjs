@@ -520,13 +520,18 @@ test('landing enhancement work stays off the critical input path', () => {
   assert.match(SOURCE, /setTimeout\(function \(\) \{ restTimer = 0; warm\(anchor\); \}, 140\)/);
   assert.match(STYLE_SOURCE, /html\s*\{[^}]*scroll-behavior:\s*auto/s);
   assert.doesNotMatch(STYLE_SOURCE, /@view-transition|mc-ember-drift/);
+  // The plait (2026-10-03) keeps the field's heat contract: one 2D paint, a
+  // single bounded left-to-right reveal, no GPU context, no scroll work, and
+  // nothing at all for reduced motion, save-data or a hidden tab.
   assert.doesNotMatch(ART_SOURCE, /CYCLE_MS|VEIL_MS|cycleTimer|function cycle\(/);
-  assert.match(ART_SOURCE, /data-plectis-field-mode', 'still'/);
-  assert.match(ART_SOURCE, /WEBGL_lose_context/);
-  assert.match(ART_SOURCE, /Math\.min\(0\.75, Math\.max\(0\.5, dpr \* 0\.45\)\)/);
-  assert.match(ART_SOURCE, /powerPreference: 'low-power'/);
-  assert.match(ART_SOURCE, /window\.addEventListener\('scroll', onScroll, \{ passive: true \}\)/);
-  assert.doesNotMatch(ART_SOURCE, /requestAnimationFrame\(frame\)/);
+  assert.doesNotMatch(ART_SOURCE, /getContext\('webgl|experimental-webgl/);
+  assert.doesNotMatch(ART_SOURCE, /addEventListener\('scroll'/);
+  assert.match(ART_SOURCE, /var dur = 1500;/);
+  assert.match(ART_SOURCE, /if \(p < 1\) \{\s*revealFrame = window\.requestAnimationFrame\(frame\);/);
+  assert.match(ART_SOURCE, /reveal\(off, W, H, dpr, !animate \|\| mqMotion\.matches, generation\)/);
+  assert.match(ART_SOURCE, /navigator\.connection\.saveData/);
+  assert.match(ART_SOURCE, /doc\.visibilityState !== 'hidden'/);
+  assert.match(ART_SOURCE, /Math\.min\(window\.devicePixelRatio \|\| 1, 2\)/);
   assert.match(SOURCE, /links\.length > 80\) return/);
   assert.match(SOURCE, /if \(\/\\\/glossary\\\.html\$\/\.test\(window\.location\.pathname/);
 });
@@ -628,7 +633,7 @@ test('cold term activation waits for the lazy preview asset before expanding loc
   assert.equal(secondPrevented, false, 'the warm second activation remains native');
 });
 
-test('term preview chooses a tethered above or below placement and carries a quiet escape hint', () => {
+test('term preview falls above or below on a narrow screen and carries a quiet escape hint', () => {
   const tab = makeTab();
   const high = makeLink('glossary.html#glossary-high', 'high-term');
   high.className = 'narrative-ref--term';
@@ -640,7 +645,9 @@ test('term preview chooses a tethered above or below placement and carries a qui
   low.setAttribute('data-term', 'low');
   low.setAttribute('data-term-preview', 'Low term preview.');
   low._docTop = 650; low._height = 20; low._left = 180; low._width = 80;
-  const page = loadPage(tab, hubPage({ bodyChildren: [high, low], links: [high, low] }));
+  const page = loadPage(tab, hubPage({
+    bodyChildren: [high, low], links: [high, low], windowGlobals: { innerWidth: 375 },
+  }));
   assert.equal(page.error, null);
   const tip = page.doc.querySelector('.term-tip');
   tip.offsetWidth = 352;
@@ -664,7 +671,7 @@ test('term preview chooses a tethered above or below placement and carries a qui
   );
 });
 
-test('term preview avoids covering the remainder of its own reading block', () => {
+test('term preview avoids covering the remainder of its own reading block on a narrow screen', () => {
   const tab = makeTab();
   const paragraph = makeEl('p');
   paragraph._docTop = 220; paragraph._height = 200; paragraph._left = 120; paragraph._width = 620;
@@ -674,7 +681,9 @@ test('term preview avoids covering the remainder of its own reading block', () =
   term.setAttribute('data-term-preview', 'AI-native term preview.');
   term._docTop = 225; term._height = 20; term._left = 180; term._width = 80;
   paragraph.appendChild(term);
-  const page = loadPage(tab, hubPage({ bodyChildren: [paragraph], links: [term] }));
+  const page = loadPage(tab, hubPage({
+    bodyChildren: [paragraph], links: [term], windowGlobals: { innerWidth: 375 },
+  }));
   assert.equal(page.error, null);
   const tip = page.doc.querySelector('.term-tip');
   tip.offsetWidth = 352;
@@ -686,6 +695,31 @@ test('term preview avoids covering the remainder of its own reading block', () =
     Number.parseFloat(tip.style.top) + tip.offsetHeight <= paragraph.getBoundingClientRect().top,
     'the card uses the clear side instead of covering following lines in the paragraph',
   );
+});
+
+test('term preview sits beside its word at both laptop viewports', () => {
+  for (const [width, height] of [[1280, 800], [1440, 900]]) {
+    const tab = makeTab();
+    const term = makeLink('glossary.html#glossary-proof', 'proof-term');
+    term.className = 'narrative-ref--term';
+    term.setAttribute('data-term', 'proof');
+    term.setAttribute('data-term-preview', 'A proof is a checked argument.');
+    term._docTop = 225; term._height = 20; term._left = 180; term._width = 80;
+    const page = loadPage(tab, hubPage({
+      bodyChildren: [term], links: [term], windowGlobals: { innerWidth: width, innerHeight: height },
+    }));
+    assert.equal(page.error, null);
+    const tip = page.doc.querySelector('.term-tip');
+    tip.offsetWidth = 352;
+    tip.offsetHeight = 140;
+
+    page.doc.dispatch('mouseover', { target: term, relatedTarget: null, clientX: 210, clientY: 235 });
+    assert.equal(tip.getAttribute('data-placement'), 'side');
+    assert.ok(Number.parseFloat(tip.style.left) >= term.getBoundingClientRect().right + 12);
+    assert.ok(Number.parseFloat(tip.style.left) + tip.offsetWidth <= width - 8);
+    assert.ok(Number.parseFloat(tip.style.top) <= term.getBoundingClientRect().bottom);
+    assert.ok(Number.parseFloat(tip.style.top) + tip.offsetHeight >= term.getBoundingClientRect().top);
+  }
 });
 
 test('term hover keeps meaning-scope policy on the glossary drilldown', () => {
