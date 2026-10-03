@@ -1,5 +1,61 @@
 {
-  "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
+  "last_scoped_release": {
+    "changed_paths": {
+      "maths/assets/universe.js": {
+        "after": {
+          "mode": 420,
+          "sha256": "0d2a55d22262166cd8ada308e35b9099c5997e323bff45c6258e99a17f04f237"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "00252860a268031ec58dffffd7ca58e44a498daddf04bc061988f4013cf8767c"
+        }
+      },
+      "maths/index.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "d0bad19adf9da8c7cc9964efcf1abd6976b5ca915f925d3a41d281beefc49c9b"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "1ef22af6e20f2135a881ba3d43bcd494554f3b31722088b8f15cdb5586ad5199"
+        }
+      },
+      "maths/universe.html": {
+        "after": {
+          "mode": 420,
+          "sha256": "09d51d4d33e272badef6cfa40af76326ffb0798d5db0de4f9d98f27b8a015c4a"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "645320737ac612d1b678b3bdfe212191e7655eeaef20a53359d36bedf8ff588b"
+        }
+      }
+    },
+    "current_universe_paths": [
+      "maths/assets/maths.css",
+      "maths/assets/universe-data.json",
+      "maths/assets/universe-layout-full.json",
+      "maths/assets/universe.js",
+      "maths/universe.html"
+    ],
+    "generator_commit": "e0ddbd8ef87e86406623b20d8fba29031f2990e3",
+    "pages_base_commit": "2626015554af2cacfcff31da457c0ab187a92a7d",
+    "private_root_released": false,
+    "protected_file_count": 473,
+    "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
+    "protected_sha256": "ab91cdfd919ebc6c50eba984b7fe1e6ce73187bf5b08a0aa9aa84435cc674d4c",
+    "retained_dependency_recovery": [],
+    "scope": "lean_math_reading_room",
+    "universe_parity": {
+      "full_edges": 9140,
+      "full_nodes": 2902,
+      "index_edges": 2240,
+      "index_nodes": 895,
+      "toolkit_fragment_preserved": true
+    }
+  },
+  "note": "Source frontiers that later releases must contain. Last scoped release updates only its declared paths; protected historical products were not regenerated or relabeled current.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {

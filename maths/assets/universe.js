@@ -237,6 +237,18 @@
       }
       return false;
     }
+    // The name plates of the hovered and the selected result in the frame
+    // being drawn. They are placed before anything is lettered, so a name a
+    // plate would half cover steps aside while the reader points.
+    var plateBoxes = [];
+    function underPlate(box) {
+      for (var b = 0; b < plateBoxes.length; b++) {
+        var p = plateBoxes[b];
+        if (box.x0 < p.x1 - LABEL_GRACE && box.x1 > p.x0 + LABEL_GRACE &&
+            box.y0 < p.y1 - LABEL_GRACE && box.y1 > p.y0 + LABEL_GRACE) return true;
+      }
+      return false;
+    }
     var bands = [];
     /* A statement card's Lean statements and Comparator checks arrive on
        first opening, from the experience API; the teaser never asks. */
@@ -1039,7 +1051,16 @@
         var item = items[n], lower = readsDownward(item.mid);
         // Reading downward the name sits inside the count; upward, outside.
         var rows = item.title ? (lower ? [item.title, item.count] : [item.count, item.title]) : [item.count];
-        for (var li = 0; li < rows.length; li++) drawArcText(rows[li], item.base + li * 13, item.mid, lower);
+        // Under a name plate both lines step aside together. Their room
+        // stays taken, so no other label moves while the reader points.
+        var covered = false;
+        for (var li = 0; li < rows.length; li++) {
+          if (underPlate(arcRunBox(rows[li], item.base + li * 13, item.mid))) covered = true;
+        }
+        for (li = 0; li < rows.length; li++) {
+          if (covered) labelBoxes.push(arcRunBox(rows[li], item.base + li * 13, item.mid));
+          else drawArcText(rows[li], item.base + li * 13, item.mid, lower);
+        }
       }
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'center';
@@ -1094,8 +1115,13 @@
         }
       }
       ctx.globalAlpha = 1;
-      // The run's box, from its two ends and its middle, so later labels
-      // keep clear of it.
+      labelBoxes.push(arcRunBox(row, radius, mid));
+    }
+    // A run's box, from its two ends and its middle, so later labels keep
+    // clear of it.
+    function arcRunBox(row, radius, mid) {
+      ctx.font = row.font;
+      var span = arcLetters(row.text).width / radius;
       var ends = [mid - span / 2, mid, mid + span / 2];
       var box = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
       for (var e = 0; e < ends.length; e++) {
@@ -1103,7 +1129,7 @@
         box.x0 = Math.min(box.x0, ex - 7); box.x1 = Math.max(box.x1, ex + 7);
         box.y0 = Math.min(box.y0, ey - 7); box.y1 = Math.max(box.y1, ey + 7);
       }
-      labelBoxes.push(box);
+      return box;
     }
 
     function drawCaptions(focus, w, h) {
@@ -1141,6 +1167,10 @@
               break;
             }
           }
+          var calloutBox = { x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 };
+          labelBoxes.push(calloutBox);
+          // Under a name plate the callout and its line step aside together.
+          if (underPlate(calloutBox)) continue;
           ctx.globalAlpha = 0.85 * revealAlpha(4);
           ctx.strokeStyle = palette.faint;
           ctx.lineWidth = 0.65;
@@ -1157,11 +1187,20 @@
           ctx.fillStyle = palette.ink;
           ctx.fillText(compactText, calloutX, calloutY);
           ctx.globalAlpha = 1;
-          labelBoxes.push({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 });
           continue;
         }
         labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
-        ctx.textAlign = c.reach ? 'center' : c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
+        var align = c.reach ? 'center' : c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
+        ctx.font = 'italic 600 11.5px ' + SERIF;
+        var textWidth = ctx.measureText(c.text).width;
+        if (c.sub) {
+          ctx.font = 'italic 400 10.5px ' + SERIF;
+          textWidth = Math.max(textWidth, ctx.measureText(c.sub).width);
+        }
+        var textLeft = align === 'left' ? cx : align === 'right' ? cx - textWidth : cx - textWidth / 2;
+        if (underPlate({ x0: textLeft - 2, x1: textLeft + textWidth + 2,
+                         y0: cy - (c.sub ? 16 : 9), y1: cy + (c.sub ? 15 : 7) })) continue;
+        ctx.textAlign = align;
         ctx.globalAlpha = (focus >= 0 ? 0.45 : 0.85) * revealAlpha(4);
         // Captions sit on the same paper halo as the node labels, so they
         // stay legible where they cross a ring of claims.
@@ -1180,6 +1219,41 @@
         ctx.globalAlpha = 1;
       }
       ctx.textBaseline = 'alphabetic';
+    }
+
+    /* A hovered or selected result sits in a dense field, so its name goes
+       beside it on a plate, toward the open side of the map, never across
+       the band under it. Outward first; the other side only when it has
+       more room. A name longer than the room is shortened: the card has it
+       whole. */
+    function namePlate(i, rs, w) {
+      var n = nodes[i];
+      ctx.font = '500 12px ' + SERIF;
+      var text = clip(n.shortLabel, 60);
+      var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
+      var y = ly + n.r * rs + 15;
+      var tw = ctx.measureText(text).width, gap = n.r * rs + 16;
+      var roomRight = w - 14 - (lx + gap), roomLeft = lx - gap - 14;
+      var side = n.x >= 0 ? 1 : -1;
+      var room = side > 0 ? roomRight : roomLeft;
+      if (room < tw && (side > 0 ? roomLeft : roomRight) > room) {
+        side = -side;
+        room = side > 0 ? roomRight : roomLeft;
+      }
+      if (room >= 90) {
+        if (tw > room) {
+          text = clip(text, Math.max(8, Math.floor(text.length * room / tw) - 1));
+          tw = ctx.measureText(text).width;
+        }
+        lx += side * (gap + tw / 2);
+        y = ly + 4;
+      } else if (tw > w - 28) {
+        text = clip(text, Math.max(8, Math.floor(text.length * (w - 28) / tw) - 1));
+      }
+      var width = ctx.measureText(text).width, half = width / 2 + 6;
+      var x = Math.max(half, Math.min(w - half, lx));
+      var x0 = Math.max(2, Math.min(w - width - 2, x - width / 2));
+      return { text: text, x: x, y: y, box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7, owner: i } };
     }
 
     function draw() {
@@ -1202,6 +1276,18 @@
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
       labelBoxes = [];
+      // The hovered and the selected result name themselves on plates. The
+      // plates are placed first, so the band titles and the shared callout,
+      // lettered before the labels, can step aside from under them.
+      plateBoxes = [];
+      [hover, selected].forEach(function (at, k) {
+        if (at < 0 || (k === 1 && at === hover)) return;
+        var pn = nodes[at];
+        if (!pn || !visible(pn) || (pn.kind !== 'paper_statement' && pn.kind !== 'public_claim')) return;
+        var px = pn.x * view.k + view.tx, py = pn.y * view.k + view.ty;
+        if (px < -60 || py < -60 || px > w + 60 || py > h + 60) return;
+        plateBoxes.push(namePlate(at, rs, w).box);
+      });
 
       drawGround(w, h);
       drawSectorSlice(focus);
@@ -1434,31 +1520,14 @@
           lx = chosen[0];
           labelY = chosen[1];
         }
-        // A selected result or claim sits in a dense field, so its name goes
-        // beside it on a plate, toward the open side of the map, never
-        // across the band under it.
+        // A hovered or selected result or claim names itself on a plate,
+        // where the frame's first step already placed it.
         var plate = false;
         if (isFocus && (n.kind === 'paper_statement' || n.kind === 'public_claim')) {
-          // Outward first; the other side only when it has more room. A
-          // name longer than the room is shortened: the card has it whole.
-          var tw = ctx.measureText(text).width, gap = n.r * rs + 16;
-          var roomRight = w - 14 - (lx + gap), roomLeft = lx - gap - 14;
-          var side = n.x >= 0 ? 1 : -1;
-          var room = side > 0 ? roomRight : roomLeft;
-          if (room < tw && (side > 0 ? roomLeft : roomRight) > room) {
-            side = -side;
-            room = side > 0 ? roomRight : roomLeft;
-          }
-          if (room >= 90) {
-            if (tw > room) {
-              text = clip(text, Math.max(8, Math.floor(text.length * room / tw) - 1));
-              tw = ctx.measureText(text).width;
-            }
-            lx += side * (gap + tw / 2);
-            labelY = ly + 4;
-          } else if (tw > w - 28) {
-            text = clip(text, Math.max(8, Math.floor(text.length * (w - 28) / tw) - 1));
-          }
+          var placed = namePlate(i, rs, w);
+          text = placed.text;
+          lx = placed.x;
+          labelY = placed.y;
           half = ctx.measureText(text).width / 2 + 6;
           plate = true;
         }
