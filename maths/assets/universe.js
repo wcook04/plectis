@@ -48,7 +48,7 @@
     integration_surface: 9,
     paper: 7,
     human_document: 6,
-    public_claim: 5.4,
+    public_claim: 4.2,
     mathematical_object: 2.8,
     paper_statement: 2.6,
     lean_module: 2
@@ -222,6 +222,17 @@
     var pendingId = null;
     var countText = '';
     var statementMeta = null;
+    var paperSequence = {};
+    // Boxes taken by labels and anchor discs in the frame being drawn.
+    var labelBoxes = [];
+    function labelCollides(box) {
+      for (var b = 0; b < labelBoxes.length; b++) {
+        var p = labelBoxes[b];
+        if (p.owner !== undefined && p.owner === box.owner) continue;
+        if (box.x0 < p.x1 && box.x1 > p.x0 && box.y0 < p.y1 && box.y1 > p.y0) return true;
+      }
+      return false;
+    }
     var bands = [];
     /* A statement card's Lean statements and Comparator checks arrive on
        first opening, from the experience API; the teaser never asks. */
@@ -238,7 +249,8 @@
                   rim: cssColor(styles, '--u-rim', 'rgba(0,0,0,0.3)'),
                   ground: cssColor(styles, '--surface', '#fffdf7'),
                   ink: cssColor(styles, '--ink', '#211318'),
-                  faint: cssColor(styles, '--faint', '#786359') };
+                  faint: cssColor(styles, '--faint', '#786359'),
+                  muted: cssColor(styles, '--muted', '#6b5f58') };
       for (var kind in KIND_COLOR) {
         palette[kind] = cssColor(styles, KIND_COLOR[kind], '#888888');
       }
@@ -300,16 +312,83 @@
       view.ty = h / 2 - k * (minY + maxY) / 2;
     }
 
+    /* ---- Camera ------------------------------------------------------ */
+    /* A move between views eases over a third of a second, so the reader
+       keeps their bearings; it is skipped under reduced motion. The centre
+       of the view travels in a straight line and the scale geometrically,
+       which keeps the move from swooping. */
+    var cameraFrame = 0;
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    function cameraTo(target, fitted) {
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (cameraFrame && window.cancelAnimationFrame) window.cancelAnimationFrame(cameraFrame);
+      cameraFrame = 0;
+      var finish = function () {
+        view.k = target.k; view.tx = target.tx; view.ty = target.ty;
+        viewIsFitted = !!fitted;
+        draw();
+      };
+      if (reduceMotion || !window.requestAnimationFrame || !w) { finish(); return; }
+      var from = { k: view.k, cx: (w / 2 - view.tx) / view.k, cy: (h / 2 - view.ty) / view.k };
+      var to = { k: target.k, cx: (w / 2 - target.tx) / target.k, cy: (h / 2 - target.ty) / target.k };
+      var start = null, duration = 340;
+      viewIsFitted = false;
+      var step = function (now) {
+        if (start === null) start = now;
+        var t = Math.min(1, (now - start) / duration);
+        var e = 1 - Math.pow(1 - t, 3);
+        var k = from.k * Math.pow(to.k / from.k, e);
+        var cx = from.cx + (to.cx - from.cx) * e, cy = from.cy + (to.cy - from.cy) * e;
+        view.k = k; view.tx = w / 2 - cx * k; view.ty = h / 2 - cy * k;
+        draw();
+        if (t < 1) cameraFrame = window.requestAnimationFrame(step);
+        else { cameraFrame = 0; finish(); }
+      };
+      cameraFrame = window.requestAnimationFrame(step);
+    }
+    function frameOf(indices, maxK) {
+      var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      indices.forEach(function (i) {
+        var n = nodes[i];
+        if (n.x < minX) minX = n.x;
+        if (n.x > maxX) maxX = n.x;
+        if (n.y < minY) minY = n.y;
+        if (n.y > maxY) maxY = n.y;
+      });
+      var w = canvas.clientWidth, h = canvas.clientHeight, pad = 56;
+      var k = Math.min((w - pad * 2) / Math.max(1, maxX - minX), (h - pad * 2) / Math.max(1, maxY - minY));
+      k = Math.max(fittedScale, Math.min(maxK, k));
+      return { k: k, tx: w / 2 - k * (minX + maxX) / 2, ty: h / 2 - k * (minY + maxY) / 2 };
+    }
+    function fitAnimated() {
+      var keep = { k: view.k, tx: view.tx, ty: view.ty };
+      fit();
+      var target = { k: view.k, tx: view.tx, ty: view.ty };
+      view.k = keep.k; view.tx = keep.tx; view.ty = keep.ty;
+      cameraTo(target, true);
+    }
+
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
+      var n = nodes[i];
       // The core and the verification hubs reach across the whole ring, so
       // opening one frames the field rather than the hub.
-      if (nodes[i].kind === 'universe' || nodes[i].kind === 'integration_surface') { fit(); draw(); return; }
-      viewIsFitted = false;
-      if (view.k < 1.1) view.k = 1.6;
-      view.tx = canvas.clientWidth / 2 - nodes[i].x * view.k;
-      view.ty = canvas.clientHeight / 2 - nodes[i].y * view.k;
-      draw();
+      if (n.kind === 'universe' || n.kind === 'integration_surface') { fitAnimated(); return; }
+      // A problem frames its whole sector: papers, claims and its band.
+      if (n.kind === 'problem' && n.sector) {
+        var members = [i];
+        for (var j = 0; j < nodes.length; j++) {
+          if (j !== i && visible(nodes[j]) && nodes[j].sector &&
+              sectorProblems(nodes[j]).indexOf(n.sector) !== -1 && nodes[j].kind !== 'lean_module') {
+            members.push(j);
+          }
+        }
+        cameraTo(frameOf(members, 3), false);
+        return;
+      }
+      // A result is shown close enough to read its neighbours' numbers.
+      var k = n.kind === 'paper_statement' ? Math.max(view.k, 3.2) : (view.k < 1.1 ? 1.6 : view.k);
+      cameraTo({ k: k, tx: canvas.clientWidth / 2 - n.x * k, ty: canvas.clientHeight / 2 - n.y * k }, false);
     }
 
     /* The focused object is the pinned one, or the hovered one while a
@@ -332,6 +411,11 @@
       var n = nodes[i];
       for (j = 0; j < rows.length; j++) {
         if (n.kind !== 'universe' || nodes[rows[j].to].kind === 'problem') set[rows[j].to] = true;
+      }
+      // A paper result keeps its whole paper lit: the run of the band that
+      // paper occupies, in the order the stepper walks it.
+      if (n.kind === 'paper_statement' && paperSequence[n.paperId]) {
+        paperSequence[n.paperId].forEach(function (k) { set[k] = true; });
       }
       if (n.kind === 'problem' && n.sector) {
         for (j = 0; j < nodes.length; j++) {
@@ -459,7 +543,8 @@
     function bandState(b, focus) {
       if (focus < 0) return 'rest';
       var f = nodes[focus];
-      if (f.kind === 'universe' || f.kind === 'integration_surface') return 'rest';
+      if (f.kind === 'integration_surface') return 'on';
+      if (f.kind === 'universe') return 'rest';
       if (f.sector && sectorProblems(f).indexOf(b.sector) !== -1) return 'on';
       return 'off';
     }
@@ -467,8 +552,130 @@
       return key === 'replayed' ? palette.integration_surface :
         key === 'none' ? palette.faint : palette.paper_statement;
     }
+    /* A selected hub reaches each band: one translucent wedge from the hub
+       to the band's inner edge, stronger where more of the band is replayed.
+       The replayed dots are spread through each band in paper order, so the
+       wedge covers the band rather than pointing at a part of it. */
+    function drawHubWedges(focus) {
+      if (focus < 0 || nodes[focus].kind !== 'integration_surface' || !bands.length) return;
+      var hub = nodes[focus], k = view.k;
+      var hx = hub.x * k + view.tx, hy = hub.y * k + view.ty;
+      var palomar = hub.id === 'integration:palomar';
+      for (var i = 0; i < bands.length; i++) {
+        var b = bands[i], radii = bandRadii(b);
+        if (!isFinite(radii[0])) continue;
+        var total = 0;
+        for (var key in b.evidence) total += b.evidence[key];
+        var share = total ? (b.evidence.replayed || 0) / total : 0;
+        if (!share) continue;
+        var r = (radii[0] - 12) * k;
+        // Light from the hub: clear at the hub, strongest at the band.
+        var mid = (b.lo + b.hi) / 2;
+        var bx = view.tx + Math.cos(mid) * r, by = view.ty + Math.sin(mid) * r;
+        var reach = Math.sqrt((bx - hx) * (bx - hx) + (by - hy) * (by - hy)) || 1;
+        var ray = ctx.createRadialGradient ? ctx.createRadialGradient(hx, hy, 0, hx, hy, reach) : null;
+        if (ray) {
+          ray.addColorStop(0, 'rgba(0,0,0,0)');
+          ray.addColorStop(1, palette.integration_surface);
+          ctx.fillStyle = ray;
+        } else {
+          ctx.fillStyle = palette.integration_surface;
+        }
+        ctx.globalAlpha = (palomar ? 0.05 : 0.08) + (palomar ? 0.07 : 0.14) * share;
+        ctx.beginPath();
+        ctx.moveTo(hx, hy);
+        ctx.arc(view.tx, view.ty, r, b.lo, b.hi);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* A selected result threads its paper's results in order, row by row,
+       the way a star chart draws a constellation. Long jumps between rows
+       are left out. */
+    function drawConstellation(focus) {
+      if (focus < 0 || nodes[focus].kind !== 'paper_statement') return;
+      var seq = paperSequence[nodes[focus].paperId];
+      if (!seq || seq.length < 2) return;
+      var k = view.k, limit = 26 * k;
+      ctx.globalAlpha = 0.55;
+      ctx.strokeStyle = palette.edgeHot;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (var j = 1; j < seq.length; j++) {
+        var a = nodes[seq[j - 1]], b = nodes[seq[j]];
+        var ax = a.x * k + view.tx, ay = a.y * k + view.ty, bx = b.x * k + view.tx, by = b.y * k + view.ty;
+        if ((ax - bx) * (ax - bx) + (ay - by) * (ay - by) > limit * limit) continue;
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(bx, by);
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    /* The ground of the field: a soft light at the centre, the way a chart
+       of the sky darkens toward its rim, and one faint orbit through the
+       problems so the ring reads as a single structure. */
+    function drawGround(w, h) {
+      var outer = 0;
+      for (var i = 0; i < bands.length; i++) outer = Math.max(outer, bandRadii(bands[i])[1] || 0);
+      if (!outer) return;
+      var k = view.k;
+      var glow = ctx.createRadialGradient ? ctx.createRadialGradient(view.tx, view.ty, 0, view.tx, view.ty, outer * k * 1.05) : null;
+      if (glow) {
+        glow.addColorStop(0, palette.plate);
+        glow.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, w, h);
+      }
+      var orbit = 0, count = 0;
+      for (var pid in problemIndex) {
+        var p = nodes[problemIndex[pid]];
+        if (!p || !visible(p)) continue;
+        orbit += Math.sqrt(p.x * p.x + p.y * p.y);
+        count++;
+      }
+      if (!count) return;
+      ctx.globalAlpha = 0.7;
+      ctx.strokeStyle = palette.edge;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(view.tx, view.ty, orbit / count * k, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    /* Each problem's marker carries its own evidence: a thin ring around
+       the disc, split in proportion like its band's gauge. */
+    function drawProblemRing(n, x, y, r) {
+      var b = null;
+      for (var i = 0; i < bands.length; i++) if (bands[i].sector === n.sector) { b = bands[i]; break; }
+      if (!b || lensOff.paper_statement) return;
+      var total = 0, key;
+      for (key in b.evidence) total += b.evidence[key];
+      if (!total) return;
+      var at = -Math.PI / 2, rr = r + 3.5;
+      ctx.lineWidth = 2.4;
+      ctx.lineCap = 'butt';
+      for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
+        key = EVIDENCE_ORDER[j];
+        if (!b.evidence[key]) continue;
+        var to = at + Math.PI * 2 * b.evidence[key] / total;
+        ctx.strokeStyle = evidenceColor(key);
+        var keepAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = keepAlpha * EVIDENCE_GAUGE_ALPHA[key];
+        ctx.beginPath();
+        ctx.arc(x, y, rr, at, to);
+        ctx.stroke();
+        ctx.globalAlpha = keepAlpha;
+        at = to;
+      }
+    }
+
     function drawBandPlates(focus) {
       if (!bands.length || lensOff.paper_statement) return;
+      drawHubWedges(focus);
       var k = view.k;
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
@@ -501,14 +708,70 @@
             at = to;
           }
         }
+        // A faint guide from the problem out to its band: the band sits
+        // beyond the claims, and the eye needs the thread between them.
+        var p = problemIndex[b.sector] !== undefined ? nodes[problemIndex[b.sector]] : null;
+        if (p && visible(p) && gaugeR > 0) {
+          var dist = Math.sqrt(p.x * p.x + p.y * p.y) || 1;
+          var ux = p.x / dist, uy = p.y / dist;
+          var from = dist * k + p.r * radiusScale() + 3;
+          ctx.globalAlpha = state === 'off' ? 0.25 : state === 'on' ? 0.9 : 0.55;
+          ctx.strokeStyle = palette.edge;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([2, 4]);
+          ctx.beginPath();
+          ctx.moveTo(view.tx + ux * from, view.ty + uy * from);
+          ctx.lineTo(view.tx + ux * (gaugeR - 4), view.ty + uy * (gaugeR - 4));
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
       }
       ctx.globalAlpha = 1;
     }
+
+    /* Close in, a result shows its printed number above its dot, so a band
+       reads as the paper's own sequence. */
+    function drawStatementNumbers(focus, near, searching, w, h) {
+      if (view.k < 3 || lensOff.paper_statement) return;
+      ctx.font = '600 9px ' + SERIF;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      var rs = radiusScale();
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (n.kind !== 'paper_statement' || !n.num || !visible(n) || i === focus) continue;
+        if (focus >= 0 && !near[i]) continue;
+        if (searching && !matches(n)) continue;
+        var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
+        if (x < -10 || y < -10 || x > w + 10 || y > h + 10) continue;
+        var ly = y - n.r * rs - 4;
+        var half = ctx.measureText(n.num).width / 2 + 1;
+        var box = { x0: x - half, x1: x + half, y0: ly - 8, y1: ly + 2, owner: i };
+        if (labelCollides(box)) continue;
+        labelBoxes.push(box);
+        ctx.strokeStyle = palette.ground;
+        ctx.strokeText(n.num, x, ly);
+        ctx.fillStyle = palette.faint;
+        ctx.fillText(n.num, x, ly);
+      }
+    }
+    /* Which way a label reads along the ring. Over the top it runs
+       clockwise, under the bottom anticlockwise, and within 40 degrees of
+       either side both run bottom to top, so the two sides of the ring never
+       read in opposite directions. */
+    function readsDownward(mid) {
+      var c = Math.cos(mid), s = Math.sin(mid);
+      if (Math.abs(c) > 0.766) return c > 0;
+      return s > 0;
+    }
+
     function drawBandLabels(focus, w, h) {
       if (!bands.length || lensOff.paper_statement) return;
       if (!pageMode && w < 520) return;
       var k = view.k;
-      ctx.lineJoin = 'round';
+      var items = [];
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
         if (!isFinite(radii[1])) continue;
@@ -516,29 +779,52 @@
         if (state === 'off') continue;
         var total = 0;
         for (var key in b.evidence) total += b.evidence[key];
-        // Two lines set along the ring outside the band, the way a star chart
-        // names a constellation: whose band it is, and how far it has been
-        // checked. They take no width beside the field, so no edge pushes
-        // them back over the dots. A narrow teaser keeps the count alone.
-        var mid = (b.lo + b.hi) / 2;
-        var lower = Math.sin(mid) > 0;
         var base = (radii[1] + 6) * k + 9;
-        var count = { text: (b.evidence.replayed || 0) + ' of ' + total + ' replayed', font: '400 11px ' + SERIF, color: palette.faint, alpha: 1 };
-        var title = null;
-        if (b.title && (pageMode || w >= 640)) {
-          title = { text: b.title, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.85 };
-          ctx.font = title.font;
-          // A name wider than its band and a half shrinks to the number.
-          if (ctx.measureText(title.text).width / (base + 13) > (b.hi - b.lo) * 1.5) {
-            title.text = title.text.split(' ')[0];
-          }
+        // A narrow field keeps the number and a compact count.
+        var narrow = w < 560;
+        var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
+                      font: '600 11px ' + SERIF, color: palette.muted, alpha: 1 };
+        var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
+        var title = titleText && (pageMode || w >= 640) ?
+          { text: titleText, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.86 } : null;
+        items.push({ band: b, base: base, mid: (b.lo + b.hi) / 2, count: count, title: title });
+      }
+      // Each label's half-width as an angle at its radius.
+      function halfSpan(item) {
+        ctx.font = item.count.font;
+        var width = ctx.measureText(item.count.text).width;
+        if (item.title) {
+          ctx.font = item.title.font;
+          width = Math.max(width, ctx.measureText(item.title.text).width);
         }
-        // Reading downward: on the upper half the name sits outside the
-        // count; on the lower half, inside it.
-        var rows = title ? (lower ? [title, count] : [count, title]) : [count];
-        for (var li = 0; li < rows.length; li++) {
-          drawArcText(rows[li], base + li * 13, mid, lower);
+        return width / (2 * (item.base + 13)) + 0.02;
+      }
+      items.sort(function (a, b) { return a.mid - b.mid; });
+      // Relax overlaps into the gaps between bands before giving anything up.
+      for (var pass = 0; pass < 6; pass++) {
+        for (var j = 0; j < items.length; j++) {
+          var a = items[j], c = items[(j + 1) % items.length];
+          var cMid = c.mid + (j + 1 === items.length ? Math.PI * 2 : 0);
+          var gap = (cMid - halfSpan(c)) - (a.mid + halfSpan(a));
+          if (gap >= 0) continue;
+          var shift = -gap / 2;
+          a.mid = Math.max(a.band.lo - 0.2, a.mid - shift);
+          c.mid = Math.min(c.band.hi + 0.2, c.mid + shift);
         }
+      }
+      // Whatever still collides keeps its number and drops its name.
+      for (var m = 0; m < items.length; m++) {
+        var prev = items[(m - 1 + items.length) % items.length], cur = items[m];
+        var prevMid = prev.mid - (m === 0 ? Math.PI * 2 : 0);
+        if (cur.title && items.length > 1 && (cur.mid - halfSpan(cur)) < (prevMid + halfSpan(prev))) {
+          cur.title.text = cur.title.text.split(' ')[0];
+        }
+      }
+      for (var n = 0; n < items.length; n++) {
+        var item = items[n], lower = readsDownward(item.mid);
+        // Reading downward the name sits inside the count; upward, outside.
+        var rows = item.title ? (lower ? [item.title, item.count] : [item.count, item.title]) : [item.count];
+        for (var li = 0; li < rows.length; li++) drawArcText(rows[li], item.base + li * 13, item.mid, lower);
       }
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'center';
@@ -592,7 +878,9 @@
          at desktop size would then cover each other, so they shrink with the
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
+      labelBoxes = [];
 
+      drawGround(w, h);
       drawBandPlates(focus);
 
       var hot = incidentEdges(focus), hotSet = {};
@@ -607,6 +895,7 @@
       var shownEdges = quiet.length + hot.length;
       drawEdgeSet(quiet, focus >= 0 ? 0.3 : 0.65, 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
+      drawConstellation(focus);
 
       /* A shared sector must remain named in the fitted overview. Its
          compact callout sits beyond the claim band; the line identifies
@@ -640,8 +929,10 @@
           ctx.fillStyle = palette.ink;
           ctx.fillText(compactText, calloutX, calloutY);
           ctx.globalAlpha = 1;
+          labelBoxes.push({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 });
           continue;
         }
+        labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
         ctx.textAlign = c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
         ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
         ctx.fillStyle = palette.faint;
@@ -681,15 +972,79 @@
           ctx.arc(x, y, r + 7, 0, Math.PI * 2);
           ctx.fill();
         }
-        drawGlyph(x, y, r, glyphColor(n), n.tier);
+        if (n.kind === 'universe') {
+          // The core is a ring round a point: the Lean source everything
+          // here is checked against, drawn as a mark, not a mass.
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = palette.ground;
+          ctx.fill();
+          ctx.lineWidth = 1.8;
+          ctx.strokeStyle = palette.universe;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(x, y, Math.max(1.6, r * 0.32), 0, Math.PI * 2);
+          ctx.fillStyle = palette.universe;
+          ctx.fill();
+        } else if (n.id === 'integration:palomar') {
+          // Palomar holds a prepared corpus, nothing submitted: a ring.
+          ctx.beginPath();
+          ctx.arc(x, y, r - 1, 0, Math.PI * 2);
+          ctx.fillStyle = palette.ground;
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = palette.integration_surface;
+          ctx.stroke();
+        } else {
+          drawGlyph(x, y, r, glyphColor(n), n.tier);
+          if (n.kind === 'problem') drawProblemRing(n, x, y, r);
+        }
+        if (i === selected) {
+          // The selected object keeps a crisp ring, so it stays findable
+          // when the camera moves or the field is busy.
+          ctx.globalAlpha = 1;
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = palette.ink;
+          ctx.beginPath();
+          ctx.arc(x, y, r + (n.kind === 'problem' ? 8 : 5), 0, Math.PI * 2);
+          ctx.stroke();
+        }
         ctx.globalAlpha = 1;
       }
 
-      /* Labels: anchors always; middle kinds once zoomed in; anything under
-         the pointer or pinned. Every canvas label is clipped — full names
-         live in the inspector — and sits on a paper halo for legibility. */
+      /* Labels are placed, not just drawn. Each is a box on the field, taken
+         in priority order: the selected or hovered object, then the
+         problems, the hubs and the core, their second lines, then the rest.
+         A label that would land on a placed label or on an anchor's disc is
+         left out; its object still names itself on hover and in the rail. */
       ctx.textAlign = 'center';
       ctx.lineJoin = 'round';
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (!visible(n)) continue;
+        if (n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface') continue;
+        var ax = n.x * view.k + view.tx, ay = n.y * view.k + view.ty, ar = n.r * rs + 4;
+        labelBoxes.push({ x0: ax - ar, x1: ax + ar, y0: ay - ar, y1: ay + ar, owner: i });
+      }
+      // Glyphs a problem's label must not sit on: the claims and papers that
+      // crowd round each problem.
+      var glyphBoxes = [];
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (!visible(n) || (n.kind !== 'public_claim' && n.kind !== 'paper')) continue;
+        var gx = n.x * view.k + view.tx, gy = n.y * view.k + view.ty, gr = n.r * rs + 3;
+        if (gx < -40 || gy < -40 || gx > w + 40 || gy > h + 40) continue;
+        glyphBoxes.push({ x0: gx - gr, x1: gx + gr, y0: gy - gr, y1: gy + gr });
+      }
+      function glyphHits(box) {
+        var count = 0;
+        for (var g = 0; g < glyphBoxes.length; g++) {
+          var q = glyphBoxes[g];
+          if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count++;
+        }
+        return count;
+      }
+      var candidates = [];
       for (i = 0; i < nodes.length; i++) {
         n = nodes[i];
         if (!visible(n)) continue;
@@ -705,43 +1060,104 @@
         var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
         if (lx < -60 || ly < -60 || lx > w + 60 || ly > h + 60) continue;
         var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
-        ctx.font = (big ? '700 13px ' : '600 12px ') + SERIF;
+        var font = (big ? '700 13px ' : '600 12px ') + SERIF;
+        ctx.font = font;
         var text = clip(n.shortLabel, isFocus ? 60 : 42);
         if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
           var number = n.id.match(/(?:^|[:_])(\d+)$/);
           if (number) text = '#' + number[1];
         }
-        // A label near the edge slides inward so it is never cut off.
         var half = ctx.measureText(text).width / 2 + 6;
         var labelY = ly + n.r * rs + 15;
         if (n.kind === 'problem') {
+          // Beside the disc, where the field is empty. Along the orbit
+          // first (either way), then inward, then outward: the first spot
+          // that clears the problem's claims and papers wins.
           var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
-          var offset = n.r * rs + 17;
-          lx += n.x / distance * offset;
-          labelY = ly + n.y / distance * offset + 4;
+          var ux = n.x / distance, uy = n.y / distance;
+          var dirs = [[-uy, ux], [uy, -ux], [-ux, -uy], [ux, uy]];
+          var px = lx, py = ly, chosen = null, fewest = Infinity;
+          for (var d = 0; d < dirs.length; d++) {
+            var dx = dirs[d][0], dy = dirs[d][1];
+            var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy);
+            var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
+            var textHalf = half - 6;
+            var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
+            var hits = glyphHits(trial);
+            if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
+            if (!hits) break;
+          }
+          lx = chosen[0];
+          labelY = chosen[1];
+        }
+        // A selected result or claim sits in a dense field, so its name goes
+        // beside it on a plate, toward the open side of the map, never
+        // across the band under it.
+        var plate = false;
+        if (isFocus && (n.kind === 'paper_statement' || n.kind === 'public_claim')) {
+          // Outward first; the other side only when it has more room. A
+          // name longer than the room is shortened: the card has it whole.
+          var tw = ctx.measureText(text).width, gap = n.r * rs + 16;
+          var roomRight = w - 14 - (lx + gap), roomLeft = lx - gap - 14;
+          var side = n.x >= 0 ? 1 : -1;
+          var room = side > 0 ? roomRight : roomLeft;
+          if (room < tw && (side > 0 ? roomLeft : roomRight) > room) {
+            side = -side;
+            room = side > 0 ? roomRight : roomLeft;
+          }
+          if (room >= 90) {
+            if (tw > room) {
+              text = clip(text, Math.max(8, Math.floor(text.length * room / tw) - 1));
+              tw = ctx.measureText(text).width;
+            }
+            lx += side * (gap + tw / 2);
+            labelY = ly + 4;
+          } else if (tw > w - 28) {
+            text = clip(text, Math.max(8, Math.floor(text.length * (w - 28) / tw) - 1));
+          }
+          half = ctx.measureText(text).width / 2 + 6;
+          plate = true;
         }
         lx = Math.max(half, Math.min(w - half, lx));
-        ctx.lineWidth = 3.5;
-        ctx.strokeStyle = palette.ground;
-        ctx.strokeText(text, lx, labelY);
-        ctx.fillStyle = palette.ink;
-        ctx.fillText(text, lx, labelY);
-        // A quieter second line: a problem's name, a hub's reach. It waits
-        // for room: a problem's name only once the field is wide enough.
-        var wantSub = n.sub && !isFocus && w >= 420 &&
-          (n.kind !== 'problem' || (w >= 600 && view.k >= 0.45));
-        if (wantSub) {
-          ctx.font = '400 11px ' + SERIF;
-          var subText = clip(n.sub, 36);
-          var subHalf = ctx.measureText(subText).width / 2 + 6;
-          var sx = Math.max(subHalf, Math.min(w - subHalf, lx));
-          ctx.strokeText(subText, sx, labelY + 13);
-          ctx.fillStyle = palette.faint;
-          ctx.fillText(subText, sx, labelY + 13);
+        var priority = isFocus ? 10 : n.kind === 'problem' ? 8 : big ? 7 : 3;
+        candidates.push({ text: text, x: lx, y: labelY, font: font, size: big ? 13 : 12, plate: plate,
+                          color: palette.ink, priority: priority, owner: i, order: candidates.length });
+        // A quieter second line: a hub's reach. It waits for room.
+        if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
+          candidates.push({ text: clip(n.sub, 36), x: lx, y: labelY + 13, font: '400 11px ' + SERIF, size: 11,
+                            color: palette.faint, priority: 5, owner: i, order: candidates.length });
         }
       }
+      candidates.sort(function (a, b) { return b.priority - a.priority || a.order - b.order; });
+      for (var ci = 0; ci < candidates.length; ci++) {
+        var cand = candidates[ci];
+        ctx.font = cand.font;
+        var width = ctx.measureText(cand.text).width;
+        var cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
+        var box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
+        if (cand.priority < 10 && labelCollides(box)) continue;
+        if (cand.plate) {
+          box = { x0: cx0 - 9, x1: cx0 + width + 9, y0: cand.y - cand.size - 4, y1: cand.y + 7, owner: cand.owner };
+          ctx.beginPath();
+          if (typeof ctx.roundRect === 'function') ctx.roundRect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0, 6);
+          else ctx.rect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0);
+          ctx.globalAlpha = 0.94;
+          ctx.fillStyle = palette.ground;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = palette.faint;
+          ctx.stroke();
+        }
+        labelBoxes.push(box);
+        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = palette.ground;
+        ctx.strokeText(cand.text, cx0 + width / 2, cand.y);
+        ctx.fillStyle = cand.color;
+        ctx.fillText(cand.text, cx0 + width / 2, cand.y);
+      }
+      drawStatementNumbers(focus, near, searching, w, h);
       drawBandLabels(focus, w, h);
-
       if (countOut) {
         var line = fmtCount(shown) + ' objects, ' + fmtCount(shownEdges) + ' of ' +
           fmtCount(availableEdges) + ' connections drawn';
@@ -808,6 +1224,24 @@
       return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
     }
 
+    /* The rail at rest reads the map for a newcomer: what a dot is, the
+       evidence across all results in one bar, and the eight problems as rows
+       a keyboard can reach, each with its own gauge. The object inventory
+       folds away below. */
+    function gaugeHtml(counts, label) {
+      var total = 0, key;
+      for (key in counts) total += counts[key];
+      if (!total) return '';
+      var segs = '', words = [];
+      for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
+        key = EVIDENCE_ORDER[j];
+        if (!counts[key]) continue;
+        segs += '<span class="universe-gauge__seg universe-gauge__seg--' + key + '" style="flex-grow:' + counts[key] + '"></span>';
+        words.push(fmtCount(counts[key]) + ' ' + EVIDENCE_TEXT[key]);
+      }
+      return '<span class="universe-gauge" role="img" aria-label="' + escapeHtml((label ? label + ': ' : '') + words.join(', ')) + '">' + segs + '</span>';
+    }
+
     function overviewHtml() {
       var counts = {};
       for (var i = 0; i < nodes.length; i++) {
@@ -825,30 +1259,52 @@
       }
       var status = statusCensusHtml(null);
       var evidence = evidenceCensusHtml(null);
-      var parts = ['<p class="universe-inspector__kind">The universe</p>',
-        '<h2 class="universe-inspector__title">' + shown + ' objects in view</h2>',
-        '<ul class="universe-inspector__census">' + rows + '</ul>'];
+      var parts = [];
       if (evidence.total) {
-        parts.push('<h3 class="universe-inspector__sub">Paper results by evidence (' + evidence.total + ')</h3>');
-        parts.push(evidence.html);
-        var s = statementMeta && statementMeta.summary;
-        if (s) {
-          parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
-            ' Lean declarations in ' + fmtCount(s.lean_files) + ' files state these results; Comparator replays run over ' +
-            fmtCount(s.comparator_entries) + ' corpus entries. Source: the ' +
-            (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
-            '.</p>');
+        var totals = {};
+        for (var q = 0; q < nodes.length; q++) {
+          if (nodes[q].kind === 'paper_statement' && visible(nodes[q])) totals[nodes[q].tier] = (totals[nodes[q].tier] || 0) + 1;
         }
+        parts.push('<p class="universe-inspector__kind">Reading the map</p>');
+        parts.push('<h2 class="universe-inspector__title">' + fmtCount(evidence.total) + ' paper results</h2>');
+        parts.push('<p class="universe-inspector__body">Each dot beyond the ring is a result stated in one of the problem papers. ' +
+          'Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
+          'Select a problem to frame its band, or a result to read its Lean and its replay.</p>');
+        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'All paper results') + '</div>');
+        parts.push(evidence.html);
+      } else {
+        parts.push('<p class="universe-inspector__kind">The universe</p>');
+        parts.push('<h2 class="universe-inspector__title">' + shown + ' objects in view</h2>');
+      }
+      if (bands.length) {
+        var problemRows = bands.map(function (b) {
+          var at = problemIndex[b.sector];
+          if (at === undefined) return '';
+          var total = 0;
+          for (var key in b.evidence) total += b.evidence[key];
+          return '<li><button type="button" class="universe-problem" data-universe-go="' + at + '">' +
+            '<span class="universe-problem__name">' + escapeHtml(b.title || nodes[at].shortLabel) + '</span>' +
+            '<span class="universe-problem__count">' + (b.evidence.replayed || 0) + '/' + total + '</span>' +
+            gaugeHtml(b.evidence, b.title) + '</button></li>';
+        }).join('');
+        parts.push('<h3 class="universe-inspector__sub">Problems</h3><ul class="universe-problems">' + problemRows + '</ul>');
       }
       if (status.total) {
-        parts.push('<h3 class="universe-inspector__sub">Claims by status (' + status.total + ')</h3>');
-        parts.push(status.html);
+        parts.push('<details class="universe-connections"><summary>Headline claims by status <b>' + status.total + '</b></summary>' + status.html + '</details>');
       }
-      for (var c = 0; c < captions.length; c++) {
-        parts.push('<p class="universe-inspector__note">The band on the field is ' +
-          escapeHtml(captions[c].sub || '') + ', ' + escapeHtml(captions[c].text) + '.</p>');
+      parts.push('<details class="universe-connections"><summary>Everything in view <b>' + shown + '</b></summary>' +
+        '<ul class="universe-inspector__census">' + rows + '</ul>' +
+        captions.map(function (c) {
+          return '<p class="universe-inspector__note">The fan inside the ring is ' + escapeHtml(c.sub || '') + ', ' + escapeHtml(c.text) + '.</p>';
+        }).join('') + '</details>');
+      var s = statementMeta && statementMeta.summary;
+      if (s) {
+        parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
+          ' Lean declarations in ' + fmtCount(s.lean_files) + ' files state these results. Source: the ' +
+          (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
+          '.</p>');
       }
-      parts.push('<p class="universe-inspector__hint">Select an object to inspect its connections. The overview shows programme and result relationships; module links appear around the selected object. All connections remain available in its card. Press Esc to unpin.</p>');
+      parts.push('<p class="universe-inspector__hint">Press <kbd>/</kbd> to find a theorem or a Lean name; with a result selected, <kbd>←</kbd> and <kbd>→</kbd> walk its paper.</p>');
       return parts.join('');
     }
 
@@ -878,7 +1334,7 @@
         var group = groups[order[g]];
         html += '<details class="universe-connections"' + (group.kind === 'problem' || rows.length <= 12 ? ' open' : '') + '>' +
           '<summary>' + escapeHtml(KIND_PLURAL[group.kind] || group.kind) +
-          ' · ' + (group.out ? '→ ' : '← ') + escapeHtml(relText(group.rel)) +
+          ' ' + (group.out ? '→ ' : '← ') + escapeHtml(relText(group.rel)) +
           ' <b>' + group.rows.length + '</b></summary>' +
           '<ul class="universe-inspector__list">' + group.rows.join('') + '</ul></details>';
       }
@@ -1060,6 +1516,18 @@
       if (n.side === 'long') where += ', the long record';
       else if (n.side === 'short') where += ', the short paper';
       parts.push('<p class="universe-inspector__note">Asserted in ' + where + '.</p>');
+      var seq = paperSequence[n.paperId];
+      if (pinned && seq && seq.length > 1 && n.seq != null) {
+        // Walk the paper: the previous and next results in the order it
+        // states them (the arrow keys do the same).
+        parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
+          '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
+          (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
+          '<span class="universe-step__at">' + (n.seq + 1) + ' of ' + seq.length + ' in this paper</span>' +
+          '<button type="button" class="universe-step__btn" data-universe-step="1"' +
+          (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
+          '</div>');
+      }
       var facts = [];
       facts.push('<li><b>Lean</b> ' + escapeHtml(LEAN_STATUS_TEXT[n.lean_status] || n.lean_status || 'not recorded') + '</li>');
       var cmp = COMPARATOR_STATUS_TEXT[n.comparator_status] || n.comparator_status || 'not recorded';
@@ -1136,10 +1604,10 @@
           '</p>');
       }
       if (more && more.record) {
-        parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result', 'source-link') + '</p>');
+        parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result') + '</p>');
       } else if (pinned && n.tex && statementMeta && statementMeta.tex_source_base) {
         parts.push('<p class="universe-inspector__note">' +
-          extLink(statementMeta.tex_source_base + n.tex, 'The statement in the paper’s TeX source', 'source-link') + '</p>');
+          extLink(statementMeta.tex_source_base + n.tex, 'The statement in the paper’s TeX source') + '</p>');
       }
       return parts.join('');
     }
@@ -1164,8 +1632,8 @@
           (cmp.pending ? ' ' + fmtCount(cmp.pending) + ' more exact Lean statements are queued for the next replay.' : '') +
           '</p>' +
           '<p class="universe-inspector__note">Selecting Comparator lights every result it reaches. ' +
-          (s.receipts_href ? extLink(s.receipts_href, 'The receipts', 'source-link') + ' and the ' : 'The ') +
-          (repo ? extLink(repo, 'Comparator corpus', 'source-link') : 'corpus') + ' are public.</p>';
+          (s.receipts_href ? extLink(s.receipts_href, 'The receipts') + ' and the ' : 'The ') +
+          (repo ? extLink(repo, 'Comparator corpus') : 'corpus') + ' are public.</p>';
       }
       if (n.id === 'integration:palomar') {
         return '<p class="universe-inspector__body">' + fmtCount(pal.prepared) +
@@ -1186,7 +1654,7 @@
         escapeHtml(KIND_LABEL[n.kind] || n.kind) + '</p>';
       if (pinned) {
         head = '<div class="universe-inspector__head">' + head +
-          '<button type="button" class="universe-inspector__clear" data-universe-clear>Unpin</button></div>';
+          '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
       }
       var parts = [head,
         '<h2 class="universe-inspector__title">' + escapeHtml(n.label) + '</h2>'];
@@ -1195,10 +1663,14 @@
         chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';
       }
       if (n.kind === 'paper_statement' && n.tier) {
-        chips += '<span class="universe-chip">' + glyphHtml(n.tier) + escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span>';
+        chips += '<span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' + glyphHtml(n.tier) +
+          escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span>';
       }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
+      // A paper result leads with where to read it; its evidence follows.
+      var openFirst = n.kind === 'paper_statement';
+      if (openFirst) parts.push(openHtml(i, pinned));
       var body = n.statement || n.question || null;
       if (body) parts.push('<p class="universe-inspector__body">' + escapeHtml(body) + '</p>');
       if (n.boundary) {
@@ -1215,14 +1687,18 @@
         parts.push('<p class="universe-inspector__note">' + counts + '</p>');
       }
       parts.push(placementHtml(i));
-      parts.push(openHtml(i, pinned));
+      if (!openFirst) parts.push(openHtml(i, pinned));
       if (pinned) {
         parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
         if (rows.total) {
           parts.push('<h3 class="universe-inspector__sub">Connections (' + rows.total + ')</h3>');
-          parts.push('<p class="universe-inspector__hint">The map highlights up to ' +
-            (canvas.clientWidth < 600 ? 12 : 24) + ' local connections. Expand a group below to inspect every connection, including those outside the current filters.</p>');
+          if (n.kind === 'integration_surface') {
+            parts.push('<p class="universe-inspector__hint">The map lights every result this hub reaches; each group below lists them.</p>');
+          } else {
+            parts.push('<p class="universe-inspector__hint">The map highlights up to ' +
+              (canvas.clientWidth < 600 ? 12 : 24) + ' local connections. Expand a group below to inspect every connection, including those outside the current filters.</p>');
+          }
           parts.push(rows.html);
         }
         if (canCopy) {
@@ -1236,7 +1712,9 @@
 
     function renderInspector() {
       if (!inspector) return;
-      if (hover >= 0 && hover !== selected) {
+      // A pinned card stays put: the pointer crossing other dots on its way
+      // to the rail names them on the field and leaves the card alone.
+      if (hover >= 0 && hover !== selected && selected < 0) {
         inspector.innerHTML = cardHtml(hover, false);
         inspector.classList.add('is-preview');
       } else if (selected >= 0) {
@@ -1272,6 +1750,16 @@
       updateHash();
       if (center && i >= 0) centerOn(i);
       draw();
+    }
+
+    function stepStatement(dir) {
+      if (selected < 0 || !nodes[selected]) return;
+      var n = nodes[selected];
+      var seq = paperSequence[n.paperId];
+      if (!seq || n.seq == null) return;
+      var at = n.seq + dir;
+      if (at < 0 || at >= seq.length) return;
+      pin(seq[at], true);
     }
 
     function resolvePending() {
@@ -1362,6 +1850,11 @@
           row.decls = declarationsOf(n);
           row.tex = n.tex || (n.line && statementMeta && statementMeta.tex_paths[row.paperId] ?
             statementMeta.tex_paths[row.paperId] + '#L' + n.line : null);
+          var lineMatch = row.tex ? /#L(\d+)$/.exec(row.tex) : null;
+          row.line = n.line || (lineMatch ? parseInt(lineMatch[1], 10) : 0);
+          // The printed number ("2.1") labels the dot once the reader zooms in.
+          var numMatch = /^[A-Z][A-Za-z]*\.?\s+([A-Z]?\d+(?:\.\d+)*)/.exec(row.label || '');
+          row.num = numMatch ? numMatch[1] : null;
         }
         row.tier = tierOf(row);
         row.search = normalizeSearchText([row.label, row.id, row.status || '', row.disposition || '',
@@ -1393,6 +1886,20 @@
           st.placedBy = 'it is stated in a paper on ' + nodes[problemIndex[st.sector]].shortLabel;
         }
       }
+      // Each paper's results in the order the paper states them, so a card
+      // can step to the previous or next one.
+      paperSequence = {};
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].kind !== 'paper_statement') continue;
+        (paperSequence[nodes[i].paperId] = paperSequence[nodes[i].paperId] || []).push(i);
+      }
+      Object.keys(paperSequence).forEach(function (pid) {
+        var seq = paperSequence[pid];
+        seq.sort(function (a, b) {
+          return (nodes[a].line || 0) - (nodes[b].line || 0) || (nodes[a].id < nodes[b].id ? -1 : 1);
+        });
+        seq.forEach(function (idx, at) { nodes[idx].seq = at; });
+      });
       for (i = 0; i < edges.length; i++) {
         var a = edges[i][0], b = edges[i][1];
         var rel = relations[edges[i][2]] || null;
@@ -1473,23 +1980,54 @@
        fixed portrait so scrolling past it never fights the wheel. */
     if (pageMode) {
       var px0 = 0, py0 = 0;
+      /* Two fingers pinch: the distance between them scales the view about
+         their midpoint, and the midpoint's travel pans it. */
+      var pointers = {}, pinch = null;
+      function pointerIds() { return Object.keys(pointers); }
+      function pinchState() {
+        var ids = pointerIds(), a = pointers[ids[0]], b = pointers[ids[1]];
+        return { dist: Math.max(1, Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y))),
+                 mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
+      }
+      function releasePointer(event) {
+        delete pointers[event.pointerId];
+        if (pointerIds().length < 2) pinch = null;
+      }
       canvas.addEventListener('pointerdown', function (event) {
+        pointers[event.pointerId] = { x: event.clientX, y: event.clientY };
+        if (pointerIds().length === 2) {
+          pinch = pinchState();
+          panning = false;
+          moved = true;
+          return;
+        }
         panning = true;
         moved = false;
         canvas.classList.add('is-panning');
         px0 = event.clientX; py0 = event.clientY;
-        canvas.setPointerCapture(event.pointerId);
+        if (canvas.setPointerCapture) canvas.setPointerCapture(event.pointerId);
       });
       canvas.addEventListener('pointerup', function (event) {
+        releasePointer(event);
         panning = false;
         canvas.classList.remove('is-panning');
-        canvas.releasePointerCapture(event.pointerId);
+        if (canvas.releasePointerCapture) canvas.releasePointerCapture(event.pointerId);
       });
-      canvas.addEventListener('pointercancel', function () {
+      canvas.addEventListener('pointercancel', function (event) {
+        releasePointer(event);
         panning = false;
         canvas.classList.remove('is-panning');
       });
       canvas.addEventListener('pointermove', function (event) {
+        if (pointers[event.pointerId]) pointers[event.pointerId] = { x: event.clientX, y: event.clientY };
+        if (pinch && pointerIds().length >= 2) {
+          var now = pinchState(), rect = canvas.getBoundingClientRect();
+          view.tx += now.mx - pinch.mx;
+          view.ty += now.my - pinch.my;
+          zoomAt(now.mx - rect.left, now.my - rect.top, now.dist / pinch.dist);
+          pinch = now;
+          return;
+        }
         if (!panning) return;
         var dx = event.clientX - px0, dy = event.clientY - py0;
         if (!moved && dx * dx + dy * dy < 9) return;
@@ -1500,7 +2038,28 @@
         px0 = event.clientX; py0 = event.clientY;
         draw();
       });
+      /* The page scrolls past the map; a held modifier (or a trackpad pinch,
+         which arrives with ctrlKey) zooms it. A plain wheel shows a brief
+         hint instead of trapping the reader inside a tall canvas. */
+      var wheelHint = typeof document.createElement === 'function' ? document.createElement('p') : null;
+      if (wheelHint) {
+        var nav = typeof navigator !== 'undefined' ? navigator : {};
+        var isMac = /Mac|iPhone|iPad/.test((nav.platform || '') + (nav.userAgent || ''));
+        wheelHint.className = 'universe-wheel-hint';
+        wheelHint.setAttribute('aria-hidden', 'true');
+        wheelHint.textContent = 'Pinch, or hold ' + (isMac ? '⌘' : 'Ctrl') + ' and scroll, to zoom';
+        if (stage.appendChild) stage.appendChild(wheelHint);
+      }
+      var wheelHintTimer = null;
       canvas.addEventListener('wheel', function (event) {
+        if (!(event.ctrlKey || event.metaKey)) {
+          if (wheelHint && wheelHint.classList) {
+            wheelHint.classList.add('is-shown');
+            if (wheelHintTimer) clearTimeout(wheelHintTimer);
+            wheelHintTimer = setTimeout(function () { wheelHint.classList.remove('is-shown'); }, 1400);
+          }
+          return;
+        }
         event.preventDefault();
         var rect = canvas.getBoundingClientRect();
         zoomAt(event.clientX - rect.left, event.clientY - rect.top,
@@ -1511,6 +2070,12 @@
         var tag = event.target && event.target.tagName;
         var typing = tag === 'INPUT' || tag === 'TEXTAREA' || (event.target && event.target.isContentEditable);
         if (event.key === 'Escape' && selected >= 0) { pin(-1, false); return; }
+        if (!typing && (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
+            selected >= 0 && nodes[selected].kind === 'paper_statement') {
+          event.preventDefault();
+          stepStatement(event.key === 'ArrowLeft' ? -1 : 1);
+          return;
+        }
         if (event.key === '/' && !typing && searchIn) {
           event.preventDefault();
           searchIn.focus();
@@ -1521,7 +2086,7 @@
       stage.querySelectorAll('[data-universe-zoom]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var mode = btn.getAttribute('data-universe-zoom');
-          if (mode === 'fit') { fit(); draw(); return; }
+          if (mode === 'fit') { fitAnimated(); return; }
           zoomAt(canvas.clientWidth / 2, canvas.clientHeight / 2,
             mode === 'in' ? 1.45 : 1 / 1.45);
         });
@@ -1552,6 +2117,16 @@
         }
         if (event.target.closest && event.target.closest('[data-universe-clear]')) {
           pin(-1, false);
+          return;
+        }
+        var stepBtn = event.target.closest ? event.target.closest('[data-universe-step]') : null;
+        if (stepBtn) {
+          var dir = parseInt(stepBtn.getAttribute('data-universe-step'), 10);
+          stepStatement(dir);
+          // Keep the reader's place on the control they used.
+          var again = inspector.querySelector('[data-universe-step="' + dir + '"]:not([disabled])') ||
+            inspector.querySelector('[data-universe-step]:not([disabled])');
+          if (again) again.focus({ preventScroll: true });
           return;
         }
         var copy = event.target.closest ? event.target.closest('[data-universe-copy]') : null;
@@ -1594,16 +2169,79 @@
       });
     });
 
+    /* ---- Search results --------------------------------------------- */
+    /* Typing lists the first matches under the field; the arrow keys pick
+       one and Enter opens it. With no pick, Enter still steps through every
+       match on the map in kind order. */
+    var resultsBox = document.querySelector('[data-universe-results]');
+    var activeResult = -1;
+    var RESULT_CAP = 8;
+    function resultContext(n) {
+      if (n.kind === 'paper_statement') {
+        var where = n.sector && problemIndex[n.sector] !== undefined ? nodes[problemIndex[n.sector]].shortLabel + ' ' : '';
+        return where + (n.side === 'long' ? 'long record' : 'short paper');
+      }
+      if (n.sector && problemIndex[n.sector] !== undefined && n.kind !== 'problem') {
+        return (KIND_LABEL[n.kind] || n.kind) + ', ' + nodes[problemIndex[n.sector]].shortLabel;
+      }
+      return KIND_LABEL[n.kind] || n.kind;
+    }
+    function closeResults() {
+      activeResult = -1;
+      if (!resultsBox) return;
+      resultsBox.hidden = true;
+      resultsBox.innerHTML = '';
+      if (searchIn) {
+        searchIn.setAttribute('aria-expanded', 'false');
+        searchIn.removeAttribute('aria-activedescendant');
+      }
+    }
+    function renderResults() {
+      if (!resultsBox || !searchIn) return;
+      if (query.length < 2 || !matchList.length || document.activeElement !== searchIn) { closeResults(); return; }
+      var top = matchList.slice(0, RESULT_CAP);
+      if (activeResult >= top.length) activeResult = top.length - 1;
+      resultsBox.innerHTML = top.map(function (idx, at) {
+        var n = nodes[idx];
+        var mark = n.kind === 'paper_statement' || n.kind === 'public_claim' ? glyphHtml(n.tier) : dotHtml(n.kind);
+        return '<li role="option" id="universe-result-' + at + '" class="universe-result' +
+          (at === activeResult ? ' is-active' : '') + '" aria-selected="' + (at === activeResult) +
+          '" data-universe-go="' + idx + '">' + mark +
+          '<span class="universe-result__label">' + escapeHtml(clip(n.label, 72)) + '</span>' +
+          '<span class="universe-result__where">' + escapeHtml(resultContext(n)) + '</span></li>';
+      }).join('') + (matchList.length > RESULT_CAP ?
+        '<li class="universe-result universe-result--more" role="presentation">' + fmtCount(matchList.length - RESULT_CAP) +
+        ' more lit on the map; Enter steps through all ' + fmtCount(matchList.length) + '</li>' : '');
+      resultsBox.hidden = false;
+      searchIn.setAttribute('aria-expanded', 'true');
+      if (activeResult >= 0) searchIn.setAttribute('aria-activedescendant', 'universe-result-' + activeResult);
+      else searchIn.removeAttribute('aria-activedescendant');
+    }
+    if (resultsBox) {
+      // Keep focus in the field while a pointer picks a result.
+      resultsBox.addEventListener('mousedown', function (event) {
+        event.preventDefault();
+        var item = event.target.closest ? event.target.closest('[data-universe-go]') : null;
+        if (!item) return;
+        var idx = parseInt(item.getAttribute('data-universe-go'), 10);
+        closeResults();
+        if (!isNaN(idx) && nodes[idx]) pin(idx, true);
+      });
+    }
+
     if (searchIn) {
       function syncSearchFromInput() {
         var restoredQuery = normalizeSearchText(searchIn.value);
         if (restoredQuery === query) return;
         query = restoredQuery;
+        activeResult = -1;
         countMatches();
         draw();
+        renderResults();
       }
       searchIn.addEventListener('input', syncSearchFromInput);
-      searchIn.addEventListener('focus', syncSearchFromInput);
+      searchIn.addEventListener('focus', function () { syncSearchFromInput(); renderResults(); });
+      searchIn.addEventListener('blur', function () { closeResults(); });
       // History traversal may restore form state after lifecycle handlers.
       // Reconcile in the following task, without changing the pin or view.
       function syncRestoredSearch() { setTimeout(syncSearchFromInput, 0); }
@@ -1616,14 +2254,30 @@
           searchIn.value = '';
           query = '';
           countMatches();
+          closeResults();
           draw();
           event.stopPropagation();
+          return;
+        }
+        if ((event.key === 'ArrowDown' || event.key === 'ArrowUp') && resultsBox && !resultsBox.hidden) {
+          event.preventDefault();
+          var count = Math.min(RESULT_CAP, matchList.length);
+          if (!count) return;
+          activeResult = event.key === 'ArrowDown' ? (activeResult + 1) % count :
+            (activeResult <= 0 ? count - 1 : activeResult - 1);
+          renderResults();
           return;
         }
         if (event.key !== 'Enter') return;
         syncSearchFromInput();
         if (!matchList.length) return;
         event.preventDefault();
+        if (activeResult >= 0 && matchList[activeResult] !== undefined) {
+          var chosen = matchList[activeResult];
+          closeResults();
+          pin(chosen, true);
+          return;
+        }
         var at = matchList.indexOf(selected);
         var next = at < 0 ? 0 : (at + (event.shiftKey ? matchList.length - 1 : 1)) % matchList.length;
         pin(matchList[next], true);
