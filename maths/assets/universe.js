@@ -43,9 +43,9 @@
      starfield kinds stay small because the complete universe adds over a
      thousand of them. */
   var KIND_RADIUS = {
-    universe: 13,
-    problem: 11,
-    integration_surface: 9,
+    universe: 15,
+    problem: 13.5,
+    integration_surface: 11,
     paper: 5.5,
     human_document: 6,
     public_claim: 3.6,
@@ -307,6 +307,14 @@
       var pad = 40;
       var k = Math.min((w - pad * 2) / Math.max(1, maxX - minX),
                        (h - pad * 2) / Math.max(1, maxY - minY));
+      // With the results ring shown, the frame holds its titles as well:
+      // the outer band, the gap, two lines of text and a margin to spare.
+      if (bands.length && !lensOff.paper_statement) {
+        var outer = 0;
+        for (var b = 0; b < bands.length; b++) outer = Math.max(outer, bandRadii(bands[b])[1] || 0);
+        var room = Math.min(w, h) / 2 - 56;
+        if (outer && room > 40) k = Math.min(k, room / (outer + 6));
+      }
       k = Math.max(0.001, k);
       fittedScale = k;
       viewIsFitted = true;
@@ -323,6 +331,72 @@
        which keeps the move from swooping. */
     var cameraFrame = 0;
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    function easeInOut(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    /* The page's first view opens from the centre out, the way the map
+       reads: the core, then the orbit, the claims and the results, over a
+       little more than a second. It plays once, only on the map's own page,
+       and never under reduced motion, in a hidden tab, or when a link opens
+       on a chosen object. */
+    /* Focus fades in: the first hover or selection dims the rest of the
+       field over a sixth of a second rather than at once. Moving from one
+       object to the next keeps the dimming as it is, so a sweeping pointer
+       never makes the field pulse. Skipped under reduced motion. */
+    var focusMix = 1, focusWas = -1, focusFrame = 0;
+    function trackFocus(focus) {
+      if (focus >= 0 && focusWas < 0 && !reduceMotion && window.requestAnimationFrame) {
+        var start = null;
+        focusMix = 0;
+        if (focusFrame && window.cancelAnimationFrame) window.cancelAnimationFrame(focusFrame);
+        var tick = function (now) {
+          if (start === null) start = now;
+          var t = Math.min(1, (now - start) / 180);
+          focusMix = 1 - (1 - t) * (1 - t);
+          focusFrame = t < 1 ? window.requestAnimationFrame(tick) : 0;
+          draw();
+        };
+        focusFrame = window.requestAnimationFrame(tick);
+      }
+      focusWas = focus;
+    }
+    // What a dimmed thing's alpha is, part way through the fade.
+    function dimmed(base) { return 1 - (1 - base) * focusMix; }
+
+    /* Each ring fades in after the one inside it, in reading order: the
+       core, the orbit, the claims, the results, then the words. One layer
+       never cuts through a mark or a letter, and the whole opening is under
+       a second. */
+    var reveal = 1, revealMs = 1e9;
+    var REVEAL_DELAY = [0, 90, 180, 270, 450], REVEAL_FADE = 420;
+    var REVEAL_END = REVEAL_DELAY[REVEAL_DELAY.length - 1] + REVEAL_FADE;
+    function revealAlpha(layer) {
+      if (reveal >= 1) return 1;
+      var t = (revealMs - REVEAL_DELAY[layer]) / REVEAL_FADE;
+      if (t <= 0) return 0;
+      return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+    function revealLayer(kind) {
+      if (kind === 'universe' || kind === 'integration_surface') return 0;
+      if (kind === 'problem' || kind === 'paper') return 1;
+      if (kind === 'public_claim' || kind === 'mathematical_object') return 2;
+      return 3;
+    }
+    function startReveal() {
+      if (!pageMode || reduceMotion || !window.requestAnimationFrame || document.hidden) return;
+      var start = null;
+      reveal = 0;
+      revealMs = 0;
+      var step = function (now) {
+        if (start === null) start = now;
+        revealMs = now - start;
+        if (revealMs >= REVEAL_END) reveal = 1;
+        draw();
+        if (reveal < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    }
     function cameraTo(target, fitted) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (cameraFrame && window.cancelAnimationFrame) window.cancelAnimationFrame(cameraFrame);
@@ -335,12 +409,16 @@
       if (reduceMotion || !window.requestAnimationFrame || !w) { finish(); return; }
       var from = { k: view.k, cx: (w / 2 - view.tx) / view.k, cy: (h / 2 - view.ty) / view.k };
       var to = { k: target.k, cx: (w / 2 - target.tx) / target.k, cy: (h / 2 - target.ty) / target.k };
-      var start = null, duration = 340;
+      // Slow in and slow out, as statistical-graphics studies recommend for
+      // a move the eye must follow (Heer and Robertson 2007); a deeper zoom
+      // takes a little longer, never more than two thirds of a second.
+      var start = null;
+      var duration = Math.min(650, 300 + 120 * Math.abs(Math.log(to.k / from.k) / Math.LN2));
       viewIsFitted = false;
       var step = function (now) {
         if (start === null) start = now;
         var t = Math.min(1, (now - start) / duration);
-        var e = 1 - Math.pow(1 - t, 3);
+        var e = easeInOut(t);
         var k = from.k * Math.pow(to.k / from.k, e);
         var cx = from.cx + (to.cx - from.cx) * e, cy = from.cy + (to.cy - from.cy) * e;
         view.k = k; view.tx = w / 2 - cx * k; view.ty = h / 2 - cy * k;
@@ -444,10 +522,13 @@
       if (!tier || tier === 'proved' || tier === 'replayed' || tier === 'lean') {
         ctx.fillStyle = color;
         ctx.fill();
-        if (r >= 3.4) {
-          ctx.lineWidth = 1;
-          ctx.strokeStyle = palette.rim;
-          ctx.stroke();
+        // A queued result carries a pip in the ground colour, so colour is
+        // never the only thing telling it from a replayed one.
+        if (tier === 'lean' && r * 0.38 >= 0.8) {
+          ctx.beginPath();
+          ctx.arc(x, y, r * 0.38, 0, Math.PI * 2);
+          ctx.fillStyle = palette.ground;
+          ctx.fill();
         }
         return;
       }
@@ -477,6 +558,8 @@
        reach across the statement band without a single spoke drawn. */
     function glyphColor(n) {
       if (n.tier === 'replayed') return palette.integration_surface;
+      // No Lean statement is not Lean's colour: it is drawn in the quiet ink.
+      if (n.kind === 'paper_statement' && n.tier === 'none') return palette.faint;
       return palette[n.kind] || palette.faint;
     }
 
@@ -558,44 +641,6 @@
       return key === 'replayed' ? palette.integration_surface :
         key === 'none' ? palette.faint : palette.paper_statement;
     }
-    /* A selected hub reaches each band: one translucent wedge from the hub
-       to the band's inner edge, stronger where more of the band is replayed.
-       The replayed dots are spread through each band in paper order, so the
-       wedge covers the band rather than pointing at a part of it. */
-    function drawHubWedges(focus) {
-      if (focus < 0 || nodes[focus].kind !== 'integration_surface' || !bands.length) return;
-      var hub = nodes[focus], k = view.k;
-      var hx = hub.x * k + view.tx, hy = hub.y * k + view.ty;
-      var palomar = hub.id === 'integration:palomar';
-      for (var i = 0; i < bands.length; i++) {
-        var b = bands[i], radii = bandRadii(b);
-        if (!isFinite(radii[0])) continue;
-        var total = 0;
-        for (var key in b.evidence) total += b.evidence[key];
-        var share = total ? (b.evidence.replayed || 0) / total : 0;
-        if (!share) continue;
-        var r = (radii[0] - 12) * k;
-        // Light from the hub: clear at the hub, strongest at the band.
-        var mid = (b.lo + b.hi) / 2;
-        var bx = view.tx + Math.cos(mid) * r, by = view.ty + Math.sin(mid) * r;
-        var reach = Math.sqrt((bx - hx) * (bx - hx) + (by - hy) * (by - hy)) || 1;
-        var ray = ctx.createRadialGradient ? ctx.createRadialGradient(hx, hy, 0, hx, hy, reach) : null;
-        if (ray) {
-          ray.addColorStop(0, 'rgba(0,0,0,0)');
-          ray.addColorStop(1, palette.integration_surface);
-          ctx.fillStyle = ray;
-        } else {
-          ctx.fillStyle = palette.integration_surface;
-        }
-        ctx.globalAlpha = (palomar ? 0.05 : 0.08) + (palomar ? 0.07 : 0.14) * share;
-        ctx.beginPath();
-        ctx.moveTo(hx, hy);
-        ctx.arc(view.tx, view.ty, r, b.lo, b.hi);
-        ctx.closePath();
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    }
 
     /* A selected result threads its paper's results in order, row by row,
        the way a star chart draws a constellation. Long jumps between rows
@@ -648,14 +693,9 @@
       var outer = 0;
       for (var i = 0; i < bands.length; i++) outer = Math.max(outer, bandRadii(bands[i])[1] || 0);
       if (!outer) return;
+      // The ground stays flat: no light at the centre, which would read as
+      // emphasis the data does not carry.
       var k = view.k;
-      var glow = ctx.createRadialGradient ? ctx.createRadialGradient(view.tx, view.ty, 0, view.tx, view.ty, outer * k * 1.05) : null;
-      if (glow) {
-        glow.addColorStop(0, palette.plate);
-        glow.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, w, h);
-      }
       var orbit = 0, count = 0;
       for (var pid in problemIndex) {
         var p = nodes[problemIndex[pid]];
@@ -664,13 +704,31 @@
         count++;
       }
       if (!count) return;
-      ctx.globalAlpha = 0.7;
+      ctx.globalAlpha = 0.7 * revealAlpha(1);
       ctx.strokeStyle = palette.edge;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(view.tx, view.ty, orbit / count * k, 0, Math.PI * 2);
       ctx.stroke();
       ctx.globalAlpha = 1;
+    }
+
+    /* A problem is drawn as a small copy of the core, a ring round a point,
+       in ink: colour on the field stays with the evidence, and the only
+       colour a problem carries is its own evidence ring. */
+    function drawProblemMark(n, x, y, r, ink, withRing) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = palette.ground;
+      ctx.fill();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = ink;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x, y, Math.max(1.4, r * 0.28), 0, Math.PI * 2);
+      ctx.fillStyle = ink;
+      ctx.fill();
+      if (withRing) drawProblemRing(n, x, y, r);
     }
 
     /* Each problem's marker carries its own evidence: a thin ring around
@@ -706,13 +764,63 @@
     function drawClaimPlate(shape, state) {
       var k = view.k, pad = 9;
       var lo = shape[0] - pad / shape[2], hi = shape[1] + pad / shape[2];
-      ctx.globalAlpha = state === 'off' ? 0.35 : 1;
-      ctx.fillStyle = state === 'on' ? palette.halo : palette.plate;
+      var outerR = (shape[3] + pad) * k, innerR = Math.max(0, (shape[2] - pad) * k);
+      var ra = revealAlpha(2);
+      ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * ra;
+      ctx.fillStyle = palette.plate;
       ctx.beginPath();
-      ctx.arc(view.tx, view.ty, (shape[3] + pad) * k, lo, hi);
-      ctx.arc(view.tx, view.ty, Math.max(0, (shape[2] - pad) * k), hi, lo, true);
+      ctx.arc(view.tx, view.ty, outerR, lo, hi);
+      ctx.arc(view.tx, view.ty, innerR, hi, lo, true);
       ctx.closePath();
       ctx.fill();
+      // Its two long edges are ruled, like an engraved scale.
+      ctx.globalAlpha = (state === 'off' ? 0.6 - 0.4 * focusMix : 0.6) * ra;
+      ctx.strokeStyle = palette.edge;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.arc(view.tx, view.ty, outerR, lo, hi);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(view.tx, view.ty, innerR, lo, hi);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    /* A selected or hovered object lights its whole sector as one slice,
+       from just inside the orbit out past its band, so a problem reads at
+       once with its papers, its claims and its results. */
+    function drawSectorSlice(focus) {
+      if (focus < 0 || !bands.length) return;
+      var f = nodes[focus];
+      if (!f || f.kind === 'universe' || f.kind === 'integration_surface') return;
+      var pids = sectorProblems(f);
+      if (!pids.length) return;
+      var k = view.k, orbit = 0, count = 0;
+      for (var pid in problemIndex) {
+        var p = nodes[problemIndex[pid]];
+        if (p) { orbit += Math.sqrt(p.x * p.x + p.y * p.y); count++; }
+      }
+      if (!count) return;
+      var inner = Math.max(0, (orbit / count - 34) * k);
+      for (var i = 0; i < bands.length; i++) {
+        var b = bands[i];
+        if (pids.indexOf(b.sector) === -1) continue;
+        var outer = (bandRadii(b)[1] + 12) * k;
+        if (!(outer > inner)) continue;
+        // One flat wash, edged with a hairline, like a highlighted region on
+        // a printed chart.
+        ctx.fillStyle = palette.halo;
+        ctx.globalAlpha = 0.5 * focusMix;
+        ctx.beginPath();
+        ctx.arc(view.tx, view.ty, outer, b.lo - 0.012, b.hi + 0.012);
+        ctx.arc(view.tx, view.ty, inner, b.hi + 0.012, b.lo - 0.012, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.globalAlpha = 0.3 * focusMix;
+        ctx.lineWidth = 0.75;
+        ctx.strokeStyle = palette.ink;
+        ctx.stroke();
+      }
       ctx.globalAlpha = 1;
     }
     function drawClaimPlates(focus) {
@@ -734,35 +842,51 @@
 
     function drawBandPlates(focus) {
       if (!bands.length || lensOff.paper_statement) return;
-      drawHubWedges(focus);
       var k = view.k;
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
         if (!isFinite(radii[0])) continue;
         var state = bandState(b, focus);
         var pad = 6;
-        ctx.globalAlpha = state === 'off' ? 0.35 : 1;
-        ctx.fillStyle = state === 'on' ? palette.halo : palette.plate;
+        var ra = revealAlpha(3);
+        ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * ra;
+        ctx.fillStyle = palette.plate;
         ctx.beginPath();
         ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, b.hi);
         ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.hi, b.lo, true);
         ctx.closePath();
         ctx.fill();
-        // The gauge: one thin arc just inside the band, split in proportion.
+        // Both long edges are ruled. The evidence gauge, which repeats what
+        // the dots and the title already say, shows only for a band in
+        // focus.
+        ctx.globalAlpha = (state === 'off' ? 0.6 - 0.4 * focusMix : 0.6) * ra;
+        ctx.strokeStyle = palette.edge;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, b.hi);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.lo, b.hi);
+        ctx.stroke();
         var total = 0, key;
         for (key in b.evidence) total += b.evidence[key];
         var at = b.lo, gaugeR = (radii[0] - pad - 5) * k;
-        if (total && gaugeR > 0) {
-          ctx.lineWidth = Math.max(2, 3.2 * Math.min(1, k / 0.6));
+        if (total && gaugeR > 0 && state === 'on') {
+          ctx.lineWidth = Math.max(1.6, 2.4 * Math.min(1, k / 0.6));
           ctx.lineCap = 'butt';
+          var hair = 1.5 / gaugeR;
           for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
             key = EVIDENCE_ORDER[j];
             if (!b.evidence[key]) continue;
             var to = at + (b.hi - b.lo) * b.evidence[key] / total;
-            ctx.globalAlpha = (state === 'off' ? 0.35 : 1) * EVIDENCE_GAUGE_ALPHA[key];
+            ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * EVIDENCE_GAUGE_ALPHA[key];
             ctx.strokeStyle = evidenceColor(key);
+            // A part too short for its hair of air is drawn whole; an arc
+            // whose end came before its start would run the long way round.
+            var from = at + (at > b.lo ? hair : 0), till = to - (to < b.hi - 1e-9 ? hair : 0);
+            if (till <= from) { from = at; till = to; }
             ctx.beginPath();
-            ctx.arc(view.tx, view.ty, gaugeR, at, to);
+            ctx.arc(view.tx, view.ty, gaugeR, from, till);
             ctx.stroke();
             at = to;
           }
@@ -784,6 +908,25 @@
           ctx.stroke();
           ctx.setLineDash([]);
         }
+      }
+      // Graduations: a fine tick in each gap between two sectors, across the
+      // results ring, the way a dial marks its divisions.
+      var sorted = bands.slice().sort(function (a, c) { return a.lo - c.lo; });
+      var r0 = Infinity, r1 = 0;
+      sorted.forEach(function (sb) { var rr = bandRadii(sb); r0 = Math.min(r0, rr[0]); r1 = Math.max(r1, rr[1]); });
+      if (sorted.length > 1 && isFinite(r0)) {
+        ctx.globalAlpha = (focus >= 0 ? 0.45 : 0.85) * revealAlpha(3);
+        ctx.strokeStyle = palette.edge;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (var s = 0; s < sorted.length; s++) {
+          var cur = sorted[s], nxt = sorted[(s + 1) % sorted.length];
+          var mid = (cur.hi + nxt.lo + (s + 1 === sorted.length ? Math.PI * 2 : 0)) / 2;
+          var cx = Math.cos(mid), sy = Math.sin(mid);
+          ctx.moveTo(view.tx + cx * (r0 - 16) * k, view.ty + sy * (r0 - 16) * k);
+          ctx.lineTo(view.tx + cx * (r1 + 12) * k, view.ty + sy * (r1 + 12) * k);
+        }
+        ctx.stroke();
       }
       ctx.globalAlpha = 1;
     }
@@ -841,12 +984,13 @@
         if (state === 'off') continue;
         var total = 0;
         for (var key in b.evidence) total += b.evidence[key];
-        var base = (radii[1] + 6) * k + 9;
+        // A clear gap between the plate's edge and the first line of text.
+        var base = (radii[1] + 6) * k + 15;
         // A narrow field, or a ring drawn small (the teaser), keeps the
         // number and a compact count: full names would run into each other.
         var narrow = w < 560 || radii[1] * k < 220;
         var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
-                      font: '600 11px ' + SERIF, color: palette.muted, alpha: 1 };
+                      font: '400 11px ' + SERIF, color: palette.muted, alpha: 1 };
         var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
         var title = titleText && (pageMode || w >= 640) ?
           { text: titleText, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.86 } : null;
@@ -896,29 +1040,50 @@
     /* Upright text along a circle about the field's centre, centred on an
        angle. The upper half reads clockwise, the lower half anticlockwise,
        so neither runs upside down. */
+    /* Where each letter of a run sits, measured once per font and text: a
+       letter's centre is the width of the text before it plus half its own,
+       so the face's kerning survives on the curve. */
+    var arcPlaces = {};
+    function arcLetters(text) {
+      var key = ctx.font + '|' + text;
+      if (arcPlaces[key]) return arcPlaces[key];
+      var out = { width: ctx.measureText(text).width, letters: [] };
+      for (var i = 0; i < text.length; i++) {
+        var ch = text.charAt(i);
+        if (ch === ' ') continue;
+        out.letters.push([ch, ctx.measureText(text.slice(0, i)).width + ctx.measureText(ch).width / 2]);
+      }
+      arcPlaces[key] = out;
+      return out;
+    }
     function drawArcText(row, radius, mid, lower) {
       ctx.font = row.font;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 3;
       ctx.lineJoin = 'round';
       var dir = lower ? -1 : 1;
-      var span = ctx.measureText(row.text).width / radius;
+      var run = arcLetters(row.text);
+      var span = run.width / radius;
       var at = mid - dir * span / 2;
-      for (var i = 0; i < row.text.length; i++) {
-        var ch = row.text.charAt(i);
-        var cw = ctx.measureText(ch).width;
-        var angle = at + dir * (cw / 2) / radius;
-        ctx.save();
-        ctx.translate(view.tx + radius * Math.cos(angle), view.ty + radius * Math.sin(angle));
-        ctx.rotate(angle + (lower ? -Math.PI / 2 : Math.PI / 2));
-        ctx.globalAlpha = row.alpha;
-        ctx.strokeStyle = palette.ground;
-        ctx.strokeText(ch, 0, 0);
-        ctx.fillStyle = row.color;
-        ctx.fillText(ch, 0, 0);
-        ctx.restore();
-        at += dir * cw / radius;
+      // Every halo goes down before any letter, so no halo clips the letter
+      // beside it.
+      for (var pass = 0; pass < 2; pass++) {
+        for (var i = 0; i < run.letters.length; i++) {
+          var angle = at + dir * run.letters[i][1] / radius;
+          ctx.save();
+          ctx.translate(view.tx + radius * Math.cos(angle), view.ty + radius * Math.sin(angle));
+          ctx.rotate(angle + (lower ? -Math.PI / 2 : Math.PI / 2));
+          ctx.globalAlpha = row.alpha * revealAlpha(4);
+          if (pass === 0) {
+            ctx.strokeStyle = palette.ground;
+            ctx.strokeText(run.letters[i][0], 0, 0);
+          } else {
+            ctx.fillStyle = row.color;
+            ctx.fillText(run.letters[i][0], 0, 0);
+          }
+          ctx.restore();
+        }
       }
       ctx.globalAlpha = 1;
       // The run's box, from its two ends and its middle, so later labels
@@ -968,7 +1133,7 @@
               break;
             }
           }
-          ctx.globalAlpha = 0.85;
+          ctx.globalAlpha = 0.85 * revealAlpha(4);
           ctx.strokeStyle = palette.faint;
           ctx.lineWidth = 0.65;
           ctx.setLineDash([2, 3]);
@@ -989,7 +1154,7 @@
         }
         labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
         ctx.textAlign = c.reach ? 'center' : c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
-        ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
+        ctx.globalAlpha = (focus >= 0 ? 0.45 : 0.85) * revealAlpha(4);
         // Captions sit on the same paper halo as the node labels, so they
         // stay legible where they cross a ring of claims.
         ctx.lineJoin = 'round';
@@ -1021,6 +1186,7 @@
 
       var searching = query.length >= 2;
       var focus = focusIndex();
+      trackFocus(focus);
       var near = neighbourSet(focus);
       var i, n, x, y;
       /* A phone fits the whole field into a few hundred pixels; marks drawn
@@ -1030,6 +1196,7 @@
       labelBoxes = [];
 
       drawGround(w, h);
+      drawSectorSlice(focus);
       drawClaimPlates(focus);
       drawBandPlates(focus);
 
@@ -1043,7 +1210,7 @@
         if (overviewEdge(i) && !hotSet[i]) quiet.push(i);
       }
       var shownEdges = quiet.length + hot.length;
-      drawEdgeSet(quiet, focus >= 0 ? 0.3 : 0.65, 0.65, palette.edge);
+      drawEdgeSet(quiet, (focus >= 0 ? 0.65 - 0.35 * focusMix : 0.65) * revealAlpha(1), 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
       // The band titles go down first, outside the rings, so every label
@@ -1068,15 +1235,12 @@
         if (n.kind === 'lean_module' && i !== focus) alpha = 0.45;
         var anchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         if (searching && !matches(n) && !anchor) alpha = 0.12;
-        if (focus >= 0 && i !== focus && !near[i]) alpha = Math.min(alpha, 0.25);
+        alpha *= revealAlpha(revealLayer(n.kind));
+        var undimmed = alpha;
+        var ghost = focus >= 0 && i !== focus && !near[i];
+        if (ghost) alpha = Math.min(alpha, dimmed(0.25));
         ctx.globalAlpha = alpha;
-        if (i === hover || i === selected) {
-          r = n.r * rs + 1.5;
-          ctx.fillStyle = palette.halo;
-          ctx.beginPath();
-          ctx.arc(x, y, r + 7, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        if (i === hover || i === selected) r = n.r * rs + 1.5;
         if (n.kind === 'universe') {
           // The core is a ring round a point: the Lean source everything
           // here is checked against, drawn as a mark, not a mass.
@@ -1091,6 +1255,18 @@
           ctx.arc(x, y, Math.max(1.6, r * 0.32), 0, Math.PI * 2);
           ctx.fillStyle = palette.universe;
           ctx.fill();
+          // Two faint rings round it, the way a chart marks its pole.
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = palette.edge;
+          ctx.globalAlpha = alpha * 0.7;
+          ctx.beginPath();
+          ctx.arc(x, y, r + 8 * rs, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = alpha * 0.35;
+          ctx.beginPath();
+          ctx.arc(x, y, r + 17 * rs, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = alpha;
         } else if (n.id === 'integration:palomar') {
           // Palomar holds a prepared corpus, nothing submitted: a ring.
           ctx.beginPath();
@@ -1100,6 +1276,28 @@
           ctx.lineWidth = 2;
           ctx.strokeStyle = palette.integration_surface;
           ctx.stroke();
+        } else if (n.kind === 'problem') {
+          if (ghost && focusMix < 1) {
+            ctx.globalAlpha = undimmed * (1 - focusMix);
+            drawProblemMark(n, x, y, r, palette.problem, true);
+          }
+          if (ghost) {
+            ctx.globalAlpha = undimmed * focusMix * 0.5;
+            drawProblemMark(n, x, y, r, palette.faint, false);
+          } else {
+            drawProblemMark(n, x, y, r, palette.problem, true);
+          }
+        } else if (ghost) {
+          // Context recedes to a quiet grey, not to a muddy tint of its own
+          // colour, so the focus holds the only colour on the field. While
+          // the focus fades in, the colour crossfades into the grey.
+          if (focusMix < 1) {
+            ctx.globalAlpha = undimmed * (1 - focusMix);
+            drawGlyph(x, y, r, glyphColor(n), n.tier);
+            if (n.kind === 'problem') drawProblemRing(n, x, y, r);
+          }
+          ctx.globalAlpha = undimmed * focusMix * 0.5;
+          drawGlyph(x, y, r, palette.faint, n.tier);
         } else {
           drawGlyph(x, y, r, glyphColor(n), n.tier);
           if (n.kind === 'problem') drawProblemRing(n, x, y, r);
@@ -1112,6 +1310,14 @@
           ctx.strokeStyle = palette.ink;
           ctx.beginPath();
           ctx.arc(x, y, r + (n.kind === 'problem' ? 8 : 5), 0, Math.PI * 2);
+          ctx.stroke();
+        } else if (i === hover) {
+          // A hovered mark answers with one fine ring, not a filled halo.
+          ctx.globalAlpha = 0.6;
+          ctx.lineWidth = 1.25;
+          ctx.strokeStyle = palette.ink;
+          ctx.beginPath();
+          ctx.arc(x, y, r + (n.kind === 'problem' ? 7 : 5), 0, Math.PI * 2);
           ctx.stroke();
         }
         ctx.globalAlpha = 1;
@@ -1168,7 +1374,7 @@
         var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
         if (lx < -60 || ly < -60 || lx > w + 60 || ly > h + 60) continue;
         var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
-        var font = (big ? '700 13px ' : '600 12px ') + SERIF;
+        var font = (big ? '600 13px ' : '500 12px ') + SERIF;
         ctx.font = font;
         var text = clip(n.shortLabel, isFocus ? 60 : 42);
         if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
@@ -1273,11 +1479,13 @@
           ctx.stroke();
         }
         labelBoxes.push(box);
-        ctx.lineWidth = 5;
+        ctx.globalAlpha = revealAlpha(4);
+        ctx.lineWidth = 4;
         ctx.strokeStyle = palette.ground;
         ctx.strokeText(cand.text, cx0 + width / 2, cand.y);
         ctx.fillStyle = cand.color;
         ctx.fillText(cand.text, cx0 + width / 2, cand.y);
+        ctx.globalAlpha = 1;
       }
       drawStatementNumbers(focus, near, searching, w, h);
       if (countOut) {
@@ -1294,7 +1502,15 @@
     }
 
     function radiusScale() {
-      return Math.min(1, Math.max(0.5, view.k / 0.6));
+      // A phone's fitted field shrinks the marks, down to half. Zooming in
+      // past the fitted view they grow a little more, so a close band reads
+      // as solid marks rather than specks; the fitted view itself is
+      // unchanged.
+      var k = view.k;
+      var base = Math.min(1, Math.max(0.5, k / 0.6));
+      var from = Math.max(0.6, fittedScale || 0.6);
+      if (k <= from) return base;
+      return Math.min(1.9, base * (1 + 0.45 * Math.log(k / from) / Math.LN2));
     }
 
     function nodeAt(px, py) {
@@ -1305,7 +1521,8 @@
         if (!visible(n)) continue;
         var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
         var d = (x - px) * (x - px) + (y - py) * (y - py);
-        var reach = Math.max(9, n.r * rs + 6);
+        // Every mark answers within a 24px target, however small it is drawn.
+        var reach = Math.max(12, n.r * rs + 6);
         if (d < Math.min(bestD, reach * reach)) { best = i; bestD = d; }
       }
       return best;
@@ -1387,8 +1604,9 @@
         for (var q = 0; q < nodes.length; q++) {
           if (nodes[q].kind === 'paper_statement' && visible(nodes[q])) totals[nodes[q].tier] = (totals[nodes[q].tier] || 0) + 1;
         }
-        parts.push('<p class="universe-inspector__kind">Reading the map</p>');
-        parts.push('<h2 class="universe-inspector__title">' + fmtCount(evidence.total) + ' paper results</h2>');
+        // The placard above already gives the totals; the rail names how to
+        // read the field.
+        parts.push('<h2 class="universe-inspector__title">Reading the map</h2>');
         var problemCount = 0;
         for (var pc = 0; pc < nodes.length; pc++) if (nodes[pc].kind === 'problem' && visible(nodes[pc])) problemCount++;
         parts.push('<p class="universe-inspector__body">From the centre out, one ring for each layer:</p>');
@@ -1961,12 +2179,9 @@
     /* ---- Data --------------------------------------------------------- */
 
     function degreeBonus(kind, degree) {
-      // Claims sit in even rows, so their size stays near one: a large
-      // bonus would let a well-connected claim cover its neighbours. Papers
-      // stay smaller than the problem they flank.
-      var cap = (kind === 'lean_module' || kind === 'mathematical_object') ? 1 :
-        kind === 'public_claim' ? 1.2 : kind === 'paper' ? 1.5 : 3.5;
-      return Math.min(cap, Math.sqrt(Math.max(0, degree - 1)) * 0.55);
+      // Every kind keeps one size. A mark that grew with its connections
+      // would suggest a quantity the legend never names.
+      return 0;
     }
 
     /* The first screen names a declaration's file by index into one table;
@@ -2134,7 +2349,12 @@
     }
     var dataUrl = canvas.getAttribute('data-universe-src');
     fetch(dataUrl).then(function (r) { return r.json(); }).then(function (data) {
+      // The reveal starts closed, so the load's own draw shows no flash of
+      // the whole map before the first frame opens it.
+      var opening = pageMode && !pendingId && !reduceMotion && !!window.requestAnimationFrame && !document.hidden;
+      if (opening) { reveal = 0; revealMs = 0; }
       ingest(data);
+      if (opening) startReveal();
     }).catch(function () {
       stage.classList.add('is-unavailable');
     });
@@ -2143,8 +2363,14 @@
     if (document.fonts && document.fonts.load) {
       Promise.all([
         document.fonts.load('600 10px "Plectis Serif"'),
+        document.fonts.load('400 11px "Plectis Serif"'),
+        document.fonts.load('500 12px "Plectis Serif"'),
         document.fonts.load('italic 600 11px "Plectis Serif"')
-      ]).then(function () { if (nodes.length) draw(); }, function () {});
+      ]).then(function () {
+        // Letter places measured in the fallback face no longer hold.
+        arcPlaces = {};
+        if (nodes.length) draw();
+      }, function () {});
     }
 
     /* ---- Pointer ------------------------------------------------------ */

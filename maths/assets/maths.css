@@ -13,14 +13,19 @@
    covers the explicit choice). */
 :root {
   --u-universe: #211318;
-  --u-problem: #3f5280;
+  /* Structure is ink and quiet greys; colour is kept for evidence. A problem
+     is drawn like the core, a ring round a point. */
+  --u-problem: #2e2126;
   --u-claim: #6f6152;
-  --u-paper: #8a6a80;
+  --u-paper: #a39389;
   --u-document: #786359;
   --u-integration: #b0512a;
   --u-module: #a99781;
   --u-object: #6f83cf;
-  --u-statement: #2d7566;
+  /* Queued teal, checked with the dataviz palette validator against the
+     replayed orange on this surface: chroma, colour-blind separation and
+     contrast all pass. */
+  --u-statement: #00826a;
   --u-plate: rgba(33, 19, 24, 0.045);
   --u-edge: rgba(33, 19, 24, 0.14);
   --u-edge-hot: rgba(52, 80, 142, 0.55);
@@ -31,14 +36,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --u-universe: #f2e6d4;
-    --u-problem: #a7b8dc;
-    --u-claim: #d9ccb7;
-    --u-paper: #b9a1b5;
+    --u-problem: #ece0cf;
+    --u-claim: #c6baa6;
+    --u-paper: #8b8088;
     --u-document: #a18e88;
     --u-integration: #e08a58;
     --u-module: #857aa4;
     --u-object: #8ea2e0;
-    --u-statement: #7fcbb5;
+    --u-statement: #4dbb9f;
     --u-plate: rgba(242, 230, 212, 0.05);
     --u-edge: rgba(242, 230, 212, 0.14);
     --u-edge-hot: rgba(169, 192, 238, 0.7);
@@ -49,14 +54,14 @@
 }
 :root[data-theme="dark"] {
   --u-universe: #f2e6d4;
-  --u-problem: #a7b8dc;
-  --u-claim: #d9ccb7;
-  --u-paper: #b9a1b5;
+  --u-problem: #ece0cf;
+  --u-claim: #c6baa6;
+  --u-paper: #8b8088;
   --u-document: #a18e88;
   --u-integration: #e08a58;
   --u-module: #857aa4;
   --u-object: #8ea2e0;
-  --u-statement: #7fcbb5;
+  --u-statement: #4dbb9f;
   --u-plate: rgba(242, 230, 212, 0.05);
   --u-edge: rgba(242, 230, 212, 0.14);
   --u-edge-hot: rgba(169, 192, 238, 0.7);
@@ -335,7 +340,9 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 /* The page scrolls past the field on touch and wheel; a pinch or a held
    modifier zooms it, so the canvas never traps the reader. */
 .universe-canvas--page {
-  height: clamp(440px, calc(100svh - 190px), 820px);
+  /* The field fills the panel's height: on a laptop's first screen the
+     whole map shows, and it grows with taller screens. */
+  height: var(--universe-h, 600px);
   cursor: grab;
   touch-action: pan-y;
 }
@@ -399,21 +406,45 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   .universe-figures { gap: var(--space-1) var(--space-4); }
   .universe-figures dd { font-size: 1.3rem; }
   .universe-figures dt { font-size: var(--fs-micro); }
-  .universe-toolbar .universe-count { display: none; }
+  .universe-toolbar /* Inside the map's rail, a link that leaves the site keeps its arrow but
+   takes the ink colour: amber there would read as Comparator's orange. */
+.universe-inspector a[data-link-kind="exogenous"],
+.universe-panel__side a[data-link-kind="exogenous"] { color: var(--ink); text-decoration-color: var(--rule-strong); }
+.universe-count { display: none; }
   .universe-head__lede { font-size: var(--fs-body); }
 }
 .universe-canvas--page.is-panning { cursor: grabbing; }
 .universe-canvas.is-over { cursor: pointer; }
 
-/* The universe page pairs the field with a fixed inspector rail; the panel
-   never chases the cursor. On narrow screens the rail drops below the map. */
+/* The universe page pairs the field with its placard column: the head and
+   the search on top, the reading rail filling the rest of the field's
+   height and scrolling inside it; the panel never chases the cursor. On
+   narrow screens the head comes first, then the map, then the rail. */
+.universe-page { --universe-h: clamp(480px, calc(100svh - 170px), 900px); }
 .universe-panel__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
-  align-items: stretch;
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas: "stage side" "stage rail";
+  height: var(--universe-h);
 }
+.universe-panel__stage { grid-area: stage; }
+.universe-panel__side {
+  grid-area: side;
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-left: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.universe-panel__body > .universe-inspector { grid-area: rail; min-height: 0; }
 @media (max-width: 1080px) {
-  .universe-panel__body { grid-template-columns: minmax(0, 1fr); }
+  .universe-page { --universe-h: clamp(380px, 70svh, 640px); }
+  .universe-panel__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "side" "stage" "rail";
+    height: auto;
+  }
+  .universe-panel__side { border-left: 0; }
 }
 
 /* The landing teaser announces the hovered object in one quiet line pinned
@@ -440,9 +471,13 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   bottom: var(--space-3);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0;
   z-index: 3;
 }
+.universe-zoom__btn + .universe-zoom__btn { margin-top: -1px; }
+.universe-zoom__btn:not(:first-child) { border-top-left-radius: 0; border-top-right-radius: 0; }
+.universe-zoom__btn:not(:last-child) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.universe-zoom__btn:focus-visible { position: relative; z-index: 1; }
 .universe-zoom__btn {
   font: inherit;
   font-size: 1.05rem;
@@ -487,7 +522,10 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   vertical-align: baseline;
   transform: translateY(0.5px);
 }
-.dot--problem { background: var(--u-problem); }
+.dot--problem {
+  background: radial-gradient(circle, var(--u-problem) 0 24%, transparent 27%);
+  box-shadow: inset 0 0 0 1.5px var(--u-problem);
+}
 .dot--claim { background: var(--u-claim); }
 .dot--paper { background: var(--u-paper); }
 .dot--document { background: var(--u-document); }
@@ -518,9 +556,13 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
    colour fills a statement it replayed; the Lean colour fills an exact Lean
    statement awaiting replay and rings one stated modulo named inputs. */
 .glyph--replayed { background: var(--u-integration); border-color: var(--u-integration); }
-.glyph--lean { background: var(--u-statement); border-color: var(--u-statement); }
+.glyph--lean {
+  /* The queued pip, as on the map: colour is never the only signal. */
+  background: radial-gradient(circle, var(--surface) 0 30%, var(--u-statement) 35%);
+  border-color: var(--u-statement);
+}
 .glyph--modulo { background: transparent; border-color: var(--u-statement); }
-.glyph--none { background: transparent; border-color: var(--u-statement); border-width: 1px; opacity: 0.7; }
+.glyph--none { background: transparent; border-color: var(--faint); border-width: 1px; }
 .universe-legend--glyphs { padding-left: var(--space-3); border-left: 1px solid var(--rule); }
 .lens-btn--glyph .glyph { margin-right: 0.45em; }
 .lens-btn[aria-pressed="true"] .glyph { border-color: var(--on-accent); }
@@ -1471,47 +1513,58 @@ html:not(.scripting) .universe-nojs { display: block; }
 .doc-source-line code { font-size: var(--fs-small); }
 
 /* ---- Universe page ------------------------------------------------------- */
-/* The map leads: a two-line head with its four figures, one toolbar, then
-   the field. How the map is drawn waits below it for the reader who asks. */
-.universe-head { margin: 0 0 var(--space-4); }
+/* The map is the artwork and the right-hand column its placard: the title,
+   the four figures and the search head that column, the reading rail runs
+   under them, and the field takes the panel's full height beside them, so a
+   laptop's first screen holds the whole map. How the map is drawn waits
+   below for the reader who asks. */
+.universe-head { margin: 0 0 var(--space-3); }
 .universe-head h1 {
   font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.6rem, 2.2vw, 1.95rem);
   line-height: 1.12;
   margin: 0 0 var(--space-2);
   text-wrap: balance;
 }
 .universe-head__lede {
-  margin: 0 0 var(--space-4);
-  max-width: 50rem;
-  font-size: var(--fs-lede);
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
   color: var(--ink-soft);
   text-wrap: pretty;
 }
 .universe-figures {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: var(--space-2) var(--space-4);
   margin: 0;
 }
+.universe-panel__side .universe-figures dt { font-size: var(--fs-micro); white-space: nowrap; }
 .universe-figures__item { display: flex; flex-direction: column-reverse; }
 .universe-figures dt { color: var(--muted); font-size: var(--fs-small); }
 .universe-figures dd {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-size: 1.35rem;
   line-height: 1.1;
   font-variant-numeric: lining-nums tabular-nums;
   color: var(--ink);
 }
 .universe-toolbar {
   display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+.universe-toolbar__row {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-4);
-  margin: var(--space-4) 0 var(--space-3);
+  justify-content: space-between;
+  gap: var(--space-2);
 }
-.universe-find { flex: 1 1 20rem; max-width: 32rem; position: relative; }
+.universe-find { position: relative; }
 .universe-find .universe-search { width: 100%; min-width: 0; }
 /* The first matches open under the field; the map lights the rest. */
 .universe-results {
@@ -1620,7 +1673,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-step__btn[disabled] { opacity: 0.4; cursor: default; }
 .universe-step__at { color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; text-align: center; }
 .universe-toolbar .universe-count { margin-left: 0; font-variant-numeric: tabular-nums; }
-.universe-toolbar .universe-panel__cta { margin-left: auto; }
+.universe-toolbar .universe-panel__cta { margin-left: 0; }
 /* The legend is the filter: each key switches its kind or glyph on and off. */
 .universe-keys {
   display: grid;
@@ -1660,7 +1713,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-key__btn[aria-pressed="false"] { color: var(--muted); }
 .universe-key__btn[aria-pressed="false"] .dot,
 .universe-key__btn[aria-pressed="false"] .glyph { opacity: 0.3; }
-.universe-key__btn[aria-pressed="true"] { border-color: var(--rule); }
+.universe-key__btn[aria-pressed="true"] { color: var(--ink); }
 @media (max-width: 720px) {
   .universe-key__label { flex-basis: 100%; }
   .universe-toolbar .universe-panel__cta { margin-left: 0; }
@@ -1725,7 +1778,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   min-width: 210px;
 }
 .universe-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.universe-count { color: var(--faint); font-size: var(--fs-small); margin-left: auto; }
+.universe-count { color: var(--faint); font-size: var(--fs-micro); margin-left: auto; font-variant-numeric: tabular-nums; }
 
 /* The inspector rail: overview at rest, preview on hover, full card when
    pinned. It scrolls inside the panel frame; the map never moves for it. */
@@ -1733,7 +1786,6 @@ html:not(.scripting) .universe-nojs { display: block; }
   border-left: 1px solid var(--rule);
   background: var(--surface);
   padding: var(--space-4) var(--space-4) var(--space-5);
-  max-height: clamp(440px, calc(100svh - 190px), 820px);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
