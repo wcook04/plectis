@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "c99e605a77c1d13d",
-    "source_sha256": "cb16fdeab369504b235370e5572393f42307358a4e17993be91a182650227289",
+    "renderer_fingerprint": "190ec0c743f338a3",
+    "source_sha256": "997e19970e2a5ec1c99329f62df8d016d3be251a8c63b51ccb0780e9b5661619",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 291,
+    "mathml_node_count": 322,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -47,8 +47,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "ec731fd48d76a5681e185dd0f3aa0a28d0f4bb8d96aac2c0ed938853a61bb060",
-    "html_exact_tex_sha256": "7fffb2c62a98570532c005314fcbf573e46cf398f70f02e7872b67d4bb7e01ac"
+    "html_mathml_sha256": "dc37526085f44f6af3c3ab62150879c7e9d10f7d92d7ea2737181523cf781811",
+    "html_exact_tex_sha256": "9a55812fc76b155b3036e6ea4fdf88efc812283267398c18bcecaf57abd35307"
   },
   "sections": [
     {
@@ -64,7 +64,7 @@
     {
       "level": 2,
       "anchor": "sec:moments",
-      "label": "Attainable moments"
+      "label": "Possible values of MM"
     },
     {
       "level": 3,
@@ -74,7 +74,7 @@
     {
       "level": 2,
       "anchor": "sec:depth-four",
-      "label": "A vector of least positive moment"
+      "label": "An example attaining the minimum"
     },
     {
       "level": 2,
@@ -113,7 +113,7 @@
       },
       {
         "id": "sec:moments",
-        "title": "Attainable moments",
+        "title": "Possible values of MM",
         "level": 2
       },
       {

@@ -6,13 +6,28 @@
     "comparator",
     "palomar"
   ],
-  "reading_rule": "The surfaces overlap but do different jobs. Lean checks propositions; papers explain; Comparator checks selected statement/type parity and replay; Palomar is a separate editorial and registry review. No later surface widens the mathematical claim established by its source.",
+  "reading_rule": "The surfaces overlap but do different jobs. Lean checks propositions; papers explain; Comparator checks that the Lean declarations stating a paper result match the same statements declared again without proofs, within the permitted axioms; Palomar is a separate editorial and registry review. No later surface widens the mathematical claim established by its source.",
   "surfaces": [
     {
       "id": "lean",
       "role": "formal_proof_source",
       "status_source": "../claims.json",
-      "repository": "https://github.com/wcook04/plectis-erdos"
+      "repository": "https://github.com/wcook04/plectis-erdos",
+      "paper_statements": {
+        "source": "../paper-lean-coverage.json",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
+        "lean_pin": "436f55ebdafa67e4af0fff79f621c13f2ded12bf",
+        "statements": 689,
+        "lean_exact": 640,
+        "lean": {
+          "exact": 498,
+          "exact_or_stronger": 142,
+          "modulo_named_input": 23,
+          "none": 26
+        },
+        "lean_declarations": 1506,
+        "lean_files": 376
+      }
     },
     {
       "id": "papers",
@@ -35,7 +50,24 @@
         "landrun": "811cfff51ceaf3d9843708aa6d22e9b84ccac8b4"
       },
       "boundary": "Using the degree-seven polynomial constructed by the erdosproblems.com contributor ani, Lean proves that every preconnected strict-lemniscate set containing two distinct roots has one-dimensional Hausdorff measure greater than two. This refutes the exact Formal Conjectures path-image-length statement; the separate total-variation bound is also checked. The other seven targets remain open. Independent human review of correspondence with the 1958 wording has not been recorded. Comparator checks only selected exact statements, axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
-      "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed"
+      "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed",
+      "paper_statement_replay": {
+        "source": "../paper-lean-coverage.json",
+        "corpus_repository": "https://github.com/wcook04/plectis-erdos-lean",
+        "statements": 689,
+        "comparator": {
+          "compared": 616,
+          "not_applicable": 49,
+          "pending": 24
+        },
+        "corpus_entries": 127,
+        "replay_runs": 1,
+        "corpus_commit": "cc7e541cf2081c6fef5a5e377d52e365e33b01eb",
+        "replay_run": "35935225572",
+        "replay_href": "https://github.com/wcook04/plectis-erdos-lean/actions/runs/35935225572",
+        "receipts_href": "https://github.com/wcook04/plectis-erdos/tree/main/evidence/comparator/replay-35935225572",
+        "rule": "compared: a recorded Comparator replay in the corpus repository checked every named declaration (entries, run ids and corpus commits recorded). pending: exact Lean evidence waiting on that replay; queued_at is the date the row entered the worklist. not_applicable: no exact Lean statement."
+      }
     },
     {
       "id": "palomar",
@@ -55,6 +87,15 @@
         "receipt": "docs/formal_math/palomar/palomar_release_receipt.json",
         "reading_rule": "The release record does not include a dated awaiting-review count. Preparation alone does not establish submission or acceptance.",
         "count_contract": "Counts describe the recorded observation only. Outcomes can change; missing counts remain unknown and are not inferred from preparation."
+      },
+      "prepared_paper_statements": {
+        "source": "../paper-lean-coverage.json",
+        "palomar": {
+          "not_applicable": 49,
+          "pending": 24,
+          "prepared": 616
+        },
+        "rule": "prepared: the compared corpus entry is in the prepare-only Palomar corpus; submission and acceptance are operator decisions recorded elsewhere. pending: waiting on Comparator. not_applicable: no exact Lean statement."
       }
     }
   ]

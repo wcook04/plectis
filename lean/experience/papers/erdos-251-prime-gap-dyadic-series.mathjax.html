@@ -22,18 +22,19 @@ convergence justified in Section <a class="math-ref" href="#sec:parts">4</a>. W
 properties of the gaps survive when the latter sum is changed to a
 prescribed value.</p>
 <p>We prove a perturbation theorem for arbitrary convergent dyadic
-series with nonnegative integer coefficients. A single sparse set of
-permitted indices allows every target in an interval, even when the
-corrections must obey an arbitrarily slowly growing bound. We also
-prescribe, before choosing the target, a cutoff for each modulus beyond
-which both the corrections and their partial sums are divisible by that
-modulus. For prime gaps the same construction retains the distributions
-of blocks of length <span class="math inline" data-term-auto="off">\(o(\log\log X)\)</span>
-sampled in <span class="math inline" data-term-auto="off">\([X,2X)\)</span> and gives
-cumulative positions asymptotic to <span class="math inline" data-term-auto="off">\(n\log
-n\)</span>. The irrationality of the actual prime series remains a
-distinct question: these comparison sequences need not have prime
-cumulative positions.</p>
+series with nonnegative integer coefficients. All corrections are
+supported on one sparse set, chosen before the value of the sum. Their
+sizes may be eventually bounded by any prescribed function tending to
+infinity, while the sums still fill an interval. We also prescribe,
+before choosing the target, a cutoff for each modulus beyond which both
+the corrections and their partial sums are divisible by that modulus.
+For prime gaps the same construction retains the distributions of blocks
+of length <span class="math inline" data-term-auto="off">\(o(\log\log X)\)</span> sampled in
+<span class="math inline" data-term-auto="off">\([X,2X)\)</span> and gives cumulative
+positions asymptotic to <span class="math inline" data-term-auto="off">\(n\log n\)</span>.
+The irrationality of the actual prime series remains a distinct
+question: these comparison sequences need not have prime cumulative
+positions.</p>
 <p>We use a standard interval-covering argument for series with finite
 choices. Fridy’s generalised-base lemma <span class="citation"
 data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats bounded digits and decreasing
@@ -55,14 +56,12 @@ the later index to the earlier one changes the weighted sum while
 leaving the ordinary sum fixed. If the cumulative correction before the
 pair is odd, an additional <span class="math inline" data-term-auto="off">\(1\)</span> at
 <span class="math inline" data-term-auto="off">\(n-1\)</span> clears its residue modulo <span
-class="math inline" data-term-auto="off">\(2\)</span>. The choice among the four pairs then
-has no effect on any cumulative residue beyond the pair. This is only
-the local calculation: we still have to accommodate every fixed modulus
-and an arbitrarily small density of permitted indices. Increasing the
-spacing inserts a smaller power of <span
-class="math inline" data-term-auto="off">\(2\)</span> into the weighted contribution. We
-increase the range of choices in each pair just enough for later choices
-to cover the spacing between the present ones.</p>
+class="math inline" data-term-auto="off">\(2\)</span>. Since the four pairs have the same
+sum, the choice of pair leaves every later cumulative residue unchanged.
+We repeat this operation with nested moduli and increasingly separated
+pairs. The larger separations make the weighted contributions smaller,
+so we enlarge the range of each pair until the later contributions fill
+the gaps between consecutive present choices.</p>
 <p>Throughout, <span class="math inline" data-term-auto="off">\(\N=\{0,1,\ldots\}\)</span>,
 intervals of indices contain integers, and <span
 class="math inline" data-term-auto="off">\(\log\)</span> is natural unless a base is
@@ -120,12 +119,12 @@ values.</em></p>
 <span class="math inline" data-term-auto="off">\(r\)</span> and occupy only part of <span
 class="math inline" data-term-auto="off">\(S\)</span>. Polynomially growing nonnegative
 integer sequences satisfy the convergence hypothesis, whereas <span
-class="math inline" data-term-auto="off">\(a_n=2^n\)</span> does not. The allowance may grow
-as slowly as <span class="math inline" data-term-auto="off">\(\log\log(n+3)\)</span>. A
-bounded allowance would force every correction to vanish: a modulus
-exceeding the bound makes <span class="math inline" data-term-auto="off">\(e\)</span>
-eventually zero, and its constant cumulative sum must then be divisible
-by every positive integer.</p>
+class="math inline" data-term-auto="off">\(a_n=2^n\)</span> does not. The prescribed bound
+may grow as slowly as <span
+class="math inline" data-term-auto="off">\(\log\log(n+3)\)</span>. A bounded correction would
+have to vanish identically: a modulus exceeding the bound makes <span
+class="math inline" data-term-auto="off">\(e\)</span> eventually zero, and its constant
+cumulative sum must then be divisible by every positive integer.</p>
 <p>Section <a class="math-ref" href="#sec:construction">2</a>
 gives the construction, and Section <a class="math-ref" href="#sec:prime-application">3</a> applies it to
 prime gaps. We then identify the actual tails and characterise their
@@ -143,16 +142,16 @@ finite subsums and other dyadic coefficient sequences.</p>
 class="math inline" data-term-auto="off">\(j\)</span> we put a correction at <span
 class="math inline" data-term-auto="off">\(n_j-1\)</span> and a variable pair at <span
 class="math inline" data-term-auto="off">\(n_j,n_j+1\)</span>. We keep the pair’s ordinary
-sum fixed, so that its choice leaves the residue to be cleared at every
-later stage unchanged. Let <span class="math inline" data-term-auto="off">\(n_{-1}\ge
-K\)</span>, write <span
+sum fixed. Consequently, the residue to be cancelled at a later stage is
+independent of all earlier pair choices. Let <span
+class="math inline" data-term-auto="off">\(n_{-1}\ge K\)</span>, write <span
 class="math inline" data-term-auto="off">\(s_j=n_j-n_{j-1}\ge4\)</span>, and take positive
 integers <span class="math inline" data-term-auto="off">\(M_j\)</span> with <span
-class="math inline" data-term-auto="off">\(M_j\mid M_{j+1}\)</span>. The actual centres and
-moduli will be chosen below. Put <span
-class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span>; we will see shortly why
-this digit range compensates for the spacing <span
-class="math inline" data-term-auto="off">\(s_j\)</span>.</p>
+class="math inline" data-term-auto="off">\(M_j\mid M_{j+1}\)</span>. For now let <span
+class="math inline" data-term-auto="off">\(D_j\)</span> be a positive integer bounding the
+digit at stage <span class="math inline" data-term-auto="off">\(j\)</span>. We first describe
+the corrections for these parameters, then choose them to obtain both
+sparsity and an interval of sums.</p>
 <p>Starting from <span class="math inline" data-term-auto="off">\(C_0=0\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[c_j=(-C_j)\bmod M_j\quad(0\le
 c_j&lt;M_j),\qquad
@@ -200,21 +199,25 @@ intervening corrections are zero. Hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[q\mid e_n,\qquad q\mid\sum_{i&lt;n}e_i\qquad(n\ge
 n_J).\]</span></div>
-<p>The entry <span class="math inline" data-term-auto="off">\(c_J\)</span> lies
-at <span class="math inline" data-term-auto="off">\(n_J-1\)</span>, just before this cutoff;
-it need not itself be divisible by <span
-class="math inline" data-term-auto="off">\(q\)</span>. This explains both the placement of
-the residue correction and the target independence of the cutoff.</p>
+<p>The entry <span class="math inline" data-term-auto="off">\(c_J\)</span> need
+not be divisible by <span class="math inline" data-term-auto="off">\(q\)</span>, which is why
+it is placed at <span class="math inline" data-term-auto="off">\(n_J-1\)</span>, before the
+cutoff. The index <span class="math inline" data-term-auto="off">\(n_J\)</span> depends on
+<span class="math inline" data-term-auto="off">\(q\)</span> and the chosen moduli, but not on
+the digits or the value to be attained.</p>
 <p><em>Spacing and size.</em> The variable part at stage <span
-class="math inline" data-term-auto="off">\(j\)</span> has spacing <span
-class="math inline" data-term-auto="off">\(w_j\)</span> and maximum <span
-class="math inline" data-term-auto="off">\(D_jw_j\)</span>. We arrange that the later
-variable parts have enough total range to cover one spacing <span
-class="math inline" data-term-auto="off">\(w_j\)</span>. Our choice <span
-class="math inline" data-term-auto="off">\(D_i=2^{s_i}-1\)</span> gives</p>
+class="math inline" data-term-auto="off">\(j\)</span> takes the values <span
+class="math inline" data-term-auto="off">\(0,w_j,\ldots,D_jw_j\)</span>. To fill the gaps
+between these choices, we need the later variable parts to have total
+range at least <span class="math inline" data-term-auto="off">\(w_j\)</span>. This suggests
+making each later range a difference of successive dyadic scales. We
+therefore choose <span class="math inline" data-term-auto="off">\(D_i=2^{s_i}-1\)</span>, for
+which</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[D_iw_i=M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).\]</span></div>
-<p>Because <span class="math inline" data-term-auto="off">\(M_i\ge M_j\)</span> for <span
+class="math display" data-term-auto="off">\[D_iw_i=(2^{n_i-n_{i-1}}-1)M_i2^{-n_i-2}
+       =M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).\]</span></div>
+<p>Because <span
+class="math inline" data-term-auto="off">\(M_i\ge M_j\)</span> for <span
 class="math inline" data-term-auto="off">\(i&gt;j\)</span>, replacing every later modulus by
 <span class="math inline" data-term-auto="off">\(M_j\)</span> gives the finite estimate</p>
 <div class="math-display" id="eq:finite-overlap" data-term-auto="off"><span
@@ -227,19 +230,23 @@ class="math display" data-term-auto="off">\[\begin{equation}
 &amp;=w_j-M_j2^{-n_J-2}\qquad(J&gt;j).
 \end{aligned}
 \end{equation}\]</span></div>
-<p>Thus increasing the spacing does not destroy
-interval covering, provided we pay for the corresponding digit range.
-Every entry of <a class="math-ref" data-equation-ref="true" href="#eq:correction-triple">eq:correction-triple</a> is at most
-<span class="math inline" data-term-auto="off">\(M_j2^{s_j}\)</span>. It remains to fit that
-quantity below the allowance while making the spacings tend to infinity
-and the moduli eventually divisible by each fixed integer.</p>
-<p>For a possibly nonmonotone allowance use</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[h(n)=\inf_{m\ge n}\min(f(m),m).\]</span></div>
-<p>This
-nondecreasing lower envelope tends to infinity. A bound chosen using
-<span class="math inline" data-term-auto="off">\(h(n_{j-1})\)</span> is therefore valid at
-each of the later coordinates of the triple. The extra cap by <span
+<p>The digit range <span
+class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span> therefore gives the
+required overlap estimate even when the separations increase. Every
+entry of <a class="math-ref" data-equation-ref="true" href="#eq:correction-triple">eq:correction-triple</a> is at most
+<span class="math inline" data-term-auto="off">\(M_j2^{s_j}\)</span>, so we must keep this
+quantity below the prescribed bound at the three indices. We must also
+have <span class="math inline" data-term-auto="off">\(s_j\to\infty\)</span> and ensure that
+every fixed positive integer divides all sufficiently late <span
+class="math inline" data-term-auto="off">\(M_j\)</span>.</p>
+<p>To allow a nonmonotone bound <span class="math inline" data-term-auto="off">\(f\)</span>,
+put</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[h(n)=\inf_{m\ge
+n}\min(f(m),m).\]</span></div>
+<p>This nondecreasing lower envelope tends to
+infinity. A bound chosen using <span
+class="math inline" data-term-auto="off">\(h(n_{j-1})\)</span> is therefore valid at each of
+the later coordinates of the triple. The extra cap by <span
 class="math inline" data-term-auto="off">\(m\)</span> serves a separate purpose: <span
 class="math inline" data-term-auto="off">\(e_n\le n\)</span> will make the weighted
 corrections summable. Choose <span class="math inline" data-term-auto="off">\(n_{-1}\)</span>
@@ -247,23 +254,21 @@ with <span class="math inline" data-term-auto="off">\(h(n_{-1})\ge32\)</span>, a
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[k_j=\max\{k\ge2:k!2^{k+2}\le h(n_{j-1})\},\qquad
 M_j=k_j!,\qquad s_j=k_j+2,\qquad n_j=n_{j-1}+s_j.\]</span></div>
-<p>The single
-parameter <span class="math inline" data-term-auto="off">\(k_j\)</span> now controls both
-requirements: <span class="math inline" data-term-auto="off">\(k_j!\)</span> absorbs each
-fixed modulus once <span class="math inline" data-term-auto="off">\(k_j\)</span> is large
-enough, while <span class="math inline" data-term-auto="off">\(k_j+2\)</span> separates the
-triples. We choose the largest such parameter whose cost <span
-class="math inline" data-term-auto="off">\(k_j!2^{k_j+2}\)</span> fits the available bound.
-The choice exists because <span class="math inline" data-term-auto="off">\(2!2^4=32\)</span>,
-is finite, and is nondecreasing with <span
-class="math inline" data-term-auto="off">\(j\)</span>. Since <span
-class="math inline" data-term-auto="off">\(n_j\to\infty\)</span> and <span
-class="math inline" data-term-auto="off">\(h(n_j)\to\infty\)</span>, we also have <span
-class="math inline" data-term-auto="off">\(k_j\to\infty\)</span>. Consequently the moduli are
-nested, every fixed <span class="math inline" data-term-auto="off">\(q\)</span> divides all
-sufficiently late <span class="math inline" data-term-auto="off">\(M_j\)</span>, and <span
-class="math inline" data-term-auto="off">\(s_j\to\infty\)</span>. At each supported
-coordinate <span class="math inline" data-term-auto="off">\(n\)</span> of the <span
+<p>The maximum
+exists: <span class="math inline" data-term-auto="off">\(k=2\)</span> is admissible because
+<span class="math inline" data-term-auto="off">\(2!2^4=32\)</span>, and <span
+class="math inline" data-term-auto="off">\(k!2^{k+2}\)</span> tends to infinity. Since <span
+class="math inline" data-term-auto="off">\(h\)</span> is nondecreasing, so is <span
+class="math inline" data-term-auto="off">\(k_j\)</span>. Moreover <span
+class="math inline" data-term-auto="off">\(n_j\to\infty\)</span>, hence <span
+class="math inline" data-term-auto="off">\(h(n_j)\to\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(k_j\to\infty\)</span>. It follows that <span
+class="math inline" data-term-auto="off">\(M_j\mid M_{j+1}\)</span>, every fixed <span
+class="math inline" data-term-auto="off">\(q\)</span> divides all sufficiently late <span
+class="math inline" data-term-auto="off">\(M_j=k_j!\)</span>, and the separations <span
+class="math inline" data-term-auto="off">\(s_j=k_j+2\)</span> tend to infinity. The same
+choice gives the size estimate: at each supported coordinate <span
+class="math inline" data-term-auto="off">\(n\)</span> of the <span
 class="math inline" data-term-auto="off">\(j\)</span>th triple,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0\le e_n\le M_j2^{s_j}\le
@@ -275,13 +280,13 @@ class="math inline" data-term-auto="off">\(S=\bigcup_{j\ge0}\{n_j-1,n_j,n_j+1\}\
 any <span class="math inline" data-term-auto="off">\(R\)</span>, all but finitely many
 successive centres are at least <span class="math inline" data-term-auto="off">\(R\)</span>
 apart. An interval of length <span class="math inline" data-term-auto="off">\(H\)</span>
-therefore meets at most <span class="math inline" data-term-auto="off">\(3(H/R+2)\)</span>
-permitted indices, in addition to a fixed finite set. The bound is
-uniform in the position of the interval. Divide by <span
-class="math inline" data-term-auto="off">\(H\)</span>, take the supremum over positions and
-let <span class="math inline" data-term-auto="off">\(H\to\infty\)</span>; then let <span
-class="math inline" data-term-auto="off">\(R\to\infty\)</span>. This proves upper Banach
-density zero.</p>
+therefore contains at most <span class="math inline" data-term-auto="off">\(3(H/R+2)\)</span>
+points of <span class="math inline" data-term-auto="off">\(S\)</span>, in addition to a fixed
+finite set. The bound is uniform in the position of the interval. Divide
+by <span class="math inline" data-term-auto="off">\(H\)</span>, take the supremum over
+positions and let <span class="math inline" data-term-auto="off">\(H\to\infty\)</span>; then
+let <span class="math inline" data-term-auto="off">\(R\to\infty\)</span>. This proves upper
+Banach density zero.</p>
 <p><em>Attaining the interval.</em> We have now fixed the centres,
 moduli, digit ranges and residue corrections, but have left every digit
 free. Define</p>
@@ -303,12 +308,15 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:overlap}
 F_{j+1}\ge M_j2^{-n_j-2}=w_j.
 \end{equation}\]</span></div>
-<p>For a remaining target in <span
-class="math inline" data-term-auto="off">\([0,F_j]\)</span>, choosing digit <span
-class="math inline" data-term-auto="off">\(d\)</span> leaves a remainder in <span
-class="math inline" data-term-auto="off">\([0,F_{j+1}]\)</span> exactly when that target
-belongs to</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[[dw_j,dw_j+F_{j+1}],\qquad
+<p>Every variable sum from stage <span
+class="math inline" data-term-auto="off">\(j\)</span> onwards lies in <span
+class="math inline" data-term-auto="off">\([0,F_j]\)</span>; we must still show that every
+point of this interval is attained. A target in <span
+class="math inline" data-term-auto="off">\([0,F_j]\)</span> leaves a remainder in <span
+class="math inline" data-term-auto="off">\([0,F_{j+1}]\)</span> after choosing digit <span
+class="math inline" data-term-auto="off">\(d\)</span> exactly when it belongs to</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[[dw_j,dw_j+F_{j+1}],\qquad
 d=0,\ldots,D_j.\]</span></div>
 <p>These intervals meet or overlap by <a class="math-ref" data-equation-ref="true" href="#eq:overlap">eq:overlap</a>, and their union is
 <span class="math inline" data-term-auto="off">\([0,F_j]\)</span> because <span
@@ -332,9 +340,9 @@ class="math inline" data-term-auto="off">\(F_j\to0\)</span>.</figcaption>
 class="math inline" data-term-auto="off">\(d_j\)</span> so that</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\rho_{j+1}=\rho_j-d_jw_j\in[0,F_{j+1}].\]</span></div>
-<p>The covering just proved makes this possible at every stage. The
-invariant <span class="math inline" data-term-auto="off">\(0\le\rho_j\le F_j\)</span> and
-<span class="math inline" data-term-auto="off">\(F_j\to0\)</span> then give</p>
+<p>The covering just proved makes this possible at every stage. Since <span
+class="math inline" data-term-auto="off">\(0\le\rho_j\le F_j\)</span> and <span
+class="math inline" data-term-auto="off">\(F_j\to0\)</span>, we obtain</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[x-\sum_{i=0}^{j}d_iw_i=\rho_{j+1}\longrightarrow0.\]</span></div>
 <p>Thus every <span class="math inline" data-term-auto="off">\(x\in[0,F_0]\)</span> is attained,
@@ -349,14 +357,15 @@ class="math inline" data-term-auto="off">\(q\mid M_J\)</span>. This last selecti
 standard finite-choice covering argument of <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-17">[17]</a></span>. The construction above supplies
 its summability and overlap hypotheses while imposing the congruences
-and the small permitted set.</p>
+and requiring the support to lie in <span
+class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <p><em>The logarithmic scale.</em> For <span
 class="math inline" data-term-auto="off">\(f(n)=(\log(n+3))^\varepsilon\)</span>, we can
 choose the separations explicitly at the scale <span
 class="math inline" data-term-auto="off">\(\log\log n\)</span>. Keep the same triples and
-<span class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span>, but replace the
-schedule by</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+<span class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span>, and now choose</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
 s_j&amp;=\left\lfloor\frac{\varepsilon}{2}
                \log_2\log(n_{j-1}+3)\right\rfloor,\\
 k_j&amp;=\max\{k\ge2:k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},
@@ -365,18 +374,19 @@ k_j&amp;=\max\{k\ge2:k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},
 class="math inline" data-term-auto="off">\(M_j=k_j!\)</span> and <span
 class="math inline" data-term-auto="off">\(n_j=n_{j-1}+s_j\)</span>. Start far enough out
 that <span class="math inline" data-term-auto="off">\(s_j\ge4\)</span> and all choices exist.
-Allocating exponents <span class="math inline" data-term-auto="off">\(\varepsilon/4\)</span>
-to the modulus and <span class="math inline" data-term-auto="off">\(\varepsilon/2\)</span> to
-<span class="math inline" data-term-auto="off">\(2^{s_j}\)</span> leaves room within the
-prescribed allowance:</p>
+The exponents <span class="math inline" data-term-auto="off">\(\varepsilon/4\)</span> and
+<span class="math inline" data-term-auto="off">\(\varepsilon/2\)</span> add to <span
+class="math inline" data-term-auto="off">\(3\varepsilon/4&lt;\varepsilon\)</span>, so the
+corrections satisfy the prescribed bound:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}
              \le(\log(n+3))^\varepsilon\]</span></div>
 <p class="display-continue">at each coordinate
 <span class="math inline" data-term-auto="off">\(n\)</span> of the triple. After enlarging
 the initial index, this is also at most <span
-class="math inline" data-term-auto="off">\(n\)</span>. The moduli remain nested and absorb
-every fixed integer; summability, the congruence induction and <a class="math-ref" data-equation-ref="true" href="#eq:finite-overlap">eq:finite-overlap</a> therefore apply
+class="math inline" data-term-auto="off">\(n\)</span>. The moduli remain nested, and every
+fixed positive integer divides all sufficiently late moduli.
+Summability, the congruence induction and <a class="math-ref" data-equation-ref="true" href="#eq:finite-overlap">eq:finite-overlap</a> therefore apply
 without change. Here <span
 class="math inline" data-term-auto="off">\(s_j\asymp_\varepsilon\log\log n_j\)</span>, so</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|S\cap[X,2X)|=O_\varepsilon(X/\log\log
@@ -398,10 +408,11 @@ d_{\rm TV}(\mu_{a,X,m},\mu_{a+e,X,m})
 two dyadic bands cover <span class="math inline" data-term-auto="off">\([X,2X+m)\)</span> and
 give the bound <span class="math inline" data-term-auto="off">\(O_\varepsilon(m/\log\log
 X)\)</span>. In particular it tends to zero when <span
-class="math inline" data-term-auto="off">\(m=o(\log\log X)\)</span>, uniformly over targets
-since the permitted set <span class="math inline" data-term-auto="off">\(S\)</span> is common
-to all of them. The block length enters solely through the number of
-starts that one altered coordinate can affect. ◻</p>
+class="math inline" data-term-auto="off">\(m=o(\log\log X)\)</span>, uniformly over the
+values attained, since the same set <span
+class="math inline" data-term-auto="off">\(S\)</span> contains every correction support. The
+block length enters solely through the number of starts that one altered
+coordinate can affect. ◻</p>
 </div>
 <p>The coupling also applies to tests depending on the starting index.
 If their absolute value is bounded by <span
@@ -574,8 +585,8 @@ irrationality. ◻</p>
 solution. We distinguish the actual tails by the vanishing condition in
 the next lemma.</p>
 <div class="lemma" id="res:true-tail">
-<p><strong>Lemma 4.3</strong> (the boundary condition identifying a true
-tail). <em> Let <span
+<p><strong>Lemma 4.3</strong> (the boundary condition for the tail
+recurrence). <em> Let <span
 class="math inline" data-term-auto="off">\(\sum_{j\ge1}|a_j|2^{-j}&lt;\infty\)</span> and
 <span class="math inline" data-term-auto="off">\(U_{N+1}=2U_N-a_{N+1}\)</span>. Then <span
 class="math inline" data-term-auto="off">\(U_N=\sum_{j\ge1}a_{N+j}2^{-j}\)</span> for every
@@ -652,10 +663,11 @@ class="math inline" data-term-auto="off">\(h=1\)</span>. This shift works for ev
 class="math inline" data-term-auto="off">\(N\ge s\)</span>. Negating the pointwise and
 eventual criteria gives the two assertions about irrationality. ◻</p>
 </div>
-<p>The theorem requires neither a true-tail boundary condition nor
-prime-gap coefficients. The eventual periodicity is that of fractional
-parts, and need not hold for the full tails. For instance, the positive
-even coefficients <span class="math inline" data-term-auto="off">\(2,4,2,4,\ldots\)</span>
+<p>The theorem applies to the recurrence itself, without the boundary
+condition of Lemma <a class="math-ref" href="#res:true-tail">4.3</a> or any assumption of
+primality. The eventual periodicity is that of fractional parts, and
+need not hold for the full tails. For instance, the positive even
+coefficients <span class="math inline" data-term-auto="off">\(2,4,2,4,\ldots\)</span>
 starting at <span class="math inline" data-term-auto="off">\(n=1\)</span> give tails <span
 class="math inline" data-term-auto="off">\(8/3,10/3\)</span> alternately. Every shift of
 length <span class="math inline" data-term-auto="off">\(1\)</span> is nonintegral and every
@@ -723,13 +735,16 @@ g_{N+h+1}\ne g_{N+1}.
 <span class="math inline" data-term-auto="off">\(h\)</span>, and hence irrationality by
 Theorem <a class="math-ref" href="#res:escape-irrational">4.4</a>. All three
 conditions must hold at the same index; witnesses for the separate
-conditions cannot be combined without further information.
-Schlage-Puchta’s lemma <span class="citation"
-data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, applied to <span
-class="math inline" data-term-auto="off">\(x_h-x_0\pm2\)</span>, shows that the eligible
-indices with <span class="math inline" data-term-auto="off">\(\delta_N=\pm2\)</span> already
-have density zero. Separate infinite sets of small-difference and
-mismatch witnesses would therefore not suffice.</p>
+conditions cannot be combined without further information. By
+Proposition <a class="math-ref" href="#res:signedwindow">5.1</a>,
+such an index must have <span
+class="math inline" data-term-auto="off">\(\delta_N=\pm2\)</span>. Schlage-Puchta’s lemma
+<span class="citation" data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, applied
+to <span class="math inline" data-term-auto="off">\(x_h-x_0\pm2\)</span>, shows that these
+eligible indices already have density zero. Thus the required witnesses
+concern a rare event. The absolute block comparison in Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> does not
+control its relative frequency, and separate infinite sets of
+small-difference and mismatch witnesses would not suffice.</p>
 <section id="finite-separation-from-the-integers" class="level3">
 <h3>Finite separation from the integers</h3>
 <p>To decide nonintegrality from finitely many gaps, we bound the part
@@ -791,18 +806,24 @@ dyadic weights gives <span class="math inline" data-term-auto="off">\(\sum_{j\ge
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[R_{h,N,L}(M)=1250\,2^{-L}
              \bigl(P(N+h+L+2)+P(N+L+2)\bigr).\]</span></div>
-<p>If <span
-class="math inline" data-term-auto="off">\(\delta_N=2s\)</span> and <span
+<p>To certify the
+conditions in <a class="math-ref" data-equation-ref="true" href="#eq:smallpair">eq:smallpair</a>,
+suppose <span class="math inline" data-term-auto="off">\(\delta_N=2s\)</span>, where <span
+class="math inline" data-term-auto="off">\(s\in\{-1,1\}\)</span>, and <span
 class="math inline" data-term-auto="off">\(|QD_N-A|\le B\)</span>, with <span
 class="math inline" data-term-auto="off">\(A\in\Z\)</span>, <span
 class="math inline" data-term-auto="off">\(Q&gt;0\)</span>, <span
-class="math inline" data-term-auto="off">\(B\ge0\)</span> integers, the inequalities</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[2sA-Q&gt;2B,\qquad Q-sA&gt;B\]</span></div>
-<p class="display-continue">put <span
-class="math inline" data-term-auto="off">\(sD_N\)</span> in <span
-class="math inline" data-term-auto="off">\((1/2,1)\)</span>. The numerator <span
-class="math inline" data-term-auto="off">\(A\)</span> is signed. At <span
+class="math inline" data-term-auto="off">\(B\ge0\)</span> integers. Then <span
+class="math inline" data-term-auto="off">\(sD_N\)</span> lies in <span
+class="math inline" data-term-auto="off">\([(sA-B)/Q,(sA+B)/Q]\)</span>. This whole interval
+lies in <span class="math inline" data-term-auto="off">\((1/2,1)\)</span> precisely when its
+lower endpoint exceeds <span class="math inline" data-term-auto="off">\(1/2\)</span> and its
+upper endpoint is less than <span class="math inline" data-term-auto="off">\(1\)</span>, that
+is,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2sA-Q&gt;2B,\qquad Q-sA&gt;B.\]</span></div>
+<p>The numerator <span class="math inline" data-term-auto="off">\(A\)</span> is signed:
+multiplying the enclosure by <span class="math inline" data-term-auto="off">\(s\)</span>
+accounts for the direction of the gap difference. At <span
 class="math inline" data-term-auto="off">\(h=1,N=2,L=40\)</span>, one has <span
 class="math inline" data-term-auto="off">\(\delta_2=g_4-g_3=-2\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
@@ -873,8 +894,8 @@ class="math inline" data-term-auto="off">\(m\)</span>, contradicting boundedness
 data-cites="zhang2014"><a href="#ref-13">[13]</a></span>, clusters of each fixed size <span
 class="citation" data-cites="maynard2015 polymath2014"></span>, and
 extreme large gaps <span class="citation" data-cites="fgkmt2018"><a href="#ref-4">[4]</a></span>
-leave the signed weighted-tail windows above uncontrolled. This remains
-so with Polymath’s bound <span class="math inline" data-term-auto="off">\(\liminf_n
+do not give the simultaneous inequalities in <a class="math-ref" data-equation-ref="true" href="#eq:smallpair">eq:smallpair</a>. This remains so
+with Polymath’s bound <span class="math inline" data-term-auto="off">\(\liminf_n
 g_n\le246\)</span> <span class="citation"
 data-cites="polymath2014"><a href="#ref-20">[20]</a></span>. At a logarithmic truncation depth the
 explicit remainder tends to zero, but the finite sum must still be
@@ -892,8 +913,8 @@ primality or quantitative rare-event estimates untouched.</p>
 data-cites="lean4"><a href="#ref-9">[9]</a></span> and mathlib <span class="citation"
 data-cites="mathlib"><a href="#ref-10">[10]</a></span>. The formal proof of Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> changes
 one coordinate at each stage, whereas the proof here uses triples. Both
-fix the permitted set, the interval and the congruence cutoffs before
-choosing the target. For Corollary <a class="math-ref" href="#res:jointcountermodel">3.1</a>, the formal
+choose the set containing the supports, the interval and the congruence
+cutoffs before the value of the sum. For Corollary <a class="math-ref" href="#res:jointcountermodel">3.1</a>, the formal
 statement covers every <span
 class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and assumes
 Schlage-Puchta’s lemma only for nonconcentration and the prime number

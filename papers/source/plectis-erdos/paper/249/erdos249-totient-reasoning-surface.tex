@@ -455,9 +455,9 @@ $a$ and $v\ge1$, would give the integer carry
  u_N=vR_N=2^Na-v\Phi_N,\qquad
  u_{N+1}=2u_N-v\varphi(N+1),\qquad 0\le u_N\le v(N+2).
 \]
-The formal sources call this a tempered carry. Here $v$ is a positive
-multiplier, not necessarily odd. Its dyadic sections are the sequences
-$n\mapsto u_{2^jn+r}$.
+Here $v$ is any positive integer clearing the denominator, so it
+need not be odd. The linear bound implies $u_N/2^N\to0$.
+The dyadic sections of $u$ are the sequences $n\mapsto u_{2^jn+r}$.
 
 \begin{prop}[Rationality forces unbounded carry rank]
 \label{prop:rank}
@@ -483,9 +483,9 @@ and $n\ge N_0$,
 The rank and periodicity assertions hold together.
 This conditional theorem alone is not a counterexample to a general
 periodicity-to-rank implication: its antecedent is not established.
-The separate $5/4$ control supplies a concrete counterexample to the generic
-rationality-driven rank ceiling; see
- the detailed comparison in Section~\ref{sec:mahler-defect}.
+The rational comparison sequence with sum $5/4$ gives a
+counterexample to a rank upper bound based on rationality alone;
+see Section~\ref{sec:mahler-defect}.
 \end{prop}
 
 \begin{prop}[Equivalent certificate conditions]
@@ -513,15 +513,16 @@ logical strength.
 \label{prop:parity}
 There is $c : \N \to \N$ with $c(n) \le 6$ and $c(n) \le n$ for all $n$,
 $c(n) \equiv \varphi(n) \pmod 2$ for \emph{every} $n$, and $c$ not eventually
-periodic; indeed for every $N, G, K$ there are $K$ explicit carry pulses
-beyond $N$, pairwise separated by more than $G$; and yet
+periodic; indeed for every $N, G, K$ there are $K$ pairs of coefficients
+$(6,0)$ starting beyond $N$, with starting positions pairwise separated
+by more than $G$; and
 $\sum_n c(n)/2^{n} = 3/2 \in \Q$.
 \end{prop}
 
 These propositions separate several logical obligations. Positivity leaves
 an upper-endpoint condition; a large rational carry rank is not a contradiction;
 and exact equivalences still require a quantified certificate condition. The stated size
-bounds, parity and aperiodicity also hold for a rational control. Each
+bounds, parity and aperiodicity also hold for a rational comparison series. Each
 conclusion concerns its stated hypotheses, not all possible arithmetic
 information about $\varphi$.
 
@@ -905,7 +906,7 @@ condition is used only as a sufficient condition.
 \label{prop:b4}
 A certificate requires the residue to lie farther than $N+h+L+2$
 from either endpoint modulo $2^L$. In the specific construction below,
-a pulse places the residue at $2^{K-1}$ modulo $2^K$, but the defining
+the residue equals $2^{K-1}$ modulo $2^K$, but the defining
 congruence is $p\equiv1+2^{K-1}\pmod{2^K}$. Hence
 $p\ge1+2^{K-1}$. At $N=p-K$, $h=H$, and $L=K$, the error bound is
 $p+H+2>2^{K-1}$, so the residue does not satisfy the certificate inequalities.
@@ -917,7 +918,7 @@ Theorem or every prescribed totient pattern.
 \begin{rem}[Two further prescribed patterns]
 \label{rem:b4}
 Two related results concern particular prescribed patterns. Under the
-stated room condition, the complete terminal divisibility pattern is
+stated size condition, the complete terminal divisibility pattern is
 impossible: its last totient difference would be positive, below a modulus,
 and divisible by that modulus
 (\lean{Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.not_actualLcmTerminalDyadicStaircase_of_room}{TotientActualLcmTopEdgeStaircase.lean:251}).
@@ -1100,10 +1101,10 @@ the dyadically weighted totient-difference exponential sum
 \[
   \sum_{X \le N < 2X}
   e\!\left(\frac{\sum_{j<L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)2^{\,L-1-j}}{2^{L}}\right),
-  \qquad L \text{ subject to the displayed room inequality}.
+  \qquad L \text{ subject to the displayed size inequality}.
 \]
 No theorem in this record establishes this estimate with the
-required quantifiers. The displayed room inequality imposes a lower
+required quantifiers. The displayed size inequality imposes a lower
 bound on $L$; it does not require $L=\log_2X+O(1)$. A depth of that
 order would be a possible regime for the estimate, not an additional
 proved conclusion. A finite instance would not suffice.
@@ -1122,7 +1123,7 @@ do not settle it.
 
 
 \begin{itemize}[leftmargin=*]
-\item The parameters grow. The room condition forces the truncation depth
+\item The parameters grow. The size condition forces the truncation depth
   to increase with $X$, so this is not a test of a fixed prefix.
 \item The sample is prescribed: all $N\in[X,2X)$ are summed at one depth.
   Choosing two favourable indices does not establish this block estimate.
@@ -1131,7 +1132,7 @@ do not settle it.
 \item The estimate concerns the actual phases. Neither a bound on carry
   rank nor agreement only in parity gives it.
 \item The proved implication uses the real-part threshold $9/10$ and the
-  room constant $16$. The stronger norm bound $21/25$ implies that
+  constant in the size bound $16$. The stronger norm bound $21/25$ implies that
   real-part bound. These constants do not assert any distribution theorem
   for the totient phases.
 \end{itemize}
@@ -1322,7 +1323,7 @@ A suitable saving on this set alone would therefore imply irrationality.
 \end{thm}
 
 \begin{proof}
-(a) At a depth satisfying the room inequality, a nonempty set of indices
+(a) At a depth satisfying the size inequality, a nonempty set of indices
 below $2X$ whose average of $\operatorname{Re}E(h,N,L)$ is at most $9/10$
 contains an index $N$ with $\mathcal C(h,N,L)$
 (\lean{Erdos249257.TotientTailPeriodKiller.exists_certifiedKill_of_first_harmonic_gap_subset}{FirstHarmonicGap.lean:104}).
@@ -1339,7 +1340,7 @@ $\mathcal G$ partition $[X,2X)$, so $\#\mathcal G>67X/100$
 Since $603/1000=(9/10)(67/100)$, each large $X$ in the hypothesis gives
 $\sum_{N\in\mathcal G}\operatorname{Re}E(h,N,L(X))<\tfrac{9}{10}\#\mathcal G$.
 For $X\ge A$ the set $T=\mathcal G$ is nonempty and lies in $[A,2X)$, and
-$L(X)$ satisfies the room inequality, so (a) applies.
+$L(X)$ satisfies the size inequality, so (a) applies.
 \end{proof}
 
 The trivial bound for the sum in (b) is $\#\mathcal G$, so the
@@ -1350,7 +1351,7 @@ Equidistributed phases would make the sum $o(X)$. A rational value
 $S=a/(2^cv)$ with $v$ odd makes the bound fail for $h=\varphi(v)$ and all
 large $X$: every large index
 then has an integral tail difference, hence no certificate, and an index
-at a depth with room and without a certificate has
+at a depth satisfying the size condition and having no certificate has
 $\operatorname{Re}E>9/10$.
 The hypothesis is sufficient and is not known to be necessary: from
 irrationality one obtains nonintegral tail differences, and no argument
@@ -1464,13 +1465,13 @@ the lower bound of Proposition~\ref{prop:rank} under rationality of $S$.
 Both assertions are false, as the following comparison shows.
 \end{defn}
 
-The generic assertion in Definition~\ref{defn:rankupper} is false, not a
-live open proposition. The $5/4$ control in
-Section~\ref{sec:mahler-defect} has $0\le c(n)\le n$ and a
-tempered integral carry of rank at least $2^e-1$ at every depth
-(Section~\ref{sub:generic-carry-rank}).
-It refutes both proposed generic ceilings. A bound restricted by additional
-totient-specific hypotheses would be a different assertion.
+Both assertions in Definition~\ref{defn:rankupper} are false.
+The comparison sequence with sum $5/4$ in
+Section~\ref{sec:mahler-defect} satisfies $0\le c(n)\le n$ and has
+an integral carry with $u(n)/2^n\to0$ and rank at least $2^e-1$
+at every depth (Section~\ref{sub:generic-carry-rank}). It therefore
+contradicts both proposed upper bounds. This leaves open bounds
+under further hypotheses specific to the totient.
 
 Periodicity modulo $v$ alone does not provide the additional rank bound.
 
@@ -1940,7 +1941,7 @@ depth at least $125$.
 \lean{ErdosProblems.Skip.LadderT67.exists_diagonalKill_le_82}{ErdosProblems/Skip/LadderT67.lean:71264}
 \lean{ErdosProblems.Skip.LadderT67.t83_depth_floor}{ErdosProblems/Skip/LadderT67.lean:71294}
 \\
-Farey denominator floor
+Farey denominator bound
 &
 Every $q\in\mathbb{N}$ with \adjustbox{max width=\linewidth}{$0<q\le Q_0=79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053$}
 satisfies the window-$(N,K)=(1,240)$ gap certificate; $q=Q_0+1$ is the exact
@@ -1948,7 +1949,7 @@ first failure.
 &
 \lean{gap_check_window_1_240_le_79639646646701375323355774875831053}{GapFareyBound.lean:176}
 \\
-Coprimality-probability / M\"obius-square Farey floor
+Coprimality-probability / M\"obius-square Farey bound
 &
 Every $d\in\mathbb{N}$ with \adjustbox{max width=\linewidth}{$0<d\le Q_1=39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526$}
 (exactly $\lfloor Q_0/2\rfloor$) is excluded as a denominator of
@@ -2009,11 +2010,11 @@ and, for every $e\ge0$, the sequences
 $ n\mapsto u(2^jn+r)$ with $1\le j\le e$ and $0\le r<2^j$
 span a space of $\mathbb Q$-dimension at least $2^e-1$.
 
-The recurrence is the one obtained from the scaled tails after clearing
-a hypothetical denominator of $S$. The formal term \emph{tempered}
-means exactly $u(N)/2^N\to0$ here, not a separate assumption of
-subexponential growth. This rank lower bound is a
-necessary consequence of rationality, not a contradiction. An upper
+The recurrence follows from the scaled tails after clearing a
+hypothetical denominator of $S$. The only growth condition imposed
+here is the displayed limit $u(N)/2^N\to0$; subexponential growth is
+not assumed. The rank lower bound is a necessary consequence of
+rationality and yields no contradiction by itself. An upper
 bound using additional properties of the actual totient coefficients
 would be needed; the later rational comparison rules out such a bound
 for arbitrary rational coefficient series.
@@ -2348,7 +2349,7 @@ base powers is genuinely stronger. This example is an ordinary mathematical
 argument, not an additional claim about the linked formalisation.
 \end{prop}
 
-\begin{prop}[A nonzero evaluation minor gives independence]\label{catalogue:cert:d3}
+\begin{prop}[A nonsingular evaluation matrix gives independence]\label{catalogue:cert:d3}
 Let $I$ be a finite index set and let $f_j:\mathbb N\to\mathbb Q$
 for $j\in I$. If there are evaluation points $n_i\in\mathbb N$ such that
 \[
@@ -3203,11 +3204,11 @@ The sufficient conditions do not form a single linear chain. The proved
 implications are
 \[
  \begin{aligned}
- \text{guarded odd-prefix band}
- &\ \Longleftrightarrow\ \text{guarded centred-magnitude bound},\\
- \text{guarded centred-magnitude bound}
- &\ \Longrightarrow\ \text{flexible centred-magnitude bound},\\
- \text{flexible centred-magnitude bound}
+ \text{odd-prefix interval at the prescribed depth}
+ &\ \Longleftrightarrow\ \text{centred-residue bound at the prescribed depth},\\
+ \text{centred-residue bound at the prescribed depth}
+ &\ \Longrightarrow\ \text{centred-residue bound at a variable depth},\\
+ \text{centred-residue bound at a variable depth}
  &\ \Longrightarrow\ \text{adjacent-suffix band}
    \ \Longrightarrow\ \text{upper-endpoint test}.
  \end{aligned}
@@ -3398,7 +3399,7 @@ The Farey-gap denominator bound at window $K$ is currently $\sim 7.96\times10^{3
 
 \begin{prop}[The lower bound and a false proposed upper bound]\label{prop:D5cons}
 By Prop.~\ref{prop:D4-inv}, the canonical dyadic totient-kernel family is unconditionally
-$(2^e+1)$-dimensional at every level $e\ge1$. Rationality of $S$ forces an associated tempered
+$(2^e+1)$-dimensional at every level $e\ge1$. Rationality of $S$ forces an associated
 carry orbit with $\mathbb Q$-rank $\ge 2^e-1$ at every level (Prop.~\ref{prop:CP-02}). An upper bound independent of $e$ for these same carry ranks would
 contradict the lower bound. More generally, a bound $g(e)$ with
 $g(e)<2^e-1$ at some level $e\ge1$ would suffice, provided it applies to the
@@ -3408,8 +3409,8 @@ for arbitrary rational coefficient series is false: the $5/4$ comparison
 sequence in Section~\ref{sec:mahler-defect} has an integer carry satisfying
 the growth condition and the same rank lower bound. The incompatible
 integer identity and the finite-shift counterexample (Observation~\ref{prop:B4b-kill}) remain
-separate counterexample results. None is a generic rationality-driven rank ceiling.
-The Lean proof covers the proved rank floor and counterexample results,
+separate counterexample results. None gives a rank upper bound from rationality alone.
+The Lean proof covers the rank lower bound and counterexample results,
 not the counterfactual upper bound.
 \end{prop}
 
@@ -3632,20 +3633,23 @@ establish sharpness within this restricted family.
 \end{prop}
 
 \begin{prop}[Carry displacement and tail integrality]\label{prop:CP-01-inv}
-For a positive integer $v$ and a tempered integral totient carry $u$,
+For a positive integer $v$ and an integral totient carry $u$ with
+$u(N)/2^N\to0$,
 \[
  v\mid u(N+k)-u(N)\quad\Longleftrightarrow\quad R_{N+k}-R_N\in\Z.
 \]
-Indeed, temperedness identifies $u(N)=vR_N$, so the displacement is
-$v(R_{N+k}-R_N)$. This is a divisibility test for that displacement,
-not a dimension bound for the carry sections. The same proof works for
-another coefficient sequence once its tempered carry has been identified
-with its scaled tail; those hypotheses must be checked in each application.
+The recurrence and the limit identify $u(N)=vR_N$, so the
+difference is $v(R_{N+k}-R_N)$. This tests divisibility of a carry
+difference and gives no dimension bound for the carry sections.
+For another coefficient sequence, the same argument applies once
+its carry is identified with its scaled tail under the corresponding
+recurrence and limit.
 \end{prop}
 
 \begin{prop}[A consequence of rationality and its limitation]\label{prop:CP-02}
-If $S\in\mathbb Q$, there are a positive integer $v$ and a tempered
-integer carry orbit $u$ such that its retained sections through every
+If $S\in\mathbb Q$, there are a positive integer $v$ and an
+integer carry sequence $u$, with $u(N)/2^N\to0$, whose retained
+sections through every
 level $e$ have rational rank at least $2^e-1$. At the same time, those
 sections are uniformly eventually periodic modulo $v$.
 Periodicity after reduction modulo $v$ is a statement in a finite
@@ -3673,7 +3677,7 @@ remains a separate hypothesis.
 
 \end{prop}
 
-\begin{prop}[An arbitrarily long zero prefix followed by a two-adic pulse]\label{prop:TA-inv}
+\begin{prop}[A prescribed residue after a long divisibility block]\label{prop:TA-inv}
 Let $K\ge2$ and $H>K$ be integers. For every $B\in\mathbb N$ there
 is a prime $p>\max(B,H+K)$ such that
 \[
@@ -4406,10 +4410,11 @@ clearing that denominator gives an odd numerator
 
 \subsubsection{Integer recurrences and rational binary series}
 
-An integer-coefficient binary series is rational exactly when a suitable
-integer carry satisfies a subexponential growth condition relative to
-$2^N$. We include the elementary recurrence proof to fix the normalisation
-used later.
+For coefficients $0\le c(n)\le n$, rationality is equivalent to the
+existence of an integer carry with $u(N)/2^N\to0$. The recurrence alone
+is not restrictive: every integer initial value produces an integer
+sequence. The limit condition selects the initial value that represents
+the infinite sum.
 
 
 \begin{thm}[Integer recurrence criterion for a binary series]
@@ -4431,12 +4436,14 @@ Iterating the recurrence gives the finite identity
 \[
  \frac{u(N)}{2^N}=u(0)-v\sum_{n=1}^N\frac{c(n)}{2^n}.
 \]
-The boundary condition therefore forces the series to equal $u(0)/v$;
-subtracting the prefix gives $u(N)=vR^c_N$. Conversely, when the series
-is rational, choose an integer $v>0$ making its product with $v$ an
-integer, use this product as $u(0)$, and iterate the recurrence.
-The displayed identity identifies the resulting integer sequence with
-$vR^c_N$. Since $0\le R^c_N\le N+2$, its ratio to $2^N$ tends to zero.
+Taking $N\to\infty$ gives $S_c=u(0)/v$, where
+$S_c=\sum_{n\ge1}c(n)2^{-n}$. Subtracting the finite prefix then gives
+$u(N)=vR^c_N$.
+
+Conversely, suppose $S_c$ is rational. Choose an integer $v>0$ with
+$vS_c\in\Z$, set $u(0)=vS_c$, and iterate the recurrence. The terms
+are integers by construction; the displayed identity gives
+$u(N)=vR^c_N$. Finally $0\le R^c_N\le N+2$ proves the required limit.
 \end{proof}
 
 Without the boundary condition, any integer $u(0)$ gives an integer
@@ -5334,12 +5341,12 @@ the rational parity comparison (definition) & \lean{parityCoboundaryWeight}{Toti
 $R_N$ as a sum over positive divisor indices & \lean{totientTail\_eq\_tsum\_positiveForeignResidueKernel}{TotientShiftedMobiusForeignBridge.lean:61} & $\forall N$ & divisor and cyclotomic sums\\
 $R_N$ as a shifted M\"obius sum & \lean{totientTail\_eq\_tsum\_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:547} & $\forall N$ & divisor and cyclotomic sums\\
 absolute convergence and regrouping of Lambert sums & \lean{tsum\_lambert\_pair\_regroup\_if}{TotientShiftedMobiusPulse.lean:124} & $\forall w\,v{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d,\,|v(m)|{\le}m)$ & divisor and cyclotomic sums\\
-carry divisibility and integral tail differences & \lean{carryShift\_dvd\_iff\_tailDiff\_mem\_int}{TotientTailCarryPeriod.lean:77} & $\forall N\,k$, given tempered orbit & integer recurrences\\
+carry divisibility and integral tail differences & \lean{carryShift\_dvd\_iff\_tailDiff\_mem\_int}{TotientTailCarryPeriod.lean:77} & $\forall N\,k$, given the carry recurrence and limit & integer recurrences\\
 rationality $\Rightarrow$ periodicity \& unbounded rank & \lean{not\_irrational\_totientSeries\_implies\_mod\_period\_and\_unbounded\_rank}{TotientTailCarryPeriod.lean:224} & $\lnot\mathrm{Irrational}\,S\to\exists v\,u\,\forall e$ & integer recurrences\\
 the stated reconstruction cost is at least $3$ & \lean{three\_le\_totientAdjugateTailCost}{TotientTailCarryPeriod.lean:266} & $\forall\ \text{finite}\ w{:}\iota\to\mathbb{Q}\,x{:}\iota\to\mathbb{N}$, given $\sum w_i\varphi(x_i){=}1$ & weighted tail bounds\\
 directed residue interval (definition) & \lean{directedCertifiedKill}{TotientTailCarryPeriod.lean:766} & $h,N,L\ge0$; soundness and the existential-depth equivalence are proved in Proposition~\ref{prop:CP-06} & integer recurrences\\
 rationality and an integer carry with vanishing boundary term & \lean{binaryCoeffSeries\_rational\_iff\_exists\_temperedBinaryOrbit}{GenericTailOrbitRigidity.lean:426} & $\forall c{:}\mathbb{N}\to\mathbb{N}\,(c(n){\le}n)$, iff & binary-weighted series\\
-doubling-orbit rigidity & \lean{doublingOrbit\_eq\_zero\_of\_tempered}{GenericTailOrbitRigidity.lean:315} & $\forall d{:}\mathbb{N}\to\mathbb{R}$, doubling $+$ tempered $\to d{\equiv}0$ & integer recurrences\\
+doubling-orbit rigidity & \lean{doublingOrbit\_eq\_zero\_of\_tempered}{GenericTailOrbitRigidity.lean:315} & $\forall d{:}\mathbb{N}\to\mathbb{R}$, doubling and $d(n)/2^n\to0$ imply $d{\equiv}0$ & integer recurrences\\
 number of labels needed for exact tail recovery & \lean{balancedPulse\_no\_autonomous\_decoder}{GenericTailOrbitRigidity.lean:247} & $\forall m\,\forall\mathrm{State}$, collapsing-state $\to$ no decoder & binary-weighted series\\
 endpoint residues do not determine the initial carry & \lean{affineBinaryOrbit\_mod\_twoPow\_eq}{GenericTailOrbitRigidity.lean:307} & $\forall a{:}\mathbb{N}\to\mathbb{Z}\,\forall u_0\,v_0\,\forall L$ & binary-weighted series\\
 integer-coefficient block-certificate dichotomy & \lean{int\_coeff\_series\_irrational\_or\_bpow\_mul\_eq\_intCast\_of\_full\_block\_certificates}{CertificateKernel.lean:13934} & $\forall b{\ge}2\,\forall c\,\forall q$, given full-block certificate at $q$ & binary-weighted series\\
@@ -5357,12 +5364,12 @@ carries realising fixed-precision unit residues & \lean{fixedPrecisionTropicalNo
 vanishing of iterated prime dilation differences & \lean{iteratedDilationDifference\_eq\_zero\_of\_cardFactors\_le}{SupportDilationDifferences.lean:250} & distinct primes $p_1,\ldots,p_r$, $r>K$, $\gcd(n,\prod p_i)=1$; $\Omega(a)\le K$ on $A$ & divisor counts\\
 $\varphi(n)>\tfrac34 n$ for the stated rough integers & \lean{three\_quarters\_mul\_lt\_totient\_of\_rough\_lt\_two\_pow}{TotientActualLcmOrbitArithmetic.lean:768} & $\forall a{\ge}8\,\forall n{>}0$ ($n$ is $t$-rough, $t{=}2^a$, $n{<}2^{2\cdot2^a}$) & M\"obius sums\\
 positivity of short-window totient differences & \lean{lcmRayArithmeticLetter\_pos\_of\_lt\_two\_mul}{TotientActualLcmOrbitArithmetic.lean:1703} & $\forall a{\ge}8\,\forall j\,(0{<}j{<}2\cdot2^a)$ & M\"obius sums\\
-the negative representative of the true endpoint & \lean{actualLcm\_trueEndpointSurvivor\_neg}{TotientActualLcmOrbitSign.lean:172} & $\forall a{\ge}8\,\forall J\,K$ (room bound) & M\"obius sums\\
-integrality forces upper-endpoint residue & \lean{actualLcm\_integral\_forces\_topEdgeResidue}{TotientActualLcmOrbitSign.lean:211} & $\forall a{\ge}8\,\forall J\,K$ (room, $2H{+}J{+}K{+}2{<}2^K$) & M\"obius sums\\
-terminal dyadic staircase impossible with room & \lean{not\_actualLcmTerminalDyadicStaircase\_of\_room}{TotientActualLcmTopEdgeStaircase.lean:251} & $\forall a{\ge}8\,\forall J\,K\,m$ (room, modulus-wide) & M\"obius sums\\
+the negative representative of the true endpoint & \lean{actualLcm\_trueEndpointSurvivor\_neg}{TotientActualLcmOrbitSign.lean:172} & $\forall a{\ge}8\,\forall J\,K$ (size bound) & M\"obius sums\\
+integrality forces upper-endpoint residue & \lean{actualLcm\_integral\_forces\_topEdgeResidue}{TotientActualLcmOrbitSign.lean:211} & $\forall a{\ge}8\,\forall J\,K$ (size condition, $2H{+}J{+}K{+}2{<}2^K$) & M\"obius sums\\
+terminal dyadic staircase impossible under the size condition & \lean{not\_actualLcmTerminalDyadicStaircase\_of\_room}{TotientActualLcmTopEdgeStaircase.lean:251} & $\forall a{\ge}8\,\forall J\,K\,m$ (size condition, modulus-wide) & M\"obius sums\\
 penultimate difference in a partial divisibility pattern & \lean{puncturedDyadicStaircase\_penultimate\_eq\_half}{TotientActualLcmTopEdgeStaircase.lean:1187} & $\forall a{\ge}8\,\forall J\,K\,m$ (hypotheses of Proposition~\ref{prop:TE-02-inv}) & M\"obius sums\\
-upper-endpoint residue-gap $\Rightarrow$ nonintegral & \lean{actualLcmTailDiff\_notMem\_int\_of\_topEdgeResidueGap}{TotientActualLcmTopEdgeStaircase.lean:1260} & $\forall a{\ge}8\,\forall J\,K\,m$ (room, one-sided) & M\"obius sums\\
-relation between the centred residue and the actual carry & \lean{two\_mul\_actualOddHalfCenteredLift\_eq\_terminal\_sub\_trueCarry}{TotientActualLcmTopEdgeStaircase.lean:1678} & $\forall a{\ge}8\,\forall q$ (room, fit bound $2(H{+}q{+}2){\le}4^q$) & M\"obius sums\\
+upper-endpoint residue-gap $\Rightarrow$ nonintegral & \lean{actualLcmTailDiff\_notMem\_int\_of\_topEdgeResidueGap}{TotientActualLcmTopEdgeStaircase.lean:1260} & $\forall a{\ge}8\,\forall J\,K\,m$ (size condition, one-sided) & M\"obius sums\\
+relation between the centred residue and the actual carry & \lean{two\_mul\_actualOddHalfCenteredLift\_eq\_terminal\_sub\_trueCarry}{TotientActualLcmTopEdgeStaircase.lean:1678} & $\forall a{\ge}8\,\forall q$ (size condition, fit bound $2(H{+}q{+}2){\le}4^q$) & M\"obius sums\\
 divisibility of the three-term totient difference & \lean{two\_mul\_totient\_dvd\_fixedRankSecondDifference}{TotientFixedRankLcmAsymptotic.lean:519} & $\forall a{\ge}4\,\forall j{>}0\,(j^2{\le}2^a)$ & totient differences\\
 equality of two finite rational approximations & \lean{renormalizedResidueAgreement\_of\_twice\_le}{TotientShiftedMobiusForeignBridge.lean:338} & $H>0$, $D\ge2H$; no separation hypothesis for this equality & M\"obius sums\\
 a Mersenne divisor need not divide a tail difference & \lean{idCoeff\_mersenneModulus\_does\_not\_annihilate\_tailShift}{TotientTailCarryPeriod.lean:342} & $\forall K,q\,(K{>}0,K{<}q,q{\mid}2^K{-}1)$ & M\"obius sums\\
@@ -5403,11 +5410,11 @@ LCM-diagonal criterion (unproved condition) & \lean{irrational\_totient\_series\
 LCM-grid certificate criterion (unproved premise) & \lean{irrational\_totient\_series\_of\_lcm\_cone\_window\_kill\_supply}{CertificateKernel.lean:19014} & $\forall t_0\,\exists t{\ge}t_0\,\exists q{>}0\,\exists m\,\exists L$ & LCM grids\\
 LCM nonintegrality criterion (unproved condition) & \lean{irrational\_totient\_series\_of\_lcm\_diagonal\_nonintegrality\_supply}{CertificateKernel.lean:19034} & $\forall t_0\,\exists t{\ge}t_0$, $\ensuremath{{R}}(2H_t){-}\ensuremath{{R}}(H_t)\notin\mathbb{Z}$ & real tail differences\\
 finite-grid residue criterion (unproved premise) & \lean{irrational\_totient\_series\_of\_lcm\_cone\_nonflat\_supply}{CertificateKernel.lean:19140} & for every $t_0$, data $t\ge t_0,L,Q$ satisfying Theorem~\ref{catalogue:cert:b10b} & finite LCM grids\\
-first-harmonic norm criterion (unproved premise) & \lean{irrational\_totient\_series\_of\_first\_harmonic\_norm\_gap}{FirstHarmonicPivot.lean:83} & $\forall h{>}0\,\forall X_0\,\exists X{\ge}\max(X_0,1)\,\exists L$, room $16(2X{+}h{+}L{+}2){\le}2^L$ & binary-weighted series\\
+first-harmonic norm criterion (unproved premise) & \lean{irrational\_totient\_series\_of\_first\_harmonic\_norm\_gap}{FirstHarmonicPivot.lean:83} & $\forall h{>}0\,\forall X_0\,\exists X{\ge}\max(X_0,1)\,\exists L$, size condition $16(2X{+}h{+}L{+}2){\le}2^L$ & binary-weighted series\\
 four-tail residue criterion (unproved premise) & \lean{irrational\_totient\_series\_of\_primeJumpSharpKill\_supply}{PrimeJumpWindow.lean:193} & $\forall t_0\,\exists t{\ge}t_0\,\exists p,L{>}0$ & binary-weighted series\\
 short LCM-window criterion (unproved premise) & \lean{PowerTwoActualLcmShortArithmeticKillSupply}{TotientActualLcmOrbitArithmetic.lean:2107} & $\forall a_0\,\exists a\,L,\ a_0{\le}a\land L{<}2\cdot2^a$ & M\"obius sums\\
-LCM-tail separation criterion (unproved premise) & \lean{irrational\_totientSeries\_of\_actualLcmOrbitSeparationSupply}{TotientActualLcmOrbitSeparation.lean:305} & cofinal $1/32{+}$error separation at guarded odd ranks & M\"obius sums\\
-five endpoint criteria (unproved premises) & \lean{irrational\_totientSeries\_of\_flexibleActualTerminalDominanceSupply}{TotientActualLcmTopEdgeStaircase.lean:2221} & $\forall a_0\,\exists a{\ge}a_0\,\exists\langle\text{supply predicate}\rangle$ & M\"obius sums\\
+LCM-tail separation criterion (unproved premise) & \lean{irrational\_totientSeries\_of\_actualLcmOrbitSeparationSupply}{TotientActualLcmOrbitSeparation.lean:305} & cofinal $1/32{+}$error separation at prescribed odd depths & M\"obius sums\\
+five endpoint criteria (unproved premises) & \lean{irrational\_totientSeries\_of\_flexibleActualTerminalDominanceSupply}{TotientActualLcmTopEdgeStaircase.lean:2221} & one of the five quantified conditions in Proposition~\ref{prop:te-chain} & M\"obius sums\\
 proved rational counterexample to bound, parity and aperiodicity & \lean{exists\_totientParity\_arbitrarilyManySeparatedCarry\_rational\_countermodel}{TotientParityCoboundaryCountermodel.lean:637} & $\exists c{:}\mathbb{N}\to\mathbb{N}$, $c{\le}6$, $c{\le}n$, $c{\equiv}\varphi\!\!\pmod2$, arbitrarily-separated blocks & binary-weighted series\\
 proved mod-4 prime construction (CRT and Dirichlet) & \lean{exists\_prime\_deltaTotient\_four\_mul\_mod\_four\_two}{TotientTailCarryPeriod.lean:384} & $\forall h{>}0\,\forall B\,\exists\text{prime}\,p{>}B$ & M\"obius sums\\
 sufficient mod-4 condition (unproved premise) & \lean{irrational\_totientSeries\_of\_cofinal\_modFourPulseSurvivorKill}{TotientTailCarryPeriod.lean:1066} & the displayed mod-four residue condition at arbitrarily large scales & M\"obius sums\\
@@ -5681,13 +5688,13 @@ $R_N = \sum_{j\ge 1}\varphi(N+j)/2^j$ is the local totient tail
 \lean{windowDiscrepancy}{TotientTailPeriodKiller.lean:66}
 \end{defn}
 
-\begin{defn}[The central-residue condition]
+\begin{defn}[The central-residue condition]\label{defn:central-residue-condition}
 \[
   \mathcal{C}\ h\ N\ L \;:\Leftrightarrow\;
   (N{+}h{+}L{+}2) < D(h,N,L)\bmod 2^L < 2^L - (N{+}h{+}L{+}2).
 \]
 That is: the residue of $D(h,N,L)$ modulo $2^L$ avoids the radius-$(N{+}h{+}L{+}2)$ neighbourhood
-of $0$. It forces the room condition $2(N{+}h{+}L{+}2) < 2^L$
+of $0$. It forces the size condition $2(N{+}h{+}L{+}2) < 2^L$
 (\lean{certifiedKill_depth_floor}{TotientTailPeriodKiller.lean:79}).
 \lean{certifiedKill}{TotientTailPeriodKiller.lean:72}
 \end{defn}
@@ -5709,7 +5716,7 @@ modulo $2^L$, a standard exponential-sum object.
 
 \begin{thm}[A real-part bound gives a certificate]
 \label{thm:hgap-real}
-For all $h,X,L$ with $0<X$ and the room condition $16(2X{+}h{+}L{+}2)\le 2^L$, if
+For all $h,X,L$ with $0<X$ and the size condition $16(2X{+}h{+}L{+}2)\le 2^L$, if
 \[
   \sum_{N=X}^{2X-1} \operatorname{Re}E(h,N,L) \;\le\; \tfrac{9}{10}\,X ,
 \]
@@ -5718,7 +5725,7 @@ then $\exists N\in[X,2X)$ with $\mathcal{C}\ h\ N\ L$.
 
 \begin{thm}[The same implication for a nonempty subset]
 \label{thm:hgap-subset}
-For any nonempty finite $T\subseteq\mathbb N$ with $T\subset[0,2X)$ and the same room condition, if
+For any nonempty finite $T\subseteq\mathbb N$ with $T\subset[0,2X)$ and the same size condition, if
 \[
   \sum_{N\in T} \operatorname{Re}E(h,N,L) \;\le\; \tfrac{9}{10}\,|T| ,
 \]
@@ -5836,7 +5843,7 @@ to be strictly weaker than irrationality.
 
 \begin{thm}[The proved implications]\label{thm:proved-implications}
 For every $a\ge 8$ and every $J,K,m$ inside the sign corridor
-($J{+}K{+}(a{+}6) < 2\cdot 2^a$), a one-sided residue gap at precision $m\le K$ (room $2H{+}J{+}K{+}2 < 2^m$ and $D(H,H+J,K)\bmod 2^m \le 2^m - (2H{+}J{+}K{+}2)$) already
+($J{+}K{+}(a{+}6) < 2\cdot 2^a$), a one-sided residue gap at precision $m\le K$ (size condition $2H{+}J{+}K{+}2 < 2^m$ and $D(H,H+J,K)\bmod 2^m \le 2^m - (2H{+}J{+}K{+}2)$) already
 forces ${R}(2H{+}J) - {R}(H{+}J)\notin\mathbb Z$. No lower margin
 at all is demanded. The proof chain is complete: the theorem holds for every $a\ge 8$, and
 \emph{\m{\text{cofinal upper-endpoint condition}} $\Rightarrow$ Irrational $S$} is proved.
@@ -5873,28 +5880,28 @@ condition quantifies over arbitrarily large exponents $a$.
       2H{+}m{+}2 \le \text{suffix residue}(2^a)\,0\,m \le 2^m - (2H{+}m{+}2)
     \]
     (a two-sided band on the adjacent-suffix residue directly, one candidate depth $m$).
-  \item \emph{Guarded odd-prefix band}: at the odd guarded depth $2q{+}1$, a two-sided band of half-width
+  \item \emph{Odd-prefix interval at the prescribed depth}: at the prescribed odd depth $2q{+}1$, a two-sided band of half-width
     $H{+}q{+}2$ on the half-word residue modulo $4^q$. The depth is fixed
-    by the stated guard; it cannot be chosen independently of $a$.
-  \item \emph{Guarded centred-magnitude bound}, \emph{proved equivalent} to the previous one:
+    by $q=q_a$; it cannot be chosen independently of $a$.
+  \item \emph{Centred-residue bound at the prescribed depth}, \emph{proved equivalent} to the previous one:
     \[
       \forall a_0\ \exists a,q,\ \max(14,a_0)\le a \wedge q=q_a
       \wedge H{+}q{+}2 \le |u_{a,q}| .
     \]
-  \item \emph{Flexible centred-magnitude bound}: the same magnitude bound with the depth restriction relaxed from
-    ``canonical guarded'' to any odd $2q{+}1$ satisfying the half-cell fit
-    $2(H{+}q{+}2)\le 4^q$ and the sign-corridor room $2q{+}2{+}(a{+}6)<2\cdot 2^a$.
+  \item \emph{Centred-residue bound at a variable depth}: the same magnitude bound with the depth restriction relaxed from
+    the prescribed value $q=q_a$ to any odd $2q{+}1$ satisfying the half-cell fit
+    $2(H{+}q{+}2)\le 4^q$ and the positivity range $2q{+}2{+}(a{+}6)<2\cdot 2^a$.
   \item \emph{Terminal dominance}: under the same bounds as item 4,
     $\delta_{2^a}(2q+2)\le2u_{a,q}$. This is a different one-sided
     comparison, treated immediately below.
 \end{enumerate}
 For the first four conditions, the relevant implications into the
 upper-endpoint condition are as follows:
-adjacent-suffix band $\to$ upper-endpoint condition; guarded odd-prefix band
-$\to$ adjacent-suffix band; guarded centred-magnitude bound
-$\Leftrightarrow$ guarded odd-prefix band;
-flexible centred-magnitude bound $\to$ adjacent-suffix band;
-guarded centred-magnitude bound $\to$ flexible centred-magnitude bound.
+adjacent-suffix band $\to$ upper-endpoint condition; odd-prefix interval at the prescribed depth
+$\to$ adjacent-suffix band; centred-residue bound at the prescribed depth
+$\Leftrightarrow$ odd-prefix interval at the prescribed depth;
+centred-residue bound at a variable depth $\to$ adjacent-suffix band;
+centred-residue bound at the prescribed depth $\to$ centred-residue bound at a variable depth.
 \end{prop}
 
 \subsubsection{A bound on the last totient difference}
@@ -6452,8 +6459,9 @@ infinite-dimensional (Proposition~\ref{prop:rank}).
 \begin{prop}[An additional hypothesis for a totient-specific rank argument]\label{prop:additional-hypothesis-totient-specific-rank}
 A rank bound that contradicts the lower bound $2^e-1$ would have to use
 additional arithmetic of the actual totient coefficients. The generic
-proposal that every rational coefficient series has bounded tempered-carry
-rank is ruled out by the rational control recorded in the short paper:
+proposal that rationality bounds the rank of every integral carry
+satisfying $u(n)/2^n\to0$ is disproved by the comparison sequence
+recorded in the short paper:
 its carry rank is at least $2^e-1$ at every level. It is therefore not a
 remaining general lemma from which totient irrationality follows.
 The conditional Proposition~\ref{prop:period-not-rank}
@@ -6562,8 +6570,9 @@ also quantifies their separation:
 \begin{prop}[A rational series preserving totient parity and the stated separation properties]\label{prop:rational-series-preserving-totient-parity}
 There exists \(c:\mathbb N\to\mathbb N\) such that: \(c(n)\le6\) for all
 \(n\); \(c(n)\le n\); \(c(n)\equiv\varphi(n)\pmod2\) for every \(n\); for
-every \(N,G,K\) there is a block of \(K\) explicit \((6,0)\) carry-pulse
-pairs beyond \(N\), each pair separated by more than \(G\); and
+every \(N,G,K\) there are \(K\) pairs of coefficients \((6,0)\)
+starting beyond \(N\), with starting positions separated by more
+than \(G\); and
 \(\sum_n c(n)/2^n = 3/2\).
 \end{prop}
 
@@ -6983,7 +6992,7 @@ its finitely supported rational relations.  These finite and infinite
 statements should not be confused with a claim about infinite sums of
 relations.
 
-\textbf{What the rank theorem does not prove.}
+\textbf{Relation to the series value.}
 Infinite section rank does not imply irrationality of $S$. The result
 quantifies the nonregularity already cited above: it gives the rank,
 the retained sections and their integral relations. Martin's simultaneous
@@ -7048,13 +7057,13 @@ forms, followed by the separate zero-residue argument. Another
 arithmetic function would require its own argument for nonvanishing
 of the evaluation determinant.
 
+\begin{landscape}
 \subsection{Further counterexamples and sharp bounds}
 
 The table records further counterexamples and sharp bounds. For each
 proposed deduction it lists the retained hypotheses and the conclusion
 that fails, together with the source for that argument.
 
-\begin{landscape}
 \small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.38\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}@{}}
 \toprule
@@ -7309,6 +7318,11 @@ constraint is not retained. The construction makes no rationality
 assertion about $F_\varphi(1/2)$.
 
 \begin{proof}
+We use signed finite-difference blocks. Their order will increase to
+preserve each fixed moment and each prescribed boundary derivative;
+their positions and amplitudes will leave room to choose the value of
+the series. All blocks are chosen beyond the prescribed prefix.
+
 The tail infimum in $g$ is positive, nondecreasing and tends to infinity.
 The cap gives $g(n)\le(n/2)^{1/4}$, while $g(n)\le f(k)$ for every
 $k\ge n$. Choose a large even $n_{-1}>K$ so that $g\ge1$ thereafter
@@ -7328,11 +7342,15 @@ For digits $d_j\in\{-A_j,\ldots,A_j\}$, form
 \[
  P_j(z)=d_jM_jz^{n_j}(1-z^{t_j})^{k_j},\qquad E(z)=\sum_{j\ge0}P_j(z).
 \]
+The factor $(1-z^{t_j})^{k_j}$ supplies cancellation of moments;
+$M_j$ supplies divisibility; and the even $n_j,t_j$ leave every odd
+coefficient unchanged. The digit $d_j$ remains free to adjust the value
+at $z=1/\beta$.
 Let $S$ consist of all $n_j+lt_j$, $0\le l\le k_j$, and let $H$ be
 the union of their full integer hulls $[n_j,n_j+W_j]$. These hulls are
 disjoint and all points of $S$ are even.
 
-\emph{Coefficient room.} If $s\ge16$ and $2kk!\le\sqrt s$, then
+\emph{Bounds for the coefficients.} If $s\ge16$ and $2kk!\le\sqrt s$, then
 $4k!2^k\le2\sqrt s\,2^{\sqrt s/2}\le2^s$. It follows for $\beta\ge2$
 that $\beta^2k!2^k\le\beta^s$. Therefore
 \begin{equation}\label{long249:eq:signed-budget}
@@ -7340,8 +7358,8 @@ that $\beta^2k!2^k\le\beta^s$. Therefore
  \le\beta^{2s_j}\le\sqrt{g(n_{j-1})}.
 \end{equation}
 At every modified index $n$ this is at most $f(n)$ and at most
-$(n_{j-1}/2)^{1/8}\le\sqrt{n/2}$. The totient has precisely the needed
-two-sided room at even indices: its product formula gives
+$(n_{j-1}/2)^{1/8}\le\sqrt{n/2}$. Both signs of the correction are permitted at even indices, because
+the product formula gives
 \[
  \frac{\varphi(n)^2}{n}
  =\prod_{p^a\parallel n}p^{a-2}(p-1)^2\ge\frac12,
@@ -7359,11 +7377,15 @@ Bernoulli's inequality gives $3/4\le a_j\le1$. Since $M_{j+1}\ge M_j$,
  A_{j+1}w_{j+1}=\beta^2M_{j+1}\beta^{-n_j}a_{j+1}
  \ge3M_j\beta^{-n_j}\ge3w_j.
 \]
-The capacity $T=\sum_j A_jw_j$ is positive and finite, by
-\eqref{long249:eq:signed-budget}. If $T_j=\sum_{i>j}A_iw_i$, the
-intervals $[dw_j-T_j,dw_j+T_j]$, $-A_j\le d\le A_j$, overlap and
-cover $[-A_jw_j-T_j,A_jw_j+T_j]$. Successive digit choices therefore
-represent every value in $[-T,T]$, since $T_j\to0$. This is the
+The sum $T=\sum_j A_jw_j$ is positive and finite, by
+\eqref{long249:eq:signed-budget}. After choosing $d_j$, the remaining
+digits have total allowance $T_j=\sum_{i>j}A_iw_i$. Consecutive choices
+of $d_j$ change the current contribution by $w_j$, while
+$T_j\ge A_{j+1}w_{j+1}\ge3w_j$. Hence the intervals
+$[dw_j-T_j,dw_j+T_j]$, $-A_j\le d\le A_j$, overlap and cover
+$[-A_jw_j-T_j,A_jw_j+T_j]$. Successively choose a digit whose interval
+contains the remaining target. The residual tends to zero with $T_j$,
+so the digits represent every value in $[-T,T]$. This is the
 finite-choice interval principle of Crmari\'{c} and Kova\v{c}
 \cite[Lemma~4(a), Remark~5]{crmarickovac2025signed}, here verified for
 signed finite differences. It also shows $T$ can be made arbitrarily
@@ -7376,23 +7398,24 @@ than $k$,
 \end{equation}
 This follows by iterating the forward-difference operator, which lowers
 polynomial degree. Eventually $q\mid M_j$, so every later coefficient
-and every partial packet sum vanish modulo $q$. Complete packets have
+and every partial block sum vanish modulo $q$. Complete blocks have
 mass zero, giving the cumulative assertion. Eventually also $q\mid t_j$
-and $k_j>d$. Each such packet lies in one residue class modulo $q$ and
+and $k_j>d$. Each such block lies in one residue class modulo $q$ and
 its moment of degree $d$ is zero by \eqref{long249:eq:signed-difference}.
-Outside the common hull set $H$, only complete packets have been summed,
-so the defect equals the integer contribution of finitely many early
-packets. If $q\le P$ and $d<P$, there are no exceptional early packets.
-These cutoffs do not depend on the digits.
+A cutoff outside $H$ cannot split a block. Its moment sum therefore
+contains only complete blocks, so the defect is the integer contribution
+of the finitely many early blocks. If $q\le P$ and $d<P$, there are no
+exceptional early blocks. These cutoffs depend on the block parameters,
+not on the later choice of digits.
 
-\emph{Sparsity and blocks.} Within the $j$th packet the gaps in $S$ are
-$t_j\to\infty$; between packets they are at least
+\emph{Sparsity and blocks.} Within the $j$th block the gaps in $S$ are
+$t_j\to\infty$; between blocks they are at least
 $s_{j+1}-\sqrt{s_{j+1}}\to\infty$. Uniform spacing after a finite prefix
 implies upper Banach density zero. To estimate the hulls without assuming
 regular variation of $f$, take any hull meeting $[X,2X+m)$, $m\le X$.
 Its center lies in $[X/2,3X]$ eventually and its preceding center is at
 least $X/4$, since its width and spacing are $O(\log X)$.
-Thus $s_j\ge\ell(X)$ for every such packet. There are
+Thus $s_j\ge\ell(X)$ for every such block. There are
 $O(X/\ell(X)+1)$ of them, and
 \[
  W_j+1\le2\sqrt{s_j}\le\frac{2s_{j+1}}{\sqrt{\ell(X)}}.
@@ -7406,8 +7429,10 @@ The hull estimate at $m=1$, followed by dyadic summation, gives ordinary
 density zero for $H$. But $W_j\to\infty$, so $H$ contains arbitrarily
 long solid intervals and its upper Banach density is one.
 
-\emph{Radial smoothness.} Fix a root $\zeta$ of order $q$, and integers
-$u,A\ge0$. Choose $B\ge u+A+2$. For all sufficiently late packets,
+\emph{Radial smoothness.} The number of differences increases with the
+block index, so any fixed derivative order is eventually controlled.
+Fix a root $\zeta$ of order $q$, and integers $u,A\ge0$. Choose
+$B\ge u+A+2$. For all sufficiently late blocks,
 $q\mid t_j$ and $k_j\ge B$. Factor
 \[
  P_j(x\zeta)=(1-x)^B R_j(x),\qquad
@@ -7431,26 +7456,26 @@ any prescribed order at the boundary. Integration of the continuous
 derivative limits gives a single smooth extension. For an integer
 polynomial $\sum c_nz^n$, its radial Taylor coefficient of order $u$
 at $\zeta$ is $\sum c_n\binom nu\zeta^n\in\Z[\zeta]$.
-Every such coefficient stabilizes after finitely many packets. The
+Every such coefficient stabilizes after finitely many blocks. The
 first $P$ vanish at roots of order at most $P$.
 
-\emph{Entire Dirichlet continuation.} Fix $(q,c)$ and a compact set of
-complex $s$, with $\operatorname{Re}s\ge-R$. Choose an integer
-$B>R+3/2$. All sufficiently late packets align modulo $q$ and have
-$k_j\ge B$. The derivative of $y^{-s}$ of order $B$ is
+\emph{Entire Dirichlet continuation.} Here we apply the same finite
+differences to $y^{-s}$ rather than to a polynomial. Fix $(q,c)$ and a
+compact set of complex $s$, with $\operatorname{Re}s\ge-R$. Choose an
+integer $B>R+3/2$. All sufficiently late blocks align modulo $q$ and
+have $k_j\ge B$. The derivative of $y^{-s}$ of order $B$ is
 $(-1)^B(s)(s+1)\cdots(s+B-1)y^{-s-B}$. Repeated integration expresses
 its $B$th finite difference as an integral over $[0,t_j]^B$.
 The remaining differences contribute at most $2^{k_j-B}$, so the
-absolute Dirichlet contribution of one packet is at most
+absolute Dirichlet contribution of one polynomial is at most
 \[
  C|d_j|M_j2^{k_j-B}t_j^B n_j^{R-B}
  \le C' n_j^{R-B+1/2}.
 \]
-This is summable over the distinct positive centers. The packet
-Dirichlet polynomials therefore converge normally on every compact
+This is summable over the distinct positive centers. The Dirichlet polynomials of the blocks therefore converge normally on every compact
 set and define an entire function. In $\operatorname{Re}s>3/2$ they
 agree with the absolutely convergent ungrouped series. At $s=-d$,
-all late packets vanish by their moment identity, leaving exactly
+all late blocks vanish by their moment identity, leaving exactly
 $C_{q,c,d,r}$. These are analytic-continuation values; the original
 ungrouped series need not converge at negative integers.
 \end{proof}
@@ -7476,10 +7501,11 @@ the common exceptional sets, while the nondegenerate interval of attained
 values contains both rational and irrational numbers.
 \end{proof}
 
-In particular, finite linear combinations of progression channels show
-that every fixed periodic twist preserves all poles and Laurent principal
-parts wherever the reference function has meromorphic continuation.
-For the untwisted totient channel the classical identity gives
+Taking finite linear combinations of the Dirichlet series on arithmetic
+progressions shows that every fixed periodic twist preserves the poles
+and Laurent principal parts wherever the original Dirichlet series has
+meromorphic continuation. In the untwisted case the classical identity
+gives
 \[
  \sum_{n\ge1}b(n)n^{-s}=\frac{\zeta(s-1)}{\zeta(s)}+D_{1,0,r}(s),
  \qquad\operatorname{Re}s>2.
@@ -7488,13 +7514,13 @@ The version used by Coons~\cite[Theorem~3.3]{coons-arxiv-signed} supplies
 this function identity, not an irrationality theorem for one value of
 $F_\varphi$. Likewise, Habiro's injectivity of the exact Taylor map for
 a cyclotomic completion~\cite[Theorem~5.2]{habiro2004signed} concerns a
-different, stronger datum. The complete Taylor jet is not fixed here:
+different, stronger datum. The full sequence of Taylor coefficients is not fixed here:
 the second Taylor coefficient of $Mz^n(1-z^t)^2$ at one is $Mt^2$.
 
 The change of sign is indispensable for this construction. An infinitely
 supported nonnegative integer correction has unbounded Abel limit at one.
-It also cannot have an entire Dirichlet defect if the defining series
-converges in some right half-plane. Indeed, choose a positive real
+The Dirichlet series of the correction also cannot extend to an
+entire function if its defining series converges in a right half-plane. Indeed, choose a positive real
 $\sigma$ inside that half-plane. Termwise differentiation gives
 $(-1)^kD^{(k)}(\sigma)=\sum_ne(n)n^{-\sigma}(\log n)^k\ge0$.
 The entire Taylor series at zero and Tonelli's theorem then give
@@ -7574,7 +7600,7 @@ at one block, does not establish this assertion.
 \paragraph{Sign versus distance from an integer.}
 The positivity theorem for the LCM tail difference
 (\lean{actualLcmTailDiff\_shift\_pos}{TotientActualLcmOrbitSign.lean:39}) identifies the relevant endpoint under the stated
-room and modulus bounds. Nonintegrality follows only after excluding
+size and modulus bounds. Nonintegrality follows only after excluding
 the corresponding residue interval
 (\lean{actualLcmTailDiff\_notMem\_int\_of\_topEdgeResidueGap}{TotientActualLcmTopEdgeStaircase.lean:1260}).
 Likewise, the terminal-dominance condition is a sufficient hypothesis,
@@ -7736,7 +7762,7 @@ This hypothesis implies that $S$ is irrational.
 \begin{proof}
 Fix $h\ge 1$ and $X_0$, and take $X$ as supplied. Choose $L\ge h$ with
 $2^{L}\ge 1024\,(2X+h+L+2)$; such $L$ exists because $2^L/L\to\infty$, and it
-satisfies the room inequality $16(2X+h+L+2)\le 2^L$ a fortiori. For every
+satisfies the size inequality $16(2X+h+L+2)\le 2^L$ a fortiori. For every
 $N<2X$ the proved truncation bound
 (\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak norm_windowFirstExp_\allowbreak sub_tailOrbitFirstExp_lt}{PivotAntiReconstruction.lean:202})
 gives
@@ -8032,6 +8058,12 @@ These inequalities are unproved; together they imply irrationality
 \lean{Erdos249257.\allowbreak irrational_totient_\allowbreak series_of_pivotResidualDecorrelation}{FirstHarmonicPivot.lean:577}).
 The decomposition is an exact identity
 (\lean{Erdos249257.\allowbreak TotientTailPeriodKiller.\allowbreak windowFirstExp_sum_\allowbreak eq_pivot_decomposition}{FirstHarmonicPivot.lean:514}).
+It separates two different tasks. The last two sums can be bounded by
+counting their indices, since every phase has modulus one. The first
+two retain the weight $w_N$: subtracting the group mean does not remove
+its correlation with the selected prime phase. The parameters $s,\eta$
+must be fixed before $X_0$, and the estimates must hold for the same
+$X,L$; separate successful blocks do not suffice.
 For $X\ge4$ and $s=L-h$, the single cofactor group
 $m_N=1$, not the full assigned set, consists of the indices for which
 $N+h+1$ is prime
@@ -8115,7 +8147,7 @@ of~\cite[Theorem~1, pp.~318--319, and \S8, p.~323]{schoenberg1936}. Then
   \;\le\;\bigl(D(\eta)+o(1)\bigr)X ,
 \]
 so a single choice of $\eta$ with $D(\eta)<1/200$ meets the $\tfrac{1}{100}X$
-budget for all large $X$. This choice fixes $\eta$ before $X_0$, as
+bound for all large $X$. This choice fixes $\eta$ before $X_0$, as
 required. It supplies only the excluded-cofactor bound: the mean and
 mean-subtracted estimates must still hold for this same $\eta$, and do
 not follow from making $\eta$ smaller.
@@ -8164,20 +8196,20 @@ and converges by the displayed majorant. Markov's inequality gives
 $\#(B(\eta)\cap[1,x])<3\eta x$, hence $D(\eta)\le3\eta$.
 In particular, $\eta=1/1000$ gives
 $D(\eta)\le3/1000<1/200$, an explicit sufficient choice for the
-excluded-cofactor budget. This does not establish either weighted phase
+excluded-cofactor bound. This does not establish either weighted phase
 estimate for that choice, and it is not claimed to be an optimal cutoff.
 Lean checks the estimate $\#(B(\eta)\cap[1,x])<3\eta x$ with no further input
 (\href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean\#L361}{Lean proof})
-and the excluded-cofactor budget at $\eta=1/1000$ with no input at all
+and the excluded-cofactor bound at $\eta=1/1000$ with no input at all
 (\href{https://github.com/wcook04/plectis-erdos/blob/57941a741fceaae33ab7e2513a9cd11fee060081/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L910}{Lean proof}).
-For that budget Chebyshev's bound replaces the prime number theorem in the
+For that bound Chebyshev's bound replaces the prime number theorem in the
 proof above: the primes $p$ with $a+1<p\le2a+1$ divide
 $\binom{2a+1}{a}\le4^a$, so
 $\#\{p\text{ prime}:a<p\le2a+1\}\log a\le a\log4+\log a$, the fibre bound
 becomes $(2\log4+o(1))X/(m\log X)$, and the count is at most
 $(3\log4/1000+o(1))X$ with $3\log4/1000<0.0042$.
 The proof uses $\eta=1/1000$ only through $3\eta\log4<1/100$, so Lean checks
-the budget with no input for every $\eta$ with $0<\eta<1/(300\log4)$
+the bound with no input for every $\eta$ with $0<\eta<1/(300\log4)$
 (\href{https://github.com/wcook04/plectis-erdos/blob/ab690b0aa515faa3a432e9d47de288704ebf6bb5/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L930}{Lean proof}).
 
 The first element of $B(1/5)$ is
@@ -8281,7 +8313,7 @@ can establish the full-block condition. It is enough to prove
  \left|\sum_{N=2^k}^{2^{k+1}-1}
        e\bigl(D(h,N,L_k)/2^{L_k}\bigr)\right|=o(K),
 \]
-where every $L_k$ satisfies the room inequality for $X=2^k$.
+where every $L_k$ satisfies the size inequality for $X=2^k$.
 Indeed, the number of $k\le K$ for which the normalised norm exceeds
 $21/25$ is at most $25/21$ times the displayed sum, hence is $o(K)$.
 There are therefore arbitrarily large admissible blocks satisfying
@@ -8449,7 +8481,7 @@ At $N=300$, the least $t$ with $\mathcal{C}(td,300,td)$ exists
 and is small for every $d\le 24$: $t=10$ for $d=1$, $t=5$ for $d=2$,
 $t=4$ for $d=3$, $t=3$ for $d=4$, $t=2$ for $5\le d\le 9$, and $t=1$ for
 $10\le d\le 24$; in every case at or near the first depth admitted by the
-room floor. The residues are not marginal: $r/2^{h}=0.3594$ at $d=1$,
+lower bound on the depth. The residues are not marginal: $r/2^{h}=0.3594$ at $d=1$,
 $0.5977$ at $d=3$, $0.6853$ at $d=7$, $0.2620$ at $d=17$, $0.5887$ at
 $d=23$, against edge radii $3.1\cdot10^{-1}$, $8.0\cdot10^{-2}$,
 $2.0\cdot10^{-2}$, $2.6\cdot10^{-3}$, $4.1\cdot10^{-5}$. This is a
@@ -8490,8 +8522,12 @@ carry would contradict the lower bound of Proposition~\ref{prop:rank},
 but the following rational comparison already has that lower bound.
 
 \paragraph{The comparison with value $5/4$.}
-Use a centred base-four expansion. The elementary bounds $9/8\le S\le3/2$ follow respectively from the first four terms
-and from $\ph(n)\le n-1$ for $n\ge2$. Put $x_0=5/4-S$ and, for $m\ge1$, define
+We alter only even coefficients, whose weights are
+$2^{-2m}=4^{-m}$. Thus a base-four expansion of $5/4-S$ gives the
+required correction while leaving every odd totient unchanged.
+The elementary bounds $9/8\le S\le3/2$ follow respectively from the
+first four terms and from $\ph(n)\le n-1$ for $n\ge2$.
+Put $x_0=5/4-S$ and, for $m\ge1$, define
 \[
  d_m=\left\lfloor4x_{m-1}+\frac23\right\rfloor,
  \qquad x_m=4x_{m-1}-d_m.
@@ -8517,9 +8553,11 @@ Thus $|c(n)-\ph(n)|\le2$ and
 This is the centred base-four construction in the Lean
 \href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos249/ParityPerturbedRationalControl.lean#L379}{comparison-series theorem}.
 
-Take $v=4$ and $u_N=4\sum_{j\ge1}c(N+j)2^{-j}$. The rational sum makes
-$u_N$ integral; the coefficient bound gives $0\le u_N\le4(N+2)$.
-Since $c$ agrees with $\ph$ at every odd index, for odd $r$,
+The even coefficients have set the value of the sum. The unchanged
+odd coefficients now give the rank lower bound. Take $v=4$ and
+$u_N=4\sum_{j\ge1}c(N+j)2^{-j}$. The rational sum makes $u_N$ integral;
+the coefficient bound gives $0\le u_N\le4(N+2)$. For odd $r$, the
+carry recurrence and $c(2^jn+r)=\ph(2^jn+r)$ give
 \[
  4\ph(2^j n+r)=2u_{2^j n+r-1}-u_{2^j n+r}.
 \]
@@ -9076,7 +9114,7 @@ $2(W_{a,q}\bmod4^q)$. Dividing its two endpoint bounds by $2$ and using
 integrality gives exactly the threshold $H+q+2$.
 This condition is unproved
 (\lean{Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.PowerTwoOddGuardTopEdgeHalfWordBandSupply}{TotientActualLcmTopEdgeStaircase.lean:1349}).
-The width is $H+q+2$ and the depth is the prescribed guarded depth;
+The width is $H+q+2$ and the depth is the prescribed depth;
 both must be retained when comparing this with a fixed-fraction band. Its
 sufficiency is proved
 (\lean{Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.powerTwoAdjacentSuffixMidbandSupply_of_oddGuardTopEdgeHalfWordBand}{TotientActualLcmTopEdgeStaircase.lean:2057}).
@@ -9433,7 +9471,10 @@ Thus
 \begin{equation}\label{long249:r3-tail-error}
  |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}
-A certificate $K(h,N,L)$ therefore forces $\Delta_h(N)\notin\Z$.
+If $K(h,N,L)$ holds, the interval
+$[D_{h,N,L}-B,D_{h,N,L}+B]$ lies strictly between two consecutive
+multiples of $2^L$. It contains $2^L\Delta_h(N)$, so
+$\Delta_h(N)\notin\Z$.
 Conversely, write $\|x\|_{\R/\Z}=\min_{z\in\Z}|x-z|$ for the distance to
 the nearest integer. If $\Delta_h(N)\notin\Z$, choose $L$ so that
 $2^L\|\Delta_h(N)\|_{\R/\Z}>2B$. Such a choice exists: $h,N$ are fixed,
@@ -9460,17 +9501,27 @@ of each sufficiently late pair of successive multipliers.
 
 \begin{proof}
 Set $F_t=\Delta_{td}(N)$. Equation~\eqref{long249:r3-tail-phase} yields
-$F_{t+1}\equiv2^dF_t+F_1\pmod\Z$. If $K(td,N,td)$ fails,
+$F_{t+1}\equiv2^dF_t+F_1\pmod\Z$. This recurrence expresses the fixed
+$F_1$ in terms of two adjacent differences. A failed certificate makes
+one of those differences close to an integer: if $K(td,N,td)$ fails,
 \eqref{long249:r3-tail-error} gives
 \[
  \|F_t\|_{\R/\Z}\le\epsilon_t,
  \qquad \epsilon_t=2(N+2td+2)2^{-td}.
 \]
-Two adjacent failures would imply
-$\|F_1\|_{\R/\Z}\le2^d\epsilon_t+\epsilon_{t+1}$, impossible for all sufficiently
-large $t$ because the left side is positive and the right side tends to zero.
-Conversely, if $F_1$ is integral, then every $F_t$ is integral by the same
-recurrence, so no certificate exists. Finally, \eqref{long249:r3-tail-phase} is
+If the test also fails at $t+1$, the triangle inequality on $\R/\Z$
+and the recurrence give
+\[
+ \|F_1\|_{\R/\Z}
+ \le \|F_{t+1}\|_{\R/\Z}+2^d\|F_t\|_{\R/\Z}
+ \le\epsilon_{t+1}+2^d\epsilon_t.
+\]
+The left side is fixed and positive; the right side tends to zero.
+Thus two adjacent failures are impossible once $t$ is large enough.
+Conversely, if $F_1$ is integral, every $F_t$ is integral by the same
+recurrence, so no certificate exists.
+
+Finally, \eqref{long249:r3-tail-phase} is
 nonintegral for every $d,N$ when $S$ is irrational. If
 $S=a/(2^cv)$ with $v$ odd, take $N=c$ and $d=\ph(v)$ to make it integral.
 \end{proof}
@@ -9600,8 +9651,7 @@ are integers and satisfy
 \[
  u_{N+1}=2u_N-v\ph(N+1),\qquad 0\le u_N\le v(N+2).
 \]
-In particular $u_N/2^N\to0$, the condition called temperedness in the
-formal sources. Its dyadic sections $n\mapsto u_{2^jn+r}$ have rational rank at
+In particular $u_N/2^N\to0$. Its dyadic sections $n\mapsto u_{2^jn+r}$ have rational rank at
 least $2^e-1$ through level $e$ and a common eventual period modulo $v$.
 Both properties are
 \mword{Erdos249257/TotientTailCarryPeriod.lean}{224}{not_irrational_totientSeries_implies_mod_period_and_unbounded_rank}{the corresponding theorem for the same carry};
@@ -9614,8 +9664,8 @@ and
 \[
  \sum_{n\ge1}c(n)2^{-n}=\frac54.
 \]
-This comparison sequence has an integral tempered carry with dyadic rank
-at least $2^e-1$ at every level. Thus the same lower bound for a hypothetical totient carry is
+This comparison sequence has an integral carry satisfying
+$u_N/2^N\to0$, with dyadic rank at least $2^e-1$ at every level. Thus the same lower bound for a hypothetical totient carry is
 compatible with rationality. For one fixed prime $p$ and $g:\N\to\Z$, the exact laws
 $g(pn)=p g(n)$ when $p\mid n$ and $g(pn)=(p-1)g(n)$ otherwise, together
 with $g-\ph=o(n)$, force $g=\ph$: a nonzero defect keeps a nonzero ratio
@@ -9658,7 +9708,9 @@ nonempty finite positive weighted average of such quotients satisfies
 The uniform bound $Q-\Theta_2>1/15$ is false already at $(1,5)$.
 \end{theorem}
 \begin{proof}
-We compare finite prefixes with geometric bounds for their tails. Put
+We first bound every denominator away from zero. We then compare
+$Q(1,5)$ with the whole range $e\ge2$ using one uniform estimate,
+and with $e=1$ using a seven-term prefix. Put
 \[
  P_Y(r)=\sum_{d=1}^{Y}\frac{\mu(d)}{(2^d-1)^r},\quad
  \Theta_r=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^r},\quad
@@ -9687,7 +9739,9 @@ $(\mu(1),\ldots,\mu(7))=(1,-1,-1,0,-1,1,-1)$ gives
 \[
  q_* = \frac{35076077250375200}{37573118933633199}.
 \]
-The same seven terms verify the following exact rational inequalities:
+The following four comparisons cover, respectively, $e\ge2$,
+$(e,Y)=(1,4)$, $(1,6)$, and $e=1,Y\ge7$. They are exact rational
+inequalities:
 \begin{align*}
  \frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&>q_*,\\
  Q(1,4)=\frac{79049881}{84671559}&>q_*,\\
@@ -9701,7 +9755,9 @@ with $Z=7$ imply the last inequality is a lower bound for $Q(1,Y)$;
 its numerator lower bound is positive. The cases $Y=4,5,6$ are displayed
 explicitly. Therefore $(1,5)$ is the unique minimiser.
 
-Finally the same tail estimate at $r=2$ gives
+It remains to compare the minimum with $\Theta_2$. An upper bound
+for $\Theta_2$ proves the stated gap; a lower bound disproves the
+stronger proposed gap. The same tail estimate at $r=2$ gives
 \[
  P_6(2)-\frac1{3072}\le\Theta_2\le P_7(2)+\frac1{12288}.
 \]
@@ -9726,10 +9782,11 @@ separate arguments. For rational approximants $p_j/q_j$ in lowest terms, with $q
 \[
  0<q_j\left|\Theta_2-p_j/q_j\right|\longrightarrow0.
 \]
-Convergence alone does not give this estimate. The elementary dyadic
-prefix bounds give only $q_j|S-p_j/q_j|\le N+2$ at depth $N$, not a
-quantity tending to zero. A prescribed approximation family therefore
-needs a sharper error or reduced-denominator bound. When approximants
+The denominator sets the scale of the required error. Convergence alone
+does not control their product. For the elementary dyadic prefixes,
+the available bound is only $q_j|S-p_j/q_j|\le N+2$ at depth $N$,
+not a quantity tending to zero. A prescribed approximation family
+therefore needs a sharper error or reduced-denominator bound. When approximants
 may be chosen freely, continued-fraction convergents show that the
 criterion is equivalent to irrationality, just as
 \eqref{eq:canonical-gap} is. The theorem above excludes the displayed

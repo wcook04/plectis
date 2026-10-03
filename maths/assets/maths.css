@@ -20,6 +20,8 @@
   --u-integration: #b0512a;
   --u-module: #a99781;
   --u-object: #6f83cf;
+  --u-statement: #2d7566;
+  --u-plate: rgba(33, 19, 24, 0.045);
   --u-edge: rgba(33, 19, 24, 0.14);
   --u-edge-hot: rgba(52, 80, 142, 0.55);
   --u-halo: rgba(226, 168, 62, 0.35);
@@ -36,6 +38,8 @@
     --u-integration: #e08a58;
     --u-module: #857aa4;
     --u-object: #8ea2e0;
+    --u-statement: #7fcbb5;
+    --u-plate: rgba(242, 230, 212, 0.05);
     --u-edge: rgba(242, 230, 212, 0.14);
     --u-edge-hot: rgba(169, 192, 238, 0.7);
     --u-halo: rgba(230, 178, 100, 0.30);
@@ -52,6 +56,8 @@
   --u-integration: #e08a58;
   --u-module: #857aa4;
   --u-object: #8ea2e0;
+  --u-statement: #7fcbb5;
+  --u-plate: rgba(242, 230, 212, 0.05);
   --u-edge: rgba(242, 230, 212, 0.14);
   --u-edge-hot: rgba(169, 192, 238, 0.7);
   --u-halo: rgba(230, 178, 100, 0.30);
@@ -424,6 +430,7 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .dot--integration { background: var(--u-integration); }
 .dot--module { background: var(--u-module); }
 .dot--object { background: var(--u-object); }
+.dot--statement { background: var(--u-statement); }
 .dot--universe { background: var(--u-universe); }
 
 /* Claim glyphs: the record's status as a mark. The same four shapes are
@@ -443,11 +450,20 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .glyph--progress { background: linear-gradient(90deg, var(--u-claim) 50%, transparent 50%); }
 .glyph--conditional { background: transparent; }
 .glyph--open { background: transparent; border-width: 1px; opacity: 0.7; }
+/* Paper-result glyphs: the coverage ledger's evidence as a mark. Comparator's
+   colour fills a statement it replayed; the Lean colour fills an exact Lean
+   statement awaiting replay and rings one stated modulo named inputs. */
+.glyph--replayed { background: var(--u-integration); border-color: var(--u-integration); }
+.glyph--lean { background: var(--u-statement); border-color: var(--u-statement); }
+.glyph--modulo { background: transparent; border-color: var(--u-statement); }
+.glyph--none { background: transparent; border-color: var(--u-statement); border-width: 1px; opacity: 0.7; }
 .universe-legend--glyphs { padding-left: var(--space-3); border-left: 1px solid var(--rule); }
 .lens-btn--glyph .glyph { margin-right: 0.45em; }
 .lens-btn[aria-pressed="true"] .glyph { border-color: var(--on-accent); }
 .lens-btn[aria-pressed="true"] .glyph--proved { background: var(--on-accent); }
 .lens-btn[aria-pressed="true"] .glyph--progress { background: linear-gradient(90deg, var(--on-accent) 50%, transparent 50%); }
+.lens-btn[aria-pressed="true"] .glyph--replayed,
+.lens-btn[aria-pressed="true"] .glyph--lean { background: var(--on-accent); }
 .universe-chip .glyph { transform: translateY(0.5px); margin-right: 0.35em; }
 .universe-inspector__census--status .glyph { flex: none; }
 .universe-sector { color: var(--muted); }
@@ -1350,6 +1366,110 @@ html:not(.scripting) .universe-nojs { display: block; }
 .doc-source-line code { font-size: var(--fs-small); }
 
 /* ---- Universe page ------------------------------------------------------- */
+/* The map leads: a two-line head with its four figures, one toolbar, then
+   the field. How the map is drawn waits below it for the reader who asks. */
+.universe-head { margin: 0 0 var(--space-4); }
+.universe-head h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+  line-height: 1.12;
+  margin: 0 0 var(--space-2);
+  text-wrap: balance;
+}
+.universe-head__lede {
+  margin: 0 0 var(--space-4);
+  max-width: 50rem;
+  font-size: var(--fs-lede);
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.universe-figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: 0;
+}
+.universe-figures__item { display: flex; flex-direction: column-reverse; }
+.universe-figures dt { color: var(--muted); font-size: var(--fs-small); }
+.universe-figures dd {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--ink);
+}
+.universe-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-4) 0 var(--space-3);
+}
+.universe-find { flex: 1 1 20rem; max-width: 32rem; }
+.universe-find .universe-search { width: 100%; min-width: 0; }
+.universe-toolbar .universe-count { margin-left: 0; font-variant-numeric: tabular-nums; }
+.universe-toolbar .universe-panel__cta { margin-left: auto; }
+/* The legend is the filter: each key switches its kind or glyph on and off. */
+.universe-keys {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--rule);
+  background: var(--surface-sunk);
+}
+.universe-key { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.25rem; }
+.universe-key__label { flex: 0 0 7rem; color: var(--muted); font-size: var(--fs-small); }
+.universe-key__btn {
+  font: inherit;
+  font-size: var(--fs-small);
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.15rem 0.6rem 0.15rem 0.45rem;
+  color: var(--ink-soft);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.universe-key__btn[hidden] { display: none; }
+.universe-key__btn:hover { color: var(--ink); border-color: var(--rule-control); }
+.universe-key__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.universe-key__btn .dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 0.45em;
+  flex: none;
+}
+.universe-key__btn .glyph { flex: none; transform: none; margin-right: 0.45em; }
+.universe-key__btn[aria-pressed="false"] { color: var(--muted); }
+.universe-key__btn[aria-pressed="false"] .dot,
+.universe-key__btn[aria-pressed="false"] .glyph { opacity: 0.3; }
+.universe-key__btn[aria-pressed="false"] span:last-child {
+  text-decoration: line-through;
+  text-decoration-color: var(--rule-strong);
+}
+@media (max-width: 720px) {
+  .universe-key__label { flex-basis: 100%; }
+  .universe-toolbar .universe-panel__cta { margin-left: 0; }
+}
+.universe-hint {
+  margin: var(--space-3) 0 0;
+  max-width: 52rem;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  text-wrap: pretty;
+}
+.universe-about { max-width: 68ch; margin: var(--space-7) 0 var(--space-5); }
+.universe-about h2 { font-size: var(--fs-h3); margin: 0 0 var(--space-3); }
+.universe-about p { max-width: 68ch; color: var(--ink-soft); line-height: var(--lh-body); text-wrap: pretty; margin: 0 0 var(--space-3); }
+.universe-about .universe-about__snapshot,
+.universe-about .doc-source-line,
+.universe-about .universe-rule { color: var(--muted); font-size: var(--fs-small); }
 .universe-controls {
   display: flex;
   flex-wrap: wrap;
@@ -1524,6 +1644,41 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 0;
   padding: 0;
 }
+/* A paper result's evidence: one line each for Lean, Comparator, Palomar,
+   then the declarations that state it. */
+.universe-inspector__facts {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.universe-inspector__facts li { padding: 0.18rem 0; }
+.universe-inspector__facts b { color: var(--ink-soft); font-weight: 600; margin-right: 0.4em; }
+.universe-inspector__list--decls li {
+  font-size: var(--fs-small);
+  padding: 0.22rem 0;
+  border-top: 1px solid var(--rule);
+  overflow-wrap: anywhere;
+}
+.universe-inspector__list--decls li:first-child { border-top: 0; }
+.universe-decl__line,
+.universe-decl__links { color: var(--faint); font-size: var(--fs-micro); margin-left: 0.4em; white-space: nowrap; }
+.universe-decl__sig { margin-top: 0.25rem; }
+.universe-decl__sig summary { cursor: pointer; color: var(--muted); font-size: var(--fs-micro); }
+.universe-inspector__list--decls pre {
+  margin: 0.3rem 0 0;
+  padding: 0.45rem 0.55rem;
+  max-height: 14rem;
+  overflow: auto;
+  background: var(--surface-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .universe-goto {
   font: inherit;
   font-size: var(--fs-small);
@@ -1571,7 +1726,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-inspector__clear:hover,
 .universe-inspector__copy:hover { color: var(--ink); border-color: var(--accent); }
 .universe-inspector__copy { margin-top: var(--space-3); }
-.universe-hint { color: var(--faint); font-size: var(--fs-small); margin: var(--space-2) 0 0; max-width: 48rem; }
+.universe-hint { color: var(--muted); font-size: var(--fs-small); margin: var(--space-3) 0 0; max-width: 68ch; }
 
 .universe-index { margin: var(--space-7) 0; }
 .universe-index details { border-top: 1px solid var(--rule); }
@@ -2070,6 +2225,10 @@ body.has-viewback:has(.maths-layout) .viewback {
    screen the margin panel carries the same rows. */
 @media (min-width: 1281px) {
   .maths-layout:has(.docs-toc) .reader-contents--inline { display: none; }
+}
+/* A condensed margin needs its complete contents available at every width. */
+@media screen and (min-width: 1281px) {
+  .maths-layout:has(.docs-toc) .reader-contents--all { display: block; }
 }
 
 /* ---- Definition links ------------------------------------------------------

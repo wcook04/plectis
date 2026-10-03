@@ -1521,8 +1521,16 @@ mjx-c.mjx-c1D461 {
   padding: 0.593em 0.338em 0.009em 0;
 }
 
-mjx-c.mjx-c1D441 {
-  padding: 0.657em 0.783em 0.008em 0;
+mjx-c.mjx-c28.STX-S5 {
+  padding: 1.342em 0.473em 0.802em 0;
+}
+
+mjx-c.mjx-c29.STX-S5 {
+  padding: 1.342em 0.473em 0.802em 0;
+}
+
+mjx-c.mjx-c2209 {
+  padding: 0.678em 0.72em 0.161em 0;
 }
 
 mjx-c.mjx-c2113.STX-S {
@@ -1539,6 +1547,10 @@ mjx-c.mjx-c6F {
 
 mjx-c.mjx-c2224 {
   padding: 0.706em 0.413em 0.194em 0;
+}
+
+mjx-c.mjx-c1D441 {
+  padding: 0.657em 0.783em 0.008em 0;
 }
 
 mjx-c.mjx-c1D453 {
@@ -1667,14 +1679,6 @@ mjx-c.mjx-c70 {
 
 mjx-c.mjx-c1D6FF {
   padding: 0.71em 0.519em 0.014em 0;
-}
-
-mjx-c.mjx-c28.STX-S5 {
-  padding: 1.342em 0.473em 0.802em 0;
-}
-
-mjx-c.mjx-c29.STX-S5 {
-  padding: 1.342em 0.473em 0.802em 0;
 }
 
 mjx-c.mjx-c224D {
@@ -2011,6 +2015,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-4e2d07ccf5002a5a {height: 1.183em; vertical-align: -0.306em;}
 .math[data-math-rendered] .mjx-s-4fa00029d5b13baa {position: relative;}
 .math[data-math-rendered] .mjx-s-4fabe3e4688a6416 {height: 1em;}
+.math[data-math-rendered] .mjx-s-50da149d48bb8c0e {width: 19.404em;}
 .math[data-math-rendered] .mjx-s-50fa5ac1a7594ad6 {width: 19.213em;}
 .math[data-math-rendered] .mjx-s-51ace50c98712a79 {padding-top: 0.167em; padding-left: 0.398em;}
 .math[data-math-rendered] .mjx-s-52a638cd9b0a69fa {margin-top: 0.262em;}
@@ -2120,6 +2125,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-9ecfb73e7740591d {margin-right: 0.12em; vertical-align: 0.25em;}
 .math[data-math-rendered] .mjx-s-9f6af5e741e59389 {padding-top: 0.05em;}
 .math[data-math-rendered] .mjx-s-a109af7c5f3c6815 {width: 0; margin-left: -0.191em;}
+.math[data-math-rendered] .mjx-s-a25e0f0ecce2429d {width: auto; min-width: 15.996em; margin: 0 1.704em;}
 .math[data-math-rendered] .mjx-s-a2c1ec1c99ad594d {vertical-align: -0.15em; margin-left: -0.048em;}
 .math[data-math-rendered] .mjx-s-a4213dbfa5c74fbd {height: 2.751em; vertical-align: -1.191em;}
 .math[data-math-rendered] .mjx-s-a43dd2805738ac91 {vertical-align: 0.413em; margin-left: 0.053em;}
@@ -2136,6 +2142,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-adb0c4cbcd528418 {padding-top: 0.127em; border-top-width: 0.085em;}
 .math[data-math-rendered] .mjx-s-ae1dc969dd9fe384 {min-width: 18.414em; position: relative;}
 .math[data-math-rendered] .mjx-s-b0869d30ba24c858 {vertical-align: -0.15em; margin-left: -0.016em;}
+.math[data-math-rendered] .mjx-s-b3c12ed2f285f12a {min-width: 19.404em;}
 .math[data-math-rendered] .mjx-s-b44910d66bf299f1 {min-width: 12.165em; position: relative;}
 .math[data-math-rendered] .mjx-s-b64a7ba583d77f18 {height: 1.118em; vertical-align: -0.25em;}
 .math[data-math-rendered] .mjx-s-b9e68f3b975adec1 {width: 12.165em;}
@@ -2178,6 +2185,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-d6b18c62bb25363d {margin-right: -0.167em;}
 .math[data-math-rendered] .mjx-s-d704b086dee893d9 {margin-top: 0.204em;}
 .math[data-math-rendered] .mjx-s-d7d57b3da705b4fd {min-width: 15.863em; position: relative;}
+.math[data-math-rendered] .mjx-s-d7ff17320b88fdeb {min-width: 19.404em; position: relative;}
 .math[data-math-rendered] .mjx-s-da60300b468aaf46 {width: auto; min-width: 12.797em; margin: 0 1.209em;}
 .math[data-math-rendered] .mjx-s-daff9210c10c85d5 {vertical-align: -0.15em; margin-left: -0.012em;}
 .math[data-math-rendered] .mjx-s-dba0c1477a452671 {width: auto; min-width: 15.805em; margin: 0 1.704em;}
@@ -2185,6 +2193,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-df182ae1a2c5c2fa {vertical-align: -0.295em; margin-left: 0;}
 .math[data-math-rendered] .mjx-s-df9b22c57b82e095 {vertical-align: 0.363em; margin-left: 0.053em;}
 .math[data-math-rendered] .mjx-s-e055ed05a20fe75c {padding-bottom: 0.204em; margin-bottom: -0.222em;}
+.math[data-math-rendered] .mjx-s-e06f274139a747bc {padding-bottom: 0.678em;}
 .math[data-math-rendered] .mjx-s-e0a6098e53ee4ef7 {vertical-align: -0.262em; margin-left: -0.125em;}
 .math[data-math-rendered] .mjx-s-e16f23357e491a3c {padding-left: 0.364em;}
 .math[data-math-rendered] .mjx-s-e33edb44494dcae9 {min-width: 32.997em; position: relative;}
@@ -2211,6 +2220,7 @@ mjx-c.mjx-c21 {
 .math[data-math-rendered] .mjx-s-f885f791e53e1f31 {width: 20.097em;}
 .math[data-math-rendered] .mjx-s-f8bb79567f6035fd {min-width: 17.387em;}
 .math[data-math-rendered] .mjx-s-fb28d2bfb7f1c70f {margin-left: 0.138em;}
+.math[data-math-rendered] .mjx-s-fc38af31877b6ca5 {vertical-align: 0.413em; margin-left: 0.052em;}
 .math[data-math-rendered] .mjx-s-fc7b8afcde9033ef {min-width: 15.215em; position: relative;}
 .math[data-math-rendered] .mjx-s-fc8d1f96120bbe6b {height: 1.426em;}
 .math[data-math-rendered] .mjx-s-fca008a5a3374c6d {height: 0.936em;}

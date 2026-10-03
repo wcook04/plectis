@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "claim-faithful-publication-systems",
-  "title": "Publishing Mathematical Results from a Lean Repository",
+  "title": "A Repository-Based System for Research and Publication",
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Research architecture",
-  "pages": 19,
+  "pages": 21,
   "question": "How can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?",
   "precis": "A correct Lean theorem can be misrepresented when its hypotheses disappear from a paper. This account follows a weighted-support criterion for Erdős Problem 257 through its mathematical argument, two registered formal supports and written explanation. It describes source inspection, publication checks, editorial revision and contributions in a repository covering eight problems. A historical test rejected nine false edits but missed a false completion claim; the paper distinguishes that record from the limited follow-up check. Source-byte agreement and repository adoption do not establish mathematical meaning, independent review or recognition by the community. The paper retains its mathematical antecedents and compares the recorded relations with blueprints and Prove2Me, without claiming comparative benefit.",
   "owns": "the research architecture: problem-centred collections, the path from a proof to a public claim, and the contribution cycle",
@@ -28,18 +28,18 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "c99e605a77c1d13d",
-    "source_sha256": "3d83804d8e0a97914e009f07656ab7c7d6cb460bcbda554b9063e68ef1b2b688",
+    "renderer_fingerprint": "190ec0c743f338a3",
+    "source_sha256": "d5dc7f914e0703a8a522d6c1f5050251b857eb150f394c784f0fbb7f20cd41da",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 102,
+    "mathml_node_count": 146,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "e4a44e7c4bec57ebb2cbb5872f5e14a89c99e147c3ae48ca50af9a8765b02929",
-    "html_exact_tex_sha256": "1c62f90705e980f6116a4723be55bde3b23c82462ca5f49693555e5cc496275c"
+    "html_mathml_sha256": "0e08868eccdf7321578b74ab77e4cf7f03ffccfa4c4635fd7eb4140b2359c934",
+    "html_exact_tex_sha256": "73379e92af78350c40f126393b142cf9d26c1c45b1be722dced98bc2cbad1e85"
   },
   "sections": [
     {
@@ -53,24 +53,19 @@
       "label": "A repository organised around problems"
     },
     {
+      "level": 3,
+      "anchor": "stored-artifacts-and-executable-tools",
+      "label": "Stored artifacts and executable tools"
+    },
+    {
+      "level": 3,
+      "anchor": "researcher-agent-and-maintainer-responsibilities",
+      "label": "Researcher, agent and maintainer responsibilities"
+    },
+    {
       "level": 2,
       "anchor": "sec:example",
-      "label": "A theorem and the reason for its hypothesis"
-    },
-    {
-      "level": 5,
-      "anchor": "a-positive-displacement.",
-      "label": "A positive displacement."
-    },
-    {
-      "level": 5,
-      "anchor": "a-finite-orbit-and-its-unfinished-end.",
-      "label": "A finite orbit and its unfinished end."
-    },
-    {
-      "level": 5,
-      "anchor": "a-second-average-restores-the-missing-factor.",
-      "label": "A second average restores the missing factor."
+      "label": "Worked case: publishing a conditional theorem"
     },
     {
       "level": 2,
@@ -80,12 +75,17 @@
     {
       "level": 2,
       "anchor": "sec:paper",
-      "label": "From a Lean corpus to a paper"
+      "label": "Publication and revision"
     },
     {
       "level": 3,
-      "anchor": "source-frozen-editorial-refinement",
-      "label": "Source-frozen editorial refinement"
+      "anchor": "work-assignments-and-review",
+      "label": "Work assignments and review"
+    },
+    {
+      "level": 3,
+      "anchor": "proposing-and-reviewing-a-revision",
+      "label": "Proposing and reviewing a revision"
     },
     {
       "level": 2,
@@ -114,8 +114,38 @@
     },
     {
       "level": 3,
-      "anchor": "editorial-roles-and-acceptance",
-      "label": "Editorial roles and acceptance"
+      "anchor": "earlier-design-accounts-and-current-status",
+      "label": "Earlier design accounts and current status"
+    },
+    {
+      "level": 2,
+      "anchor": "app:worked-proof",
+      "label": "Calculation for the worked theorem"
+    },
+    {
+      "level": 5,
+      "anchor": "a-positive-displacement.",
+      "label": "A positive displacement."
+    },
+    {
+      "level": 5,
+      "anchor": "a-finite-orbit-and-its-unfinished-end.",
+      "label": "A finite orbit and its unfinished end."
+    },
+    {
+      "level": 5,
+      "anchor": "a-second-average-restores-the-missing-factor.",
+      "label": "A second average restores the missing factor."
+    },
+    {
+      "level": 5,
+      "anchor": "balancing-the-two-costs.",
+      "label": "Balancing the two costs."
+    },
+    {
+      "level": 3,
+      "anchor": "other-mathematical-attribution-and-scope-examples",
+      "label": "Other mathematical attribution and scope examples"
     },
     {
       "level": 2,
@@ -139,12 +169,12 @@
       },
       {
         "id": "sec:example",
-        "title": "A theorem and the reason for its hypothesis",
+        "title": "Worked case: publishing a conditional theorem",
         "level": 2
       },
       {
         "id": "sec:paper",
-        "title": "From a Lean corpus to a paper",
+        "title": "Publication and revision",
         "level": 2
       },
       {

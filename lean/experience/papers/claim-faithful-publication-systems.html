@@ -1,38 +1,37 @@
 <article class="lean-paper" data-paper-id="claim-faithful-publication-systems" data-math-mode="mathml">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Research architecture</p>
-    <h1>Publishing Mathematical Results from a Lean Repository</h1>
+    <h1>A Repository-Based System for Research and Publication</h1>
     <p class="lean-paper__subject">Systems paper</p>
     <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="claim-faithful-publication-systems.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/systems/claim-faithful-publication-systems-paper.tex">
 <section id="sec:intro" class="level2">
 <h2>Introduction</h2>
-<p>Consider a theorem asserting that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{a\in A}(2^a-1)^{-1}</annotation></semantics></math>
-is irrational under a summability condition on the set of
-exponents <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-(Section 3). Two faults in publishing this result require different
-checks. The paper might retain only one of its two registered Lean
-supports. Or it might retain both links but omit the summability
-hypothesis, thereby asserting a solution of the arbitrary-support
-problem, which remains open.</p>
-<p>For each mathematical problem, Plectis keeps the question, prior
-sources, computations, proofs and unresolved steps together in a
-problem-centred collection. It records which Lean results support a
-paper statement and which source passages explain it, so that a reviewer
-can make these comparisons at a specified revision.
-Figure <code>[fig:lifecycle]</code> shows where these records enter: a
-mathematical claim is selected from the accumulated work, all its
-registered supports are compared with the supplied evidence, and an
-author turns it into a paper that readers may question or extend.</p>
+<p>A research repository must support several activities: choosing a
+question, recovering earlier work, testing an argument, reviewing a
+claim and publishing an explanation. Their outputs need to remain
+connected when a proof, experiment or manuscript changes. Otherwise a
+new contributor must reconstruct the history, and a correct result can
+acquire a misleading description. Plectis is the public repository
+prototype studied here. It keeps questions, prior sources, computations,
+proofs and unresolved steps together, with records of proposed
+contributions and their review. Its implemented scope is the research
+and publication workflow in this repository; broader autonomous
+discovery and services for other scientific fields are proposals
+(Section 9). The architecture separates stored research artifacts, tools
+that locate or check them, and decisions made by authors and
+maintainers. Figure <code>[fig:lifecycle]</code> follows a selected
+result into publication and back through contributions. Source
+consistency, mathematical validity and the usefulness of an explanation
+remain distinct responsibilities.</p>
 <figure id="fig:lifecycle" data-latex-placement="htbp">
 
 <figcaption>From accumulated work to a paper and subsequent revision.
-Solid arrows show the publication sequence, not logical implication or
-automatic approval. Comparing the complete registered support set does
-not execute a new formal proof or establish that the prose has the
-intended meaning.</figcaption>
+Solid arrows show a sequence of responsibilities rather than logical
+implication or automatic approval. The source and evidence records
+support review; they do not establish the intended meaning of the
+prose.</figcaption>
 </figure>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and mathlib supply the formal language and library <span
@@ -42,14 +41,16 @@ Lean declarations <span class="citation"
 data-cites="leanblueprint leanarchitect"><a href="#ref-35">[35]</a><a href="#ref-74">[74]</a></span>. Persistent problem
 records and open agent collaboration have antecedents in the Equational
 Theories Project and Prove2Me <span class="citation"
-data-cites="etp prove2me"><a href="#ref-75">[75]</a><a href="#ref-31">[31]</a></span>. The additional relation described
-here records a statement together with all its registered supports and
-the source passages used to explain it.</p>
-<p>We first describe what a problem collection lets a reader recover.
-The worked example then supplies the mathematical reason for its support
-hypothesis, before we follow the theorem into the publication checks,
-editorial revisions and contribution record. The historical false-edit
-test returns to the distinction that opened the paper.</p>
+data-cites="etp prove2me"><a href="#ref-75">[75]</a><a href="#ref-31">[31]</a></span>. The records described here connect a
+selected public assertion with all its registered formal supports, the
+passages used to explain it, and the contribution history that changes
+it. They let a reviewer recover the basis of a claim at a specified
+revision. We describe the components and their responsibilities, then
+trace a conditional theorem through the evidence checks. The revision
+and contribution workflows explain how accepted changes return to the
+repository. Recorded observations and limits distinguish implemented
+procedures from their unmeasured effects; Appendix B retains the
+mathematical calculation.</p>
 </section>
 <section id="sec:world" class="level2">
 <h2>A repository organised around problems</h2>
@@ -102,7 +103,7 @@ remaining obligations.</td>
 </tr>
 </tbody>
 </table>
-<p>Across the corpus: 8 problems, 1,903 Lean modules and 22 registered
+<p>Across the corpus: 8 problems, 1,903 Lean modules and 24 registered
 papers. The claim registry contains 160 claims in eight statuses, with
 19 open obligations.</p>
 </div>
@@ -120,282 +121,150 @@ selective and largely contextual; they do not document an individual
 reading of every proof. A source link by itself records no successful
 execution. When a question requires a Lean check, the reader can request
 a focused build and inspect its recorded result. </p>
+<section id="stored-artifacts-and-executable-tools" class="level3">
+<h3>Stored artifacts and executable tools</h3>
+<p>The checkout contains authored Lean and manuscript sources, JSON
+records for selected claims and their evidence, and a journal of
+research returns. Indexes, source coordinates and status summaries are
+derived from those records. Authors edit the sources; builders
+regenerate the derived views. The claim review keeps a finite
+computation’s tested range distinct from a general theorem, and a failed
+attempt distinct from a proof that every approach must fail. This
+distinction makes a changed proof or paper traceable without treating a
+generated index as a proof. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md"><code>architecture guide</code></a>
+describes this ownership.</p>
+<p>The command-line tools have bounded jobs:</p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th class="ta-l">Component</th>
+<th class="ta-l"> Input, output and responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Task routing</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/agent_entry.py"><code>agent_entry.py</code></a>
+maps a stated task to instructions, relevant files and commands; the
+researcher chooses the question and approach.</td>
+</tr>
+<tr>
+<td class="ta-l">Evidence retrieval</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/query_corpus.py"><code>query_corpus.py</code></a>
+returns problem, claim, declaration and paper-source records from the
+indexes.</td>
+</tr>
+<tr>
+<td class="ta-l">Proof sessions</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/proof_workbench.py"><code>proof_workbench.py</code></a>
+records notes and submitted Lean probes, derives verdicts from the Lean
+process, and binds a session claim to an accepted probe.</td>
+</tr>
+<tr>
+<td class="ta-l">Statement evidence</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_evidence.py"><code>paper_evidence.py</code></a>
+resolves mathematical paper statements against source and verification
+records; <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_claim_evidence.py"><code>paper_claim_evidence.py</code></a>
+projects their evidence status and reported gaps.</td>
+</tr>
+<tr>
+<td class="ta-l">Editorial exchange</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
+audits manuscripts and packages proposed revisions without applying or
+approving the return.</td>
+</tr>
+<tr>
+<td class="ta-l">Research history</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/research_record.py"><code>research_record.py</code></a>
+verifies the journal of entered returns and dispositions and reports
+what recorded outputs still owe.</td>
+</tr>
+<tr>
+<td class="ta-l">Derived views</td>
+<td class="ta-l"> <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/refresh_projections.py"><code>refresh_projections.py</code></a>
+runs builders in dependency order; <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py"><code>check_release.py</code></a>
+checks release contracts and freshness.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A separate self-audit, <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/systems_paper_evidence.py"><code>systems_paper_evidence.py</code></a>,
+checks this systems manuscript’s text and cited source bindings. These
+are inspectable software responsibilities, not measurements of research
+quality or new execution results.</p>
+</section>
+<section id="researcher-agent-and-maintainer-responsibilities"
+class="level3">
+<h3>Researcher, agent and maintainer responsibilities</h3>
+<p>A researcher chooses the task and the evidence needed to answer it. A
+coding agent can inspect files, invoke tools and prepare a proposed
+change using the public instructions; ordinary written arguments and
+explanations can also be contributed without a clone or an agent. A
+maintainer reviews the claim, attribution and remaining uncertainty
+before adoption. The contributor and reviewer may be the same agent, so
+this division of responsibilities does not establish independent review.
+Public setup and review instructions are in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/README.md"><code>agent quickstart</code></a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>contribution guide</code></a>.</p>
+<p>A typical iteration starts with a question and the recorded work that
+bears on it. The researcher investigates, then returns an argument,
+experiment, correction or manuscript change with its evidence and
+limitations. Review may adopt it, request revision, defer it or reject
+it. Accepted work changes the authored claims, papers and evidence
+records; builders and release checks update the dependent views before
+the next task uses them. The journal preserves dispositions for the
+structured returns explicitly entered into it. Ordinary issues, pull
+requests and ideas can enter review without a journal session.
+Sections 5 and 6 give the implemented publication exchange and the wider
+contribution procedure.</p>
+</section>
 </section>
 <section id="sec:example" class="level2">
-<h2>A theorem and the reason for its hypothesis</h2>
-<p> For an infinite set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-of positive integers and an integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
-write
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}\frac1{b^a-1}.</annotation></semantics></math>
-The question is when a condition on the exponents forces this number,
-and the corresponding sum over every infinite subset
-of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
-to be irrational.</p>
-<p>The condition below rewards exponents divisible by large powers of a
-fixed collection of primes. For the prime
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-alone, the relevant part of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi></mrow><annotation encoding="application/x-tex">a=2^km</annotation></semantics></math>,
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-odd, is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math>.
-For a finite nonempty set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-of primes, this becomes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h_P(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>.</p>
-<p>The weighted-support theorem of the Problem 257 paper states that, if
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:worked-condition}
- W_{2,P}(A):=\sum_{a\in A}\frac{h_P(a)}{a(2^{h_P(a)}-1)}&lt;\infty,
-\end{equation}</annotation></semantics></math> then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
-is irrational for every integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
-and every infinite
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math> <span
-class="citation" data-cites="paper257"></span>.</p>
-<p>There is also a fixed-base version, with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-replaced by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
-in the hypothesis. We explain the weighted condition and its proof
-first, then locate both registered Lean supports in
-Figure <code>[fig:theorem]</code>. Their recorded status does not report
-a new comparison of source revisions, Lean build or Comparator run.
-Comparator checks a selected Lean implementation against a separately
-stated challenge, as described in Section 4. This is a sufficient
-condition on the support; the question for an arbitrary infinite set of
-exponents in base two remains open.</p>
-<p>Erdős had already stated that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>
-suffices for this all-base irrationality conclusion <span
-class="citation" data-cites="erdos1968"></span>. The source paper
-credits Duverney and Tachiya for an arithmetic-progression averaging
-argument of the kind used to select a small positive displacement <span
-class="citation" data-cites="duverneytachiya"></span>.</p>
-<p>The distinction from the reciprocal-summability criterion is visible
-in the source paper’s example
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mo>⋆</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">A_\star=\{2^km:k\ge1,\ m\text{ odd},\ 1\le m\le2^{2^k}\},\qquad P=\{2\}.</annotation></semantics></math>
-Within the layer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">v_2(a)=k</annotation></semantics></math>,
-reciprocal summation discounts each odd
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>k</mi></mrow></msup><annotation encoding="application/x-tex">2^{-k}</annotation></semantics></math>;
-weighted summation discounts it by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2^{2^k}-1)^{-1}</annotation></semantics></math>.</p>
-<p>To compare the layers, put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>r</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">S_r=\sum_{1\le m\le2^r,\ m\ \mathrm{odd}}1/m</annotation></semantics></math>.
-Grouping the odd integers into intervals
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><msup><mn>2</mn><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[2^j,2^{j+1})</annotation></semantics></math>
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mn>4</mn><mo>≤</mo><msub><mi>S</mi><mi>r</mi></msub><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">r/4\le S_r\le r</annotation></semantics></math>
-for integers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r\ge2</annotation></semantics></math>.
-The reciprocal contribution of each disjoint layer is at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>−</mi><mi>k</mi></mrow></msup><msub><mi>S</mi><msup><mn>2</mn><mi>k</mi></msup></msub><mo>≥</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">2^{-k}S_{2^k}\ge1/4</annotation></semantics></math>.
-Its weighted contribution satisfies
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>S</mi><msup><mn>2</mn><mi>k</mi></msup></msub><mrow><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><mfrac><msup><mn>2</mn><mi>k</mi></msup><mrow><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><msup><mn>2</mn><mrow><mn>1</mn><mo>−</mo><mi>k</mi></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{S_{2^k}}{2^{2^k}-1}\le\frac{2^k}{2^{2^k}-1}\le2^{1-k},</annotation></semantics></math>
-so the layer contributions have a convergent geometric majorant in the
-weighted sum. Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">A_\star</annotation></semantics></math>
-lies beyond the reciprocal-summability criterion but
-satisfies <code>[eq:worked-condition]</code>. This is the source paper’s
-ordinary calculation, with no separate entry in the paper-to-Lean
-ledger <span class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
-<section id="a-positive-displacement." class="level5">
-<h5>A positive displacement.</h5>
-<p>Suppose that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
-with integers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p,q</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>.
-For a positive integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
-multiplication by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^N-1</annotation></semantics></math>
-removes the complete geometric blocks from each summand, leaving
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>N</mi><mo>≥</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:worked-displacement}
- \Delta_{b,A}(N)=\sum_{a\in A}\frac{b^{N\operatorname{mod} a}-1}{b^a-1}
- =(b^N-1)X_A(b)-J_{b,A}(N),\qquad N\ge1,
-\end{equation}</annotation></semantics></math> where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>a</mi><mo>≤</mo><mi>N</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>N</mi><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msubsup><msup><mi>b</mi><mrow><mi>N</mi><mo>−</mo><mi>j</mi><mi>a</mi></mrow></msup></mrow><annotation encoding="application/x-tex">J_{b,A}(N)=\sum_{a\in A,\,a\le N}\sum_{j=1}^{\lfloor N/a\rfloor}b^{N-ja}</annotation></semantics></math>
-is an integer. Every summand is nonnegative, and one is positive because
-the infinite
-set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-contains an exponent larger
-than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
-Hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\Delta_{b,A}(N)</annotation></semantics></math>
-is a positive integer, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)\ge1/q</annotation></semantics></math>.</p>
-<p>We obtain a contradiction by finding a multiple
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mi>t</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">N=tQ</annotation></semantics></math>
-with smaller displacement. Divisibility helps because the summand
-indexed by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-vanishes whenever
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">a\mid Q</annotation></semantics></math>.
-Choose a finite nonempty
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊂</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">F\subset A</annotation></semantics></math>
-outside which the weighted sum is less than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>,
-and make
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-a multiple of every element
-of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.
-Those terms then disappear for
-every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>;
-we must control the remaining terms on average.</p>
-</section>
-<section id="a-finite-orbit-and-its-unfinished-end." class="level5">
-<h5>A finite orbit and its unfinished end.</h5>
-<p>With
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q=4</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a=6</annotation></semantics></math>,
-the residues
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>Q</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">tQ\operatorname{mod} a</annotation></semantics></math>
-are
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">4,2,0</annotation></semantics></math>,
-and their mean displacement is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>15</mn><mn>63</mn></mfrac><mo>+</mo><mfrac><mn>3</mn><mn>63</mn></mfrac><mo>+</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>2</mn><mn>21</mn></mfrac><mo>≤</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac13\left(\frac{15}{63}+\frac3{63}+0\right)=\frac2{21}\le\frac19
- .</annotation></semantics></math> For a general exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
-put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g=\gcd(a,Q)</annotation></semantics></math>.
-The residues run through the multiples
-of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
-in a cycle of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">a/g</annotation></semantics></math>.
-Summing the geometric progression over complete cycles, and bounding one
-unfinished cycle, gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>T</mi></mfrac><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mrow><msup><mi>b</mi><mrow><mi>t</mi><mi>Q</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><munder><munder><mfrac><mi>g</mi><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">complete cycles</mtext></munder><mo>+</mo><munder><munder><mfrac><mn>1</mn><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">unfinished cycle</mtext></munder><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:worked-orbit}
- \frac1T\sum_{t=1}^T\frac{b^{tQ\operatorname{mod} a}-1}{b^a-1}
- \le \underbrace{\frac{g}{a(b^g-1)}}_{\text{complete cycles}}
-    +\underbrace{\frac1{T(b^g-1)}}_{\text{unfinished cycle}}.
-\end{equation}</annotation></semantics></math></p>
-<p>The first term has the shape of the weighted hypothesis once suitable
-prime powers have been put
-into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
-The second has lost the factor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>.
-Summability of the first therefore gives no licence to sum the
-unfinished-cycle bounds over all exponents. This is the difficulty that
-a single progression average leaves unresolved.</p>
-</section>
-<section id="a-second-average-restores-the-missing-factor."
-class="level5">
-<h5>A second average restores the missing factor.</h5>
-<p>The source proof averages over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">T=2^j</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">M\le j&lt;2M</annotation></semantics></math>,
-for a large integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-For nonnegative weights
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>a</mi></msub><annotation encoding="application/x-tex">\alpha_a</annotation></semantics></math>
-indexed by positive integers, with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>a</mi></msub><msub><mi>α</mi><mi>a</mi></msub><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_a\alpha_a/a&lt;\infty</annotation></semantics></math>,
-it uses
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>M</mi></mrow><mrow><mn>2</mn><mi>M</mi><mo>−</mo><mn>1</mn></mrow></munderover><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><munder><mo>∑</mo><mrow><mi>a</mi><mo>≤</mo><mi>Q</mi><msup><mn>2</mn><mi>j</mi></msup></mrow></munder><msub><mi>α</mi><mi>a</mi></msub><mo>≤</mo><mn>2</mn><mi>Q</mi><munder><mo>∑</mo><mi>a</mi></munder><mfrac><msub><mi>α</mi><mi>a</mi></msub><mi>a</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:worked-dyadic}
- \sum_{j=M}^{2M-1}2^{-j}\sum_{a\le Q2^j}\alpha_a
- \le 2Q\sum_a\frac{\alpha_a}{a}.
-\end{equation}</annotation></semantics></math> Indeed, a fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-enters only when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>j</mi></msup><mo>≥</mo><mi>a</mi><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">2^j\ge a/Q</annotation></semantics></math>,
-and the sum of the admissible
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><annotation encoding="application/x-tex">2^{-j}</annotation></semantics></math>
-is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">2Q/a</annotation></semantics></math>.
-The missing factor is recovered by changing the length of the average,
-before summing
-over <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
-<p>To see why both averages can be made small, let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mo>*</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">p_*=\max P</annotation></semantics></math>,
-take
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-divisible
-by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
-and, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≥</mo><mn>2</mn><msub><mi>p</mi><mo>*</mo></msub></mrow><annotation encoding="application/x-tex">H\ge2p_*</annotation></semantics></math>,
-set
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>L</mi><munder><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></munder><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>H</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>H</mi><mi>/</mi><msub><mi>p</mi><mo>*</mo></msub><mo stretchy="false" form="postfix">⌋</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mi>b</mi><mrow><mi>G</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">⌋</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Q=L\prod_{p\in P}p^{\lfloor\log_p H\rfloor},\qquad
- G=\lfloor H/p_*\rfloor,\qquad M=\lfloor b^{G/2}\rfloor.</annotation></semantics></math>
-If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">h_P(a)\le H</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">h_P(a)\mid Q</annotation></semantics></math>;
-otherwise
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\gcd(a,Q)\ge G</annotation></semantics></math>.
-Thus the
-small-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h_P(a)</annotation></semantics></math>
-terms are controlled by the weighted sum
-and <code>[eq:worked-dyadic]</code>, while the
-large-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h_P(a)</annotation></semantics></math>
-terms gain a denominator
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>G</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^G-1</annotation></semantics></math>.
-With
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
-and its common multiple
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-fixed,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>≤</mo><mi>L</mi><msup><mi>H</mi><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow></msup></mrow><annotation encoding="application/x-tex">Q\le LH^{|P|}</annotation></semantics></math>,
-whereas
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-grows exponentially
-in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
-Consequently
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>/</mi><mi>M</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Q/M\to0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mi>M</mi><mi>/</mi><msup><mi>b</mi><mi>G</mi></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">GM/b^G\to0</annotation></semantics></math>.
-The finite mean is bounded by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
-plus terms tending to zero; the exponents
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>Q</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">a&gt;QT</annotation></semantics></math>
-contribute at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">4/T</annotation></semantics></math>.
-These are the two scale choices in the source proof <span
-class="citation" data-cites="paper257"></span>.</p>
-<p>Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
-is arbitrary, one of the displacements is smaller than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">1/q</annotation></semantics></math>,
-a contradiction. Passing to an infinite
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math>
-only decreases the weighted sum, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo>≥</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^{h_P(a)}-1\ge2^{h_P(a)}-1</annotation></semantics></math>
-gives the all-base conclusion from the binary hypothesis <span
-class="citation" data-cites="paper257"></span>.</p>
-<figure id="fig:theorem" data-latex-placement="htbp">
-
-<figcaption>The arrows associate a paper statement with its coverage row
-and the two registered supports; they do not represent deductions
-between these records. The support hypothesis still needs mathematical
-explanation. The false paraphrase is illustrative, distinct from
-historical edit 8 in Table <code>[tab:mutations]</code>.</figcaption>
-</figure>
-</section>
+<h2>Worked case: publishing a conditional theorem</h2>
+<p></p>
+<p>The worked case concerns a theorem that establishes a result for a
+restricted family of infinite sums. The paper must retain the
+restriction: removing it would assert a solution of a more general
+problem that remains open. Its evidence record lists two formal
+supports. A checker can require both records and verify their source
+bindings, yet a sentence retaining both links can still omit the
+condition. Appendix B gives the exact statement and calculation for
+specialists.</p>
+<p>These failures assign different tasks to the tools and the reviewer.
+A missing support record is an accounting failure that the publication
+tools can report. Dropping a condition changes the meaning of the claim
+and requires comparison with the complete source statement. The
+historical false-completion edit in Section 7 illustrates another
+semantic failure: replacing a limitation by a claim that the unresolved
+step is complete. Source links and current hashes do not, by themselves,
+establish what those words mean.</p>
 </section>
 <section id="sec:checks" class="level2">
 <h2>Proof and publication checks</h2>
-<p> Figure <code>[fig:theorem]</code> now gives a concrete test for the
-publication checks. Its coverage record names two supporting Lean
-results. Evidence for the weighted criterion alone does not supply the
-complete registered set while the hereditary support is missing. The
-comparison includes every registered support and the additional
-hypotheses on which a conditional result depends, recorded as named
-inputs. It uses an identified source revision. A changed statement or
-source must be checked against its records again; a source file from one
-revision cannot silently borrow the evidence attached to another.</p>
+<p> The worked case has two registered formal results: one proves the
+restricted theorem, and the other proves its consequence for every
+subset (Appendix B, Figure <code>[fig:theorem]</code>). Supplying only
+one leaves the evidence record incomplete. Requiring both records is a
+publication check, not an additional hypothesis of the mathematical
+theorem. The comparison includes every registered support and the
+additional hypotheses on which a conditional result depends, recorded as
+named inputs. It uses an identified source revision. A changed statement
+or source must be checked against its records again; a source file from
+one revision cannot silently borrow the evidence attached to
+another.</p>
 <p>These checks concern different relations from the correctness of the
 formal proof and the meaning of the prose
 (Figure <code>[fig:checks]</code>).</p>
@@ -454,9 +323,9 @@ data-cites="leanfrocomparator nanodalib"><a href="#ref-19">[19]</a><a href="#ref
 <p>For each marked passage in this systems paper we record its text,
 specified source lines, the kind of evidence and the rationale for
 citing those sources.</p>
-<p>For example, the last paragraph of Section 3 attributes heredity to
-the decrease of a nonnegative sum under restriction. Its record points
-to the weighted proof and explains that step. The checker compares
+<p>For example, the worked case concludes that the same restricted
+result holds for every subset. Its record points to the source proof and
+explains why the condition is preserved. The checker compares
 cryptographic hashes of the text and source passage, and rejects missing
 records or passages without a binding.</p>
 <p>That check detects an unrecorded edit. If an author changes both the
@@ -474,29 +343,53 @@ verdict from the specified Lean process, so callers cannot supply
 verdicts through that interface. This interface rule does not prevent an
 actor with filesystem access from changing the implementation or stored
 record. The protocol distinguishes contributor and reviewer roles but
-does not require a second independent mathematician. No independent
-human mathematical review of the corpus is recorded.</p>
+does not technically force a second independent mathematician. No
+independent human mathematical review of the corpus is recorded.</p>
 </section>
 <section id="sec:paper" class="level2">
-<h2>From a Lean corpus to a paper</h2>
-<p> The worked example also suggests how to write the short account:
-give the support condition, show a set that it reaches, and explain why
-incomplete periods force a second average. A dependency graph locates
-the ingredients, but choosing this order and identifying the loss of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>
-are expository decisions made from the argument. The long record retains
-the complete proof and subsidiary cases. A correspondence link names the
-passage supporting a particular short-paper claim, so the reader can
-move from the explanation to the calculation without searching the whole
-record. The assembler preserves these authored parts and their
-cross-references; it supplies no missing mathematical step. Readers may
-need a hint, a worked example or the full argument. The reading guide
-invites them to reconstruct a decisive step or change a hypothesis, and
-the explanation instructions require an agent to respect the requested
-depth. These are authoring rules; they do not establish that a reader
-has understood the proof.</p>
-<section id="source-frozen-editorial-refinement" class="level3">
-<h3>Source-frozen editorial refinement</h3>
+<h2>Publication and revision</h2>
+<p> The worked case suggests a concrete editorial task: retain the
+result’s conditions and scope, explain the decisive step, and link the
+short account to the full argument. A useful explanation lets a reader
+recover why the conclusion holds and where it stops applying. A
+dependency graph locates the ingredients. Choosing their order and
+explaining their role require reading the argument; the manuscript audit
+supplies no such judgement. The long record retains the complete proof
+and subsidiary cases. A correspondence link names the passage supporting
+a particular short-paper claim, so the reader can move from the
+explanation to the calculation without searching the whole record. The
+assembler preserves these authored parts and their cross-references; it
+supplies no missing mathematical step. Readers may need a hint, a worked
+example or the full argument. The reading guide invites them to
+reconstruct a decisive step or change a hypothesis, and the explanation
+instructions require an agent to respect the requested depth. These are
+authoring rules; they do not establish that a reader has understood the
+proof.</p>
+<section id="work-assignments-and-review" class="level3">
+<h3>Work assignments and review</h3>
+<p>This distinction concerns access to the repository. The assigned work
+is a separate choice: mathematical research, proof or claim audit,
+literature and attribution review, or exposition.</p>
+<p>Research returns candidate arguments, an audit returns source-located
+findings, a literature review returns attribution proposals, and
+exposition returns a clearer manuscript; each product has its own review
+and acceptance criteria.</p>
+<p>An exposition assignment preserves the established hypotheses,
+conclusions and evidence status; a suspected mathematical defect is
+returned for a separate audit or research assignment.</p>
+<p>The reviewer compares hypotheses and implication directions with the
+whole statement and all its registered declarations. An ordinary
+argument retains its actual evidence class where formalisation is
+incomplete.</p>
+<p>After acceptance, integration requires restoring the long record’s
+authored sections, regenerating evidence and navigation, and inspecting
+the compiled pages, figures and proof links.</p>
+<p>A writing rule learned from the revision travels with its example and
+limits as a candidate. Its adoption requires a reviewed change to the
+owning writing contract.</p>
+</section>
+<section id="proposing-and-reviewing-a-revision" class="level3">
+<h3>Proposing and reviewing a revision</h3>
 <p>A revision begins by collecting candidate results, antecedents,
 difficult proof transitions and unresolved questions with their source
 locations. The author decides which argument deserves the short paper;
@@ -508,7 +401,9 @@ changes were based on.</p>
 <p>An advisory model can return a proposal against those sources; a
 tool-enabled agent can prepare it in a checkout. In either case the
 integrating reviewer decides whether the mathematics and its description
-remain faithful.</p>
+remain faithful. The packet declares which manuscript paths may change;
+its evidence records and checking tools remain read-only inputs to this
+editorial exchange.</p>
 <figure id="fig:refinement" data-latex-placement="H">
 
 <figcaption>The exposition workflow, read in numerical order. A proposal
@@ -525,19 +420,15 @@ proposal nor executes returned programs. Declaring a statement change
 makes the review obligation explicit; it does not discharge it.</p>
 <p>The packet and audit stages in Figure <code>[fig:refinement]</code>
 are implemented by <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>.
-Appendix A specifies the protocol roles and the acceptance steps. This
-procedure supplies no measurement of reader benefit or autonomous
-discovery.</p>
-<p>The relation to the motivating problem must also survive compression:
-the Problem 269 record distinguishes distinct running-LCM heights from
-the heights counted with multiplicity in the original question <span
-class="citation" data-cites="paper269"></span>. A result about the
-former is not automatically a result about the latter. When a statement
-is sharpened, merged or moved, its complete support set and any named
-input must move with it, and the statement relation needs renewed
-review. A new arrangement of a proof does not make its ingredients
-new.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/short_paper_writer.py"><code>short_paper_writer.py</code></a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_refinement.py"><code>paper_refinement.py</code></a>.</p>
+<p>A return has two possible lasting effects: accepted text changes the
+paper; an accepted general lesson changes the guidance supplied to later
+writers. The latter needs its own review, so a local improvement can be
+retained without becoming a new rule. This process revises documents and
+instructions, not model weights. The procedure supplies no measurement
+of reader benefit or autonomous discovery.</p>
 </section>
 </section>
 <section id="sec:contribute" class="level2">
@@ -557,15 +448,16 @@ Repository adoption applies to mathematical and methodological
 contributions; it establishes neither independent review nor acceptance
 by the wider mathematical community.</figcaption>
 </figure>
-<p>The research journal records returns and dispositions in an
-append-only, hash-linked history, while a correction may withdraw
-something previously endorsed. Discovery investigates a question, while
-stewardship compares the return with prior work, groups related results,
-reconciles affected papers and selects the next question. The proposed
-coupling is event-driven: a stable result or changed appraisal prompts
-work, whereas an unchanged repository supplies no reason for another
-run. The journal establishes what happened; judging what was learned
-requires the comparison with earlier work.</p>
+<p>The research journal records explicitly entered returns and
+dispositions in an append-only, hash-linked history, while a correction
+may withdraw something previously endorsed. Ordinary issues and pull
+requests need not become journal events. Discovery investigates a
+question, while stewardship compares the return with prior work, groups
+related results, reconciles affected papers and selects the next
+question. The proposed coupling is event-driven: a stable result or
+changed appraisal prompts work, whereas an unchanged repository supplies
+no reason for another run. The journal establishes what happened;
+judging what was learned requires the comparison with earlier work.</p>
 <p>Generalising a local result requires a separate literature and
 library comparison, a proof of the proposed extension, and a second
 useful instance before an expert takes it to an upstream project <span
@@ -689,13 +581,13 @@ rerun.</p>
 </div>
 <p>After the escape, the follow-up checked the intact baseline and that
 particular edit against an added check, leaving the other edits untested
-under the repair and supplying no post-repair ten-of-ten result. The
-post-repair witness accepts the intact baseline README and rejects a
-test copy containing the false clause. The sample comes from one corpus
-and one author's selection of errors, with neither a manual-review
-control nor an ordinary continuous-integration comparator. The study
-locates a coverage boundary. Its nine rejections do not estimate how
-reliable the checker is.</p>
+under the repair and supplying no post-repair ten-of-ten result. In that
+recorded follow-up, the post-repair witness accepts the current README
+and rejects a test copy containing the false clause. The sample comes
+from one corpus and one author's selection of errors, with neither a
+manual-review control nor an ordinary continuous-integration comparator.
+The study locates a coverage boundary. Its nine rejections do not
+estimate how reliable the checker is.</p>
 <p>On 23 September 2026, a maintainer-operated agent accepted one
 architecture handoff into a local integration history after focused
 checks of return routing and architecture packaging. The contributor and
@@ -720,7 +612,7 @@ formalisation missions, reusable statements and contributions <span
 class="citation"
 data-cites="lean4 mathlib leanblueprint prove2me"></span>. The
 additional records here follow all registered supports and the source
-passages used in prose. Appendix B preserves the wider source map of the
+passages used in prose. Appendix C preserves the wider source map of the
 three original accounts. Prove2Me's first arXiv version appeared on 28
 August 2026, before the first public version of this paper, and already
 described public agent contributions, task decomposition, reusable
@@ -734,22 +626,15 @@ compute <span class="citation"
 data-cites="polymath boinc gimps"><a href="#ref-99">[99]</a><a href="#ref-97">[97]</a><a href="#ref-98">[98]</a></span>, while the Carleson blueprint
 shows formalisation organised into publicly claimable tasks <span
 class="citation" data-cites="carleson"></span>.</p>
-<p>The totient record refines Coons's
-non-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regularity
-antecedent and distinguishes Martin's separation theorem from its own
-Chinese-remainder and Dirichlet argument traced to Yazdani <span
-class="citation" data-cites="paper249 coons martin yazdani"></span>. The
-running-LCM record retains Fan's public priority for the two-prime case
-despite an independently reported derivation, and credits its
-Hecke–Mahler antecedents separately <span class="citation"
-data-cites="paper269 fan269 loxtonvdp1977 bugeaudlaurent2023"><a href="#ref-28">[28]</a><a href="#ref-29">[29]</a><a href="#ref-26">[26]</a><a href="#ref-27">[27]</a></span>.
-For Problem 1041, the public degree-seven construction is ani's; the
-recorded Lean result refutes the exact Formal Conjectures statement,
-while correspondence with the 1958 curve-length wording remains
-unreviewed <span class="citation"
-data-cites="aniforum formalconjectures fcpr ehp1958 erdos1041"><a href="#ref-23">[23]</a><a href="#ref-77">[77]</a><a href="#ref-24">[24]</a><a href="#ref-22">[22]</a><a href="#ref-21">[21]</a></span>.
-Appendix A names its four recorded Lean declarations; Comparator is
-pending. The other seven targets remain unresolved here.</p>
+<p>Our fixed-order regeneration and freshness checks address the
+build-system problem of keeping derived views consistent with their
+inputs <span class="citation" data-cites="buildsystems"><a href="#ref-48">[48]</a></span>. The
+implementation runs an explicit ordered list of builders, then checks
+the resulting views; it is not a general incremental scheduler. Source
+bindings and the journal record artifact provenance, including the
+inputs and revision to which a claim or entered return refers. These
+records serve inspection and reproducibility, with research efficiency
+and semantic correctness left to separate evaluation.</p>
 </section>
 <section id="sec:limits" class="level2">
 <h2>Limits</h2>
@@ -803,19 +688,42 @@ begins.</p>
 <h2>Inspection and reproduction</h2>
 <p>The initial unified manuscript was prepared from the frozen packet at
 <code>ced96e58b337</code>, a local integration commit rather than public
-main. Repository links in this revision use commit
-<code>992cf60a27ef</code>; the Comparator links below identify their
-separate recorded runs. This paper supersedes <em>From a Cold Clone to a
-Proof Receipt</em> and <em>From Spare Compute to Cumulative
-Mathematics</em>. Their manuscripts remain available as historical
-accounts of navigation, proof-check records, contribution protocol and
-governance.</p>
+main. A 29 September state report lists this manuscript as
+<em>Problem-Sized Lean Worlds</em>. Repository links in this revision
+use commit <code>992cf60a27ef</code>; the Comparator links below
+identify their separate recorded runs. This paper supersedes <em>From a
+Cold Clone to a Proof Receipt</em> and <em>From Spare Compute to
+Cumulative Mathematics</em>. Their manuscripts remain available as
+historical accounts of navigation, proof-check records, contribution
+protocol and governance.</p>
+<section id="earlier-design-accounts-and-current-status" class="level3">
+<h3>Earlier design accounts and current status</h3>
+<p><em><a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/cold-clone-to-proof-receipt.tex"><code>From a Cold Clone to a Proof Receipt</code></a></em>
+(August 2026) explains the declaration, dependency, interpretation and
+claim views and the optional recorded proof session. The current task
+entry and the inspected implementation are described in Section 2; the
+earlier paper’s inventory and audit figures belong to its dated
+snapshot.</p>
+<p><em><a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/paper/systems/open-source-mathematics-strategy.tex"><code>From Spare Compute to Cumulative Mathematics</code></a></em>
+(September 2026) explains contribution roles, original-base
+reproduction, later integration and role credit. Section 6 describes the
+current public return procedure and distinguishes ordinary submissions
+from explicitly entered journal events. Volunteer-compute services,
+inexpensive adoption by new laboratories and improvements in discovery
+rate remain proposals or unmeasured outcomes. These two manuscripts are
+historical design sources, not additional current system
+specifications.</p>
 <p>The weighted row in <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>docs/paper_lean_coverage.json</code></a>
 names <code>divisibilityWeightedClaim</code> and
 <code>finitePrimeWeighted_fixedBase_hereditary</code>, in namespace
-<code>ErdosProblems.Erdos257.PaperCompleteR8</code>. Its Comparator
-records are <a
+<code>ErdosProblems.Erdos257.PaperCompleteR8</code>. Appendix B follows
+the ordinary proof in <span class="citation"
+data-cites="paper257"><a href="#ref-2">[2]</a></span>; these entries record formal support for
+the conclusion, not a line-by-line comparison of that argument with the
+Lean proofs. Its Comparator records are <a
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144">run
 35544127144</a> and <a
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171">run
@@ -853,10 +761,11 @@ the curated assertions are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/claims.json"><code>docs/claims.json</code></a>,
 and <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/check_release.py"><code>scripts/check_release.py</code></a>
-runs the release gate. The native writing packet freezes manuscript
-inputs, selected records and the tools used to inspect them. It supplies
-no Lean source tree; source-binding validation does not replay Lean,
-Comparator or the full repository release checks.</p>
+runs the release gate. The public writer’s native packet freezes
+manuscript inputs, selected records and the tools used to inspect them;
+its input list does not include a Lean source tree. Source-binding
+validation does not replay Lean, Comparator or the full repository
+release checks.</p>
 <p>The protected snapshot partitions 689 occurrences into 498 exact, 142
 specialising, 23 named-input and 26 unsupported-by-Lean entries. The
 journal summary at head <code>d3ad85269386</code> records 7 rounds (2
@@ -879,30 +788,413 @@ govern returns. Cite repository software using <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CITATION.cff"><code>CITATION.cff</code></a>
 at the chosen commit or release tag; cite mathematical results by the
 paper and version actually used.</p>
-<section id="editorial-roles-and-acceptance" class="level3">
-<h3>Editorial roles and acceptance</h3>
 <p>We call an agent that can alter the live repository Type A and an
 advisory agent returning proposals against supplied sources Type B.</p>
-<p>This distinction concerns access to the repository. The assigned work
-is a separate choice: mathematical research, proof or claim audit,
-literature and attribution review, or exposition.</p>
-<p>Research returns candidate arguments, an audit returns source-located
-findings, a literature review returns attribution proposals, and
-exposition returns a clearer manuscript; each product has its own review
-and acceptance criteria.</p>
-<p>An exposition assignment preserves the established hypotheses,
-conclusions and evidence status; a suspected mathematical defect is
-returned for a separate audit or research assignment.</p>
-<p>The reviewer compares hypotheses and implication directions with the
-whole statement and all its registered declarations. An ordinary
-argument retains its actual evidence class where formalisation is
-incomplete.</p>
-<p>After acceptance, integration requires restoring the long record’s
-authored sections, regenerating evidence and navigation, and inspecting
-the compiled pages, figures and proof links.</p>
-<p>A writing rule learned from the revision travels with its example and
-limits as a candidate. Its adoption requires a reviewed change to the
-owning writing contract.</p>
+</section>
+</section>
+<section id="app:worked-proof" class="level2">
+<h2>Calculation for the worked theorem</h2>
+<p>For an infinite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+of positive integers and an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
+write
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}\frac1{b^a-1}.</annotation></semantics></math>
+The question is when a condition on the exponents forces this number,
+and the corresponding sum over every infinite subset
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+to be irrational.</p>
+<p>The condition below rewards exponents divisible by large powers of a
+fixed collection of primes. For the prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+alone, the relevant part of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi></mrow><annotation encoding="application/x-tex">a=2^km</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+odd, is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math>.
+For a finite nonempty set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+of primes, this becomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h_P(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v_p(a)</annotation></semantics></math>
+is the exponent of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+in the prime factorisation
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
+<p>The weighted-support theorem of the Problem 257 paper states that, if
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>2</mn><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:worked-condition}
+ W_{2,P}(A):=\sum_{a\in A}\frac{h_P(a)}{a(2^{h_P(a)}-1)}&lt;\infty,
+\end{equation}</annotation></semantics></math> then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>B</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_B(b)</annotation></semantics></math>
+is irrational for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+and every infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math> <span
+class="citation" data-cites="paper257"></span>.</p>
+<p>For a fixed base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">W_{b,P}(A)</annotation></semantics></math>
+for the sum in <code>[eq:worked-condition]</code> with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+replaced
+by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>.
+The fixed-base version assumes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">W_{b,P}(A)&lt;\infty</annotation></semantics></math>
+and gives the same hereditary conclusion at that base.
+Figure <code>[fig:theorem]</code> locates the two registered Lean
+supports; Appendix B explains the ordinary argument. Their recorded
+status does not report a new comparison of source revisions, Lean build
+or Comparator run. Comparator checks a selected Lean implementation
+against a separately stated challenge, as described in Section 4.</p>
+<p>This is a sufficient condition on the support; the question for an
+arbitrary infinite set of exponents in base two remains open.</p>
+<p>Erdős had already stated that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>
+suffices for this all-base irrationality conclusion <span
+class="citation" data-cites="erdos1968"></span>.</p>
+<p>The source paper credits Duverney and Tachiya for an
+arithmetic-progression averaging argument of the kind used to select a
+small positive displacement <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-4">[4]</a></span>.</p>
+<figure id="fig:theorem" data-latex-placement="htbp">
+
+<figcaption>The arrows associate a paper statement with its coverage row
+and the two registered supports; they do not represent deductions
+between these records. The support hypothesis still needs mathematical
+explanation. The false paraphrase is illustrative, distinct from
+historical edit 8 in Table <code>[tab:mutations]</code>.</figcaption>
+</figure>
+<p>This appendix retains the ordinary calculation from the Problem 257
+paper used by the worked case in Section 3. The recorded Lean
+declarations support its conclusion; they are not a newly executed
+line-by-line verification of this exposition.</p>
+<p>The distinction from the reciprocal-summability criterion is visible
+in the source paper’s example
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mo>⋆</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mi>k</mi></msup><mi>m</mi><mo>:</mo><mi>k</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">A_\star=\{2^km:k\ge1,\ m\text{ odd},\ 1\le m\le2^{2^k}\},\qquad P=\{2\}.</annotation></semantics></math>
+Within the layer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">v_2(a)=k</annotation></semantics></math>,
+reciprocal summation discounts each odd
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>k</mi></mrow></msup><annotation encoding="application/x-tex">2^{-k}</annotation></semantics></math>;
+weighted summation discounts it by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2^{2^k}-1)^{-1}</annotation></semantics></math>.</p>
+<p>To compare the layers, put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>r</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><msup><mn>2</mn><mi>r</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>m</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">S_r=\sum_{1\le m\le2^r,\ m\ \mathrm{odd}}1/m</annotation></semantics></math>.
+Grouping the odd integers into intervals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><msup><mn>2</mn><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[2^j,2^{j+1})</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mn>4</mn><mo>≤</mo><msub><mi>S</mi><mi>r</mi></msub><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">r/4\le S_r\le r</annotation></semantics></math>
+for integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r\ge2</annotation></semantics></math>.</p>
+<p>The reciprocal contribution of each disjoint layer is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>−</mi><mi>k</mi></mrow></msup><msub><mi>S</mi><msup><mn>2</mn><mi>k</mi></msup></msub><mo>≥</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">2^{-k}S_{2^k}\ge1/4</annotation></semantics></math>.
+Its weighted contribution satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>S</mi><msup><mn>2</mn><mi>k</mi></msup></msub><mrow><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><mfrac><msup><mn>2</mn><mi>k</mi></msup><mrow><msup><mn>2</mn><msup><mn>2</mn><mi>k</mi></msup></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><msup><mn>2</mn><mrow><mn>1</mn><mo>−</mo><mi>k</mi></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{S_{2^k}}{2^{2^k}-1}\le\frac{2^k}{2^{2^k}-1}\le2^{1-k},</annotation></semantics></math>
+so the layer contributions have a convergent geometric majorant in the
+weighted sum.</p>
+<p>Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">A_\star</annotation></semantics></math>
+lies beyond the reciprocal-summability criterion but
+satisfies <code>[eq:worked-condition]</code>. This is the source paper’s
+ordinary calculation, with no separate entry in the paper-to-Lean
+ledger <span class="citation" data-cites="paper257"><a href="#ref-2">[2]</a></span>.</p>
+<section id="a-positive-displacement." class="level5">
+<h5>A positive displacement.</h5>
+<p>Suppose that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
+with integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p,q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>.
+For a positive integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+multiplication by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^N-1</annotation></semantics></math>
+removes the complete geometric blocks from each summand, leaving
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>N</mi><mo>≥</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:worked-displacement}
+ \Delta_{b,A}(N)=\sum_{a\in A}\frac{b^{N\operatorname{mod} a}-1}{b^a-1}
+ =(b^N-1)X_A(b)-J_{b,A}(N),\qquad N\ge1,
+\end{equation}</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>a</mi><mo>≤</mo><mi>N</mi></mrow></msub><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>N</mi><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msubsup><msup><mi>b</mi><mrow><mi>N</mi><mo>−</mo><mi>j</mi><mi>a</mi></mrow></msup></mrow><annotation encoding="application/x-tex">J_{b,A}(N)=\sum_{a\in A,\,a\le N}\sum_{j=1}^{\lfloor N/a\rfloor}b^{N-ja}</annotation></semantics></math>
+is an integer.</p>
+<p>Every summand is nonnegative, and one is positive because the
+infinite
+set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+contains an exponent larger
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\Delta_{b,A}(N)</annotation></semantics></math>
+is a positive integer, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)\ge1/q</annotation></semantics></math>.</p>
+<p>We obtain a contradiction by finding a multiple
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mi>t</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">N=tQ</annotation></semantics></math>
+with smaller displacement. Divisibility helps because the summand
+indexed by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+vanishes whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">a\mid Q</annotation></semantics></math>.</p>
+<p>Choose a finite nonempty
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊂</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">F\subset A</annotation></semantics></math>
+outside which the weighted sum is less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>,
+and make
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+a multiple of every element
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.
+Those terms then disappear for
+every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>;
+we must control the remaining terms on average.</p>
+</section>
+<section id="a-finite-orbit-and-its-unfinished-end." class="level5">
+<h5>A finite orbit and its unfinished end.</h5>
+<p>With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q=4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a=6</annotation></semantics></math>,
+the residues
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>Q</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">tQ\operatorname{mod} a</annotation></semantics></math>
+are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">4,2,0</annotation></semantics></math>,
+and their mean displacement is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>15</mn><mn>63</mn></mfrac><mo>+</mo><mfrac><mn>3</mn><mn>63</mn></mfrac><mo>+</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>2</mn><mn>21</mn></mfrac><mo>≤</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac13\left(\frac{15}{63}+\frac3{63}+0\right)=\frac2{21}\le\frac19.</annotation></semantics></math>
+For a general exponent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g=\gcd(a,Q)</annotation></semantics></math>.
+The residues run through the multiples
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+in a cycle of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">a/g</annotation></semantics></math>.
+Replacing each numerator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>r</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^r-1</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>b</mi><mi>r</mi></msup><annotation encoding="application/x-tex">b^r</annotation></semantics></math>
+bounds the sum over one cycle by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(b^g-1)</annotation></semantics></math>.
+There are at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>/</mi><mi>g</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T/(a/g)</annotation></semantics></math>
+complete cycles and one unfinished cycle among the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+terms. Dividing their total
+by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>T</mi></mfrac><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mrow><msup><mi>b</mi><mrow><mi>t</mi><mi>Q</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><munder><munder><mfrac><mi>g</mi><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">complete cycles</mtext></munder><mo>+</mo><munder><munder><mfrac><mn>1</mn><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">unfinished cycle</mtext></munder><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:worked-orbit}
+ \frac1T\sum_{t=1}^T\frac{b^{tQ\operatorname{mod} a}-1}{b^a-1}
+ \le \underbrace{\frac{g}{a(b^g-1)}}_{\text{complete cycles}}
+    +\underbrace{\frac1{T(b^g-1)}}_{\text{unfinished cycle}}.
+\end{equation}</annotation></semantics></math></p>
+<p>The first term has the shape of the weighted hypothesis once suitable
+prime powers have been put
+into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
+The second has lost the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>.
+Summability of the first therefore gives no licence to sum the
+unfinished-cycle bounds over all exponents. This is the difficulty that
+a single progression average leaves unresolved.</p>
+</section>
+<section id="a-second-average-restores-the-missing-factor."
+class="level5">
+<h5>A second average restores the missing factor.</h5>
+<p>The source proof averages over the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+lengths
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">T=2^j</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">M\le j&lt;2M</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+counts the lengths being averaged, whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+counts the terms in one progression average. For nonnegative weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>a</mi></msub><annotation encoding="application/x-tex">\alpha_a</annotation></semantics></math>
+indexed by positive integers, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>a</mi></msub><msub><mi>α</mi><mi>a</mi></msub><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_a\alpha_a/a&lt;\infty</annotation></semantics></math>,
+it uses
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>M</mi></mrow><mrow><mn>2</mn><mi>M</mi><mo>−</mo><mn>1</mn></mrow></munderover><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><munder><mo>∑</mo><mrow><mi>a</mi><mo>≤</mo><mi>Q</mi><msup><mn>2</mn><mi>j</mi></msup></mrow></munder><msub><mi>α</mi><mi>a</mi></msub><mo>≤</mo><mn>2</mn><mi>Q</mi><munder><mo>∑</mo><mi>a</mi></munder><mfrac><msub><mi>α</mi><mi>a</mi></msub><mi>a</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:worked-dyadic}
+ \sum_{j=M}^{2M-1}2^{-j}\sum_{a\le Q2^j}\alpha_a
+ \le 2Q\sum_a\frac{\alpha_a}{a}.
+\end{equation}</annotation></semantics></math> Indeed, a fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+enters only when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>j</mi></msup><mo>≥</mo><mi>a</mi><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">2^j\ge a/Q</annotation></semantics></math>,
+and the sum of the admissible
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><annotation encoding="application/x-tex">2^{-j}</annotation></semantics></math>
+is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">2Q/a</annotation></semantics></math>.
+This recovers the missing factor before summing
+over <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+Dividing by the number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+of lengths then reduces the cost from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi></mrow><annotation encoding="application/x-tex">2Q</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">2Q/M</annotation></semantics></math>.</p>
+</section>
+<section id="balancing-the-two-costs." class="level5">
+<h5>Balancing the two costs.</h5>
+<p>The modulus must cancel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+while making the remaining exponents amenable to one of two estimates.
+Fix a positive common multiple
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
+put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mo>*</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">p_*=\max P</annotation></semantics></math>,
+and, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≥</mo><mn>2</mn><msub><mi>p</mi><mo>*</mo></msub></mrow><annotation encoding="application/x-tex">H\ge2p_*</annotation></semantics></math>,
+set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>L</mi><munder><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></munder><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>H</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>H</mi><mi>/</mi><msub><mi>p</mi><mo>*</mo></msub><mo stretchy="false" form="postfix">⌋</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Q=L\prod_{p\in P}p^{\lfloor\log_p H\rfloor},\qquad
+ G=\lfloor H/p_*\rfloor.</annotation></semantics></math> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">h_P(a)\le H</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">h_P(a)\mid Q</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n/(b^n-1)</annotation></semantics></math>
+decreases for positive
+integers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+the complete-cycle term in <code>[eq:worked-orbit]</code> is bounded by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">[</mo><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">h_P(a)/[a(b^{h_P(a)}-1)]</annotation></semantics></math>.
+Its sum
+outside <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+is less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>.</p>
+<p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">h_P(a)&gt;H</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\gcd(a,Q)\ge G</annotation></semantics></math>:
+either every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>-prime-power
+component of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h_P(a)</annotation></semantics></math>
+is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">h_P(a)\mid Q</annotation></semantics></math>,
+or one exceeds
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
+and its truncated component in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+is greater than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>/</mi><msub><mi>p</mi><mo>*</mo></msub><mo>≥</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">H/p_*\ge G</annotation></semantics></math>.
+Summing <code>[eq:worked-orbit]</code> over these exponents up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">QT</annotation></semantics></math>
+costs at most
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>Q</mi></mrow><mrow><msup><mi>b</mi><mi>G</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>:</mo></mrow><annotation encoding="application/x-tex">\frac{G(1+\log(QT))+Q}{b^G-1}:</annotation></semantics></math>
+the harmonic sum supplies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1+\log(QT)</annotation></semantics></math>,
+and at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">QT</annotation></semantics></math>
+unfinished-cycle terms
+supply <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p>
+<p>Increasing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+therefore has two effects. It reduces the first group’s unfinished-cycle
+cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">Q/M</annotation></semantics></math>,
+but increases the second group’s cost through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>T</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">\log T&lt;2M\log2</annotation></semantics></math>.
+We need both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>/</mi><mi>M</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Q/M\to0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mi>M</mi><mi>/</mi><msup><mi>b</mi><mi>G</mi></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">GM/b^G\to0</annotation></semantics></math>,
+not merely a long average. With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+fixed,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>≤</mo><mi>L</mi><msup><mi>H</mi><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow></msup></mrow><annotation encoding="application/x-tex">Q\le LH^{|P|}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mi>H</mi><mi>/</mi><msub><mi>p</mi><mo>*</mo></msub><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G=H/p_*+O(1)</annotation></semantics></math>.
+The choice
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mi>b</mi><mrow><mi>G</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">M=\lfloor b^{G/2}\rfloor</annotation></semantics></math>
+meets both requirements.</p>
+<p>The source proof combines these estimates into the finite mean
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mfrac><mn>1</mn><mi>M</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>M</mi></mrow><mrow><mn>2</mn><mi>M</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><mn>1</mn><msup><mn>2</mn><mi>j</mi></msup></mfrac><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><msup><mn>2</mn><mi>j</mi></msup></munderover><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="2.0em"></mspace><mo>≤</mo><mi>ε</mi><mo>+</mo><mfrac><mrow><mn>2</mn><mi>Q</mi><msub><mi>W</mi><mrow><mi>b</mi><mo>,</mo><mi>P</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>M</mi></mfrac><mo>+</mo><mfrac><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>Q</mi><mo>+</mo><mn>2</mn><mi>M</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>Q</mi></mrow><mrow><msup><mi>b</mi><mi>G</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>+</mo><mn>4</mn><mspace width="0.167em"></mspace><msup><mn>2</mn><mrow><mi>−</mi><mi>M</mi></mrow></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:worked-mean}
+\begin{aligned}
+ &amp;\frac1M\sum_{j=M}^{2M-1}\frac1{2^j}
+       \sum_{t=1}^{2^j}\Delta_{b,A}(tQ)\\
+ &amp;\qquad\le \varepsilon+\frac{2QW_{b,P}(A)}M
+       +\frac{G(1+\log Q+2M\log2)+Q}{b^G-1}+4\,2^{-M}.
+\end{aligned}
+\end{equation}</annotation></semantics></math> The terms bound,
+respectively, the weighted tail over complete cycles, its unfinished
+cycles, the exponents with large gcd, and the exponents beyond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">QT</annotation></semantics></math>.
+The second term uses <code>[eq:worked-dyadic]</code> with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>a</mi></msub><mo>=</mo><msub><mn mathvariant="bold">𝟏</mn><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_a=\mathbf1_A(a)/(b^{h_P(a)}-1)</annotation></semantics></math>;
+the last uses the geometric tail bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">4/T</annotation></semantics></math>.
+After
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+have been fixed, every term after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+tends to zero as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">H\to\infty</annotation></semantics></math> <span
+class="citation" data-cites="paper257"></span>.</p>
+<p>The left side of <code>[eq:worked-mean]</code> is an average with
+nonnegative weights summing to one: each length has weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">1/M</annotation></semantics></math>,
+distributed equally among its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>j</mi></msup><annotation encoding="application/x-tex">2^j</annotation></semantics></math>
+terms. For large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
+at least one displacement is therefore less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ε</mi></mrow><annotation encoding="application/x-tex">2\varepsilon</annotation></semantics></math>.
+Taking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ε</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;\varepsilon&lt;1/(2q)</annotation></semantics></math>
+contradicts the lower bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">1/q</annotation></semantics></math>.
+This argument gives no rate of decay
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+Passing to an infinite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>⊆</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B\subseteq A</annotation></semantics></math>
+only decreases the weighted sum, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo>≥</mo><msup><mn>2</mn><mrow><msub><mi>h</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b^{h_P(a)}-1\ge2^{h_P(a)}-1</annotation></semantics></math>
+gives the all-base conclusion from the binary hypothesis <span
+class="citation" data-cites="paper257"></span>.</p>
+</section>
+<section id="other-mathematical-attribution-and-scope-examples"
+class="level3">
+<h3>Other mathematical attribution and scope examples</h3>
+<p>The relation to the motivating problem must also survive compression:
+the Problem 269 record distinguishes distinct running-LCM heights from
+the heights counted with multiplicity in the original question <span
+class="citation" data-cites="paper269"></span>.</p>
+<p>A result about the former is not automatically a result about the
+latter.</p>
+<p>When a statement is sharpened, merged or moved, its complete support
+set and any named input must move with it, and the statement relation
+needs renewed review.</p>
+<p>A new arrangement of a proof does not make its ingredients new.</p>
+<p>The totient record refines Coons's
+non-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regularity
+antecedent and distinguishes Martin's separation theorem from its own
+Chinese-remainder and Dirichlet argument traced to Yazdani <span
+class="citation" data-cites="paper249 coons martin yazdani"></span>.</p>
+<p>The running-LCM record retains Fan's public priority for the
+two-prime case despite an independently reported derivation, and credits
+its Hecke–Mahler antecedents separately <span class="citation"
+data-cites="paper269 fan269 loxtonvdp1977 bugeaudlaurent2023"><a href="#ref-28">[28]</a><a href="#ref-29">[29]</a><a href="#ref-26">[26]</a><a href="#ref-27">[27]</a></span>.</p>
+<p>For Problem 1041, the public degree-seven construction is ani's; the
+recorded Lean result refutes the exact Formal Conjectures statement,
+while correspondence with the 1958 curve-length wording remains
+unreviewed <span class="citation"
+data-cites="aniforum formalconjectures fcpr ehp1958 erdos1041"><a href="#ref-23">[23]</a><a href="#ref-77">[77]</a><a href="#ref-24">[24]</a><a href="#ref-22">[22]</a><a href="#ref-21">[21]</a></span>.</p>
+<p>Appendix A names its four recorded Lean declarations; Comparator is
+pending.</p>
+<p>The other seven targets remain unresolved here.</p>
 </section>
 </section>
 <section id="app:source-map" class="level2">

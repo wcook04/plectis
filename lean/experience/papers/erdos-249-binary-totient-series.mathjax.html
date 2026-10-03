@@ -13,15 +13,16 @@ then splitting once more, gives seven sequences:</p>
 class="math display" data-term-auto="off">\[\varphi(n);\qquad
 \varphi(2n),\ \varphi(2n+1);\qquad
 \varphi(4n),\ \varphi(4n+1),\ \varphi(4n+2),\ \varphi(4n+3).\]</span></div>
-<p>Two identities remove two of them:</p>
+<p>The identities</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\varphi(4n)=2\varphi(2n),\qquad
-\varphi(4n+2)=\varphi(2n+1).\]</span></div>
-<p>The five remaining sequences are
-linearly independent over <span class="math inline" data-term-auto="off">\(\Q\)</span>. Thus
-every rational linear identity among the seven follows from these two
-substitutions. If the original coefficients are integers, so are the
-coefficients obtained after substitution.</p>
+\varphi(4n+2)=\varphi(2n+1)\]</span></div>
+<p class="display-continue">reduce this list to five sequences,
+which are linearly independent over <span
+class="math inline" data-term-auto="off">\(\Q\)</span>. Every rational linear identity among
+the seven therefore follows from these two substitutions. The
+substitutions also preserve integral coefficients, so they describe the
+integral relations as well.</p>
 <p>The same description holds at every finite depth and in every base.
 For an integer <span class="math inline" data-term-auto="off">\(k\ge2\)</span>, the
 <em>totient sections</em> are the sequences <span
@@ -46,11 +47,12 @@ class="citation" data-cites="allouche-shallit"></span>. Coons proved
 that the totient sequence is not <span
 class="math inline" data-term-auto="off">\(k\)</span>-regular for any <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> <span class="citation"
-data-cites="coons"><a href="#ref-2">[2]</a></span>. The theorem below gives more explicit
-information: which sections to retain, how to reduce each of the others,
-and hence how to test a linear identity. The level-zero family contains
-only <span class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and has dimension
-one.</p>
+data-cites="coons"><a href="#ref-2">[2]</a></span>. We describe the finitely generated modules
+obtained by stopping at a fixed level. The theorem below specifies a
+basis and expresses each remaining section as a scalar multiple of a
+basis element; these expressions give a test for every linear identity
+at that level. The level-zero family contains only <span
+class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and has dimension one.</p>
 <div class="theorem" id="thm:kkernelrank">
 <p><strong>Theorem 1.1</strong> (A basis through each finite level). <em>
 Let <span class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
@@ -87,11 +89,12 @@ the reductions involving them are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\varphi(36n+6)=2\varphi(6n+1),\qquad
 \varphi(36n+12)=4\varphi(6n+2).\]</span></div>
-<p>The second multiplier includes
-the factor <span class="math inline" data-term-auto="off">\(2\)</span> already present in
-<span class="math inline" data-term-auto="off">\(6n+2\)</span>. Repeated prime factors of
-<span class="math inline" data-term-auto="off">\(k\)</span> cause no further exception to the
-product formula, so the theorem also applies to nonsquarefree bases.</p>
+<p>The multipliers differ because
+<span class="math inline" data-term-auto="off">\(2\)</span> divides <span
+class="math inline" data-term-auto="off">\(6n+2\)</span> but not <span
+class="math inline" data-term-auto="off">\(6n+1\)</span>. The product formula also allows
+repeated prime factors of <span class="math inline" data-term-auto="off">\(k\)</span>, so
+there is no squarefreeness assumption on the base.</p>
 <p>Martin’s 2006 theorem on simultaneous totient inequalities already
 implies independence for every finite family of pairwise nonproportional
 affine forms with positive integral slopes <span class="citation"
@@ -130,10 +133,12 @@ Binary Totient Series</em></a>.</p>
 <h2>Proof of the basis theorem</h2>
 <section id="scalar-reductions" class="level3 unnumbered">
 <h3 class="unnumbered">Scalar reductions</h3>
-<p>Multiplication by a power of <span class="math inline" data-term-auto="off">\(k\)</span>
-changes a totient by a predictable factor once we know which primes
-dividing <span class="math inline" data-term-auto="off">\(k\)</span> are already present. For
-a zero residue, <span class="math inline" data-term-auto="off">\(kn\)</span> and <span
+<p>There are two parts to the proof. The product formula reduces every
+omitted section to a retained one; independence then shows that no
+further reductions are possible. In the first part, the multiplier
+depends only on which prime divisors of <span
+class="math inline" data-term-auto="off">\(k\)</span> divide the argument. For a zero
+residue, <span class="math inline" data-term-auto="off">\(kn\)</span> and <span
 class="math inline" data-term-auto="off">\(k^jn\)</span> have the same prime divisors when
 <span class="math inline" data-term-auto="off">\(n&gt;0\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(\varphi(k^jn)=k^{j-1}\varphi(kn)\)</span>; both
@@ -151,12 +156,13 @@ class="math inline" data-term-auto="off">\(\varphi(k^tm)/\varphi(m)\)</span> the
 contributes <span class="math inline" data-term-auto="off">\(k^t\)</span> and one factor
 <span class="math inline" data-term-auto="off">\(1-1/p\)</span> for each prime <span
 class="math inline" data-term-auto="off">\(p\mid k\)</span> absent from <span
-class="math inline" data-term-auto="off">\(u\)</span>. This is <span
-class="math inline" data-term-auto="off">\(C_k(t,u)\)</span>, and proves spanning.</p>
+class="math inline" data-term-auto="off">\(u\)</span>. This gives <span
+class="math inline" data-term-auto="off">\(C_k(t,u)\)</span> and proves that the stated
+family spans <span class="math inline" data-term-auto="off">\(V_{k,e}\)</span>.</p>
 </section>
 <section id="affine-independence" class="level3 unnumbered">
 <h3 class="unnumbered">Affine independence</h3>
-<p>For independence, Martin’s theorem is enough. For any ordering of
+<p>Independence follows from Martin’s theorem. For any ordering of
 pairwise nonproportional affine forms and any <span
 class="math inline" data-term-auto="off">\(C&gt;0\)</span>, it gives a set of positive lower
 density on which each successive totient ratio exceeds <span
@@ -168,21 +174,23 @@ The first term then dominates the sum of all remaining terms in absolute
 value, a contradiction <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. This also proves
 independence after any finite prefix is deleted.</p>
-<p>The direct proof below gives a finite witness to independence: a
-square matrix of evaluations with nonzero determinant. Let <span
-class="math inline" data-term-auto="off">\(L_i(n)=a_i n+b_i\)</span> for <span
-class="math inline" data-term-auto="off">\(1\le i\le s\)</span>, where <span
-class="math inline" data-term-auto="off">\(a_i&gt;0\)</span> and <span
+<p>We give a direct proof by constructing a square matrix of evaluations
+with nonzero determinant. Let <span class="math inline" data-term-auto="off">\(L_i(n)=a_i
+n+b_i\)</span> for <span class="math inline" data-term-auto="off">\(1\le i\le s\)</span>,
+where <span class="math inline" data-term-auto="off">\(a_i&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(a_i b_j-a_j b_i\ne0\)</span> for <span
 class="math inline" data-term-auto="off">\(i\ne j\)</span>. A shift of <span
 class="math inline" data-term-auto="off">\(n\)</span> makes all the <span
 class="math inline" data-term-auto="off">\(b_i\)</span> positive and leaves these cross
 determinants unchanged. Write <span
 class="math inline" data-term-auto="off">\(g_i=\gcd(a_i,b_i)\)</span> and <span
-class="math inline" data-term-auto="off">\(A_i=L_i/g_i\)</span>, so <span
-class="math inline" data-term-auto="off">\(A_i\)</span> is primitive. We will choose a prime
-<span class="math inline" data-term-auto="off">\(\ell\)</span> and points <span
-class="math inline" data-term-auto="off">\(n_1,\ldots,n_s\)</span> for which</p>
+class="math inline" data-term-auto="off">\(A_i=L_i/g_i\)</span>. If <span
+class="math inline" data-term-auto="off">\(g_i&gt;1\)</span>, the values of <span
+class="math inline" data-term-auto="off">\(L_i\)</span> have a fixed divisor, so it is the
+primitive form <span class="math inline" data-term-auto="off">\(A_i\)</span>, not <span
+class="math inline" data-term-auto="off">\(L_i\)</span>, that we will make prime. We will
+choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> and points
+<span class="math inline" data-term-auto="off">\(n_1,\ldots,n_s\)</span> for which</p>
 <div class="math-display" id="eq:diagonal-evaluation" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:diagonal-evaluation}
@@ -200,15 +208,16 @@ E=\bigl(\varphi(L_j(n_i))\bigr)_{1\le i,j\le s}
 give a vector in the kernel of <span class="math inline" data-term-auto="off">\(E\)</span>.
 The displayed congruence makes its determinant nonzero, so no such
 relation can exist.</p>
-<p>Here is how to obtain row <span class="math inline" data-term-auto="off">\(i\)</span>. To
-make an off-diagonal entry vanish, it suffices to give <span
-class="math inline" data-term-auto="off">\(L_j(n_i)\)</span> a prime divisor <span
-class="math inline" data-term-auto="off">\(q_{ij}\equiv1\pmod\ell\)</span>: then <span
-class="math inline" data-term-auto="off">\(q_{ij}-1\)</span> divides its totient. To keep the
-diagonal entry nonzero, we make <span
-class="math inline" data-term-auto="off">\(A_i(n_i)\)</span> a prime congruent to <span
-class="math inline" data-term-auto="off">\(2\)</span> modulo <span
-class="math inline" data-term-auto="off">\(\ell\)</span>. Choose an odd <span
+<p>For row <span class="math inline" data-term-auto="off">\(i\)</span>, we require <span
+class="math inline" data-term-auto="off">\(L_j(n_i)\)</span> to have a prime divisor <span
+class="math inline" data-term-auto="off">\(q_{ij}\equiv1\pmod\ell\)</span> whenever <span
+class="math inline" data-term-auto="off">\(j\ne i\)</span>. Then <span
+class="math inline" data-term-auto="off">\(q_{ij}-1\)</span> divides <span
+class="math inline" data-term-auto="off">\(\varphi(L_j(n_i))\)</span>, giving the
+off-diagonal zeros in <a class="math-ref" data-equation-ref="true" href="#eq:diagonal-evaluation">eq:diagonal-evaluation</a>. For the
+diagonal entry, we require <span class="math inline" data-term-auto="off">\(A_i(n_i)\)</span>
+to be a prime congruent to <span class="math inline" data-term-auto="off">\(2\)</span> modulo
+<span class="math inline" data-term-auto="off">\(\ell\)</span>. Choose an odd <span
 class="math inline" data-term-auto="off">\(\ell\)</span> dividing none of the slopes <span
 class="math inline" data-term-auto="off">\(a_i\)</span>, the products <span
 class="math inline" data-term-auto="off">\(g_i\varphi(g_i)\)</span> or the nonzero cross
@@ -247,22 +256,23 @@ in particular with <span class="math inline" data-term-auto="off">\(p\nmid g_i\)
        \equiv\varphi(g_i)\not\equiv0\pmod\ell,\]</span></div>
 <p class="display-continue">while all the
 other entries of row <span class="math inline" data-term-auto="off">\(i\)</span> vanish
-modulo <span class="math inline" data-term-auto="off">\(\ell\)</span>. The rows are chosen
-independently. Each requires one prime value, not simultaneous prime
-values of all the forms. This proves <a class="math-ref" data-equation-ref="true" href="#eq:diagonal-evaluation">eq:diagonal-evaluation</a>, including
-with every <span class="math inline" data-term-auto="off">\(n_i\)</span> beyond any
-prescribed threshold.</p>
+modulo <span class="math inline" data-term-auto="off">\(\ell\)</span>. We choose the rows
+separately, applying Dirichlet’s theorem once more for each selected
+form <span class="math inline" data-term-auto="off">\(A_i\)</span>. Thus no simultaneous
+primality assertion is required. The construction proves <a class="math-ref" data-equation-ref="true" href="#eq:diagonal-evaluation">eq:diagonal-evaluation</a> with every
+<span class="math inline" data-term-auto="off">\(n_i\)</span> beyond any prescribed
+threshold.</p>
 </section>
 <section id="the-two-zero-residue-sections" class="level3 unnumbered">
 <h3 class="unnumbered">The two zero-residue sections</h3>
-<p>It remains to separate <span
+<p>The affine-independence argument does not separate <span
 class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and <span
-class="math inline" data-term-auto="off">\(\varphi(kn)\)</span>, whose affine arguments are
-proportional. On the progression <span
-class="math inline" data-term-auto="off">\(n=km+1\)</span> we have <span
-class="math inline" data-term-auto="off">\(\varphi(kn)=\varphi(k)\varphi(n)\)</span>, so a
-proposed relation contains only one zero-residue term after this
-restriction. The positive-residue sections become the forms</p>
+class="math inline" data-term-auto="off">\(\varphi(kn)\)</span>, because their arguments are
+proportional. We use two different values of their ratio. On <span
+class="math inline" data-term-auto="off">\(n=km+1\)</span> the ratio is <span
+class="math inline" data-term-auto="off">\(\varphi(k)\)</span>, so a proposed relation
+contains only one zero-residue term after this restriction. The
+positive-residue sections become the forms</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[k^{j+1}m+k^j+r\quad(k\nmid r),\]</span></div>
 <p class="display-continue">together
@@ -291,10 +301,10 @@ class="math inline" data-term-auto="off">\(k\)</span> in the last evaluation.</p
 </section>
 <section id="sec:base-six-test" class="level2">
 <h2>Integral relations</h2>
-<p>The scalar reductions make an equality test possible without choosing
-evaluation points. We first carry it out in base six at level two, where
-there are <span class="math inline" data-term-auto="off">\(43\)</span> indexed sections. The
-<span class="math inline" data-term-auto="off">\(37\)</span> retained sections are <span
+<p>The reductions give a second way to test a linear identity, by
+substitution. Consider base six at level two, where the family has <span
+class="math inline" data-term-auto="off">\(43\)</span> indices. The <span
+class="math inline" data-term-auto="off">\(37\)</span> retained sections are <span
 class="math inline" data-term-auto="off">\(F_{0,0},F_{1,0}\)</span>, the five <span
 class="math inline" data-term-auto="off">\(F_{1,r}\)</span> (<span class="math inline" data-term-auto="off">\(1\le
 r\le5\)</span>), and the <span class="math inline" data-term-auto="off">\(30\)</span>
@@ -318,15 +328,18 @@ coordinates must then vanish by Theorem <a class="math-ref" href="#thm:kkernelr
 class="math inline" data-term-auto="off">\(x_{j,r}\)</span> for the original coefficient of
 <span class="math inline" data-term-auto="off">\(F_{j,r}\)</span>, the coefficient at <span
 class="math inline" data-term-auto="off">\(F_{1,2}\)</span> after substitution is <span
-class="math inline" data-term-auto="off">\(x_{1,2}+4x_{2,12}\)</span>. The separate
-coefficient <span class="math inline" data-term-auto="off">\(x_{2,12}\)</span> is the
-coefficient of the relation <span
-class="math inline" data-term-auto="off">\(E_{2,12}-4E_{1,2}\)</span>, where <span
-class="math inline" data-term-auto="off">\(E_{j,r}\)</span> denotes the formal generator at
-index <span class="math inline" data-term-auto="off">\((j,r)\)</span>. The other omitted
-indices work in the same way. At base two and level two this gives just
-<span class="math inline" data-term-auto="off">\(E_{2,0}-2E_{1,0}\)</span> and <span
-class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>.</p>
+class="math inline" data-term-auto="off">\(x_{1,2}+4x_{2,12}\)</span>. Meanwhile <span
+class="math inline" data-term-auto="off">\(x_{2,12}\)</span> is the coefficient of <span
+class="math inline" data-term-auto="off">\(E_{2,12}-4E_{1,2}\)</span> in the expression for
+the relation, where <span class="math inline" data-term-auto="off">\(E_{j,r}\)</span> is the
+generator of the free abelian group at index <span
+class="math inline" data-term-auto="off">\((j,r)\)</span>. The two kinds of coefficient have
+different roles: the retained coefficients test whether the combination
+vanishes, while the omitted coefficients give its expression as a sum of
+relations. At base two and level two those relations are <span
+class="math inline" data-term-auto="off">\(E_{2,0}-2E_{1,0}\)</span> and <span
+class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>. The same elimination
+works at every omitted index.</p>
 <div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let <span class="math inline" data-term-auto="off">\(k\ge2\)</span> and
@@ -402,17 +415,17 @@ class="math inline" data-term-auto="off">\(101\)</span>.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
-<p>The prime-isolation construction has a second use. It can place a
-nonzero totient residue between arbitrarily long blocks of zero
-residues. For a series with bounded integer coefficients, such a pattern
-forces irrationality: the right block makes a scaled tail small, and the
-left block isolates a single nonzero term. We first give the resulting
-classification, then the tail argument. Residues in the following sum
-are their least nonnegative representatives; they are coefficients of a
-binary series and need not be binary digits.</p>
+<p>A similar use of congruences produces a nonzero totient residue
+between arbitrarily long blocks of zero residues. We use this to
+classify the rational series obtained from bounded functions of dyadic
+totient residues. The proof rests on a tail estimate: one zero block
+makes the tail vanish under the assumption of rationality, and the other
+leaves a nonzero term too small for that assumption. In the first sum
+below, residues are represented by their least nonnegative values. These
+coefficients need not be binary digits.</p>
 <div class="theorem" id="res:residueseries">
-<p><strong>Theorem 4.1</strong> (Residue series and dyadic observables).
-<em> For every <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, </em></p>
+<p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
+every <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}\frac{\ph(n)\bmod
 m}{2^n}\notin\Q.\]</span></div>
@@ -428,7 +441,8 @@ class="math inline" data-term-auto="off">\(3f(1)/4+c/4\)</span>.</em></p>
 <span class="math inline" data-term-auto="off">\(\varphi(n)\)</span> is even for <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span>. More generally only <span
 class="math inline" data-term-auto="off">\(f(1)\)</span> and the even residue classes occur
-in the second assertion. The pattern used in its proof is</p>
+in the second assertion. The following coefficient pattern is the basis
+of the proof:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\underbrace{0,\ldots,0}_{L\text{ terms}},\quad
 a_N\ne0,\quad
@@ -692,20 +706,29 @@ M+2\)</span>, we have</p>
 2^L\Delta_h(N)-D_{h,N,L}=R_{N+h+L}-R_{N+L},\qquad
 |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}\]</span></div>
-<p>The difference is bounded by the larger tail
-bound. Hence the finite inequality</p>
+<p>The two tails are nonnegative, so their
+difference is bounded in absolute value by the larger tail bound, not
+the sum of the bounds. An integral <span
+class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> would put <span
+class="math inline" data-term-auto="off">\(D_{h,N,L}\)</span> within distance <span
+class="math inline" data-term-auto="off">\(B\)</span> of a multiple of <span
+class="math inline" data-term-auto="off">\(2^L\)</span>. Hence the finite inequality</p>
 <div class="math-display" id="eq:r3-certificate" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:r3-certificate}
 B&lt;D_{h,N,L}\bmod2^L&lt;2^L-B
 \end{equation}\]</span></div>
 <p class="display-continue">forces <span
-class="math inline" data-term-auto="off">\(\Delta_h(N)\notin\Z\)</span>. Conversely, if its
-distance to <span class="math inline" data-term-auto="off">\(\Z\)</span> is positive, choose
+class="math inline" data-term-auto="off">\(\Delta_h(N)\notin\Z\)</span>. Conversely, hold
+<span class="math inline" data-term-auto="off">\(h,N\)</span> fixed and suppose that <span
+class="math inline" data-term-auto="off">\(\|\Delta_h(N)\|_{\R/\Z}&gt;0\)</span>. Choose
 <span class="math inline" data-term-auto="off">\(L\)</span> so that <span
-class="math inline" data-term-auto="off">\(2^L\|\Delta_h(N)\|_{\R/\Z}&gt;2B\)</span>; the
-same error estimate gives <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. Thus allowing
-an unrestricted depth loses no nonintegral difference. For example,
+class="math inline" data-term-auto="off">\(2^L\|\Delta_h(N)\|_{\R/\Z}&gt;2B\)</span>: the
+left side grows exponentially, whereas <span
+class="math inline" data-term-auto="off">\(B=N+h+L+2\)</span> grows linearly. The same error
+estimate gives <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. This detects
+every nonintegral difference at some depth; it does not produce such a
+difference for each <span class="math inline" data-term-auto="off">\(h\)</span>. For example,
 <span class="math inline" data-term-auto="off">\(D_{1,12,16}=-143140\)</span> has residue
 <span class="math inline" data-term-auto="off">\(53468\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^{16}\)</span>, and <span
@@ -729,9 +752,13 @@ class="math display" data-term-auto="off">\[\exists t\ge1:\ K(td,N,td)
 this for every <span class="math inline" data-term-auto="off">\(d\ge1,N\ge0\)</span> is
 equivalent to <span class="math inline" data-term-auto="off">\(S\notin\Q\)</span>.</em></p>
 </div>
-<p>The proof uses the recurrence <span
-class="math inline" data-term-auto="off">\(\Delta_{(t+1)d}(N)\equiv2^d\Delta_{td}(N)+\Delta_d(N)\pmod\Z\)</span>;
-it is given in <a
+<p>Here the depth is no longer free: it must equal the shift. The
+recurrence <span
+class="math inline" data-term-auto="off">\(\Delta_{(t+1)d}(N)\equiv2^d\Delta_{td}(N)+\Delta_d(N)\pmod\Z\)</span>
+prevents two consecutive large shifts from both failing the test. Two
+failures would force the fixed nonintegral <span
+class="math inline" data-term-auto="off">\(\Delta_d(N)\)</span> arbitrarily close to an
+integer. The estimates are in <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-ray">Appendix A
 of the long record</a>. A single pair <span
 class="math inline" data-term-auto="off">\(d,N\)</span> need not imply irrationality; the
@@ -762,8 +789,8 @@ c+H+1&lt;(-B_{H,c})\bmod M&lt;M-(c+H+1).
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-mersenne">proof
 and residue recurrence</a> use <span
 class="math inline" data-term-auto="off">\(B_{H,c}=M(vR_c)-\Delta_H(c)\)</span> and the
-linear tail bound. Neither test provides these universal witnesses. A
-separate <a
+linear tail bound. The required residues have not been shown to exist
+for every choice of the parameters in either test. A separate <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-farey">Farey-interval
 calculation</a> at depth <span class="math inline" data-term-auto="off">\(240\)</span>
 excludes <span class="math inline" data-term-auto="off">\(S=a/q\)</span> for <span
@@ -785,20 +812,25 @@ and its limitations</a> explain why it fails the exact prime-dilation
 laws of <span class="math inline" data-term-auto="off">\(\varphi\)</span>. The same section
 retains the cofinal LCM-diagonal criterion, its endpoint sign conditions
 and the limits of finite integer combinations of shifts.</p>
-<p>The ordinary <a
+<p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-interpolation">signed
-interpolation argument</a> permits any value in an interval about <span
-class="math inline" data-term-auto="off">\(\sum\varphi(n)\beta^{-n}\)</span>, for each
-integer <span class="math inline" data-term-auto="off">\(\beta\ge2\)</span>, while preserving
-a prescribed prefix and every odd coefficient, with errors bounded by
-any positive <span class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>. The
-changed even indices have upper Banach density zero. On each fixed
-progression the Dirichlet defect is entire; at roots of unity the
-generating-function defect has smooth radial data and any prescribed
-finite jets vanish. This argument has not been formalised in Lean. It
-preserves Dirichlet singularities; regular parts and zeros may change,
-and finite jets do not determine an entire radial germ. It therefore
-supplies no cancellation estimate for the unchanged totient.</p>
+interpolation argument</a> gives a different family of comparison
+sequences. For each integer <span
+class="math inline" data-term-auto="off">\(\beta\ge2\)</span>, their sums can take any value
+in an interval about <span
+class="math inline" data-term-auto="off">\(\sum\varphi(n)\beta^{-n}\)</span>, while a
+prescribed prefix and every odd coefficient stay fixed. The errors may
+be bounded by any positive <span
+class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>, and the changed even
+indices have upper Banach density zero. On each fixed arithmetic
+progression, the difference of the associated Dirichlet series is
+entire. At roots of unity, the difference of the generating functions
+extends smoothly in the radial direction, with any prescribed finite
+collection of radial derivatives vanishing. Thus the Dirichlet
+singularities are preserved, although regular parts and zeros may
+change; finitely many radial derivatives do not determine the full
+radial germ. This ordinary proof has not been formalised in Lean and
+gives no cancellation estimate for the unchanged totient sequence.</p>
 <p>Rational approximation imposes a different requirement. The identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Theta_2:=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}=S-\frac12\]</span></div>
@@ -827,10 +859,13 @@ false already at <span class="math inline" data-term-auto="off">\((1,5)\)</span>
 </div>
 <p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-rankone">proof</a>
-bounds geometric tails and compares seven-term rational prefixes. The
-averaging assertion applies after division; signed combinations,
-coupling before division and higher-rank kernels remain separate
-questions. A proposed family <span
+first makes the denominator uniformly positive. A geometric bound
+handles all <span class="math inline" data-term-auto="off">\(e\ge2\)</span>; at <span
+class="math inline" data-term-auto="off">\(e=1\)</span>, seven-term prefixes leave only <span
+class="math inline" data-term-auto="off">\(Y=4,5,6\)</span> to compare directly. The
+averaging assertion concerns averages of the quotients themselves. It
+leaves open signed combinations, quotients formed after combining the
+sums, and higher-rank kernels. A proposed family <span
 class="math inline" data-term-auto="off">\(p_j/q_j\)</span> in lowest terms would need <span
 class="math inline" data-term-auto="off">\(0&lt;q_j|\Theta_2-p_j/q_j|\to0\)</span>, which
 convergence alone does not imply.</p>
@@ -853,10 +888,11 @@ class="math display" data-term-auto="off">\[\begin{equation}
 Indeed, if every residue failed <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>, each phase
 would be within <span class="math inline" data-term-auto="off">\(1/16\)</span> of an integer,
 so every real part would be at least <span
-class="math inline" data-term-auto="off">\(\cos(\pi/8)&gt;9/10\)</span>. A certificate must
-therefore occur on the block, and <a class="math-ref" data-equation-ref="true" href="#eq:tail-phase">eq:tail-phase</a> excludes every
-rational denominator by choosing its period and then a sufficiently late
-block.</p>
+class="math inline" data-term-auto="off">\(\cos(\pi/8)&gt;9/10\)</span>. Some <span
+class="math inline" data-term-auto="off">\(N\)</span> in the block must therefore satisfy
+<a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. For a
+hypothetical rational value, we choose its period and then a
+sufficiently late block, contradicting <a class="math-ref" data-equation-ref="true" href="#eq:tail-phase">eq:tail-phase</a>.</p>
 <p>To separate the counting estimates from the cancellation estimate, we
 single out one totient in each window. Fix <span
 class="math inline" data-term-auto="off">\(h,s\ge1\)</span>, <span class="math inline" data-term-auto="off">\(L\ge
@@ -887,9 +923,10 @@ i(2^h-1)\varphi(m_N)(p_N-1)}{2^t}\right),
 <p class="display-continue">and let <span class="math inline" data-term-auto="off">\(\bar
 z_m\)</span> be the average over the indices in <span
 class="math inline" data-term-auto="off">\(\mathcal A\)</span> with cofactor <span
-class="math inline" data-term-auto="off">\(m\)</span>, with value zero for an empty set. The
-four proposed bounds are</p>
-<div class="math-display" id="eq:r3-four-bounds" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(m\)</span>, taking the average to be zero for an
+empty set. We seek the four bounds</p>
+<div class="math-display" id="eq:r3-four-bounds" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:r3-four-bounds}
 \begin{aligned}
 \operatorname{Re}\sum_{N\in\mathcal G}w_N(z_N-\bar z_{m_N})
@@ -903,13 +940,17 @@ four proposed bounds are</p>
 \end{aligned}
 \end{equation}\]</span></div>
 <p>Before taking real parts and absolute values,
-the four sums add to <span class="math inline" data-term-auto="off">\(\sum E_N\)</span>, and
-hence their bounds imply the real-part estimate <span
-class="math inline" data-term-auto="off">\(9X/10\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a>. We have only
-added and subtracted the group means, without any independence
-assumption. The resulting bound concerns the real part, and does not
-give a <span class="math inline" data-term-auto="off">\(21X/25\)</span> bound for the
-absolute value of the full sum.</p>
+the four sums add to <span class="math inline" data-term-auto="off">\(\sum E_N\)</span>, so
+their bounds imply the real-part estimate <span
+class="math inline" data-term-auto="off">\(9X/10\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a>. Subtracting <span
+class="math inline" data-term-auto="off">\(\bar z_m\)</span> cancels the unweighted sum
+within its cofactor group, but the factors <span
+class="math inline" data-term-auto="off">\(w_N\)</span> may vary within that group. Thus
+centering alone does not bound the first sum. The second sum must also
+be estimated with those same weights. No independence has been assumed.
+The conclusion concerns the real part; it does not give a <span
+class="math inline" data-term-auto="off">\(21X/25\)</span> bound for the absolute value of
+the full sum.</p>
 <div class="problem" id="prob:firstharmonic">
 <p><strong>Problem C.1</strong> (Four estimates for the first-harmonic
 sum). <em> For each <span class="math inline" data-term-auto="off">\(h\ge1\)</span>, do there
@@ -922,20 +963,23 @@ class="math display" data-term-auto="off">\[\max(X_0,1)\le X,\qquad h\le L-s,\qq
 16(2X+h+L+2)\le2^L,\]</span></div>
 <p class="display-continue"><em> for which those four bounds hold?</em></p>
 </div>
-<p>All four estimates must hold on the same block with the same
-parameters. For each fixed <span class="math inline" data-term-auto="off">\(h,s\)</span>,
-take the least admissible <span class="math inline" data-term-auto="off">\(L\)</span>
-satisfying the room inequality and <span class="math inline" data-term-auto="off">\(L\ge
-s+h\)</span>. The <a
+<p>The parameters <span class="math inline" data-term-auto="off">\(s\)</span> and <span
+class="math inline" data-term-auto="off">\(\eta\)</span> may depend on <span
+class="math inline" data-term-auto="off">\(h\)</span>, but must be fixed before the threshold
+<span class="math inline" data-term-auto="off">\(X_0\)</span> is given. All four estimates
+must then hold for one common choice of <span
+class="math inline" data-term-auto="off">\(X,L\)</span>. For each fixed <span
+class="math inline" data-term-auto="off">\(h,s\)</span>, take the least admissible <span
+class="math inline" data-term-auto="off">\(L\)</span> satisfying the size inequality in <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a> and <span
+class="math inline" data-term-auto="off">\(L\ge s+h\)</span>. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-counts">smooth-number
 and small-cofactor estimates</a> give the last two bounds for all
 sufficiently large <span class="math inline" data-term-auto="off">\(X\)</span> when <span
 class="math inline" data-term-auto="off">\(0&lt;\eta&lt;1/(300\log4)\)</span>. The elementary
 excluded-cofactor estimate is <span
 class="math inline" data-term-auto="off">\((3\eta\log4+o(1))X\)</span>; it needs no prime
-number theorem. The group-mean and weighted mean-subtracted estimates
-remain open. No optimality is asserted for the sufficient margins in
-<a class="math-ref" data-equation-ref="true" href="#eq:r3-four-bounds">eq:r3-four-bounds</a>.</p>
+number theorem. The first two bounds in <a class="math-ref" data-equation-ref="true" href="#eq:r3-four-bounds">eq:r3-four-bounds</a> remain open. No
+optimality is asserted for the sufficient margins in <a class="math-ref" data-equation-ref="true" href="#eq:r3-four-bounds">eq:r3-four-bounds</a>.</p>
 <p>Alternatively, at <span class="math inline" data-term-auto="off">\(s=26\)</span>, <span
 class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> and minimal depth one has
 <span class="math inline" data-term-auto="off">\(|\mathcal G|&gt;67X/100\)</span> for large

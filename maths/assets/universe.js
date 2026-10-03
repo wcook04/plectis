@@ -31,38 +31,36 @@
     universe: '--u-universe',
     problem: '--u-problem',
     public_claim: '--u-claim',
+    paper_statement: '--u-statement',
     paper: '--u-paper',
     human_document: '--u-document',
     integration_surface: '--u-integration',
-    comparator_review_family: '--u-integration',
-    registry_review_unit: '--u-integration',
     lean_module: '--u-module',
     mathematical_object: '--u-object'
   };
-  /* Base radii before the degree bonus. The first screen is a few hundred
-     objects, so it can afford to be generous; the two starfield kinds stay
-     small because the complete universe adds over a thousand of them. */
+  /* Base radii before the degree bonus. The first screen is several hundred
+     objects; the paper results are the densest band on it, and the two
+     starfield kinds stay small because the complete universe adds over a
+     thousand of them. */
   var KIND_RADIUS = {
     universe: 13,
     problem: 11,
     integration_surface: 9,
     paper: 7,
-    registry_review_unit: 6.5,
     human_document: 6,
     public_claim: 5.4,
-    comparator_review_family: 4.4,
     mathematical_object: 2.8,
+    paper_statement: 2.6,
     lean_module: 2
   };
   var KIND_LABEL = {
     universe: 'universe',
     problem: 'problem',
     public_claim: 'checked claim',
+    paper_statement: 'paper result',
     paper: 'paper',
     human_document: 'repository document',
     integration_surface: 'verification surface',
-    comparator_review_family: 'review family',
-    registry_review_unit: 'prepared review unit',
     lean_module: 'Lean module',
     mathematical_object: 'argument step'
   };
@@ -70,11 +68,10 @@
     universe: 'Universe',
     problem: 'Problems',
     public_claim: 'Checked claims',
+    paper_statement: 'Paper results',
     paper: 'Papers',
     human_document: 'Repository documents',
     integration_surface: 'Verification surfaces',
-    comparator_review_family: 'Review families',
-    registry_review_unit: 'Prepared review units',
     lean_module: 'Lean modules',
     mathematical_object: 'Argument steps'
   };
@@ -82,17 +79,46 @@
     universe: 'dot--universe',
     problem: 'dot--problem',
     public_claim: 'dot--claim',
+    paper_statement: 'dot--statement',
     paper: 'dot--paper',
     human_document: 'dot--document',
     integration_surface: 'dot--integration',
-    comparator_review_family: 'dot--integration',
-    registry_review_unit: 'dot--integration',
     lean_module: 'dot--module',
     mathematical_object: 'dot--object'
   };
   var KIND_ORDER = ['universe', 'problem', 'integration_surface', 'paper',
-    'registry_review_unit', 'human_document', 'public_claim',
-    'comparator_review_family', 'mathematical_object', 'lean_module'];
+    'human_document', 'public_claim', 'paper_statement',
+    'mathematical_object', 'lean_module'];
+  /* A paper result's evidence, from the coverage ledger, folded into four
+     glyphs: replayed by Comparator (Comparator's colour, filled); exact Lean
+     with the replay queued (Lean colour, filled); Lean modulo named inputs
+     (ring); no Lean statement (faint ring). */
+  var EVIDENCE_ORDER = ['replayed', 'lean', 'modulo', 'none'];
+  var EVIDENCE_TEXT = {
+    replayed: 'replayed by Comparator',
+    lean: 'exact Lean, replay queued',
+    modulo: 'Lean modulo named inputs',
+    none: 'no Lean statement'
+  };
+  /* Card rows read "Lean: states it exactly", "Comparator: replayed". */
+  var LEAN_STATUS_TEXT = {
+    exact: 'states it exactly',
+    exact_or_stronger: 'states it or something stronger',
+    modulo_named_input: 'states it under named inputs',
+    none: 'no statement recorded'
+  };
+  var COMPARATOR_STATUS_TEXT = {
+    compared: 'replayed',
+    pending: 'replay queued',
+    not_applicable: 'nothing to replay without an exact Lean statement'
+  };
+  function evidenceOf(node) {
+    var lean = node.lean_status || 'none';
+    if (lean === 'exact' || lean === 'exact_or_stronger') {
+      return node.comparator_status === 'compared' ? 'replayed' : 'lean';
+    }
+    return lean === 'modulo_named_input' ? 'modulo' : 'none';
+  }
   /* Claim status, exactly as the record spells it, folded into four glyphs. */
   var STATUS_TIER = {
     'proved here': 'proved',
@@ -142,6 +168,7 @@
   }
 
   function tierOf(node) {
+    if (node.kind === 'paper_statement') return node.evidence || evidenceOf(node);
     if (node.kind !== 'public_claim') return null;
     return STATUS_TIER[node.status] || 'proved';
   }
@@ -174,16 +201,38 @@
     var query = '';
     var matchList = [];
     var lensOff = {};
+    /* A key that starts switched off keeps its kind hidden until the reader
+       turns it on. The teaser has no keys; it leaves out the documents shell,
+       which belongs to the page's own index. */
+    var lensKeys = document.querySelectorAll('[data-universe-lens]');
+    if (pageMode && lensKeys.length) {
+      Array.prototype.forEach.call(lensKeys, function (btn) {
+        if (btn.getAttribute('aria-pressed') !== 'false') return;
+        String(btn.getAttribute('data-universe-lens') || '').split(' ').forEach(function (kind) {
+          if (kind) lensOff[kind] = true;
+        });
+      });
+    } else if (!pageMode) {
+      lensOff.human_document = true;
+    }
     var tierOff = {};
     var palette = {};
     var fullLoaded = false;
     var fullLoading = false;
     var pendingId = null;
     var countText = '';
+    var statementMeta = null;
+    var bands = [];
+    /* A statement card's Lean statements and Comparator checks arrive on
+       first opening, from the experience API; the teaser never asks. */
+    var detailUrl = canvas.getAttribute('data-universe-detail');
+    var detail = null;
+    var detailLoading = false;
 
     function readPalette() {
       var styles = getComputedStyle(document.documentElement);
       palette = { edge: cssColor(styles, '--u-edge', 'rgba(0,0,0,0.12)'),
+                  plate: cssColor(styles, '--u-plate', 'rgba(127,127,127,0.07)'),
                   edgeHot: cssColor(styles, '--u-edge-hot', 'rgba(60,90,160,0.5)'),
                   halo: cssColor(styles, '--u-halo', 'rgba(226,168,62,0.35)'),
                   rim: cssColor(styles, '--u-rim', 'rgba(0,0,0,0.3)'),
@@ -228,8 +277,11 @@
     function fit() {
       if (!nodes.length) return;
       var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      for (var i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
+      // The view frames what is shown: a hidden kind does not shrink it.
+      var framed = nodes.filter(visible);
+      if (!framed.length) framed = nodes;
+      for (var i = 0; i < framed.length; i++) {
+        var n = framed[i];
         if (n.x < minX) minX = n.x;
         if (n.x > maxX) maxX = n.x;
         if (n.y < minY) minY = n.y;
@@ -250,7 +302,9 @@
 
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
-      if (nodes[i].kind === 'universe') { fit(); draw(); return; }
+      // The core and the verification hubs reach across the whole ring, so
+      // opening one frames the field rather than the hub.
+      if (nodes[i].kind === 'universe' || nodes[i].kind === 'integration_surface') { fit(); draw(); return; }
       viewIsFitted = false;
       if (view.k < 1.1) view.k = 1.6;
       view.tx = canvas.clientWidth / 2 - nodes[i].x * view.k;
@@ -297,7 +351,7 @@
     function drawGlyph(x, y, r, color, tier) {
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
-      if (!tier || tier === 'proved') {
+      if (!tier || tier === 'proved' || tier === 'replayed' || tier === 'lean') {
         ctx.fillStyle = color;
         ctx.fill();
         if (r >= 3.4) {
@@ -324,9 +378,16 @@
       }
       ctx.fillStyle = palette.ground;
       ctx.fill();
-      ctx.lineWidth = tier === 'conditional' ? 1.7 : 1;
+      ctx.lineWidth = tier === 'conditional' ? 1.7 : tier === 'modulo' ? 1.4 : 1;
       ctx.strokeStyle = color;
       ctx.stroke();
+    }
+
+    /* Comparator's colour marks what it replayed, so a reader sees the hub's
+       reach across the statement band without a single spoke drawn. */
+    function glyphColor(n) {
+      if (n.tier === 'replayed') return palette.integration_surface;
+      return palette[n.kind] || palette.faint;
     }
 
     /* Placement gives the overview its hierarchy. Imports and redundant
@@ -334,6 +395,9 @@
        the very objects they connect. The full adjacency stays inspectable. */
     function incidentEdges(focus) {
       if (focus < 0) return [];
+      // A hub's reach is the lit band; two dozen spokes to arbitrary
+      // members of it would misstate which results it reaches.
+      if (nodes[focus] && nodes[focus].kind === 'integration_surface') return [];
       var rows = [];
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i];
@@ -353,6 +417,9 @@
     function overviewEdge(i) {
       var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
       if (a.kind === 'lean_module' || b.kind === 'lean_module') return false;
+      // Hundreds of statement links would bury the band they lead to; they
+      // light when an end is selected, and every one stays in its card.
+      if (a.kind === 'paper_statement' || b.kind === 'paper_statement') return false;
       if (a.kind === 'universe' || b.kind === 'universe') {
         return a.kind === 'problem' || b.kind === 'problem';
       }
@@ -374,6 +441,139 @@
       ctx.globalAlpha = 1;
     }
 
+    /* ---- Statement bands --------------------------------------------- */
+    /* Each problem's results form one band. A faint plate gathers its dots,
+       a thin gauge inside it shows the band's evidence in proportion, and a
+       count outside it says how many results Comparator replayed. The band
+       is drawn from the layout's own description of it, not guessed from the
+       dots, so a filtered band keeps its shape. */
+    var EVIDENCE_GAUGE_ALPHA = { replayed: 1, lean: 1, modulo: 0.5, none: 0.35 };
+    function bandRadii(b) {
+      var r0 = Infinity, r1 = -Infinity;
+      for (var side in b.rings) {
+        r0 = Math.min(r0, b.rings[side][0]);
+        r1 = Math.max(r1, b.rings[side][1]);
+      }
+      return [r0, r1];
+    }
+    function bandState(b, focus) {
+      if (focus < 0) return 'rest';
+      var f = nodes[focus];
+      if (f.kind === 'universe' || f.kind === 'integration_surface') return 'rest';
+      if (f.sector && sectorProblems(f).indexOf(b.sector) !== -1) return 'on';
+      return 'off';
+    }
+    function evidenceColor(key) {
+      return key === 'replayed' ? palette.integration_surface :
+        key === 'none' ? palette.faint : palette.paper_statement;
+    }
+    function drawBandPlates(focus) {
+      if (!bands.length || lensOff.paper_statement) return;
+      var k = view.k;
+      for (var i = 0; i < bands.length; i++) {
+        var b = bands[i], radii = bandRadii(b);
+        if (!isFinite(radii[0])) continue;
+        var state = bandState(b, focus);
+        var pad = 6;
+        ctx.globalAlpha = state === 'off' ? 0.35 : 1;
+        ctx.fillStyle = state === 'on' ? palette.halo : palette.plate;
+        ctx.beginPath();
+        ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, b.hi);
+        ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.hi, b.lo, true);
+        ctx.closePath();
+        ctx.fill();
+        // The gauge: one thin arc just inside the band, split in proportion.
+        var total = 0, key;
+        for (key in b.evidence) total += b.evidence[key];
+        var at = b.lo, gaugeR = (radii[0] - pad - 5) * k;
+        if (total && gaugeR > 0) {
+          ctx.lineWidth = Math.max(2, 3.2 * Math.min(1, k / 0.6));
+          ctx.lineCap = 'butt';
+          for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
+            key = EVIDENCE_ORDER[j];
+            if (!b.evidence[key]) continue;
+            var to = at + (b.hi - b.lo) * b.evidence[key] / total;
+            ctx.globalAlpha = (state === 'off' ? 0.35 : 1) * EVIDENCE_GAUGE_ALPHA[key];
+            ctx.strokeStyle = evidenceColor(key);
+            ctx.beginPath();
+            ctx.arc(view.tx, view.ty, gaugeR, at, to);
+            ctx.stroke();
+            at = to;
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    function drawBandLabels(focus, w, h) {
+      if (!bands.length || lensOff.paper_statement) return;
+      if (!pageMode && w < 520) return;
+      var k = view.k;
+      ctx.lineJoin = 'round';
+      for (var i = 0; i < bands.length; i++) {
+        var b = bands[i], radii = bandRadii(b);
+        if (!isFinite(radii[1])) continue;
+        var state = bandState(b, focus);
+        if (state === 'off') continue;
+        var total = 0;
+        for (var key in b.evidence) total += b.evidence[key];
+        // Two lines set along the ring outside the band, the way a star chart
+        // names a constellation: whose band it is, and how far it has been
+        // checked. They take no width beside the field, so no edge pushes
+        // them back over the dots. A narrow teaser keeps the count alone.
+        var mid = (b.lo + b.hi) / 2;
+        var lower = Math.sin(mid) > 0;
+        var base = (radii[1] + 6) * k + 9;
+        var count = { text: (b.evidence.replayed || 0) + ' of ' + total + ' replayed', font: '400 11px ' + SERIF, color: palette.faint, alpha: 1 };
+        var title = null;
+        if (b.title && (pageMode || w >= 640)) {
+          title = { text: b.title, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.85 };
+          ctx.font = title.font;
+          // A name wider than its band and a half shrinks to the number.
+          if (ctx.measureText(title.text).width / (base + 13) > (b.hi - b.lo) * 1.5) {
+            title.text = title.text.split(' ')[0];
+          }
+        }
+        // Reading downward: on the upper half the name sits outside the
+        // count; on the lower half, inside it.
+        var rows = title ? (lower ? [title, count] : [count, title]) : [count];
+        for (var li = 0; li < rows.length; li++) {
+          drawArcText(rows[li], base + li * 13, mid, lower);
+        }
+      }
+      ctx.textBaseline = 'alphabetic';
+      ctx.textAlign = 'center';
+    }
+
+    /* Upright text along a circle about the field's centre, centred on an
+       angle. The upper half reads clockwise, the lower half anticlockwise,
+       so neither runs upside down. */
+    function drawArcText(row, radius, mid, lower) {
+      ctx.font = row.font;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 3.5;
+      ctx.lineJoin = 'round';
+      var dir = lower ? -1 : 1;
+      var span = ctx.measureText(row.text).width / radius;
+      var at = mid - dir * span / 2;
+      for (var i = 0; i < row.text.length; i++) {
+        var ch = row.text.charAt(i);
+        var cw = ctx.measureText(ch).width;
+        var angle = at + dir * (cw / 2) / radius;
+        ctx.save();
+        ctx.translate(view.tx + radius * Math.cos(angle), view.ty + radius * Math.sin(angle));
+        ctx.rotate(angle + (lower ? -Math.PI / 2 : Math.PI / 2));
+        ctx.globalAlpha = row.alpha;
+        ctx.strokeStyle = palette.ground;
+        ctx.strokeText(ch, 0, 0);
+        ctx.fillStyle = row.color;
+        ctx.fillText(ch, 0, 0);
+        ctx.restore();
+        at += dir * cw / radius;
+      }
+      ctx.globalAlpha = 1;
+    }
+
     function draw() {
       var dpr = window.devicePixelRatio || 1;
       var w = canvas.clientWidth, h = canvas.clientHeight;
@@ -392,6 +592,8 @@
          at desktop size would then cover each other, so they shrink with the
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
+
+      drawBandPlates(focus);
 
       var hot = incidentEdges(focus), hotSet = {};
       hot.forEach(function (at) { hotSet[at] = true; });
@@ -466,7 +668,7 @@
           r = Math.min(r, Math.max(0.45, view.k * 1.5));
         }
         var alpha = 1;
-        if (n.tier === 'open') alpha = 0.7;
+        if (n.tier === 'open' || n.tier === 'none') alpha = 0.7;
         if (n.kind === 'lean_module' && i !== focus) alpha = 0.45;
         var anchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         if (searching && !matches(n) && !anchor) alpha = 0.12;
@@ -479,7 +681,7 @@
           ctx.arc(x, y, r + 7, 0, Math.PI * 2);
           ctx.fill();
         }
-        drawGlyph(x, y, r, palette[n.kind] || palette.faint, n.tier);
+        drawGlyph(x, y, r, glyphColor(n), n.tier);
         ctx.globalAlpha = 1;
       }
 
@@ -494,8 +696,7 @@
         var isFocus = i === hover || i === selected;
         var wantLabel = isFocus || n.kind === 'problem' || n.kind === 'universe' ||
           n.kind === 'integration_surface' ||
-          (view.k > 1.7 && (n.kind === 'paper' || n.kind === 'human_document' ||
-            n.kind === 'registry_review_unit')) ||
+          (view.k > 1.7 && (n.kind === 'paper' || n.kind === 'human_document')) ||
           (view.k > 3.4 && n.kind === 'public_claim');
         if (!wantLabel) continue;
         var isAnchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
@@ -525,11 +726,25 @@
         ctx.strokeText(text, lx, labelY);
         ctx.fillStyle = palette.ink;
         ctx.fillText(text, lx, labelY);
+        // A quieter second line: a problem's name, a hub's reach. It waits
+        // for room: a problem's name only once the field is wide enough.
+        var wantSub = n.sub && !isFocus && w >= 420 &&
+          (n.kind !== 'problem' || (w >= 600 && view.k >= 0.45));
+        if (wantSub) {
+          ctx.font = '400 11px ' + SERIF;
+          var subText = clip(n.sub, 36);
+          var subHalf = ctx.measureText(subText).width / 2 + 6;
+          var sx = Math.max(subHalf, Math.min(w - subHalf, lx));
+          ctx.strokeText(subText, sx, labelY + 13);
+          ctx.fillStyle = palette.faint;
+          ctx.fillText(subText, sx, labelY + 13);
+        }
       }
+      drawBandLabels(focus, w, h);
 
       if (countOut) {
-        var line = String(shown) + ' objects · ' + String(shownEdges) + ' of ' +
-          String(availableEdges) + ' connections drawn';
+        var line = fmtCount(shown) + ' objects, ' + fmtCount(shownEdges) + ' of ' +
+          fmtCount(availableEdges) + ' connections drawn';
         if (searching) {
           line += ' · ' + String(matchList.length) + (matchList.length === 1 ? ' match' : ' matches');
         }
@@ -609,11 +824,24 @@
           '</span><b>' + counts[kind] + '</b></li>';
       }
       var status = statusCensusHtml(null);
+      var evidence = evidenceCensusHtml(null);
       var parts = ['<p class="universe-inspector__kind">The universe</p>',
-        '<h3 class="universe-inspector__title">' + shown + ' objects in view</h3>',
+        '<h2 class="universe-inspector__title">' + shown + ' objects in view</h2>',
         '<ul class="universe-inspector__census">' + rows + '</ul>'];
+      if (evidence.total) {
+        parts.push('<h3 class="universe-inspector__sub">Paper results by evidence (' + evidence.total + ')</h3>');
+        parts.push(evidence.html);
+        var s = statementMeta && statementMeta.summary;
+        if (s) {
+          parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
+            ' Lean declarations in ' + fmtCount(s.lean_files) + ' files state these results; Comparator replays run over ' +
+            fmtCount(s.comparator_entries) + ' corpus entries. Source: the ' +
+            (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
+            '.</p>');
+        }
+      }
       if (status.total) {
-        parts.push('<h4 class="universe-inspector__sub">Claims by status (' + status.total + ')</h4>');
+        parts.push('<h3 class="universe-inspector__sub">Claims by status (' + status.total + ')</h3>');
         parts.push(status.html);
       }
       for (var c = 0; c < captions.length; c++) {
@@ -663,9 +891,14 @@
       if (n.kind !== 'problem' || !n.sector) return '';
       var pid = n.sector;
       var own = statusCensusHtml(function (m) { return m.sector === pid; });
+      var results = evidenceCensusHtml(function (m) { return m.sector === pid; });
       var parts = [];
+      if (results.total) {
+        parts.push('<h3 class="universe-inspector__sub">Paper results (' + results.total + ')</h3>');
+        parts.push(results.html);
+      }
       if (own.total) {
-        parts.push('<h4 class="universe-inspector__sub">Claims placed here (' + own.total + ')</h4>');
+        parts.push('<h3 class="universe-inspector__sub">Claims placed here (' + own.total + ')</h3>');
         parts.push(own.html);
       }
       var shared = {};
@@ -685,7 +918,8 @@
       var kinds = {};
       for (var q = 0; q < nodes.length; q++) {
         var s = nodes[q];
-        if (s.kind === 'public_claim' || s.kind === 'problem' || !visible(s) || !s.sector) continue;
+        if (s.kind === 'public_claim' || s.kind === 'paper_statement' || s.kind === 'problem' ||
+            !visible(s) || !s.sector) continue;
         if (sectorProblems(s).indexOf(pid) === -1) continue;
         kinds[s.kind] = (kinds[s.kind] || 0) + 1;
       }
@@ -696,7 +930,7 @@
           '</span><b>' + kinds[KIND_ORDER[t]] + '</b></li>';
       }
       if (rows) {
-        parts.push('<h4 class="universe-inspector__sub">Also placed here</h4>');
+        parts.push('<h3 class="universe-inspector__sub">Also placed here</h3>');
         parts.push('<ul class="universe-inspector__census">' + rows + '</ul>');
       }
       return parts.join('');
@@ -763,7 +997,187 @@
       var chips = [];
       for (var j = 0; j < pids.length; j++) chips.push(problemChipHtml(pids[j]));
       return '<p class="universe-inspector__note universe-sector">Placed with ' + chips.join(' and ') +
-        ' — ' + escapeHtml(n.placedBy) + '.</p>';
+        ': ' + escapeHtml(n.placedBy) + '.</p>';
+    }
+
+    /* ---- Paper results (coverage ledger) ---------------------------- */
+
+    function evidenceCensusHtml(filter) {
+      var counts = {}, total = 0;
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (n.kind !== 'paper_statement' || !visible(n)) continue;
+        if (filter && !filter(n)) continue;
+        counts[n.tier] = (counts[n.tier] || 0) + 1;
+        total++;
+      }
+      if (!total) return { html: '', total: 0 };
+      var rows = '';
+      for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
+        var key = EVIDENCE_ORDER[j];
+        if (!counts[key]) continue;
+        rows += '<li>' + glyphHtml(key) + '<span>' + escapeHtml(EVIDENCE_TEXT[key]) +
+          '</span><b>' + counts[key] + '</b></li>';
+      }
+      return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
+    }
+
+    function fmtCount(value) {
+      return value == null ? '' : Number(value).toLocaleString('en-GB');
+    }
+
+    function extLink(href, text, cls) {
+      return '<a' + (cls ? ' class="' + cls + '"' : '') + ' href="' + escapeHtml(href) +
+        '" data-link-kind="exogenous" rel="external noopener" target="_blank">' + text + '</a>';
+    }
+
+    /* The evidence notes are Markdown with inline maths; the card shows code
+       as code and maths without its dollar signs. */
+    function noteHtml(text) {
+      var out = escapeHtml(String(text || ''));
+      out = out.replace(/\$`([^`]*)`\$/g, '$1').replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\$([^$]+)\$/g, '$1').replace(/\*([^*]+)\*/g, '$1');
+      return out;
+    }
+
+    function loadDetail() {
+      if (!detailUrl || detail || detailLoading) return;
+      detailLoading = true;
+      fetch(detailUrl).then(function (r) { return r.json(); }).then(function (payload) {
+        detail = payload;
+        detailLoading = false;
+        if (selected >= 0 || hover >= 0) renderInspector();
+      }).catch(function () {
+        detailLoading = false;
+        detailUrl = null;
+        if (selected >= 0) renderInspector();
+      });
+    }
+
+    function statementHtml(n, pinned) {
+      var parts = [];
+      var where = n.paperTitle ? escapeHtml(n.paperTitle) : 'its paper';
+      if (n.side === 'long') where += ', the long record';
+      else if (n.side === 'short') where += ', the short paper';
+      parts.push('<p class="universe-inspector__note">Asserted in ' + where + '.</p>');
+      var facts = [];
+      facts.push('<li><b>Lean</b> ' + escapeHtml(LEAN_STATUS_TEXT[n.lean_status] || n.lean_status || 'not recorded') + '</li>');
+      var cmp = COMPARATOR_STATUS_TEXT[n.comparator_status] || n.comparator_status || 'not recorded';
+      if (n.comparator_status === 'pending' && n.comparator_queued_at) cmp += ' since ' + n.comparator_queued_at;
+      facts.push('<li><b>Comparator</b> ' + escapeHtml(cmp) + '</li>');
+      var pal = n.palomar_status === 'prepared' ? 'in the prepare-only corpus' :
+        n.palomar_status === 'pending' ? 'waits on the Comparator replay' : 'not applicable';
+      facts.push('<li><b>Palomar</b> ' + escapeHtml(pal) + '</li>');
+      parts.push('<ul class="universe-inspector__facts">' + facts.join('') + '</ul>');
+      if (n.lean_reason) {
+        parts.push('<p class="universe-inspector__boundary">' + noteHtml(n.lean_reason) + '</p>');
+      }
+      var more = pinned && detail && detail.statements ? detail.statements[n.id] || null : null;
+      if (pinned && !detail && detailUrl) {
+        loadDetail();
+        parts.push('<p class="universe-inspector__hint">Loading the Lean statements and Comparator checks…</p>');
+      }
+      if (more && more.relation_note) {
+        parts.push('<p class="universe-inspector__note"><b>How the Lean form gives the paper’s statement.</b> ' +
+          noteHtml(more.relation_note) + '</p>');
+      }
+      var decls = n.decls || [];
+      if (decls.length) {
+        var cap = pinned ? 10 : 2;
+        var sigs = more && more.statements ? more.statements : {};
+        var rows = decls.slice(0, cap).map(function (d) {
+          var where = d.line ? '<span class="universe-decl__line">line ' + d.line + '</span>' : '';
+          var row = '<li>' + extLink(d.href, '<code>' + escapeHtml(d.name) + '</code>') + where;
+          if (sigs[d.name]) {
+            row += '<details class="universe-decl__sig"><summary>Lean statement</summary><pre><code>' +
+              escapeHtml(sigs[d.name]) + '</code></pre></details>';
+          }
+          return row + '</li>';
+        });
+        if (decls.length > cap) {
+          rows.push('<li class="universe-open__more">… and ' + (decls.length - cap) + ' more' + (pinned ? '' : ' when pinned') + '</li>');
+        }
+        parts.push('<h3 class="universe-inspector__sub">Lean declarations (' + decls.length + ')</h3>' +
+          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rows.join('') + '</ul>');
+      }
+      if (more && (more.named_inputs || []).length) {
+        parts.push('<h3 class="universe-inspector__sub">Named inputs</h3><ul class="universe-inspector__list universe-inspector__list--decls">' +
+          more.named_inputs.map(function (input) {
+            return '<li>' + extLink(input.href, '<code>' + escapeHtml(input.name) + '</code>') +
+              (input.text ? '<pre><code>' + escapeHtml(input.text) + '</code></pre>' : '') + '</li>';
+          }).join('') + '</ul>');
+      } else if ((n.named_inputs || []).length) {
+        parts.push('<p class="universe-inspector__note">Named inputs: ' + n.named_inputs.map(function (name) {
+          return '<code>' + escapeHtml(name) + '</code>';
+        }).join(', ') + '</p>');
+      }
+      if (more && (more.checks || []).length) {
+        var byEntry = {}, order = [];
+        more.checks.forEach(function (check) {
+          if (!byEntry[check.entry]) { byEntry[check.entry] = []; order.push(check.entry); }
+          byEntry[check.entry].push(check);
+        });
+        var restated = more.checks.some(function (check) { return !check.same_as_lean; });
+        var rowsCmp = order.map(function (entry) {
+          var check = byEntry[entry][0], links = [];
+          if (check.challenge) links.push(extLink(check.challenge, 'Challenge'));
+          if (check.solution) links.push(extLink(check.solution, 'Solution'));
+          if (check.receipt) links.push(extLink(check.receipt, 'receipt'));
+          return '<li><code>' + escapeHtml(entry) + '</code>' +
+            (links.length ? ' <span class="universe-decl__links">' + links.join(', ') + '</span>' : '') + '</li>';
+        });
+        var replay = detail.replay || {};
+        parts.push('<h3 class="universe-inspector__sub">Comparator replay</h3>' +
+          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rowsCmp.join('') + '</ul>' +
+          '<p class="universe-inspector__note">Each entry passed' +
+          (replay.href ? ' in ' + extLink(replay.href, 'run ' + escapeHtml(replay.run_id)) : '') +
+          ', with the Lean kernel and nanoda both accepting it.' +
+          (restated ? ' Here the Challenge restates the Lean declaration in another form; the evidence record prints both.' : '') +
+          '</p>');
+      }
+      if (more && more.record) {
+        parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result', 'source-link') + '</p>');
+      } else if (pinned && n.tex && statementMeta && statementMeta.tex_source_base) {
+        parts.push('<p class="universe-inspector__note">' +
+          extLink(statementMeta.tex_source_base + n.tex, 'The statement in the paper’s TeX source', 'source-link') + '</p>');
+      }
+      return parts.join('');
+    }
+
+    /* What a verification hub reaches, from the same ledger the band draws. */
+    function surfaceHtml(n) {
+      var s = statementMeta && statementMeta.summary;
+      if (!s) return '';
+      var cmp = s.comparator || {}, pal = s.palomar || {};
+      var repo = statementMeta.comparator_repository;
+      if (n.id === 'integration:comparator') {
+        var axioms = (s.permitted_axioms || []).map(function (a) { return '<code>' + escapeHtml(a) + '</code>'; });
+        var runText = s.replay_href ? extLink(s.replay_href, 'run ' + escapeHtml(s.replay_run)) : 'one replay';
+        return '<p class="universe-inspector__body">Comparator has checked ' + fmtCount(cmp.compared) +
+          ' of the ' + fmtCount(s.statements) + ' paper results, in ' + runText + ' over ' +
+          fmtCount(s.comparator_entries) + ' corpus entries' +
+          (s.corpus_commit ? ' at commit <code>' + escapeHtml(String(s.corpus_commit).slice(0, 7)) + '</code>' : '') +
+          '. For each entry a Challenge file restates the Lean statements with no proofs, and Comparator checks that the Solution proves exactly those statements' +
+          (axioms.length ? ' using no axioms beyond ' + (axioms.length > 1 ?
+            axioms.slice(0, -1).join(', ') + ' and ' + axioms[axioms.length - 1] : axioms[0]) : '') +
+          ', with the Lean kernel and nanoda both accepting it.' +
+          (cmp.pending ? ' ' + fmtCount(cmp.pending) + ' more exact Lean statements are queued for the next replay.' : '') +
+          '</p>' +
+          '<p class="universe-inspector__note">Selecting Comparator lights every result it reaches. ' +
+          (s.receipts_href ? extLink(s.receipts_href, 'The receipts', 'source-link') + ' and the ' : 'The ') +
+          (repo ? extLink(repo, 'Comparator corpus', 'source-link') : 'corpus') + ' are public.</p>';
+      }
+      if (n.id === 'integration:palomar') {
+        return '<p class="universe-inspector__body">' + fmtCount(pal.prepared) +
+          ' replayed paper results sit in a prepare-only Palomar corpus. Preparation is not submission, review, registration or acceptance.</p>';
+      }
+      if (n.kind === 'universe') {
+        return '<p class="universe-inspector__body">' + fmtCount(s.lean_declarations) + ' Lean declarations in ' +
+          fmtCount(s.lean_files) + ' files state ' + fmtCount(s.lean_exact) + ' of the ' + fmtCount(s.statements) +
+          ' paper results exactly; ' + fmtCount((s.lean || {}).modulo_named_input || 0) +
+          ' more are stated under named inputs.</p>';
+      }
+      return '';
     }
 
     function cardHtml(i, pinned) {
@@ -775,10 +1189,13 @@
           '<button type="button" class="universe-inspector__clear" data-universe-clear>Unpin</button></div>';
       }
       var parts = [head,
-        '<h3 class="universe-inspector__title">' + escapeHtml(n.label) + '</h3>'];
+        '<h2 class="universe-inspector__title">' + escapeHtml(n.label) + '</h2>'];
       var chips = '';
       if (n.status) {
         chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';
+      }
+      if (n.kind === 'paper_statement' && n.tier) {
+        chips += '<span class="universe-chip">' + glyphHtml(n.tier) + escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span>';
       }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
@@ -790,6 +1207,8 @@
       if (n.subject) {
         parts.push('<p class="universe-inspector__note">Subject: ' + escapeHtml(n.subject) + '</p>');
       }
+      if (n.kind === 'paper_statement') parts.push(statementHtml(n, pinned));
+      if (n.kind === 'integration_surface' || n.kind === 'universe') parts.push(surfaceHtml(n));
       if (n.declaration_count != null) {
         var counts = String(n.declaration_count) + ' declarations';
         if (n.theorem_count != null) counts += ', ' + String(n.theorem_count) + ' theorems';
@@ -801,7 +1220,7 @@
         parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
         if (rows.total) {
-          parts.push('<h4 class="universe-inspector__sub">Connections (' + rows.total + ')</h4>');
+          parts.push('<h3 class="universe-inspector__sub">Connections (' + rows.total + ')</h3>');
           parts.push('<p class="universe-inspector__hint">The map highlights up to ' +
             (canvas.clientWidth < 600 ? 12 : 24) + ' local connections. Expand a group below to inspect every connection, including those outside the current filters.</p>');
           parts.push(rows.html);
@@ -874,7 +1293,9 @@
         return;
       }
       var n = nodes[i];
-      caption.textContent = (KIND_LABEL[n.kind] || n.kind) + ' — ' + clip(n.label, 96);
+      var text = (KIND_LABEL[n.kind] || n.kind) + ': ' + clip(n.label, 96);
+      if (n.kind === 'paper_statement' && EVIDENCE_TEXT[n.tier]) text += ' · ' + EVIDENCE_TEXT[n.tier];
+      caption.textContent = text;
       caption.classList.add('is-shown');
     }
 
@@ -885,9 +1306,26 @@
       return Math.min(cap, Math.sqrt(Math.max(0, degree - 1)) * 0.55);
     }
 
+    /* The first screen names a declaration's file by index into one table;
+       the complete graph spells each one out. Both become {name, href}. */
+    function declarationsOf(n) {
+      if (n.decls && statementMeta) {
+        return n.decls.map(function (d) {
+          var file = statementMeta.lean_files[d[1]] || '';
+          return { name: d[0], line: d[2] || null,
+                   href: statementMeta.lean_source_base + file + (d[2] ? '#L' + d[2] : '') };
+        });
+      }
+      return (n.declarations || []).map(function (d) {
+        return { name: d.name, href: d.href, line: d.line || null };
+      });
+    }
+
     function ingest(data) {
       var keepId = selected >= 0 && nodes[selected] ? nodes[selected].id : null;
       var keepView = nodes.length > 0;
+      if (data.statements) statementMeta = data.statements;
+      if (data.bands) bands = data.bands;
       nodes = data.nodes.map(function (n) {
         var row = {
           id: n.id, kind: n.kind, label: n.label,
@@ -901,11 +1339,35 @@
           sector: n.sector || null, placedBy: n.placed_by || null,
           paper: n.paper || null, paperTitle: n.paper_title || null,
           paperLabel: n.paper_label || null, lean: n.lean || [],
+          sub: n.sub || null,
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
+        if (n.kind === 'paper_statement') {
+          /* The id is statement:<paper id>#<label>; the first screen leaves
+             what the id, the tables and the sector already say unsaid. */
+          var hash = n.id.indexOf('#');
+          row.paperId = n.id.slice('statement:'.length, hash);
+          row.paperLabel = row.paperLabel || n.id.slice(hash + 1);
+          row.side = n.side || null;
+          row.lean_status = n.lean_status || null;
+          row.comparator_status = n.comparator_status || null;
+          row.palomar_status = n.palomar_status || null;
+          row.lean_reason = n.lean_reason || null;
+          row.comparator_queued_at = n.comparator_queued_at || null;
+          row.named_inputs = n.named_inputs || [];
+          row.comparator_entries = n.comparator_entries ||
+            (n.cmp_entries || []).map(function (k) { return statementMeta ? statementMeta.comparator_entries[k] : String(k); });
+          row.comparator_runs = n.comparator_runs ||
+            (n.cmp_runs || []).map(function (k) { return statementMeta ? statementMeta.comparator_runs[k] : String(k); });
+          row.decls = declarationsOf(n);
+          row.tex = n.tex || (n.line && statementMeta && statementMeta.tex_paths[row.paperId] ?
+            statementMeta.tex_paths[row.paperId] + '#L' + n.line : null);
+        }
         row.tier = tierOf(row);
         row.search = normalizeSearchText([row.label, row.id, row.status || '', row.disposition || '',
-          row.subject || '', row.statement || ''].join(' '));
+          row.subject || '', row.statement || '', row.paperLabel || '',
+          row.tier && EVIDENCE_TEXT[row.tier] ? EVIDENCE_TEXT[row.tier] : '',
+          (row.decls || []).map(function (d) { return d.name; }).join(' ')].join(' '));
         return row;
       });
       edges = data.edges;
@@ -921,6 +1383,15 @@
         degree[i] = 0;
         byId[nodes[i].id] = i;
         if (nodes[i].kind === 'problem' && nodes[i].sector) problemIndex[nodes[i].sector] = i;
+      }
+      for (i = 0; i < nodes.length; i++) {
+        var st = nodes[i];
+        if (st.kind !== 'paper_statement') continue;
+        var paperAt = byId['paper:' + st.paperId];
+        if (!st.paperTitle && paperAt !== undefined) st.paperTitle = nodes[paperAt].label;
+        if (!st.placedBy && st.sector && problemIndex[st.sector] !== undefined) {
+          st.placedBy = 'it is stated in a paper on ' + nodes[problemIndex[st.sector]].shortLabel;
+        }
       }
       for (i = 0; i < edges.length; i++) {
         var a = edges[i][0], b = edges[i][1];
@@ -1176,6 +1647,8 @@
         var pages = layout.pages || {};
         var sectors = layout.sectors || {};
         var links = layout.links || {};
+        var subs = {};
+        (layout.sub_labels || []).forEach(function (pair) { subs[pair[0]] = pair[1]; });
         var index = {};
         var built = [];
         graph.nodes.forEach(function (n) {
@@ -1189,11 +1662,19 @@
             paper_label: link.paper_label, lean: link.lean,
             id: n.id, kind: n.kind, label: n.label,
             short: layout.short && layout.short[n.id] || n.label,
+            sub: subs[n.id] || null,
             status: n.status, statement: n.statement, boundary: n.boundary,
             disposition: n.disposition, question: n.question, subject: n.subject,
             declaration_count: n.declaration_count, theorem_count: n.theorem_count,
             page: pages[n.id] || null, source_github: n.source_github,
             sector: sector ? sector[0] : null, placed_by: sector ? sector[1] : null,
+            side: n.side, lean_status: n.lean_status, comparator_status: n.comparator_status,
+            palomar_status: n.palomar_status, lean_reason: n.lean_reason,
+            comparator_queued_at: n.comparator_queued_at, named_inputs: n.named_inputs,
+            comparator_entries: n.comparator_entries, comparator_runs: n.comparator_runs,
+            declarations: n.declarations,
+            tex: n.kind === 'paper_statement' && n.source_github ?
+              String(n.source_github).replace(/^.*\/blob\/main\//, '') : null,
             x: at[0], y: at[1]
           });
         });
@@ -1213,7 +1694,7 @@
         fullLoaded = true;
         fullLoading = false;
         ingest({ nodes: built, edges: builtEdges, relations: builtRelations,
-                 captions: layout.captions || captions });
+                 captions: layout.captions || captions, bands: layout.bands || bands });
         loadFullBtn.textContent = 'Complete universe loaded';
         document.querySelectorAll('[data-universe-lens-full]').forEach(function (btn) {
           btn.hidden = false;

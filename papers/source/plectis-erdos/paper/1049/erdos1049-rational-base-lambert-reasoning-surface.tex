@@ -63,8 +63,8 @@ and in Bloom's catalogue \cite{erdosproblems}. Erd\H{o}s proved the
 integer case in 1948 \cite{erdos1948}.
 
 We study two constructions of Zudilin. The 2016 approximation
-\cite{zudilin2016} supplies positive moments whose Hankel determinants
-we evaluate asymptotically. His 2004 forms \cite{zudilin2004} give
+\cite{zudilin2016} gives moments of a positive measure, whose Hankel
+determinants we evaluate asymptotically. His 2004 forms \cite{zudilin2004} give
 an irrationality region after their coefficients are cleared at a
 rational base. The shorter companion, \emph{Hankel Determinants of
 Geometric Moments and Rational Lambert Values}, begins with the
@@ -91,8 +91,8 @@ We also determine the first formal term $C_Nq^{B_N}$, where
 $C_N=(N!)^2(N+1)!/2^N$.
 
 The formal first term and the fixed-base limit describe different
-aspects of the determinant. Neither supplies a bound for the cost
-of clearing its coefficients at $3/2$. The ordinary arguments in
+aspects of the determinant. Neither bounds the coefficient
+denominators needed for an irrationality argument at $3/2$. The ordinary arguments in
 the \hyperref[long1049:thm:geometric-ratio]{ratio-limit remark} and
 Section~\ref{long1049:sec:calibrated-countermodel} extend the moment
 calculation to limiting adjacent-weight ratios and construct a
@@ -127,9 +127,9 @@ greater than $1$, where the height of $r/s$ is $\max(r,s)$.
 Section~\ref{long1049:sec:region} gives the rational-base proof and
 its degree restrictions. Section~\ref{long1049:sec:sharp} contains
 the determinant arguments and the coefficient-moment calculations.
-The coefficient pencil is treated through rank eight for every
-$p>1$; shifted minors and coefficientwise positivity have the finite
-computational ranges specified there. All-rank positivity and
+The coefficient pencil is treated for sizes $N\le8$ and every
+$p>1$; the computational ranges for shifted minors and coefficientwise
+positivity are specified there. Positivity for every $N$ and
 convergence of the largest root remain open.
 Sections~\ref{long1049:sec:primitive}--\ref{long1049:sec:endpoints}
 apply rescaling and additive congruences to divided forms, including
@@ -1236,7 +1236,7 @@ along with the other finite calculations, in the
 reruns them and compares each with its recorded result. The historical
 high-precision evaluations were not rerun. None of these finite
 calculations proves a statement for all indices, and none is a Lean proof. The
-rank-eight tests and the rational interval certificate are described
+tests for $N\le8$ and the rational interval certificate are described
 separately.
 
 The \href{https://github.com/wcook04/plectis-erdos/blob/f5c9e560df38cd32e9b49473a409384aab00d9ae/research/experiments/erdos1049/README.md}{public reproduction guide} gives the command and dependency pin for
@@ -1319,7 +1319,7 @@ N&1&2&3&4&5&6&7\\\hline
 Three integer comparisons will be used to estimate residue counts
 and scalar exponents. The first gives $\log3/\log2<65/41$ and shows
 that $65$ is the least integer $q$ with $3^{41}<2^q$; the inequality
-$2^{129}<3^{82}$ checks the failure of the rank-$41$ selector count
+$2^{129}<3^{82}$ checks the failure of the subset count at depth $41$
 one row earlier. They determine numerical thresholds, leaving the
 coefficient and remainder hypotheses to be checked for any family
 of approximants. Readers interested first in the determinant
@@ -1877,13 +1877,12 @@ its contribution to that of the original tuple is
  \longrightarrow\frac{q}{(1-q)^2}.
 \end{equation}
 Only pairs involving the moved node change, so the product
-telescopes. At $q=1/2$ the limiting ratio is $2$.
-We must therefore retain the displaced tuples, even at large rank.
+telescopes. At $q=1/2$ the limiting ratio is $2$: the displaced tuple
+contributes twice as much asymptotically as $(0,1,\ldots,N-1)$.
 
-Subtracting the baseline tuple gives shifts $\lambda_i=k_i-i$.
-They are nonnegative and weakly increasing, since
-$k_{i+1}\ge k_i+1$. Reversing them gives a partition. For example,
-at rank four,
+Subtracting $(0,1,\ldots,N-1)$ gives the shifts $\lambda_i=k_i-i$.
+Since $k_{i+1}\ge k_i+1$, these are nonnegative and weakly increasing;
+reversing their order gives a partition. For $N=4$, for example,
 \[
  \underbrace{(0,1,3,5)}_{(k_i)}
  \longmapsto\underbrace{(0,0,1,2)}_{(\lambda_i)}
@@ -1900,24 +1899,36 @@ $k_i=i$ turns the summand for this tuple into
  \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2.
 \end{split}
 \end{equation}
-The exponent $2j-1$ has a direct meaning. The $j$th index from
-the right contributes once through its mass $q^{k_i}$ and twice
-through each of its $j-1$ pairs with later indices in the squared
-Vandermonde. This gives $1+2(j-1)$.
+The $j$th index from the right contributes once through $q^{k_i}$
+and twice through each of its $j-1$ pairs with later indices in
+the squared Vandermonde. Its displacement therefore has exponent
+$1+2(j-1)=2j-1$.
 
-Set $W_N(\mu)=0$ when $\mu$ has more than $N$ positive parts.
-The sum now has an index set independent of $N$.
-A fixed partition shifts only the last indices of the baseline tuple:
-$(2,1)$ shifts its last two indices, whatever the rank $N\ge2$.
-These indices tend to infinity with $N$, so the fixed-shift
-hypothesis removes the weights from each limiting summand.
-The remaining issue is the total contribution of partitions with
-many or large parts. We use the polynomial bound for this step.
+Set $W_N(\mu)=0$ when $\mu$ has more than $N$ positive parts,
+so that every sum has the same index set. Fix a partition with
+$\ell$ positive parts. It affects only the last $\ell$ indices
+of $(0,1,\ldots,N-1)$: for instance, $(2,1)$ affects the last two
+for every $N\ge2$. Those indices tend to infinity, so the weight
+ratios in \eqref{long1049:eq:polynomial-partition} tend to $1$ by the fixed-shift hypothesis.
 
-For a partition of length $\ell$, only the factors with $j\le\ell$
-can differ from $1$. For each such $j$, the denominator product in
-the Vandermonde quotient is at least $P$, and its numerator product
-is at most $1$. Consequently
+The Vandermonde quotient still contains a growing number of factors,
+but its dependence on $N$ telescopes. The factors with $j<k\le\ell$
+are fixed, and those with $j>\ell$ equal $1$. For $N\ge\ell$ and
+each $j\le\ell$, the remaining factors satisfy
+\begin{equation}\label{long1049:eq:partition-tail}
+ \prod_{k=\ell+1}^{N}
+ \frac{1-q^{k-j+\mu_j}}{1-q^{k-j}}
+ =\frac{(q^{N+1-j};q)_{\mu_j}}{(q^{\ell+1-j};q)_{\mu_j}}
+ \longrightarrow\frac1{(q^{\ell+1-j};q)_{\mu_j}}.
+\end{equation}
+Thus each $W_N(\mu)$ has the same limit as for constant weights.
+
+To pass this limit through the sum over partitions, we need a bound
+independent of $N$ that remains summable as both the number and size
+of the parts grow. Only factors with $j\le\ell$ can differ from $1$.
+For each such $j$, the denominator product in the Vandermonde
+quotient is at least $P$, and its numerator product is at most $1$.
+Together with the polynomial shift bound, this gives
 \[
  W_N(\mu)\le(CP^{-2})^\ell
  \prod_{j=1}^\ell(1+\mu_j)^\kappa q^{(2j-1)\mu_j}.
@@ -1930,22 +1941,14 @@ Dropping the ordering of the positive parts, we obtain
        \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}\\
  &\le(CP^{-2}A)^\ell q^{\ell^2}.
 \end{align*}
-The last inequality follows from
-$q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and
-$1+3+\cdots+(2\ell-1)=\ell^2$. Thus the cost of having $\ell$
-positive parts gives a factor $q^{\ell^2}$, and summing over $\ell$
-gives a finite bound, uniform in the determinant rank.
+Here $q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and
+$1+3+\cdots+(2\ell-1)=\ell^2$. Since $q<1$, the bound
+$(CP^{-2}A)^\ell q^{\ell^2}$ is summable over $\ell$,
+independently of $N$.
 
-For a fixed partition of length $\ell$, the shifts $\mu_j$
-are fixed and the indices $N-j$ tend to infinity for $j\le\ell$.
-Hence all the weight ratios in \eqref{long1049:eq:polynomial-partition} tend to $1$.
-Its Vandermonde quotient
-also converges: there are only finitely many nontrivial first indices,
-and the logarithms of the remaining factors have geometric tails.
-Dominated convergence shows that $\sum_\mu W_N(\mu)$ has the
-same limit as for $a_k=1$. This common limit is positive, since the
-empty partition contributes $1$. Restoring the reference-tuple
-factors, we obtain
+Dominated convergence now shows that $\sum_\mu W_N(\mu)$ has
+the same limit as for $a_k=1$. This common limit is positive, since the
+empty partition contributes $1$. Restoring the contribution of $(0,1,\ldots,N-1)$ gives
 \[
  \frac{D_N}{D_N^{(0)}\prod_{k<N}a_k}\longrightarrow1.
 \]
@@ -2019,7 +2022,7 @@ $\mathcal E\cdot\mathcal E^2$, gives
  \partial_q^n\mathcal E(z)^3
  =\mathcal E(z)^3\sum_{k=0}^n\genfrac{[}{]}{0pt}{}{n}{k}_q(z;q)_kh_k(z),
 \]
-the power of $\mathcal E$ being $3$ and not $2$ here. Hence
+Hence
 \[
  \sum_{n\ge0}\frac{w^n}{(q;q)_n}\partial_q^n\mathcal E(z)^3
  =\mathcal E(w)\mathcal E(z)^3
@@ -2031,14 +2034,25 @@ On setting $z=w$, all pairs with the same sum contribute to a
 single coefficient. Thus the coefficient of $w^k$ is
 $R_k^{(3)}\sum_{j\le k}\bigl((q;q)_j(q;q)_{k-j}\bigr)^{-1}
 =R_k^{(2)}R_k^{(3)}/(q;q)_k$.
-On the right, expand $h_k$ and set $k=j+t$; the
-inner sum is evaluated by the $q$-binomial theorem as
+On the right-hand side, put $z=w$, expand $h_k$, and write
+$k=j+t$. The identity $(w;q)_{j+t}=(w;q)_j(wq^j;q)_t$ gives
+\[
+ \mathcal E(w)^4\sum_{j\ge0}\frac{w^j(w;q)_j^2}{(q;q)_j}
+       \sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t.
+\]
+The inner sum is evaluated by the $q$-binomial theorem:
 \[
  \sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
- =\frac{(w^2q^j;q)_\infty}{(w;q)_\infty},
+ =\frac{(w^2q^j;q)_\infty}{(w;q)_\infty}.
 \]
-and the result is exactly $G_q(w)$. Every step holds coefficientwise, and
-absolutely for $|w|$ small.
+Finally, $(w;q)_j=(w;q)_\infty/(wq^j;q)_\infty$ cancels two
+of the five factors $\mathcal E(w)$, leaving
+\[
+ \mathcal E(w)^3\sum_{j\ge0}\frac{w^j}{(q;q)_j}
+       \frac{(w^2q^j;q)_\infty}{(wq^j;q)_\infty^2}
+ =G_q(w).
+\]
+Every step holds coefficientwise, and absolutely for $|w|$ small.
 
 A $q$-multinomial coefficient has nonnegative integral coefficients, degree
 $\sum_{i<j}n_in_j$, and value $1$ at $q=1$ after division by the corresponding
@@ -2351,8 +2365,8 @@ All the sums now have the same countable index set.
 Suppose that $\mu$ has $\ell$ positive parts. Only the factors with
 $j\le\ell$ can differ from $1$. For a fixed such $j$, the denominators
 in the Vandermonde quotient multiply to at least $P$, and its
-numerators are at most $1$. We therefore have the rank-independent
-bound
+numerators are at most $1$. We therefore have a bound independent
+of $N$
 \[
  W_N(\mu)\le (CP^{-2})^\ell
  \prod_{j=1}^{\ell}\widehat\rho^{\,\mu_j}q^{(2j-1)\mu_j}.
@@ -2373,9 +2387,9 @@ The series $\sum_{\ell\ge0}C_*^{\ell}q^{\ell^2}$ converges.
 For fixed $h$, telescoping the adjacent ratios shows that
 $a_{k+h}/a_k\to \rho^h$. Thus, for each fixed partition, the weight
 ratios in \eqref{long1049:eq:ratio-partition} have the same limit as for
-$a_k=\rho^k$. Its Vandermonde quotient also converges: only finitely
-many first indices occur, and the logarithms of the remaining
-factors have geometrically summable tails. Dominated convergence
+$a_k=\rho^k$. The Vandermonde quotient is independent of the
+weights, and its convergence follows from the same finite identity
+\eqref{long1049:eq:partition-tail}. Dominated convergence
 therefore reduces the limit of $\sum_\mu W_N(\mu)$ to the case
 $a_k=\rho^k$.
 
@@ -2412,18 +2426,24 @@ Theorem~\ref{long1049:thm:geometric-universality}.
 
 
 
-\subsection{A rational-value model with the same Hankel signature}
+\subsection{Positive Hankel determinants and a rational special value}
 \label{long1049:sec:calibrated-countermodel}
 \papersectiontarget{long1049-countermodel}
 
-The following rational construction separates the moment properties
-from the arithmetic of the target value. Its determinants have the
-same formal orders, leading coefficients and type of fixed-base
-power correction as the Zudilin moments. The target value is $1$.
-The calculations are retained as unformalised remarks with ordinary
-proofs. They use neither Zudilin's recurrence nor his polynomial
-factorisation or cyclotomic divisors, and give no conclusion about
-$F(3/2)$.
+We construct a generating function with the rational special value
+$1$, although its moment determinants have the same formal orders,
+leading coefficients and type of fixed-base power correction as
+Zudilin's. This shows why those determinant properties alone do not
+establish irrationality. The construction uses neither Zudilin's
+recurrence nor his polynomial factorisation or cyclotomic divisors,
+and gives no conclusion about $F(3/2)$. The arguments below have
+ordinary proofs only and are stated as unformalised remarks.
+
+We choose the tail of the weight sequence to obtain the determinant
+asymptotic, and its first terms to fix the special value. A telescoping
+difference of the moments will then give the value $1$. The cut-off
+below separates these two choices while leaving room to keep every
+weight positive.
 
 Put
 \[
@@ -2439,7 +2459,7 @@ For $0<q\le2/3$ define, with a single fixed cut-off $32$,
  \end{cases}
  \qquad a_0(q)=1-\sum_{k\ge1}a_k(q)q^k.
 \end{equation}
-This is a closed rational construction.  In fact, if
+The generating function is rational. Indeed, if
 \[
  T_q(w)=R(w)-\frac{12q}{(1-w)^3}
             -\sum_{k=0}^{31}(c_k-12qd_k)w^k,
@@ -2451,13 +2471,20 @@ then $A_q(w)=\sum_{k\ge0}a_k(q)w^k$ equals
 \]
 Set $\mu_m(q)=A_q(q^{m+1})$, $\nu_m(q)=\mu_m(q)-q\mu_{m+1}(q)$,
 and $G_q(z)=\sum_{m\ge0}\nu_m(q)z^m$.
+The choice of $a_0$ makes $\mu_0=1$, while the factor $q$ in
+$\nu_m$ makes the sum defining $G_q(q)$ telescope. Independently,
+for $k\ge32$ the tail satisfies $a_k/c_k=1-12q/(k+1)$;
+at $q=2/3$ this becomes $1-8/(k+1)$, which produces the required
+power $N^{-8}$ in the product of the weights. The proof below checks
+positivity, convergence and both determinant claims.
 
 \phantomsection
-\begin{remark}[calibrated rational-value Hankel model]
+\begin{remark}[a rational special value]
 \label{long1049:thm:calibrated-model}
 All the weights in~\eqref{long1049:eq:calibrated-weights} are positive
-for $0<q\le2/3$.  The two moment banks $\mu_m$ and $\nu_m$ have positive
-Hankel determinants of every rank, $G_q$ is not a rational function, and
+for $0<q\le2/3$. The two moment sequences $(\mu_m)$ and $(\nu_m)$
+have positive Hankel determinants of every size, $G_q$ is not a rational
+function, and
 $G_q(q)=1$.  Their formal Hankel determinants both begin with
 \[
  C_Nq^{B_N},\qquad B_N=\sum_{j<N}j^2,\quad
@@ -2532,7 +2559,7 @@ The lowest possible degree of one summand is
 $\sum_{i<N}(2N-1-2i)k_i$.  Its unique minimum is attained at
 $k_i=i$ and equals $B_N$; the coefficient is
 $\prod_{i<N}c_i=C_N$.  Replacing $a_k$ by
-$a_k(1-q^{k+1})$ proves the same leading term for the $\nu$ bank.
+$a_k(1-q^{k+1})$ proves the same leading term for $(\nu_m)$.
 
 At $q_0$ set $\varepsilon=3^{-32}$ and $b_0=a_0(q_0)>0$.  For $k\ge32$,
 $a_k(q_0)/c_k=(k-7)/(k+1)$; all these ratios lie in
@@ -2604,7 +2631,8 @@ There are no other denominator primes.  Multiplying by
 $q_0^n=2^n/3^n$ adds exactly $n$ factors of three, proving the second
 formula.  In the affine error, $q_0^{-n}=3^n/2^n$ has denominator
 $2^n$, coprime to the odd denominator of $\mu_n$.  Subtraction does
-not reduce either negative valuation, proving the joint clearer.
+not reduce either negative valuation, proving the stated least
+common denominator.
 \end{proof}
 
 Each individual $\mu_n$ has logarithmic height linear in $n$:
@@ -2615,7 +2643,7 @@ The following calculation is retained with its ordinary proof. It has
 no Lean proof in the supplied record.
 
 \phantomsection
-\begin{remark}[the determinant height and a failed row clearer]
+\begin{remark}[determinant height and row denominators]
 \label{long1049:prop:calibrated-height}
 For $D_N=\operatorname{den}H_N(q_0)$ in lowest terms,
 \[
@@ -2623,7 +2651,7 @@ For $D_N=\operatorname{den}H_N(q_0)$ in lowest terms,
        \ge\frac{\log(3/2)}3,
  \qquad \log D_N=O(N^3).
 \]
-Already at rank two, multiplying $H_2=\mu_2-\mu_1^2$ by
+Already for $N=2$, multiplying $H_2=\mu_2-\mu_1^2$ by
 $\operatorname{den}\mu_1\operatorname{den}\mu_2$ leaves reduced
 denominator $625$.
 \end{remark}
@@ -2654,7 +2682,7 @@ denominator formula.  Thus $D_N\mid E_N$; using
 $\log\delta_m\le(m+1)\log3$ and
 $\sum_{i,j<N}(i+j+1)=N^3$ gives the asserted cubic upper bound.
 
-For the rank-two assertion,
+For the assertion about $H_2$,
 $\operatorname{den}\mu_1=3^{93}5^4$ and
 $\operatorname{den}\mu_2=3^{124}19^4$.
 At five, $v_5(\mu_2)=0$ and $v_5(\mu_1^2)=-8$,
@@ -2665,9 +2693,9 @@ other prime occurs.  The remaining denominator is therefore $5^4=625$.
 
 Zudilin's determinantal criterion retains a divisibility condition on
 its successive clearing integers~\cite[Props.~1--2]{zudilin2017detv2};
-the rank-two calculation refutes replacing it with their numerical
+the calculation for $H_2$ rules out replacing it with their numerical
 ordering, not the criterion itself.  The usual integer-polynomial
-height criterion likewise needs a coefficient clearer for the
+height criterion likewise needs a common coefficient denominator for the
 \emph{same} polynomial being evaluated.  The model's exact partial
 errors alone cannot supply one cheaply.  In fact, with
 $\alpha_m=q_0^{-m}$ and $\beta_m=\alpha_m-\mu_m(q_0)$, the pencil
@@ -3451,7 +3479,7 @@ in the following corollary, including $T$, are integers.
 
 \begin{corollary}[the exact count at depth $41$]\label{long1049:res:rankfortyone}
 Let $T>0$.  At modulus $3^{R}$ with $R=41T$, any family of
-$M\ge130T+2S$ integral polynomial pairs has two distinct binary selectors
+$M\ge130T+2S$ integral polynomial pairs has two distinct binary vectors
 with the same residue vector.  For $T=1$ the coefficient $130$ is exact for
 this counting argument:
 \[
@@ -3490,9 +3518,9 @@ Corollary~\ref{long1049:res:rankfortyone}; the corollary trades exactness for a
 certificate that is a single integer comparison.  Here $41$ is the exponent of $3$ in the modulus, not the number of
 input rows; at that depth the counting bound is $130+2S$ rows.
 
-Counting alone does not ensure that the two selectors produce different
-analytic remainders. A bound on the number of selectors giving each
-real remainder is one way to obtain that additional conclusion.
+Equal residues do not ensure different analytic remainders. Bounding
+the number of subsets with any specified remainder gives the following
+sufficient condition.
 
 \begin{theorem}[equal residues with different values]\label{long1049:res:boundedfibre}
 Let $A$ and $B$ be finite sets, let $f:A\to B$, and let $g:A\to C$ be any
@@ -3517,7 +3545,7 @@ $|A|\le |B|k$, contrary to the hypothesis.
 \end{proof}
 
 If $g$ is injective, the hypothesis holds with $k=1$. It need not hold
-with a useful small $k$ for subset sums: repeated input rows produce
+with a useful small $k$ for subset sums: repeated rows produce
 many equal sums, even when every row is primitive. The theorem assumes
 a bound on every fibre of $g$, not merely on the fibres of $(f,g)$.
 It gives a nonzero difference but no upper bound on its real size.
@@ -3559,8 +3587,8 @@ size at most $k$, the inequality
  2^M>Qk\bigl(\lfloor nT/D\rfloor+1\bigr)
 \]
 therefore gives equal residues with remainder difference strictly
-between $0$ and $D/n$ in absolute value. Subtracting the selectors
-and dividing the two coefficients by $D$ gives an integral form
+between $0$ and $D/n$ in absolute value. Subtracting the two subset sums
+and dividing both coefficients by $D$ gives an integral form
 of nonzero absolute value less than $1/n$. For a prescribed family,
 the number $Q$, the width $T$ and the multiplicity bound $k$ must
 all be justified. We have no such bounds giving the required forms
@@ -3584,7 +3612,7 @@ $u_n,v_n\in R_0$, and that every adjacent minor vanishes:
 \]
 Then every pairwise minor $A_iB_j-B_iA_j$ vanishes.  In particular, take
 $R_0=\Z/(2^S3^R)\Z$ with $R>0$.  If $S+2R\le k$, there are two distinct
-binary selectors $s,t\in\{0,1\}^{k}$ such that
+binary vectors $s,t\in\{0,1\}^{k}$ such that
 \[
  \sum_{i<k}s_iw_i=\sum_{i<k}t_iw_i.
 \]
@@ -3606,12 +3634,12 @@ Right multiplication by
  \begin{pmatrix}u_0&-B_0\\v_0&A_0\end{pmatrix}
 \]
 has determinant $u_0A_0+v_0B_0=1$ and sends $w_0$ to $(1,0)$.
-All transformed selector sums therefore have second coordinate zero
+All transformed subset sums therefore have second coordinate zero
 and occupy at most $2^S3^R$ values.  Finally
 \[
  2^S3^R<2^S4^R=2^{S+2R}\le2^k,
 \]
-and pigeonhole gives the two selectors.
+so the pigeonhole principle gives two distinct subsets with the same sum.
 \end{proof}
 
 \noindent No particular coordinate needs to be invertible: modulo six,
@@ -3627,7 +3655,7 @@ implies dependence of the integer rows.
 \noindent This conditional theorem is stronger than the ambient count of possible residue vectors only
 after its minor-vanishing hypothesis has been established.  No such all-tail
 hypothesis is proved here for an actual $q$-Ap\'ery or Zudilin family, and the
-theorem says nothing about whether the resulting selector difference has
+theorem says nothing about whether the difference of the subset sums has
 nonzero analytic remainder.
 
 The count in Corollary~\ref{long1049:res:rankfortyone} is sharp at
@@ -3640,18 +3668,19 @@ proved here for the $q$-Ap\'ery or Zudilin remainder family.
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}{cardinality of the residue space}, the
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{142}{exists_distinct_binary_selectors_same_fourJet}{pigeonhole argument for the residue map} and the
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{161}{exists_distinct_binary_selectors_same_fourJet_of_rank}{sufficient row count for equal residues}. The pigeonhole argument gives
-divisibility, not nonvanishing.  Pigeonhole cancellation itself requires no
-independence.  Additional information about the input family is needed to
-ensure that the resulting nonzero selector difference has a nonzero combined
-polynomial pair and analytic remainder.  None of the statements proved here
-supplies such a family or proves either nonvanishing conclusion.
+divisibility without an independence hypothesis. Further information
+about the family is needed to ensure that the nonzero difference of the
+indicator vectors gives a nonzero polynomial pair and a nonzero analytic
+remainder. None of these statements supplies such a family or proves
+either nonvanishing conclusion.
 
 \begin{example}\label{long1049:ex:jetcount}
 At depths \(R=S=1\) the space of four residue coordinates is
 \((\Z/3\Z)^2\times(\Z/2\Z)^2\), of cardinality \(9\cdot4=36\), and the threshold
-reads \(M\ge4\cdot1+2\cdot1=6\).  With six pairs there are \(2^{6}=64\) binary
-selectors against \(36\) targets, so two of them collide and their difference
-is a vector in \(\{-1,0,1\}^{6}\), not identically zero, killing all four residues.
+reads \(M\ge4\cdot1+2\cdot1=6\). With six pairs there are \(2^{6}=64\)
+subsets and only \(36\) possible residue vectors. Two subsets therefore
+have equal residues. The difference of their indicator vectors is a
+nonzero vector in \(\{-1,0,1\}^{6}\) whose sum vanishes in all four coordinates.
 \end{example}
 
 The following elementary comparison concerns only the two scalar
@@ -4180,7 +4209,7 @@ The three integer rows
  (DA,1),\qquad (1,DB-1),\qquad (-1,0)
 \]
 are primitive and sum to $(DA,DB)$. Pad them to $M_n$ rows with
-$(1,0)$, and use the selector $(1,1,1,0,\ldots,0)$.
+$(1,0)$, and use the coefficient vector $(1,1,1,0,\ldots,0)$.
 
 To realise every coordinate as a polynomial evaluation of degree at
 most $w$, choose integers $u,v$ such that $u2^w+v3^w=1$. For any
@@ -4262,7 +4291,7 @@ makes this row gcd coprime to $6$. These endpoint assumptions are
 extra conditions, not consequences of coefficient primitivity.
 Dividing by such a gcd preserves divisibility by every power of $2$
 and $3$ for that individual row. It need not preserve a relation
-with a fixed selector when different rows are divided by different
+with a fixed coefficient vector when different rows are divided by different
 contents. For example, at $W=1$ the pairs $(X-1,X-1)$ and $(X+1,X+1)$
 give rows $(1,1)$ and $(5,5)$. Their sum is zero modulo $6$, whereas
 the sum of their primitive normalisations is $(2,2)$, not zero modulo
@@ -4341,7 +4370,7 @@ For $n\ge1$, set $W_n=R_n=S_n=n^2$ and $M_n=6n^2$. Take
 \]
 and define $\mathcal R_{n,j}(t)=U_{n,j}(t)F(t)-V_{n,j}(t)$ for $t>1$.
 All pairs have coefficient gcd $1$ and primitive evaluated rows. The
-selector $(1,-1,0,\ldots,0)$ belongs to
+coefficient vector $(1,-1,0,\ldots,0)$ belongs to
 $\mathcal C_n\mathbin{\backslash}
 (K_n^{\mathrm{poly}}\cup K_n^{\mathrm{rem}})$, but the divided
 integer form equals $F(3/2)$ for every $n$.
@@ -4365,32 +4394,33 @@ The useful question is therefore to obtain nonvanishing and decay in
 the same prescribed approximation family, not merely to exhibit some
 family with a nonzero congruence relation.
 
-\paragraph{Selector spans and multiplicities.}
-The real-bin argument can be sharpened fibre by fibre. Fix a positive
-integer $n$. For $M$ integer rows $(A_j,B_j)$ and a modulus $D\ge1$, set
-$e_j=A_jF(3/2)-B_j$. For each attained residue vector $b$, let $T_b$
-be the span of the selector remainders $\sum_j\varepsilon_je_j$
-with $\varepsilon_j\in\{0,1\}$ and
-$\sum_j\varepsilon_j(A_j,B_j)\equiv b\pmod D$.
-Let the integer $k_b$ bound the number of selectors attaining any one exact real
-value in that fibre. Then
+\paragraph{The range of subset sums.}
+We may apply the interval partition separately in each residue class.
+Fix a positive integer $n$. For $M$ integer rows $(A_j,B_j)$ and a modulus
+$D\ge1$, set $e_j=A_jF(3/2)-B_j$. For each attained residue vector $b$,
+let $T_b$ be the difference between the largest and smallest remainders
+$\sum_j\varepsilon_je_j$ with $\varepsilon_j\in\{0,1\}$ and
+$\sum_j\varepsilon_j(A_j,B_j)\equiv b\pmod D$. Let the integer $k_b$
+bound the number of subsets attaining any one remainder value in that
+residue class. Then
 \[
  2^M>\sum_b k_b\left(\left\lfloor\frac{nT_b}{D}\right\rfloor+1\right)
 \]
-produces two selectors with equal residues and distinct remainders
+produces two subsets with equal residues and distinct remainders
 less than $D/n$ apart. Within each residue fibre, subtract the least
-remainder, multiply by $n/D$, and take floors. The bin indices range
+remainder, multiply by $n/D$, and take floors. These integer indices range
 from $0$ to $\lfloor nT_b/D\rfloor$, including a separate final index
-when the span is a positive integral multiple of $D/n$. Equal indices give a
-remainder difference strictly less than $D/n$. If every bin contained
-only one real value, its selector count would be at most $k_b$,
-contradicting the displayed inequality. Subtracting the two selectors and dividing by $D$ gives
-an integer form with nonzero absolute value less than $1/n$.
-A common span $T=\sum_j|e_j|$ and multiplicity bound $k$ yield the
-coarser count $Qk(\lfloor nT/D\rfloor+1)$, where $Q$ is the number of
-attained residue vectors. All inputs must use the same row
-normalisation. Primitive input rows can still have repeated subset
-sums, and positivity need not survive subtraction.
+when $T_b$ is a positive integral multiple of $D/n$. Equal indices
+give a remainder difference strictly less than $D/n$. If each index
+corresponded to only one remainder value, it would account for at most
+$k_b$ subsets, contradicting the displayed inequality. Subtracting the
+two subset sums and dividing their coefficients by $D$ gives an integer
+form with nonzero absolute value less than $1/n$. The common width bound
+$T=\sum_j|e_j|$ and a common multiplicity bound $k$ give the coarser
+count $Qk(\lfloor nT/D\rfloor+1)$, where $Q$ is the number of attained
+residue vectors. All rows must have the same normalisation. Primitive
+rows can still have repeated subset sums, and positivity need not
+survive subtraction.
 
 \paragraph{The lattice after evaluation.}
 For example, $(1,0),(1,6)$ generate $\Z\oplus6\Z$. They give two
@@ -4486,11 +4516,11 @@ integer combinations stays inside $\Z\times b\Z$, so it leaves the minor gcd
 and the endpoint valuations exactly as above. Rational combinations are a
 different matter and do leave that lattice: at $3/2$ the half-sum of the rows
 $(1,0)$ and $(1,2)$ is the primitive row $(1,1)$, whose minor against $(1,0)$
-is $1$. What such a combination costs is a denominator in the coefficients,
-which the proposition does not measure, so escaping the lattice this way is not
-by itself a saving. A genuinely improved system needs primitive rows of a
-different provenance, whose minors carry extra valuation and whose divided
-remainders are still nonzero and small.
+is $1$. Such combinations introduce coefficient denominators, which
+the proposition does not bound. Leaving the lattice in this way therefore
+gives no divisibility improvement by itself. An improvement of this kind
+would require another family of primitive rows whose minors have larger
+valuations and whose divided remainders are still nonzero and small.
 
 
 
@@ -4975,18 +5005,6 @@ Section~\ref{long1049:sec:regionbracket} and the degree identities in
 Section~\ref{long1049:sec:degrees}. Appendix~\ref{long1049:app:index}
 distinguishes these proofs from computer algebra.
 
-Exact computations outside Lean certify the rational interval
-bounds, $U_n,V_n$ for $1\le n\le4$, the sixteen coefficient-positivity
-tests through rank eight, and the finite parameter search. The five complete
-polynomial contents and seventy-six residue certificates are described in
-Section~\ref{long1049:sec:coefficient-questions}. The historical
-high-precision real remainder evaluations are separate numerical reports,
-not reproduced by these exact computations. None of these finite
-computations is needed for the proof of
-Theorem~\ref{long1049:res:region}.
-
-
-
 \paragraph{Statements for every rank or every base.}
 Lean constructs the cancelled polynomial forms of
 Section~\ref{long1049:sec:region} and proves irrationality in the
@@ -5018,7 +5036,11 @@ Section~\ref{long1049:sec:coefficient-questions}. The reconstruction of
 $U_n,V_n$ for $n\le4$ in Section~\ref{long1049:sec:receipts}, the five
 complete polynomial contents and the seventy-six cyclotomic residue
 witnesses have exact reproduction scripts and direct determinant checks.
-None of these computations is a Lean declaration.
+Separate exact computations certify the rational interval bounds and the
+finite parameter search. The historical high-precision real remainder
+evaluations are separate numerical reports, not reproduced by these exact
+computations. None of these finite computations is a Lean declaration or
+is needed for the proof of Theorem~\ref{long1049:res:region}.
 
 \paragraph{The Lambert identity and the integer case.}
 The cited \emph{Formal Conjectures} file contains unproved declarations

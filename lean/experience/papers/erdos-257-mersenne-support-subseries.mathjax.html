@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos-257-mersenne-support-subseries" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Weighted and Covered Supports for Mersenne Subseries</h1>
+    <h1>Irrationality criteria for Lambert subseries</h1>
     <p class="lean-paper__subject">Erdős #257</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/257/erdos-257-mersenne-support-subseries.tex">
@@ -24,17 +24,17 @@ Problem #257:</p>
 class="math inline" data-term-auto="off">\(X_A(2)\)</span> irrational for every infinite
 <span class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span>?</em></p>
 </div>
-<p>Our conclusions survive arbitrary infinite thinning: once a support
-satisfies a criterion, every infinite subset has irrational sum. The
-first criterion allows many exponents with a large common prime-power
-factor. For <span class="math inline" data-term-auto="off">\(a=2^km\)</span>, with <span
-class="math inline" data-term-auto="off">\(m\)</span> odd, it replaces the reciprocal weight
+<p>The conditions below are hereditary: if a set satisfies one of them,
+so does each of its infinite subsets. For the first condition, consider
+an exponent <span class="math inline" data-term-auto="off">\(a=2^km\)</span> with <span
+class="math inline" data-term-auto="off">\(m\)</span> odd. We replace its reciprocal weight
 <span class="math inline" data-term-auto="off">\(1/(2^km)\)</span> by <span
-class="math inline" data-term-auto="off">\(1/[m(b^{2^k}-1)]\)</span>. The exponential
-denominator permits far more cofactors as <span
-class="math inline" data-term-auto="off">\(k\)</span> increases. For a finite set <span
-class="math inline" data-term-auto="off">\(P\)</span> of primes, the analogous factor is the
-<em><span class="math inline" data-term-auto="off">\(P\)</span>-part</em> <span
+class="math inline" data-term-auto="off">\(1/[m(b^{2^k}-1)]\)</span>, so that a large power
+of <span class="math inline" data-term-auto="off">\(2\)</span> in <span
+class="math inline" data-term-auto="off">\(a\)</span> reduces its contribution to the sum.
+More generally, for a finite set <span class="math inline" data-term-auto="off">\(P\)</span>
+of primes, let the <em><span class="math inline" data-term-auto="off">\(P\)</span>-part</em>
+of <span class="math inline" data-term-auto="off">\(a\)</span> be <span
 class="math inline" data-term-auto="off">\(h(a)=\prod_{p\in P}p^{v_p(a)}\)</span>, where
 <span class="math inline" data-term-auto="off">\(v_p(a)\)</span> is the exponent of <span
 class="math inline" data-term-auto="off">\(p\)</span> in <span
@@ -68,15 +68,13 @@ hereditary under passage to infinite subsets.</em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_\star=\{2^km:k\ge1,\ m\text{ odd},\
 m\le2^{2^k}\}.\]</span></div>
-<p>The cutoff <span
-class="math inline" data-term-auto="off">\(2^{2^k}\)</span> makes the harmonic sum of the odd
-cofactors grow on the scale <span class="math inline" data-term-auto="off">\(2^k\)</span>.
-Dividing by <span class="math inline" data-term-auto="off">\(2^k\)</span> therefore leaves a
-nonvanishing reciprocal mass in each layer, whereas dividing by <span
-class="math inline" data-term-auto="off">\(2^{2^k}-1\)</span> gives a summable weighted mass.
-More explicitly, each layer contributes at least <span
-class="math inline" data-term-auto="off">\(1/4\)</span> to the reciprocal sum and at most
-<span class="math inline" data-term-auto="off">\(2^{1-k}\)</span> to <a class="math-ref" data-equation-ref="true" href="#eq:weighted-return">eq:weighted-return</a>. The
+<p>For a fixed <span
+class="math inline" data-term-auto="off">\(k\)</span>, the sum of <span
+class="math inline" data-term-auto="off">\(1/m\)</span> over the odd cofactors is of order
+<span class="math inline" data-term-auto="off">\(2^k\)</span>. Thus the corresponding terms
+contribute at least <span class="math inline" data-term-auto="off">\(1/4\)</span> to <span
+class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span>, but at most <span
+class="math inline" data-term-auto="off">\(2^{1-k}\)</span> to <a class="math-ref" data-equation-ref="true" href="#eq:weighted-return">eq:weighted-return</a>. The
 calculation in Section <a class="math-ref" href="#sec:eight-return-extensions">2</a> proves
 both bounds. Every infinite subset of <span
 class="math inline" data-term-auto="off">\(A_\star\)</span> consequently gives an irrational
@@ -96,9 +94,11 @@ constructions in Proposition <a class="math-ref" href="#res:weighted-cover-inco
 then give a union outside both individual classes (Corollary <a class="math-ref" href="#res:strict-mixed-supports">5.2</a>). These
 are sufficient hypotheses for Problem <a class="math-ref" href="#res:problem">1.1</a>; the arbitrary support
 in that problem need not satisfy them.</p>
-<p>For the proofs, we compare a multiple of the series with an integer.
-Define</p>
-<div class="math-display" id="eq:intro-displacement" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>The proofs compare a multiple of <span
+class="math inline" data-term-auto="off">\(X_A(b)\)</span> with an integer. For a positive
+integer <span class="math inline" data-term-auto="off">\(N\)</span>, put</p>
+<div class="math-display" id="eq:intro-displacement" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \Delta_{b,A}(N)=\sum_{a\in A}\frac{b^{N\bmod a}-1}{b^a-1}
 =(b^N-1)X_A(b)-J_{b,A}(N),\qquad
 J_{b,A}(N)=\sum_{\substack{a\in A\\a\le N}}
@@ -107,28 +107,32 @@ J_{b,A}(N)=\sum_{\substack{a\in A\\a\le N}}
 \end{equation}\]</span></div>
 <p>The identity follows by division of <span
 class="math inline" data-term-auto="off">\(N\)</span> by <span
-class="math inline" data-term-auto="off">\(a\)</span>. Since <span
-class="math inline" data-term-auto="off">\(J_{b,A}(N)\)</span> is an integer at an integer
-base, rationality <span class="math inline" data-term-auto="off">\(X_A(b)=p/q\)</span> would
-force every positive displacement to be at least <span
-class="math inline" data-term-auto="off">\(1/q\)</span>. Infinitude of <span
-class="math inline" data-term-auto="off">\(A\)</span> ensures positivity for <span
-class="math inline" data-term-auto="off">\(N&gt;0\)</span>: there is a nonzero summand with
-<span class="math inline" data-term-auto="off">\(a&gt;N\)</span>. We shall therefore make
-these displacements arbitrarily small. Erdős also proposed using
-fractional parts of powers times the series value <span class="citation"
-data-cites="erdos1968"><a href="#ref-7">[7]</a></span>.</p>
-<p>Choose a modulus divisible by a finite part of the support. Those
-exponents contribute zero to <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a>. For the
-remaining exponents, a complete residue orbit has a small mean when its
-gcd with the modulus is large. A finite observation window also contains
-an incomplete orbit, however, and its error has lost the reciprocal
-factor needed to sum over the support. Averaging over dyadic window
-lengths restores that factor: an exponent enters the error sum only when
-a window reaches it, and the reciprocal lengths of all later windows
-form a geometric tail. The resulting estimate is explicit in the
-modulus. This lets the weighted and cover proofs use one finite average,
-and hence choose one index at which their sum is small.</p>
+class="math inline" data-term-auto="off">\(a\)</span>. If <span
+class="math inline" data-term-auto="off">\(A\)</span> is infinite, then <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)&gt;0\)</span>, since some <span
+class="math inline" data-term-auto="off">\(a\in A\)</span> exceeds <span
+class="math inline" data-term-auto="off">\(N\)</span>. Suppose that <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span> is an integer and <span
+class="math inline" data-term-auto="off">\(X_A(b)=p/q\)</span>, with <span
+class="math inline" data-term-auto="off">\(p\in\mathbb Z\)</span> and <span
+class="math inline" data-term-auto="off">\(q\ge1\)</span> an integer. Then <span
+class="math inline" data-term-auto="off">\(q\Delta_{b,A}(N)\)</span> is a positive integer,
+and hence <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\ge1/q\)</span>. To
+obtain a contradiction, it therefore suffices to make <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\)</span> arbitrarily small. Erdős
+also proposed using fractional parts of powers times the series value
+<span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>.</p>
+<p>We average over multiples of a modulus divisible by a finite subset
+of <span class="math inline" data-term-auto="off">\(A\)</span>, whose terms in <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a> then
+vanish. For each remaining exponent, the mean contribution over a
+complete residue period is small when its gcd with the modulus is large.
+The incomplete period causes the difficulty: its bound lacks the factor
+<span class="math inline" data-term-auto="off">\(1/a\)</span> needed to sum over the
+exponents. A second average, over dyadic lengths, restores this factor.
+Indeed, an exponent contributes only at lengths that reach it, and the
+reciprocals of those lengths have a geometrically decreasing sum.
+Keeping the dependence on the modulus explicit allows both criteria to
+use the same finite average.</p>
 <p>Section <a class="math-ref" href="#sec:eight-return-extensions">2</a> proves
 the weighted estimate. Section <a class="math-ref" href="#sec:common-kernel">3</a> introduces
 divisor covers through a finite example and proves their averaging
@@ -146,23 +150,25 @@ class="math inline" data-term-auto="off">\(1/21\)</span> is decided by those tes
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Finite averages and the weighted criterion</h2>
 <p>Fix the integer base <span class="math inline" data-term-auto="off">\(b\)</span> and the
-finite prime set <span class="math inline" data-term-auto="off">\(P\)</span>. We shall choose
-<span class="math inline" data-term-auto="off">\(Q\)</span> so that the residues of <span
-class="math inline" data-term-auto="off">\(Qm\)</span> modulo most exponents have a small
-mean. The gcd controls that mean. For example, when <span
+finite prime set <span class="math inline" data-term-auto="off">\(P\)</span>. We average
+<span class="math inline" data-term-auto="off">\(\Delta_{b,A}\)</span> over multiples of a
+modulus <span class="math inline" data-term-auto="off">\(Q\)</span>. The mean contribution of
+an exponent <span class="math inline" data-term-auto="off">\(a\)</span> depends on <span
+class="math inline" data-term-auto="off">\((Q,a)\)</span>. For example, when <span
 class="math inline" data-term-auto="off">\(b=2\)</span>, <span
 class="math inline" data-term-auto="off">\(Q=4\)</span> and <span
-class="math inline" data-term-auto="off">\(a=6\)</span>, the residue orbit is <span
+class="math inline" data-term-auto="off">\(a=6\)</span>, the residues are <span
 class="math inline" data-term-auto="off">\(4,2,0\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac13\left(\frac{2^4-1}{63}+\frac{2^2-1}{63}+0\right)
 =\frac2{21}\le\frac{2}{6(2^2-1)}=\frac19.\]</span></div>
 <p>The final expression
 is the mean of <span class="math inline" data-term-auto="off">\(2^{4m\bmod6}/63\)</span> over
-the same orbit. If <span class="math inline" data-term-auto="off">\(6\mid Q\)</span>, the
-displacement is zero throughout the orbit. We use these two effects
-separately: divisibility removes a finite part of <span
-class="math inline" data-term-auto="off">\(A\)</span>, and a large gcd controls the rest.</p>
+the same period. If <span class="math inline" data-term-auto="off">\(6\mid Q\)</span>, the
+term with exponent <span class="math inline" data-term-auto="off">\(6\)</span> vanishes at
+every multiple of <span class="math inline" data-term-auto="off">\(Q\)</span>. In the proof,
+divisibility removes finitely many exponents, and the gcd estimate
+bounds the remaining terms.</p>
 <div class="proof">
 <p><em>Proof of Theorem <a class="math-ref" href="#res:weighted-support">1.2</a>.</em> <em>The
 contribution of one exponent.</em> Put <span
@@ -181,9 +187,14 @@ remainder gives</p>
 class="math inline" data-term-auto="off">\(\sum_{t=1}^{a/g}b^{tQ\bmod
 a}/(b^a-1)=1/(b^g-1)\)</span>. The first term in <a class="math-ref" data-equation-ref="true" href="#eq:weighted-finite-orbit">eq:weighted-finite-orbit</a> accounts
 for complete orbits; the second allows one extra orbit for the remaining
-indices. Also, for <span class="math inline" data-term-auto="off">\(Y=QT\)</span>,</p>
-<div class="math-display" id="eq:weighted-outer-short" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+indices. The complete-orbit bound explains the weight in the theorem:
+replacing <span class="math inline" data-term-auto="off">\(g\)</span> by the <span
+class="math inline" data-term-auto="off">\(P\)</span>-part <span
+class="math inline" data-term-auto="off">\(h(a)\)</span> gives its summand. The modulus
+chosen below will permit this replacement for <span
+class="math inline" data-term-auto="off">\(h(a)\le H\)</span>; the remaining exponents need a
+separate estimate. Also, for <span class="math inline" data-term-auto="off">\(Y=QT\)</span>,</p>
+<div class="math-display" id="eq:weighted-outer-short" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:weighted-outer-short}
 \frac1T\sum_{t=1}^T\sum_{\substack{a\in A\\a&gt;Y}}d_a(tQ)
 \le\frac4T,
@@ -192,20 +203,17 @@ class="math display" data-term-auto="off">\[\begin{equation}
 class="math inline" data-term-auto="off">\(d_a(tQ)\le2\,2^{tQ-a}\)</span> when <span
 class="math inline" data-term-auto="off">\(a&gt;QT\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum_{t=1}^T2^{tQ-QT}\le2\)</span>.</p>
-<p><em>Recovering the reciprocal factor.</em> The incomplete-orbit error
-is small for each fixed <span class="math inline" data-term-auto="off">\(a\)</span>, but the
-number of exponents with <span class="math inline" data-term-auto="off">\(a\le QT\)</span>
-grows with <span class="math inline" data-term-auto="off">\(T\)</span>. Summing this estimate
-loses the smallness we need: the error has no factor <span
-class="math inline" data-term-auto="off">\(1/a\)</span>. Instead of fixing <span
-class="math inline" data-term-auto="off">\(T\)</span>, take <span
-class="math inline" data-term-auto="off">\(T=2^j\)</span> and reverse the order of summation.
-For a fixed exponent <span class="math inline" data-term-auto="off">\(a\)</span>, only
-lengths <span class="math inline" data-term-auto="off">\(2^j\ge a/Q\)</span> contribute.
-Their reciprocals have total at most <span
-class="math inline" data-term-auto="off">\(2Q/a\)</span>, which is the factor we need. Thus,
-for integers <span class="math inline" data-term-auto="off">\(Q,M\ge1\)</span> and <span
-class="math inline" data-term-auto="off">\(\alpha_a\ge0\)</span> with <span
+<p><em>Recovering the reciprocal factor.</em> The error in <a class="math-ref" data-equation-ref="true" href="#eq:weighted-finite-orbit">eq:weighted-finite-orbit</a> tends to
+zero for each fixed <span class="math inline" data-term-auto="off">\(a\)</span>, but it has
+no factor <span class="math inline" data-term-auto="off">\(1/a\)</span> to justify summing
+over the increasing range <span class="math inline" data-term-auto="off">\(a\le QT\)</span>.
+We therefore take <span class="math inline" data-term-auto="off">\(T=2^j\)</span> and sum
+first over <span class="math inline" data-term-auto="off">\(j\)</span>. For a fixed <span
+class="math inline" data-term-auto="off">\(a\)</span>, only lengths <span
+class="math inline" data-term-auto="off">\(2^j\ge a/Q\)</span> contribute, and the sum of
+their reciprocals is at most <span class="math inline" data-term-auto="off">\(2Q/a\)</span>.
+Thus, for integers <span class="math inline" data-term-auto="off">\(Q,M\ge1\)</span> and
+<span class="math inline" data-term-auto="off">\(\alpha_a\ge0\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_a\alpha_a/a&lt;\infty\)</span>,</p>
 <div class="math-display" id="eq:weighted-dyadic-short" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -220,8 +228,9 @@ class="math inline" data-term-auto="off">\(2Q\)</span> into <span
 class="math inline" data-term-auto="off">\(2Q/M\)</span>.</p>
 <p><em>Choosing the modulus.</em> Fix <span
 class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>. Choose finite nonempty
-<span class="math inline" data-term-auto="off">\(F\subseteq A\)</span> so that the <a class="math-ref" data-equation-ref="true" href="#eq:weighted-fixed-base">eq:weighted-fixed-base</a> mass
-outside <span class="math inline" data-term-auto="off">\(F\)</span> is below <span
+<span class="math inline" data-term-auto="off">\(F\subseteq A\)</span> so that the sum in
+<a class="math-ref" data-equation-ref="true" href="#eq:weighted-fixed-base">eq:weighted-fixed-base</a> over
+<span class="math inline" data-term-auto="off">\(A\setminus F\)</span> is below <span
 class="math inline" data-term-auto="off">\(\varepsilon\)</span>, and let <span
 class="math inline" data-term-auto="off">\(L\)</span> be any fixed positive common multiple
 of <span class="math inline" data-term-auto="off">\(F\)</span>. Besides cancelling <span
@@ -295,25 +304,28 @@ yields</p>
 \le \varepsilon+\frac{2QW_{b,P}(A)}M
 +\frac{G(1+\log Q+2M\log2)+Q}{b^G-1}+4\,2^{-M}.
 \end{equation}\]</span></div>
-<p>The four contributions are now separate: the
-complete-orbit weighted tail, its incomplete-orbit error, the large-gcd
-terms, and the exponents beyond the observation window. With <span
+<p>The four terms respectively bound the weighted
+tail over complete periods, the incomplete periods, the exponents with
+large gcd, and the exponents beyond <span
+class="math inline" data-term-auto="off">\(QT\)</span>. With <span
 class="math inline" data-term-auto="off">\(F\)</span> and <span
 class="math inline" data-term-auto="off">\(L\)</span> fixed, every term after <span
 class="math inline" data-term-auto="off">\(\varepsilon\)</span> tends to zero as <span
-class="math inline" data-term-auto="off">\(H\to\infty\)</span>. The left side gives equal
-total weight to each of the <span class="math inline" data-term-auto="off">\(M\)</span>
-scales and uniform weight within each scale. It is therefore a
-probability average, so for large <span class="math inline" data-term-auto="off">\(H\)</span>
-one of its sampled displacements is below <span
-class="math inline" data-term-auto="off">\(2\varepsilon\)</span>. No rate of decay in the
-sampled index <span class="math inline" data-term-auto="off">\(N=Qt\)</span> is asserted.
-Since <span class="math inline" data-term-auto="off">\(\varepsilon\)</span> is arbitrary,
-this contradicts the lower bound <span
-class="math inline" data-term-auto="off">\(1/q\)</span> under rationality. Finally <span
-class="math inline" data-term-auto="off">\(W_{b,P}(A)\le W_{2,P}(A)\)</span> for <span
-class="math inline" data-term-auto="off">\(b\ge2\)</span>, and weighted mass decreases on
-taking subsets. ◻</p>
+class="math inline" data-term-auto="off">\(H\to\infty\)</span>. The left-hand side is an
+average with nonnegative weights summing to one: each of the <span
+class="math inline" data-term-auto="off">\(M\)</span> lengths has weight <span
+class="math inline" data-term-auto="off">\(1/M\)</span>, distributed uniformly among its
+<span class="math inline" data-term-auto="off">\(2^j\)</span> indices. For large <span
+class="math inline" data-term-auto="off">\(H\)</span>, some <span
+class="math inline" data-term-auto="off">\(N=Qt\)</span> therefore satisfies <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)&lt;2\varepsilon\)</span>. This
+argument gives no rate of decay in <span
+class="math inline" data-term-auto="off">\(N\)</span>. Since <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span> is arbitrary, this
+contradicts the lower bound <span class="math inline" data-term-auto="off">\(1/q\)</span>
+under rationality. Finally <span class="math inline" data-term-auto="off">\(W_{b,P}(A)\le
+W_{2,P}(A)\)</span> for <span class="math inline" data-term-auto="off">\(b\ge2\)</span>, and
+the weighted sum decreases on taking subsets. ◻</p>
 </div>
 <section id="an-example-beyond-reciprocal-summability" class="level3">
 <h3>An example beyond reciprocal summability</h3>
@@ -334,13 +346,14 @@ contains <span class="math inline" data-term-auto="off">\(2^{j-1}\)</span> odd i
 reciprocal sum between <span class="math inline" data-term-auto="off">\(1/4\)</span> and
 <span class="math inline" data-term-auto="off">\(1/2\)</span>. Including <span
 class="math inline" data-term-auto="off">\(m=1\)</span> gives <span
-class="math inline" data-term-auto="off">\(r/4\le S_r\le r\)</span>. The ordinary reciprocal
-mass of the <span class="math inline" data-term-auto="off">\(k\)</span>th layer is <span
+class="math inline" data-term-auto="off">\(r/4\le S_r\le r\)</span>. The sum of reciprocals
+in the <span class="math inline" data-term-auto="off">\(k\)</span>th layer is <span
 class="math inline" data-term-auto="off">\(2^{-k}S_{2^k}\ge1/4\)</span>, so <span
 class="math inline" data-term-auto="off">\(\sum_{a\in A_\star}1/a\)</span> diverges. For
-<span class="math inline" data-term-auto="off">\(P=\{2\}\)</span>, that layer’s weighted mass
-satisfies</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{S_{2^k}}{2^{2^k}-1}
+<span class="math inline" data-term-auto="off">\(P=\{2\}\)</span>, its contribution to the
+weighted sum satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{S_{2^k}}{2^{2^k}-1}
 \le\frac{2^k}{2^{2^k}-1}
 \le2^{1-k}.\]</span></div>
 <p>The last bound uses <span
@@ -360,23 +373,26 @@ A\)</span>. The corresponding density calculation, and the distinction
 between their remote-tail average and our displacement, are given in <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:weighted-proof">Section 1.2
 of the long record</a>.</p>
-<p>The dependence on the finite prime witness can be prescribed. If
-<span class="math inline" data-term-auto="off">\(E\)</span> is a finite set of primes and
-<span class="math inline" data-term-auto="off">\(\mathcal U\)</span> is an upward-closed
-family of subsets of <span class="math inline" data-term-auto="off">\(E\)</span> with <span
-class="math inline" data-term-auto="off">\(E\in\mathcal U\not\ni\varnothing\)</span>, a
-finite union of prime-cofactor constructions has divergent reciprocal
-sum and <span class="math inline" data-term-auto="off">\(W_{b,P}&lt;\infty\)</span> exactly
-when <span class="math inline" data-term-auto="off">\(P\cap E\in\mathcal U\)</span>, for
+<p>The sets of primes for which the weighted sum converges can also be
+prescribed. Let <span class="math inline" data-term-auto="off">\(E\)</span> be a finite set
+of primes and let <span class="math inline" data-term-auto="off">\(\mathcal U\)</span> be an
+upward-closed family of subsets of <span
+class="math inline" data-term-auto="off">\(E\)</span> containing <span
+class="math inline" data-term-auto="off">\(E\)</span> but not <span
+class="math inline" data-term-auto="off">\(\varnothing\)</span>. A finite union of the
+constructions just described has divergent reciprocal sum, and, for
 every <span class="math inline" data-term-auto="off">\(b\ge2\)</span> and finite prime set
-<span class="math inline" data-term-auto="off">\(P\)</span>, so every infinite subset is
-irrational at every base. The construction is given in <a
+<span class="math inline" data-term-auto="off">\(P\)</span>, its weighted sum <span
+class="math inline" data-term-auto="off">\(W_{b,P}\)</span> is finite exactly when <span
+class="math inline" data-term-auto="off">\(P\cap E\in\mathcal U\)</span>. Taking <span
+class="math inline" data-term-auto="off">\(P=E\)</span> shows that every infinite subset has
+an irrational sum at every integer base. The construction is given in <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:witness-rules">Section 1.3
 of the long record</a>.</p>
 </section>
 </section>
 <section id="sec:common-kernel" class="level2">
-<h2>Positive divisor covers</h2>
+<h2>Positive divisor majorants</h2>
 <p>The weighted criterion treats exponents individually. A divisor cover
 can take advantage of correlations between several exponents. The
 relevant quantity is how many members of a finite set divide the same
@@ -394,8 +410,9 @@ interchanging nonnegative sums gives the identity. Although <span
 class="math inline" data-term-auto="off">\(\mathbf1_A\)</span> takes only the values zero and
 one, its divisor transform may take larger values, with <span
 class="math inline" data-term-auto="off">\(0\le c_A(n)\le\tau(n)\)</span>.</p>
-<section id="a-divisor-cube-and-the-cover-condition" class="level3">
-<h3>A divisor cube and the cover condition</h3>
+<section id="a-finite-divisor-set-and-the-cover-condition"
+class="level3">
+<h3>A finite divisor set and the cover condition</h3>
 <p>For finite <span class="math inline" data-term-auto="off">\(F\subseteq\Npos\)</span>,
 write <span class="math inline" data-term-auto="off">\(f_F(n)=\#\{a\in F:a\mid n\}\)</span>.
 Consider the four exponents <span
@@ -420,17 +437,20 @@ C=\frac12\left(1+\frac z3\right)\left(1+\frac z5\right).\]</span></div>
 <span class="math inline" data-term-auto="off">\(C\)</span> is the sum of each coefficient
 divided by its divisor. These reciprocals are the densities of the
 divisibility events, so <span class="math inline" data-term-auto="off">\(C\)</span> is also
-the complete-period mean of this majorant. This is a two-prime instance
-of the divisor-cube expansion used in Section <a class="math-ref" href="#sec:comparison">5</a>.</p>
-<p>The example shows what the fractional power changes: a factor <span
-class="math inline" data-term-auto="off">\(2\)</span> in the count becomes a factor <span
-class="math inline" data-term-auto="off">\(1+z\)</span>. For a large cube, the positive
-expansion can therefore be much cheaper than the divisor count itself.
-Small <span class="math inline" data-term-auto="off">\(\alpha\)</span> has a price, however.
-The tail estimate below divides by <span
-class="math inline" data-term-auto="off">\(2^\alpha-1=z\)</span>. A single finite example
-explains the majorant; only a summable sequence of the resulting full
-costs gives an infinite support criterion.</p>
+the complete-period mean of this majorant. The same expansion applies to
+<span class="math inline" data-term-auto="off">\(\{qd:d\mid\prod_{p\in P}p\}\)</span> when no
+prime in <span class="math inline" data-term-auto="off">\(P\)</span> divides <span
+class="math inline" data-term-auto="off">\(q\)</span>.</p>
+<p>The fractional power replaces each factor <span
+class="math inline" data-term-auto="off">\(2\)</span> in the divisor count by <span
+class="math inline" data-term-auto="off">\(1+z\)</span>. When the set involves many primes
+and <span class="math inline" data-term-auto="off">\(\alpha\)</span> is small, this reduces
+the coefficients in the positive expansion. The tail estimate below also
+contains the factor <span
+class="math inline" data-term-auto="off">\((2^\alpha-1)^{-1}=1/z\)</span>, which grows as
+<span class="math inline" data-term-auto="off">\(\alpha\)</span> decreases. The criterion
+therefore requires summability of the full expression, including this
+factor, over a sequence of finite sets.</p>
 <div class="theorem" id="thm:variable-fractional-cover">
 <p><strong>Theorem 3.1</strong> (a summable divisor-cover criterion). <em>
 For each <span class="math inline" data-term-auto="off">\(j\ge1\)</span>, let <span
@@ -467,14 +487,23 @@ gives a necessary condition that applies to every possible cover.</p>
 </section>
 <section id="a-finite-mean-for-shifted-divisor-tails" class="level3">
 <h3>A finite mean for shifted divisor tails</h3>
-<p>Raising a base-two tail to the power <span
-class="math inline" data-term-auto="off">\(\alpha\)</span> changes its geometric factor to
-<span class="math inline" data-term-auto="off">\(B=2^\alpha\)</span>. Thus the proof needs a
-bound valid for all <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>,
-including <span class="math inline" data-term-auto="off">\(B\)</span> close to <span
-class="math inline" data-term-auto="off">\(1\)</span>. To combine this criterion with the
-weighted one later, we also need an explicit dependence on the modulus
-and freedom to choose the starting scale.</p>
+<p>A divisor majorant becomes a sum of geometric tails, one for each
+divisor. Indeed, the positive offsets <span
+class="math inline" data-term-auto="off">\(r\)</span> with <span class="math inline" data-term-auto="off">\(d\mid
+N+r\)</span> are <span class="math inline" data-term-auto="off">\(d-(N\bmod d),2d-(N\bmod
+d),\ldots\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{\substack{r\ge1\\d\mid N+r}}B^{-r}
+=\frac{B^{N\bmod d}}{B^d-1}.\]</span></div>
+<p>Raising a base-two tail to the
+power <span class="math inline" data-term-auto="off">\(\alpha\)</span> replaces its geometric
+factor by <span class="math inline" data-term-auto="off">\(B=2^\alpha\)</span>. We therefore
+need to estimate this expression for <span
+class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, including <span
+class="math inline" data-term-auto="off">\(B\)</span> close to <span
+class="math inline" data-term-auto="off">\(1\)</span>. The weighted proof has already chosen
+its modulus and dyadic lengths; to use the same observations, the
+estimate must keep both choices explicit.</p>
 <p>For <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, positive
 integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and an integer
 <span class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
@@ -526,10 +555,12 @@ w_{B,d}(Lm)
 satisfying <span class="math inline" data-term-auto="off">\(d\le L2^j\)</span>, the
 reciprocal-length errors sum to at most <span
 class="math inline" data-term-auto="off">\(2L/[d(B-1)]\)</span>. When <span
-class="math inline" data-term-auto="off">\(d&gt;2LT\)</span>, there is no wrap and <span
+class="math inline" data-term-auto="off">\(d&gt;2LT\)</span>, we have <span
+class="math inline" data-term-auto="off">\(Lm\bmod d=Lm\)</span> and <span
 class="math inline" data-term-auto="off">\(2Lm\le d-1\)</span>; hence <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{d-1}B^i\ge dB^{(d-1)/2}\ge
-dB^{Lm}\)</span>. Each atom is then at most <span
+dB^{Lm}\)</span>. Each term <span
+class="math inline" data-term-auto="off">\(w_{B,d}(Lm)\)</span> is then at most <span
 class="math inline" data-term-auto="off">\(1/[d(B-1)]\)</span>. Only the transition range
 <span class="math inline" data-term-auto="off">\(LT&lt;d\le2LT\)</span> remains. It contains
 at most one dyadic length, for which the geometric sum and convexity
@@ -538,8 +569,11 @@ give</p>
 =\frac{B^L}{T(B^L-1)}\frac{B^{LT}-1}{B^d-1}
 \le\frac{LB^L}{d(B^L-1)}
 \le\frac{2L}{d(B-1)}.\]</span></div>
-<p>For the last inequality we used <span
-class="math inline" data-term-auto="off">\((B^L-1)/(B-1)=\sum_{i=0}^{L-1}B^i\ge
+<p>The first inequality uses the convexity
+of <span class="math inline" data-term-auto="off">\(x\mapsto B^x-1\)</span> and its value
+<span class="math inline" data-term-auto="off">\(0\)</span> at the origin to bound the ratio
+by <span class="math inline" data-term-auto="off">\(LT/d\)</span>. For the last inequality we
+used <span class="math inline" data-term-auto="off">\((B^L-1)/(B-1)=\sum_{i=0}^{L-1}B^i\ge
 B^{L-1}\)</span> and <span class="math inline" data-term-auto="off">\(B\le2\)</span>. Summing
 the main terms and the two error bounds proves <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a>. The
 corresponding <a
@@ -582,9 +616,15 @@ from the remaining sets. The early tails themselves need not vanish: the
 displayed identity then gives <span
 class="math inline" data-term-auto="off">\(U_j(N)=X_{F_j}(2)\)</span> for <span
 class="math inline" data-term-auto="off">\(j\le J\)</span>.</p>
-<p>Fix <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, set <span
-class="math inline" data-term-auto="off">\(t_j=\varepsilon2^{-j}\)</span>, and choose <span
-class="math inline" data-term-auto="off">\(J\)</span> with</p>
+<p>Fix <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and allot
+<span class="math inline" data-term-auto="off">\(t_j=\varepsilon2^{-j}\)</span> to the <span
+class="math inline" data-term-auto="off">\(j\)</span>th tail; these allowances sum to <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>. Since <span
+class="math inline" data-term-auto="off">\(U_j^{\alpha_j}\le V_j\)</span>, it suffices to
+make <span class="math inline" data-term-auto="off">\(t_j^{-\alpha_j}V_j&lt;1\)</span>. This
+normalisation explains the factor <span
+class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> in the cover condition.
+Choose <span class="math inline" data-term-auto="off">\(J\)</span> with</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_J:=\sum_{j&gt;J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}&lt;\frac14.\]</span></div>
 <p>This is possible since <span
@@ -620,9 +660,10 @@ class="math inline" data-term-auto="off">\(A&#39;C-AC&#39;=\sum_{i&lt;r\le
 j&lt;d}(i-j)b^{i+j-1}&lt;0\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\le\Delta_{2,A}(N)\)</span> for
 every real <span class="math inline" data-term-auto="off">\(b\ge2\)</span>; when <span
-class="math inline" data-term-auto="off">\(b\)</span> is an integer, the same
-rational-lattice argument applies. Any prescribed positive divisor can
-be included in <span class="math inline" data-term-auto="off">\(L\)</span>, so the witnesses
+class="math inline" data-term-auto="off">\(b\)</span> is an integer, this contradicts the
+lower bound obtained from <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a> under
+rationality. Any prescribed positive integer can be included as a
+divisor of <span class="math inline" data-term-auto="off">\(L\)</span>, so the chosen indices
 can also be required to be arbitrarily large. ◻</p>
 </div>
 <p>The same proof permits any positive weights <span
@@ -674,11 +715,11 @@ class="math inline" data-term-auto="off">\(t_j=\rho\eta_j\)</span> and choose <s
 class="math inline" data-term-auto="off">\(J\)</span> so that</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_J=\sum_{j&gt;J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}&lt;\frac1{16}.\]</span></div>
-<p>Choose a finite <span class="math inline" data-term-auto="off">\(F\subseteq E\)</span> whose
-complementary weighted mass is <span
-class="math inline" data-term-auto="off">\(\kappa&lt;\rho/16\)</span>. Let <span
-class="math inline" data-term-auto="off">\(L\)</span> be a positive common multiple of <span
-class="math inline" data-term-auto="off">\(N_0\)</span>, all members of <span
+<p>Choose a finite <span class="math inline" data-term-auto="off">\(F\subseteq E\)</span> so
+that the weighted sum over <span class="math inline" data-term-auto="off">\(E\setminus
+F\)</span> is <span class="math inline" data-term-auto="off">\(\kappa&lt;\rho/16\)</span>.
+Let <span class="math inline" data-term-auto="off">\(L\)</span> be a positive common multiple
+of <span class="math inline" data-term-auto="off">\(N_0\)</span>, all members of <span
 class="math inline" data-term-auto="off">\(F\)</span>, and all members of the first <span
 class="math inline" data-term-auto="off">\(J\)</span> finite sets. Keeping <span
 class="math inline" data-term-auto="off">\(J\)</span>, <span class="math inline" data-term-auto="off">\(F\)</span>
@@ -734,10 +775,13 @@ class="math display" data-term-auto="off">\[\Delta_{2,A}(N)\le\Delta_{2,E}(N)+\D
 <p>This inequality remains valid when
 <span class="math inline" data-term-auto="off">\(E\)</span> and <span
 class="math inline" data-term-auto="off">\(V\)</span> overlap. Since <span
-class="math inline" data-term-auto="off">\(A\)</span> is infinite, its displacement is
-positive. The comparison of atoms in the cover proof gives arbitrarily
-small positive displacements at every integer base, and <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a> finishes
-the proof. ◻</p>
+class="math inline" data-term-auto="off">\(A\)</span> is infinite, <span
+class="math inline" data-term-auto="off">\(\Delta_{2,A}(N)&gt;0\)</span>. The comparison
+<span
+class="math inline" data-term-auto="off">\(0&lt;\Delta_{b,A}(N)\le\Delta_{2,A}(N)\)</span>
+proved in the cover argument therefore gives arbitrarily small positive
+values at every integer base. Equation <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a> rules out
+rationality. ◻</p>
 </div>
 </section>
 <section id="sec:comparison" class="level2">
@@ -758,14 +802,17 @@ class="math display" data-term-auto="off">\[E\in\mathcal W_2,\quad E\notin\mathc
 V\in\mathcal C,\quad V\notin\mathcal W_b\ (b\ge2),\qquad
 \sum_{a\in V}\frac1a=\infty.\]</span></div>
 </div>
-<p>The constructions use the same type of divisor cube in two different
-ways. For <span class="math inline" data-term-auto="off">\(E\)</span>, every cube carries a
-growing power of the fixed prime <span class="math inline" data-term-auto="off">\(2\)</span>,
-so the weighted condition is inexpensive. The number of divisors
-occurring together will exclude every possible cover. For <span
-class="math inline" data-term-auto="off">\(V\)</span>, the cubes use disjoint sets of fresh
-primes. A finite prime witness then misses almost all cubes, whereas
-fractional powers keep their cover costs summable.</p>
+<p>Both constructions use finite sets of the form <span
+class="math inline" data-term-auto="off">\(\{qd:d\mid\prod_{p\in P}p\}\)</span>. For <span
+class="math inline" data-term-auto="off">\(E\)</span>, we take <span
+class="math inline" data-term-auto="off">\(q\)</span> to be a growing power of <span
+class="math inline" data-term-auto="off">\(2\)</span>. This makes the weighted sum converge,
+while the many simultaneous divisors force the lower bound for any cover
+to diverge. For <span class="math inline" data-term-auto="off">\(V\)</span>, we use disjoint
+sets of primes in successive finite sets. For any fixed finite set of
+primes, all sufficiently late sets contain only exponents coprime to
+those primes, so the weighted sum diverges. Fractional powers of the
+divisor counts will nevertheless give a summable cover cost.</p>
 <section id="a-lower-bound-independent-of-the-cover" class="level3">
 <h3>A lower bound independent of the cover</h3>
 <p>To prove that <span class="math inline" data-term-auto="off">\(E\)</span> has no cover, it
@@ -809,9 +856,9 @@ inequality <span class="math inline" data-term-auto="off">\(t^\alpha/(2^\alpha-1
 t\)</span> also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L170">corresponding
 source theorem</a>.</p>
-<p>The lower bound is asymptotically attained on a single divisor cube:
-<a class="math-ref" data-equation-ref="true" href="#eq:optimal-cube-cost">eq:optimal-cube-cost</a> in
-Appendix <a class="math-ref" href="#app:elementary-details">E</a> gives its
+<p>The lower bound is asymptotically attained on the sets <span
+class="math inline" data-term-auto="off">\(\{qd:d\mid\prod_{p\in P}p\}\)</span>: <a class="math-ref" data-equation-ref="true" href="#eq:optimal-cube-cost">eq:optimal-cube-cost</a> in
+Appendix <a class="math-ref" href="#app:elementary-details">E</a> gives the
 sharp leading constant. The separation below uses only the lower
 bound <a class="math-ref" data-equation-ref="true" href="#eq:cover-log-obstruction">eq:cover-log-obstruction</a>.</p>
 </section>
@@ -821,9 +868,10 @@ bound <a class="math-ref" data-equation-ref="true" href="#eq:cover-log-obstruct
 <p><em>Proof of Proposition <a class="math-ref" href="#res:weighted-cover-incomparability">5.1</a>.</em>
 The reciprocal sum over odd primes diverges, even after finitely many
 are removed. Otherwise <span class="math inline" data-term-auto="off">\(\prod_{p\text{
-odd}}(1+1/p)\)</span> would bound the reciprocal mass of odd squarefree
-integers; the decomposition <span class="math inline" data-term-auto="off">\(n=ds^2\)</span>
-would then make the odd harmonic series converge.</p>
+odd}}(1+1/p)\)</span> would bound the sum of reciprocals of odd
+squarefree integers; the decomposition <span
+class="math inline" data-term-auto="off">\(n=ds^2\)</span> would then make the odd harmonic
+series converge.</p>
 <p>For the first construction, the <span
 class="math inline" data-term-auto="off">\(k\)</span>th group of exponents will carry a
 factor <span class="math inline" data-term-auto="off">\(2^k\)</span>. The event <span
@@ -837,19 +885,19 @@ class="math inline" data-term-auto="off">\(P_k\)</span> of odd primes such that 
 class="math inline" data-term-auto="off">\(2^k/4\le S_k:=\sum_{p\in
 P_k}1/p&lt;2^k/4+1\)</span>. Put <span
 class="math inline" data-term-auto="off">\(M_k=\prod_{p\in P_k}p\)</span> and <span
-class="math inline" data-term-auto="off">\(E=\bigcup_{k\ge1}\{2^kd:d\mid M_k\}\)</span>. The
-witness <span class="math inline" data-term-auto="off">\(\{2\}\)</span> has weighted mass</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{k\ge1}\frac{\prod_{p\in
+class="math inline" data-term-auto="off">\(E=\bigcup_{k\ge1}\{2^kd:d\mid M_k\}\)</span>. For
+<span class="math inline" data-term-auto="off">\(P=\{2\}\)</span> the weighted sum is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{k\ge1}\frac{\prod_{p\in
 P_k}(1+1/p)}{2^{2^k}-1}
 \le 2e\sum_{k\ge1}
        \exp\bigl(-(\log2-1/4)2^k\bigr)&lt;\infty.\]</span></div>
-<p>For the union
-<span class="math inline" data-term-auto="off">\(F_m\)</span> of the first <span
-class="math inline" data-term-auto="off">\(m\)</span> frames, average <span
-class="math inline" data-term-auto="off">\(\log^+ f_{F_m}\)</span> over one period. On <span
-class="math inline" data-term-auto="off">\(v_2(n)=k&lt;m\)</span>, the <span
-class="math inline" data-term-auto="off">\(k\)</span>th frame contributes <span
-class="math inline" data-term-auto="off">\(2^{Z_k(n)}\)</span> divisors, where <span
+<p>For <span
+class="math inline" data-term-auto="off">\(F_m=\bigcup_{k=1}^m\{2^kd:d\mid M_k\}\)</span>,
+average <span class="math inline" data-term-auto="off">\(\log^+ f_{F_m}\)</span> over one
+period. On <span class="math inline" data-term-auto="off">\(v_2(n)=k&lt;m\)</span>, the set
+<span class="math inline" data-term-auto="off">\(\{2^kd:d\mid M_k\}\)</span> contributes
+<span class="math inline" data-term-auto="off">\(2^{Z_k(n)}\)</span> divisors, where <span
 class="math inline" data-term-auto="off">\(Z_k(n)=\sum_{p\in P_k}\mathbf1_{p\mid n}\)</span>.
 This event has density <span class="math inline" data-term-auto="off">\(2^{-(k+1)}\)</span>
 and is independent of odd-prime divisibility. Thus</p>
@@ -870,28 +918,34 @@ class="math inline" data-term-auto="off">\(q_j\le R_j&lt;4q_j/3\)</span>. Put <s
 class="math inline" data-term-auto="off">\(S_j=\sum_{p\in P_j}1/p\)</span>, <span
 class="math inline" data-term-auto="off">\(M_j=\prod_{p\in P_j}p\)</span>, and <span
 class="math inline" data-term-auto="off">\(V=\bigcup_{j\ge1}F_j\)</span>, where <span
-class="math inline" data-term-auto="off">\(F_j=\{q_jd:d\mid M_j\}\)</span>. The frames have
-disjoint prime alphabets, and</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{a\in
+class="math inline" data-term-auto="off">\(F_j=\{q_jd:d\mid M_j\}\)</span>. No prime divides
+exponents in two different sets <span
+class="math inline" data-term-auto="off">\(F_j\)</span>, and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{a\in
 F_j}\frac1a=\frac{R_j}{q_j}\in[1,4/3).\]</span></div>
-<p>Thus the reciprocal sum
-diverges. Every finite prime set misses all factors of all but finitely
-many frames; each missed frame has base-<span
-class="math inline" data-term-auto="off">\(b\)</span> weighted mass <span
+<p>Thus <span
+class="math inline" data-term-auto="off">\(\sum_{a\in V}1/a\)</span> diverges. Given a finite
+set <span class="math inline" data-term-auto="off">\(P\)</span> of primes, all exponents in
+all but finitely many <span class="math inline" data-term-auto="off">\(F_j\)</span> are
+coprime to <span class="math inline" data-term-auto="off">\(\prod_{p\in P}p\)</span>. On each
+such <span class="math inline" data-term-auto="off">\(F_j\)</span> we have <span
+class="math inline" data-term-auto="off">\(h_P(a)=1\)</span>, so its contribution to the
+base-<span class="math inline" data-term-auto="off">\(b\)</span> weighted sum is <span
 class="math inline" data-term-auto="off">\(R_j/[q_j(b-1)]\ge1/(b-1)\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(V\notin\mathcal W_b\)</span> for every integer
 <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</p>
 <p>For the full infinite-cover cost, from <span
 class="math inline" data-term-auto="off">\(\log(1+x)\ge x-x^2/2\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum_{p\in P_j}p^{-2}\le1\)</span> we have <span
-class="math inline" data-term-auto="off">\(S_j\le\log R_j+1/2&lt;\log q_j+1\)</span>. The
-cost has two product factors: the frame-index weight <span
-class="math inline" data-term-auto="off">\((1+z_j)^j\)</span> and the divisor contribution
-<span class="math inline" data-term-auto="off">\(\prod_{p\in P_j}(1+z_j/p)\)</span>. Their
-product is at most <span
-class="math inline" data-term-auto="off">\(\exp(z_j(j+S_j))\)</span>. This suggests keeping
-<span class="math inline" data-term-auto="off">\(z_j(j+S_j)\)</span> equal to <span
-class="math inline" data-term-auto="off">\(1\)</span>. Set</p>
+class="math inline" data-term-auto="off">\(S_j\le\log R_j+1/2&lt;\log q_j+1\)</span>. In the
+<span class="math inline" data-term-auto="off">\(j\)</span>th term of the cover cost, the
+factor <span class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> becomes <span
+class="math inline" data-term-auto="off">\((1+z_j)^j\)</span>, and the divisor sum
+contributes <span class="math inline" data-term-auto="off">\(\prod_{p\in
+P_j}(1+z_j/p)\)</span>. Their product is at most <span
+class="math inline" data-term-auto="off">\(\exp(z_j(j+S_j))\)</span>, which we keep bounded
+by choosing <span class="math inline" data-term-auto="off">\(z_j(j+S_j)=1\)</span>. Set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[z_j=(j+S_j)^{-1},\qquad
 \alpha_j=\log_2(1+z_j),\qquad
@@ -904,7 +958,8 @@ class="math inline" data-term-auto="off">\(Z\)</span> primes in <span
 class="math inline" data-term-auto="off">\(P_j\)</span> divide <span
 class="math inline" data-term-auto="off">\(n\)</span>, the divisor majorant equals <span
 class="math inline" data-term-auto="off">\((1+z_j)^Z=f_{F_j}(n)^{\alpha_j}\)</span>;
-otherwise both sides vanish. The column cost is <span
+otherwise both sides vanish. The sum defining <span
+class="math inline" data-term-auto="off">\(C_j\)</span> is <span
 class="math inline" data-term-auto="off">\(C_j=q_j^{-1}\prod_{p\in P_j}(1+z_j/p)\)</span>,
 whence</p>
 <div class="math-display" data-term-auto="off"><span
@@ -915,8 +970,9 @@ class="math display" data-term-auto="off">\[\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}
 \le e\bigl((1+\log4)j+1\bigr)4^{-j}.\]</span></div>
 <p>The last bound uses that
 <span class="math inline" data-term-auto="off">\((j+\log x+1)/x\)</span> decreases for <span
-class="math inline" data-term-auto="off">\(x\ge4^j\)</span>. Its sum converges, including the
-frame-index factor in <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>; hence
+class="math inline" data-term-auto="off">\(x\ge4^j\)</span>. The bound is summable in <span
+class="math inline" data-term-auto="off">\(j\)</span> and includes the factor <span
+class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> required by <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>; hence
 <span class="math inline" data-term-auto="off">\(V\in\mathcal C\)</span>. ◻</p>
 </div>
 </section>
@@ -925,8 +981,8 @@ frame-index factor in <a class="math-ref" data-equation-ref="true" href="#eq:str
 <p>The union of the two separating supports requires the mixed
 theorem.</p>
 <div class="corollary" id="res:strict-mixed-supports">
-<p><strong>Corollary 5.2</strong> (a host requiring the mixed criterion).
-<em> There is an infinite positive support <span
+<p><strong>Corollary 5.2</strong> (a support requiring the mixed
+criterion). <em> There is an infinite positive support <span
 class="math inline" data-term-auto="off">\(U\)</span> with <span
 class="math inline" data-term-auto="off">\(U\notin\mathcal C\)</span> and <span
 class="math inline" data-term-auto="off">\(U\notin\mathcal W_b\)</span> for every integer
@@ -938,26 +994,28 @@ class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for eve
 <div class="proof">
 <p><em>Proof.</em> Let <span class="math inline" data-term-auto="off">\(U=E\cup V\)</span>,
 with <span class="math inline" data-term-auto="off">\(E,V\)</span> as in Proposition <a class="math-ref" href="#res:weighted-cover-incomparability">5.1</a>.
-A cover of <span class="math inline" data-term-auto="off">\(U\)</span> restricts to a cover
-of <span class="math inline" data-term-auto="off">\(E\)</span>, and a finite-prime weighted
-witness for <span class="math inline" data-term-auto="off">\(U\)</span> restricts to one for
-<span class="math inline" data-term-auto="off">\(V\)</span>, since all weights are
-nonnegative. Thus <span class="math inline" data-term-auto="off">\(U\)</span> belongs to
-neither individual class. Theorem <a class="math-ref" href="#res:mixed-supports">4.1</a> gives
-irrationality for every infinite subset of <span
+A cover of <span class="math inline" data-term-auto="off">\(U\)</span> is also a cover of
+<span class="math inline" data-term-auto="off">\(E\)</span>, while convergence of the
+weighted sum over <span class="math inline" data-term-auto="off">\(U\)</span> would imply
+convergence of the sum over <span class="math inline" data-term-auto="off">\(V\)</span> for
+the same prime set, since all summands are nonnegative. Thus <span
+class="math inline" data-term-auto="off">\(U\)</span> belongs to neither individual class.
+Theorem <a class="math-ref" href="#res:mixed-supports">4.1</a>
+gives irrationality for every infinite subset of <span
 class="math inline" data-term-auto="off">\(U\)</span> at every integer base <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>. ◻</p>
 </div>
 <p>The fixed-dyadic cover class in (V) is closed under finite unions.
-For two covers, interleave their <span
-class="math inline" data-term-auto="off">\(j\)</span>th frames at positions <span
-class="math inline" data-term-auto="off">\(2j-1,2j\)</span>, halve each exponent, and retain
-the nonnegative coefficient columns. The majorants persist since <span
+For two covers, place their <span class="math inline" data-term-auto="off">\(j\)</span>th
+finite sets at positions <span class="math inline" data-term-auto="off">\(2j-1,2j\)</span>,
+halve each exponent, and retain the coefficients of the corresponding
+majorants. The inequalities persist since <span
 class="math inline" data-term-auto="off">\(f^{\alpha/2}\le f^\alpha\)</span> for every
 nonnegative integer <span class="math inline" data-term-auto="off">\(f\)</span>. Writing
 <span
 class="math inline" data-term-auto="off">\(T_j=C_j2^{j\alpha_j}/(2^{\alpha_j}-1)\)</span> for
-an old column, its new cost is at most</p>
+the original <span class="math inline" data-term-auto="off">\(j\)</span>th cost, its new cost
+is at most</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{C_j2^{j\alpha_j}}{2^{\alpha_j/2}-1}
 =(1+2^{\alpha_j/2})T_j\le(1+\sqrt2)T_j.\]</span></div>
@@ -966,14 +1024,16 @@ class="math inline" data-term-auto="off">\(r\)</span> covers, interleave at posi
 <span class="math inline" data-term-auto="off">\(rj\)</span> and divide each exponent by
 <span class="math inline" data-term-auto="off">\(r\)</span>; the cost ratio is <span
 class="math inline" data-term-auto="off">\((2^\alpha-1)/(2^{\alpha/r}-1)&lt;2r\)</span>.
-Weighted supports are likewise closed under finite unions: combine their
-finite prime witnesses, so the prime part grows and <span
-class="math inline" data-term-auto="off">\(h/(b^h-1)\)</span> decreases. Finite supports
-admit both criteria; subsets inherit each host. Thus the mixed class is
-closed under finite unions and finite changes using the literal dyadic
-condition (V), without changing to arbitrary cover weights. The
-summability hypothesis cannot be omitted for countable unions. Every
-prime singleton is admitted, but for the full prime support <span
+Weighted supports are likewise closed under finite unions: take the
+union of their finite prime sets. The prime part <span
+class="math inline" data-term-auto="off">\(h_P(a)\)</span> can only increase, and <span
+class="math inline" data-term-auto="off">\(h/(b^h-1)\)</span> decreases with <span
+class="math inline" data-term-auto="off">\(h\)</span>. Finite supports satisfy both criteria,
+and each criterion is inherited by subsets. Thus the mixed class is
+closed under finite unions and finite changes with the fixed dyadic
+weights in (V); arbitrary cover weights are not needed. The summability
+hypothesis cannot be omitted for countable unions. Every prime singleton
+is admitted, but for the full prime support <span
 class="math inline" data-term-auto="off">\(\mathcal P\)</span> one has <span
 class="math inline" data-term-auto="off">\(\Delta_{2,\mathcal P}(N)&gt;1/3\)</span> for every
 <span class="math inline" data-term-auto="off">\(N\ge1\)</span>: indeed <span
@@ -1063,8 +1123,8 @@ not supply that independence.</p>
 <p>The companion <a href="../../../papers/optimal-sparse-perturbations.pdf"><em>Reading
 eight Erdős problems together</em></a>, subsection “Divisibility cuts at
 every algebraic base”, states a transcendence extension based on the
-number-field Subspace Theorem. Its hypothesis is an infinite host <span
-class="math inline" data-term-auto="off">\(H\)</span> with cuts <span
+number-field Subspace Theorem. Its hypothesis is an infinite set <span
+class="math inline" data-term-auto="off">\(H\)</span> with indices <span
 class="math inline" data-term-auto="off">\(L_j&lt;M_j\)</span>, where <span
 class="math inline" data-term-auto="off">\(L_j\to\infty\)</span> and <span
 class="math inline" data-term-auto="off">\(M_j-L_j\to\infty\)</span>, such that every <span
@@ -1083,13 +1143,13 @@ weights <span class="math inline" data-term-auto="off">\(w_n\)</span> and real a
 class="math inline" data-term-auto="off">\(H_* = \bigcup_j N_j\{1,\ldots,2^{N_j}\}\)</span>
 with <span class="math inline" data-term-auto="off">\(N_0=1\)</span> and <span
 class="math inline" data-term-auto="off">\(N_{j+1}=2N_j\operatorname{lcm}(1,\ldots,2^{N_j})\)</span>.
-Each block has reciprocal mass at least <span
+Each block has a reciprocal sum of at least <span
 class="math inline" data-term-auto="off">\(1/2\)</span> and contains antichains of unbounded
-size. Its one-prime weighted mass at every real <span
-class="math inline" data-term-auto="off">\(t&gt;1\)</span> is at most <span
-class="math inline" data-term-auto="off">\(2t^2/(t-1)^3\)</span>. This provides a connection
-with the weighted criterion, although the cut condition is not asserted
-for every weighted host.</p>
+size. The weighted sum for one prime is at most <span
+class="math inline" data-term-auto="off">\(2t^2/(t-1)^3\)</span> at every real <span
+class="math inline" data-term-auto="off">\(t&gt;1\)</span>. This connects the example with
+the weighted criterion, although the separation condition is not
+asserted for every support satisfying that criterion.</p>
 <p>The companion proof is outside this paper and is not a premise of the
 weighted, cover or mixed theorem. It has two AI proof reviews, no Lean
 proof of transcendence and no independent human review. No historical
@@ -1103,7 +1163,7 @@ support at base two remains unresolved.</p>
 <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>. It follows from
 Theorem <a class="math-ref" href="#res:weighted-support">1.2</a>,
 since <span class="math inline" data-term-auto="off">\(h/(2^h-1)\le1\)</span>, but the direct
-argument explains why finite reciprocal mass makes the averaging
+argument explains why reciprocal summability makes the averaging
 simpler.</p>
 <div class="theorem" id="res:reciprocal-support">
 <p><strong>Theorem A.1</strong> (reciprocal-summable supports). <em> Let
@@ -1143,11 +1203,14 @@ M_{Q,b}(d):=\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
 <p>The orbit <span
 class="math inline" data-term-auto="off">\(4,2,0\)</span> modulo <span
 class="math inline" data-term-auto="off">\(6\)</span> used in Section <a class="math-ref" href="#sec:eight-return-extensions">2</a>
-illustrates this mean: its atom average is <span
-class="math inline" data-term-auto="off">\(1/9\)</span>, while its displacement average is
-<span class="math inline" data-term-auto="off">\(2/21\)</span>. When an exponent divides
-<span class="math inline" data-term-auto="off">\(Q\)</span>, its atom stays at its zero-shift
-value, so its contribution to the displacement vanishes.</p>
+illustrates this mean: its average of <span
+class="math inline" data-term-auto="off">\(w_{2,6}(4m)\)</span> is <span
+class="math inline" data-term-auto="off">\(1/9\)</span>, while the average of <span
+class="math inline" data-term-auto="off">\(w_{2,6}(4m)-w_{2,6}(0)\)</span> is <span
+class="math inline" data-term-auto="off">\(2/21\)</span>. When <span
+class="math inline" data-term-auto="off">\(d\mid Q\)</span>, we have <span
+class="math inline" data-term-auto="off">\(w_{b,d}(Qm)=w_{b,d}(0)\)</span>, so this exponent
+contributes zero to the displacement.</p>
 <p>To interchange the sum over exponents and this limit, we use a bound
 summable in <span class="math inline" data-term-auto="off">\(d\)</span> for the fixed modulus
 <span class="math inline" data-term-auto="off">\(Q\)</span>. Counting positive multiples of
@@ -1186,7 +1249,8 @@ displacements <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(Q_tm
 tend to zero. Choose <span class="math inline" data-term-auto="off">\(t\)</span>, then a
 sufficiently long finite average, and finally a term no larger than that
 average. This gives arbitrarily small positive displacements,
-contradicting the rational lattice in <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a>. This
+contradicting the lower bound <span class="math inline" data-term-auto="off">\(1/q\)</span>
+obtained from <a class="math-ref" data-equation-ref="true" href="#eq:intro-displacement">eq:intro-displacement</a>. This
 proves Theorem <a class="math-ref" href="#res:reciprocal-support">A.1</a> directly at
 every integer base.</p>
 <p>The order of limits is essential: the observation length tends to
@@ -1304,9 +1368,9 @@ counts of the same set <span class="math inline" data-term-auto="off">\(A\)</spa
 is rational. Assume first that <span class="math inline" data-term-auto="off">\(A\)</span> is
 nonempty and put <span class="math inline" data-term-auto="off">\(a_0=\min A\)</span>. Then
 every <span class="math inline" data-term-auto="off">\(a_0\)</span> consecutive integers
-contain a multiple of <span class="math inline" data-term-auto="off">\(a_0\)</span>, so a
-divisor-incidence zero window has length at most <span
-class="math inline" data-term-auto="off">\(a_0-1\)</span>. If <span
+contain a multiple of <span class="math inline" data-term-auto="off">\(a_0\)</span>, so a run
+of zeros of <span class="math inline" data-term-auto="off">\(c_A\)</span> has length at most
+<span class="math inline" data-term-auto="off">\(a_0-1\)</span>. If <span
 class="math inline" data-term-auto="off">\(A\)</span> is infinite, choose <span
 class="math inline" data-term-auto="off">\(k\)</span> exponents and a common multiple <span
 class="math inline" data-term-auto="off">\(L\)</span>; then <span
@@ -1314,7 +1378,8 @@ class="math inline" data-term-auto="off">\(c_A(L)\ge k\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum_{r\ge1}c_A(L-1+r)2^{-r}\ge k/2\)</span>, by
 its first term. Both facts hold without rationality. A contradiction
 must use the integral recurrence together with the requirement that
-every coefficient is obtained from the same selector.</p>
+every coefficient counts divisors in the same set <span
+class="math inline" data-term-auto="off">\(A\)</span>.</p>
 <p>The compatibility condition on the coefficients is expressed by
 Dirichlet convolution: <span
 class="math inline" data-term-auto="off">\(\mu*c_A=\mathbf1_A\)</span>, where <span
@@ -1341,10 +1406,11 @@ R_N=\sum_{n&gt;N}w_n.\]</span></div>
 <p>The estimate</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^{-N}&lt;R_N\le2^{-N}+\frac23\,4^{-N}&lt;w_N\qquad(N\ge1)\]</span></div>
-<p class="display-continue">implies uniqueness of the selector. Indeed, at the first differing
-exponent <span class="math inline" data-term-auto="off">\(n\)</span>, the difference <span
-class="math inline" data-term-auto="off">\(w_n\)</span> exceeds everything later terms can
-cancel. The middle inequality follows by writing <span
+<p class="display-continue">implies uniqueness of the sequence <span
+class="math inline" data-term-auto="off">\((\varepsilon_n)\)</span>. Indeed, at the first
+differing exponent <span class="math inline" data-term-auto="off">\(n\)</span>, the
+difference <span class="math inline" data-term-auto="off">\(w_n\)</span> exceeds everything
+later terms can cancel. The middle inequality follows by writing <span
 class="math inline" data-term-auto="off">\(w_n=2^{-n}+4^{-n}/(1-2^{-n})\)</span> and using
 <span class="math inline" data-term-auto="off">\(n\ge N+1\ge2\)</span>. Since every weight
 exceeds its tail, Hornich’s theorem <span class="citation"
@@ -1361,7 +1427,7 @@ to <span class="math inline" data-term-auto="off">\(\mathcal A\)</span>, and con
 Lebesgue measure from above gives the same limit. Kovač–Tao record this
 strict-tail inequality and the Cantor conclusion in the fixed-base
 setting <span class="citation" data-cites="kovactao"><a href="#ref-4">[4]</a></span>. Thus each
-represented target has a unique selector. The <a
+represented target determines a unique set of selected exponents. The <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:geometry">geometry
 section of the long record</a> also treats restricted supports. The
 linked results give the <a
@@ -1436,7 +1502,7 @@ contradicting cofinal nonincreases. ◻</p>
 </div>
 <p>The theorem supplies a test for membership. Applying it requires
 nonincreases along the actual greedy sequence of the target. For <span
-class="math inline" data-term-auto="off">\(x=0\)</span>, the selector is empty and <span
+class="math inline" data-term-auto="off">\(x=0\)</span>, no exponent is selected and <span
 class="math inline" data-term-auto="off">\(Q_N=0\)</span> at every rank. A finite subseries
 sum is likewise represented and satisfies the criterion. The target
 <span class="math inline" data-term-auto="off">\(x=3/4\)</span> lies strictly between <span
@@ -1486,9 +1552,10 @@ c_x(N+1)\ge Q_N+\beta_N,
 \end{equation}\]</span></div>
 <p>Both <span class="math inline" data-term-auto="off">\(Q_N\)</span>
 and <span class="math inline" data-term-auto="off">\(c_x\)</span> must arise from the same
-greedy selector. Counterexamples to fixed-multiplier schedules, with
-their finite phase masks, are retained in the long record. They concern
-those schedules; they do not decide either target.</p>
+greedy support <span class="math inline" data-term-auto="off">\(A_x\)</span>. Counterexamples
+to fixed-multiplier schedules, with their finite phase masks, are
+retained in the long record. They concern those schedules; they do not
+decide either target.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
@@ -1588,10 +1655,10 @@ class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>. The real remain
 weight is selected and eventually <span
 class="math inline" data-term-auto="off">\(r_n&gt;R_n\)</span>. For the integer comparisons,
 normalise by <span class="math inline" data-term-auto="off">\(4^R\)</span>. As long as the
-selectors agree through rank <span class="math inline" data-term-auto="off">\(d-1\)</span>,
-the remainders differ by at most <span
-class="math inline" data-term-auto="off">\(d/4^R\)</span>. Each fixed comparison is strict,
-since equality would give a finite representation of <span
+selected exponents agree through rank <span
+class="math inline" data-term-auto="off">\(d-1\)</span>, the remainders differ by at most
+<span class="math inline" data-term-auto="off">\(d/4^R\)</span>. Each fixed comparison is
+strict, since equality would give a finite representation of <span
 class="math inline" data-term-auto="off">\(x\)</span>. Choose <span
 class="math inline" data-term-auto="off">\(d_0\)</span> with <span
 class="math inline" data-term-auto="off">\(w_d&lt;\delta/2\)</span> for <span
@@ -1702,7 +1769,8 @@ class="math inline" data-term-auto="off">\(\sum_{d\in D}q_M(d)=2^{M-1}-1\)</span
 have <span class="math inline" data-term-auto="off">\(K_D(M)=1\)</span>. The terminal
 criterion allows a larger error of either sign. At a fixed depth these
 are different conditions, although cofinal existence of either kind of
-approximation characterises half-membership.</p>
+approximation characterises <span class="math inline" data-term-auto="off">\(1/2\in\mathcal
+A\)</span>.</p>
 <p>Conversely, if <span class="math inline" data-term-auto="off">\(X_A(2)=1/2\)</span>, then
 <span class="math inline" data-term-auto="off">\(1\notin A\)</span>, and the prefixes <span
 class="math inline" data-term-auto="off">\(A_M=A\cap\{2,\ldots,M\}\)</span> satisfy</p>
@@ -1714,9 +1782,10 @@ the full support <span class="math inline" data-term-auto="off">\(A\)</span> on 
 truncation does not change the coefficients through <span
 class="math inline" data-term-auto="off">\(M\)</span>. Hence the existence hypothesis of
 Theorem <a class="math-ref" href="#res:terminalhalf">D.2</a> is
-equivalent to half-membership. No compatible sequence of prefixes is
-required for the forward implication. The existence of the approximating
-supports remains unproved and would refute Problem <a class="math-ref" href="#res:problem">1.1</a>.</p>
+equivalent to <span class="math inline" data-term-auto="off">\(1/2\in\mathcal A\)</span>. No
+compatible sequence of prefixes is required for the forward implication.
+The existence of the approximating supports remains unproved and would
+refute Problem <a class="math-ref" href="#res:problem">1.1</a>.</p>
 </section>
 <section id="finite-families-with-a-shared-prefix." class="level5">
 <h5>Finite families with a shared prefix.</h5>
@@ -1741,8 +1810,8 @@ terminal carry ranges through the entire permitted interval. This is
 substantially more data than one finite approximation to <span
 class="math inline" data-term-auto="off">\(1/2\)</span>.</p>
 <div class="theorem" id="res:cylinderhalf">
-<p><strong>Theorem D.3</strong> (unbounded shared-prefix families imply a
-half-support). <em> Suppose that for every <span
+<p><strong>Theorem D.3</strong> (unbounded shared-prefix families
+represent one half). <em> Suppose that for every <span
 class="math inline" data-term-auto="off">\(N\)</span> there are <span
 class="math inline" data-term-auto="off">\(M,K\)</span> with <span
 class="math inline" data-term-auto="off">\(\max\{N,1\}\le M\)</span>, <span
@@ -1897,11 +1966,13 @@ class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span> are both include
 calculation. This scalar identity does not supply a converse to the
 positive-cover criterion.</p>
 </section>
-<section id="the-cost-of-a-divisor-cube" class="level3 unnumbered">
-<h3 class="unnumbered">The cost of a divisor cube</h3>
-<p>On a divisor cube the lower bound is asymptotically attained. For
-<span class="math inline" data-term-auto="off">\(F(q,P)=\{qd:d\mid\prod_{p\in P}p\}\)</span>,
-where <span class="math inline" data-term-auto="off">\(q\ge2\)</span> and no <span
+<section id="the-cost-for-a-finite-set-of-divisors"
+class="level3 unnumbered">
+<h3 class="unnumbered">The cost for a finite set of divisors</h3>
+<p>For the following finite divisor sets, the lower bound is
+asymptotically attained. For <span
+class="math inline" data-term-auto="off">\(F(q,P)=\{qd:d\mid\prod_{p\in P}p\}\)</span>, where
+<span class="math inline" data-term-auto="off">\(q\ge2\)</span> and no <span
 class="math inline" data-term-auto="off">\(p\in P\)</span> divides <span
 class="math inline" data-term-auto="off">\(q\)</span>, put <span
 class="math inline" data-term-auto="off">\(S=\sum_{p\in P}1/p\)</span>. If <span
@@ -1960,13 +2031,13 @@ class="math inline" data-term-auto="off">\(A_\star\)</span> calculation, the fre
 construction, the signed finite-denominator extension and the proof of
 Theorem <a class="math-ref" href="#res:one-over-twenty-one-frontier">D.1</a>.
 For the incomparability result, the formal construction of <span
-class="math inline" data-term-auto="off">\(V\)</span> uses a different squarefree
-divisor-cube schedule. The mixed implication is also formalised. The
-three logarithmic-sampling results in the long record have separate
-comparison records; these do not constitute human review of the ordinary
-proofs. No historical priority is claimed for the support comparison.
-Conditional statements retain their antecedents, and computations retain
-their finite ranges.</p>
+class="math inline" data-term-auto="off">\(V\)</span> uses a different construction using
+finite sets of squarefree divisors. The mixed implication is also
+formalised. The three logarithmic-sampling results in the long record
+have separate comparison records; these do not constitute human review
+of the ordinary proofs. No historical priority is claimed for the
+support comparison. Conditional statements retain their antecedents, and
+computations retain their finite ranges.</p>
 <section id="reproducing-the-weighted-theorem." class="level5">
 <h5>Reproducing the weighted theorem.</h5>
 <p>The two declarations for Theorem <a class="math-ref" href="#res:weighted-support">1.2</a> are in the

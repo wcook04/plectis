@@ -16,7 +16,7 @@
 \newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
-  pdftitle={Cubic-rate irrationality and reciprocal-tail rigidity for Erdős Problem 243},
+  pdftitle={Reciprocal sums and the Sylvester recurrence for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
   pdfkeywords={irrationality, Ahmes series, Sylvester sequence, unit fractions, Lean 4},
 }
@@ -24,8 +24,8 @@
 % Operators used repeatedly in the mathematical arguments.
 \newcommand{\fnum}{\operatorname{num}}
 
-\runninghead{Erd\H{o}s \#243: cubic rate and reciprocal tails}
-\title{Cubic-Rate Irrationality and Reciprocal-Tail Rigidity}
+\runninghead{Reciprocal sums and the Sylvester recurrence}
+\title{Reciprocal Sums and the Sylvester Recurrence}
 \subtitle{Erd\H{o}s Problem~\#243}
 \author{Will Cook}
 \date{September 2026}
@@ -51,9 +51,9 @@ reciprocal sum by telescoping:
 \[
  \frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.
 \]
-We call an integer sequence which eventually satisfies this recurrence
-a \emph{Sylvester tail}. Its tail sum at every sufficiently late index
-is $1/(a_n-1)$. Erd\H{o}s and Graham asked whether every rational
+For an increasing sequence of positive integers that eventually satisfies
+this recurrence, the tail sum at every sufficiently large index is
+$1/(a_n-1)$. Erd\H{o}s and Graham asked whether every rational
 reciprocal sum with $a_{n+1}\sim a_n^2$ arises in this way.
 
 \begin{problem}[Erd\H{o}s Problem 243]\label{res:problem}
@@ -69,7 +69,7 @@ Then $a_n=a_{n-1}^{2}-a_{n-1}+1$ for all sufficiently large $n$.
 Erd\H{o}s and Graham \cite[p.~64]{erdosgraham1980} asked this question;
 see also Erd\H{o}s \cite[p.~105]{erdos1988} and Bloom's catalogue
 \cite{erdosproblems}. We prove the following irrationality result for a
-restricted class of quadratically growing sequences.
+restricted class of sequences with $a_{n+1}\sim a_n^2$.
 
 \begin{theorem}[cubic-rate irrationality]\label{res:cubicrate}
 A strictly increasing sequence of positive integers with
@@ -79,7 +79,7 @@ A strictly increasing sequence of positive integers with
 has irrational reciprocal sum.
 \end{theorem}
 
-For a Sylvester tail, $a_n^2/a_{n+1}-1=O(1/a_n)$, which is much
+Under the eventual Sylvester recurrence, $a_n^2/a_{n+1}-1=O(1/a_n)$, which is much
 smaller than $3/n$. Theorem~\ref{res:cubicrate} therefore treats a
 restricted case of the problem by excluding rationality altogether.
 The general quadratic limit $a_{n+1}\sim a_n^2$ remains insufficient
@@ -97,24 +97,22 @@ by the ceiling is less than one, and hence
 \]
 The theorem applies to this explicitly defined sequence.
 
-Rationality is useful here because it makes suitably cleared tails
-integers. Those integers grow cubically, so they do not themselves
-become small. Instead we compare them with $F_n=n(n+1)(n+2)$, whose
-successive ratio is exactly $1+3/n$. The error estimate first gives
-$C_n=AF_n+o(n)$; subtracting the two recurrences then makes the
-\emph{first difference of the error} tend to zero. Consequently
-$\Delta^4C_n\to0$. Integrality turns this limit into eventual equality,
-leaving $C_n=AF_n+B$.
+If the sum is rational, clearing denominators gives positive integer tail
+numerators $C_n$. Their growth is cubic, so we compare them with
+$F_n=n(n+1)(n+2)$, for which $F_{n+1}/F_n=1+3/n$. The ratio estimate
+gives $C_n=AF_n+o(n)$. Subtracting the recurrences for $C_n$ and $AF_n$
+then shows that the first difference of the error tends to zero.
+It follows that $\Delta^4C_n\to0$. Since these fourth differences are
+integers, they eventually vanish, and $C_n=AF_n+B$.
 
-The rest of the proof asks whether this polynomial can be the numerator
-of an exact reciprocal tail. The denominator recurrence forces a square
-condition at every root of a cubic modulo almost every prime.
-Chebotarev turns that condition into a square in the cubic number field.
-Taking traces leaves two possible polynomials, and four consecutive
-terms modulo seven exclude both. Section~\ref{sec:secondaryrate} follows
-these steps, introducing reduction only after the polynomial is known.
+We next use the denominator recurrence to constrain this polynomial.
+It gives a square condition at every root of a cubic modulo almost
+every prime. Chebotarev's theorem implies that the corresponding element
+of the cubic number field is a square. Trace identities leave two
+possible polynomials; four consecutive terms modulo seven exclude both.
+The proof in Section~\ref{sec:secondaryrate} follows this order.
 
-For the recurrence criteria we use the integer remainders of
+For the recurrence criteria we use the integer tail numerators of
 Koizumi \cite[Lemma~4]{koizumi2025}. In Section~\ref{sec:bounded}, a
 stable gcd and the Chinese remainder theorem exclude a rational tail
 whose $P_n/a_n$ has bounded upward increments. An elementary infinite
@@ -128,7 +126,7 @@ also treats nonintegral rates and proves a stronger cubic disagreement
 theorem. Its detailed proof locations and the formal sources are listed
 in Appendix~\ref{app:index}.
 
-\section{Integer tails}\label{sec:transfer}\label{sec:state}
+\section{Tail numerators}\label{sec:transfer}\label{sec:state}
 For the Sylvester sequence $2,3,7,43,\ldots$, whose reciprocal sum is
 $1$, the successive tails are $1,1/2,1/6,1/42,\ldots$. Multiplication
 by the products $1,2,6,42,\ldots$ leaves the constant integer numerator
@@ -150,10 +148,10 @@ divides $P_n$, subtracting the finite prefix from $p/q$ gives
 \]
 The integer is positive because it equals the positive tail multiplied
 by $D_n$.
-Removing the term $1/a_n$ from the tail gives the exact recurrences
-\[
+Removing the term $1/a_n$ from the tail gives
+\begin{equation}\label{eq:recurrences}
  C_{n+1}=a_nC_n-D_n,\qquad D_{n+1}=a_nD_n.
-\]
+\end{equation}
 Koizumi constructs these coordinates in Lemma~4
 \cite[pp.~11--12]{koizumi2025}. On a pseudo-greedy tail his
 $c_n,d_n,e_n$ correspond to $C_n,D_n,D_n-(a_n-1)C_n$. If the tail
@@ -183,10 +181,11 @@ the rate without changing its precision:
 \begin{equation}\label{eq:cubic-ratio}
  \frac{C_{n+1}}{C_n}=1+\frac3n+o(n^{-3}).
 \end{equation}
-We first use only the ratio and integrality of $C_n$. Once these have
-forced a polynomial, we return to $D_n$ and the exact recurrences.
+We first show that $C_n$ is eventually a polynomial, using
+\eqref{eq:cubic-ratio} and integrality. We then apply
+\eqref{eq:recurrences} to restrict its coefficients.
 
-\subsection{Polynomial extraction}\label{sec:cubic-extraction}
+\subsection{An eventual cubic polynomial}\label{sec:cubic-extraction}
 The factor $1+3/n$ suggests the cubic
 $F_n=n(n+1)(n+2)$, since $F_{n+1}/F_n=1+3/n$. Write
 \eqref{eq:cubic-ratio} as $C_{n+1}=(1+3/n+\varepsilon_n)C_n$,
@@ -202,10 +201,8 @@ $z_n-A=o(n^{-2})$. Multiplying back by $F_n$ yields
  C_n=AF_n+\delta_n,\qquad \delta_n=o(n).
 \]
 
-To obtain an exact polynomial, we need a small \emph{integer}.
-The error $\delta_n$ need not be integral, and its size alone gives no
-control of its differences. Subtraction of the two ratio recurrences
-supplies the stronger estimate
+The estimate $\delta_n=o(n)$ alone does not control its differences.
+Instead, subtracting the recurrences for $C_n$ and $AF_n$ gives
 \[
  \Delta\delta_n=\frac3n\delta_n+\varepsilon_n C_n=o(1),
  \qquad \Delta h_n=h_{n+1}-h_n.
@@ -236,21 +233,19 @@ $G_n\mid G_{n+1}$. For every sufficiently late $n$, it divides four
 consecutive values of $C_n$, and hence their third difference $6A$.
 Thus $G_n$ stabilises at a positive integer $g$.
 
-All sufficiently late fractions can now be reduced by the \emph{same}
-factor. Put $u_n=C_n/g$ and $v_n=D_n/g$. They satisfy
-\[
- u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n,
- \qquad \gcd(u_n,v_n)=1.
-\]
-More generally, we call such a state with $u_n>0$ and $v_n\ge0$ a
-\emph{reduced exact tail}. Its denominator retains each earlier
-multiplier. Coprimality therefore prevents that multiplier from
-appearing in a later numerator or multiplier.
+We can therefore reduce all sufficiently late fractions by the same
+factor: put $u_n=C_n/g$ and $v_n=D_n/g$. The recurrences persist after
+this division. The following observation describes the resulting
+coprimality conditions.
 
 \begin{proposition}[persistent coprimality]\label{res:reduced}
-In a reduced exact tail, $\gcd(a_n,v_n)=1$. Distinct multipliers are
-pairwise coprime, and every earlier multiplier is coprime to every later
-numerator.
+Let $a_n,u_n,v_n$ be integer sequences with $u_n>0$, $v_n\ge0$ and
+$\gcd(u_n,v_n)=1$ satisfying
+\[
+ u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n.
+\]
+Then $\gcd(a_n,v_n)=1$. The $a_n$ are pairwise coprime, and
+$\gcd(a_i,u_t)=1$ whenever $i<t$.
 \end{proposition}
 \begin{proof}
 A prime dividing both $a_n$ and $v_n$ would divide $u_{n+1}$ and
@@ -265,11 +260,14 @@ Write the polynomial for $u_n$ as
 \begin{equation}\label{eq:normal-cubic}
  Q(n)=\frac m6 n(n+1)(n+2)+c.
 \end{equation}
-The third difference $m=6A/g$ is a positive integer. The constant $c$
-is also integral: choose a common denominator $H$ for the coefficients
-of $Q$. For any integer $t$, the difference $Q(t+kH)-Q(t)$ is an
-integer. Taking $k$ sufficiently large transfers integrality from the
-known tail values to $Q(t)$, and in particular to $Q(0)=c$.
+The third difference $m=6A/g$ is a positive integer. Since
+$n(n+1)(n+2)/6=\binom{n+2}{3}$ is an integer, any sufficiently late
+value $u_n=Q(n)$ gives
+\[
+ c=u_n-m\binom{n+2}{3}\in\Z.
+\]
+Thus $Q$ is integer-valued, although its coefficients need not all be
+integers.
 If a prime $\ell$ divides $c$, choose an arbitrarily late
 $n\equiv-1\pmod{6\ell}$. Both $Q(n)$ and $Q(n+1)$ would be divisible
 by $\ell$, contradicting adjacent coprimality. This also excludes $c=0$.
@@ -370,7 +368,16 @@ The square relation gives a pair of reciprocal elements:
 Put $z=\alpha+\beta$. Then $z^{-1}=\alpha-\beta$ and
 $2\alpha=z+z^{-1}$. Since $z\in K$ and $\alpha\in\Q(z)$, we have
 $\Q(z)=K$. Write the minimal polynomial of $z$ as
-$z^3+bz^2+dz+w$, where $b,d,w\in\Q$ and $w\ne0$.
+\[
+ p(T)=T^3+bT^2+dT+w,\qquad b,d,w\in\Q,\quad w\ne0.
+\]
+The minimal polynomial of $z^{-1}$ is the monic reciprocal polynomial
+\[
+ \frac{T^3p(T^{-1})}{w}
+   =T^3+\frac dwT^2+\frac bwT+\frac1w.
+\]
+These two polynomials give the traces of $z$ and $z^{-1}$ by the same
+Newton identities. All traces below are from $K$ to $\Q$.
 
 The cubic for $\alpha$ determines its first three traces:
 \[
@@ -400,7 +407,8 @@ mixed terms in $(z+z^{-1})^3$ have trace
 $3\operatorname{Tr}(z+z^{-1})=0$. These give the other two equalities
 in \eqref{eq:cubic-traces}.
 
-The middle equation factors as $(bw-1)(b+w)=0$. Write $w=r/s$ in
+Multiplying the middle equation by $w$ and bringing all terms to one
+side gives $(bw-1)(b+w)=0$. Write $w=r/s$ in
 lowest terms, with $r\ne0$, $s>0$. Substituting $b=-w$ or $b=1/w$
 into the last equation and using $\eta=6c/m$ gives respectively
 \[
@@ -492,13 +500,13 @@ stabilise the gcd and produce a block of consecutive integers that the
 numerator cannot cross.
 
 \subsection{Zero errors and descent}\label{sec:defect}\label{sec:descent}
-For brevity, an \emph{exact state} consists of the sequences and
-recurrences in Theorem~\ref{res:bounded}. In a reciprocal tail,
-$E_n=0$ says $x_n=1/(a_n-1)$. We write $z_+=\max(z,0)$ and call
-$|E_n|<C_n$ \emph{strict centring}.
+Throughout this section, $E_n=D_n-(a_n-1)C_n$ and
+$z_+=\max(z,0)$. The arguments below use the recurrences
+\eqref{eq:recurrences}. We state positivity and the bound $|E_n|<C_n$
+where they are needed.
 
 \begin{proposition}[error identities]\label{res:update}\label{res:defect}
-For an exact integer state,
+For integer sequences satisfying \eqref{eq:recurrences},
 \[
  C_{n+1}=C_n-E_n,\qquad
  \bigl(a_{n+1}-a_n^2+a_n-1\bigr)C_{n+1}=a_n^2E_n-E_{n+1}.
@@ -511,10 +519,10 @@ next index and using $D_{n+1}=a_nD_n$ gives the second.
 \end{proof}
 
 Equation~\eqref{eq:tail-estimate} now gives
-$E_n/C_n=1-C_{n+1}/C_n\to0$, hence strict centring eventually.
+$E_n/C_n=1-C_{n+1}/C_n\to0$, so $|E_n|<C_n$ for all sufficiently large $n$.
 Koizumi proves this relative-gap limit for an eventual pseudo-greedy
 tail \cite[Corollary~3, p.~9]{koizumi2025}. His rounding convention
-also gives half-width centring, a stronger bound than is used here.
+also gives $-C_n/2\le E_n<C_n/2$, a stronger bound than we need.
 
 Koizumi's Lemma~3 gives zero absorption for pseudo-greedy tails, and
 Proposition~1(2) uses descent when their gaps are eventually nonnegative
@@ -522,9 +530,11 @@ Proposition~1(2) uses descent when their gaps are eventually nonnegative
 what the two arguments require.
 
 \begin{theorem}[absorption and descent]\label{res:absorb}\label{res:descent}
-For a positive exact state with strict centring, $E_n=0$ implies
-$E_{n+1}=0$. For any positive integer state with $C_{n+1}=C_n-E_n$,
-eventual nonnegativity of $E_n$ implies its eventual vanishing.
+Let $a,C,D:\N\to\N$ satisfy $a_n>1$, $C_n>0$ and
+\eqref{eq:recurrences}. If $|E_n|<C_n$ for every $n$, then $E_n=0$
+implies $E_{n+1}=0$. For any positive integer sequence $C_n$ with
+$C_{n+1}=C_n-E_n$, eventual nonnegativity of $E_n$ implies its eventual
+vanishing.
 \end{theorem}
 \begin{proof}
 When $E_n=0$, the second identity in Proposition~\ref{res:update}
@@ -535,32 +545,35 @@ nonincreasing, hence constant.
 \end{proof}
 
 \begin{corollary}[two zero errors]\label{res:step}\label{res:eventual}
-If $E_n=E_{n+1}=0$ and $C_{n+1}\ne0$, then
-$a_{n+1}=a_n^2-a_n+1$. Thus eventual zero error in a positive exact state
-implies the eventual Sylvester recurrence.
+For integer sequences satisfying \eqref{eq:recurrences}, if
+$E_n=E_{n+1}=0$ and $C_{n+1}\ne0$, then
+$a_{n+1}=a_n^2-a_n+1$. In particular, if $a,C,D:\N\to\N$
+also satisfy $a_n>1$ and $C_n>0$, eventual zero error implies
+the eventual Sylvester recurrence.
 \end{corollary}
 \begin{proof}
 Cancel the nonzero factor $C_{n+1}$ in the second error identity.
 \end{proof}
 
-After the centring threshold, one zero therefore makes every subsequent
-error zero. If there are no late zeros, integrality gives $|E_n|\ge1$,
+Once $|E_n|<C_n$ holds at every later index, one zero makes every
+subsequent error zero. If there are no late zeros, integrality gives $|E_n|\ge1$,
 and $|E_n|/C_n\to0$ forces $C_n\to\infty$.
 The scalar update alone permits $C_n=n+1$, $E_n=-1$ forever.
 To exclude such behaviour we shall use the denominator recurrence.
 
 \subsection{A stable gcd and a forbidden block}\label{sec:barrier}
 \begin{proposition}[gcd stabilisation]\label{res:gcdstab}
-For a positive exact state, suppose that some fixed integer $B\ge1$
-satisfies $-B\le E_n<0$ at infinitely many indices. Then
-$G_n=\gcd(C_n,D_n)$ is eventually constant. Division by its stable value
-gives a reduced exact tail.
+Let $a,C,D:\N\to\N$ satisfy $a_n>1$, $C_n>0$ and
+\eqref{eq:recurrences}. If some fixed integer $B\ge1$ satisfies
+$-B\le E_n<0$ at infinitely many indices, then
+$G_n=\gcd(C_n,D_n)$ is eventually constant. Dividing $C_n,D_n$ by
+its eventual value gives coprime sequences satisfying the same recurrences.
 \end{proposition}
 \begin{proof}
 We have $G_n\mid G_{n+1}$ and $G_n\mid E_n$. Given $n$, choose $t\ge n$
 with $-B\le E_t<0$. Then $G_n\le G_t\le -E_t\le B$.
 Hence the positive divisibility chain stabilises. Division by its
-stable value preserves the recurrences and gives coprime states.
+stable value preserves the recurrences and gives coprime numerators and denominators.
 \end{proof}
 For this gcd argument, bounded negative errors need occur only
 arbitrarily late. To control the first crossing below, we shall need
@@ -664,7 +677,8 @@ Koizumi's proof of Corollary~4(1) uses this product-weighted comparison
 nonpositive upper limit, whereas the argument here allows any finite
 upper limit. A corresponding LCM comparison appears below.
 For $a_n=b^{2^{n-1}}$, $b\ge2$, the increments of $P_n/a_n$ are zero.
-Since this is not a Sylvester tail, the corollary gives irrationality.
+Since the sequence does not eventually satisfy the Sylvester recurrence,
+the corollary gives irrationality.
 For a Sylvester sequence starting at $a_1>1$,
 $a_n-1=(a_1-1)P_n$ and the increments tend to zero.
 
@@ -701,7 +715,7 @@ $4,8,43,1387$. Here $a_n\ge2\cdot2^{2^{n-1}}$ and
 \]
 Consequently $t_n\sim K n$ and $t_{n+1}-t_n\to K>0$.
 The corollary proves irrationality because $\gamma_n\sim1/n$ is
-incompatible with a Sylvester tail.
+incompatible with the eventual Sylvester recurrence.
 
 For comparison, the ceiling example with rate $3/n$ in the introduction
 has $t_n\sim K_3n^3$ and $t_{n+1}-t_n\sim3K_3n^2$ for some $K_3>0$.
@@ -792,7 +806,7 @@ For the weighted version we will also need the upper bound, which
 makes the comparison error summable.
 
 Write $R_n=\max_{j\le n}U_j$ and
-$\mathcal R=\{n:U_{n+1}>R_n\}$.  Strict centring already gives
+$\mathcal R=\{n:U_{n+1}>R_n\}$.  The inequality $|V_n|<U_n$ gives
 $U_{n+1}<U_n$ when $\rho_n\ge2$, so every sufficiently late strict rise has
 $\rho_n=1$.  The stronger eventual bound $-U_n\le2V_n$, supplied by
 $V_n/U_n=E_n/C_n\to0$, gives the quantitative estimate
@@ -852,10 +866,13 @@ The full jump matters: if the previous record is $10$ and a step goes
 from $5$ to $12$, then it first crosses $11$, but its starting point is
 $5$, not $10$. The jump is $7$, although the record increases by only
 $2$. These numbers illustrate the distinction between the two
-increments; they are not an asserted exact orbit.
-If $d_n\le B$, then
-$U_n\in[\tau-B,\tau)$, so some $m_i$ divides $U_n$. It also divides
-$L_n$, hence divides $d_n=(a_n-1)U_n-L_n$, contradicting
+increments; no denominator sequence satisfying \eqref{eq:recurrences} is asserted.
+If $d_n\le B$, then $U_n\in[\tau-B,\tau)$, so
+\[
+ U_n=\tau-B+i=x+kP+i\qquad\text{for some }0\le i<B.
+\]
+The choice of $x$ gives $m_i\mid U_n$. Since $m_i\mid L_n$ as well,
+we obtain $m_i\mid d_n=(a_n-1)U_n-L_n$, contradicting
 $0<d_n\le B<m_i$.
 
 It follows that every crossing has $d_n>B$. If one step first
@@ -875,7 +892,8 @@ For $R_N\ge R_T+P$, comparison of each interval with its left endpoint gives
  \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
 \end{equation}
 Since $R_n\to\infty$, the right side diverges for every $B\ge1$;
-$B=0$ follows by domination. Conversely a Sylvester tail telescopes to
+$B=0$ follows by domination. Conversely, the eventual Sylvester recurrence
+gives by telescoping
 $x_n=1/(a_n-1)$, so $V_n=0$ eventually.
 \end{proof}
 
@@ -1003,7 +1021,8 @@ that for some fixed integer $B\ge0$,
 If the recurrence is not eventually Sylvester, first crossings instead give
 $F_B(X)\ge X/P_B-O_B(1)$, with an orbit-dependent CRT modulus $P_B$.
 The sum groups each record step by its starting numerator $U_n$, not by
-the running maximum $R_n$ or the time index. On a non-Sylvester tail,
+the running maximum $R_n$ or the time index. If the eventual Sylvester
+recurrence fails,
 $U_n\to\infty$, so only finitely many of these steps begin below any
 fixed $X$.
 To see the equivalence with an admissible weight, enumerate the record
@@ -1057,17 +1076,17 @@ control of the error. For example, $C_n=n^2+1$, $E_n=-(2n+1)$ has vanishing
 relative error and the necessary scalar pattern. But at $n=2,3,4$ its
 numerators are $5,10,17$. The update $10=5a_2-D_2$ forces $5\mid D_2$,
 hence $5\mid D_3=a_2D_2$; the next update would force $5\mid17$.
-It is not an exact tail. The companion's Section~14 also constructs
+Thus these numerators cannot satisfy \eqref{eq:recurrences}. The companion's Section~14 also constructs
 sequences avoiding sparse fixed moduli and distinguishes that avoidance
 from compatibility with all later denominators. Neither property alone
 supplies \eqref{eq:remaining-record-budget}.
 
-Conversely, a full exact orbit already contains the analytic data.
-For a zero-indexed orbit with $a_n>1$, $C_n>0$, $D_n\ge0$ and
-$E_n/C_n\to0$, Section~4 of the companion proves $D_n>0$,
-$C_n/D_n\to0$, $\sum_n1/a_n=C_0/D_0$ and quadratic growth.
-These are global assumptions on an infinite orbit. A scalar profile
-or a finite admissible prefix supplies only part of them.
+Conversely, suppose integer sequences indexed from zero satisfy
+\eqref{eq:recurrences}, with $a_n>1$, $C_n>0$, $D_n\ge0$ and
+$E_n/C_n\to0$. Section~4 of the companion proves that $D_n>0$,
+$C_n/D_n\to0$, $\sum_n1/a_n=C_0/D_0$ and $a_{n+1}/a_n^2\to1$.
+All these hypotheses concern the infinite sequences; a scalar example
+or a finite initial segment satisfies only some of them.
 
 \begin{problem}[growth of repeated denominator factors]\label{res:lcmheight}
 For every rational-tail orbit satisfying the hypotheses but not the conclusion of Problem~\ref{res:problem},
@@ -1093,30 +1112,29 @@ asking what the additional bound excludes and for pointing out unnecessary
 terminology and notation.
 
 \appendix
-\section{A factorial residue reduction for forced orbits}\label{app:residue}
+\section{A factorial modulus for integral recursion}\label{app:residue}
 
-A constant-negative error $E_n=-m$ with $C_0=c$ produces $C_n=c+nm$ and the
-shape equation
+A constant-negative error $E_n=-m$ with $C_0=c$ gives $C_n=c+nm$ and the identity
 \begin{equation}\label{eq:shape}
  D_n+m=(a_n-1)C_n.
 \end{equation}
 In the case $m=c=1$, where~\eqref{eq:shape} reads $D_n+1=(a_n-1)(n+1)$, each
-multiplier is determined by its predecessor; we call such an orbit
-\emph{forced}.  At index $n$ the numerator of the next multiplier is
+multiplier is determined by its predecessor. The recursion is
+$a_{n+1}=\fnum(n,a_n)/(n+2)$, where
 \[
  \fnum(n,a)=(n+1)a^{2}-(n+2)a+(n+3),
 \]
 the
 \lword{Erdos243/FiniteHorizonResidue.lean}{22}{forcedNumerator}{forced
-numerator}, and the divisor is $n+2$.  The orbit continues for another step exactly when this division is
-exact. Here survival counts exact divisions; it does not impose the
-positivity conditions of an infinite reciprocal-tail orbit. The
-\lword{Erdos243/FiniteHorizonResidue.lean}{75}{ForcedSurvives}{formal survival predicate}
+numerator}. We stop at the first nonintegral quotient. This procedure
+checks divisibility only; it does not impose the positivity conditions
+required of an infinite reciprocal-tail sequence. The
+\lword{Erdos243/FiniteHorizonResidue.lean}{75}{ForcedSurvives}{formal exact-division condition}
 requires exact division at each step.
-\begin{example}[the shape equation running until it fails]\label{ex:shape}
-The forced orbit from $a=3$ reads this way: $\fnum(0,3)=6$ is divisible by $2$
-and gives $a_1=3$, while $\fnum(1,3)=13$ is not divisible by $3$, so the orbit
-stops there.
+\begin{example}[a nonintegral second step]\label{ex:shape}
+Starting from $a_0=3$, the first numerator $\fnum(0,3)=6$ is
+divisible by $2$, giving $a_1=3$. The next numerator
+$\fnum(1,3)=13$ is not divisible by $3$, so the recursion stops.
 \end{example}
 Direct iteration can produce very large intermediate integers. To
 decide whether the first $h$ divisions are exact, however, it suffices
@@ -1127,26 +1145,29 @@ pp.~13--14]{koizumi2025}; for the forced numerator that product is a
 factorial.
 
 \begin{theorem}[factorial residue reduction]\label{res:residue}
-For all $h$ and all integers $a\equiv b \pmod{(h+1)!}$, the orbit from $a$
-survives $h$ forced updates exactly when the orbit from $b$ does.
+Let $h$ be a nonnegative integer and let $a,b$ be integers with $a\equiv b\pmod{(h+1)!}$.
+The first $h$ steps of the recursion
+$a_{n+1}=\fnum(n,a_n)/(n+2)$, starting at index zero, are integral
+for $a_0=a$ if and only if they are integral for $a_0=b$.
 \end{theorem}
 
 \begin{proof}
 Define $M(0,i)=1$ and $M(h+1,i)=(i+2)M(h,i+1)$. Thus
 $M(h,0)=(h+1)!$. We prove the stronger statement that, at index $i$,
-congruent inputs modulo $M(h,i)$ survive the same $h$ updates.
+congruent inputs modulo $M(h,i)$ give the same answer to whether the
+next $h$ quotients are all integral.
 There is nothing to prove for $h=0$.
 
 For the inductive step, suppose
 $a\equiv b\pmod{(i+2)M(h,i+1)}$. Since $\fnum(i,\cdot)$ is an integer
 polynomial, its values at $a$ and $b$ are congruent modulo that product.
 In particular, one is divisible by $i+2$ if and only if the other is.
-If neither is divisible, both orbits stop. Otherwise their quotients
+If neither is divisible, both recursions stop. Otherwise their quotients
 are congruent modulo $M(h,i+1)$, so the induction hypothesis applies
 to the remaining $h$ updates at index $i+1$. Taking $i=0$ proves the claim.
 \end{proof}
 
-At $h=1$, survival means $2\mid a^2-2a+3$, or equivalently that $a$ is odd.
+For $h=1$, the condition is $2\mid a^2-2a+3$, or equivalently that $a$ is odd.
 This illustrates Theorem~\ref{res:residue} with modulus $2!=2$.
 
 The enumeration in Example~9.1 of the companion, over
@@ -1159,12 +1180,12 @@ requires the separate argument under the hypotheses given there.
 
 
 \section{Sources and related work}\label{app:index}
-The companion \emph{Reciprocal-Tail Rigidity: Theorems, Proofs and
-Questions} gives full proofs and fixed-revision source links.
+The companion \emph{Reciprocal Sums and the Sylvester Recurrence:
+Further Results and Proofs} gives full proofs and fixed-revision source links.
 \href{erdos243-reciprocal-tail-reasoning-surface.pdf\#243-long-cubic}{Section~2}
 treats regular rates and the stronger cubic disagreement result;
 \href{erdos243-reciprocal-tail-reasoning-surface.pdf\#243-long-integer-tails}{Sections~4--5}
-develop exact tails. The gcd and bounded-increment arguments culminate in
+develop the integer tail numerators. The gcd and bounded-increment arguments culminate in
 \href{erdos243-reciprocal-tail-reasoning-surface.pdf\#243-long-bounded-increases}{Section~12}.
 The LCM results are in
 \href{erdos243-reciprocal-tail-reasoning-surface.pdf\#243-long-weighted-records}{Section~6},

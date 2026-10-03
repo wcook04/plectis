@@ -30,38 +30,44 @@ construct linear forms <span class="math inline" data-term-auto="off">\(MS+k\)</
 initial summands cancel. A nonintegral form excludes every rational
 value <span class="math inline" data-term-auto="off">\(S=a/q\)</span> for which <span
 class="math inline" data-term-auto="off">\(q\mid M\)</span>.</p>
-<p>The cancellation problem admits an exact solution. We give an
-integral basis in which each basis vector changes just one weighted sum
-(Theorem <a class="math-ref" href="#res:divisor-channel-coordinates">2.1</a>).
-Thus cancellation amounts to prescribing coordinates. The basis
-temporarily allows an index-one coefficient; removing it leaves one
-linear Diophantine equation. Its solvability determines all possible
-factorial moments, and Theorem <a class="math-ref" href="#res:finite-channel-moment-certificate">3.1</a>
-computes the resulting ideal by a finite gcd.</p>
-<p>The construction begins with <span
-class="math inline" data-term-auto="off">\(n(n-1)!-n!=0\)</span>. For our weights, this
-adjacent difference is still zero except when a floor exponent changes,
-which happens at divisors of <span class="math inline" data-term-auto="off">\(n\)</span>.
-Correcting the proper divisors in increasing order isolates the weighted
-sum at <span class="math inline" data-term-auto="off">\(n\)</span>. The corrections are
-integral and triangular, so they give every integer solution, with no
-search for suitable coefficients.</p>
-<p>At depth four the least positive moment is <span
-class="math inline" data-term-auto="off">\(1380\)</span>. We derive an attaining vector and
-place its remainder between consecutive integers. The algebraic
-classification holds independently of whether <span
-class="math inline" data-term-auto="off">\(S\)</span> is rational. To prove irrationality,
-one would need a nonintegral form with <span class="math inline" data-term-auto="off">\(q\mid
-M\)</span> for each prescribed <span
-class="math inline" data-term-auto="off">\(q&gt;0\)</span>. Primitive vectors whose moments
-eventually have this divisibility are available, but nonintegrality of
-their remainders remains unproved.</p>
+<p>We classify the integer coefficient vectors that cancel the first
+<span class="math inline" data-term-auto="off">\(D-1\)</span> weighted sums. Starting with
+adjacent factorial differences, we correct each vector using those
+already constructed at its proper divisors. The resulting basis isolates
+each weighted sum (Theorem <a class="math-ref" href="#res:divisor-channel-coordinates">2.1</a>).
+The triangular change of basis is invertible over <span
+class="math inline" data-term-auto="off">\(\mathbb Z\)</span>, so it gives coordinates for
+every integer solution, not just a way to construct some solutions.</p>
+<p>The desired vectors are supported on indices at least two.
+Temporarily allowing index one makes the basis construction possible;
+removing it then amounts to one linear Diophantine equation. Its
+solvability determines the possible values of <span
+class="math inline" data-term-auto="off">\(M\)</span>. The gcd that occurs in this equation
+is defined by an infinite sequence, but Theorem <a class="math-ref" href="#res:finite-channel-moment-certificate">3.1</a>
+computes it on a specified finite interval.</p>
+<p>When cancellation is imposed through <span
+class="math inline" data-term-auto="off">\(D=4\)</span>, the least positive value of <span
+class="math inline" data-term-auto="off">\(M\)</span> is <span
+class="math inline" data-term-auto="off">\(1380\)</span>. We derive a vector attaining this
+value and bound its remainder between consecutive integers. The
+classification itself does not assume that <span
+class="math inline" data-term-auto="off">\(S\)</span> is rational. An irrationality proof
+would require, for each <span class="math inline" data-term-auto="off">\(q&gt;0\)</span>, a
+nonintegral form whose coefficient <span
+class="math inline" data-term-auto="off">\(M\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span>. The companion constructs primitive
+vectors with this divisibility property; nonintegrality of their
+remainders remains unproved.</p>
 <p>Hančl and Tijdeman’s tail-integrality lemma treats factorial series
 with integer coefficients <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-4">[4]</a></span>. Their factorial-scaled partial sums
-are integers. Our prefixes lack this property, so the integer-difference
-identity below replaces the clearing step. Koepf and Schmersau’s
-factorial-digit criterion <span class="citation"
+are integers. Here the scaled partial sum need not be integral. Instead,
+the weight congruences give <span class="math inline" data-term-auto="off">\(\mathcal
+R-MS\in\mathbb Z\)</span> <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>; the
+assumption <span class="math inline" data-term-auto="off">\(S=a/q\)</span> and <span
+class="math inline" data-term-auto="off">\(q\mid M\)</span> then makes <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span> integral. Koepf and
+Schmersau’s factorial-digit criterion <span class="citation"
 data-cites="koepf-schmersau"><a href="#ref-3">[3]</a></span> is used in the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-digits">companion’s
 digit argument</a> to give an equivalent eventual-pattern condition for
@@ -70,18 +76,18 @@ arbitrarily large indices also remains unproved.</p>
 <p>Sections <a class="math-ref" href="#sec:channels">2</a> and
 <a class="math-ref" href="#sec:moments">3</a> give the
 coordinate construction and finite gcd. Section <a class="math-ref" href="#sec:depth-four">4</a> uses them to
-construct and test a minimal-moment vector. Section <a class="math-ref" href="#sec:open">5</a> states the remaining
+construct and test a vector attaining the least positive value of <span
+class="math inline" data-term-auto="off">\(M\)</span>. Section <a class="math-ref" href="#sec:open">5</a> states the remaining
 nonintegrality question, with the secondary arithmetic criteria
 developed in the companion.</p>
 </section>
 <section id="sec:channels" class="level2">
 <h2>An integral basis</h2>
-<p>Modulo <span class="math inline" data-term-auto="off">\(d!-1\)</span>, a factor <span
-class="math inline" data-term-auto="off">\(d!\)</span> can be removed from a numerator
-without changing its residue. We use this freedom to replace <span
-class="math inline" data-term-auto="off">\(n!\)</span> by a smaller integer whose change from
-<span class="math inline" data-term-auto="off">\(n-1\)</span> to <span
-class="math inline" data-term-auto="off">\(n\)</span> is easy to follow. For <span
+<p>Since <span class="math inline" data-term-auto="off">\(d!\equiv1\pmod{d!-1}\)</span>,
+dividing <span class="math inline" data-term-auto="off">\(n!\)</span> by an integer power of
+<span class="math inline" data-term-auto="off">\(d!\)</span> preserves its residue whenever
+the quotient is integral. We choose the exponent so that the quotient
+changes predictably at successive indices. For <span
 class="math inline" data-term-auto="off">\(d\ge2\)</span> and <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
@@ -96,13 +102,13 @@ particular it is an integer, and <span
 class="math inline" data-term-auto="off">\(n!=(d!)^kW_{d,n}\)</span> gives <span
 class="math inline" data-term-auto="off">\(W_{d,n}\equiv n!\pmod{d!-1}\)</span>. For example,
 <span class="math inline" data-term-auto="off">\(W_{3,4}=4\)</span> and <span
-class="math inline" data-term-auto="off">\((4!-W_{3,4})/(3!-1)=4\)</span>. The exponent
-counts complete blocks of <span class="math inline" data-term-auto="off">\(d\)</span>
-indices. It is this choice that makes its jumps occur exactly at
-multiples of <span class="math inline" data-term-auto="off">\(d\)</span>.</p>
+class="math inline" data-term-auto="off">\((4!-W_{3,4})/(3!-1)=4\)</span>. The exponent <span
+class="math inline" data-term-auto="off">\(\lfloor n/d\rfloor\)</span> increases precisely at
+multiples of <span class="math inline" data-term-auto="off">\(d\)</span>, which will
+determine the nonzero weighted differences.</p>
 <p>For a finitely supported integer vector <span
-class="math inline" data-term-auto="off">\(\lambda=(\lambda_n)_{n\ge1}\)</span>, we define
-its factorial moment and weighted sums by</p>
+class="math inline" data-term-auto="off">\(\lambda=(\lambda_n)_{n\ge1}\)</span>, define the
+integer linear forms</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M(\lambda)=\sum_n\lambda_n n!,\qquad
 V_d(\lambda)=\sum_n\lambda_nW_{d,n},\]</span></div>
@@ -198,13 +204,13 @@ class="math inline" data-term-auto="off">\(23\)</span></td>
 </tbody>
 </table>
 </div>
-<p>All later weighted sums are zero because the moment is zero. The last
-row defines <span class="math inline" data-term-auto="off">\(U_4\)</span>: it isolates <span
-class="math inline" data-term-auto="off">\(V_4=4!-1\)</span> without changing the moment. For
-a general <span class="math inline" data-term-auto="off">\(n\)</span>, the unwanted sums are
-precisely those at proper divisors of <span
-class="math inline" data-term-auto="off">\(n\)</span>, and their correcting vectors have
-already been built.</p>
+<p>For <span class="math inline" data-term-auto="off">\(d&gt;4\)</span> these weighted sums
+equal <span class="math inline" data-term-auto="off">\(M=0\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(U_4=T_4-6U_2\)</span> isolates <span
+class="math inline" data-term-auto="off">\(V_4=4!-1\)</span>. In general, the unwanted sums
+occur at proper divisors of <span class="math inline" data-term-auto="off">\(n\)</span>,
+whose correcting vectors are already available in an inductive
+construction.</p>
 <div class="theorem" id="res:divisor-channel-coordinates">
 <p><strong>Theorem 2.1</strong> (an integer basis with prescribed weighted
 sums). <em> Set </em></p>
@@ -225,8 +231,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \end{equation}\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The moment of <span
-class="math inline" data-term-auto="off">\(T_n\)</span> is zero. If <span
+<p><em>Proof.</em> We have <span
+class="math inline" data-term-auto="off">\(M(T_n)=0\)</span>. If <span
 class="math inline" data-term-auto="off">\(d\nmid n\)</span>, the floor exponents at <span
 class="math inline" data-term-auto="off">\(n-1\)</span> and <span
 class="math inline" data-term-auto="off">\(n\)</span> agree, so <span
@@ -244,18 +250,19 @@ at <span class="math inline" data-term-auto="off">\(n\)</span> remains <span
 class="math inline" data-term-auto="off">\(n!-1\)</span>, since <span
 class="math inline" data-term-auto="off">\(W_{n,n}=1\)</span>. This proves the identities by
 induction.</p>
-<p>To see that no integer vectors are missed, restrict to indices <span
+<p>For completeness, restrict to indices <span
 class="math inline" data-term-auto="off">\(1,\ldots,N\)</span>. The columns <span
 class="math inline" data-term-auto="off">\(e_1,T_2,\ldots,T_N\)</span> form a triangular
 integer matrix with diagonal <span
-class="math inline" data-term-auto="off">\(1,-1,\ldots,-1\)</span>. The correction from <span
-class="math inline" data-term-auto="off">\(T_n\)</span> to <span
-class="math inline" data-term-auto="off">\(U_n\)</span> uses only earlier columns and leaves
-its diagonal entry unchanged. This second change is triangular with
-diagonal one. Both changes therefore have integer inverses.
-Equivalently, one can recover the coefficients by back-substitution,
-dividing only by <span class="math inline" data-term-auto="off">\(1\)</span> or <span
-class="math inline" data-term-auto="off">\(-1\)</span>.</p>
+class="math inline" data-term-auto="off">\(1,-1,\ldots,-1\)</span>. Replacing each <span
+class="math inline" data-term-auto="off">\(T_n\)</span> by <span
+class="math inline" data-term-auto="off">\(U_n\)</span> subtracts an integer combination of
+earlier columns, so the second change of basis is triangular with
+diagonal one. Both matrices have integer inverses: back-substitution
+divides only by <span class="math inline" data-term-auto="off">\(1\)</span> or <span
+class="math inline" data-term-auto="off">\(-1\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(e_1,U_2,\ldots,U_N\)</span> is a basis over <span
+class="math inline" data-term-auto="off">\(\mathbb Z\)</span>.</p>
 <p>In the resulting expansion, applying <span
 class="math inline" data-term-auto="off">\(M\)</span> gives the coefficient of <span
 class="math inline" data-term-auto="off">\(e_1\)</span>. If the coefficient of <span
@@ -274,35 +281,36 @@ sums. For example,</p>
 U_9=9e_8-e_9-5040e_2+1680e_3.
 \label{res:translator}
 \end{equation}\]</span></div>
-<p>Each <span class="math inline" data-term-auto="off">\(U_n\)</span>
-has moment zero and remainder one. We can thus alter an individual
-weighted sum by adding a multiple of <span
-class="math inline" data-term-auto="off">\(U_n\)</span>, while the fractional part of the
-remainder stays fixed. This will separate the cancellation equations
-from the eventual nonintegrality question.</p>
+<p>Since <span
+class="math inline" data-term-auto="off">\(M(U_n)=0\)</span> and <span
+class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span>, adding an integer
+multiple of <span class="math inline" data-term-auto="off">\(U_n\)</span> changes only <span
+class="math inline" data-term-auto="off">\(V_n\)</span> among the weighted sums and changes
+the remainder by an integer. It therefore preserves both <span
+class="math inline" data-term-auto="off">\(M\)</span> and the fractional part of the
+remainder.</p>
 </section>
 <section id="sec:moments" class="level2">
-<h2>Attainable moments</h2>
-<p>Fix a cancellation depth <span class="math inline" data-term-auto="off">\(D\ge2\)</span>.
-The basis separates the equations <span
-class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span> from the restriction
-<span class="math inline" data-term-auto="off">\(\lambda_1=0\)</span>. We first solve the
-equations with index one still allowed. The weight congruence, or the
-coordinates in <a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>, gives</p>
+<h2>Possible values of <span class="math inline" data-term-auto="off">\(M\)</span></h2>
+<p>Fix <span class="math inline" data-term-auto="off">\(D\ge2\)</span>. We first solve <span
+class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span> with index one allowed,
+and then impose the support restriction <span
+class="math inline" data-term-auto="off">\(\lambda_1=0\)</span>. The weight congruence, or
+the coordinates in <a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>, gives</p>
 <div class="math-display" id="res:congruence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 V_d(\lambda)\equiv M(\lambda)\pmod{d!-1}.
 \label{res:congruence}
 \end{equation}\]</span></div>
-<p>Cancellation through <span
-class="math inline" data-term-auto="off">\(D\)</span> therefore forces the moment to be
-divisible by</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L_D=\operatorname{lcm}_{2\le
-d\le D}(d!-1).\]</span></div>
-<p>This necessary condition is sufficient while
-index one is allowed: <span class="math inline" data-term-auto="off">\(L_De_1\)</span> has
-every weighted sum equal to <span class="math inline" data-term-auto="off">\(L_D\)</span>,
-and subtracting <span class="math inline" data-term-auto="off">\(L_D/(d!-1)\)</span> copies
-of <span class="math inline" data-term-auto="off">\(U_d\)</span> sets the <span
+<p>It follows that <span
+class="math inline" data-term-auto="off">\(M\)</span> must be divisible by</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[L_D=\operatorname{lcm}_{2\le d\le
+D}(d!-1).\]</span></div>
+<p>This necessary condition is sufficient while index
+one is allowed: <span class="math inline" data-term-auto="off">\(L_De_1\)</span> has every
+weighted sum equal to <span class="math inline" data-term-auto="off">\(L_D\)</span>, and
+subtracting <span class="math inline" data-term-auto="off">\(L_D/(d!-1)\)</span> copies of
+<span class="math inline" data-term-auto="off">\(U_d\)</span> sets the <span
 class="math inline" data-term-auto="off">\(d\)</span>th sum to zero. Thus put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_D=L_De_1-\sum_{d=2}^D\frac{L_D}{d!-1}U_d.\]</span></div>
@@ -318,9 +326,12 @@ V_2=\cdots=V_D=0
 Z\)</span> and finitely many nonzero integers <span
 class="math inline" data-term-auto="off">\(z_n\)</span>. The lower coordinates are fixed by
 <span class="math inline" data-term-auto="off">\(t\)</span>; all higher coordinates remain
-free. Since <span class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and
-<span class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span>, we also have</p>
-<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+free. These free coordinates help impose the support restriction, but
+they change the remainder only by an integer. Indeed, <span
+class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and <span
+class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span> give</p>
+<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \mathcal R\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
 =tL_D(S-H_D)+\sum_{n&gt;D}z_n,
 \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
@@ -345,11 +356,13 @@ ta_D\)</span>. For example, at depth four we shall find <span
 class="math inline" data-term-auto="off">\(a_4=-55\)</span> and <span
 class="math inline" data-term-auto="off">\(g_4=60\)</span>. Removing index one then requires
 <span class="math inline" data-term-auto="off">\(60\mid55t\)</span>, or <span
-class="math inline" data-term-auto="off">\(12\mid t\)</span>; the moment <span
-class="math inline" data-term-auto="off">\(115t\)</span> must be a multiple of <span
+class="math inline" data-term-auto="off">\(12\mid t\)</span>; hence <span
+class="math inline" data-term-auto="off">\(M=115t\)</span> must be a multiple of <span
 class="math inline" data-term-auto="off">\(1380\)</span>.</p>
-<p>The same calculation in general shows that the attainable moments are</p>
-<div class="math-display" id="eq:attainable-moment-ideal" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>In general, the possible values of <span
+class="math inline" data-term-auto="off">\(M\)</span> form the ideal</p>
+<div class="math-display" id="eq:attainable-moment-ideal" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \mu_D\mathbb Z,\qquad
 \mu_D=L_D\frac{g_D}{\gcd(g_D,a_D)}.
 \label{eq:attainable-moment-ideal}
@@ -361,10 +374,10 @@ exactly when <span class="math inline" data-term-auto="off">\(g_D/\gcd(g_D,a_D)\
 t\)</span>. Bézout’s identity supplies the required finite combination
 of the <span class="math inline" data-term-auto="off">\(u_n\)</span>. The next theorem proves
 <span class="math inline" data-term-auto="off">\(g_D&gt;0\)</span> and bounds the indices
-needed for this combination. A vector attaining the least positive
-moment <span class="math inline" data-term-auto="off">\(\mu_D\)</span> is automatically
-primitive: a common factor of its coefficients would give a smaller
-positive moment after division.</p>
+needed for this combination. A vector attaining the least positive value
+<span class="math inline" data-term-auto="off">\(\mu_D\)</span> is primitive, since dividing
+its coefficients by a common factor would give a smaller positive value
+of <span class="math inline" data-term-auto="off">\(M\)</span>.</p>
 <section id="sec:finite-gcd" class="level3">
 <h3>A finite gcd calculation</h3>
 <p>The recursion for the first coordinate is</p>
@@ -379,10 +392,13 @@ including <span class="math inline" data-term-auto="off">\(p=2\)</span>, so the 
 a nonzero coefficient and <span class="math inline" data-term-auto="off">\(g_D&gt;0\)</span>.
 To compute this infinite gcd, we show that a specified finite interval
 already forces divisibility of every later coefficient.</p>
-<p>A finite calculation can miss a later drop in the gcd. Here the
-recurrence prevents such a drop beyond a controlled index. Large proper
-divisors inherit divisibility from earlier coefficients; for the
-remaining small divisors, the weights themselves supply it.</p>
+<p>The induction has two cases. For a proper divisor <span
+class="math inline" data-term-auto="off">\(d&gt;D\)</span>, divisibility comes from the
+earlier coefficient <span class="math inline" data-term-auto="off">\(u_d\)</span>. For <span
+class="math inline" data-term-auto="off">\(d\le D\)</span>, it must instead come from the
+weight <span class="math inline" data-term-auto="off">\(W_{d,n}\)</span>. The following
+cutoff makes the second argument work for every such <span
+class="math inline" data-term-auto="off">\(d\)</span>.</p>
 <div class="theorem" id="res:finite-channel-moment-certificate">
 <p><strong>Theorem 3.1</strong> (a finite formula for the gcd). <em>
 Choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> with <span
@@ -435,7 +451,7 @@ class="math inline" data-term-auto="off">\(D\ge3\)</span>; for <span
 class="math inline" data-term-auto="off">\(D=2\)</span> take <span
 class="math inline" data-term-auto="off">\(\ell=2\)</span>. The proof requires <span
 class="math inline" data-term-auto="off">\(n/d\ge2\ell\)</span> for every small divisor,
-which is why it uses the horizon <span
+which is why it uses the cutoff <span
 class="math inline" data-term-auto="off">\(H=D(2\ell-1)\)</span>. A truncation at <span
 class="math inline" data-term-auto="off">\(2D\)</span> is not justified by this argument.</p>
 <p>The finite gcd also gives a construction. Compute integers <span
@@ -448,14 +464,14 @@ class="math display" data-term-auto="off">\[t=g_D/h,\qquad z_n=-(a_D/h)b_n\quad(
 H)\]</span></div>
 <p class="display-continue">makes <span class="math inline" data-term-auto="off">\(ta_D+\sum
 z_nu_n=0\)</span>. Substitution in <a class="math-ref" data-equation-ref="true" href="#eq:low-channel-classification">eq:low-channel-classification</a>
-therefore produces a vector with moment <span
-class="math inline" data-term-auto="off">\(\mu_D\)</span>. The same finite calculation proves
-minimality and supplies an attaining vector. Additional support or
-coefficient-norm requirements are separate optimisation problems.</p>
+therefore produces a vector with <span
+class="math inline" data-term-auto="off">\(M=\mu_D\)</span>. This gives an attaining vector
+as well as the minimum. Minimising its support or its coefficient norm
+is a separate problem.</p>
 </section>
 </section>
 <section id="sec:depth-four" class="level2">
-<h2>A vector of least positive moment</h2>
+<h2>An example attaining the minimum</h2>
 <p>At depth four the recursion gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_4=115,\qquad
@@ -495,7 +511,7 @@ class="math inline" data-term-auto="off">\(u_2=2\)</span>, proves the assertion.
 now gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mu_4=115\frac{60}{\gcd(60,55)}=1380.\]</span></div>
-<p>We construct a vector with this moment by taking <span
+<p>To attain <span class="math inline" data-term-auto="off">\(M=1380\)</span>, take <span
 class="math inline" data-term-auto="off">\(t=12\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:support-equation">eq:support-equation</a>. The choice
 <span class="math inline" data-term-auto="off">\(z_6=-27\)</span>, <span
 class="math inline" data-term-auto="off">\(z_8=1\)</span> works because</p>
@@ -595,15 +611,16 @@ class="math inline" data-term-auto="off">\(0\)</span></td>
 </tbody>
 </table>
 </div>
-<p>The moment and all cancellations follow from the coordinates before
-expansion. Moreover, the integer correction to the remainder in <a class="math-ref" data-equation-ref="true" href="#eq:residual-transparency">eq:residual-transparency</a> is the
-sum <span class="math inline" data-term-auto="off">\(-26-27+8+1=-44\)</span>. Thus</p>
+<p>The coordinates already give <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> and the three cancellations. They
+also determine the integer term in <a class="math-ref" data-equation-ref="true" href="#eq:residual-transparency">eq:residual-transparency</a>, namely
+<span class="math inline" data-term-auto="off">\(-26-27+8+1=-44\)</span>. Thus</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal R(\lambda)=1380(S-H_4)-44.\]</span></div>
-<p>To
-test this remainder, we use a tail estimate. <span
+<p>For
+the remainder estimate, the inequality <span
 class="math inline" data-term-auto="off">\((n+1)!-1&gt;(n+1)(n!-1)\)</span> gives the
-geometric tail bound</p>
+geometric bound</p>
 <div class="math-display" id="eq:series-tail-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 0&lt;S-H_N&lt;\frac{N+2}{(N+1)((N+1)!-1)}
           &lt;\frac{2}{(N+1)!-1}\qquad(N\ge2).
@@ -628,9 +645,10 @@ this remainder an integer. Every divisor of <span
 class="math inline" data-term-auto="off">\(1380\)</span> is therefore excluded.</p>
 <p>The companion gives the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-depth-refinements">alternative
-dual congruence, support and coefficient-norm refinements</a>. They
-concern different optimisation questions. Minimality of the moment here
-follows from the ideal formula, without requiring a sparsest vector.</p>
+dual congruence, support and coefficient-norm refinements</a>. These
+minimise different quantities. The minimum of <span
+class="math inline" data-term-auto="off">\(M\)</span> follows from <a class="math-ref" data-equation-ref="true" href="#eq:attainable-moment-ideal">eq:attainable-moment-ideal</a> and
+does not require minimal support.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Nonintegrality of the remainder</h2>
@@ -643,36 +661,37 @@ Separate the finite signed sum from the positive tail:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_N=\sum_{d=D+1}^N\frac{V_d(\lambda)}{d!-1},\qquad
 \mathcal R(\lambda)=A_N+M(S-H_N).\]</span></div>
-<p>By <a class="math-ref" data-equation-ref="true" href="#eq:series-tail-bound">eq:series-tail-bound</a>, <span
-class="math inline" data-term-auto="off">\(0&lt;S-H_N&lt;2/((N+1)!-1)\)</span>. We can prove
-nonintegrality by comparing its upper bound with the distance from <span
-class="math inline" data-term-auto="off">\(A_N\)</span> to the next integer:</p>
-<div class="math-display" id="eq:signed-block-gap" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+<p>The remainder lies above
+<span class="math inline" data-term-auto="off">\(A_N\)</span>. To place it below the next
+integer, it is enough that the omitted tail be shorter than the gap
+<span class="math inline" data-term-auto="off">\(\lfloor A_N\rfloor+1-A_N\)</span>. By <a class="math-ref" data-equation-ref="true" href="#eq:series-tail-bound">eq:series-tail-bound</a>, a
+sufficient condition is</p>
+<div class="math-display" id="eq:signed-block-gap" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \frac{2M}{(N+1)!-1}&lt;\lfloor A_N\rfloor+1-A_N.
 \label{eq:signed-block-gap}
 \end{equation}\]</span></div>
-<p>Under this inequality, <span
-class="math inline" data-term-auto="off">\(\mathcal R(\lambda)\)</span> lies strictly between
-consecutive integers, excluding every denominator dividing <span
-class="math inline" data-term-auto="off">\(M\)</span>. The argument allows either sign of
-<span class="math inline" data-term-auto="off">\(A_N\)</span>. Its strict gap is one when
-<span class="math inline" data-term-auto="off">\(A_N\)</span> is integral and can be
-arbitrarily small when <span class="math inline" data-term-auto="off">\(A_N\)</span>
+<p>Indeed, the positive tail and this comparison
+give <span class="math inline" data-term-auto="off">\(\lfloor A_N\rfloor&lt;\mathcal
+R(\lambda)&lt;\lfloor A_N\rfloor+1\)</span>, excluding every denominator
+dividing <span class="math inline" data-term-auto="off">\(M\)</span>. The argument allows
+either sign of <span class="math inline" data-term-auto="off">\(A_N\)</span>. Its strict gap
+is one when <span class="math inline" data-term-auto="off">\(A_N\)</span> is integral and can
+be arbitrarily small when <span class="math inline" data-term-auto="off">\(A_N\)</span>
 approaches an integer from below.</p>
 <p>There are primitive solutions with <span
-class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> and moments eventually
-divisible by any prescribed <span class="math inline" data-term-auto="off">\(q\)</span>. The
-<a
+class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> for which <span
+class="math inline" data-term-auto="off">\(M\)</span> is eventually divisible by any
+prescribed <span class="math inline" data-term-auto="off">\(q\)</span>. The <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
 construction in the companion</a> gives such a family by turning <span
 class="math inline" data-term-auto="off">\(V_d=0\)</span> into roots of a polynomial. At its
 support endpoint the omitted tail is less than <span
 class="math inline" data-term-auto="off">\(2/N\)</span>, but the gap on the right of <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> may shrink
-too. Irrationality requires the comparison for a vector whose moment is
-divisible by each prescribed <span class="math inline" data-term-auto="off">\(q\)</span>, not
-merely an unbounded sequence of moments. No minimal-support assertion is
-made for this family.</p>
+too. For each prescribed <span class="math inline" data-term-auto="off">\(q\)</span>, an
+irrationality proof requires a vector satisfying both this comparison
+and <span class="math inline" data-term-auto="off">\(q\mid M\)</span>. Unboundedness of <span
+class="math inline" data-term-auto="off">\(M\)</span> alone does not suffice. No
+minimal-support assertion is made for this family.</p>
 <p>Increasing the cutoff is a different operation from choosing a new
 vector. For <span class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span> the support
 ends at four, where the test fails because <span
@@ -686,14 +705,14 @@ their gaps to the next integer tend to a positive number, so the test
 eventually succeeds. If the limit is integral, the eventual gap equals
 the omitted tail and the test fails. Thus extending the cutoff
 eventually detects a nonintegral remainder, but leaves both the
-remainder and the moment unchanged.</p>
-<p>Moment-zero corrections also have a precise limitation. Each <span
-class="math inline" data-term-auto="off">\(U_n\)</span> changes the remainder by one. More
-generally, <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a> shows that
-two vectors with the same moment have remainders differing by an
-integer. Such changes can simplify support and weighted sums, as they
-did in the example, but cannot change whether the remainder is
-integral.</p>
+remainder and <span class="math inline" data-term-auto="off">\(M\)</span> unchanged.</p>
+<p>Nor can a change of coefficients preserving <span
+class="math inline" data-term-auto="off">\(M\)</span> decide nonintegrality. By <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>, the
+remainders of two vectors with the same value of <span
+class="math inline" data-term-auto="off">\(M\)</span> differ by an integer. Adding multiples
+of the <span class="math inline" data-term-auto="off">\(U_n\)</span> can therefore simplify
+the support and weighted sums, as in the example, without changing
+whether the remainder is integral.</p>
 <p>The companion treats the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-carry">equivalent carry
 condition</a> and the <a
@@ -712,12 +731,12 @@ establishes the required condition at arbitrarily large indices.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Verification</h2>
-<p>The integral-coordinate theorem and finite-horizon gcd formula have
-recorded exact Lean bindings. The <a
+<p>The integral-basis theorem and finite gcd formula have recorded exact
+Lean bindings. The <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r12-short-sources">companion
-source concordance</a> identifies their declarations and the
-attainable-moment theorem. Its large finite computations are separate
-from these kernel proofs.</p>
+source concordance</a> identifies their declarations and the theorem on
+the possible values of <span class="math inline" data-term-auto="off">\(M\)</span>. Its large
+finite computations are separate from these kernel proofs.</p>
 </section>
 <section id="acknowledgements" class="level2 unnumbered">
 <h2 class="unnumbered">Acknowledgements</h2>
@@ -727,9 +746,10 @@ and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
 mathematics of this paper. An AI research pass supplied by Will Cook
 derived the depth-four dual congruence and shorter vectors from the
-factorial-channel definitions and general moment-ideal theory developed
-earlier here. OpenAI Codex checked and integrated them; a separate AI
-pass reviewed the proof.</p>
+weighted linear forms and the classification of their possible
+coefficients <span class="math inline" data-term-auto="off">\(M\)</span> developed earlier
+here. OpenAI Codex checked and integrated them; a separate AI pass
+reviewed the proof.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

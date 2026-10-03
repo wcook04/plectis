@@ -302,10 +302,11 @@ class="math inline" data-term-auto="off">\(v\ge1\)</span>, would give the intege
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_N=vR_N=2^Na-v\Phi_N,\qquad
 u_{N+1}=2u_N-v\varphi(N+1),\qquad 0\le u_N\le v(N+2).\]</span></div>
-<p>The
-formal sources call this a tempered carry. Here <span
-class="math inline" data-term-auto="off">\(v\)</span> is a positive multiplier, not
-necessarily odd. Its dyadic sections are the sequences <span
+<p>Here
+<span class="math inline" data-term-auto="off">\(v\)</span> is any positive integer clearing
+the denominator, so it need not be odd. The linear bound implies <span
+class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span>. The dyadic sections of <span
+class="math inline" data-term-auto="off">\(u\)</span> are the sequences <span
 class="math inline" data-term-auto="off">\(n\mapsto u_{2^jn+r}\)</span>.</p>
 <div class="prop" id="prop:rank">
 <p><strong>Proposition 1.6</strong> (Rationality forces unbounded carry
@@ -339,10 +340,10 @@ class="math display" data-term-auto="off">\[u_{2^j(n+h)+r}\equiv u_{2^jn+r}\pmod
 <p><em>
 The rank and periodicity assertions hold together. This conditional
 theorem alone is not a counterexample to a general periodicity-to-rank
-implication: its antecedent is not established. The separate <span
-class="math inline" data-term-auto="off">\(5/4\)</span> control supplies a concrete
-counterexample to the generic rationality-driven rank ceiling; see the
-detailed comparison in Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>.</em></p>
+implication: its antecedent is not established. The rational comparison
+sequence with sum <span class="math inline" data-term-auto="off">\(5/4\)</span> gives a
+counterexample to a rank upper bound based on rationality alone; see
+Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>.</em></p>
 </div>
 <div class="prop" id="prop:iffs">
 <p><strong>Proposition 1.8</strong> (Equivalent certificate conditions).
@@ -377,9 +378,10 @@ class="math inline" data-term-auto="off">\(n\)</span>, <span class="math inline"
 class="math inline" data-term-auto="off">\(n\)</span>, and <span
 class="math inline" data-term-auto="off">\(c\)</span> not eventually periodic; indeed for
 every <span class="math inline" data-term-auto="off">\(N, G, K\)</span> there are <span
-class="math inline" data-term-auto="off">\(K\)</span> explicit carry pulses beyond <span
-class="math inline" data-term-auto="off">\(N\)</span>, pairwise separated by more than <span
-class="math inline" data-term-auto="off">\(G\)</span>; and yet <span
+class="math inline" data-term-auto="off">\(K\)</span> pairs of coefficients <span
+class="math inline" data-term-auto="off">\((6,0)\)</span> starting beyond <span
+class="math inline" data-term-auto="off">\(N\)</span>, with starting positions pairwise
+separated by more than <span class="math inline" data-term-auto="off">\(G\)</span>; and <span
 class="math inline" data-term-auto="off">\(\sum_n c(n)/2^{n} = 3/2 \in
 \mathbb{Q}\)</span>.</em></p>
 </div>
@@ -387,8 +389,8 @@ class="math inline" data-term-auto="off">\(\sum_n c(n)/2^{n} = 3/2 \in
 leaves an upper-endpoint condition; a large rational carry rank is not a
 contradiction; and exact equivalences still require a quantified
 certificate condition. The stated size bounds, parity and aperiodicity
-also hold for a rational control. Each conclusion concerns its stated
-hypotheses, not all possible arithmetic information about <span
+also hold for a rational comparison series. Each conclusion concerns its
+stated hypotheses, not all possible arithmetic information about <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>.</p>
 </section>
 <section id="sub:reduced-coefficients" class="level3">
@@ -933,7 +935,7 @@ proposed growth condition is used only as a sufficient condition.</p>
 congruence construction). <em> A certificate requires the residue to lie
 farther than <span class="math inline" data-term-auto="off">\(N+h+L+2\)</span> from either
 endpoint modulo <span class="math inline" data-term-auto="off">\(2^L\)</span>. In the
-specific construction below, a pulse places the residue at <span
+specific construction below, the residue equals <span
 class="math inline" data-term-auto="off">\(2^{K-1}\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^K\)</span>, but the defining congruence is <span
 class="math inline" data-term-auto="off">\(p\equiv1+2^{K-1}\pmod{2^K}\)</span>. Hence <span
@@ -949,7 +951,7 @@ totient pattern.</em></p>
 </div>
 <div class="rem" id="rem:b4">
 <p><em>Remark 2.10</em> (Two further prescribed patterns). Two related
-results concern particular prescribed patterns. Under the stated room
+results concern particular prescribed patterns. Under the stated size
 condition, the complete terminal divisibility pattern is impossible: its
 last totient difference would be positive, below a modulus, and
 divisible by that modulus (<a
@@ -1171,10 +1173,10 @@ for the dyadically weighted totient-difference exponential sum</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{X \le N &lt; 2X}
   e\!\left(\frac{\sum_{j&lt;L}\bigl(\varphi(N{+}h{+}1{+}j)-\varphi(N{+}1{+}j)\bigr)2^{\,L-1-j}}{2^{L}}\right),
-  \qquad L \text{ subject to the displayed room inequality}.\]</span></div>
+  \qquad L \text{ subject to the displayed size inequality}.\]</span></div>
 <p>No
 theorem in this record establishes this estimate with the required
-quantifiers. The displayed room inequality imposes a lower bound on
+quantifiers. The displayed size inequality imposes a lower bound on
 <span class="math inline" data-term-auto="off">\(L\)</span>; it does not require <span
 class="math inline" data-term-auto="off">\(L=\log_2X+O(1)\)</span>. A depth of that order
 would be a possible regime for the estimate, not an additional proved
@@ -1197,7 +1199,7 @@ class="level5">
 estimate. The following distinctions explain why those particular
 arguments do not settle it.</p>
 <ul>
-<li><p>The parameters grow. The room condition forces the truncation
+<li><p>The parameters grow. The size condition forces the truncation
 depth to increase with <span class="math inline" data-term-auto="off">\(X\)</span>, so this
 is not a test of a fixed prefix.</p></li>
 <li><p>The sample is prescribed: all <span
@@ -1209,8 +1211,8 @@ prescribe individual values through a congruence construction.</p></li>
 <li><p>The estimate concerns the actual phases. Neither a bound on carry
 rank nor agreement only in parity gives it.</p></li>
 <li><p>The proved implication uses the real-part threshold <span
-class="math inline" data-term-auto="off">\(9/10\)</span> and the room constant <span
-class="math inline" data-term-auto="off">\(16\)</span>. The stronger norm bound <span
+class="math inline" data-term-auto="off">\(9/10\)</span> and the constant in the size bound
+<span class="math inline" data-term-auto="off">\(16\)</span>. The stronger norm bound <span
 class="math inline" data-term-auto="off">\(21/25\)</span> implies that real-part bound. These
 constants do not assert any distribution theorem for the totient
 phases.</p></li>
@@ -1450,7 +1452,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/24edbddbe2bd68e920327a701aad
 </ol>
 </div>
 <div class="proof">
-<p><em>Proof.</em> (a) At a depth satisfying the room inequality, a
+<p><em>Proof.</em> (a) At a depth satisfying the size inequality, a
 nonempty set of indices below <span class="math inline" data-term-auto="off">\(2X\)</span>
 whose average of <span
 class="math inline" data-term-auto="off">\(\operatorname{Re}E(h,N,L)\)</span> is at most
@@ -1480,7 +1482,7 @@ G}\operatorname{Re}E(h,N,L(X))&lt;\tfrac{9}{10}\#\mathcal G\)</span>.
 For <span class="math inline" data-term-auto="off">\(X\ge A\)</span> the set <span
 class="math inline" data-term-auto="off">\(T=\mathcal G\)</span> is nonempty and lies in
 <span class="math inline" data-term-auto="off">\([A,2X)\)</span>, and <span
-class="math inline" data-term-auto="off">\(L(X)\)</span> satisfies the room inequality, so
+class="math inline" data-term-auto="off">\(L(X)\)</span> satisfies the size inequality, so
 (a) applies. ◻</p>
 </div>
 <p>The trivial bound for the sum in (b) is <span
@@ -1495,8 +1497,8 @@ make the sum <span class="math inline" data-term-auto="off">\(o(X)\)</span>. A r
 class="math inline" data-term-auto="off">\(v\)</span> odd makes the bound fail for <span
 class="math inline" data-term-auto="off">\(h=\varphi(v)\)</span> and all large <span
 class="math inline" data-term-auto="off">\(X\)</span>: every large index then has an integral
-tail difference, hence no certificate, and an index at a depth with room
-and without a certificate has <span
+tail difference, hence no certificate, and an index at a depth
+satisfying the size condition and having no certificate has <span
 class="math inline" data-term-auto="off">\(\operatorname{Re}E&gt;9/10\)</span>. The
 hypothesis is sufficient and is not known to be necessary: from
 irrationality one obtains nonintegral tail differences, and no argument
@@ -1629,14 +1631,15 @@ assertion would contradict the lower bound of Proposition <a class="math-ref" h
 <span class="math inline" data-term-auto="off">\(S\)</span>. Both assertions are false, as
 the following comparison shows.</p>
 </div>
-<p>The generic assertion in Definition <a class="math-ref" href="#defn:rankupper">3.8</a> is false, not a live
-open proposition. The <span class="math inline" data-term-auto="off">\(5/4\)</span> control
-in Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>
-has <span class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span> and a tempered
-integral carry of rank at least <span
-class="math inline" data-term-auto="off">\(2^e-1\)</span> at every depth (Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a>). It refutes
-both proposed generic ceilings. A bound restricted by additional
-totient-specific hypotheses would be a different assertion.</p>
+<p>Both assertions in Definition <a class="math-ref" href="#defn:rankupper">3.8</a> are false. The
+comparison sequence with sum <span class="math inline" data-term-auto="off">\(5/4\)</span> in
+Section <a class="math-ref" href="#sec:mahler-defect">10.8</a>
+satisfies <span class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span> and has an
+integral carry with <span class="math inline" data-term-auto="off">\(u(n)/2^n\to0\)</span>
+and rank at least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> at every
+depth (Section <a class="math-ref" href="#sub:generic-carry-rank">12.6</a>). It
+therefore contradicts both proposed upper bounds. This leaves open
+bounds under further hypotheses specific to the totient.</p>
 <p>Periodicity modulo <span class="math inline" data-term-auto="off">\(v\)</span> alone does
 not provide the additional rank bound.</p>
 </section>
@@ -2239,7 +2242,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Skip/LadderT67.lean#L71294"><code>ErdosProblems.Skip.LadderT67.t83_depth_floor</code></a></p></td>
 </tr>
 <tr>
-<td class="ta-l">Farey denominator floor</td>
+<td class="ta-l">Farey denominator bound</td>
 <td class="ta-l"><p>Every <span
 class="math inline" data-term-auto="off">\(q\in\mathbb{N}\)</span> with satisfies the
 window-<span class="math inline" data-term-auto="off">\((N,K)=(1,240)\)</span> gap
@@ -2250,7 +2253,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 </tr>
 <tr>
 <td class="ta-l">Coprimality-probability / Möbius-square
-Farey floor</td>
+Farey bound</td>
 <td class="ta-l"><p>Every <span
 class="math inline" data-term-auto="off">\(d\in\mathbb{N}\)</span> with (exactly <span
 class="math inline" data-term-auto="off">\(\lfloor Q_0/2\rfloor\)</span>) is excluded as a
@@ -2328,15 +2331,15 @@ class="math inline" data-term-auto="off">\(1\le j\le e\)</span> and <span
 class="math inline" data-term-auto="off">\(0\le r&lt;2^j\)</span> span a space of <span
 class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-dimension at least <span
 class="math inline" data-term-auto="off">\(2^e-1\)</span>.</em></p>
-<p><em>The recurrence is the one obtained from the scaled tails after
-clearing a hypothetical denominator of <span
-class="math inline" data-term-auto="off">\(S\)</span>. The formal term <em>tempered</em>
-means exactly <span class="math inline" data-term-auto="off">\(u(N)/2^N\to0\)</span> here,
-not a separate assumption of subexponential growth. This rank lower
-bound is a necessary consequence of rationality, not a contradiction. An
-upper bound using additional properties of the actual totient
-coefficients would be needed; the later rational comparison rules out
-such a bound for arbitrary rational coefficient series.</em></p>
+<p><em>The recurrence follows from the scaled tails after clearing a
+hypothetical denominator of <span class="math inline" data-term-auto="off">\(S\)</span>. The
+only growth condition imposed here is the displayed limit <span
+class="math inline" data-term-auto="off">\(u(N)/2^N\to0\)</span>; subexponential growth is
+not assumed. The rank lower bound is a necessary consequence of
+rationality and yields no contradiction by itself. An upper bound using
+additional properties of the actual totient coefficients would be
+needed; the later rational comparison rules out such a bound for
+arbitrary rational coefficient series.</em></p>
 </div>
 <div class="thm" id="catalogue:cert:d4">
 <p><strong>Theorem 6.3</strong> (Independence of the retained dyadic
@@ -2760,9 +2763,9 @@ example is an ordinary mathematical argument, not an additional claim
 about the linked formalisation.</em></p>
 </div>
 <div class="prop" id="catalogue:cert:d3">
-<p><strong>Proposition 6.24</strong> (A nonzero evaluation minor gives
-independence). <em> Let <span class="math inline" data-term-auto="off">\(I\)</span> be a
-finite index set and let <span class="math inline" data-term-auto="off">\(f_j:\mathbb
+<p><strong>Proposition 6.24</strong> (A nonsingular evaluation matrix
+gives independence). <em> Let <span class="math inline" data-term-auto="off">\(I\)</span> be
+a finite index set and let <span class="math inline" data-term-auto="off">\(f_j:\mathbb
 N\to\mathbb Q\)</span> for <span class="math inline" data-term-auto="off">\(j\in I\)</span>.
 If there are evaluation points <span class="math inline" data-term-auto="off">\(n_i\in\mathbb
 N\)</span> such that </em></p>
@@ -3941,11 +3944,13 @@ conditions). <em> The sufficient conditions do not form a single linear
 chain. The proved implications are </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
-\text{guarded odd-prefix band}
-&amp;\ \Longleftrightarrow\ \text{guarded centred-magnitude bound},\\
-\text{guarded centred-magnitude bound}
-&amp;\ \Longrightarrow\ \text{flexible centred-magnitude bound},\\
-\text{flexible centred-magnitude bound}
+\text{odd-prefix interval at the prescribed depth}
+&amp;\ \Longleftrightarrow\ \text{centred-residue bound at the
+prescribed depth},\\
+\text{centred-residue bound at the prescribed depth}
+&amp;\ \Longrightarrow\ \text{centred-residue bound at a variable
+depth},\\
+\text{centred-residue bound at a variable depth}
 &amp;\ \Longrightarrow\ \text{adjacent-suffix band}
    \ \Longrightarrow\ \text{upper-endpoint test}.
 \end{aligned}\]</span></div>
@@ -4181,8 +4186,8 @@ proposed upper bound). <em> By Prop. <a class="math-ref" href="#prop:D4-inv">6.
 totient-kernel family is unconditionally <span
 class="math inline" data-term-auto="off">\((2^e+1)\)</span>-dimensional at every level <span
 class="math inline" data-term-auto="off">\(e\ge1\)</span>. Rationality of <span
-class="math inline" data-term-auto="off">\(S\)</span> forces an associated tempered carry
-orbit with <span class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-rank <span
+class="math inline" data-term-auto="off">\(S\)</span> forces an associated carry orbit with
+<span class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-rank <span
 class="math inline" data-term-auto="off">\(\ge 2^e-1\)</span> at every level (Prop. <a class="math-ref" href="#prop:CP-02">6.90</a>). An upper bound
 independent of <span class="math inline" data-term-auto="off">\(e\)</span> for these same
 carry ranks would contradict the lower bound. More generally, a bound
@@ -4198,8 +4203,8 @@ Section <a class="math-ref" href="#sec:mahler-defect">10.8</a> has
 an integer carry satisfying the growth condition and the same rank lower
 bound. The incompatible integer identity and the finite-shift
 counterexample (Observation <a class="math-ref" href="#prop:B4b-kill">6.115</a>) remain separate
-counterexample results. None is a generic rationality-driven rank
-ceiling. The Lean proof covers the proved rank floor and counterexample
+counterexample results. None gives a rank upper bound from rationality
+alone. The Lean proof covers the rank lower bound and counterexample
 results, not the counterfactual upper bound.</em></p>
 </div>
 <div class="prop" id="prop:B12cons">
@@ -4480,25 +4485,27 @@ sharpness within this restricted family.</em></p>
 <div class="prop" id="prop:CP-01-inv">
 <p><strong>Proposition 6.89</strong> (Carry displacement and tail
 integrality). <em> For a positive integer <span
-class="math inline" data-term-auto="off">\(v\)</span> and a tempered integral totient carry
-<span class="math inline" data-term-auto="off">\(u\)</span>, </em></p>
+class="math inline" data-term-auto="off">\(v\)</span> and an integral totient carry <span
+class="math inline" data-term-auto="off">\(u\)</span> with <span
+class="math inline" data-term-auto="off">\(u(N)/2^N\to0\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[v\mid u(N+k)-u(N)\quad\Longleftrightarrow\quad
 R_{N+k}-R_N\in\mathbb{Z}.\]</span></div>
-<p><em> Indeed, temperedness identifies <span
-class="math inline" data-term-auto="off">\(u(N)=vR_N\)</span>, so the displacement is <span
-class="math inline" data-term-auto="off">\(v(R_{N+k}-R_N)\)</span>. This is a divisibility
-test for that displacement, not a dimension bound for the carry
-sections. The same proof works for another coefficient sequence once its
-tempered carry has been identified with its scaled tail; those
-hypotheses must be checked in each application.</em></p>
+<p><em> The recurrence and the limit identify
+<span class="math inline" data-term-auto="off">\(u(N)=vR_N\)</span>, so the difference is
+<span class="math inline" data-term-auto="off">\(v(R_{N+k}-R_N)\)</span>. This tests
+divisibility of a carry difference and gives no dimension bound for the
+carry sections. For another coefficient sequence, the same argument
+applies once its carry is identified with its scaled tail under the
+corresponding recurrence and limit.</em></p>
 </div>
 <div class="prop" id="prop:CP-02">
 <p><strong>Proposition 6.90</strong> (A consequence of rationality and
 its limitation). <em> If <span class="math inline" data-term-auto="off">\(S\in\mathbb
 Q\)</span>, there are a positive integer <span
-class="math inline" data-term-auto="off">\(v\)</span> and a tempered integer carry orbit
-<span class="math inline" data-term-auto="off">\(u\)</span> such that its retained sections
+class="math inline" data-term-auto="off">\(v\)</span> and an integer carry sequence <span
+class="math inline" data-term-auto="off">\(u\)</span>, with <span
+class="math inline" data-term-auto="off">\(u(N)/2^N\to0\)</span>, whose retained sections
 through every level <span class="math inline" data-term-auto="off">\(e\)</span> have rational
 rank at least <span class="math inline" data-term-auto="off">\(2^e-1\)</span>. At the same
 time, those sections are uniformly eventually periodic modulo <span
@@ -4537,12 +4544,11 @@ Proposition <a class="math-ref" href="#prop:CP-07">6.70</a>
 remains a separate hypothesis.</em></p>
 </div>
 <div class="prop" id="prop:TA-inv">
-<p><strong>Proposition 6.92</strong> (An arbitrarily long zero prefix
-followed by a two-adic pulse). <em> Let <span
-class="math inline" data-term-auto="off">\(K\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(H&gt;K\)</span> be integers. For every <span
-class="math inline" data-term-auto="off">\(B\in\mathbb N\)</span> there is a prime <span
-class="math inline" data-term-auto="off">\(p&gt;\max(B,H+K)\)</span> such that </em></p>
+<p><strong>Proposition 6.92</strong> (A prescribed residue after a long
+divisibility block). <em> Let <span class="math inline" data-term-auto="off">\(K\ge2\)</span>
+and <span class="math inline" data-term-auto="off">\(H&gt;K\)</span> be integers. For every
+<span class="math inline" data-term-auto="off">\(B\in\mathbb N\)</span> there is a prime
+<span class="math inline" data-term-auto="off">\(p&gt;\max(B,H+K)\)</span> such that </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{aligned}
 p&amp;\equiv1+2^{K-1}\pmod{2^K},&amp;
@@ -5454,10 +5460,12 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <section id="integer-recurrences-and-rational-binary-series"
 class="level4">
 <h4>Integer recurrences and rational binary series</h4>
-<p>An integer-coefficient binary series is rational exactly when a
-suitable integer carry satisfies a subexponential growth condition
-relative to <span class="math inline" data-term-auto="off">\(2^N\)</span>. We include the
-elementary recurrence proof to fix the normalisation used later.</p>
+<p>For coefficients <span class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span>,
+rationality is equivalent to the existence of an integer carry with
+<span class="math inline" data-term-auto="off">\(u(N)/2^N\to0\)</span>. The recurrence alone
+is not restrictive: every integer initial value produces an integer
+sequence. The limit condition selects the initial value that represents
+the infinite sum.</p>
 <div class="thm" id="thm:binary-carry-criterion">
 <p><strong>Theorem 6.125</strong> (Integer recurrence criterion for a
 binary series). <em> Let <span
@@ -5479,17 +5487,19 @@ R^c_N=\sum_{j\ge1}\frac{c(N+j)}{2^j}.\]</span></div>
 <p><em>Proof.</em> Iterating the recurrence gives the finite identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{u(N)}{2^N}=u(0)-v\sum_{n=1}^N\frac{c(n)}{2^n}.\]</span></div>
-<p>The boundary condition therefore forces the series to equal <span
-class="math inline" data-term-auto="off">\(u(0)/v\)</span>; subtracting the prefix gives
-<span class="math inline" data-term-auto="off">\(u(N)=vR^c_N\)</span>. Conversely, when the
-series is rational, choose an integer <span
-class="math inline" data-term-auto="off">\(v&gt;0\)</span> making its product with <span
-class="math inline" data-term-auto="off">\(v\)</span> an integer, use this product as <span
-class="math inline" data-term-auto="off">\(u(0)\)</span>, and iterate the recurrence. The
-displayed identity identifies the resulting integer sequence with <span
-class="math inline" data-term-auto="off">\(vR^c_N\)</span>. Since <span
-class="math inline" data-term-auto="off">\(0\le R^c_N\le N+2\)</span>, its ratio to <span
-class="math inline" data-term-auto="off">\(2^N\)</span> tends to zero. ◻</p>
+<p>Taking <span class="math inline" data-term-auto="off">\(N\to\infty\)</span> gives <span
+class="math inline" data-term-auto="off">\(S_c=u(0)/v\)</span>, where <span
+class="math inline" data-term-auto="off">\(S_c=\sum_{n\ge1}c(n)2^{-n}\)</span>. Subtracting
+the finite prefix then gives <span
+class="math inline" data-term-auto="off">\(u(N)=vR^c_N\)</span>.</p>
+<p>Conversely, suppose <span class="math inline" data-term-auto="off">\(S_c\)</span> is
+rational. Choose an integer <span class="math inline" data-term-auto="off">\(v&gt;0\)</span>
+with <span class="math inline" data-term-auto="off">\(vS_c\in\mathbb{Z}\)</span>, set <span
+class="math inline" data-term-auto="off">\(u(0)=vS_c\)</span>, and iterate the recurrence.
+The terms are integers by construction; the displayed identity gives
+<span class="math inline" data-term-auto="off">\(u(N)=vR^c_N\)</span>. Finally <span
+class="math inline" data-term-auto="off">\(0\le R^c_N\le N+2\)</span> proves the required
+limit. ◻</p>
 </div>
 <p>Without the boundary condition, any integer <span
 class="math inline" data-term-auto="off">\(u(0)\)</span> gives an integer solution of the
@@ -7127,7 +7137,7 @@ differences</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L77"><code>carryShift_dvd_iff_tailDiff_mem_int</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-N\,k\)</span>, given tempered orbit</td>
+N\,k\)</span>, given the carry recurrence and limit</td>
 <td class="ta-l"> integer recurrences</td>
 </tr>
 <tr>
@@ -7175,9 +7185,9 @@ c{:}\mathbb{N}\to\mathbb{N}\,(c(n){\le}n)\)</span>, iff</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L315"><code>doublingOrbit_eq_zero_of_tempered</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-d{:}\mathbb{N}\to\mathbb{R}\)</span>, doubling <span
-class="math inline" data-term-auto="off">\(+\)</span> tempered <span
-class="math inline" data-term-auto="off">\(\to d{\equiv}0\)</span></td>
+d{:}\mathbb{N}\to\mathbb{R}\)</span>, doubling and <span
+class="math inline" data-term-auto="off">\(d(n)/2^n\to0\)</span> imply <span
+class="math inline" data-term-auto="off">\(d{\equiv}0\)</span></td>
 <td class="ta-l"> integer recurrences</td>
 </tr>
 <tr>
@@ -7348,7 +7358,7 @@ endpoint</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L172"><code>actualLcm_trueEndpointSurvivor_neg</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a{\ge}8\,\forall J\,K\)</span> (room bound)</td>
+a{\ge}8\,\forall J\,K\)</span> (size bound)</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
@@ -7357,17 +7367,17 @@ residue</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L211"><code>actualLcm_integral_forces_topEdgeResidue</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a{\ge}8\,\forall J\,K\)</span> (room, <span
+a{\ge}8\,\forall J\,K\)</span> (size condition, <span
 class="math inline" data-term-auto="off">\(2H{+}J{+}K{+}2{&lt;}2^K\)</span>)</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
-<td class="ta-l">terminal dyadic staircase impossible with
-room</td>
+<td class="ta-l">terminal dyadic staircase impossible under
+the size condition</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L251"><code>not_actualLcmTerminalDyadicStaircase_of_room</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a{\ge}8\,\forall J\,K\,m\)</span> (room, modulus-wide)</td>
+a{\ge}8\,\forall J\,K\,m\)</span> (size condition, modulus-wide)</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
@@ -7385,7 +7395,7 @@ class="math inline" data-term-auto="off">\(\Rightarrow\)</span> nonintegral</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L1260"><code>actualLcmTailDiff_notMem_int_of_topEdgeResidueGap</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a{\ge}8\,\forall J\,K\,m\)</span> (room, one-sided)</td>
+a{\ge}8\,\forall J\,K\,m\)</span> (size condition, one-sided)</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
@@ -7394,7 +7404,7 @@ the actual carry</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L1678"><code>two_mul_actualOddHalfCenteredLift_eq_terminal_sub_trueCarry</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a{\ge}8\,\forall q\)</span> (room, fit bound <span
+a{\ge}8\,\forall q\)</span> (size condition, fit bound <span
 class="math inline" data-term-auto="off">\(2(H{+}q{+}2){\le}4^q\)</span>)</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
@@ -7674,7 +7684,7 @@ premise)</td>
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L83"><code>irrational_totient_series_of_first_harmonic_norm_gap</code></a></td>
 <td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
 h{&gt;}0\,\forall X_0\,\exists X{\ge}\max(X_0,1)\,\exists L\)</span>,
-room <span
+size condition <span
 class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2){\le}2^L\)</span></td>
 <td class="ta-l"> binary-weighted series</td>
 </tr>
@@ -7702,8 +7712,8 @@ premise)</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSeparation.lean#L305"><code>irrational_totientSeries_of_actualLcmOrbitSeparationSupply</code></a></td>
 <td class="ta-l"> cofinal <span
-class="math inline" data-term-auto="off">\(1/32{+}\)</span>error separation at guarded odd
-ranks</td>
+class="math inline" data-term-auto="off">\(1/32{+}\)</span>error separation at prescribed odd
+depths</td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
@@ -7711,9 +7721,8 @@ ranks</td>
 premises)</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L2221"><code>irrational_totientSeries_of_flexibleActualTerminalDominanceSupply</code></a></td>
-<td class="ta-l"> <span class="math inline" data-term-auto="off">\(\forall
-a_0\,\exists a{\ge}a_0\,\exists\langle\text{supply
-predicate}\rangle\)</span></td>
+<td class="ta-l"> one of the five quantified conditions in
+Proposition <a class="math-ref" href="#prop:te-chain">9.14</a></td>
 <td class="ta-l"> Möbius sums</td>
 </tr>
 <tr>
@@ -8080,7 +8089,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L66"><code>windowDiscrepancy</code></a></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:central-residue-condition">
 <p><strong>Definition 9.2</strong> (The central-residue condition).</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal{C}\ h\ N\ L \;:\Leftrightarrow\;
   (N{+}h{+}L{+}2) &lt; D(h,N,L)\bmod 2^L &lt; 2^L -
@@ -8089,7 +8098,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 class="math inline" data-term-auto="off">\(D(h,N,L)\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^L\)</span> avoids the radius-<span
 class="math inline" data-term-auto="off">\((N{+}h{+}L{+}2)\)</span> neighbourhood of <span
-class="math inline" data-term-auto="off">\(0\)</span>. It forces the room condition <span
+class="math inline" data-term-auto="off">\(0\)</span>. It forces the size condition <span
 class="math inline" data-term-auto="off">\(2(N{+}h{+}L{+}2) &lt; 2^L\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L79"><code>certifiedKill_depth_floor</code></a>).
 <a
@@ -8118,7 +8127,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <div class="thm" id="thm:hgap-real">
 <p><strong>Theorem 9.4</strong> (A real-part bound gives a certificate).
 <em> For all <span class="math inline" data-term-auto="off">\(h,X,L\)</span> with <span
-class="math inline" data-term-auto="off">\(0&lt;X\)</span> and the room condition <span
+class="math inline" data-term-auto="off">\(0&lt;X\)</span> and the size condition <span
 class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2)\le 2^L\)</span>, if </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{N=X}^{2X-1} \operatorname{Re}E(h,N,L)
@@ -8131,7 +8140,7 @@ class="math inline" data-term-auto="off">\(\mathcal{C}\ h\ N\ L\)</span>.</em></
 <p><strong>Theorem 9.5</strong> (The same implication for a nonempty
 subset). <em> For any nonempty finite <span
 class="math inline" data-term-auto="off">\(T\subseteq\mathbb N\)</span> with <span
-class="math inline" data-term-auto="off">\(T\subset[0,2X)\)</span> and the same room
+class="math inline" data-term-auto="off">\(T\subset[0,2X)\)</span> and the same size
 condition, if </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{N\in T}
 \operatorname{Re}E(h,N,L) \;\le\; \tfrac{9}{10}\,|T| ,\]</span></div>
@@ -8279,9 +8288,9 @@ every <span class="math inline" data-term-auto="off">\(a\ge 8\)</span> and every
 class="math inline" data-term-auto="off">\(J,K,m\)</span> inside the sign corridor (<span
 class="math inline" data-term-auto="off">\(J{+}K{+}(a{+}6) &lt; 2\cdot 2^a\)</span>), a
 one-sided residue gap at precision <span class="math inline" data-term-auto="off">\(m\le
-K\)</span> (room <span class="math inline" data-term-auto="off">\(2H{+}J{+}K{+}2 &lt;
-2^m\)</span> and <span class="math inline" data-term-auto="off">\(D(H,H+J,K)\bmod 2^m \le 2^m
-- (2H{+}J{+}K{+}2)\)</span>) already forces <span
+K\)</span> (size condition <span class="math inline" data-term-auto="off">\(2H{+}J{+}K{+}2
+&lt; 2^m\)</span> and <span class="math inline" data-term-auto="off">\(D(H,H+J,K)\bmod 2^m
+\le 2^m - (2H{+}J{+}K{+}2)\)</span>) already forces <span
 class="math inline" data-term-auto="off">\({R}(2H{+}J) - {R}(H{+}J)\notin\mathbb Z\)</span>.
 No lower margin at all is demanded. The proof chain is complete: the
 theorem holds for every <span class="math inline" data-term-auto="off">\(a\ge 8\)</span>, and
@@ -8330,24 +8339,25 @@ class="math display" data-term-auto="off">\[2H{+}m{+}2 \le \text{suffix residue}
 <p class="display-continue"><em> (a two-sided band on the adjacent-suffix
 residue directly, one candidate depth <span
 class="math inline" data-term-auto="off">\(m\)</span>).</em></p></li>
-<li><p><em><em>Guarded odd-prefix band</em>: at the odd guarded depth
-<span class="math inline" data-term-auto="off">\(2q{+}1\)</span>, a two-sided band of
-half-width <span class="math inline" data-term-auto="off">\(H{+}q{+}2\)</span> on the
-half-word residue modulo <span class="math inline" data-term-auto="off">\(4^q\)</span>. The
-depth is fixed by the stated guard; it cannot be chosen independently of
-<span class="math inline" data-term-auto="off">\(a\)</span>.</em></p></li>
-<li><p><em><em>Guarded centred-magnitude bound</em>, <em>proved
-equivalent</em> to the previous one: </em></p>
+<li><p><em><em>Odd-prefix interval at the prescribed depth</em>: at the
+prescribed odd depth <span class="math inline" data-term-auto="off">\(2q{+}1\)</span>, a
+two-sided band of half-width <span
+class="math inline" data-term-auto="off">\(H{+}q{+}2\)</span> on the half-word residue modulo
+<span class="math inline" data-term-auto="off">\(4^q\)</span>. The depth is fixed by <span
+class="math inline" data-term-auto="off">\(q=q_a\)</span>; it cannot be chosen independently
+of <span class="math inline" data-term-auto="off">\(a\)</span>.</em></p></li>
+<li><p><em><em>Centred-residue bound at the prescribed depth</em>,
+<em>proved equivalent</em> to the previous one: </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall a_0\ \exists a,q,\ \max(14,a_0)\le a
 \wedge q=q_a
       \wedge H{+}q{+}2 \le |u_{a,q}| .\]</span></div></li>
-<li><p><em><em>Flexible centred-magnitude bound</em>: the same magnitude
-bound with the depth restriction relaxed from “canonical guarded” to any
-odd <span class="math inline" data-term-auto="off">\(2q{+}1\)</span> satisfying the half-cell
-fit <span class="math inline" data-term-auto="off">\(2(H{+}q{+}2)\le 4^q\)</span> and the
-sign-corridor room <span
-class="math inline" data-term-auto="off">\(2q{+}2{+}(a{+}6)&lt;2\cdot
+<li><p><em><em>Centred-residue bound at a variable depth</em>: the same
+magnitude bound with the depth restriction relaxed from the prescribed
+value <span class="math inline" data-term-auto="off">\(q=q_a\)</span> to any odd <span
+class="math inline" data-term-auto="off">\(2q{+}1\)</span> satisfying the half-cell fit <span
+class="math inline" data-term-auto="off">\(2(H{+}q{+}2)\le 4^q\)</span> and the positivity
+range <span class="math inline" data-term-auto="off">\(2q{+}2{+}(a{+}6)&lt;2\cdot
 2^a\)</span>.</em></p></li>
 <li><p><em><em>Terminal dominance</em>: under the same bounds as item 4,
 <span class="math inline" data-term-auto="off">\(\delta_{2^a}(2q+2)\le2u_{a,q}\)</span>. This
@@ -8356,14 +8366,15 @@ below.</em></p></li>
 </ol>
 <p><em>For the first four conditions, the relevant implications into the
 upper-endpoint condition are as follows: adjacent-suffix band <span
-class="math inline" data-term-auto="off">\(\to\)</span> upper-endpoint condition; guarded
-odd-prefix band <span class="math inline" data-term-auto="off">\(\to\)</span> adjacent-suffix
-band; guarded centred-magnitude bound <span
-class="math inline" data-term-auto="off">\(\Leftrightarrow\)</span> guarded odd-prefix band;
-flexible centred-magnitude bound <span
-class="math inline" data-term-auto="off">\(\to\)</span> adjacent-suffix band; guarded
-centred-magnitude bound <span class="math inline" data-term-auto="off">\(\to\)</span>
-flexible centred-magnitude bound.</em></p>
+class="math inline" data-term-auto="off">\(\to\)</span> upper-endpoint condition; odd-prefix
+interval at the prescribed depth <span
+class="math inline" data-term-auto="off">\(\to\)</span> adjacent-suffix band; centred-residue
+bound at the prescribed depth <span
+class="math inline" data-term-auto="off">\(\Leftrightarrow\)</span> odd-prefix interval at
+the prescribed depth; centred-residue bound at a variable depth <span
+class="math inline" data-term-auto="off">\(\to\)</span> adjacent-suffix band; centred-residue
+bound at the prescribed depth <span class="math inline" data-term-auto="off">\(\to\)</span>
+centred-residue bound at a variable depth.</em></p>
 </div>
 </section>
 <section id="a-bound-on-the-last-totient-difference" class="level4">
@@ -9096,12 +9107,12 @@ sections is infinite-dimensional (Proposition <a class="math-ref" href="#prop:r
 totient-specific rank argument). <em> A rank bound that contradicts the
 lower bound <span class="math inline" data-term-auto="off">\(2^e-1\)</span> would have to use
 additional arithmetic of the actual totient coefficients. The generic
-proposal that every rational coefficient series has bounded
-tempered-carry rank is ruled out by the rational control recorded in the
-short paper: its carry rank is at least <span
-class="math inline" data-term-auto="off">\(2^e-1\)</span> at every level. It is therefore not
-a remaining general lemma from which totient irrationality follows. The
-conditional Proposition <a class="math-ref" href="#prop:period-not-rank">1.7</a> records
+proposal that rationality bounds the rank of every integral carry
+satisfying <span class="math inline" data-term-auto="off">\(u(n)/2^n\to0\)</span> is
+disproved by the comparison sequence recorded in the short paper: its
+carry rank is at least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> at
+every level. It is therefore not a remaining general lemma from which
+totient irrationality follows. The conditional Proposition <a class="math-ref" href="#prop:period-not-rank">1.7</a> records
 eventual periodicity modulo <span class="math inline" data-term-auto="off">\(v\)</span>
 together with unbounded rational rank. Periodicity of the residue
 sequences concerns values in a finite quotient; it does not bound the
@@ -9232,12 +9243,12 @@ class="math inline" data-term-auto="off">\(n\)</span>; <span class="math inline"
 n\)</span>; <span
 class="math inline" data-term-auto="off">\(c(n)\equiv\varphi(n)\pmod2\)</span> for every
 <span class="math inline" data-term-auto="off">\(n\)</span>; for every <span
-class="math inline" data-term-auto="off">\(N,G,K\)</span> there is a block of <span
-class="math inline" data-term-auto="off">\(K\)</span> explicit <span
-class="math inline" data-term-auto="off">\((6,0)\)</span> carry-pulse pairs beyond <span
-class="math inline" data-term-auto="off">\(N\)</span>, each pair separated by more than <span
-class="math inline" data-term-auto="off">\(G\)</span>; and <span class="math inline" data-term-auto="off">\(\sum_n
-c(n)/2^n = 3/2\)</span>.</em></p>
+class="math inline" data-term-auto="off">\(N,G,K\)</span> there are <span
+class="math inline" data-term-auto="off">\(K\)</span> pairs of coefficients <span
+class="math inline" data-term-auto="off">\((6,0)\)</span> starting beyond <span
+class="math inline" data-term-auto="off">\(N\)</span>, with starting positions separated by
+more than <span class="math inline" data-term-auto="off">\(G\)</span>; and <span
+class="math inline" data-term-auto="off">\(\sum_n c(n)/2^n = 3/2\)</span>.</em></p>
 </div>
 <p><strong>Scope.</strong> The displayed bounds, parity agreement and
 aperiodicity, including the stated number and separation of the edits,
@@ -9772,13 +9783,12 @@ assembly separately gives a basis for the infinite rational span and for
 its finitely supported rational relations. These finite and infinite
 statements should not be confused with a claim about infinite sums of
 relations.</p>
-<p><strong>What the rank theorem does not prove.</strong> Infinite
-section rank does not imply irrationality of <span
-class="math inline" data-term-auto="off">\(S\)</span>. The result quantifies the
-nonregularity already cited above: it gives the rank, the retained
-sections and their integral relations. Martin’s simultaneous
-inequalities supply another proof for pairwise nonproportional affine
-forms with positive slopes <span class="citation"
+<p><strong>Relation to the series value.</strong> Infinite section rank
+does not imply irrationality of <span class="math inline" data-term-auto="off">\(S\)</span>.
+The result quantifies the nonregularity already cited above: it gives
+the rank, the retained sections and their integral relations. Martin’s
+simultaneous inequalities supply another proof for pairwise
+nonproportional affine forms with positive slopes <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. His theorem does not
 separate <span class="math inline" data-term-auto="off">\(n\)</span> from <span
 class="math inline" data-term-auto="off">\(2n\)</span>; the two evaluations above do that.
@@ -10257,9 +10267,13 @@ perturbation constraint is not retained. The construction makes no
 rationality assertion about <span
 class="math inline" data-term-auto="off">\(F_\varphi(1/2)\)</span>.</p>
 <div class="proof">
-<p><em>Proof.</em> The tail infimum in <span
-class="math inline" data-term-auto="off">\(g\)</span> is positive, nondecreasing and tends to
-infinity. The cap gives <span
+<p><em>Proof.</em> We use signed finite-difference blocks. Their order
+will increase to preserve each fixed moment and each prescribed boundary
+derivative; their positions and amplitudes will leave room to choose the
+value of the series. All blocks are chosen beyond the prescribed
+prefix.</p>
+<p>The tail infimum in <span class="math inline" data-term-auto="off">\(g\)</span> is
+positive, nondecreasing and tends to infinity. The cap gives <span
 class="math inline" data-term-auto="off">\(g(n)\le(n/2)^{1/4}\)</span>, while <span
 class="math inline" data-term-auto="off">\(g(n)\le f(k)\)</span> for every <span
 class="math inline" data-term-auto="off">\(k\ge n\)</span>. Choose a large even <span
@@ -10283,7 +10297,13 @@ class="math inline" data-term-auto="off">\(W_j\le\sqrt{s_j}&lt;s_{j+1}\)</span>.
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_j(z)=d_jM_jz^{n_j}(1-z^{t_j})^{k_j},\qquad
 E(z)=\sum_{j\ge0}P_j(z).\]</span></div>
-<p>Let <span
+<p>The factor <span
+class="math inline" data-term-auto="off">\((1-z^{t_j})^{k_j}\)</span> supplies cancellation
+of moments; <span class="math inline" data-term-auto="off">\(M_j\)</span> supplies
+divisibility; and the even <span class="math inline" data-term-auto="off">\(n_j,t_j\)</span>
+leave every odd coefficient unchanged. The digit <span
+class="math inline" data-term-auto="off">\(d_j\)</span> remains free to adjust the value at
+<span class="math inline" data-term-auto="off">\(z=1/\beta\)</span>. Let <span
 class="math inline" data-term-auto="off">\(S\)</span> consist of all <span
 class="math inline" data-term-auto="off">\(n_j+lt_j\)</span>, <span
 class="math inline" data-term-auto="off">\(0\le l\le k_j\)</span>, and let <span
@@ -10291,7 +10311,7 @@ class="math inline" data-term-auto="off">\(H\)</span> be the union of their full
 hulls <span class="math inline" data-term-auto="off">\([n_j,n_j+W_j]\)</span>. These hulls
 are disjoint and all points of <span class="math inline" data-term-auto="off">\(S\)</span>
 are even.</p>
-<p><em>Coefficient room.</em> If <span
+<p><em>Bounds for the coefficients.</em> If <span
 class="math inline" data-term-auto="off">\(s\ge16\)</span> and <span
 class="math inline" data-term-auto="off">\(2kk!\le\sqrt s\)</span>, then <span
 class="math inline" data-term-auto="off">\(4k!2^k\le2\sqrt s\,2^{\sqrt s/2}\le2^s\)</span>.
@@ -10306,8 +10326,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>At every modified index <span
 class="math inline" data-term-auto="off">\(n\)</span> this is at most <span
 class="math inline" data-term-auto="off">\(f(n)\)</span> and at most <span
-class="math inline" data-term-auto="off">\((n_{j-1}/2)^{1/8}\le\sqrt{n/2}\)</span>. The
-totient has precisely the needed two-sided room at even indices: its
+class="math inline" data-term-auto="off">\((n_{j-1}/2)^{1/8}\le\sqrt{n/2}\)</span>. Both
+signs of the correction are permitted at even indices, because the
 product formula gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{\varphi(n)^2}{n}
@@ -10331,21 +10351,27 @@ Since <span class="math inline" data-term-auto="off">\(M_{j+1}\ge M_j\)</span>,<
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_{j+1}w_{j+1}=\beta^2M_{j+1}\beta^{-n_j}a_{j+1}
 \ge3M_j\beta^{-n_j}\ge3w_j.\]</span></div>
-<p>The capacity <span
+<p>The sum <span
 class="math inline" data-term-auto="off">\(T=\sum_j A_jw_j\)</span> is positive and finite,
-by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-budget">long249:eq:signed-budget</a>. If
-<span class="math inline" data-term-auto="off">\(T_j=\sum_{i&gt;j}A_iw_i\)</span>, the
+by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-budget">long249:eq:signed-budget</a>. After
+choosing <span class="math inline" data-term-auto="off">\(d_j\)</span>, the remaining digits
+have total allowance <span
+class="math inline" data-term-auto="off">\(T_j=\sum_{i&gt;j}A_iw_i\)</span>. Consecutive
+choices of <span class="math inline" data-term-auto="off">\(d_j\)</span> change the current
+contribution by <span class="math inline" data-term-auto="off">\(w_j\)</span>, while <span
+class="math inline" data-term-auto="off">\(T_j\ge A_{j+1}w_{j+1}\ge3w_j\)</span>. Hence the
 intervals <span class="math inline" data-term-auto="off">\([dw_j-T_j,dw_j+T_j]\)</span>,
 <span class="math inline" data-term-auto="off">\(-A_j\le d\le A_j\)</span>, overlap and cover
 <span class="math inline" data-term-auto="off">\([-A_jw_j-T_j,A_jw_j+T_j]\)</span>.
-Successive digit choices therefore represent every value in <span
-class="math inline" data-term-auto="off">\([-T,T]\)</span>, since <span
-class="math inline" data-term-auto="off">\(T_j\to0\)</span>. This is the finite-choice
-interval principle of Crmarić and Kovač <span class="citation"
-data-cites="crmarickovac2025signed"><a href="#ref-36">[36]</a></span>, here verified for signed
-finite differences. It also shows <span class="math inline" data-term-auto="off">\(T\)</span>
-can be made arbitrarily small, while positive, by increasing the initial
-cutoff.</p>
+Successively choose a digit whose interval contains the remaining
+target. The residual tends to zero with <span
+class="math inline" data-term-auto="off">\(T_j\)</span>, so the digits represent every value
+in <span class="math inline" data-term-auto="off">\([-T,T]\)</span>. This is the
+finite-choice interval principle of Crmarić and Kovač <span
+class="citation" data-cites="crmarickovac2025signed"></span>, here
+verified for signed finite differences. It also shows <span
+class="math inline" data-term-auto="off">\(T\)</span> can be made arbitrarily small, while
+positive, by increasing the initial cutoff.</p>
 <p><em>Congruences and moments.</em> For every polynomial <span
 class="math inline" data-term-auto="off">\(p\)</span> of degree less than <span
 class="math inline" data-term-auto="off">\(k\)</span>,</p>
@@ -10357,23 +10383,24 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>This follows by iterating the forward-difference
 operator, which lowers polynomial degree. Eventually <span
 class="math inline" data-term-auto="off">\(q\mid M_j\)</span>, so every later coefficient and
-every partial packet sum vanish modulo <span
-class="math inline" data-term-auto="off">\(q\)</span>. Complete packets have mass zero,
-giving the cumulative assertion. Eventually also <span
+every partial block sum vanish modulo <span
+class="math inline" data-term-auto="off">\(q\)</span>. Complete blocks have mass zero, giving
+the cumulative assertion. Eventually also <span
 class="math inline" data-term-auto="off">\(q\mid t_j\)</span> and <span
-class="math inline" data-term-auto="off">\(k_j&gt;d\)</span>. Each such packet lies in one
+class="math inline" data-term-auto="off">\(k_j&gt;d\)</span>. Each such block lies in one
 residue class modulo <span class="math inline" data-term-auto="off">\(q\)</span> and its
-moment of degree <span class="math inline" data-term-auto="off">\(d\)</span> is zero by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-difference">long249:eq:signed-difference</a>.
-Outside the common hull set <span class="math inline" data-term-auto="off">\(H\)</span>, only
-complete packets have been summed, so the defect equals the integer
-contribution of finitely many early packets. If <span
-class="math inline" data-term-auto="off">\(q\le P\)</span> and <span
+moment of degree <span class="math inline" data-term-auto="off">\(d\)</span> is zero by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-difference">long249:eq:signed-difference</a>. A
+cutoff outside <span class="math inline" data-term-auto="off">\(H\)</span> cannot split a
+block. Its moment sum therefore contains only complete blocks, so the
+defect is the integer contribution of the finitely many early blocks. If
+<span class="math inline" data-term-auto="off">\(q\le P\)</span> and <span
 class="math inline" data-term-auto="off">\(d&lt;P\)</span>, there are no exceptional early
-packets. These cutoffs do not depend on the digits.</p>
+blocks. These cutoffs depend on the block parameters, not on the later
+choice of digits.</p>
 <p><em>Sparsity and blocks.</em> Within the <span
-class="math inline" data-term-auto="off">\(j\)</span>th packet the gaps in <span
+class="math inline" data-term-auto="off">\(j\)</span>th block the gaps in <span
 class="math inline" data-term-auto="off">\(S\)</span> are <span
-class="math inline" data-term-auto="off">\(t_j\to\infty\)</span>; between packets they are at
+class="math inline" data-term-auto="off">\(t_j\to\infty\)</span>; between blocks they are at
 least <span
 class="math inline" data-term-auto="off">\(s_{j+1}-\sqrt{s_{j+1}}\to\infty\)</span>. Uniform
 spacing after a finite prefix implies upper Banach density zero. To
@@ -10385,7 +10412,7 @@ class="math inline" data-term-auto="off">\([X/2,3X]\)</span> eventually and its 
 center is at least <span class="math inline" data-term-auto="off">\(X/4\)</span>, since its
 width and spacing are <span class="math inline" data-term-auto="off">\(O(\log X)\)</span>.
 Thus <span class="math inline" data-term-auto="off">\(s_j\ge\ell(X)\)</span> for every such
-packet. There are <span class="math inline" data-term-auto="off">\(O(X/\ell(X)+1)\)</span> of
+block. There are <span class="math inline" data-term-auto="off">\(O(X/\ell(X)+1)\)</span> of
 them, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[W_j+1\le2\sqrt{s_j}\le\frac{2s_{j+1}}{\sqrt{\ell(X)}}.\]</span></div>
@@ -10403,12 +10430,13 @@ gives ordinary density zero for <span class="math inline" data-term-auto="off">\
 But <span class="math inline" data-term-auto="off">\(W_j\to\infty\)</span>, so <span
 class="math inline" data-term-auto="off">\(H\)</span> contains arbitrarily long solid
 intervals and its upper Banach density is one.</p>
-<p><em>Radial smoothness.</em> Fix a root <span
-class="math inline" data-term-auto="off">\(\zeta\)</span> of order <span
+<p><em>Radial smoothness.</em> The number of differences increases with
+the block index, so any fixed derivative order is eventually controlled.
+Fix a root <span class="math inline" data-term-auto="off">\(\zeta\)</span> of order <span
 class="math inline" data-term-auto="off">\(q\)</span>, and integers <span
 class="math inline" data-term-auto="off">\(u,A\ge0\)</span>. Choose <span
 class="math inline" data-term-auto="off">\(B\ge u+A+2\)</span>. For all sufficiently late
-packets, <span class="math inline" data-term-auto="off">\(q\mid t_j\)</span> and <span
+blocks, <span class="math inline" data-term-auto="off">\(q\mid t_j\)</span> and <span
 class="math inline" data-term-auto="off">\(k_j\ge B\)</span>. Factor</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_j(x\zeta)=(1-x)^B R_j(x),\qquad
@@ -10439,15 +10467,16 @@ c_nz^n\)</span>, its radial Taylor coefficient of order <span
 class="math inline" data-term-auto="off">\(u\)</span> at <span
 class="math inline" data-term-auto="off">\(\zeta\)</span> is <span class="math inline" data-term-auto="off">\(\sum
 c_n\binom nu\zeta^n\in\mathbb{Z}[\zeta]\)</span>. Every such coefficient
-stabilizes after finitely many packets. The first <span
+stabilizes after finitely many blocks. The first <span
 class="math inline" data-term-auto="off">\(P\)</span> vanish at roots of order at most <span
 class="math inline" data-term-auto="off">\(P\)</span>.</p>
-<p><em>Entire Dirichlet continuation.</em> Fix <span
-class="math inline" data-term-auto="off">\((q,c)\)</span> and a compact set of complex <span
-class="math inline" data-term-auto="off">\(s\)</span>, with <span
-class="math inline" data-term-auto="off">\(\operatorname{Re}s\ge-R\)</span>. Choose an
+<p><em>Entire Dirichlet continuation.</em> Here we apply the same finite
+differences to <span class="math inline" data-term-auto="off">\(y^{-s}\)</span> rather than
+to a polynomial. Fix <span class="math inline" data-term-auto="off">\((q,c)\)</span> and a
+compact set of complex <span class="math inline" data-term-auto="off">\(s\)</span>, with
+<span class="math inline" data-term-auto="off">\(\operatorname{Re}s\ge-R\)</span>. Choose an
 integer <span class="math inline" data-term-auto="off">\(B&gt;R+3/2\)</span>. All
-sufficiently late packets align modulo <span
+sufficiently late blocks align modulo <span
 class="math inline" data-term-auto="off">\(q\)</span> and have <span
 class="math inline" data-term-auto="off">\(k_j\ge B\)</span>. The derivative of <span
 class="math inline" data-term-auto="off">\(y^{-s}\)</span> of order <span
@@ -10458,16 +10487,16 @@ class="math inline" data-term-auto="off">\(B\)</span>th finite difference as an 
 <span class="math inline" data-term-auto="off">\([0,t_j]^B\)</span>. The remaining
 differences contribute at most <span
 class="math inline" data-term-auto="off">\(2^{k_j-B}\)</span>, so the absolute Dirichlet
-contribution of one packet is at most</p>
+contribution of one polynomial is at most</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C|d_j|M_j2^{k_j-B}t_j^B n_j^{R-B}
 \le C&#39; n_j^{R-B+1/2}.\]</span></div>
 <p>This is summable over the distinct
-positive centers. The packet Dirichlet polynomials therefore converge
-normally on every compact set and define an entire function. In <span
-class="math inline" data-term-auto="off">\(\operatorname{Re}s&gt;3/2\)</span> they agree with
-the absolutely convergent ungrouped series. At <span
-class="math inline" data-term-auto="off">\(s=-d\)</span>, all late packets vanish by their
+positive centers. The Dirichlet polynomials of the blocks therefore
+converge normally on every compact set and define an entire function. In
+<span class="math inline" data-term-auto="off">\(\operatorname{Re}s&gt;3/2\)</span> they
+agree with the absolutely convergent ungrouped series. At <span
+class="math inline" data-term-auto="off">\(s=-d\)</span>, all late blocks vanish by their
 moment identity, leaving exactly <span
 class="math inline" data-term-auto="off">\(C_{q,c,d,r}\)</span>. These are
 analytic-continuation values; the original ungrouped series need not
@@ -10497,11 +10526,11 @@ class="math inline" data-term-auto="off">\(P\)</span>.</p>
 exceptional sets, while the nondegenerate interval of attained values
 contains both rational and irrational numbers. ◻</p>
 </div>
-<p>In particular, finite linear combinations of progression channels
-show that every fixed periodic twist preserves all poles and Laurent
-principal parts wherever the reference function has meromorphic
-continuation. For the untwisted totient channel the classical identity
-gives</p>
+<p>Taking finite linear combinations of the Dirichlet series on
+arithmetic progressions shows that every fixed periodic twist preserves
+the poles and Laurent principal parts wherever the original Dirichlet
+series has meromorphic continuation. In the untwisted case the classical
+identity gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}b(n)n^{-s}=\frac{\zeta(s-1)}{\zeta(s)}+D_{1,0,r}(s),
 \qquad\operatorname{Re}s&gt;2.\]</span></div>
@@ -10511,16 +10540,17 @@ function identity, not an irrationality theorem for one value of <span
 class="math inline" data-term-auto="off">\(F_\varphi\)</span>. Likewise, Habiro’s injectivity
 of the exact Taylor map for a cyclotomic completion <span
 class="citation" data-cites="habiro2004signed"></span> concerns a
-different, stronger datum. The complete Taylor jet is not fixed here:
-the second Taylor coefficient of <span
+different, stronger datum. The full sequence of Taylor coefficients is
+not fixed here: the second Taylor coefficient of <span
 class="math inline" data-term-auto="off">\(Mz^n(1-z^t)^2\)</span> at one is <span
 class="math inline" data-term-auto="off">\(Mt^2\)</span>.</p>
 <p>The change of sign is indispensable for this construction. An
 infinitely supported nonnegative integer correction has unbounded Abel
-limit at one. It also cannot have an entire Dirichlet defect if the
-defining series converges in some right half-plane. Indeed, choose a
-positive real <span class="math inline" data-term-auto="off">\(\sigma\)</span> inside that
-half-plane. Termwise differentiation gives <span
+limit at one. The Dirichlet series of the correction also cannot extend
+to an entire function if its defining series converges in a right
+half-plane. Indeed, choose a positive real <span
+class="math inline" data-term-auto="off">\(\sigma\)</span> inside that half-plane. Termwise
+differentiation gives <span
 class="math inline" data-term-auto="off">\((-1)^kD^{(k)}(\sigma)=\sum_ne(n)n^{-\sigma}(\log
 n)^k\ge0\)</span>. The entire Taylor series at zero and Tonelli’s
 theorem then give</p>
@@ -10613,7 +10643,7 @@ assertion.</p>
 <h5>Sign versus distance from an integer.</h5>
 <p>The positivity theorem for the LCM tail difference (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L39"><code>actualLcmTailDiff_shift_pos</code></a>)
-identifies the relevant endpoint under the stated room and modulus
+identifies the relevant endpoint under the stated size and modulus
 bounds. Nonintegrality follows only after excluding the corresponding
 residue interval (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L1260"><code>actualLcmTailDiff_notMem_int_of_topEdgeResidueGap</code></a>).
@@ -10811,7 +10841,7 @@ class="math inline" data-term-auto="off">\(X\)</span> as supplied. Choose <span
 class="math inline" data-term-auto="off">\(L\ge h\)</span> with <span
 class="math inline" data-term-auto="off">\(2^{L}\ge 1024\,(2X+h+L+2)\)</span>; such <span
 class="math inline" data-term-auto="off">\(L\)</span> exists because <span
-class="math inline" data-term-auto="off">\(2^L/L\to\infty\)</span>, and it satisfies the room
+class="math inline" data-term-auto="off">\(2^L/L\to\infty\)</span>, and it satisfies the size
 inequality <span class="math inline" data-term-auto="off">\(16(2X+h+L+2)\le 2^L\)</span> a
 fortiori. For every <span class="math inline" data-term-auto="off">\(N&lt;2X\)</span> the
 proved truncation bound (<a
@@ -11276,7 +11306,15 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L577"><code>Erdos249257.irrational_totient_series_of_pivotResidualDecorrelation</code></a>).
 The decomposition is an exact identity (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L514"><code>Erdos249257.TotientTailPeriodKiller.windowFirstExp_sum_eq_pivot_decomposition</code></a>).
-For <span class="math inline" data-term-auto="off">\(X\ge4\)</span> and <span
+It separates two different tasks. The last two sums can be bounded by
+counting their indices, since every phase has modulus one. The first two
+retain the weight <span class="math inline" data-term-auto="off">\(w_N\)</span>: subtracting
+the group mean does not remove its correlation with the selected prime
+phase. The parameters <span class="math inline" data-term-auto="off">\(s,\eta\)</span> must
+be fixed before <span class="math inline" data-term-auto="off">\(X_0\)</span>, and the
+estimates must hold for the same <span
+class="math inline" data-term-auto="off">\(X,L\)</span>; separate successful blocks do not
+suffice. For <span class="math inline" data-term-auto="off">\(X\ge4\)</span> and <span
 class="math inline" data-term-auto="off">\(s=L-h\)</span>, the single cofactor group <span
 class="math inline" data-term-auto="off">\(m_N=1\)</span>, not the full assigned set,
 consists of the indices for which <span
@@ -11388,8 +11426,8 @@ of <span class="citation" data-cites="schoenberg1936"><a href="#ref-22">[22]</a
 <p class="display-continue"><em> so a single choice of
 <span class="math inline" data-term-auto="off">\(\eta\)</span> with <span
 class="math inline" data-term-auto="off">\(D(\eta)&lt;1/200\)</span> meets the <span
-class="math inline" data-term-auto="off">\(\tfrac{1}{100}X\)</span> budget for all large
-<span class="math inline" data-term-auto="off">\(X\)</span>. This choice fixes <span
+class="math inline" data-term-auto="off">\(\tfrac{1}{100}X\)</span> bound for all large <span
+class="math inline" data-term-auto="off">\(X\)</span>. This choice fixes <span
 class="math inline" data-term-auto="off">\(\eta\)</span> before <span
 class="math inline" data-term-auto="off">\(X_0\)</span>, as required. It supplies only the
 excluded-cofactor bound: the mean and mean-subtracted estimates must
@@ -11442,16 +11480,16 @@ class="math inline" data-term-auto="off">\(\#(B(\eta)\cap[1,x])&lt;3\eta x\)</sp
 <span class="math inline" data-term-auto="off">\(D(\eta)\le3\eta\)</span>. In particular,
 <span class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> gives <span
 class="math inline" data-term-auto="off">\(D(\eta)\le3/1000&lt;1/200\)</span>, an explicit
-sufficient choice for the excluded-cofactor budget. This does not
+sufficient choice for the excluded-cofactor bound. This does not
 establish either weighted phase estimate for that choice, and it is not
 claimed to be an optimal cutoff. Lean checks the estimate <span
 class="math inline" data-term-auto="off">\(\#(B(\eta)\cap[1,x])&lt;3\eta x\)</span> with no
 further input (<a
 href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean#L361">Lean
-proof</a>) and the excluded-cofactor budget at <span
+proof</a>) and the excluded-cofactor bound at <span
 class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> with no input at all (<a
 href="https://github.com/wcook04/plectis-erdos/blob/57941a741fceaae33ab7e2513a9cd11fee060081/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L910">Lean
-proof</a>). For that budget Chebyshev’s bound replaces the prime number
+proof</a>). For that bound Chebyshev’s bound replaces the prime number
 theorem in the proof above: the primes <span
 class="math inline" data-term-auto="off">\(p\)</span> with <span
 class="math inline" data-term-auto="off">\(a+1&lt;p\le2a+1\)</span> divide <span
@@ -11463,7 +11501,7 @@ is at most <span class="math inline" data-term-auto="off">\((3\log4/1000+o(1))X\
 <span class="math inline" data-term-auto="off">\(3\log4/1000&lt;0.0042\)</span>. The proof
 uses <span class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> only through <span
 class="math inline" data-term-auto="off">\(3\eta\log4&lt;1/100\)</span>, so Lean checks the
-budget with no input for every <span class="math inline" data-term-auto="off">\(\eta\)</span>
+bound with no input for every <span class="math inline" data-term-auto="off">\(\eta\)</span>
 with <span class="math inline" data-term-auto="off">\(0&lt;\eta&lt;1/(300\log4)\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/ab690b0aa515faa3a432e9d47de288704ebf6bb5/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L930">Lean
 proof</a>).</p>
@@ -11604,7 +11642,7 @@ class="math display" data-term-auto="off">\[\sum_{k=1}^{K}2^{-k}
 \left|\sum_{N=2^k}^{2^{k+1}-1}
        e\bigl(D(h,N,L_k)/2^{L_k}\bigr)\right|=o(K),\]</span></div>
 <p class="display-continue">where every
-<span class="math inline" data-term-auto="off">\(L_k\)</span> satisfies the room inequality
+<span class="math inline" data-term-auto="off">\(L_k\)</span> satisfies the size inequality
 for <span class="math inline" data-term-auto="off">\(X=2^k\)</span>. Indeed, the number of
 <span class="math inline" data-term-auto="off">\(k\le K\)</span> for which the normalised
 norm exceeds <span class="math inline" data-term-auto="off">\(21/25\)</span> is at most <span
@@ -11835,9 +11873,9 @@ class="math inline" data-term-auto="off">\(d=4\)</span>, <span
 class="math inline" data-term-auto="off">\(t=2\)</span> for <span class="math inline" data-term-auto="off">\(5\le
 d\le 9\)</span>, and <span class="math inline" data-term-auto="off">\(t=1\)</span> for <span
 class="math inline" data-term-auto="off">\(10\le d\le 24\)</span>; in every case at or near
-the first depth admitted by the room floor. The residues are not
-marginal: <span class="math inline" data-term-auto="off">\(r/2^{h}=0.3594\)</span> at <span
-class="math inline" data-term-auto="off">\(d=1\)</span>, <span
+the first depth admitted by the lower bound on the depth. The residues
+are not marginal: <span class="math inline" data-term-auto="off">\(r/2^{h}=0.3594\)</span> at
+<span class="math inline" data-term-auto="off">\(d=1\)</span>, <span
 class="math inline" data-term-auto="off">\(0.5977\)</span> at <span
 class="math inline" data-term-auto="off">\(d=3\)</span>, <span
 class="math inline" data-term-auto="off">\(0.6853\)</span> at <span
@@ -11900,10 +11938,14 @@ rational comparison already has that lower bound.</p>
 <section id="the-comparison-with-value-54." class="level5">
 <h5>The comparison with value <span
 class="math inline" data-term-auto="off">\(5/4\)</span>.</h5>
-<p>Use a centred base-four expansion. The elementary bounds <span
-class="math inline" data-term-auto="off">\(9/8\le S\le3/2\)</span> follow respectively from
-the first four terms and from <span class="math inline" data-term-auto="off">\(\varphi(n)\le
-n-1\)</span> for <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. Put <span
+<p>We alter only even coefficients, whose weights are <span
+class="math inline" data-term-auto="off">\(2^{-2m}=4^{-m}\)</span>. Thus a base-four
+expansion of <span class="math inline" data-term-auto="off">\(5/4-S\)</span> gives the
+required correction while leaving every odd totient unchanged. The
+elementary bounds <span class="math inline" data-term-auto="off">\(9/8\le S\le3/2\)</span>
+follow respectively from the first four terms and from <span
+class="math inline" data-term-auto="off">\(\varphi(n)\le n-1\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>. Put <span
 class="math inline" data-term-auto="off">\(x_0=5/4-S\)</span> and, for <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span
@@ -11937,13 +11979,15 @@ class="math display" data-term-auto="off">\[\sum_{n\ge1}c(n)2^{-n}=S+\sum_{m\ge1
 <p>This is the centred base-four construction in the Lean <a
 href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos249/ParityPerturbedRationalControl.lean#L379">comparison-series
 theorem</a>.</p>
-<p>Take <span class="math inline" data-term-auto="off">\(v=4\)</span> and <span
+<p>The even coefficients have set the value of the sum. The unchanged
+odd coefficients now give the rank lower bound. Take <span
+class="math inline" data-term-auto="off">\(v=4\)</span> and <span
 class="math inline" data-term-auto="off">\(u_N=4\sum_{j\ge1}c(N+j)2^{-j}\)</span>. The
 rational sum makes <span class="math inline" data-term-auto="off">\(u_N\)</span> integral;
 the coefficient bound gives <span class="math inline" data-term-auto="off">\(0\le
-u_N\le4(N+2)\)</span>. Since <span class="math inline" data-term-auto="off">\(c\)</span>
-agrees with <span class="math inline" data-term-auto="off">\(\varphi\)</span> at every odd
-index, for odd <span class="math inline" data-term-auto="off">\(r\)</span>,</p>
+u_N\le4(N+2)\)</span>. For odd <span class="math inline" data-term-auto="off">\(r\)</span>,
+the carry recurrence and <span
+class="math inline" data-term-auto="off">\(c(2^jn+r)=\varphi(2^jn+r)\)</span> give</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[4\varphi(2^j n+r)=2u_{2^j n+r-1}-u_{2^j
 n+r}.\]</span></div>
@@ -12649,8 +12693,8 @@ using integrality gives exactly the threshold <span
 class="math inline" data-term-auto="off">\(H+q+2\)</span>. This condition is unproved (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L1349"><code>Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.PowerTwoOddGuardTopEdgeHalfWordBandSupply</code></a>).
 The width is <span class="math inline" data-term-auto="off">\(H+q+2\)</span> and the depth is
-the prescribed guarded depth; both must be retained when comparing this
-with a fixed-fraction band. Its sufficiency is proved (<a
+the prescribed depth; both must be retained when comparing this with a
+fixed-fraction band. Its sufficiency is proved (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmTopEdgeStaircase.lean#L2057"><code>Erdos249257.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.powerTwoAdjacentSuffixMidbandSupply_of_oddGuardTopEdgeHalfWordBand</code></a>).</p></li>
 <li><p>Use exactly the quantifiers and prescribed depth of (ii). Let
 <span class="math inline" data-term-auto="off">\(r=W_{a,q}\bmod4^q\)</span> and define its
@@ -13049,8 +13093,12 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \label{long249:r3-tail-error}
 |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}\]</span></div>
-<p>A certificate <span
-class="math inline" data-term-auto="off">\(K(h,N,L)\)</span> therefore forces <span
+<p>If <span class="math inline" data-term-auto="off">\(K(h,N,L)\)</span>
+holds, the interval <span
+class="math inline" data-term-auto="off">\([D_{h,N,L}-B,D_{h,N,L}+B]\)</span> lies strictly
+between two consecutive multiples of <span
+class="math inline" data-term-auto="off">\(2^L\)</span>. It contains <span
+class="math inline" data-term-auto="off">\(2^L\Delta_h(N)\)</span>, so <span
 class="math inline" data-term-auto="off">\(\Delta_h(N)\notin\mathbb{Z}\)</span>. Conversely,
 write <span
 class="math inline" data-term-auto="off">\(\|x\|_{\mathbb{R}/\mathbb{Z}}=\min_{z\in\mathbb{Z}}|x-z|\)</span>
@@ -13095,19 +13143,29 @@ multipliers.</p>
 class="math inline" data-term-auto="off">\(F_t=\Delta_{td}(N)\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-phase">long249:r3-tail-phase</a> yields
 <span
 class="math inline" data-term-auto="off">\(F_{t+1}\equiv2^dF_t+F_1\pmod\mathbb{Z}\)</span>.
-If <span class="math inline" data-term-auto="off">\(K(td,N,td)\)</span> fails, <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-error">long249:r3-tail-error</a> gives</p>
+This recurrence expresses the fixed <span
+class="math inline" data-term-auto="off">\(F_1\)</span> in terms of two adjacent differences.
+A failed certificate makes one of those differences close to an integer:
+if <span class="math inline" data-term-auto="off">\(K(td,N,td)\)</span> fails, <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-error">long249:r3-tail-error</a> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\|F_t\|_{\mathbb{R}/\mathbb{Z}}\le\epsilon_t,
 \qquad \epsilon_t=2(N+2td+2)2^{-td}.\]</span></div>
-<p>Two adjacent failures
-would imply <span
-class="math inline" data-term-auto="off">\(\|F_1\|_{\mathbb{R}/\mathbb{Z}}\le2^d\epsilon_t+\epsilon_{t+1}\)</span>,
-impossible for all sufficiently large <span
-class="math inline" data-term-auto="off">\(t\)</span> because the left side is positive and
-the right side tends to zero. Conversely, if <span
-class="math inline" data-term-auto="off">\(F_1\)</span> is integral, then every <span
-class="math inline" data-term-auto="off">\(F_t\)</span> is integral by the same recurrence,
-so no certificate exists. Finally, <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-phase">long249:r3-tail-phase</a> is
+<p>If the test also fails at
+<span class="math inline" data-term-auto="off">\(t+1\)</span>, the triangle inequality on
+<span class="math inline" data-term-auto="off">\(\mathbb{R}/\mathbb{Z}\)</span> and the
+recurrence give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\|F_1\|_{\mathbb{R}/\mathbb{Z}}
+\le
+\|F_{t+1}\|_{\mathbb{R}/\mathbb{Z}}+2^d\|F_t\|_{\mathbb{R}/\mathbb{Z}}
+\le\epsilon_{t+1}+2^d\epsilon_t.\]</span></div>
+<p>The left side is fixed and
+positive; the right side tends to zero. Thus two adjacent failures are
+impossible once <span class="math inline" data-term-auto="off">\(t\)</span> is large enough.
+Conversely, if <span class="math inline" data-term-auto="off">\(F_1\)</span> is integral,
+every <span class="math inline" data-term-auto="off">\(F_t\)</span> is integral by the same
+recurrence, so no certificate exists.</p>
+<p>Finally, <a class="math-ref" data-equation-ref="true" href="#long249:r3-tail-phase">long249:r3-tail-phase</a> is
 nonintegral for every <span class="math inline" data-term-auto="off">\(d,N\)</span> when
 <span class="math inline" data-term-auto="off">\(S\)</span> is irrational. If <span
 class="math inline" data-term-auto="off">\(S=a/(2^cv)\)</span> with <span
@@ -13278,8 +13336,7 @@ class="math inline" data-term-auto="off">\(u_N=vR_N\)</span> are integers and sa
 class="math display" data-term-auto="off">\[u_{N+1}=2u_N-v\varphi(N+1),\qquad 0\le u_N\le
 v(N+2).\]</span></div>
 <p>In particular <span
-class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span>, the condition called
-temperedness in the formal sources. Its dyadic sections <span
+class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span>. Its dyadic sections <span
 class="math inline" data-term-auto="off">\(n\mapsto u_{2^jn+r}\)</span> have rational rank at
 least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> through level <span
 class="math inline" data-term-auto="off">\(e\)</span> and a common eventual period modulo
@@ -13297,9 +13354,10 @@ c(n)\le n\)</span>, and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}c(n)2^{-n}=\frac54.\]</span></div>
 <p>This
-comparison sequence has an integral tempered carry with dyadic rank at
-least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> at every level. Thus
-the same lower bound for a hypothetical totient carry is compatible with
+comparison sequence has an integral carry satisfying <span
+class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span>, with dyadic rank at least
+<span class="math inline" data-term-auto="off">\(2^e-1\)</span> at every level. Thus the same
+lower bound for a hypothetical totient carry is compatible with
 rationality. For one fixed prime <span class="math inline" data-term-auto="off">\(p\)</span>
 and <span class="math inline" data-term-auto="off">\(g:\mathbb{N}\to\mathbb{Z}\)</span>, the
 exact laws <span class="math inline" data-term-auto="off">\(g(pn)=p g(n)\)</span> when <span
@@ -13359,8 +13417,11 @@ uniform bound <span class="math inline" data-term-auto="off">\(Q-\Theta_2&gt;1/1
 false already at <span class="math inline" data-term-auto="off">\((1,5)\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> We compare finite prefixes with geometric bounds for
-their tails. Put</p>
+<p><em>Proof.</em> We first bound every denominator away from zero. We
+then compare <span class="math inline" data-term-auto="off">\(Q(1,5)\)</span> with the whole
+range <span class="math inline" data-term-auto="off">\(e\ge2\)</span> using one uniform
+estimate, and with <span class="math inline" data-term-auto="off">\(e=1\)</span> using a
+seven-term prefix. Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_Y(r)=\sum_{d=1}^{Y}\frac{\mu(d)}{(2^d-1)^r},\quad
 \Theta_r=\sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^r},\quad
@@ -13393,10 +13454,14 @@ class="math inline" data-term-auto="off">\((\mu(1),\ldots,\mu(7))=(1,-1,-1,0,-1,
 gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[q_* =
 \frac{35076077250375200}{37573118933633199}.\]</span></div>
-<p>The same seven
-terms verify the following exact rational inequalities:</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{align*}
+<p>The following four
+comparisons cover, respectively, <span
+class="math inline" data-term-auto="off">\(e\ge2\)</span>, <span
+class="math inline" data-term-auto="off">\((e,Y)=(1,4)\)</span>, <span
+class="math inline" data-term-auto="off">\((1,6)\)</span>, and <span
+class="math inline" data-term-auto="off">\(e=1,Y\ge7\)</span>. They are exact rational
+inequalities:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
 \frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&amp;&gt;q_*,\\
 Q(1,4)=\frac{79049881}{84671559}&amp;&gt;q_*,\\
 Q(1,6)=\frac{1043700953468949889}{1117992059749781919}&amp;&gt;q_*,\\
@@ -13414,8 +13479,11 @@ numerator lower bound is positive. The cases <span
 class="math inline" data-term-auto="off">\(Y=4,5,6\)</span> are displayed explicitly.
 Therefore <span class="math inline" data-term-auto="off">\((1,5)\)</span> is the unique
 minimiser.</p>
-<p>Finally the same tail estimate at <span
-class="math inline" data-term-auto="off">\(r=2\)</span> gives</p>
+<p>It remains to compare the minimum with <span
+class="math inline" data-term-auto="off">\(\Theta_2\)</span>. An upper bound for <span
+class="math inline" data-term-auto="off">\(\Theta_2\)</span> proves the stated gap; a lower
+bound disproves the stronger proposed gap. The same tail estimate at
+<span class="math inline" data-term-auto="off">\(r=2\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_6(2)-\frac1{3072}\le\Theta_2\le
 P_7(2)+\frac1{12288}.\]</span></div>
@@ -13442,8 +13510,9 @@ class="math inline" data-term-auto="off">\(q_j&gt;0\)</span>, a sufficient arith
 is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0&lt;q_j\left|\Theta_2-p_j/q_j\right|\longrightarrow0.\]</span></div>
-<p>Convergence alone does not give this estimate. The elementary dyadic
-prefix bounds give only <span class="math inline" data-term-auto="off">\(q_j|S-p_j/q_j|\le
+<p>The denominator sets the scale of the required error. Convergence alone
+does not control their product. For the elementary dyadic prefixes, the
+available bound is only <span class="math inline" data-term-auto="off">\(q_j|S-p_j/q_j|\le
 N+2\)</span> at depth <span class="math inline" data-term-auto="off">\(N\)</span>, not a
 quantity tending to zero. A prescribed approximation family therefore
 needs a sharper error or reduced-denominator bound. When approximants

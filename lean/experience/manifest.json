@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "1ec92ba8ee0f7f8130ab881302f738ab32c00c5242be3259034f3109002716b1",
+  "source_fingerprint": "d85a68a7842405f3183a72c848241acca3686a51805e3f385cbbaaaf69c30301",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -12,7 +12,7 @@
       "comparator",
       "palomar"
     ],
-    "rule": "Papers explain, Comparator replays selected exact interfaces, and Palomar may review a prepared unit. None widens Lean's proposition or records peer review/acceptance unless its own source says so."
+    "rule": "Papers explain, Comparator checks the Lean statements of paper results against separately declared copies, and Palomar holds a prepare-only corpus. None widens Lean’s proposition or records peer review/acceptance unless its own source says so."
   },
   "routes": {
     "graph": "graph/index.json",
@@ -21,6 +21,7 @@
     "papers": "papers/index.json",
     "human_documents": "documents/index.json",
     "integrations": "integrations.json",
+    "statements": "statements.json",
     "render_receipt": "render-receipt.json"
   },
   "route_contract": {
@@ -31,16 +32,61 @@
     "problems": 8,
     "papers": 19,
     "human_documents": 16,
-    "graph_nodes": 2289,
-    "graph_edges": 6492
+    "graph_nodes": 2902,
+    "graph_edges": 9140
+  },
+  "paper_statements": {
+    "source": "../paper-lean-coverage.json",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
+    "lean_pin": "436f55ebdafa67e4af0fff79f621c13f2ded12bf",
+    "content_digest": "sha256:f84e325381a0966e1e91d9c75a2db3f221c9c576cc8c829bd8ff0dd6904fcc33",
+    "corpus_repository": "https://github.com/wcook04/plectis-erdos-lean",
+    "statements": 689,
+    "lean_exact": 640,
+    "lean": {
+      "exact": 498,
+      "exact_or_stronger": 142,
+      "modulo_named_input": 23,
+      "none": 26
+    },
+    "comparator": {
+      "compared": 616,
+      "not_applicable": 49,
+      "pending": 24
+    },
+    "palomar": {
+      "not_applicable": 49,
+      "pending": 24,
+      "prepared": 616
+    },
+    "comparator_entries": 127,
+    "comparator_runs": 1,
+    "lean_declarations": 1506,
+    "lean_files": 376,
+    "status_rule": {
+      "lean": "exact and exact_or_stronger: the named declarations jointly state the result, the second implying it by an immediate specialisation. modulo_named_input: they state it under the named Lean propositions. none: no Lean statement is recorded; counted false marks a statement the maintainer count has not read yet.",
+      "comparator": "compared: a recorded Comparator replay in the corpus repository checked every named declaration (entries, run ids and corpus commits recorded). pending: exact Lean evidence waiting on that replay; queued_at is the date the row entered the worklist. not_applicable: no exact Lean statement.",
+      "palomar": "prepared: the compared corpus entry is in the prepare-only Palomar corpus; submission and acceptance are operator decisions recorded elsewhere. pending: waiting on Comparator. not_applicable: no exact Lean statement."
+    },
+    "corpus_commit": "cc7e541cf2081c6fef5a5e377d52e365e33b01eb",
+    "replay_run": "35935225572",
+    "replay_href": "https://github.com/wcook04/plectis-erdos-lean/actions/runs/35935225572",
+    "receipts_href": "https://github.com/wcook04/plectis-erdos/tree/main/evidence/comparator/replay-35935225572",
+    "permitted_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
   },
   "source_identity": {
     "human_document_navigation": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
-    "lean_manifest": "1fec7b4dd7fc91262686c617ee41999469fdf27a2363045d372c722acc40a074",
-    "paper_manifest": "ac8ab3bcbb2d58f8b957498a1259f48a72f8e01d3db4bc980c7a46a55a6e41ff",
-    "claims": "1ff6d3c68c05426087ae62839a95d85efa442c71a1540a31b33a38dd8cb47a3e",
-    "problems": "553907337707395dc747cb01ef2309e1e0f0dcb5c7689dbaf27c571fe210a486",
-    "problem_library": "d91611d1ef75a81101a63c84cb2d359a45707b1e7b52285a4aa5c28ff3c3ba6b",
+    "lean_manifest": "1f7630bb2261126b3c4911742e55adde134a9e78b238aa088842bd2e331a68cf",
+    "paper_manifest": "7c859d8fe8f641255d00550a0ec3c748c704056b02b8dac6fec8cdbfb94b0cfd",
+    "claims": "2d5543f6e645c639f076229b2008558caeebc563dae6015a994d35038114509d",
+    "problems": "e8e1d7c043cfc172833f1cf5a60896534759346bc65a1e62f5d50bbf5dc5c175",
+    "problem_library": "dcaf2b843a278d7718dff53ab24b4e91c7dee21384d70f4507164112d4246cc9",
+    "paper_lean_coverage": "18d2717c30eb3fc49dc6467ba197978a65534b39bb574260ce1314a7738c7e0e",
+    "paper_evidence": "dc92c925f8fe7b184447b2524483b02384075d9729e682bef91718058b6c3e69",
     "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965",
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
@@ -58,8 +104,8 @@
     "progressive_graph": {
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
-      "first_screen_nodes": 283,
-      "complete_nodes": 2289
+      "first_screen_nodes": 895,
+      "complete_nodes": 2902
     }
   }
 }

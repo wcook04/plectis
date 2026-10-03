@@ -245,18 +245,18 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "c99e605a77c1d13d",
-      "source_sha256": "2d5f8e7a4afcd1d91f0211c7652a8016a1999d6fdda87d61fd0633b3570a9f96",
+      "renderer_fingerprint": "190ec0c743f338a3",
+      "source_sha256": "f11bc94bb33446f43cfe5de9c21dcd5f757f6ad672010136ca1271274687cce5",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 406,
+      "mathml_node_count": 418,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "33cba521793bca3f251875ff7f6f3d35a566b3f811941283155bde499b0b7c20",
-      "html_exact_tex_sha256": "f4d6543820c5268ce0ddc44e285946a981322ea7610aba3d55e4d681025d684c"
+      "html_mathml_sha256": "c119cf376dcc48f1438bd06567baa6e4d486e4a50036f140a6ceae0a89ac6263",
+      "html_exact_tex_sha256": "93597347adbb33050b11443463f1745bf1de602682b87b0aba33b2e06a6e2e27"
     },
     "sections": [
       {
@@ -384,18 +384,18 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "c99e605a77c1d13d",
-        "source_sha256": "2d5f8e7a4afcd1d91f0211c7652a8016a1999d6fdda87d61fd0633b3570a9f96",
+        "renderer_fingerprint": "190ec0c743f338a3",
+        "source_sha256": "f11bc94bb33446f43cfe5de9c21dcd5f757f6ad672010136ca1271274687cce5",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 406,
+        "mathml_node_count": 418,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "33cba521793bca3f251875ff7f6f3d35a566b3f811941283155bde499b0b7c20",
-        "html_exact_tex_sha256": "f4d6543820c5268ce0ddc44e285946a981322ea7610aba3d55e4d681025d684c"
+        "html_mathml_sha256": "c119cf376dcc48f1438bd06567baa6e4d486e4a50036f140a6ceae0a89ac6263",
+        "html_exact_tex_sha256": "93597347adbb33050b11443463f1745bf1de602682b87b0aba33b2e06a6e2e27"
       },
       "sections": [
         {
@@ -523,11 +523,11 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "c99e605a77c1d13d",
-        "source_sha256": "001380c18f6042394b42f30a1780277962491b10080ddf145d290c28a743329d",
+        "renderer_fingerprint": "190ec0c743f338a3",
+        "source_sha256": "b88246ef2ee14ae62f11094f3df0c9ceb03897df7841c4d5cf9f50585c37411a",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1544,
+        "mathml_node_count": 1558,
         "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
@@ -605,8 +605,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "ce3a19fc6e63e101906f70abb95dac86842eff52d570bc1ea7cb2a18fa9ec927",
-        "html_exact_tex_sha256": "0fd567cb0a757dd4fa5f6a07aae95cf6f0737ffcb936cd459357b0451d4cdd24"
+        "html_mathml_sha256": "9614d59a5c7181b8066da509406d17b844f693ccba8fd95e16b26c6a70ffb70c",
+        "html_exact_tex_sha256": "b8fcbf509df9aa30a450f0a11fb6dc971b09c158075d6ffa145fbc638acea96f"
       },
       "sections": [
         {
@@ -707,7 +707,7 @@
         {
           "level": 2,
           "anchor": "long251:sec:obstructions",
-          "label": "What cannot supply the missing input"
+          "label": "Coefficient conditions and counterexamples"
         },
         {
           "level": 3,
@@ -721,8 +721,8 @@
         },
         {
           "level": 3,
-          "anchor": "the-two-window-event-has-density-zero",
-          "label": "The two-window event has density zero"
+          "anchor": "density-of-indices-with-two-small-tail-differences",
+          "label": "Density of indices with two small tail differences"
         },
         {
           "level": 3,
@@ -822,7 +822,7 @@
         {
           "level": 3,
           "anchor": "long251:sec:xr-boundedpolignac",
-          "label": "A bounded companion to the recurring-values countermodel"
+          "label": "A bounded sequence with recurring values and a rational sum"
         },
         {
           "level": 3,
@@ -881,7 +881,7 @@
           },
           {
             "id": "long251:sec:obstructions",
-            "title": "What cannot supply the missing input",
+            "title": "Coefficient conditions and counterexamples",
             "level": 2
           },
           {

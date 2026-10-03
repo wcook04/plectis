@@ -25,9 +25,9 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=8976cc28b93d">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
+  <link rel="stylesheet" href="../assets/maths.css?v=f936b84a6eaa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
 </head>
@@ -35,17 +35,27 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <a class="brand-ladder brand-ladder--home" href="../index.html">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
+      <a class="brand-ladder brand-ladder--home" href="../../index.html">
         <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
         <span class="wordmark">Plectis</span>
       </a>
-      <nav class="docs-topbar__links" aria-label="Primary">
-        <a href="../index.html">Maths</a>
-        <a href="../index.html#papers">Papers</a>
-        <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
+      <nav class="docs-topbar__links site-primary" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html">Papers</a>
+        <a href="../../index.html#demo-videos">Videos</a>
+        <a href="../../index.html#why">About</a>
       </nav>
+      <details class="site-menu">
+        <summary>Menu</summary>
+        <nav class="site-menu__links" aria-label="Primary mobile">
+          <a href="../index.html">Mathematics</a>
+          <a href="../../docs/papers.html">Papers</a>
+          <a href="../../index.html#demo-videos">Videos</a>
+          <a href="../../index.html#why">About</a>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -85,6 +95,7 @@
         <p class="doc-source-line">Rendered from <code>docs/METHODOLOGY.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/METHODOLOGY.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
+<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l2" href="#standing-rules">Standing rules</a><a class="toc-l3" href="#a-formal-result-is-the-exact-proposition-lean-checked">1. A formal result is the exact proposition Lean checked</a><a class="toc-l3" href="#formal-validity-and-mathematical-faithfulness-are-separate-questions">2. Formal validity and mathematical faithfulness are separate questions</a><a class="toc-l3" href="#a-public-claim-crosses-representations-only-through-proved-transport">3. A public claim crosses representations only through proved transport</a><a class="toc-l3" href="#a-reduction-keeps-the-remaining-hypothesis-visible">4. A reduction keeps the remaining hypothesis visible</a><a class="toc-l3" href="#finite-verification-does-not-change-quantifiers">5. Finite verification does not change quantifiers</a><a class="toc-l3" href="#a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation">6. A claim of progress names both the theorem and the outstanding obligation</a><a class="toc-l2" href="#evidence-responsibilities">Evidence responsibilities</a><a class="toc-l3" href="#lean-check">Lean check</a><a class="toc-l3" href="#repository-check">Repository check</a><a class="toc-l3" href="#human-mathematical-review">Human mathematical review</a><a class="toc-l3" href="#blinded-recovery-evaluation">Blinded recovery evaluation</a><a class="toc-l2" href="#research-and-publication-paths">Research and publication paths</a><a class="toc-l3" href="#mathematical-research-path">Mathematical research path</a><a class="toc-l3" href="#public-claim-path">Public claim path</a><a class="toc-l2" href="#working-principles">Working principles</a><a class="toc-l3" href="#proving">Proving</a><a class="toc-l3" href="#publishing">Publishing</a><a class="toc-l3" href="#maintaining">Maintaining</a><a class="toc-l2" href="#three-examples-from-this-development">Three examples from this development</a><a class="toc-l3" href="#an-exact-reduction-that-does-not-close-249">An exact reduction that does not close #249</a><a class="toc-l3" href="#finite-verification-that-stays-finite">Finite verification that stays finite</a><a class="toc-l3" href="#necessary-structure-that-does-not-yet-contradict">Necessary structure that does not yet contradict</a><a class="toc-l2" href="#before-changing-a-public-claim">Before changing a public claim</a><a class="toc-l2" href="#rejected-inferences">Rejected inferences</a><a class="toc-l2" href="#authority-and-machine-identifiers">Authority and machine identifiers</a></nav></details>
       <div class="paper-stage">
 <article class="lean-document" data-document-id="methodology" data-document-role="evidence_method" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/METHODOLOGY.md">
@@ -534,7 +545,7 @@ identifiers and machine fields in
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="prior-art.html"><span class="maths-pager__dir">Previous</span>Prior art</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="scope.html"><span class="maths-pager__dir">Next</span>Scope and claim boundary</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#standing-rules">Standing rules</a><a class="toc-l3" href="#a-formal-result-is-the-exact-proposition-lean-checked">1. A formal result is the exact proposition Lean checked</a><a class="toc-l3" href="#formal-validity-and-mathematical-faithfulness-are-separate-questions">2. Formal validity and mathematical faithfulness are separate questions</a><a class="toc-l3" href="#a-public-claim-crosses-representations-only-through-proved-transport">3. A public claim crosses representations only through proved transport</a><a class="toc-l3" href="#a-reduction-keeps-the-remaining-hypothesis-visible">4. A reduction keeps the remaining hypothesis visible</a><a class="toc-l3" href="#finite-verification-does-not-change-quantifiers">5. Finite verification does not change quantifiers</a><a class="toc-l3" href="#a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation">6. A claim of progress names both the theorem and the outstanding obligation</a><a class="toc-l2" href="#evidence-responsibilities">Evidence responsibilities</a><a class="toc-l3" href="#lean-check">Lean check</a><a class="toc-l3" href="#repository-check">Repository check</a><a class="toc-l3" href="#human-mathematical-review">Human mathematical review</a><a class="toc-l3" href="#blinded-recovery-evaluation">Blinded recovery evaluation</a><a class="toc-l2" href="#research-and-publication-paths">Research and publication paths</a><a class="toc-l3" href="#mathematical-research-path">Mathematical research path</a><a class="toc-l3" href="#public-claim-path">Public claim path</a><a class="toc-l2" href="#working-principles">Working principles</a><a class="toc-l3" href="#proving">Proving</a><a class="toc-l3" href="#publishing">Publishing</a><a class="toc-l3" href="#maintaining">Maintaining</a><a class="toc-l2" href="#three-examples-from-this-development">Three examples from this development</a><a class="toc-l3" href="#an-exact-reduction-that-does-not-close-249">An exact reduction that does not close #249</a><a class="toc-l3" href="#finite-verification-that-stays-finite">Finite verification that stays finite</a><a class="toc-l3" href="#necessary-structure-that-does-not-yet-contradict">Necessary structure that does not yet contradict</a><a class="toc-l2" href="#before-changing-a-public-claim">Before changing a public claim</a><a class="toc-l2" href="#rejected-inferences">Rejected inferences</a><a class="toc-l2" href="#authority-and-machine-identifiers">Authority and machine identifiers</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#standing-rules">Standing rules</a><a class="toc-l2" href="#evidence-responsibilities">Evidence responsibilities</a><a class="toc-l2" href="#research-and-publication-paths">Research and publication paths</a><a class="toc-l2" href="#working-principles">Working principles</a><a class="toc-l2" href="#three-examples-from-this-development">Three examples from this development</a><a class="toc-l2" href="#before-changing-a-public-claim">Before changing a public claim</a><a class="toc-l2" href="#rejected-inferences">Rejected inferences</a><a class="toc-l2" href="#authority-and-machine-identifiers">Authority and machine identifiers</a></aside>
   </div>
 </body>
 </html>

@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-257-mersenne-support-subseries",
-  "title": "Weighted and Covered Supports for Mersenne Subseries",
+  "title": "Irrationality criteria for Lambert subseries",
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 25,
+  "pages": 26,
   "question": "Which weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erdős #257 question?",
   "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -28,11 +28,11 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "c99e605a77c1d13d",
-    "source_sha256": "69d394b5af4878100d9ae1bebdebfa8059dd9ab0124100f443906ecdb47c38ae",
+    "renderer_fingerprint": "190ec0c743f338a3",
+    "source_sha256": "49dde5b195930bca30b6de1b56dff407a0e70559b8495cd33fa46d74822279dc",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 944,
+    "mathml_node_count": 1014,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -44,8 +44,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "4bacb6d825e15b6762f5fb42d3c4cc428b63ab2d10e3920a38bd745620d333f4",
-    "html_exact_tex_sha256": "3bf44edea7a8c5cdd58edcf4a4964cf100a82a9cc68e8a079aa5700ef5c6087a"
+    "html_mathml_sha256": "79c4fdf3720a984fdd786d9f7ddcfc310a49332eb6dd335b47fd4348374adfa0",
+    "html_exact_tex_sha256": "9d097bcb8c3478a703b7083c14da7ab7ac417f8173ea8d4aa8bf3af8b57a86ef"
   },
   "sections": [
     {
@@ -66,12 +66,12 @@
     {
       "level": 2,
       "anchor": "sec:common-kernel",
-      "label": "Positive divisor covers"
+      "label": "Positive divisor majorants"
     },
     {
       "level": 3,
-      "anchor": "a-divisor-cube-and-the-cover-condition",
-      "label": "A divisor cube and the cover condition"
+      "anchor": "a-finite-divisor-set-and-the-cover-condition",
+      "label": "A finite divisor set and the cover condition"
     },
     {
       "level": 3,
@@ -185,8 +185,8 @@
     },
     {
       "level": 3,
-      "anchor": "the-cost-of-a-divisor-cube",
-      "label": "The cost of a divisor cube"
+      "anchor": "the-cost-for-a-finite-set-of-divisors",
+      "label": "The cost for a finite set of divisors"
     },
     {
       "level": 2,

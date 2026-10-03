@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos-243-reciprocal-tail-rigidity" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Cubic-Rate Irrationality and Reciprocal-Tail Rigidity</h1>
+    <h1>Reciprocal Sums and the Sylvester Recurrence</h1>
     <p class="lean-paper__subject">Erdős #243</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
@@ -12,10 +12,10 @@ class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> gives a 
 reciprocal sum by telescoping:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.\]</span></div>
-<p>We call an integer sequence which eventually satisfies this recurrence a
-<em>Sylvester tail</em>. Its tail sum at every sufficiently late index
-is <span class="math inline" data-term-auto="off">\(1/(a_n-1)\)</span>. Erdős and Graham
-asked whether every rational reciprocal sum with <span
+<p>For an increasing sequence of positive integers that eventually
+satisfies this recurrence, the tail sum at every sufficiently large
+index is <span class="math inline" data-term-auto="off">\(1/(a_n-1)\)</span>. Erdős and
+Graham asked whether every rational reciprocal sum with <span
 class="math inline" data-term-auto="off">\(a_{n+1}\sim a_n^2\)</span> arises in this way.</p>
 <div class="problem" id="res:problem">
 <p><strong>Problem 1.1</strong> (Erdős Problem 243). <em> Let <span
@@ -34,7 +34,8 @@ data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span> asked this question
 <span class="citation" data-cites="erdos1988"><a href="#ref-6">[6]</a></span> and Bloom’s
 catalogue <span class="citation" data-cites="erdosproblems"><a href="#ref-11">[11]</a></span>. We
 prove the following irrationality result for a restricted class of
-quadratically growing sequences.</p>
+sequences with <span class="math inline" data-term-auto="off">\(a_{n+1}\sim
+a_n^2\)</span>.</p>
 <div class="theorem" id="res:cubicrate">
 <p><strong>Theorem 1.2</strong> (cubic-rate irrationality). <em> A
 strictly increasing sequence of positive integers with </em></p>
@@ -43,7 +44,7 @@ class="math display" data-term-auto="off">\[a_n^2/a_{n+1}=1+\frac3n+o(n^{-3})\]<
 <p class="display-continue"><em> has
 irrational reciprocal sum.</em></p>
 </div>
-<p>For a Sylvester tail, <span
+<p>Under the eventual Sylvester recurrence, <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}-1=O(1/a_n)\)</span>, which is much
 smaller than <span class="math inline" data-term-auto="off">\(3/n\)</span>. Theorem <a class="math-ref" href="#res:cubicrate">1.2</a> therefore treats a
 restricted case of the problem by excluding rationality altogether. The
@@ -62,26 +63,27 @@ error introduced by the ceiling is less than one, and hence</p>
 class="math display" data-term-auto="off">\[0\le
 1+\frac3n-\frac{a_n^2}{a_{n+1}}&lt;\frac{16}{a_n^2}=o(n^{-3}).\]</span></div>
 <p>The theorem applies to this explicitly defined sequence.</p>
-<p>Rationality is useful here because it makes suitably cleared tails
-integers. Those integers grow cubically, so they do not themselves
-become small. Instead we compare them with <span
-class="math inline" data-term-auto="off">\(F_n=n(n+1)(n+2)\)</span>, whose successive ratio
-is exactly <span class="math inline" data-term-auto="off">\(1+3/n\)</span>. The error
-estimate first gives <span class="math inline" data-term-auto="off">\(C_n=AF_n+o(n)\)</span>;
-subtracting the two recurrences then makes the <em>first difference of
-the error</em> tend to zero. Consequently <span
-class="math inline" data-term-auto="off">\(\Delta^4C_n\to0\)</span>. Integrality turns this
-limit into eventual equality, leaving <span
+<p>If the sum is rational, clearing denominators gives positive integer
+tail numerators <span class="math inline" data-term-auto="off">\(C_n\)</span>. Their growth
+is cubic, so we compare them with <span
+class="math inline" data-term-auto="off">\(F_n=n(n+1)(n+2)\)</span>, for which <span
+class="math inline" data-term-auto="off">\(F_{n+1}/F_n=1+3/n\)</span>. The ratio estimate
+gives <span class="math inline" data-term-auto="off">\(C_n=AF_n+o(n)\)</span>. Subtracting
+the recurrences for <span class="math inline" data-term-auto="off">\(C_n\)</span> and <span
+class="math inline" data-term-auto="off">\(AF_n\)</span> then shows that the first difference
+of the error tends to zero. It follows that <span
+class="math inline" data-term-auto="off">\(\Delta^4C_n\to0\)</span>. Since these fourth
+differences are integers, they eventually vanish, and <span
 class="math inline" data-term-auto="off">\(C_n=AF_n+B\)</span>.</p>
-<p>The rest of the proof asks whether this polynomial can be the
-numerator of an exact reciprocal tail. The denominator recurrence forces
-a square condition at every root of a cubic modulo almost every prime.
-Chebotarev turns that condition into a square in the cubic number field.
-Taking traces leaves two possible polynomials, and four consecutive
-terms modulo seven exclude both. Section <a class="math-ref" href="#sec:secondaryrate">3</a> follows these
-steps, introducing reduction only after the polynomial is known.</p>
-<p>For the recurrence criteria we use the integer remainders of Koizumi
-<span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. In
+<p>We next use the denominator recurrence to constrain this polynomial.
+It gives a square condition at every root of a cubic modulo almost every
+prime. Chebotarev’s theorem implies that the corresponding element of
+the cubic number field is a square. Trace identities leave two possible
+polynomials; four consecutive terms modulo seven exclude both. The proof
+in Section <a class="math-ref" href="#sec:secondaryrate">3</a>
+follows this order.</p>
+<p>For the recurrence criteria we use the integer tail numerators of
+Koizumi <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. In
 Section <a class="math-ref" href="#sec:bounded">4</a>, a stable
 gcd and the Chinese remainder theorem exclude a rational tail whose
 <span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> has bounded upward
@@ -97,7 +99,7 @@ disagreement theorem. Its detailed proof locations and the formal
 sources are listed in Appendix <a class="math-ref" href="#app:index">B</a>.</p>
 </section>
 <section id="sec:transfer" class="level2">
-<h2>Integer tails</h2>
+<h2>Tail numerators</h2>
 <p> For the Sylvester sequence <span
 class="math inline" data-term-auto="off">\(2,3,7,43,\ldots\)</span>, whose reciprocal sum is
 <span class="math inline" data-term-auto="off">\(1\)</span>, the successive tails are <span
@@ -129,10 +131,12 @@ k&lt;n}\frac{P_n}{a_k}\in\N_{&gt;0}.\]</span></div>
 <p>The integer is positive
 because it equals the positive tail multiplied by <span
 class="math inline" data-term-auto="off">\(D_n\)</span>. Removing the term <span
-class="math inline" data-term-auto="off">\(1/a_n\)</span> from the tail gives the exact
-recurrences</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_{n+1}=a_nC_n-D_n,\qquad
-D_{n+1}=a_nD_n.\]</span></div>
+class="math inline" data-term-auto="off">\(1/a_n\)</span> from the tail gives</p>
+<div class="math-display" id="eq:recurrences" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{eq:recurrences}
+C_{n+1}=a_nC_n-D_n,\qquad D_{n+1}=a_nD_n.
+\end{equation}\]</span></div>
 <p>Koizumi constructs these coordinates in Lemma 4
 <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. On a
 pseudo-greedy tail his <span class="math inline" data-term-auto="off">\(c_n,d_n,e_n\)</span>
@@ -177,12 +181,13 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:cubic-ratio}
 \frac{C_{n+1}}{C_n}=1+\frac3n+o(n^{-3}).
 \end{equation}\]</span></div>
-<p>We first use only the ratio and integrality of
-<span class="math inline" data-term-auto="off">\(C_n\)</span>. Once these have forced a
-polynomial, we return to <span class="math inline" data-term-auto="off">\(D_n\)</span> and
-the exact recurrences.</p>
+<p>We first show that <span
+class="math inline" data-term-auto="off">\(C_n\)</span> is eventually a polynomial, using
+<a class="math-ref" data-equation-ref="true" href="#eq:cubic-ratio">eq:cubic-ratio</a> and
+integrality. We then apply <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a> to restrict its
+coefficients.</p>
 <section id="sec:cubic-extraction" class="level3">
-<h3>Polynomial extraction</h3>
+<h3>An eventual cubic polynomial</h3>
 <p>The factor <span class="math inline" data-term-auto="off">\(1+3/n\)</span> suggests the
 cubic <span class="math inline" data-term-auto="off">\(F_n=n(n+1)(n+2)\)</span>, since <span
 class="math inline" data-term-auto="off">\(F_{n+1}/F_n=1+3/n\)</span>. Write <a class="math-ref" data-equation-ref="true" href="#eq:cubic-ratio">eq:cubic-ratio</a> as <span
@@ -202,10 +207,10 @@ class="math inline" data-term-auto="off">\(z_n-A=o(n^{-2})\)</span>. Multiplying
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_n=AF_n+\delta_n,\qquad
 \delta_n=o(n).\]</span></div>
-<p>To obtain an exact polynomial, we need a small <em>integer</em>. The
-error <span class="math inline" data-term-auto="off">\(\delta_n\)</span> need not be
-integral, and its size alone gives no control of its differences.
-Subtraction of the two ratio recurrences supplies the stronger estimate</p>
+<p>The estimate <span class="math inline" data-term-auto="off">\(\delta_n=o(n)\)</span> alone
+does not control its differences. Instead, subtracting the recurrences
+for <span class="math inline" data-term-auto="off">\(C_n\)</span> and <span
+class="math inline" data-term-auto="off">\(AF_n\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Delta\delta_n=\frac3n\delta_n+\varepsilon_n
 C_n=o(1),
@@ -245,24 +250,25 @@ class="math inline" data-term-auto="off">\(n\)</span>, it divides four consecuti
 difference <span class="math inline" data-term-auto="off">\(6A\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(G_n\)</span> stabilises at a positive integer
 <span class="math inline" data-term-auto="off">\(g\)</span>.</p>
-<p>All sufficiently late fractions can now be reduced by the
-<em>same</em> factor. Put <span class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span>
-and <span class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span>. They satisfy</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[u_{n+1}=a_nu_n-v_n,\qquad v_{n+1}=a_nv_n,
-\qquad \gcd(u_n,v_n)=1.\]</span></div>
-<p>More generally, we call such a state
-with <span class="math inline" data-term-auto="off">\(u_n&gt;0\)</span> and <span
-class="math inline" data-term-auto="off">\(v_n\ge0\)</span> a <em>reduced exact tail</em>.
-Its denominator retains each earlier multiplier. Coprimality therefore
-prevents that multiplier from appearing in a later numerator or
-multiplier.</p>
+<p>We can therefore reduce all sufficiently late fractions by the same
+factor: put <span class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span> and <span
+class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span>. The recurrences persist after
+this division. The following observation describes the resulting
+coprimality conditions.</p>
 <div class="proposition" id="res:reduced">
-<p><strong>Proposition 3.1</strong> (persistent coprimality). <em> In a
-reduced exact tail, <span
-class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>. Distinct multipliers are
-pairwise coprime, and every earlier multiplier is coprime to every later
-numerator.</em></p>
+<p><strong>Proposition 3.1</strong> (persistent coprimality). <em> Let
+<span class="math inline" data-term-auto="off">\(a_n,u_n,v_n\)</span> be integer sequences
+with <span class="math inline" data-term-auto="off">\(u_n&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(v_n\ge0\)</span> and <span
+class="math inline" data-term-auto="off">\(\gcd(u_n,v_n)=1\)</span> satisfying </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[u_{n+1}=a_nu_n-v_n,\qquad
+v_{n+1}=a_nv_n.\]</span></div>
+<p><em> Then <span
+class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>. The <span
+class="math inline" data-term-auto="off">\(a_n\)</span> are pairwise coprime, and <span
+class="math inline" data-term-auto="off">\(\gcd(a_i,u_t)=1\)</span> whenever <span
+class="math inline" data-term-auto="off">\(i&lt;t\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A prime dividing both <span
@@ -286,16 +292,15 @@ class="math display" data-term-auto="off">\[\begin{equation}
 Q(n)=\frac m6 n(n+1)(n+2)+c.
 \end{equation}\]</span></div>
 <p>The third difference <span
-class="math inline" data-term-auto="off">\(m=6A/g\)</span> is a positive integer. The
-constant <span class="math inline" data-term-auto="off">\(c\)</span> is also integral: choose
-a common denominator <span class="math inline" data-term-auto="off">\(H\)</span> for the
-coefficients of <span class="math inline" data-term-auto="off">\(Q\)</span>. For any integer
-<span class="math inline" data-term-auto="off">\(t\)</span>, the difference <span
-class="math inline" data-term-auto="off">\(Q(t+kH)-Q(t)\)</span> is an integer. Taking <span
-class="math inline" data-term-auto="off">\(k\)</span> sufficiently large transfers
-integrality from the known tail values to <span
-class="math inline" data-term-auto="off">\(Q(t)\)</span>, and in particular to <span
-class="math inline" data-term-auto="off">\(Q(0)=c\)</span>. If a prime <span
+class="math inline" data-term-auto="off">\(m=6A/g\)</span> is a positive integer. Since <span
+class="math inline" data-term-auto="off">\(n(n+1)(n+2)/6=\binom{n+2}{3}\)</span> is an
+integer, any sufficiently late value <span
+class="math inline" data-term-auto="off">\(u_n=Q(n)\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[c=u_n-m\binom{n+2}{3}\in\Z.\]</span></div>
+<p>Thus <span
+class="math inline" data-term-auto="off">\(Q\)</span> is integer-valued, although its
+coefficients need not all be integers. If a prime <span
 class="math inline" data-term-auto="off">\(\ell\)</span> divides <span
 class="math inline" data-term-auto="off">\(c\)</span>, choose an arbitrarily late <span
 class="math inline" data-term-auto="off">\(n\equiv-1\pmod{6\ell}\)</span>. Both <span
@@ -428,10 +433,19 @@ class="math inline" data-term-auto="off">\(2\alpha=z+z^{-1}\)</span>. Since <spa
 class="math inline" data-term-auto="off">\(z\in K\)</span> and <span
 class="math inline" data-term-auto="off">\(\alpha\in\Q(z)\)</span>, we have <span
 class="math inline" data-term-auto="off">\(\Q(z)=K\)</span>. Write the minimal polynomial of
-<span class="math inline" data-term-auto="off">\(z\)</span> as <span
-class="math inline" data-term-auto="off">\(z^3+bz^2+dz+w\)</span>, where <span
-class="math inline" data-term-auto="off">\(b,d,w\in\Q\)</span> and <span
-class="math inline" data-term-auto="off">\(w\ne0\)</span>.</p>
+<span class="math inline" data-term-auto="off">\(z\)</span> as</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[p(T)=T^3+bT^2+dT+w,\qquad b,d,w\in\Q,\quad
+w\ne0.\]</span></div>
+<p>The minimal polynomial of <span
+class="math inline" data-term-auto="off">\(z^{-1}\)</span> is the monic reciprocal polynomial</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{T^3p(T^{-1})}{w}
+   =T^3+\frac dwT^2+\frac bwT+\frac1w.\]</span></div>
+<p>These two polynomials
+give the traces of <span class="math inline" data-term-auto="off">\(z\)</span> and <span
+class="math inline" data-term-auto="off">\(z^{-1}\)</span> by the same Newton identities. All
+traces below are from <span class="math inline" data-term-auto="off">\(K\)</span> to <span
+class="math inline" data-term-auto="off">\(\Q\)</span>.</p>
 <p>The cubic for <span class="math inline" data-term-auto="off">\(\alpha\)</span> determines
 its first three traces:</p>
 <div class="math-display" data-term-auto="off"><span
@@ -465,8 +479,9 @@ because the mixed terms in <span
 class="math inline" data-term-auto="off">\((z+z^{-1})^3\)</span> have trace <span
 class="math inline" data-term-auto="off">\(3\operatorname{Tr}(z+z^{-1})=0\)</span>. These
 give the other two equalities in <a class="math-ref" data-equation-ref="true" href="#eq:cubic-traces">eq:cubic-traces</a>.</p>
-<p>The middle equation factors as <span
-class="math inline" data-term-auto="off">\((bw-1)(b+w)=0\)</span>. Write <span
+<p>Multiplying the middle equation by <span
+class="math inline" data-term-auto="off">\(w\)</span> and bringing all terms to one side
+gives <span class="math inline" data-term-auto="off">\((bw-1)(b+w)=0\)</span>. Write <span
 class="math inline" data-term-auto="off">\(w=r/s\)</span> in lowest terms, with <span
 class="math inline" data-term-auto="off">\(r\ne0\)</span>, <span
 class="math inline" data-term-auto="off">\(s&gt;0\)</span>. Substituting <span
@@ -583,17 +598,17 @@ on upward steps to stabilise the gcd and produce a block of consecutive
 integers that the numerator cannot cross.</p>
 <section id="sec:defect" class="level3">
 <h3>Zero errors and descent</h3>
-<p> For brevity, an <em>exact state</em> consists of the sequences and
-recurrences in Theorem <a class="math-ref" href="#res:bounded">4.1</a>. In a reciprocal tail,
-<span class="math inline" data-term-auto="off">\(E_n=0\)</span> says <span
-class="math inline" data-term-auto="off">\(x_n=1/(a_n-1)\)</span>. We write <span
-class="math inline" data-term-auto="off">\(z_+=\max(z,0)\)</span> and call <span
-class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> <em>strict
-centring</em>.</p>
+<p> Throughout this section, <span
+class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span> and <span
+class="math inline" data-term-auto="off">\(z_+=\max(z,0)\)</span>. The arguments below use
+the recurrences <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>. We state
+positivity and the bound <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> where they are needed.</p>
 <div class="proposition" id="res:update"><span class="tex-label" id="res:defect" hidden></span>
-<p><strong>Proposition 4.2</strong> (error identities). <em> For an exact
-integer state, </em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_{n+1}=C_n-E_n,\qquad
+<p><strong>Proposition 4.2</strong> (error identities). <em> For integer
+sequences satisfying <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[C_{n+1}=C_n-E_n,\qquad
 \bigl(a_{n+1}-a_n^2+a_n-1\bigr)C_{n+1}=a_n^2E_n-E_{n+1}.\]</span></div>
 </div>
 <div class="proof">
@@ -604,23 +619,30 @@ recurrence. Substituting this expression at the next index and using
 second. ◻</p>
 </div>
 <p>Equation <a class="math-ref" data-equation-ref="true" href="#eq:tail-estimate">eq:tail-estimate</a> now gives <span
-class="math inline" data-term-auto="off">\(E_n/C_n=1-C_{n+1}/C_n\to0\)</span>, hence strict
-centring eventually. Koizumi proves this relative-gap limit for an
-eventual pseudo-greedy tail <span class="citation"
+class="math inline" data-term-auto="off">\(E_n/C_n=1-C_{n+1}/C_n\to0\)</span>, so <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for all sufficiently large
+<span class="math inline" data-term-auto="off">\(n\)</span>. Koizumi proves this relative-gap
+limit for an eventual pseudo-greedy tail <span class="citation"
 data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. His rounding convention also gives
-half-width centring, a stronger bound than is used here.</p>
+<span class="math inline" data-term-auto="off">\(-C_n/2\le E_n&lt;C_n/2\)</span>, a stronger
+bound than we need.</p>
 <p>Koizumi’s Lemma 3 gives zero absorption for pseudo-greedy tails, and
 Proposition 1(2) uses descent when their gaps are eventually nonnegative
 <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. The following
 form separates what the two arguments require.</p>
 <div class="theorem" id="res:absorb"><span class="tex-label" id="res:descent" hidden></span>
-<p><strong>Theorem 4.3</strong> (absorption and descent). <em> For a
-positive exact state with strict centring, <span
+<p><strong>Theorem 4.3</strong> (absorption and descent). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> and <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>. If <span
+class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span>, then <span
 class="math inline" data-term-auto="off">\(E_n=0\)</span> implies <span
-class="math inline" data-term-auto="off">\(E_{n+1}=0\)</span>. For any positive integer state
-with <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>, eventual
-nonnegativity of <span class="math inline" data-term-auto="off">\(E_n\)</span> implies its
-eventual vanishing.</em></p>
+class="math inline" data-term-auto="off">\(E_{n+1}=0\)</span>. For any positive integer
+sequence <span class="math inline" data-term-auto="off">\(C_n\)</span> with <span
+class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>, eventual nonnegativity
+of <span class="math inline" data-term-auto="off">\(E_n\)</span> implies its eventual
+vanishing.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> When <span class="math inline" data-term-auto="off">\(E_n=0\)</span>, the
@@ -634,21 +656,25 @@ integer sequence <span class="math inline" data-term-auto="off">\(C_n\)</span> e
 nonincreasing, hence constant. ◻</p>
 </div>
 <div class="corollary" id="res:step"><span class="tex-label" id="res:eventual" hidden></span>
-<p><strong>Corollary 4.4</strong> (two zero errors). <em> If <span
+<p><strong>Corollary 4.4</strong> (two zero errors). <em> For integer
+sequences satisfying <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>, if <span
 class="math inline" data-term-auto="off">\(E_n=E_{n+1}=0\)</span> and <span
 class="math inline" data-term-auto="off">\(C_{n+1}\ne0\)</span>, then <span
-class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>. Thus eventual zero
-error in a positive exact state implies the eventual Sylvester
-recurrence.</em></p>
+class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>. In particular, if
+<span class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> also satisfy <span
+class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, eventual zero error implies the
+eventual Sylvester recurrence.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Cancel the nonzero factor <span
 class="math inline" data-term-auto="off">\(C_{n+1}\)</span> in the second error
 identity. ◻</p>
 </div>
-<p>After the centring threshold, one zero therefore makes every
-subsequent error zero. If there are no late zeros, integrality gives
-<span class="math inline" data-term-auto="off">\(|E_n|\ge1\)</span>, and <span
+<p>Once <span class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> holds at every
+later index, one zero makes every subsequent error zero. If there are no
+late zeros, integrality gives <span
+class="math inline" data-term-auto="off">\(|E_n|\ge1\)</span>, and <span
 class="math inline" data-term-auto="off">\(|E_n|/C_n\to0\)</span> forces <span
 class="math inline" data-term-auto="off">\(C_n\to\infty\)</span>. The scalar update alone
 permits <span class="math inline" data-term-auto="off">\(C_n=n+1\)</span>, <span
@@ -658,13 +684,16 @@ we shall use the denominator recurrence.</p>
 <section id="sec:barrier" class="level3">
 <h3>A stable gcd and a forbidden block</h3>
 <div class="proposition" id="res:gcdstab">
-<p><strong>Proposition 4.5</strong> (gcd stabilisation). <em> For a
-positive exact state, suppose that some fixed integer <span
-class="math inline" data-term-auto="off">\(B\ge1\)</span> satisfies <span
+<p><strong>Proposition 4.5</strong> (gcd stabilisation). <em> Let <span
+class="math inline" data-term-auto="off">\(a,C,D:\N\to\N\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> and <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>. If some fixed
+integer <span class="math inline" data-term-auto="off">\(B\ge1\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(-B\le E_n&lt;0\)</span> at infinitely many
-indices. Then <span class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span> is
-eventually constant. Division by its stable value gives a reduced exact
-tail.</em></p>
+indices, then <span class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span> is
+eventually constant. Dividing <span
+class="math inline" data-term-auto="off">\(C_n,D_n\)</span> by its eventual value gives
+coprime sequences satisfying the same recurrences.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> We have <span class="math inline" data-term-auto="off">\(G_n\mid
@@ -674,7 +703,8 @@ class="math inline" data-term-auto="off">\(t\ge n\)</span> with <span
 class="math inline" data-term-auto="off">\(-B\le E_t&lt;0\)</span>. Then <span
 class="math inline" data-term-auto="off">\(G_n\le G_t\le -E_t\le B\)</span>. Hence the
 positive divisibility chain stabilises. Division by its stable value
-preserves the recurrences and gives coprime states. ◻</p>
+preserves the recurrences and gives coprime numerators and
+denominators. ◻</p>
 </div>
 <p>For this gcd argument, bounded negative errors need occur only
 arbitrarily late. To control the first crossing below, we shall need the
@@ -816,11 +846,12 @@ corollary assumes a nonpositive upper limit, whereas the argument here
 allows any finite upper limit. A corresponding LCM comparison appears
 below. For <span class="math inline" data-term-auto="off">\(a_n=b^{2^{n-1}}\)</span>, <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>, the increments of <span
-class="math inline" data-term-auto="off">\(P_n/a_n\)</span> are zero. Since this is not a
-Sylvester tail, the corollary gives irrationality. For a Sylvester
-sequence starting at <span class="math inline" data-term-auto="off">\(a_1&gt;1\)</span>,
-<span class="math inline" data-term-auto="off">\(a_n-1=(a_1-1)P_n\)</span> and the increments
-tend to zero.</p>
+class="math inline" data-term-auto="off">\(P_n/a_n\)</span> are zero. Since the sequence does
+not eventually satisfy the Sylvester recurrence, the corollary gives
+irrationality. For a Sylvester sequence starting at <span
+class="math inline" data-term-auto="off">\(a_1&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(a_n-1=(a_1-1)P_n\)</span> and the increments tend
+to zero.</p>
 <p>The inclusive rate <span class="math inline" data-term-auto="off">\(1/n\)</span> gives
 another useful sufficient condition.</p>
 <div class="corollary" id="res:inclusiveone">
@@ -868,8 +899,8 @@ class="math display" data-term-auto="off">\[0\le1+\frac1n-\frac{a_n^2}{a_{n+1}}&
 <p>Consequently <span class="math inline" data-term-auto="off">\(t_n\sim K n\)</span> and <span
 class="math inline" data-term-auto="off">\(t_{n+1}-t_n\to K&gt;0\)</span>. The corollary
 proves irrationality because <span
-class="math inline" data-term-auto="off">\(\gamma_n\sim1/n\)</span> is incompatible with a
-Sylvester tail.</p>
+class="math inline" data-term-auto="off">\(\gamma_n\sim1/n\)</span> is incompatible with the
+eventual Sylvester recurrence.</p>
 <p>For comparison, the ceiling example with rate <span
 class="math inline" data-term-auto="off">\(3/n\)</span> in the introduction has <span
 class="math inline" data-term-auto="off">\(t_n\sim K_3n^3\)</span> and <span
@@ -996,8 +1027,8 @@ version we will also need the upper bound, which makes the comparison
 error summable.</p>
 <p>Write <span class="math inline" data-term-auto="off">\(R_n=\max_{j\le n}U_j\)</span> and
 <span class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>.
-Strict centring already gives <span
-class="math inline" data-term-auto="off">\(U_{n+1}&lt;U_n\)</span> when <span
+The inequality <span class="math inline" data-term-auto="off">\(|V_n|&lt;U_n\)</span> gives
+<span class="math inline" data-term-auto="off">\(U_{n+1}&lt;U_n\)</span> when <span
 class="math inline" data-term-auto="off">\(\rho_n\ge2\)</span>, so every sufficiently late
 strict rise has <span class="math inline" data-term-auto="off">\(\rho_n=1\)</span>. The
 stronger eventual bound <span
@@ -1081,14 +1112,18 @@ class="math inline" data-term-auto="off">\(5\)</span>, not <span
 class="math inline" data-term-auto="off">\(10\)</span>. The jump is <span
 class="math inline" data-term-auto="off">\(7\)</span>, although the record increases by only
 <span class="math inline" data-term-auto="off">\(2\)</span>. These numbers illustrate the
-distinction between the two increments; they are not an asserted exact
-orbit. If <span class="math inline" data-term-auto="off">\(d_n\le B\)</span>, then <span
-class="math inline" data-term-auto="off">\(U_n\in[\tau-B,\tau)\)</span>, so some <span
-class="math inline" data-term-auto="off">\(m_i\)</span> divides <span
-class="math inline" data-term-auto="off">\(U_n\)</span>. It also divides <span
-class="math inline" data-term-auto="off">\(L_n\)</span>, hence divides <span
-class="math inline" data-term-auto="off">\(d_n=(a_n-1)U_n-L_n\)</span>, contradicting <span
-class="math inline" data-term-auto="off">\(0&lt;d_n\le B&lt;m_i\)</span>.</p>
+distinction between the two increments; no denominator sequence
+satisfying <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>
+is asserted. If <span class="math inline" data-term-auto="off">\(d_n\le B\)</span>, then
+<span class="math inline" data-term-auto="off">\(U_n\in[\tau-B,\tau)\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[U_n=\tau-B+i=x+kP+i\qquad\text{for some }0\le
+i&lt;B.\]</span></div>
+<p>The choice of <span class="math inline" data-term-auto="off">\(x\)</span>
+gives <span class="math inline" data-term-auto="off">\(m_i\mid U_n\)</span>. Since <span
+class="math inline" data-term-auto="off">\(m_i\mid L_n\)</span> as well, we obtain <span
+class="math inline" data-term-auto="off">\(m_i\mid d_n=(a_n-1)U_n-L_n\)</span>, contradicting
+<span class="math inline" data-term-auto="off">\(0&lt;d_n\le B&lt;m_i\)</span>.</p>
 <p>It follows that every crossing has <span
 class="math inline" data-term-auto="off">\(d_n&gt;B\)</span>. If one step first crosses <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span> selected heights, their spacing
@@ -1118,8 +1153,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>Since <span
 class="math inline" data-term-auto="off">\(R_n\to\infty\)</span>, the right side diverges for
 every <span class="math inline" data-term-auto="off">\(B\ge1\)</span>; <span
-class="math inline" data-term-auto="off">\(B=0\)</span> follows by domination. Conversely a
-Sylvester tail telescopes to <span
+class="math inline" data-term-auto="off">\(B=0\)</span> follows by domination. Conversely,
+the eventual Sylvester recurrence gives by telescoping <span
 class="math inline" data-term-auto="off">\(x_n=1/(a_n-1)\)</span>, so <span
 class="math inline" data-term-auto="off">\(V_n=0\)</span> eventually. ◻</p>
 </div>
@@ -1274,7 +1309,7 @@ X/P_B-O_B(1)\)</span>, with an orbit-dependent CRT modulus <span
 class="math inline" data-term-auto="off">\(P_B\)</span>. The sum groups each record step by
 its starting numerator <span class="math inline" data-term-auto="off">\(U_n\)</span>, not by
 the running maximum <span class="math inline" data-term-auto="off">\(R_n\)</span> or the time
-index. On a non-Sylvester tail, <span
+index. If the eventual Sylvester recurrence fails, <span
 class="math inline" data-term-auto="off">\(U_n\to\infty\)</span>, so only finitely many of
 these steps begin below any fixed <span
 class="math inline" data-term-auto="off">\(X\)</span>. To see the equivalence with an
@@ -1347,21 +1382,22 @@ class="math inline" data-term-auto="off">\(5,10,17\)</span>. The update <span
 class="math inline" data-term-auto="off">\(10=5a_2-D_2\)</span> forces <span
 class="math inline" data-term-auto="off">\(5\mid D_2\)</span>, hence <span
 class="math inline" data-term-auto="off">\(5\mid D_3=a_2D_2\)</span>; the next update would
-force <span class="math inline" data-term-auto="off">\(5\mid17\)</span>. It is not an exact
-tail. The companion’s Section 14 also constructs sequences avoiding
-sparse fixed moduli and distinguishes that avoidance from compatibility
-with all later denominators. Neither property alone supplies <a class="math-ref" data-equation-ref="true" href="#eq:remaining-record-budget">eq:remaining-record-budget</a>.</p>
-<p>Conversely, a full exact orbit already contains the analytic data.
-For a zero-indexed orbit with <span
+force <span class="math inline" data-term-auto="off">\(5\mid17\)</span>. Thus these
+numerators cannot satisfy <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>. The companion’s
+Section 14 also constructs sequences avoiding sparse fixed moduli and
+distinguishes that avoidance from compatibility with all later
+denominators. Neither property alone supplies <a class="math-ref" data-equation-ref="true" href="#eq:remaining-record-budget">eq:remaining-record-budget</a>.</p>
+<p>Conversely, suppose integer sequences indexed from zero satisfy <a class="math-ref" data-equation-ref="true" href="#eq:recurrences">eq:recurrences</a>, with <span
 class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, <span
 class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(D_n\ge0\)</span> and <span
-class="math inline" data-term-auto="off">\(E_n/C_n\to0\)</span>, Section 4 of the companion
-proves <span class="math inline" data-term-auto="off">\(D_n&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(E_n/C_n\to0\)</span>. Section 4 of the companion
+proves that <span class="math inline" data-term-auto="off">\(D_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(C_n/D_n\to0\)</span>, <span
-class="math inline" data-term-auto="off">\(\sum_n1/a_n=C_0/D_0\)</span> and quadratic growth.
-These are global assumptions on an infinite orbit. A scalar profile or a
-finite admissible prefix supplies only part of them.</p>
+class="math inline" data-term-auto="off">\(\sum_n1/a_n=C_0/D_0\)</span> and <span
+class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>. All these hypotheses
+concern the infinite sequences; a scalar example or a finite initial
+segment satisfies only some of them.</p>
 <div class="problem" id="res:lcmheight">
 <p><strong>Problem 7.3</strong> (growth of repeated denominator factors).
 <em> For every rational-tail orbit satisfying the hypotheses but not the
@@ -1393,10 +1429,10 @@ unnecessary terminology and notation.</p>
 </section>
 </section>
 <section id="app:residue" class="level2">
-<h2>A factorial residue reduction for forced orbits</h2>
+<h2>A factorial modulus for integral recursion</h2>
 <p>A constant-negative error <span class="math inline" data-term-auto="off">\(E_n=-m\)</span>
-with <span class="math inline" data-term-auto="off">\(C_0=c\)</span> produces <span
-class="math inline" data-term-auto="off">\(C_n=c+nm\)</span> and the shape equation</p>
+with <span class="math inline" data-term-auto="off">\(C_0=c\)</span> gives <span
+class="math inline" data-term-auto="off">\(C_n=c+nm\)</span> and the identity</p>
 <div class="math-display" id="eq:shape" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:shape}
@@ -1405,30 +1441,27 @@ D_n+m=(a_n-1)C_n.
 <p>In the case <span
 class="math inline" data-term-auto="off">\(m=c=1\)</span>, where <a class="math-ref" data-equation-ref="true" href="#eq:shape">eq:shape</a> reads <span
 class="math inline" data-term-auto="off">\(D_n+1=(a_n-1)(n+1)\)</span>, each multiplier is
-determined by its predecessor; we call such an orbit <em>forced</em>. At
-index <span class="math inline" data-term-auto="off">\(n\)</span> the numerator of the next
-multiplier is</p>
+determined by its predecessor. The recursion is <span
+class="math inline" data-term-auto="off">\(a_{n+1}=\operatorname{num}(n,a_n)/(n+2)\)</span>,
+where</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),\]</span></div>
 <p class="display-continue">the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L22">forced
-numerator</a>, and the divisor is <span
-class="math inline" data-term-auto="off">\(n+2\)</span>. The orbit continues for another step
-exactly when this division is exact. Here survival counts exact
-divisions; it does not impose the positivity conditions of an infinite
-reciprocal-tail orbit. The <a
+numerator</a>. We stop at the first nonintegral quotient. This procedure
+checks divisibility only; it does not impose the positivity conditions
+required of an infinite reciprocal-tail sequence. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">formal
-survival predicate</a> requires exact division at each step.</p>
+exact-division condition</a> requires exact division at each step.</p>
 <div class="example" id="ex:shape">
-<p><strong>Example A.1</strong> (the shape equation running until it
-fails). <em> The forced orbit from <span
-class="math inline" data-term-auto="off">\(a=3\)</span> reads this way: <span
-class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span> is divisible by
-<span class="math inline" data-term-auto="off">\(2\)</span> and gives <span
-class="math inline" data-term-auto="off">\(a_1=3\)</span>, while <span
+<p><strong>Example A.1</strong> (a nonintegral second step). <em>
+Starting from <span class="math inline" data-term-auto="off">\(a_0=3\)</span>, the first
+numerator <span class="math inline" data-term-auto="off">\(\operatorname{num}(0,3)=6\)</span>
+is divisible by <span class="math inline" data-term-auto="off">\(2\)</span>, giving <span
+class="math inline" data-term-auto="off">\(a_1=3\)</span>. The next numerator <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(1,3)=13\)</span> is not
-divisible by <span class="math inline" data-term-auto="off">\(3\)</span>, so the orbit stops
-there.</em></p>
+divisible by <span class="math inline" data-term-auto="off">\(3\)</span>, so the recursion
+stops.</em></p>
 </div>
 <p>Direct iteration can produce very large intermediate integers. To
 decide whether the first <span class="math inline" data-term-auto="off">\(h\)</span>
@@ -1439,12 +1472,15 @@ is Koizumi’s method <span class="citation"
 data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>; for the forced numerator that product
 is a factorial.</p>
 <div class="theorem" id="res:residue">
-<p><strong>Theorem A.2</strong> (factorial residue reduction). <em> For
-all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
-class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the orbit from
-<span class="math inline" data-term-auto="off">\(a\)</span> survives <span
-class="math inline" data-term-auto="off">\(h\)</span> forced updates exactly when the orbit
-from <span class="math inline" data-term-auto="off">\(b\)</span> does.</em></p>
+<p><strong>Theorem A.2</strong> (factorial residue reduction). <em> Let
+<span class="math inline" data-term-auto="off">\(h\)</span> be a nonnegative integer and let
+<span class="math inline" data-term-auto="off">\(a,b\)</span> be integers with <span
+class="math inline" data-term-auto="off">\(a\equiv b\pmod{(h+1)!}\)</span>. The first <span
+class="math inline" data-term-auto="off">\(h\)</span> steps of the recursion <span
+class="math inline" data-term-auto="off">\(a_{n+1}=\operatorname{num}(n,a_n)/(n+2)\)</span>,
+starting at index zero, are integral for <span
+class="math inline" data-term-auto="off">\(a_0=a\)</span> if and only if they are integral
+for <span class="math inline" data-term-auto="off">\(a_0=b\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Define <span class="math inline" data-term-auto="off">\(M(0,i)=1\)</span>
@@ -1452,9 +1488,10 @@ and <span class="math inline" data-term-auto="off">\(M(h+1,i)=(i+2)M(h,i+1)\)</s
 <span class="math inline" data-term-auto="off">\(M(h,0)=(h+1)!\)</span>. We prove the
 stronger statement that, at index <span
 class="math inline" data-term-auto="off">\(i\)</span>, congruent inputs modulo <span
-class="math inline" data-term-auto="off">\(M(h,i)\)</span> survive the same <span
-class="math inline" data-term-auto="off">\(h\)</span> updates. There is nothing to prove for
-<span class="math inline" data-term-auto="off">\(h=0\)</span>.</p>
+class="math inline" data-term-auto="off">\(M(h,i)\)</span> give the same answer to whether
+the next <span class="math inline" data-term-auto="off">\(h\)</span> quotients are all
+integral. There is nothing to prove for <span
+class="math inline" data-term-auto="off">\(h=0\)</span>.</p>
 <p>For the inductive step, suppose <span class="math inline" data-term-auto="off">\(a\equiv
 b\pmod{(i+2)M(h,i+1)}\)</span>. Since <span
 class="math inline" data-term-auto="off">\(\operatorname{num}(i,\cdot)\)</span> is an integer
@@ -1462,14 +1499,14 @@ polynomial, its values at <span class="math inline" data-term-auto="off">\(a\)</
 <span class="math inline" data-term-auto="off">\(b\)</span> are congruent modulo that
 product. In particular, one is divisible by <span
 class="math inline" data-term-auto="off">\(i+2\)</span> if and only if the other is. If
-neither is divisible, both orbits stop. Otherwise their quotients are
-congruent modulo <span class="math inline" data-term-auto="off">\(M(h,i+1)\)</span>, so the
-induction hypothesis applies to the remaining <span
+neither is divisible, both recursions stop. Otherwise their quotients
+are congruent modulo <span class="math inline" data-term-auto="off">\(M(h,i+1)\)</span>, so
+the induction hypothesis applies to the remaining <span
 class="math inline" data-term-auto="off">\(h\)</span> updates at index <span
 class="math inline" data-term-auto="off">\(i+1\)</span>. Taking <span
 class="math inline" data-term-auto="off">\(i=0\)</span> proves the claim. ◻</p>
 </div>
-<p>At <span class="math inline" data-term-auto="off">\(h=1\)</span>, survival means <span
+<p>For <span class="math inline" data-term-auto="off">\(h=1\)</span>, the condition is <span
 class="math inline" data-term-auto="off">\(2\mid a^2-2a+3\)</span>, or equivalently that
 <span class="math inline" data-term-auto="off">\(a\)</span> is odd. This illustrates
 Theorem <a class="math-ref" href="#res:residue">A.2</a> with
@@ -1488,13 +1525,14 @@ there.</p>
 </section>
 <section id="app:index" class="level2">
 <h2>Sources and related work</h2>
-<p>The companion <em>Reciprocal-Tail Rigidity: Theorems, Proofs and
-Questions</em> gives full proofs and fixed-revision source links. <a
+<p>The companion <em>Reciprocal Sums and the Sylvester Recurrence:
+Further Results and Proofs</em> gives full proofs and fixed-revision
+source links. <a
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-cubic">Section 2</a>
 treats regular rates and the stronger cubic disagreement result; <a
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-integer-tails">Sections 4–5</a>
-develop exact tails. The gcd and bounded-increment arguments culminate
-in <a
+develop the integer tail numerators. The gcd and bounded-increment
+arguments culminate in <a
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-bounded-increases">Section 12</a>.
 The LCM results are in <a
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-weighted-records">Section 6</a>,

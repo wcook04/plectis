@@ -15,7 +15,7 @@
 \newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
-  pdftitle={Reciprocal-tail rigidity: theorems, proofs and questions for Erdős Problem 243},
+  pdftitle={Reciprocal sums and the Sylvester recurrence: further results and proofs},
   pdfsubject={Erdős Problem Notes: Problem 243},
   pdfkeywords={irrationality, Ahmes series, Sylvester sequence, unit fractions, Lean 4},
 }
@@ -26,8 +26,8 @@
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\Gal}{Gal}
 
-\runninghead{Erd\H{o}s \#243: theorems, proofs and questions}
-\title{Reciprocal-Tail Rigidity: Theorems, Proofs and Questions}
+\runninghead{Reciprocal sums: further results and proofs}
+\title{Reciprocal Sums and the Sylvester Recurrence:\newline Further Results and Proofs}
 \subtitle{Erd\H{o}s Problem~\#243}
 \author{Will Cook}
 \date{September 2026}
@@ -42,7 +42,7 @@
 \noteprovenance
 
 \begin{abstract}
-We study rational reciprocal sums whose denominators grow quadratically.
+We study rational reciprocal sums with $a_{n+1}/a_n^2\to1$.
 Integer finite differences exclude nonintegral regular rates and reduce
 the cubic rate to a polynomial. A square condition in the cubic field
 and congruences modulo seven then prove irrationality.
@@ -85,7 +85,8 @@ Clearing a rational reciprocal tail gives positive integers $C_n,D_n$
 with $C_{n+1}=a_nC_n-D_n$ and $D_{n+1}=a_nD_n$. The first update
 can also be written $C_{n+1}=C_n-E_n$, where
 $E_n=D_n-(a_n-1)C_n$. Quadratic growth makes $E_n/C_n\to0$.
-To deduce a Sylvester tail we must make the integer error itself vanish.
+The eventual Sylvester recurrence follows once the integer error itself
+vanishes.
 
 The two principal arguments control different features of this integer
 numerator. A precise regular rate controls its finite differences:
@@ -101,11 +102,11 @@ estimate the prime powers that survive.
 
 We prove the cubic and nonintegral-rate theorems first
 (Section~\ref{long243:sec:cubicrate}). Their rate assumptions exclude
-Sylvester tails, so these results settle restricted cases by ruling out
+the eventual Sylvester recurrence, so these results settle restricted cases by ruling out
 rationality. The general recurrence question remains open here.
 Section~\ref{long243:sec:priorwork} compares the results with earlier
 criteria. Sections~\ref{long243:sec:state}--\ref{long243:sec:defect}
-then develop the integer tails and zero-error identities used in the
+then develop the integer tail numerators and zero-error identities used in the
 remaining arguments.
 
 For further criteria we distinguish two normalisations. In
@@ -145,7 +146,7 @@ than the quadratic limit alone. At rate $1+3/n+o(n^{-3})$, its
 numerator must eventually be cubic. The denominator recurrence will
 exclude every possible cubic. Here the increments of $P_n/a_n$ grow
 like a positive multiple of $n^2$, so the bounded-increase criterion
-later in the paper does not apply. A Sylvester tail has deviation
+later in the paper does not apply. The eventual Sylvester recurrence gives deviation
 $O(1/a_n)$ and is also excluded by this rate.
 
 \begin{theorem}[cubic-rate irrationality]\label{long243:res:cubicrate}
@@ -222,7 +223,7 @@ disagreement in a window of bounded length. The next lemma counts
 those disagreements. After proving the arithmetic exclusion, we return
 to the rate assumption in Lemma~\ref{long243:res:extraction}.
 
-\paragraph{The integer tail.}
+\paragraph{The integer tail numerator.}
 Suppose $\sum_{n\ge1}1/a_n=p/q$ with positive integers $p,q$, and write
 $x_n=\sum_{k\ge n}1/a_k$ for the tail.  Put
 \[
@@ -241,7 +242,7 @@ is a positive integer as well.  From $x_n=1/a_n+x_{n+1}$,
 which is \eqref{long243:eq:cubicorbit}.  These are the tail variables of Koizumi's
 Lemma~4 \cite[pp.~11--12]{koizumi2025}, up to a common positive factor.
 Section~\ref{long243:sec:state} constructs these variables together with
-the centred error $E_n=D_n-(a_n-1)C_n$, which this section does not need.  The subsequent cubic exclusion uses only these integer recurrences;
+the error $E_n=D_n-(a_n-1)C_n$, which this section does not need.  The subsequent cubic exclusion uses only these integer recurrences;
 it does not assume a reciprocal sum. To apply its zero-based statement
 without shifting the rate hypothesis, adjoin $a_0=1$, $D_0=q$ and
 $C_0=p+q$. The recurrences at $0$ then give $D_1=q$ and $C_1=p$,
@@ -280,7 +281,7 @@ Fix $A\in\Q_{>0}$, $B\in\Q$, and suppose for contradiction that
 \]
 We retain this assumption through Section~\ref{long243:sec:modseven}.
 
-\begin{lemma}[gcd stabilisation and the primitive shape]\label{long243:res:gcdshape}
+\begin{lemma}[gcd stabilisation and the reduced polynomial]\label{long243:res:gcdshape}
 Write $G_n=\gcd(C_n,D_n)$.  Then $6A$ is a positive integer, $G_n$ divides
 $6A$ for every $n$, and $G_n$ is eventually equal to a positive integer
 $g$.  On the tail where $G_n=g$, put $u_n=C_n/g$, $v_n=D_n/g$ and
@@ -308,15 +309,16 @@ On the primitive tail, $\gcd(u_n,v_n)=1$ by construction, and a prime dividing
 $u_n$ and $u_{n+1}$ would divide $v_n=a_nu_n-u_{n+1}$, which gives
 $\gcd(u_n,u_{n+1})=1$.
 
-The polynomial $Q$ is integer-valued: it takes an integer value at every
-integer argument, although its coefficients need not all be integers. Indeed,
-let $N$ clear the denominators of its coefficients, so $NQ\in\Z[X]$ and
-$Q(n+N)-Q(n)\in\Z$ for every $n$.  A non-integral value at one argument would
-therefore force an exception at every late argument in one residue class modulo
-$N$, and Lemma~\ref{long243:res:periodicobstruction} with $L=1$ would contradict
-$\underline d(S)=0$.  Now $Q(-1)=Q(0)=B/g$, so $c:=B/g\in\Z$, and
-$m:=Q(1)-Q(0)=6A/g$ is a positive integer, which is \eqref{long243:eq:Qmc} with
-$c\in\Z$.
+Since $g\mid6A$, the number $m:=6A/g$ is a positive integer. Put
+$c=B/g$, so
+\[
+ Q(n)=m\binom{n+2}{3}+c.
+\]
+Choose any sufficiently late $n\notin S$. Then $Q(n)=u_n\in\Z$, and the
+binomial term is an integer, so $c\in\Z$. This proves
+\eqref{long243:eq:Qmc} with $c\in\Z$. It also shows that $Q$ is
+integer-valued: its values at integer arguments are integers, even
+though its coefficients need not all be integers.
 
 It remains to exclude $c=0$ and every $c$ with a prime factor.  Let $\ell$ be a
 prime dividing $c$, or any prime if $c=0$.  For $n\equiv-1\pmod{6\ell}$, write
@@ -333,7 +335,7 @@ $L=2$, $h=6\ell$ gives $\underline d(S)\ge1/(12\ell)$.  This contradiction
 leaves $c=\pm1$.
 \end{proof}
 
-\begin{lemma}[the multiplier supply, and the reducible case]\label{long243:res:reduciblecase}
+\begin{lemma}[coprimality and irreducibility]\label{long243:res:reduciblecase}
 On the primitive tail, $\gcd(a_n,v_n)=1$, the multipliers at distinct indices
 are pairwise coprime, infinitely many of them exceed $1$, and the cubic
 $Q_{m,c}$ of \eqref{long243:eq:Qmc} is irreducible over $\Q$.
@@ -481,9 +483,16 @@ field. Taking $z=\alpha+\beta$, we obtain
  z^{-1}=\alpha-\beta,\qquad \alpha=\tfrac12(z+z^{-1}),
 \end{equation}
 and $z$ generates $\Q(\alpha)$. Write its minimal polynomial as
-$Z^3+bZ^2+dZ+w$ with $b,d,w\in\Q$ and $w\ne0$. We use the first two
-traces of $\alpha$ to restrict these coefficients, then the third trace
-to impose $\eta=6c/m$. All traces below are from $\Q(\alpha)$ to $\Q$.
+$p(Z)=Z^3+bZ^2+dZ+w$ with $b,d,w\in\Q$ and $w\ne0$. The minimal
+polynomial of $z^{-1}$ is
+\[
+ \frac{Z^3p(Z^{-1})}{w}
+   =Z^3+\frac dwZ^2+\frac bwZ+\frac1w.
+\]
+Thus Newton's identities apply directly to both $z$ and its inverse.
+We use the first two traces of $\alpha$ to restrict these coefficients,
+then the third trace to impose $\eta=6c/m$. All traces below are from
+$\Q(\alpha)$ to $\Q$.
 The polynomial $T^3-T+\eta$ gives
 \begin{equation}\label{long243:eq:alphatraces}
  \Tr\alpha=0,\qquad \Tr\alpha^2=2,\qquad \Tr\alpha^3=-3\eta .
@@ -550,12 +559,13 @@ numerators instead.
 
 \subsection{The two remaining cubics fail modulo seven}\label{long243:sec:modseven}
 
-\begin{lemma}[the two forbidden words]\label{long243:res:modseven}
+\begin{lemma}[two incompatible four-term residue patterns]\label{long243:res:modseven}
 For $Q_{12,1}$, every sufficiently late four-index window beginning at
 $n\equiv0\pmod7$ contains an exceptional index. For $Q_{12,-1}$, the same
 holds for windows beginning at $n\equiv1\pmod7$. In either case,
 $\underline d(S)\ge1/7$.
-No phase-free four-index obstruction is asserted.
+The specified starting residue classes are part of the assertion; no
+claim is made for every block of four consecutive indices.
 \end{lemma}
 
 \begin{proof}
@@ -707,7 +717,7 @@ These two scalar examples prevent the proposed weakening of
 Lemma~\ref{long243:res:extraction}. Neither is asserted to satisfy the
 exact reciprocal-tail recurrences.
 
-\begin{lemma}[the tail ratio reads the growth defect]\label{long243:res:tailratio}
+\begin{lemma}[comparison of the numerator and denominator ratios]\label{long243:res:tailratio}
 Let $a_n$ be strictly increasing positive integers with $a_{n+1}/a_n^2\to1$ and
 $\sum_n1/a_n$ rational, and let $(C_n,D_n)$ be the integer tail.
 Write $\gamma_n=a_n^2/a_{n+1}-1$.  Then
@@ -791,7 +801,8 @@ the image $\{0,2,5,6\}$ modulo $7$ and the condition
 $(r^2+s^2)^2\mid48$ have been calculated above.
 
 The rationality supposition in this proof supplies the integer orbit.
-The rate itself implies quadratic growth and excludes a Sylvester tail,
+The rate implies $a_{n+1}/a_n^2\to1$ and excludes the eventual
+Sylvester recurrence,
 so the conclusion is irrationality on a restricted class of the sequences
 in Problem~\ref{long243:res:problem}.
 
@@ -921,7 +932,7 @@ Shiokawa \cite[Theorem~1, author-version p.~2; proof in Section~3]{duverneykuros
 For rational $x_n>1$, their result assumes eventual $x_{n+1}\ge x_n^2$
 and control of the accumulated denominators of $x_{n+1}/x_n^2$; it computes
 the irrationality exponent of a signed reciprocal series. We use it only as
-a restricted comparison. In particular, a Sylvester tail and the cubic rate
+a restricted comparison. In particular, the eventual Sylvester recurrence and the cubic rate
 considered here approach quadratic growth from the other side.
 
 Badea's positive-term criterion is adjacent but different. For a convergent
@@ -936,7 +947,7 @@ p.~316]{badea1993}. For $b_n=1$, its hypothesis is
 $a_{n+1}\ge a_n^2-a_n+1$, an inequality between consecutive denominators,
 not the one-step sign condition $E_n\ge0$ used in integer descent.
 Under the standing rational-tail and growth hypotheses, however, either
-inequality imposed eventually forces a Sylvester tail and hence the
+inequality imposed eventually forces the Sylvester recurrence and hence the
 other. Their eventual forms are equivalent in this setting; that fact
 does not supply either condition for a general signed error.
 
@@ -1051,10 +1062,10 @@ product and integer descent.
 We retain an unreduced fraction $C_n/D_n$ for each rational tail.
 This keeps the denominator update multiplicative: removing $1/a_n$
 from the tail gives
-\[
+\begin{equation}\label{long243:eq:recurrences}
  D_{n+1}=a_nD_n,\qquad C_{n+1}=a_nC_n-D_n.
-\]
-We measure the difference from a Sylvester tail by
+\end{equation}
+We measure the difference from the Sylvester recurrence by
 $E_n=D_n-(a_n-1)C_n$. These are Koizumi's recurrences
 \cite[Lemma~4, pp.~11--12]{koizumi2025}; their formal definitions are the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{41}{nextDenState}{denominator
@@ -1063,11 +1074,12 @@ update}, the
 and the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{49}{centeredState}{error}.
 
-An \emph{exact orbit} consists of integer sequences
-$a_n,C_n,D_n$ satisfying the two displayed recurrences at every index;
-$E_n$ always denotes the error just defined. Here and in the following
-recurrence sections the indices may start at $0$. The terms $a_n$ are the
-multipliers, and $C_n,D_n$ are an unreduced numerator and denominator.
+We also consider integer solutions of \eqref{long243:eq:recurrences}
+without initially assuming that $C_n/D_n$ is a reciprocal tail.
+Here and in the following recurrence sections the indices may start
+at $0$, and $E_n$ always denotes the error just defined. We state
+positivity and growth assumptions as they are needed. The terms $a_n$
+are the multipliers, while $C_n,D_n$ are the numerator and denominator.
 The pseudo-greedy rounding rule is an additional condition giving $-C_n/2\le E_n<C_n/2$, whereas the
 absorption argument below needs only $|E_n|<C_n$. At a negative error we
 write $e_n=-E_n>0$. For an isolated step we use $a,D,C\in\Z$ without
@@ -1078,7 +1090,7 @@ For all $a,D,C\in\Z$,
 \[
  aC-D=C-\bigl(D-(a-1)C\bigr).
 \]
-Consequently, every exact orbit satisfies $C_{n+1}=C_n-E_n$.
+Consequently, every solution of \eqref{long243:eq:recurrences} satisfies $C_{n+1}=C_n-E_n$.
 \end{proposition}
 
 \begin{proof}
@@ -1089,7 +1101,7 @@ $C_n$ decreases when $E_n>0$, increases when $E_n<0$, and
 stays unchanged when $E_n=0$. This is why bounds on the negative error
 become bounds on upward increments.
 
-\begin{example}[the Sylvester orbit]\label{long243:ex:sylvester}
+\begin{example}[the Sylvester sequence]\label{long243:ex:sylvester}
 Take $a_n=2,3,7,43,1807,\ldots$ with $a_{n+1}=a_n^{2}-a_n+1$, and start the
 state at $D_0=C_0=1$.  The two updates give
 
@@ -1119,7 +1131,7 @@ common denominator and $D_n=D_0a_0\cdots a_{n-1}$, and set $C_n=D_nT_n$.  Then
 $C_n\in\Z$ for every $n$, and from $T_n=1/a_n+T_{n+1}$ one gets
 $C_{n+1}=a_nC_n-D_n$, which is the tail update.  On Sylvester's sequence
 $T_n=1/(a_n-1)$ exactly, so $D_n=(a_n-1)C_n$ and $E_n=0$: the error
-measures deviation from the Sylvester tail identity, and it vanishes
+measures deviation from the telescoping tail identity, and it vanishes
 identically on the Sylvester orbit.
 
 In Lean, the elementary identities are stated for an abstract integer
@@ -1205,7 +1217,7 @@ the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{53}{sylvesterDefect}{Sylvester
 defect}. The identity below expresses $\Delta_nC_{n+1}$ through two
 consecutive errors. If both errors vanish, positivity lets us cancel
-$C_{n+1}$ and recover the recurrence. Under strict centring, it will
+$C_{n+1}$ and recover the recurrence. Under the bound $|E_n|<C_n$, it will
 also make a single zero propagate to the next index.
 
 \begin{theorem}[defect identity]\label{long243:res:defect}
@@ -1402,14 +1414,13 @@ all sufficiently large $n$.
 Theorem~\ref{long243:res:step} at each later index. This is the final
 step of the criteria below that force $E_n$ to vanish eventually.
 
-The defect identity has a second consequence, which is what makes a single
-vanishing error worth having.
+The same identity shows that a zero error persists whenever
+$|E_n|<C_n$ at the subsequent indices.
 
 \begin{theorem}[zero is absorbing]\label{long243:res:absorb}
-Let $a,C,D:\N\to\N$ be an exact orbit of natural numbers, so
-$C_{n+1}+D_n=a_nC_n$ and $D_{n+1}=a_nD_n$, and let
-$E_n=D_n-(a_n-1)C_n$.  Suppose the centring is strict, $|E_n|<C_n$ for
-every $n$.  If $E_n=0$ then $E_{n+1}=0$.
+Let $a,C,D:\N\to\N$ satisfy $C_{n+1}+D_n=a_nC_n$ and
+$D_{n+1}=a_nD_n$, and put $E_n=D_n-(a_n-1)C_n$.
+Suppose that $|E_n|<C_n$ for every $n$.  If $E_n=0$ then $E_{n+1}=0$.
 \end{theorem}
 
 \begin{proof}
@@ -1419,13 +1430,11 @@ $C_{n+1}$ of absolute value smaller than $C_{n+1}$ is zero, and
 $|E_{n+1}|<C_{n+1}$ by hypothesis.
 \end{proof}
 
-If zero is absorbing beyond some index and $E$ does not vanish
-eventually, then $E$ is nowhere zero beyond that index.
-
-Beyond an eventual centring threshold, either $E$ reaches zero and
-stays there, or it is nowhere zero. A zero before that threshold need not
-persist, as Example~\ref{long243:ex:defect} shows: the altered multiplier
-creates $E_3=-1$ with $C_3=1$, exactly where strict centring fails.
+Beyond an index from which $|E_n|<C_n$ always holds, either $E_n$
+reaches zero and remains zero, or it is never zero. A zero at an earlier
+index need not persist: in Example~\ref{long243:ex:defect}, the altered
+multiplier gives $E_3=-1$ and $C_3=1$, so the required strict inequality
+fails.
 Sections~\ref{long243:sec:constant} and~\ref{long243:sec:periodic} address
 the special all-negative case. The mixed-sign analysis in
 Sections~\ref{long243:sec:bounded} and~\ref{long243:sec:mass} separates
@@ -1471,7 +1480,7 @@ His (19) becomes the middle update above
 \cite[Prop.~7.1 and (16)--(20), pp.~6--7]{bado2026}.
 
 Write $R_n=\max_{j\le n}U_j$ and
-$\mathcal R=\{n:U_{n+1}>R_n\}$.  Strict centring already gives
+$\mathcal R=\{n:U_{n+1}>R_n\}$.  The inequality $|V_n|<U_n$ gives
 $U_{n+1}<U_n$ when $\rho_n\ge2$, so every sufficiently late strict rise has
 $\rho_n=1$.  The stronger eventual bound $-U_n\le2V_n$, supplied by
 $V_n/U_n=E_n/C_n\to0$, gives the quantitative estimate
@@ -1527,9 +1536,12 @@ Chinese remainder theorem. Select the heights $\tau=x+B+kP>R_T$,
 $k\in\Z$. At the first crossing of any selected height we have
 $U_n\le R_n<\tau\le U_n+d_n$, so the crossing is a record step.
 Here $d_n=U_{n+1}-U_n$ is the full jump from the current numerator.
-If $d_n\le B$, then
-$U_n\in[\tau-B,\tau)$, so some $m_i$ divides $U_n$. It also divides
-$L_n$, hence divides $d_n=(a_n-1)U_n-L_n$, contradicting
+If $d_n\le B$, then $U_n\in[\tau-B,\tau)$, so
+\[
+ U_n=\tau-B+i=x+kP+i\qquad\text{for some }0\le i<B.
+\]
+The choice of $x$ gives $m_i\mid U_n$. Since $m_i\mid L_n$ as well,
+we obtain $m_i\mid d_n=(a_n-1)U_n-L_n$, contradicting
 $0<d_n\le B<m_i$.
 
 Every crossing therefore has $d_n>B$. If it first crosses $h\ge1$
@@ -1553,7 +1565,7 @@ The case $B=0$ follows by domination.
 \end{proof}
 
 The record multipliers themselves supplied the CRT moduli, and the
-lower centring bound excluded records with $\rho_n\ge2$.
+bound $-V_n<U_n$ excluded records with $\rho_n\ge2$.
 For reciprocal tails we also have vanishing relative error. This
 forces the numerator to be unbounded whenever Sylvester behaviour fails.
 
@@ -1569,11 +1581,14 @@ eventually Sylvester if and only if, for some integer $B\ge0$,
 \begin{proof}
 If the sequence is not eventually Sylvester, zero error is never reached on a sufficiently late
 tail. Integrality gives $1/U_n\le|V_n|/U_n=|E_n|/C_n\to0$, so $U_n$ is
-unbounded. Theorem~\ref{long243:res:arithmeticrecord}, applied after the centring
-threshold, forces divergence for every $B$. Once the running maximum of
+unbounded. The same relative-error limit gives $2|V_n|<U_n$ at every
+sufficiently large index, and hence the bound $-U_n\le2V_n$ required
+by Theorem~\ref{long243:res:arithmeticrecord}. Applying that theorem to
+this tail forces divergence for every $B$. Once the running maximum of
 the retained tail exceeds the omitted prefix maximum, deleting that
 prefix no longer changes which steps set new records. Unboundedness
-ensures that this crossing occurs. Conversely, a Sylvester tail
+ensures that this crossing occurs. Conversely, a sequence satisfying
+the eventual Sylvester recurrence
 telescopes to $x_n=1/(a_n-1)$, so $V_n=0$ eventually.
 \end{proof}
 
@@ -1651,8 +1666,7 @@ end of the block is a high record step, so $\rho_n=1$.
 Its positive jump is at most $B$, hence the preceding numerator $U_n$
 lies in the block. The corresponding multiplier divides both $U_n$ and
 $L_n$, hence divides the jump $(a_n-1)U_n-b_nL_n$. A positive jump at most $B$ cannot have a divisor
-larger than $B$. This proves boundedness without a growth or centring
-assumption and without a relative-error limit.
+larger than $B$. No growth or relative-error hypothesis was used.
 
 With the additional limit $V_n/U_n\to0$, choose an integer $K$ bounding
 $U_n$. Eventually $|V_n|<U_n/K\le1$, so the integer $V_n$ is zero.
@@ -1692,7 +1706,7 @@ Clearing with an LCM and reducing to lowest terms are different operations.
 For example, the exact step $(C,D,a)=(3,6,3)$ has $E=0$ and gives
 $(C',D')=(3,18)$. With $L=6$, its LCM numerator falls from $3$ to $1$,
 while the reduced numerator stays $1$: the LCM factor is $\rho=3$,
-but the reduction factor is $h=1$. This step begins a Sylvester tail.
+but the reduction factor is $h=1$. From this step onwards, the Sylvester recurrence holds.
 
 In general, before reduction the next numerator is
 $w_n=a_nu_n-v_n=u_n-\tilde e_n$, so
@@ -1932,7 +1946,7 @@ $\ell(H_n/G_N)/\ell(H_n)\to1$. The auxiliary bound therefore gives
 $\Theta\ge G_N$. If $G_N$ is unbounded, then $\Theta=+\infty$.
 
 Otherwise $G_n=g$ eventually. Fix a later index $T$ with $v_T>1$.
-The reduced exact tail has pairwise coprime multipliers, each coprime
+The reduced fractions have pairwise coprime multipliers, each coprime
 to $v_T$. For a large integer $L$, exactly
 \[
  k_L=\frac{\varphi(v_T)}{v_T}L+O(v_T)
@@ -1958,7 +1972,7 @@ to infinity with $L$, so
 \]
 Since $H_n=gR_n$ eventually, this gives
 $\Theta\ge g v_T/\varphi(v_T)>g$.
-An eventually Sylvester tail instead has constant $C_n$ and $\Theta=0$.
+Under the eventual Sylvester recurrence, $C_n$ is eventually constant and $\Theta=0$.
 Finally,
 \[
  H_{n+1}-H_n=\bigl(-E_n-(H_n-C_n)\bigr)_+\le(-E_n)_+.
@@ -1966,15 +1980,15 @@ Finally,
 Together with $\ell(C_n)\le\ell(H_n)$, this proves the corollary.
 \end{proof}
 
-\paragraph{Exact orbits.}
-The strict bound $\Theta>1$ is also a Lean theorem for any exact orbit
-with $a_n>1$, $C_n>0$, $D_0\ge1$ and vanishing relative error whose error
+\paragraph{Integer solutions of the recurrences.}
+The strict bound $\Theta>1$ is also a Lean theorem for solutions of
+\eqref{long243:eq:recurrences} with $a_n>1$, $C_n>0$, $D_0\ge1$ and vanishing relative error whose error
 is not eventually zero
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}).
 The implication of Corollary~\ref{long243:res:loglogboundary}, that
 $\limsup_n(-E_n)_+/\ell(C_n)\le1$ forces $E_n=0$ eventually, is a Lean
-theorem for any exact orbit with $a_n>1$, $C_n>0$ and vanishing relative
-error
+theorem for solutions of \eqref{long243:eq:recurrences} with $a_n>1$,
+$C_n>0$ and vanishing relative error
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound for an exact orbit});
 there $D_0\ge1$ follows from the vanishing relative error.
 The Lean sources also contain pointwise-rise versions of the arithmetic
@@ -2053,14 +2067,14 @@ is coprime to all the $p_i$. Choose a CRT block of $K$ consecutive
 integers, one divisible by each $p_i$, above $R_T$.
 Divergence forces a first crossing, while
 $u_{n+1}\le u_n+K$ forces it to land inside the block, a contradiction.
-This proves that finite $\limsup\mathcal A_n$ forces a Sylvester tail.
+This proves that finite $\limsup\mathcal A_n$ forces the eventual Sylvester recurrence.
 
 The comparison
 $|\delta_n-m_n/u_n|\le3/a_n$ gives
 $|R_n\delta_n-\mathcal A_n|\le3R_n/a_n\to0$.
 Here $R_n\le H_n$, $\log H_n=o(n)$ and $a_n$ grows doubly
 exponentially. Thus the two boundedness conditions are equivalent.
-On a Sylvester tail, $u_n=1$ and $m_n=0$ eventually, so
+Under the eventual Sylvester recurrence, $u_n=1$ and $m_n=0$ eventually, so
 $\mathcal A_n\to0$ and $R_n\delta_n\to0$. Since both quantities are
 nonnegative, their limits superior can only be $0$ or $+\infty$.
 \end{proof}
@@ -2079,7 +2093,7 @@ $m_n=O(1)$ gives $u_{n+1}\le u_n+m_n$, hence $u_n=O(n)$ and
 $R_n=O(n)$. In either case
 $\mathcal A_n=R_nm_n/u_n=O(1)$, so
 Theorem~\ref{long243:res:recordamplified} gives eventual Sylvester
-behaviour. A Sylvester tail has $u_n=1$ and $m_n=0$ eventually,
+behaviour. The eventual Sylvester recurrence gives $u_n=1$ and $m_n=0$ eventually,
 which proves the converse implications.
 
 The condition bounds the negative reduced error after multiplying it by
@@ -2087,7 +2101,7 @@ $R_n/u_n$. At a current maximum this is just $(-\tilde e_n)_+$; after a
 decrease the multiplier is larger. A bound on $(-\tilde e_n)_+$ does
 not directly control this additional factor. Under the critical-rate
 hypothesis, the preceding corollary supplies the required control.
-A Sylvester tail satisfies the condition with eventual value zero.
+The eventual Sylvester recurrence makes the expression eventually zero.
 We do not derive it for every rational tail satisfying the growth hypothesis.
 
 \begin{lemma}[large odd prime powers in the reduced denominator]\label{long243:res:oddpowersupply}
@@ -2127,16 +2141,16 @@ nor a lower density of new primes, and makes no such claim.
 \begin{theorem}[unit record increments]\label{long243:res:unitrecord}
 Under the standing hypotheses, if $R_{n+1}-R_n\le1$ for all large $n$, then $a_{n+1}=a_n^2-a_n+1$
 for all large $n$.  Hence the sequence is eventually Sylvester if and only if
-$\#\{n:R_{n+1}-R_n\ge2\}$ is finite.  No hypothesis is placed on drawdowns, on
+$\#\{n:R_{n+1}-R_n\ge2\}$ is finite.  No hypothesis is placed on decreases in $u_n$, on
 record-setting jumps, or on the cancellation factors $h_n$.
 \end{theorem}
 
 \begin{proof}
 Suppose the orbit is not eventually Sylvester. Absorption gives
 $\tilde e_n\ne0$ on a late tail, so vanishing relative error and integrality give
-$u_n\to\infty$. Choose $s$ beyond the unit-increment and centring
-thresholds and the threshold in Lemma~\ref{long243:res:oddpowersupply}
-with $A=3$.
+$u_n\to\infty$. Choose $s$ so large that the unit-increment bound and
+$|\tilde e_n|<u_n/2$ hold for every $n\ge s$, and that
+Lemma~\ref{long243:res:oddpowersupply} applies with $A=3$.
 Since $H_s\ge R_s\ge1$, it supplies an odd $Q=p^k\mid v_s$ with
 $Q>(H_s+2)^3>4(R_s+2)$ and $Q\ge16$.
 Let $Y$ be the least multiple of $p$ above $R_s$. Then
@@ -2146,7 +2160,7 @@ forces $u_t=Y$. Before $t$, one has
 $w_n<3u_n/2<15Q/8<pQ=p^{k+1}$.
 Corollary~\ref{long243:res:powerpersistence} therefore gives $p^k\mid v_t$.
 But $p\mid u_t=Y$, contradicting $\gcd(u_t,v_t)=1$.
-The converse follows because a Sylvester tail has $u_n=1$ eventually.
+The converse follows because the eventual Sylvester recurrence gives $u_n=1$ eventually.
 \end{proof}
 
 The \texttt{plectis-erdos-lean} repository contains the
@@ -2206,7 +2220,7 @@ which rearranges to the asserted inequality.
 
 The next series ignores record jumps of size at most two, apart from
 finitely many initial terms, and assigns a smaller cost to a large jump
-when it begins at a large numerator. A Sylvester tail has no late records,
+when it begins at a large numerator. The eventual Sylvester recurrence gives no late records,
 so both series converge. The proof shows that a non-Sylvester rational
 tail contributes a fixed positive amount on arbitrarily late finite
 intervals. Thus convergence is a genuine additional requirement, not a
@@ -2241,7 +2255,7 @@ since $u_n<L$ for $n<\tau$ and $d_n\ge3$ on $J$.
 Thus an arbitrarily late finite window contributes at least $1/16$ to
 $\mathcal E$, contradicting convergence. No disjointness of the windows is
 needed: every window lies in a tail of the nonnegative series.
-On a Sylvester tail $u_n=1$ eventually, so there are no late records and
+Under the eventual Sylvester recurrence, $u_n=1$ eventually, so there are no late records and
 $\mathcal E$ is finite.
 Finally, term by term at a record,
 \[
@@ -2265,7 +2279,7 @@ powers.
 \subsection{Bounds on the error and on the original sequence}
 
 \begin{theorem}[slow negative part]\label{long243:res:slownegative}
-Let $(a,C,D)$ be an exact orbit of natural numbers with $a_n>1$, $C_n>0$, $D_0\ge1$, under
+Let $a,C,D:\N\to\N$ satisfy \eqref{long243:eq:recurrences} with $a_n>1$, $C_n>0$, $D_0\ge1$, under
 vanishing relative error.  Suppose that for some $\delta\in(0,1)$ and all large $n$
 with $E_n<0$ one has $-E_n\le(1-\delta)\ell(C_n)$.  Then $E_n=0$ for all large
 $n$, and $a_{n+1}=a_n^2-a_n+1$ for all large $n$.
@@ -2314,7 +2328,7 @@ $P_n=\prod_{1\le j<n}a_j$. Then
 \]
 Thus the bound concerns upward increments, not boundedness of $P_n/a_n$.
 The quadratic growth limit controls only the ratio of consecutive terms.
-Sylvester tails satisfy the bound, as do exact-square sequences
+Sequences satisfying the eventual Sylvester recurrence satisfy the bound, as do exact-square sequences
 $a_n=b^{2^{n-1}}$ with $b\ge2$, for which the difference is zero.
 The latter never satisfies the Sylvester recurrence, so the bounded
 criterion below recovers irrationality of its reciprocal sum.
@@ -2468,7 +2482,7 @@ The lower bound follows from $a_{n+1}\ge a_n^2/2$; the upper error bound
 follows by writing the rounding remainder in $[0,1)$.
 Consequently $t_n\sim Kn$ and $t_n\gamma_n\to K>0$ by the product
 comparison above. The corollary proves that the reciprocal sum is
-irrational, since a Sylvester tail would have
+irrational, since the eventual Sylvester recurrence would give
 $\gamma_n=O(1/a_n)$ rather than $\gamma_n\sim1/n$.
 
 The strict clause includes Koizumi's sufficient
@@ -2480,7 +2494,7 @@ upper limit.
 
 We keep the preceding one-based indexing. The growth defect need not
 have the opposite sign to $E_n$: the next identity displays the
-correction, including its sign on a Sylvester tail.
+correction, including its sign under the eventual Sylvester recurrence.
 
 \begin{proposition}[comparison of the two signs]\label{long243:res:classicalhalfspace}
 The factor $M_n=D_n/L_n$ divides $G_n=\gcd(C_n,D_n)$. Thus $G_n/M_n$
@@ -2509,7 +2523,7 @@ Being a positive multiple of the next growth defect, $Z_n^{\mathrm{ES}}$
 has the sign of $\Lambda_{n+1}-E_{n+1}/C_{n+1}$. For all sufficiently
 large $n$, it is positive when $E_{n+1}\le0$; for $E_{n+1}>0$, it is
 negative precisely when
-$E_{n+1}/C_{n+1}>\Lambda_{n+1}$. On a Sylvester tail $E_n=0$ and
+$E_{n+1}/C_{n+1}>\Lambda_{n+1}$. Under the eventual Sylvester recurrence, $E_n=0$ and
 $\Lambda_n=(a_n-1)/a_{n+1}>0$.
 \end{proposition}
 
@@ -2667,7 +2681,7 @@ Suppose the error is negative with a constant magnitude, $E_n=-m$ for a fixed
 $m>0$ and every $n$.  By
 Proposition~\ref{long243:res:update} the numerator increases by $m$ at each step,
 so $C_n=c+nm$ with $c=C_0$, and the definition of the error becomes a
-\emph{shape equation}
+identity
 \[
  D_n+m=(a_n-1)\,(c+nm) .
 \tag{5.1}\label{long243:eq:shape}
@@ -2676,8 +2690,8 @@ Together with $D_{n+1}=a_nD_n$ this is a closed system in $(a,D)$.
 We shall prove that it has no infinite natural-number solution with
 $a_n\ge2$, after examining a finite example.
 
-\begin{example}[the shape equation running until it fails]\label{long243:ex:shape}
-Take $m=c=1$, so that $C_n=1+n$ and the shape equation~\eqref{long243:eq:shape} reads
+\begin{example}[a nonintegral second step]\label{long243:ex:shape}
+Take $m=c=1$, so that $C_n=1+n$ and \eqref{long243:eq:shape} reads
 $D_n+1=(a_n-1)(1+n)$, and take $D_0=1$.  Each step is now determined: at $n=0$
 the equation reads $2=(a_0-1)\cdot1$, so $a_0=3$, and $D_1=a_0D_0=3$; at $n=1$
 it reads $4=(a_1-1)\cdot2$, so $a_1=3$, and $D_2=a_1D_1=9$; at $n=2$ it reads
@@ -2692,7 +2706,7 @@ including $a_0$.
 For any $m,c\in\N$ with $m>0$, there is no pair of sequences
 $a,D:\N\to\N$ with $a_n\ge2$ for all $n$ satisfying
 $D_{n+1}=a_nD_n$ and~\eqref{long243:eq:shape}. The same holds if the
-shape equation only begins at some index.
+identity is assumed only from some index onwards.
 \end{theorem}
 
 \begin{proof}[Proof when $c$ and $m$ are coprime]
@@ -2805,14 +2819,14 @@ would be exactly such a common divisor, so each prime divisor of $M$ occurs in
 at most one multiplier.  On the other hand, every multiplier shares a prime with $M$.
 Indeed, if $\gcd(a_j,M)=1$, choose $k\ge1$ so that
 $a_j\mid C_j+kM=C_{j+kh}$. The same multiplier divides $D_{j+kh}$,
-and periodicity gives $e_{j+kh}=e_j$. The shape equation at $j+kh$
+and periodicity gives $e_{j+kh}=e_j$. The identity at $j+kh$
 therefore implies $a_j\mid e_j$, contrary to $0<e_j<a_j$.
 Thus infinitely many multipliers would require distinct prime divisors
 of the fixed integer $M$, a contradiction.
 
 Otherwise some prime $p$ divides $M$, divides $C_0$, and divides every
 magnitude.  Then $p\mid C_n$ for every $n$, since $C_{n+1}=C_n+e_n$ and both
-summands on the right are divisible by $p$, and the shape equation
+summands on the right are divisible by $p$, and the same identity
 $D_n+e_n=(a_n-1)C_n$ then gives $p\mid D_n$ for every $n$.  Divide $D$, $C$ and
 $e$ by $p$.  The multipliers are untouched, so $a_n\ge2$ and $e_n<a_n$ persist
 and the magnitudes stay positive; the three recurrences are homogeneous in
@@ -2829,14 +2843,13 @@ exclusion}.
 
 The phase-by-phase proof uses $e_n<a_n$ to prevent a multiplier from
 dividing its own nonzero phase magnitude. This is not a rescaling of the
-orbit. Nevertheless, for an infinite exact orbit with periodic positive
+orbit. Nevertheless, for an infinite solution of \eqref{long243:eq:recurrences} with periodic positive
 magnitudes, the bound follows eventually from the other assumptions.
-The shape equation gives $C_n>0$, and periodicity gives
+The identity gives $C_n>0$, and periodicity gives
 \[
  C_n=\frac{M}{h}n+O(1),\qquad \sup_ne_n<\infty,
 \]
-and $D_0$ cannot be zero: otherwise all $D_n$ vanish and the shape
-equation gives $e_n=(a_n-1)C_n\ge C_n$, contradicting these bounds.
+and $D_0$ cannot be zero: otherwise all $D_n$ vanish and the defining identity gives $e_n=(a_n-1)C_n\ge C_n$, contradicting these bounds.
 Thus $D_n\ge2^nD_0$, and
 \[
  a_n-1=\frac{D_n+e_n}{C_n}\longrightarrow\infty.
@@ -2847,8 +2860,8 @@ smallness assumption. The numbered theorem retains the pointwise bound
 used by its checked phase-by-phase proof. The later bounded-negative
 theorem also excludes this case.
 
-\begin{remark}
-On the rational-tail orbit of~\cite{koizumi2025}, the absolute error
+\begin{remark}\label{long243:rem:eventual-error-bound}
+For the tail numerators of~\cite{koizumi2025}, the absolute error
 satisfies $|E_n|<a_n$ eventually. Indeed, under the dictionary in
 Section~\ref{long243:sec:priorwork}, Lemma~4(2) gives
 $-C_n/2\le E_n<C_n/2$, hence $|E_n|\le C_n/2$. The proof of Lemma~4(3) gives
@@ -2858,7 +2871,7 @@ On the other hand, convergence of $\sum1/a_n$ gives $a_n\to\infty$,
 and $a_{n+1}/a_n^2\to1$ then gives $a_{n+1}\ge2a_n$ eventually.
 Thus $|E_n|/a_n\to0$. On a negative-error tail this gives $e_n<a_n$.
 
-For an abstract exact orbit, the same conclusion follows when
+For integer solutions of \eqref{long243:eq:recurrences}, the same conclusion follows when
 $a_n>1$, $C_n>0$ and $E_n/C_n\to0$ hold: the calculation in
 Section~\ref{long243:sec:state} already derives the reciprocal series and
 its growth from these hypotheses. Summability is not an independent
@@ -2955,21 +2968,18 @@ Theorem~5.1 \cite[pp.~4--5]{bado2026}, posted in September 2026.
 In the application, $m_i$ is the $i$th multiplier. Its coprimality is
 known only for later numerators, which explains the condition $i<t$.
 
-The barrier applies once reduction removes no further common factor.
-Call $(u,v)$ a \emph{reduced exact tail} with multipliers $a$ when
-$\gcd(u_n,v_n)=1$ and
-\[
- u_{n+1}+v_n=a_nu_n,\qquad v_{n+1}=a_nv_n .
-\]
-Here $u$ is the numerator and $v$ the denominator: the two recurrences are
-those of Section~\ref{long243:sec:state}, with $u$ in the role of the numerator $C$
-and $v$ in that of the denominator state $D$, and with coprimality imposed at
-every index.
+To apply the preceding theorem, we reduce $C_n/D_n$ to lowest terms
+and require that no further common factor be cancelled. In that case
+the reduced numerators and denominators still satisfy the original
+recurrences. The relevant coprimality is as follows.
 
-\begin{proposition}[reduced tails are pairwise coprime]\label{long243:res:reduced}
-In a reduced exact tail, $a_n$ is coprime to $v_n$; the multipliers at distinct
-indices are pairwise coprime; and every earlier multiplier is coprime to every
-later numerator.
+\begin{proposition}[persistent coprimality]\label{long243:res:reduced}
+Suppose that $\gcd(u_n,v_n)=1$ at every index and
+\[
+ u_{n+1}+v_n=a_nu_n,\qquad v_{n+1}=a_nv_n.
+\]
+Then $\gcd(a_n,v_n)=1$, the $a_n$ are pairwise coprime, and
+$\gcd(a_i,u_t)=1$ whenever $i<t$.
 \end{proposition}
 
 \begin{proof}
@@ -2987,24 +2997,24 @@ and $u_t$ are coprime.
 coprimality}, the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1016}{reducedTail_pairwiseCoprime}{pairwise
 coprimality}, and the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1030}{reducedTail_wholeModulusAvoidance}{coprimality to each earlier multiplier}.  Feeding them to Theorem~\ref{long243:res:barrier} gives the form used
-later: there is no reduced exact tail whose numerator tends to infinity with a
-uniformly bounded upward increment, the
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1030}{reducedTail_wholeModulusAvoidance}{coprimality to each earlier multiplier}. Applying Theorem~\ref{long243:res:barrier}
+shows that a numerator satisfying these conditions cannot tend to infinity
+with uniformly bounded upward increments. This is the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1041}{no_boundedRise_reducedTail}{reduced
 exclusion under bounded upward increments}, together with its eventual form, the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1066}{no_eventuallyBoundedRise_reducedTail}{version with an eventual increment bound}.
 
-\begin{example}[Sylvester's sequence as a reduced exact tail]\label{long243:ex:reduced}
+\begin{example}[coprimality in Sylvester's sequence]\label{long243:ex:reduced}
 Put $u_n=1$ and $v_n=D_n=1,2,6,42,1806,\ldots$ as in
 Example~\ref{long243:ex:sylvester}, with multipliers $a_n=v_n+1=2,3,7,43,1807,\ldots$.
 Then $\gcd(u_n,v_n)=1$, $u_{n+1}+v_n=1+v_n=a_nu_n$ and $v_{n+1}=a_nv_n$, so
-this is a reduced exact tail, and Proposition~\ref{long243:res:reduced} returns the
-classical fact that Sylvester's numbers are pairwise coprime.  Its numerator is
+Proposition~\ref{long243:res:reduced} applies and gives the classical fact
+that Sylvester's numbers are pairwise coprime.  Its numerator is
 constant, so it satisfies every hypothesis of the exclusion just stated except
 divergence; since the tail exists, that hypothesis cannot be dropped.
 \end{example}
 
-An arbitrary orbit of Section~\ref{long243:sec:state} need not be reduced.
+The fraction $C_n/D_n$ in Section~\ref{long243:sec:state} need not be in lowest terms.
 To use the preceding argument, we must show that the common factor stops
 changing. One uniform bound on the negative magnitudes at arbitrarily
 late indices suffices: each gcd divides every later gcd, and at a negative
@@ -3013,12 +3023,11 @@ late negative indices bounds the entire gcd sequence. The next proposition
 justifies dividing by its eventual value.
 
 \begin{proposition}[the tail gcd stabilises]\label{long243:res:gcdstab}
-Let $(a,D,C)$ be an exact orbit of natural numbers, that is, a triple of $\N$-valued
-sequences with $C_{n+1}+D_n=a_nC_n$ and $D_{n+1}=a_nD_n$, whose error is
-$E_n=D_n-(a_n-1)C_n$. Suppose some fixed integer $B\ge1$ satisfies
+Let $a,D,C:\N\to\N$ satisfy $C_{n+1}+D_n=a_nC_n$ and
+$D_{n+1}=a_nD_n$, and put $E_n=D_n-(a_n-1)C_n$. Suppose some fixed integer $B\ge1$ satisfies
 $-B\le E_n<0$ at infinitely many indices. Then
-$\gcd(C_n,D_n)$ is eventually constant, and beyond that index the orbit divided
-by the stable gcd is a reduced exact tail.
+$\gcd(C_n,D_n)$ is eventually constant. Dividing $C_n,D_n$ by its
+eventual value gives coprime sequences satisfying the same recurrences.
 \end{proposition}
 
 \begin{proof}
@@ -3053,7 +3062,7 @@ on \emph{every} upward increment.
 Vanishing relative error also gives sparsity of the strict gcd increases.
 The next proposition asserts long finite intervals of constancy, not
 constancy on an infinite tail.
-For an exact orbit of natural numbers with $C_n>0$, put
+For $a,C,D:\N\to\N$ satisfying \eqref{long243:eq:recurrences} with $C_n>0$, put
 \[
  G_n=\gcd(C_n,D_n),\qquad
  \Gamma(N)=\#\{0\le j<N:G_j<G_{j+1}\}.
@@ -3102,7 +3111,7 @@ Without the denominator recurrence, $C_n=c+bn$, $E_n=-b$ would be
 a counterexample for any positive integers $b,c$.
 Theorem~\ref{long243:res:constant} excludes this exact-orbit behaviour.
 The separate summability criterion in the next section needs only the
-scalar update. On positive exact orbits with vanishing relative error,
+scalar update. For positive integer solutions of \eqref{long243:eq:recurrences} with vanishing relative error,
 both criteria are equivalent to eventual zero error. Neither extra
 estimate has been derived from the unrestricted hypotheses.
 
@@ -3121,12 +3130,12 @@ for some integer $B\ge0$, then $E_n=0$ for all sufficiently large $n$.
 \end{theorem}
 The limit is equivalent, for positive $C_n$, to the integer condition
 $K|E_n|<C_n$ eventually for each $K\in\N$. This is the form used
-by the linked declaration. Its $K=1$ case supplies strict centring.
+by the linked declaration. Its $K=1$ case gives $|E_n|<C_n$ eventually.
 
 
 \begin{proof}
 Suppose that the error fails to vanish eventually. After the
-centring threshold, absorption excludes every zero. Hence $|E_n|\ge1$,
+point from which $|E_n|<C_n$ always holds, Theorem~\ref{long243:res:absorb} excludes every zero. Hence $|E_n|\ge1$,
 and the relative limit forces $C_n\to\infty$.
 
 There are infinitely many negative indices, since otherwise
@@ -3135,7 +3144,7 @@ At each sufficiently late negative index, $1\le-E_n\le B$, so
 $B\ge1$.
 Proposition~\ref{long243:res:gcdstab} makes $G_n=\gcd(C_n,D_n)$
 stabilise to an integer $g>0$. The divided sequences
-$u_n=C_n/g$, $v_n=D_n/g$ form a reduced exact tail, with
+$u_n=C_n/g$, $v_n=D_n/g$ satisfy the coprime recurrences, with
 $u_n\to\infty$ and $u_{n+1}-u_n=-E_n/g\le B$.
 Their coprimality properties from Proposition~\ref{long243:res:reduced}
 now contradict Theorem~\ref{long243:res:barrier}.
@@ -3175,7 +3184,7 @@ increases of its terms. If their sum converges, that product is finite.
 Only finitely many upward integer steps can then occur, and descent
 finishes the argument. No denominator recurrence is needed.
 For comparison, $C_n=n+1$ and $C_n=(n+1)^2$ have relative increases
-tending to zero but divergent sums. A Sylvester tail has an eventually
+tending to zero but divergent sums. The eventual Sylvester recurrence gives an eventually
 constant numerator, so it satisfies the summability condition.
 
 \begin{samepage}
@@ -3286,7 +3295,7 @@ the sum of relative increases diverges.
 
 \begin{proof}
 Koizumi's construction gives vanishing relative error after a finite
-shift, hence eventual strict centring.
+shift, hence $|E_n|<C_n$ eventually.
 Absorption then makes $E_n\ne0$ eventually,
 since eventual zero would give the Sylvester recurrence.  Descent excludes an
 eventually nonnegative error.  Theorem~\ref{long243:res:bounded} excludes a bounded
@@ -3304,7 +3313,8 @@ the reciprocal-series realisation. The following exact-orbit question
 is therefore equivalent to the original problem.
 
 \begin{problem}[unbounded negative errors with divergent relative sum]\label{long243:res:excursions}
-Exclude, or construct, an exact orbit of natural numbers $(a,D,C)$ with $a_n>1$ and
+Exclude, or construct, natural-number sequences $(a,D,C)$ satisfying
+\eqref{long243:eq:recurrences}, with $a_n>1$ and
 $C_n>0$, whose multipliers satisfy $\lim_n a_{n+1}/a_n^{2}=1$ and whose error satisfies vanishing relative error, and which is
 negative infinitely often with magnitudes unbounded along that infinite set and
 \[
@@ -3324,31 +3334,31 @@ It is therefore a counterexample to Problem~\#243. Finite admissible
 prefixes alone do not provide such a construction.
 \end{problem}
 
-\begin{remark}
-The hypotheses in Problem~\ref{long243:res:excursions} beyond the state recurrence are
-not decorative: the recurrence alone admits unbounded divergent-mass
-excursions.  Put
+\begin{remark}\label{long243:rem:recurrence-without-relative-bound}
+The recurrences alone admit unbounded negative errors for which
+$\sum_n(-E_n)_+/C_n$ diverges. The following example fails both the
+relative-error and growth assumptions of Problem~\ref{long243:res:excursions}. Put
 \[
  C_n=2^{n},\qquad b_0=2,\qquad b_{n+1}=\tfrac12 b_n(b_n+2),\qquad
  a_n=b_n+2,\qquad D_n=b_nC_n ,
 \]
 so that $(b_n)=2,4,12,84,3612,\ldots$ and $(a_n)=4,6,14,86,3614,\ldots$.  Every
 $b_n$ is a positive even integer, since $b_n=2k$ gives $b_{n+1}=2k(k+1)$, so all
-four sequences are $\N$-valued.  The orbit is exact:
+four sequences are $\N$-valued. They satisfy both recurrences:
 $C_{n+1}+D_n=2^{n}(2+b_n)=a_nC_n$ and
 $D_{n+1}=b_{n+1}2^{n+1}=b_n(b_n+2)2^{n}=a_nD_n$.  Its error is
 \[
  E_n=D_n-(a_n-1)C_n=b_n2^{n}-(b_n+1)2^{n}=-C_n ,
 \]
 so the negative magnitudes $2^{n}$ are unbounded and $\sum_n(-E_n)_+/C_n$
-diverges.  What fails is the centring: $|E_n|=C_n$ at every index, so strict
-centring fails at the boundary and vanishing relative error fails outright.  The
+diverges. Here $|E_n|=C_n$ at every index, so both the strict inequality
+$|E_n|<C_n$ and the vanishing relative error fail. The
 multipliers satisfy $a_{n+1}=\tfrac12(a_n^{2}-2a_n+4)$, so
 $a_{n+1}/a_n^{2}\to\tfrac12$ and the growth hypothesis fails as well.  The
 example therefore says nothing about Problem~\ref{long243:res:problem}, and it does not
-isolate the centring hypotheses: $E_n=-C_n$ at every index forces that
+isolate the error bounds: $E_n=-C_n$ at every index forces that
 multiplier recurrence, so growth fails with them.  It is recorded only to show
-that the state recurrence alone is not enough.
+that the two recurrences alone do not force the required conclusion.
 \end{remark}
 
 \paragraph{A scalar profile need not satisfy the recurrences.}
@@ -3553,7 +3563,7 @@ on the restarted tail. For a rational sum, Lemma~4(2)
 $-c_n/2\le e_n<c_n/2$ at every index of that expansion. Thus
 $|E_n|<C_n$ holds beyond the restart, as required by
 Theorem~\ref{long243:res:bounded}; it need not hold at every original
-index. Eventual strict centring also follows directly from vanishing
+index. The eventual inequality $|E_n|<C_n$ also follows directly from vanishing
 relative error with $K=1$. What remains unsupplied is the eventual
 lower bound on $E_n$ in Theorem~\ref{long243:res:bounded}.
 That additional hypothesis is why the theorem is still conditional.
@@ -3730,7 +3740,7 @@ The Lean statement excluding a periodic error assumes $e_n<a_n$;
 Section~\ref{long243:sec:periodic} derives this bound eventually for a
 periodic positive error magnitude. The printed bounded-negative theorem uses $E_n/C_n\to0$. The
 formal statement uses its division-free form, $K|E_n|<C_n$ eventually
-for each natural $K$; strict centring is its $K=1$ case.
+for each natural $K$; the bound $|E_n|<C_n$ is its $K=1$ case.
 Sections~\ref{long243:sec:priorwork} and~\ref{long243:sec:bounded} give the
 construction from a rational reciprocal sum.
 
@@ -3812,7 +3822,7 @@ consecutive multiples}.
 \noindent\emph{Theorem~\ref{long243:res:bounded}.} \noindent The theorem is
 \lword{Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}{stated with an eventual lower bound and division-free vanishing relative error}.
 The Lean proof shifts past both thresholds and applies the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2271}{boundedNegativePart_eventually_zero}{version with centring and the lower bound at every index}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2271}{boundedNegativePart_eventually_zero}{version with $|E_n|<C_n$ and the lower bound at every index}.
 It uses
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1739}{tailState_tendsto_atTop_of_nonzero_normalizedVanishes}{divergence from vanishing relative error}
 and the
@@ -3829,7 +3839,7 @@ its exact-orbit consequence is
 \lword{Erdos243/SparseResetRecovery.lean}{690}{sylvesterNext_eventually_of_summable_negativeRelativeMass_scalar}{the scalar recurrence from a convergent sum}.
 A separate exact-orbit formulation retains the denominator and tail update
 equations, positivity, the centered-step identity and division-free normalized
-vanishing. With summable normalized negative mass, the checked results give
+vanishing. Under $\sum_n(-E_n)_+/C_n<\infty$, the checked results give
 \lword{Erdos243/SparseResetRecovery.lean}{378}{tail_growth_le_one_add_negativeRelativeMass}{a bound on numerator growth},
 \lword{Erdos243/SparseResetRecovery.lean}{488}{eventually_zero_of_summable_negativeRelativeMass}{eventual zero error}, and
 \lword{Erdos243/SparseResetRecovery.lean}{510}{sylvesterNext_eventually_of_summable_negativeRelativeMass}{the Sylvester recurrence}.
@@ -3916,23 +3926,23 @@ factorial residue reduction & \lrefx{Erdos243/FiniteHorizonResidue.lean}{134}{fo
 \fi
 
 
-\section{A factorial residue reduction for forced orbits}\label{long243:app:residue}
+\section{A factorial modulus for integral recursion}\label{long243:app:residue}
 
-In the case $m=c=1$ of Section~\ref{long243:sec:constant}, where the shape
-equation~\eqref{long243:eq:shape} reads $D_n+1=(a_n-1)(n+1)$, each multiplier is
-determined by its predecessor; we call such an orbit \emph{forced}.  At index
-$n$ the numerator of the next multiplier is
+In the case $m=c=1$ of Section~\ref{long243:sec:constant}, the identity
+\eqref{long243:eq:shape} becomes $D_n+1=(a_n-1)(n+1)$. It determines
+the recursion $a_{n+1}=\fnum(n,a_n)/(n+2)$, where
 \[
  \fnum(n,a)=(n+1)a^{2}-(n+2)a+(n+3),
 \]
 the
 \lword{Erdos243/FiniteHorizonResidue.lean}{22}{forcedNumerator}{forced
-numerator}, and the divisor is $n+2$.  The orbit continues for another step exactly when this division is
-exact. The
+numerator}. We stop at the first nonintegral quotient. The
 \lword{Erdos243/FiniteHorizonResidue.lean}{75}{ForcedSurvives}{formal survival predicate}
-requires exact division at each step.  Example~\ref{long243:ex:shape} is the forced orbit from $a=3$ read this
-way: $\fnum(0,3)=6$ is divisible by $2$ and gives $a_1=3$, while
-$\fnum(1,3)=13$ is not divisible by $3$, so the orbit stops there.  Direct iteration can produce very large intermediate integers. To
+requires exact division at each step. For $a_0=3$, as in
+Example~\ref{long243:ex:shape}, the first quotient is
+$\fnum(0,3)/2=3$, but the next quotient is $\fnum(1,3)/3=13/3$,
+so the recursion stops. Direct iteration can produce very large
+intermediate integers. To
 decide whether the first $h$ divisions are exact, however, it suffices
 to know the initial value modulo $(h+1)!$.
 Computing a pseudo-greedy orbit through residues modulo a shrinking product
@@ -3941,21 +3951,24 @@ pp.~13--14]{koizumi2025}; for the forced numerator that product is a
 factorial.
 
 \begin{theorem}[factorial residue reduction]\label{long243:res:residue}
-For all $h$ and all integers $a\equiv b \pmod{(h+1)!}$, the orbit from $a$
-survives $h$ forced updates exactly when the orbit from $b$ does.
+Let $h$ be a nonnegative integer and let $a,b$ be integers with $a\equiv b\pmod{(h+1)!}$.
+The first $h$ steps of the recursion
+$a_{n+1}=\fnum(n,a_n)/(n+2)$, starting at index zero, are integral
+for $a_0=a$ if and only if they are integral for $a_0=b$.
 \end{theorem}
 
 \begin{proof}
 Define $M(0,i)=1$ and $M(h+1,i)=(i+2)M(h,i+1)$. Thus
 $M(h,0)=(h+1)!$. We prove the stronger statement that, at index $i$,
-congruent inputs modulo $M(h,i)$ survive the same $h$ updates.
+congruent inputs modulo $M(h,i)$ give the same answer to whether the
+next $h$ quotients are all integral.
 There is nothing to prove for $h=0$.
 
 For the inductive step, suppose
 $a\equiv b\pmod{(i+2)M(h,i+1)}$. Since $\fnum(i,\cdot)$ is an integer
 polynomial, its values at $a$ and $b$ are congruent modulo that product.
 In particular, one is divisible by $i+2$ if and only if the other is.
-If neither is divisible, both orbits stop. Otherwise their quotients
+If neither is divisible, both recursions stop. Otherwise their quotients
 are congruent modulo $M(h,i+1)$, so the induction hypothesis applies
 to the remaining $h$ updates at index $i+1$. Taking $i=0$ proves the claim.
 \end{proof}
@@ -3974,18 +3987,18 @@ formula} and its
 \lword{Erdos243/FiniteHorizonResidue.lean}{69}{horizonModulus_zero_eq_factorial}{factorial
 value at the initial index}.
 
-At $h=1$ the modulus is $2!=2$, and surviving one update means
-$2\mid a^{2}-2a+3$, which holds exactly for odd $a$: for instance
-$\fnum(0,3)=6$ but $\fnum(0,4)=11$.  So one step of survival is decided by the
-parity of $a$ alone, which is Theorem~\ref{long243:res:residue} at its smallest
-nontrivial horizon.
+For $h=1$, the modulus is $2!=2$. The first quotient is integral
+if and only if $2\mid a^2-2a+3$, or equivalently if $a$ is odd.
+For instance, $\fnum(0,3)=6$ and $\fnum(0,4)=11$. Thus the parity
+of $a$ decides the first step, as Theorem~\ref{long243:res:residue}
+asserts in this case.
 
 Exact enumeration for $2\le a_0<5000$ gives a maximum of $17$
 successful updates, or $18$ multiplier values including $a_0$.
 Nine seeds attain it, the least being $1501$. The seed $a_0=1$ is excluded:
 it gives $a_n=1$ at every step and violates the hypothesis $a_n\ge2$.
-Survival here counts exact divisions, not all the conditions on a positive
-integer orbit. The finite search does not prove the infinite exclusion;
+This procedure tests exact division only; it does not test all the
+conditions required of a positive integer solution of the recurrences. The finite search does not prove the infinite exclusion;
 Theorem~\ref{long243:res:constant} does so under its stated hypotheses.
 The reduction remains useful because its shrinking-modulus argument
 applies to other recurrences defined by polynomial division.
@@ -4036,7 +4049,7 @@ proof obtains the same implication from a Dedekind-zeta pole comparison.
 The trace calculation leaves $m=12$, and both possible signs are excluded
 modulo seven.
 
-\paragraph{Static barriers.}
+\paragraph{Avoidance of fixed moduli.}
 For sufficiently sparse prime moduli, a coprime integer sequence can
 have unbounded but very small increments. At the specified
 double-exponential scale, counting residue classes and applying CRT give

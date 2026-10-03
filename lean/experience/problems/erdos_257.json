@@ -416,11 +416,11 @@
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-257-mersenne-support-subseries",
-    "title": "Weighted and Covered Supports for Mersenne Subseries",
+    "title": "Irrationality criteria for Lambert subseries",
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 25,
+    "pages": 26,
     "question": "Which weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erdős #257 question?",
     "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
     "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -443,11 +443,11 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "c99e605a77c1d13d",
-      "source_sha256": "69d394b5af4878100d9ae1bebdebfa8059dd9ab0124100f443906ecdb47c38ae",
+      "renderer_fingerprint": "190ec0c743f338a3",
+      "source_sha256": "49dde5b195930bca30b6de1b56dff407a0e70559b8495cd33fa46d74822279dc",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 944,
+      "mathml_node_count": 1014,
       "raw_math_fallback_count": 1,
       "warnings": {
         "mathml": [
@@ -459,8 +459,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "4bacb6d825e15b6762f5fb42d3c4cc428b63ab2d10e3920a38bd745620d333f4",
-      "html_exact_tex_sha256": "3bf44edea7a8c5cdd58edcf4a4964cf100a82a9cc68e8a079aa5700ef5c6087a"
+      "html_mathml_sha256": "79c4fdf3720a984fdd786d9f7ddcfc310a49332eb6dd335b47fd4348374adfa0",
+      "html_exact_tex_sha256": "9d097bcb8c3478a703b7083c14da7ab7ac417f8173ea8d4aa8bf3af8b57a86ef"
     },
     "sections": [
       {
@@ -481,12 +481,12 @@
       {
         "level": 2,
         "anchor": "sec:common-kernel",
-        "label": "Positive divisor covers"
+        "label": "Positive divisor majorants"
       },
       {
         "level": 3,
-        "anchor": "a-divisor-cube-and-the-cover-condition",
-        "label": "A divisor cube and the cover condition"
+        "anchor": "a-finite-divisor-set-and-the-cover-condition",
+        "label": "A finite divisor set and the cover condition"
       },
       {
         "level": 3,
@@ -600,8 +600,8 @@
       },
       {
         "level": 3,
-        "anchor": "the-cost-of-a-divisor-cube",
-        "label": "The cost of a divisor cube"
+        "anchor": "the-cost-for-a-finite-set-of-divisors",
+        "label": "The cost for a finite set of divisors"
       },
       {
         "level": 2,
@@ -661,11 +661,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-257-mersenne-support-subseries",
-      "title": "Weighted and Covered Supports for Mersenne Subseries",
+      "title": "Irrationality criteria for Lambert subseries",
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 25,
+      "pages": 26,
       "question": "Which weighted-support Mersenne subseries are proved irrational, and what still blocks the universal Erdős #257 question?",
       "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -688,11 +688,11 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "c99e605a77c1d13d",
-        "source_sha256": "69d394b5af4878100d9ae1bebdebfa8059dd9ab0124100f443906ecdb47c38ae",
+        "renderer_fingerprint": "190ec0c743f338a3",
+        "source_sha256": "49dde5b195930bca30b6de1b56dff407a0e70559b8495cd33fa46d74822279dc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 944,
+        "mathml_node_count": 1014,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -704,8 +704,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "4bacb6d825e15b6762f5fb42d3c4cc428b63ab2d10e3920a38bd745620d333f4",
-        "html_exact_tex_sha256": "3bf44edea7a8c5cdd58edcf4a4964cf100a82a9cc68e8a079aa5700ef5c6087a"
+        "html_mathml_sha256": "79c4fdf3720a984fdd786d9f7ddcfc310a49332eb6dd335b47fd4348374adfa0",
+        "html_exact_tex_sha256": "9d097bcb8c3478a703b7083c14da7ab7ac417f8173ea8d4aa8bf3af8b57a86ef"
       },
       "sections": [
         {
@@ -726,12 +726,12 @@
         {
           "level": 2,
           "anchor": "sec:common-kernel",
-          "label": "Positive divisor covers"
+          "label": "Positive divisor majorants"
         },
         {
           "level": 3,
-          "anchor": "a-divisor-cube-and-the-cover-condition",
-          "label": "A divisor cube and the cover condition"
+          "anchor": "a-finite-divisor-set-and-the-cover-condition",
+          "label": "A finite divisor set and the cover condition"
         },
         {
           "level": 3,
@@ -845,8 +845,8 @@
         },
         {
           "level": 3,
-          "anchor": "the-cost-of-a-divisor-cube",
-          "label": "The cost of a divisor cube"
+          "anchor": "the-cost-for-a-finite-set-of-divisors",
+          "label": "The cost for a finite set of divisors"
         },
         {
           "level": 2,
@@ -910,7 +910,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 148,
+      "pages": 149,
       "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
       "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -933,11 +933,11 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "c99e605a77c1d13d",
-        "source_sha256": "ca3ea3d483eab6af45a4437f26e6ce1b6817167c90d937ff587008d584e00424",
+        "renderer_fingerprint": "190ec0c743f338a3",
+        "source_sha256": "981f27107c58f3d76f98cda73eda41a1b8f8612ce43c92039dfefb5c3d84fbf4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4716,
+        "mathml_node_count": 4758,
         "raw_math_fallback_count": 4,
         "warnings": {
           "mathml": [
@@ -969,8 +969,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "4c40d20089076c7a12b389fd1a04b284be59f7dfb2408af2c430bc091a04b33e",
-        "html_exact_tex_sha256": "1a78a8217dfa7de1f148ebd634e3447cf5ab0c9c0afd3691a01b9444dc67c326"
+        "html_mathml_sha256": "625f6a001b3e01d873ab0689561a699fd643a158093308f4a646ac2fe64ae8ad",
+        "html_exact_tex_sha256": "eb0518c6c4dc5e1cdc5199eb26a63bd8b1e8f27d10efed05495562b9b190f070"
       },
       "sections": [
         {
@@ -1006,7 +1006,7 @@
         {
           "level": 5,
           "anchor": "sec:257-finite-witness-rules",
-          "label": "Finite rules for prime witnesses"
+          "label": "Dependence on the chosen primes"
         },
         {
           "level": 5,
@@ -1660,8 +1660,8 @@
         },
         {
           "level": 5,
-          "anchor": "the-remaining--2-1-middle-cell-exclusion",
-          "label": "The remaining −2,−1-2,-1 middle-cell exclusion"
+          "anchor": "three-middle-cell-exclusions-and-the-right-branch-bound",
+          "label": "Three middle-cell exclusions and the right-branch bound"
         },
         {
           "level": 5,

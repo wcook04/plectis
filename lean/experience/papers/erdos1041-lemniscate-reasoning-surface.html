@@ -71,14 +71,17 @@ lemniscate containing two roots has one-dimensional Hausdorff measure
 greater than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</em></p>
 </div>
-<p>Only one component can contain a pair of zeros: it has degree two,
-whereas the other five components contain one zero each. In that
-component, a local quadratic estimate confines the <em>whole</em>
-preimage of an outward critical-value slit to a small disc. The word
-“whole” uses the degree: the two local inverse images exhaust the fibre,
-so none remains elsewhere in the component. Radial projections on the
-resulting two inverse sheets then count two disjoint contributions to
-Hausdorff measure. Their sum exceeds
+<p>Five components contain one zero each; the remaining component
+contains two, and the polynomial has degree two on it. A quadratic
+estimate near its critical point counts two inverse images, with
+multiplicity, for each value on an outward slit. Since the component has
+degree two, these are all its inverse images of that value. Hence the
+entire preimage of the slit in the component lies in the small disc
+where the local estimate applies.</p>
+<p>On each of the two inverse sheets, radial projection gives a lower
+bound for the Hausdorff measure of a connected set joining the zeros.
+The sheets are disjoint, so the two bounds can be added. Their sum
+exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
 Section 2 supplies the estimates and proof. Applied to a continuous path
 image, this also excludes a rectifiable path of total variation less
@@ -805,10 +808,11 @@ exposition.</p>
 </section>
 <section id="sec:trinomials" class="level2">
 <h2>Trinomials</h2>
-<p>At a zero of a trinomial, eliminating the middle coefficient leaves
-two terms whose moduli are below one. Their weights stay nonnegative
-along a radius. We use this cancellation to keep every radial segment
-inside the lemniscate.</p>
+<p>At a zero of a trinomial, the root equation eliminates the middle
+coefficient. Along the segment from the origin to that zero, the
+remaining expression is a nonnegative linear combination of two values
+of modulus less than one. The sum of the coefficients is at most one,
+which gives the required containment.</p>
 <div class="theorem">
 <p><strong>Theorem 3.1</strong> (trinomial root connections). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n,m</annotation></semantics></math>
@@ -859,15 +863,15 @@ At
 the value is zero. Concatenating two such segments gives the length
 assertion. ◻</p>
 </div>
-<p>The coefficient
+<p>No separate bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-carries no hypothesis; the root equation removes it before absolute
-values are taken. The conclusion concerns segments to zeros and makes no
-assertion that
+is needed, since the root equation eliminates it before we take absolute
+values. The conclusion concerns segments to zeros and makes no assertion
+that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>f</mi></msub><annotation encoding="application/x-tex">E_f</annotation></semantics></math>
 is star-shaped.</p>
 <section id="subsec:abel-mechanism" class="level5">
-<h5>The cancellation mechanism.</h5>
+<h5>Summation by parts.</h5>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></msubsup><msub><mi>c</mi><mi>k</mi></msub><msup><mi>z</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">f(z)=\sum_{k=0}^nc_kz^k</annotation></semantics></math>
 and a zero
@@ -898,9 +902,9 @@ and
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m\le j&lt;n</annotation></semantics></math>;
 these two values may coincide. This is exactly the estimate above. With
-two intermediate coefficients, the root-disc hypothesis need not put
-every partial sum in the unit disc. The next example shows that a
-prescribed radial segment can then escape.</p>
+two intermediate coefficients, the assumption that all zeros lie in the
+unit disc need not bound every partial sum by one. The next example
+shows that a prescribed radial segment can then escape.</p>
 <div class="example">
 <p><strong>Example 3.2</strong> (an escaping root spoke). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;r&lt;1</annotation></semantics></math>
@@ -1137,12 +1141,12 @@ instead gives
 A pair of roots at hyperbolic distance
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
 may be placed at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mrow><mi mathvariant="normal">tanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pm\tanh(d/4)</annotation></semantics></math>,
-so a connector shorter than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mrow><mi mathvariant="normal">tanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pm\tanh(d/4)</annotation></semantics></math>.
+Their connecting curve then has length less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-exists as soon as
+whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">artanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><mi mathvariant="normal">tanh</mi><mo>&#8289;</mo></mrow><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\operatorname{artanh}(\tanh^2(d/4))&lt;1/a</annotation></semantics></math>.
-Failure therefore gives
+Under our assumption that no such curve exists, we therefore have
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>i</mi></msub><mo>,</mo><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mi>D</mi><mo>:=</mo><mn>4</mn><mrow><mi mathvariant="normal">artanh</mi><mo>&#8289;</mo></mrow><msqrt><mrow><mrow><mi mathvariant="normal">tanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">cosh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mn>2</mn><mi>/</mi><mi>a</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:lc-separation}
  d(b_i,b_j)\ \ge\ D:=4\operatorname{artanh}\sqrt{\tanh(1/a)},
@@ -1198,8 +1202,15 @@ Together these estimates give
 </section>
 <section id="a-lower-bound-for-the-number-of-roots." class="level5">
 <h5>A lower bound for the number of roots.</h5>
-<p>Testing only consecutive pairs in angular order loses essential
-information. For
+<p>Equation <code>[eq:lc-radius-and-budget]</code> already gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn><mi>x</mi><mi>/</mi><mi>δ</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">k\ge2x/\delta(a)</annotation></semantics></math>:
+the required sum is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,
+and each root contributes at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta(a)/2</annotation></semantics></math>.
+Improving this estimate requires the pairwise separation, not just the
+distance of each root from the origin. Testing only consecutive pairs in
+angular order loses essential information. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn><mi>m</mi></mrow><annotation encoding="application/x-tex">k=2m</annotation></semantics></math>,
 put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
@@ -1259,8 +1270,8 @@ angular measures sum to at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math>. ◻</p>
 </div>
 <div class="remark">
-<p><strong>Remark 4.4</strong> (unformalised application of the geometric
-arity bound). <em> Fix radii
+<p><strong>Remark 4.4</strong> (unformalised application of a bound for
+the number of roots). <em> Fix radii
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>r</mi><mi>p</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r_1,\ldots,r_p&gt;0</annotation></semantics></math>
 and weights
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>σ</mi><mi>p</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma_1,\ldots,\sigma_p\ge0</annotation></semantics></math>,
@@ -1544,13 +1555,13 @@ rearranging therefore gives
 for the component containing the selected pair, using the largest of the
 root-count bounds just derived. At merger levels this component only
 gains area, which strengthens the integrated comparison. Pólya’s
-inequality caps
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+inequality gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\le1</annotation></semantics></math>
 until the level reaches
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
-so a trajectory forced past that cap before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
+Thus an integrated lower bound greater than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+before
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math>
 contradicts the assumption.</p>
 <p>No positive initial area has to be assumed. While
@@ -1779,7 +1790,7 @@ from
 on the all-degree constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>
 is the better statement. These threshold arguments do not settle the
-unrestricted root-connector conclusion.</p>
+unrestricted existence of a short curve joining two roots.</p>
 <div class="remark">
 <p><strong>Remark 4.5</strong> (unformalised scaled path bound). <em>
 Every squarefree monic polynomial
@@ -2063,15 +2074,15 @@ and the mean-value choice may be taken at a regular level strictly below
 the top of its positive-measure window. Thus the entire path lies in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>. ◻</p>
 </div>
-<p>The bracket (CF) retains two quantities that the constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>71</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">71/10</annotation></semantics></math>
-discards, namely the root count
+<p>Before replacing the right side of (CF) by the constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>71</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">71/10</annotation></semantics></math>,
+we can retain its dependence on the selected component. Its number
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-of the selected component through the factor
+of roots occurs in the factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mn>2</mn><mi>/</mi><mi>k</mi></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{2/k}</annotation></semantics></math>,
-and the capacity of that component through the area input. Keeping
-either one turns the constant-factor theorem into the target conclusion
-on an explicit region.</p>
+and its logarithmic capacity bounds the area used in the estimate. Each
+gives sufficient conditions for the length bound to be less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
 <p>The number of roots in the first merged component can be much smaller
 than the degree. At a first merger caused by one simple critical point
 it is
@@ -2088,9 +2099,10 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mi>b</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">0&lt;|b|\le1/2</annotation></semantics></math>
 satisfy the first pair of hypotheses. These conditions illustrate what
 the area argument gains from simultaneous mergers; the preceding
+unformalised
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>
-theorem already covers these three ranges without requiring a large root
-count.</p>
+criterion already covers these three ranges without the additional lower
+bound on the number of roots.</p>
 <div class="remark">
 <p><strong>Remark 5.2</strong> (unformalised root-count refinement). <em>
 Let
@@ -2180,9 +2192,9 @@ below is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>;
 a cutoff such as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\kappa\le1/3</annotation></semantics></math>
-therefore requires a genuinely smaller component. This is additional
-geometric information, not a consequence of a small number of roots in
-the component. The ratio requires
+therefore requires the component to have smaller capacity than the full
+sublevel set. A small number of roots in the component does not imply
+this capacity bound. The ratio requires
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu&gt;0</annotation></semantics></math>.
 When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu=0</annotation></semantics></math>,
@@ -2740,10 +2752,12 @@ smaller level. The proof retained here is ordinary, with
 component-sensitive consequences on their stated regions; its rational
 cutoffs are exact integer inequalities. The earlier perimeter samples
 concerned only a selected component. They do not test the stronger
-condition that the level lie below every critical value. The sharp
-root-connector conclusion is not established for the unrestricted class
-by the arguments in this record. The adjacent classical literature on
-lemniscate length concerns the arclength of the level curve
+condition that the level lie below every critical value. The existence
+of a root-to-root curve of length less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+is not established for the unrestricted class by the arguments in this
+record. The adjacent classical literature on lemniscate length concerns
+the arclength of the level curve
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|p|=1\}</annotation></semantics></math>,
 which is Erdős #114. Fryntov and Nazarov recall its history <span
 class="citation" data-cites="fryntovnazarov2008"></span>: Dolzhenko’s
@@ -2944,10 +2958,12 @@ its roots are
 Averaging their squared moduli gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">|</mo><mi>α</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|c|^2+|\alpha|^2&lt;1</annotation></semantics></math>,
 so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>α</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\alpha|&lt;1</annotation></semantics></math>;
-any two radial spokes have total length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>α</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|\alpha|&lt;1</annotation></semantics></math>.
+Any two segments from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+to the roots have total length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>α</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2|\alpha|&lt;2</annotation></semantics></math>,
-and along either spoke the value has modulus
+and along either segment the value has modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>v</mi><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>3</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|v|(1-t^3)&lt;1</annotation></semantics></math>
 away from the root endpoint. ◻</p>
 </div>
@@ -2984,12 +3000,13 @@ is asserted here.</p>
 <p>A disc containing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
 and one simple critical value selects a component of degree two. Taking
-a square root removes its local branching and produces the coordinate
-used for a connector. The ordinary argument below then bounds its length
-by area and capacity. Lean assumes this combined analytic construction
-as <code>DiscSepBergmanArea</code>; it does not derive it from the
-polynomial hypotheses. We therefore record the path criterion and its
-numerical consequences as unformalised remarks.</p>
+a square root removes its local branching and gives a coordinate in
+which the proposed connecting curve is a real segment. The ordinary
+argument below then bounds its length by area and capacity. Lean assumes
+this combined analytic construction as <code>DiscSepBergmanArea</code>;
+it does not derive it from the polynomial hypotheses. We therefore
+record the path criterion and its numerical consequences as unformalised
+remarks.</p>
 <p>The simplicity assumption means that the chosen critical point is a
 simple zero of the derivative, so two inverse branches meet there. A
 multiple chosen critical point is excluded; the other critical points
@@ -3042,9 +3059,9 @@ Put
 The two local solutions of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>ξ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">P(Z(\xi))=1-\xi^2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Z(0)=0</annotation></semantics></math>,
-continue along the real segment to one injective root-to-root connector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>.
-Its endpoints are distinct roots,
+continue along the real segment to one injective curve
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>
+joining two roots. Its endpoints are distinct roots,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Γ</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Gamma\subseteq\{|P|\le1\}</annotation></semantics></math>,
 and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Γ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mn>2</mn><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
@@ -3052,8 +3069,8 @@ and
  \operatorname{length}(\Gamma)^2
  \le 2\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
  \log\!\frac{S^2+S+p}{S^2-S+p}.                       \tag{5}
-\end{equation*}</annotation></semantics></math> Consequently the
-connector is shorter than
+\end{equation*}</annotation></semantics></math> Consequently this curve
+has length less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 whenever
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mo>&lt;</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
@@ -3563,7 +3580,7 @@ capacity gap. The absolute sublevel inequality
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>T</mi><mo stretchy="false" form="postfix">}</mo><mo>≤</mo><mi>π</mi><msup><mi>T</mi><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{Area}\{|P|&lt;T\}\le\pi T^{2/n}</annotation></semantics></math>
 remains the area input to Remark 4.1 and to Remark 5.1. Dubinin’s
 theorem is a neighbouring result under a full covering hypothesis and
-supplies no root connector.</p>
+supplies no curve joining two roots.</p>
 </section>
 </section>
 <section id="sec:component-examples" class="level2">
@@ -4172,7 +4189,8 @@ by a two-segment path of length below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>.
-Equivalently this closes the coefficient family
+Equivalently, under the same hypotheses the conclusion holds for
+polynomials of the form
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>3</mn><mi>q</mi></mrow></msup><mo>+</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>q</mi></mrow></msup><mo>+</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>q</mi></msup><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">(z-h)^{3q}+A(z-h)^{2q}+B(z-h)^q+C</annotation></semantics></math>
 in every degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>q</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3q\ge6</annotation></semantics></math>.</em></p>
@@ -4231,12 +4249,12 @@ Consequently, for
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>3</mn></msup><mo>≤</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">|P(tr)|&lt;(1-t)(1+t+t^2)=1-t^3\le1.              \tag{15}</annotation></semantics></math>
 At
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math>
-the polynomial vanishes. The entire spoke is therefore strictly
-contained, including its origin endpoint.</p>
+the polynomial vanishes. Hence the entire segment, including the origin,
+lies in the open unit lemniscate.</p>
 <p>For a nonzero quotient root satisfying the segment bound from
 <em>(15)</em>, two distinct fibre points satisfy
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><mi>t</mi><mi>y</mi><msup><mi>ζ</mi><mi>k</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>q</mi></msup><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">f(h+ty\zeta^k)=P(t^qr),</annotation></semantics></math>
-and their two spokes through
+and the two segments through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 have total length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn><msqrt><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>h</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow></msqrt><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2|y|&lt;2\sqrt{1-|h|^2}\le2</annotation></semantics></math>.
@@ -4917,7 +4935,7 @@ is needed. Lean checks the <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L27">factorization</a>
 and the resulting <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTetranomialCoefficientCase.lean#L145">strict
-spoke theorem</a> under the exact weak exponent hypotheses
+radial-segment theorem</a> under the exact weak exponent hypotheses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>s</mi><mo>≤</mo><mi>r</mi><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">1\le s\le r\le m</annotation></semantics></math>;
 it also checks the coefficient-only corollary above. Its weak bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>b</mi><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|b|+|c|\le1</annotation></semantics></math>
@@ -5026,8 +5044,8 @@ satisfy
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>q</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>q</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo stretchy="false" form="prefix">|</mo><mi>h</mi><mo>+</mo><msup><mi>ω</mi><mi>j</mi></msup><mi>y</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>h</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">|</mo><mi>y</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1q\sum_{j=0}^{q-1}|h+\omega^j y|^2=|h|^2+|y|^2&lt;1.</annotation></semantics></math>
 Thus every quotient root has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>w</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>y</mi><msup><mo stretchy="false" form="prefix">|</mo><mi>q</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|w|=|y|^q&lt;1</annotation></semantics></math>,
-which supplies the root-disc hypothesis used above, and every lifted
-spoke has length
+which supplies the hypothesis on the zeros used above, and every lifted
+segment has length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|y|&lt;1</annotation></semantics></math>.
 Two selected spokes join through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
@@ -6084,7 +6102,7 @@ that separate containment estimate under a bound on
 assertions). <em> There is a monic quintic with all roots in the open
 unit disc and a non-root critical point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
-whose unique nearest root has a point on the straight spoke to
+whose unique nearest root has a point on the straight segment to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
 outside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>.
@@ -6552,8 +6570,8 @@ data-cites="revision2026"><a href="#ref-26">[26]</a></span>; an isolated numeric
 not prove the assertion for arbitrarily small defects. Failure for every
 critical joining point is a different, stronger claim, reported in the
 addendum but not established by the origin calculation. No conclusion
-about curved inverse-ray paths or an arbitrary connector follows from
-either straight-segment assertion.</p>
+about curved inverse-ray paths or an arbitrary connecting curve follows
+from either straight-segment assertion.</p>
 </section>
 <section
 id="unformalised-remark-limits-of-contained-paths-at-fixed-degree"
@@ -6660,11 +6678,15 @@ The corresponding historical assertion on the closed class is
 The lower-semicontinuity argument is proved in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/GenericSufficiencyClosure.md">the
 compactness proof</a>.</p>
-<p>The displayed universal inequality is recorded to explain the earlier
-reduction, not proposed here as a remaining open assertion. A
-counterexample to the original problem would also refute this inequality
-and, by the same compactness argument, any dense-class estimate implying
-it. The reduction can still be used for separately specified polynomial
+<p>The displayed universal inequality is false in degree seven. Indeed,
+if it held throughout
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒦</mi><mn>7</mn></msub><annotation encoding="application/x-tex">\mathcal K_7</annotation></semantics></math>,
+the scaling step above would give a path of length less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+inside the open lemniscate of the polynomial in Theorem 1.2. That
+theorem excludes such a path. Thus no estimate on a dense class can
+imply the displayed universal inequality by this compactness argument.
+The reduction remains valid for separately specified polynomial
 classes.</p>
 </section>
 </section>
@@ -6758,17 +6780,18 @@ point, where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f(c)|\le1</annotation></semantics></math>.
 Then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">min</mi><mrow><mi>c</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi></mrow></mrow></munder><msub><mi>L</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\min_{c\ \mathrm{admissible}}L_f(c)\le2</annotation></semantics></math>
-would imply the root-connector conclusion by the stated compactness
-argument. The unrestricted infimum over all contained curves can be
-smaller; equality of these two optimisation problems is not assumed. The
-obstruction to two straight segments through a critical point does not
-by itself prove or disprove this curved-arc estimate. Examples in which
-another critical point gives a shorter curve do not prove the estimate
-universally. The critical value bound, containment and length bound must
-hold for the same curve. The displayed universal inequality is recorded
-as a historical sufficient condition, not proposed as an open assertion:
-a counterexample to the original question would refute it as well. The
-reduction remains useful on separately specified polynomial classes.</p>
+would imply the existence of a short curve joining two roots by the
+stated compactness argument. The unrestricted infimum over all contained
+curves can be smaller; equality of these two optimisation problems is
+not assumed. The obstruction to two straight segments through a critical
+point does not by itself prove or disprove this curved-arc estimate.
+Examples in which another critical point gives a shorter curve do not
+prove the estimate universally. The critical value bound, containment
+and length bound must hold for the same curve. The displayed universal
+inequality is a historical sufficient condition, not an open assertion:
+together with the stated compactness and scaling argument it would
+contradict Theorem 1.2. The reduction remains useful on separately
+specified polynomial classes.</p>
 </section>
 <section id="subsec:merger-integral" class="level3 unnumbered">
 <h3 class="unnumbered">An integral for successive merger scales</h3>
@@ -7101,8 +7124,8 @@ invocation of Lemma 8 there is unjustified and that the flow lines need
 not organise into connected trees, and on 26 March 2026 the manuscript’s
 author agreed that the statement of Proposition 12 itself is incorrect.
 We give the explicit numerical contradiction first. We then examine the
-saddle model and retain the attachment-aware topological argument as an
-unformalised remark.</p>
+saddle model and give an unformalised decomposition into inverse sheets,
+including the arcs that join them.</p>
 <p>Recent work on polynomial lemniscates separates component counts from
 metric path questions. Ghosh and Ramachandran record that the open set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
@@ -7240,21 +7263,20 @@ is a lemniscate graph with a vertex of degree four at
 A global component argument cannot delete one local sector from a disc
 already contained in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p>
-<p>This independently diagnoses a proof step, but the Cassini witness
-above also refutes the proposition’s printed metric statement. A
-different route might cut an adjoining regular annulus along a
-separatrix or regular flow arc before forming the block, retain a
-four-pronged saddle neighbourhood and change the assembly, or replace
-the local construction by the ray-cut decomposition proposed below. But
-no repair can retain <code>[eq:prop12-bound]</code>; it must pay a
-positive attachment cost, select only one short pair instead of spanning
-every root, or use a different global metric inequality. The shorter
-descriptions of the same three-ended block do not repair the four-sector
-topology.</p>
-<p>There is an ordinary topological theorem when the critical values
-have pairwise distinct arguments and moduli, and the critical points are
-simple. Its ingredients are classical: the Newtonian graph of Shub,
-Tischler and Williams <span class="citation"
+<p>The four-sector calculation identifies an error in the proof, while
+the Cassini example above disproves the printed metric inequality
+itself. Possible alternative constructions include cutting an adjoining
+regular annulus along a separatrix or regular flow arc, retaining a
+four-pronged saddle neighbourhood, or using the inverse-sheet
+decomposition below. None can restore <code>[eq:prop12-bound]</code>. A
+revised estimate would have to include the length needed to join the
+pieces, seek only one short pair instead of a tree spanning all roots,
+or use a different global metric inequality. The shorter descriptions of
+the same three-ended block do not repair the four-sector topology.</p>
+<p>The following ordinary topological argument assumes that the critical
+values have pairwise distinct arguments and moduli and that the critical
+points are simple. Its ingredients are classical: the Newtonian graph of
+Shub, Tischler and Williams <span class="citation"
 data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>, the component-wise
 Riemann–Hurwitz count in the proof of <span class="citation"
 data-cites="eks2010"><a href="#ref-8">[8]</a></span>, and the division of the Riemann surface of
@@ -7264,7 +7286,7 @@ class="citation" data-cites="dubinin2006critical"></span> and uses a
 related network for capacity in <span class="citation"
 data-cites="dubinin2006capacity"><a href="#ref-9">[9]</a></span>. The latter paper assumes
 bounded critical values and controls capacity; it does not supply a
-Euclidean tree-length bound. The theorem below specifies the sheets,
+Euclidean tree-length bound. The remark below specifies the sheets,
 critical transpositions and descent arcs for the stated component.</p>
 <p>The assumptions exclude a component containing a multiple critical
 point or two critical values on the same ray. For
@@ -7293,8 +7315,8 @@ tree.</p>
 
 </div>
 <div class="remark">
-<p><strong>Remark 13.1</strong> (unformalised attachment-aware
-decomposition). <em> Let
+<p><strong>Remark 13.1</strong> (unformalised decomposition into inverse
+sheets). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 be monic, and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
@@ -7530,9 +7552,9 @@ The theorem does not treat coincident arguments, simultaneous critical
 levels or multiple saddles in that component. Nor does it identify a
 slit domain with the quotient by all trajectories: the quadratic example
 following Problem 15.5 satisfies its hypotheses but has a non-Hausdorff
-orbit quotient. Boundary tangencies and quantitative strip attachment
-remain separate questions. The embedded tree supplies no length bound
-for the historical question.</p>
+orbit quotient. Boundary tangencies and quantitative estimates for
+joining the strips remain separate questions. The embedded tree supplies
+no length bound for the historical question.</p>
 </section>
 </section>
 <section id="sec:finite" class="level2">
@@ -7551,17 +7573,16 @@ of roots. The reported grid distances were
     \text{degree } 8, &amp; 1500 \text{ trials}: &amp; 0.6203916714\\
     \text{degree } 10, &amp; 1500 \text{ trials}: &amp; 0.4303640486 .
   \end{array}</annotation></semantics></math> No counterexample
-candidate was found, and the measured values sit well below the
-threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
-These are numerical candidate connectors. A polygon whose vertices
-satisfy
+candidate was found in these trials. The reported grid distances are
+below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>,
+but they do not certify lengths of curves in the lemniscate. A polygon
+whose vertices satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f|&lt;1</annotation></semantics></math>
-need not lie in the open lemniscate, since an edge can cross the
-boundary between two safe vertices, and root snapping adds further edges
-of the same kind. Turning a candidate into a proof needs a continuous
-certificate on every edge, for instance strict positivity of the real
-polynomial
+can cross the boundary along an edge. Joining an approximate root to its
+grid vertex introduces another edge requiring the same check. Turning a
+candidate into a proof needs a continuous certificate on every edge, for
+instance strict positivity of the real polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1-|f(z(t))|^2</annotation></semantics></math>
 on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>
@@ -7574,11 +7595,10 @@ for the sampled configurations, and the apparent decrease with degree is
 a property of the sample, from which we draw no conjecture. Even a
 finite collection of proved instances would not establish the universal
 statement. These searches do not test <code>ani</code>’s degree-seven
-counterexample. Useful stress tests for particular path constructions
-include near-degenerate saddles, thin necks, boundary-critical
-configurations, and almost-connected separatrices. They should report
-those diagnostics. Raster paths remain candidate finders, never
-continuous certificates.</p>
+counterexample. Numerical tests of a particular path construction should
+also examine near-degenerate saddles, thin necks, boundary-critical
+configurations and almost-connected separatrices. Any paths found on a
+grid still require verification along their entire edges.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Further questions about topology, length and perturbation</h2>
@@ -7600,12 +7620,12 @@ polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">z^2-a^2</annotation></semantics></math>
 at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">a=9/10</annotation></semantics></math>
-makes the proposed tree budget strictly shorter than the distance
-between its roots. Any later argument must pay a positive attachment
-cost, select only one short pair instead of spanning every root, or use
-a different global metric inequality. A four-pronged or cut-annulus
-local model may still be useful for another estimate, but it cannot
-recover <code>[eq:prop12-bound]</code>.</em></p>
+makes the proposed upper bound strictly smaller than the distance
+between its roots. Any later argument must include the positive length
+needed to join the pieces, select only one short pair instead of
+spanning every root, or use a different global metric inequality. A
+four-pronged or cut-annulus local model may still be useful for another
+estimate, but it cannot recover <code>[eq:prop12-bound]</code>.</em></p>
 </div>
 <p>The full-disc model
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2-y^2</annotation></semantics></math>,
@@ -7809,15 +7829,15 @@ can cover arbitrary truncations. This is a limitation of the
 unrestricted formulation of (6.1), separate from the earlier
 counterexample to the particular coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>.</p>
-<p>The printed collar slack
+<p>The error term assigned to the collar in the printed argument
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mi>α</mi><mrow><mn>2</mn><mi>α</mi></mrow></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=\frac1{2\pi}\int_{\alpha}^{2\alpha}P_V(t)\,dt&gt;0</annotation></semantics></math>
-used the same excluded coefficient. It is not an unused error allowance
-in an otherwise complete spanning-tree estimate. Independently choosing
-a shortest trajectory in each strip is not enough unless the attachment
-mismatch is controlled, and controlling that mismatch does not restore
-the printed
+uses the same excluded coefficient. It cannot be treated as an unused
+error allowance in an otherwise complete spanning-tree estimate.
+Shortest trajectories chosen independently in different strips may have
+endpoints that do not meet; the lengths needed to join them must also be
+bounded. Even such a bound would not restore the printed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
-tree bound.</p>
+tree estimate.</p>
 </section>
 <section id="coefficient-perturbation-and-stability"
 class="level3 unnumbered">
@@ -8112,11 +8132,12 @@ justify its boundary identifications or control the length needed to
 join the pieces. The quadratic example settles the uncut-orbit-space
 question negatively; it does not obstruct a construction that retains
 the required separate boundary copies.</p>
-<p>This record does not establish the unrestricted conclusion of
-Erdős #1041. Its sufficient conditions have different hypotheses and
-containment levels: low critical value, separated simple critical value,
-and the individually proved polynomial families are not a cover of the
-remaining class. In particular, the scaled
+<p>The unrestricted assertion in Erdős #1041 is false by Theorem 1.2.
+The positive results do not give a classification of the polynomials
+that admit a short connection. Their hypotheses and containment levels
+differ: low critical value, separated simple critical value, and the
+individually proved polynomial families treat separate sufficient
+conditions. In particular, the scaled
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>μ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(5/2)\mu^{1/n}</annotation></semantics></math>
 bound is at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>25</mn><mi>/</mi><mn>13</mn><mo stretchy="false" form="postfix">)</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">(25/13)\mu</annotation></semantics></math>,
@@ -8371,7 +8392,7 @@ initial areas from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup><annotation encoding="application/x-tex">10^{-6}</annotation></semantics></math>
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
-the largest computed time to reach the area cap falls from
+the largest computed time to reach the area bound falls from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.89703</mn><annotation encoding="application/x-tex">0.89703</annotation></semantics></math>
 with the earlier packing lower bound for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
@@ -8543,7 +8564,7 @@ degrees three and higher are not checked in Lean.</p>
 <dt>4.4.</dt>
 <dd>
 <p>The Lean proof takes the separation bound
-<code>[eq:lc-separation]</code> and the radius and budget bounds
+<code>[eq:lc-separation]</code> and the individual and summed bounds
 <code>[eq:lc-radius-and-budget]</code> as hypotheses; their derivation
 from the failure assumption, given in that section, is not checked in
 Lean.</p>

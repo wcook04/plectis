@@ -15,7 +15,7 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "1ff6d3c68c05426087ae62839a95d85efa442c71a1540a31b33a38dd8cb47a3e",
+      "source_sha256": "2d5543f6e645c639f076229b2008558caeebc563dae6015a994d35038114509d",
       "bytes": 1272712
     },
     {
@@ -24,8 +24,8 @@
       "source_ref": "main",
       "source_path": "docs/problems.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json",
-      "source_sha256": "553907337707395dc747cb01ef2309e1e0f0dcb5c7689dbaf27c571fe210a486",
-      "bytes": 68383
+      "source_sha256": "e8e1d7c043cfc172833f1cf5a60896534759346bc65a1e62f5d50bbf5dc5c175",
+      "bytes": 68341
     },
     {
       "hosted_path": "lean/problem-library.json",
@@ -33,8 +33,8 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "d91611d1ef75a81101a63c84cb2d359a45707b1e7b52285a4aa5c28ff3c3ba6b",
-      "bytes": 1276705
+      "source_sha256": "dcaf2b843a278d7718dff53ab24b4e91c7dee21384d70f4507164112d4246cc9",
+      "bytes": 1276704
     },
     {
       "hosted_path": "lean/RESULTS.md",
@@ -44,6 +44,24 @@
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
       "source_sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635",
       "bytes": 141944
+    },
+    {
+      "hosted_path": "lean/paper-lean-coverage.json",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "docs/paper_lean_coverage.json",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
+      "source_sha256": "18d2717c30eb3fc49dc6467ba197978a65534b39bb574260ce1314a7738c7e0e",
+      "bytes": 1036823
+    },
+    {
+      "hosted_path": "lean/paper-evidence.json",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "evidence/paper_evidence.json",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/paper_evidence.json",
+      "source_sha256": "dc92c925f8fe7b184447b2524483b02384075d9729e682bef91718058b6c3e69",
+      "bytes": 4457526
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -69,7 +87,7 @@
       "source_ref": "main",
       "source_path": "paper/README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md",
-      "source_sha256": "f1a6ed7230d14c5177db6d3e350f5de2910f0eadfb1b312f5ffa79bd24051725",
+      "source_sha256": "531f0b1ee68ba6311dc08440541364bc623d3d604f9d621dcceb0716ebf3a812",
       "bytes": 13709
     },
     {

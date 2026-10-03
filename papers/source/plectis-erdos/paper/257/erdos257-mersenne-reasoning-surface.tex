@@ -194,7 +194,7 @@
 \title{Reciprocal Mersenne Subseries}
 \subtitle{Support criteria, finite arithmetic and conditional orbit problems}
 \author{Will Cook}
-\date{29 September 2026}
+\date{30 September 2026}
 
 \begin{document}
 % ---- part a257_front ----
@@ -221,15 +221,17 @@ and later stated a criterion assuming only convergence of
 $\sum_{a\in A}1/a$; the periodic-support results belong to Luca and
 Tachiya. We begin with these antecedents and prove two hereditary
 criteria which also admit supports of divergent reciprocal sum.
-Their proofs use positive displacements from a rational lattice.
-The obstruction appears already in a finite mean: the error from an
-incomplete residue period lacks the reciprocal-exponent factor needed
-for summation. A second average over window lengths restores that factor.
-Keeping its modulus dependence explicit then permits both criteria to
-use the same observation index.
+For a rational value $X_A(b)=p/q$ with $q>0$, the associated positive quantities
+$\Delta_{b,A}(N)$ satisfy $q\Delta_{b,A}(N)\in\mathbb Z$ and hence
+$\Delta_{b,A}(N)\ge1/q$. We rule out rationality by making them
+arbitrarily small. In a finite average, the incomplete residue periods
+produce an error without the factor $1/a$ needed for summation over
+exponents. Averaging again over dyadic lengths restores this factor.
+The dependence on the modulus is retained so that both support
+criteria can be applied at the same index.
 
 Part~I gives the support theorems and the proofs followed by the short
-paper, \emph{Weighted and Covered Supports for Mersenne Subseries}.
+paper, \emph{Irrationality criteria for Lambert subseries}.
 The subsequent parts concern a different question: whether a prescribed
 rational number belongs to the Mersenne achievement set. The finite
 identities in Sections~5--8 describe the integer quotients and their
@@ -356,9 +358,9 @@ Theorem~\ref{thm:257-weighted} below proves irrationality under one explicit
 weaker condition without coprimality; no identification with his suggestions
 is asserted.
 
-We shall find positive displacements smaller than every fixed rational
-spacing. For $N>0$,
-write $N=q_a a+r_a$, $0\le r_a<a$. The identity
+We show that rationality would impose a positive lower bound and then
+construct smaller values. For a positive integer $N$, write
+$N=q_a a+r_a$, $0\le r_a<a$. The identity
 \[
  \frac{b^N-1}{b^a-1}
  =b^{r_a}\sum_{j=0}^{q_a-1}b^{ja}
@@ -380,9 +382,9 @@ gives
  \lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
  =M_{Q,b}(d):=\frac{g}{d(b^g-1)}\le\frac1d.
 \]
-To interchange this limit with the sum over the support, expand the atom
-as $\sum_{r\ge1}b^{-r}{\bf1}_{d\mid Qm+r}$ and counting positive multiples
-of $d$ gives the bound
+To interchange this limit with the sum over the support, expand
+$w_{b,d}(Qm)$ as $\sum_{r\ge1}b^{-r}{\bf1}_{d\mid Qm+r}$.
+Counting positive multiples of $d$ then gives
 \[
  \frac1X\sum_{m=1}^Xw_{b,d}(Qm)
  \le\sum_{r\ge1}b^{-r}\frac{Q+r}{d}
@@ -399,7 +401,8 @@ $M_{Q_t,b}(d)\le1/d$ permits a second dominated-convergence argument:
 Consequently the limiting mean of $\Delta_{b,A}(Q_tm)$ tends to zero.
 Given $\varepsilon>0$, first choose $t$ and then a sufficiently long finite
 average with mean below $\varepsilon$; one term of that average is below
-$\varepsilon$. Its strict positivity contradicts the rational lattice.
+$\varepsilon$. Under rationality, choosing $\varepsilon<1/q$
+contradicts the lower bound above.
 This proves the assertion.  The exact all-base statement, with hypotheses
 $b\ge2$, infinitude of $A$, and summability of $a\mapsto\mathbf1_A(a)/a$,
 has a
@@ -413,7 +416,7 @@ therefore uses a different argument; see Theorem~\ref{thm:full-support}.
 
 \subsection{A weighted condition on the support}
 \papersectiontarget{record257:weighted-proof}
-A prime-power factor can compensate for a large reciprocal mass of
+A prime-power factor can compensate for a large sum of reciprocals of
 cofactors. If $a=2^km$ with $m$ odd, the weighted term below is
 $1/[m(b^{2^k}-1)]$. Thus we can allow increasingly many odd cofactors
 as $k$ grows while keeping the weighted sum finite. The theorem extends
@@ -480,8 +483,8 @@ At base two take
 \[
  A_\star=\{2^k m:k\ge1,\ m\text{ odd},\ m\le2^{2^k}\}.
 \]
-Write $H_N=\sum_{m=1}^N1/m$ and $N_k=2^{2^k}$.  The reciprocal mass
-of the $k$th layer is
+Write $H_N=\sum_{m=1}^N1/m$ and $N_k=2^{2^k}$. The sum of reciprocals
+of the exponents with $v_2(a)=k$ is
 \[
  \rho_k=2^{-k}\!\sum_{\substack{m\le N_k\\m\text{ odd}}}\frac1m
  =2^{-k}\bigl(H_{N_k}-\tfrac12H_{N_k/2}\bigr)
@@ -499,8 +502,8 @@ although its reciprocal sum diverges.
 
 
 \begin{proof}
-We first express the displacement as a rational-lattice quantity, then
-estimate its finite average. Division of $m$ by $a$, say $m=qa+r$ with
+We first derive the lower bound implied by rationality and then
+estimate a finite average of the same quantities. Division of $m$ by $a$, say $m=qa+r$ with
 $0\le r<a$, gives
 \[
  \frac{b^m-1}{b^a-1}-\frac{b^r-1}{b^a-1}
@@ -544,8 +547,12 @@ Complete periods and at most one incomplete period therefore give
  \frac1T\sum_{t=1}^{T}d_a(tQ)
  \le \frac{g}{a(b^g-1)}+\frac1{T(b^g-1)}.
 \end{equation}
-We shall also use that $n/(b^n-1)$ decreases for positive integers $n$;
-indeed
+The complete-period term explains the weight in
+\eqref{eq:257-weighted-mass}: replacing $g$ by the $\mathcal P$-part
+$h(a)$ gives its summand. The modulus below will permit this replacement
+for $h(a)\le H$; larger prime parts require a separate estimate.
+For this comparison we use that $n/(b^n-1)$ decreases for positive
+integers $n$; indeed
 \[
  n(b^{n+1}-1)-(n+1)(b^n-1)
  =b^n\bigl(n(b-1)-1\bigr)+1>0.
@@ -586,8 +593,8 @@ Indeed, for each fixed $a$ the admissible indices satisfy $2^j\ge a/Q$ and
 Only finitely many terms occur on the left, so no infinite interchange is
 hidden here.
 
-We now choose the modulus. It will first absorb a finite subset of the
-support, then contain all prime powers from $\mathcal P$ up to a
+We now choose the modulus to be divisible by a fixed finite subset
+of the support and by all powers of primes in $\mathcal P$ up to a
 growing threshold. Fix $\varepsilon>0$ and a lower bound $N$.  Select a finite $F\subseteq A$ such that
 \begin{equation}\label{eq:257-weighted-tail-choice}
  \sum_{a\in A\mathbin{\backslash} F}
@@ -660,7 +667,7 @@ $\alpha_a={\bf1}_A(a)/(b^{h(a)}-1)$.  Its hypothesis holds because
  =\sum_{a\in A}\frac1{a(b^{h(a)}-1)}
  \le W_{b,\mathcal P}(A).
 \]
-We obtain the explicit finite diagonal estimate
+The resulting finite average satisfies
 \begin{equation}\label{eq:257-weighted-final-diagonal}
  \frac1M\sum_{j=M}^{2M-1}\mathcal M(Q,2^j)
  \le \varepsilon+\frac{2QW_{b,\mathcal P}(A)}M
@@ -724,14 +731,14 @@ average the displacement instead,
 along multiples of a modulus that freezes a finite part of $A$; the weighted
 proof adds the dyadic average~\eqref{eq:257-weighted-dyadic-average}.
 
-\subsection{Finite rules for prime witnesses}\label{sec:257-finite-witness-rules}
+\subsection{Dependence on the chosen primes}\label{sec:257-finite-witness-rules}
 \papersectiontarget{record257:witness-rules}
-The finite set of witness primes need not contain a distinguished prime.
-We can construct a support for which the allowed witnesses follow any
-prescribed upward-closed rule on a finite prime set. The rule holds at
-every integer base. In this statement an empty witness is permitted,
-with $h(a)=1$; it fails because the constructed support has divergent
-reciprocal sum.
+The weighted condition need not single out one required prime.
+We construct a support for which convergence depends on a prescribed
+upward-closed condition on the chosen primes. This description holds
+at every integer base. We also allow the empty prime set, with
+$h(a)=1$; it gives a divergent weighted sum because the constructed
+support has divergent reciprocal sum.
 
 \begin{prop}[realising finite monotone witness rules]
 \label{prop:257-finite-witness-rule}
@@ -754,19 +761,20 @@ For each nonempty $C\subseteq E$ put $D_C=\prod_{p\in C}p$ and
 \[
  B_C=\{D_C^km:k\ge1,\ 1\le m\le2^{D_C^k},\ \gcd(m,D_C)=1\},
 \]
-and let $g=\prod_{p\in C\cap\mathcal P}p$.  The weighted mass of the
-$k$th layer lies between positive multiples, depending only on
-$C\cup\mathcal P$, of $g^k/(b^{g^k}-1)$.  Above: an element $D_C^km$ has
+and let $g=\prod_{p\in C\cap\mathcal P}p$. The contribution to the
+weighted sum from the exponents with this value of $k$ lies between
+positive multiples of $g^k/(b^{g^k}-1)$, with constants depending only
+on $C\cup\mathcal P$. For the upper bound, an element $D_C^km$ has
 $\mathcal P$-part $g^ku$, and raising the $\mathcal P$-part from $g^k$ to
 $g^ku$ multiplies the weight by
 $u/(1+b^{g^k}+\cdots+b^{(u-1)g^k})\le1$, while
-$\sum_{m\le2^r}1/m\le2r$.  Below: the cofactors $m\equiv1\pmod Q$, with
+$\sum_{m\le2^r}1/m\le2r$. For the lower bound, the cofactors $m\equiv1\pmod Q$, with
 $Q=\prod_{p\in C\cup\mathcal P}p$, have $\mathcal P$-part exactly $g^k$,
 and grouping $1,\dots,2^r$ into blocks of at most $Q$ integers gives
 reciprocal sum at least $H_{2^r}/Q\ge r/(2Q)$, where $r=D_C^k$ and
 $H_n=\sum_{j\le n}1/j$.  The comparison terms equal $1/(b-1)$ when $g=1$
 and are summable when $g\ge2$, since consecutive ratios are at most
-$g/b^{g^k}\to0$.  Hence $B_C$ has finite weighted mass exactly when
+$g/b^{g^k}\to0$.  Hence the weighted sum over $B_C$ converges exactly when
 $\mathcal P$ meets $C$, and the case $Q=D_C$ shows that each layer adds at
 least $1/(2D_C)$ to the ordinary reciprocal sum.
 
@@ -785,8 +793,9 @@ $B\subseteq A_{\mathcal U}$ and every $b\ge2$, so
 Theorem~\ref{thm:257-weighted} makes $X_B(b)$ irrational.
 \end{proof}
 
-For example, require a witness to contain at least two of $2,3,5$.
-Then no prime is mandatory and no single prime suffices. The maximal
+For example, require the chosen prime set to contain at least two
+of $2,3,5$. No individual prime is then mandatory, and one prime
+alone does not suffice. The maximal
 forbidden sets give the three clauses $\{2,3\}$, $\{2,5\}$ and
 $\{3,5\}$. Using only these clauses gives the same witness classification
 as the formal statement, which uses every forbidden set. Historical
@@ -794,10 +803,17 @@ novelty of this arithmetic realisation has not been assessed.
 
 \subsection{A finite estimate on common observation scales}\label{sec:257-common-kernel}
 \papersectiontarget{record257:common-kernel}
-The cover argument raises a shifted tail to a fractional power $\alpha$,
-replacing its base $2$ by $B=2^\alpha$. The following estimate therefore
-allows $1<B\le2$. It also keeps the modulus, first dyadic scale and
-number of scales separate, because the mixed theorem must use the
+A divisor majorant becomes a sum of geometric tails, one for each
+divisor. The positive offsets $r$ with $d\mid N+r$ are
+$d-(N\bmod d),2d-(N\bmod d),\ldots$, and hence
+\[
+ \sum_{\substack{r\ge1\\d\mid N+r}}B^{-r}
+ =\frac{B^{N\bmod d}}{B^d-1}.
+\]
+The cover argument raises a base-two tail to a fractional power $\alpha$,
+replacing its geometric factor by $B=2^\alpha$. The estimate must
+therefore allow $1<B\le2$. It must also keep the modulus, first dyadic
+scale and number of scales separate: the mixed theorem will use the
 windows already chosen by the weighted proof.
 
 For $1<B\le2$, positive integers $L,d,M$, and an integer $R\ge0$, put
@@ -827,10 +843,13 @@ argument $B=2^\alpha$ can approach $1$, so the factor
 $(2^\alpha-1)^{-1}$ must remain in the summability condition.
 The ratio $L/M$ measures the cost of incomplete modular periods.
 
-Fix $T=2^j$. We separate the complete-orbit range $d\le LT$ from
-the range without wrap, then treat the one possible transition scale.
+Fix $T=2^j$. We compare $d$ with the largest sampled multiple $LT$.
+For $d\le LT$ we use a complete-orbit bound with a remainder term;
+for $d>2LT$ no residue is reduced modulo $d$. The intervening range
+$LT<d\le2LT$ contains at most one dyadic length.
 When $d\le LT$, the complete orbit has length $d/g$, with $g=(L,d)$,
-and total weight $1/(B^g-1)$.  Complete cycles and one remaining piece give
+and total weight $1/(B^g-1)$. Splitting the sample into complete
+cycles---possibly none---and one remaining piece gives
 \[
  \frac1T\sum_{m=1}^T w_{B,d}(Lm)
  \le\frac{g}{d(B^g-1)}+\frac1{T(B^g-1)}
@@ -841,9 +860,9 @@ errors sum to at most $2L/[d(B-1)]$.
 \par
 \begin{samepage}
 \noindent
-When $d>2LT$, there is no wrap and $2Lm\le d-1$; hence
+When $d>2LT$, we have $Lm\bmod d=Lm$ and $2Lm\le d-1$; hence
 $\sum_{i=0}^{d-1}B^i\ge dB^{(d-1)/2}\ge dB^{Lm}$.
-Each atom is then at most $1/[d(B-1)]$.
+Each term $w_{B,d}(Lm)$ is then at most $1/[d(B-1)]$.
 \par
 \end{samepage}
 Finally, at most one dyadic length satisfies $LT<d\le2LT$.
@@ -854,7 +873,10 @@ For that length the geometric sum and convexity give
  \le\frac{LB^L}{d(B^L-1)}
  \le\frac{2L}{d(B-1)}.
 \]
-Summing the main terms and these two error budgets proves~\eqref{eq:257-mixed-finite-kernel}.
+The first inequality follows from convexity of $x\mapsto B^x-1$,
+which vanishes at $0$: the ratio is at most $LT/d$. The last uses
+$(B^L-1)/(B-1)=\sum_{i=0}^{L-1}B^i\ge B^{L-1}$ and $B\le2$.
+Summing the main terms and the two error bounds proves~\eqref{eq:257-mixed-finite-kernel}.
 The argument displayed here is an ordinary proof; the estimate is also
 \href{https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/DyadicKernel.lean\#L206}{proved in Lean}.
 Nonnegative interchange permits summation against any coefficients $c_d$
@@ -862,8 +884,9 @@ with $\sum_dc_d/d<\infty$.
 
 \subsection{Positive divisor majorants}
 For a finite set $F\subseteq\Npos$, put
-$f_F(n)=\#\{a\in F:a\mid n\}$. The simplest divisor cube with two
-independent prime choices is $F=\{2,6,10,30\}$. For $0<\alpha\le1$
+$f_F(n)=\#\{a\in F:a\mid n\}$. Consider the finite set
+$F=\{2,6,10,30\}$, obtained by multiplying each divisor of $15$ by $2$.
+For $0<\alpha\le1$
 and $z=2^\alpha-1$, its count has the exact expansion
 \[
  f_F(n)^\alpha
@@ -875,8 +898,8 @@ doubles $f_F(n)$ and multiplies its fractional power by $1+z$.
 The coefficient sum weighted by reciprocal divisors is
 $(1+z/3)(1+z/5)/2$. This illustrates the general positive expansion
 used in the separating constructions. The extra factor
-$(2^\alpha-1)^{-1}$ from the kernel must still be paid; making
-$\alpha$ small does not by itself give a cheap cover.
+$(2^\alpha-1)^{-1}$ in the averaging bound remains part of the
+cover cost, so small $\alpha$ alone does not make that cost small.
 The theorem permits a different fractional power for each finite set.
 
 \begin{thm}[A summable family of divisor majorants]\label{thm:257-variable-fractional-cover}
@@ -932,7 +955,10 @@ $\Delta_{2,F_j}(N)$ vanish. At those indices the identity above gives
 $U_j(N)=X_{F_j}(2)$, which need not be zero. We bound only the remaining
 displacements by the corresponding tails $U_j(N)$.
 
-Fix $\varepsilon>0$, set $t_j=\varepsilon2^{-j}$, and choose $J$ with
+Fix $\varepsilon>0$ and allot $t_j=\varepsilon2^{-j}$ to the $j$th tail;
+these allowances sum to $\varepsilon$. Since $U_j^{\alpha_j}\le V_j$,
+it suffices to make $t_j^{-\alpha_j}V_j<1$. This normalisation explains
+the factor $2^{j\alpha_j}$ in the cover condition. Choose $J$ with
 \[
  K_J:=\sum_{j>J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}<\frac14.
 \]
@@ -946,19 +972,19 @@ have zero displacement.  Consequently,
 \[
  0<\Delta_{2,A}(N)\le\sum_{j>J}U_j(N)\le\varepsilon.
 \]
-The fixed rational lattice excludes rationality at base two.
-For $0\le r<d$, the atom $(b^r-1)/(b^d-1)$ is nonincreasing
+The positive lower bound under rationality excludes a rational value
+at base two. For $0\le r<d$, the summand $(b^r-1)/(b^d-1)$ is nonincreasing
 in $b>1$.  For $r>0$, cancellation of $b-1$ writes it as
 $A(b)/(A(b)+C(b))$, with $A(b)=\sum_{i<r}b^i$ and
 $C(b)=\sum_{r\le j<d}b^j$.  Its derivative has the sign of
 $A'C-AC'=\sum_{i<r\le j<d}(i-j)b^{i+j-1}<0$.
 Thus $\Delta_{b,A}(N)\le\Delta_{2,A}(N)$ for real $b\ge2$;
-for integer $b$ the rational-lattice argument gives irrationality.
+for integer $b$ the same positive-integer argument gives irrationality.
 This ordinary argument is sharper than the factor-two bound in the Lean
 source's
 \href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L232}{scalar comparison between bases}.
-Any prescribed positive divisor can be included in $L$, so the witnesses
-can also be required to be arbitrarily large.
+Any prescribed positive integer can be included as a divisor of $L$,
+so the selected indices can also be required to be arbitrarily large.
 \end{proof}
 
 The same proof permits any positive weights $\eta_j$ with $\sum_j\eta_j=1$:
@@ -1029,20 +1055,22 @@ since every exponent in $F_j$ divides $L$ and hence divides $N$. Therefore
  \Delta_{2,A}(N)\le\Delta_{2,E}(N)+\Delta_{2,V}(N)<2\rho<\varepsilon,
  \qquad N\ge Q\ge L\ge N_0.
 \]
-Overlaps between the supports only improve the inequality.  Infinitude of
-$A$ makes its displacement positive.  The atom comparison used in the cover
-proof transfers arbitrarily small displacements to every integer base;
-the fixed rational lattice then excludes rationality.
+The inequality also holds when $E$ and $V$ overlap. Since $A$ is
+infinite, $\Delta_{b,A}(N)>0$. The comparison
+$\Delta_{b,A}(N)\le\Delta_{2,A}(N)$ from the cover proof makes these
+values arbitrarily small at every integer base, contradicting the
+positive lower bound imposed by rationality.
 \end{proof}
 
 \paragraph{Why the mixed criterion is strict.}\label{record257:strict-mixed-proof}
-Take an infinite weighted host $E$ with no strengthened positive cover,
-and an infinite covered host $V$ with no finite-prime weighted witness
-at any integer base.  The two constructions in the short paper's section on comparison of
+Take an infinite support $E$ satisfying the weighted condition but
+admitting no strengthened positive cover, and an infinite support $V$
+admitting such a cover but failing the weighted condition for every
+finite prime set at every integer base.  The two constructions in the short paper's section on comparison of
 support classes supply these sets.  Put $U=E\cup V$.  A strengthened cover of $U$ restricts to
-one of $E$, since each divisor count decreases on a subset.  A weighted
-witness for $U$ restricts to one for $V$, since every summand is
-nonnegative.  Hence $U$ belongs to neither individual class.
+one of $E$, since each divisor count decreases on a subset. Convergence
+of the weighted sum over $U$ would imply convergence over $V$ with
+the same prime set, since every summand is nonnegative.  Hence $U$ belongs to neither individual class.
 For every infinite $A\subseteq U$, Theorem~\ref{thm:257-mixed-supports}
 applies with these same sets $E,V$ and gives irrationality at every
 integer base. Irrationality of the two summands separately would not
@@ -1054,19 +1082,15 @@ The positive-weight variant of
 Theorem~\ref{thm:257-variable-fractional-cover}, with its hereditary
 all-base conclusion, also has a
 \href{https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19}{kernel-checked Lean proof}.
-Theorem~\ref{thm:257-mixed-supports} alone does not exhibit a host outside
-both individual classes.  The short paper now supplies the missing ordinary
-constructions: one infinite host has a finite-prime weighted witness at base
-two but no strengthened positive cover, while a fresh-prime host has such a
-cover but no finite-prime weighted witness at any integer base.  Their union
-satisfies neither individual criterion, and this theorem gives every
-infinite subset an irrational sum at every integer base.  The existence of
-the two hosts has a
+Theorem~\ref{thm:257-mixed-supports} alone does not exhibit a support
+outside both individual classes; the preceding strictness argument also
+uses the two separating constructions. Existence of two sets with those
+properties has a
 \href{https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L53}{Lean proof}
-whose reverse host is a squarefree divisor-cube host with a different row
-schedule.  The printed fresh-prime construction and the strictness corollary
+whose second set is formed from squarefree divisor sets with a different
+choice of parameters.  The printed fresh-prime construction and the strictness corollary
 have ordinary proofs, and none of these constructions has been independently
-reviewed.  The Lean reverse host also admits no cover with
+reviewed.  The second set in the Lean proof also admits no cover with
 $\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2<\infty$, so this
 stronger cost defines a
 \href{https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean#L41}{strictly smaller support class}.
@@ -1074,20 +1098,20 @@ The mixed implication itself is kernel-checked.
 Universal irrationality and the quantitative and prime-power thinning claims
 remain open.
 
-The class of subsets of mixed hosts is closed under finite unions and finite
-changes even with the literal dyadic cover cost in
+Supports satisfying the mixed criterion are closed under finite unions
+and finite changes, even with the fixed dyadic cover cost in
 \eqref{eq:257-strengthened-cover}.  For two covers, interleave their $j$th
 finite sets at positions $2j-1,2j$, halve each exponent, and keep the
-nonnegative coefficient columns.  Integer divisor counts satisfy
-$f^{\alpha/2}\le f^\alpha$, while the full reindexed cost of each column
+nonnegative coefficients of the majorants. Integer divisor counts satisfy
+$f^{\alpha/2}\le f^\alpha$, while the full cost of each reindexed finite set
 grows by at most $1+\sqrt2$.  For $r$ covers, positions at most $rj$ and
 exponents divided by $r$ give a cost ratio below $2r$.  For weighted
-supports combine the finite prime witnesses: the prime part grows and
-$h/(2^h-1)$ decreases.  Subsets inherit the same hosts, and finite sets
-have finite weighted mass.
+supports, take the union of the finite prime sets: the prime part can
+only increase, while $h/(2^h-1)$ decreases. Each condition is inherited
+by subsets, and the weighted sum is finite on a finite support.
 \href{https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/StrengthenedCoverFiniteUnion.lean#L167}{Lean proves}
 these closures with the constant $3$ in place of $1+\sqrt2$.
-Countable unions require a tail budget.  Every prime singleton is admitted,
+For a countable union the cover costs must still be summable.  Every prime singleton is admitted,
 but for the full prime support $\mathcal P$ one has
 $\Delta_{2,\mathcal P}(N)>1/3$ for every $N\ge1$: indeed
 $\sum_{r\ge1}2^{-r}\omega(N+r)\ge1$, whereas
@@ -1455,14 +1479,13 @@ infinitely often in the binary expansion of $E$, and Campbell proves that it
 does~\cite[Theorem~1, p.~12]{campbell2026}.
 \end{rem}
 
-The cited digit results establish the occurrence of particular patterns.
-An irrationality-measure estimate gives a different kind of information:
-a run of $L$ equal digits after position $N$ approximates $E$ by a dyadic
-rational with denominator at most $2^N$, giving
+The digit results concern particular patterns. An irrationality-measure
+bound controls lengths: a run of $L$ equal digits after position $N$
+gives a dyadic approximation to $E$ with denominator at most $2^N$, hence
 $L<(\mu(E)-1+\varepsilon)N$ for all sufficiently large $N$.
-The reset argument considered here needs a bound for runs in its own
-inhomogeneous recurrence, not simply in the binary digits of $E$.
-No implication from the cited digit results to that bound is proved here.
+The reset argument needs a run bound for its inhomogeneous recurrence,
+not for the binary digits of $E$; no implication from the cited digit
+results to that bound is proved here.
 Such a bound is an input to this particular approach to (H), not a
 necessary ingredient of every possible proof of membership.
 
@@ -1779,7 +1802,7 @@ run-length estimate by itself.
 
 \textbf{Class (b): global averages and Diophantine data.}
 
-\begin{prop}[Weighted denominator budget]
+\begin{prop}[A bound for the reduced denominator]
 \label{prop:exponent-gap}
 Let $n\ge2$, let $\mathrm{Skip}_n\subseteq\{2,\ldots,n-1\}$,
 and let $D_n$ be the reduced denominator of the associated finite sum.
@@ -1800,7 +1823,7 @@ need additional information about the skip distribution.
 Proposition~\ref{prop:local-void}(ii) does not determine the post-index
 tail in its countermodel family.  This does not exclude a state using
 additional arithmetic input from the actual support.  The displayed
-denominator budget combined with the cited fixed irrationality-measure
+denominator bound combined with the cited fixed irrationality-measure
 exponent does not yield the required run bound. These calculations do not
 exclude averaging over shifts, residues, or observation scales, nor a sharper analysis of the
 actual skip distribution.
@@ -8975,8 +8998,7 @@ argument, and it does \emph{not} by itself exclude the two pinned values; an iso
 short run is untouched by this theorem.
 \end{obs}
 
-\subsection{The remaining
-\texorpdfstring{\(-2,-1\)}{negative-two, negative-one} middle-cell exclusion}
+\subsection{Three middle-cell exclusions and the right-branch bound}
 
 \begin{defn}
 The \emph{two-sided cell condition} excludes three integer values of the middle coordinate,
@@ -8987,12 +9009,27 @@ $\mathrm{overshoot}(s)\le2^s$ (\lean{SeamTwoSidedDyadicCellEscape}{HalfCylinderM
 Granted this, induction from a base case at row $5$, checked by direct computation, propagates
 $\forall s\ge5,\ \mathrm{rem}(s)\le2^s\vee\mathrm{overshoot}(s)\le2^s$
 (\lean{SeamTwoSidedDyadicCellEscape.twoSided}{HalfCylinderMiddleCarryLowerBound.lean:4448},
-given the hypothesis). One of the three cells, $-3$, is already
-closed unconditionally in the all-right-tail configuration
+given the hypothesis). The final-middle theorem excludes $-3$ at a
+middle row $D\ge13$ followed by an all-right tail
 (\lean{finalMiddleCell_neg_three_not_last}{HalfCylinderFinalMiddleCellEscape.lean:587}).
-The two remaining cells, $-2$ and $-1$, are not excluded: what would complete this route is their
-exclusion for the
-actual quotient-greedy orbit (not a hypothetical one), together with the right-pulse-leak inequality. This excludes specified integer values in one coordinate.  The
+It does not supply the $-3$ exclusion on each eligible non-carry
+middle branch required by this induction. To complete this route, the
+three exclusions must hold on those branches of the actual orbit,
+without an all-right-tail assumption, and the right-branch bound must
+hold under its own antecedents. Explicitly, at every row $s\ge5$
+where the upper carry does not occur, that is,
+$4o_s+p_s^+>2^{s+1}$, the required implications are
+\[
+ \begin{gathered}
+ 4\,\mathrm{rem}(s)+2^{s+1}-p_s^-<2^{s+2}+4
+ \quad\Longrightarrow\quad C_s\notin\{-3,-2,-1\};\\[3pt]
+ 4\,\mathrm{rem}(s)+2^{s+1}-p_s^-\ge2^{s+2}+4,\quad o_s\le2^s
+ \quad\Longrightarrow\quad 4o_s+p_s^+\le2^{s+2}.
+ \end{gathered}
+\]
+Here $C_s=4\,\mathrm{rem}(s)-p_s^- -4$, and $o_s,p_s^-,p_s^+$
+are the overshoot and correction terms of Theorem~\ref{thm:dynamics}.
+These conditions exclude specified integer values in one coordinate. The
 square-root reset condition instead bounds the magnitude of a
 different quantity by a rank-dependent threshold.  Their numerical
 widths do not order the two hypotheses, and no implication between

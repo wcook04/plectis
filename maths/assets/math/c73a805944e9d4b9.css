@@ -1802,6 +1802,10 @@ mjx-c.mjx-c79 {
   padding: 0.473em 0.493em 0.235em 0;
 }
 
+mjx-c.mjx-c7A {
+  padding: 0.473em 0.458em 0 0;
+}
+
 mjx-c.mjx-c71 {
   padding: 0.485em 0.521em 0.22em 0;
 }
@@ -2030,6 +2034,10 @@ mjx-c.mjx-c230B.STX-S6 {
   padding: 1.462em 0.469em 0.92em 0;
 }
 
+mjx-c.mjx-c76 {
+  padding: 0.473em 0.498em 0.006em 0;
+}
+
 mjx-c.mjx-c28.STX-S5 {
   padding: 1.342em 0.473em 0.802em 0;
 }
@@ -2070,10 +2078,6 @@ mjx-c.mjx-c5D.STX-S7 {
   padding: 1.582em 0.488em 1.043em 0;
 }
 
-mjx-c.mjx-c76 {
-  padding: 0.473em 0.498em 0.006em 0;
-}
-
 mjx-c.mjx-c2016 {
   padding: 0.706em 0.427em 0.22em 0;
 }
@@ -2104,14 +2108,6 @@ mjx-c.mjx-c6B {
 
 mjx-c.mjx-c46 {
   padding: 0.657em 0.588em 0 0;
-}
-
-mjx-c.mjx-c27E8 {
-  padding: 0.736em 0.339em 0.196em 0;
-}
-
-mjx-c.mjx-c27E9 {
-  padding: 0.736em 0.339em 0.196em 0;
 }
 
 mjx-c.mjx-c21D4 {
@@ -2239,7 +2235,6 @@ mjx-c.mjx-c2205.STX-V {
 .math[data-math-rendered] .mjx-s-0961b6cd6113fb7a {min-width: 14.321em;}
 .math[data-math-rendered] .mjx-s-096469c21423bbbd {padding-bottom: 0.647em;}
 .math[data-math-rendered] .mjx-s-0a08cda1d7073688 {height: 1em; vertical-align: -0.25em;}
-.math[data-math-rendered] .mjx-s-0a879fd0cfaf043b {min-width: 37.137em;}
 .math[data-math-rendered] .mjx-s-0b1c3c305ca597af {vertical-align: -0.15em; margin-left: 0.051em;}
 .math[data-math-rendered] .mjx-s-0b66ad2b1e5e3746 {vertical-align: -0.345em;}
 .math[data-math-rendered] .mjx-s-0b7aec7fb5d3856b {height: 0.639em;}
@@ -2525,6 +2520,7 @@ mjx-c.mjx-c2205.STX-V {
 .math[data-math-rendered] .mjx-s-9ecfb73e7740591d {margin-right: 0.12em; vertical-align: 0.25em;}
 .math[data-math-rendered] .mjx-s-9f3a957c0c20ad1b {padding-left: 0.158em;}
 .math[data-math-rendered] .mjx-s-9f6af5e741e59389 {padding-top: 0.05em;}
+.math[data-math-rendered] .mjx-s-a088fc5a41302dc0 {vertical-align: -0.15em; margin-left: -0.005em;}
 .math[data-math-rendered] .mjx-s-a0abf87e29ba764d {min-width: 12.35em;}
 .math[data-math-rendered] .mjx-s-a1cd80d3baeda7d3 {padding-left: 0.208em;}
 .math[data-math-rendered] .mjx-s-a24e5836cd3e3a27 {height: 2.993em; vertical-align: -1.247em;}
@@ -2534,6 +2530,7 @@ mjx-c.mjx-c2205.STX-V {
 .math[data-math-rendered] .mjx-s-a47e4be61538a0f6 {vertical-align: -0.019em;}
 .math[data-math-rendered] .mjx-s-a4da56c56009cab9 {text-align: left; padding-left: 0; padding-top: 0.15em;}
 .math[data-math-rendered] .mjx-s-a500c406b6e97026 {padding-left: 0.019em;}
+.math[data-math-rendered] .mjx-s-a7568c5ae9fc72ca {min-width: 41.913em;}
 .math[data-math-rendered] .mjx-s-a7728e54b1376400 {vertical-align: -0.275em; margin-left: 0;}
 .math[data-math-rendered] .mjx-s-a7a973e3939c95e4 {padding-left: 0.622em;}
 .math[data-math-rendered] .mjx-s-a8da89007b08652f {min-width: 20.959em; position: relative;}

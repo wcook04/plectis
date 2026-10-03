@@ -20,23 +20,29 @@ negative denominators. Any further change of starting index adds a
 rational number. The expectation for all integer shifts remains unproved
 here. The problem number follows Bloom’s catalogue <span
 class="citation" data-cites="bloom"></span>.</p>
-<p>The coefficient problem treated first asks which factorial moments
-can occur when a finite integer vector cancels its first weighted sums.
-The answer is an explicitly computable ideal of <span
-class="math inline" data-term-auto="off">\(\mathbb Z\)</span>. Adjacent factorial differences
-isolate the divisors of their index; correcting proper divisors then
-gives an integral basis. Prescribing cancellation fixes its lower
-coordinates, and excluding index one leaves a single Diophantine
-equation. The accompanying short paper gives this argument, the
-finite-gcd proof, and the construction of a vector with least positive
-moment <span class="math inline" data-term-auto="off">\(1380\)</span> at depth four.</p>
-<p>This record also studies restrictions on the support, coefficient
-norms, and a primitive progression construction. These ask more of a
-vector than merely having a permitted moment. The later carry, digit and
-reduced-denominator arguments concern the real value of the resulting
-form. In particular, changing coefficients at a fixed moment can change
-its integer part, but cannot change whether it is integral. The separate
-nonintegrality requirement is retained throughout.</p>
+<p>We first construct integer linear forms <span
+class="math inline" data-term-auto="off">\(MS+k\)</span> in <span
+class="math inline" data-term-auto="off">\(S\)</span>. The coefficient <span
+class="math inline" data-term-auto="off">\(M\)</span> is a factorial-weighted sum of the
+entries of a finite integer vector. Its possible values, when specified
+initial weighted sums vanish, form an explicitly computable ideal of
+<span class="math inline" data-term-auto="off">\(\mathbb Z\)</span>. The proof starts with
+adjacent factorial differences. Eliminating the proper divisors of each
+index gives an integral basis, in which the cancellation equations
+prescribe the lower coordinates. Restricting the support to indices at
+least two then leaves one linear Diophantine equation. The accompanying
+short paper gives the basis construction, the finite-gcd proof, and an
+example attaining the least positive value <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> when the sums indexed by <span
+class="math inline" data-term-auto="off">\(2,3,4\)</span> vanish.</p>
+<p>We also minimise support sizes and coefficient norms, and construct
+primitive vectors supported on arithmetic progressions. These impose
+additional requirements on the coefficients. The carry, digit and
+reduced-denominator arguments address nonintegrality of the resulting
+linear form. Changing a vector while preserving <span
+class="math inline" data-term-auto="off">\(M\)</span> changes that form by an integer, so it
+cannot decide nonintegrality. That condition requires a separate
+argument.</p>
 <p>Throughout, write</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_n=n!-1,\qquad
 H_N=\sum_{n=2}^N\frac1{d_n},\qquad
@@ -46,10 +52,10 @@ A_N=\sum_{n=2}^N\frac{L_N}{d_n}.\]</span></div>
 class="math inline" data-term-auto="off">\(H_N=A_N/L_N\)</span>. We write <span
 class="math inline" data-term-auto="off">\(\operatorname{den}(x)\)</span> for the positive
 reduced denominator of a rational number <span
-class="math inline" data-term-auto="off">\(x\)</span>. The coefficient constructions give
-forms <span class="math inline" data-term-auto="off">\(MS+k\)</span> with <span
-class="math inline" data-term-auto="off">\(M,k\in\mathbb Z\)</span>. Under <span
-class="math inline" data-term-auto="off">\(S=a/q\)</span>, any such form with <span
+class="math inline" data-term-auto="off">\(x\)</span>. Under <span
+class="math inline" data-term-auto="off">\(S=a/q\)</span>, every form <span
+class="math inline" data-term-auto="off">\(MS+k\)</span> with <span
+class="math inline" data-term-auto="off">\(M,k\in\mathbb Z\)</span> and <span
 class="math inline" data-term-auto="off">\(q\mid M\)</span> is integral. For each positive
 integer <span class="math inline" data-term-auto="off">\(q\)</span>, an irrationality
 argument of this kind must produce a nonintegral form with <span
@@ -80,9 +86,9 @@ topic</p></th>
 <td class="ta-l">§<a class="math-ref" href="#long68:sec:basis">1.1</a></td>
 </tr>
 <tr>
-<td class="ta-l">Moment <span
-class="math inline" data-term-auto="off">\(1380\)</span> and its nonintegral remainder</td>
-<td class="ta-l">§<a class="math-ref" href="#long68:sec:basis">1.1</a>, §<a class="math-ref" href="#long68:sec:ext-certificates">B.6</a></td>
+<td class="ta-l">The example <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> and its remainder</td>
+<td class="ta-l">§<a class="math-ref" href="#long68:sec:basis-examples">1.2</a>, §<a class="math-ref" href="#long68:sec:ext-certificates">B.6</a></td>
 </tr>
 <tr>
 <td class="ta-l">Common-denominator growth</td>
@@ -117,11 +123,11 @@ class="math inline" data-term-auto="off">\(i\ge2\)</span>, put</p>
 class="math display" data-term-auto="off">\[M(c)=\sum_i c_i\,i!,\qquad
 W_{d,i}=\frac{i!}{(d!)^{\lfloor i/d\rfloor}},\qquad
 V_{d}(c)=\sum_i c_iW_{d,i}\quad(d\ge2).\]</span></div>
-<p>We call <span
-class="math inline" data-term-auto="off">\(M(c)\)</span> the factorial moment and allow
-either sign for it and for <span class="math inline" data-term-auto="off">\(V_d(c)\)</span>.
-The associated remainder is</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
+<p>We allow either sign
+for <span class="math inline" data-term-auto="off">\(M(c)\)</span> and for <span
+class="math inline" data-term-auto="off">\(V_d(c)\)</span>. The associated remainder is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal
 R(c)=\sum_{d\ge2}\frac{V_d(c)}{d!-1}.\]</span></div>
 <p>For <span
 class="math inline" data-term-auto="off">\(d\)</span> beyond the support, all floor exponents
@@ -180,13 +186,15 @@ class="math display" data-term-auto="off">\[\mathcal R(c)-M(c)S
 finite and each term is integral by <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a>.
 This argument also holds when index <span
 class="math inline" data-term-auto="off">\(1\)</span> is temporarily allowed in the basis
-calculation below. In particular, a zero moment gives an integral
-remainder, and fixing <span class="math inline" data-term-auto="off">\(M(c)\)</span> fixes
-its fractional part. These conclusions hold for every finite vector,
-before imposing cancellation.</p>
+calculation below. In particular, <span
+class="math inline" data-term-auto="off">\(M=0\)</span> gives an integral remainder, and
+fixing <span class="math inline" data-term-auto="off">\(M(c)\)</span> fixes its fractional
+part. These conclusions hold for every finite vector, before imposing
+cancellation.</p>
 <p>There is also an immediate support restriction. If the integer
 indices lie where one floor exponent is constant, the corresponding
-weighted sum is proportional to the moment.</p>
+weighted sum is proportional to <span
+class="math inline" data-term-auto="off">\(M\)</span>.</p>
 <div class="theorem" id="long68:res:bandbreakpoint">
 <p><strong>Theorem 1.2</strong> (constant values of the floor in the
 weights). <em> Let <span class="math inline" data-term-auto="off">\(d\ge2\)</span> and <span
@@ -224,11 +232,13 @@ vanishing <span class="math inline" data-term-auto="off">\(d\)</span>-th weighte
 every weighted sum <span class="math inline" data-term-auto="off">\(2\le d\le D\)</span>
 forces <span class="math inline" data-term-auto="off">\(L_D\mid M(c)\)</span>, where <span
 class="math inline" data-term-auto="off">\(L_D=\lcm_{2\le d\le D}(d!-1)\)</span> is the same
-quantity as in §<a class="math-ref" href="#long68:sec:lcm">3</a>. At fixed moment,
-the same congruence fixes the fractional part of each quotient <span
+quantity as in §<a class="math-ref" href="#long68:sec:lcm">3</a>. With <span
+class="math inline" data-term-auto="off">\(M\)</span> fixed, the same congruence fixes the
+fractional part of each quotient <span
 class="math inline" data-term-auto="off">\(V_d(c)/(d!-1)\)</span> separately.</p>
 <section id="long68:sec:basis" class="level3">
-<h3>An integral basis and the attainable moments</h3>
+<h3>An integral basis and the possible values of <span
+class="math inline" data-term-auto="off">\(M\)</span></h3>
 <p>Fix <span class="math inline" data-term-auto="off">\(D\ge2\)</span>. We temporarily allow
 a coefficient at index one so that the adjacent-difference vectors form
 a triangular basis. After solving <span
@@ -242,9 +252,10 @@ index <span class="math inline" data-term-auto="off">\(n\)</span>. For <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span> put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[T_n=ne_{n-1}-e_n.\]</span></div>
-<p>Its moment is zero. If
-<span class="math inline" data-term-auto="off">\(d\nmid n\)</span>, the two floor exponents
-in its weighted sum agree, and <span
+<p>We have <span
+class="math inline" data-term-auto="off">\(M(T_n)=0\)</span>. If <span
+class="math inline" data-term-auto="off">\(d\nmid n\)</span>, the two floor exponents in its
+weighted sum agree, and <span
 class="math inline" data-term-auto="off">\(nW_{d,n-1}=W_{d,n}\)</span>. If <span
 class="math inline" data-term-auto="off">\(d\mid n\)</span>, the exponent increases by one,
 so <span class="math inline" data-term-auto="off">\(nW_{d,n-1}=d!W_{d,n}\)</span>. Hence</p>
@@ -297,20 +308,20 @@ verifies the integrality of the displayed coefficients. They vanish for
 class="math inline" data-term-auto="off">\(V_d(c)=M(c)\)</span>, so the expansion is
 finite.</p>
 <p>Cancellation through <span class="math inline" data-term-auto="off">\(D\)</span> forces
-<span class="math inline" data-term-auto="off">\(L_D\mid M(c)\)</span>. To attain this moment
-in the enlarged space, start with <span
-class="math inline" data-term-auto="off">\(L_De_1\)</span>, whose weighted sums all equal
-<span class="math inline" data-term-auto="off">\(L_D\)</span>. The vector <span
+<span class="math inline" data-term-auto="off">\(L_D\mid M(c)\)</span>. To obtain <span
+class="math inline" data-term-auto="off">\(M(c)=L_D\)</span> in the enlarged space, start
+with <span class="math inline" data-term-auto="off">\(L_De_1\)</span>, whose weighted sums
+all equal <span class="math inline" data-term-auto="off">\(L_D\)</span>. The vector <span
 class="math inline" data-term-auto="off">\(U_d\)</span> changes only the <span
 class="math inline" data-term-auto="off">\(d\)</span>th sum, by <span
 class="math inline" data-term-auto="off">\(d!-1\)</span>. Hence define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_D=L_De_1-\sum_{d=2}^D\frac{L_D}{d!-1}U_d.\]</span></div>
-<p>This vector has moment <span class="math inline" data-term-auto="off">\(L_D\)</span> and
-vanishing weighted sums <span class="math inline" data-term-auto="off">\(2,\ldots,D\)</span>.
-All solutions in the enlarged coefficient space consequently have the
-unique form</p>
-<div class="math-display" id="long68:eq:low-channel-basis" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>This vector satisfies <span class="math inline" data-term-auto="off">\(M=L_D\)</span> and
+<span class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span>. All solutions in
+the enlarged coefficient space consequently have the unique form</p>
+<div class="math-display" id="long68:eq:low-channel-basis" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:low-channel-basis}
 c=tK_D+\sum_{n&gt;D}z_nU_n,\qquad M(c)=tL_D,
 \end{equation}\]</span></div>
@@ -388,19 +399,20 @@ gcd divides the entire tail, and inclusion of the finite interval gives
 the reverse divisibility. Finally, <span class="math inline" data-term-auto="off">\(H\le
 D(2D-1)&lt;2D^2\)</span>.</p>
 <div class="theorem" id="long68:res:moment-ideal">
-<p><strong>Theorem 1.3</strong> (the set of attainable moments). <em> Fix
-<span class="math inline" data-term-auto="off">\(D\ge2\)</span> and a prime <span
+<p><strong>Theorem 1.3</strong> (the set of attainable values of <span
+class="math inline" data-term-auto="off">\(M\)</span>). <em> Fix <span
+class="math inline" data-term-auto="off">\(D\ge2\)</span> and a prime <span
 class="math inline" data-term-auto="off">\(p\)</span> with <span
 class="math inline" data-term-auto="off">\(D/2&lt;p\le D\)</span>. Put </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[H=D(2p-1),\qquad
 G_D=\gcd\{|u_n|:D&lt;n\le H\},\qquad
 \mu_D=L_D\frac{G_D}{\gcd(G_D,a_D)}.\]</span></div>
-<p><em> The moments of finite
-integer vectors supported on <span class="math inline" data-term-auto="off">\(n\ge2\)</span>
-and cancelling all weighted sums <span
-class="math inline" data-term-auto="off">\(2,\ldots,D\)</span> are exactly <span
-class="math inline" data-term-auto="off">\(\mu_D\Z\)</span>. The integer <span
+<p><em> For finite integer vectors
+supported on <span class="math inline" data-term-auto="off">\(n\ge2\)</span> and cancelling
+all weighted sums <span class="math inline" data-term-auto="off">\(2,\ldots,D\)</span>, the
+possible values of <span class="math inline" data-term-auto="off">\(M\)</span> are exactly
+<span class="math inline" data-term-auto="off">\(\mu_D\Z\)</span>. The integer <span
 class="math inline" data-term-auto="off">\(\mu_D\)</span> is positive, is independent of the
 eligible prime <span class="math inline" data-term-auto="off">\(p\)</span>, and is attained
 by a vector of coefficients with gcd one, that is, by a primitive
@@ -416,15 +428,53 @@ a solution if and only if <span class="math inline" data-term-auto="off">\(G_D\m
 ta_D\)</span>, or equivalently <span
 class="math inline" data-term-auto="off">\(G_D/\gcd(G_D,a_D)\mid t\)</span>. Substitution in
 <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>
-gives the claimed set of moments. Bézout’s identity applied to the
+gives the claimed set of values of <span
+class="math inline" data-term-auto="off">\(M\)</span>. Bézout’s identity applied to the
 finite list through <span class="math inline" data-term-auto="off">\(H\)</span> supplies a
 vector attaining its least positive element. A common coefficient
 divisor larger than one could be divided out, giving a smaller positive
-attainable moment. The attaining vector is therefore primitive. Finally,
-the set of moments is intrinsic to the cancellation equations, so its
-positive generator is independent of the eligible prime <span
-class="math inline" data-term-auto="off">\(p\)</span>. ◻</p>
+attainable value of <span class="math inline" data-term-auto="off">\(M\)</span>. The
+attaining vector is therefore primitive. Finally, the set of values of
+<span class="math inline" data-term-auto="off">\(M\)</span> is intrinsic to the cancellation
+equations, so its positive generator is independent of the eligible
+prime <span class="math inline" data-term-auto="off">\(p\)</span>. ◻</p>
 </div>
+<p>The support equation determines which basis coefficients are
+admissible. The same coefficients give the remainder explicitly. This
+identifies what remains to be proved after constructing a vector: its
+fractional part is fixed by <span class="math inline" data-term-auto="off">\(M\)</span>,
+whereas the free higher coordinates change only its integer part.</p>
+<div class="theorem" id="long68:res:residual-transparency">
+<p><strong>Theorem 1.4</strong> (how the coefficient choices change the
+remainder). <em> For the vector in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>,
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
+R\!\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
+=tL_D(S-H_D)+\sum_{n&gt;D}z_n.\]</span></div>
+<p><em> The remainder series converges
+for every finite vector supported away from index zero. A vector with
+<span class="math inline" data-term-auto="off">\(M=0\)</span> has integral remainder, and any
+two finite vectors with the same value of <span
+class="math inline" data-term-auto="off">\(M\)</span> have remainders differing by an
+integer.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(d&gt;D\)</span>, we
+have <span class="math inline" data-term-auto="off">\(V_d(K_D)=L_D\)</span> and <span
+class="math inline" data-term-auto="off">\(V_d(U_n)/(d!-1)=\mathbf1_{d=n}\)</span>. Summing
+these identities gives <span
+class="math inline" data-term-auto="off">\(tL_D(S-H_D)+\sum_{n&gt;D}z_n\)</span>, as claimed.
+The first series converges and the second sum is finite.</p>
+<p>Absolute convergence and the general integer-difference identity were
+proved at the start of §<a class="math-ref" href="#long68:sec:channels">1</a>, including for
+the auxiliary index <span class="math inline" data-term-auto="off">\(1\)</span>. Taking <span
+class="math inline" data-term-auto="off">\(M=0\)</span> proves integrality; subtracting the
+identities for two vectors with equal <span
+class="math inline" data-term-auto="off">\(M\)</span> proves the last assertion. ◻</p>
+</div>
+</section>
+<section id="long68:sec:basis-examples" class="level3">
+<h3>Examples and support refinements</h3>
 <p>For <span class="math inline" data-term-auto="off">\(D=4\)</span> we need a common divisor
 of the entire coefficient tail, as well as a finite combination
 attaining it. Put <span
@@ -479,17 +529,17 @@ class="math inline" data-term-auto="off">\(1380(S-H_4)-44\)</span>, since the co
 the <span class="math inline" data-term-auto="off">\(U_n\)</span> in this expansion sum to
 <span class="math inline" data-term-auto="off">\(-44\)</span>. The exact interval calculation
 appears in §<a class="math-ref" href="#long68:sec:ext-certificates">B.6</a>. The
-coordinate calculation gives the moment and cancellations independently
-of a search over supports.</p>
+coordinate calculation gives <span class="math inline" data-term-auto="off">\(M\)</span> and
+the cancellations independently of a search over supports.</p>
 <p>If support is additionally restricted to <span
 class="math inline" data-term-auto="off">\(n\le6\)</span>, only <span
 class="math inline" data-term-auto="off">\(u_5=0\)</span> and <span
 class="math inline" data-term-auto="off">\(u_6=-180\)</span> remain available in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-support">long68:eq:low-channel-support</a>.
-The least positive moment is then <span
-class="math inline" data-term-auto="off">\(115\cdot180/\gcd(180,55)=4140\)</span>. Thus a
-restriction on the largest supported index can increase the least
-attainable moment. The following refinements keep the horizon
-explicit.</p>
+The least positive value of <span class="math inline" data-term-auto="off">\(M\)</span> is
+then <span class="math inline" data-term-auto="off">\(115\cdot180/\gcd(180,55)=4140\)</span>.
+Thus a restriction on the largest supported index can increase the least
+attainable value of <span class="math inline" data-term-auto="off">\(M\)</span>. The
+following refinements specify the support bound in each case.</p>
 <p>There is also a direct congruence proof using only the second and
 fourth weighted sums. For every <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>,</p>
@@ -518,16 +568,19 @@ class="math inline" data-term-auto="off">\(46W_{2,n}\equiv0\)</span>. This prove
 congruence. Consequently <span class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span>
 forces <span class="math inline" data-term-auto="off">\(1380\mid M\)</span>, without a
 restriction on the largest supported index. Conversely, <span
-class="math inline" data-term-auto="off">\(1482e_2-784e_3-136e_5+83e_6-e_8\)</span> has
-moment <span class="math inline" data-term-auto="off">\(1380\)</span> and <span
-class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span>. Thus adding the third
-channel does not change the moment ideal, although <span
-class="math inline" data-term-auto="off">\(3e_2-e_3\)</span> shows that it changes the set of
-admissible vectors.</p>
-<p>At support horizon <span class="math inline" data-term-auto="off">\(8\)</span>, this
-five-term vector is sparsest among attaining vectors. More precisely,
-every integer vector supported on <span
+class="math inline" data-term-auto="off">\(1482e_2-784e_3-136e_5+83e_6-e_8\)</span> satisfies
+<span class="math inline" data-term-auto="off">\(M=1380\)</span> and <span
+class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span>. Thus imposing the
+additional equation <span class="math inline" data-term-auto="off">\(V_3=0\)</span> does not
+change the possible values of <span class="math inline" data-term-auto="off">\(M\)</span>,
+although <span class="math inline" data-term-auto="off">\(3e_2-e_3\)</span> shows that it
+changes the set of admissible vectors.</p>
+<p>Among vectors supported in <span
 class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span> with <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> and <span
+class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span>, this vector has the
+smallest support. More precisely, every integer vector supported on
+<span class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span> with <span
 class="math inline" data-term-auto="off">\(M=1380\)</span> and <span
 class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span> has, for some <span
 class="math inline" data-term-auto="off">\(t,x,y\in\Z\)</span>, the coefficients</p>
@@ -553,10 +606,10 @@ Modulo <span class="math inline" data-term-auto="off">\(3\)</span> this yields <
 class="math inline" data-term-auto="off">\(\lambda_8=-1+3t\)</span>, then <span
 class="math inline" data-term-auto="off">\(\lambda_6+7\lambda_7=83-238t\)</span>. Set <span
 class="math inline" data-term-auto="off">\(x=\lambda_5\)</span> and <span
-class="math inline" data-term-auto="off">\(y=\lambda_7\)</span>; solving the three channel
-equations for indices <span class="math inline" data-term-auto="off">\(2,3,4\)</span> gives
-<a class="math-ref" data-equation-ref="true" href="#long68:eq:depth-four-family">long68:eq:depth-four-family</a>. The
-coefficient matrix is <span
+class="math inline" data-term-auto="off">\(y=\lambda_7\)</span>; solving <span
+class="math inline" data-term-auto="off">\(V_2=V_3=V_4=0\)</span> for the coefficients at
+indices <span class="math inline" data-term-auto="off">\(2,3,4\)</span> gives <a class="math-ref" data-equation-ref="true" href="#long68:eq:depth-four-family">long68:eq:depth-four-family</a>.
+The coefficient matrix is <span
 class="math inline" data-term-auto="off">\(\left(\begin{smallmatrix}1&amp;3&amp;6\\2&amp;1&amp;4\\2&amp;6&amp;1\end{smallmatrix}\right)\)</span>,
 with determinant <span class="math inline" data-term-auto="off">\(55\)</span>, and
 substitution verifies the converse. Indices <span
@@ -564,10 +617,11 @@ class="math inline" data-term-auto="off">\(2,3,8\)</span> are nonzero for every 
 <span class="math inline" data-term-auto="off">\(t\)</span>; neither the pair <span
 class="math inline" data-term-auto="off">\((\lambda_4,\lambda_5)\)</span> nor <span
 class="math inline" data-term-auto="off">\((\lambda_6,\lambda_7)\)</span> can vanish
-together. Thus five nonzero entries are necessary at this horizon.</p>
+together. Thus five nonzero entries are necessary at this support
+bound.</p>
 <p>The smallest coefficient <span class="math inline" data-term-auto="off">\(\ell^1\)</span>
-norm at horizon <span class="math inline" data-term-auto="off">\(8\)</span> is <span
-class="math inline" data-term-auto="off">\(2416\)</span>, attained by <span
+norm for support in <span class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span>
+is <span class="math inline" data-term-auto="off">\(2416\)</span>, attained by <span
 class="math inline" data-term-auto="off">\((\lambda_2,\ldots,\lambda_8)=(1482,-784,0,-136,-1,12,-1)\)</span>.
 For <span class="math inline" data-term-auto="off">\(t\ge1\)</span>, the absolute values at
 indices <span class="math inline" data-term-auto="off">\(2,3,8\)</span> alone sum to <span
@@ -604,14 +658,17 @@ class="math inline" data-term-auto="off">\(x=-136\)</span>, and the latter is sm
 the displayed five-term vector is the unique least-norm vector among
 those of minimum support, with norm <span
 class="math inline" data-term-auto="off">\(2486\)</span>.</p>
-<p>The third channel changes these optimization costs even though it
-does not change the moment ideal. With only <span
-class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span>, group the seven coefficients
-by <span class="math inline" data-term-auto="off">\(a=\lambda_2+3\lambda_3\)</span>, <span
+<p>The additional equation <span class="math inline" data-term-auto="off">\(V_3=0\)</span>
+changes the minimum support size and coefficient norm, while leaving the
+possible values of <span class="math inline" data-term-auto="off">\(M\)</span> unchanged.
+With only <span class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span>, group the
+seven coefficients by <span
+class="math inline" data-term-auto="off">\(a=\lambda_2+3\lambda_3\)</span>, <span
 class="math inline" data-term-auto="off">\(b=\lambda_4+5\lambda_5\)</span>, <span
 class="math inline" data-term-auto="off">\(c=\lambda_6+7\lambda_7\)</span> and <span
-class="math inline" data-term-auto="off">\(d=\lambda_8\)</span>. Solving the two channel
-equations and <span class="math inline" data-term-auto="off">\(M=1380\)</span> gives</p>
+class="math inline" data-term-auto="off">\(d=\lambda_8\)</span>. Solving <span
+class="math inline" data-term-auto="off">\(V_2=V_4=0\)</span> and <span
+class="math inline" data-term-auto="off">\(M=1380\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(a,b,c,d)=(-870+2520t,-680+1890t,83-238t,-1+3t),
 \qquad t\in\Z.\]</span></div>
@@ -619,8 +676,8 @@ class="math display" data-term-auto="off">\[(a,b,c,d)=(-870+2520t,-680+1890t,83-
 class="math inline" data-term-auto="off">\(t\)</span>, so four nonzero coefficients are
 necessary and sufficient. One four-term witness is <span
 class="math inline" data-term-auto="off">\(-290e_3-136e_5+83e_6-e_8\)</span>, with norm <span
-class="math inline" data-term-auto="off">\(510\)</span>. For the unrestricted coefficient
-norm at this horizon, <span
+class="math inline" data-term-auto="off">\(510\)</span>. For the coefficient norm on the same
+set of indices, <span
 class="math inline" data-term-auto="off">\(|\lambda_2|+|\lambda_3|\ge|a|/3\)</span> and <span
 class="math inline" data-term-auto="off">\(|\lambda_4|+|\lambda_5|\ge|b|/5\)</span>; when
 <span class="math inline" data-term-auto="off">\(t\ne0\)</span>, these bounds together with
@@ -636,60 +693,8 @@ minimizer under only <span class="math inline" data-term-auto="off">\(V_2=V_4=0\
 norm <span class="math inline" data-term-auto="off">\(440\)</span>. These optima concern the
 depth-four problem on the stated finite support. They give no
 irrationality conclusion for the infinite series.</p>
-<p>The factor beyond <span class="math inline" data-term-auto="off">\(L_D\)</span> is not
-always <span class="math inline" data-term-auto="off">\(12\)</span>. At <span
-class="math inline" data-term-auto="off">\(D=6\)</span>, the same recurrence gives</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[L_6=9839515,\qquad a_6=-2242555,\qquad
-G_6=840.\]</span></div>
-<p>To verify the last value, <span
-class="math inline" data-term-auto="off">\(u_7=0\)</span>, while <span
-class="math inline" data-term-auto="off">\(840=\lcm(1,\ldots,8)\)</span> divides every <span
-class="math inline" data-term-auto="off">\(u_n\)</span> for <span
-class="math inline" data-term-auto="off">\(n\ge8\)</span> by the preceding divisibility.
-Conversely, <span class="math inline" data-term-auto="off">\(u_8=-4200\)</span>, <span
-class="math inline" data-term-auto="off">\(u_{12}=-14386680\)</span> and <span
-class="math inline" data-term-auto="off">\(\gcd(u_8,u_{12})=840\)</span>. Thus <span
-class="math inline" data-term-auto="off">\(\gcd(G_6,a_6)=35\)</span> and the least positive
-moment is <span class="math inline" data-term-auto="off">\(\mu_6=24L_6\)</span>, not <span
-class="math inline" data-term-auto="off">\(12L_6\)</span>. It is attained by <span
-class="math inline" data-term-auto="off">\(24K_6-16240U_8+U_{12}\)</span>: the coefficient at
-index <span class="math inline" data-term-auto="off">\(1\)</span> is zero and the coefficient
-at <span class="math inline" data-term-auto="off">\(12\)</span> is <span
-class="math inline" data-term-auto="off">\(-1\)</span>. The finite-gcd formula thus detects
-the extra factor at depth six, which the uniform divisibility by <span
-class="math inline" data-term-auto="off">\(12L_D\)</span> misses.</p>
-<p>We can now express the remainder using the basis coefficients in
-<a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>. This
-refines the integer-difference identity at the start of §<a class="math-ref" href="#long68:sec:channels">1</a> by giving its
-integer term explicitly for the classified vectors.</p>
-<div class="theorem" id="long68:res:residual-transparency">
-<p><strong>Theorem 1.4</strong> (how the coefficient choices change the
-remainder). <em> For the vector in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>,
-</em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
-R\!\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
-=tL_D(S-H_D)+\sum_{n&gt;D}z_n.\]</span></div>
-<p><em> The residual series converges
-for every finite vector supported away from index zero. A zero-moment
-vector has integral residual, and any two finite vectors with the same
-factorial moment have residuals differing by an integer.</em></p>
-</div>
-<div class="proof">
-<p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(d&gt;D\)</span>, we
-have <span class="math inline" data-term-auto="off">\(V_d(K_D)=L_D\)</span> and <span
-class="math inline" data-term-auto="off">\(V_d(U_n)/(d!-1)=\mathbf1_{d=n}\)</span>. Summing
-these identities gives <span
-class="math inline" data-term-auto="off">\(tL_D(S-H_D)+\sum_{n&gt;D}z_n\)</span>, as claimed.
-The first series converges and the second sum is finite.</p>
-<p>Absolute convergence and the general integer-difference identity were
-proved at the start of §<a class="math-ref" href="#long68:sec:channels">1</a>, including for
-the auxiliary index <span class="math inline" data-term-auto="off">\(1\)</span>. Setting the
-moment to zero proves integrality; subtracting the identity for two
-vectors of equal moment proves the last assertion. ◻</p>
-</div>
-<p>The factor <span class="math inline" data-term-auto="off">\(12\)</span> used below follows
-directly on support <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. For
+<p>There is a uniform restriction <span class="math inline" data-term-auto="off">\(12L_D\mid
+M\)</span> on support <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. For
 <span class="math inline" data-term-auto="off">\(n=2,3\)</span> one has <span
 class="math inline" data-term-auto="off">\(n!=2W_{2,n}\)</span>. For <span
 class="math inline" data-term-auto="off">\(n\ge4\)</span>, both <span
@@ -709,9 +714,33 @@ class="math inline" data-term-auto="off">\(12L_D\mid M(c)\)</span>. This factor 
 at <span class="math inline" data-term-auto="off">\(D=2\)</span> and <span
 class="math inline" data-term-auto="off">\(D=3\)</span> by <span
 class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span> and <span
-class="math inline" data-term-auto="off">\(-6e_2-8e_3+5e_4\)</span>, respectively. The
-depth-<span class="math inline" data-term-auto="off">\(6\)</span> example above shows why it
-is not always the whole restriction.</p>
+class="math inline" data-term-auto="off">\(-6e_2-8e_3+5e_4\)</span>, respectively. The next
+example shows that this need not be the whole restriction.</p>
+<p>At <span class="math inline" data-term-auto="off">\(D=6\)</span>, the same recurrence
+gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L_6=9839515,\qquad
+a_6=-2242555,\qquad G_6=840.\]</span></div>
+<p>To verify the last value, <span
+class="math inline" data-term-auto="off">\(u_7=0\)</span>, while <span
+class="math inline" data-term-auto="off">\(840=\lcm(1,\ldots,8)\)</span> divides every <span
+class="math inline" data-term-auto="off">\(u_n\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge8\)</span> by the preceding divisibility.
+Conversely, <span class="math inline" data-term-auto="off">\(u_8=-4200\)</span>, <span
+class="math inline" data-term-auto="off">\(u_{12}=-14386680\)</span> and <span
+class="math inline" data-term-auto="off">\(\gcd(u_8,u_{12})=840\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(\gcd(G_6,a_6)=35\)</span> and the least positive
+value of <span class="math inline" data-term-auto="off">\(M\)</span> is <span
+class="math inline" data-term-auto="off">\(\mu_6=24L_6\)</span>, not <span
+class="math inline" data-term-auto="off">\(12L_6\)</span>. It is attained by <span
+class="math inline" data-term-auto="off">\(24K_6-16240U_8+U_{12}\)</span>: the coefficient at
+index <span class="math inline" data-term-auto="off">\(1\)</span> is zero and the coefficient
+at <span class="math inline" data-term-auto="off">\(12\)</span> is <span
+class="math inline" data-term-auto="off">\(-1\)</span>. The finite-gcd formula thus detects
+the extra factor at depth six, which the uniform divisibility by <span
+class="math inline" data-term-auto="off">\(12L_D\)</span> misses.</p>
+</section>
+<section id="long68:sec:support-and-remainder" class="level3">
+<h3>Support bounds and nonintegrality</h3>
 <p>The basis formula <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>
 describes all solutions of the weighted-sum equations, and <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-support">long68:eq:low-channel-support</a>
 imposes the support restriction. The remainder identity then determines
@@ -723,15 +752,16 @@ integer equals that of <span class="math inline" data-term-auto="off">\(M(c)S\)<
 Integer translation can choose a representative near zero, but cannot
 change this distance. To exclude every rational denominator this way,
 each positive integer <span class="math inline" data-term-auto="off">\(q\)</span> must divide
-the moment of some nonintegral remainder in the family. Eventual
-divisibility by every fixed <span class="math inline" data-term-auto="off">\(q\)</span> is
-sufficient; growth of the moments alone is not. For example, the
-compulsory factor <span class="math inline" data-term-auto="off">\(12L_D\)</span> has <span
+the coefficient <span class="math inline" data-term-auto="off">\(M\)</span> of some
+nonintegral form in the family. Eventual divisibility by every fixed
+<span class="math inline" data-term-auto="off">\(q\)</span> is sufficient; growth of the
+values of <span class="math inline" data-term-auto="off">\(M\)</span> alone is not. For
+example, the compulsory factor <span
+class="math inline" data-term-auto="off">\(12L_D\)</span> has <span
 class="math inline" data-term-auto="off">\(3\)</span>-adic valuation exactly <span
 class="math inline" data-term-auto="off">\(1\)</span> for every <span
-class="math inline" data-term-auto="off">\(D\)</span>, so this necessary divisor alone never
-guarantees that <span class="math inline" data-term-auto="off">\(9\)</span> divides the
-moment.</p>
+class="math inline" data-term-auto="off">\(D\)</span>, so this necessary divisor alone does
+not guarantee <span class="math inline" data-term-auto="off">\(9\mid M\)</span>.</p>
 <p>A truncation cutoff can exceed the largest supported index without
 changing the vector. For example, <span
 class="math inline" data-term-auto="off">\(c=-6e_2+e_4\)</span> has <span
@@ -771,10 +801,10 @@ choice, distinct from prescribing the largest nonzero coefficient
 index.</p>
 <p>To impose this small-tail comparison at the largest supported index,
 one needs more than <span class="math inline" data-term-auto="off">\(L_D\mid M\)</span>: the
-positive moment must also fit below a factorial at that index. The next
-theorem combines those two demands at <span
-class="math inline" data-term-auto="off">\(D=2t^2\)</span>. Its variable <span
-class="math inline" data-term-auto="off">\(R\)</span> is a support parameter, not the
+positive coefficient <span class="math inline" data-term-auto="off">\(M\)</span> must also be
+smaller than a factorial at that index. The next theorem combines those
+two demands at <span class="math inline" data-term-auto="off">\(D=2t^2\)</span>. Its variable
+<span class="math inline" data-term-auto="off">\(R\)</span> is a support parameter, not the
 remainder or the modulus <span class="math inline" data-term-auto="off">\(R_p\)</span> of
 §<a class="math-ref" href="#long68:sec:residue">5</a>. If a
 larger truncation cutoff is used instead, the same numerical bound
@@ -928,8 +958,8 @@ class="math inline" data-term-auto="off">\(d\ne p\)</span>.</em></p>
 <p><em>Proof.</em> Since <span class="math inline" data-term-auto="off">\(p\ge3\)</span>,
 both indices <span class="math inline" data-term-auto="off">\(p-1\)</span> and <span
 class="math inline" data-term-auto="off">\(p\)</span> lie in the prescribed coefficient
-domain <span class="math inline" data-term-auto="off">\(i\ge2\)</span>. The moment is <span
-class="math inline" data-term-auto="off">\(p\,(p-1)!-p!=0\)</span>. For <span
+domain <span class="math inline" data-term-auto="off">\(i\ge2\)</span>. Here <span
+class="math inline" data-term-auto="off">\(M=p\,(p-1)!-p!=0\)</span>. For <span
 class="math inline" data-term-auto="off">\(2\le d&lt;p\)</span> the quotient identity <span
 class="math inline" data-term-auto="off">\(\lfloor(p-1)/d\rfloor=\lfloor p/d\rfloor\)</span>
 holds, since <span class="math inline" data-term-auto="off">\(d\nmid p\)</span>, so the two
@@ -955,7 +985,7 @@ class="math inline" data-term-auto="off">\(V_p\)</span> by that multiple of <spa
 class="math inline" data-term-auto="off">\(p!-1\)</span>, without changing <span
 class="math inline" data-term-auto="off">\(M\)</span> or any other <span
 class="math inline" data-term-auto="off">\(V_d\)</span>. Suppose <span
-class="math inline" data-term-auto="off">\(c\)</span> has nonzero moment, <span
+class="math inline" data-term-auto="off">\(M(c)\ne0\)</span>, <span
 class="math inline" data-term-auto="off">\(V_2(c)=\cdots=V_D(c)=0\)</span>, and every
 supported index exceeds a prescribed integer <span
 class="math inline" data-term-auto="off">\(B\)</span>. Choose a prime <span
@@ -967,21 +997,23 @@ class="math display" data-term-auto="off">\[c-\lfloor\mathcal R(c)+1/2\rfloor T_
 class="math inline" data-term-auto="off">\(p\)</span>, exceed <span
 class="math inline" data-term-auto="off">\(B\)</span>. Since <span
 class="math inline" data-term-auto="off">\(p&gt;D\)</span>, the prescribed weighted sums
-remain zero, and the moment is unchanged. The new remainder is <span
-class="math inline" data-term-auto="off">\(\mathcal R(c)-\lfloor\mathcal
-R(c)+1/2\rfloor\in[-1/2,1/2)\)</span>. The progression construction
-below supplies such an initial vector: choose its first index <span
-class="math inline" data-term-auto="off">\(r&gt;B\)</span>.</p>
+remain zero, and <span class="math inline" data-term-auto="off">\(M\)</span> is unchanged.
+The new remainder is <span class="math inline" data-term-auto="off">\(\mathcal
+R(c)-\lfloor\mathcal R(c)+1/2\rfloor\in[-1/2,1/2)\)</span>. The
+progression construction below supplies such an initial vector: choose
+its first index <span class="math inline" data-term-auto="off">\(r&gt;B\)</span>.</p>
 <p>This rounding proves a size bound, not nonvanishing: an integral
 remainder becomes zero. In fact, a rounded remainder is nonzero exactly
 when the original remainder is nonintegral. Choosing larger adjustment
-primes cannot extend the denominator coverage, since the moment stays
-fixed. The chosen integer <span class="math inline" data-term-auto="off">\(\lfloor\mathcal
-R(c)+1/2\rfloor\)</span> depends on the remainder itself. The formula
-establishes the existence of a representative in the stated interval; it
-does not independently certify that this representative is nonzero.</p>
-<section id="long68:sec:progression" class="level5">
-<h5>A primitive solution on an arithmetic progression.</h5>
+primes cannot exclude any further denominators, since <span
+class="math inline" data-term-auto="off">\(M\)</span> stays fixed. The chosen integer <span
+class="math inline" data-term-auto="off">\(\lfloor\mathcal R(c)+1/2\rfloor\)</span> depends
+on the remainder itself. The formula establishes the existence of a
+representative in the stated interval; it does not independently certify
+that this representative is nonzero.</p>
+</section>
+<section id="long68:sec:progression" class="level3">
+<h3>A primitive solution on an arithmetic progression</h3>
 <p>To extend the example <span class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span>
 to cancellation at larger <span class="math inline" data-term-auto="off">\(D\)</span>, place
 the support on an arithmetic progression with its first index
@@ -1019,7 +1051,8 @@ r/d\rfloor+j\ell/d\)</span>. Hence</p>
 <p class="display-continue">because <span
 class="math inline" data-term-auto="off">\(\alpha_d^{-1}\)</span> is a root of the displayed
 polynomial. Evaluating that polynomial at <span
-class="math inline" data-term-auto="off">\(1\)</span> gives the moment</p>
+class="math inline" data-term-auto="off">\(1\)</span> gives <span
+class="math inline" data-term-auto="off">\(M\)</span></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M=N!\prod_{d=2}^D(1-1/\alpha_d)&gt;0.\]</span></div>
 <p>For integrality, each term of <span
@@ -1084,15 +1117,14 @@ class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> and</p>
 class="math display" data-term-auto="off">\[0&lt;M(S-H_N)&lt;\frac{2M}{(N+1)!-1}&lt;\frac2N,\]</span></div>
 <p class="display-continue">where the last inequality follows from <span
 class="math inline" data-term-auto="off">\((N+1)!-1&gt;NN!\)</span> for <span
-class="math inline" data-term-auto="off">\(N\ge2\)</span>. In particular, the moment obeys
-<span class="math inline" data-term-auto="off">\(M&lt;(N+1)!-1\)</span> without an additional
+class="math inline" data-term-auto="off">\(N\ge2\)</span>. In particular, <span
+class="math inline" data-term-auto="off">\(M&lt;(N+1)!-1\)</span> holds without an additional
 hypothesis for this family. What is not established is that the
 displayed upper bound is smaller than the finite part’s gap to the next
 integer. That gap depends on the same vector and may shrink with <span
 class="math inline" data-term-auto="off">\(N\)</span>; an upper bound tending to zero does
 not supply the required comparison. Neither this size estimate nor the
 divisibility proves nonintegrality of the remainders.</p>
-</section>
 </section>
 </section>
 <section id="long68:sec:prime-powers" class="level2">
@@ -1121,9 +1153,9 @@ class="math inline" data-term-auto="off">\(1/9+1/45=2/15\)</span> only lowers th
 class="math inline" data-term-auto="off">\(2\)</span> to <span
 class="math inline" data-term-auto="off">\(1\)</span>. The theorem below tests whether the
 largest exponent is preserved; a failure of that test need not remove
-the prime completely. The formula is standard, whereas the two
-factorial-prefix examples below and the later tail comparison concern
-this particular series.</p>
+the prime completely. The formula is standard, whereas the two factorial
+partial-sum examples below and the later tail comparison concern this
+particular series.</p>
 <p></p>
 <div class="theorem" id="long68:res:prime-pole">
 <p><strong>Theorem 2.1</strong> (maximal prime-power survival). <em> Let
@@ -1233,15 +1265,16 @@ class="math inline" data-term-auto="off">\(2593\)</span>. By Theorem <a class="
 class="math inline" data-term-auto="off">\(139\nmid\operatorname{den}(H_{138})\)</span> and
 <span
 class="math inline" data-term-auto="off">\(2593\nmid\operatorname{den}(H_{2592})\)</span>:
-each prime divides the common denominator of its prefix and vanishes
-from the reduced one. Both hit lists and both valuations are checked by
-the recurrence</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[r_1=1,\qquad r_n\equiv
-nr_{n-1}\pmod{p^2},\qquad 0\le r_n&lt;p^2,\]</span></div>
+each prime divides the common denominator of its partial sum and
+vanishes from its reduced denominator. The listed indices and their
+valuations are checked by the recurrence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[r_1=1,\qquad r_n\equiv nr_{n-1}\pmod{p^2},\qquad
+0\le r_n&lt;p^2,\]</span></div>
 <p class="display-continue">run through <span
-class="math inline" data-term-auto="off">\(n=p-1\)</span>. A hit is an index with <span
-class="math inline" data-term-auto="off">\(r_n\equiv1\pmod p\)</span>, its lifted cofactor is
-<span class="math inline" data-term-auto="off">\((r_n-1)/p\)</span> modulo <span
+class="math inline" data-term-auto="off">\(n=p-1\)</span>. At an index with <span
+class="math inline" data-term-auto="off">\(r_n\equiv1\pmod p\)</span>, the cofactor is <span
+class="math inline" data-term-auto="off">\((r_n-1)/p\)</span> modulo <span
 class="math inline" data-term-auto="off">\(p\)</span>. Valuation at least two would give
 <span class="math inline" data-term-auto="off">\(r_n=1\)</span>, which occurs for neither
 prime among the tested indices <span class="math inline" data-term-auto="off">\(2\le n\le
@@ -1250,9 +1283,10 @@ theorem.</p>
 <p>The recurrence is run modulo <span
 class="math inline" data-term-auto="off">\(p^2\)</span>, not merely modulo <span
 class="math inline" data-term-auto="off">\(p\)</span>: reduction modulo <span
-class="math inline" data-term-auto="off">\(p\)</span> would locate hits but could not
-establish that their valuations are exactly one. This is why the zero
-inverse sums prove complete cancellation in these examples.</p>
+class="math inline" data-term-auto="off">\(p\)</span> would find the indices with <span
+class="math inline" data-term-auto="off">\(p\mid n!-1\)</span>, but would not determine
+whether <span class="math inline" data-term-auto="off">\(p^2\mid n!-1\)</span>. This is why
+the zero inverse sums prove complete cancellation in these examples.</p>
 <p>For each prime <span class="math inline" data-term-auto="off">\(p\ge3\)</span>, the
 exponent <span
 class="math inline" data-term-auto="off">\(v_p(\operatorname{den}(H_M))\)</span> is constant
@@ -1531,10 +1565,11 @@ class="math inline" data-term-auto="off">\(N!\)</span> whatever the cutoff.</em>
 <p>For <span class="math inline" data-term-auto="off">\(n!+2^n-1\)</span>, Luca and
 Shparlinski <span class="citation"
 data-cites="luca-shparlinski-exp"><a href="#ref-19">[19]</a></span> eliminate the exponential term
-using three hits; multiplicative order enters the counting. Their
-valuation-layer identity <span class="citation"
-data-cites="luca-shparlinski-exp"><a href="#ref-19">[19]</a></span> records repeated prime-power
-divisibility. These are related tools, not inputs to Theorem <a class="math-ref" href="#long68:res:lcm-growth">3.4</a>, and no
+using three indices satisfying the congruence; multiplicative order
+enters the counting. Their valuation-layer identity <span
+class="citation" data-cites="luca-shparlinski-exp"></span> records
+repeated prime-power divisibility. These are related tools, not inputs
+to Theorem <a class="math-ref" href="#long68:res:lcm-growth">3.4</a>, and no
 extension to general non-polynomial perturbations is asserted.</p>
 <p>Within the terminal-block estimate just proved, maximising <span
 class="math inline" data-term-auto="off">\(\alpha-\alpha^3/6\)</span> gives <span
@@ -1648,6 +1683,16 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:carry-recurrence}
 Z_m=mZ_{m-1}+1-b_m .
 \end{equation}\]</span></div>
+<p>For example, <span
+class="math inline" data-term-auto="off">\(2!H_2=2\)</span> and <span
+class="math inline" data-term-auto="off">\(3!H_3=36/5\)</span>, so <span
+class="math inline" data-term-auto="off">\(Z_2=3\)</span> and <span
+class="math inline" data-term-auto="off">\(Z_3=8\)</span>, giving <span
+class="math inline" data-term-auto="off">\(b_3=3\cdot3+1-8=2\)</span>. We use <span
+class="math inline" data-term-auto="off">\(\lfloor x\rfloor+1\)</span>, not <span
+class="math inline" data-term-auto="off">\(\lceil x\rceil\)</span>: at the integral value
+<span class="math inline" data-term-auto="off">\(2!H_2=2\)</span>, the required strict
+successor is <span class="math inline" data-term-auto="off">\(3\)</span>.</p>
 <p>Call <span class="math inline" data-term-auto="off">\(b_m=1\)</span> a <em>unit
 carry</em>. Put <span class="math inline" data-term-auto="off">\(E_m=m!(S-H_m)\)</span> and
 <span class="math inline" data-term-auto="off">\(\varepsilon_m=1/(m!-1)\)</span>. Since <span
@@ -1663,9 +1708,9 @@ coefficients <span class="citation" data-cites="hancl-tijdeman"><a href="#ref-11
 Their scaled partial sums are integers; ours need not be, since already
 <span class="math inline" data-term-auto="off">\(3!H_3=36/5\)</span>. The next proof instead
 uses the short positive tail to identify the least integer above a
-scaled prefix under a rationality assumption. The carry-defect expansion
-in §<a class="math-ref" href="#long68:sec:ext-literature">B.2</a>
-gives a separate, direct application of factorial-series rationality
+scaled partial sum under a rationality assumption. The carry-defect
+expansion in §<a class="math-ref" href="#long68:sec:ext-literature">B.2</a> gives a
+separate, direct application of factorial-series rationality
 criteria.</p>
 <p> </p>
 <div class="theorem" id="long68:res:carry-equivalence">
@@ -1889,10 +1934,10 @@ b_m=m-1-a_m(C)+\sigma_m-m\sigma_{m-1}\qquad(m\ge3).
 \label{long68:eq:companion-wrap}
 \end{equation}\]</span></div>
 <p>When <span
-class="math inline" data-term-auto="off">\(\{m!C\}=\delta_m\)</span>, the prefix is integral
-and <span class="math inline" data-term-auto="off">\(\sigma_m=0\)</span>. For a smaller
-fractional part, subtracting even this small tail crosses an integer.
-Tail size alone therefore permits neither correction term to be
+class="math inline" data-term-auto="off">\(\{m!C\}=\delta_m\)</span>, the scaled partial sum
+is integral and <span class="math inline" data-term-auto="off">\(\sigma_m=0\)</span>. For a
+smaller fractional part, subtracting even this small tail crosses an
+integer. Tail size alone therefore permits neither correction term to be
 omitted.</p>
 </section>
 </section>
@@ -2151,7 +2196,7 @@ I_p}\frac{L^{\mathrm{blk}}_p}{d_i},\qquad
 K_p=2p^2(2p-1)! ,\]</span></div>
 <p class="display-continue">with <span
 class="math inline" data-term-auto="off">\(\rho_p\)</span> the least nonnegative
-representative. All of these depend only on a finite prefix.</p>
+representative. All of these depend only on a finite partial sum.</p>
 <p>For each prime, <span class="math inline" data-term-auto="off">\(C_p\)</span> contains the
 larger of its exponent in <span class="math inline" data-term-auto="off">\(F_p\)</span> and
 its second-largest exponent among the denominators. A prime dividing
@@ -2161,7 +2206,7 @@ class="math inline" data-term-auto="off">\(F_p\)</span>, so the argument of Theo
 and gives <span class="math inline" data-term-auto="off">\(\gcd(T_p,R_p)=1\)</span>. Thus
 <span
 class="math inline" data-term-auto="off">\(R_p=\operatorname{den}(C_pH_{2p-1})\)</span>, the
-reduced denominator of the scaled prefix, not generally of <span
+reduced denominator of the scaled partial sum, not generally of <span
 class="math inline" data-term-auto="off">\(H_{2p-1}\)</span>. When <span
 class="math inline" data-term-auto="off">\(R_p&gt;1\)</span>, this ratio is nonintegral and</p>
 <div class="math-display" id="long68:eq:gap-normalisation" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -2185,9 +2230,9 @@ class="math display" data-term-auto="off">\[C_3H_5=\frac{34264}{13685},\qquad
 \frac{\rho_3}{R_3}=3-\frac{34264}{13685}=\frac{6791}{13685}.\]</span></div>
 <p>The tail estimate in the proof below gives <span
 class="math inline" data-term-auto="off">\(C_3(S-H_5)&lt;7/1080&lt;6791/13685\)</span>. This
-verifies the comparison for one actual prefix. The theorem needs such
-prefixes at arbitrarily large <span class="math inline" data-term-auto="off">\(p\)</span>, so
-that <span class="math inline" data-term-auto="off">\(F_p\)</span> can absorb any fixed
+verifies the comparison for one partial sum. The theorem needs this
+comparison at arbitrarily large <span class="math inline" data-term-auto="off">\(p\)</span>,
+so that <span class="math inline" data-term-auto="off">\(F_p\)</span> can absorb any fixed
 rational denominator.</p>
 <div class="theorem" id="long68:res:global-residue">
 <p><strong>Theorem 5.1</strong> (a sufficient tail inequality). <em>
@@ -2430,7 +2475,7 @@ class="math inline" data-term-auto="off">\(12038\)</span>.</p>
 </section>
 <section id="carry-computation-record." class="level5">
 <h5>Carry computation record.</h5>
-<p>The carry census is the program
+<p>The carry calculation uses the program
 <code>scripts/check_erdos68_strict_successor.py</code> with the GMP
 backend <code>scripts/check_erdos68_strict_successor_gmp.cpp</code>; its
 output <code>verification/erdos68-strict-successor.json</code> records
@@ -2557,11 +2602,13 @@ two such indices, then <span class="math inline" data-term-auto="off">\(j&lt;r\)
 <span class="math inline" data-term-auto="off">\(0&lt;r^e\le j!/i!-1&lt;r^{j-i}\)</span>, so
 <span class="math inline" data-term-auto="off">\(j-i\ge e+1\)</span>. All indices lie between
 <span class="math inline" data-term-auto="off">\(2\)</span> and <span
-class="math inline" data-term-auto="off">\(2p-1\)</span>, giving the bound; the zero-hit case
-is immediate. To estimate <span class="math inline" data-term-auto="off">\(\log\widetilde
-C_p\)</span>, these exponent counts must be multiplied by <span
-class="math inline" data-term-auto="off">\(\log r\)</span> and summed over primes. A count
-ignoring the sizes of the primes does not give <a class="math-ref" data-equation-ref="true" href="#long68:eq:weighted-target">long68:eq:weighted-target</a>. For a
+class="math inline" data-term-auto="off">\(2p-1\)</span>, giving the bound when <span
+class="math inline" data-term-auto="off">\(h_{r,e}(p)&gt;0\)</span>. It also holds when <span
+class="math inline" data-term-auto="off">\(h_{r,e}(p)=0\)</span>. To estimate <span
+class="math inline" data-term-auto="off">\(\log\widetilde C_p\)</span>, these exponent counts
+must be multiplied by <span class="math inline" data-term-auto="off">\(\log r\)</span> and
+summed over primes. A count ignoring the sizes of the primes does not
+give <a class="math-ref" data-equation-ref="true" href="#long68:eq:weighted-target">long68:eq:weighted-target</a>. For a
 prime <span class="math inline" data-term-auto="off">\(q\)</span>, Wilson reflection of an
 odd index <span class="math inline" data-term-auto="off">\(n&lt;q\)</span> contributes a
 repeated divisor only when the reflected index is distinct and in the
@@ -2581,13 +2628,13 @@ class="math inline" data-term-auto="off">\(361=971-609-1\)</span>. Both indices 
 class="math inline" data-term-auto="off">\(I_{306}\)</span>, but their factorial denominators
 have <span class="math inline" data-term-auto="off">\(971\)</span>-exponents at least <span
 class="math inline" data-term-auto="off">\(2\)</span> and exactly <span
-class="math inline" data-term-auto="off">\(1\)</span>, respectively. Thus reflection supplies
-two hits modulo <span class="math inline" data-term-auto="off">\(q\)</span>, not necessarily
-modulo <span class="math inline" data-term-auto="off">\(q^e\)</span> for <span
-class="math inline" data-term-auto="off">\(e&gt;1\)</span>. Each level in the valuation sum
-requires its own congruence; neither distinctness nor a higher exponent
-may be inferred from the prime-level identity alone. Theorem 12 of
-Garaev, Luca and Shparlinski <span class="citation"
+class="math inline" data-term-auto="off">\(1\)</span>, respectively. Thus both indices
+satisfy the congruence modulo <span class="math inline" data-term-auto="off">\(q\)</span>,
+but need not satisfy it modulo <span class="math inline" data-term-auto="off">\(q^e\)</span>
+for <span class="math inline" data-term-auto="off">\(e&gt;1\)</span>. Each level in the
+valuation sum requires its own congruence; neither distinctness nor a
+higher exponent may be inferred from the prime-level identity alone.
+Theorem 12 of Garaev, Luca and Shparlinski <span class="citation"
 data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span> is a multiplicity bound and
 supplies no lower bound for the distance to the next integer in <a class="math-ref" data-equation-ref="true" href="#long68:eq:global-scale">long68:eq:global-scale</a>.</p>
 <p>For the first inequality alone, a joint mean bound</p>
@@ -2791,7 +2838,7 @@ class="math inline" data-term-auto="off">\(d=2,\ldots,n+2\)</span>. Here the fac
 formula is also allowed at index <span class="math inline" data-term-auto="off">\(0\)</span>;
 the case <span class="math inline" data-term-auto="off">\(t=0\)</span> will show why a lower
 support condition is necessary. Form the integer matrix <span
-class="math inline" data-term-auto="off">\(A\)</span> with moment row <span
+class="math inline" data-term-auto="off">\(A\)</span> with first row <span
 class="math inline" data-term-auto="off">\((i_j!)_j\)</span> and weighted-sum rows <span
 class="math inline" data-term-auto="off">\((W_{d,i_j})_j\)</span> for <span
 class="math inline" data-term-auto="off">\(2\le d\le n+2\)</span>.</p>
@@ -2814,7 +2861,7 @@ class="citation" data-cites="nist-vandermonde"></span>, and is therefore
 nonzero. None of the row or column factors removed is zero, so the
 original determinant is nonzero too.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(c\)</span> be the cofactor vector of
-the moment row, and let <span class="math inline" data-term-auto="off">\(N_d\)</span> be the
+the first row, and let <span class="math inline" data-term-auto="off">\(N_d\)</span> be the
 determinant obtained by replacing that row with <span
 class="math inline" data-term-auto="off">\((W_{d,i_j})_j\)</span>. Cofactor expansion gives
 <span class="math inline" data-term-auto="off">\(M(c)=\det A\ne0\)</span> and <span
@@ -2832,7 +2879,7 @@ R_{n,t}:=\sum_{d&gt;n+2}\frac{N_d}{d!-1},\qquad
 class="math inline" data-term-auto="off">\(\min_ji_j=t\,s_n\to\infty\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathcal R_{n,t}\notin\Z\)</span> would prove
 irrationality. Indeed, for a fixed denominator <span
-class="math inline" data-term-auto="off">\(q\)</span>, every entry of the moment row is
+class="math inline" data-term-auto="off">\(q\)</span>, every entry of the first row is
 divisible by <span class="math inline" data-term-auto="off">\(q\)</span> once the least
 support index is at least <span class="math inline" data-term-auto="off">\(q\)</span>, so
 <span class="math inline" data-term-auto="off">\(q\mid\det A\)</span>. If <span
@@ -2861,7 +2908,7 @@ equations. What is still needed here is a proof that the particular sum
 is nonintegral, whether by a gap estimate or another arithmetic
 argument.</p>
 <p>For <span class="math inline" data-term-auto="off">\(t\ge1\)</span>, primitive
-normalization identifies this vector exactly. Take <span
+normalisation identifies this vector exactly. Take <span
 class="math inline" data-term-auto="off">\(D=n+2\)</span>, <span
 class="math inline" data-term-auto="off">\(\ell=s_n\)</span> and <span
 class="math inline" data-term-auto="off">\(r=t s_n\)</span> in the progression construction
@@ -2882,18 +2929,20 @@ class="math inline" data-term-auto="off">\(N\)</span>, so every integer solution
 integer multiple, with multiplier <span
 class="math inline" data-term-auto="off">\(c_N\)</span>. In particular, the cofactor gcd is
 <span class="math inline" data-term-auto="off">\(|c_N|\)</span>, and the primitive cofactor
-vector is the progression vector up to sign. With the sign chosen so
-that its moment is positive, that moment equals</p>
+vector is the progression vector up to sign. Choosing the sign so that
+<span class="math inline" data-term-auto="off">\(M&gt;0\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[N!\prod_{d=2}^D\bigl(1-(d!)^{-\ell/d}\bigr).\]</span></div>
 <p>For example, <span class="math inline" data-term-auto="off">\(n=0,t=1\)</span> gives support
 <span class="math inline" data-term-auto="off">\(\{4,8\}\)</span>, cofactor vector <span
-class="math inline" data-term-auto="off">\(2520e_4-6e_8\)</span>, and positive-moment
-primitive vector <span class="math inline" data-term-auto="off">\(-420e_4+e_8\)</span>.</p>
-<p>The factorial divisibility proved for the progression moment
-therefore also applies to this primitive vector. Normalization still
-leaves the nonintegrality condition equivalent to irrationality along
-families whose least support index tends to infinity: the moment is
+class="math inline" data-term-auto="off">\(2520e_4-6e_8\)</span>, and primitive vector <span
+class="math inline" data-term-auto="off">\(-420e_4+e_8\)</span> with <span
+class="math inline" data-term-auto="off">\(M&gt;0\)</span>.</p>
+<p>The factorial divisibility proved for the progression coefficient
+<span class="math inline" data-term-auto="off">\(M\)</span> therefore also applies to this
+primitive vector. Normalisation still leaves the nonintegrality
+condition equivalent to irrationality along families whose least support
+index tends to infinity: <span class="math inline" data-term-auto="off">\(M\)</span> is
 nonzero, every factorial below that index divides it, and <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a>
 gives the integer-difference identity. This identification does not
 estimate the distance from an integer. The case <span
@@ -2950,10 +2999,10 @@ finite computation alone does not establish it.</p>
 <p>The margin marks and the table below identify the recorded Lean
 statements and supporting formulas at their original revisions. A link
 to a nearby statement does not certify a further deduction in the prose.
-The two prefix cancellations, the index-<span
+The two partial-sum cancellations, the index-<span
 class="math inline" data-term-auto="off">\(52\)</span> example and the continued-fraction
 enclosure use the finite integer calculations described above. The carry
-census through <span class="math inline" data-term-auto="off">\(300000\)</span> uses a
+computation through <span class="math inline" data-term-auto="off">\(300000\)</span> uses a
 separate exact-interval computation outside Lean, described in §<a class="math-ref" href="#long68:sec:finite">6</a>.</p>
 <table>
 <thead>
@@ -3116,7 +3165,7 @@ class="math inline" data-term-auto="off">\(C=S-e+2\)</span> gives the eventual d
 family. The comparison with Hančl and Tijdeman <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span> concerns factorial scaling: their
 lemma makes a scaled tail integral, whereas the proof in §<a class="math-ref" href="#long68:sec:carry">4</a> identifies the
-next integer above a generally nonintegral scaled prefix. The
+next integer above a generally nonintegral scaled partial sum. The
 multiplicity bound is Garaev, Luca and Shparlinski’s <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, and the
 lcm deduction from it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">3.2</a> is the case
@@ -3189,7 +3238,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 prime-product bound gives a late first occurrence</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231">a
-reflected prime survives normalization under the block and upper-half
+reflected prime survives normalisation under the block and upper-half
 hypotheses</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252">two
@@ -3219,13 +3268,15 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 when the floor in the weights is constant</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91">vanishing
-of the moment on one such interval</a></p></li>
+of the value of <span class="math inline" data-term-auto="off">\(M\)</span> on one such
+interval</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101">factorisation
 on the interval from d to twice d</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130">a
-nonzero moment forces an index at least twice d</a></p></li>
+nonzero value of <span class="math inline" data-term-auto="off">\(M\)</span> forces an index
+at least twice d</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868">a
 cubic lower bound for the support parameter</a></p></li>
@@ -3728,8 +3779,9 @@ theorems. Their proof of Theorem 3 uses the classical criterion, which
 they trace to Fourier’s proof that <span
 class="math inline" data-term-auto="off">\(e\)</span> is irrational, that a rational sum of
 nonnegative rationals with infinitely many positive terms admits no
-prefix-clearing integers <span class="math inline" data-term-auto="off">\(D_N\)</span> with
-<span class="math inline" data-term-auto="off">\(\liminf_ND_Nr_N=0\)</span>, where <span
+integers <span class="math inline" data-term-auto="off">\(D_N\)</span> clearing the
+denominators of the partial sums with <span
+class="math inline" data-term-auto="off">\(\liminf_ND_Nr_N=0\)</span>, where <span
 class="math inline" data-term-auto="off">\(r_N\)</span> is the tail after <span
 class="math inline" data-term-auto="off">\(N\)</span> terms <span class="citation"
 data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>; their Proposition 12 produces such
@@ -3751,7 +3803,7 @@ Z_{&gt;0},
 \qquad \operatorname{den}(H_N)(S-H_N)\ge\frac1q.\]</span></div>
 <p>Thus <span
 class="math inline" data-term-auto="off">\(\liminf_N\operatorname{den}(H_N)(S-H_N)=0\)</span>
-is a sufficient target for this prefix-clearing criterion; the preceding
+is a sufficient target for this rationality criterion; the preceding
 common-denominator estimates do not establish it.</p>
 <p>Dividing the recurrence <span
 class="math inline" data-term-auto="off">\(Z_m=mZ_{m-1}+1-b_m\)</span> by <span
@@ -3844,12 +3896,13 @@ theorem. The deduction is retained because it is the only place a
 multiplicity bound enters the record.</p>
 <p>Dividing all coefficients by their gcd does not evade the lcm
 restriction: the resulting integer vector still has <span
-class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span>, so its moment is still
-divisible by <span class="math inline" data-term-auto="off">\(L_D\)</span>. For the nonzero
-cofactor vector in §<a class="math-ref" href="#long68:sec:open">7</a>, normalization is
-justified by the elementary argument given there. It supplies no proof
-that the remainder is nonintegral. No formalised primitive cofactor
-construction is claimed here.</p>
+class="math inline" data-term-auto="off">\(V_2=\cdots=V_D=0\)</span>, so its value of <span
+class="math inline" data-term-auto="off">\(M\)</span> is still divisible by <span
+class="math inline" data-term-auto="off">\(L_D\)</span>. For the nonzero cofactor vector in
+§<a class="math-ref" href="#long68:sec:open">7</a>,
+normalisation is justified by the elementary argument given there. It
+supplies no proof that the remainder is nonintegral. No formalised
+primitive cofactor construction is claimed here.</p>
 </section>
 <section id="long68:sec:ext-plateau" class="level3">
 <h3>Rational grid points and first crossings</h3>
@@ -3951,8 +4004,8 @@ factorial scale is divisible by <span
 class="math inline" data-term-auto="off">\((k!)^K\)</span>, the scaled finite sum is integral
 and only the last term retains the factor <span
 class="math inline" data-term-auto="off">\(k!-1\)</span> in its denominator. The identity
-isolates one residual fraction before exact bounding, and it supplies no
-cofinal family of nonzero residuals.</p>
+isolates one remaining fraction before exact bounding, and it supplies
+no cofinal family of nonzero residuals.</p>
 <p>The earlier record rejects a proposed divisibility strengthening of
 the first-crossing bound and reports examples at <span
 class="math inline" data-term-auto="off">\(m=52\)</span> and <span
@@ -4035,7 +4088,7 @@ class="math inline" data-term-auto="off">\(D_p\)</span> is divisible by <span
 class="math inline" data-term-auto="off">\(r^{e+v_r(F_p)}\)</span>, which in the block forces
 two distinct denominators to be divisible by that higher power, by the
 second-largest-valuation formula. If <span
-class="math inline" data-term-auto="off">\(i&lt;j\)</span> are two such hits and <span
+class="math inline" data-term-auto="off">\(i&lt;j\)</span> are two such indices and <span
 class="math inline" data-term-auto="off">\(f=v_r(F_p)\)</span>, then <span
 class="math inline" data-term-auto="off">\(r^{e+f}\mid j!/i!-1\)</span>. Since <span
 class="math inline" data-term-auto="off">\(r\mid j!-1\)</span> forces <span
@@ -4094,8 +4147,10 @@ class="math inline" data-term-auto="off">\(r^{e+v_r(F_p)}\mid j!-1\)</span> and 
 class="math inline" data-term-auto="off">\(r^{e+v_r(F_p)}\le j^{\,j-i}\)</span>; consequently
 <span class="math inline" data-term-auto="off">\((2p-1)^d&lt;r^{e+v_r(F_p)}\)</span> forces
 <span class="math inline" data-term-auto="off">\(d&lt;j-i\)</span>. The required spacing
-follows directly: any two <span class="math inline" data-term-auto="off">\(r^e\)</span>-hits
-<span class="math inline" data-term-auto="off">\(i&lt;j\)</span> satisfy <span
+follows directly: any two indices <span
+class="math inline" data-term-auto="off">\(i&lt;j\)</span> with <span
+class="math inline" data-term-auto="off">\(r^e\mid i!-1\)</span> and <span
+class="math inline" data-term-auto="off">\(r^e\mid j!-1\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(e&lt;j-i\)</span>, because <span
 class="math inline" data-term-auto="off">\(r\mid j!-1\)</span> already forces <span
 class="math inline" data-term-auto="off">\(j&lt;r\)</span> and the inequality for <span
@@ -4129,11 +4184,12 @@ class="math inline" data-term-auto="off">\(\rho_p/R_p\)</span>.</p>
 <p>The available squarefreeness evidence is finite. An exhaustive
 modular scan through <span
 class="math inline" data-term-auto="off">\(r\le2{,}000{,}000\)</span> and <span
-class="math inline" data-term-auto="off">\(n\le240\)</span> found four individual square hits
-and no prime with two such hits. All <span
-class="math inline" data-term-auto="off">\(498{,}501\)</span> pairs <span
-class="math inline" data-term-auto="off">\(2\le a&lt;b\le1000\)</span> have squarefree <span
-class="math inline" data-term-auto="off">\(\gcd(a!-1,b!-1)\)</span>. An aggregate scan
+class="math inline" data-term-auto="off">\(n\le240\)</span> found four pairs <span
+class="math inline" data-term-auto="off">\((r,n)\)</span> with <span
+class="math inline" data-term-auto="off">\(r^2\mid n!-1\)</span> and no prime occurring in
+two such pairs. All <span class="math inline" data-term-auto="off">\(498{,}501\)</span> pairs
+<span class="math inline" data-term-auto="off">\(2\le a&lt;b\le1000\)</span> have squarefree
+<span class="math inline" data-term-auto="off">\(\gcd(a!-1,b!-1)\)</span>. An aggregate scan
 through <span class="math inline" data-term-auto="off">\(p=499\)</span> also reports a ratio
 below <span class="math inline" data-term-auto="off">\(0.374\)</span>, but does not specify
 its logarithmic normalisation; that ratio is not used as a quantitative
@@ -4143,11 +4199,13 @@ bound or a proof of squarefreeness at all indices.</p>
 the product of a chosen set of primes, each at least <span
 class="math inline" data-term-auto="off">\(5\)</span>, with <span
 class="math inline" data-term-auto="off">\(\prod_{2\le k\le B}(k!-1)\)</span>; if the prime
-product is larger, at least one chosen prime has no hit through <span
-class="math inline" data-term-auto="off">\(B\)</span>, while Wilson still bounds its least
-hit by <span class="math inline" data-term-auto="off">\(q-2\)</span>. Wilson reflection
-limits what a linear-size divisor can be assumed to be: if <span
-class="math inline" data-term-auto="off">\(n\)</span> is odd, <span
+product is larger, at least one chosen prime <span
+class="math inline" data-term-auto="off">\(q\)</span> divides no <span
+class="math inline" data-term-auto="off">\(k!-1\)</span> with <span
+class="math inline" data-term-auto="off">\(2\le k\le B\)</span>, while Wilson’s theorem
+bounds its first occurrence by <span class="math inline" data-term-auto="off">\(q-2\)</span>.
+Wilson reflection limits what a linear-size divisor can be assumed to
+be: if <span class="math inline" data-term-auto="off">\(n\)</span> is odd, <span
 class="math inline" data-term-auto="off">\(n&lt;q\)</span>, and <span
 class="math inline" data-term-auto="off">\(q\mid n!-1\)</span>, then <span
 class="math inline" data-term-auto="off">\(q\mid(q-n-1)!-1\)</span>. Suppose also that <span
@@ -4191,11 +4249,11 @@ class="math inline" data-term-auto="off">\(2\le k\le9\)</span> is <span
 class="math inline" data-term-auto="off">\(k=9\)</span>, although <span
 class="math inline" data-term-auto="off">\(11/9&lt;(\sqrt{145}-1)/8\)</span>. A small ratio
 <span class="math inline" data-term-auto="off">\(q/n\)</span> therefore supplies neither a
-second admissible hit nor membership of a reflected index in the chosen
-block. The earlier reflection argument needs both block-membership
-hypotheses and distinct indices. Neither the required estimate at first
-occurrences nor a bound for the total shared part follows from the
-transferred least-prime-factor estimate alone.</p>
+second admissible index nor membership of a reflected index in the
+chosen block. The earlier reflection argument needs both
+block-membership hypotheses and distinct indices. Neither the required
+estimate at first occurrences nor a bound for the total shared part
+follows from the transferred least-prime-factor estimate alone.</p>
 <p>For a selected prime <span class="math inline" data-term-auto="off">\(q\mid R_p\)</span>,
 the factors <span class="math inline" data-term-auto="off">\(1\)</span> and <span
 class="math inline" data-term-auto="off">\(q\)</span> are coprime, and the associated moduli
@@ -4220,50 +4278,76 @@ residues would equal <span class="math inline" data-term-auto="off">\(T\)</span>
 </section>
 <section id="long68:sec:ext-certificates" class="level3">
 <h3>Finite vectors and exact numerical examples</h3>
-<p>The vector <span class="math inline" data-term-auto="off">\(12K_4+253U_6-11U_8\)</span>
-constructed in §<a class="math-ref" href="#long68:sec:channels">1</a> has moment
-<span class="math inline" data-term-auto="off">\(1380\)</span>. By Theorem <a class="math-ref" href="#long68:res:residual-transparency">1.4</a>,
-its remainder is <span class="math inline" data-term-auto="off">\(242+1380(S-H_4)\)</span>.
-The five-term vector in the short paper has the same moment and
-remainder <span class="math inline" data-term-auto="off">\(1380(S-H_4)-44\)</span>, smaller
-by <span class="math inline" data-term-auto="off">\(286\)</span>. We can bound both using the
-same finite rational calculation:</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[255+\frac45
+<p>The three depth-four vectors below all have <span
+class="math inline" data-term-auto="off">\(M=1380\)</span>. By Theorem <a class="math-ref" href="#long68:res:residual-transparency">1.4</a>,
+their remainders differ only by integers. A single finite calculation
+therefore tests all three:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[255+\frac45
 &lt;242+1380\sum_{d=5}^{8}\frac1{d!-1}
 &lt;255+\frac56,
 \qquad \frac{2\cdot1380}{9!-1}&lt;\frac1{100}.\]</span></div>
-<p>The tail bound
-therefore places the remainder strictly between <span
-class="math inline" data-term-auto="off">\(255\)</span> and <span
-class="math inline" data-term-auto="off">\(256\)</span>. The fractional part excludes
-denominators dividing <span class="math inline" data-term-auto="off">\(1380\)</span>,
-regardless of this remainder’s integer part. This illustrates the
-signed-sum test in the short paper; the larger finite exclusions already
-imply the same denominator restriction. The five-term vector in §<a class="math-ref" href="#long68:sec:channels">1</a> has the same
-moment and residual <span class="math inline" data-term-auto="off">\(1380(S-H_4)-44\)</span>,
-exactly <span class="math inline" data-term-auto="off">\(286\)</span> less than the preceding
-remainder, hence strictly between <span
-class="math inline" data-term-auto="off">\(-31\)</span> and <span
-class="math inline" data-term-auto="off">\(-30\)</span>. The horizon-eight norm minimizer has
-residual <span class="math inline" data-term-auto="off">\(1380(S-H_4)-56\)</span>, strictly
-between <span class="math inline" data-term-auto="off">\(-43\)</span> and <span
-class="math inline" data-term-auto="off">\(-42\)</span>. These integer translations give the
-same fractional obstruction with smaller coefficients; they do not
-settle the irrationality of <span class="math inline" data-term-auto="off">\(S\)</span>. The
-exact offsets are reproduced by
+<p>The first
+remainder lies strictly between <span class="math inline" data-term-auto="off">\(255\)</span>
+and <span class="math inline" data-term-auto="off">\(256\)</span>. Subtracting the
+corresponding integer offsets gives the other two intervals.</p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th class="ta-l">Vector</th>
+<th class="ta-r"><span
+class="math inline" data-term-auto="off">\(k\)</span></th>
+<th class="ta-r">Interval for <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(12K_4+253U_6-11U_8\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(242\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\((255,256)\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">The five-term vector <a class="math-ref" data-equation-ref="true" href="#long68:eq:constructed-depth-four">long68:eq:constructed-depth-four</a></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(-44\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\((-31,-30)\)</span></td>
+</tr>
+<tr>
+<td class="ta-l">The norm minimizer on <span
+class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(-56\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\((-43,-42)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here <span class="math inline" data-term-auto="off">\(\mathcal R=1380(S-H_4)+k\)</span>.
+The five-term remainder is <span class="math inline" data-term-auto="off">\(286\)</span> less
+than the first, and the norm-minimising remainder is another <span
+class="math inline" data-term-auto="off">\(12\)</span> less. All three exclude exactly the
+same divisors of <span class="math inline" data-term-auto="off">\(1380\)</span> by this
+argument. The coefficient and support improvements in §<a class="math-ref" href="#long68:sec:basis-examples">1.2</a> do not
+enlarge that set of exclusions; the larger finite computations in §<a class="math-ref" href="#long68:sec:finite">6</a> already imply it.
+The exact offsets are reproduced by
 <code>scripts/check_erdos68_channel_moment.py</code>.</p>
 <p>The finite-support vector <span
 class="math inline" data-term-auto="off">\(\lambda=2e_3-e_4\)</span> has, by kernel check,
-<span class="math inline" data-term-auto="off">\(V_{2}(\lambda)=0\)</span>, factorial moment
-<span class="math inline" data-term-auto="off">\(-12\)</span>, <span
+<span class="math inline" data-term-auto="off">\(V_{2}(\lambda)=0\)</span>, <span
+class="math inline" data-term-auto="off">\(M=-12\)</span>, <span
 class="math inline" data-term-auto="off">\(V_{3}(\lambda)=-2\)</span>, <span
 class="math inline" data-term-auto="off">\(V_{4}(\lambda)=11\)</span>, and <span
 class="math inline" data-term-auto="off">\(V_{d}(\lambda)=-12\)</span> for every <span
 class="math inline" data-term-auto="off">\(d\ge5\)</span>. Under the exact tail enclosure
 <span
 class="math inline" data-term-auto="off">\(1/119&lt;\sum_{d\ge5}1/(d!-1)&lt;1/50\)</span> its
-residual lies strictly between <span
+remainder lies strictly between <span
 class="math inline" data-term-auto="off">\(-93/575\)</span> and <span
 class="math inline" data-term-auto="off">\(-309/13685\)</span>, so it is nonzero and has
 absolute value less than <span class="math inline" data-term-auto="off">\(1\)</span>.</p>
@@ -4272,12 +4356,13 @@ computation verifies the vectors <span
 class="math inline" data-term-auto="off">\(K_D\)</span> for every <span
 class="math inline" data-term-auto="off">\(2\le D\le12\)</span>: weighted sums <span
 class="math inline" data-term-auto="off">\(2\)</span> through <span
-class="math inline" data-term-auto="off">\(D\)</span> vanish, the factorial moment is <span
-class="math inline" data-term-auto="off">\(L_D\)</span>, and the coefficients have gcd one.
+class="math inline" data-term-auto="off">\(D\)</span> vanish, <span
+class="math inline" data-term-auto="off">\(M=L_D\)</span>, and the coefficients have gcd one.
 They lie outside the space of vectors supported on <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>, since <span
-class="math inline" data-term-auto="off">\(L_D\)</span> is odd and every such vector has even
-moment. At <span class="math inline" data-term-auto="off">\(D=9\)</span>,</p>
+class="math inline" data-term-auto="off">\(L_D\)</span> is odd whereas <span
+class="math inline" data-term-auto="off">\(M\)</span> is even for every such vector. At <span
+class="math inline" data-term-auto="off">\(D=9\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_9=31540008254514077395,\qquad
 a_9=[e_1]K_9=-3902884074990939115 .\]</span></div>
@@ -4297,8 +4382,8 @@ supported on <span class="math inline" data-term-auto="off">\(n\ge2\)</span>: th
 <span class="math inline" data-term-auto="off">\(c=(-40,55,-10,1)\)</span> on the support
 <span class="math inline" data-term-auto="off">\((3,4,5,6)\)</span> annihilates weighted sums
 <span class="math inline" data-term-auto="off">\(2\)</span> and <span
-class="math inline" data-term-auto="off">\(3\)</span>, has moment <span
-class="math inline" data-term-auto="off">\(600\)</span>, and satisfies</p>
+class="math inline" data-term-auto="off">\(3\)</span>, has <span
+class="math inline" data-term-auto="off">\(M=600\)</span>, and satisfies</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0.09925341997208298&lt;\mathcal
 R(c)&lt;0.09925341997208300 ,\]</span></div>
@@ -4309,7 +4394,7 @@ statement that no lower-interval event <span
 class="math inline" data-term-auto="off">\(m\theta_{m-1}&lt;E_m\)</span> occurs at any <span
 class="math inline" data-term-auto="off">\(3\le m\le100000\)</span>; its executable and
 source digest are not available, so that classification remains external
-finite evidence. The carry census through <span
+finite evidence. The carry computation through <span
 class="math inline" data-term-auto="off">\(300000\)</span> used in the short note is the
 exact GMP computation recorded in Section <a class="math-ref" href="#long68:sec:finite">6</a>, with the
 separate calculation through <span class="math inline" data-term-auto="off">\(4000\)</span>;
@@ -4332,8 +4417,8 @@ class="math inline" data-term-auto="off">\(m\ge3\)</span> gives <span
 class="math inline" data-term-auto="off">\(Z_m=mZ_{m-1}+1-b_m\)</span> and <span
 class="math inline" data-term-auto="off">\(-1\le b_m\le m-1\)</span>, with the actual initial
 value <span class="math inline" data-term-auto="off">\(Z_2=3\)</span>. But it gives <span
-class="math inline" data-term-auto="off">\(Z_3=9\)</span>, whereas the actual prefix <span
-class="math inline" data-term-auto="off">\(H_3=6/5\)</span> gives <span
+class="math inline" data-term-auto="off">\(Z_3=9\)</span>, whereas the actual partial sum
+<span class="math inline" data-term-auto="off">\(H_3=6/5\)</span> gives <span
 class="math inline" data-term-auto="off">\(Z_3=8\)</span>. This example only disproves
 sufficiency of the stated recurrence, bounds and initial integer. It
 fails the floor definition. No claim is made that it satisfies the
@@ -4356,11 +4441,13 @@ class="math inline" data-term-auto="off">\(L_N\)</span>, and <span
 class="math inline" data-term-auto="off">\(L_N(S-H_N)\to\infty\)</span> by §<a class="math-ref" href="#long68:sec:lcm">3</a>. The conclusion
 concerns this clearing factor alone; Hermite–Padé systems with other
 denominators are not ruled out.</p></li>
-<li><p>Changing a coefficient vector without changing its moment changes
-the residual by an integer only. Also, cancelling the first <span
+<li><p>Changing a coefficient vector without changing its value of <span
+class="math inline" data-term-auto="off">\(M\)</span> changes the remainder by an integer
+only. Also, cancelling the first <span
 class="math inline" data-term-auto="off">\(D-1\)</span> weighted sums forces <span
-class="math inline" data-term-auto="off">\(L_D\)</span> to divide the moment; factorial
-divisibility does not remove that constraint.</p></li>
+class="math inline" data-term-auto="off">\(L_D\)</span> to divide the value of <span
+class="math inline" data-term-auto="off">\(M\)</span>; factorial divisibility does not remove
+that constraint.</p></li>
 <li><p>A fixed pair of denominator indices cannot make the projection
 argument work at arbitrarily large parameters, because their factors
 eventually divide the factorial being removed.</p></li>
@@ -4420,7 +4507,8 @@ imposing any equidistribution hypothesis.</p>
 rational enclosure gives the denominator-size restriction in §<a class="math-ref" href="#long68:sec:finite">6</a>. The coefficient
 construction gives forms <span class="math inline" data-term-auto="off">\(\mathcal
 R(c)=M(c)S+k\)</span>, <span class="math inline" data-term-auto="off">\(k\in\Z\)</span>. At a
-fixed moment, varying the coefficients changes only the integer <span
+fixed value of <span class="math inline" data-term-auto="off">\(M\)</span>, varying the
+coefficients changes only the integer <span
 class="math inline" data-term-auto="off">\(k\)</span>. The primitive cofactor construction on
 the stated progression gives the same vector up to sign, so it does not
 supply an additional family.</p>
@@ -4443,9 +4531,10 @@ and saying how restrictive a conditional hypothesis is. His advice
 concerned the writing of another note; he has not reviewed the
 mathematics of this paper. An AI research pass supplied by Will Cook
 derived the depth-four dual congruence and shorter vectors from the
-factorial-channel definitions and general moment-ideal theory developed
-earlier here. OpenAI Codex checked and integrated them; a separate AI
-pass reviewed the proof.</p>
+weighted linear forms and the classification of their possible
+coefficients <span class="math inline" data-term-auto="off">\(M\)</span> developed earlier
+here. OpenAI Codex checked and integrated them; a separate AI pass
+reviewed the proof.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

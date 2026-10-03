@@ -47,9 +47,10 @@
 \begin{abstract}
 We give a sparse perturbation construction for convergent dyadic series
 with nonnegative integer coefficients, together with exact criteria for
-the prime-gap series.  Fixed-total pairs allow the weighted sum to range
-over an interval while preserving eventual congruences, with permitted
-indices and cutoffs independent of the target.  Applied to prime gaps,
+the prime-gap series.  Varying adjacent corrections with a fixed sum gives an interval of
+dyadic sums while preserving eventual congruences.  One sparse set contains
+all correction supports, and the congruence cutoffs are independent of
+the value attained.  Applied to prime gaps,
 the construction preserves growing-block statistics and cumulative size
 $n\log n$, without ensuring primality.  The actual tails satisfy a
 recurrence whose integral shifts characterise rationality.  We give
@@ -73,20 +74,19 @@ what would be needed from the actual prime-gap tails.
 
 Our main construction is Theorem~\ref{long251:res:sparse-rationalisation}.
 For any convergent dyadic series with nonnegative integer coefficients,
-we choose one sparse set of permitted indices and then attain every
-target in an interval by adding corrections on that set.  The corrections
+we choose one sparse set containing all correction supports.  By varying
+the corrections on this set, we attain every value in an interval.  The corrections
 can grow arbitrarily slowly, and every fixed modulus eventually divides
 both their terms and their partial sums, with cutoffs fixed before the
 target.  The construction varies adjacent entries while keeping their
 ordinary sum fixed.  This separates the choice of weighted sum from
 the subsequent congruence calculations.
 
-With a polylogarithmic allowance we also preserve empirical blocks of
+With a polylogarithmic bound on the corrections we also preserve empirical blocks of
 length $o(\log\log X)$.  Applied to prime gaps, the theorem gives rational
 sums and cumulative positions asymptotic to $n\log n$.  These positions
-are comparison integers and are not shown to be prime.  Thus the result
-tests how much the specified congruences and statistics can determine;
-it leaves the irrationality of the actual prime series unresolved.
+are comparison integers and are not shown to be prime.  These congruences and statistics are therefore compatible with a rational
+sum.  The irrationality of the actual prime series remains unresolved.
 
 The proofs about the actual primes begin in
 Section~\ref{long251:sec:parts} and are independent of the sparse
@@ -111,8 +111,9 @@ For reference, the first primes and gaps are
   g_i & 1&2&2&4&2 &4 &2&4&6&2
  \end{array}
 \]
-Thus $g_0=1$ and all later gaps are even, a fact used by the signed-window
-test.  The alternative normalisation with denominator $2^i$ satisfies
+Thus $g_0=1$ and all later gaps are even.  This parity restriction will be
+used to characterise two consecutive tail differences of absolute value
+less than one.  The alternative normalisation with denominator $2^i$ satisfies
 \[
  \sum_{i=0}^{n-1}\frac{p_i}{2^i}
  =2\sum_{i=0}^{n-1}\frac{p_i}{2^{i+1}},
@@ -130,8 +131,8 @@ A sequence is eventually periodic with period $h\ge1$ if
 $a_{n+h}=a_n$ for every sufficiently large $n$.  A set of indices has
 density zero if its counting function is $o(x)$, and a property holds
 for almost all indices if its exceptional set has density zero.
-We use \emph{cofinally} to mean at arbitrarily large indices, which
-allows a set of density zero.  An empty sum is zero.
+A property may hold at arbitrarily large indices even when those indices
+form a set of density zero.  An empty sum is zero.
 
 \section{Sparse congruence-preserving perturbations}
 \label{long251:sec:paired-corrections}
@@ -150,7 +151,7 @@ density zero, but also makes each weighted contribution smaller.  We
 compensate by increasing the range of choices inside a pair.  The estimate
 \eqref{long251:eq:sparse-overlap} shows that all later ranges together
 cover the gap between adjacent choices at the current stage.
-We choose the permitted set and the resulting interval before any target.
+The set containing the supports and the interval of sums are chosen before the value to be attained.
 
 \paragraph{Density and block conventions.}
 All intervals of indices contain integers, and $\log$ is natural unless
@@ -195,14 +196,14 @@ quantity times $B_0$, also for tests depending on the starting index.
 \end{theorem}
 
 The hypotheses allow any nonnegative integer sequence of polynomial
-growth, but not $a_n=2^n$, whose dyadic series diverges.  The correction
-allowance can grow as slowly as $\log\log(n+3)$.  A fixed bound is not
+growth, but not $a_n=2^n$, whose dyadic series diverges.  The bound on the
+corrections can grow as slowly as $\log\log(n+3)$.  A fixed bound is not
 possible here: eventual boundedness together with eventual divisibility
 by every fixed modulus would make the corrections eventually zero; their
 fixed total would then have to be divisible by every modulus and hence be
 zero.  Nonnegative corrections could not change the sum.
-The set $S$ contains every permitted correction index; the nonzero
-corrections may occupy a smaller, target-dependent subset.  Requiring
+The supports of all corrections lie in $S$, but each may be a proper
+subset depending on the value of the sum.  Requiring
 upper Banach density zero is stronger than requiring ordinary density
 zero.  For example, the union of the integer intervals
 $[k!,k!+k)$, $k\ge3$, has ordinary density zero but upper Banach density
@@ -214,12 +215,13 @@ apart those intervals lie.
 \begin{proof}
 \emph{Fixed totals.}
 At stage $j$ we put a correction at $n_j-1$ and a variable pair at
-$n_j,n_j+1$.  We keep the pair's ordinary sum fixed, so that its choice leaves the
-residue to be cleared at every later stage unchanged.
+$n_j,n_j+1$.  We keep the pair's ordinary sum fixed.  Consequently, the residue to be
+cancelled at a later stage is independent of all earlier pair choices.
 Let $n_{-1}\ge K$, write $s_j=n_j-n_{j-1}\ge4$, and take positive
-integers $M_j$ with $M_j\mid M_{j+1}$.  The actual centres and moduli
-will be chosen below.  Put $D_j=2^{s_j}-1$; we will see shortly why
-this digit range compensates for the spacing $s_j$.
+integers $M_j$ with $M_j\mid M_{j+1}$.  For now let $D_j$ be a positive
+integer bounding the digit at stage $j$.  We first describe the corrections
+for these parameters, then choose them to obtain both sparsity and an
+interval of sums.
 
 Starting from $C_0=0$, define
 \[
@@ -258,16 +260,19 @@ both pair entries.  The intervening corrections are zero.  Hence
 \[
  q\mid e_n,\qquad q\mid\sum_{i<n}e_i\qquad(n\ge n_J).
 \]
-The entry $c_J$ lies at $n_J-1$, just before this cutoff; it need not
-itself be divisible by $q$.  This explains both the placement of the
-residue correction and the target independence of the cutoff.
+The entry $c_J$ need not be divisible by $q$, which is why it is placed at
+$n_J-1$, before the cutoff.  The index $n_J$ depends on $q$ and the chosen
+moduli, but not on the digits or the value to be attained.
 
 \par\medskip\noindent\emph{Spacing and size.}
-The variable part at stage $j$ has spacing $w_j$ and maximum $D_jw_j$.
-We arrange that the later variable parts have enough total range
-to cover one spacing $w_j$.  Our choice $D_i=2^{s_i}-1$ gives
+The variable part at stage $j$ takes the values $0,w_j,\ldots,D_jw_j$.
+To fill the gaps between these choices, we need the later variable parts
+to have total range at least $w_j$.  This suggests making each later
+range a difference of successive dyadic scales.  We therefore choose
+$D_i=2^{s_i}-1$, for which
 \[
- D_iw_i=M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).
+ D_iw_i=(2^{n_i-n_{i-1}}-1)M_i2^{-n_i-2}
+       =M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).
 \]
 Because $M_i\ge M_j$ for $i>j$, replacing every later modulus by $M_j$
 gives the finite estimate
@@ -279,13 +284,14 @@ gives the finite estimate
  &=w_j-M_j2^{-n_J-2}\qquad(J>j).
  \end{aligned}
 \end{equation}
-Thus increasing the spacing does not destroy interval covering, provided
-we pay for the corresponding digit range.  Every entry of
-\eqref{long251:eq:sparse-triple} is at most $M_j2^{s_j}$.  It remains to fit that
-quantity below the allowance while making the spacings tend to infinity
-and the moduli eventually divisible by each fixed integer.
+The digit range $D_j=2^{s_j}-1$ therefore gives the required overlap
+estimate even when the separations increase.  Every entry of
+\eqref{long251:eq:sparse-triple} is at most $M_j2^{s_j}$, so we must keep this
+quantity below the prescribed bound at the three indices.  We must also
+have $s_j\to\infty$ and ensure that every fixed positive integer divides
+all sufficiently late $M_j$.
 
-For a possibly nonmonotone allowance use
+To allow a nonmonotone bound $f$, put
 \[
  h(n)=\inf_{m\ge n}\min(f(m),m).
 \]
@@ -300,15 +306,13 @@ Choose $n_{-1}$ with $h(n_{-1})\ge32$, and set
  M_j&=k_j!,\qquad s_j=k_j+2,\qquad n_j=n_{j-1}+s_j.
  \end{split}
 \end{equation}
-The single parameter $k_j$ now controls both requirements: $k_j!$
-absorbs each fixed modulus once $k_j$ is large enough, while $k_j+2$
-separates the triples.  We choose the largest such parameter whose cost
-$k_j!2^{k_j+2}$ fits the available bound.  The choice exists because
-$2!2^4=32$, is finite, and is nondecreasing with $j$.  Since
-$n_j\to\infty$ and $h(n_j)\to\infty$, we also have $k_j\to\infty$.
-Consequently the moduli are nested, every fixed $q$ divides all
-sufficiently late $M_j$, and $s_j\to\infty$.  At each supported
-coordinate $n$ of the $j$th triple,
+The maximum exists: $k=2$ is admissible because $2!2^4=32$, and
+$k!2^{k+2}$ tends to infinity.  Since $h$ is nondecreasing, so is $k_j$.
+Moreover $n_j\to\infty$, hence $h(n_j)\to\infty$ and $k_j\to\infty$.
+It follows that $M_j\mid M_{j+1}$, every fixed $q$ divides all sufficiently
+late $M_j=k_j!$, and the separations $s_j=k_j+2$ tend to infinity.
+The same choice gives the size estimate: at each supported coordinate
+$n$ of the $j$th triple,
 \[
  0\le e_n\le M_j2^{s_j}\le h(n_{j-1})\le\min(f(n),n).
 \]
@@ -316,7 +320,7 @@ This proves the size bound and convergence for every choice of digits.
 
 Let $S=\bigcup_{j\ge0}\{n_j-1,n_j,n_j+1\}$.  For any $R$, all but
 finitely many successive centres are at least $R$ apart.  An interval
-of length $H$ therefore meets at most $3(H/R+2)$ permitted indices,
+of length $H$ therefore contains at most $3(H/R+2)$ points of $S$,
 in addition to a fixed finite set.  The bound is uniform in the
 position of the interval.  Divide by $H$, take the supremum over
 positions and let $H\to\infty$; then let $R\to\infty$.
@@ -340,8 +344,10 @@ Taking $J\to\infty$ in \eqref{long251:eq:finite-overlap} now gives
 \begin{equation}\label{long251:eq:sparse-overlap}
  F_{j+1}\ge M_j2^{-n_j-2}=w_j.
 \end{equation}
-For a remaining target in $[0,F_j]$, choosing digit $d$ leaves a
-remainder in $[0,F_{j+1}]$ exactly when that target belongs to
+Every variable sum from stage $j$ onwards lies in $[0,F_j]$; we must
+still show that every point of this interval is attained.  A target in
+$[0,F_j]$ leaves a remainder in $[0,F_{j+1}]$ after choosing digit $d$
+exactly when it belongs to
 \[
  [dw_j,dw_j+F_{j+1}],\qquad d=0,\ldots,D_j.
 \]
@@ -353,8 +359,7 @@ $j$ digits, choose $d_j$ so that
 \[
  \rho_{j+1}=\rho_j-d_jw_j\in[0,F_{j+1}].
 \]
-The covering just proved makes this possible at every stage.  The
-invariant $0\le\rho_j\le F_j$ and $F_j\to0$ then give
+The covering just proved makes this possible at every stage.  Since $0\le\rho_j\le F_j$ and $F_j\to0$, we obtain
 \[
  x-\sum_{i=0}^{j}d_iw_i=\rho_{j+1}\longrightarrow0.
 \]
@@ -376,7 +381,7 @@ on the weights.
 \par\medskip\noindent\emph{The logarithmic scale.}
 For $f(n)=(\log(n+3))^\varepsilon$, we can choose the separations
 explicitly at the scale $\log\log n$.  Keep the same triples and
-$D_j=2^{s_j}-1$, but replace the schedule by
+$D_j=2^{s_j}-1$, and now choose
 \begin{equation}\label{long251:eq:sparse-polylog-schedule}
  \begin{aligned}
  s_j&=\left\lfloor\frac{\varepsilon}{2}
@@ -385,16 +390,16 @@ $D_j=2^{s_j}-1$, but replace the schedule by
  \end{aligned}
 \end{equation}
 with $M_j=k_j!$ and $n_j=n_{j-1}+s_j$.  Start far enough out that
-$s_j\ge4$ and all choices exist.  Allocating exponents $\varepsilon/4$
-to the modulus and $\varepsilon/2$ to $2^{s_j}$ leaves room within
-the prescribed allowance:
+$s_j\ge4$ and all choices exist.  The exponents $\varepsilon/4$ and
+$\varepsilon/2$ add to $3\varepsilon/4<\varepsilon$, so the corrections
+satisfy the prescribed bound:
 \[
  M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}
              \le(\log(n+3))^\varepsilon
 \]
 at each coordinate $n$ of the triple.  After enlarging the initial
-index, this is also at most $n$.  The moduli remain nested and absorb
-every fixed integer; summability, the congruence induction and
+index, this is also at most $n$.  The moduli remain nested, and every fixed positive integer divides all
+sufficiently late moduli.  Summability, the congruence induction and
 \eqref{long251:eq:finite-overlap} therefore apply without change.  Here
 $s_j\asymp_\varepsilon\log\log n_j$, so
 \[
@@ -415,8 +420,8 @@ bound consequently gives
 \]
 For $m\le X$, two dyadic bands cover $[X,2X+m)$ and give the bound
 $O_\varepsilon(m/\log\log X)$.  In particular it tends to zero when
-$m=o(\log\log X)$, uniformly over targets since the permitted set
-$S$ is common to all of them.  The block length enters solely through
+$m=o(\log\log X)$, uniformly over the values attained, since the same set $S$ contains
+every correction support.  The block length enters solely through
 the number of starts that one altered coordinate can affect.
 For a test bounded in absolute value by $B_0$ that also depends on the
 starting index, the coupled values agree at unchanged blocks and differ
@@ -449,13 +454,13 @@ For the sparse theorem for an arbitrary sequence, the target interval can additi
 be required to lie in $(A,A+\eta)$ for any prescribed $\eta>0$.
 \end{corollary}
 \begin{proof}
-In the general schedule, every supported entry satisfies $e_n\le n$.
+In the construction for a general bound $f$, every nonzero correction satisfies $e_n\le n$.
 Choose an integer $K'\ge K$ sufficiently large that
 $\sum_{n\ge K'}n2^{-(n+1)}=(K'+1)2^{-K'}<\eta$, and start the construction
 beyond $K'$.  This still leaves the originally prescribed prefix unchanged.
 The complete interval of corrections has positive lower endpoint and
 upper endpoint at most this sum.  Thus the interval may be chosen as close
-to $A$ as desired; this does not say that one fixed allowance permits
+to $A$ as desired; this does not say that one fixed bound on the corrections permits
 every target above $A$.
 \end{proof}
 
@@ -683,7 +688,7 @@ rationality.  Euler's congruence turns rationality into eventual
 integrality of a fixed positive-length tail difference.  This argument
 needs only integer coefficients and does not force them to repeat:
 Proposition~\ref{long251:res:telescope} with $K_n=n$ gives unbounded
-coefficients $n-1$ and sum zero.  The signed-window criterion then uses
+coefficients $n-1$ and sum zero.  The criterion involving two small differences then uses
 parity and a finite enclosure of an actual tail difference.
 Establishing its simultaneous inequalities arbitrarily late for every
 positive shift would prove irrationality.  We prove neither that prime
@@ -698,8 +703,8 @@ $g_n=p_{n+1}-p_n$, with $p_0=2$ and $g_0=1$.  We write
  \Pi=\sum_{n\ge0}p_n2^{-n-1},\qquad
  S=\sum_{n\ge0}g_n2^{-n-1}.
 \]
-Here $S$ denotes the gap sum; the permitted index set in
-Section~\ref{long251:sec:paired-corrections} is no longer in use.
+Here $S$ denotes the gap sum.  The set of indices used in
+Section~\ref{long251:sec:paired-corrections} will not be needed below.
 The short paper calls this same sum $G$.  The two calculations below
 have different jobs: summation by parts gives $\Pi=2+S$, and deleting
 the first gap gives the initial tail $T_0=2S-1$.
@@ -930,7 +935,7 @@ rational.  Negating the three conditions gives the two irrationality
 formulations.
 \end{proof}
 
-\begin{lemma}[the boundary condition identifying a true tail]\label{long251:res:true-tail}
+\begin{lemma}[the boundary condition for the tail recurrence]\label{long251:res:true-tail}
 Let $a_1,a_2,\ldots$ be real numbers with
 $\sum_{j\ge1}|a_j|2^{-j}<\infty$, and let $U_{N+1}=2U_N-a_{N+1}$.
 Then
@@ -1047,7 +1052,7 @@ and their recurrence would then give $g_{N+h+1}=g_{N+1}$.
 For even gaps we can state these conditions as a single signed interval
 for the first difference.
 
-\begin{theorem}[adjacent small-shift obstruction]\label{long251:res:smallpair}\compatlabel{res:smallpair}
+\begin{theorem}[two consecutive small tail differences]\label{long251:res:smallpair}\compatlabel{res:smallpair}
 Let $T$ satisfy the dyadic tail recurrence with integer coefficients $g$, and fix
 $h$ and $N$.  If
 \[
@@ -1190,7 +1195,7 @@ Appendix~\ref{long251:app:certificates} replays them.
 This computation proves the local condition at one pair of indices.  The
 quantifiers over every $h$ and every cutoff remain.
 
-\begin{proposition}[a one-tail signed certificate]\label{long251:res:one-tail-certificate}
+\begin{proposition}[certifying two small differences from one enclosure]\label{long251:res:one-tail-certificate}
 Let $D_{N+1}=2D_N-\delta_N$ with real $D_N$, and suppose
 $\delta_N=2s$ for $s\in\{-1,1\}$.  If integers $A,B,Q$ satisfy
 $Q>0$, $B\ge0$, $|QD_N-A|\le B$, and
@@ -1198,8 +1203,8 @@ $Q>0$, $B\ge0$, $|QD_N-A|\le B$, and
  2sA-Q>2B,\qquad Q-sA>B,
 \]
 then $1/2<sD_N<1$, $|D_{N+1}|<1$, and both $D_N,D_{N+1}$ are
-nonintegral.  In particular the adjacent small-shift obstruction is
-certified from just one tail enclosure.
+nonintegral.  In particular, the two small-difference conditions are certified from
+just one tail enclosure.
 \end{proposition}
 \begin{proof}
 The inequalities place the complete interval
@@ -1250,8 +1255,10 @@ Appendix~\ref{long251:app:certificates} satisfy
  v+v'\ge2^{589},
 \]
 all four being integer comparisons after clearing the positive denominators.
-If $\Pi=a/b$ then $av-bu\ge1$ and $bu'-av'\ge1$, and the determinant identity
-gives
+If $\Pi=a/b$, the strict lower and upper bounds make $av-bu$ and
+$bu'-av'$ positive integers.  Each is therefore at least $1$.
+The determinant identity expresses $b$ as their positive integer
+combination of $v'$ and $v$:
 \[
  b=b(u'v-uv')=(av-bu)v'+(bu'-av')v\ge v+v' \ge 2^{589}.
 \]
@@ -1357,16 +1364,16 @@ all denominators.
 These statements are denominator exclusions, not estimates for an
 irrationality exponent.
 
-\section{What cannot supply the missing input}\label{long251:sec:obstructions}
+\section{Coefficient conditions and counterexamples}\label{long251:sec:obstructions}
 \papersectiontarget{counterexamples}
 
 We examine which coefficient conditions leave room for a rational
 dyadic sum.  Bounded residue-preserving changes give the first examples,
 and finite unions of translated polynomial zero sets explain why they
-preserve nonconcentration.  Sparse changes then give the joint comparison
-with prime gaps.  Separately, the actual two-window event has density
-zero; this rules out a positive-proportion argument but still allows
-arbitrarily late sparse witnesses.
+preserve nonconcentration.  Sparse changes then give the simultaneous comparison with prime gaps.
+For the actual gaps, the indices satisfying the two small-difference
+conditions and the unequal-gap condition have density zero.  They may
+nevertheless include arbitrarily large indices.
 
 \subsection{Bounded residue-preserving perturbations}
 
@@ -1376,7 +1383,7 @@ so we can choose a rational sum while preserving every coefficient
 modulo $M$.  This construction uses all late indices and imposes neither
 density-zero support nor eventual preservation of all moduli.
 
-\begin{theorem}[bounded-perturbation obstruction]\label{long251:res:boundedperturbation}
+\begin{theorem}[bounded perturbations preserving congruences]\label{long251:res:boundedperturbation}
 Let $a_n$ be natural numbers with $\sum_{n\ge0}a_n2^{-(n+1)}$ convergent.  For
 every integer $M\ge1$ and every cutoff $K$ there are digits
 $\varepsilon_n\in\{0,1\}$, zero for $n<K$, such that
@@ -1561,7 +1568,7 @@ with $n$.
 \end{proof}
 
 \begin{samepage}
-\begin{corollary}[simultaneous prime-gap countermodel]\label{long251:res:jointcountermodel}
+\begin{corollary}[a rational sum with the stated prime-gap statistics]\label{long251:res:jointcountermodel}
 For every prescribed finite prime-gap prefix and $0<\varepsilon\le1$,
 there is an altered sequence $b=g+e$, with $P_n=2+\sum_{i<n}b_i$,
 for which one can simultaneously impose a rational dyadic value, nonnegative
@@ -1604,10 +1611,10 @@ The finite value on the right also proves convergence on the left.
 These conclusions follow from the sparse theorem, Schlage-Puchta's
 Lemma~4 and the prime number theorem.  In fact, all conclusions also hold for every
 $\varepsilon>1$: apply the corollary with exponent $1$.  Its correction
-is smaller than the prescribed allowance, and its cumulative estimate
+is smaller than the prescribed bound, and its cumulative estimate
 $O(n\log(n+3)/\log\log n)$ is stronger than the displayed bound and
 still gives $P_n\sim n\log n$.  Thus the stated range
-$0<\varepsilon\le1$ suffices to obtain every positive allowance exponent;
+$0<\varepsilon\le1$ suffices to obtain every positive exponent in the correction bound;
 no larger correction is required.
 
 The congruences imply that for every fixed
@@ -1630,14 +1637,15 @@ Neither comparison establishes preservation of the quantitative
 prime-pattern hypotheses of the conditional irrationality and normality
 results discussed in Section~\ref{long251:sec:context}.
 
-\subsection{The two-window event has density zero}
+\subsection{Density of indices with two small tail differences}
 
-The signed-window calculation restricts the gap difference to $2$ or
-$-2$.  For each fixed shift, Schlage-Puchta's lemma gives density zero
+When the two tail differences have absolute value less than one and the
+gaps are unequal, the calculation above restricts the gap difference to
+$2$ or $-2$.  For each fixed shift, Schlage-Puchta's lemma gives density zero
 for both events.  We use this to bound the set of possible witnesses,
 without excluding witnesses at arbitrarily large indices.
 
-\begin{theorem}[sparsity of the two-window event]\label{long251:res:sparse}
+\begin{theorem}[density zero for the small-difference condition]\label{long251:res:sparse}
 Fix $h\ge1$.  The set of $N\ge1$ at which the three hypotheses of
 Theorem~\ref{long251:res:smallpair} hold for the actual prime gaps has density zero.
 For the same $h$, the set of $N$ with $g_{N+h+1}=g_{N+1}$ also has density
@@ -1682,7 +1690,8 @@ $x_h-x_0-2$ and $x_h-x_0+2$ by
  =o_h\!\left(\frac{X}{\log\log X}\right).
 \]
 The shift from $n=N+1$ changes only the band endpoints.  Thus the
-same upper bound applies to the two-window event.  This is an ordinary
+same upper bound applies to the indices satisfying the three conditions
+of Theorem~\ref{long251:res:smallpair}.  This is an ordinary
 consequence of the cited sieve argument, not a new lower bound or an
 asymptotic formula for the number of successful indices.
 
@@ -1774,7 +1783,7 @@ total contribution is $O((\log n)^2)=o(n)$.  Hence
 $P_n=3+\sum_{j\le n}a_j\sim n\log n$, and $P_n$ is odd and increasing.
 \end{proof}
 
-The factorial schedule above proves recurrence in the zero residue class.
+The factorial indices used above give recurrence in the zero residue class.
 The following separate construction strengthens this to every residue class.
 
 
@@ -1873,7 +1882,7 @@ vanishing dyadic boundary condition, so the recurrence identifies $U_n$
 as the complete tail.  A quadratic choice already makes the coefficients
 positive and increasing.
 
-\begin{proposition}[quadratic polynomial-shift countermodel]\label{long251:res:polynomialcountermodel}\compatlabel{res:polynomialcountermodel}
+\begin{proposition}[a quadratic sequence with integral tails]\label{long251:res:polynomialcountermodel}\compatlabel{res:polynomialcountermodel}
 Put $c_n=2(n^2+4n+2)$ and $U_n=2(n+4)^2$.  Then $c_n$ is positive, even and
 strictly increasing, $U_{n+1}=2U_n-c_{n+1}$, every shift $U_{N+h}-U_N$ is
 integral, $c_{n+1}-c_n=4n+10$ is never $\pm2$, and
@@ -1957,7 +1966,7 @@ and the certificates in Section~\ref{long251:sec:denominator-floor}
 use integer arithmetic and have linked Lean checks.
 
 Over the $6\,841\,648$ primes below $1.2\times10^{8}$ and offsets
-$h=1,\ldots,16$, the scan records hits for the reduced two-window event of
+$h=1,\ldots,16$, the scan records indices satisfying the equivalent signed inequalities in
 Theorem~\ref{long251:res:signedwindow} at every tested offset, with
 observed proportions between $0.00418$ and $0.008248$ and nearly balanced
 signs.  At $h=1$ it records $56\,427$ hits among $6\,841\,564$ candidate
@@ -1973,13 +1982,13 @@ A second scan uses the $1\,270\,607$ primes below $2\times10^{7}$ and
 pairs of indices in the half-open range
 $1\,143\,545\le n,m<1\,270\,540$.  It searches each residue class modulo
 each $1\le t\le20$ for the condition of
-Theorem~\ref{long251:res:freepair}, selecting pairs by a next-gap
-difference of $2$ and a shifted-tail window.  At $t=20$, every residue
+Theorem~\ref{long251:res:freepair}, selecting pairs with a next-gap difference of $2$ and a tail difference
+in the specified interval.  At $t=20$, every residue
 class has at least $90\,150$ counted pairs; pairs may share indices.
 For each class, the program also records the larger index of a selected
 late witness.  The minimum of those recorded indices is $1\,270\,520$;
-it need not come from the class with the fewest pairs.  The saved sample pairs pass the resulting two-window
-check in floating-point arithmetic.  The scan supplies neither arbitrary
+it need not come from the class with the fewest pairs.  For the saved sample pairs, floating-point arithmetic gives both
+small-difference inequalities.  The scan supplies neither arbitrary
 moduli nor witnesses beyond every prescribed cutoff.  Its
 \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json}{search output}
 is public.
@@ -2043,16 +2052,16 @@ between a finite certified instance and an occurrence theorem beyond
 every cutoff.
 
 Proposition~\ref{long251:res:explicit-remainder} gives sufficient integer
-inequalities for window membership at a chosen truncation length $L$.
+inequalities ensuring $|\sigma_h(N)|<1$ at a chosen truncation length $L$.
 Failure of such a test need not mean that the complete tail lies outside
-the window: its error interval may still cross an endpoint.
+the required interval: its error interval may still cross an endpoint.
 For fixed $h$ and $\varepsilon>0$, the choice
 $L=\lceil(4+\varepsilon)\log_2(N+2)\rceil$ gives
 $E_{h,N,L}=O_{h,\varepsilon}(N^{-\varepsilon})$.
 Indeed, $L=O_\varepsilon(\log N)$, both arguments of the quartic $P$ are
 $O_{h,\varepsilon}(N)$, and $2^{-L}\le(N+2)^{-4-\varepsilon}$.
 Requiring a fixed positive margin from both endpoints is stronger than
-strict window membership in \eqref{long251:eq:smallpair}.  At this depth,
+the strict inequalities in \eqref{long251:eq:smallpair}.  At this depth,
 the test bounds the signed integer $2^LF_{h,N,L}$, not just its residue
 modulo $2^L$, and also requires $g_{N+h+1}-g_{N+1}=\pm2$.
 For fixed $h$ and $\varepsilon$, checking one certificate uses
@@ -2075,14 +2084,14 @@ theorem of Ford, Green, Konyagin, Maynard and Tao gives an effective lower
 bound for the largest single consecutive-prime gap below
 $X$~\cite[Theorem~1]{fgkmt2018}.  A theorem giving bounded clusters at
 each fixed cluster size does not by itself supply a weighted condition on
-windows whose length grows with the basepoint, and none of these results is
+blocks whose length grows with the basepoint, and none of these results is
 used as a proof input here.
 
 Conditionally the picture is different.  Tao's comment names uniform
-quantitative prime-tuples control of about $\log\log n$ consecutive gaps as the
-plausible route~\cite[comment of 7 October 2025]{erdosproblems251thread}, and
+quantitative prime-tuples control of about $\log\log n$ consecutive gaps as a
+possible approach~\cite[comment of 7 October 2025]{erdosproblems251thread}, and
 Land's draft carries that out under Kuperberg's uniform prime-tuples
-conjecture~\cite{land2026}.  The countermodels in
+conjecture~\cite{land2026}.  The counterexamples in
 Section~\ref{long251:sec:obstructions} show that the listed size,
 congruence and block-statistical properties alone do not force
 irrationality.  These constructions are not shown to enumerate the
@@ -2094,8 +2103,8 @@ properties with further information about primes.
 
 \evidenceparagraph{\evidencerecordurl}
 The formal sparse construction changes one coordinate per stage, while
-the printed proof uses triples.  Both fix the permitted set, target
-interval and congruence cutoffs before choosing the target.
+the printed proof uses triples.  Both fix the set containing the correction supports, the interval of sums
+and the modulus cutoffs before selecting a value in that interval.
 The formal proof of Corollary~\ref{long251:res:nonconc-primes} assumes
 Schlage-Puchta's Lemma~4 \cite{schlagepuchta2011} and the prime number
 theorem.  In Corollary~\ref{long251:res:jointcountermodel}, formalised
@@ -2462,8 +2471,8 @@ has absolute value at most $R_{h,N,L}(M)$, so under the displayed inequality
 the full sum lies at positive distance from every integer.
 \end{proof}
 
-Unlike the signed-window test, this criterion asks only for separation
-from the integers.  The distance from the truncated sum to $\Z$ is
+This criterion asks only for separation from the integers; it imposes no
+smallness condition on the two consecutive differences.  The distance from the truncated sum to $\Z$ is
 determined by a finite integer calculation.  Write the weighted block sum as
 \[
  D_{h,N,L}=\sum_{j=1}^{L}2^{\,L-j}(g_{N+h+j}-g_{N+j}),
@@ -2609,7 +2618,7 @@ $\gg_{C,d}X/\log X$.  The value may depend on $X$; no single value
 recurring in every band is established.
 
 This count uses the growth of the actual primes.  It is false for a general
-rational integer-coefficient recurrence: the quadratic countermodel of
+rational integer-coefficient recurrence: the quadratic example in
 Proposition~\ref{long251:res:polynomialcountermodel} has strictly increasing
 tails $T_N=2(N+4)^2$.  Even for the primes, equal-tail pairs have difference
 zero and hence do not supply the nonintegral difference required by the
@@ -2633,7 +2642,7 @@ the intervening gaps.  This uses only the interval occurring in
 Theorem~\ref{long251:res:signedwindow}; it does not assert that its other
 hypotheses hold for arbitrary congruent pairs.
 
-\subsection{A bounded companion to the recurring-values countermodel}
+\subsection{A bounded sequence with recurring values and a rational sum}
 \label{long251:sec:xr-boundedpolignac}
 
 The following bounded example isolates the recurring-values argument
@@ -2641,7 +2650,7 @@ without a growth estimate.  Logarithmic growth was needed in
 Theorem~\ref{long251:res:polignacfail} to obtain cumulative size
 $n\log n$, but is unnecessary for the recurrence itself.
 
-\begin{proposition}[bounded recurring-values countermodel]\label{long251:xr:boundedpolignac}
+\begin{proposition}[recurring values with integral tails]\label{long251:xr:boundedpolignac}
 Put $U_0=4$ and, for $n\ge1$, $U_n=6$ when $n=k!$ for some $k\ge3$ and $U_n=4$
 otherwise, and set $a_n=2U_{n-1}-U_n$ for $n\ge1$.  Then $a_n\in\{2,4,8\}$.
 For every $k\ge3$, the value $2$ occurs at index $k!$ and the value $4$
@@ -2652,7 +2661,7 @@ $\sum_{j\ge1}a_{N+j}2^{-j}$ equals the integer $U_N$.
 
 \begin{proof}
 For $k\ge3$ the index $k!$ is even and at least $6$, and $k!-1$ is odd, so the
-predecessor of a spike is an ordinary index; hence $a_{k!}=8-6=2$,
+preceding tail is $4$; hence $a_{k!}=8-6=2$,
 $a_{k!+1}=12-4=8$, and $a_n=8-4=4$ elsewhere.  For $k\ge2$ one has
 $k!<2\,k!<(k+1)!$, so $2\,k!$ is not a factorial.  Its odd predecessor
 $2\,k!-1\ge3$ is not a factorial either; therefore $a_{2k!}=4$.  Since $t\mid k!$ for every
@@ -2743,12 +2752,12 @@ Thus the rounding issue is in the stated majorant argument, not a
 failure of the returned enclosure.  This argument justifies the
 analytic bound; it is not a rerun of the denominator-exclusion search.
 
-\paragraph{An insufficient condition.}  With the offset freed by
-Theorem~\ref{long251:res:freepair}, the route needs, for each modulus $t$,
-cofinally many congruent pairs with certified nonintegral tail difference.
-Two even values differing by $2$, each occurring infinitely often inside a
-common index residue class, do not imply this two-condition form for
-integer-coefficient recurrences: the sequence of
+\paragraph{An insufficient condition.}  Theorem~\ref{long251:res:freepair} allows the offset to vary.  For each
+modulus $t$, one must still find pairs of congruent indices beyond every
+prescribed cutoff whose tail difference is nonintegral.
+Two even coefficient values differing by $2$, each occurring infinitely
+often in the same residue class of indices, do not give the required
+tail difference for an integer-coefficient recurrence: the sequence of
 Theorem~\ref{long251:res:polignacfail} has both properties and only
 integral tail shifts.
 
@@ -2886,17 +2895,18 @@ signed integer changes bounded by any positive $f(n)\to\infty$ fill an
 interval at every reciprocal integer base. They can preserve the odd
 coefficients, every fixed eventual congruence, all arithmetic-progression
 Dirichlet singularities, and prescribed finite root-of-unity jets. The
-proof uses increasingly high finite differences on separated packets.
-The changing support has upper Banach density zero, while the full packet
-hulls have ordinary density zero and upper Banach density one.
+proof takes finite differences of increasing order on separated finite
+sets of indices.  The support of the changes has upper Banach density
+zero.  The union of the intervals spanned by those sets has ordinary
+density zero and upper Banach density one.
 
-This theorem permits arbitrarily slow allowance growth and retains more
+This theorem allows the bound on the corrections to grow arbitrarily slowly and retains more
 analytic observations. It uses both signs, however, and does not subsume
 the one-sided prime-gap perturbation theorem proved here. In particular,
 it constructs comparison integer sequences, not consecutive prime gaps,
 and neither theorem supplies an irrationality proof for the actual prime
 series. The companion contains a full ordinary proof and the precise
-allowance-dependent block estimate; no infinite formal theorem is claimed.
+block estimate in terms of the prescribed bound; no infinite formal theorem is claimed.
 
 \section{Conclusions}\label{sec:erdos-251-complete-family-map}
 The sparse construction preserves the specified congruences and block

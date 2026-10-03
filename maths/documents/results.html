@@ -25,9 +25,9 @@
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=8976cc28b93d">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=ba34331b931d">
+  <link rel="stylesheet" href="../assets/maths.css?v=f936b84a6eaa">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=da290e63a2a6"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
@@ -38,17 +38,27 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="docs-topbar" data-term-auto="off">
     <div class="docs-topbar__inner">
-      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
-      <a class="brand-ladder brand-ladder--home" href="../index.html">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Contents</button>
+      <a class="brand-ladder brand-ladder--home" href="../../index.html">
         <span class="brand-ladder__up">Will Cook</span>
         <span class="brand-ladder__sep" aria-hidden="true">/</span>
         <span class="wordmark">Plectis</span>
       </a>
-      <nav class="docs-topbar__links" aria-label="Primary">
-        <a href="../index.html">Maths</a>
-        <a href="../index.html#papers">Papers</a>
-        <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
+      <nav class="docs-topbar__links site-primary" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html">Papers</a>
+        <a href="../../index.html#demo-videos">Videos</a>
+        <a href="../../index.html#why">About</a>
       </nav>
+      <details class="site-menu">
+        <summary>Menu</summary>
+        <nav class="site-menu__links" aria-label="Primary mobile">
+          <a href="../index.html">Mathematics</a>
+          <a href="../../docs/papers.html">Papers</a>
+          <a href="../../index.html#demo-videos">Videos</a>
+          <a href="../../index.html#why">About</a>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -88,6 +98,7 @@
         <p class="doc-source-line">Rendered from <code>docs/RESULTS.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> repository. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
       </header>
 
+<details class="reader-contents reader-contents--all"><summary>All sections</summary><nav aria-label="Document contents"><a class="toc-l2" href="#the-short-version">The short version</a><a class="toc-l3" href="#problem-by-problem-guide">Problem-by-problem guide</a><a class="toc-l2" href="#technical-verdict">Technical verdict</a><a class="toc-l3" href="#signal-audit-dispositions">Signal-audit dispositions</a><a class="toc-l2" href="#strongest-checked-results-by-problem">Strongest checked results by problem</a><a class="toc-l2" href="#what-is-proved">What is proved</a><a class="toc-l3" href="#settled-support-families-for-problem-257">Settled support families for Problem 257</a><a class="toc-l3" href="#the-reduction-chain-for-the-one-half-test-case-of-problem-257">The reduction chain for the one-half test case of Problem 257</a><a class="toc-l3" href="#exact-ranks-for-dyadic-sections-of-eulers-totient">Exact ranks for dyadic sections of Euler’s totient</a><a class="toc-l3" href="#a-finite-diagonal-certificate-band-for-problem-249">A finite diagonal certificate band for Problem 249</a><a class="toc-l3" href="#finite-off-diagonal-certificates">Finite off-diagonal certificates</a><a class="toc-l3" href="#direct-farey-comparison">Direct Farey comparison</a><a class="toc-l3" href="#scoped-no-go-theorems">Scoped no-go theorems</a><a class="toc-l3" href="#other-standalone-exact-obstructions">Other standalone exact obstructions</a><a class="toc-l3" href="#current-relation-and-residual-routes">Current relation and residual routes</a><a class="toc-l2" href="#finite-evidence-policy">Finite evidence policy</a><a class="toc-l2" href="#historical-corrections-retained-in-source">Historical corrections retained in source</a><a class="toc-l2" href="#what-is-open">What is open</a><a class="toc-l3" href="#exact-questions-for-a-human-expert">Exact questions for a human expert</a><a class="toc-l3" href="#cold-reader-review-boundary">Cold-reader review boundary</a><a class="toc-l3" href="#erdős-problem-249">Erdős Problem 249</a><a class="toc-l3" href="#erdős-problem-257">Erdős Problem 257</a><a class="toc-l2" href="#verification-and-continuation">Verification and continuation</a><a class="toc-l2" href="#problem-statements-verification-and-status">Problem statements, verification and status</a><a class="toc-l3" href="#what-the-formal-source-establishes">What the formal source establishes</a><a class="toc-l2" href="#what-remains-open">What remains open</a></nav></details>
       <div class="paper-stage">
 <article class="lean-document" data-document-id="results" data-document-role="mathematical_results_map" data-math-mode="mathml">
   <div class="lean-document__body" data-source="docs/RESULTS.md">
@@ -3050,7 +3061,7 @@ is withdrawn in the next edition and the refutation credited.</p>
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="documentation.html"><span class="maths-pager__dir">Previous</span>Documentation guide</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="source-map.html"><span class="maths-pager__dir">Next</span>Source map</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#the-short-version">The short version</a><a class="toc-l3" href="#problem-by-problem-guide">Problem-by-problem guide</a><a class="toc-l2" href="#technical-verdict">Technical verdict</a><a class="toc-l3" href="#signal-audit-dispositions">Signal-audit dispositions</a><a class="toc-l2" href="#strongest-checked-results-by-problem">Strongest checked results by problem</a><a class="toc-l2" href="#what-is-proved">What is proved</a><a class="toc-l3" href="#settled-support-families-for-problem-257">Settled support families for Problem 257</a><a class="toc-l3" href="#the-reduction-chain-for-the-one-half-test-case-of-problem-257">The reduction chain for the one-half test case of Problem 257</a><a class="toc-l3" href="#exact-ranks-for-dyadic-sections-of-eulers-totient">Exact ranks for dyadic sections of Euler’s totient</a><a class="toc-l3" href="#a-finite-diagonal-certificate-band-for-problem-249">A finite diagonal certificate band for Problem 249</a><a class="toc-l3" href="#finite-off-diagonal-certificates">Finite off-diagonal certificates</a><a class="toc-l3" href="#direct-farey-comparison">Direct Farey comparison</a><a class="toc-l3" href="#scoped-no-go-theorems">Scoped no-go theorems</a><a class="toc-l3" href="#other-standalone-exact-obstructions">Other standalone exact obstructions</a><a class="toc-l3" href="#current-relation-and-residual-routes">Current relation and residual routes</a><a class="toc-l2" href="#finite-evidence-policy">Finite evidence policy</a><a class="toc-l2" href="#historical-corrections-retained-in-source">Historical corrections retained in source</a><a class="toc-l2" href="#what-is-open">What is open</a><a class="toc-l3" href="#exact-questions-for-a-human-expert">Exact questions for a human expert</a><a class="toc-l3" href="#cold-reader-review-boundary">Cold-reader review boundary</a><a class="toc-l3" href="#erdős-problem-249">Erdős Problem 249</a><a class="toc-l3" href="#erdős-problem-257">Erdős Problem 257</a><a class="toc-l2" href="#verification-and-continuation">Verification and continuation</a><a class="toc-l2" href="#problem-statements-verification-and-status">Problem statements, verification and status</a><a class="toc-l3" href="#what-the-formal-source-establishes">What the formal source establishes</a><a class="toc-l2" href="#what-remains-open">What remains open</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#the-short-version">The short version</a><a class="toc-l2" href="#technical-verdict">Technical verdict</a><a class="toc-l2" href="#strongest-checked-results-by-problem">Strongest checked results by problem</a><a class="toc-l2" href="#what-is-proved">What is proved</a><a class="toc-l2" href="#finite-evidence-policy">Finite evidence policy</a><a class="toc-l2" href="#historical-corrections-retained-in-source">Historical corrections retained in source</a><a class="toc-l2" href="#what-is-open">What is open</a><a class="toc-l2" href="#verification-and-continuation">Verification and continuation</a><a class="toc-l2" href="#problem-statements-verification-and-status">Problem statements, verification and status</a><a class="toc-l2" href="#what-remains-open">What remains open</a></aside>
   </div>
 </body>
 </html>

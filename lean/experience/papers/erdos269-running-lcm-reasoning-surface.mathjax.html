@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos269-running-lcm-reasoning-surface" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Reasoning surface</p>
-    <h1>Running least common multiples: distinct heights and repeated sums</h1>
+    <h1>Running least common multiples: distinct values and multiplicities</h1>
     <p class="lean-paper__subject">Erdős #269</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/269/erdos269-running-lcm-reasoning-surface.tex">
@@ -9,39 +9,43 @@
 <h2>Two sums from running least common multiples</h2>
 <p>Let <span class="math inline" data-term-auto="off">\(P\)</span> be a finite set of at
 least two primes, and let <span class="math inline" data-term-auto="off">\(\mathcal
-S_P\)</span> contain the positive integers supported on <span
-class="math inline" data-term-auto="off">\(P\)</span>, including <span
-class="math inline" data-term-auto="off">\(1\)</span>. For <span
+S_P\)</span> consist of <span class="math inline" data-term-auto="off">\(1\)</span> and all
+positive integers whose prime factors belong to <span
+class="math inline" data-term-auto="off">\(P\)</span>. For <span
 class="math inline" data-term-auto="off">\(x\ge1\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{L}(x)=\lcm\{u\in\mathcal S_P:u\le
 x\},\qquad
 \operatorname{H}_P(x)=\prod_{p\in P}p^{\lfloor\log_p x\rfloor}.\]</span></div>
-<p>Every supported integer below <span class="math inline" data-term-auto="off">\(x\)</span>
-divides <span class="math inline" data-term-auto="off">\(\operatorname{H}_P(x)\)</span>,
-while each maximal pure power occurs in the prefix. Hence <span
-class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}_P(x)\)</span>,
-and the value changes only at a positive prime power. Counting each
-value once gives</p>
+<p>Every integer in this finite set divides <span
+class="math inline" data-term-auto="off">\(\operatorname{H}_P(x)\)</span>, and the set
+contains the largest power of each prime in <span
+class="math inline" data-term-auto="off">\(P\)</span> below or equal to <span
+class="math inline" data-term-auto="off">\(x\)</span>. Their product therefore equals the
+least common multiple: <span
+class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}_P(x)\)</span>.
+The value changes only at a positive prime power. Summing its distinct
+reciprocals gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
 D_P=1+\sum_{\substack{t=p^n\\p\in P,\
 n\ge1}}\frac1{\operatorname{H}_P(t)}.\]</span></div>
 <p>We begin with an
 irrationality result for three primes.</p>
 <div class="theorem" id="long269:res:distinct-height-235">
-<p><strong>Theorem 1.1</strong> (the distinct-height sum at <span
-class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>). <em> The sum <span
+<p><strong>Theorem 1.1</strong> (the sum over distinct running LCMs at
+<span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>). <em> The sum <span
 class="math inline" data-term-auto="off">\(\mathcal D_{\{2,3,5\}}\)</span> is
 irrational.</em></p>
 </div>
 <p>The proof in Section <a class="math-ref" href="#long269:sec:distinct-235">2</a> groups the
 jumps between consecutive powers of <span
-class="math inline" data-term-auto="off">\(2\)</span>. A bound using the spacing of powers of
-<span class="math inline" data-term-auto="off">\(5\)</span> makes the five resulting affine
-images disjoint. We can then recover every later jump from one tail
-value. Rationality would leave only finitely many tail values and force
-a periodic word, contradicting the frequency of powers of <span
-class="math inline" data-term-auto="off">\(3\)</span>.</p>
+class="math inline" data-term-auto="off">\(2\)</span>. Rationality would leave only finitely
+many normalised tails. To deduce eventual periodicity, we show that a
+tail determines the next block and the following tail: the spacing of
+powers of <span class="math inline" data-term-auto="off">\(5\)</span> gives a bound that
+separates the five possible affine images. The irrational frequency of
+powers of <span class="math inline" data-term-auto="off">\(3\)</span> then gives a
+contradiction.</p>
 <p>Erdős asserted the general conclusion for every finite <span
 class="math inline" data-term-auto="off">\(P\)</span> with <span
 class="math inline" data-term-auto="off">\(|P|\ge2\)</span> in his letter of 1 January 1973,
@@ -71,8 +75,9 @@ class="math inline" data-term-auto="off">\(2/60\)</span> to <span
 class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> and <span
 class="math inline" data-term-auto="off">\(1/60\)</span> to <span
 class="math inline" data-term-auto="off">\(\mathcal D_P\)</span>. Thus Theorem <a class="math-ref" href="#long269:res:distinct-height-235">1.1</a>
-concerns a related, distinct target. The arguments in this record leave
-<span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> unresolved when <span
+concerns the sum over distinct values, whereas the problem concerns the
+sum with multiplicity. The arguments in this paper leave <span
+class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> unresolved when <span
 class="math inline" data-term-auto="off">\(P\)</span> is finite and <span
 class="math inline" data-term-auto="off">\(|P|\ge3\)</span>.</p>
 <p>The finite-state extension in Section <a class="math-ref" href="#long269:sec:distinct-criterion">5.3</a>
@@ -83,7 +88,7 @@ class="math inline" data-term-auto="off">\(292\)</span> of the <span
 class="math inline" data-term-auto="off">\(330\)</span> four-prime sets in that range. The
 criterion and its applications also remain remarks awaiting
 formalisation. A collision between admissible automaton words prevents
-that decoder from treating <span
+that interval criterion from treating <span
 class="math inline" data-term-auto="off">\(\{2,3,5,7\}\)</span> at any depth (Section <a class="math-ref" href="#long269:sec:distinct-certificates">5.4</a>);
 this is a limitation of the enlarged word language, not an identity
 between realised arithmetic tails.</p>
@@ -119,10 +124,10 @@ rational denominator splits into its <span
 class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> part and a factor <span
 class="math inline" data-term-auto="off">\(B\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span>, and every sufficiently late <span
-class="math inline" data-term-auto="off">\(BX_a\)</span> is then integral. The window
-identity determines its residue at a later endpoint. A residue above the
-quadratic tail bound contradicts integrality. Irrationality is
-equivalent to finding such windows for every <span
+class="math inline" data-term-auto="off">\(BX_a\)</span> is then integral. The iterated
+recurrence determines its residue at a later endpoint. A residue above
+the quadratic tail bound contradicts integrality. Irrationality is
+equivalent to finding such segments for every <span
 class="math inline" data-term-auto="off">\(B\)</span> and beyond every starting index.
 Neither these unbounded quantifiers nor an irrationality theorem for the
 repeated three-prime sum follows from the finite computations.</p>
@@ -131,7 +136,7 @@ the five-map proof and its exact interval calculations. The finite
 geometry and two-prime formulae follow in Sections <a class="math-ref" href="#long269:sec:lcm">3</a> and <a class="math-ref" href="#long269:sec:two-prime">4</a>.
 Section <a class="math-ref" href="#long269:sec:distinct-all">5.1</a> gives the
 ordinary general argument, followed by the finite-state and prime-power
-subseries extensions. The independent-clock arguments in Section <a class="math-ref" href="#long269:sec:clock-transfer">6</a> are
+subseries extensions. The linear-flow arguments in Section <a class="math-ref" href="#long269:sec:clock-transfer">6</a> are
 likewise recorded pending formalisation. Section <a class="math-ref" href="#long269:sec:rank">7</a> treats exact
 separation and uniform approximation of the kernel. The repeated-tail
 recurrence and residue criterion occupy Sections <a class="math-ref" href="#long269:sec:blocks">8</a>–<a class="math-ref" href="#long269:sec:escape">10</a>; the finite
@@ -182,8 +187,8 @@ periodicity.</p>
 <em>Finitely many tails under rationality.</em> Write <span
 class="math inline" data-term-auto="off">\(\operatorname{H}=\operatorname{H}_{\{2,3,5\}}\)</span>
 in this proof and put <span
-class="math inline" data-term-auto="off">\(P_a=\operatorname{H}(2^a)\)</span>. Every height
-at or before <span class="math inline" data-term-auto="off">\(2^a\)</span> divides <span
+class="math inline" data-term-auto="off">\(P_a=\operatorname{H}(2^a)\)</span>. Every running
+LCM at or before <span class="math inline" data-term-auto="off">\(2^a\)</span> divides <span
 class="math inline" data-term-auto="off">\(P_a\)</span>. We therefore normalise the tail
 after <span class="math inline" data-term-auto="off">\(2^a\)</span> by</p>
 <div class="math-display" id="long269:eq:five-tail" data-term-auto="off"><span
@@ -192,8 +197,8 @@ class="math display" data-term-auto="off">\[\begin{equation}
 Y_a=P_a\sum_{\substack{t&gt;2^a\\t=2^n,3^n\text{ or }5^n,\ n\ge1}}
                    \frac1{\operatorname{H}(t)}.
 \end{equation}\]</span></div>
-<p>Each subsequent jump multiplies the height by at
-least <span class="math inline" data-term-auto="off">\(2\)</span>, and a jump by <span
+<p>Each subsequent jump multiplies the running LCM
+by at least <span class="math inline" data-term-auto="off">\(2\)</span>, and a jump by <span
 class="math inline" data-term-auto="off">\(3\)</span> eventually occurs. Comparison with
 <span class="math inline" data-term-auto="off">\(\sum_{j\ge1}2^{-j}\)</span> gives <span
 class="math inline" data-term-auto="off">\(0&lt;Y_a&lt;1\)</span>.</p>
@@ -214,10 +219,10 @@ propagates.</p>
 <span class="math inline" data-term-auto="off">\(16\)</span> and <span
 class="math inline" data-term-auto="off">\(32\)</span>, including the last endpoint. They
 occur at <span class="math inline" data-term-auto="off">\(25,27,32\)</span>, multiplying the
-height successively by <span class="math inline" data-term-auto="off">\(5,3,2\)</span>. After
-normalisation at <span class="math inline" data-term-auto="off">\(16\)</span>, their
+running LCM successively by <span class="math inline" data-term-auto="off">\(5,3,2\)</span>.
+After normalisation at <span class="math inline" data-term-auto="off">\(16\)</span>, their
 contribution is <span class="math inline" data-term-auto="off">\(1/5+1/15+1/30\)</span>. The
-remaining tail is normalised at a height <span
+remaining tail is normalised at a running LCM <span
 class="math inline" data-term-auto="off">\(30\)</span> times as large, so</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[Y_4=\frac15+\frac1{15}+\frac1{30}+\frac{Y_5}{30}
@@ -226,8 +231,11 @@ class="math display" data-term-auto="off">\[Y_4=\frac15+\frac1{15}+\frac1{30}+\f
 class="math inline" data-term-auto="off">\((64,128]\)</span>, the interior jumps occur in the
 opposite order, at <span class="math inline" data-term-auto="off">\(81,125\)</span>. Its
 constant term is <span
-class="math inline" data-term-auto="off">\(1/3+1/15+1/30=13/30\)</span>. The order of the
-jumps is therefore visible in the affine recurrence.</p>
+class="math inline" data-term-auto="off">\(1/3+1/15+1/30=13/30\)</span>. The two blocks have
+the same multiplier <span class="math inline" data-term-auto="off">\(30\)</span>, but
+different numerators, <span class="math inline" data-term-auto="off">\(9\)</span> and <span
+class="math inline" data-term-auto="off">\(13\)</span>. To recover the order from a tail
+value, we must still separate the possible values of the block maps.</p>
 <p>In general, <span class="math inline" data-term-auto="off">\((2^a,2^{a+1}]\)</span>
 contains its terminal power of <span class="math inline" data-term-auto="off">\(2\)</span>,
 at most one power of <span class="math inline" data-term-auto="off">\(3\)</span> and at most
@@ -247,9 +255,9 @@ b_\tau&amp;2&amp;6&amp;10&amp;30&amp;30\\
 \end{array}
 \end{equation}\]</span></div>
 <p>Here <span class="math inline" data-term-auto="off">\(b_\tau\)</span>
-is the factor by which the height increases across the block, and <span
-class="math inline" data-term-auto="off">\(\mu_\tau/b_\tau\)</span> is the block’s normalised
-contribution.</p>
+is the factor by which the running LCM increases across the block, and
+<span class="math inline" data-term-auto="off">\(\mu_\tau/b_\tau\)</span> is the block’s
+normalised contribution.</p>
 <p>The five formulae alone do not recover <span
 class="math inline" data-term-auto="off">\(\tau_a\)</span> from <span
 class="math inline" data-term-auto="off">\(Y_a\)</span>. The coarse images <span
@@ -303,9 +311,14 @@ class="math inline" data-term-auto="off">\(G_\varnothing(13/15)=14/15\)</span> l
 <p>The following table gives the exact images of <span
 class="math inline" data-term-auto="off">\(I\)</span>. They are pairwise disjoint, with
 successive gaps <span
-class="math inline" data-term-auto="off">\(1/900,17/300,79/900,1/180\)</span>. The two
-smallest gaps come from <span
-class="math inline" data-term-auto="off">\(3(3/10)-13/15=1/30&gt;0\)</span>.</p>
+class="math inline" data-term-auto="off">\(1/900,17/300,79/900,1/180\)</span>. Writing <span
+class="math inline" data-term-auto="off">\(L=3/10\)</span> and <span
+class="math inline" data-term-auto="off">\(U=13/15\)</span>, the two narrow gaps are</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[G_5(L)-G_{53}(U)=\frac{3L-U}{30}=\frac1{900},\qquad
+G_\varnothing(L)-G_3(U)=\frac{3L-U}{6}=\frac1{180}.\]</span></div>
+<p>Both are
+positive because <span class="math inline" data-term-auto="off">\(U&lt;3L=9/10\)</span>.</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{array}{c|c}
 \tau&amp;G_\tau(I)\\\hline
 53&amp;[31/100,74/225]\\
@@ -406,7 +419,7 @@ quotient is at least <span class="math inline" data-term-auto="off">\(1/25\)</sp
 neither criterion applies.</p>
 </section>
 <section id="long269:sec:lcm" class="level2">
-<h2>The finite geometry of the running value</h2>
+<h2>Intervals of constancy of the running LCM</h2>
 <p>We first describe which smooth integers contribute the same running
 value. The LCM is determined by the largest exponent of each prime in
 the prefix. For the unrestricted prefix this gives <span
@@ -418,7 +431,7 @@ see Apostol <span class="citation" data-cites="apostol1976"><a href="#ref-10">[
 Montgomery and Vaughan <span class="citation"
 data-cites="montgomeryvaughan2007"><a href="#ref-12">[12]</a></span>. We apply the same exponent
 rule to a fixed prime support, keeping track of the intervals on which
-the height is constant.</p>
+the running LCM is constant.</p>
 <p>The smooth numbers up to <span class="math inline" data-term-auto="off">\(x\)</span> are
 indexed by the exponent triples <span
 class="math inline" data-term-auto="off">\((i,j,k)\)</span> with <span
@@ -492,10 +505,10 @@ class="math inline" data-term-auto="off">\(r\)</span> in place of <span
 class="math inline" data-term-auto="off">\(p\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Both parts are immediate from Theorem <a class="math-ref" href="#long269:res:lcm">3.1</a>: the height depends
-on <span class="math inline" data-term-auto="off">\(x\)</span> only through the three integer
-logarithms, and advancing one of them multiplies exactly one factor by
-its base. ◻</p>
+<p><em>Proof.</em> Both parts are immediate from Theorem <a class="math-ref" href="#long269:res:lcm">3.1</a>: the running LCM
+depends on <span class="math inline" data-term-auto="off">\(x\)</span> only through the three
+integer logarithms, and advancing one of them multiplies exactly one
+factor by its base. ◻</p>
 </div>
 <p></p>
 <div class="proposition" id="long269:res:count">
@@ -523,20 +536,20 @@ exponent triples with <span class="math inline" data-term-auto="off">\(i\le h_p\
 <span class="math inline" data-term-auto="off">\(j\le h_q\)</span> and <span
 class="math inline" data-term-auto="off">\(k\le h_r\)</span>, and <span
 class="math inline" data-term-auto="off">\(F(H)\)</span> for the points of this box whose
-height equals <span class="math inline" data-term-auto="off">\(H\)</span>.</p>
+running LCM equals <span class="math inline" data-term-auto="off">\(H\)</span>.</p>
 <div class="proposition" id="long269:res:fibre">
-<p><strong>Proposition 3.4</strong> (grouping equal heights). <em> For
-every box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, </em></p>
+<p><strong>Proposition 3.4</strong> (grouping equal running LCMs). <em>
+For every box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{(i,j,k)\in\mathcal
 B}\operatorname{K}(i,j,k)=\sum_{H}\#F(H)/H,\]</span></div>
 <p class="display-continue"><em> the outer sum
-ranging over the heights attained on <span
+ranging over the running LCMs attained on <span
 class="math inline" data-term-auto="off">\(\mathcal B\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Partition <span class="math inline" data-term-auto="off">\(\mathcal
-B\)</span> into the fibres of the height map. On <span
+B\)</span> into the fibres of the running LCM map. On <span
 class="math inline" data-term-auto="off">\(F(H)\)</span> every summand is <span
 class="math inline" data-term-auto="off">\(1/H\)</span>, so the fibre contributes <span
 class="math inline" data-term-auto="off">\(\#F(H)/H\)</span>. ◻</p>
@@ -575,7 +588,7 @@ class="math inline" data-term-auto="off">\([1,3)\)</span> and have the same odd 
 the ratio bound, not just finiteness of the interval, permits the
 injective projection.</p>
 <div class="proposition" id="long269:res:drop"><span class="tex-label" id="long269:res:shell" hidden></span>
-<p><strong>Proposition 3.6</strong> (counting a shell by two coordinates).
+<p><strong>Proposition 3.6</strong> (counting a block by two coordinates).
 <em> If <span class="math inline" data-term-auto="off">\(\eta\le r\,\lambda\)</span> then
 <span class="math inline" data-term-auto="off">\(\#\mathcal S\le(h_p+1)(h_q+1)\)</span>, and
 if <span class="math inline" data-term-auto="off">\(\eta\le p\,\lambda\)</span> then <span
@@ -760,12 +773,12 @@ class="math inline" data-term-auto="off">\(4^{\lfloor\log_4 8\rfloor}8^{\lfloor\
 extension was already noted in the forum discussion (Section <a class="math-ref" href="#long269:long:history">13.1</a>).</p>
 <p>A third prime introduces an additional floor term that cannot be
 separated in this way; Section <a class="math-ref" href="#long269:sec:rank">7</a> makes that
-obstruction precise. For the distinct-height sums, the next section
-proves irrationality for every finite set of primes by an elementary
-argument that uses no value theorem.</p>
+obstruction precise. For the sums over distinct running LCMs, the next
+section proves irrationality for every finite set of primes by an
+elementary argument that uses no value theorem.</p>
 </section>
 <section id="long269:sec:distinct" class="level2">
-<h2>The distinct-height sums</h2>
+<h2>The sums over distinct running LCMs</h2>
 <p>We record the ordinary arguments for general finite prime supports.
 Their assertions, including the block and finite-state criteria below,
 are presented as remarks because this part has not been formalised. The
@@ -818,23 +831,32 @@ q_k=\operatorname{H}_P(t_k)\)</span>.</p>
 <h3>Proof for an arbitrary finite prime set</h3>
 <p></p>
 <div class="remark" id="long269:res:distinct-height-all">
-<p><em>Remark 5.1</em> (the distinct-height sums). For every finite set
-<span class="math inline" data-term-auto="off">\(P\)</span> of primes with <span
+<p><em>Remark 5.1</em> (the sums over distinct running LCMs). For every
+finite set <span class="math inline" data-term-auto="off">\(P\)</span> of primes with <span
 class="math inline" data-term-auto="off">\(|P|\ge2\)</span>, the sum <span
 class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> is irrational.</p>
 </div>
-<p>Rationality again confines the normalised tails to a lattice. We
-shall force two of them to be equal by arranging a long common initial
-word. Equality then requires the same integer numerator in every pair of
-corresponding rearranged blocks. The remaining task is to produce a
-block whose order changes and whose numerator changes with it.</p>
-<p>For two or three primes, every changed ordering has this property.
-With four or more primes it can fail, so recovering arbitrary blocks
-would ask too much. We instead use a torus construction to isolate two
-neighbouring jumps of distinct primes and reverse their order. Other
-chains may also be rearranged; this one two-letter chain is enough to
-contradict equality of the tails. The word calculation comes first,
-followed by the construction of the two arithmetic tails.</p>
+<p>The proof uses discreteness twice. If the sum is rational with
+denominator <span class="math inline" data-term-auto="off">\(K\)</span>, its normalised tails
+lie in <span class="math inline" data-term-auto="off">\(K^{-1}\mathbb Z\)</span>. A
+sufficiently long common initial word makes two such tails differ by
+less than <span class="math inline" data-term-auto="off">\(1/K\)</span>, so they must be
+equal.</p>
+<p>We then compare the words block by block. Corresponding blocks
+contain the same letters in possibly different orders, hence have the
+same denominator product. After clearing it, a difference of block
+numerators is an integer, whereas the difference of the remaining tails
+lies in <span class="math inline" data-term-auto="off">\((-1,1)\)</span>. Equality therefore
+forces both differences to vanish, and this conclusion propagates
+through every block.</p>
+<p>It remains to construct one block with a changed numerator. For two
+or three distinct primes, changing the order always changes that
+numerator. For four or more it need not. We use a torus construction to
+isolate two neighbouring jumps and reverse their order. Other blocks may
+also be rearranged, but the equality just proved constrains every one of
+them; one changed two-letter block is enough for a contradiction. We
+first give the word calculation, then construct the two arithmetic
+tails.</p>
 <section id="long269:sec:words" class="level5">
 <h5>Words and tails.</h5>
 <p>For an infinite word <span
@@ -1001,6 +1023,11 @@ b)\varphi_b-(\log a)\varphi_a\)</span> is a nonzero form on <span
 class="math inline" data-term-auto="off">\(L\)</span>. We write it as <span
 class="math inline" data-term-auto="off">\(\theta_b-\theta_a\)</span> when using real
 representatives.</p>
+<p>To interchange just two jumps, we seek a phase at which exactly those
+two crossings coincide. The next argument finds such a phase inside
+<span class="math inline" data-term-auto="off">\(T_0\)</span>; it does not require this orbit
+closure to be the whole torus <span class="math inline" data-term-auto="off">\(\mathbb
+T\)</span>.</p>
 <p></p>
 <div class="remark" id="long269:res:dp-two-walls">
 <p><em>Remark 5.5</em> (two walls). If <span
@@ -1038,10 +1065,11 @@ while Euler’s formula gives <span
 class="math inline" data-term-auto="off">\(V-E+F=0\)</span>. Together these imply</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_v(k_v-3)=E-3V\le0.\]</span></div>
-<p>The origin
-belongs to all <span class="math inline" data-term-auto="off">\(|P|\ge4\)</span> families. If
-every other vertex also belonged to at least three, the last sum would
-be positive. Hence some vertex belongs to exactly two families, as
+<p>Every vertex
+belongs to at least two wall families, and the last inequality says that
+the average number of families through a vertex is at most three. The
+origin belongs to all <span class="math inline" data-term-auto="off">\(|P|\ge4\)</span>
+families. Another vertex must therefore belong to exactly two, as
 required. ◻</p>
 </div>
 </section>
@@ -1055,12 +1083,15 @@ class="math inline" data-term-auto="off">\(p\in P\)</span> and a jump <span
 class="math inline" data-term-auto="off">\(t_k\)</span> which is a power of <span
 class="math inline" data-term-auto="off">\(p\)</span>. We shall compare the tails after <span
 class="math inline" data-term-auto="off">\(t_k\)</span> and <span
-class="math inline" data-term-auto="off">\(t_m=t_kp^n\)</span>, choosing <span
+class="math inline" data-term-auto="off">\(t_m=t_kp^n\)</span>. We choose <span
 class="math inline" data-term-auto="off">\(n\)</span> so that multiplication by <span
-class="math inline" data-term-auto="off">\(p^n\)</span> moves all logarithmic phases very
-little.</p>
-<p>Choose <span class="math inline" data-term-auto="off">\(T&gt;0\)</span> so that the number
-<span class="math inline" data-term-auto="off">\(\nu\)</span> of crossings in <span
+class="math inline" data-term-auto="off">\(p^n\)</span> preserves a long initial crossing
+word. A later block will be rearranged in a way that changes its
+numerator.</p>
+<p>For the initial word to force equality of the tails, its reciprocal
+product must be at most <span class="math inline" data-term-auto="off">\(1/K\)</span>. Choose
+<span class="math inline" data-term-auto="off">\(T&gt;0\)</span> so that the number <span
+class="math inline" data-term-auto="off">\(\nu\)</span> of crossings in <span
 class="math inline" data-term-auto="off">\((0,T]\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(2^\nu\ge K\)</span>, and let <span
 class="math inline" data-term-auto="off">\(g&gt;0\)</span> be the minimum gap between
@@ -1217,10 +1248,10 @@ to every chain.</p>
 <section id="exact-illustrations." class="level5">
 <h5>Exact illustrations.</h5>
 <p>The program <code>two_tail.py</code> of the <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">distinct-height
-programs</a> checks the finite facts above in exact arithmetic; the
-proof uses none of them. Among the sets of two or three primes below
-<span class="math inline" data-term-auto="off">\(200\)</span>, <span
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+for sums over distinct values</a> checks the finite facts above in exact
+arithmetic; the proof uses none of them. Among the sets of two or three
+primes below <span class="math inline" data-term-auto="off">\(200\)</span>, <span
 class="math inline" data-term-auto="off">\(f\)</span> has no collision; among the <span
 class="math inline" data-term-auto="off">\(2380\)</span> sets of four primes below <span
 class="math inline" data-term-auto="off">\(60\)</span> it has <span
@@ -1251,12 +1282,12 @@ vertex on exactly two lines.</p>
 </section>
 </section>
 <section id="long269:sec:distinct-blocks" class="level3">
-<h3>Dyadic blocks and affine maps</h3>
+<h3>Blocks and affine maps</h3>
 <p>We now extend the calculation of Section <a class="math-ref" href="#long269:sec:distinct-235">2</a> to an
 arbitrary finite prime set.</p>
-<p>To obtain a second description of the distinct-height sum, group its
-jumps into <span class="math inline" data-term-auto="off">\((p^a,p^{a+1}]\)</span>, where
-<span class="math inline" data-term-auto="off">\(p\)</span> is the least prime of <span
+<p>To obtain a second description of the sum over distinct running LCMs,
+group its jumps into <span class="math inline" data-term-auto="off">\((p^a,p^{a+1}]\)</span>,
+where <span class="math inline" data-term-auto="off">\(p\)</span> is the least prime of <span
 class="math inline" data-term-auto="off">\(P\)</span>, and define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_a=\operatorname{H}_P(p^a),\qquad
@@ -1312,17 +1343,17 @@ class="math inline" data-term-auto="off">\(q^f\)</span> lies in <span
 class="math inline" data-term-auto="off">\((p^a,p^{a+1})\)</span> exactly when <span
 class="math inline" data-term-auto="off">\(a&lt;f\log_pq&lt;a+1\)</span>.</p>
 <p>(ii) The jumps of block <span class="math inline" data-term-auto="off">\(a\)</span> are
-the interior powers, with heights <span
+the interior powers, with running LCMs <span
 class="math inline" data-term-auto="off">\(P_ar_1\)</span>, <span
 class="math inline" data-term-auto="off">\(P_ar_1r_2\)</span>, …, <span
 class="math inline" data-term-auto="off">\(P_ar_1\cdots r_v\)</span>, followed by the jump at
-<span class="math inline" data-term-auto="off">\(p^{a+1}\)</span>, whose height is <span
+<span class="math inline" data-term-auto="off">\(p^{a+1}\)</span>, whose running LCM is <span
 class="math inline" data-term-auto="off">\(P_{a+1}=b_\tau P_a\)</span>. Splitting off the
 block,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Y_a=\sum_{j=1}^{v}\frac1{r_1\cdots
 r_j}+\frac1{b_\tau}
     +\frac{P_a}{P_{a+1}}Y_{a+1}=\frac{\mu_\tau+Y_{a+1}}{b_\tau}.\]</span></div>
-<p>Each jump multiplies the height by at least <span
+<p>Each jump multiplies the running LCM by at least <span
 class="math inline" data-term-auto="off">\(p\)</span>, so <span
 class="math inline" data-term-auto="off">\(0&lt;Y_a\le\sum_{k\ge1}p^{-k}=1/(p-1)\)</span>.
 Since every <span class="math inline" data-term-auto="off">\(r_j&gt;p\)</span>, <span
@@ -1533,9 +1564,9 @@ class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> is irrational.<
 <div class="proof">
 <p><em>Proof.</em> For each set, the program <code>certificate.py</code>
 of the <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">distinct-height
-programs</a> builds the automaton, computes intervals <span
-class="math inline" data-term-auto="off">\(J(s)\)</span> by <span
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+for sums over distinct values</a> builds the automaton, computes
+intervals <span class="math inline" data-term-auto="off">\(J(s)\)</span> by <span
 class="math inline" data-term-auto="off">\(80\)</span> rounds of the operation above from
 <span class="math inline" data-term-auto="off">\([0,1/(p-1)]\)</span>, with endpoints rounded
 outwards to multiples of <span class="math inline" data-term-auto="off">\(2^{-96}\)</span>,
@@ -1652,7 +1683,7 @@ blocks of every set: every actual word is a path, and every exact
 enclosure of an actual tail lies in the interval of its state. This
 comparison is a consistency check only. The whole triple computation
 takes about three seconds, and the four-prime computation about seventy
-seconds, on one laptop; the receipts record every depth and gap.</p>
+seconds, on one laptop; the saved logs record every depth and gap.</p>
 <p>For <span class="math inline" data-term-auto="off">\(\{2,3,5,7\}\)</span> the automaton
 has <span class="math inline" data-term-auto="off">\(18\)</span> states and <span
 class="math inline" data-term-auto="off">\(16\)</span> types, and the test fails through
@@ -1770,7 +1801,7 @@ class="math inline" data-term-auto="off">\(20000\)</span> blocks. Within this au
 tail value therefore need not determine its first block. The identity
 does not exhibit equal tails at two positions of the actual prime-power
 sequence: those tails have different later phases. It proves failure of
-this interval decoder. The proof of Remark <a class="math-ref" href="#long269:res:distinct-height-all">5.1</a>
+this interval criterion. The proof of Remark <a class="math-ref" href="#long269:res:distinct-height-all">5.1</a>
 uses the isolated reversal of two actual jumps instead.</p>
 </section>
 <section id="long269:sec:distinct-stop" class="level3">
@@ -1789,15 +1820,15 @@ X_{a+1}=b_aX_a-m_a.\]</span></div>
 the second is Theorem <a class="math-ref" href="#long269:res:actual-orbit">8.2</a>, with the
 notation of Section <a class="math-ref" href="#long269:sec:blocks">8</a>. The five types
 give only the coefficients <span
-class="math inline" data-term-auto="off">\(1,3,9,13\)</span>, whereas the weighted shell
+class="math inline" data-term-auto="off">\(1,3,9,13\)</span>, whereas the weighted block
 counts satisfy <span class="math inline" data-term-auto="off">\(m_a=\Theta((a+1)^2)\)</span>
 by Lemma <a class="math-ref" href="#long269:res:literal-triangle">8.3</a>.
 Consequently <span class="math inline" data-term-auto="off">\(X_a&gt;m_a/30\)</span> is
-unbounded. Under rationality the integral states <span
+unbounded. Under rationality the integral values <span
 class="math inline" data-term-auto="off">\(BX_a\)</span> need not repeat, and the maps <span
 class="math inline" data-term-auto="off">\(y\mapsto(m_a+y)/b_a\)</span> form an infinite
 family depending on <span class="math inline" data-term-auto="off">\(a\)</span>. Even
-equality of two states would not identify their later coefficients. The
+equality of two tails would not identify their later coefficients. The
 residue criterion in Section <a class="math-ref" href="#long269:sec:escape">10</a> compares an
 endpoint residue with a quadratic bound instead. The example after
 Proposition <a class="math-ref" href="#long269:long:windowconsumer">13.2</a> shows
@@ -1880,8 +1911,8 @@ is <span class="math inline" data-term-auto="off">\(e_p+\sum_{q\ne p}\lfloor
 e_q\log_pq\rfloor\)</span>. For <span class="math inline" data-term-auto="off">\(m\)</span>
 nonnegative reals the floor of the sum exceeds the sum of the floors by
 an integer in <span class="math inline" data-term-auto="off">\(\{0,\ldots,m-1\}\)</span>.
-With two primes <span class="math inline" data-term-auto="off">\(m=1\)</span>, so the heights
-factor, and summing <span
+With two primes <span class="math inline" data-term-auto="off">\(m=1\)</span>, so the running
+LCMs factor, and summing <span
 class="math inline" data-term-auto="off">\(\operatorname{H}_P(p^i)^{-1}\operatorname{H}_P(q^j)^{-1}\)</span>
 over <span class="math inline" data-term-auto="off">\(i,j\ge0\)</span> gives <span
 class="math inline" data-term-auto="off">\(E_pE_q\)</span>. ◻</p>
@@ -2074,17 +2105,18 @@ unbounded, as the lower bounds below show.</p>
 </section>
 </section>
 <section id="long269:sec:clock-transfer" class="level2">
-<h2>Integer-radix words ordered by independent clocks</h2>
-<p>We next apply the interchange argument to words formed by several
-clocks. The results of this section are ordinary arguments awaiting
-formalisation. The clock rates are parameters subject to an explicit
-rational-independence hypothesis, which we do not assume for reciprocal
-prime logarithms. Under that hypothesis, interchanging two late
-crossings determines the rational relations among the component sums
-without recovering every letter of an admissible word.</p>
+<h2>Words obtained from a linear flow</h2>
+<p>We apply the interchange argument to the order in which finitely many
+linear functions take integer values. Their slopes will be assumed
+linearly independent over <span class="math inline" data-term-auto="off">\(\Q\)</span>; this
+hypothesis is not assumed for reciprocal prime logarithms. Interchanging
+two late crossings then determines the rational relations among the
+corresponding subseries, without requiring recovery of every letter. The
+arguments in this section remain ordinary proofs awaiting
+formalisation.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(A\)</span> be a finite alphabet. Give
 <span class="math inline" data-term-auto="off">\(a\in A\)</span> an integer radix <span
-class="math inline" data-term-auto="off">\(b_a\ge2\)</span> and a rational digit <span
+class="math inline" data-term-auto="off">\(b_a\ge2\)</span> and a rational coefficient <span
 class="math inline" data-term-auto="off">\(c_a\)</span>. For <span
 class="math inline" data-term-auto="off">\(w=w_1w_2\cdots\)</span>, define</p>
 <div class="math-display" data-term-auto="off"><span
@@ -2102,12 +2134,13 @@ class="math inline" data-term-auto="off">\(B(u)=\prod_{j\le m}b_{u_j}\)</span>, 
 class="math inline" data-term-auto="off">\(B(\varnothing)=1\)</span>.</p>
 <p></p>
 <div class="remark" id="long269:lem:late-swap">
-<p><em>Remark 6.1</em> (the suffix lattice and a late interchange).
-Suppose <span class="math inline" data-term-auto="off">\(V_c(w)\)</span> is rational. If for
-distinct letters <span class="math inline" data-term-auto="off">\(a,b\)</span> and
-arbitrarily long words <span class="math inline" data-term-auto="off">\(u\)</span> there is a
-common infinite suffix <span class="math inline" data-term-auto="off">\(z\)</span> such that
-both <span class="math inline" data-term-auto="off">\(uabz\)</span> and <span
+<p><em>Remark 6.1</em> (interchanging two letters after a long common
+prefix). Suppose <span class="math inline" data-term-auto="off">\(V_c(w)\)</span> is
+rational. If for distinct letters <span
+class="math inline" data-term-auto="off">\(a,b\)</span> and arbitrarily long words <span
+class="math inline" data-term-auto="off">\(u\)</span> there is a common infinite suffix <span
+class="math inline" data-term-auto="off">\(z\)</span> such that both <span
+class="math inline" data-term-auto="off">\(uabz\)</span> and <span
 class="math inline" data-term-auto="off">\(ubaz\)</span> belong to <span
 class="math inline" data-term-auto="off">\(X_w\)</span>, then</p>
 <div class="math-display" data-term-auto="off"><span
@@ -2121,9 +2154,9 @@ class="math inline" data-term-auto="off">\(a\)</span>; in that case <span
 class="math inline" data-term-auto="off">\(V_c(w)=\lambda\)</span>.</p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> First clear the common denominator of the digits, so
-that all <span class="math inline" data-term-auto="off">\(c_a\)</span> are integers. The
-recurrence <span class="math inline" data-term-auto="off">\(V_c(\sigma
+<p><em>Proof.</em> First clear the common denominator of the
+coefficients, so that all <span class="math inline" data-term-auto="off">\(c_a\)</span> are
+integers. The recurrence <span class="math inline" data-term-auto="off">\(V_c(\sigma
 w)=b_{w_1}V_c(w)-c_{w_1}\)</span> shows that, if <span
 class="math inline" data-term-auto="off">\(V_c(w)=p/K\)</span>, then every shifted value
 belongs to <span class="math inline" data-term-auto="off">\(K^{-1}\Z\)</span>. For <span
@@ -2158,8 +2191,8 @@ agree. Conversely, for <span
 class="math inline" data-term-auto="off">\(c_a=\lambda(b_a-1)\)</span> the displayed positive
 weights telescope and give <span
 class="math inline" data-term-auto="off">\(V_c(v)=\lambda\)</span> for every <span
-class="math inline" data-term-auto="off">\(v\)</span>. Dividing by the earlier common digit
-denominator restores the rational-digit statement. ◻</p>
+class="math inline" data-term-auto="off">\(v\)</span>. Dividing by the earlier common
+denominator restores the statement for rational coefficients. ◻</p>
 </div>
 <p>The common suffix is essential: distinct words can have the same
 affine map. For example, the blocks <span
@@ -2168,31 +2201,32 @@ class="math inline" data-term-auto="off">\((7,2,3,5)\)</span> have the same map 
 class="math inline" data-term-auto="off">\((51+x)/210\)</span>. Choosing the second block at
 block indices <span class="math inline" data-term-auto="off">\(1,2,4,8,\ldots\)</span>
 produces a non-eventually-periodic word with rational value <span
-class="math inline" data-term-auto="off">\(51/209\)</span>. Aperiodicity, compact tails and
-an integer alphabet alone therefore cannot replace the interchange
-hypothesis. Nor does the lemma assert sufficiency when its graph is
-disconnected.</p>
+class="math inline" data-term-auto="off">\(51/209\)</span>. Thus aperiodicity and bounded
+tails do not suffice, even with integer bases; the interchange
+hypothesis is essential to the argument. Nor does the lemma assert
+sufficiency when its graph is disconnected.</p>
 <p>Now let <span class="math inline" data-term-auto="off">\(r_1,\ldots,r_d&gt;0\)</span>,
 <span class="math inline" data-term-auto="off">\(d\ge2\)</span>, be linearly independent over
-<span class="math inline" data-term-auto="off">\(\Q\)</span>. Clock <span
-class="math inline" data-term-auto="off">\(i\)</span> crosses at positive times <span
+<span class="math inline" data-term-auto="off">\(\Q\)</span>. Record the letter <span
+class="math inline" data-term-auto="off">\(i\)</span> at each positive time <span
 class="math inline" data-term-auto="off">\(t\)</span> for which <span
 class="math inline" data-term-auto="off">\(r_it+\theta_i\in\Z\)</span>, where <span
-class="math inline" data-term-auto="off">\(\theta_i\in[0,1)\)</span>, and assume no two
-clocks cross simultaneously at positive time. Ordering the crossings
-gives an infinite word <span class="math inline" data-term-auto="off">\(w\)</span> on <span
+class="math inline" data-term-auto="off">\(\theta_i\in[0,1)\)</span>. Assume that no two of
+these functions take integer values simultaneously at positive time. In
+chronological order, the crossings give an infinite word <span
+class="math inline" data-term-auto="off">\(w\)</span> on <span
 class="math inline" data-term-auto="off">\(\{1,\ldots,d\}\)</span>.</p>
 <p></p>
 <div class="remark" id="long269:lem:clock-swaps">
-<p><em>Remark 6.2</em> (isolated interchanges in a clock word). Every
-pair of distinct clock labels satisfies the late-interchange hypothesis
+<p><em>Remark 6.2</em> (isolated interchanges in the crossing sequence).
+Every pair of distinct labels satisfies the late-interchange hypothesis
 of Remark <a class="math-ref" href="#long269:lem:late-swap">6.1</a> for <span
 class="math inline" data-term-auto="off">\(X_w\)</span>.</p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Fix a label <span class="math inline" data-term-auto="off">\(a\)</span>.
-Immediately after its sufficiently late crossings, the phases of the
-other clocks are</p>
+Immediately after its sufficiently late crossings, the remaining
+coordinates of the flow are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\theta_i-\frac{r_i}{r_a}\theta_a
        +k\frac{r_i}{r_a}\pmod1\qquad(i\ne a),\]</span></div>
@@ -2212,16 +2246,18 @@ density after any finite initial segment is discarded.</p>
 large integer <span class="math inline" data-term-auto="off">\(L\)</span>, and work on the
 section just after an <span class="math inline" data-term-auto="off">\(a\)</span>-crossing.
 Set <span class="math inline" data-term-auto="off">\(T=L/r_a\)</span> and choose the phase of
-<span class="math inline" data-term-auto="off">\(b\)</span> so that its clock crosses at
-<span class="math inline" data-term-auto="off">\(T\)</span>. This phase is nonzero, since
-<span class="math inline" data-term-auto="off">\(Lr_b/r_a\notin\Z\)</span>. Choose the
-remaining phases outside the countable sets that cause a crossing at
-zero, a third crossing at <span class="math inline" data-term-auto="off">\(T\)</span>, or any
-other positive simultaneous crossing. The resulting singular
-configuration has exactly the one double crossing of <span
+<span class="math inline" data-term-auto="off">\(b\)</span> so that the <span
+class="math inline" data-term-auto="off">\(b\)</span>-coordinate crosses at <span
+class="math inline" data-term-auto="off">\(T\)</span>. This phase is nonzero, since <span
+class="math inline" data-term-auto="off">\(Lr_b/r_a\notin\Z\)</span>. Choose the remaining
+phases outside the countable sets that cause a crossing at zero, a third
+crossing at <span class="math inline" data-term-auto="off">\(T\)</span>, or any other
+positive simultaneous crossing. The resulting singular configuration has
+exactly the one double crossing of <span
 class="math inline" data-term-auto="off">\(a,b\)</span> at <span
-class="math inline" data-term-auto="off">\(T\)</span>: a second meeting of these two clocks
-would make <span class="math inline" data-term-auto="off">\(r_b/r_a\)</span> rational.</p>
+class="math inline" data-term-auto="off">\(T\)</span>: a second meeting of these two
+coordinates would make <span class="math inline" data-term-auto="off">\(r_b/r_a\)</span>
+rational.</p>
 <p>Perturb the <span class="math inline" data-term-auto="off">\(b\)</span> phase on opposite
 sides. On any bounded time interval containing finitely many crossings,
 a sufficiently small perturbation preserves every order except that of
@@ -2241,8 +2277,8 @@ assertion. ◻</p>
 </div>
 <p></p>
 <div class="remark" id="long269:thm:clock-relations">
-<p><em>Remark 6.3</em> (rational relations among independent-clock
-channels). Under the preceding clock hypotheses, choose integers <span
+<p><em>Remark 6.3</em> (rational relations among the subseries). Under
+the preceding hypotheses on the linear flow, choose integers <span
 class="math inline" data-term-auto="off">\(b_i\ge2\)</span>, put <span
 class="math inline" data-term-auto="off">\(Q_n=\prod_{k\le n}b_{w_k}\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
@@ -2259,9 +2295,10 @@ relations <span class="math inline" data-term-auto="off">\(a_0+\sum_i a_iS_i=0\)
 multiples of <span
 class="math inline" data-term-auto="off">\((-1,b_1-1,\ldots,b_d-1)\)</span>. Thus the span of
 <span class="math inline" data-term-auto="off">\(1,S_1,\ldots,S_d\)</span> has dimension
-<span class="math inline" data-term-auto="off">\(d\)</span>; each channel and each nonempty
-proper unweighted sub-sum is irrational. The full unweighted sum is
-irrational exactly when the radices are not all equal.</p>
+<span class="math inline" data-term-auto="off">\(d\)</span>; each <span
+class="math inline" data-term-auto="off">\(S_i\)</span> and each nonempty proper unweighted
+sub-sum is irrational. The full unweighted sum is irrational exactly
+when the radices are not all equal.</p>
 </div>
 <p>The following argument proves the assertion of the remark in ordinary
 mathematics; formalisation and external peer review remain
@@ -2278,7 +2315,7 @@ class="math inline" data-term-auto="off">\((b_i-1)_i\)</span>. The all-ones vect
 multiple precisely when all the <span class="math inline" data-term-auto="off">\(b_i\)</span>
 agree. ◻</p>
 </div>
-<p>For a concrete four-clock instance take</p>
+<p>For example, take</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(r_1,r_2,r_3,r_4)=(1,\sqrt2,\sqrt3,\sqrt6),\qquad
 (b_1,b_2,b_3,b_4)=(2,3,5,7),\qquad \theta_i=0.\]</span></div>
@@ -2289,7 +2326,8 @@ class="math inline" data-term-auto="off">\(\Q\)</span>; the ratio of any two dis
 is irrational, so positive crossings never coincide. Write <span
 class="math inline" data-term-auto="off">\((d_1,d_2,d_3,d_4)=(1,2,3,6)\)</span>. Counting
 crossings up to the <span class="math inline" data-term-auto="off">\(n\)</span>th crossing of
-clock <span class="math inline" data-term-auto="off">\(i\)</span> gives the explicit series</p>
+the <span class="math inline" data-term-auto="off">\(i\)</span>-th coordinate gives the
+explicit series</p>
 <div class="math-display" id="long269:eq:four-clocks" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:four-clocks}
 S_i=\sum_{n\ge1}\left(
@@ -2402,7 +2440,7 @@ class="math inline" data-term-auto="off">\(x_i=\{i\alpha\}\)</span> and <span
 class="math inline" data-term-auto="off">\(y_j=\{j\beta\}\)</span>. Write <span
 class="math inline" data-term-auto="off">\(v_p(N)\)</span> for the exponent of the prime
 <span class="math inline" data-term-auto="off">\(p\)</span> in the positive integer <span
-class="math inline" data-term-auto="off">\(N\)</span>. The three height exponents are</p>
+class="math inline" data-term-auto="off">\(N\)</span>. The three prime exponents are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{split}
 v_p(\operatorname{H}(p^iq^jr^k))&amp;=i+\lfloor
@@ -2806,22 +2844,22 @@ decide whether the scalar sum is rational.</p>
 <p>We now return to the repeated sum <span
 class="math inline" data-term-auto="off">\(S=\mathcal R_{\{2,3,5\}}\)</span> and set <span
 class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>. The block <span
-class="math inline" data-term-auto="off">\((16,32]\)</span> used in the distinct-height proof
-contained three jumps. The half-open interval <span
+class="math inline" data-term-auto="off">\((16,32]\)</span> used in the proof for the sum
+over distinct values contained three jumps. The half-open interval <span
 class="math inline" data-term-auto="off">\([16,32)\)</span> contains seven smooth integers:
-<span class="math inline" data-term-auto="off">\(16,18,20,24,25,27,30\)</span>. Their heights
-are respectively <span
+<span class="math inline" data-term-auto="off">\(16,18,20,24,25,27,30\)</span>. Their running
+LCMs are respectively <span
 class="math inline" data-term-auto="off">\(720,720,720,720,3600,10800,10800\)</span>. The
 recurrence for <span class="math inline" data-term-auto="off">\(S\)</span> must retain these
-multiplicities as well as the height changes.</p>
+multiplicities as well as the running LCM changes.</p>
 <p>We group the terms of <span class="math inline" data-term-auto="off">\(S\)</span> into
 <span class="math inline" data-term-auto="off">\([2^a,2^{a+1})\)</span>, including the left
 endpoint. The prefix to be cleared is therefore strictly before <span
 class="math inline" data-term-auto="off">\(2^a\)</span>: it excludes the jump by <span
 class="math inline" data-term-auto="off">\(2\)</span> at that boundary. Put <span
 class="math inline" data-term-auto="off">\(P_a=\operatorname{H}(2^a)\)</span> and <span
-class="math inline" data-term-auto="off">\(h_a=P_a/2\)</span>. Every height in that prefix
-divides <span class="math inline" data-term-auto="off">\(h_a\)</span>. Here <span
+class="math inline" data-term-auto="off">\(h_a=P_a/2\)</span>. Every running LCM in that
+prefix divides <span class="math inline" data-term-auto="off">\(h_a\)</span>. Here <span
 class="math inline" data-term-auto="off">\(h_0=1/2\)</span>, and <span
 class="math inline" data-term-auto="off">\(h_a\)</span> is an integer for <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>. The powers of <span
@@ -2834,7 +2872,7 @@ class="math inline" data-term-auto="off">\(2^a/5\)</span>, respectively, while t
 class="math inline" data-term-auto="off">\(2^a\)</span> itself. Thus</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{8^a}{15}&lt;P_a\le8^a\qquad(a\ge0).\]</span></div>
-<p>With this normalisation, define the shell masses and tails by</p>
+<p>With this normalisation, define the block masses and tails by</p>
 <div class="math-display" id="long269:eq:actual-tail" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-tail}
@@ -2844,7 +2882,7 @@ T_a=\sum_{j\ge a}s_j,\qquad X_a=h_aT_a.
 \end{equation}\]</span></div>
 <p>The strict cutoff explains the factor <span
 class="math inline" data-term-auto="off">\(1/2\)</span>. For <span
-class="math inline" data-term-auto="off">\(a\ge1\)</span>, every height <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span>, every running LCM <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(x)\)</span> with <span
 class="math inline" data-term-auto="off">\(x&lt;2^a\)</span> divides <span
 class="math inline" data-term-auto="off">\(P_a/2\)</span>: the exponent of <span
@@ -2884,7 +2922,7 @@ class="math inline" data-term-auto="off">\(2\cdot5\)</span> or <span
 class="math inline" data-term-auto="off">\(2\cdot3\cdot5\)</span>. ◻</p>
 </div>
 <p>The coefficient subtracted at step <span
-class="math inline" data-term-auto="off">\(a\)</span> is the shell mass with its denominators
+class="math inline" data-term-auto="off">\(a\)</span> is the block mass with its denominators
 cleared:</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[m_a=h_{a+1}s_a
 =\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
@@ -2904,7 +2942,7 @@ class="math inline" data-term-auto="off">\((6,7)\)</span> and <span
 class="math inline" data-term-auto="off">\((30,65)\)</span>. In particular <span
 class="math inline" data-term-auto="off">\(m_3&gt;b_3\)</span>: these coefficients are not
 positional digits.</p>
-<p>In the shell <span class="math inline" data-term-auto="off">\([16,32)\)</span>, the
+<p>In the block <span class="math inline" data-term-auto="off">\([16,32)\)</span>, the
 internal jumps are <span class="math inline" data-term-auto="off">\(25\)</span> and <span
 class="math inline" data-term-auto="off">\(27\)</span>, in that order. Multiplication by
 <span class="math inline" data-term-auto="off">\(h_5=10800\)</span> gives the weights for the
@@ -2923,7 +2961,7 @@ class="math display" data-term-auto="off">\[m_4=4\cdot15+1\cdot3+2\cdot1
 starts with the seven points and adds the corrections before <span
 class="math inline" data-term-auto="off">\(25\)</span> and <span
 class="math inline" data-term-auto="off">\(27\)</span>. It is this form that extends to every
-shell.</p>
+block.</p>
 <p>To compute <span class="math inline" data-term-auto="off">\(m_a\)</span> in general, count
 the smooth numbers before each prime-power jump. Let <span
 class="math inline" data-term-auto="off">\(\mathcal N(t)\)</span> be the number of positive
@@ -2946,12 +2984,12 @@ m_a&amp;=\mathcal N(2^{a+1})-\mathcal N(2^a)\\
 m_0&amp;=1.
 \end{aligned}
 \end{equation}\]</span></div>
-<p>The first difference counts the whole shell;
+<p>The first difference counts the whole block;
 each later difference counts its points strictly before the indicated
 jump. The proof below justifies these weights, establishes convergence
 and derives the tail identities.</p>
 <div class="theorem" id="long269:res:actual-orbit">
-<p><strong>Theorem 8.2</strong> (the tail recurrence). <em> The shell
+<p><strong>Theorem 8.2</strong> (the tail recurrence). <em> The block
 masses are summable and <span
 class="math inline" data-term-auto="off">\(S=\sum_{a\ge0}s_a\)</span>. For every <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span>, </em></p>
@@ -2969,11 +3007,11 @@ X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
 <p><em>Proof.</em> Every exponent of <span
 class="math inline" data-term-auto="off">\(3\)</span> or <span
 class="math inline" data-term-auto="off">\(5\)</span> in the <span
-class="math inline" data-term-auto="off">\(a\)</span>th shell is at most <span
+class="math inline" data-term-auto="off">\(a\)</span>th block is at most <span
 class="math inline" data-term-auto="off">\(a\)</span>, and for each such pair Lemma <a class="math-ref" href="#long269:res:short">3.5</a> leaves at most
 one exponent of <span class="math inline" data-term-auto="off">\(2\)</span> placing the point
-in <span class="math inline" data-term-auto="off">\([2^{a},2^{a+1})\)</span>. Each height is
-at least <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and the shell
+in <span class="math inline" data-term-auto="off">\([2^{a},2^{a+1})\)</span>. Each running
+LCM is at least <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and the block
 contains <span class="math inline" data-term-auto="off">\(2^{a}\)</span>, so <span
 class="math inline" data-term-auto="off">\(0&lt;s_a\le(a+1)^{2}2^{-a}\)</span>. The majorant
 is summable, which justifies every tail splitting below, and unique
@@ -2985,9 +3023,9 @@ class="math inline" data-term-auto="off">\(1\le\ell\le v\)</span>, and set <span
 class="math inline" data-term-auto="off">\(t_0=2^{a}\)</span>, <span
 class="math inline" data-term-auto="off">\(t_{v+1}=2^{a+1}\)</span> and <span
 class="math inline" data-term-auto="off">\(n_\ell=\mathcal N(t_\ell)\)</span>. On <span
-class="math inline" data-term-auto="off">\([t_\ell,t_{\ell+1})\)</span> the height is <span
-class="math inline" data-term-auto="off">\(P_a\prod_{u\le\ell}p_u\)</span>, and the terminal
-jump has factor two, so</p>
+class="math inline" data-term-auto="off">\([t_\ell,t_{\ell+1})\)</span> the running LCM is
+<span class="math inline" data-term-auto="off">\(P_a\prod_{u\le\ell}p_u\)</span>, and the
+terminal jump has factor two, so</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[h_{a+1}s_a
 =\sum_{\ell=0}^{v}(n_{\ell+1}-n_\ell)\prod_{u&gt;\ell}p_u
 =n_{v+1}-n_0+\sum_{\ell=1}^{v}(p_\ell-1)
@@ -3002,7 +3040,7 @@ exponent of <span class="math inline" data-term-auto="off">\(p\)</span> gives</p
 class="math display" data-term-auto="off">\[\mathcal
 N(p^e)=\sum_{u=1}^e\#\{(i,j)\in\N^2:q^ir^j&lt;p^u\}.\]</span></div>
 <p>At <span
-class="math inline" data-term-auto="off">\(a=0\)</span> the shell is the single point <span
+class="math inline" data-term-auto="off">\(a=0\)</span> the block is the single point <span
 class="math inline" data-term-auto="off">\(1\)</span>, giving <span
 class="math inline" data-term-auto="off">\(m_0=1\)</span>. Positivity follows from <span
 class="math inline" data-term-auto="off">\(s_a&gt;0\)</span>. Splitting <span
@@ -3021,14 +3059,14 @@ class="math inline" data-term-auto="off">\([2^a,2^{a+1})\)</span>. This turns th
 numerator into a two-dimensional count, with weights determined by the
 remaining odd-prime jumps.</p>
 <div class="lemma" id="long269:res:literal-triangle">
-<p><strong>Lemma 8.3</strong> (the shell numerator as a weighted lattice
+<p><strong>Lemma 8.3</strong> (the block numerator as a weighted lattice
 count). <em> Put <span class="math inline" data-term-auto="off">\(\lambda_3=\log_2
 3\)</span>, <span class="math inline" data-term-auto="off">\(\lambda_5=\log_2 5\)</span> and
 <span class="math inline" data-term-auto="off">\(\theta_p=1/\lambda_p\)</span> for <span
 class="math inline" data-term-auto="off">\(p=3,5\)</span>. For <span
 class="math inline" data-term-auto="off">\(j,k\ge0\)</span> write <span
 class="math inline" data-term-auto="off">\(w_{j,k}=j\lambda_3+k\lambda_5\)</span> and <span
-class="math inline" data-term-auto="off">\(t_{j,k}=\{w_{j,k}\}\)</span>. The shell numerator
+class="math inline" data-term-auto="off">\(t_{j,k}=\{w_{j,k}\}\)</span>. The block numerator
 is </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[m_a=\sum_{\substack{j,k\ge0\\w_{j,k}&lt;a+1}}
@@ -3053,7 +3091,7 @@ class="math inline" data-term-auto="off">\(w_{j,k}&lt;a+1\)</span>, exactly one 
 <span class="math inline" data-term-auto="off">\(i=a-\lfloor w_{j,k}\rfloor\ge0\)</span> puts
 <span class="math inline" data-term-auto="off">\(2^i3^j5^k=2^{a+t_{j,k}}\)</span> in <span
 class="math inline" data-term-auto="off">\([2^a,2^{a+1})\)</span>. This pairs each point of
-the triangle with exactly one smooth integer in the shell. Substituting
+the triangle with exactly one smooth integer in the block. Substituting
 in <span
 class="math inline" data-term-auto="off">\(P_{a+1}/(2\operatorname{H}(2^i3^j5^k))\)</span>
 cancels the power of <span class="math inline" data-term-auto="off">\(2\)</span> and gives
@@ -3154,9 +3192,9 @@ class="math inline" data-term-auto="off">\(B=1\)</span>.</p>
 </section>
 <section id="long269:sec:actual-orbit" class="level2">
 <h2>Bounding the tails and clearing a rational denominator</h2>
-<p>We sharpen the quadratic estimate by counting points of equal height.
-As the cutoff increases, one height exponent increases at each jump, so
-the sum of the exponents indexes the nonempty cells. At <span
+<p>We sharpen the quadratic estimate by counting points of equal running
+LCM. As the cutoff increases, one prime exponent increases at each jump,
+so the sum of the exponents indexes the nonempty cells. At <span
 class="math inline" data-term-auto="off">\(2^a\)</span> it is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[n_a=a+\lfloor\log_3(2^a)\rfloor+\lfloor\log_5(2^a)\rfloor.\]</span></div>
@@ -3171,7 +3209,8 @@ class="math inline" data-term-auto="off">\(0&lt;X_a\le Q(n_a)\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Partition the smooth integers <span
-class="math inline" data-term-auto="off">\(x\ge2^{a}\)</span> by their height vector</p>
+class="math inline" data-term-auto="off">\(x\ge2^{a}\)</span> by the exponent vector of their
+running LCM</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(A,B,C)=(\lfloor\log_2x\rfloor,\lfloor\log_3x\rfloor,\lfloor\log_5x\rfloor).\]</span></div>
 <p>The cell of a vector is the interval <span
@@ -3193,12 +3232,12 @@ the difference <span
 class="math inline" data-term-auto="off">\((2u+v)^{2}-9uv=(u-v)(4u-v)\)</span> is
 nonnegative. Unique factorisation identifies these exponent triples with
 distinct smooth integers.</p>
-<p>As the cutoff increases all three height exponents are nondecreasing,
+<p>As the cutoff increases all three prime exponents are nondecreasing,
 so two nonempty cells with the same exponent sum are the same cell, and
 there is at most one nonempty cell with each exponent sum. Every cell
 above <span class="math inline" data-term-auto="off">\(2^a\)</span> has exponent sum at least
 <span class="math inline" data-term-auto="off">\(n_a\)</span>, and a cell with sum <span
-class="math inline" data-term-auto="off">\(n_a+k\)</span> has height at least <span
+class="math inline" data-term-auto="off">\(n_a+k\)</span> has running LCM at least <span
 class="math inline" data-term-auto="off">\(P_a2^k\)</span>, since each of the <span
 class="math inline" data-term-auto="off">\(k\)</span> extra prime factors is at least <span
 class="math inline" data-term-auto="off">\(2\)</span>. Nonnegative summation over exponent
@@ -3210,7 +3249,7 @@ class="math display" data-term-auto="off">\[X_a\le\frac1{18}\sum_{k\ge0}\frac{(n
 geometric moments <span class="math inline" data-term-auto="off">\(\sum2^{-k}=2\)</span>,
 <span class="math inline" data-term-auto="off">\(\sum k2^{-k}=2\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum k^{2}2^{-k}=6\)</span>. Positivity follows
-from the shell at <span class="math inline" data-term-auto="off">\(2^{a}\)</span>. ◻</p>
+from the block at <span class="math inline" data-term-auto="off">\(2^{a}\)</span>. ◻</p>
 </div>
 <p>Increasing the exponent sum by one costs a factor of at least two in
 the denominator, whereas the number of points in a cell grows at most
@@ -3227,7 +3266,7 @@ gives <span class="math inline" data-term-auto="off">\(X_a=\Theta((a+1)^2)\)</sp
 particular, the normalised tails are not uniformly bounded. This order
 estimate does not assert an asymptotic constant or optimality of <span
 class="math inline" data-term-auto="off">\(Q\)</span>.</p>
-<p>The bound is used at the endpoint of a window, where the natural
+<p>The bound is used at the endpoint of a segment, where the natural
 index is the positive prime-power jump count strictly below the cutoff.
 Put</p>
 <div class="math-display" id="long269:eq:endpoint-index" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -3270,10 +3309,10 @@ bound in <a class="math-ref" data-equation-ref="true" href="#long269:eq:actual-b
 residue theorem below allows either choice.</p>
 <div class="lemma" id="long269:res:all-scale-lattice">
 <p><strong>Lemma 9.2</strong> (finite denominator clearing). <em> For all
-integers <span class="math inline" data-term-auto="off">\(0\le u\le b\)</span> the window
-mass <span class="math inline" data-term-auto="off">\(h_b\sum_{a=u}^{b-1}s_a\)</span> is a
-natural number. If <span class="math inline" data-term-auto="off">\(S=N/D\)</span> with <span
-class="math inline" data-term-auto="off">\(N\in\Z\)</span> and <span
+integers <span class="math inline" data-term-auto="off">\(0\le u\le b\)</span> the sum over
+the segment <span class="math inline" data-term-auto="off">\(h_b\sum_{a=u}^{b-1}s_a\)</span>
+is a natural number. If <span class="math inline" data-term-auto="off">\(S=N/D\)</span> with
+<span class="math inline" data-term-auto="off">\(N\in\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(D\in\N_{&gt;0}\)</span>, then <span
 class="math inline" data-term-auto="off">\(DX_a\in\Z\)</span> for every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>, and there are indices <span
@@ -3281,25 +3320,25 @@ class="math inline" data-term-auto="off">\(1\le i&lt;j\le D+1\)</span> for which
 class="math inline" data-term-auto="off">\(X_i-X_j\in\Z\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> An empty window has mass zero. Otherwise <span
+<p><em>Proof.</em> An empty segment has mass zero. Otherwise <span
 class="math inline" data-term-auto="off">\(b\ge1\)</span>, and every integer <span
-class="math inline" data-term-auto="off">\(x&lt;2^{b}\)</span> has <span
-class="math inline" data-term-auto="off">\(2\)</span>-height exponent at most <span
-class="math inline" data-term-auto="off">\(b-1\)</span> while its other height exponents are
+class="math inline" data-term-auto="off">\(x&lt;2^{b}\)</span> has exponent of <span
+class="math inline" data-term-auto="off">\(2\)</span> at most <span
+class="math inline" data-term-auto="off">\(b-1\)</span> while its other prime exponents are
 at most those at <span class="math inline" data-term-auto="off">\(2^{b}\)</span>, so <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(x)\mid P_b/2=h_b\)</span> and
-every term of the finite window clears at <span
+every term of the finite segment clears at <span
 class="math inline" data-term-auto="off">\(h_b\)</span>. Since <span
 class="math inline" data-term-auto="off">\(h_a\sum_{u&lt;a}s_u\)</span> is an integer,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[DX_a=h_aN-Dh_a\sum_{u&lt;a}s_u\in\Z.\]</span></div>
 <p>Among <span class="math inline" data-term-auto="off">\(D+1\)</span> of these integers two
 share a residue modulo <span class="math inline" data-term-auto="off">\(D\)</span>, and the
-corresponding states differ by an integer. ◻</p>
+corresponding tails differ by an integer. ◻</p>
 </div>
 <p>The strict upper endpoint is what permits division by two. A cutoff
 including <span class="math inline" data-term-auto="off">\(2^b\)</span> would not clear its
-term at the normaliser <span
+term at the normalising factor <span
 class="math inline" data-term-auto="off">\(h_b=P_b/2\)</span>.</p>
 <div class="theorem" id="long269:res:actual-cancellation"><span class="tex-label" id="long269:res:lead-carry-bridge" hidden></span><span class="tex-label" id="long269:res:actual-carry-bound" hidden></span><span class="tex-label" id="long269:res:denominator-reduction" hidden></span>
 <p><strong>Theorem 9.3</strong> (rationality gives positive integer
@@ -3428,10 +3467,10 @@ class="math inline" data-term-auto="off">\(y_A=X_A\)</span>.</em></p>
 <div class="proof">
 <p><em>Proof.</em> The identity is the recurrence solved for <span
 class="math inline" data-term-auto="off">\(X_a\)</span>, and positivity holds because every
-shell contains its dyadic left endpoint. Integer coefficients preserve
+block contains its dyadic left endpoint. Integer coefficients preserve
 integrality at every later step. For the last assertion, <span
 class="math inline" data-term-auto="off">\(y_{A+k}-X_{A+k}=(P_{A+k}/P_A)(y_A-X_A)\)</span>.
-The dyadic height bounds from Section <a class="math-ref" href="#long269:sec:blocks">8</a> give <span
+The dyadic running LCM bounds from Section <a class="math-ref" href="#long269:sec:blocks">8</a> give <span
 class="math inline" data-term-auto="off">\(P_{A+k}/P_A&gt;8^k/15\)</span>, whereas the common
 interval bounds the absolute difference by <span
 class="math inline" data-term-auto="off">\(w(A+k)\)</span>. Thus <span
@@ -3481,9 +3520,9 @@ class="math display" data-term-auto="off">\[0&lt;X_a\le\widetilde Q(n_a)&lt;Q(n_
 <div class="proof">
 <p><em>Proof.</em> For a point <span
 class="math inline" data-term-auto="off">\(x\ge2^a\)</span>, let <span
-class="math inline" data-term-auto="off">\(d_p\)</span> be the increase in its <span
-class="math inline" data-term-auto="off">\(p\)</span>-height exponent from the boundary <span
-class="math inline" data-term-auto="off">\(2^a\)</span>, and put <span
+class="math inline" data-term-auto="off">\(d_p\)</span> be the increase in the exponent of
+<span class="math inline" data-term-auto="off">\(p\)</span> in its running LCM from the
+boundary <span class="math inline" data-term-auto="off">\(2^a\)</span>, and put <span
 class="math inline" data-term-auto="off">\(k=d_2+d_3+d_5\)</span>. The definition of <span
 class="math inline" data-term-auto="off">\(d_3\)</span> gives <span
 class="math inline" data-term-auto="off">\(x&lt;3^{\lfloor\log_3
@@ -3498,9 +3537,9 @@ each remaining factor at least <span class="math inline" data-term-auto="off">\(
 Hence</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{\operatorname{H}(x)}{P_a}\ge2^{k-j}3^j=:d(k).\]</span></div>
-<p>There is at most one height cell with each exponent sum, with at most
-<span class="math inline" data-term-auto="off">\((n_a+k+3)^2/9\)</span> supported points by
-the earlier projection bound. Consequently</p>
+<p>There is at most one interval of constancy with each exponent sum, with
+at most <span class="math inline" data-term-auto="off">\((n_a+k+3)^2/9\)</span> supported
+points by the earlier projection bound. Consequently</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[X_a\le\sum_{k\ge0}\frac{(n_a+k+3)^2}{18d(k)}.\]</span></div>
 <p>Now <span class="math inline" data-term-auto="off">\(d(3m)=12^m\)</span>, <span
@@ -3512,7 +3551,7 @@ class="math inline" data-term-auto="off">\(11979\bigl(Q(n)-\widetilde Q(n)\bigr)
 =121n^2+1518n+5111&gt;0\)</span> for <span
 class="math inline" data-term-auto="off">\(n\ge0\)</span>. ◻</p>
 </div>
-<p>The estimate uses the original shell multiplicities and the order of
+<p>The estimate uses the original block multiplicities and the order of
 the prime-power jumps. It is not a bound for an arbitrary recurrence
 with the same bases. For an integral <span
 class="math inline" data-term-auto="off">\(BX_a\)</span>, the bound can be rounded down to
@@ -3590,12 +3629,13 @@ c_{a+1}\ge\frac{Bm_{a+1}}{30}-\frac12\longrightarrow\infty.\]</span></div>
 <p>Consequently <span class="math inline" data-term-auto="off">\(c_{a+1}=b_ac_a-Bm_a\)</span> is
 impossible for all sufficiently large <span
 class="math inline" data-term-auto="off">\(a\)</span>. This is a failure of the proposed
-carry construction, not an irrationality contradiction: the criterion’s
-small-numerator hypothesis also fails.</p>
+construction of integer coefficients, not an irrationality
+contradiction: the criterion’s small-numerator hypothesis also
+fails.</p>
 <p>The denominator clearing itself is standard; the calculations
 specific to this series retain its multiplicities, use the strict
-endpoint to divide the normaliser by two, and bound the resulting
-positive tails.</p>
+endpoint to divide the normalising factor by two, and bound the
+resulting positive tails.</p>
 <p>For polynomial Cantor data, Hančl–Tijdeman <span class="citation"
 data-cites="hancltijdeman2008"><a href="#ref-25">[25]</a></span> give a polynomial cancellation
 criterion and a division mechanism. Their nonconstant polynomial radix
@@ -3648,8 +3688,8 @@ number of shifts: the corresponding series are absolutely convergent,
 since their denominators are products of at least <span
 class="math inline" data-term-auto="off">\(2\)</span> at each step. A polynomial bound on the
 combined numerators is not a substitute, as the exponentially growing
-carries above demonstrate. Nor does quadratic growth force a carry to be
-a polynomial in the floor coordinates.</p>
+integer solutions above demonstrate. Nor does quadratic growth force an
+integer solution to be a polynomial in the floor coordinates.</p>
 </section>
 </section>
 </section>
@@ -3667,9 +3707,9 @@ positivity and quadratic upper bound restrict it to a finite interval.
 If the least positive term of that progression exceeds the bound, no
 terminal tail is possible. In the zero residue class we must use the
 modulus itself, since zero is excluded by positivity. To test every
-possible rational denominator, we need such windows after an arbitrary
+possible rational denominator, we need such segments after an arbitrary
 prescribed starting index.</p>
-<p>A window starts at <span class="math inline" data-term-auto="off">\(\ell\ge0\)</span> and
+<p>A segment starts at <span class="math inline" data-term-auto="off">\(\ell\ge0\)</span> and
 consists of <span class="math inline" data-term-auto="off">\(h\ge0\)</span> steps. Its
 product of bases and accumulated numerator are integers, even when the
 tails are not. Set</p>
@@ -3695,8 +3735,8 @@ class="math inline" data-term-auto="off">\(N\)</span>, use <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_C(N)=1+((N-1)\bmod
 C)\in\{1,\ldots,C\}\)</span>. In particular <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_C(0)=C\)</span>. Positivity of
-this representative is what allows comparison with a positive integral
-carry.</p>
+this representative is what allows comparison with a positive integer
+tail.</p>
 <div class="proposition" id="long269:res:consumer">
 <p><strong>Proposition 10.1</strong> (least positive residues). <em> Let
 <span class="math inline" data-term-auto="off">\(C&gt;0\)</span> and let <span
@@ -3727,7 +3767,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})&gt;G(B,\ell+h) .
 \end{gathered}
 \end{equation}\]</span></div>
-<p>The window may depend on both <span
+<p>The segment may depend on both <span
 class="math inline" data-term-auto="off">\(B\)</span> and <span
 class="math inline" data-term-auto="off">\(a_0\)</span>. All quantities in the inequality are
 finite integers. The quantifiers over denominators and prescribed onsets
@@ -3745,9 +3785,9 @@ next theorem serve different purposes. Domination of <span
 class="math inline" data-term-auto="off">\(K\)</span> lets a residue above <span
 class="math inline" data-term-auto="off">\(G\)</span> exclude a positive integer tail. The
 limit <span class="math inline" data-term-auto="off">\(G(B,a)/8^a\to0\)</span> lets every
-sufficiently long window from a fixed nonintegral start overtake <span
+sufficiently long segment from a fixed nonintegral start overtake <span
 class="math inline" data-term-auto="off">\(G\)</span>. It is a sufficient growth condition,
-not a necessary one: if only existence of a window is required, a
+not a necessary one: if only existence of a segment is required, a
 subsequence of small endpoint bounds can suffice, as we prove below. The
 stated theorem already covers every polynomial upper bound that
 dominates <span class="math inline" data-term-auto="off">\(K\)</span>, and also <span
@@ -3788,7 +3828,7 @@ class="math inline" data-term-auto="off">\(a_D\)</span>, and positive integers <
 class="math inline" data-term-auto="off">\(d_a=BX_a\le K(B,a)\le G(B,a)\)</span> for <span
 class="math inline" data-term-auto="off">\(a\ge a_D\)</span> satisfying the cleared
 recurrence. Apply <a class="math-ref" data-equation-ref="true" href="#long269:eq:actual-escape">long269:eq:actual-escape</a> with
-<span class="math inline" data-term-auto="off">\(a_0=a_D\)</span> to obtain a window <span
+<span class="math inline" data-term-auto="off">\(a_0=a_D\)</span> to obtain a segment <span
 class="math inline" data-term-auto="off">\((\ell,h)\)</span> with <span
 class="math inline" data-term-auto="off">\(\ell\ge a_D\)</span>. By <a class="math-ref" data-equation-ref="true" href="#long269:eq:window-identity">long269:eq:window-identity</a>, <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\)</span> modulo <span
@@ -3818,8 +3858,8 @@ class="math display" data-term-auto="off">\[\operatorname{lpr}_{W_{\ell,h}}(-BF_
 <p>Its first term eventually
 exceeds <span class="math inline" data-term-auto="off">\(G(B,\ell+h)\)</span>, since <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(8^a)\)</span>. Thus every sufficiently
-long window from this fixed start escapes, which is stronger than the
-required existence.</p>
+long segment from this fixed start satisfies the residue inequality,
+which is stronger than the required existence.</p>
 <p>For the two stated bounds, <span
 class="math inline" data-term-auto="off">\(n_a\le3a\)</span> gives <span
 class="math inline" data-term-auto="off">\(K(B,a)\le BQ(3a)\le90B(a+1)^2=K_0(B,a)\)</span>.
@@ -3840,11 +3880,14 @@ only <span class="math inline" data-term-auto="off">\(G(B,a)=o(8^a)\)</span>. Th
 example explains why a size comparison with the possible integer tail is
 needed in the contradiction, not why this particular <span
 class="math inline" data-term-auto="off">\(K\)</span> is indispensable.</p>
-<p>The reverse implication gives more than existence: at any fixed start
-with <span class="math inline" data-term-auto="off">\(BX_\ell\)</span> nonintegral, the least
+<p>At a fixed start, the same identity distinguishes two behaviours. If
+<span class="math inline" data-term-auto="off">\(BX_\ell\)</span> is nonintegral, the least
 positive residue eventually occupies a fixed positive fraction of the
-whole modulus. The next proposition states this without assuming that
-<span class="math inline" data-term-auto="off">\(S\)</span> is irrational.</p>
+modulus. If <span class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral,
+the residue eventually equals the normalised tail <span
+class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> itself. The next proposition
+gives both conclusions without assuming that <span
+class="math inline" data-term-auto="off">\(S\)</span> is irrational.</p>
 <div class="proposition" id="long269:res:residue-limit">
 <p><strong>Proposition 10.3</strong> (the fixed-start residue limit). <em>
 For fixed integers <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>,
@@ -3871,8 +3914,8 @@ gap to the next strictly larger integer. Division with remainder gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{R_h}{W_{\ell,h}}
 =\left\lfloor\frac{BF_{\ell,h}}{W_{\ell,h}}\right\rfloor+1
        -\frac{BF_{\ell,h}}{W_{\ell,h}}.\]</span></div>
-<p>By the window identity,
-<span
+<p>By the iterated
+recurrence, <span
 class="math inline" data-term-auto="off">\(BF_{\ell,h}/W_{\ell,h}=BX_\ell-BX_{\ell+h}/W_{\ell,h}\)</span>.
 These finite sums approach <span class="math inline" data-term-auto="off">\(BX_\ell\)</span>
 strictly from below, since <span
@@ -3888,7 +3931,7 @@ zero. ◻</p>
 </div>
 <p>Thus a nonintegral <span class="math inline" data-term-auto="off">\(BX_\ell\)</span>, even
 for a rational <span class="math inline" data-term-auto="off">\(S\)</span>, gives arbitrarily
-long successful windows against any bound <span
+long successful segments against any bound <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(8^a)\)</span> for that fixed <span
 class="math inline" data-term-auto="off">\(B\)</span>. The rationality contradiction instead
 uses the denominator’s specific multiplier and a start beyond its
@@ -3905,14 +3948,14 @@ K(B,a),&amp;a\text{ even},\\
 K(B,a)+8^a,&amp;a\text{ odd}.
 \end{cases}\]</span></div>
 <p>At an odd endpoint <span
-class="math inline" data-term-auto="off">\(a=\ell+h\)</span>, no window with <span
+class="math inline" data-term-auto="off">\(a=\ell+h\)</span>, no segment with <span
 class="math inline" data-term-auto="off">\(\ell\ge1\)</span> can pass: its residue is at most
 <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}=P_a/P_\ell\le8^a/2&lt;G(B,a)\)</span>.
 At even endpoints the test is unchanged. If <span
 class="math inline" data-term-auto="off">\(S\)</span> is irrational, the proof above
-therefore supplies successful windows ending at every sufficiently large
-even index, from each fixed start. Thus <span
+therefore supplies successful segments ending at every sufficiently
+large even index, from each fixed start. Thus <span
 class="math inline" data-term-auto="off">\(G(B,a)/8^a\to0\)</span> is not necessary for the
 equivalence.</p>
 <p>More precisely, for every integer-valued <span
@@ -3927,7 +3970,7 @@ S\notin\Q,\\
 <p>Suppose first that <span
 class="math inline" data-term-auto="off">\(\mathsf E(G)\)</span> holds. The earlier
 rationality contradiction uses only <span class="math inline" data-term-auto="off">\(G\ge
-K\)</span>. For a successful window starting at <span
+K\)</span>. For a successful segment starting at <span
 class="math inline" data-term-auto="off">\(\ell\ge a_0\)</span>, put <span
 class="math inline" data-term-auto="off">\(a=\ell+h\)</span>. Since a least positive residue
 is at most its modulus,</p>
@@ -3952,10 +3995,10 @@ class="math inline" data-term-auto="off">\(8^a/15&lt;P_a\le8^a\)</span> imply <s
 class="math inline" data-term-auto="off">\(\liminf_a G(B,a)/P_a=0\)</span>. Along a
 sufficiently late subsequence of endpoints the residue therefore exceeds
 <span class="math inline" data-term-auto="off">\(G\)</span>. This gives arbitrarily long
-successful windows from each fixed start, but need not give success at
+successful segments from each fixed start, but need not give success at
 every sufficiently large length, as the parity example shows.</p>
 <p>In particular, <span class="math inline" data-term-auto="off">\(G(B,a)=K(B,a)+8^a\)</span>
-allows no window at all. More generally, an eventual lower bound <span
+allows no segment at all. More generally, an eventual lower bound <span
 class="math inline" data-term-auto="off">\(G(B,a)\ge c8^a\)</span>, for one eligible <span
 class="math inline" data-term-auto="off">\(B\)</span> and some <span
 class="math inline" data-term-auto="off">\(c&gt;0\)</span>, excludes every sufficiently late
@@ -3964,11 +4007,11 @@ compare the bound with <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}\le8^{\ell+h}/P_\ell\)</span>. These are
 restrictions on the test bound, not additional assumptions about the
 series. The original quadratic bounds satisfy the lower-limit condition,
-so the remaining problem is still the existence of the windows.
+so the remaining problem is still the existence of the segments.
 Equivalence alone says nothing about the relative difficulty of the
 formulations; a useful arithmetic proof must exploit further information
 about the numerators <span class="math inline" data-term-auto="off">\(m_a\)</span>.</p>
-<p>A fixed window can have a lower bound greater than <span
+<p>A fixed segment can have a lower bound greater than <span
 class="math inline" data-term-auto="off">\(1\)</span>. Write <span
 class="math inline" data-term-auto="off">\(W\)</span> and <span
 class="math inline" data-term-auto="off">\(F\)</span> for its product and accumulated
@@ -3983,32 +4026,32 @@ residues are <span class="math inline" data-term-auto="off">\(2\)</span> and <sp
 class="math inline" data-term-auto="off">\(4\)</span>, attained at <span
 class="math inline" data-term-auto="off">\(B=1\)</span> and <span
 class="math inline" data-term-auto="off">\(11\)</span>; thus <span
-class="math inline" data-term-auto="off">\(2\)</span> is a lower bound for this window, and
+class="math inline" data-term-auto="off">\(2\)</span> is a lower bound for this segment, and
 the residues are not units. For <span
 class="math inline" data-term-auto="off">\((W,F)=(60,47)\)</span>, however, <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_{60}(-37\cdot47)=1\)</span>,
 with <span class="math inline" data-term-auto="off">\(37\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span>. Thus no lower bound greater than
-<span class="math inline" data-term-auto="off">\(1\)</span> works for all windows and
-eligible multipliers, although a particular window may have one.</p>
+<span class="math inline" data-term-auto="off">\(1\)</span> works for all segments and
+eligible multipliers, although a particular segment may have one.</p>
 </section>
-<section id="how-fast-the-window-base-grows" class="level3">
-<h3>How fast the window base grows</h3>
-<p>We can enlarge the class of admissible bounds by using the height
-formula in the converse argument. The elementary estimate <span
+<section id="how-fast-the-product-of-the-bases-grows" class="level3">
+<h3>How fast the product of the bases grows</h3>
+<p>We can enlarge the class of admissible bounds by using the running
+LCM formula in the converse argument. The elementary estimate <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^h\)</span> allows <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(2^a)\)</span> for each fixed <span
-class="math inline" data-term-auto="off">\(B\)</span>, whereas the height formula gives <span
-class="math inline" data-term-auto="off">\(W_{\ell,h}\asymp8^h\)</span> uniformly in <span
-class="math inline" data-term-auto="off">\(\ell\)</span> and allows <span
+class="math inline" data-term-auto="off">\(B\)</span>, whereas the running LCM formula gives
+<span class="math inline" data-term-auto="off">\(W_{\ell,h}\asymp8^h\)</span> uniformly in
+<span class="math inline" data-term-auto="off">\(\ell\)</span> and allows <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(8^a)\)</span>. For an irrational <span
 class="math inline" data-term-auto="off">\(S\)</span>, the preceding lower-limit condition
 characterises all dominating bounds that suffice, including bounds
 outside these two classes.</p>
 <div class="proposition" id="long269:res:window-growth">
-<p><strong>Proposition 10.4</strong> (growth of the window product). <em>
-Put <span class="math inline" data-term-auto="off">\(\theta_3=\log_32\)</span> and <span
-class="math inline" data-term-auto="off">\(\theta_5=\log_52\)</span>. For all <span
+<p><strong>Proposition 10.4</strong> (growth of the product of consecutive
+bases). <em> Put <span class="math inline" data-term-auto="off">\(\theta_3=\log_32\)</span>
+and <span class="math inline" data-term-auto="off">\(\theta_5=\log_52\)</span>. For all <span
 class="math inline" data-term-auto="off">\(\ell\ge0\)</span> and <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -4039,14 +4082,14 @@ arbitrarily late starts). <em> Fix <span
 class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span> and <span
 class="math inline" data-term-auto="off">\(H\ge1\)</span>. Only finitely many starts <span
-class="math inline" data-term-auto="off">\(\ell\)</span> admit an escaping window of length
-at most <span class="math inline" data-term-auto="off">\(H\)</span> against the bound <span
-class="math inline" data-term-auto="off">\(K\)</span>.</em></p>
+class="math inline" data-term-auto="off">\(\ell\)</span> admit a segment of length at most
+<span class="math inline" data-term-auto="off">\(H\)</span> satisfying the residue inequality
+against <span class="math inline" data-term-auto="off">\(K\)</span>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> A least positive residue never exceeds its modulus,
-so escape at <span class="math inline" data-term-auto="off">\((\ell,h)\)</span> requires
-<span
+so the residue inequality at <span
+class="math inline" data-term-auto="off">\((\ell,h)\)</span> requires <span
 class="math inline" data-term-auto="off">\(K(B,\ell+h)&lt;W_{\ell,h}&lt;15\cdot8^{h}\le15\cdot8^{H}\)</span>.
 On the other hand <span class="math inline" data-term-auto="off">\(j_a\ge a-1\)</span>, since
 the powers <span class="math inline" data-term-auto="off">\(2,\ldots,2^{a-1}\)</span> already
@@ -4059,38 +4102,38 @@ with <span class="math inline" data-term-auto="off">\(\ell\)</span>. ◻</p>
 the exact reason a finite scan cannot approach the cofinal quantifier by
 widening its denominator range alone. For <span
 class="math inline" data-term-auto="off">\(\ell\ge1\)</span>, the inequality <span
-class="math inline" data-term-auto="off">\(K(B,\ell+h)&gt;B\ell^2/9\)</span> shows that an
-escaping window must satisfy</p>
+class="math inline" data-term-auto="off">\(K(B,\ell+h)&gt;B\ell^2/9\)</span> shows that any
+segment satisfying the residue inequality must also satisfy</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[3h&gt;\log_2K(B,\ell+h)-\log_215
     &gt;\log_2B+2\log_2\ell-\log_2135.\]</span></div>
 <p>This is only a necessary
 lower bound, not an asymptotic formula or an upper bound for the first
-successful length. An explicit eventual escape threshold can be obtained
-from a positive lower bound for <span
+successful length. An explicit threshold beyond which the residue
+inequality holds can be obtained from a positive lower bound for <span
 class="math inline" data-term-auto="off">\(\delta=\lceil BX_\ell\rceil-BX_\ell\)</span> and
 for <span class="math inline" data-term-auto="off">\(1-\delta\)</span>, together with the
-displayed tail and window estimates. No such uniform information about
+displayed tail and product estimates. No such uniform information about
 the tails of <span class="math inline" data-term-auto="off">\(S\)</span> is proved here.</p>
 </section>
 </section>
 <section id="long269:sec:evidence" class="level2">
 <h2>Finite computations and their limits</h2>
-<p>The following windows illustrate the residue calculation with the
-actual shell coefficients. A twelve-shell enclosure then gives a lower
-bound on a possible rational denominator. We distinguish these finite
-arguments from the saved larger computations that follow. The <a
+<p>The following segments illustrate the residue calculation with the
+actual block coefficients. An enclosure from twelve blocks then gives a
+lower bound on a possible rational denominator. We distinguish these
+finite arguments from the saved larger computations that follow. The <a
 href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
 directory</a> contains the programs and saved outputs for the larger
 scan and the two larger denominator exclusions. These computations
 establish the stated finite cases. The criterion still requires every
 denominator and every starting threshold, which no finite scan
 supplies.</p>
-<section id="checking-individual-windows" class="level3">
-<h3>Checking individual windows</h3>
+<section id="checking-individual-segments" class="level3">
+<h3>Checking individual segments</h3>
 <p>We calculate each row using the integer-only <a
-href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">dyadic-window
-checker</a>. For shell <span class="math inline" data-term-auto="off">\(a\)</span>, enumerate
+href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8/scripts/check_erdos269_dyadic_windows.py">integer-arithmetic
+checker</a>. For block <span class="math inline" data-term-auto="off">\(a\)</span>, enumerate
 the pairs with <span class="math inline" data-term-auto="off">\(3^j5^k&lt;2^{a+1}\)</span>,
 choose the unique <span class="math inline" data-term-auto="off">\(i\ge0\)</span> for which
 <span class="math inline" data-term-auto="off">\(2^i3^j5^k\in[2^a,2^{a+1})\)</span>, and sum
@@ -4114,7 +4157,7 @@ B&amp;\ell&amp;h&amp;j_{\ell+h}&amp;W&amp;F&amp;R&amp;K\\ \hline
 7&amp;1&amp;3&amp;6&amp;360&amp;289&amp;137&amp;95\\
 16&amp;1&amp;4&amp;9&amp;10800&amp;8735&amp;640&amp;352
 \end{array}\]</span></div>
-<p>The first row reads as follows. The window starts
+<p>The first row reads as follows. The segment starts
 at <span class="math inline" data-term-auto="off">\(\ell=1\)</span> and has length <span
 class="math inline" data-term-auto="off">\(2\)</span>, so <span
 class="math inline" data-term-auto="off">\(W=b_1b_2=6\cdot10=60\)</span>; the accumulated
@@ -4124,39 +4167,40 @@ class="math inline" data-term-auto="off">\(\operatorname{lpr}_{60}(-47)=13\)</sp
 class="math inline" data-term-auto="off">\(K(1,3)=\lfloor(16+40+27)/9\rfloor=9\)</span>. The
 third row lies outside the domain of <a class="math-ref" data-equation-ref="true" href="#long269:eq:actual-escape">long269:eq:actual-escape</a>, since
 <span class="math inline" data-term-auto="off">\(\gcd(16,30)=2\)</span>, and is displayed to
-illustrate the window arithmetic at greater depth.</p>
+illustrate the finite calculation at greater depth.</p>
 <p>The larger scan covers <span class="math inline" data-term-auto="off">\(B\le5000\)</span>
 coprime to <span class="math inline" data-term-auto="off">\(30\)</span> and <span
 class="math inline" data-term-auto="off">\(100\le\ell\le3000\)</span>: all <span
-class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> pairs escape, with first
-escape length at most <span class="math inline" data-term-auto="off">\(18\)</span> in a
-search to length <span class="math inline" data-term-auto="off">\(24\)</span> (<a
+class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> pairs satisfy the residue
+inequality, with first successful length at most <span
+class="math inline" data-term-auto="off">\(18\)</span> in a search to length <span
+class="math inline" data-term-auto="off">\(24\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">saved
 run</a>). Its histogram in Section <a class="math-ref" href="#long269:long:experiments">13.4</a> is a
-finite observation that the window-growth bound does not predict. The
-accompanying integer-only check reconstructs the shells and tests all
+finite observation that the product-growth bound does not predict. The
+accompanying integer-only check reconstructs the blocks and tests all
 <span class="math inline" data-term-auto="off">\(2496\)</span> pairs with <span
 class="math inline" data-term-auto="off">\(1\le B\le97\)</span>, <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span> and <span
-class="math inline" data-term-auto="off">\(1\le\ell\le96\)</span>. Every pair escapes; the
-first successful lengths range from <span
+class="math inline" data-term-auto="off">\(1\le\ell\le96\)</span>. Every pair satisfies the
+residue inequality; the first successful lengths range from <span
 class="math inline" data-term-auto="off">\(1\)</span> to <span
 class="math inline" data-term-auto="off">\(10\)</span>, with a search limit of <span
 class="math inline" data-term-auto="off">\(24\)</span>. This check uses the enumeration and
-window recursions above, without floating-point logarithms. Neither
-computation proves escape for unbounded <span
+finite recursions above, without floating-point logarithms. Neither
+computation proves the residue inequality for unbounded <span
 class="math inline" data-term-auto="off">\(B\)</span> or arbitrarily late starts;
 Corollary <a class="math-ref" href="#long269:res:no-bounded-length">10.5</a> rules
 out covering the latter quantifier with any fixed maximum length.</p>
 </section>
 <section id="finite-denominator-bounds" class="level3">
 <h3>Finite denominator bounds</h3>
-<section id="a-denominator-bound-from-twelve-shells." class="level5">
-<h5>A denominator bound from twelve shells.</h5>
+<section id="a-denominator-bound-from-twelve-blocks." class="level5">
+<h5>A denominator bound from twelve blocks.</h5>
 <p>We obtain a denominator bound by enclosing <span
 class="math inline" data-term-auto="off">\(X_1=S-1\)</span> between two rational numbers.
 Here <span class="math inline" data-term-auto="off">\(h_1=1\)</span>, and summation through
-shell <span class="math inline" data-term-auto="off">\(11\)</span>, followed by the bound
+block <span class="math inline" data-term-auto="off">\(11\)</span>, followed by the bound
 <span class="math inline" data-term-auto="off">\(Q(n_{12})=Q(24)=262/3\)</span> with <span
 class="math inline" data-term-auto="off">\(P_{12}=27993600000\)</span>, gives</p>
 <div class="math-display" data-term-auto="off"><span
@@ -4189,16 +4233,16 @@ Thus the interval alone remains compatible with denominator <span
 class="math inline" data-term-auto="off">\(22126\)</span>; we have neither identified <span
 class="math inline" data-term-auto="off">\(X_1\)</span> with this mediant nor determined a
 denominator for <span class="math inline" data-term-auto="off">\(S\)</span>.</p>
-<p>The certificate uses the actual shell coefficients and proved tail
+<p>The certificate uses the actual block coefficients and proved tail
 bound. A narrower certified enclosure excludes further denominators; the
 continued-fraction exclusion below uses one built from <span
-class="math inline" data-term-auto="off">\(15{,}500\)</span> shells.</p>
+class="math inline" data-term-auto="off">\(15{,}500\)</span> blocks.</p>
 </section>
 <section id="long269:res:lead-block-exclusion" class="level5">
-<h5>Window-<span class="math inline" data-term-auto="off">\(128\)</span> lattice
-exclusion.</h5>
+<h5>A denominator bound from <span class="math inline" data-term-auto="off">\(128\)</span>
+consecutive blocks.</h5>
 <p>A finite lattice computation, outside the theorem inputs, excludes
-the following denominators. Using windows of length <span
+the following denominators. Using segments of length <span
 class="math inline" data-term-auto="off">\(128\)</span> and <span
 class="math inline" data-term-auto="off">\(64\)</span> starting indices, the first <span
 class="math inline" data-term-auto="off">\(10005\)</span>, no rational value of the <span
@@ -4221,10 +4265,10 @@ class="math inline" data-term-auto="off">\(\log_2B_{\max}=348.9846\ldots\)</span
 <p>The exponent triple <span
 class="math inline" data-term-auto="off">\((10005,6312,4308)\)</span> is that of <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(2^{10005})\)</span>. The
-normalisation therefore uses the full height at its first start, whereas
-Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">9.2</a> uses
-the half height <span class="math inline" data-term-auto="off">\(h_{10005}\)</span>. This
-family of smooth denominators is the larger one.</p>
+normalisation therefore uses the full running LCM at its first start,
+whereas Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">9.2</a> uses
+the half running LCM <span class="math inline" data-term-auto="off">\(h_{10005}\)</span>.
+This family of smooth denominators is the larger one.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/regenerated/block_certificate.json">certificate</a>
 and its exact <a
@@ -4259,10 +4303,10 @@ class="math inline" data-term-auto="off">\(n_b\le2.07b\)</span>, Theorem <a cla
 <span class="math inline" data-term-auto="off">\(2X_b\le2Q(n_b)\le b^2+6b+11\)</span> for
 every <span class="math inline" data-term-auto="off">\(b\ge0\)</span>. The reduction from a
 rational value <span class="math inline" data-term-auto="off">\(N/(MB)\)</span> to the <span
-class="math inline" data-term-auto="off">\(64\)</span> window inequalities, with <span
+class="math inline" data-term-auto="off">\(64\)</span> residue inequalities, with <span
 class="math inline" data-term-auto="off">\(s_j=2BX_{a_j}\)</span> and <span
-class="math inline" data-term-auto="off">\(f_j=2BX_{a_j+128}\)</span>, uses the window
-identity at full height and is not machine-checked.</p>
+class="math inline" data-term-auto="off">\(f_j=2BX_{a_j+128}\)</span>, uses the iterated
+recurrence at full running LCM and is not machine-checked.</p>
 </section>
 <section id="long269:res:cf-exclusion" class="level5">
 <h5>Continued-fraction exclusion.</h5>
@@ -4272,13 +4316,13 @@ class="math inline" data-term-auto="off">\(S\)</span> is a fraction with reduced
 at most <span class="math inline" data-term-auto="off">\(2^{22482}\)</span>, about <span
 class="math inline" data-term-auto="off">\(10^{6768}\)</span>. Let <span
 class="math inline" data-term-auto="off">\(W\)</span> and <span
-class="math inline" data-term-auto="off">\(F\)</span> be the window base and accumulated
-numerator of shells <span class="math inline" data-term-auto="off">\(1\)</span> to <span
-class="math inline" data-term-auto="off">\(15{,}500\)</span>. The tail bound used for the
-twelve-shell certificate, at <span
+class="math inline" data-term-auto="off">\(F\)</span> be the product of the bases and
+accumulated numerator of blocks <span class="math inline" data-term-auto="off">\(1\)</span>
+to <span class="math inline" data-term-auto="off">\(15{,}500\)</span>. The tail bound used
+for the twelve-block calculation, at <span
 class="math inline" data-term-auto="off">\(Q(n_{15501})=Q(31956)=340480534/3\)</span>, gives
-<span class="math inline" data-term-auto="off">\(F/W&lt;X_1\le(F+Q)/W\)</span>. Every shell
-is built with integers, and shells <span
+<span class="math inline" data-term-auto="off">\(F/W&lt;X_1\le(F+Q)/W\)</span>. Every block
+is built with integers, and blocks <span
 class="math inline" data-term-auto="off">\(1\)</span> to <span
 class="math inline" data-term-auto="off">\(30\)</span> are also checked against a direct
 enumeration of the smooth numbers. The two endpoints share their first
@@ -4335,21 +4379,22 @@ neither settles an instance of the problem.</p>
 <section id="long269:sec:open" class="level2">
 <h2>The remaining arithmetic questions</h2>
 <p>The residue criterion leaves an existence question for the actual
-coefficients. We examine the weighted shifts and carry arguments that
-might address it, retaining the boundary terms that prevent the proposed
-finite-difference cancellation. We also state the missing input for a
-function-theoretic approach. The irrationality of <span
+coefficients. We examine the weighted shifts and integer recurrences
+that might address it, retaining the boundary terms that prevent the
+proposed finite-difference cancellation. We also state the missing input
+for a function-theoretic approach. The irrationality of <span
 class="math inline" data-term-auto="off">\(S\)</span> remains open here.</p>
 <section id="long269:sec:weighted-shifts" class="level3">
 <h3>An exact weighted-shift identity for the repeated series</h3>
 <p>Set <span class="math inline" data-term-auto="off">\(\alpha=S/2\)</span> and retain the
-boundary heights <span class="math inline" data-term-auto="off">\(P_a\)</span>. We combine
-shifted tails after subtracting their finite rational corrections. Since
-the denominators change under a shift, the resulting identity has
-weights as well as shifted numerators. It concerns the repeated sum
-<span class="math inline" data-term-auto="off">\(S\)</span> only. In this subsection and the
-next, <span class="math inline" data-term-auto="off">\(r\)</span> is a positive integer
-shift; the prime-generator notation is no longer in use.</p>
+boundary running LCMs <span class="math inline" data-term-auto="off">\(P_a\)</span>. We
+combine shifted tails after subtracting their finite rational
+corrections. Since the denominators change under a shift, the resulting
+identity has weights as well as shifted numerators. It concerns the
+repeated sum <span class="math inline" data-term-auto="off">\(S\)</span> only. In this
+subsection and the next, <span class="math inline" data-term-auto="off">\(r\)</span> is a
+positive integer shift; the prime-generator notation is no longer in
+use.</p>
 <div class="lemma" id="long269:res:weighted-shift-identity">
 <p><strong>Lemma 12.1</strong> (weighted shifts preserve the actual
 value). <em> Fix integers <span
@@ -4429,16 +4474,16 @@ cancellation of <span class="math inline" data-term-auto="off">\(D_{r,a}\)</span
 </section>
 <section id="long269:sec:boundary-difference" class="level3">
 <h3>Boundary terms in weighted finite differences</h3>
-<p>A finite difference of weighted triangle counts has contributions
-from both the common interior and the newly added strips. With
-coefficients <span class="math inline" data-term-auto="off">\((1,-3,3,-1)\)</span>, an
-interior point of unchanged weight cancels. A point entering in the last
-three, last two or last triangle has coefficient <span
-class="math inline" data-term-auto="off">\(-1\)</span>, <span
-class="math inline" data-term-auto="off">\(2\)</span> or <span
-class="math inline" data-term-auto="off">\(-1\)</span>. We separate these strip contributions
-from changes of weight at floor crossings. Absence of a floor crossing
-alone will not force the whole difference to vanish.</p>
+<p>Follow one lattice point through four successive triangles. If it
+lies in all four and its weight is unchanged, the coefficients <span
+class="math inline" data-term-auto="off">\((1,-3,3,-1)\)</span> sum to zero. If it first
+enters the second triangle, its coefficient is <span
+class="math inline" data-term-auto="off">\(-3+3-1=-1\)</span>; entry in the third gives <span
+class="math inline" data-term-auto="off">\(3-1=2\)</span>, and entry in the fourth gives
+<span class="math inline" data-term-auto="off">\(-1\)</span>. Thus a finite difference
+depends both on which triangles contain the point and on changes of its
+weight. We separate these two effects below. Avoiding floor crossings
+controls the weights, but does not remove the newly added strips.</p>
 <p>Recall that <span class="math inline" data-term-auto="off">\(w_{j,k}=j\log_2 3+k\log_2
 5\)</span>, <span class="math inline" data-term-auto="off">\(t_{j,k}=\{w_{j,k}\}\)</span> and
 <span class="math inline" data-term-auto="off">\(\theta_p=1/\log_2 p\)</span> for <span
@@ -4625,10 +4670,10 @@ uniform in the shift. The absolute-size bound alone gives no such
 comparison. The denominator chain itself is not a fixed-base power
 sequence. The next proposition shows what is lost in two direct
 fixed-base recodings. A value criterion for the original chain would
-need a separate proof, including non-cancellation and the height
-estimates in any Subspace-Theorem argument. Here height means
-Diophantine height, which controls the numerators and denominators of
-the approximating algebraic quantities, not the running-LCM height <span
+need a separate proof, including non-cancellation and the Diophantine
+height estimates required by a Subspace-Theorem argument. These heights
+measure the numerators and denominators of the approximating algebraic
+quantities; they are unrelated to the running LCM <span
 class="math inline" data-term-auto="off">\(\operatorname{H}\)</span>. The finite set of prime
 divisors alone does not provide those estimates.</p>
 </section>
@@ -4750,7 +4795,7 @@ class="math inline" data-term-auto="off">\(\{0,\ldots,29\}\)</span>. For the act
 its first eight digits are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(\delta_0,\ldots,\delta_7)=(1,4,8,3,10,1,8,5).\]</span></div>
-<p>To certify them, use the twelve-shell enclosure from Section <a class="math-ref" href="#long269:sec:evidence">11</a>, either
+<p>To certify them, use the twelve-block enclosure from Section <a class="math-ref" href="#long269:sec:evidence">11</a>, either
 propagated by the recurrence or evaluated directly as</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_a\sum_{j=a}^{11}\frac{m_j}{P_{j+1}}&lt;X_a
@@ -4854,9 +4899,10 @@ class="math display" data-term-auto="off">\[\mathcal D_{\{2,3,5\}}=1+
 \sum_{t\in\{2^n,3^n,5^n:n\ge1\}}
 \frac1{2^{\lfloor\log_2t\rfloor}3^{\lfloor\log_3t\rfloor}
              5^{\lfloor\log_5t\rfloor}}.\]</span></div>
-<p>Each height is counted
-once at its first jump, unlike the repeated sum. The bases in <a class="math-ref" data-equation-ref="true" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a> come
-from these same jumps. For two primes a representation by one
+<p>Each running LCM is
+counted once at its first jump, unlike the repeated sum. The bases in
+<a class="math-ref" data-equation-ref="true" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a>
+come from these same jumps. For two primes a representation by one
 Hecke–Mahler value proves transcendence (Section <a class="math-ref" href="#long269:sec:two-prime">4</a>). A
 corresponding three-prime representation has not been constructed
 here.</p>
@@ -4955,13 +5001,13 @@ univariate Mahler functions at algebraic points in the punctured unit
 disc where their values are defined, without that regularity hypothesis.
 The hypotheses must therefore be matched to the particular theorem being
 invoked. No exact Mahler representation or suitable evaluation data for
-this distinct-height sum are constructed here. The locators for this
-paper refer to its 68-page author manuscript, not the older 52-page
-arXiv version.</p>
+this sum over distinct running LCMs are constructed here. The locators
+for this paper refer to its 68-page author manuscript, not the older
+52-page arXiv version.</p>
 </section>
 </section>
 <section id="long269:sec:carry-hypotheses" class="level3">
-<h3>Hypotheses for auxiliary carry arguments</h3>
+<h3>Hypotheses for auxiliary integer recurrences</h3>
 <p>For ordered primes <span
 class="math inline" data-term-auto="off">\(p_1&lt;\cdots&lt;p_s\)</span>, the interval <span
 class="math inline" data-term-auto="off">\((p_1^a,p_1^{a+1})\)</span> contains at most one
@@ -4973,9 +5019,10 @@ class="math display" data-term-auto="off">\[\left\{p_1\prod_{i=2}^s p_i^{\vareps
                   \varepsilon_i\in\{0,1\}\right\}.\]</span></div>
 <p>This finite
 alphabet determines neither the frequency of the radices nor the error
-terms in the weighted shell counts. Estimates for those quantities, or
+terms in the weighted block counts. Estimates for those quantities, or
 for specified shifted kernels, would be additional arithmetic inputs.
-The conditional carry statements below keep such inputs explicit.</p>
+The conditional statements about integer recurrences below keep such
+inputs explicit.</p>
 <p>Some auxiliary results explain why bounded integer approximations
 alone are insufficient. Here are their hypotheses in explicit form.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(j(n)\in\{2,3,5\}\)</span> label a
@@ -5004,7 +5051,7 @@ vanishes on a genuine <span class="math inline" data-term-auto="off">\(2\to3\)</
 transition and on a genuine <span class="math inline" data-term-auto="off">\(2\to5\)</span>
 transition, all three potential values agree, so every perturbation is
 zero.</p>
-<p>For an integer carry satisfying <span
+<p>For an integer sequence satisfying <span
 class="math inline" data-term-auto="off">\(c_{n+1}=b_nc_n-Dm_n\)</span>, compare it with an
 integer sequence <span class="math inline" data-term-auto="off">\(z_n\)</span>. Define the
 error <span class="math inline" data-term-auto="off">\(e_n=Dz_n-c_n\)</span> and the
@@ -5021,9 +5068,9 @@ bound <span class="math inline" data-term-auto="off">\(|e_N|&lt;2^N\)</span>, an
 also excludes a uniform bound for all <span
 class="math inline" data-term-auto="off">\(N\)</span>. The nonzero initial error is
 essential: the identically zero error causes no contradiction.</p>
-<p>A calculation on four states gives a related obstruction. If <span
-class="math inline" data-term-auto="off">\(0&lt;T_i&lt;1\)</span>, <span
-class="math inline" data-term-auto="off">\(z_i\in\Z\)</span> and <span
+<p>A calculation at four consecutive indices gives a related
+obstruction. If <span class="math inline" data-term-auto="off">\(0&lt;T_i&lt;1\)</span>,
+<span class="math inline" data-term-auto="off">\(z_i\in\Z\)</span> and <span
 class="math inline" data-term-auto="off">\(|z_i-T_i|&lt;1\)</span>, then <span
 class="math inline" data-term-auto="off">\(z_i\)</span> is <span
 class="math inline" data-term-auto="off">\(0\)</span> or <span
@@ -5072,9 +5119,9 @@ class="math inline" data-term-auto="off">\(H_M,z_M\in\Z\)</span>, and, for every
 class="math inline" data-term-auto="off">\(H_M\)</span>, different <span
 class="math inline" data-term-auto="off">\(y_M\)</span>, and <span
 class="math inline" data-term-auto="off">\(|y_M-y_{M&#39;}|&lt;1/d\)</span>. Their difference
-gives the required nonzero linear form. Equal states would give zero and
-would not suffice; a merely bounded gap would not suffice either.
-Indeed, for a rational <span class="math inline" data-term-auto="off">\(x\)</span> of
+gives the required nonzero linear form. Equal tail values would give
+zero and would not suffice; a merely bounded gap would not suffice
+either. Indeed, for a rational <span class="math inline" data-term-auto="off">\(x\)</span> of
 denominator <span class="math inline" data-term-auto="off">\(d\)</span>, every nonzero
 difference of this form has size at least <span
 class="math inline" data-term-auto="off">\(1/d\)</span>. No concrete series in this record is
@@ -5084,7 +5131,7 @@ conditions.</p>
 <section id="long269:sec:remaining-question" class="level3">
 <h3>The unresolved repeated-sum question</h3>
 <p>Theorem <a class="math-ref" href="#long269:res:distinct-height-235">1.1</a>
-settles the distinct-height sum for <span
+settles the sum over distinct running LCMs for <span
 class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>. The ordinary arguments in
 Remarks <a class="math-ref" href="#long269:res:distinct-height-all">5.1</a>
 and <a class="math-ref" href="#long269:res:single-prime-subsums">5.10</a>
@@ -5092,15 +5139,16 @@ treat all finite prime supports and the prime-power subseries,
 respectively, pending formalisation. Remark <a class="math-ref" href="#long269:res:distinct-height-sets">5.8</a>
 records the finite-state calculations; the collision in the admissible
 automaton language for <span class="math inline" data-term-auto="off">\(\{2,3,5,7\}\)</span>
-limits that decoder only. For <span class="math inline" data-term-auto="off">\(\mathcal
-R_{\{2,3,5\}}\)</span> we have the exact coefficients and recurrence,
-quadratic tail bounds and denominator-clearing formula. The remaining
-question is whether all eventual integral reduced tails can be excluded.
-Equivalently, the required residue windows must exist for every
-admissible <span class="math inline" data-term-auto="off">\(B\)</span> beyond every
-prescribed starting index. The fixed-start formula explains the
-necessity of these quantifiers, and the strip identity shows why a
-no-crossing argument alone does not prove the required cancellation.</p>
+limits that interval criterion only. For <span
+class="math inline" data-term-auto="off">\(\mathcal R_{\{2,3,5\}}\)</span> we have the exact
+coefficients and recurrence, quadratic tail bounds and
+denominator-clearing formula. The remaining question is whether all
+eventual integral reduced tails can be excluded. Equivalently, the
+required residue segments must exist for every admissible <span
+class="math inline" data-term-auto="off">\(B\)</span> beyond every prescribed starting index.
+The fixed-start formula explains the necessity of these quantifiers, and
+the strip identity shows why a no-crossing argument alone does not prove
+the required cancellation.</p>
 <p>The rank and uniform-norm results concern the kernel, not the
 arithmetic of its sum. Finite tests, countability, radix recoding and
 denominator support do not close the remaining argument. The settled
@@ -5120,7 +5168,7 @@ individual associations. A missing mark makes no claim of a Lean proof
 of the whole statement. The checks concern the propositions linked
 there, without establishing novelty or resolving the repeated-sum
 problem.</p>
-<p>The general distinct-height assertion and its four word-and-torus
+<p>The general distinct-value assertion and its four word-and-torus
 arguments are stated as remarks with complete ordinary proofs in
 Section <a class="math-ref" href="#long269:sec:distinct-all">5.1</a>; they have
 no Lean proofs. The source record reports that the general and
@@ -5133,7 +5181,7 @@ recorded, and no priority claim is made for it. The subseries identities
 also have ordinary proofs. The program <code>two_tail.py</code> checks
 their finite instances in exact arithmetic.</p>
 <p>For <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> the separate
-distinct-height theorem has a <a
+theorem for the sum over distinct values has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean#L689">Lean
 proof</a>; its source record says that Comparator had not been run on
 it. The general affine-block calculation, decoding criterion and
@@ -5141,9 +5189,8 @@ finite-set application are also remarks with ordinary proofs; the last
 additionally uses exact computation. Their formal coverage is restricted
 to the <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> case with one
 block and the interval of Section <a class="math-ref" href="#long269:sec:distinct-235">2</a>. The
-independent-clock and Smith-factor results likewise have the ordinary
-proofs printed here; no additional formal coverage is inferred for
-them.</p>
+linear-flow and Smith-factor results likewise have the ordinary proofs
+printed here; no additional formal coverage is inferred for them.</p>
 <p>The two-prime deduction is credited to Fan <span class="citation"
 data-cites="fan2026comment"><a href="#ref-17">[17]</a></span>. Its formal proof assumes the cited
 Hecke–Mahler value theorem, as specified in Section <a class="math-ref" href="#long269:sec:coverage">14</a>; its algebraic
@@ -5154,7 +5201,7 @@ here. Their individual formal associations are retained, without a
 blanket assertion that every result in the record is formalised. Kernel
 acceptance uses the standard axioms allowed by the linked checks and is
 not an independent review of the paper-to-statement correspondence.</p>
-<p>The twelve-shell enclosure, denominator bound and eight mixed-radix
+<p>The twelve-block enclosure, denominator bound and eight mixed-radix
 digits have finite exact proofs. The two large exclusions have saved
 witnesses and exact checkers, and the larger scan has a saved run. None
 of these finite computations proves the residue inequalities beyond
@@ -5163,18 +5210,19 @@ subseries arguments.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The links in the source inventory and to the dyadic-window checker
-open a <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">fixed revision</a> of the repository. The
-witnesses and exact checkers for the two large numerical exclusions and
-the saved larger scan are in the <a
+<p>The links in the source inventory and to the integer-arithmetic
+checker open a <a href="https://github.com/wcook04/plectis-erdos/tree/ee650b32b8b2cb98b94e5500df5370d85f7403b8">fixed revision</a> of the
+repository. The witnesses and exact checkers for the two large numerical
+exclusions and the saved larger scan are in the <a
 href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations">large-computation
 directory</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">distinct-height
-programs</a> recompute the constants of Theorem <a class="math-ref" href="#long269:res:distinct-height-235">1.1</a> and
+href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
+for sums over distinct values</a> recompute the constants of
+Theorem <a class="math-ref" href="#long269:res:distinct-height-235">1.1</a> and
 the certificates of Remark <a class="math-ref" href="#long269:res:distinct-height-sets">5.8</a> in
 exact rational arithmetic, with two independent computations of the tail
 intervals, and store their outputs; a fast test checks them against the
-stored receipts. The same directory checks the finite illustrations of
+stored outputs. The same directory checks the finite illustrations of
 Section <a class="math-ref" href="#long269:sec:distinct-all">5.1</a> and the
 block identity for <span class="math inline" data-term-auto="off">\(\{2,3,5,7\}\)</span>.</p>
 </section>
@@ -5211,10 +5259,11 @@ data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
 </section>
 <section id="long269:long:extended" class="level2">
 <h2>Further examples, conditional lemmas and source references</h2>
-<p>We collect the historical statements and then separate the carry
-lemmas from their three-prime application. Their explicit divisibility
-and window hypotheses specify what another recurrence must supply.
-Finite examples and the declaration inventory complete the record.</p>
+<p>We collect the historical statements and then separate the lemmas on
+integer recurrences from their three-prime application. Their explicit
+divisibility and segment hypotheses specify what another recurrence must
+supply. Finite examples and the declaration inventory complete the
+record.</p>
 <section id="long269:long:history" class="level3">
 <h3>The historical and catalogue record</h3>
 <p>For a singleton <span class="math inline" data-term-auto="off">\(P=\{p\}\)</span>, we have
@@ -5260,9 +5309,9 @@ state only the question for <span class="math inline" data-term-auto="off">\(\ma
 R_P\)</span>: the sum is irrational for infinite <span
 class="math inline" data-term-auto="off">\(P\)</span>, and they ask what happens for finite
 <span class="math inline" data-term-auto="off">\(P\)</span> with more than one element <span
-class="citation" data-cites="erdosgraham1980"></span>; the
-distinct-height sum does not appear there. Erdős’s survey of 1975 on the
-irrationality of series <span class="citation"
+class="citation" data-cites="erdosgraham1980"></span>; the sum over
+distinct running LCMs does not appear there. Erdős’s survey of 1975 on
+the irrationality of series <span class="citation"
 data-cites="erdos1975"><a href="#ref-8">[8]</a></span> does not mention the running least common
 multiple of the <span class="math inline" data-term-auto="off">\(P\)</span>-smooth integers,
 his survey of 1980 on combinatorial number theory <span class="citation"
@@ -5319,14 +5368,14 @@ needs an explicit series-identification lemma, which is not supplied
 here.</p>
 </section>
 <section id="long269:long:general-carries" class="level3">
-<h3>The abstract carry lemmas in their general form</h3>
+<h3>Integer recurrences in their general form</h3>
 <p>Consider an arbitrary integer recurrence with positive integer
-radices. Divisibility and the existence of escaping windows must now be
-supplied as hypotheses. For the actual three-prime radices, the
-criterion below shows that each integral carry eventually acquires the
-smooth part of a denominator. It still leaves the escaping-window
-hypothesis to be proved. The comparison with Cantor-series criteria is
-in Section <a class="math-ref" href="#long269:sec:actual-orbit">9</a>.</p>
+radices. Divisibility and the existence of segments satisfying the
+residue inequality must now be supplied as hypotheses. For the actual
+three-prime radices, the criterion below shows that each integer
+solution is eventually divisible by the smooth part of a denominator. It
+still leaves the residue-inequality hypothesis to be proved. The
+comparison with Cantor-series criteria is in Section <a class="math-ref" href="#long269:sec:actual-orbit">9</a>.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(D\)</span> and <span
 class="math inline" data-term-auto="off">\(B\)</span> be positive integers with <span
 class="math inline" data-term-auto="off">\(D=D_{\mathrm{sm}}B\)</span>, where <span
@@ -5338,12 +5387,13 @@ class="math inline" data-term-auto="off">\((c_n)\)</span> be an integer sequence
 sequences <span class="math inline" data-term-auto="off">\((b_n)\)</span> and <span
 class="math inline" data-term-auto="off">\((m_n)\)</span>. For these general sequences, form
 <span class="math inline" data-term-auto="off">\(W\)</span> and <span
-class="math inline" data-term-auto="off">\(F\)</span> by the recursions in Section <a class="math-ref" href="#long269:sec:escape">10</a>; an escaping
-window must have <span class="math inline" data-term-auto="off">\(W\ne0\)</span>, and its
-modulus is <span class="math inline" data-term-auto="off">\(|W|\)</span>. In the
-factorisation below the quotients <span
-class="math inline" data-term-auto="off">\(d_n\)</span> are required to be integers; writing
-<span class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span> asserts
+class="math inline" data-term-auto="off">\(F\)</span> by the recursions in Section <a class="math-ref" href="#long269:sec:escape">10</a>; a segment
+satisfying the residue inequality must have <span
+class="math inline" data-term-auto="off">\(W\ne0\)</span>, and its modulus is <span
+class="math inline" data-term-auto="off">\(|W|\)</span>. In the factorisation below the
+quotients <span class="math inline" data-term-auto="off">\(d_n\)</span> are required to be
+integers; writing <span
+class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span> asserts
 divisibility, not just an identity in <span
 class="math inline" data-term-auto="off">\(\mathbb Q\)</span>.</p>
 <div class="proposition" id="long269:long:denominator-reduction">
@@ -5351,8 +5401,8 @@ class="math inline" data-term-auto="off">\(\mathbb Q\)</span>.</p>
 <em> If <span class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span> for
 every <span class="math inline" data-term-auto="off">\(n\)</span>, with <span
 class="math inline" data-term-auto="off">\(D_{\mathrm{sm}}&gt;0\)</span>, then the recurrence
-and window identity for <span class="math inline" data-term-auto="off">\((d_n)\)</span> have
-multiplier <span class="math inline" data-term-auto="off">\(B\)</span> in place of <span
+and iterated recurrence for <span class="math inline" data-term-auto="off">\((d_n)\)</span>
+have multiplier <span class="math inline" data-term-auto="off">\(B\)</span> in place of <span
 class="math inline" data-term-auto="off">\(D\)</span>. Moreover, for every <span
 class="math inline" data-term-auto="off">\(n\)</span> and every real <span
 class="math inline" data-term-auto="off">\(t\)</span>, </em></p>
@@ -5367,7 +5417,7 @@ class="math inline" data-term-auto="off">\(D=D_{\mathrm{sm}}B\)</span> in the re
 divide by <span class="math inline" data-term-auto="off">\(D_{\mathrm{sm}}\)</span>. Dividing
 <span class="math inline" data-term-auto="off">\(0&lt;c_n\le D_{\mathrm{sm}}Bt\)</span> by
 this positive factor gives the stated bound equivalence. Dividing the
-window identity <span
+iterated recurrence <span
 class="math inline" data-term-auto="off">\(c_{\ell+h}=W_{\ell,h}c_\ell-DF_{\ell,h}\)</span>
 likewise gives <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}=W_{\ell,h}d_\ell-BF_{\ell,h}\)</span>. ◻</p>
@@ -5421,7 +5471,7 @@ class="math inline" data-term-auto="off">\(P_n/P_A\)</span>. Its valuations at <
 class="math inline" data-term-auto="off">\(2,3,5\)</span> all tend to infinity, so every
 fixed <span class="math inline" data-term-auto="off">\(D_{\mathrm{sm}}\)</span> eventually
 divides <span class="math inline" data-term-auto="off">\(c_n\)</span>, for any integral
-initial carry <span class="math inline" data-term-auto="off">\(c_A\)</span>. Under
+initial value <span class="math inline" data-term-auto="off">\(c_A\)</span>. Under
 rationality <span class="math inline" data-term-auto="off">\(S=N/D\)</span> in lowest terms,
 one may start at <span class="math inline" data-term-auto="off">\(A=1\)</span>: <span
 class="math inline" data-term-auto="off">\(c_1=DX_1=N-D\)</span> is integral and coprime to
@@ -5436,8 +5486,8 @@ class="math inline" data-term-auto="off">\(S\)</span>. The finite-prefix proof i
 Theorem <a class="math-ref" href="#long269:res:actual-cancellation">9.3</a>
 remains valid.</p>
 <div class="proposition" id="long269:long:windowconsumer">
-<p><strong>Proposition 13.2</strong> (escaping windows exclude a positive
-bounded integer solution). <em> Let <span
+<p><strong>Proposition 13.2</strong> (segments satisfying the residue
+inequality exclude a positive bounded integer solution). <em> Let <span
 class="math inline" data-term-auto="off">\((b_n)\)</span> and <span
 class="math inline" data-term-auto="off">\((m_n)\)</span> be sequences of nonnegative
 integers, let <span
@@ -5454,36 +5504,36 @@ class="math inline" data-term-auto="off">\(|d_n|\le G(B,n)\)</span> for every <s
 class="math inline" data-term-auto="off">\(n\ge0\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Choose one escaping window <span
-class="math inline" data-term-auto="off">\((\ell,h)\)</span>. The window identity gives <span
-class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\)</span> modulo <span
-class="math inline" data-term-auto="off">\(|W_{\ell,h}|\)</span>. The endpoint state is
-positive and at most <span class="math inline" data-term-auto="off">\(G(B,\ell+h)\)</span>,
-whereas the least positive residue of the right-hand side exceeds that
-bound, so Proposition <a class="math-ref" href="#long269:res:consumer">10.1</a> applies. ◻</p>
+<p><em>Proof.</em> Choose one segment satisfying the residue inequality
+<span class="math inline" data-term-auto="off">\((\ell,h)\)</span>. The iterated recurrence
+gives <span class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\)</span>
+modulo <span class="math inline" data-term-auto="off">\(|W_{\ell,h}|\)</span>. The endpoint
+value is positive and at most <span
+class="math inline" data-term-auto="off">\(G(B,\ell+h)\)</span>, whereas the least positive
+residue of the right-hand side exceeds that bound, so Proposition <a class="math-ref" href="#long269:res:consumer">10.1</a> applies. ◻</p>
 </div>
-<p>The escape hypothesis is the substantial arithmetic assumption. It
-requires a residue above the bound, not just a rapidly growing product
-of bases. For example, the constant data <span
+<p>The residue-inequality hypothesis is the substantial arithmetic
+assumption. It requires a residue above the bound, not just a rapidly
+growing product of bases. For example, the constant data <span
 class="math inline" data-term-auto="off">\(b_n=2\)</span>, <span
 class="math inline" data-term-auto="off">\(m_n=1\)</span> have the positive solution <span
 class="math inline" data-term-auto="off">\(d_n=B\)</span>. For any bound <span
-class="math inline" data-term-auto="off">\(G(B,n)\ge B\)</span>, every window has <span
+class="math inline" data-term-auto="off">\(G(B,n)\ge B\)</span>, every segment has <span
 class="math inline" data-term-auto="off">\(W=2^h\)</span>, <span
 class="math inline" data-term-auto="off">\(F=2^h-1\)</span> and least positive residue at
 most <span class="math inline" data-term-auto="off">\(B\)</span>, so the hypothesis fails.
 For the actual three-prime coefficients and <span
 class="math inline" data-term-auto="off">\(G=K\)</span>, Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">10.2</a>
-makes the escape hypothesis equivalent to irrationality of <span
-class="math inline" data-term-auto="off">\(S\)</span>. That equivalence does not hold for an
-arbitrary choice of <span class="math inline" data-term-auto="off">\(G\)</span>.</p>
+makes the residue-inequality hypothesis equivalent to irrationality of
+<span class="math inline" data-term-auto="off">\(S\)</span>. That equivalence does not hold
+for an arbitrary choice of <span class="math inline" data-term-auto="off">\(G\)</span>.</p>
 <p>Coprimality with <span class="math inline" data-term-auto="off">\(30\)</span> selects the
-denominators covered by the hypothesis; once a window is fixed, the
+denominators covered by the hypothesis; once a segment is fixed, the
 finite contradiction does not use it. The conventions cover the edge
-cases: a zero window base is excluded, a zero residue is represented by
-the full modulus, and positivity prevents the endpoint carry from
-vanishing. The version stated with a nonzero smooth factor assumes the
-exact factorisation <span
+cases: a zero product of the bases is excluded, a zero residue is
+represented by the full modulus, and positivity prevents the endpoint
+value from vanishing. The version stated with a nonzero smooth factor
+assumes the exact factorisation <span
 class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span>, the corresponding
 recurrence for <span class="math inline" data-term-auto="off">\((c_n)\)</span> and the
 positive upper bound for <span class="math inline" data-term-auto="off">\((d_n)\)</span>, and
@@ -5509,7 +5559,7 @@ telescoping gives</p>
 class="math display" data-term-auto="off">\[\sum_{a=0}^{N-1}\frac{\widehat m_a}{P_{a+1}}
 =9-\frac{(N+3)^2}{P_N}\longrightarrow9.\]</span></div>
 <p>This example keeps the
-exact radices, not the actual shell multiplicities or their numerical
+exact radices, not the actual block multiplicities or their numerical
 upper bound <span class="math inline" data-term-auto="off">\(Q\)</span>. It shows why the
 arithmetic of the specific <span class="math inline" data-term-auto="off">\(m_a\)</span>,
 rather than the radix alphabet and growth orders alone, must enter a
@@ -5534,19 +5584,18 @@ supported integers at most <span class="math inline" data-term-auto="off">\(10\)
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> and the box <span
 class="math inline" data-term-auto="off">\(\mathcal B(1,1,1)\)</span>, whose eight points
 carry the smooth values <span
-class="math inline" data-term-auto="off">\(1,2,3,5,6,10,15,30\)</span> and the heights</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{array}{c|cccccccc}
+class="math inline" data-term-auto="off">\(1,2,3,5,6,10,15,30\)</span> and the running LCMs</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{array}{c|cccccccc}
 p^{i}q^{j}r^{k}&amp;1&amp;2&amp;3&amp;5&amp;6&amp;10&amp;15&amp;30\\
 \hline
 \operatorname{H}&amp;1&amp;2&amp;6&amp;60&amp;60&amp;360&amp;360&amp;10800
 \end{array}\]</span></div>
-<p>Six heights occur, two of them twice: the points
-<span class="math inline" data-term-auto="off">\(5\)</span> and <span
-class="math inline" data-term-auto="off">\(6\)</span> share the height <span
+<p>Six running LCMs occur, two of them twice: the
+points <span class="math inline" data-term-auto="off">\(5\)</span> and <span
+class="math inline" data-term-auto="off">\(6\)</span> share the running LCM <span
 class="math inline" data-term-auto="off">\(60\)</span>, and <span
 class="math inline" data-term-auto="off">\(10\)</span> and <span
-class="math inline" data-term-auto="off">\(15\)</span> share the height <span
+class="math inline" data-term-auto="off">\(15\)</span> share the running LCM <span
 class="math inline" data-term-auto="off">\(360\)</span>. The identity reads</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[1+\tfrac12+\tfrac16+\tfrac1{60}+\tfrac1{60}+\tfrac1{360}+\tfrac1{360}
@@ -5555,7 +5604,7 @@ class="math display" data-term-auto="off">\[1+\tfrac12+\tfrac16+\tfrac1{60}+\tfr
 =\tfrac{18421}{10800},\]</span></div>
 <p class="display-continue">and the two coefficients <span
 class="math inline" data-term-auto="off">\(2\)</span> carry the whole content of the
-regrouping on this box. Where the heights are pairwise distinct the
+regrouping on this box. Where the running LCMs are pairwise distinct the
 identity is a relabelling.</p>
 <p>Multiplying block radices along a run of blocks gives the product of
 the prime multipliers at the jumps in that run: for instance <span
@@ -5575,8 +5624,9 @@ class="math inline" data-term-auto="off">\(30\)</span> and <span
 class="math inline" data-term-auto="off">\(100\le\ell\le3000\)</span>, stopping each search
 at depth <span class="math inline" data-term-auto="off">\(24\)</span>. The saved output (<a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos269/large-computations/receipts/scan-5000-100-3000.json">scan-5000-100-3000.json</a>)
-gives <span class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> pairs, an
-escape in every case, and the following first-success histogram:</p>
+gives <span class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> pairs, a
+segment satisfying the inequality in every case, and the following
+first-success histogram:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\resizebox{\linewidth}{!}{$\begin{array}{c|rrrrrrrrrrrrrrr}
 h&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10&amp;11&amp;12&amp;13&amp;14&amp;15&amp;16&amp;17&amp;18\\
@@ -5638,7 +5688,7 @@ class="math inline" data-term-auto="off">\(6179\)</span></td>
 class="math inline" data-term-auto="off">\(627\)</span></td>
 </tr>
 <tr>
-<td class="ta-l">Window base</td>
+<td class="ta-l">Product of bases</td>
 <td class="ta-r"><span
 class="math inline" data-term-auto="off">\(18139852800000000\)</span></td>
 <td class="ta-r"><span
@@ -5668,10 +5718,11 @@ class="math inline" data-term-auto="off">\(15932659\)</span></td>
 </tbody>
 </table>
 </div>
-<p>These histograms concern a bounded region. The window-growth law
-gives a necessary lower bound on a possible escape length, not a
-distribution law for residues or first successful lengths. No
-generic-residue model is used as evidence for cofinal escape.</p>
+<p>These histograms concern a bounded region. The product-growth law
+gives a necessary lower bound on a possible length of such a segment,
+not a distribution law for residues or first successful lengths. No
+generic-residue model is used as evidence for the residue inequality at
+arbitrarily late starts.</p>
 </section>
 <section id="long269:long:sources" class="level3">
 <h3>Source inventory</h3>
@@ -5679,21 +5730,22 @@ generic-residue model is used as evidence for cofinal escape.</p>
 Section <a class="math-ref" href="#long269:sec:proof-sources">12.5</a> explains
 the assumptions attached to each kind of association. Before using the
 table, two conventions require attention: integer division at the
-initial index and removal of the first shell. The Lean version of the
-half-height <span class="math inline" data-term-auto="off">\(h_a\)</span> is a natural number
-computed by integer division: its value at <span
+initial index and removal of the first block. The Lean version of the
+normalising factor <span class="math inline" data-term-auto="off">\(h_a\)</span> is a natural
+number computed by integer division: its value at <span
 class="math inline" data-term-auto="off">\(0\)</span> is <span
 class="math inline" data-term-auto="off">\(0\)</span>, whereas <span
 class="math inline" data-term-auto="off">\(h_0=1/2\)</span>. It agrees with <span
 class="math inline" data-term-auto="off">\(h_a\)</span> for <span
-class="math inline" data-term-auto="off">\(a\ge1\)</span>, as the half-height identity
-assumes. The Lean version of the tail <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span>, as the identity for half the
+running LCM assumes. The Lean version of the tail <span
 class="math inline" data-term-auto="off">\(X_a\)</span> divides after casting to <span
 class="math inline" data-term-auto="off">\(\mathbb R\)</span>, so agrees with <span
 class="math inline" data-term-auto="off">\(X_a=h_aT_a\)</span> at every index.</p>
-<p>The denominator-clearing and reduced-carry lemmas assume <span
-class="math inline" data-term-auto="off">\(T_1\)</span> rational. The first shell consists of
-<span class="math inline" data-term-auto="off">\(1\)</span> alone, so <span
+<p>The denominator-clearing lemmas and the lemmas on division of an
+integer recurrence assume <span class="math inline" data-term-auto="off">\(T_1\)</span>
+rational. The first block consists of <span
+class="math inline" data-term-auto="off">\(1\)</span> alone, so <span
 class="math inline" data-term-auto="off">\(T_1=S-1\)</span>; thus <span
 class="math inline" data-term-auto="off">\(S=N/D\)</span> supplies</p>
 <div class="math-display" data-term-auto="off"><span
@@ -5717,7 +5769,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 val</a></td>
 </tr>
 <tr>
-<td class="ta-l">pure-power height</td>
+<td class="ta-l">pure-power running LCM</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L37">three
 prime height</a></td>
@@ -5741,13 +5793,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 prefix lcm</a></td>
 </tr>
 <tr>
-<td class="ta-l">prefix value divides the height</td>
+<td class="ta-l">prefix value divides the running LCM</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L60">smooth3
 val dvd three prime height of mem</a></td>
 </tr>
 <tr>
-<td class="ta-l">divisibility into the height</td>
+<td class="ta-l">divisibility into the running LCM</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L78">smooth
 prefix lcm dvd three prime height</a></td>
@@ -5783,7 +5835,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 three prime log cell</a></td>
 </tr>
 <tr>
-<td class="ta-l">cell constancy of the height</td>
+<td class="ta-l">cell constancy of the running LCM</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L170">three
 prime height eq of same log cell</a></td>
@@ -5849,19 +5901,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 prime jump set with origin card</a></td>
 </tr>
 <tr>
-<td class="ta-l">first height step</td>
+<td class="ta-l">first running LCM step</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L295">three
 prime height first log step</a></td>
 </tr>
 <tr>
-<td class="ta-l">second height step</td>
+<td class="ta-l">second running LCM step</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L306">three
 prime height second log step</a></td>
 </tr>
 <tr>
-<td class="ta-l">third height step</td>
+<td class="ta-l">third running LCM step</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L317">three
 prime height third log step</a></td>
@@ -5891,13 +5943,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 exponent box</a></td>
 </tr>
 <tr>
-<td class="ta-l">point height</td>
+<td class="ta-l">point running LCM</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L374">smooth
 point height</a></td>
 </tr>
 <tr>
-<td class="ta-l">height fibre</td>
+<td class="ta-l">running LCM fibre</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L378">smooth
 height fiber</a></td>
@@ -5965,7 +6017,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 state step eq</a></td>
 </tr>
 <tr>
-<td class="ta-l">smooth exponent shell</td>
+<td class="ta-l">smooth exponent block</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L501">smooth
 exponent shell</a></td>
@@ -5995,7 +6047,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 pair quadratic</a></td>
 </tr>
 <tr>
-<td class="ta-l">quadratic shell bound</td>
+<td class="ta-l">quadratic block bound</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L647">smooth
 exponent shell card quadratic</a></td>
@@ -6044,7 +6096,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 integer orbit logb of prime</a></td>
 </tr>
 <tr>
-<td class="ta-l">height factorisation</td>
+<td class="ta-l">running LCM factorisation</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L218">three
 prime height factorisation</a></td>
@@ -6111,19 +6163,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 </tr>
 <tr>
 <td class="ta-l">integer numerator for one dyadic
-shell</td>
+block</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicBlockThresholdPartition.lean#L150">dyadic
 ordered block digit235</a></td>
 </tr>
 <tr>
-<td class="ta-l">normalised state step</td>
+<td class="ta-l">recurrence for normalised tails</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">dyadic
 normalized tail state r235 succ</a></td>
 </tr>
 <tr>
-<td class="ta-l">shell summability</td>
+<td class="ta-l">block summability</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicShellSummability.lean#L142">summable
 dyadic shell mass r235</a></td>
@@ -6148,14 +6200,14 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 height mul prime dvd boundary height</a></td>
 </tr>
 <tr>
-<td class="ta-l">half-height identity for <span
+<td class="ta-l">half the running LCM for <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">two
 mul height normalizer235</a></td>
 </tr>
 <tr>
-<td class="ta-l">window clearing identity</td>
+<td class="ta-l">segment clearing identity</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L158">height
 normalizer235 mul window mass eq int</a></td>
@@ -6169,7 +6221,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 normalized tail state eq int of value eq rat</a></td>
 </tr>
 <tr>
-<td class="ta-l">normalised-state collision</td>
+<td class="ta-l">congruence between normalised tails</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L296">exists
 normalized tail state collision of value eq rat</a></td>
@@ -6193,7 +6245,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 positive residue mod eq</a></td>
 </tr>
 <tr>
-<td class="ta-l">escape condition</td>
+<td class="ta-l">residue inequality</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ResidueEscape.lean#L71">residue
 escapes window</a></td>
@@ -6225,19 +6277,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 positive residue eq nat abs of pos le mod eq</a></td>
 </tr>
 <tr>
-<td class="ta-l">window base</td>
+<td class="ta-l">product of the bases</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L417">window
 base</a></td>
 </tr>
 <tr>
-<td class="ta-l">accumulated numerator in a window</td>
+<td class="ta-l">accumulated numerator in a segment</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L422">window
 forcing</a></td>
 </tr>
 <tr>
-<td class="ta-l">affine window identity</td>
+<td class="ta-l">affine iterated recurrence</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L455">affine
 recurrence window</a></td>
@@ -6249,7 +6301,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 forcing const mul</a></td>
 </tr>
 <tr>
-<td class="ta-l">integral carry window</td>
+<td class="ta-l">iterating an integer recurrence</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L480">integral
 carry window</a></td>
@@ -6281,20 +6333,20 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 carry pos le of common factor</a></td>
 </tr>
 <tr>
-<td class="ta-l">window identity after division</td>
+<td class="ta-l">iterated recurrence after division</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L612">reduced
 integral carry window</a></td>
 </tr>
 <tr>
-<td class="ta-l">cofinal window hypothesis</td>
+<td class="ta-l">cofinal segment hypothesis</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L629">cofinal
 local window escape</a></td>
 </tr>
 <tr>
-<td class="ta-l">escape excludes a reduced positive integer
-carry</td>
+<td class="ta-l">the residue inequality excludes a positive
+integer solution of the reduced recurrence</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
 positive reduced carry of cofinal local window escape</a></td>
@@ -6307,28 +6359,28 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 positive absorbed carry of cofinal local window escape</a></td>
 </tr>
 <tr>
-<td class="ta-l">real window identity</td>
+<td class="ta-l">real iterated recurrence</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L68">true
 normalized state window</a></td>
 </tr>
 <tr>
-<td class="ta-l">escape from irrationality, general
-bound</td>
+<td class="ta-l">irrationality implies the residue
+inequality, general bound</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L327">cofinal
 local window escape of irrational of beaten</a></td>
 </tr>
 <tr>
-<td class="ta-l">escape from irrationality, quadratic
-family</td>
+<td class="ta-l">irrationality implies the residue
+inequality, quadratic family</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L355">cofinal
 local window escape of irrational of quadratic</a></td>
 </tr>
 <tr>
-<td class="ta-l">escape from irrationality, actual
-bound</td>
+<td class="ta-l">irrationality implies the residue
+inequality, actual bound</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CofinalWindowEscapeEquivalence.lean#L379">cofinal
 local window escape of irrational</a></td>
@@ -6409,8 +6461,8 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 lift two anchors force first block sum one</a></td>
 </tr>
 <tr>
-<td class="ta-l">four states cannot meet all three
-conditions</td>
+<td class="ta-l">four consecutive values cannot meet all
+three conditions</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/CarryLiftExtinction.lean#L308">no
 unit accurate lift with two anchors and first two block null</a></td>
@@ -6456,7 +6508,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 mem ioo</a></td>
 </tr>
 <tr>
-<td class="ta-l">state gap bound</td>
+<td class="ta-l">lower bound for a difference of tails</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/PurePowerIrrationality.lean#L74">state
 gap lower bound</a></td>
@@ -6505,7 +6557,7 @@ modular minors</a></td>
 generalisations awaiting formalisation and the unresolved repeated-sum
 condition. Exact kernel rank concerns separation of a function; the
 residue criterion concerns a scalar sum and still needs arithmetic
-existence for its windows.</p>
+existence for its segments.</p>
 <div class="center">
 <table>
 <colgroup>
@@ -6520,7 +6572,8 @@ existence for its windows.</p>
 </thead>
 <tbody>
 <tr>
-<td class="ta-l">Height and cells</td>
+<td class="ta-l">Running LCMs and intervals of
+constancy</td>
 <td class="ta-l">Prime-power divisibility and unique
 factorisation. Their geometry alone gives no irrationality
 statement.</td>
@@ -6532,7 +6585,7 @@ external Hecke–Mahler value theorem. The reduction to that theorem is
 checked in Lean; the theorem itself is a cited input (Section <a class="math-ref" href="#long269:sec:coverage">14</a>).</td>
 </tr>
 <tr>
-<td class="ta-l">Distinct-height sums, every <span
+<td class="ta-l">Distinct values, every <span
 class="math inline" data-term-auto="off">\(P\)</span></td>
 <td class="ta-l">Integrality of the scaled tails,
 rearranged chains at a return of the logarithmic flow, Kronecker’s
@@ -6541,15 +6594,15 @@ Ordinary proof checked by a second agent; no Lean proof. It stops for
 the repeated sums because their scaled tails are unbounded.</td>
 </tr>
 <tr>
-<td class="ta-l">Single-prime sub-sums</td>
+<td class="ta-l">Prime-power subseries</td>
 <td class="ta-l">The same two-tail comparison with the
-carry <span class="math inline" data-term-auto="off">\(f_p\)</span> and a chain chosen near
+integer <span class="math inline" data-term-auto="off">\(f_p\)</span> and a chain chosen near
 the origin of the torus; no two-wall lemma. Ordinary proof checked by a
 second agent; no Lean proof. Says nothing about the whole repeated
 sum.</td>
 </tr>
 <tr>
-<td class="ta-l">Distinct-height sums, dyadic</td>
+<td class="ta-l">Distinct values, blocks</td>
 <td class="ta-l">Dyadic blocks, finitely many affine maps
 with disjoint images, integrality of the scaled tails and the
 irrationality of <span class="math inline" data-term-auto="off">\(\log p/\log q\)</span>. The
@@ -6567,8 +6620,8 @@ Lean.</td>
 <tr>
 <td class="ta-l">Tail recurrence</td>
 <td class="ta-l">Counting the original multiplicities,
-normalising by half the boundary height, and convergence; an abstract
-recurrence would not identify the sum.</td>
+normalising by half the boundary running LCM, and convergence; an
+abstract recurrence would not identify the sum.</td>
 </tr>
 <tr>
 <td class="ta-l">Denominator reduction</td>
@@ -6580,9 +6633,9 @@ checked in Lean.</td>
 <tr>
 <td class="ta-l">Residue criterion</td>
 <td class="ta-l">The actual recurrence, a dominating bound
-and window products comparable to <span
-class="math inline" data-term-auto="off">\(8^h\)</span>; escape at arbitrarily late starts
-remains unproved.</td>
+and segment products comparable to <span
+class="math inline" data-term-auto="off">\(8^h\)</span>; the inequality at arbitrarily late
+starts remains unproved.</td>
 </tr>
 <tr>
 <td class="ta-l">Weighted differences</td>
@@ -6593,7 +6646,7 @@ counterexample to third-difference cancellation.</td>
 <tr>
 <td class="ta-l">Finite computations</td>
 <td class="ta-l">Direct checks settle only their individual
-windows. The two large exclusions have published witnesses and exact
+segments. The two large exclusions have published witnesses and exact
 checkers, and the larger scan a published saved run; none is a theorem
 input.</td>
 </tr>
