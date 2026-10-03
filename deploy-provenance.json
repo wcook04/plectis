@@ -1,50 +1,63 @@
 {
   "last_scoped_release": {
     "changed_paths": {
-      "maths/assets/universe.js": {
+      "maths/assets/universe-companion.css": {
         "after": {
           "mode": 420,
-          "sha256": "0d2a55d22262166cd8ada308e35b9099c5997e323bff45c6258e99a17f04f237"
+          "sha256": "05082c993c058260609b2ed7938f4aa97038d7a26abc6d4fa136f621febc7922"
         },
         "before": {
           "mode": 420,
-          "sha256": "00252860a268031ec58dffffd7ca58e44a498daddf04bc061988f4013cf8767c"
+          "sha256": "236630590375a4656e63d63fa6e05b58caabb792b260db5f52a87f7c859e78bb"
+        }
+      },
+      "maths/assets/universe-data.json": {
+        "after": {
+          "mode": 420,
+          "sha256": "d4543fd2e0ae1a939f87d3c3d046c4d0fb20bdddcdb7b4ae1c79ade585dbc096"
+        },
+        "before": {
+          "mode": 420,
+          "sha256": "a952d5a4ef901cd91cc00d5b4d084f69175b18cdf8d16491f75b25d960427d68"
         }
       },
       "maths/index.html": {
         "after": {
           "mode": 420,
-          "sha256": "d0bad19adf9da8c7cc9964efcf1abd6976b5ca915f925d3a41d281beefc49c9b"
+          "sha256": "8c3a0069f7feaf57cc16ec60dd5fdca6eea248744266b94b0b299475d71ba088"
         },
         "before": {
           "mode": 420,
-          "sha256": "1ef22af6e20f2135a881ba3d43bcd494554f3b31722088b8f15cdb5586ad5199"
+          "sha256": "d0bad19adf9da8c7cc9964efcf1abd6976b5ca915f925d3a41d281beefc49c9b"
         }
       },
       "maths/universe.html": {
         "after": {
           "mode": 420,
-          "sha256": "09d51d4d33e272badef6cfa40af76326ffb0798d5db0de4f9d98f27b8a015c4a"
+          "sha256": "b7f4258d471692c9592672def348cb1f885829fd74b567ee72cb3abe48c78b19"
         },
         "before": {
           "mode": 420,
-          "sha256": "645320737ac612d1b678b3bdfe212191e7655eeaef20a53359d36bedf8ff588b"
+          "sha256": "09d51d4d33e272badef6cfa40af76326ffb0798d5db0de4f9d98f27b8a015c4a"
         }
       }
     },
     "current_universe_paths": [
       "maths/assets/maths.css",
+      "maths/assets/universe-companion.css",
+      "maths/assets/universe-companion.js",
+      "maths/assets/universe-companion.json",
       "maths/assets/universe-data.json",
       "maths/assets/universe-layout-full.json",
       "maths/assets/universe.js",
       "maths/universe.html"
     ],
-    "generator_commit": "e0ddbd8ef87e86406623b20d8fba29031f2990e3",
-    "pages_base_commit": "2626015554af2cacfcff31da457c0ab187a92a7d",
+    "generator_commit": "52c269662d40bda5a17802ff1f637477bf696e53",
+    "pages_base_commit": "f2626df1699491bb0ae3d66bb57870af864b6c8c",
     "private_root_released": false,
-    "protected_file_count": 473,
+    "protected_file_count": 470,
     "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
-    "protected_sha256": "ab91cdfd919ebc6c50eba984b7fe1e6ce73187bf5b08a0aa9aa84435cc674d4c",
+    "protected_sha256": "675cab6940d8e0057bf17d0c653758f0932449807d5623e8611b33b5ce5cc11e",
     "retained_dependency_recovery": [],
     "scope": "lean_math_reading_room",
     "universe_parity": {

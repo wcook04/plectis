@@ -52,9 +52,12 @@
   margin: 0 0 0.7rem; max-width: 46ch;
   font-size: 1.04rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
 }
+/* The tally and the card's small lines keep the précis's measure (52ch at
+   0.88rem is 54ch at 0.84rem), so the column ends on one right edge. */
 .uc__tally {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.7rem;
-  margin: 0 0 1.15rem; font-size: 0.84rem; line-height: 1.5; color: var(--muted);
+  margin: 0 0 1.15rem; max-width: 54ch;
+  font-size: 0.84rem; line-height: 1.5; color: var(--muted); text-wrap: pretty;
 }
 .uc__tally-line .uc-mark { margin-right: 0.45rem; }
 .uc__status {
@@ -82,7 +85,7 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
   display: flex; align-items: baseline; gap: 0.55rem; margin: 0;
   font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.35; color: var(--ink);
 }
-.uc__focus-meta { margin: 0.25rem 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
+.uc__focus-meta { margin: 0.25rem 0 0; max-width: 54ch; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
 .uc__decl { margin: 0.25rem 0 0; font-size: 0.8rem; color: var(--faint); overflow-wrap: break-word; }
 .uc__decl code { font-size: 0.78rem; color: var(--ink-soft); }
 .uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
