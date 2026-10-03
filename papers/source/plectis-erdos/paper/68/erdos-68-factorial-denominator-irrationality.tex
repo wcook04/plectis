@@ -25,7 +25,7 @@
 \title{Integer Linear Forms for a\\Factorial Reciprocal Series}
 \subtitle{An integral basis and a finite gcd formula}
 \author{Will Cook}
-\date{31 August 2026; revised 30 September 2026}
+\date{31 August 2026; revised 1 October 2026}
 
 \begin{document}
 \maketitle
@@ -135,10 +135,11 @@ and let
 \[
  \mathcal R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1}.
 \]
-Choose $N\ge2$ beyond the support of $\lambda$. For $d>N$ the floor
-exponents are zero, so $V_d=M$ and the series converges absolutely.
-Only the first $N-1$ terms can differ from those of $MS$, and the
-weight congruence gives
+Here $n$ indexes the chosen coefficients, whereas $d$ indexes the
+summands of the remainder. If $\lambda$ is supported on $n\le N$, with
+$N\ge2$, then $d>N$ makes every floor exponent zero. Hence $V_d=M$
+throughout this tail, and the series converges absolutely. Only the
+first $N-1$ terms can differ from those of $MS$; the weight congruence gives
 \begin{equation}
  \mathcal R(\lambda)-M(\lambda)S
  =\sum_{d=2}^N\frac{V_d(\lambda)-M(\lambda)}{d!-1}\in\mathbb Z.
@@ -215,6 +216,11 @@ $V_d=M+(d!-1)c_d$, which proves \eqref{eq:channel-basis-expansion}. For $d>N$ th
 coefficient is zero because $V_d=M$.
 \end{proof}
 
+The $U_d$-coordinates in \eqref{eq:channel-basis-expansion} are exactly
+the integer summands in \eqref{eq:integer-linear-form}. Their sum is
+therefore $k$ in $\mathcal R=MS+k$. The same coordinates describe
+both the vector and its linear form.
+
 For a prime $p\ge3$ the divisor sum is empty, and
 $U_p=pe_{p-1}-e_p$. At a composite index the correction terms remove
 the extra weighted sums. For example,
@@ -265,6 +271,9 @@ $\mathcal R(e_1)=S$ and $\mathcal R(U_n)=1$ give
  \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
  \label{eq:residual-transparency}
 \end{equation}
+Since $M=tL_D$ clears the denominators of $H_D$, the integer in
+$\mathcal R=MS+k$ is $k=-MH_D+\sum_{n>D}z_n$. Thus the sum of the
+free coordinates is the offset from $M(S-H_D)$, not from $MS$.
 
 It remains to remove index one. Write $a_D$ for its coefficient in
 $K_D$, and $u_n$ for its coefficient in $U_n$. All other coordinates
@@ -304,15 +313,17 @@ The recursion for the first coordinate is
  u_n=-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}u_d\quad(n>2).
 \]
 Induction gives $u_n=0$ at odd indices. At twice a prime it gives
-$u_{2p}=-(2p)!/2^{p-1}\ne0$, including $p=2$, so the tail contains a
-nonzero coefficient and $g_D>0$. To compute this infinite gcd, we show
-that a specified finite interval already forces divisibility of every
-later coefficient.
+$u_{2p}=-(2p)!/2^{p-1}\ne0$, including $p=2$, so $g_D>0$.
+This nonzero coefficient also tells us how to make the calculation finite.
+Choose a prime $\ell$ with $D/2<\ell\le D$. Any gcd computed on an
+initial interval of the tail containing $2\ell$ must divide $(2\ell)!$.
+We use that factorial to control the later terms of the recurrence.
 
-The induction has two cases. For a proper divisor $d>D$, divisibility
-comes from the earlier coefficient $u_d$. For $d\le D$, it must instead
-come from the weight $W_{d,n}$. The following cutoff makes the second
-argument work for every such $d$.
+For a proper divisor $d>D$, divisibility by the finite gcd comes from
+the earlier coefficient $u_d$. For $d\le D$, we instead make the
+weight $W_{d,n}$ divisible by $(2\ell)!$. The proof obtains this from
+$n/d\ge2\ell$; the cutoff below is chosen to ensure that inequality
+for every small divisor.
 
 \begin{theorem}[a finite formula for the gcd]
 \label{res:finite-channel-moment-certificate}
@@ -348,9 +359,10 @@ gcds are equal, and $H\le D(2D-1)<2D^2$.
 \end{proof}
 
 Bertrand's postulate supplies the prime $\ell$ when $D\ge3$; for
-$D=2$ take $\ell=2$. The proof requires $n/d\ge2\ell$ for every
-small divisor, which is why it uses the cutoff $H=D(2\ell-1)$.
-A truncation at $2D$ is not justified by this argument.
+$D=2$ take $\ell=2$. Merely including the nonzero coefficient at
+$2\ell$ is not enough: the cutoff must also control every later
+small-divisor weight. A truncation at $2D$ is not justified by this
+argument.
 
 The finite gcd also gives a construction. Compute integers $b_n$ with
 $\sum_{n=D+1}^H b_nu_n=g_D$ by the extended Euclidean algorithm, and put
@@ -435,12 +447,11 @@ multiply each of the final four columns by $\lambda_n$ before summing.}
 \label{tab:depth-four}
 \end{table}
 
-The coordinates already give $M=1380$ and the three cancellations.
-They also determine the integer term in \eqref{eq:residual-transparency},
-namely
-$-26-27+8+1=-44$. Thus
+The coordinates give $M=1380$, the three cancellations, and the offset
+$-26-27+8+1=-44$ in \eqref{eq:residual-transparency}. Since
+$H_4=143/115$, the original linear form is
 \[
- \mathcal R(\lambda)=1380(S-H_4)-44.
+ \mathcal R(\lambda)=1380(S-H_4)-44=1380S-1760.
 \]
 For the remainder estimate, the inequality
 $(n+1)!-1>(n+1)(n!-1)$ gives the geometric bound
@@ -489,37 +500,42 @@ condition is
 Indeed, the positive tail and this comparison give
 $\lfloor A_N\rfloor<\mathcal R(\lambda)<\lfloor A_N\rfloor+1$,
 excluding every denominator dividing $M$.
-The argument allows either sign of $A_N$. Its strict gap is one when
-$A_N$ is integral and can be arbitrarily small when $A_N$ approaches
-an integer from below.
+Failure of this sufficient comparison is inconclusive. Either sign of
+$A_N$ is allowed: its strict gap is one when $A_N$ is integral and
+can be arbitrarily small when $A_N$ approaches an integer from below.
 
-There are primitive solutions with $0<M<N!$ for which $M$ is eventually
-divisible by any prescribed $q$. The
+First keep the vector fixed and increase only the cutoff. The vector
+$-6e_2+e_4$ has $M=12$. At $N=4$, its finite part
+$A_4=-239/115$ lies just below $-2$, and its gap $9/115$ is smaller
+than the bound $24/119$. At $N=5$, the finite part
+$A_5=-27061/13685$ has crossed $-2$: the next integer is now $-1$,
+and the gap $13376/13685$ exceeds $24/719$.
+More generally, for a fixed vector with $M>0$,
+the quantities $A_N$ increase to $\mathcal R$. If this limit is
+nonintegral, their gaps to the next integer tend to a positive number,
+so the test eventually succeeds. If the limit is integral, the eventual
+gap equals the omitted tail and the test fails. Extending the cutoff
+therefore eventually detects a nonintegral remainder, but leaves both
+that remainder and the set of divisors of $M$ unchanged.
+
+Changing coefficients while preserving $M$ also leaves integrality
+unchanged. By \eqref{eq:integer-linear-form}, the remainders of two such
+vectors differ by an integer. Adding multiples of the $U_n$ can
+simplify the support and weighted sums, as in the example; it cannot
+turn an integral remainder into a nonintegral one.
+
+To exclude every possible denominator, we must instead choose vectors
+whose values of $M$ have the required divisibility. There are primitive
+solutions with $0<M<N!$ for which $M$ is eventually divisible by any
+prescribed $q$. The
 \href{erdos68-factorial-reasoning-surface.pdf\#r5-progression}{progression construction in the companion}
 gives such a family by turning $V_d=0$ into roots of a polynomial.
 At its support endpoint the omitted tail is less than $2/N$, but the
 gap on the right of \eqref{eq:signed-block-gap} may shrink too.
-For each prescribed $q$, an irrationality proof requires a vector
-satisfying both this comparison and $q\mid M$. Unboundedness of $M$
-alone does not suffice. No minimal-support assertion is made for this
-family.
-
-Increasing the cutoff is a different operation from choosing a new
-vector. For $-6e_2+e_4$ the support ends at four, where the test fails
-because $9/115<24/119$. At $N=5$ it succeeds because
-$13376/13685>24/719$. More generally, for a fixed vector with $M>0$,
-the quantities $A_N$ increase to $\mathcal R$. If this limit is
-nonintegral, their gaps to the next integer tend to a positive number,
-so the test eventually succeeds. If the limit is integral, the eventual
-gap equals the omitted tail and the test fails. Thus extending the
-cutoff eventually detects a nonintegral remainder, but leaves both the
-remainder and $M$ unchanged.
-
-Nor can a change of coefficients preserving $M$ decide nonintegrality.
-By \eqref{eq:integer-linear-form}, the remainders of two vectors with
-the same value of $M$ differ by an integer. Adding multiples of the
-$U_n$ can therefore simplify the support and weighted sums, as in the
-example, without changing whether the remainder is integral.
+To prove irrationality by this test, for each $q>0$ we need one vector
+with $q\mid M$ and a cutoff for which \eqref{eq:signed-block-gap}
+holds. Divisibility and a small tail do not by themselves establish
+that comparison. No minimal-support assertion is made for this family.
 
 The companion treats the
 \href{erdos68-factorial-reasoning-surface.pdf\#r5-carry}{equivalent carry condition}

@@ -86,9 +86,9 @@ follows this order.</p>
 Koizumi <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. In
 Section <a class="math-ref" href="#sec:bounded">4</a>, a stable
 gcd and the Chinese remainder theorem exclude a rational tail whose
-<span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> has bounded upward
-increments. An elementary infinite product argument gives the separate
-summability criterion of Section <a class="math-ref" href="#sec:mass">5</a>. We then clear the tails
+quotient <span class="math inline" data-term-auto="off">\(a_1\cdots a_{n-1}/a_n\)</span> has
+bounded upward increments. An elementary infinite product argument gives
+the separate summability criterion of Section <a class="math-ref" href="#sec:mass">5</a>. We then clear the tails
 by a least common multiple and count crossings of new maxima
 (Section <a class="math-ref" href="#sec:lcmrecords">6</a>). The
 resulting weighted criterion isolates an arithmetic estimate still
@@ -157,9 +157,16 @@ x_n=\frac1{a_n}+\frac1{a_{n+1}}+O(a_{n+1}^{-2}),
 \qquad
 \frac{C_{n+1}}{C_n}=\frac{a_n^2}{a_{n+1}}+O(1/a_n).
 \end{equation}\]</span></div>
-<p>For the second estimate, use <span
-class="math inline" data-term-auto="off">\(C_{n+1}/C_n=a_nx_{n+1}/x_n\)</span> in the first.
-Quadratic growth makes <span
+<p>For the second estimate, the first gives <span
+class="math inline" data-term-auto="off">\(a_nx_n=1+O(1/a_n)\)</span>. Use this in</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{C_{n+1}}{C_n}
+=\frac{a_n^2}{a_{n+1}}\,
+  \frac{a_{n+1}x_{n+1}}{a_nx_n}.\]</span></div>
+<p>The last factor is <span
+class="math inline" data-term-auto="off">\(1+O(1/a_n)\)</span>, and <span
+class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}\to1\)</span>, giving the stated
+additive error. Quadratic growth makes <span
 class="math inline" data-term-auto="off">\(1/a_n=o(n^{-k})\)</span> for every fixed <span
 class="math inline" data-term-auto="off">\(k\)</span>, so this error preserves the precision
 required in the cubic theorem. We keep the original index <span
@@ -872,14 +879,13 @@ eventual bound <span
 class="math inline" data-term-auto="off">\(\gamma_n\le1/n\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The hypothesis bounds the positive part of <span
-class="math inline" data-term-auto="off">\(\gamma_n\)</span> eventually by <span
-class="math inline" data-term-auto="off">\(1/n+K/n^{1+\varepsilon}\)</span>. Since <span
-class="math inline" data-term-auto="off">\(t_{n+1}/t_n=1+\gamma_n\)</span>, comparison with
-<span class="math inline" data-term-auto="off">\(n\)</span> and the convergent product of
-<span class="math inline" data-term-auto="off">\(1+K/n^{1+\varepsilon}\)</span> gives <span
-class="math inline" data-term-auto="off">\(t_n=O(n)\)</span>. Hence <span
-class="math inline" data-term-auto="off">\(t_n\gamma_n\le t_n(\gamma_n)_+=O(1)\)</span>, and
+<p><em>Proof.</em> Since <span
+class="math inline" data-term-auto="off">\(t_{n+1}/t_n=1+\gamma_n\)</span>, division by the
+comparison sequence <span class="math inline" data-term-auto="off">\(n\)</span> gives <span
+class="math inline" data-term-auto="off">\((t_{n+1}/(n+1))/(t_n/n)=(1+\gamma_n)/(1+1/n)
+\le1+K/[n^\varepsilon(n+1)]\)</span>. The upper bounds have a convergent
+product, so <span class="math inline" data-term-auto="off">\(t_n=O(n)\)</span> and <span
+class="math inline" data-term-auto="off">\(t_n\gamma_n\le t_n(\gamma_n)_+=O(1)\)</span>.
 Corollary <a class="math-ref" href="#res:originalbounded">4.9</a>
 applies. ◻</p>
 </div>
@@ -986,15 +992,15 @@ of selected heights will then control these sums even with a decreasing
 weight. Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
-M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
-<p>The rational
-tail has denominator dividing <span class="math inline" data-term-auto="off">\(L_n\)</span>,
-so <span class="math inline" data-term-auto="off">\(U_n\)</span> and <span
-class="math inline" data-term-auto="off">\(V_n\)</span> are integers. This need not be a
-reduced fraction: <span class="math inline" data-term-auto="off">\(U_n\)</span> and <span
-class="math inline" data-term-auto="off">\(L_n\)</span> may share a factor. With <span
-class="math inline" data-term-auto="off">\(\rho_n=\gcd(L_n,a_n)\)</span>, the exact updates
-are</p>
+M_n=D_n/L_n,\quad U_n=L_nx_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
+<p>The
+denominator of <span class="math inline" data-term-auto="off">\(x_n\)</span> divides <span
+class="math inline" data-term-auto="off">\(L_n\)</span>, so <span
+class="math inline" data-term-auto="off">\(U_n\in\Z\)</span> and <span
+class="math inline" data-term-auto="off">\(V_n=L_n-(a_n-1)U_n\in\Z\)</span>. The fraction
+<span class="math inline" data-term-auto="off">\(U_n/L_n\)</span> need not be reduced. With
+<span class="math inline" data-term-auto="off">\(\rho_n=\gcd(L_n,a_n)\)</span>, the exact
+updates are</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M_{n+1}=M_n\rho_n,\qquad
 \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.\]</span></div>
 <p>These
@@ -1138,14 +1144,16 @@ class="math display" data-term-auto="off">\[\sum_{\substack{\tau\text{ first
 crossed}\\\text{at step }n}}f(\tau)
 \le(d_n-B)f(U_n).\]</span></div>
 <p>Each selected height above <span
-class="math inline" data-term-auto="off">\(R_T\)</span> has exactly one first crossing. The
-first selected height is at most <span
-class="math inline" data-term-auto="off">\(R_T+P\)</span>; each later height is <span
-class="math inline" data-term-auto="off">\(P\)</span> further on. For <span
-class="math inline" data-term-auto="off">\(R_N\ge R_T+P\)</span>, comparison of each interval
-with its left endpoint gives</p>
-<div class="math-display" id="eq:weightedcrossing" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(R_T\)</span> has one first crossing. The heights
+are <span class="math inline" data-term-auto="off">\(P\)</span> apart, with the first at most
+<span class="math inline" data-term-auto="off">\(R_T+P\)</span>. For <span
+class="math inline" data-term-auto="off">\(R_N\ge R_T+P\)</span>, the intervals <span
+class="math inline" data-term-auto="off">\([\tau,\min\{\tau+P,R_N\}]\)</span> with <span
+class="math inline" data-term-auto="off">\(\tau\le R_N\)</span> cover <span
+class="math inline" data-term-auto="off">\([R_T+P,R_N]\)</span>. Monotonicity bounds each
+integral by <span class="math inline" data-term-auto="off">\(P f(\tau)\)</span>, so the
+crossing bounds give</p>
+<div class="math-display" id="eq:weightedcrossing" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:weightedcrossing}
 \sum_{\substack{T\le n&lt;N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
 \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
@@ -1177,8 +1185,10 @@ gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gamma_n+\theta_n=
 \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
 \qquad 0&lt;\gamma_n+\theta_n&lt;3/a_n\]</span></div>
-<p class="display-continue">eventually. Thus the two
-nonnegative summands <span
+<p class="display-continue">eventually. Taking
+positive parts cannot increase the absolute difference. Since <span
+class="math inline" data-term-auto="off">\(V_n=U_n\theta_n\)</span>, the two nonnegative
+summands <span
 class="math inline" data-term-auto="off">\(U_nf(U_n)(\gamma_n-B/U_n)_+\)</span> and <span
 class="math inline" data-term-auto="off">\((-V_n-B)_+f(U_n)\)</span> differ by at most <span
 class="math inline" data-term-auto="off">\(3U_nf(U_n)/a_n\)</span>. We verify that this
@@ -1582,17 +1592,16 @@ after <span class="math inline" data-term-auto="off">\(N\)</span>. In particular
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-indexing">indexing
 subsection</a> gives this finite-prefix bridge.</p>
 </section>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
-<p>The margin marks link statements to fixed-revision Lean declarations
-and recorded Comparator evidence. The printed cubic argument uses
-Chebotarev, while the supplied formal square-specialisation proof uses a
-Dedekind-zeta pole comparison. Agreement of their conclusions does not
-verify each step of the printed argument. No Lean build, Comparator
-replay or independent review was performed for this revision, and the
-evidence records retain source-pin and index gaps. The estimate in
-Section <a class="math-ref" href="#sec:open">7</a> remains
-open.</p>
+</section>
+<section id="app:verification" class="level2">
+<h2>Verification and reproducibility</h2>
+<p>The links identify fixed-revision Lean declarations and recorded
+Comparator checks. The printed cubic argument uses Chebotarev; the
+formal square-specialisation proof uses a Dedekind-zeta pole comparison.
+Their common conclusion does not check each step of the printed proof.
+This revision includes no new Lean build, Comparator replay or
+independent review. The evidence record retains source-pin and index
+gaps, and the estimate in Section <a class="math-ref" href="#sec:open">7</a> remains open.</p>
 <p>The formal <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
 residue reduction</a> uses the <a
@@ -1606,7 +1615,6 @@ href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61
 formula</a> and its <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
 value at the initial index</a>.</p>
-</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

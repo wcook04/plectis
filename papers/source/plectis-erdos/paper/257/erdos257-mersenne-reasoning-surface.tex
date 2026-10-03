@@ -203,15 +203,15 @@
 \paperprovenance
 
 \begin{abstract}
-Weighted summability and positive divisor covers give hereditary
-irrationality criteria for Mersenne subseries at integer bases. We prove
-both on a common finite distribution, allowing them to be combined on
-unions outside either individual class. The record also develops
-finite-denominator arithmetic, achievement-set geometry and
-integer-quotient tests for $1/2$ and $1/21$. Conditional arguments retain
-their hypotheses, computations their finite ranges, and counterexamples
-the estimates they refute. Both rational targets and the unrestricted
-base-two problem remain open.
+The main result of Part~I combines two hereditary irrationality criteria
+for Mersenne subseries: a finite-prime weighted condition and a positive
+divisor-cover condition.  Their estimates hold on one finite distribution,
+so the union criterion reaches supports lying in neither individual class.
+The record also develops finite-denominator arithmetic, achievement-set
+geometry and integer-quotient tests for $1/2$ and $1/21$. Conditional
+arguments retain their hypotheses, computations their finite ranges, and
+counterexamples the estimates they refute. Both rational targets and the
+unrestricted base-two problem remain open.
 \end{abstract}
 
 \section*{Introduction}
@@ -224,11 +224,13 @@ criteria which also admit supports of divergent reciprocal sum.
 For a rational value $X_A(b)=p/q$ with $q>0$, the associated positive quantities
 $\Delta_{b,A}(N)$ satisfy $q\Delta_{b,A}(N)\in\mathbb Z$ and hence
 $\Delta_{b,A}(N)\ge1/q$. We rule out rationality by making them
-arbitrarily small. In a finite average, the incomplete residue periods
-produce an error without the factor $1/a$ needed for summation over
-exponents. Averaging again over dyadic lengths restores this factor.
-The dependence on the modulus is retained so that both support
-criteria can be applied at the same index.
+arbitrarily small. In a finite average, the incomplete residue periods produce an error
+without the factor $1/a$ needed for summation over exponents. Averaging
+again over dyadic lengths restores this factor. The decisive point for the
+union theorem is stronger than proving the two criteria separately: both
+errors are controlled on the same finite distribution, and one index is
+chosen only after they have been added. Keeping the modulus dependence
+explicit makes that common distribution available to the cover estimate.
 
 Part~I gives the support theorems and the proofs followed by the short
 paper, \emph{Irrationality criteria for Lambert subseries}.
@@ -249,15 +251,6 @@ or $1/21$-membership. The conditional results specify sufficient
 hypotheses or equivalent membership conditions, and the computations
 cover only the stated finite ranges. Each counterexample concerns the
 particular estimate under discussion.
-
-\evidenceparagraph{\evidencerecordurl}
-Links marked \textsc{Lean source} open the exact declarations associated
-with a statement or proof step. They introduce no extra hypotheses.
-The ordinary arguments added here, including the integer-quotient proof
-for $1/21$, have not undergone independent human review or a new formal
-verification in this revision. The accompanying checking records concern
-the propositions and source revisions they name. The bibliography
-separates original results from later expositions used to read them.
 
 \subsection*{Notation used throughout}
 For $A\subseteq\mathbb N_{>0}$ and an integer $b\ge2$, put
@@ -845,8 +838,9 @@ The ratio $L/M$ measures the cost of incomplete modular periods.
 
 Fix $T=2^j$. We compare $d$ with the largest sampled multiple $LT$.
 For $d\le LT$ we use a complete-orbit bound with a remainder term;
-for $d>2LT$ no residue is reduced modulo $d$. The intervening range
-$LT<d\le2LT$ contains at most one dyadic length.
+for $d>2LT$ no residue is reduced modulo $d$. For fixed $d$, doubling
+$T$ moves from $d>2LT$ to $d\le LT$ after at most one intermediate
+scale; hence $LT<d\le2LT$ occurs for at most one dyadic length.
 When $d\le LT$, the complete orbit has length $d/g$, with $g=(L,d)$,
 and total weight $1/(B^g-1)$. Splitting the sample into complete
 cycles---possibly none---and one remaining piece gives
@@ -992,12 +986,12 @@ replace $2^{j\alpha_j}$ in~\eqref{eq:257-strengthened-cover} by
 $\eta_j^{-\alpha_j}$ and take $t_j=\varepsilon\eta_j$.
 \subsection{Combining the two support criteria}
 \papersectiontarget{record257:mixed-proof}
-We use the weighted proof to choose a finite distribution and apply
-the cover estimate~\eqref{eq:257-mixed-finite-kernel} to it. The explicit
-modulus dependence lets us check that the cover error also tends to zero
-with this choice. Separate sequences of small weighted and covered
-displacements would not give a small sum: their small values could occur
-on disjoint sets of indices.
+Separate sequences of small weighted and covered displacements would not
+give a small sum: their small values could occur on disjoint sets of
+indices. Instead, the weighted proof chooses one finite distribution and
+the explicit modulus dependence in~\eqref{eq:257-mixed-finite-kernel}
+lets the cover estimate use that same distribution. We add the two
+nonnegative errors there and choose an index only afterwards.
 \begin{thm}[mixed weighted and cover supports]\label{thm:257-mixed-supports}
 Let $E,V\subseteq\Npos$.  Suppose $E$ has finite weighted mass
 \eqref{eq:257-weighted-mass} at $b=2$ for a finite nonempty prime set
@@ -1017,9 +1011,11 @@ $J$ so that
 \]
 Choose a finite $F\subseteq E$ whose complementary weighted mass is
 $\kappa<\rho/16$.  Let $L$ be a positive common multiple of $N_0$, all
-members of $F$, and all members of the first $J$ covering sets.
-With the finite sets and $L$ fixed, choose the base-two weighted
-parameters
+members of $F$, and all members of the first $J$ covering sets. The order
+is deliberate: first the finite pieces determine $L$; then the weighted
+argument enlarges $L$ to $Q$ and chooses the dyadic scales; only after both
+estimates are on that distribution is a sample selected. With the finite
+sets and $L$ fixed, choose the base-two weighted parameters
 \[
  Q=L\prod_{p\in\mathcal P}p^{\lfloor\log_pH\rfloor},\qquad
  G=\lfloor H/\max\mathcal P\rfloor,\qquad M=\lfloor2^{G/2}\rfloor.
@@ -1100,11 +1096,14 @@ remain open.
 
 Supports satisfying the mixed criterion are closed under finite unions
 and finite changes, even with the fixed dyadic cover cost in
-\eqref{eq:257-strengthened-cover}.  For two covers, interleave their $j$th
-finite sets at positions $2j-1,2j$, halve each exponent, and keep the
-nonnegative coefficients of the majorants. Integer divisor counts satisfy
-$f^{\alpha/2}\le f^\alpha$, while the full cost of each reindexed finite set
-grows by at most $1+\sqrt2$.  For $r$ covers, positions at most $rj$ and
+\eqref{eq:257-strengthened-cover}. For two covers, interleave their $j$th
+finite sets at positions $2j-1,2j$ and halve each exponent. Halving
+compensates for the increased index in $2^{j\alpha_j}$.
+The same coefficients still majorise the smaller powers, since integer
+divisor counts satisfy $f^{\alpha/2}\le f^\alpha$.
+The denominator $2^\alpha-1$ is the only remaining cost: replacing
+$\alpha$ by $\alpha/2$ increases the full cost of each finite set by at
+most $1+\sqrt2$.  For $r$ covers, positions at most $rj$ and
 exponents divided by $r$ give a cost ratio below $2r$.  For weighted
 supports, take the union of the finite prime sets: the prime part can
 only increase, while $h/(2^h-1)$ decreases. Each condition is inherited
@@ -1637,11 +1636,14 @@ refute using the condition on a class of cores for which it can be proved.
 \subsection{Equivalent formulations of half-membership}
 \label{bar:collapse}
 
-The six conditions listed below are equivalent to half-membership.
-Their quantifier patterns can look less restrictive than a single
-compatible infinite construction, but the equivalences must be checked
-mathematically.  They follow here from a carry identity and an unconditional
-tail estimate.  No claim is made that every conceivable sufficient
+The six conditions below are equivalent to half-membership. Their common
+reason is the carry identity: a fixed nonzero difference from $1/2$
+produces a term of exponentially growing magnitude, whereas the remaining
+coefficient tail is only of order $\sqrt N$. An absolute carry bound of
+this order along an unbounded sequence therefore forces the difference to
+vanish. The proofs below distinguish a fixed support from finite approximants
+whose supports may vary; their quantifier patterns alone would not justify
+these equivalences. No claim is made that every conceivable sufficient
 condition is equivalent to the goal.
 
 \begin{lem}[Carry and residual value]
@@ -5428,11 +5430,13 @@ $\sqrt{M+r}\le\sqrt M+r$ gives
 \[
  \sum_{r\ge1}2^{-r}c_D(M+r)\le2\sqrt M+4.
 \]
-This proves the bound with an error independent of $D$, and the hypothesis makes the finite values converge to $1/2$.
-Compactness then gives membership, but not the finite approximants needed
-to apply the theorem.  A square-root terminal bound is sufficient and
-stronger as a bound on these particular witnesses; no claim of a strict
-logical separation between the corresponding existence statements follows.
+Each finite value belongs to the closed achievement set; its limit
+therefore belongs too, even when the finite supports disagree.
+No compatibility between them is needed for this implication.
+The finite approximants themselves remain an unproved input.
+A square-root terminal bound is sufficient and stronger as a bound on
+these particular witnesses; it does not establish a strict logical
+separation between the corresponding existence statements.
 
 
 Here is the finite family used in the cited construction.  Put
@@ -9243,6 +9247,10 @@ cost do not lower the infimum, and a finite-cost cover exists, for example
 the single set $F$ with exponent one.  This is the fractional cost of
 Theorem~\ref{thm:257-variable-fractional-cover},
 not a redefinition of the logarithmic cost.
+The two costs optimise different majorants. The quantity $\kappa_1$
+uses one logarithmic majorant of $f_F$, whereas $K_*$ also permits
+splitting the support, varying the fractional exponents and allocating
+positive weights. The comparison below allows all of those choices.
 
 \begin{thm}[arithmetic logarithmic counterexample]\label{thm:257-logarithmic-counterexample}
 For every integer $H\ge2$ and every real $A_0\ge0$, there are a
@@ -9432,13 +9440,17 @@ Nonnegative interchange and the original geometric-kernel estimate
 \[
  \mathscr D_{L;R,M}\mathbf1_{\{U_F>1\}}\le(1+4L/M)K.
 \]
-For fixed $L,M$, let $R$ tend to infinity.  Periodicity of the left-hand
-indicator gives $\mathbb P_L(U_F>1)\le(1+4L/M)K$.
-Then let $M$ tend to infinity, with $L$ fixed, to obtain
+Keep the cover and $L$ fixed. For each fixed $M$, let $R\to\infty$:
+periodicity of $\mathbf1_{\{U_F>1\}}$ gives
+$\mathbb P_L(U_F>1)\le(1+4L/M)K$.
+Now let $M\to\infty$ to remove the incomplete-period factor, giving
 $\mathbb P_L(U_F>1)\le K$.
-For $L=\ell\mid Q$ this is the conditional probability in the statement.
-It holds for every admissible cover, so take their infimum and the maximum
-over the finitely many divisors $\ell$.  Finally use the constructed
+Only the indicator for the finite set $F$ needs a period; no common
+period for the covering sets has been assumed.
+For $L=\ell\mid Q$ the resulting probability is the one in the statement.
+Since this bound holds for each admissible cover and each such $\ell$,
+take the infimum over covers and the maximum over the finitely many
+choices of $\ell$.  Finally use the constructed
 $L\mid Q$ and let $H$ tend to infinity.
 \end{proof}
 
@@ -9549,6 +9561,14 @@ The two-thirds band: \mword{Erdos249257/HalfGreedyTwoThirdsBand.lean}{88}{postTa
 
 \endgroup
 
+\section*{Verification and reproducibility}
+\evidenceparagraph{\evidencerecordurl}
+Links marked \textsc{Lean source} identify the declaration associated
+with a statement or proof step. The integer-quotient proof for $1/21$
+and other arguments without a formal link remain ordinary proofs; no
+new formal or independent human verification is claimed here. The
+linked records identify the propositions and source revisions checked.
+
 \section*{Acknowledgements}
 I thank Wouter van Doorn for advice on mathematical exposition, especially
 on making restrictive hypotheses intelligible, avoiding unnecessary
@@ -9558,9 +9578,8 @@ mathematics of the present paper.
 
 \section*{Statements and declarations}
 
-\paragraph{Artefact and data availability.} The Lean declarations, the fixed
-toolchain and the library versions are given in the evidence record linked in the
-introduction.
+\paragraph{Artefact and data availability.} The Lean declarations, fixed
+toolchain and library versions are given in the evidence record linked above.
 
 \paragraph{Scope of the formal checks.} Kernel checking establishes that a proposition
 was proved; it does not validate the exposition or the literature judgements, and it

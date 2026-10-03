@@ -116,14 +116,17 @@ V_d(\lambda)=\sum_n\lambda_nW_{d,n},\]</span></div>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal
 R(\lambda)=\sum_{d\ge2}\frac{V_d(\lambda)}{d!-1}.\]</span></div>
-<p>Choose <span
-class="math inline" data-term-auto="off">\(N\ge2\)</span> beyond the support of <span
-class="math inline" data-term-auto="off">\(\lambda\)</span>. For <span
-class="math inline" data-term-auto="off">\(d&gt;N\)</span> the floor exponents are zero, so
-<span class="math inline" data-term-auto="off">\(V_d=M\)</span> and the series converges
-absolutely. Only the first <span class="math inline" data-term-auto="off">\(N-1\)</span>
-terms can differ from those of <span class="math inline" data-term-auto="off">\(MS\)</span>,
-and the weight congruence gives</p>
+<p>Here <span
+class="math inline" data-term-auto="off">\(n\)</span> indexes the chosen coefficients,
+whereas <span class="math inline" data-term-auto="off">\(d\)</span> indexes the summands of
+the remainder. If <span class="math inline" data-term-auto="off">\(\lambda\)</span> is
+supported on <span class="math inline" data-term-auto="off">\(n\le N\)</span>, with <span
+class="math inline" data-term-auto="off">\(N\ge2\)</span>, then <span
+class="math inline" data-term-auto="off">\(d&gt;N\)</span> makes every floor exponent zero.
+Hence <span class="math inline" data-term-auto="off">\(V_d=M\)</span> throughout this tail,
+and the series converges absolutely. Only the first <span
+class="math inline" data-term-auto="off">\(N-1\)</span> terms can differ from those of <span
+class="math inline" data-term-auto="off">\(MS\)</span>; the weight congruence gives</p>
 <div class="math-display" id="eq:integer-linear-form" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \mathcal R(\lambda)-M(\lambda)S
@@ -273,6 +276,11 @@ class="math inline" data-term-auto="off">\(V_d=M+(d!-1)c_d\)</span>, which prove
 <span class="math inline" data-term-auto="off">\(d&gt;N\)</span> that coefficient is zero
 because <span class="math inline" data-term-auto="off">\(V_d=M\)</span>. ◻</p>
 </div>
+<p>The <span class="math inline" data-term-auto="off">\(U_d\)</span>-coordinates in <a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a> are
+exactly the integer summands in <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>. Their sum
+is therefore <span class="math inline" data-term-auto="off">\(k\)</span> in <span
+class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span>. The same coordinates
+describe both the vector and its linear form.</p>
 <p>For a prime <span class="math inline" data-term-auto="off">\(p\ge3\)</span> the divisor
 sum is empty, and <span class="math inline" data-term-auto="off">\(U_p=pe_{p-1}-e_p\)</span>.
 At a composite index the correction terms remove the extra weighted
@@ -337,6 +345,14 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
 \label{eq:residual-transparency}
 \end{equation}\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(M=tL_D\)</span> clears the denominators of <span
+class="math inline" data-term-auto="off">\(H_D\)</span>, the integer in <span
+class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span> is <span
+class="math inline" data-term-auto="off">\(k=-MH_D+\sum_{n&gt;D}z_n\)</span>. Thus the sum of
+the free coordinates is the offset from <span
+class="math inline" data-term-auto="off">\(M(S-H_D)\)</span>, not from <span
+class="math inline" data-term-auto="off">\(MS\)</span>.</p>
 <p>It remains to remove index one. Write <span
 class="math inline" data-term-auto="off">\(a_D\)</span> for its coefficient in <span
 class="math inline" data-term-auto="off">\(K_D\)</span>, and <span
@@ -388,17 +404,23 @@ d&lt;n}}W_{d,n}u_d\quad(n&gt;2).\]</span></div>
 <p>Induction gives <span
 class="math inline" data-term-auto="off">\(u_n=0\)</span> at odd indices. At twice a prime it
 gives <span class="math inline" data-term-auto="off">\(u_{2p}=-(2p)!/2^{p-1}\ne0\)</span>,
-including <span class="math inline" data-term-auto="off">\(p=2\)</span>, so the tail contains
-a nonzero coefficient and <span class="math inline" data-term-auto="off">\(g_D&gt;0\)</span>.
-To compute this infinite gcd, we show that a specified finite interval
-already forces divisibility of every later coefficient.</p>
-<p>The induction has two cases. For a proper divisor <span
-class="math inline" data-term-auto="off">\(d&gt;D\)</span>, divisibility comes from the
-earlier coefficient <span class="math inline" data-term-auto="off">\(u_d\)</span>. For <span
-class="math inline" data-term-auto="off">\(d\le D\)</span>, it must instead come from the
-weight <span class="math inline" data-term-auto="off">\(W_{d,n}\)</span>. The following
-cutoff makes the second argument work for every such <span
-class="math inline" data-term-auto="off">\(d\)</span>.</p>
+including <span class="math inline" data-term-auto="off">\(p=2\)</span>, so <span
+class="math inline" data-term-auto="off">\(g_D&gt;0\)</span>. This nonzero coefficient also
+tells us how to make the calculation finite. Choose a prime <span
+class="math inline" data-term-auto="off">\(\ell\)</span> with <span
+class="math inline" data-term-auto="off">\(D/2&lt;\ell\le D\)</span>. Any gcd computed on an
+initial interval of the tail containing <span
+class="math inline" data-term-auto="off">\(2\ell\)</span> must divide <span
+class="math inline" data-term-auto="off">\((2\ell)!\)</span>. We use that factorial to
+control the later terms of the recurrence.</p>
+<p>For a proper divisor <span class="math inline" data-term-auto="off">\(d&gt;D\)</span>,
+divisibility by the finite gcd comes from the earlier coefficient <span
+class="math inline" data-term-auto="off">\(u_d\)</span>. For <span class="math inline" data-term-auto="off">\(d\le
+D\)</span>, we instead make the weight <span
+class="math inline" data-term-auto="off">\(W_{d,n}\)</span> divisible by <span
+class="math inline" data-term-auto="off">\((2\ell)!\)</span>. The proof obtains this from
+<span class="math inline" data-term-auto="off">\(n/d\ge2\ell\)</span>; the cutoff below is
+chosen to ensure that inequality for every small divisor.</p>
 <div class="theorem" id="res:finite-channel-moment-certificate">
 <p><strong>Theorem 3.1</strong> (a finite formula for the gcd). <em>
 Choose a prime <span class="math inline" data-term-auto="off">\(\ell\)</span> with <span
@@ -449,11 +471,11 @@ D(2D-1)&lt;2D^2\)</span>. ◻</p>
 class="math inline" data-term-auto="off">\(\ell\)</span> when <span
 class="math inline" data-term-auto="off">\(D\ge3\)</span>; for <span
 class="math inline" data-term-auto="off">\(D=2\)</span> take <span
-class="math inline" data-term-auto="off">\(\ell=2\)</span>. The proof requires <span
-class="math inline" data-term-auto="off">\(n/d\ge2\ell\)</span> for every small divisor,
-which is why it uses the cutoff <span
-class="math inline" data-term-auto="off">\(H=D(2\ell-1)\)</span>. A truncation at <span
-class="math inline" data-term-auto="off">\(2D\)</span> is not justified by this argument.</p>
+class="math inline" data-term-auto="off">\(\ell=2\)</span>. Merely including the nonzero
+coefficient at <span class="math inline" data-term-auto="off">\(2\ell\)</span> is not enough:
+the cutoff must also control every later small-divisor weight. A
+truncation at <span class="math inline" data-term-auto="off">\(2D\)</span> is not justified
+by this argument.</p>
 <p>The finite gcd also gives a construction. Compute integers <span
 class="math inline" data-term-auto="off">\(b_n\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_{n=D+1}^H b_nu_n=g_D\)</span> by the extended
@@ -611,14 +633,15 @@ class="math inline" data-term-auto="off">\(0\)</span></td>
 </tbody>
 </table>
 </div>
-<p>The coordinates already give <span
-class="math inline" data-term-auto="off">\(M=1380\)</span> and the three cancellations. They
-also determine the integer term in <a class="math-ref" data-equation-ref="true" href="#eq:residual-transparency">eq:residual-transparency</a>, namely
-<span class="math inline" data-term-auto="off">\(-26-27+8+1=-44\)</span>. Thus</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathcal R(\lambda)=1380(S-H_4)-44.\]</span></div>
-<p>For
-the remainder estimate, the inequality <span
+<p>The coordinates give <span class="math inline" data-term-auto="off">\(M=1380\)</span>, the
+three cancellations, and the offset <span
+class="math inline" data-term-auto="off">\(-26-27+8+1=-44\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:residual-transparency">eq:residual-transparency</a>. Since
+<span class="math inline" data-term-auto="off">\(H_4=143/115\)</span>, the original linear
+form is</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
+R(\lambda)=1380(S-H_4)-44=1380S-1760.\]</span></div>
+<p>For the remainder
+estimate, the inequality <span
 class="math inline" data-term-auto="off">\((n+1)!-1&gt;(n+1)(n!-1)\)</span> gives the
 geometric bound</p>
 <div class="math-display" id="eq:series-tail-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -673,12 +696,45 @@ sufficient condition is</p>
 <p>Indeed, the positive tail and this comparison
 give <span class="math inline" data-term-auto="off">\(\lfloor A_N\rfloor&lt;\mathcal
 R(\lambda)&lt;\lfloor A_N\rfloor+1\)</span>, excluding every denominator
-dividing <span class="math inline" data-term-auto="off">\(M\)</span>. The argument allows
-either sign of <span class="math inline" data-term-auto="off">\(A_N\)</span>. Its strict gap
-is one when <span class="math inline" data-term-auto="off">\(A_N\)</span> is integral and can
-be arbitrarily small when <span class="math inline" data-term-auto="off">\(A_N\)</span>
+dividing <span class="math inline" data-term-auto="off">\(M\)</span>. Failure of this
+sufficient comparison is inconclusive. Either sign of <span
+class="math inline" data-term-auto="off">\(A_N\)</span> is allowed: its strict gap is one
+when <span class="math inline" data-term-auto="off">\(A_N\)</span> is integral and can be
+arbitrarily small when <span class="math inline" data-term-auto="off">\(A_N\)</span>
 approaches an integer from below.</p>
-<p>There are primitive solutions with <span
+<p>First keep the vector fixed and increase only the cutoff. The vector
+<span class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span> has <span
+class="math inline" data-term-auto="off">\(M=12\)</span>. At <span
+class="math inline" data-term-auto="off">\(N=4\)</span>, its finite part <span
+class="math inline" data-term-auto="off">\(A_4=-239/115\)</span> lies just below <span
+class="math inline" data-term-auto="off">\(-2\)</span>, and its gap <span
+class="math inline" data-term-auto="off">\(9/115\)</span> is smaller than the bound <span
+class="math inline" data-term-auto="off">\(24/119\)</span>. At <span
+class="math inline" data-term-auto="off">\(N=5\)</span>, the finite part <span
+class="math inline" data-term-auto="off">\(A_5=-27061/13685\)</span> has crossed <span
+class="math inline" data-term-auto="off">\(-2\)</span>: the next integer is now <span
+class="math inline" data-term-auto="off">\(-1\)</span>, and the gap <span
+class="math inline" data-term-auto="off">\(13376/13685\)</span> exceeds <span
+class="math inline" data-term-auto="off">\(24/719\)</span>. More generally, for a fixed
+vector with <span class="math inline" data-term-auto="off">\(M&gt;0\)</span>, the quantities
+<span class="math inline" data-term-auto="off">\(A_N\)</span> increase to <span
+class="math inline" data-term-auto="off">\(\mathcal R\)</span>. If this limit is nonintegral,
+their gaps to the next integer tend to a positive number, so the test
+eventually succeeds. If the limit is integral, the eventual gap equals
+the omitted tail and the test fails. Extending the cutoff therefore
+eventually detects a nonintegral remainder, but leaves both that
+remainder and the set of divisors of <span
+class="math inline" data-term-auto="off">\(M\)</span> unchanged.</p>
+<p>Changing coefficients while preserving <span
+class="math inline" data-term-auto="off">\(M\)</span> also leaves integrality unchanged. By
+<a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>, the
+remainders of two such vectors differ by an integer. Adding multiples of
+the <span class="math inline" data-term-auto="off">\(U_n\)</span> can simplify the support
+and weighted sums, as in the example; it cannot turn an integral
+remainder into a nonintegral one.</p>
+<p>To exclude every possible denominator, we must instead choose vectors
+whose values of <span class="math inline" data-term-auto="off">\(M\)</span> have the required
+divisibility. There are primitive solutions with <span
 class="math inline" data-term-auto="off">\(0&lt;M&lt;N!\)</span> for which <span
 class="math inline" data-term-auto="off">\(M\)</span> is eventually divisible by any
 prescribed <span class="math inline" data-term-auto="off">\(q\)</span>. The <a
@@ -687,32 +743,11 @@ construction in the companion</a> gives such a family by turning <span
 class="math inline" data-term-auto="off">\(V_d=0\)</span> into roots of a polynomial. At its
 support endpoint the omitted tail is less than <span
 class="math inline" data-term-auto="off">\(2/N\)</span>, but the gap on the right of <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> may shrink
-too. For each prescribed <span class="math inline" data-term-auto="off">\(q\)</span>, an
-irrationality proof requires a vector satisfying both this comparison
-and <span class="math inline" data-term-auto="off">\(q\mid M\)</span>. Unboundedness of <span
-class="math inline" data-term-auto="off">\(M\)</span> alone does not suffice. No
-minimal-support assertion is made for this family.</p>
-<p>Increasing the cutoff is a different operation from choosing a new
-vector. For <span class="math inline" data-term-auto="off">\(-6e_2+e_4\)</span> the support
-ends at four, where the test fails because <span
-class="math inline" data-term-auto="off">\(9/115&lt;24/119\)</span>. At <span
-class="math inline" data-term-auto="off">\(N=5\)</span> it succeeds because <span
-class="math inline" data-term-auto="off">\(13376/13685&gt;24/719\)</span>. More generally,
-for a fixed vector with <span class="math inline" data-term-auto="off">\(M&gt;0\)</span>, the
-quantities <span class="math inline" data-term-auto="off">\(A_N\)</span> increase to <span
-class="math inline" data-term-auto="off">\(\mathcal R\)</span>. If this limit is nonintegral,
-their gaps to the next integer tend to a positive number, so the test
-eventually succeeds. If the limit is integral, the eventual gap equals
-the omitted tail and the test fails. Thus extending the cutoff
-eventually detects a nonintegral remainder, but leaves both the
-remainder and <span class="math inline" data-term-auto="off">\(M\)</span> unchanged.</p>
-<p>Nor can a change of coefficients preserving <span
-class="math inline" data-term-auto="off">\(M\)</span> decide nonintegrality. By <a class="math-ref" data-equation-ref="true" href="#eq:integer-linear-form">eq:integer-linear-form</a>, the
-remainders of two vectors with the same value of <span
-class="math inline" data-term-auto="off">\(M\)</span> differ by an integer. Adding multiples
-of the <span class="math inline" data-term-auto="off">\(U_n\)</span> can therefore simplify
-the support and weighted sums, as in the example, without changing
-whether the remainder is integral.</p>
+too. To prove irrationality by this test, for each <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span> we need one vector with <span
+class="math inline" data-term-auto="off">\(q\mid M\)</span> and a cutoff for which <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> holds.
+Divisibility and a small tail do not by themselves establish that
+comparison. No minimal-support assertion is made for this family.</p>
 <p>The companion treats the <a
 href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-carry">equivalent carry
 condition</a> and the <a

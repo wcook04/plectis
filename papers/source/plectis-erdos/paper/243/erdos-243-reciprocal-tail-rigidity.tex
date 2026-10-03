@@ -115,7 +115,7 @@ The proof in Section~\ref{sec:secondaryrate} follows this order.
 For the recurrence criteria we use the integer tail numerators of
 Koizumi \cite[Lemma~4]{koizumi2025}. In Section~\ref{sec:bounded}, a
 stable gcd and the Chinese remainder theorem exclude a rational tail
-whose $P_n/a_n$ has bounded upward increments. An elementary infinite
+whose quotient $a_1\cdots a_{n-1}/a_n$ has bounded upward increments. An elementary infinite
 product argument gives the separate summability criterion of
 Section~\ref{sec:mass}. We then clear the tails by a least common
 multiple and count crossings of new maxima
@@ -166,8 +166,14 @@ $1/a_{n+1}$ sum to at most $2/a_{n+2}\le4/a_{n+1}^2$, so
  \qquad
  \frac{C_{n+1}}{C_n}=\frac{a_n^2}{a_{n+1}}+O(1/a_n).
 \end{equation}
-For the second estimate, use $C_{n+1}/C_n=a_nx_{n+1}/x_n$ in the
-first. Quadratic growth makes $1/a_n=o(n^{-k})$ for every fixed $k$,
+For the second estimate, the first gives $a_nx_n=1+O(1/a_n)$. Use this in
+\[
+ \frac{C_{n+1}}{C_n}
+ =\frac{a_n^2}{a_{n+1}}\,
+  \frac{a_{n+1}x_{n+1}}{a_nx_n}.
+\]
+The last factor is $1+O(1/a_n)$, and $a_n^2/a_{n+1}\to1$, giving the
+stated additive error. Quadratic growth makes $1/a_n=o(n^{-k})$ for every fixed $k$,
 so this error preserves the precision required in the cubic theorem.
 We keep the original index $n$ throughout that proof. Although an
 eventual recurrence survives removal of a finite prefix, the expression
@@ -694,11 +700,11 @@ Then the sequence is eventually Sylvester. In particular, the conclusion
 holds under the pointwise eventual bound $\gamma_n\le1/n$.
 \end{corollary}
 \begin{proof}
-The hypothesis bounds the positive part of $\gamma_n$ eventually by
-$1/n+K/n^{1+\varepsilon}$. Since $t_{n+1}/t_n=1+\gamma_n$, comparison
-with $n$ and the convergent product of
-$1+K/n^{1+\varepsilon}$ gives $t_n=O(n)$.
-Hence $t_n\gamma_n\le t_n(\gamma_n)_+=O(1)$, and
+Since $t_{n+1}/t_n=1+\gamma_n$, division by the comparison sequence $n$ gives
+$(t_{n+1}/(n+1))/(t_n/n)=(1+\gamma_n)/(1+1/n)
+\le1+K/[n^\varepsilon(n+1)]$.
+The upper bounds have a convergent product, so $t_n=O(n)$ and
+$t_n\gamma_n\le t_n(\gamma_n)_+=O(1)$.
 Corollary~\ref{res:originalbounded} applies.
 \end{proof}
 
@@ -780,11 +786,11 @@ new maximum. First crossings of selected heights will then control
 these sums even with a decreasing weight. Put
 \[
  L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
- M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.
+ M_n=D_n/L_n,\quad U_n=L_nx_n=C_n/M_n,\quad V_n=E_n/M_n.
 \]
-The rational tail has denominator dividing $L_n$, so $U_n$ and $V_n$ are
-integers. This need not be a reduced fraction: $U_n$ and $L_n$ may share
-a factor. With $\rho_n=\gcd(L_n,a_n)$, the exact updates are
+The denominator of $x_n$ divides $L_n$, so $U_n\in\Z$ and
+$V_n=L_n-(a_n-1)U_n\in\Z$. The fraction $U_n/L_n$ need not be reduced.
+With $\rho_n=\gcd(L_n,a_n)$, the exact updates are
 \[
  M_{n+1}=M_n\rho_n,\qquad
  \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.
@@ -884,9 +890,10 @@ $U_n$, so monotonicity gives
  \sum_{\substack{\tau\text{ first crossed}\\\text{at step }n}}f(\tau)
  \le(d_n-B)f(U_n).
 \]
-Each selected height above $R_T$ has exactly one first crossing. The first
-selected height is at most $R_T+P$; each later height is $P$ further on.
-For $R_N\ge R_T+P$, comparison of each interval with its left endpoint gives
+Each selected height above $R_T$ has one first crossing. The heights are
+$P$ apart, with the first at most $R_T+P$. For $R_N\ge R_T+P$, the
+intervals $[\tau,\min\{\tau+P,R_N\}]$ with $\tau\le R_N$ cover $[R_T+P,R_N]$.
+Monotonicity bounds each integral by $P f(\tau)$, so the crossing bounds give
 \begin{equation}\label{eq:weightedcrossing}
  \sum_{\substack{T\le n<N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
  \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
@@ -914,7 +921,8 @@ gives
  \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
  \qquad 0<\gamma_n+\theta_n<3/a_n
 \]
-eventually. Thus the two nonnegative summands
+eventually. Taking positive parts cannot increase the absolute difference.
+Since $V_n=U_n\theta_n$, the two nonnegative summands
 $U_nf(U_n)(\gamma_n-B/U_n)_+$ and $(-V_n-B)_+f(U_n)$ differ by at most
 $3U_nf(U_n)/a_n$. We verify that this comparison error is summable. Since $a_nx_n\to1$, we have $C_n/a_n\sim qP_n/a_n^2$, and
 \[
@@ -1224,15 +1232,15 @@ The companion's
 \href{erdos243-reciprocal-tail-reasoning-surface.pdf\#243-long-indexing}{indexing subsection}
 gives this finite-prefix bridge.
 
-\paragraph{Verification.}
-The margin marks link statements to fixed-revision Lean declarations
-and recorded Comparator evidence. The printed cubic argument uses
-Chebotarev, while the supplied formal square-specialisation proof uses
-a Dedekind-zeta pole comparison. Agreement of their conclusions does
-not verify each step of the printed argument. No Lean build, Comparator
-replay or independent review was performed for this revision, and the
-evidence records retain source-pin and index gaps.
-The estimate in Section~\ref{sec:open} remains open.
+\section{Verification and reproducibility}\label{app:verification}
+\evidenceparagraph{\evidencerecordurl}
+The links identify fixed-revision Lean declarations and recorded
+Comparator checks. The printed cubic argument uses Chebotarev; the
+formal square-specialisation proof uses a Dedekind-zeta pole comparison.
+Their common conclusion does not check each step of the printed proof.
+This revision includes no new Lean build, Comparator replay or independent
+review. The evidence record retains source-pin and index gaps, and the
+estimate in Section~\ref{sec:open} remains open.
 
 \noindent The formal
 \lword{Erdos243/FiniteHorizonResidue.lean}{134}{forcedSurvives_iff_of_modEq_factorial}{factorial

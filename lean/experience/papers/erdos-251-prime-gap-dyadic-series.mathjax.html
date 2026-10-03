@@ -476,16 +476,26 @@ class="math inline" data-term-auto="off">\(r\)</span> in its nondegenerate inter
 class="math inline" data-term-auto="off">\(I\)</span> and put <span
 class="math inline" data-term-auto="off">\(b=g+e\)</span>. The proposition gives all the
 correction and congruence assertions, together with the comparison of
-growing blocks. Schlage-Puchta <span class="citation"
-data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span> proved that the zero set of each
-fixed nonzero polynomial in a fixed block of prime gaps has density
-zero. Outside <span class="math inline" data-term-auto="off">\(\bigcup_{i=0}^k(S-i)\)</span>
-the two blocks are equal, so a zero of <span
-class="math inline" data-term-auto="off">\(F(b_n,\ldots,b_{n+k})\)</span> is already a zero
-for the original gaps. The additional exceptional set has density zero,
-being a finite union of translates of <span
-class="math inline" data-term-auto="off">\(S\)</span>. This proves the required count without
-estimating the values of <span class="math inline" data-term-auto="off">\(F\)</span>.</p>
+growing blocks. Fix <span class="math inline" data-term-auto="off">\(k\)</span> and a nonzero
+<span class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span>. A new zero
+can occur only in a block meeting <span
+class="math inline" data-term-auto="off">\(S\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+&amp;\bigl|\{n&lt;N:F(b_n,\ldots,b_{n+k})=0\}\bigr|\\
+&amp;\quad\le\bigl|\{n&lt;N:F(g_n,\ldots,g_{n+k})=0\}\bigr|
+       +\sum_{i=0}^k|S\cap[i,N+i)|.
+\end{aligned}\]</span></div>
+<p>The first count is <span
+class="math inline" data-term-auto="off">\(o(N)\)</span> by Schlage-Puchta’s Lemma 4 <span
+class="citation" data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>; the finitely
+many support counts are <span class="math inline" data-term-auto="off">\(o(N)\)</span>
+because <span class="math inline" data-term-auto="off">\(S\)</span> has density zero. Only
+changed blocks are counted, so the values of <span
+class="math inline" data-term-auto="off">\(F\)</span> need not be bounded. Since <span
+class="math inline" data-term-auto="off">\(b\)</span> was chosen before <span
+class="math inline" data-term-auto="off">\(F,k\)</span>, the same sequence satisfies every
+fixed-polynomial condition.</p>
 <p>To estimate <span
 class="math inline" data-term-auto="off">\(P_n-p_n=\sum_{i&lt;n}e_i\)</span>, first observe
 that <span class="math inline" data-term-auto="off">\(|S\cap[0,n)|=O_\varepsilon(n/\log\log
@@ -734,17 +744,16 @@ g_{N+h+1}\ne g_{N+1}.
 <p>A solution would give a nonintegral shift arbitrarily late for every
 <span class="math inline" data-term-auto="off">\(h\)</span>, and hence irrationality by
 Theorem <a class="math-ref" href="#res:escape-irrational">4.4</a>. All three
-conditions must hold at the same index; witnesses for the separate
-conditions cannot be combined without further information. By
-Proposition <a class="math-ref" href="#res:signedwindow">5.1</a>,
-such an index must have <span
-class="math inline" data-term-auto="off">\(\delta_N=\pm2\)</span>. Schlage-Puchta’s lemma
-<span class="citation" data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, applied
-to <span class="math inline" data-term-auto="off">\(x_h-x_0\pm2\)</span>, shows that these
-eligible indices already have density zero. Thus the required witnesses
-concern a rare event. The absolute block comparison in Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> does not
-control its relative frequency, and separate infinite sets of
-small-difference and mismatch witnesses would not suffice.</p>
+conditions must hold at the same index; separate infinite sets of
+small-difference and mismatch witnesses do not suffice.</p>
+<p>By Proposition <a class="math-ref" href="#res:signedwindow">5.1</a>, such an index
+must have <span class="math inline" data-term-auto="off">\(\delta_N=\pm2\)</span>.
+Schlage-Puchta’s lemma <span class="citation"
+data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>, applied to <span
+class="math inline" data-term-auto="off">\(x_h-x_0\pm2\)</span>, shows that these eligible
+indices already have density zero. Thus the required witnesses concern a
+rare event whose relative frequency is not controlled by the absolute
+block comparison in Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a>.</p>
 <section id="finite-separation-from-the-integers" class="level3">
 <h3>Finite separation from the integers</h3>
 <p>To decide nonintegrality from finitely many gaps, we bound the part
@@ -754,10 +763,25 @@ class="math inline" data-term-auto="off">\(\sum_nM(n)2^{-n}&lt;\infty\)</span>, 
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S_{h,N,L}=\sum_{j=1}^L(g_{N+h+j}-g_{N+j})2^{-j},\qquad
 R_{h,N,L}(M)=\sum_{j&gt;L}(M(N+h+j)+M(N+j))2^{-j}.\]</span></div>
-<p>Then <span
-class="math inline" data-term-auto="off">\(|D_N-S_{h,N,L}|\le R_{h,N,L}(M)\)</span>. A
-general real majorant need not give an effective remainder bound, but
-the polynomial choice below does.</p>
+<p>Splitting
+the complete tails after <span class="math inline" data-term-auto="off">\(L\)</span> terms
+gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[D_N=S_{h,N,L}+2^{-L}D_{N+L},\qquad
+|D_N-S_{h,N,L}|\le R_{h,N,L}(M).\]</span></div>
+<p>The uncomputed part is another
+complete tail difference, with the same shift <span
+class="math inline" data-term-auto="off">\(h\)</span>. The criterion below uses only the
+displayed bound; a general real majorant need not make that bound
+computable.</p>
+<p>For the actual prime gaps, one computable choice is <span
+class="math inline" data-term-auto="off">\(M(n)=1250(n+2)^4\)</span>. For <span
+class="math inline" data-term-auto="off">\(P(x)=x^4+8x^3+36x^2+104x+150\)</span>, summing the
+identity <span class="math inline" data-term-auto="off">\(2P(x)=(x+1)^4+P(x+1)\)</span> with
+dyadic weights gives <span class="math inline" data-term-auto="off">\(\sum_{j\ge1}(x+j)^4
+2^{-j}=P(x)\)</span> and hence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_{h,N,L}(M)=1250\,2^{-L}
+             \bigl(P(N+h+L+2)+P(N+L+2)\bigr).\]</span></div>
 <div class="proposition" id="res:truncation">
 <p><strong>Proposition 5.3</strong> (finite separation criterion). <em> If
 for every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every cutoff
@@ -797,18 +821,9 @@ does not do so. The companion, Appendix D.2, gives an explicit example
 distinguishing refinement at a fixed value from enclosures of changing
 values.</em></p>
 </div>
-<p>We obtain a computable bound by taking <span
-class="math inline" data-term-auto="off">\(M(n)=1250(n+2)^4\)</span>. For <span
-class="math inline" data-term-auto="off">\(P(x)=x^4+8x^3+36x^2+104x+150\)</span>, summing the
-identity <span class="math inline" data-term-auto="off">\(2P(x)=(x+1)^4+P(x+1)\)</span> with
-dyadic weights gives <span class="math inline" data-term-auto="off">\(\sum_{j\ge1}(x+j)^4
-2^{-j}=P(x)\)</span> and hence</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[R_{h,N,L}(M)=1250\,2^{-L}
-             \bigl(P(N+h+L+2)+P(N+L+2)\bigr).\]</span></div>
-<p>To certify the
-conditions in <a class="math-ref" data-equation-ref="true" href="#eq:smallpair">eq:smallpair</a>,
-suppose <span class="math inline" data-term-auto="off">\(\delta_N=2s\)</span>, where <span
+<p>Separation from <span class="math inline" data-term-auto="off">\(\Z\)</span> does not
+specify either interval in Proposition <a class="math-ref" href="#res:signedwindow">5.1</a>. To certify <a class="math-ref" data-equation-ref="true" href="#eq:smallpair">eq:smallpair</a>, suppose <span
+class="math inline" data-term-auto="off">\(\delta_N=2s\)</span>, where <span
 class="math inline" data-term-auto="off">\(s\in\{-1,1\}\)</span>, and <span
 class="math inline" data-term-auto="off">\(|QD_N-A|\le B\)</span>, with <span
 class="math inline" data-term-auto="off">\(A\in\Z\)</span>, <span
@@ -821,9 +836,11 @@ lower endpoint exceeds <span class="math inline" data-term-auto="off">\(1/2\)</s
 upper endpoint is less than <span class="math inline" data-term-auto="off">\(1\)</span>, that
 is,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[2sA-Q&gt;2B,\qquad Q-sA&gt;B.\]</span></div>
-<p>The numerator <span class="math inline" data-term-auto="off">\(A\)</span> is signed:
-multiplying the enclosure by <span class="math inline" data-term-auto="off">\(s\)</span>
-accounts for the direction of the gap difference. At <span
+<p>Reducing <span class="math inline" data-term-auto="off">\(A\)</span> modulo <span
+class="math inline" data-term-auto="off">\(Q\)</span> would preserve its distance to <span
+class="math inline" data-term-auto="off">\(Q\Z\)</span> but lose the enclosure’s location. We
+retain the signed numerator and use the sign <span
+class="math inline" data-term-auto="off">\(s\)</span> fixed by the gap difference. At <span
 class="math inline" data-term-auto="off">\(h=1,N=2,L=40\)</span>, one has <span
 class="math inline" data-term-auto="off">\(\delta_2=g_4-g_3=-2\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
@@ -897,18 +914,22 @@ extreme large gaps <span class="citation" data-cites="fgkmt2018"><a href="#ref-4
 do not give the simultaneous inequalities in <a class="math-ref" data-equation-ref="true" href="#eq:smallpair">eq:smallpair</a>. This remains so
 with Polymath’s bound <span class="math inline" data-term-auto="off">\(\liminf_n
 g_n\le246\)</span> <span class="citation"
-data-cites="polymath2014"><a href="#ref-20">[20]</a></span>. At a logarithmic truncation depth the
-explicit remainder tends to zero, but the finite sum must still be
-separated from the relevant boundary by a larger margin. For the actual
-prime series, nonintegral shifts are needed arbitrarily late for every
-positive length. Problem <a class="math-ref" href="#prob:smallpair">5.2</a> would supply them.
+data-cites="polymath2014"><a href="#ref-20">[20]</a></span>. For fixed <span
+class="math inline" data-term-auto="off">\(h\)</span> and <span
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, taking <span
+class="math inline" data-term-auto="off">\(L=\lceil(4+\varepsilon)\log_2(N+2)\rceil\)</span>
+in the polynomial remainder gives an error <span
+class="math inline" data-term-auto="off">\(O_{h,\varepsilon}(N^{-\varepsilon})\)</span>. The
+finite sum must still be separated from the relevant boundary by more
+than this error. For the actual prime series, nonintegral shifts are
+needed arbitrarily late for every positive length. Problem <a class="math-ref" href="#prob:smallpair">5.2</a> would supply them.
 The perturbation theorem concerns the insufficiency of the specified
 congruences and block statistics, and leaves possible arguments using
 primality or quantitative rare-event estimates untouched.</p>
 </section>
 </section>
 <section id="sec:pinned-lean-sources" class="level2">
-<h2>Sources and further comparisons</h2>
+<h2>Verification and reproducibility</h2>
 <p>The linked Lean declarations use Lean 4 <span class="citation"
 data-cites="lean4"><a href="#ref-9">[9]</a></span> and mathlib <span class="citation"
 data-cites="mathlib"><a href="#ref-10">[10]</a></span>. The formal proof of Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> changes

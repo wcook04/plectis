@@ -21895,7 +21895,7 @@
         "source": "paper/archive/erdos249-257-main-paper.tex",
         "environment": "problem",
         "title": "Erd\\H{o}s \\#249",
-        "line": 4434
+        "line": 4431
       }
     },
     {
@@ -21919,7 +21919,7 @@
         "source": "paper/archive/erdos249-257-main-paper.tex",
         "environment": "problem",
         "title": "unbounded certificate supply",
-        "line": 4445
+        "line": 4442
       }
     },
     {
@@ -21931,7 +21931,7 @@
         "source": "paper/archive/erdos249-257-main-paper.tex",
         "environment": "problem",
         "title": "the half-value counterexample route",
-        "line": 4469
+        "line": 4466
       }
     },
     {
@@ -21943,7 +21943,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1401
+        "line": 1437
       }
     },
     {
@@ -21955,7 +21955,7 @@
         "source": "paper/archive/erdos249-257-main-paper.tex",
         "environment": "problem",
         "title": "universal Erd\\H{o}s \\#257",
-        "line": 4460
+        "line": 4457
       }
     },
     {
@@ -21979,7 +21979,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 76
+        "line": 75
       }
     },
     {
@@ -21991,7 +21991,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 46
+        "line": 47
       }
     },
     {
@@ -22015,7 +22015,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "no reduced tail is an integer",
-        "line": 583
+        "line": 597
       }
     },
     {
@@ -22027,7 +22027,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "residue inequalities after every starting index",
-        "line": 589
+        "line": 603
       }
     },
     {
@@ -22039,7 +22039,7 @@
         "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
         "title": "an exact function representing the distinct-height sum",
-        "line": 3531
+        "line": 3565
       }
     },
     {
@@ -22051,7 +22051,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "growth of repeated denominator factors",
-        "line": 1091
+        "line": 1099
       }
     },
     {
@@ -22063,7 +22063,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "Four estimates for the first-harmonic sum",
-        "line": 756
+        "line": 787
       }
     },
     {
@@ -22075,7 +22075,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "bounded returns of the scaled remainder",
-        "line": 1417
+        "line": 1453
       }
     },
     {
@@ -22087,7 +22087,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "arithmetic tests for the greedy sequence",
-        "line": 1426
+        "line": 1462
       }
     },
     {
@@ -22099,7 +22099,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1437
+        "line": 1473
       }
     }
   ],

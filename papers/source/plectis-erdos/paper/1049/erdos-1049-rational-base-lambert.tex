@@ -11,6 +11,7 @@
 % Keep this local until Type A can repair the out-of-scope shared link helper.
 \newcommand{\shortrecordlink}[3]{\href{#1\##2}{#3}}
 \input{evidence/erdos-1049-rational-base-lambert}
+\evidenceconcordancenewpage
 \renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
 \renewcommand{\commitshort}{7380b7871687}
 \renewcommand{\PX}{lean/ErdosProblems}
@@ -759,15 +760,33 @@ on p.~156 give the coefficient whose degree we need:
  \genfrac{[}{]}{0pt}{}{k-1}{a_1-1}_X
  \genfrac{[}{]}{0pt}{}{\beta-a_2-1}{\beta-k-1}_X.
 \]
-On comparing successive summands, we find that the degree increases
-by $40n+1-k>0$ for $a_2\le k\le\beta-2$. The last summand alone
+Let $d_{n,k}$ be the degree of the $k$th summand. Adding the monomial
+exponent and the degrees of the two Gaussian factors gives
+\[
+ \begin{aligned}
+ d_{n,k}
+ &=a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}\\
+ &\quad +(a_1-1)(k-a_1)+(\beta-k-1)(k-a_2)\\
+ &=\frac{-k^2+80kn+3k-340n^2-26n}{2}.
+ \end{aligned}
+\]
+Hence $d_{n,k+1}-d_{n,k}=40n+1-k>0$ for
+$a_2\le k\le\beta-2=27n$. The last summand alone
 therefore determines the leading term, giving
 \[
  K_n:=\deg A_n=\frac{1091n^2+81n+2}{2},\qquad
  W_n:=\deg U_n=K_n-M_n+\sum_{\ell\le15n}(1-\nu_\ell)\varphi(\ell).
 \]
 Here $\varphi(\ell)=\deg\Phi_\ell$ is Euler's totient function, and
-$\nu_1=\omega(n)=0$. The bounds for $H_n$ are uniform for $x\ge2$:
+$\nu_1=\omega(n)=0$. In particular,
+\[
+ K_n-W_n=M_n-\deg(D_N/\Omega_n).
+\]
+The factor $X^{-M_n}$ lowers the degree by $M_n$, whereas the
+remaining cyclotomic factors increase it by $\deg(D_N/\Omega_n)$.
+Their difference will determine the decay of the cancelled remainder.
+
+The bounds for $H_n$ are uniform for $x\ge2$:
 then $P\ge\prod_{j\ge1}(1-2^{-j})>0$ and
 $(1-x^{-a_0})^{-1}\le2$. For fixed $n$, therefore,
 $H_n(x)=O(1)$ and $\Lambda_n(x)=O(x^{W_n-K_n})$ as $x\to\infty$.
@@ -906,6 +925,7 @@ Zudilin at integer bases \cite[p.~162]{zudilin2004}. Applying the
 estimates separately at each fixed base $(a/b)^r$ will give a bound
 independent of $r$. We use the polynomials $U_n,V_n$ from
 Theorem~\ref{res:rational-base-threshold}, with $W_n=\deg U_n$.
+The additional estimate we need is a growth bound for their coefficients.
 In that construction the coefficient of $F$ before cancellation is a
 sum of $O(n)$ Laurent monomials times two Gaussian binomial polynomials.
 Each Gaussian polynomial has nonnegative coefficients summing to at
@@ -927,6 +947,10 @@ $P_n=b^{W_n}V_n(a/b)$.  With
 we have $\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)$ and
 $|Q_n|\le\exp(\alpha n^2+o(n^2))$.
 
+For a rational approximation with denominator $q$, we will choose a
+remainder at most $1/(2q)$ without letting $|Q_n|$ grow unnecessarily.
+The decay rate suggests taking $n^2$ near $(\log q)/\tau$.
+The reason for this choice is the following integer comparison.
 For integers $A,B,p,q$ with $q>0$, if $L=A\xi-B$ and $2q|L|\le1$, then
 \[
  |L|\le |A|\,|\xi-p/q|.
@@ -938,12 +962,13 @@ We fix $0<\eta<\tau$ and use the preceding estimates in the form
  e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le e^{-(\tau-\eta)n^2},
  \qquad |Q_n|\le e^{(\alpha+\eta)n^2}
 \]
-for all sufficiently large $n$. Given a sufficiently large denominator
-$q$, we choose $n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil$, so that
+for all sufficiently large $n$. The upper remainder bound determines
+our choice: for a sufficiently large denominator $q$, take
+$n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil$. Then
 $2q(Q_n\xi-P_n)\le1$. The preceding integer argument now applies to
 $(A,B)=(Q_n,P_n)$ for every numerator $p$. Also $Q_n\ne0$: otherwise
 $Q_n\xi-P_n$ would be an integer strictly between $0$ and $1$.
-It follows that
+The lower remainder bound and the coefficient bound now give
 \[
  |\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)n^2}
              =q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)},
@@ -1003,7 +1028,7 @@ has the same formal orders, leading coefficients and type of
 fixed-base power correction, although its target value is rational.
 The model and its denominator calculation are retained there with
 ordinary proofs as unformalised remarks.
-The long record also gives an
+The companion paper also gives an
 \shortrecordlink{erdos1049-rational-base-lambert-reasoning-surface.pdf}
 {long1049-ratio-extension}{ordinary argument for the ratio-limit extension}
 under $a_{k+1}/a_k\to\rho\in(0,q^{-1})$, without the polynomial
@@ -1052,7 +1077,13 @@ these real remainders.
 For example, suppose that $M$ integral rows $(A_j,B_j)$ have remainders
 $e_j=A_jF(3/2)-B_j$, and that the subset sums take $Q$ residue values
 modulo a positive integer $D$. Put $T=\sum_j|e_j|$ and suppose that
-at most $k$ subsets give any fixed remainder within a residue class. For each positive integer $n$, the sufficient inequality
+at most $k$ subsets give any fixed remainder within a residue class.
+The least and greatest subset remainders are
+\[
+ \sum_{e_j<0}e_j\quad\text{and}\quad\sum_{e_j>0}e_j;
+\]
+their difference is $T$. Thus $T$ bounds the width of the range in
+each residue class as well. For each positive integer $n$, the inequality
 \begin{equation}\label{eq:quantitative-selector-budget}
  2^M>Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right)
 \end{equation}
@@ -1060,8 +1091,12 @@ gives two subsets with the same residue vector whose remainder
 values differ by an amount strictly between $0$ and $D/n$ in absolute value.
 Indeed, in each residue class divide the range of remainders into
 half-open intervals of width $D/n$, starting at its least value.
-If each interval contained only one remainder value, it would contain
-at most $k$ subsets, contrary to \eqref{eq:quantitative-selector-budget}.
+At most $\lfloor nT/D\rfloor+1$ intervals are needed, including a
+last interval when the greatest value is an endpoint. If each interval
+contained only one remainder value, it would contain at most $k$
+subsets, contrary to \eqref{eq:quantitative-selector-budget}.
+Thus some interval contains two different remainder values;
+the half-open convention makes their separation strictly less than $D/n$.
 Subtracting the two subset sums and dividing their coefficients by
 $D$ gives an integral linear form of nonzero absolute value less
 than $1/n$. The
@@ -1094,27 +1129,39 @@ For the 2004 family one can instead ask whether a parameter direction
 improves $\theta^*$. The
 \shortrecordlink{erdos1049-rational-base-lambert-reasoning-surface.pdf}
 {long1049-region-extensions}{all-base degree restriction}
-proves the upper bound $1/2$ for the degree cutoff under its stated
-uniform-in-base hypotheses. Thus this sufficient criterion does not
-include $3/2$. When the degrees have a quadratic limit, the stronger
-conclusion there excludes decay of the undivided forms at $3/2$.
-Division by additional base-dependent content and other families
-remain unclassified. Equality in the rational-base cutoff is also unresolved by
-the estimates of Section~\ref{sec:rational-base-irrationality}.
+proves an upper bound of $1/2$ for the degree cutoff. Its hypotheses
+require one polynomial family, with common leading constants in its
+degree, coefficient-height and remainder estimates at every fixed real
+base $x>1$; the error terms may depend on $x$. Merely having estimates
+at $3/2$ does not suffice.
+
+Under those hypotheses, the
+\shortrecordlink{erdos1049-rational-base-lambert-reasoning-surface.pdf}
+{long1049-no-decay}{nondecay corollary}
+goes beyond the failure of a sufficient criterion: after denominator
+clearing, the undivided forms cannot tend to zero at any rational base $a/b$
+with $b<a<b^2$,
+including $3/2$, even without a quadratic degree limit. If that limit
+exists, their absolute values tend to infinity in this strict region.
+Division by additional base-dependent content and families outside
+these hypotheses remain unclassified. Equality in the rational-base
+cutoff is also unresolved by the estimates of
+Section~\ref{sec:rational-base-irrationality}.
 
 \appendix
-\section{Proofs and source records}\label{app:index}
+\section{Verification and reproducibility}\label{app:index}
 
-The links beside each statement and in the margin give the existing
-Lean proofs and recorded Comparator comparisons, indexed in the \href{\evidencerecordurl}{evidence record}
-at the \href{\sourceurl}{source revision}.
+The \href{\evidencerecordurl}{evidence record} indexes the existing
+Lean proofs and recorded Comparator comparisons at the
+\href{\sourceurl}{source revision}.
 Theorem~\ref{thm:geometric-moments} is the polynomial-bound
 specialisation of the
 \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean\#L1324}{geometric-moment proof}
-cited in the long record; its Comparator association remains pending.
+cited in the companion paper; its Comparator association remains pending.
 The broader ratio-limit argument and rational-value model there have
 ordinary proofs only. This revision has had no fresh Lean or
 Comparator run and no independent review.
+\evidenceparagraph{\evidencerecordurl}
 
 \paragraph{Data availability.}
 The cited source revision contains the Lean sources, toolchain and
@@ -1129,8 +1176,7 @@ competing interests.
 The problem numbering follows the catalogue maintained by Thomas
 Bloom~\cite{erdosproblems}. I thank Wouter van Doorn for advice on
 writing for a first-time reader and explaining the force of a
-hypothesis. This advice concerned another note and does not imply
-mathematical review or endorsement of the present results.
+hypothesis.
 
 \begin{thebibliography}{99}
 \small

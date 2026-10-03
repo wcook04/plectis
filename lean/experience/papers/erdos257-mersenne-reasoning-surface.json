@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 149,
+  "pages": 152,
   "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
   "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d5a8acb84f750361",
-    "source_sha256": "981f27107c58f3d76f98cda73eda41a1b8f8612ce43c92039dfefb5c3d84fbf4",
+    "source_sha256": "5f343b03d5a26942fe593da83f7f63c4a8bfdfd0dbd9d4b100befa528e6c0726",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 4758,
+    "mathml_node_count": 4775,
     "raw_math_fallback_count": 4,
     "warnings": {
       "mathml": [
@@ -64,8 +64,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "0422f837a5213f2a7e50aea34c6bb1d46c679245fc7cf67a92f5d735c7519f4a",
-    "html_exact_tex_sha256": "889a30246aa9f101dd21384682a177c4662c4e926f8f829e1e0acd98792f8404"
+    "html_mathml_sha256": "0fe54f50b1625d5c4e318ebba37c9cf03923a842c2531cbff4c3e1284a3fb561",
+    "html_exact_tex_sha256": "5fd59403fb43b817fc4abafe2df0ff3b2a08c50e4484263d263d94e5fff3564b"
   },
   "sections": [
     {
@@ -802,6 +802,11 @@
       "level": 4,
       "anchor": "two-proof-details-and-sources",
       "label": "Two proof details and sources"
+    },
+    {
+      "level": 4,
+      "anchor": "verification-and-reproducibility",
+      "label": "Verification and reproducibility"
     },
     {
       "level": 4,

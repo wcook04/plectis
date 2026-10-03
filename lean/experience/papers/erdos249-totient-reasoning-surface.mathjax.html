@@ -44,10 +44,6 @@ problem</a> in the short paper’s final appendix.</p>
 complete propagation, Mersenne-residue and sharp rank-one arguments
 cited there. Appendix <a class="math-ref" href="#app:r3-declarations">B</a> collects the
 formal declarations.</p>
-<p>A small-capital <span class="smallcaps">Lean source</span> link
-beside a step, a definition or an observation opens the Lean declaration
-for that step. A checked implication does not establish its
-hypothesis.</p>
 </section>
 <section id="totient-sections-and-tail-differences" class="level2">
 <h2>Totient sections and tail differences</h2>
@@ -479,43 +475,62 @@ class="math inline" data-term-auto="off">\(b_N=\sum_{d\in D,\,d\mid
 N}c_d\bigl(\varphi(N/d)\bmod m\bigr)\)</span> is bounded. Discard the
 <span class="math inline" data-term-auto="off">\(d\)</span> with <span
 class="math inline" data-term-auto="off">\(c_d=0\)</span> and let <span
-class="math inline" data-term-auto="off">\(\delta\)</span> be the least remaining one. Given
-<span class="math inline" data-term-auto="off">\(L\)</span>, choose distinct primes <span
-class="math inline" data-term-auto="off">\(q_j\equiv1\pmod m\)</span>, <span
+class="math inline" data-term-auto="off">\(\delta\)</span> be the least remaining one. We
+will isolate the coefficient at <span class="math inline" data-term-auto="off">\(N=\delta
+p\)</span>. If <span class="math inline" data-term-auto="off">\(p&gt;\max D\)</span> is prime
+and <span class="math inline" data-term-auto="off">\(d\in D\)</span> divides <span
+class="math inline" data-term-auto="off">\(\delta p\)</span>, then <span
+class="math inline" data-term-auto="off">\(p\nmid d\)</span>, so <span
+class="math inline" data-term-auto="off">\(d\mid\delta\)</span>. Minimality of <span
+class="math inline" data-term-auto="off">\(\delta\)</span> forces <span
+class="math inline" data-term-auto="off">\(d=\delta\)</span>. Thus choosing the least active
+dilation prevents cancellation at the centre.</p>
+<p>Given <span class="math inline" data-term-auto="off">\(L\)</span>, choose distinct primes
+<span class="math inline" data-term-auto="off">\(q_j\equiv1\pmod m\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;|j|\le L\)</span>, each larger than <span
 class="math inline" data-term-auto="off">\(L\)</span> and than every element of <span
-class="math inline" data-term-auto="off">\(D\)</span>. By the Chinese remainder theorem and
-Dirichlet’s theorem there are arbitrarily large primes <span
-class="math inline" data-term-auto="off">\(p\)</span> with <span
-class="math inline" data-term-auto="off">\(p\equiv-1\pmod m\)</span> and <span
-class="math inline" data-term-auto="off">\(\delta p\equiv-j\pmod{q_j}\)</span> for every
-<span class="math inline" data-term-auto="off">\(j\)</span>. For <span
-class="math inline" data-term-auto="off">\(p&gt;\max D\)</span> the only <span
-class="math inline" data-term-auto="off">\(d\in D\)</span> dividing <span
-class="math inline" data-term-auto="off">\(\delta p\)</span> is <span
-class="math inline" data-term-auto="off">\(\delta\)</span>, so <span
-class="math inline" data-term-auto="off">\(b_{\delta p}=c_\delta(m-2)\ne0\)</span>. If <span
-class="math inline" data-term-auto="off">\(d\in D\)</span> divides <span
-class="math inline" data-term-auto="off">\(\delta p+j\)</span>, then <span
-class="math inline" data-term-auto="off">\(q_j\nmid d\)</span>, so <span
+class="math inline" data-term-auto="off">\(D\)</span>. Impose</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[p\equiv-1\pmod m,\qquad
+p\equiv-j\delta^{-1}\pmod{q_j}\quad(0&lt;|j|\le L).\]</span></div>
+<p>The inverse
+exists because <span class="math inline" data-term-auto="off">\(q_j&gt;\delta\)</span>, and
+the latter residue is nonzero because <span
+class="math inline" data-term-auto="off">\(q_j&gt;|j|\)</span>. Together with the unit
+residue <span class="math inline" data-term-auto="off">\(-1\)</span> modulo <span
+class="math inline" data-term-auto="off">\(m\)</span>, these congruences define a reduced
+progression. CRT and Dirichlet’s theorem give a prime <span
+class="math inline" data-term-auto="off">\(p\)</span> as large as needed. At the centre,
+<span class="math inline" data-term-auto="off">\(b_{\delta p}=c_\delta(m-2)\ne0\)</span>. At
+a neighbour <span class="math inline" data-term-auto="off">\(\delta p+j\)</span>, every
+contributing dilation <span class="math inline" data-term-auto="off">\(d\)</span> is coprime
+to <span class="math inline" data-term-auto="off">\(q_j\)</span>, so <span
 class="math inline" data-term-auto="off">\(q_j\mid(\delta p+j)/d\)</span> and <span
-class="math inline" data-term-auto="off">\(m\mid\varphi((\delta p+j)/d)\)</span>; hence <span
+class="math inline" data-term-auto="off">\(m\mid\varphi((\delta p+j)/d)\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(b_{\delta p+j}=0\)</span>. The isolated
 coefficient makes <span class="math inline" data-term-auto="off">\(\sum_Nb_Nt^{-N}\)</span>
-irrational, which contradicts <span
+irrational, contradicting <span
 class="math inline" data-term-auto="off">\(c_0\in\mathbb{Z}\)</span>.</p>
 <p>(b) Each <span class="math inline" data-term-auto="off">\(f_d\)</span> that is constant on
 the even classes contributes a rational number, by Proposition <a class="math-ref" href="#prop:radixresidue">1.10</a>(b) in base <span
-class="math inline" data-term-auto="off">\(t^d\)</span>. After lifting every <span
-class="math inline" data-term-auto="off">\(f_d\)</span> to a common modulus <span
-class="math inline" data-term-auto="off">\(2^K\)</span> and subtracting <span
-class="math inline" data-term-auto="off">\(f_d(0)\)</span>, the least remaining <span
-class="math inline" data-term-auto="off">\(d\)</span> has an even residue <span
+class="math inline" data-term-auto="off">\(t^d\)</span>. Remove these contributions, lift the
+remaining functions to one modulus <span
+class="math inline" data-term-auto="off">\(2^K\)</span>, subtract their values at zero, and
+clear a common denominator. None of these operations changes
+rationality. For the least remaining dilation <span
+class="math inline" data-term-auto="off">\(\delta\)</span>, choose an even residue <span
 class="math inline" data-term-auto="off">\(r\)</span> with <span
-class="math inline" data-term-auto="off">\(f_d(r)\ne f_d(0)\)</span>; the argument of (a),
-with <span class="math inline" data-term-auto="off">\(p\equiv r+1\pmod{2^K}\)</span> in place
-of <span class="math inline" data-term-auto="off">\(p\equiv-1\pmod m\)</span>, isolates a
-nonzero coefficient. ◻</p>
+class="math inline" data-term-auto="off">\(f_\delta(r)\ne f_\delta(0)\)</span>. Use the
+construction in (a), now with <span
+class="math inline" data-term-auto="off">\(q_j\equiv1\pmod{2^K}\)</span> and <span
+class="math inline" data-term-auto="off">\(p\equiv r+1\pmod{2^K}\)</span>. The central
+residue is allowed because <span class="math inline" data-term-auto="off">\(r+1\)</span> is
+odd. Minimality again leaves just the nonzero contribution from <span
+class="math inline" data-term-auto="off">\(\delta\)</span> at the centre, while every
+neighbouring totient is zero modulo <span
+class="math inline" data-term-auto="off">\(2^K\)</span> and hence contributes zero after the
+subtraction. The same bounded integer-coefficient argument
+applies. ◻</p>
 </div>
 <div class="rem" id="prop:slowmoduli">
 <p><em>Remark 1.12</em> (Slowly growing dyadic moduli). Let <span
@@ -543,9 +558,14 @@ class="math inline" data-term-auto="off">\(q_j\equiv1\pmod{2^{j+1}}\)</span>, an
 class="math inline" data-term-auto="off">\(q_j\)</span> are distinct because distinct Fermat
 numbers are coprime. Put <span class="math inline" data-term-auto="off">\(Q=q_1\cdots
 q_L\)</span>, so <span class="math inline" data-term-auto="off">\(Q&lt;2^{2^{L+1}}\)</span>.
-Given <span class="math inline" data-term-auto="off">\(M\)</span>, the Chinese remainder
-theorem gives <span class="math inline" data-term-auto="off">\(N\in[M,M+Q)\)</span> with
-<span class="math inline" data-term-auto="off">\(q_j\mid N+j\)</span> for <span
+These factors give a size bound as well as the needed divisibility:
+<span class="math inline" data-term-auto="off">\(\log Q=O(2^L)\)</span>. The factor <span
+class="math inline" data-term-auto="off">\(2^{-L}\)</span> in the remaining tail will offset
+this growth, leaving the arbitrarily small constant from <span
+class="math inline" data-term-auto="off">\(2^{\kappa(n)}=o(\log n)\)</span>. Given <span
+class="math inline" data-term-auto="off">\(M\)</span>, the Chinese remainder theorem gives
+<span class="math inline" data-term-auto="off">\(N\in[M,M+Q)\)</span> with <span
+class="math inline" data-term-auto="off">\(q_j\mid N+j\)</span> for <span
 class="math inline" data-term-auto="off">\(1\le j\le L\)</span>. Then <span
 class="math inline" data-term-auto="off">\(2^{j+1}\mid\varphi(N+j)\)</span>, so <span
 class="math inline" data-term-auto="off">\(2^j\mid a_{N+j}\)</span>: either <span
@@ -10289,11 +10309,16 @@ k_j&amp;=\max\{k\ge1:(2kk!)^2\le s_j\},
 &amp;M_j&amp;=k_j!,\quad t_j=2k_j!,\quad W_j=k_jt_j,\\
 A_j&amp;=\beta^{s_j+2}.
 \end{aligned}\]</span></div>
-<p>The spacings and orders are nondecreasing and
-tend to infinity; <span class="math inline" data-term-auto="off">\(s_j=O(\log
-n_{j-1})\)</span> and <span
-class="math inline" data-term-auto="off">\(W_j\le\sqrt{s_j}&lt;s_{j+1}\)</span>. For digits
-<span class="math inline" data-term-auto="off">\(d_j\in\{-A_j,\ldots,A_j\}\)</span>, form</p>
+<p>These parameters serve two different constraints.
+The inequality <span
+class="math inline" data-term-auto="off">\(W_j\le\sqrt{s_j}&lt;s_{j+1}\)</span> keeps one
+block clear of the next. The larger digit range <span
+class="math inline" data-term-auto="off">\(|d_j|\le A_j\)</span> will make the possible
+values overlap, but its coefficient cost must still fit within <span
+class="math inline" data-term-auto="off">\(g\)</span>. The spacings and orders are
+nondecreasing and tend to infinity, with <span
+class="math inline" data-term-auto="off">\(s_j=O(\log n_{j-1})\)</span>. For digits <span
+class="math inline" data-term-auto="off">\(d_j\in\{-A_j,\ldots,A_j\}\)</span>, form</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_j(z)=d_jM_jz^{n_j}(1-z^{t_j})^{k_j},\qquad
 E(z)=\sum_{j\ge0}P_j(z).\]</span></div>
@@ -10343,11 +10368,16 @@ class="math inline" data-term-auto="off">\(E\)</span>, stays between zero and <s
 class="math inline" data-term-auto="off">\(n\)</span>. The coefficient bound ensures absolute
 convergence of <span class="math inline" data-term-auto="off">\(E\)</span> inside the unit
 disk.</p>
-<p><em>An interval of values.</em> Put <span
+<p><em>An interval of values.</em> At <span
+class="math inline" data-term-auto="off">\(z=1/\beta\)</span>, the contribution of block
+<span class="math inline" data-term-auto="off">\(j\)</span> is <span
+class="math inline" data-term-auto="off">\(d_jw_j\)</span>, where <span
 class="math inline" data-term-auto="off">\(a_j=(1-\beta^{-t_j})^{k_j}\)</span> and <span
-class="math inline" data-term-auto="off">\(w_j=M_j\beta^{-n_j}a_j\)</span>. Bernoulli’s
-inequality gives <span class="math inline" data-term-auto="off">\(3/4\le a_j\le1\)</span>.
-Since <span class="math inline" data-term-auto="off">\(M_{j+1}\ge M_j\)</span>,</p>
+class="math inline" data-term-auto="off">\(w_j=M_j\beta^{-n_j}a_j\)</span>. We must check
+that the later blocks can fill the gaps between successive choices of
+<span class="math inline" data-term-auto="off">\(d_j\)</span>. Bernoulli’s inequality gives
+<span class="math inline" data-term-auto="off">\(3/4\le a_j\le1\)</span>. Since <span
+class="math inline" data-term-auto="off">\(M_{j+1}\ge M_j\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A_{j+1}w_{j+1}=\beta^2M_{j+1}\beta^{-n_j}a_{j+1}
 \ge3M_j\beta^{-n_j}\ge3w_j.\]</span></div>
@@ -10389,11 +10419,12 @@ the cumulative assertion. Eventually also <span
 class="math inline" data-term-auto="off">\(q\mid t_j\)</span> and <span
 class="math inline" data-term-auto="off">\(k_j&gt;d\)</span>. Each such block lies in one
 residue class modulo <span class="math inline" data-term-auto="off">\(q\)</span> and its
-moment of degree <span class="math inline" data-term-auto="off">\(d\)</span> is zero by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-difference">long249:eq:signed-difference</a>. A
-cutoff outside <span class="math inline" data-term-auto="off">\(H\)</span> cannot split a
-block. Its moment sum therefore contains only complete blocks, so the
-defect is the integer contribution of the finitely many early blocks. If
-<span class="math inline" data-term-auto="off">\(q\le P\)</span> and <span
+moment of degree <span class="math inline" data-term-auto="off">\(d\)</span> is zero by <a class="math-ref" data-equation-ref="true" href="#long249:eq:signed-difference">long249:eq:signed-difference</a>. The
+restriction on the cutoff is needed here: outside <span
+class="math inline" data-term-auto="off">\(H\)</span> it cannot split a block, so the moment
+sum contains only complete blocks. All sufficiently late complete blocks
+cancel, leaving just the integer contribution of the finitely many early
+blocks. If <span class="math inline" data-term-auto="off">\(q\le P\)</span> and <span
 class="math inline" data-term-auto="off">\(d&lt;P\)</span>, there are no exceptional early
 blocks. These cutoffs depend on the block parameters, not on the later
 choice of digits.</p>
@@ -10527,10 +10558,12 @@ exceptional sets, while the nondegenerate interval of attained values
 contains both rational and irrational numbers. ◻</p>
 </div>
 <p>Taking finite linear combinations of the Dirichlet series on
-arithmetic progressions shows that every fixed periodic twist preserves
-the poles and Laurent principal parts wherever the original Dirichlet
-series has meromorphic continuation. In the untwisted case the classical
-identity gives</p>
+arithmetic progressions shows that every fixed periodic twist changes by
+an entire function. An entire summand has no negative Laurent
+coefficients: it therefore preserves every pole and its principal part
+wherever the original series has meromorphic continuation. The regular
+part and zeros need not be preserved. In the untwisted case the
+classical identity gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}b(n)n^{-s}=\frac{\zeta(s-1)}{\zeta(s)}+D_{1,0,r}(s),
 \qquad\operatorname{Re}s&gt;2.\]</span></div>
@@ -11935,13 +11968,25 @@ Nor do they imply an upper bound that is <span
 class="math inline" data-term-auto="off">\(o(2^e)\)</span>. Such a bound for the actual
 totient carry would contradict the lower bound of Proposition <a class="math-ref" href="#prop:rank">1.6</a>, but the following
 rational comparison already has that lower bound.</p>
+<p>The limit condition fixes the value of the series. Dividing the
+recurrence by <span class="math inline" data-term-auto="off">\(2^{n+1}\)</span> and summing
+gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[v\sum_{n=1}^{N}c(n)2^{-n}=u_0-2^{-N}u_N.\]</span></div>
+<p>Thus <span class="math inline" data-term-auto="off">\(u_N/2^N\to0\)</span> identifies the sum
+as <span class="math inline" data-term-auto="off">\(u_0/v\)</span>; it imposes no
+finite-dimensional description of the carry sections. In the
+construction below <span class="math inline" data-term-auto="off">\(u_0=5\)</span> and <span
+class="math inline" data-term-auto="off">\(v=4\)</span>.</p>
 <section id="the-comparison-with-value-54." class="level5">
 <h5>The comparison with value <span
 class="math inline" data-term-auto="off">\(5/4\)</span>.</h5>
 <p>We alter only even coefficients, whose weights are <span
-class="math inline" data-term-auto="off">\(2^{-2m}=4^{-m}\)</span>. Thus a base-four
-expansion of <span class="math inline" data-term-auto="off">\(5/4-S\)</span> gives the
-required correction while leaving every odd totient unchanged. The
+class="math inline" data-term-auto="off">\(2^{-2m}=4^{-m}\)</span>. Thus we need a base-four
+expansion of <span class="math inline" data-term-auto="off">\(5/4-S\)</span>, with signed
+digits small enough to keep the corrected coefficients between zero and
+their indices. The digits <span class="math inline" data-term-auto="off">\(-2,-1,0,1\)</span>
+will do this; the first even coefficient will require its own check. The
 elementary bounds <span class="math inline" data-term-auto="off">\(9/8\le S\le3/2\)</span>
 follow respectively from the first four terms and from <span
 class="math inline" data-term-auto="off">\(\varphi(n)\le n-1\)</span> for <span
@@ -13113,7 +13158,10 @@ class="math inline" data-term-auto="off">\(L\)</span>. The error estimate then p
 residue of <span class="math inline" data-term-auto="off">\(D_{h,N,L}\)</span> more than
 <span class="math inline" data-term-auto="off">\(B\)</span> from either endpoint. Thus
 nonintegrality is equivalent to a certificate at some unrestricted
-depth.</p>
+depth. This is a one-sided finite test: success proves nonintegrality,
+but failure at a particular depth does not prove integrality. The
+converse guarantees eventual success only after a fixed nonintegral
+difference has been supplied.</p>
 <div class="theorem" id="res:fulldepth">
 <p><strong>Theorem A.1</strong> (Propagation of one nonintegral tail
 difference). <em> Fix <span class="math inline" data-term-auto="off">\(d\ge1\)</span> and
@@ -13454,31 +13502,33 @@ class="math inline" data-term-auto="off">\((\mu(1),\ldots,\mu(7))=(1,-1,-1,0,-1,
 gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[q_* =
 \frac{35076077250375200}{37573118933633199}.\]</span></div>
-<p>The following four
-comparisons cover, respectively, <span
-class="math inline" data-term-auto="off">\(e\ge2\)</span>, <span
-class="math inline" data-term-auto="off">\((e,Y)=(1,4)\)</span>, <span
-class="math inline" data-term-auto="off">\((1,6)\)</span>, and <span
-class="math inline" data-term-auto="off">\(e=1,Y\ge7\)</span>. They are exact rational
-inequalities:</p>
+<p>For <span
+class="math inline" data-term-auto="off">\(e\ge2\)</span>, both exponents in <span
+class="math inline" data-term-auto="off">\(Q(e,Y)\)</span> are at least four, so the uniform
+bounds just proved apply to the numerator and denominator. For <span
+class="math inline" data-term-auto="off">\(e=1\)</span>, the numerator instead contains <span
+class="math inline" data-term-auto="off">\(P_Y(3)\)</span>; we use the seven-term prefix to
+bound it. This leaves the two cases <span
+class="math inline" data-term-auto="off">\(Y=4,6\)</span> to compare with <span
+class="math inline" data-term-auto="off">\(Y=5\)</span>. The four exact rational comparisons
+are</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
-\frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&amp;&gt;q_*,\\
-Q(1,4)=\frac{79049881}{84671559}&amp;&gt;q_*,\\
-Q(1,6)=\frac{1043700953468949889}{1117992059749781919}&amp;&gt;q_*,\\
-\frac{(P_7(3)-1/1835008)^2}{P_7(4)+1/251658240}&amp;&gt;q_*.
+\frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&amp;&gt;q_*
+       &amp;&amp;(e\ge2),\\
+\frac{79049881}{84671559}=Q(1,4)&amp;&gt;q_*
+       &amp;&amp;(e=1,\ Y=4),\\
+\frac{1043700953468949889}{1117992059749781919}=Q(1,6)&amp;&gt;q_*
+       &amp;&amp;(e=1,\ Y=6),\\
+\frac{(P_7(3)-1/1835008)^2}{P_7(4)+1/251658240}&amp;&gt;q_*
+       &amp;&amp;(e=1,\ Y\ge7).
 \end{align*}\]</span></div>
-<p>All four comparisons follow by multiplication by
-their positive denominators. For <span
-class="math inline" data-term-auto="off">\(e\ge2\)</span>, the first inequality and the
-bounds on <span class="math inline" data-term-auto="off">\(\Theta_r,P_Y(r)\)</span> imply
-<span class="math inline" data-term-auto="off">\(Q(e,Y)&gt;q_*\)</span>. For <span
-class="math inline" data-term-auto="off">\(e=1,Y\ge7\)</span>, the finite-prefix tail bounds
-with <span class="math inline" data-term-auto="off">\(Z=7\)</span> imply the last inequality
-is a lower bound for <span class="math inline" data-term-auto="off">\(Q(1,Y)\)</span>; its
-numerator lower bound is positive. The cases <span
-class="math inline" data-term-auto="off">\(Y=4,5,6\)</span> are displayed explicitly.
-Therefore <span class="math inline" data-term-auto="off">\((1,5)\)</span> is the unique
-minimiser.</p>
+<p>Each comparison follows by multiplication by
+positive denominators. The first left-hand side bounds every quotient in
+its range from below. So does the last, by the tail estimates with <span
+class="math inline" data-term-auto="off">\(Z=7\)</span>; the numerator lower bound is
+positive before it is squared. The middle two rows give the quotients
+themselves. These ranges cover every admissible pair except <span
+class="math inline" data-term-auto="off">\((1,5)\)</span>, proving its unique minimality.</p>
 <p>It remains to compare the minimum with <span
 class="math inline" data-term-auto="off">\(\Theta_2\)</span>. An upper bound for <span
 class="math inline" data-term-auto="off">\(\Theta_2\)</span> proves the stated gap; a lower
@@ -13487,9 +13537,12 @@ bound disproves the stronger proposed gap. The same tail estimate at
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_6(2)-\frac1{3072}\le\Theta_2\le
 P_7(2)+\frac1{12288}.\]</span></div>
-<p>Direct fraction comparison, using <span
-class="math inline" data-term-auto="off">\(P_6(2)=3309559/3814209\)</span> and <span
-class="math inline" data-term-auto="off">\(P_7(2)=53376062902/61519376961\)</span>, yields</p>
+<p>The exact prefixes are</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P_6(2)=\frac{3309559}{3814209},\qquad
+P_7(2)=\frac{53376062902}{61519376961}.\]</span></div>
+<p>Comparison of fractions
+gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[q_*-\left(P_7(2)+\frac1{12288}\right)&gt;\frac{21}{320},
 \qquad
@@ -13523,13 +13576,13 @@ averages, not other approximation families.</p>
 </section>
 </section>
 <section id="app:r3-declarations" class="level2">
-<h2>Formal declaration guide</h2>
-<p>The following links give the formal declarations cited by the short
-paper and its complementary proofs, at the supplied source revisions. A
-declaration proving a conditional implication includes its input as a
-hypothesis. The linked source alone does not establish that input for
-<span class="math inline" data-term-auto="off">\(\varphi\)</span>, and these references do
-not report a fresh Lean replay.</p>
+<h2>Verification and reproducibility</h2>
+<p>The links below identify formal declarations at the supplied source
+revisions. A checked conditional implication retains its hypothesis; the
+linked source alone does not establish that input for <span
+class="math inline" data-term-auto="off">\(\varphi\)</span>. The record gives the available
+Lean and Comparator status and does not report a new replay or
+independent review of the printed proofs.</p>
 <p><strong>Bases and relations.</strong></p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L160">reduction

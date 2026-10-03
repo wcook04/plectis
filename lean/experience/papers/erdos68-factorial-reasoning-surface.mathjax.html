@@ -40,9 +40,9 @@ primitive vectors supported on arithmetic progressions. These impose
 additional requirements on the coefficients. The carry, digit and
 reduced-denominator arguments address nonintegrality of the resulting
 linear form. Changing a vector while preserving <span
-class="math inline" data-term-auto="off">\(M\)</span> changes that form by an integer, so it
-cannot decide nonintegrality. That condition requires a separate
-argument.</p>
+class="math inline" data-term-auto="off">\(M\)</span> changes the remainder by an integer. It
+may simplify the calculation, but it cannot change whether the remainder
+is integral. That condition requires a separate argument.</p>
 <p>Throughout, write</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_n=n!-1,\qquad
 H_N=\sum_{n=2}^N\frac1{d_n},\qquad
@@ -129,14 +129,17 @@ class="math inline" data-term-auto="off">\(V_d(c)\)</span>. The associated remai
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal
 R(c)=\sum_{d\ge2}\frac{V_d(c)}{d!-1}.\]</span></div>
-<p>For <span
-class="math inline" data-term-auto="off">\(d\)</span> beyond the support, all floor exponents
-vanish and <span class="math inline" data-term-auto="off">\(V_d(c)=M(c)\)</span>, so the
-series converges absolutely. If its first weighted sums cancel, the
-remainder consists of a finite signed sum followed by <span
-class="math inline" data-term-auto="off">\(M(c)\)</span> times the original tail. We show
-below that it differs from <span class="math inline" data-term-auto="off">\(M(c)S\)</span> by
-an integer.</p>
+<p>The index <span
+class="math inline" data-term-auto="off">\(i\)</span> selects a coefficient, whereas <span
+class="math inline" data-term-auto="off">\(d\)</span> selects a summand of the remainder. If
+<span class="math inline" data-term-auto="off">\(c\)</span> is supported on <span
+class="math inline" data-term-auto="off">\(i\le N\)</span>, then for <span
+class="math inline" data-term-auto="off">\(d&gt;N\)</span> all floor exponents vanish and
+<span class="math inline" data-term-auto="off">\(V_d(c)=M(c)\)</span>. The series therefore
+converges absolutely. Cancellation of the first weighted sums leaves a
+finite signed sum followed by <span class="math inline" data-term-auto="off">\(M(c)\)</span>
+times the original tail. We show below that the remainder differs from
+<span class="math inline" data-term-auto="off">\(M(c)S\)</span> by an integer.</p>
 <p>The chosen exponent is a floor, rather than the largest possible
 power of <span class="math inline" data-term-auto="off">\(d!\)</span> dividing <span
 class="math inline" data-term-auto="off">\(i!\)</span>. For example, at <span
@@ -305,8 +308,11 @@ class="math display" data-term-auto="off">\[c=M(c)e_1+\sum_{d\ge2}\frac{V_d(c)-M
 <p>The congruence <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a> also
 verifies the integrality of the displayed coefficients. They vanish for
 <span class="math inline" data-term-auto="off">\(d&gt;N\)</span>, since then <span
-class="math inline" data-term-auto="off">\(V_d(c)=M(c)\)</span>, so the expansion is
-finite.</p>
+class="math inline" data-term-auto="off">\(V_d(c)=M(c)\)</span>, so the expansion is finite.
+These same coefficients occur in the integer-difference identity at the
+start of §<a class="math-ref" href="#long68:sec:channels">1</a>: their sum is
+<span class="math inline" data-term-auto="off">\(\mathcal R(c)-M(c)S\)</span>. Thus the
+coordinates also recover the integer term in the linear form.</p>
 <p>Cancellation through <span class="math inline" data-term-auto="off">\(D\)</span> forces
 <span class="math inline" data-term-auto="off">\(L_D\mid M(c)\)</span>. To obtain <span
 class="math inline" data-term-auto="off">\(M(c)=L_D\)</span> in the enlarged space, start
@@ -356,11 +362,17 @@ class="math inline" data-term-auto="off">\(p\)</span> is prime, the only proper 
 class="math inline" data-term-auto="off">\(u_{2p}=-(2p)!/2^{p-1}\)</span>, including <span
 class="math inline" data-term-auto="off">\(p=2\)</span>.</p>
 <p>Choose a prime <span class="math inline" data-term-auto="off">\(p\)</span> with <span
-class="math inline" data-term-auto="off">\(D/2&lt;p\le D\)</span> and put <span
-class="math inline" data-term-auto="off">\(H=D(2p-1)\)</span>. Such a prime exists by
+class="math inline" data-term-auto="off">\(D/2&lt;p\le D\)</span>. Such a prime exists by
 Bertrand’s postulate when <span class="math inline" data-term-auto="off">\(D\ge3\)</span>,
 and <span class="math inline" data-term-auto="off">\(p=2\)</span> works when <span
-class="math inline" data-term-auto="off">\(D=2\)</span>. We claim that</p>
+class="math inline" data-term-auto="off">\(D=2\)</span>. The coefficient <span
+class="math inline" data-term-auto="off">\(u_{2p}\)</span> lies in the tail and divides <span
+class="math inline" data-term-auto="off">\((2p)!\)</span>. Once a finite initial interval
+includes that coefficient, its gcd therefore divides this factorial. To
+control the small-divisor weights beyond the interval, we shall require
+<span class="math inline" data-term-auto="off">\(n/d\ge2p\)</span> whenever <span
+class="math inline" data-term-auto="off">\(d\le D\)</span>. This leads to the cutoff <span
+class="math inline" data-term-auto="off">\(H=D(2p-1)\)</span>. We claim that</p>
 <div class="math-display" id="long68:eq:finite-horizon" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:finite-horizon}
@@ -472,6 +484,12 @@ class="math inline" data-term-auto="off">\(M=0\)</span> proves integrality; subt
 identities for two vectors with equal <span
 class="math inline" data-term-auto="off">\(M\)</span> proves the last assertion. ◻</p>
 </div>
+<p>Here <span class="math inline" data-term-auto="off">\(M=tL_D\)</span>, so every
+denominator in <span class="math inline" data-term-auto="off">\(H_D\)</span> divides <span
+class="math inline" data-term-auto="off">\(M\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(MH_D\in\Z\)</span>, and the integer in the
+original form <span class="math inline" data-term-auto="off">\(MS+k\)</span> is <span
+class="math inline" data-term-auto="off">\(k=-MH_D+\sum_{n&gt;D}z_n\)</span>.</p>
 </section>
 <section id="long68:sec:basis-examples" class="level3">
 <h3>Examples and support refinements</h3>
@@ -524,13 +542,14 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \end{split}
 \label{long68:eq:constructed-depth-four}
 \end{equation}\]</span></div>
-<p>Its remainder is <span
-class="math inline" data-term-auto="off">\(1380(S-H_4)-44\)</span>, since the coefficients of
-the <span class="math inline" data-term-auto="off">\(U_n\)</span> in this expansion sum to
-<span class="math inline" data-term-auto="off">\(-44\)</span>. The exact interval calculation
-appears in §<a class="math-ref" href="#long68:sec:ext-certificates">B.6</a>. The
-coordinate calculation gives <span class="math inline" data-term-auto="off">\(M\)</span> and
-the cancellations independently of a search over supports.</p>
+<p>The coefficients of the <span
+class="math inline" data-term-auto="off">\(U_n\)</span> in this expansion sum to <span
+class="math inline" data-term-auto="off">\(-44\)</span>. Since <span
+class="math inline" data-term-auto="off">\(H_4=143/115\)</span>, its remainder is <span
+class="math inline" data-term-auto="off">\(1380(S-H_4)-44=1380S-1760\)</span>. The exact
+interval calculation appears in §<a class="math-ref" href="#long68:sec:ext-certificates">B.6</a>. Thus
+the coordinates give both the original linear form and the
+cancellations, independently of a search over supports.</p>
 <p>If support is additionally restricted to <span
 class="math inline" data-term-auto="off">\(n\le6\)</span>, only <span
 class="math inline" data-term-auto="off">\(u_5=0\)</span> and <span
@@ -762,9 +781,7 @@ class="math inline" data-term-auto="off">\(3\)</span>-adic valuation exactly <sp
 class="math inline" data-term-auto="off">\(1\)</span> for every <span
 class="math inline" data-term-auto="off">\(D\)</span>, so this necessary divisor alone does
 not guarantee <span class="math inline" data-term-auto="off">\(9\mid M\)</span>.</p>
-<p>A truncation cutoff can exceed the largest supported index without
-changing the vector. For example, <span
-class="math inline" data-term-auto="off">\(c=-6e_2+e_4\)</span> has <span
+<p>For <span class="math inline" data-term-auto="off">\(c=-6e_2+e_4\)</span>, we have <span
 class="math inline" data-term-auto="off">\(M(c)=12\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathcal R(c)=12S-17\)</span>. At cutoff <span
 class="math inline" data-term-auto="off">\(4\)</span>, its finite part is <span
@@ -774,10 +791,14 @@ class="math inline" data-term-auto="off">\(9/115\)</span> is smaller than the ta
 class="math inline" data-term-auto="off">\(5\)</span>, the finite part is <span
 class="math inline" data-term-auto="off">\(-27061/13685\)</span>, whose gap <span
 class="math inline" data-term-auto="off">\(13376/13685\)</span> exceeds the new bound <span
-class="math inline" data-term-auto="off">\(24/719\)</span>. Thus the second cutoff certifies
-nonintegrality of the same remainder, although the first does not. This
-excludes only denominators dividing <span
-class="math inline" data-term-auto="off">\(12\)</span>, already covered by the finite
+class="math inline" data-term-auto="off">\(24/719\)</span>. The finite part has crossed <span
+class="math inline" data-term-auto="off">\(-2\)</span>, so the next integer is now <span
+class="math inline" data-term-auto="off">\(-1\)</span> rather than <span
+class="math inline" data-term-auto="off">\(-2\)</span>. This explains the larger gap. The
+second cutoff certifies nonintegrality of the same remainder; failure at
+the first cutoff was inconclusive. The successful test excludes
+denominators dividing the unchanged value <span
+class="math inline" data-term-auto="off">\(M=12\)</span>, already covered by the finite
 exclusions.</p>
 <p>For fixed <span class="math inline" data-term-auto="off">\(c\)</span> with <span
 class="math inline" data-term-auto="off">\(M(c)&gt;0\)</span>, the finite part increases to
@@ -795,10 +816,14 @@ success places the remainder strictly above the finite part and below
 the least integer strictly exceeding it, so it implies nonintegrality.
 The <a
 href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf#r12-short-gap">remainder
-comparison in the short paper</a> writes out the inequality; increasing
-the cutoff alone does not prove that it succeeds. This is a truncation
-choice, distinct from prescribing the largest nonzero coefficient
-index.</p>
+comparison in the short paper</a> writes out the inequality. Its
+eventual success for a fixed vector is therefore equivalent to that
+vector’s nonintegral remainder, not a separate reason for
+nonintegrality. To exclude every denominator, for each <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span> we still need a vector with <span
+class="math inline" data-term-auto="off">\(q\mid M(c)\)</span> for which the test succeeds.
+Choosing its coefficients and choosing a truncation cutoff are separate
+steps; the cutoff need not be the largest supported index.</p>
 <p>To impose this small-tail comparison at the largest supported index,
 one needs more than <span class="math inline" data-term-auto="off">\(L_D\mid M\)</span>: the
 positive coefficient <span class="math inline" data-term-auto="off">\(M\)</span> must also be
@@ -4296,6 +4321,8 @@ corresponding integer offsets gives the other two intervals.</p>
 <tr>
 <th class="ta-l">Vector</th>
 <th class="ta-r"><span
+class="math inline" data-term-auto="off">\(\sum_{n&gt;4}z_n\)</span></th>
+<th class="ta-r"><span
 class="math inline" data-term-auto="off">\(k\)</span></th>
 <th class="ta-r">Interval for <span
 class="math inline" data-term-auto="off">\(\mathcal R\)</span></th>
@@ -4308,12 +4335,16 @@ class="math inline" data-term-auto="off">\(12K_4+253U_6-11U_8\)</span></td>
 <td class="ta-r"><span
 class="math inline" data-term-auto="off">\(242\)</span></td>
 <td class="ta-r"><span
+class="math inline" data-term-auto="off">\(-1474\)</span></td>
+<td class="ta-r"><span
 class="math inline" data-term-auto="off">\((255,256)\)</span></td>
 </tr>
 <tr>
 <td class="ta-l">The five-term vector <a class="math-ref" data-equation-ref="true" href="#long68:eq:constructed-depth-four">long68:eq:constructed-depth-four</a></td>
 <td class="ta-r"><span
 class="math inline" data-term-auto="off">\(-44\)</span></td>
+<td class="ta-r"><span
+class="math inline" data-term-auto="off">\(-1760\)</span></td>
 <td class="ta-r"><span
 class="math inline" data-term-auto="off">\((-31,-30)\)</span></td>
 </tr>
@@ -4323,14 +4354,22 @@ class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span></td>
 <td class="ta-r"><span
 class="math inline" data-term-auto="off">\(-56\)</span></td>
 <td class="ta-r"><span
+class="math inline" data-term-auto="off">\(-1772\)</span></td>
+<td class="ta-r"><span
 class="math inline" data-term-auto="off">\((-43,-42)\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Here <span class="math inline" data-term-auto="off">\(\mathcal R=1380(S-H_4)+k\)</span>.
-The five-term remainder is <span class="math inline" data-term-auto="off">\(286\)</span> less
-than the first, and the norm-minimising remainder is another <span
+<p>The second column is the offset from <span
+class="math inline" data-term-auto="off">\(1380(S-H_4)\)</span>; the third is the integer
+<span class="math inline" data-term-auto="off">\(k\)</span> in <span
+class="math inline" data-term-auto="off">\(\mathcal R=1380S+k\)</span>. Since <span
+class="math inline" data-term-auto="off">\(1380H_4=1716\)</span>, subtracting <span
+class="math inline" data-term-auto="off">\(1716\)</span> converts the second column into the
+third. The five-term remainder is <span
+class="math inline" data-term-auto="off">\(286\)</span> less than the first, and the
+norm-minimising remainder is another <span
 class="math inline" data-term-auto="off">\(12\)</span> less. All three exclude exactly the
 same divisors of <span class="math inline" data-term-auto="off">\(1380\)</span> by this
 argument. The coefficient and support improvements in §<a class="math-ref" href="#long68:sec:basis-examples">1.2</a> do not

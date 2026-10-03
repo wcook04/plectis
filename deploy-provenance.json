@@ -1,74 +1,5 @@
 {
-  "last_scoped_release": {
-    "changed_paths": {
-      "maths/assets/universe-companion.css": {
-        "after": {
-          "mode": 420,
-          "sha256": "05082c993c058260609b2ed7938f4aa97038d7a26abc6d4fa136f621febc7922"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "236630590375a4656e63d63fa6e05b58caabb792b260db5f52a87f7c859e78bb"
-        }
-      },
-      "maths/assets/universe-data.json": {
-        "after": {
-          "mode": 420,
-          "sha256": "d4543fd2e0ae1a939f87d3c3d046c4d0fb20bdddcdb7b4ae1c79ade585dbc096"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "a952d5a4ef901cd91cc00d5b4d084f69175b18cdf8d16491f75b25d960427d68"
-        }
-      },
-      "maths/index.html": {
-        "after": {
-          "mode": 420,
-          "sha256": "8c3a0069f7feaf57cc16ec60dd5fdca6eea248744266b94b0b299475d71ba088"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "d0bad19adf9da8c7cc9964efcf1abd6976b5ca915f925d3a41d281beefc49c9b"
-        }
-      },
-      "maths/universe.html": {
-        "after": {
-          "mode": 420,
-          "sha256": "b7f4258d471692c9592672def348cb1f885829fd74b567ee72cb3abe48c78b19"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "09d51d4d33e272badef6cfa40af76326ffb0798d5db0de4f9d98f27b8a015c4a"
-        }
-      }
-    },
-    "current_universe_paths": [
-      "maths/assets/maths.css",
-      "maths/assets/universe-companion.css",
-      "maths/assets/universe-companion.js",
-      "maths/assets/universe-companion.json",
-      "maths/assets/universe-data.json",
-      "maths/assets/universe-layout-full.json",
-      "maths/assets/universe.js",
-      "maths/universe.html"
-    ],
-    "generator_commit": "52c269662d40bda5a17802ff1f637477bf696e53",
-    "pages_base_commit": "f2626df1699491bb0ae3d66bb57870af864b6c8c",
-    "private_root_released": false,
-    "protected_file_count": 470,
-    "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
-    "protected_sha256": "675cab6940d8e0057bf17d0c653758f0932449807d5623e8611b33b5ce5cc11e",
-    "retained_dependency_recovery": [],
-    "scope": "lean_math_reading_room",
-    "universe_parity": {
-      "full_edges": 9140,
-      "full_nodes": 2902,
-      "index_edges": 2240,
-      "index_nodes": 895,
-      "toolkit_fragment_preserved": true
-    }
-  },
-  "note": "Source frontiers that later releases must contain. Last scoped release updates only its declared paths; protected historical products were not regenerated or relabeled current.",
+  "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
@@ -77,7 +8,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "c1fd3de215d01ec077fbdd4fdd23b97469e65610",
+      "commit": "911a24fcd551b9ea98af4fa3e44ad4dcd1ab2ec9",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

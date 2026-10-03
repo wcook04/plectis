@@ -398,12 +398,14 @@ others. We use it to determine the leading coefficient as well as the
 degree. After cancellation, this will give the least common power
 of the base denominator that clears the pair.
 
-Let $d_{n,k}=\deg\bigl(c_{n,k}(X)X^{a_0k}\bigr)$.  The Gaussian-binomial degree
-formula gives
+Let $d_{n,k}=\deg\bigl(c_{n,k}(X)X^{a_0k}\bigr)$. The Gaussian factors
+are monic of degrees $(a_1-1)(k-a_1)$ and
+$(\beta_n-k-1)(k-a_2)$. Adding these to the monomial exponent gives
 \[
  d_{n,k}=e_{n,k}+a_0k+(a_1-1)(k-a_1)+(\beta_n-k-1)(k-a_2)
- =\frac{-k^{2}+80kn+3k-340n^{2}-26n}{2},
+ =\frac{-k^{2}+80kn+3k-340n^{2}-26n}{2}.
 \]
+Taking the difference at consecutive indices, we obtain
 \[
  d_{n,k+1}-d_{n,k}=40n+1-k>0\qquad(a_2\le k\le\beta_n-2),
 \]
@@ -426,6 +428,15 @@ cancel: the top summand has leading coefficient
 $(-1)^{a_1+a_2+\beta_n}=(-1)^n$, and both Gaussian factors and
 $D_N/\Omega_n$ are monic. Thus the leading coefficient of $U_n$ is
 $(-1)^n$.
+
+The net decrease in degree is
+\[
+ K_n-W_n=M_n-\deg(D_N/\Omega_n).
+\]
+Dividing by $X^{M_n}$ lowers the degree by $M_n$, but multiplying
+by the remaining cyclotomic factors increases it by
+$\deg(D_N/\Omega_n)$. This is why the remainder estimate below
+involves $K_n-W_n$, rather than $M_n$ alone.
 
 For a reduced fraction $a/b$, the unit leading coefficient also gives
 the exact denominator of $U_n(a/b)$, not just an upper bound. For every prime $p\mid b$,
@@ -653,12 +664,11 @@ $|\xi-p/q|<q^{-\nu}$ has infinitely many reduced rational solutions.
 In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
 \end{corollary}
 \begin{proof}
-The coefficient $A_n$ in~\eqref{long1049:eq:A-explicit} is a sum of
-$O(n)$ Laurent monomials times two Gaussian binomial polynomials.
-Each Gaussian polynomial has nonnegative coefficients summing to at
-most $2^{27n+2}$. Hence the sum of the absolute coefficients of $A_n$
-is $\exp(O(n))$. Since its largest exponent is $K_n$,
-$|A_n(x)|\le x^{K_n}\exp(O(n))$ for each fixed $x>1$.
+For the irrationality exponent, bound $A_n$ in~\eqref{long1049:eq:A-explicit}:
+its $O(n)$ Laurent monomials multiply two Gaussian binomial polynomials,
+each with nonnegative coefficients summing to at most $2^{27n+2}$.
+Thus its absolute coefficient sum is $\exp(O(n))$, and its largest
+exponent $K_n$ gives $|A_n(x)|\le x^{K_n}\exp(O(n))$ for fixed $x>1$.
 The cyclotomic estimate in Section~\ref{long1049:sec:integer-forms}
 bounds the multiplier $x^{-M_n}D_N(x)/\Omega_n(x)$ by
 $x^{W_n-K_n}\exp(O_x(n))$. Therefore
@@ -685,12 +695,13 @@ Fix $0<\eta<\tau$. For all sufficiently large $n$, the estimates above give
  e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le e^{-(\tau-\eta)n^2},
  \qquad |Q_n|\le e^{(\alpha+\eta)n^2}.
 \]
-For every sufficiently large denominator $q$, choose
+For every sufficiently large denominator $q$, the upper remainder bound
+suggests choosing
 $n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil$. Then
 $2q(Q_n\xi-P_n)\le1$, so the preceding integer argument applies to
 $(A,B)=(Q_n,P_n)$ for every numerator $p$. Also $Q_n\ne0$: otherwise
 $Q_n\xi-P_n$ would be an integer strictly between $0$ and $1$.
-It follows that
+The lower remainder bound and the coefficient bound now give
 \[
  |\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)n^2}
              =q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)},
@@ -966,9 +977,11 @@ For every fixed $p>1$,
 Here $\log(d_n+1)=o(n^2)$ by the degree bound. This is where the
 coefficient-height hypothesis is needed.
 
-Suppose $\sigma>\delta$ and choose an integer $p\ge2$ such that
-$(\sigma-\delta)\log p>h$. Put $u_n=U_n(p)$, $v_n=V_n(p)$ and
-$\ell_n=u_nF(p)-v_n$. The evaluation bound and hypothesis~(4) give
+Suppose $\sigma>\delta$. To make remainder decay beat coefficient growth,
+choose an integer $p\ge2$ with $(\sigma-\delta)\log p>h$ and put
+$u_n=U_n(p)$, $v_n=V_n(p)$ and $\ell_n=u_nF(p)-v_n$.
+The integer determinant eliminates $F(p)$; the evaluation bound
+and hypothesis~(4) give
 \[
  u_nv_{n+1}-u_{n+1}v_n=u_{n+1}\ell_n-u_n\ell_{n+1}=o(1).
 \]
@@ -998,6 +1011,7 @@ both assertions away from equality. At $3/2$ this sign is positive
 because $\log2/\log3>1/2\ge\sigma/(\sigma+d)$.
 \end{proof}
 
+\papersectiontarget{long1049-no-decay}
 \begin{corollary}[nondecay when $b<a<b^2$]
 \label{long1049:cor:no-decay-below-square}
 Under the hypotheses of Theorem~\ref{long1049:res:archcap}, for positive integers
@@ -1006,20 +1020,18 @@ tend to zero.  No limit of $d_n/n^2$ is assumed.
 \end{corollary}
 \begin{proof}
 Write $x=a/b$ and suppose $C_n=b^{d_n}\Lambda_n(x)\to0$.
-Eventual nonvanishing gives
-$\log|C_n|=d_n\log b+\log|\Lambda_n(x)|$ for all sufficiently large $n$.
-Also $|C_n|\le1$ eventually.  The lower side of the remainder asymptotic
-therefore implies
+Since $C_n\ne0$ and $|C_n|\le1$ eventually, logarithms and the
+remainder asymptotic at $x$ give the degree bound
 \[
  d_n\log b\le-\log|\Lambda_n(x)|
        =\sigma\log x\,n^2+o(n^2).
 \]
 Set $c=\sigma\log x/\log b$.  Since $1<x<b$, we have $0<c<\sigma$,
 and the displayed inequality gives $d_n\le(c+\varepsilon)n^2$ eventually
-for each $\varepsilon>0$. Apply Theorem~\ref{long1049:res:archcap}
-to the same family with degree upper rate $c$. Its height bound,
-nonvanishing and remainder asymptotics at every real base greater than
-one are unchanged. The theorem gives $\sigma\le c$, a contradiction.
+for each $\varepsilon>0$. Apply Theorem~\ref{long1049:res:archcap} to
+the same polynomial family with degree upper rate $c$: its height bound,
+nonvanishing and all-base remainder asymptotics are unchanged. This gives
+$\sigma\le c$, contradicting $c<\sigma$.
 \end{proof}
 
 
@@ -3577,8 +3589,12 @@ $|A|\le |B||J|k$, a contradiction.
 
 For an application, let $M$ integral rows have real remainders $e_j$,
 and suppose their subset sums have $Q$ possible residues modulo a
-positive integer $D$. Put $T=\sum_j|e_j|$. All subset sums of the
-remainders lie in an interval of length $T$. Divide it into half-open
+positive integer $D$. Put $T=\sum_j|e_j|$. The least and greatest
+subset remainders are respectively
+\[
+ \sum_{e_j<0}e_j\quad\text{and}\quad\sum_{e_j>0}e_j,
+\]
+so the interval between them has length $T$. Divide it into half-open
 intervals of width $D/n$, using a final interval for the right
 endpoint if necessary. At most $\lfloor nT/D\rfloor+1$ intervals
 are needed. If each simultaneous residue-and-remainder fibre has
@@ -4949,13 +4965,6 @@ printed regions for $F$ compared here reaches $\log4/\log31$.
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 
-\paragraph{Data availability.}
-The \href{\sourceurl}{formal-source revision} contains the Lean sources
-with their toolchain and library manifest. The
-\href{\evidencerecordurl}{evidence record} lists the declarations and
-recorded checks. Proofs are given in the text, with ordinary arguments
-and finite computations distinguished from the formal results.
-
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
 
@@ -4963,15 +4972,13 @@ funding.  The author declares no competing interests.
 Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 I thank Wouter van Doorn for advice on writing for a first-time reader,
 using fewer names and symbols, and explaining the force of a theorem's
-hypotheses. His advice was given on another note and does not constitute
-mathematical review or endorsement of the results here.
+hypotheses.
 
 \appendix
-\section{Guide to the formal sources}\label{long1049:app:index}
+\section{Verification and reproducibility}\label{long1049:app:index}
 
-The links beside each statement and in the margin identify the supplied
-Lean declarations and their recorded Comparator comparisons. The
-\href{\evidencerecordurl}{evidence record} lists those checks;
+The \href{\evidencerecordurl}{evidence record} identifies the supplied
+Lean declarations and recorded Comparator comparisons;
 no fresh execution or independent review of this revision is
 reported. Theorem~\ref{long1049:thm:geometric-universality}
 retains its checked polynomial shift-bound hypotheses, and its
@@ -4982,6 +4989,9 @@ That broader argument, the
 and the \hyperref[long1049:prop:calibrated-height]{height bound}
 have ordinary proofs here but no Lean proofs in the supplied record. The unformalised material
 is kept separate from the checked fixed-base theorem.
+The \href{\sourceurl}{source revision} includes the Lean sources,
+toolchain and library manifest.
+\evidenceparagraph{\evidencerecordurl}
 
 \paragraph{Formal verification and computations.}
 The printed proofs of Theorems~\ref{long1049:res:region}

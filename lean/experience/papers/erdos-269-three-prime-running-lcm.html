@@ -704,30 +704,38 @@ Induction yields
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:actual-tail}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
-\end{equation}</annotation></semantics></math> When
+\end{equation}</annotation></semantics></math> Throughout this section
+let
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:actual-bound}
+ K(B,a)=90B(a+1)^2.
+\end{equation}</annotation></semantics></math> The bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>≤</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;BX_{\ell+h}\le K(B,\ell+h)</annotation></semantics></math>
+and <code>[eq:actual-tail]</code> enclose the starting tail in the
+interval
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mo>&lt;</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>≤</mo><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{BF_{\ell,h}}{W_{\ell,h}}&lt;BX_\ell
+ \le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.</annotation></semantics></math>
+If this interval contains no integer, then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
-is integral, the positive integer
+cannot be integral. The residue test expresses the same exclusion at the
+other end of the segment: an integral starting tail would make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">BX_{\ell+h}</annotation></semantics></math>
-must therefore be congruent to
+a positive integer congruent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">-BF_{\ell,h}</annotation></semantics></math>
 modulo
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><annotation encoding="application/x-tex">W_{\ell,h}</annotation></semantics></math>.
-If its least positive representative is already too large, no such tail
-exists. Positivity matters here: in the zero residue class the first
-permitted value is the modulus itself.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><annotation encoding="application/x-tex">W_{\ell,h}</annotation></semantics></math>.</p>
 <p>For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">W\ge1,t</annotation></semantics></math>,
 define
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>W</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_W(t)=1+((t-1)\operatorname{mod} W)</annotation></semantics></math>,
 with the remainder in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>W</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{0,\ldots,W-1\}</annotation></semantics></math>.
-Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_W(0)=W</annotation></semantics></math>.
-Throughout this section let
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:actual-bound}
- K(B,a)=90B(a+1)^2.
-\end{equation}</annotation></semantics></math></p>
+This is the least positive integer in the residue class of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+In particular
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><mi>W</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_W(0)=W</annotation></semantics></math>,
+rather than zero: the left endpoint of the interval is excluded because
+the terminal tail is positive.</p>
 <div class="lemma">
 <p><strong>Lemma 4.1</strong> (least positive residues). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
@@ -751,9 +759,13 @@ direct iteration gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub><mo>=</mo><mn>648000</mn></mrow><annotation encoding="application/x-tex">W_{1,6}=648000</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub><mo>=</mo><mn>524431</mn></mrow><annotation encoding="application/x-tex">F_{1,6}=524431</annotation></semantics></math>.
-Hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><msub><mi>W</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>123569</mn><mo>&gt;</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5760</mn></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;K(1,7)=5760</annotation></semantics></math>.
-This excludes an integral
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5760</mn></mrow><annotation encoding="application/x-tex">K(1,7)=5760</annotation></semantics></math>,
+the interval is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>524431</mn><mn>648000</mn></mfrac><mo>&lt;</mo><msub><mi>X</mi><mn>1</mn></msub><mo>≤</mo><mfrac><mn>530191</mn><mn>648000</mn></mfrac><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{524431}{648000}&lt;X_1\le\frac{530191}{648000}&lt;1.</annotation></semantics></math>
+It contains no integer. Equivalently,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><msub><mi>W</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>123569</mn><mo>&gt;</mo><mn>5760</mn></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;5760</annotation></semantics></math>
+excludes an integral
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>.
 A rational denominator might clear only later, so a criterion for
 irrationality must allow every late start and every denominator part
@@ -826,13 +838,16 @@ or
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>
 is needed for this direction. ◻</p>
 </div>
-<p>The converse gives no estimate for the gap
+<p>As
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+grows, the interval above narrows towards the fixed value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>.
+If that value is nonintegral, a sufficiently narrow interval contains no
+integer. The converse formalises this observation, but gives no estimate
+for the gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>.
-It explains why a long enough segment succeeds once
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
-is known to be nonintegral. To use the forward implication, we must
-prove <code>[eq:escape]</code> for the actual coefficients without
-assuming that nonintegrality.</p>
+To use the forward implication, we must prove <code>[eq:escape]</code>
+for the actual coefficients without assuming that nonintegrality.</p>
 <p>The upper-bound property of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
 is essential: choosing the zero function would make every residue
@@ -975,9 +990,11 @@ with
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\delta_n=1</annotation></semantics></math>.
 Substitution proves <code>[eq:two-prime-affine]</code>.</p>
-<p>To apply the transcendence theorem, we express
+<p>Both sums are now nonconstant polynomials in the single value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+with rational coefficients. It therefore remains to prove that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-in terms of the Hecke–Mahler series
+is transcendental. For this we use the Hecke–Mahler series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>m</mi><mi>n</mi></msub></msubsup><msup><mi>x</mi><mi>n</mi></msup><msup><mi>y</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k</annotation></semantics></math>.
 Geometric summation gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>x</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>y</mi></mrow><mi>y</mi></mfrac><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
@@ -1140,9 +1157,16 @@ its four entries are
 so it equals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>60</mn><mo>−</mo><mn>1</mn><mi>/</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">1/60-1/12</annotation></semantics></math>.</em></p>
 </div>
-<p>A single nonzero minor rules out rank one. The theorem below requires
-minors of every order, with rows and columns chosen to suit the order.
-The same choices will work in every layer
+<p>This nonzero two-by-two minor rules out rank one. More generally, a
+sum of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+separated products would give every matrix layer rank at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
+To exclude every finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+we therefore seek nonzero minors of arbitrarily large order. Their rows
+and columns may depend on the order; the same choices will work in every
+layer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</p>
 <div class="theorem">
 <p><strong>Theorem B.2</strong> (no finite separation of the kernel).
@@ -1174,15 +1198,24 @@ satisfying
 <div class="proof">
 <p><em>Proof.</em> For fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-we rescale rows and columns to obtain a matrix independent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
-Put
+the powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+split into a row factor and a column factor, as in the two-prime case.
+The power of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+has one remaining interaction between the indices. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><msup><mi>r</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">c=r^{-1}</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">x_i=\{i\log_r p\}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">y_j=\{j\log_r q\}</annotation></semantics></math>,
-where braces denote fractional parts. Splitting the floor exponents
-gives
+where braces denote fractional parts. Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi><mo>+</mo><mi>j</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><mi>j</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mi>j</mi></msub><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\lfloor i\log_r p+j\log_r q\rfloor
+ =\lfloor i\log_r p\rfloor+\lfloor j\log_r q\rfloor
+   +\mathbf1_{\{x_i+y_j\ge1\}}.</annotation></semantics></math> The last
+term is the carry when the two fractional parts are added. Putting all
+the other prime powers into row and column factors gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>U</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>V</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msup><mi>c</mi><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mi>j</mi></msub><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
  C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},</annotation></semantics></math>
 where
@@ -1192,8 +1225,16 @@ where
  V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
             r^{\lfloor\log_r q^j\rfloor}.
 \end{aligned}</annotation></semantics></math> These positive factors
-preserve nonvanishing of minors. The remaining entry records whether
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mi>j</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x_i+y_j\ge1</annotation></semantics></math>.
+preserve nonvanishing of minors. In column
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
+the entry changes from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>i</mi></msub><annotation encoding="application/x-tex">x_i</annotation></semantics></math>
+reaches
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">1-y_j</annotation></semantics></math>.
 Distinct primes make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_r p</annotation></semantics></math>
 and
@@ -1239,8 +1280,10 @@ reduces the selected kernel minor to
  c&amp;c&amp;\cdots&amp;c
  \end{pmatrix},\qquad
  \det T_n(c)=c(c-1)^{n-1}.</annotation></semantics></math> Indeed,
-subtracting each preceding row from the next, working upwards from the
-last row, leaves diagonal entries
+subtract each preceding row from the next, working upwards from the last
+row. Each row difference has just one nonzero entry,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c-1</annotation></semantics></math>,
+in its own column. The resulting triangular matrix has diagonal entries
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c,c-1,\ldots,c-1</annotation></semantics></math>.
 The original determinant is therefore
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><munder><mo>∏</mo><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>U</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><munder><mo>∏</mo><mrow><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>V</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>≠</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">c(c-1)^{n-1}
@@ -1432,18 +1475,14 @@ irrationality of the scalar sum.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
-<h2>Proof sources and further comparisons</h2>
-<p>The margin marks link to the recorded Lean declarations and, where
-present, Comparator comparisons. For the five-map proof the declarations
-are in <a
+<h2>Verification, reproducibility and sources</h2>
+<p>The five-map proof is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean">the
 distinct-value development</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightBlockRadix.lean">its
-block-series criterion</a>; no comparison is recorded. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/\evidencerecordurl">evidence record</a> gives the versions.
-Neither checker was rerun for this revision, and the public links may
-precede this manuscript’s local revision. The named input for two-prime
-transcendence stays beside that theorem.</p>
+block-series criterion</a>. Its statement has no recorded Comparator
+comparison. The evidence record fixes the source versions; the named
+input for two-prime transcendence is stated beside that theorem.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
 for sums over distinct values</a> calculate the interval endpoints and
@@ -1470,9 +1509,11 @@ words realised by the arithmetic sequence.</p>
 <p>The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-source-inventory">companion’s
 source inventory</a> also covers the ordinary general and subseries
-arguments. Its historical note reports a second AI agent’s check on 26
-September 2026 and the incorporation of its corrections. No human
-mathematical review is reported.</p>
+arguments. Its historical note records the 26 September 2026 AI check
+and the corrections made from it; independent human mathematical review
+has not been reported.</p>
+<section id="further-comparisons" class="level3 unnumbered">
+<h3 class="unnumbered">Further comparisons</h3>
 <p>The classical criteria of Erdős–Straus <span class="citation"
 data-cites="erdosstraus1974"><a href="#ref-9">[9]</a></span>, Hančl–Tijdeman <span
 class="citation" data-cites="hancltijdeman2004"><a href="#ref-10">[10]</a></span> and
@@ -1506,6 +1547,7 @@ data-cites="tijdemanmeijer1974 languasco2025"><a href="#ref-16">[16]</a><a href=
 Ahmes-series problems <span class="citation"
 data-cites="kovactao2024"><a href="#ref-18">[18]</a></span> provides context; no estimate from
 those papers enters our dyadic counting argument.</p>
+</section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="authorship-and-availability." class="level5">

@@ -71,7 +71,8 @@
     var detail = null;
     var detailAsked = false;
     // focusKey starts unset, so the first card (even "nothing in focus") is drawn.
-    var state = { open: false, problem: null, focusKey: undefined, focus: null, overPanel: false, keyboard: false };
+    var state = { open: false, problem: null, focusKey: undefined, focus: null, overPanel: false, keyboard: false,
+                  card: { shape: null, tier: null, lines: {} } };
     var timers = { dwell: 0, leave: 0, linger: 0 };
     var motion = !api.reduceMotion && typeof Element !== 'undefined' && !!Element.prototype.animate;
 
@@ -134,9 +135,7 @@
       fetch(api.route(data.detail)).then(function (r) { return r.json(); }).then(function (payload) {
         detail = payload;
         // The note for the card on show arrives with the file.
-        if (state.focus && state.focus.kind === 'paper_statement') {
-          el.focus.innerHTML = focusHtml(state.focus);
-        }
+        if (state.focus && state.focus.kind === 'paper_statement') drawCard(cardOf(state.focus), true);
       }).catch(function () {});
     }
 
@@ -191,48 +190,110 @@
       return 'No Lean statement is recorded for it yet.';
     }
 
-    function linksHtml(s, readLabel) {
+    function linksInner(s, readLabel) {
       var links = [];
       if (s.href) links.push('<a href="' + esc(s.href) + '">' + esc(readLabel) + '</a>');
       if (s.mapHref) links.push('<a href="' + esc(s.mapHref) + '">Open it in the map</a>');
-      return links.length ? '<p class="uc__links">' + links.join('') + '</p>' : '';
+      return links.join('');
     }
 
-    function focusHtml(s) {
-      if (!s || s.kind === 'problem') {
-        return '<p class="uc__hint">Point at a dot on the map to read that result here.</p>';
-      }
-      if (s.kind === 'paper_statement') {
+    /* ---- The card ------------------------------------------------------ */
+    /* A card is a fixed set of lines for its kind. As the pointer moves
+       along a band the problem above holds still and so does every line
+       that reads the same ("In the long record", the Lean sentence, the
+       links); only a line whose words changed is set again, and it settles
+       in a tenth of a second. The mark ripples only when the evidence it
+       shows is new. A card of another kind is drawn whole. */
+    var CARD_SHAPES = {
+      result: '<p class="uc__label" data-line="label"></p>' +
+        '<p class="uc__focus-title"><span class="uc-mark" aria-hidden="true"><span class="uc-mark__ring"></span></span>' +
+        '<span data-line="name"></span></p>' +
+        '<p class="uc__focus-meta" data-line="meta"></p><p class="uc__decl" data-line="decl"></p>' +
+        '<p class="uc__note" data-line="note"></p><p class="uc__links" data-line="links"></p>',
+      paper: '<p class="uc__label" data-line="label"></p><p class="uc__focus-title"><span data-line="name"></span></p>' +
+        '<p class="uc__links" data-line="links"></p>',
+      hint: '<p class="uc__hint" data-line="hint"></p>'
+    };
+
+    function cardOf(s) {
+      if (s && s.kind === 'paper_statement') {
         var d = detail && detail.statements ? detail.statements[s.id] : null;
-        var note = (d && d.html_mathml && d.html_mathml.relation_note) || s.leanReasonHtml || '';
         var decl = s.decls && s.decls[0];
         // A declaration's last two segments name it; the full name is its title.
         var parts = decl ? String(decl.name).split('.') : [];
         var shortName = parts.length > 2 ? '…' + parts.slice(-2).join('.') : (decl ? decl.name : '');
-        return '<p class="uc__label">' + (s.side === 'long' ? 'In the long record' : 'In the short paper') + '</p>' +
-          '<p class="uc__focus-title"><span class="uc-mark uc-mark--' + esc(s.tier || 'none') + '" aria-hidden="true"></span>' +
-          '<span>' + esc(s.label) + '</span></p>' +
-          '<p class="uc__focus-meta">' + esc(leanSentence(s)) + '</p>' +
-          (decl ? '<p class="uc__decl"><code title="' + esc(decl.name) + '">' +
+        return { shape: 'result', tier: s.tier || 'none', lines: {
+          label: s.side === 'long' ? 'In the long record' : 'In the short paper',
+          name: esc(s.label),
+          meta: esc(leanSentence(s)),
+          decl: decl ? '<code title="' + esc(decl.name) + '">' +
             esc(shortName).replace(/([._])(?=[^._])/g, '$1<wbr>') + '</code>' +
-            (s.declCount > 1 ? esc(' and ' + count(s.declCount - 1, 'more declaration', 'more declarations')) : '') + '</p>' : '') +
-          (note ? '<p class="uc__note">' + note + '</p>' : '') +
-          linksHtml(s, 'Read it in the paper');
+            (s.declCount > 1 ? esc(' and ' + count(s.declCount - 1, 'more declaration', 'more declarations')) : '') : '',
+          note: (d && d.html_mathml && d.html_mathml.relation_note) || s.leanReasonHtml || '',
+          links: linksInner(s, 'Read it in the paper') } };
       }
-      if (s.kind === 'public_claim') {
-        var tier = CLAIM_TIER[s.status] || 'proved';
-        return '<p class="uc__label">Checked claim</p>' +
-          '<p class="uc__focus-title"><span class="uc-mark uc-mark--' + tier + '" aria-hidden="true"></span>' +
-          '<span>' + esc(s.label) + '</span></p>' +
-          (s.status ? '<p class="uc__focus-meta">' + esc(capital(s.status)) + '.</p>' : '') +
-          (s.statement ? '<p class="uc__note">' + esc(s.statement) + '</p>' : '') +
-          linksHtml(s, 'Read it');
+      if (s && s.kind === 'public_claim') {
+        return { shape: 'result', tier: CLAIM_TIER[s.status] || 'proved', lines: {
+          label: 'Checked claim', name: esc(s.label),
+          meta: s.status ? esc(capital(s.status)) + '.' : '', decl: '',
+          note: s.statement ? esc(s.statement) : '',
+          links: linksInner(s, 'Read it') } };
       }
-      if (s.kind === 'paper') {
-        return '<p class="uc__label">Paper</p><p class="uc__focus-title"><span>' + esc(s.label) + '</span></p>' +
-          linksHtml(s, 'Read the paper');
+      if (s && s.kind === 'paper') {
+        return { shape: 'paper', tier: null, lines: { label: 'Paper', name: esc(s.label),
+          links: linksInner(s, 'Read the paper') } };
       }
-      return '<p class="uc__hint">Point at a dot on the map to read that result here.</p>';
+      return { shape: 'hint', tier: null, lines: { hint: 'Point at a dot on the map to read that result here.' } };
+    }
+
+    function drawCard(card, quiet) {
+      var whole = card.shape !== state.card.shape;
+      if (whole) {
+        el.focus.innerHTML = CARD_SHAPES[card.shape];
+        state.card = { shape: card.shape, tier: null, lines: {} };
+      }
+      var moved = [];
+      Object.keys(card.lines).forEach(function (name) {
+        var html = card.lines[name];
+        var was = state.card.lines[name];
+        if (was === html) return;
+        state.card.lines[name] = html;
+        var node = el.focus.querySelector('[data-line="' + name + '"]');
+        if (!node) return;
+        node.innerHTML = html;
+        // An empty line takes no room; the name always has one.
+        if (name !== 'name') node.hidden = !html;
+        // What the reader sees decides the motion: the links keep their
+        // words from one result to the next while their addresses change,
+        // and a line whose words are the same holds still.
+        var words = function (text) { return String(text || '').replace(/<[^>]*>/g, ''); };
+        if (html && words(html) !== words(was)) moved.push(node);
+      });
+      var mark = el.focus.querySelector('.uc-mark');
+      var newEvidence = !!mark && card.tier !== state.card.tier;
+      if (newEvidence) {
+        mark.className = 'uc-mark uc-mark--' + card.tier;
+        state.card.tier = card.tier;
+      }
+      if (!motion) return;
+      if (whole) {
+        if (!quiet) {
+          el.focus.animate([{ opacity: 0.2, transform: 'translateY(3px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 140, easing: EASE });
+        }
+      } else {
+        moved.forEach(function (node) {
+          node.animate([{ opacity: 0.3 }, { opacity: 1 }], { duration: 100, easing: EASE });
+        });
+      }
+      // The mark answers the map's ripple on the same beat (the map waits a
+      // tenth of a second before its own).
+      if (newEvidence) {
+        mark.firstChild.animate([{ transform: 'scale(1)', opacity: 0 },
+                                 { transform: 'scale(1.3)', opacity: 0.8, offset: 0.12 },
+                                 { transform: 'scale(3.6)', opacity: 0 }],
+          { duration: 720, delay: 110, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', fill: 'backwards' });
+      }
     }
 
     function fillProblem(pid) {
@@ -256,6 +317,7 @@
       el.focus.parentNode.replaceChild(slot, el.focus);
       el.focus = slot;
       state.focusKey = undefined;
+      state.card = { shape: null, tier: null, lines: {} };
       Array.prototype.forEach.call(el.sw.querySelectorAll('.uc__chip'), function (chip) {
         var on = chip.getAttribute('data-problem') === pid;
         if (on) chip.setAttribute('aria-current', 'true'); else chip.removeAttribute('aria-current');
@@ -268,12 +330,8 @@
       if (key === state.focusKey) return;
       state.focusKey = key;
       state.focus = s;
-      el.focus.innerHTML = focusHtml(s);
       if (s && s.kind === 'paper_statement') needDetail();
-      if (motion && !quiet) {
-        el.focus.animate([{ opacity: 0.2, transform: 'translateY(3px)' }, { opacity: 1, transform: 'none' }],
-          { duration: 180, easing: EASE });
-      }
+      drawCard(cardOf(s), quiet);
     }
 
     /* ---- Motion -------------------------------------------------------- */

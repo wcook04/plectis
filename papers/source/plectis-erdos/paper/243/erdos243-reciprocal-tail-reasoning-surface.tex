@@ -388,9 +388,10 @@ $\sigma\beta=-\beta$.
 By Chebotarev's density theorem in the form stated by Stevenhagen
 and Lenstra \cite[\S3, p.~15]{stevenhagenlenstra1996}, infinitely many
 unramified rational primes have Frobenius conjugate to $\sigma$.
-Only infinitude is needed. We discard the finitely many primes at which
-coefficients, $\alpha$ or $\beta$ have denominators, together with
-$2$ and the primes at which $\beta$ reduces to zero. Above each
+Only infinitude is needed. We discard the exceptional primes in the
+hypothesis and the finitely many primes at which coefficients, $\alpha$
+or $\beta$ have denominators, together with $2$ and the primes at which
+$\beta$ reduces to zero. Above each
 remaining prime $\ell$, choose a prime of $L$ whose Frobenius is
 $\sigma$. Its residue field then satisfies
 \[
@@ -1462,11 +1463,11 @@ sum as $p/q$, with positive integers $p,q$, put $x_n=\sum_{k\ge n}1/a_k$, and ta
 $D_0=q$. Set
 \[
  L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
- M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.
+ M_n=D_n/L_n,\quad U_n=L_nx_n=C_n/M_n,\quad V_n=E_n/M_n.
 \]
-The rational tail has denominator dividing $L_n$, so $U_n=L_nx_n$
-and $V_n$ are integers. This clears the denominator but need not reduce
-the fraction: $U_n$ and $L_n$ may still have common factors.
+The rational tail has denominator dividing $L_n$, so $U_n$ is an integer.
+Also $V_n=L_n-(a_n-1)U_n\in\Z$. This clears the denominator but need
+not reduce the fraction: $U_n$ and $L_n$ may still have common factors.
 With $\rho_n=\gcd(L_n,a_n)$, the exact updates are
 \[
  M_{n+1}=M_n\rho_n,\qquad
@@ -1553,9 +1554,12 @@ $U_n$, monotonicity of $f$ gives
  \sum_{\substack{\tau\text{ first crossed}\\\text{at step }n}}f(\tau)
  \le(d_n-B)f(U_n).
 \]
-Each selected height has one first crossing, and the first selected
-height is at most $R_T+P$. Summing and comparing each interval of length
-$P$ with its left endpoint gives, for $R_N\ge R_T+P$, the finite bound
+Each selected height has one first crossing. The first is at most
+$R_T+P$, and successive selected heights are $P$ apart. For
+$R_N\ge R_T+P$, the intervals
+$[\tau,\min\{\tau+P,R_N\}]$, over selected heights $\tau\le R_N$,
+cover $[R_T+P,R_N]$. Since $f$ is nonincreasing, its integral over
+each interval is at most $P f(\tau)$. Summing the crossing bounds gives
 \begin{equation}\label{long243:eq:weightedcrossing}
  \sum_{\substack{T\le n<N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
  \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
@@ -1613,7 +1617,8 @@ gives
  \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
  \qquad 0<\gamma_n+\theta_n<3/a_n
 \]
-eventually. Thus the two nonnegative summands
+eventually. Taking positive parts cannot increase the absolute difference.
+Since $V_n=U_n\theta_n$, the two nonnegative summands
 $U_nf(U_n)(\gamma_n-B/U_n)_+$ and $(-V_n-B)_+f(U_n)$ differ by at most
 $3U_nf(U_n)/a_n$. To see summability directly, put $P_n=\prod_{j<n}a_j$.
 The tail estimate $x_n\sim1/a_n$ gives $C_n/a_n\sim qP_n/a_n^2$, and
@@ -1793,7 +1798,8 @@ $v$ is a unit. If $r=s>0$, both terms in $au-v$ are divisible by $p^s$,
 so $t\ge s$; substituting gives the second case. If $r=s=0$, the same
 formula gives zero without needing $u$ to be a unit.
 \end{proof}
-Cancellation is not the same as a fall in the reduced denominator valuation.
+The factor $h$ is removed from $av$, after multiplication by $a$; this
+need not lower the prime exponents of the original denominator $v$.
 For example, $(u,v,a)=(2,15,9)$ gives $w=3$, $h=3$ and
 $(u',v')=(1,45)$. The numerator before cancellation exceeds $u$ by only
 $w-u=1$, yet the $3$-adic valuation of the reduced denominator rises
@@ -2439,12 +2445,15 @@ $\gamma_n^{+}\le r/n$ for all $n\ge N$.  Then
 so $(t_n\gamma_n)_+=t_n\gamma_n^{+}=O(n^{r-1})$ tends to zero and
 $\limsup_nt_n\gamma_n\le0$.  Koizumi's Corollary~4(1)
 \cite[pp.~14--15]{koizumi2025} gives the first conclusion.
-For the second, positivity of $1+\gamma_n$ and
+For the second, divide $t_n$ by $n$ to obtain
 \[
- 1+\gamma_n\le(1+1/n)(1+K/n^{1+\varepsilon})
+ \frac{t_{n+1}/(n+1)}{t_n/n}
+ =\frac{1+\gamma_n}{1+1/n}
+ \le 1+\frac{K}{n^\varepsilon(n+1)}.
 \]
-give $t_n=O(n)$, since the second product converges. Consequently
-$t_n(\gamma_n)_+=O(1)$, and the criterion bounding the product expression applies.
+The product of the upper bounds converges, so $t_n/n$ is bounded above.
+Consequently $t_n(\gamma_n)_+=O(1)$, and
+Theorem~\ref{long243:res:strausbounded} applies.
 \end{proof}
 
 The inclusive clause requires more than $\limsup n(\gamma_n)_+\le1$.
@@ -2680,7 +2689,7 @@ supply no bound for the finite transient lengths.
 Suppose the error is negative with a constant magnitude, $E_n=-m$ for a fixed
 $m>0$ and every $n$.  By
 Proposition~\ref{long243:res:update} the numerator increases by $m$ at each step,
-so $C_n=c+nm$ with $c=C_0$, and the definition of the error becomes a
+so $C_n=c+nm$ with $c=C_0$, and the definition of the error becomes the
 identity
 \[
  D_n+m=(a_n-1)\,(c+nm) .
@@ -3414,16 +3423,18 @@ $c_n^2\mid h_n$ throughout the interval.  Then
 \begin{equation}\label{long243:eq:repair-entropy}
  K^L\lcm(m_q:q\in R)^2<(K+1)^L.
 \end{equation}
-To see this, each relative-error bound gives
-$h_nu_{n+1}<(1+1/K)u_n$. Multiplication over the interval and
-$u_r\le u_{r+L}$ yield
+To see this, divide the recurrence by $u_n$ and multiply over the interval:
 \[
- \prod_{r\le n<r+L}h_n<(1+1/K)^L.
+ \left(\prod_{r\le n<r+L}h_n\right)\frac{u_{r+L}}{u_r}
+ =\prod_{r\le n<r+L}\left(1-\frac{\tilde e_n}{u_n}\right)
+ <(1+1/K)^L.
 \]
+The recovery hypothesis $u_r\le u_{r+L}$ makes the endpoint ratio at
+least $1$, so $\prod_{r\le n<r+L}h_n<(1+1/K)^L$.
 The least common multiple of the $m_q$ divides the product of the
 $c_n$, and $c_n^2\mid h_n$ at every step. Its square therefore divides,
-and is at most, the positive product on the left. Multiplying by $K^L$
-proves the claimed bound.
+and is at most, the positive integer $\prod_{r\le n<r+L}h_n$.
+Multiplying by $K^L$ proves the claimed bound.
 This is the
 \lword{Erdos243/RepairEntropy.lean}{48}
       {repairedFamily_recovery_energy_divisionFree}
@@ -3704,14 +3715,9 @@ as an already verified formalisation target.
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 
-\paragraph{Artefact and data availability.} The Lean sources, with their
-fixed toolchain and library manifest, are in the
-\href{\sourceurl}{public repository}. The
-\href{\evidencerecordurl}{evidence record} gives, for every result, the
-Lean declarations, the version checked and the independent Comparator
-check. The external formal-conjecture entry states the problem without
-proving it. The ordinary proofs and their exposition require mathematical
-review independently of these checks.
+\paragraph{Artefact and data availability.} The fixed toolchain,
+Lean sources and evidence record are described in
+Appendix~\ref{long243:app:index}.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -3722,14 +3728,17 @@ removal of unnecessary terminology. The problem numbering follows
 Bloom's Erd\H{o}s Problems catalogue~\cite{erdosproblems}.
 
 \appendix
-\section{Guide to the formal sources}\label{long243:app:index}
-The margin marks and declarations below identify fixed revisions of
-the formal sources. The printed square-specialisation argument uses
-Chebotarev, while the supplied formal proof uses a Dedekind-zeta pole
-comparison. Agreement of their conclusions does not verify every step
-of the printed argument. No Lean build, Comparator replay or independent
-review was performed for this revision. The supplied evidence records
-also retain source-pin and index gaps.
+\section{Verification and reproducibility}\label{long243:app:index}
+\evidenceparagraph{\evidencerecordurl}
+The fixed toolchain, library manifest and Lean sources are in the
+\href{\sourceurl}{public repository}. The evidence record identifies
+the exact declarations, source versions and Comparator status, including
+source-pin and index gaps. The external formal-conjecture entry states
+the problem without proving it. The printed square-specialisation proof
+uses Chebotarev, while the formal proof uses a Dedekind-zeta pole comparison;
+the shared conclusion does not check every step of the printed argument.
+No new Lean build, Comparator replay or independent review was performed
+for this revision.
 
 
 The recurrence identities

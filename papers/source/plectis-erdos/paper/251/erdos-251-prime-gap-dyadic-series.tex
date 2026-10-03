@@ -435,13 +435,20 @@ Proposition~\ref{res:sparserationalisation} to $a=g$.  Choose a rational
 $r$ in its nondegenerate interval $I$ and put $b=g+e$.
 The proposition gives all the correction and congruence assertions,
 together with the comparison of growing blocks.
-Schlage-Puchta \cite[Lemma~4]{schlagepuchta2011} proved that the zero set
-of each fixed nonzero polynomial in a fixed block of prime gaps has
-density zero.  Outside $\bigcup_{i=0}^k(S-i)$ the two blocks are equal, so a zero of
-$F(b_n,\ldots,b_{n+k})$ is already a zero for the original gaps.
-The additional exceptional set has density zero, being a finite union of
-translates of $S$.  This proves the required count without estimating
-the values of $F$.
+Fix $k$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$.  A new zero can occur
+only in a block meeting $S$, so
+\[
+ \begin{aligned}
+ &\bigl|\{n<N:F(b_n,\ldots,b_{n+k})=0\}\bigr|\\
+ &\quad\le\bigl|\{n<N:F(g_n,\ldots,g_{n+k})=0\}\bigr|
+       +\sum_{i=0}^k|S\cap[i,N+i)|.
+ \end{aligned}
+\]
+The first count is $o(N)$ by Schlage-Puchta's Lemma~4
+\cite{schlagepuchta2011}; the finitely many support counts are $o(N)$
+because $S$ has density zero.  Only changed blocks are counted, so the
+values of $F$ need not be bounded.  Since $b$ was chosen before $F,k$,
+the same sequence satisfies every fixed-polynomial condition.
 
 To estimate $P_n-p_n=\sum_{i<n}e_i$, first observe that
 $|S\cap[0,n)|=O_\varepsilon(n/\log\log n)$.  Indeed, the indices below
@@ -611,16 +618,16 @@ For every integer $h\ge1$ and every cutoff $N_0$, exhibit $N\ge N_0$ with
 
 A solution would give a nonintegral shift arbitrarily late for every
 $h$, and hence irrationality by Theorem~\ref{res:escape-irrational}.
-All three conditions must hold at the same index; witnesses for the
-separate conditions cannot be combined without further information.
+All three conditions must hold at the same index; separate infinite
+sets of small-difference and mismatch witnesses do not suffice.
+
 By Proposition~\ref{res:signedwindow}, such an index must have
 $\delta_N=\pm2$.  Schlage-Puchta's lemma
 \cite[Lemma~4]{schlagepuchta2011}, applied to $x_h-x_0\pm2$, shows that
 these eligible indices already have density zero.  Thus the required
-witnesses concern a rare event.  The absolute block comparison in
-Proposition~\ref{res:sparserationalisation} does not control its relative
-frequency, and separate infinite sets of small-difference and mismatch
-witnesses would not suffice.
+witnesses concern a rare event whose relative frequency is not controlled
+by the absolute block comparison in
+Proposition~\ref{res:sparserationalisation}.
 
 \subsection{Finite separation from the integers}
 To decide nonintegrality from finitely many gaps, we bound the part of
@@ -630,8 +637,23 @@ $\sum_nM(n)2^{-n}<\infty$, and write
  S_{h,N,L}=\sum_{j=1}^L(g_{N+h+j}-g_{N+j})2^{-j},\qquad
  R_{h,N,L}(M)=\sum_{j>L}(M(N+h+j)+M(N+j))2^{-j}.
 \]
-Then $|D_N-S_{h,N,L}|\le R_{h,N,L}(M)$.  A general real majorant need
-not give an effective remainder bound, but the polynomial choice below does.
+Splitting the complete tails after $L$ terms gives
+\[
+ D_N=S_{h,N,L}+2^{-L}D_{N+L},\qquad
+ |D_N-S_{h,N,L}|\le R_{h,N,L}(M).
+\]
+The uncomputed part is another complete tail difference, with the same
+shift $h$.  The criterion below uses only the displayed bound; a general
+real majorant need not make that bound computable.
+
+For the actual prime gaps, one computable choice is $M(n)=1250(n+2)^4$.
+For $P(x)=x^4+8x^3+36x^2+104x+150$, summing the identity
+$2P(x)=(x+1)^4+P(x+1)$ with dyadic weights gives
+$\sum_{j\ge1}(x+j)^4 2^{-j}=P(x)$ and hence
+\[
+ R_{h,N,L}(M)=1250\,2^{-L}
+             \bigl(P(N+h+L+2)+P(N+L+2)\bigr).
+\]
 
 \begin{proposition}[finite separation criterion]\label{res:truncation}
 If for every $h\ge1$ and every cutoff $N_0$ there are $N\ge N_0,L\ge1$ with
@@ -660,24 +682,18 @@ The companion, Appendix~D.2, gives an explicit example distinguishing
 refinement at a fixed value from enclosures of changing values.
 \end{remark}
 
-We obtain a computable bound by taking $M(n)=1250(n+2)^4$.
-For $P(x)=x^4+8x^3+36x^2+104x+150$, summing the identity
-$2P(x)=(x+1)^4+P(x+1)$ with dyadic weights gives
-$\sum_{j\ge1}(x+j)^4 2^{-j}=P(x)$ and hence
-\[
- R_{h,N,L}(M)=1250\,2^{-L}
-             \bigl(P(N+h+L+2)+P(N+L+2)\bigr).
-\]
-To certify the conditions in \eqref{eq:smallpair}, suppose $\delta_N=2s$, where
-$s\in\{-1,1\}$, and $|QD_N-A|\le B$, with $A\in\Z$, $Q>0$, $B\ge0$
-integers.  Then $sD_N$ lies in $[(sA-B)/Q,(sA+B)/Q]$.  This whole
+Separation from $\Z$ does not specify either interval in
+Proposition~\ref{res:signedwindow}.  To certify \eqref{eq:smallpair},
+suppose $\delta_N=2s$, where $s\in\{-1,1\}$, and $|QD_N-A|\le B$,
+with $A\in\Z$, $Q>0$, $B\ge0$ integers.  Then $sD_N$ lies in $[(sA-B)/Q,(sA+B)/Q]$.  This whole
 interval lies in $(1/2,1)$ precisely when its lower endpoint exceeds
 $1/2$ and its upper endpoint is less than $1$, that is,
 \[
  2sA-Q>2B,\qquad Q-sA>B.
 \]
-The numerator $A$ is signed: multiplying the enclosure by $s$ accounts
-for the direction of the gap difference.
+Reducing $A$ modulo $Q$ would preserve its distance to $Q\Z$ but lose
+the enclosure's location.  We retain the signed numerator and use the
+sign $s$ fixed by the gap difference.
 At $h=1,N=2,L=40$, one has $\delta_2=g_4-g_3=-2$ and
 \[
  Q=2^{40},\qquad A=-662838684750,\qquad B=11764181250,\qquad s=-1.
@@ -735,16 +751,18 @@ The results on bounded prime gaps \cite{zhang2014}, clusters of each
 fixed size \cite{maynard2015,polymath2014}, and extreme large gaps
 \cite{fgkmt2018} do not give the simultaneous inequalities in \eqref{eq:smallpair}.
 This remains so with Polymath's bound $\liminf_n g_n\le246$
-\cite[Theorem~1.4(i)]{polymath2014}.  At a logarithmic truncation depth
-the explicit remainder tends to zero, but the finite sum must still be
-separated from the relevant boundary by a larger margin.
+\cite[Theorem~1.4(i)]{polymath2014}.  For fixed $h$ and $\varepsilon>0$,
+taking $L=\lceil(4+\varepsilon)\log_2(N+2)\rceil$ in the polynomial
+remainder gives an error $O_{h,\varepsilon}(N^{-\varepsilon})$.
+The finite sum must still be separated from the relevant boundary by
+more than this error.
 For the actual prime series, nonintegral shifts are needed arbitrarily
 late for every positive length.  Problem~\ref{prob:smallpair} would
 supply them.  The perturbation theorem concerns the insufficiency of the
 specified congruences and block statistics, and leaves possible arguments
 using primality or quantitative rare-event estimates untouched.
 
-\section{Sources and further comparisons}\label{sec:pinned-lean-sources}
+\section{Verification and reproducibility}\label{sec:pinned-lean-sources}
 \evidenceparagraph{\evidencerecordurl}
 The linked Lean declarations use Lean~4 \cite{lean4} and mathlib
 \cite{mathlib}.  The formal proof of

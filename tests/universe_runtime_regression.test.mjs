@@ -26,7 +26,7 @@ function element(attrs = {}) {
 }
 
 async function mount(options = {}) {
-  let arcs = [], strokes = [], labels = [], path = [], pen;
+  let arcs = [], strokes = [], labels = [], path = [], pen, dash = [];
   const context = new Proxy({
     clearRect() { arcs = []; strokes = []; labels = []; },
     beginPath() { path = []; pen = null; },
@@ -35,7 +35,10 @@ async function mount(options = {}) {
       if (pen) path.push({from: pen, to: [x, y]});
       pen = [x, y];
     },
-    stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, segments: path.slice()}); },
+    setLineDash(segments) { dash = segments; },
+    stroke() {
+      strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, dashed: dash.length > 0, segments: path.slice()});
+    },
     arc(x, y, r) { arcs.push({x, y, r}); },
     measureText(text) { return {width: String(text).length * 6}; },
     fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
@@ -94,6 +97,7 @@ async function mount(options = {}) {
   return {canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window,
     document, requests, settle, flushTimers, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
     drawnSegments: () => strokes.flatMap(stroke => stroke.segments),
+    dashedSegments: () => strokes.filter(stroke => stroke.dashed).flatMap(stroke => stroke.segments),
     hotSegments: () => strokes.filter(stroke => stroke.style === HOT_EDGE).flatMap(stroke => stroke.segments),
     span: () => Math.max(...arcs.map(a => a.x)) - Math.min(...arcs.map(a => a.x)),
   };
@@ -148,6 +152,42 @@ test('the shared claim band stays named in a fitted phone view with another prog
     'the whole caption stays outside the zoom control column');
   assert.match(map.inspector.innerHTML, /Programme 68/);
   assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
+});
+
+test('a name plate over the shared callout makes the callout step aside, not show through', async () => {
+  // Without statement bands the callout sits 2.35 times the caption's radius
+  // out along its spoke, so a claim on that spot names itself across it.
+  const caption = {x: 145, y: 145, text: 'shared by #249 and #257', sub: '74 claims in one Lean namespace'};
+  const data = () => ({initial: {
+    nodes: [
+      {id: 'universe:all', kind: 'universe', label: 'Universe', x: 0, y: 0},
+      {id: 'problem:erdos_249', kind: 'problem', label: 'Programme 249', x: 320, y: 0},
+      {id: 'problem:erdos_257', kind: 'problem', label: 'Programme 257', x: 0, y: 320},
+      {id: 'claim:edge', kind: 'public_claim', label: 'Claim on the edge', x: caption.x * 2.35, y: caption.y * 2.35},
+    ],
+    edges: [[0, 1], [0, 2], [0, 3]],
+    captions: [caption],
+  }});
+  const SHARED = 'Shared: #249 and #257';
+  const plain = await mount({data: data(), width: 900});
+  plain.fit.fire('click');
+  const callout = plain.labels().find(mark => mark.text === SHARED);
+  assert.ok(callout, 'with nothing in focus the fitted view names the shared block');
+  const hangsOnCallout = s => s.to[0] === callout.x && s.to[1] === callout.y - 8;
+  assert.ok(plain.dashedSegments().some(hangsOnCallout), 'the callout hangs on its dashed line');
+
+  const pinned = await mount({data: data(), width: 900, hash: '#o=claim%3Aedge'});
+  pinned.fit.fire('click');
+  const name = pinned.labels().find(mark => mark.text === 'Claim on the edge');
+  assert.ok(name, 'the pinned claim names itself on a plate');
+  // The fake face sets six pixels a letter; the plate pads its text by nine.
+  const plateHalf = name.text.length * 3 + 9, calloutHalf = SHARED.length * 3 + 6;
+  assert.ok(Math.abs(name.x - callout.x) < plateHalf + calloutHalf &&
+    callout.y + 8 > name.y - 16 && callout.y - 8 < name.y + 7,
+    'the plate lies across the place the callout takes');
+  assert.ok(!pinned.labels().some(mark => mark.text === SHARED),
+    'the callout steps aside under the plate instead of showing through it');
+  assert.ok(!pinned.dashedSegments().some(hangsOnCallout), 'its line goes with it');
 });
 
 test('a deep object hash loads the full corpus and takes precedence over the old pin', async () => {
@@ -552,6 +592,100 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   const dot = arcs.reduce((best, a) => (best && best.x >= a.x ? best : a), null);
   return {canvas, location, announced, appended, dot};
 }
+
+// A teaser with Comparator and a frame clock the test drives, to follow the
+// moment a settled hover plays.
+async function mountPulse({reduceMotion = false} = {}) {
+  let arcs = [];
+  const context = new Proxy({
+    clearRect() { arcs = []; },
+    arc(x, y, r) { arcs.push({x, y, r}); },
+    measureText(text) { return {width: String(text).length * 6}; },
+  }, { get: (target, key) => target[key] ?? (() => {}) });
+  const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
+    clientWidth: 400, clientHeight: 400, getContext: () => context,
+    getBoundingClientRect: () => ({left: 0, top: 0}),
+  });
+  const stage = Object.assign(element(), {
+    querySelector: s => s === 'canvas' ? canvas : null, querySelectorAll: () => [],
+    closest: () => null, dispatchEvent: () => true,
+  });
+  const document = Object.assign(element(), {
+    readyState: 'complete', documentElement: element(), activeElement: null,
+    querySelector: () => null,
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
+  });
+  const frames = new Map();
+  let nextFrame = 1, now = 0;
+  const window = Object.assign(element(), {
+    location: {pathname: '/', search: '', hash: '', href: '/'}, devicePixelRatio: 1, isSecureContext: false,
+    matchMedia: query => ({matches: /reduce/.test(query) ? reduceMotion : true}),
+    requestAnimationFrame: fn => { frames.set(nextFrame, fn); return nextFrame++; },
+    cancelAnimationFrame: id => { frames.delete(id); },
+  });
+  const data = {initial: {
+    nodes: [
+      {id: 'integration:comparator', kind: 'integration_surface', label: 'Comparator', x: 0, y: -150},
+      {id: 'problem:erdos_257', kind: 'problem', label: 'Reciprocal sums', x: -150, y: 0, sector: 'erdos_257'},
+      {id: 'statement:p257#thm:a', kind: 'paper_statement', label: 'Theorem 1.1', x: 150, y: 0,
+       sector: 'erdos_257', paper: 'papers/p257.html#thm:a', lean_status: 'exact',
+       comparator_status: 'compared', side: 'short'},
+    ],
+    edges: [[0, 2], [1, 2]],
+  }};
+  vm.runInNewContext(source, {document, window, navigator: {},
+    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    fetch: async url => ({json: async () => data[url]}),
+    setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  const comparator = arcs.reduce((best, a) => (best && best.y <= a.y ? best : a), null);
+  const dot = arcs.reduce((best, a) => (best && best.x >= a.x ? best : a), null);
+  // Run every frame due up to `ms` after the clock's start, sixteen at a time.
+  const advanceTo = ms => {
+    while (now < ms) {
+      now += 16;
+      const due = [...frames.entries()];
+      frames.clear();
+      for (const [, fn] of due) fn(now);
+    }
+  };
+  return {canvas, comparator, dot, arcs: () => arcs, frames, advanceTo, now: () => now};
+}
+
+test('a settled hover sends one ripple and a bead of light along its thread to Comparator', async () => {
+  const map = await mountPulse();
+  const {dot, comparator} = map;
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  const start = map.now();
+  const mid = {x: (dot.x + comparator.x) / 2, y: (dot.y + comparator.y) / 2};
+  const near = (a, p, tolerance) => Math.hypot(a.x - p.x, a.y - p.y) <= tolerance;
+  // Where a mark stands on the thread: its share of the way and its distance off it.
+  const onThread = a => {
+    const vx = comparator.x - dot.x, vy = comparator.y - dot.y, len2 = vx * vx + vy * vy;
+    const u = ((a.x - dot.x) * vx + (a.y - dot.y) * vy) / len2;
+    return {u, off: Math.abs((a.x - dot.x) * vy - (a.y - dot.y) * vx) / Math.sqrt(len2)};
+  };
+  map.advanceTo(start + 16 + 110 + 310);
+  assert.ok(map.arcs().some(a => { const t = onThread(a); return a.r < dot.r + 2 && t.off < 1.5 && t.u > 0.3 && t.u < 0.7; }),
+    'halfway through its travel a bead stands on the thread to Comparator, well clear of both ends');
+  assert.ok(map.arcs().some(a => near(a, dot, 0.5) && a.r > dot.r + 8),
+    'the hovered mark sends out a ripple wider than its hover ring');
+  map.advanceTo(start + 2400);
+  assert.ok(!map.arcs().some(a => near(a, mid, 6)), 'the bead is gone once the moment has played');
+  assert.equal(map.frames.size, 0, 'and no frame keeps running after it');
+});
+
+test('under reduced motion a hover plays no ripple and sends no bead', async () => {
+  const map = await mountPulse({reduceMotion: true});
+  const {dot, comparator} = map;
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.advanceTo(map.now() + 16 + 110 + 310);
+  const mid = {x: (dot.x + comparator.x) / 2, y: (dot.y + comparator.y) / 2};
+  assert.ok(!map.arcs().some(a => Math.hypot(a.x - mid.x, a.y - mid.y) <= 6), 'no bead travels');
+  assert.ok(!map.arcs().some(a => Math.hypot(a.x - dot.x, a.y - dot.y) <= 0.5 && a.r > dot.r + 8), 'no ripple');
+  assert.equal(map.frames.size, 0, 'nothing is scheduled');
+});
 
 test('a teaser dot opens its paper under the base the landing names', async () => {
   const teaser = await mountTeaser({withCompanionHost: false});

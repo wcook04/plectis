@@ -1157,8 +1157,13 @@ $\sigma_h(N)\notin\Z$.
 \end{proposition}
 
 \begin{proof}
+Splitting the complete tails after $L$ terms gives
+\[
+ \sigma_h(N)=F_{h,N,L}+2^{-L}\sigma_h(N+L).
+\]
+The last term is the part not determined by the finite gap blocks.
 The checked bound $p_n\le1250(n+1)^4$ gives $0\le g_m\le p_{m+1}\le1250(m+2)^4$,
-so the omitted absolute tail is at most
+so its absolute value is at most
 \[
  1250\sum_{j>L}\frac{(N+h+j+2)^4+(N+j+2)^4}{2^{\,j}} .
 \]
@@ -1207,16 +1212,24 @@ nonintegral.  In particular, the two small-difference conditions are certified f
 just one tail enclosure.
 \end{proposition}
 \begin{proof}
-The inequalities place the complete interval
-$[(sA-B)/Q,(sA+B)/Q]$ inside $(1/2,1)$.
-Thus $sD_{N+1}=2sD_N-2\in(-1,0)$, proving every assertion.
+Since $|s|=1$, the enclosure gives
+\[
+ \frac{sA-B}{Q}\le sD_N\le\frac{sA+B}{Q}.
+\]
+The first strict inequality says that the lower endpoint exceeds $1/2$;
+the second says that the upper endpoint is less than $1$.
+Thus $sD_N\in(1/2,1)$.  The recurrence and $\delta_N=2s$ now give
+$sD_{N+1}=2sD_N-2\in(-1,0)$.  Both intervals exclude integers, and
+the second also gives $|D_{N+1}|<1$.
 \end{proof}
 For $h=1,N=2$, the exact data already used above give
 $Q=2^{40}$, $A=-662838684750$, $B=11764181250$ and $s=-1$.
 The two positive integer margins are respectively
 $202637379224$ and $424908761776$.
-The second enclosure in Proposition~\ref{long251:res:finite-smallpair}
-remains a useful independent cross-check, not a logical necessity.
+Proposition~\ref{long251:res:finite-smallpair} encloses each difference
+separately.  Here the first enclosure and the exact gap difference give
+the second interval through the recurrence.  The second enclosure is
+therefore an independent cross-check, not a necessary input.
 
 \section{Two lower bounds on a possible rational denominator}\label{long251:sec:denominator-floor}
 
@@ -1558,13 +1571,21 @@ If $a$ has fixed-block nonconcentration, then so does $b$.
 No boundedness assumption on $a-b$ is needed.
 \end{proposition}
 \begin{proof}
-For fixed $k$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$, a zero of
-$F(b_n,\ldots,b_{n+k})$ either is already a zero at the $a$-block or has
-$n+i\in S$ for some $0\le i\le k$.  Each fixed translate of a
-density-zero set has density zero, and a finite union retains that
-property.  This proves the assertion for each fixed $F$ and $k$.
-It gives no uniform estimate for polynomial families or lengths growing
-with $n$.
+Fix $k$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$.  The two blocks agree
+unless $n+i\in S$ for some $0\le i\le k$.  Consequently
+\[
+ \begin{aligned}
+ &\bigl|\{n<N:F(b_n,\ldots,b_{n+k})=0\}\bigr|\\
+ &\quad\le\bigl|\{n<N:F(a_n,\ldots,a_{n+k})=0\}\bigr|
+       +\sum_{i=0}^k|S\cap[i,N+i)|.
+ \end{aligned}
+\]
+The first count is $o(N)$ by nonconcentration for $a$; the remaining
+finitely many counts are $o(N)$ because $S$ has density zero.
+Only the number of changed blocks enters, not the sizes of the
+corrections or of the polynomial values.  This proves the assertion
+for the already fixed sequence $b$ and every fixed $F,k$, without a
+uniform estimate for growing polynomial families or block lengths.
 \end{proof}
 
 \begin{samepage}
@@ -2098,35 +2119,6 @@ irrationality.  These constructions are not shown to enumerate the
 consecutive primes, so they do not rule out arguments that combine those
 properties with further information about primes.
 
-\pdfbookmark[1]{Statements and declarations}{statements-declarations}
-\subsection*{Statements and declarations}
-
-\evidenceparagraph{\evidencerecordurl}
-The formal sparse construction changes one coordinate per stage, while
-the printed proof uses triples.  Both fix the set containing the correction supports, the interval of sums
-and the modulus cutoffs before selecting a value in that interval.
-The formal proof of Corollary~\ref{long251:res:nonconc-primes} assumes
-Schlage-Puchta's Lemma~4 \cite{schlagepuchta2011} and the prime number
-theorem.  In Corollary~\ref{long251:res:jointcountermodel}, formalised
-for every $\varepsilon>0$, these inputs are used only for nonconcentration
-and $P_n\sim n\log n$, respectively.
-Theorem~\ref{long251:res:sparse} uses Schlage-Puchta's lemma alone.
-The linked formal statements and recorded checks do not by themselves
-verify the different ordinary arguments printed here.
-
-\paragraph{Data availability.}
-Lean~4~\cite{lean4} and mathlib~\cite{mathlib} provide the proof-checking
-environment; the margin marks link each result to its Lean proof, and the
-\href{\evidencerecordurl}{evidence record} lists every declaration and
-check.  Formal checking does not establish novelty or attribution.  The
-programs for the searches of Section~\ref{long251:sec:measurements} are
-listed in the
-\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{computation guide}.
-The program in Appendix~\ref{long251:app:certificates} checks the
-adjacent pair and the bound $2^{589}$; the independent program of
-Section~\ref{long251:sec:denominator-floor} checks the certificate of
-Theorem~\ref{long251:res:cfexclusion}.
-
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
 
@@ -2252,13 +2244,28 @@ print("Both tail rows and the denominator floor verified.")
 \end{verbatim}
 }
 
-\section{Guide to the formal sources}\label{long251:app:index}\compatlabel{app:index}
+\section{Verification and reproducibility}\label{long251:app:index}\compatlabel{app:index}
+\pdfbookmark[1]{Statements and declarations}{statements-declarations}
+\evidenceparagraph{\evidencerecordurl}
+The source links identify definitions and proof steps at fixed revisions;
+the short paper's source index retains its different revision in
+Appendix~\ref{long251:app:short-source-index}. The formal sparse
+construction changes one coordinate per stage, whereas the printed
+proof uses triples. Both fix supports, the interval of sums and the
+modulus cutoffs before choosing a value. The formal proofs use the
+published inputs stated below; the linked declarations do not check
+the different printed arguments step by step.
 
-The \href{\evidencerecordurl}{evidence record} lists the declarations
-associated with the margin marks.  The additional links below locate
-definitions and proof steps at fixed revisions and line numbers.
-The short paper uses a different revision for its source index, retained
-in Appendix~\ref{long251:app:short-source-index}.
+Lean~4~\cite{lean4} and mathlib~\cite{mathlib} supply the proof-checking
+environment. The \href{\evidencerecordurl}{evidence record} lists the
+declarations and checks. The programs for the searches in
+Section~\ref{long251:sec:measurements} are in the
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{computation guide}.
+The program in Appendix~\ref{long251:app:certificates} checks the
+adjacent pair and the bound $2^{589}$; the independent program of
+Section~\ref{long251:sec:denominator-floor} checks the certificate of
+Theorem~\ref{long251:res:cfexclusion}. Formal checking does not
+establish novelty or attribution.
 
 The summation-by-parts identity and the polynomial prime bound concern the
 actual primes.  The recurrence results apply to arbitrary integer
@@ -2471,9 +2478,12 @@ has absolute value at most $R_{h,N,L}(M)$, so under the displayed inequality
 the full sum lies at positive distance from every integer.
 \end{proof}
 
-This criterion asks only for separation from the integers; it imposes no
-smallness condition on the two consecutive differences.  The distance from the truncated sum to $\Z$ is
-determined by a finite integer calculation.  Write the weighted block sum as
+With $M(n)=1250(n+2)^4$, the quantities $S_{h,N,L}$ and
+$R_{h,N,L}(M)$ are exactly $F_{h,N,L}$ and $E_{h,N,L}$ from
+Proposition~\ref{long251:res:explicit-remainder}.  The same enclosure
+therefore tests separation from the integers, without requiring either
+of the two consecutive differences to be small.  To compute the distance
+from the truncated sum to $\Z$, write the weighted block sum as
 \[
  D_{h,N,L}=\sum_{j=1}^{L}2^{\,L-j}(g_{N+h+j}-g_{N+j}),
  \qquad S_{h,N,L}=\frac{D_{h,N,L}}{2^{L}}.

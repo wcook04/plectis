@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 14,
+  "pages": 15,
   "question": "What explicit basis and integral relations does the totient k-kernel have at every integer base, and why does that not decide Erdős #249?",
   "precis": "For integers k≥2 and e≥1, the totient sections n↦φ(k^j n+r) with 0≤j≤e and 0≤r<k^j have an explicit rational basis of dimension k^e+1. Every section is an explicit integer multiple of a retained one, and these reductions generate all integral relations, with unique coefficients. The proof combines the local formula for Euler's totient with a nonsingular evaluation matrix obtained from the Chinese remainder theorem and Dirichlet's theorem. Supplementary results concern bounded residue series and conditions for irrationality of S=∑ φ(n)2^{-n}. They do not establish that S is irrational.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "d5a8acb84f750361",
-    "source_sha256": "cc019cb70f7a67ed2f8dcc75fdaf93ba608ba87786b56d249c7f6023debe6205",
+    "source_sha256": "2ac5f04ded33a456d5b121a961934a6c96961b1963b673b6e0d7b6c4044ea44d",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 464,
+    "mathml_node_count": 480,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "565f77ad4f9ce0b9e8b89835ff9e85f73669bc62fa3f531164dad6f83792a92b",
-    "html_exact_tex_sha256": "99a787f3a2891acb138b6aa6851f4c3bbf8fdf595dc3112013efc05984110e4f"
+    "html_mathml_sha256": "ce2024904e14450d62b44f1c628a1f4c982a421fd4facb534d0e47631ab4cea4",
+    "html_exact_tex_sha256": "3dd70d8283616361d0728249c42d53abf9c6f6a02ac2a23c2458fad1643d1a29"
   },
   "sections": [
     {
@@ -103,9 +103,9 @@
       "label": "An exponential-sum question"
     },
     {
-      "level": 5,
-      "anchor": "verification.",
-      "label": "Verification."
+      "level": 2,
+      "anchor": "verification-and-reproducibility",
+      "label": "Verification and reproducibility"
     },
     {
       "level": 5,

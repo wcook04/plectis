@@ -200,8 +200,8 @@ $w$. Consequently $p^{-1}(J)\cap U\subset B(c,r_0)$.
 
 For $r_0<t<|a-c|$, the set $U_1\cap\{|z-c|>t\}$ has relative boundary
 in $U$ contained in the circle $|z-c|=t$. If that circle missed $K\cap U_1$,
-its intersection with $K$ would be a nonempty proper subset both open and
-closed in $K$, a contradiction. Thus the radial map $z\mapsto|z-c|$ sends
+then $K\cap U_1\cap\{|z-c|>t\}$ would be both open and closed in $K$.
+It contains $a$ and excludes $b$, contradicting connectedness. Thus the radial map $z\mapsto|z-c|$ sends
 $K\cap U_1$ onto a set containing $(r_0,|a-c|)$ whenever that interval is
 nonempty. This map is $1$-Lipschitz, so
 \[
@@ -397,10 +397,11 @@ Consequently
 \subsection{The two roots in the component}\label{subsec:counterexample-connections}
 
 The local estimates identify a critical point, but we still have to
-find the two roots in its component. We join $b_3$ and $b_6$ to $c_s$
-using four segments followed by radial pieces. The following ordinary
-argument supplies that identification directly; the Lean source uses
-barriers. Put
+find the two roots in its component. The connections from $c_s$ to
+$b_3,b_6$ use a small disc and four segments near the critical point,
+short segments to the root directions, and radial segments out to the
+roots. The following ordinary argument identifies the component
+directly; the Lean source uses barriers. Put
 \begin{align*}
  \operatorname{Re}w_q={}&\frac{39226583259917038484346953200647}{10^{40}},\\
  \operatorname{Im}w_q={}&\frac{8232474661944848953672917849472800078083}{10^{40}},\\
@@ -445,6 +446,9 @@ sampling between endpoints is involved. The same Taylor test at $w_q$,
 with radius $10^{-8}$, gives one zero of $Q'$ in that disc and
 $\mathscr H_0>3556874/10^{12}$ throughout it. The disc is contained in
 $|w-v_2|<10^{-6}$, so this zero is $w_s$.
+For each $j=3,6$, we can therefore follow the segments from $w_s$ to
+$w_q$, then to $x_j$ and $m_j$, staying where $\mathscr H_0>0$.
+It remains to connect $m_j$ to the corresponding root.
 
 For the remaining segments no large polynomial expansion is needed.
 The Cayley intervals give
@@ -1977,8 +1981,9 @@ first integral and comparing the continuous densities therefore yields
  \sum_{B(\zeta)=w}\frac1{|B'(\zeta)|}
  =\frac{1-|B(0)|^2}{|w-B(0)|^2}\qquad(|w|=1).
 \]
-In particular each boundary fibre consists of $m$ distinct points. Choosing
-$w=-B(0)/|B(0)|$ yields
+In particular each boundary fibre consists of $m$ distinct points.
+The Poisson kernel on the right is smallest at the boundary point
+opposite $B(0)$. Choosing $w=-B(0)/|B(0)|$ therefore yields
 \[
  \frac mn<\frac{1-|B(0)|}{1+|B(0)|},
  \qquad |B(0)|<\frac{n-m}{n+m}=\frac{k}{2n-k}.
@@ -2544,8 +2549,10 @@ in every degree $3q\ge6$.
 \end{theorem}
 
 \begin{proof}
-Fix a $q$th root $y$ of a quotient root and a primitive $q$th root of unity
-$\zeta$.  The full fibre consists of $h+y\zeta^k$.  Since every fibre point
+One nonzero root of $P$ will supply both endpoints of the path through
+$h$. Before selecting it, we check that every zero of $P$ lies in the
+open unit disc. Fix a $q$th root $y$ of a zero of $P$ and a primitive
+$q$th root of unity $\zeta$. The full fibre consists of $h+y\zeta^k$.  Since every fibre point
 lies in the open unit disc,
 \[
  \frac1q\sum_{k=0}^{q-1}|h+y\zeta^k|^2
@@ -2932,10 +2939,9 @@ exists without an additional hypothesis. A zero quotient root instead
 gives a root of multiplicity at least $q$ at $h$ and hence a constant
 path between two occurrences. The formal source checks the
 factorization, radial-segment estimate and finite length inequality.
-It does not establish the existence of a suitable quotient root or
-formalise the selection and lifting just described. The available formal statements cover the segment inequality and
-finite length calculation. They do not include the complete path
-construction or unrestricted Erd\H{o}s~\#1041.
+It does not establish the existence of a suitable quotient root,
+formalise the selection and lifting just described, or prove
+unrestricted Erd\H{o}s~\#1041.
 
 The radial-segment identity and strict bound are formalised in
 \lword{Erdos1041/CyclicTrinomialFiberCase.lean}{46}{trinomialRoot_spoke_factorization}{cancellation along a trinomial root segment}
@@ -3258,10 +3264,16 @@ Let $r\uparrow1$.  This also handles boundary critical points and all
 multiplicities without selecting local branches.
 \end{proof}
 
-Set $m=n-1$.  The weighted Poisson proof below gives the quadratic finite
-inequality for every $m\ge1$.  Gauss--Lucas and
-Lemma~\ref{res:reflected-critical-value} then give
-$\sum_j|f(c_j)|^{2/m}\le m$ on the unit disc.  Applying this to
+First suppose the zeros of $f$ lie in the closed unit disc, and set
+$m=n-1$. Gauss--Lucas puts the critical points in the same disc.
+Lemma~\ref{res:reflected-critical-value} gives the first inequality below;
+the weighted Poisson inequality, proved next and applied with equal
+weights $1/m$, gives the second:
+\[
+ \sum_{j=1}^m|f(c_j)|^{2/m}
+ \le\sum_{j=1}^m\left(\prod_{k=1}^m
+             |1-\overline{c_j}c_k|\right)^{2/m}\le m.
+\]  Applying this to
 $R^{-n}f(h+Rz)$ and scaling back proves
 \eqref{eq:critical-value-quadratic-budget} for $R>0$; if $R=0$, all critical
 values vanish.
@@ -3635,9 +3647,16 @@ then there are distinct indices $i,j$ such that
 \]
 \end{theorem}
 \begin{proof}
-Order the distances $d_1\le d_2\le\cdots\le d_n$. Isolating the nearest
-term in the reciprocal balance gives $d_2\le(n-1)d_1$, while
-$d_1d_2^{n-1}\le r^n$. For $t=d_2/d_1\in[1,n-1]$,
+Relabel the points so that their distances satisfy
+$d_1\le d_2\le\cdots\le d_n$. The reciprocal balance and the triangle
+inequality give
+\[
+ \frac1{d_1}
+ =\left|\sum_{j=2}^n\frac1{c-z_j}\right|
+ \le\sum_{j=2}^n\frac1{d_j}\le\frac{n-1}{d_2}.
+\]
+Thus $d_2\le(n-1)d_1$. Also $d_1d_2^{n-1}\le r^n$, since every
+remaining distance is at least $d_2$. For $t=d_2/d_1\in[1,n-1]$,
 \[
  \frac{d}{dt}\log\frac{2t^{(n-1)/n}}{1+t}
        =\frac{n-1-t}{nt(1+t)}\ge0.
@@ -5348,10 +5367,6 @@ Morse, monodromy and strip statements are not checked.
 \item[\ref{res:arity-not-capacity}.] The formal capacity conclusion takes
 as input the classical transfinite-diameter formula for a filled monic
 lemniscate. The root count at the first merger does not require that input.
-\item[Statement locations.] Formal associations are retained at each
-statement's current location. The changes in this revision concern
-presentation and the explicit qualifications just listed; no new Lean
-proof or independent review is claimed.
 \end{description}
 
 No supplied proof establishes the reported Runge construction of

@@ -34,7 +34,7 @@
 \title{Distinct running least common multiples}
 \subtitle{Affine tails and Erd\H{o}s Problem~\#269}
 \author{Will Cook}
-\date{July 2026; revised 30 September 2026}
+\date{July 2026; revised 1 October 2026}
 
 
 % A local PDF link uses its destination name directly. The shared web-style
@@ -491,19 +491,27 @@ Induction yields
 \begin{equation}\label{eq:actual-tail}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}
-When $BX_\ell$ is integral, the positive integer $BX_{\ell+h}$ must
-therefore be congruent to $-BF_{\ell,h}$ modulo $W_{\ell,h}$.
-If its least positive representative is already too large, no such
-tail exists. Positivity matters here: in the zero residue class the
-first permitted value is the modulus itself.
-
-For integers $W\ge1,t$, define
-$\operatorname{lpr}_W(t)=1+((t-1)\bmod W)$, with the remainder in
-$\{0,\ldots,W-1\}$. Thus $\operatorname{lpr}_W(0)=W$.
 Throughout this section let
 \begin{equation}\label{eq:actual-bound}
  K(B,a)=90B(a+1)^2.
 \end{equation}
+The bound $0<BX_{\ell+h}\le K(B,\ell+h)$ and
+\eqref{eq:actual-tail} enclose the starting tail in the interval
+\[
+ \frac{BF_{\ell,h}}{W_{\ell,h}}<BX_\ell
+ \le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.
+\]
+If this interval contains no integer, then $BX_\ell$ cannot be integral.
+The residue test expresses the same exclusion at the other end of the
+segment: an integral starting tail would make $BX_{\ell+h}$ a positive
+integer congruent to $-BF_{\ell,h}$ modulo $W_{\ell,h}$.
+
+For integers $W\ge1,t$, define
+$\operatorname{lpr}_W(t)=1+((t-1)\bmod W)$, with the remainder in
+$\{0,\ldots,W-1\}$. This is the least positive integer in the residue
+class of $t$. In particular $\operatorname{lpr}_W(0)=W$, rather than zero:
+the left endpoint of the interval is excluded because the terminal tail
+is positive.
 
 \begin{lemma}[least positive residues]\label{res:consumer}
 If $d$ is a positive integer with $d\le K$ and $d\equiv -BF\pmod W$,
@@ -515,11 +523,15 @@ of its class, and in particular at most $d$.
 \end{proof}
 
 For $\ell=1,h=6$, direct iteration gives
-$W_{1,6}=648000$ and $F_{1,6}=524431$. Hence
-$\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569>K(1,7)=5760$.
-This excludes an integral $X_1$. A rational denominator might clear only
-later, so a criterion for irrationality must allow every late start and
-every denominator part coprime to $30$.
+$W_{1,6}=648000$ and $F_{1,6}=524431$. Since $K(1,7)=5760$, the interval is
+\[
+ \frac{524431}{648000}<X_1\le\frac{530191}{648000}<1.
+\]
+It contains no integer. Equivalently,
+$\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569>5760$ excludes an integral
+$X_1$. A rational denominator might clear only later, so a criterion
+for irrationality must allow every late start and every denominator
+part coprime to $30$.
 
 \papersectiontarget{r4-repeated-criterion}
 \begin{theorem}[a residue criterion for irrationality]\label{res:windowconsumer}
@@ -562,10 +574,12 @@ every prescribed onset $a_0$. No bound uniform in $B$ or $\ell$ is
 needed for this direction.
 \end{proof}
 
-The converse gives no estimate for the gap $\delta$. It explains why a
-long enough segment succeeds once $BX_\ell$ is known to be nonintegral.
-To use the forward implication, we must prove~\eqref{eq:escape} for the
-actual coefficients without assuming that nonintegrality.
+As $h$ grows, the interval above narrows towards the fixed value
+$BX_\ell$. If that value is nonintegral, a sufficiently narrow interval
+contains no integer. The converse formalises this observation, but gives
+no estimate for the gap $\delta$. To use the forward implication, we
+must prove~\eqref{eq:escape} for the actual coefficients without assuming
+that nonintegrality.
 
 The upper-bound property of $K$ is essential: choosing the zero function
 would make every residue inequality automatic. The
@@ -651,8 +665,10 @@ For the last equality, each $j\ge1$ corresponds to
 $n=\lfloor j/\theta\rfloor$ with $m_n=j-1$ and $\delta_n=1$.
 Substitution proves~\eqref{eq:two-prime-affine}.
 
-To apply the transcendence theorem, we express $A$ in terms of the
-Hecke--Mahler series $F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k$.
+Both sums are now nonconstant polynomials in the single value $A$, with
+rational coefficients. It therefore remains to prove that $A$ is
+transcendental. For this we use the Hecke--Mahler series
+$F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k$.
 Geometric summation gives
 \begin{equation}\label{eq:hecke-mahler-boundary}
  A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
@@ -744,9 +760,11 @@ For $(p,q,r)=(2,3,5)$, the leading two-by-two determinant is $-1/15$:
 its four entries are $1,1/6,1/2,1/60$, so it equals $1/60-1/12$.
 \end{example}
 
-A single nonzero minor rules out rank one. The theorem below requires
-minors of every order, with rows and columns chosen to suit the order.
-The same choices will work in every layer $k$.
+This nonzero two-by-two minor rules out rank one. More generally, a sum
+of $d$ separated products would give every matrix layer rank at most $d$.
+To exclude every finite $d$, we therefore seek nonzero minors of
+arbitrarily large order. Their rows and columns may depend on the order;
+the same choices will work in every layer $k$.
 
 \begin{theorem}[no finite separation of the kernel]\label{res:infinite-rank}
 Let $p,q,r$ be primes with $p\ne q$, $p\ne r$ and $q\ne r$.  For every
@@ -764,9 +782,17 @@ $f_\ell(i)$ and $G_\ell(j,k)$, $0\le\ell<d$, satisfying
 \end{theorem}
 
 \begin{proof}
-For fixed $k$, we rescale rows and columns to obtain a matrix independent
-of $k$.  Put $c=r^{-1}$, $x_i=\{i\log_r p\}$ and $y_j=\{j\log_r q\}$,
-where braces denote fractional parts.  Splitting the floor exponents gives
+For fixed $k$, the powers of $p$ and $q$ split into a row factor and a
+column factor, as in the two-prime case. The power of $r$ has one remaining
+interaction between the indices. Put $c=r^{-1}$, $x_i=\{i\log_r p\}$ and
+$y_j=\{j\log_r q\}$, where braces denote fractional parts. Then
+\[
+ \lfloor i\log_r p+j\log_r q\rfloor
+ =\lfloor i\log_r p\rfloor+\lfloor j\log_r q\rfloor
+   +\mathbf1_{\{x_i+y_j\ge1\}}.
+\]
+The last term is the carry when the two fractional parts are added.
+Putting all the other prime powers into row and column factors gives
 \[
  \Kernel(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
  C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},
@@ -780,8 +806,9 @@ where
             r^{\lfloor\log_r q^j\rfloor}.
 \end{aligned}
 \]
-These positive factors preserve nonvanishing of minors. The remaining
-entry records whether $x_i+y_j\ge1$.  Distinct primes make $\log_r p$ and
+These positive factors preserve nonvanishing of minors. In column $j$,
+the entry changes from $1$ to $c$ when $x_i$ reaches $1-y_j$.
+Distinct primes make $\log_r p$ and
 $\log_r q$ irrational, so each fractional-part orbit is dense in $[0,1]$.
 We choose row and column indices independently, using only these two
 one-dimensional density statements.  For $n\ge1$, choose distinct rows with
@@ -808,8 +835,10 @@ minor to
  \end{pmatrix},\qquad
  \det T_n(c)=c(c-1)^{n-1}.
 \]
-Indeed, subtracting each preceding row from the next, working upwards from
-the last row, leaves diagonal entries $c,c-1,\ldots,c-1$.
+Indeed, subtract each preceding row from the next, working upwards from
+the last row. Each row difference has just one nonzero entry, $c-1$, in
+its own column. The resulting triangular matrix has diagonal entries
+$c,c-1,\ldots,c-1$.
 The original determinant is therefore
 \[
  c(c-1)^{n-1}
@@ -902,15 +931,13 @@ proves both assertions for their stated norms. Neither the rank theorem
 nor the approximation bound implies irrationality of the scalar sum.
 
 
-\section{Proof sources and further comparisons}\label{app:sources}
-The margin marks link to the recorded Lean declarations and, where
-present, Comparator comparisons. For the five-map proof the declarations
-are in \href{\distinctheightlean}{the distinct-value development} and
-\href{\distinctheightblocklean}{its block-series criterion}; no comparison
-is recorded. The \href{\evidencerecordurl}{evidence record} gives the
-versions. Neither checker was rerun for this revision, and the public
-links may precede this manuscript's local revision. The named input for
-two-prime transcendence stays beside that theorem.
+\section{Verification, reproducibility and sources}\label{app:sources}
+\evidenceparagraph{\evidencerecordurl}
+The five-map proof is in \href{\distinctheightlean}{the distinct-value
+development} and \href{\distinctheightblocklean}{its block-series
+criterion}. Its statement has no recorded Comparator comparison. The
+evidence record fixes the source versions; the named input for
+two-prime transcendence is stated beside that theorem.
 
 The \href{\distinctheighturl}{programs for sums over distinct values} calculate the
 interval endpoints and finite-state examples using exact arithmetic;
@@ -929,8 +956,10 @@ words realised by the arithmetic sequence.
 
 The \longrecord{r3-source-inventory}{companion's source inventory} also
 covers the ordinary general and subseries arguments. Its historical note
-reports a second AI agent's check on 26 September 2026 and the incorporation
-of its corrections. No human mathematical review is reported.
+records the 26 September 2026 AI check and the corrections made from it;
+independent human mathematical review has not been reported.
+
+\subsection*{Further comparisons}
 
 The classical criteria of Erd\H{o}s--Straus~\cite{erdosstraus1974},
 Han\v{c}l--Tijdeman~\cite{hancltijdeman2004} and

@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos243-reciprocal-tail-reasoning-surface" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Reasoning surface</p>
-    <h1>Reciprocal Sums and the Sylvester Recurrence:\newline Further Results and Proofs</h1>
+    <h1>Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs</h1>
     <p class="lean-paper__subject">Erdős #243</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/243/erdos243-reciprocal-tail-reasoning-surface.tex">
@@ -445,7 +445,8 @@ Lenstra <span class="citation"
 data-cites="stevenhagenlenstra1996"><a href="#ref-10">[10]</a></span>, infinitely many unramified
 rational primes have Frobenius conjugate to <span
 class="math inline" data-term-auto="off">\(\sigma\)</span>. Only infinitude is needed. We
-discard the finitely many primes at which coefficients, <span
+discard the exceptional primes in the hypothesis and the finitely many
+primes at which coefficients, <span
 class="math inline" data-term-auto="off">\(\alpha\)</span> or <span
 class="math inline" data-term-auto="off">\(\beta\)</span> have denominators, together with
 <span class="math inline" data-term-auto="off">\(2\)</span> and the primes at which <span
@@ -1938,11 +1939,12 @@ class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span>, and 
 class="math inline" data-term-auto="off">\(D_0=q\)</span>. Set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
-M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
-<p>The rational
-tail has denominator dividing <span class="math inline" data-term-auto="off">\(L_n\)</span>,
-so <span class="math inline" data-term-auto="off">\(U_n=L_nx_n\)</span> and <span
-class="math inline" data-term-auto="off">\(V_n\)</span> are integers. This clears the
+M_n=D_n/L_n,\quad U_n=L_nx_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
+<p>The
+rational tail has denominator dividing <span
+class="math inline" data-term-auto="off">\(L_n\)</span>, so <span
+class="math inline" data-term-auto="off">\(U_n\)</span> is an integer. Also <span
+class="math inline" data-term-auto="off">\(V_n=L_n-(a_n-1)U_n\in\Z\)</span>. This clears the
 denominator but need not reduce the fraction: <span
 class="math inline" data-term-auto="off">\(U_n\)</span> and <span
 class="math inline" data-term-auto="off">\(L_n\)</span> may still have common factors. With
@@ -2072,13 +2074,19 @@ class="math inline" data-term-auto="off">\(f\)</span> gives</p>
 class="math display" data-term-auto="off">\[\sum_{\substack{\tau\text{ first
 crossed}\\\text{at step }n}}f(\tau)
 \le(d_n-B)f(U_n).\]</span></div>
-<p>Each selected height has one first crossing,
-and the first selected height is at most <span
-class="math inline" data-term-auto="off">\(R_T+P\)</span>. Summing and comparing each
-interval of length <span class="math inline" data-term-auto="off">\(P\)</span> with its left
-endpoint gives, for <span class="math inline" data-term-auto="off">\(R_N\ge R_T+P\)</span>,
-the finite bound</p>
-<div class="math-display" id="long243:eq:weightedcrossing" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>Each selected height has one first crossing.
+The first is at most <span class="math inline" data-term-auto="off">\(R_T+P\)</span>, and
+successive selected heights are <span class="math inline" data-term-auto="off">\(P\)</span>
+apart. For <span class="math inline" data-term-auto="off">\(R_N\ge R_T+P\)</span>, the
+intervals <span
+class="math inline" data-term-auto="off">\([\tau,\min\{\tau+P,R_N\}]\)</span>, over selected
+heights <span class="math inline" data-term-auto="off">\(\tau\le R_N\)</span>, cover <span
+class="math inline" data-term-auto="off">\([R_T+P,R_N]\)</span>. Since <span
+class="math inline" data-term-auto="off">\(f\)</span> is nonincreasing, its integral over
+each interval is at most <span class="math inline" data-term-auto="off">\(P f(\tau)\)</span>.
+Summing the crossing bounds gives</p>
+<div class="math-display" id="long243:eq:weightedcrossing" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{long243:eq:weightedcrossing}
 \sum_{\substack{T\le n&lt;N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
 \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
@@ -2147,8 +2155,10 @@ gives</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\gamma_n+\theta_n=
 \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
 \qquad 0&lt;\gamma_n+\theta_n&lt;3/a_n\]</span></div>
-<p class="display-continue">eventually. Thus the two
-nonnegative summands <span
+<p class="display-continue">eventually. Taking
+positive parts cannot increase the absolute difference. Since <span
+class="math inline" data-term-auto="off">\(V_n=U_n\theta_n\)</span>, the two nonnegative
+summands <span
 class="math inline" data-term-auto="off">\(U_nf(U_n)(\gamma_n-B/U_n)_+\)</span> and <span
 class="math inline" data-term-auto="off">\((-V_n-B)_+f(U_n)\)</span> differ by at most <span
 class="math inline" data-term-auto="off">\(3U_nf(U_n)/a_n\)</span>. To see summability
@@ -2407,8 +2417,11 @@ class="math inline" data-term-auto="off">\(r=s=0\)</span>, the same formula give
 without needing <span class="math inline" data-term-auto="off">\(u\)</span> to be a
 unit. ◻</p>
 </div>
-<p>Cancellation is not the same as a fall in the reduced denominator
-valuation. For example, <span
+<p>The factor <span class="math inline" data-term-auto="off">\(h\)</span> is removed from
+<span class="math inline" data-term-auto="off">\(av\)</span>, after multiplication by <span
+class="math inline" data-term-auto="off">\(a\)</span>; this need not lower the prime
+exponents of the original denominator <span
+class="math inline" data-term-auto="off">\(v\)</span>. For example, <span
 class="math inline" data-term-auto="off">\((u,v,a)=(2,15,9)\)</span> gives <span
 class="math inline" data-term-auto="off">\(w=3\)</span>, <span
 class="math inline" data-term-auto="off">\(h=3\)</span> and <span
@@ -3320,14 +3333,18 @@ class="math inline" data-term-auto="off">\((t_n\gamma_n)_+=t_n\gamma_n^{+}=O(n^{
 tends to zero and <span
 class="math inline" data-term-auto="off">\(\limsup_nt_n\gamma_n\le0\)</span>. Koizumi’s
 Corollary 4(1) <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
-gives the first conclusion. For the second, positivity of <span
-class="math inline" data-term-auto="off">\(1+\gamma_n\)</span> and</p>
+gives the first conclusion. For the second, divide <span
+class="math inline" data-term-auto="off">\(t_n\)</span> by <span
+class="math inline" data-term-auto="off">\(n\)</span> to obtain</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[1+\gamma_n\le(1+1/n)(1+K/n^{1+\varepsilon})\]</span></div>
-<p class="display-continue">give <span class="math inline" data-term-auto="off">\(t_n=O(n)\)</span>, since the second
-product converges. Consequently <span
-class="math inline" data-term-auto="off">\(t_n(\gamma_n)_+=O(1)\)</span>, and the criterion
-bounding the product expression applies. ◻</p>
+class="math display" data-term-auto="off">\[\frac{t_{n+1}/(n+1)}{t_n/n}
+=\frac{1+\gamma_n}{1+1/n}
+\le 1+\frac{K}{n^\varepsilon(n+1)}.\]</span></div>
+<p>The product of the upper
+bounds converges, so <span class="math inline" data-term-auto="off">\(t_n/n\)</span> is
+bounded above. Consequently <span
+class="math inline" data-term-auto="off">\(t_n(\gamma_n)_+=O(1)\)</span>, and Theorem <a class="math-ref" href="#long243:res:strausbounded">7.12</a>
+applies. ◻</p>
 </div>
 <p>The inclusive clause requires more than <span
 class="math inline" data-term-auto="off">\(\limsup n(\gamma_n)_+\le1\)</span>. That weaker
@@ -3646,8 +3663,9 @@ class="math inline" data-term-auto="off">\(n\)</span>. By Proposition <a class=
 increases by <span class="math inline" data-term-auto="off">\(m\)</span> at each step, so
 <span class="math inline" data-term-auto="off">\(C_n=c+nm\)</span> with <span
 class="math inline" data-term-auto="off">\(c=C_0\)</span>, and the definition of the error
-becomes a identity</p>
-<div class="math-display" id="long243:eq:shape" data-term-auto="off"><span class="math display" data-term-auto="off">\[D_n+m=(a_n-1)\,(c+nm) .
+becomes the identity</p>
+<div class="math-display" id="long243:eq:shape" data-term-auto="off"><span class="math display" data-term-auto="off">\[D_n+m=(a_n-1)\,(c+nm)
+.
 \tag{5.1}\label{long243:eq:shape}\]</span></div>
 <p>Together with <span
 class="math inline" data-term-auto="off">\(D_{n+1}=a_nD_n\)</span> this is a closed system in
@@ -4642,19 +4660,25 @@ Then</p>
 \label{long243:eq:repair-entropy}
 K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
 \end{equation}\]</span></div>
-<p>To see this, each relative-error bound gives
-<span class="math inline" data-term-auto="off">\(h_nu_{n+1}&lt;(1+1/K)u_n\)</span>.
-Multiplication over the interval and <span class="math inline" data-term-auto="off">\(u_r\le
-u_{r+L}\)</span> yield</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\prod_{r\le
-n&lt;r+L}h_n&lt;(1+1/K)^L.\]</span></div>
-<p>The least common multiple of the
-<span class="math inline" data-term-auto="off">\(m_q\)</span> divides the product of the
-<span class="math inline" data-term-auto="off">\(c_n\)</span>, and <span
+<p>To see this, divide the recurrence by <span
+class="math inline" data-term-auto="off">\(u_n\)</span> and multiply over the interval:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\left(\prod_{r\le
+n&lt;r+L}h_n\right)\frac{u_{r+L}}{u_r}
+=\prod_{r\le n&lt;r+L}\left(1-\frac{\tilde e_n}{u_n}\right)
+&lt;(1+1/K)^L.\]</span></div>
+<p>The recovery hypothesis <span
+class="math inline" data-term-auto="off">\(u_r\le u_{r+L}\)</span> makes the endpoint ratio
+at least <span class="math inline" data-term-auto="off">\(1\)</span>, so <span
+class="math inline" data-term-auto="off">\(\prod_{r\le n&lt;r+L}h_n&lt;(1+1/K)^L\)</span>.
+The least common multiple of the <span
+class="math inline" data-term-auto="off">\(m_q\)</span> divides the product of the <span
+class="math inline" data-term-auto="off">\(c_n\)</span>, and <span
 class="math inline" data-term-auto="off">\(c_n^2\mid h_n\)</span> at every step. Its square
-therefore divides, and is at most, the positive product on the left.
-Multiplying by <span class="math inline" data-term-auto="off">\(K^L\)</span> proves the
-claimed bound. This is the <a
+therefore divides, and is at most, the positive integer <span
+class="math inline" data-term-auto="off">\(\prod_{r\le n&lt;r+L}h_n\)</span>. Multiplying by
+<span class="math inline" data-term-auto="off">\(K^L\)</span> proves the claimed bound. This
+is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/be89e72217ec9c5f05aa5ec7b915c1ebf0816fdd/lean/ErdosProblems/Erdos243/RepairEntropy.lean#L48">bound
 on cancellation over a recovery interval</a>.</p>
 <p>The square in <a class="math-ref" data-equation-ref="true" href="#long243:eq:repair-entropy">long243:eq:repair-entropy</a> comes
@@ -4997,13 +5021,8 @@ target.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>
-<p>The Lean sources, with their fixed toolchain and library manifest,
-are in the <a href="https://github.com/wcook04/plectis-erdos/tree/be89e72217ec9c5f05aa5ec7b915c1ebf0816fdd">public repository</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/243/\evidencerecordurl">evidence record</a> gives, for every result,
-the Lean declarations, the version checked and the independent
-Comparator check. The external formal-conjecture entry states the
-problem without proving it. The ordinary proofs and their exposition
-require mathematical review independently of these checks.</p>
+<p>The fixed toolchain, Lean sources and evidence record are described
+in Appendix <a class="math-ref" href="#long243:app:index">A</a>.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -5020,14 +5039,16 @@ catalogue <span class="citation" data-cites="erdosproblems"><a href="#ref-13">[
 </section>
 </section>
 <section id="long243:app:index" class="level2">
-<h2>Guide to the formal sources</h2>
-<p>The margin marks and declarations below identify fixed revisions of
-the formal sources. The printed square-specialisation argument uses
-Chebotarev, while the supplied formal proof uses a Dedekind-zeta pole
-comparison. Agreement of their conclusions does not verify every step of
-the printed argument. No Lean build, Comparator replay or independent
-review was performed for this revision. The supplied evidence records
-also retain source-pin and index gaps.</p>
+<h2>Verification and reproducibility</h2>
+<p>The fixed toolchain, library manifest and Lean sources are in the <a
+href="https://github.com/wcook04/plectis-erdos/tree/be89e72217ec9c5f05aa5ec7b915c1ebf0816fdd">public repository</a>. The evidence record identifies
+the exact declarations, source versions and Comparator status, including
+source-pin and index gaps. The external formal-conjecture entry states
+the problem without proving it. The printed square-specialisation proof
+uses Chebotarev, while the formal proof uses a Dedekind-zeta pole
+comparison; the shared conclusion does not check every step of the
+printed argument. No new Lean build, Comparator replay or independent
+review was performed for this revision.</p>
 <p>The recurrence identities and arithmetic exclusions are in
 <code>ReciprocalTailRigidity.lean</code>, the scalar convergence theorem
 is in <code>SparseResetRecovery.lean</code>, and the bounds on cancelled

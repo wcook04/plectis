@@ -32,8 +32,11 @@ average, the incomplete residue periods produce an error without the
 factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>
 needed for summation over exponents. Averaging again over dyadic lengths
-restores this factor. The dependence on the modulus is retained so that
-both support criteria can be applied at the same index.</p>
+restores this factor. The decisive point for the union theorem is
+stronger than proving the two criteria separately: both errors are
+controlled on the same finite distribution, and one index is chosen only
+after they have been added. Keeping the modulus dependence explicit
+makes that common distribution available to the cover estimate.</p>
 <p>Part I gives the support theorems and the proofs followed by the
 short paper, <em>Irrationality criteria for Lambert subseries</em>. The
 subsequent parts concern a different question: whether a prescribed
@@ -54,15 +57,6 @@ The conditional results specify sufficient hypotheses or equivalent
 membership conditions, and the computations cover only the stated finite
 ranges. Each counterexample concerns the particular estimate under
 discussion.</p>
-<p>Links marked <span class="smallcaps">Lean source</span> open the
-exact declarations associated with a statement or proof step. They
-introduce no extra hypotheses. The ordinary arguments added here,
-including the integer-quotient proof for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>,
-have not undergone independent human review or a new formal verification
-in this revision. The accompanying checking records concern the
-propositions and source revisions they name. The bibliography separates
-original results from later expositions used to read them.</p>
 <section id="notation-used-throughout" class="level5 unnumbered">
 <h5 class="unnumbered">Notation used throughout</h5>
 <p>For
@@ -1014,9 +1008,17 @@ we use a complete-orbit bound with a remainder term; for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mn>2</mn><mi>L</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">d&gt;2LT</annotation></semantics></math>
 no residue is reduced modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
-The intervening range
+For fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+doubling
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+moves from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mn>2</mn><mi>L</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">d&gt;2LT</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>L</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">d\le LT</annotation></semantics></math>
+after at most one intermediate scale; hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>T</mi><mo>&lt;</mo><mi>d</mi><mo>≤</mo><mn>2</mn><mi>L</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">LT&lt;d\le2LT</annotation></semantics></math>
-contains at most one dyadic length. When
+occurs for at most one dyadic length. When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>L</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">d\le LT</annotation></semantics></math>,
 the complete orbit has length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">d/g</annotation></semantics></math>,
@@ -1272,12 +1274,13 @@ and take
 </section>
 <section id="combining-the-two-support-criteria" class="level5">
 <h5>Combining the two support criteria</h5>
-<p>We use the weighted proof to choose a finite distribution and apply
-the cover estimate <code>[eq:257-mixed-finite-kernel]</code> to it. The
-explicit modulus dependence lets us check that the cover error also
-tends to zero with this choice. Separate sequences of small weighted and
-covered displacements would not give a small sum: their small values
-could occur on disjoint sets of indices.</p>
+<p>Separate sequences of small weighted and covered displacements would
+not give a small sum: their small values could occur on disjoint sets of
+indices. Instead, the weighted proof chooses one finite distribution and
+the explicit modulus dependence
+in <code>[eq:257-mixed-finite-kernel]</code> lets the cover estimate use
+that same distribution. We add the two nonnegative errors there and
+choose an index only afterwards.</p>
 <div class="thm">
 <p><strong>Theorem 1.4</strong> (mixed weighted and cover supports). <em>
 Let
@@ -1328,7 +1331,15 @@ all members of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
 and all members of the first
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-covering sets. With the finite sets and
+covering sets. The order is deliberate: first the finite pieces
+determine
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>;
+then the weighted argument enlarges
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+and chooses the dyadic scales; only after both estimates are on that
+distribution is a sample selected. With the finite sets and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
 fixed, choose the base-two weighted parameters
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>L</mi><munder><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow></munder><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>H</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>H</mi><mi>/</mi><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi mathvariant="script">𝒫</mi><mo stretchy="false" form="postfix">⌋</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mn>2</mn><mrow><mi>G</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">⌋</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Q=L\prod_{p\in\mathcal P}p^{\lfloor\log_pH\rfloor},\qquad
@@ -1465,11 +1476,19 @@ unions and finite changes, even with the fixed dyadic cover cost in
 their
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>th
 finite sets at positions
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>j</mi></mrow><annotation encoding="application/x-tex">2j-1,2j</annotation></semantics></math>,
-halve each exponent, and keep the nonnegative coefficients of the
-majorants. Integer divisor counts satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msup><mo>≤</mo><msup><mi>f</mi><mi>α</mi></msup></mrow><annotation encoding="application/x-tex">f^{\alpha/2}\le f^\alpha</annotation></semantics></math>,
-while the full cost of each reindexed finite set grows by at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>j</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>j</mi></mrow><annotation encoding="application/x-tex">2j-1,2j</annotation></semantics></math>
+and halve each exponent. Halving compensates for the increased index in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup><annotation encoding="application/x-tex">2^{j\alpha_j}</annotation></semantics></math>.
+The same coefficients still majorise the smaller powers, since integer
+divisor counts satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msup><mo>≤</mo><msup><mi>f</mi><mi>α</mi></msup></mrow><annotation encoding="application/x-tex">f^{\alpha/2}\le f^\alpha</annotation></semantics></math>.
+The denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>α</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^\alpha-1</annotation></semantics></math>
+is the only remaining cost: replacing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\alpha/2</annotation></semantics></math>
+increases the full cost of each finite set by at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">1+\sqrt2</annotation></semantics></math>.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
@@ -2412,12 +2431,18 @@ proved.</p>
 </section>
 <section id="bar:collapse" class="level5">
 <h5>Equivalent formulations of half-membership</h5>
-<p>The six conditions listed below are equivalent to half-membership.
-Their quantifier patterns can look less restrictive than a single
-compatible infinite construction, but the equivalences must be checked
-mathematically. They follow here from a carry identity and an
-unconditional tail estimate. No claim is made that every conceivable
-sufficient condition is equivalent to the goal.</p>
+<p>The six conditions below are equivalent to half-membership. Their
+common reason is the carry identity: a fixed nonzero difference from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+produces a term of exponentially growing magnitude, whereas the
+remaining coefficient tail is only of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>N</mi></msqrt><annotation encoding="application/x-tex">\sqrt N</annotation></semantics></math>.
+An absolute carry bound of this order along an unbounded sequence
+therefore forces the difference to vanish. The proofs below distinguish
+a fixed support from finite approximants whose supports may vary; their
+quantifier patterns alone would not justify these equivalences. No claim
+is made that every conceivable sufficient condition is equivalent to the
+goal.</p>
 <div class="lem">
 <p><strong>Lemma 2.4</strong> (Carry and residual value). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb{N}</annotation></semantics></math>
@@ -8368,15 +8393,13 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mi>M</mi><mo>+</mo><mi>r</mi></mrow></msqrt><mo>≤</mo><msqrt><mi>M</mi></msqrt><mo>+</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">\sqrt{M+r}\le\sqrt M+r</annotation></semantics></math>
 gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><msup><mn>2</mn><mrow><mi>−</mi><mi>r</mi></mrow></msup><msub><mi>c</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn><msqrt><mi>M</mi></msqrt><mo>+</mo><mn>4</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{r\ge1}2^{-r}c_D(M+r)\le2\sqrt M+4.</annotation></semantics></math>
-This proves the bound with an error independent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>,
-and the hypothesis makes the finite values converge to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
-Compactness then gives membership, but not the finite approximants
-needed to apply the theorem. A square-root terminal bound is sufficient
-and stronger as a bound on these particular witnesses; no claim of a
-strict logical separation between the corresponding existence statements
-follows.</p>
+Each finite value belongs to the closed achievement set; its limit
+therefore belongs too, even when the finite supports disagree. No
+compatibility between them is needed for this implication. The finite
+approximants themselves remain an unproved input. A square-root terminal
+bound is sufficient and stronger as a bound on these particular
+witnesses; it does not establish a strict logical separation between the
+corresponding existence statements.</p>
 <p>Here is the finite family used in the cited construction. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">⌊</mo><msqrt><mi>m</mi></msqrt><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">B(m)=2\lfloor\sqrt m\rfloor+4</annotation></semantics></math>.
 A
@@ -14573,7 +14596,16 @@ Covers of infinite cost do not lower the infimum, and a finite-cost
 cover exists, for example the single set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
 with exponent one. This is the fractional cost of Theorem 1.3, not a
-redefinition of the logarithmic cost.</p>
+redefinition of the logarithmic cost. The two costs optimise different
+majorants. The quantity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>κ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\kappa_1</annotation></semantics></math>
+uses one logarithmic majorant of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>F</mi></msub><annotation encoding="application/x-tex">f_F</annotation></semantics></math>,
+whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mo>*</mo></msub><annotation encoding="application/x-tex">K_*</annotation></semantics></math>
+also permits splitting the support, varying the fractional exponents and
+allocating positive weights. The comparison below allows all of those
+choices.</p>
 <div class="thm">
 <p><strong>Theorem 13.1</strong> (arithmetic logarithmic counterexample).
 <em> For every integer
@@ -14854,23 +14886,30 @@ Nonnegative interchange and the original geometric-kernel estimate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">1+4L/M</annotation></semantics></math>,
 imply
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>L</mi><mo>;</mo><mi>R</mi><mo>,</mo><mi>M</mi></mrow></msub><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>U</mi><mi>F</mi></msub><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>K</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathscr D_{L;R,M}\mathbf1_{\{U_F&gt;1\}}\le(1+4L/M)K.</annotation></semantics></math>
-For fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>,</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L,M</annotation></semantics></math>,
-let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
-tend to infinity. Periodicity of the left-hand indicator gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">ℙ</mi><mi>L</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>F</mi></msub><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\mathbb P_L(U_F&gt;1)\le(1+4L/M)K</annotation></semantics></math>.
-Then let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-tend to infinity, with
+Keep the cover and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-fixed, to obtain
+fixed. For each fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">R\to\infty</annotation></semantics></math>:
+periodicity of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>U</mi><mi>F</mi></msub><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><annotation encoding="application/x-tex">\mathbf1_{\{U_F&gt;1\}}</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">ℙ</mi><mi>L</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>F</mi></msub><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\mathbb P_L(U_F&gt;1)\le(1+4L/M)K</annotation></semantics></math>.
+Now let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">M\to\infty</annotation></semantics></math>
+to remove the incomplete-period factor, giving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">ℙ</mi><mi>L</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>F</mi></msub><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\mathbb P_L(U_F&gt;1)\le K</annotation></semantics></math>.
+Only the indicator for the finite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+needs a period; no common period for the covering sets has been assumed.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mi>ℓ</mi><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">L=\ell\mid Q</annotation></semantics></math>
-this is the conditional probability in the statement. It holds for every
-admissible cover, so take their infimum and the maximum over the
-finitely many divisors
+the resulting probability is the one in the statement. Since this bound
+holds for each admissible cover and each such
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>,
+take the infimum over covers and the maximum over the finitely many
+choices of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math>.
 Finally use the constructed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">L\mid Q</annotation></semantics></math>
@@ -15087,6 +15126,17 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 numerator bound</a>.</p>
 </section>
 </section>
+<section id="verification-and-reproducibility"
+class="level4 unnumbered">
+<h4 class="unnumbered">Verification and reproducibility</h4>
+<p>Links marked <span class="smallcaps">Lean source</span> identify the
+declaration associated with a statement or proof step. The
+integer-quotient proof for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>
+and other arguments without a formal link remain ordinary proofs; no new
+formal or independent human verification is claimed here. The linked
+records identify the propositions and source revisions checked.</p>
+</section>
 <section id="acknowledgements" class="level4 unnumbered">
 <h4 class="unnumbered">Acknowledgements</h4>
 <p>I thank Wouter van Doorn for advice on mathematical exposition,
@@ -15099,8 +15149,8 @@ review of the mathematics of the present paper.</p>
 <h4 class="unnumbered">Statements and declarations</h4>
 <section id="artefact-and-data-availability." class="level7">
 <p class="heading">Artefact and data availability.</p>
-<p>The Lean declarations, the fixed toolchain and the library versions
-are given in the evidence record linked in the introduction.</p>
+<p>The Lean declarations, fixed toolchain and library versions are given
+in the evidence record linked above.</p>
 </section>
 <section id="scope-of-the-formal-checks." class="level7">
 <p class="heading">Scope of the formal checks.</p>

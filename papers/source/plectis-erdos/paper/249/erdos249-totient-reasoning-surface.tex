@@ -186,7 +186,7 @@
 \title{The Binary Totient Series}
 \subtitle{Totient sections, rational comparisons and arithmetic conditions}
 \author{Will Cook}
-\date{July 2026; revised 30 September 2026}
+\date{July 2026; revised 1 October 2026}
 
 \begin{document}
 % ---- part a249_front ----
@@ -244,11 +244,6 @@ Appendix~\ref{app:r3-declarations} collects the formal declarations.
 \clearpage
 \tableofcontents
 \clearpage
-\evidenceparagraph{\evidencerecordurl}
-A small-capital \textsc{Lean source} link beside a step, a definition or an
-observation opens the Lean declaration for that step. A checked
-implication does not establish its hypothesis.
-
 % ; - part a249_front ; -
 \section{Totient sections and tail differences}
 
@@ -588,23 +583,41 @@ positive integers, with some $c_d\ne0$ and
 $c_0+\sum_{N\ge1}b_Nt^{-N}=0$, where
 $b_N=\sum_{d\in D,\,d\mid N}c_d\bigl(\varphi(N/d)\bmod m\bigr)$ is bounded.
 Discard the $d$ with $c_d=0$ and let $\delta$ be the least remaining one.
-Given $L$, choose distinct primes $q_j\equiv1\pmod m$, $0<|j|\le L$, each
-larger than $L$ and than every element of $D$. By the Chinese remainder
-theorem and Dirichlet's theorem there are arbitrarily large primes $p$ with
-$p\equiv-1\pmod m$ and $\delta p\equiv-j\pmod{q_j}$ for every $j$. For
-$p>\max D$ the only $d\in D$ dividing $\delta p$ is $\delta$, so
-$b_{\delta p}=c_\delta(m-2)\ne0$. If $d\in D$ divides $\delta p+j$, then
-$q_j\nmid d$, so $q_j\mid(\delta p+j)/d$ and
-$m\mid\varphi((\delta p+j)/d)$; hence $b_{\delta p+j}=0$. The isolated
-coefficient makes $\sum_Nb_Nt^{-N}$ irrational, which contradicts
-$c_0\in\Z$.
+We will isolate the coefficient at $N=\delta p$. If $p>\max D$ is
+prime and $d\in D$ divides $\delta p$, then $p\nmid d$, so $d\mid\delta$.
+Minimality of $\delta$ forces $d=\delta$. Thus choosing the least
+active dilation prevents cancellation at the centre.
+
+Given $L$, choose distinct primes $q_j\equiv1\pmod m$, $0<|j|\le L$,
+each larger than $L$ and than every element of $D$. Impose
+\[
+ p\equiv-1\pmod m,\qquad
+ p\equiv-j\delta^{-1}\pmod{q_j}\quad(0<|j|\le L).
+\]
+The inverse exists because $q_j>\delta$, and the latter residue is
+nonzero because $q_j>|j|$. Together with the unit residue $-1$
+modulo $m$, these congruences define a reduced progression.
+CRT and Dirichlet's theorem give a prime $p$ as large as needed.
+At the centre, $b_{\delta p}=c_\delta(m-2)\ne0$.
+At a neighbour $\delta p+j$, every contributing dilation $d$ is
+coprime to $q_j$, so $q_j\mid(\delta p+j)/d$ and
+$m\mid\varphi((\delta p+j)/d)$. Hence $b_{\delta p+j}=0$.
+The isolated coefficient makes $\sum_Nb_Nt^{-N}$ irrational,
+contradicting $c_0\in\Z$.
 
 (b) Each $f_d$ that is constant on the even classes contributes a rational
-number, by Proposition~\ref{prop:radixresidue}(b) in base $t^d$. After
-lifting every $f_d$ to a common modulus $2^K$ and subtracting $f_d(0)$,
-the least remaining $d$ has an even residue $r$ with
-$f_d(r)\ne f_d(0)$; the argument of (a), with $p\equiv r+1\pmod{2^K}$ in
-place of $p\equiv-1\pmod m$, isolates a nonzero coefficient.
+number, by Proposition~\ref{prop:radixresidue}(b) in base $t^d$.
+Remove these contributions, lift the remaining functions to one
+modulus $2^K$, subtract their values at zero, and clear a common
+denominator. None of these operations changes rationality.
+For the least remaining dilation $\delta$, choose an even residue $r$
+with $f_\delta(r)\ne f_\delta(0)$. Use the construction in (a), now
+with $q_j\equiv1\pmod{2^K}$ and $p\equiv r+1\pmod{2^K}$.
+The central residue is allowed because $r+1$ is odd. Minimality
+again leaves just the nonzero contribution from $\delta$ at the
+centre, while every neighbouring totient is zero modulo $2^K$
+and hence contributes zero after the subtraction. The same bounded
+integer-coefficient argument applies.
 \end{proof}
 
 \begin{rem}[Slowly growing dyadic moduli]
@@ -623,7 +636,11 @@ $T_N=\sum_{j\ge1}a_{N+j}2^{-j}$ lies in $v^{-1}\Z$ for every $N$. For
 $1\le j\le L$ let $q_j$ be a prime factor of the Fermat number
 $2^{2^j}+1$; then $q_j\equiv1\pmod{2^{j+1}}$, and the $q_j$ are distinct
 because distinct Fermat numbers are coprime. Put $Q=q_1\cdots q_L$, so
-$Q<2^{2^{L+1}}$. Given $M$, the Chinese remainder theorem gives
+$Q<2^{2^{L+1}}$. These factors give a size bound as well as the needed
+divisibility: $\log Q=O(2^L)$. The factor $2^{-L}$ in the remaining
+tail will offset this growth, leaving the arbitrarily small constant
+from $2^{\kappa(n)}=o(\log n)$.
+Given $M$, the Chinese remainder theorem gives
 $N\in[M,M+Q)$ with $q_j\mid N+j$ for $1\le j\le L$. Then
 $2^{j+1}\mid\varphi(N+j)$, so $2^j\mid a_{N+j}$: either
 $\kappa(N+j)\le j$ and $a_{N+j}=0$, or $2^j$ divides both $\varphi(N+j)$
@@ -7336,9 +7353,13 @@ and the first spacing below is at least $\max(16,(2PP!)^2)$. Define
  A_j&=\beta^{s_j+2}.
  \end{aligned}
 \]
-The spacings and orders are nondecreasing and tend to infinity;
-$s_j=O(\log n_{j-1})$ and $W_j\le\sqrt{s_j}<s_{j+1}$.
-For digits $d_j\in\{-A_j,\ldots,A_j\}$, form
+These parameters serve two different constraints. The inequality
+$W_j\le\sqrt{s_j}<s_{j+1}$ keeps one block clear of the next.
+The larger digit range $|d_j|\le A_j$ will make the possible values
+overlap, but its coefficient cost must still fit within $g$.
+The spacings and orders are nondecreasing and tend to infinity,
+with $s_j=O(\log n_{j-1})$. For digits
+$d_j\in\{-A_j,\ldots,A_j\}$, form
 \[
  P_j(z)=d_jM_jz^{n_j}(1-z^{t_j})^{k_j},\qquad E(z)=\sum_{j\ge0}P_j(z).
 \]
@@ -7370,8 +7391,11 @@ Thus $b=\varphi+e$, where $e$ is the coefficient sequence of $E$, stays
 between zero and $n$. The coefficient bound ensures absolute convergence
 of $E$ inside the unit disk.
 
-\emph{An interval of values.} Put
+\emph{An interval of values.} At $z=1/\beta$, the contribution of
+block $j$ is $d_jw_j$, where
 $a_j=(1-\beta^{-t_j})^{k_j}$ and $w_j=M_j\beta^{-n_j}a_j$.
+We must check that the later blocks can fill the gaps between
+successive choices of $d_j$.
 Bernoulli's inequality gives $3/4\le a_j\le1$. Since $M_{j+1}\ge M_j$,
 \[
  A_{j+1}w_{j+1}=\beta^2M_{j+1}\beta^{-n_j}a_{j+1}
@@ -7402,9 +7426,10 @@ and every partial block sum vanish modulo $q$. Complete blocks have
 mass zero, giving the cumulative assertion. Eventually also $q\mid t_j$
 and $k_j>d$. Each such block lies in one residue class modulo $q$ and
 its moment of degree $d$ is zero by \eqref{long249:eq:signed-difference}.
-A cutoff outside $H$ cannot split a block. Its moment sum therefore
-contains only complete blocks, so the defect is the integer contribution
-of the finitely many early blocks. If $q\le P$ and $d<P$, there are no
+The restriction on the cutoff is needed here: outside $H$ it cannot
+split a block, so the moment sum contains only complete blocks.
+All sufficiently late complete blocks cancel, leaving just the integer
+contribution of the finitely many early blocks. If $q\le P$ and $d<P$, there are no
 exceptional early blocks. These cutoffs depend on the block parameters,
 not on the later choice of digits.
 
@@ -7502,9 +7527,11 @@ values contains both rational and irrational numbers.
 \end{proof}
 
 Taking finite linear combinations of the Dirichlet series on arithmetic
-progressions shows that every fixed periodic twist preserves the poles
-and Laurent principal parts wherever the original Dirichlet series has
-meromorphic continuation. In the untwisted case the classical identity
+progressions shows that every fixed periodic twist changes by an entire
+function. An entire summand has no negative Laurent coefficients: it
+therefore preserves every pole and its principal part wherever the
+original series has meromorphic continuation. The regular part and
+zeros need not be preserved. In the untwisted case the classical identity
 gives
 \[
  \sum_{n\ge1}b(n)n^{-s}=\frac{\zeta(s-1)}{\zeta(s)}+D_{1,0,r}(s),
@@ -8521,10 +8548,21 @@ an upper bound that is $o(2^e)$. Such a bound for the actual totient
 carry would contradict the lower bound of Proposition~\ref{prop:rank},
 but the following rational comparison already has that lower bound.
 
+The limit condition fixes the value of the series. Dividing the
+recurrence by $2^{n+1}$ and summing gives
+\[
+ v\sum_{n=1}^{N}c(n)2^{-n}=u_0-2^{-N}u_N.
+\]
+Thus $u_N/2^N\to0$ identifies the sum as $u_0/v$; it imposes no
+finite-dimensional description of the carry sections. In the
+construction below $u_0=5$ and $v=4$.
+
 \paragraph{The comparison with value $5/4$.}
 We alter only even coefficients, whose weights are
-$2^{-2m}=4^{-m}$. Thus a base-four expansion of $5/4-S$ gives the
-required correction while leaving every odd totient unchanged.
+$2^{-2m}=4^{-m}$. Thus we need a base-four expansion of $5/4-S$,
+with signed digits small enough to keep the corrected coefficients
+between zero and their indices. The digits $-2,-1,0,1$ will do this;
+the first even coefficient will require its own check.
 The elementary bounds $9/8\le S\le3/2$ follow respectively from the
 first four terms and from $\ph(n)\le n-1$ for $n\ge2$.
 Put $x_0=5/4-S$ and, for $m\ge1$, define
@@ -9481,7 +9519,10 @@ $2^L\|\Delta_h(N)\|_{\R/\Z}>2B$. Such a choice exists: $h,N$ are fixed,
 the distance is positive, and $B=N+h+L+2$ grows only linearly in $L$.
 The error estimate then puts the residue of $D_{h,N,L}$ more than $B$
 from either endpoint. Thus nonintegrality is equivalent to a certificate
-at some unrestricted depth.
+at some unrestricted depth. This is a one-sided finite test: success
+proves nonintegrality, but failure at a particular depth does not prove
+integrality. The converse guarantees eventual success only after a
+fixed nonintegral difference has been supplied.
 
 \begin{theorem}[Propagation of one nonintegral tail difference]\label{res:fulldepth}
 Fix $d\ge1$ and $N\ge0$. If $\Delta_d(N)\notin\Z$, then every sufficiently
@@ -9739,21 +9780,27 @@ $(\mu(1),\ldots,\mu(7))=(1,-1,-1,0,-1,1,-1)$ gives
 \[
  q_* = \frac{35076077250375200}{37573118933633199}.
 \]
-The following four comparisons cover, respectively, $e\ge2$,
-$(e,Y)=(1,4)$, $(1,6)$, and $e=1,Y\ge7$. They are exact rational
-inequalities:
+For $e\ge2$, both exponents in $Q(e,Y)$ are at least four, so the
+uniform bounds just proved apply to the numerator and denominator.
+For $e=1$, the numerator instead contains $P_Y(3)$; we use the
+seven-term prefix to bound it. This leaves the two cases $Y=4,6$
+to compare with $Y=5$. The four exact rational comparisons are
 \begin{align*}
- \frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&>q_*,\\
- Q(1,4)=\frac{79049881}{84671559}&>q_*,\\
- Q(1,6)=\frac{1043700953468949889}{1117992059749781919}&>q_*,\\
- \frac{(P_7(3)-1/1835008)^2}{P_7(4)+1/251658240}&>q_*.
+ \frac{(\alpha-\varepsilon)^2}{1+\varepsilon}&>q_*
+       &&(e\ge2),\\
+ \frac{79049881}{84671559}=Q(1,4)&>q_*
+       &&(e=1,\ Y=4),\\
+ \frac{1043700953468949889}{1117992059749781919}=Q(1,6)&>q_*
+       &&(e=1,\ Y=6),\\
+ \frac{(P_7(3)-1/1835008)^2}{P_7(4)+1/251658240}&>q_*
+       &&(e=1,\ Y\ge7).
 \end{align*}
-All four comparisons follow by multiplication by their positive denominators.
-For $e\ge2$, the first inequality and the bounds on $\Theta_r,P_Y(r)$
-imply $Q(e,Y)>q_*$. For $e=1,Y\ge7$, the finite-prefix tail bounds
-with $Z=7$ imply the last inequality is a lower bound for $Q(1,Y)$;
-its numerator lower bound is positive. The cases $Y=4,5,6$ are displayed
-explicitly. Therefore $(1,5)$ is the unique minimiser.
+Each comparison follows by multiplication by positive denominators.
+The first left-hand side bounds every quotient in its range from
+below. So does the last, by the tail estimates with $Z=7$; the
+numerator lower bound is positive before it is squared. The middle
+two rows give the quotients themselves. These ranges cover every
+admissible pair except $(1,5)$, proving its unique minimality.
 
 It remains to compare the minimum with $\Theta_2$. An upper bound
 for $\Theta_2$ proves the stated gap; a lower bound disproves the
@@ -9761,9 +9808,12 @@ stronger proposed gap. The same tail estimate at $r=2$ gives
 \[
  P_6(2)-\frac1{3072}\le\Theta_2\le P_7(2)+\frac1{12288}.
 \]
-Direct fraction comparison, using
-$P_6(2)=3309559/3814209$ and
-$P_7(2)=53376062902/61519376961$, yields
+The exact prefixes are
+\[
+ P_6(2)=\frac{3309559}{3814209},\qquad
+ P_7(2)=\frac{53376062902}{61519376961}.
+\]
+Comparison of fractions gives
 \[
  q_*-\left(P_7(2)+\frac1{12288}\right)>\frac{21}{320},
  \qquad
@@ -9794,13 +9844,14 @@ rank-one quotients and their positive averages, not other approximation
 families.
 
 
-\section{Formal declaration guide}\label{app:r3-declarations}
+\section{Verification and reproducibility}\label{app:r3-declarations}
 \papersectiontarget{long249-r3-declarations}
-The following links give the formal declarations cited by the short
-paper and its complementary proofs, at the supplied source revisions.
-A declaration proving a conditional implication includes its input as
-a hypothesis. The linked source alone does not establish that input
-for $\varphi$, and these references do not report a fresh Lean replay.
+\evidenceparagraph{\evidencerecordurl}
+The links below identify formal declarations at the supplied source
+revisions. A checked conditional implication retains its hypothesis;
+the linked source alone does not establish that input for $\varphi$.
+The record gives the available Lean and Comparator status and does not
+report a new replay or independent review of the printed proofs.
 
 \medskip\noindent\textbf{Bases and relations.}\par\smallskip
 \mword{Erdos249257/TotientMahlerDefect.lean}{160}{totientKernel_zero_residue}{reduction of sections with residue zero};

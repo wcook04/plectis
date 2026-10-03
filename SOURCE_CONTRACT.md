@@ -296,10 +296,40 @@ the ledger, the evidence or the rendered papers come from different editions.
   eight problems as tabs, the problem, the card) whose contents are replaced
   rather than pushed, so hovering records no layout shift. While it can
   open, the rows' glossary marks rest and the companion's title, the same
-  words and marks, offers the definitions instead.
+  words and marks, offers the definitions instead. Its prose keeps the
+  précis's measure (52ch at 0.88rem, 54ch for the 0.84rem tally and card
+  lines). `public_web_audit.py` sees the page with the companion closed, so
+  judge its open state from probe captures at laptop and monitor sizes. Its
+  three files belong to the reading-room deploy scope with the teaser data
+  that names them.
+- Only what changed moves (Will, 3 Oct: "If the value's the same, then
+  don't have the animation"). The result card is a fixed set of lines.
+  Moving from one result to the next rewrites only the lines whose content
+  changed, and a line moves (100ms) only when its words changed: the links
+  keep their words while their addresses change, so they hold still. The
+  card's mark ripples only when the evidence it shows changes.
 - The teaser resolves its routes against `data-universe-base`: on the
   landing a dot opens `maths/papers/…`, where it had opened `/papers/…` and
   404ed.
+- A hovered or selected result names itself on a plate, and each frame
+  places that plate before anything is lettered (`namePlate`). A band title
+  or the shared callout the plate would cover steps aside while the reader
+  points, both lines of a title and the callout's dashed line with it, and
+  keeps its room so no other label moves. A label must never show through a
+  plate: the live #257 hover once left half of "Shared: #249 and #257"
+  under one.
+- Light belongs to the evidence, as colour does, and the ground stays flat.
+  On the dark ground a replayed result glows faintly, an ember, brighter in
+  its lit sector; on paper there is no ambient glow. The mark in focus glows
+  in either scheme. Settling on a result plays one moment, after a tenth of
+  a second so a sweeping pointer leaves no trail: one ripple from the mark,
+  a bead of light along each of its threads (at most four, the checking
+  surfaces first), and a brief glow from Comparator when it replayed the
+  result. Palomar, which holds a prepared corpus, does not answer. The
+  companion's card mark ripples on the same beat when its evidence is new,
+  a new plate eases out of its mark over a sixth of a second, and a
+  selection plays its moment once.
+  Reduced motion keeps the still glow and plays none of the motion.
 
 ### Maths reading pages (October 2026)
 

@@ -546,24 +546,34 @@ F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span></div>
 \label{eq:actual-tail}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}\]</span></div>
-<p>When <span
-class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral, the positive integer
-<span class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> must therefore be
-congruent to <span class="math inline" data-term-auto="off">\(-BF_{\ell,h}\)</span> modulo
-<span class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>. If its least positive
-representative is already too large, no such tail exists. Positivity
-matters here: in the zero residue class the first permitted value is the
-modulus itself.</p>
-<p>For integers <span class="math inline" data-term-auto="off">\(W\ge1,t\)</span>, define
-<span class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)=1+((t-1)\bmod
-W)\)</span>, with the remainder in <span
-class="math inline" data-term-auto="off">\(\{0,\ldots,W-1\}\)</span>. Thus <span
-class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(0)=W\)</span>. Throughout
-this section let</p>
-<div class="math-display" id="eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<p>Throughout this section let</p>
+<div class="math-display" id="eq:actual-bound" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
+<p>The bound <span
+class="math inline" data-term-auto="off">\(0&lt;BX_{\ell+h}\le K(B,\ell+h)\)</span> and <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a> enclose the
+starting tail in the interval</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{BF_{\ell,h}}{W_{\ell,h}}&lt;BX_\ell
+\le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.\]</span></div>
+<p>If this interval
+contains no integer, then <span class="math inline" data-term-auto="off">\(BX_\ell\)</span>
+cannot be integral. The residue test expresses the same exclusion at the
+other end of the segment: an integral starting tail would make <span
+class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> a positive integer congruent
+to <span class="math inline" data-term-auto="off">\(-BF_{\ell,h}\)</span> modulo <span
+class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>.</p>
+<p>For integers <span class="math inline" data-term-auto="off">\(W\ge1,t\)</span>, define
+<span class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)=1+((t-1)\bmod
+W)\)</span>, with the remainder in <span
+class="math inline" data-term-auto="off">\(\{0,\ldots,W-1\}\)</span>. This is the least
+positive integer in the residue class of <span
+class="math inline" data-term-auto="off">\(t\)</span>. In particular <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(0)=W\)</span>, rather than
+zero: the left endpoint of the interval is excluded because the terminal
+tail is positive.</p>
 <div class="lemma" id="res:consumer">
 <p><strong>Lemma 4.1</strong> (least positive residues). <em> If <span
 class="math inline" data-term-auto="off">\(d\)</span> is a positive integer with <span
@@ -579,9 +589,13 @@ class="math inline" data-term-auto="off">\(d\)</span>. ◻</p>
 </div>
 <p>For <span class="math inline" data-term-auto="off">\(\ell=1,h=6\)</span>, direct iteration
 gives <span class="math inline" data-term-auto="off">\(W_{1,6}=648000\)</span> and <span
-class="math inline" data-term-auto="off">\(F_{1,6}=524431\)</span>. Hence <span
-class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;K(1,7)=5760\)</span>.
-This excludes an integral <span class="math inline" data-term-auto="off">\(X_1\)</span>. A
+class="math inline" data-term-auto="off">\(F_{1,6}=524431\)</span>. Since <span
+class="math inline" data-term-auto="off">\(K(1,7)=5760\)</span>, the interval is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{524431}{648000}&lt;X_1\le\frac{530191}{648000}&lt;1.\]</span></div>
+<p>It contains no integer. Equivalently, <span
+class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;5760\)</span>
+excludes an integral <span class="math inline" data-term-auto="off">\(X_1\)</span>. A
 rational denominator might clear only later, so a criterion for
 irrationality must allow every late start and every denominator part
 coprime to <span class="math inline" data-term-auto="off">\(30\)</span>.</p>
@@ -638,12 +652,14 @@ class="math inline" data-term-auto="off">\(a_0\)</span>. No bound uniform in <sp
 class="math inline" data-term-auto="off">\(B\)</span> or <span
 class="math inline" data-term-auto="off">\(\ell\)</span> is needed for this direction. ◻</p>
 </div>
-<p>The converse gives no estimate for the gap <span
-class="math inline" data-term-auto="off">\(\delta\)</span>. It explains why a long enough
-segment succeeds once <span class="math inline" data-term-auto="off">\(BX_\ell\)</span> is
-known to be nonintegral. To use the forward implication, we must
-prove <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> for the
-actual coefficients without assuming that nonintegrality.</p>
+<p>As <span class="math inline" data-term-auto="off">\(h\)</span> grows, the interval above
+narrows towards the fixed value <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span>. If that value is nonintegral, a
+sufficiently narrow interval contains no integer. The converse
+formalises this observation, but gives no estimate for the gap <span
+class="math inline" data-term-auto="off">\(\delta\)</span>. To use the forward implication,
+we must prove <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> for
+the actual coefficients without assuming that nonintegrality.</p>
 <p>The upper-bound property of <span class="math inline" data-term-auto="off">\(K\)</span> is
 essential: choosing the zero function would make every residue
 inequality automatic. The <a
@@ -756,9 +772,10 @@ corresponds to <span class="math inline" data-term-auto="off">\(n=\lfloor
 j/\theta\rfloor\)</span> with <span
 class="math inline" data-term-auto="off">\(m_n=j-1\)</span> and <span
 class="math inline" data-term-auto="off">\(\delta_n=1\)</span>. Substitution proves <a class="math-ref" data-equation-ref="true" href="#eq:two-prime-affine">eq:two-prime-affine</a>.</p>
-<p>To apply the transcendence theorem, we express <span
-class="math inline" data-term-auto="off">\(A\)</span> in terms of the Hecke–Mahler series
-<span
+<p>Both sums are now nonconstant polynomials in the single value <span
+class="math inline" data-term-auto="off">\(A\)</span>, with rational coefficients. It
+therefore remains to prove that <span class="math inline" data-term-auto="off">\(A\)</span>
+is transcendental. For this we use the Hecke–Mahler series <span
 class="math inline" data-term-auto="off">\(F_\theta(x,y)=\sum_{n\ge1}\sum_{k=1}^{m_n}x^ny^k\)</span>.
 Geometric summation gives</p>
 <div class="math-display" id="eq:hecke-mahler-boundary" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -890,9 +907,13 @@ determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: 
 entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</span>, so it
 equals <span class="math inline" data-term-auto="off">\(1/60-1/12\)</span>.</em></p>
 </div>
-<p>A single nonzero minor rules out rank one. The theorem below requires
-minors of every order, with rows and columns chosen to suit the order.
-The same choices will work in every layer <span
+<p>This nonzero two-by-two minor rules out rank one. More generally, a
+sum of <span class="math inline" data-term-auto="off">\(d\)</span> separated products would
+give every matrix layer rank at most <span
+class="math inline" data-term-auto="off">\(d\)</span>. To exclude every finite <span
+class="math inline" data-term-auto="off">\(d\)</span>, we therefore seek nonzero minors of
+arbitrarily large order. Their rows and columns may depend on the order;
+the same choices will work in every layer <span
 class="math inline" data-term-auto="off">\(k\)</span>.</p>
 <div class="theorem" id="res:infinite-rank">
 <p><strong>Theorem B.2</strong> (no finite separation of the kernel).
@@ -915,13 +936,22 @@ class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=\sum_{\ell&l
 \qquad\hbox{for all }i,j,k.\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> For fixed <span class="math inline" data-term-auto="off">\(k\)</span>, we
-rescale rows and columns to obtain a matrix independent of <span
-class="math inline" data-term-auto="off">\(k\)</span>. Put <span
-class="math inline" data-term-auto="off">\(c=r^{-1}\)</span>, <span
+<p><em>Proof.</em> For fixed <span class="math inline" data-term-auto="off">\(k\)</span>, the
+powers of <span class="math inline" data-term-auto="off">\(p\)</span> and <span
+class="math inline" data-term-auto="off">\(q\)</span> split into a row factor and a column
+factor, as in the two-prime case. The power of <span
+class="math inline" data-term-auto="off">\(r\)</span> has one remaining interaction between
+the indices. Put <span class="math inline" data-term-auto="off">\(c=r^{-1}\)</span>, <span
 class="math inline" data-term-auto="off">\(x_i=\{i\log_r p\}\)</span> and <span
 class="math inline" data-term-auto="off">\(y_j=\{j\log_r q\}\)</span>, where braces denote
-fractional parts. Splitting the floor exponents gives</p>
+fractional parts. Then</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\lfloor i\log_r
+p+j\log_r q\rfloor
+=\lfloor i\log_r p\rfloor+\lfloor j\log_r q\rfloor
+   +\mathbf1_{\{x_i+y_j\ge1\}}.\]</span></div>
+<p>The last term is the carry when
+the two fractional parts are added. Putting all the other prime powers
+into row and column factors gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=U_i(k)^{-1}C_{ij}V_j(k)^{-1},\qquad
 C_{ij}=c^{\mathbf1_{\{x_i+y_j\ge1\}}},\]</span></div>
@@ -934,8 +964,11 @@ V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
             r^{\lfloor\log_r q^j\rfloor}.
 \end{aligned}\]</span></div>
 <p>These positive factors preserve nonvanishing of
-minors. The remaining entry records whether <span
-class="math inline" data-term-auto="off">\(x_i+y_j\ge1\)</span>. Distinct primes make <span
+minors. In column <span class="math inline" data-term-auto="off">\(j\)</span>, the entry
+changes from <span class="math inline" data-term-auto="off">\(1\)</span> to <span
+class="math inline" data-term-auto="off">\(c\)</span> when <span
+class="math inline" data-term-auto="off">\(x_i\)</span> reaches <span
+class="math inline" data-term-auto="off">\(1-y_j\)</span>. Distinct primes make <span
 class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
 class="math inline" data-term-auto="off">\(\log_r q\)</span> irrational, so each
 fractional-part orbit is dense in <span
@@ -968,12 +1001,13 @@ c&amp;c&amp;\cdots&amp;1\\
 c&amp;c&amp;\cdots&amp;c
 \end{pmatrix},\qquad
 \det T_n(c)=c(c-1)^{n-1}.\]</span></div>
-<p>Indeed, subtracting each preceding
-row from the next, working upwards from the last row, leaves diagonal
-entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The
-original determinant is therefore</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[c(c-1)^{n-1}
+<p>Indeed, subtract each preceding row
+from the next, working upwards from the last row. Each row difference
+has just one nonzero entry, <span class="math inline" data-term-auto="off">\(c-1\)</span>, in
+its own column. The resulting triangular matrix has diagonal entries
+<span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The original
+determinant is therefore</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[c(c-1)^{n-1}
 \prod_{a&lt;n}U_{I(a)}(k)^{-1}\prod_{b&lt;n}V_{J(b)}(k)^{-1}\ne0.\]</span></div>
 <p>The indices were chosen from <span class="math inline" data-term-auto="off">\(C\)</span>,
 independently of <span class="math inline" data-term-auto="off">\(k\)</span>. For <span
@@ -1103,18 +1137,14 @@ irrationality of the scalar sum.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
-<h2>Proof sources and further comparisons</h2>
-<p>The margin marks link to the recorded Lean declarations and, where
-present, Comparator comparisons. For the five-map proof the declarations
-are in <a
+<h2>Verification, reproducibility and sources</h2>
+<p>The five-map proof is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightIrrationality.lean">the
 distinct-value development</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/5154f4c46fa5d5ab2cff8df857a0b10f310cbeeb/lean/ErdosProblems/Erdos269/DistinctHeightBlockRadix.lean">its
-block-series criterion</a>; no comparison is recorded. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/\evidencerecordurl">evidence record</a> gives the versions.
-Neither checker was rerun for this revision, and the public links may
-precede this manuscript’s local revision. The named input for two-prime
-transcendence stays beside that theorem.</p>
+block-series criterion</a>. Its statement has no recorded Comparator
+comparison. The evidence record fixes the source versions; the named
+input for two-prime transcendence is stated beside that theorem.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/tree/10178c4df40cb27d83b5ebb1ec337dd588b82998/research/experiments/erdos269/distinct_height">programs
 for sums over distinct values</a> calculate the interval endpoints and
@@ -1138,9 +1168,11 @@ arithmetic sequence.</p>
 <p>The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-source-inventory">companion’s
 source inventory</a> also covers the ordinary general and subseries
-arguments. Its historical note reports a second AI agent’s check on 26
-September 2026 and the incorporation of its corrections. No human
-mathematical review is reported.</p>
+arguments. Its historical note records the 26 September 2026 AI check
+and the corrections made from it; independent human mathematical review
+has not been reported.</p>
+<section id="further-comparisons" class="level3 unnumbered">
+<h3 class="unnumbered">Further comparisons</h3>
 <p>The classical criteria of Erdős–Straus <span class="citation"
 data-cites="erdosstraus1974"><a href="#ref-9">[9]</a></span>, Hančl–Tijdeman <span
 class="citation" data-cites="hancltijdeman2004"><a href="#ref-10">[10]</a></span> and
@@ -1174,6 +1206,7 @@ data-cites="tijdemanmeijer1974 languasco2025"><a href="#ref-16">[16]</a><a href=
 Ahmes-series problems <span class="citation"
 data-cites="kovactao2024"><a href="#ref-18">[18]</a></span> provides context; no estimate from
 those papers enters our dyadic counting argument.</p>
+</section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="authorship-and-availability." class="level5">

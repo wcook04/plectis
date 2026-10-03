@@ -223,11 +223,15 @@ contained in the circle
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo>−</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">|z-c|=t</annotation></semantics></math>.
 If that circle missed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∩</mo><msub><mi>U</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">K\cap U_1</annotation></semantics></math>,
-its intersection with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-would be a nonempty proper subset both open and closed in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
-a contradiction. Thus the radial map
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∩</mo><msub><mi>U</mi><mn>1</mn></msub><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo>−</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">K\cap U_1\cap\{|z-c|&gt;t\}</annotation></semantics></math>
+would be both open and closed in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>.
+It contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+and excludes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
+contradicting connectedness. Thus the radial map
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo>−</mo><mi>c</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">z\mapsto|z-c|</annotation></semantics></math>
 sends
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∩</mo><msub><mi>U</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">K\cap U_1</annotation></semantics></math>
@@ -594,15 +598,14 @@ Consequently
 <section id="subsec:counterexample-connections" class="level3">
 <h3>The two roots in the component</h3>
 <p>The local estimates identify a critical point, but we still have to
-find the two roots in its component. We join
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mn>3</mn></msub><annotation encoding="application/x-tex">b_3</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mn>6</mn></msub><annotation encoding="application/x-tex">b_6</annotation></semantics></math>
-to
+find the two roots in its component. The connections from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>s</mi></msub><annotation encoding="application/x-tex">c_s</annotation></semantics></math>
-using four segments followed by radial pieces. The following ordinary
-argument supplies that identification directly; the Lean source uses
-barriers. Put
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mn>3</mn></msub><mo>,</mo><msub><mi>b</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">b_3,b_6</annotation></semantics></math>
+use a small disc and four segments near the critical point, short
+segments to the root directions, and radial segments out to the roots.
+The following ordinary argument identifies the component directly; the
+Lean source uses barriers. Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><msub><mi>w</mi><mi>q</mi></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mfrac><mn>39226583259917038484346953200647</mn><msup><mn>10</mn><mn>40</mn></msup></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">Im</mi><mo>&#8289;</mo></mrow><msub><mi>w</mi><mi>q</mi></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mfrac><mn>8232474661944848953672917849472800078083</mn><msup><mn>10</mn><mn>40</mn></msup></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>x</mi><mn>3</mn></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><msub><mi>w</mi><mi>q</mi></msub><mo>−</mo><mn>6</mn><mo>+</mo><mn>3</mn><mi>i</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>x</mi><mn>6</mn></msub><mo>=</mo><msub><mi>w</mi><mi>q</mi></msub><mo>+</mo><mn>5</mn><mo>−</mo><mn>5</mn><mi>i</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>m</mi><mn>3</mn></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mfrac><mrow><mi>−</mi><mn>720775094321935300989</mn><mo>+</mo><mn>347106991294046496381</mn><mi>i</mi></mrow><msup><mn>10</mn><mn>20</mn></msup></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>m</mi><mn>6</mn></msub><mo>=</mo><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mfrac><mrow><mn>498791841486986824420</mn><mo>−</mo><mn>625465185974423846967</mn><mi>i</mi></mrow><msup><mn>10</mn><mn>20</mn></msup></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
  \operatorname{Re}w_q={}&amp;\frac{39226583259917038484346953200647}{10^{40}},\\
  \operatorname{Im}w_q={}&amp;\frac{8232474661944848953672917849472800078083}{10^{40}},\\
@@ -677,7 +680,22 @@ in that disc and
 throughout it. The disc is contained in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>w</mi><mo>−</mo><msub><mi>v</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|w-v_2|&lt;10^{-6}</annotation></semantics></math>,
 so this zero is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>s</mi></msub><annotation encoding="application/x-tex">w_s</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>s</mi></msub><annotation encoding="application/x-tex">w_s</annotation></semantics></math>.
+For each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>3</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">j=3,6</annotation></semantics></math>,
+we can therefore follow the segments from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>s</mi></msub><annotation encoding="application/x-tex">w_s</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>q</mi></msub><annotation encoding="application/x-tex">w_q</annotation></semantics></math>,
+then to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>j</mi></msub><annotation encoding="application/x-tex">x_j</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>j</mi></msub><annotation encoding="application/x-tex">m_j</annotation></semantics></math>,
+staying where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℋ</mi><mn>0</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mathscr H_0&gt;0</annotation></semantics></math>.
+It remains to connect
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>j</mi></msub><annotation encoding="application/x-tex">m_j</annotation></semantics></math>
+to the corresponding root.</p>
 <p>For the remaining segments no large polynomial expansion is needed.
 The Cayley intervals give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>m</mi><mi>j</mi></msub><mi>/</mi><mn>8</mn><mo>−</mo><msub><mi>ζ</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">|m_j/8-\zeta_j|&lt;1/10</annotation></semantics></math>
@@ -3339,9 +3357,12 @@ continuous densities therefore yields
  =\frac{1-|B(0)|^2}{|w-B(0)|^2}\qquad(|w|=1).</annotation></semantics></math>
 In particular each boundary fibre consists of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-distinct points. Choosing
+distinct points. The Poisson kernel on the right is smallest at the
+boundary point opposite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(0)</annotation></semantics></math>.
+Choosing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>=</mo><mi>−</mi><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">w=-B(0)/|B(0)|</annotation></semantics></math>
-yields
+therefore yields
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>m</mi><mi>n</mi></mfrac><mo>&lt;</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><mrow><mn>1</mn><mo>+</mo><mo stretchy="false" form="prefix">|</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mi>m</mi></mrow><mrow><mi>n</mi><mo>+</mo><mi>m</mi></mrow></mfrac><mo>=</mo><mfrac><mi>k</mi><mrow><mn>2</mn><mi>n</mi><mo>−</mo><mi>k</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac mn&lt;\frac{1-|B(0)|}{1+|B(0)|},
  \qquad |B(0)|&lt;\frac{n-m}{n+m}=\frac{k}{2n-k}.</annotation></semantics></math>
 Here
@@ -4196,11 +4217,19 @@ in every degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>q</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3q\ge6</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Fix a
+<p><em>Proof.</em> One nonzero root of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+will supply both endpoints of the path through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
+Before selecting it, we check that every zero of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+lies in the open unit disc. Fix a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>th
 root
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
-of a quotient root and a primitive
+of a zero of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and a primitive
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>th
 root of unity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>.
@@ -4865,10 +4894,8 @@ at
 and hence a constant path between two occurrences. The formal source
 checks the factorization, radial-segment estimate and finite length
 inequality. It does not establish the existence of a suitable quotient
-root or formalise the selection and lifting just described. The
-available formal statements cover the segment inequality and finite
-length calculation. They do not include the complete path construction
-or unrestricted Erdős #1041.</p>
+root, formalise the selection and lifting just described, or prove
+unrestricted Erdős #1041.</p>
 <p>The radial-segment identity and strict bound are formalised in <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">cancellation
 along a trinomial root segment</a> and <a
@@ -5399,14 +5426,19 @@ Let
 This also handles boundary critical points and all multiplicities
 without selecting local branches. ◻</p>
 </div>
-<p>Set
+<p>First suppose the zeros of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+lie in the closed unit disc, and set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=n-1</annotation></semantics></math>.
-The weighted Poisson proof below gives the quadratic finite inequality
-for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m\ge1</annotation></semantics></math>.
-Gauss–Lucas and Lemma 10.3 then give
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\sum_j|f(c_j)|^{2/m}\le m</annotation></semantics></math>
-on the unit disc. Applying this to
+Gauss–Lucas puts the critical points in the same disc. Lemma 10.3 gives
+the first inequality below; the weighted Poisson inequality, proved next
+and applied with equal weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">1/m</annotation></semantics></math>,
+gives the second:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>≤</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><mo stretchy="false" form="prefix">|</mo><mn>1</mn><mo>−</mo><mover><msub><mi>c</mi><mi>j</mi></msub><mo accent="true">¯</mo></mover><msub><mi>c</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">|</mo><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>≤</mo><mi>m</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{j=1}^m|f(c_j)|^{2/m}
+ \le\sum_{j=1}^m\left(\prod_{k=1}^m
+             |1-\overline{c_j}c_k|\right)^{2/m}\le m.</annotation></semantics></math>
+Applying this to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><mi>R</mi><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R^{-n}f(h+Rz)</annotation></semantics></math>
 and scaling back proves
 <code>[eq:critical-value-quadratic-budget]</code> for
@@ -5998,12 +6030,18 @@ such that
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo>−</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo>−</mo><msub><mi>z</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn><mi>r</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">|c-z_i|+|c-z_j|\le2r.</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Order the distances
+<p><em>Proof.</em> Relabel the points so that their distances satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><mo>≤</mo><msub><mi>d</mi><mn>2</mn></msub><mo>≤</mo><mi>⋯</mi><mo>≤</mo><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">d_1\le d_2\le\cdots\le d_n</annotation></semantics></math>.
-Isolating the nearest term in the reciprocal balance gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">d_2\le(n-1)d_1</annotation></semantics></math>,
-while
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><msubsup><mi>d</mi><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>≤</mo><msup><mi>r</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">d_1d_2^{n-1}\le r^n</annotation></semantics></math>.
+The reciprocal balance and the triangle inequality give
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msub><mi>d</mi><mn>1</mn></msub></mfrac><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>2</mn></mrow><mi>n</mi></munderover><mfrac><mn>1</mn><mrow><mi>c</mi><mo>−</mo><msub><mi>z</mi><mi>j</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>2</mn></mrow><mi>n</mi></munderover><mfrac><mn>1</mn><msub><mi>d</mi><mi>j</mi></msub></mfrac><mo>≤</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><msub><mi>d</mi><mn>2</mn></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{d_1}
+ =\left|\sum_{j=2}^n\frac1{c-z_j}\right|
+ \le\sum_{j=2}^n\frac1{d_j}\le\frac{n-1}{d_2}.</annotation></semantics></math>
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">d_2\le(n-1)d_1</annotation></semantics></math>.
+Also
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><msubsup><mi>d</mi><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>≤</mo><msup><mi>r</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">d_1d_2^{n-1}\le r^n</annotation></semantics></math>,
+since every remaining distance is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>2</mn></msub><annotation encoding="application/x-tex">d_2</annotation></semantics></math>.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msub><mi>d</mi><mn>2</mn></msub><mi>/</mi><msub><mi>d</mi><mn>1</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">t=d_2/d_1\in[1,n-1]</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mfrac><mrow><mn>2</mn><msup><mi>t</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi></mrow></msup></mrow><mrow><mn>1</mn><mo>+</mo><mi>t</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>n</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>t</mi></mrow><mrow><mi>n</mi><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>≥</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dt}\log\frac{2t^{(n-1)/n}}{1+t}
@@ -8629,13 +8667,6 @@ the Morse, monodromy and strip statements are not checked.</p>
 <p>The formal capacity conclusion takes as input the classical
 transfinite-diameter formula for a filled monic lemniscate. The root
 count at the first merger does not require that input.</p>
-</dd>
-<dt>Statement locations.</dt>
-<dd>
-<p>Formal associations are retained at each statement’s current
-location. The changes in this revision concern presentation and the
-explicit qualifications just listed; no new Lean proof or independent
-review is claimed.</p>
 </dd>
 </dl>
 <p>No supplied proof establishes the reported Runge construction of

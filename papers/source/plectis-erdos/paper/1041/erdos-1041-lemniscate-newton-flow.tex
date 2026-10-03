@@ -34,8 +34,7 @@
 
 \runninghead{Paths in polynomial lemniscates}
 \title{Paths in Polynomial Lemniscates:\\A Degree-Seven Counterexample\\and Radial Connections}
-\subtitle{Erd\H{o}s Problem~\#1041, with a Lean proof for the polynomial
-constructed by \texttt{ani}}
+\subtitle{Erd\H{o}s Problem~\#1041}
 \author{Will Cook}
 \date{29 September 2026}
 
@@ -368,13 +367,20 @@ survives this subtraction.
 We must also place these two roots in the same component; distance
 estimates alone do not identify that pair. We join a small disc about $w_s$
 to points close to $8\zeta_3$ and $8\zeta_6$ by polygonal arcs in the
-$w$-plane. Containment of the four inner segments follows by writing
+$w$-plane. For the four inner segments we use
 \[
- 7\varepsilon+\operatorname{Re}Q(w)
-                       -\tfrac12\varepsilon^7|Q(w)|^2
+ 1-|f(\rho\varepsilon w)|^2\ge
+ 2\rho^{14}\varepsilon^7
+ \left(7\varepsilon+\operatorname{Re}Q(w)
+                       -\tfrac12\varepsilon^7|Q(w)|^2\right).
 \]
-in the Bernstein basis of degree fourteen and checking that all fifteen
-coefficients are positive on each segment. For the remaining radial
+This follows by expanding the square and using
+$1-\rho^{14}\ge14\rho^{14}\varepsilon^8$.
+On each segment, the expression in parentheses is a polynomial of degree
+at most fourteen in the segment parameter. All fifteen coefficients in
+its degree-fourteen Bernstein basis are positive. The basis polynomials
+are nonnegative and sum to one, so the expression is positive along the
+whole segment, which therefore stays inside $\{|f|<1\}$ after scaling. For the remaining radial
 portions we use the root identity
 \[
  F(t\zeta)=t^7-1+
@@ -384,9 +390,10 @@ portions we use the root identity
 which gives $|F(t\zeta)|<1$ for $8\varepsilon\le t\le1$.
 All rational intervals, vertices and coefficient tests are specified in
 \recordlink{erdos1041-lemniscate-reasoning-surface.pdf}{counterexample-certificate}
-{the companion's finite verification}. Riemann--Hurwitz now shows that
-this component contains exactly two roots and every other component
-contains one.
+{the companion's finite verification}. At the regular level $|f|=1$,
+Riemann--Hurwitz gives $k-1$ critical points in a component with $k$
+zeros, counted with multiplicity. Thus the component containing $c_s$
+has exactly two roots, while every other component contains one.
 
 
 \begin{proof}[Proof of Theorem~\ref{res:ani-degree-seven-counterexample}]
@@ -690,16 +697,19 @@ Here is the ordinary argument behind the two remarks. Choose
 $\alpha^n=v$ and normalise to $P(z)=v^{-1}f(c+\alpha z)$. The
 component $U$ above $D(w_0,S)$ containing $0$ has degree two, as follows
 by exhausting with regular discs and applying Riemann--Hurwitz.
-The square root $\xi=\sqrt{1-P}$ then maps $U$ biholomorphically onto
-$V=\{\xi:|\xi^2-(1-w_0)|<S\}$, and its inverse maps $[-1,1]$ to
-the proposed connection. Along this interval $P=1-\xi^2\in[0,1]$,
+Since $U$ is simply connected and $1-P$ has only a double zero at $0$
+there, it has a single-valued analytic square root $\xi$.
+The resulting map is a proper local biholomorphism onto
+$V=\{\xi:|\xi^2-(1-w_0)|<S\}$, which is star-shaped and hence
+simply connected. It is therefore biholomorphic, and its inverse maps
+$[-1,1]$ to the proposed connection. Along this interval $P=1-\xi^2\in[0,1]$,
 which gives the required containment.
 
-Put $a=1-w_0$ and $p=w_0(1-w_0)$. The coordinate
+Put $a=1-w_0$ and $p=w_0(1-w_0)$. We map $V$ to the unit disc by
 \[
- \zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}
+ \zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}.
 \]
-sends $V$ to the unit disc and $\xi=\pm1$ to $\zeta=\pm q$, where
+The endpoints $\xi=\pm1$ map to $\zeta=\pm q$, where
 $q^2=S/(S^2+p)$. The Bergman estimate is consequently
 \[
  L^2\le\frac2\pi\log\frac{S^2+S+p}{S^2-S+p}\,
@@ -763,7 +773,9 @@ These distance estimates alone do not imply containment. For the quintic
 \]
 all roots lie in the disc and $0$ is a non-root critical point, but its
 unique nearest-root segment leaves the unit lemniscate. Moreover, every
-root-pair midpoint of $z^3-(99/100)^3$ lies outside it. The
+root-pair midpoint of $z^3-(99/100)^3$ lies outside it. This cubic still
+admits the two-segment connections of Theorem~\ref{res:trinomial-all-degree};
+it is the straight chords that fail. The
 \recordlink{erdos1041-lemniscate-reasoning-surface.pdf}{straight-path-counterexamples}
 {exact counterexamples} include the escape calculations.
 
@@ -774,8 +786,9 @@ two normalised critical values are too close for the isolation criterion.
 
 \noindent\phantomsection\label{res:arity-not-capacity}
 A further cubic has two roots at its first merger but
-normalised component capacity one at level $2\mu$. The normalisation
-uses the standard identity
+normalised component capacity one at level $2\mu$. By that level, all
+three roots lie in one component. Its capacity is therefore that of
+the whole filled lemniscate, whose normalisation uses the standard identity
 $\operatorname{cap}(K_t(f))=t^{1/n}$
 \cite[Theorem~5.2.5 and p.~153]{ransford1995}.
 
@@ -796,7 +809,13 @@ and we do not use it.
 Suppose that all zeros lie in the open unit disc. The radial argument
 extends to $P((z-h)^q)$ when $q\ge2$ and $P$ is a monic cubic: if there
 are two distinct zeros, some such pair can be joined by a path consisting
-of two segments.
+of two segments. The companion selects a nonzero root $r$ of $P$ for
+which $[0,r]\subset\{|P|<1\}$. Writing $f(z)=P((z-h)^q)$ and $y^q=r$,
+we have $f(h+ty\zeta)=P(t^qr)$ for $0\le t\le1$ and every $q$th root
+of unity $\zeta$. Thus one quotient segment gives $q$ contained
+segments through $h$. Averaging $|h+y\zeta|^2$ over the full fibre gives
+$|h|^2+|y|^2<1$, so two distinct fibre points are joined with length
+$2|y|<2$.
 
 \noindent\phantomsection\label{res:primitive-quintic}
 For $z^5+az^4+bz+c$, a harmonic-moment
@@ -835,8 +854,7 @@ viewpoint). The companion contains the
 
 \subsection{Critical-value means}\label{sec:freepoint}
 \noindent\phantomsection\label{res:fp-weighted-all-degree}
-A weighted Poisson identity gives an estimate for critical values when
-the zeros lie in a disc. For $c_j\in\overline{\mathbb D}$ and positive weights of sum
+For $c_j\in\overline{\mathbb D}$ and positive weights of sum
 one, set $G(z)=\prod_j|1-\bar c_jz|^{w_j}$. Then
 $\sum_jw_jG(c_j)^2\le1$, with equality only when all $c_j=0$.
 For interior points, we form the analytic product
@@ -849,9 +867,19 @@ Poisson kernel is $P=1-2\operatorname{Re}(\zeta g'/g)$, and
 Radial contraction gives the boundary case.
 
 \noindent\phantomsection\label{res:fp-to-s}
-The reflected derivative transfers the quadratic inequality to
-$\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}$ when the
-zeros lie in a closed disc of radius $R$. An unformalised refinement, recorded as an ordinary argument, uses
+To apply this inequality to a monic polynomial $f$ of degree $n\ge2$
+with zeros in the closed unit disc, take its $m=n-1$ critical points,
+counted with multiplicity, and give them equal weights $1/m$.
+The reflected-derivative comparison gives the pointwise bound
+\[
+ |f(c_j)|^{2/m}\le
+ \left(\prod_{k=1}^m|1-\bar c_kc_j|\right)^{2/m}=G(c_j)^2.
+\]
+Summing and using the weighted inequality gives
+$\sum_j|f(c_j)|^{2/m}\le m$. For zeros in a closed disc with centre $h$
+and radius $R>0$, apply this to $R^{-n}f(h+Rz)$ and scale back to obtain
+$\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}$.
+If $R=0$, all critical values vanish. An unformalised refinement, recorded as an ordinary argument, uses
 $g^2$ in the same Poisson integral and gives the proposed fourth-power bound
 \[
  \sum_{j=1}^{n-1}|f(c_j)|^{4/(n-1)}
@@ -1017,7 +1045,7 @@ asks for a path from $0$ to the unit circle in the intersection of a
 lemniscate with the closed disc. Those endpoints and that additional
 region restriction differ from the present question.
 
-\paragraph{Verification.}
+\paragraph{Verification and reproducibility.}
 The supplied Lean sources prove the fixed counterexample for preconnected
 sets, the negation and \texttt{answer(False)} forms of the Formal
 Conjectures statement, and the total-variation formulation. They also
@@ -1030,17 +1058,13 @@ wording. The recorded full rational replay on 29 September 2026
 reproduced the stopping time and $126$ dual certificates; those are
 the computational results cited here. The analytic assertions in Remarks~\ref{res:low-critical-thirteen-twentyfifths}--\ref{res:critical-value-thresholds},
 the fourth-power mean and the later topological and compactness arguments
-remain outside the formal conclusions. The links beside each statement and in the margin retain the
-original statement identifiers and their conditional dependencies;
-they do not promote these remarks to unconditional Lean theorems.
+remain outside the formal conclusions. The evidence record retains the
+statement identifiers and their conditional dependencies.
 \evidenceparagraph{\evidencerecordurl}
 
 \section*{Acknowledgements}
-I thank Wouter van Doorn for advice on mathematical exposition, in particular
-on explaining restrictive hypotheses, avoiding private terminology and
-introducing notation only when it helps the reader. His remarks concerned
-another note; this acknowledgement does not imply that he reviewed or
-endorsed the mathematics of the present paper.
+I thank Wouter van Doorn for advice on explaining restrictive hypotheses,
+avoiding private terminology and introducing notation only when useful.
 
 
 \begin{thebibliography}{99}

@@ -82,7 +82,7 @@ Task routing and source indexes locate relevant work; optional recorded proof se
 Maintainers review proposed changes, update evidence bindings, regenerate derived files and inspect the publications; a contribution journal retains explicitly recorded outcomes, limitations and credit.
 % END SENTENCE r4.abstract.04
 % SENTENCE r4.abstract.05
-A conditional theorem supplies a worked case: publication checks can detect missing evidence records while a paraphrase that drops a condition still requires mathematical judgement.
+A worked theorem distinguishes publication checks from mathematical review: its registered formal supports can remain linked after a paraphrase drops an essential hypothesis.
 % END SENTENCE r4.abstract.05
 % SENTENCE r4.abstract.06
 A historical author-run test rejected \HistoricalRejected{} of \HistoricalEdits{} false edits and accepted one false completion claim. Reader benefit, discovery rate and adoption by independent laboratories remain unmeasured.
@@ -107,13 +107,13 @@ The architecture separates stored research artifacts, tools that locate or check
 \node[sys box,text width=2.7cm,minimum height=1.8cm] (s) at (3.6,0) {Evidence and claim\\records\\review scope and\\registered supports};
 \node[sys box,text width=2.7cm,minimum height=1.8cm] (p) at (7.2,0) {Publications\\papers, explanations\\and source links};
 \node[sys box,text width=2.7cm,minimum height=1.8cm] (r) at (10.8,0) {Readers\\inspect, question\\and extend};
-\draw[sys arrow] (c)--(s);
-\draw[sys arrow] (s)--(p);
-\draw[sys arrow] (p)--(r);
+\draw[sys arrow] (c)--node[sys label,above=43pt,font=\footnotesize]{selected result} (s);
+\draw[sys arrow] (s)--node[sys label,above=43pt,font=\footnotesize]{sourced account} (p);
+\draw[sys arrow] (p)--node[sys label,above=43pt,font=\footnotesize]{paper and links} (r);
 \draw[sys arrow,dashed] (r.south)--++(0,-.85)-| (c.south);
 \node[sys label,text width=11.6cm] at (5.4,-2.5) {Corrections and contributions return after review and adoption (Figure~\ref{fig:contribute}).\\The research journal records returns and their dispositions.};
 \end{tikzpicture}
-\caption{From accumulated work to a paper and subsequent revision. Solid arrows show a sequence of responsibilities rather than logical implication or automatic approval. The source and evidence records support review; they do not establish the intended meaning of the prose.}
+\caption{From accumulated work to a paper and subsequent revision. Labels name what passes between the stages; the arrows imply neither logical deduction nor automatic approval. The source and evidence records support review; they do not establish the intended meaning of the prose.}
 \label{fig:lifecycle}
 \end{figure}
 % END SENTENCE r4.fig.lifecycle
@@ -125,7 +125,7 @@ Erd\H{o}s Problems supplies the questions and their public discussion, while Lea
 Formalisation blueprints link a written mathematical argument to named Lean declarations~\cite{leanblueprint,leanarchitect}. Persistent problem records and open agent collaboration have antecedents in the Equational Theories Project and Prove2Me~\cite{etp,prove2me}.
 % END SENTENCE r4.intro2.02
 % SENTENCE r4.intro2.03
-The records described here connect a selected public assertion with all its registered formal supports, the passages used to explain it, and the contribution history that changes it. They let a reviewer recover the basis of a claim at a specified revision.
+For a selected paper statement, the paper-to-Lean ledger records its registered formal supports and their stated relation to it. A separate sentence ledger records the source passages and rationale used in an explanation. Together with the claim registry and contribution history, these records let a reviewer recover the basis of a public assertion at a specified revision.
 % END SENTENCE r4.intro2.03
 % SENTENCE r4.intro2.04
 We describe the components and their responsibilities, then trace a conditional theorem through the evidence checks. The revision and contribution workflows explain how accepted changes return to the repository. Recorded observations and limits distinguish implemented procedures from their unmeasured effects; Appendix~\ref{app:worked-proof} retains the mathematical calculation.
@@ -187,7 +187,7 @@ A source link by itself records no successful execution. When a question require
 
 % SENTENCE r8.architecture.records
 \subsection{Stored artifacts and executable tools}
-The checkout contains authored Lean and manuscript sources, JSON records for selected claims and their evidence, and a journal of research returns. Indexes, source coordinates and status summaries are derived from those records. Authors edit the sources; builders regenerate the derived views. The claim review keeps a finite computation's tested range distinct from a general theorem, and a failed attempt distinct from a proof that every approach must fail. This distinction makes a changed proof or paper traceable without treating a generated index as a proof. The \repolink{docs/ARCHITECTURE.md}{architecture guide} describes this ownership.
+The checkout contains authored Lean and manuscript sources, JSON records for selected claims and their evidence, and a journal of research returns. Indexes, source coordinates and status summaries are derived from those records. Authors edit the sources; builders regenerate the derived views. This division gives a reviewer a source to inspect when a generated view changes. In reviewing a claim, the maintainer must still distinguish a finite computation's tested range from a general theorem, or a failed attempt from an argument that every approach must fail. The \repolink{docs/ARCHITECTURE.md}{architecture guide} identifies the source files and their derived views.
 % END SENTENCE r8.architecture.records
 
 % SENTENCE r8.architecture.tools
@@ -210,6 +210,10 @@ Derived views & \repolink{scripts/refresh_projections.py}{refresh\_projections.p
 A separate self-audit, \repolink{scripts/systems_paper_evidence.py}{systems\_paper\_evidence.py}, checks this systems manuscript's text and cited source bindings. These are inspectable software responsibilities, not measurements of research quality or new execution results.
 % END SENTENCE r8.architecture.tools
 
+% SENTENCE r9.architecture.state
+The tools retain state in repository files rather than in the agent's conversation. An optional proof session appends notes, probe receipts and its closing outcome to a ledger, with the exact submitted Lean inputs stored beside it. These session claims remain distinct from the reviewed public claim registry. The research journal separately retains entered returns and review dispositions and checks their sequence and hash chain. A human or agent chooses the next task and invokes these tools; recording the sequence does not make the workbench an autonomous search policy.
+% END SENTENCE r9.architecture.state
+
 % SENTENCE r8.architecture.roles
 \subsection{Researcher, agent and maintainer responsibilities}
 A researcher chooses the task and the evidence needed to answer it. A coding agent can inspect files, invoke tools and prepare a proposed change using the public instructions; ordinary written arguments and explanations can also be contributed without a clone or an agent. A maintainer reviews the claim, attribution and remaining uncertainty before adoption. The contributor and reviewer may be the same agent, so this division of responsibilities does not establish independent review. Public setup and review instructions are in the \repolink{docs/agents/README.md}{agent quickstart} and \repolink{CONTRIBUTING.md}{contribution guide}.
@@ -222,51 +226,26 @@ A typical iteration starts with a question and the recorded work that bears on i
 \section{Worked case: publishing a conditional theorem}\label{sec:example}\label{sec:predigestion}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 % SENTENCE r8.case.system-role
-The worked case concerns a theorem that establishes a result for a restricted family of infinite sums. The paper must retain the restriction: removing it would assert a solution of a more general problem that remains open. Its evidence record lists two formal supports. A checker can require both records and verify their source bindings, yet a sentence retaining both links can still omit the condition. Appendix~\ref{app:worked-proof} gives the exact statement and calculation for specialists.
+The worked case concerns a theorem about infinite sums of reciprocals over a restricted set of positive integer exponents. A base-two weighted convergence condition restricts the allowable sets; under it, every infinite subset gives an irrational sum at every integer base at least two. Removing the condition would assert a solution of a more general problem that remains open. Appendix~\ref{app:worked-proof} gives the exact statement and calculation.
 % END SENTENCE r8.case.system-role
 
 % SENTENCE r8.case.proof-role
-These failures assign different tasks to the tools and the reviewer. A missing support record is an accounting failure that the publication tools can report. Dropping a condition changes the meaning of the claim and requires comparison with the complete source statement. The historical false-completion edit in Section~\ref{sec:instance} illustrates another semantic failure: replacing a limitation by a claim that the unresolved step is complete. Source links and current hashes do not, by themselves, establish what those words mean.
+The example uses two records with different jobs. In \repolink{docs/paper_lean_coverage.json}{paper\_lean\_coverage.json}, a row identifies the weighted-support theorem's occurrence in the mathematical paper, its statement digest, source location and two Lean supports. A separate \repolink{docs/systems_paper_sentences.json}{sentence ledger} binds this systems paper's explanation to specified source passages and an authored rationale. For example, the appendix's hereditary conclusion is bound to both the ordinary proof and its formal declaration. These records make the two correspondences inspectable; deciding whether the explanation preserves the condition remains a review task.
 % END SENTENCE r8.case.proof-role
-
 
 
 \section{Proof and publication checks}\label{sec:checks}\label{sec:graph}
 \papersectiontarget{systems-trust}
 % SENTENCE r4.checks1.01
-The worked case has two registered formal results: one proves the restricted theorem, and the other proves its consequence for every subset (Appendix~\ref{app:worked-proof}, Figure~\ref{fig:theorem}). Supplying only one leaves the evidence record incomplete. Requiring both records is a publication check, not an additional hypothesis of the mathematical theorem.
+The example has two registered formal supports (Figure~\ref{fig:theorem}). One gives fixed-base irrationality and the all-base conclusion for every infinite subset; the other makes the fixed-base hereditary conclusion explicit. Their roles overlap. The publication check requires the registered set, even if one declaration suffices for the clause under discussion. This is an accounting requirement, not an additional hypothesis of the theorem.
 % END SENTENCE r4.checks1.01
 % SENTENCE r4.checks1.02
-The comparison includes every registered support and the additional hypotheses on which a conditional result depends, recorded as named inputs. It uses an identified source revision. A changed statement or source must be checked against its records again; a source file from one revision cannot silently borrow the evidence attached to another.
+The resolver also follows any registered named inputs and checks the identified source revisions. A result dependent on an additional named input retains that dependency; the weighted theorem above illustrates a different issue, a restriction within the proved statement. A changed statement or source must be checked against its records again. Evidence attached to one revision cannot silently support another.
 % END SENTENCE r4.checks1.02
 
 % SENTENCE r4.checks1.03
-These checks concern different relations from the correctness of the formal proof and the meaning of the prose (Figure~\ref{fig:checks}).
+These checks make omissions and changes inspectable. Figure~\ref{fig:checks} separates them from proof checking and from the judgements needed to publish a faithful account.
 % END SENTENCE r4.checks1.03
 
 % SENTENCE r4.fig.checks
@@ -278,14 +257,15 @@ Relation being assessed & Check or judgement required\\
 \midrule
 Formal statement and proof & Lean kernel checking.\\[3pt]
 Challenge and formal statement & Comparator checking against the selected challenge.\\[3pt]
-Sentence and declared source bytes & Publication tools check the registered source binding.\\
+Paper occurrence and registered support set & Coverage audit: all registered declarations and their recorded revisions.\\[3pt]
+Sentence and declared source bytes & Sentence audit: text and source digests, with a recorded rationale.\\
 \midrule
 Sentence and mathematical meaning & Author and reviewer judgement about what the sources establish.\\[3pt]
 Result and motivating question & Author and reviewer judgement about the scope of the result.\\[3pt]
 Novelty, significance and acceptance & Assessment by reviewers and the mathematical community.\\
 \bottomrule
 \end{tabularx}
-\caption{Three mechanically checked relations and three questions of judgement. The lower rows describe responsibilities, not evidence that independent review has occurred. Source-byte agreement alone cannot settle the meaning of a sentence.}
+\caption{Four checks with different objects, followed by three questions of judgement. The upper rows identify checking mechanisms, not new executions reported here. The lower rows identify review responsibilities, not evidence of independent review. A recorded rationale still requires assessment of its meaning.}
 \label{fig:checks}
 \end{figure}
 % END SENTENCE r4.fig.checks
@@ -298,18 +278,18 @@ Comparator adds a separately stated challenge and a check of its selected Lean i
 % END SENTENCE r4.checks2.02
 
 % SENTENCE r4.checks2.03
-For each marked passage in this systems paper we record its text, specified source lines, the kind of evidence and the rationale for citing those sources.
+Each marked passage in this systems paper has a recorded text, specified source lines, an evidence class and an authored rationale for citing those sources.
 % END SENTENCE r4.checks2.03
 
 % SENTENCE r4.checks2.04
-For example, the worked case concludes that the same restricted result holds for every subset. Its record points to the source proof and explains why the condition is preserved. The checker compares cryptographic hashes of the text and source passage, and rejects missing records or passages without a binding.
+For the appendix's hereditary conclusion, the cited sources explain why restriction to an infinite subset preserves the weighted condition. The sentence checker compares cryptographic hashes of the marked text and its declared source passages; it also rejects missing records or passages without a binding.
 % END SENTENCE r4.checks2.04
 
 % SENTENCE r4.checks2.05
-That check detects an unrecorded edit. If an author changes both the sentence and its recorded explanation and updates the digests, the record becomes current again, but the claimed implication still needs review.
+Changing the sentence alone therefore makes its recorded digest stale. Changing the sentence and updating its record can restore byte agreement without restoring the implication claimed by the prose.
 % END SENTENCE r4.checks2.05
 % SENTENCE r4.checks2.06
-In particular, every Lean link in Figure~\ref{fig:theorem} can remain correct after the support condition has disappeared from an abstract. The reviewer must compare the hypothesis and quantifiers, not merely follow the links.
+For example, a paraphrase could drop the support hypothesis while retaining both correct Lean links in Figure~\ref{fig:theorem}. A reviewer must compare its hypothesis and quantifiers with the source statement. This is an illustrative editing failure, distinct from historical edit~8, which replaced a limitation by a false completion claim (Table~\ref{tab:mutations}).
 % END SENTENCE r4.checks2.06
 
 % SENTENCE r4.checks3.01
@@ -326,9 +306,6 @@ The protocol distinguishes contributor and reviewer roles but does not technical
 % END SENTENCE r4.checks3.04
 
 
-
-
-
 \section{Publication and revision}\label{sec:paper}\label{sec:short}\label{sec:long}\label{sec:production}
 % SENTENCE r4.paper1.01
 The worked case suggests a concrete editorial task: retain the result's conditions and scope, explain the decisive step, and link the short account to the full argument. A useful explanation lets a reader recover why the conclusion holds and where it stops applying.
@@ -337,7 +314,7 @@ The worked case suggests a concrete editorial task: retain the result's conditio
 A dependency graph locates the ingredients. Choosing their order and explaining their role require reading the argument; the manuscript audit supplies no such judgement.
 % END SENTENCE r4.paper1.02
 % SENTENCE r4.paper1.03
-The long record retains the complete proof and subsidiary cases. A correspondence link names the passage supporting a particular short-paper claim, so the reader can move from the explanation to the calculation without searching the whole record.
+The companion paper retains the complete proof and subsidiary cases. A correspondence link names the passage supporting a particular short-paper claim, so the reader can move from the explanation to the calculation without searching the whole paper.
 % END SENTENCE r4.paper1.03
 % SENTENCE r4.paper1.04
 The assembler preserves these authored parts and their cross-references; it supplies no missing mathematical step.
@@ -348,8 +325,12 @@ Readers may need a hint, a worked example or the full argument. The reading guid
 
 \subsection{Work assignments and review}
 
+% SENTENCE r14.assignment.authority
+We call an agent that can alter the live repository Type A and an advisory agent returning proposals against supplied sources Type B.
+% END SENTENCE r14.assignment.authority
+
 % SENTENCE r14.assignment.jobs
-This distinction concerns access to the repository. The assigned work is a separate choice: mathematical research, proof or claim audit, literature and attribution review, or exposition.
+Repository authority and the assigned task are separate choices. The task may be mathematical research, proof or claim audit, literature and attribution review, or exposition.
 % END SENTENCE r14.assignment.jobs
 
 
@@ -369,7 +350,7 @@ The reviewer compares hypotheses and implication directions with the whole state
 
 
 % SENTENCE r13.paper.08
-After acceptance, integration requires restoring the long record's authored sections, regenerating evidence and navigation, and inspecting the compiled pages, figures and proof links.
+After acceptance, integration requires restoring the companion paper's authored sections, regenerating evidence and navigation, and inspecting the compiled pages, figures and proof links.
 % END SENTENCE r13.paper.08
 
 
@@ -390,9 +371,8 @@ We freeze the selected manuscripts, their required input files, coverage ledger 
 % END SENTENCE r13.paper.03
 
 % SENTENCE r13.paper.04
-An advisory model can return a proposal against those sources; a tool-enabled agent can prepare it in a checkout. In either case the integrating reviewer decides whether the mathematics and its description remain faithful. The packet declares which manuscript paths may change; its evidence records and checking tools remain read-only inputs to this editorial exchange.
+An advisory model can return a proposal against those sources; a tool-enabled agent can prepare it in a checkout. In either case the integrating reviewer decides whether the mathematics and its description remain faithful. The public writer's packet declares which manuscript paths may change and supplies its evidence records and checking tools as read-only inputs.
 % END SENTENCE r13.paper.04
-
 
 
 % SENTENCE r13.fig.refinement
@@ -405,20 +385,20 @@ An advisory model can return a proposal against those sources; a tool-enabled ag
 \node[sys box,text width=3.55cm,minimum height=1.5cm] (record) at (0,-2.8) {\textbf{6. Record outcome}\\Accepted changes,\\lessons and limitations};
 \node[sys box,text width=3.55cm,minimum height=1.5cm] (render) at (4.75,-2.8) {\textbf{5. Render and inspect}\\Regenerate evidence,\\PDFs and reading links};
 \node[sys box,text width=3.55cm,minimum height=1.5cm] (bind) at (9.5,-2.8) {\textbf{4. Integrate changes}\\Restore authored text;\\update source bindings};
-\draw[sys arrow] (freeze)--(write);
-\draw[sys arrow] (write)--(review);
+\draw[sys arrow] (freeze)--node[sys label,above=34pt,font=\footnotesize]{frozen source packet} (write);
+\draw[sys arrow] (write)--node[sys label,above=34pt,font=\footnotesize]{proposed source changes} (review);
 \draw[sys arrow] (review)--node[sys label,right,fill=none]{if accepted} (bind);
-\draw[sys arrow] (bind)--(render);
-\draw[sys arrow] (render)--(record);
+\draw[sys arrow] (bind)--node[sys label,below=24pt,font=\footnotesize]{integrated sources} (render);
+\draw[sys arrow] (render)--node[sys label,below=24pt,font=\footnotesize]{inspected outputs} (record);
 \draw[sys arrow,dashed] (record)--node[sys label,left,fill=none]{next revision} (freeze);
 \end{tikzpicture}
-\caption{The exposition workflow, read in numerical order. A proposal may be revised or declined at step~3; only accepted changes proceed to integration. The steps name responsibilities, which may be performed by the same agent. Rendering and inspection remain separate from source checks.}
+\caption{The exposition workflow, read in numerical order, with the exchanged objects labelled. A proposal may be revised or declined at step~3; only accepted changes proceed to integration. The steps name responsibilities, which may be performed by the same agent. Rendering and inspection remain separate from source checks.}
 \label{fig:refinement}
 \end{figure}
 % END SENTENCE r13.fig.refinement
 
 % SENTENCE r13.paper.05
-Before that decision, the return checker tests packet identity, permitted paths, declared statement changes and retained labels, citation keys and bibliography entries. It also audits the proposed manuscript in a temporary overlay of the sources.
+Before that decision, the return checker tests packet identity, permitted paths, declared statement changes and retained labels, citation keys and bibliography entries. It audits the proposed manuscript in a temporary copy of the frozen sources, leaving the live repository unchanged.
 % END SENTENCE r13.paper.05
 % SENTENCE r13.paper.06
 It neither applies the proposal nor executes returned programs. Declaring a statement change makes the review obligation explicit; it does not discharge it.
@@ -429,9 +409,6 @@ The packet and audit stages in Figure~\ref{fig:refinement} are implemented by \r
 
 A return has two possible lasting effects: accepted text changes the paper; an accepted general lesson changes the guidance supplied to later writers. The latter needs its own review, so a local improvement can be retained without becoming a new rule. This process revises documents and instructions, not model weights. The procedure supplies no measurement of reader benefit or autonomous discovery.
 % END SENTENCE r13.paper.10
-
-
-
 
 
 \section{An open route for contributions}\label{sec:contribute}\label{sec:loop}\label{sec:cycle}
@@ -486,7 +463,7 @@ Discovery investigates a question, while stewardship compares the return with pr
 The proposed coupling is event-driven: a stable result or changed appraisal prompts work, whereas an unchanged repository supplies no reason for another run.
 % END SENTENCE r4.contribute2.03
 % SENTENCE r4.contribute2.04
-The journal establishes what happened; judging what was learned requires the comparison with earlier work.
+The journal preserves the entered return and its recorded disposition. Judging what was learned requires comparison with earlier work and inspection of the returned evidence.
 % END SENTENCE r4.contribute2.04
 
 \papersectiontarget{systems-mathloop}
@@ -616,14 +593,9 @@ Our fixed-order regeneration and freshness checks address the build-system probl
 % END SENTENCE r8.related.systems
 
 
-
-
-
-
-
 \section{Limits}\label{sec:limits}\label{sec:conclusion}
 % SENTENCE r4.limits1.01
-This paper reports no new Lean or Comparator execution, comparative formalisation result or autonomous-optimisation experiment.
+This paper reports no comparative formalisation result or autonomous-optimisation experiment.
 % END SENTENCE r4.limits1.01
 % SENTENCE r4.limits1.02
 Transfer to unseen mathematics and understanding by independent human readers are unresolved.
@@ -664,7 +636,7 @@ and disclosure of the research process.
 % SENTENCE r14.agmai.limits
 Several of these proposed release practices have counterparts in the
 records described here~\cite[Section 2.B, Step I]{agmai2026}: the short
-paper and long record explain and attribute the argument, the paper-to-Lean
+paper and companion paper explain and attribute the argument, the paper-to-Lean
 ledger records formal correspondence and its limits, and the challenge
 files and generated \texttt{formalization.yaml} expose the comparison inputs.
 Those records make the result inspectable; they do not certify a
@@ -690,7 +662,7 @@ The present contribution is an inspectable route through the records: a reader c
 The initial unified manuscript was prepared from the frozen packet at \texttt{ced96e58b337}, a local integration commit rather than public main. A 29 September state report lists this manuscript as \emph{Problem-Sized Lean Worlds}.
 % END SENTENCE r4.repro1.01
 % SENTENCE r4.repro1.02
-Repository links in this revision use commit \texttt{992cf60a27ef}; the Comparator links below identify their separate recorded runs.
+Repository links in this revision use commit \texttt{992cf60a27ef}; the Comparator links below identify their separate recorded runs. No new Lean or Comparator run was performed for this revision.
 % END SENTENCE r4.repro1.02
 % SENTENCE r4.repro1.03
 This paper supersedes \emph{From a Cold Clone to a Proof Receipt} and \emph{From Spare Compute to Cumulative Mathematics}. Their manuscripts remain available as historical accounts of navigation, proof-check records, contribution protocol and governance.
@@ -751,15 +723,6 @@ The interpretation inventory covers \SemanticAuthoredInterpreted{} of \SemanticA
 Public reading starts at the \repolink{docs/READING_GUIDE.md}{reading guide}. \repolink{AGENTS.md}{Agent instructions} route source inspection, explanation and reproduction; the \repolink{docs/agents/AGENT_WORKBENCH.md}{workbench guide} describes optional recorded sessions. \repolink{CONTRIBUTING.md}{Contributing} and the \repolink{docs/research-commons/CREDIT_POLICY.md}{credit policy} govern returns. Cite repository software using \repolink{CITATION.cff}{CITATION.cff} at the chosen commit or release tag; cite mathematical results by the paper and version actually used.
 % END SENTENCE r4.repro4.04
 
-% SENTENCE r14.assignment.authority
-We call an agent that can alter the live repository Type A and an advisory agent returning proposals against supplied sources Type B.
-% END SENTENCE r14.assignment.authority
-
-
-
-
-
-
 
 % SENTENCE r6.layout.credit
 \FloatBarrier
@@ -788,7 +751,7 @@ then $X_B(b)$ is irrational for every integer $b\ge2$ and every infinite $B\subs
 % END SENTENCE r4.example1.03
 
 % SENTENCE r4.example1.04
-For a fixed base $b$, write $W_{b,P}(A)$ for the sum in~\eqref{eq:worked-condition} with $2$ replaced by~$b$. The fixed-base version assumes $W_{b,P}(A)<\infty$ and gives the same hereditary conclusion at that base. Figure~\ref{fig:theorem} locates the two registered Lean supports; Appendix~\ref{app:worked-proof} explains the ordinary argument. Their recorded status does not report a new comparison of source revisions, Lean build or Comparator run. Comparator checks a selected Lean implementation against a separately stated challenge, as described in Section~\ref{sec:checks}.
+For a fixed base $b$, write $W_{b,P}(A)$ for the sum in~\eqref{eq:worked-condition} with $2$ replaced by~$b$. The fixed-base version assumes $W_{b,P}(A)<\infty$ and gives the same hereditary conclusion at that base. The calculation below gives the ordinary argument; Figure~\ref{fig:theorem} identifies its two registered Lean supports.
 % END SENTENCE r4.example1.04
 
 % SENTENCE r4.example1.05
@@ -828,7 +791,7 @@ Exact or stronger support.\\Both entries required.};
 % END SENTENCE r4.fig.theorem
 
 % SENTENCE r8.appendix.proof-scope
-This appendix retains the ordinary calculation from the Problem~257 paper used by the worked case in Section~\ref{sec:example}. The recorded Lean declarations support its conclusion; they are not a newly executed line-by-line verification of this exposition.
+This appendix retains the ordinary calculation from the Problem~257 paper used by the worked case in Section~\ref{sec:example}.
 % END SENTENCE r8.appendix.proof-scope
 
 % SENTENCE r4.example3.01

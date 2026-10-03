@@ -278,6 +278,7 @@
       for (var kind in KIND_COLOR) {
         palette[kind] = cssColor(styles, KIND_COLOR[kind], '#888888');
       }
+      darkGround = groundIsDark(palette.ground);
     }
 
     function normalizeSearchText(text) {
@@ -379,10 +380,207 @@
         };
         focusFrame = window.requestAnimationFrame(tick);
       }
+      if (focus !== focusWas) {
+        // A selection plays its moment once; focus returning to it after a
+        // hover elsewhere does not play it again.
+        startPulse(focus >= 0 && focus === selected && selected === pulsedSelection ? -1 : focus);
+        if (focus >= 0 && focus === selected) pulsedSelection = selected;
+      }
       focusWas = focus;
     }
+    var pulsedSelection = -1;
     // What a dimmed thing's alpha is, part way through the fade.
     function dimmed(base) { return 1 - (1 - base) * focusMix; }
+
+    /* ---- Light ------------------------------------------------------- */
+    /* Light belongs to the evidence, as colour does, and the ground stays
+       flat. On the dark ground a replayed result glows faintly, an ember,
+       so the checked ring reads as lit before a word is read; on paper a
+       glow would only smudge the mark, so there the ember stays a mark. The
+       mark in focus glows in either scheme. */
+    var darkGround = false;
+    var EMBER_REST = 0.1, EMBER_LIT = 0.2;
+    function groundIsDark(color) {
+      var rgb = null, hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color || '');
+      if (hex) {
+        var h = hex[1].length === 3 ? hex[1].replace(/(.)/g, '$1$1') : hex[1];
+        rgb = [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+      } else {
+        var fn = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(color || '');
+        if (fn) rgb = [+fn[1], +fn[2], +fn[3]];
+      }
+      return !!rgb && (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255 < 0.35;
+    }
+    // One soft disc per colour, drawn once: white light masked to the
+    // colour, so its edge fades to nothing rather than through grey.
+    var glowSprites = {};
+    function glowSprite(color) {
+      if (Object.prototype.hasOwnProperty.call(glowSprites, color)) return glowSprites[color];
+      var sprite = document.createElement ? document.createElement('canvas') : null;
+      var g = sprite && sprite.getContext ? sprite.getContext('2d') : null;
+      if (g && g.createRadialGradient) {
+        sprite.width = sprite.height = 64;
+        var light = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+        light.addColorStop(0, 'rgba(255,255,255,1)');
+        light.addColorStop(0.28, 'rgba(255,255,255,0.55)');
+        light.addColorStop(0.62, 'rgba(255,255,255,0.13)');
+        light.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = light;
+        g.fillRect(0, 0, 64, 64);
+        g.globalCompositeOperation = 'source-in';
+        g.fillStyle = color;
+        g.fillRect(0, 0, 64, 64);
+      } else {
+        sprite = null;
+      }
+      glowSprites[color] = sprite;
+      return sprite;
+    }
+    function drawGlow(x, y, radius, color, alpha) {
+      if (alpha <= 0.002 || radius <= 0) return;
+      var sprite = glowSprite(color);
+      if (!sprite) return;
+      ctx.globalAlpha = Math.min(1, alpha);
+      ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
+    }
+
+    /* One orchestrated moment shows where a result's evidence goes. A
+       reader who settles on a result sees its mark send out one ripple and
+       a bead of light run along each of its threads; when Comparator
+       replayed the result, Comparator answers with a brief glow. It waits a
+       tenth of a second, so a pointer sweeping across a band leaves no
+       trail, plays once in about a second and a half, and is skipped under
+       reduced motion, which keeps the still glow. */
+    var PULSE_WAIT = 110, PULSE_RIPPLE = 720, PULSE_TRAVEL = 620, PULSE_STAGGER = 70, PULSE_BLOOM = 560;
+    var PULSE_THREADS = 4;
+    var PULSE_END = PULSE_WAIT + (PULSE_THREADS - 1) * PULSE_STAGGER + PULSE_TRAVEL + PULSE_BLOOM;
+    var pulse = { at: -1, ms: 1e9, frame: 0 };
+    function startPulse(at) {
+      if (pulse.frame && window.cancelAnimationFrame) window.cancelAnimationFrame(pulse.frame);
+      pulse.frame = 0;
+      pulse.at = at;
+      pulse.ms = 1e9;
+      if (at < 0 || reduceMotion || !window.requestAnimationFrame || document.hidden) return;
+      pulse.ms = 0;
+      var start = null;
+      var step = function (now) {
+        if (start === null) start = now;
+        pulse.ms = now - start;
+        pulse.frame = pulse.ms < PULSE_END ? window.requestAnimationFrame(step) : 0;
+        draw();
+      };
+      pulse.frame = window.requestAnimationFrame(step);
+    }
+    function pulsePhase(delay, length) {
+      var t = (pulse.ms - delay) / length;
+      return t <= 0 ? 0 : t >= 1 ? 1 : t;
+    }
+    // A result's threads, in the order their beads leave it: the edges the
+    // focus already lights, toward the checking surfaces first.
+    function pulseThreads(focus, hot) {
+      var n = nodes[focus];
+      if (!n || (n.kind !== 'paper_statement' && n.kind !== 'public_claim')) return [];
+      var rows = [];
+      hot.forEach(function (at) {
+        var other = edges[at][0] === focus ? edges[at][1] : edges[at][0];
+        if (nodes[other]) rows.push(other);
+      });
+      rows.sort(function (a, b) {
+        return (nodes[b].kind === 'integration_surface') - (nodes[a].kind === 'integration_surface');
+      });
+      return rows.slice(0, PULSE_THREADS).map(function (other, k) {
+        return { other: other, delay: PULSE_WAIT + k * PULSE_STAGGER };
+      });
+    }
+    function focusColor(n) {
+      if (n.kind === 'problem') return palette.problem;
+      if (n.kind === 'universe') return palette.universe;
+      return glyphColor(n);
+    }
+    // Under the marks: the embers, the glow round the focus, and the glow
+    // Comparator answers with.
+    function drawLight(focus, near, searching, threads, rs, w, h) {
+      var i, n, x, y;
+      ctx.globalCompositeOperation = darkGround ? 'lighter' : 'source-over';
+      if (darkGround && !lensOff.paper_statement) {
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          if (n.kind !== 'paper_statement' || n.tier !== 'replayed' || !visible(n)) continue;
+          if (searching && !matches(n)) continue;
+          x = n.x * view.k + view.tx; y = n.y * view.k + view.ty;
+          if (x < -30 || y < -30 || x > w + 30 || y > h + 30) continue;
+          var lit = focus >= 0 && (i === focus || near[i]);
+          var fade = focus >= 0 && !lit ? 1 - focusMix : 1;
+          drawGlow(x, y, n.r * rs * 3.4, palette.integration_surface,
+                   (lit ? EMBER_LIT : EMBER_REST) * fade * revealAlpha(3));
+        }
+      }
+      if (focus >= 0 && nodes[focus] && visible(nodes[focus])) {
+        n = nodes[focus];
+        x = n.x * view.k + view.tx; y = n.y * view.k + view.ty;
+        var r = n.r * rs + 1.5;
+        var swell = 1 - Math.pow(1 - pulsePhase(0, 240), 2);
+        drawGlow(x, y, r * (n.kind === 'problem' || n.kind === 'universe' ? 2.6 : 5.2), focusColor(n),
+                 (darkGround ? 0.62 : 0.3) * swell);
+        if (n.tier === 'replayed') {
+          threads.forEach(function (th) {
+            var m = nodes[th.other];
+            if (m.id === 'integration:palomar' || m.kind !== 'integration_surface') return;
+            var b = pulsePhase(th.delay + PULSE_TRAVEL, PULSE_BLOOM);
+            if (b <= 0 || b >= 1) return;
+            drawGlow(m.x * view.k + view.tx, m.y * view.k + view.ty, m.r * rs * 4.2,
+                     palette.integration_surface, (darkGround ? 0.85 : 0.45) * Math.sin(Math.PI * b));
+          });
+        }
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+    }
+    // Over the marks: the ripple and the beads.
+    function drawPulse(focus, threads, rs) {
+      if (focus < 0 || pulse.at !== focus || pulse.ms >= PULSE_END) return;
+      var n = nodes[focus];
+      var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
+      var r = n.r * rs + 1.5, color = focusColor(n);
+      var t = pulsePhase(PULSE_WAIT, PULSE_RIPPLE);
+      if (t > 0 && t < 1) {
+        var e = 1 - Math.pow(1 - t, 3);
+        ctx.globalAlpha = 0.6 * (1 - e);
+        ctx.lineWidth = 1.3;
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, r + 3 + e * Math.max(16, r * 1.6), 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      var size = Math.max(0.8, rs);
+      threads.forEach(function (th) {
+        var p = pulsePhase(th.delay, PULSE_TRAVEL);
+        if (p <= 0 || p >= 1) return;
+        var m = nodes[th.other];
+        var mx = m.x * view.k + view.tx, my = m.y * view.k + view.ty;
+        var fade = Math.min(1, p * 6, (1 - p) * 6);
+        var q = easeInOut(p);
+        var bx = x + (mx - x) * q, by = y + (my - y) * q;
+        ctx.globalCompositeOperation = darkGround ? 'lighter' : 'source-over';
+        drawGlow(bx, by, 10 * size, color, (darkGround ? 0.9 : 0.5) * fade);
+        ctx.globalCompositeOperation = 'source-over';
+        // The tail is three fading dots, in the map's own language of marks.
+        ctx.fillStyle = color;
+        for (var d = 3; d >= 1; d--) {
+          var qd = easeInOut(Math.max(0, p - d * 0.035));
+          ctx.globalAlpha = fade * (0.56 - d * 0.14);
+          ctx.beginPath();
+          ctx.arc(x + (mx - x) * qd, y + (my - y) * qd, Math.max(0.7, (2.2 - d * 0.4) * size), 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = fade;
+        ctx.fillStyle = darkGround ? palette.ink : color;
+        ctx.beginPath();
+        ctx.arc(bx, by, 2.2 * size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
 
     /* Each ring fades in after the one inside it, in reading order: the
        core, the orbit, the claims, the results, then the words. One layer
@@ -1307,6 +1505,8 @@
       drawEdgeSet(quiet, (focus >= 0 ? 0.65 - 0.35 * focusMix : 0.65) * revealAlpha(1), 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
+      var threads = pulseThreads(focus, hot);
+      drawLight(focus, near, searching, threads, rs, w, h);
       // The band titles go down first, outside the rings, so every label
       // placed after them (the shared callout, the node labels) keeps clear.
       drawBandLabels(focus, w, h);
@@ -1416,6 +1616,7 @@
         }
         ctx.globalAlpha = 1;
       }
+      drawPulse(focus, threads, rs);
 
       // The shared callout goes over the dots, so a band never covers it.
       drawCaptions(focus, w, h);
@@ -1564,27 +1765,36 @@
           box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
         }
         if (cand.priority < 10 && labelCollides(box)) continue;
+        // A new plate eases out of its mark over a sixth of a second; its
+        // room is taken at once, so nothing else moves while it arrives.
+        var enter = cand.plate && cand.owner === pulse.at ? 1 - Math.pow(1 - Math.min(1, pulse.ms / 160), 2) : 1;
+        if (enter < 1) {
+          var ownerX = nodes[cand.owner].x * view.k + view.tx;
+          ctx.save();
+          ctx.translate((1 - enter) * 6 * (cand.x >= ownerX ? -1 : 1), 0);
+        }
         if (cand.plate) {
           box = { x0: cx0 - 9, x1: cx0 + width + 9, y0: cand.y - cand.size - 4, y1: cand.y + 7, owner: cand.owner };
           ctx.beginPath();
           if (typeof ctx.roundRect === 'function') ctx.roundRect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0, 6);
           else ctx.rect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0);
-          ctx.globalAlpha = 0.94;
+          ctx.globalAlpha = 0.94 * enter;
           ctx.fillStyle = palette.ground;
           ctx.fill();
-          ctx.globalAlpha = 1;
+          ctx.globalAlpha = enter;
           ctx.lineWidth = 1;
           ctx.strokeStyle = palette.faint;
           ctx.stroke();
         }
         labelBoxes.push(box);
-        ctx.globalAlpha = revealAlpha(4);
+        ctx.globalAlpha = revealAlpha(4) * enter;
         ctx.lineWidth = 4;
         ctx.strokeStyle = palette.ground;
         ctx.strokeText(cand.text, cx0 + width / 2, cand.y);
         ctx.fillStyle = cand.color;
         ctx.fillText(cand.text, cx0 + width / 2, cand.y);
         ctx.globalAlpha = 1;
+        if (enter < 1) ctx.restore();
       }
       drawStatementNumbers(focus, near, searching, w, h);
       if (countOut) {

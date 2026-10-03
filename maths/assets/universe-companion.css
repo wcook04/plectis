@@ -135,6 +135,32 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc-mark--conditional { box-shadow: inset 0 0 0 1.5px var(--u-claim); }
 .uc-mark--open { box-shadow: inset 0 0 0 1px var(--faint); }
 
+/* Light, as on the map: a mark glows faintly in its own colour, more on the
+   dark ground, where light reads as light, than on paper. The card's mark
+   answers the map's ripple with its own (universe-companion.js), and the
+   current tab wears a breath of ember. */
+.uc { --uc-glow: 38%; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme]) .uc { --uc-glow: 72%; } }
+:root[data-theme="dark"] .uc { --uc-glow: 72%; }
+.uc-mark--replayed { color: var(--u-integration); }
+.uc-mark--lean, .uc-mark--modulo { color: var(--u-statement); }
+.uc-mark--proved, .uc-mark--progress, .uc-mark--conditional { color: var(--u-claim); }
+.uc-mark--none, .uc-mark--open { color: var(--faint); }
+.uc__focus-title .uc-mark, .uc__tally .uc-mark {
+  filter: drop-shadow(0 0 4px color-mix(in oklab, currentColor var(--uc-glow), transparent));
+}
+.uc-mark__ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: 0 0 0 1.2px currentColor; opacity: 0; pointer-events: none;
+}
+.uc__chip[aria-current="true"] {
+  box-shadow: 0 0 0 1px var(--home-ember),
+              0 0 14px -3px color-mix(in oklab, var(--home-ember) var(--uc-glow), transparent);
+}
+/* A card line with nothing to say takes no room (its own display rule
+   would otherwise outrank the hidden attribute). */
+.uc [data-line][hidden] { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .uc-host > :not(.uc), .uc, .uc.is-open, .uc__chip { transition: none; }
   .uc-host--open > :not(.uc) { transform: none; }

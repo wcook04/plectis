@@ -48,8 +48,9 @@ additional requirements on the coefficients. The carry, digit and
 reduced-denominator arguments address nonintegrality of the resulting
 linear form. Changing a vector while preserving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-changes that form by an integer, so it cannot decide nonintegrality.
-That condition requires a separate argument.</p>
+changes the remainder by an integer. It may simplify the calculation,
+but it cannot change whether the remainder is integral. That condition
+requires a separate argument.</p>
 <p>Throughout, write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>H</mi><mi>N</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>N</mi></munderover><mfrac><mn>1</mn><msub><mi>d</mi><mi>n</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>L</mi><mi>N</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>A</mi><mi>N</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>N</mi></munderover><mfrac><msub><mi>L</mi><mi>N</mi></msub><msub><mi>d</mi><mi>n</mi></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">d_n=n!-1,\qquad H_N=\sum_{n=2}^N\frac1{d_n},\qquad
  L_N=\operatorname{lcm}(d_2,\ldots,d_N),\qquad
@@ -148,14 +149,22 @@ and for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(c)</annotation></semantics></math>.
 The associated remainder is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow></munder><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal R(c)=\sum_{d\ge2}\frac{V_d(c)}{d!-1}.</annotation></semantics></math>
-For
+The index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+selects a coefficient, whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-beyond the support, all floor exponents vanish and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(c)=M(c)</annotation></semantics></math>,
-so the series converges absolutely. If its first weighted sums cancel,
-the remainder consists of a finite signed sum followed by
+selects a summand of the remainder. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+is supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">i\le N</annotation></semantics></math>,
+then for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d&gt;N</annotation></semantics></math>
+all floor exponents vanish and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(c)=M(c)</annotation></semantics></math>.
+The series therefore converges absolutely. Cancellation of the first
+weighted sums leaves a finite signed sum followed by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(c)</annotation></semantics></math>
-times the original tail. We show below that it differs from
+times the original tail. We show below that the remainder differs from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">M(c)S</annotation></semantics></math>
 by an integer.</p>
 <p>The chosen exponent is a floor, rather than the largest possible
@@ -399,7 +408,11 @@ the integrality of the displayed coefficients. They vanish for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d&gt;N</annotation></semantics></math>,
 since then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(c)=M(c)</annotation></semantics></math>,
-so the expansion is finite.</p>
+so the expansion is finite. These same coefficients occur in the
+integer-difference identity at the start of §1: their sum is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\mathcal R(c)-M(c)S</annotation></semantics></math>.
+Thus the coordinates also recover the integer term in the linear
+form.</p>
 <p>Cancellation through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
 forces
@@ -469,15 +482,25 @@ including
 <p>Choose a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>p</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;p\le D</annotation></semantics></math>
-and put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=D(2p-1)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>p</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;p\le D</annotation></semantics></math>.
 Such a prime exists by Bertrand’s postulate when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D\ge3</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>
 works when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">D=2</annotation></semantics></math>.
+The coefficient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">u_{2p}</annotation></semantics></math>
+lies in the tail and divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(2p)!</annotation></semantics></math>.
+Once a finite initial interval includes that coefficient, its gcd
+therefore divides this factorial. To control the small-divisor weights
+beyond the interval, we shall require
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mi>d</mi><mo>≥</mo><mn>2</mn><mi>p</mi></mrow><annotation encoding="application/x-tex">n/d\ge2p</annotation></semantics></math>
+whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d\le D</annotation></semantics></math>.
+This leads to the cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=D(2p-1)</annotation></semantics></math>.
 We claim that
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>u</mi><mi>n</mi></msub><mo>:</mo><mi>n</mi><mo>&gt;</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>H</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>H</mi><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:finite-horizon}
@@ -630,6 +653,18 @@ equal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 proves the last assertion. ◻</p>
 </div>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi>t</mi><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">M=tL_D</annotation></semantics></math>,
+so every denominator in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>D</mi></msub><annotation encoding="application/x-tex">H_D</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><msub><mi>H</mi><mi>D</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">MH_D\in\mathbb{Z}</annotation></semantics></math>,
+and the integer in the original form
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">MS+k</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>−</mi><mi>M</mi><msub><mi>H</mi><mi>D</mi></msub><mo>+</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></msub><msub><mi>z</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">k=-MH_D+\sum_{n&gt;D}z_n</annotation></semantics></math>.</p>
 </section>
 <section id="long68:sec:basis-examples" class="level3">
 <h3>Examples and support refinements</h3>
@@ -698,16 +733,17 @@ Consequently
  &amp;\quad+83e_6-e_8.
 \end{split}
 \label{long68:eq:constructed-depth-four}
-\end{equation}</annotation></semantics></math> Its remainder is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>44</mn></mrow><annotation encoding="application/x-tex">1380(S-H_4)-44</annotation></semantics></math>,
-since the coefficients of the
+\end{equation}</annotation></semantics></math> The coefficients of the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
 in this expansion sum to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>44</mn></mrow><annotation encoding="application/x-tex">-44</annotation></semantics></math>.
-The exact interval calculation appears in . The coordinate calculation
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-and the cancellations independently of a search over supports.</p>
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>4</mn></msub><mo>=</mo><mn>143</mn><mi>/</mi><mn>115</mn></mrow><annotation encoding="application/x-tex">H_4=143/115</annotation></semantics></math>,
+its remainder is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>44</mn><mo>=</mo><mn>1380</mn><mi>S</mi><mo>−</mo><mn>1760</mn></mrow><annotation encoding="application/x-tex">1380(S-H_4)-44=1380S-1760</annotation></semantics></math>.
+The exact interval calculation appears in . Thus the coordinates give
+both the original linear form and the cancellations, independently of a
+search over supports.</p>
 <p>If support is additionally restricted to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n\le6</annotation></semantics></math>,
 only
@@ -1082,10 +1118,9 @@ for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>,
 so this necessary divisor alone does not guarantee
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">9\mid M</annotation></semantics></math>.</p>
-<p>A truncation cutoff can exceed the largest supported index without
-changing the vector. For example,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>−</mi><mn>6</mn><msub><mi>e</mi><mn>2</mn></msub><mo>+</mo><msub><mi>e</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">c=-6e_2+e_4</annotation></semantics></math>
-has
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>−</mi><mn>6</mn><msub><mi>e</mi><mn>2</mn></msub><mo>+</mo><msub><mi>e</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">c=-6e_2+e_4</annotation></semantics></math>,
+we have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">M(c)=12</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>12</mn><mi>S</mi><mo>−</mo><mn>17</mn></mrow><annotation encoding="application/x-tex">\mathcal R(c)=12S-17</annotation></semantics></math>.
@@ -1105,9 +1140,16 @@ whose gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13376</mn><mi>/</mi><mn>13685</mn></mrow><annotation encoding="application/x-tex">13376/13685</annotation></semantics></math>
 exceeds the new bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>719</mn></mrow><annotation encoding="application/x-tex">24/719</annotation></semantics></math>.
-Thus the second cutoff certifies nonintegrality of the same remainder,
-although the first does not. This excludes only denominators dividing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>,
+The finite part has crossed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>,
+so the next integer is now
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
+rather than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>.
+This explains the larger gap. The second cutoff certifies nonintegrality
+of the same remainder; failure at the first cutoff was inconclusive. The
+successful test excludes denominators dividing the unchanged value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">M=12</annotation></semantics></math>,
 already covered by the finite exclusions.</p>
 <p>For fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
@@ -1130,10 +1172,16 @@ upper bound. At any one cutoff, success places the remainder strictly
 above the finite part and below the least integer strictly exceeding it,
 so it implies nonintegrality. The <a
 href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf#r12-short-gap">remainder
-comparison in the short paper</a> writes out the inequality; increasing
-the cutoff alone does not prove that it succeeds. This is a truncation
-choice, distinct from prescribing the largest nonzero coefficient
-index.</p>
+comparison in the short paper</a> writes out the inequality. Its
+eventual success for a fixed vector is therefore equivalent to that
+vector’s nonintegral remainder, not a separate reason for
+nonintegrality. To exclude every denominator, for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>
+we still need a vector with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q\mid M(c)</annotation></semantics></math>
+for which the test succeeds. Choosing its coefficients and choosing a
+truncation cutoff are separate steps; the cutoff need not be the largest
+supported index.</p>
 <p>To impose this small-tail comparison at the largest supported index,
 one needs more than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>D</mi></msub><mo>∣</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L_D\mid M</annotation></semantics></math>:
@@ -5555,6 +5603,7 @@ intervals.</p>
 <thead>
 <tr>
 <th class="ta-l">Vector</th>
+<th class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mn>4</mn></mrow></msub><msub><mi>z</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{n&gt;4}z_n</annotation></semantics></math></th>
 <th class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math></th>
 <th class="ta-r">Interval for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℛ</mi><annotation encoding="application/x-tex">\mathcal R</annotation></semantics></math></th>
@@ -5564,26 +5613,37 @@ intervals.</p>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><msub><mi>K</mi><mn>4</mn></msub><mo>+</mo><mn>253</mn><msub><mi>U</mi><mn>6</mn></msub><mo>−</mo><mn>11</mn><msub><mi>U</mi><mn>8</mn></msub></mrow><annotation encoding="application/x-tex">12K_4+253U_6-11U_8</annotation></semantics></math></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>242</mn><annotation encoding="application/x-tex">242</annotation></semantics></math></td>
+<td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1474</mn></mrow><annotation encoding="application/x-tex">-1474</annotation></semantics></math></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>255</mn><mo>,</mo><mn>256</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(255,256)</annotation></semantics></math></td>
 </tr>
 <tr>
 <td class="ta-l">The five-term vector
 <code>[long68:eq:constructed-depth-four]</code></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>44</mn></mrow><annotation encoding="application/x-tex">-44</annotation></semantics></math></td>
+<td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1760</mn></mrow><annotation encoding="application/x-tex">-1760</annotation></semantics></math></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>31</mn><mo>,</mo><mi>−</mi><mn>30</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-31,-30)</annotation></semantics></math></td>
 </tr>
 <tr>
 <td class="ta-l">The norm minimizer on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,\ldots,8\}</annotation></semantics></math></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>56</mn></mrow><annotation encoding="application/x-tex">-56</annotation></semantics></math></td>
+<td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1772</mn></mrow><annotation encoding="application/x-tex">-1772</annotation></semantics></math></td>
 <td class="ta-r"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>43</mn><mo>,</mo><mi>−</mi><mn>42</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-43,-42)</annotation></semantics></math></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Here
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mn>1380</mn><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathcal R=1380(S-H_4)+k</annotation></semantics></math>.
-The five-term remainder is
+<p>The second column is the offset from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1380(S-H_4)</annotation></semantics></math>;
+the third is the integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mn>1380</mn><mi>S</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\mathcal R=1380S+k</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1380</mn><msub><mi>H</mi><mn>4</mn></msub><mo>=</mo><mn>1716</mn></mrow><annotation encoding="application/x-tex">1380H_4=1716</annotation></semantics></math>,
+subtracting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1716</mn><annotation encoding="application/x-tex">1716</annotation></semantics></math>
+converts the second column into the third. The five-term remainder is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>286</mn><annotation encoding="application/x-tex">286</annotation></semantics></math>
 less than the first, and the norm-minimising remainder is another
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>

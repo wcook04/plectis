@@ -194,6 +194,11 @@ for each prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">p\mid k</annotation></semantics></math>
 absent from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>.
+The multiplier is an integer: its denominator is a product of distinct
+primes dividing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+and therefore divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>k</mi><mi>t</mi></msup><annotation encoding="application/x-tex">k^t</annotation></semantics></math>.
 This gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_k(t,u)</annotation></semantics></math>
 and proves that the stated family spans
@@ -422,34 +427,26 @@ combination of the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>43</mn><annotation encoding="application/x-tex">43</annotation></semantics></math>
 sections vanishes precisely when these six substitutions leave all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>37</mn><annotation encoding="application/x-tex">37</annotation></semantics></math>
-retained coefficients zero. The six differences obtained by moving the
-right-hand sides to the left give every integral relation. Indeed,
-subtracting the original coefficient of each omitted section times its
-difference removes all six omitted coordinates. The remaining retained
-coordinates must then vanish by Theorem 1.1. Writing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">x_{j,r}</annotation></semantics></math>
-for the original coefficient of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">F_{j,r}</annotation></semantics></math>,
-the coefficient at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">F_{1,2}</annotation></semantics></math>
-after substitution is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>4</mn><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub></mrow><annotation encoding="application/x-tex">x_{1,2}+4x_{2,12}</annotation></semantics></math>.
-Meanwhile
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><annotation encoding="application/x-tex">x_{2,12}</annotation></semantics></math>
-is the coefficient of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>−</mo><mn>4</mn><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,12}-4E_{1,2}</annotation></semantics></math>
-in the expression for the relation, where
+retained coefficients zero. To recover the relation itself, keep track
+of what each substitution removes. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">E_{j,r}</annotation></semantics></math>
-is the generator of the free abelian group at index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,r)</annotation></semantics></math>.
-The two kinds of coefficient have different roles: the retained
-coefficients test whether the combination vanishes, while the omitted
-coefficients give its expression as a sum of relations. At base two and
-level two those relations are
+denote the generator at index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,r)</annotation></semantics></math>
+in the free abelian group on all section indices. The substitution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>=</mo><mn>4</mn><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">F_{2,12}=4F_{1,2}</annotation></semantics></math>
+corresponds to the decomposition
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>4</mn><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>12</mn></mrow></msub><mo>−</mo><mn>4</mn><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">x_{1,2}E_{1,2}+x_{2,12}E_{2,12}
+ = (x_{1,2}+4x_{2,12})E_{1,2}
+   +x_{2,12}(E_{2,12}-4E_{1,2}).</annotation></semantics></math> The
+first coefficient tests whether the retained component vanishes; the
+second records the multiple of the relation removed. Doing this at all
+six omitted indices gives every integral relation, since the retained
+sections are independent. At base two and level two the relations are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>−</mo><mn>2</mn><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,0}-2E_{1,0}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,2}-E_{1,1}</annotation></semantics></math>.
-The same elimination works at every omitted index.</p>
+The following corollary expresses the same calculation at arbitrary base
+and level.</p>
 <div class="corollary">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let
@@ -495,24 +492,26 @@ and its rational independence makes it a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>-basis.</p>
 <p>For any vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><msub><mi>E</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x=\sum_i x_iE_i</annotation></semantics></math>,
-subtracting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></msub><msub><mi>x</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i\text{ omitted}}x_iR_i</annotation></semantics></math>
-leaves only retained coordinates. At a retained index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-the new coefficient is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>j</mi></msub><mo>+</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>j</mi></mrow></mtd></mtr></mtable></munder><msub><mi>a</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i x_i.</annotation></semantics></math>
-Thus the substitutions give the integral coordinates explicitly. If
+substitute
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo>=</mo><msub><mi>R</mi><mi>i</mi></msub><mo>+</mo><msub><mi>a</mi><mi>i</mi></msub><msub><mi>E</mi><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">E_i=R_i+a_iE_{j(i)}</annotation></semantics></math>
+at each omitted index and collect terms:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> retained</mtext></mrow></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>+</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>j</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>j</mi></mrow></mtd></mtr></mtable></munder><msub><mi>a</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>E</mi><mi>j</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></munder><msub><mi>x</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">x=\sum_{j\text{ retained}}
+       \left(x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i x_i\right)E_j
+       +\sum_{i\text{ omitted}}x_iR_i.</annotation></semantics></math>
+Evaluation kills the second sum. Independence of the retained sections
+therefore says that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-evaluates to zero, these new coefficients all vanish by independence, so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> omitted</mtext></mrow></mrow></msub><msub><mi>x</mi><mi>i</mi></msub><msub><mi>R</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x=\sum_{i\text{ omitted}}x_iR_i</annotation></semantics></math>.
-Conversely, the coefficient at omitted index
+is a relation exactly when every coefficient in the first sum is zero.
+In that case the second sum is its expression in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>i</mi></msub><annotation encoding="application/x-tex">R_i</annotation></semantics></math>.
+This expression is unique: the coefficient at omitted index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>h</mi></msub><msub><mi>c</mi><mi>h</mi></msub><msub><mi>R</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\sum_h c_hR_h</annotation></semantics></math>
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>i</mi></msub><annotation encoding="application/x-tex">c_i</annotation></semantics></math>
-itself, so we recover every coefficient without division. This proves
-both independence and uniqueness. Counting omitted indices gives
+itself. The unit coefficient at that index is also why no division is
+needed. Counting omitted indices gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>k</mi><mo>+</mo><mi>⋯</mi><mo>+</mo><msup><mi>k</mi><mi>e</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>e</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">(1+k+\cdots+k^e)-(k^e+1)=\sum_{j=1}^{e-1}k^j</annotation></semantics></math>. ◻</p>
 </div>
 <p>The assertion concerns the module generated by the sections. It need
@@ -537,19 +536,22 @@ matrix. Its determinant is
 modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>101</mn><annotation encoding="application/x-tex">101</annotation></semantics></math>,
 so it is nonsingular over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>
-and detects every nonzero retained combination at one of these inputs.
-The script <code>scripts/totient_kernel_normal_form.py</code> calculates
-the coordinates and the first such input using integer arithmetic. The
-equality test uses the integer evaluations. Reducing the proposed
-combination modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>.
+Consequently a retained combination is zero if and only if all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>37</mn><annotation encoding="application/x-tex">37</annotation></semantics></math>
+of its integer evaluations are zero. Here reduction modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>101</mn><annotation encoding="application/x-tex">101</annotation></semantics></math>
-would miss
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>101</mn><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">101F_{2,2}</annotation></semantics></math>,
-for example, although its value at
+certifies the matrix, not the equality of a proposed combination:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>101</mn><msub><mi>F</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">101F_{2,2}</annotation></semantics></math>
+would vanish modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>101</mn><annotation encoding="application/x-tex">101</annotation></semantics></math>
+at every input, although its integer value at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>
 is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>101</mn><annotation encoding="application/x-tex">101</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>101</mn><annotation encoding="application/x-tex">101</annotation></semantics></math>.
+The script <code>scripts/totient_kernel_normal_form.py</code> calculates
+the coordinates and the first nonzero evaluation using integer
+arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
@@ -712,8 +714,10 @@ and we obtain
 <p>The first assertion is also an application of Erdős’s sparse-series
 criterion <span class="citation" data-cites="erdos1957"><a href="#ref-6">[6]</a></span>, and of
 Kaneko, Suzuki and Tachiya <span class="citation"
-data-cites="kst2026"><a href="#ref-7">[7]</a></span>. The nonzero residues occur on a set of
-density zero: an integer in that set has no prime divisor
+data-cites="kst2026"><a href="#ref-7">[7]</a></span>. The residues are bounded and nonnegative,
+and the prime construction above makes their support infinite. The
+nonzero residues occur on a set of density zero: an integer in that set
+has no prime divisor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p\equiv1\pmod m</annotation></semantics></math>.
 Wong gave the case in which the base equals the modulus <span
 class="citation" data-cites="wong2015"><a href="#ref-5">[5]</a></span>. The isolated-coefficient
@@ -914,15 +918,18 @@ we have
  |2^L\Delta_h(N)-D_{h,N,L}|\le B.
 \end{equation}</annotation></semantics></math> The two tails are
 nonnegative, so their difference is bounded in absolute value by the
-larger tail bound, not the sum of the bounds. An integral
+larger tail bound, not the sum of the bounds. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">D_{h,N,L}/2^L</annotation></semantics></math>
+approximates
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_h(N)</annotation></semantics></math>
-would put
+with error at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">B/2^L</annotation></semantics></math>.
+To exclude an integer value, the approximation must lie farther than
+this error from every integer. Equivalently, the residue of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><annotation encoding="application/x-tex">D_{h,N,L}</annotation></semantics></math>
-within distance
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-of a multiple of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>L</mi></msup><annotation encoding="application/x-tex">2^L</annotation></semantics></math>.
-Hence the finite inequality
+must avoid both ends of the interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,2^L)</annotation></semantics></math>.
+Thus the finite inequality
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>&lt;</mo><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msup><mn>2</mn><mi>L</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mi>L</mi></msup><mo>−</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:r3-certificate}
  B&lt;D_{h,N,L}\operatorname{mod}2^L&lt;2^L-B
@@ -940,7 +947,12 @@ the left side grows exponentially, whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B=N+h+L+2</annotation></semantics></math>
 grows linearly. The same error estimate gives
 <code>[eq:r3-certificate]</code>. This detects every nonintegral
-difference at some depth; it does not produce such a difference for each
+difference at some depth. A failed test at one depth proves no
+integrality: the error interval may simply be too wide to separate the
+value from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>.
+Increasing the depth eventually detects each fixed nonintegral
+difference, but does not produce such a difference for each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
 For example,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mn>1</mn><mo>,</mo><mn>12</mn><mo>,</mo><mn>16</mn></mrow></msub><mo>=</mo><mi>−</mi><mn>143140</mn></mrow><annotation encoding="application/x-tex">D_{1,12,16}=-143140</annotation></semantics></math>
@@ -987,7 +999,7 @@ failures would force the fixed nonintegral
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_d(N)</annotation></semantics></math>
 arbitrarily close to an integer. The estimates are in <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-ray">Appendix A
-of the long record</a>. A single pair
+of the companion paper</a>. A single pair
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d,N</annotation></semantics></math>
 need not imply irrationality; the final assertion requires every
 positive
@@ -1024,12 +1036,22 @@ satisfies
  c+H+1&lt;(-B_{H,c})\operatorname{mod} M&lt;M-(c+H+1).
 \end{equation}</annotation></semantics></math></em></p>
 </div>
-<p>The <a
+<p>The choice of modulus makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi mathvariant="normal">Δ</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_{H,c}=M(vR_c)-\Delta_H(c)</annotation></semantics></math>.
+Under the hypothetical rationality assumption,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">vR_c</annotation></semantics></math>
+is an integer, so the first term is a multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+and only the small tail difference remains modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
+The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-mersenne">proof
-and residue recurrence</a> use
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi mathvariant="normal">Δ</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_{H,c}=M(vR_c)-\Delta_H(c)</annotation></semantics></math>
-and the linear tail bound. The required residues have not been shown to
-exist for every choice of the parameters in either test. A separate <a
+and residue recurrence</a> also give the converse by keeping
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">c,v</annotation></semantics></math>
+fixed and letting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+grow. The required residues have not been shown to exist for every
+choice of the parameters in either test. A separate <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-farey">Farey-interval
 calculation</a> at depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>240</mn><annotation encoding="application/x-tex">240</annotation></semantics></math>
@@ -1049,9 +1071,22 @@ unchanged odd totients and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|c(n)-\varphi(n)|\le2</annotation></semantics></math>
 at even indices, for which
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>=</mo><mn>5</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\sum c(n)2^{-n}=5/4</annotation></semantics></math>.
-Its integral carry still has dyadic rank at least
+Its carry is the integer sequence
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>N</mi></msub><mo>=</mo><mn>4</mn><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><mo>=</mo><mn>5</mn><mo>⋅</mo><msup><mn>2</mn><mi>N</mi></msup><mo>−</mo><mn>4</mn><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>N</mi><mo>−</mo><mi>n</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">u_N=4\sum_{j\ge1}c(N+j)2^{-j}
+     =5\cdot2^N-4\sum_{n=1}^{N}c(n)2^{N-n}.</annotation></semantics></math>
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>
+and odd
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">0&lt;r&lt;2^j</annotation></semantics></math>,
+the recurrence gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msub><mi>u</mi><mrow><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>u</mi><mrow><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">4\varphi(2^jn+r)=2u_{2^jn+r-1}-u_{2^jn+r}.</annotation></semantics></math>
+Thus the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e-1</annotation></semantics></math>
-through every positive level. The <a
+independent odd-residue totient sections lie in the span of the carry
+sections through level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.
+This explains how the rank lower bound survives even though the sum is
+rational. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-comparisons">construction
 and its limitations</a> explain why it fails the exact prime-dilation
 laws of
@@ -1205,19 +1240,28 @@ taking the average to be zero for an empty set. We seek the four bounds
  \left|\sum_{\substack{X\le N&lt;2X\\mathbb{N}\notin\mathcal A}}E_N\right|
        &amp;\le\tfrac8{25}X.
 \end{aligned}
-\end{equation}</annotation></semantics></math> Before taking real parts
-and absolute values, the four sums add to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>E</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sum E_N</annotation></semantics></math>,
-so their bounds imply the real-part estimate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>X</mi><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">9X/10</annotation></semantics></math>
-in <code>[eq:r3-harmonic]</code>. Subtracting
+\end{equation}</annotation></semantics></math> The last two sums cover
+the indices outside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>.
+On
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒢</mi><annotation encoding="application/x-tex">\mathcal G</annotation></semantics></math>,
+the identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>N</mi></msub><msub><mi>z</mi><mi>N</mi></msub><mo>=</mo><msub><mi>w</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>N</mi></msub><mo>−</mo><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>w</mi><mi>N</mi></msub><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><msub><mi>m</mi><mi>N</mi></msub></msub></mrow><annotation encoding="application/x-tex">w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar z_{m_N}</annotation></semantics></math>
+gives the first two. The four sums therefore add to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>E</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sum E_N</annotation></semantics></math>
+before any estimates are taken, and their bounds give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>14</mn><mi>/</mi><mn>25</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>100</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>100</mn><mo>+</mo><mn>8</mn><mi>/</mi><mn>25</mn><mo stretchy="false" form="postfix">)</mo><mi>X</mi><mo>=</mo><mn>9</mn><mi>X</mi><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">(14/25+1/100+1/100+8/25)X=9X/10</annotation></semantics></math>.
+Subtracting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>z</mi><mo accent="true">‾</mo></mover><mi>m</mi></msub><annotation encoding="application/x-tex">\bar z_m</annotation></semantics></math>
-cancels the unweighted sum within its cofactor group, but the factors
+cancels the unweighted sum over the whole cofactor group, but
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>N</mi></msub><annotation encoding="application/x-tex">w_N</annotation></semantics></math>
-may vary within that group. Thus centering alone does not bound the
-first sum. The second sum must also be estimated with those same
-weights. No independence has been assumed. The conclusion concerns the
-real part; it does not give a
+varies with the same index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+That cancellation does not persist automatically after multiplication by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>N</mi></msub><annotation encoding="application/x-tex">w_N</annotation></semantics></math>.
+Both of the first two sums still require weighted estimates; no
+independence has been assumed. The conclusion concerns the real part; it
+does not give a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mi>X</mi><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">21X/25</annotation></semantics></math>
 bound for the absolute value of the full sum.</p>
 <div class="problem">
@@ -1295,18 +1339,18 @@ and the residual weight depends on other totient values in the window.
 That correlation theorem supplies neither of the two remaining
 estimates. Establishing them for the actual totient is the unresolved
 arithmetic step.</p>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
+</section>
+<section id="verification-and-reproducibility"
+class="level2 unnumbered">
+<h2 class="unnumbered">Verification and reproducibility</h2>
 <p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-declarations">declaration
-guide</a> preserves the individual formal-source links for the short
-paper, including the three results whose full proofs appear in
-Appendix A of the long record. The displayed arguments and the signed
-interpolation proof are to be read as ordinary mathematical proofs.
-Recorded Lean and Comparator checks refer to their exact declarations
-and source versions; this revision makes no claim of a new formal run or
-independent review.</p>
-</section>
+guide</a> links the formal sources for this paper. Complete proofs of
+three cited results appear in Appendix A of the companion paper. The
+displayed arguments, including signed interpolation, require ordinary
+mathematical review; the recorded Lean and Comparator checks cover their
+specified declarations and source versions. No new formal run or
+independent review was performed for this revision.</p>
 <section id="acknowledgement." class="level5">
 <h5>Acknowledgement.</h5>
 <p>I thank Wouter van Doorn for advice on writing for a first-time

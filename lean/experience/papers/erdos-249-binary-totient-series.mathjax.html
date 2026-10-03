@@ -156,7 +156,10 @@ class="math inline" data-term-auto="off">\(\varphi(k^tm)/\varphi(m)\)</span> the
 contributes <span class="math inline" data-term-auto="off">\(k^t\)</span> and one factor
 <span class="math inline" data-term-auto="off">\(1-1/p\)</span> for each prime <span
 class="math inline" data-term-auto="off">\(p\mid k\)</span> absent from <span
-class="math inline" data-term-auto="off">\(u\)</span>. This gives <span
+class="math inline" data-term-auto="off">\(u\)</span>. The multiplier is an integer: its
+denominator is a product of distinct primes dividing <span
+class="math inline" data-term-auto="off">\(k\)</span>, and therefore divides <span
+class="math inline" data-term-auto="off">\(k^t\)</span>. This gives <span
 class="math inline" data-term-auto="off">\(C_k(t,u)\)</span> and proves that the stated
 family spans <span class="math inline" data-term-auto="off">\(V_{k,e}\)</span>.</p>
 </section>
@@ -320,26 +323,25 @@ F_{2,30}&amp;=2F_{1,5}.
 <p>Thus an integral combination of the <span
 class="math inline" data-term-auto="off">\(43\)</span> sections vanishes precisely when these
 six substitutions leave all <span class="math inline" data-term-auto="off">\(37\)</span>
-retained coefficients zero. The six differences obtained by moving the
-right-hand sides to the left give every integral relation. Indeed,
-subtracting the original coefficient of each omitted section times its
-difference removes all six omitted coordinates. The remaining retained
-coordinates must then vanish by Theorem <a class="math-ref" href="#thm:kkernelrank">1.1</a>. Writing <span
-class="math inline" data-term-auto="off">\(x_{j,r}\)</span> for the original coefficient of
-<span class="math inline" data-term-auto="off">\(F_{j,r}\)</span>, the coefficient at <span
-class="math inline" data-term-auto="off">\(F_{1,2}\)</span> after substitution is <span
-class="math inline" data-term-auto="off">\(x_{1,2}+4x_{2,12}\)</span>. Meanwhile <span
-class="math inline" data-term-auto="off">\(x_{2,12}\)</span> is the coefficient of <span
-class="math inline" data-term-auto="off">\(E_{2,12}-4E_{1,2}\)</span> in the expression for
-the relation, where <span class="math inline" data-term-auto="off">\(E_{j,r}\)</span> is the
-generator of the free abelian group at index <span
-class="math inline" data-term-auto="off">\((j,r)\)</span>. The two kinds of coefficient have
-different roles: the retained coefficients test whether the combination
-vanishes, while the omitted coefficients give its expression as a sum of
-relations. At base two and level two those relations are <span
+retained coefficients zero. To recover the relation itself, keep track
+of what each substitution removes. Let <span
+class="math inline" data-term-auto="off">\(E_{j,r}\)</span> denote the generator at index
+<span class="math inline" data-term-auto="off">\((j,r)\)</span> in the free abelian group on
+all section indices. The substitution <span
+class="math inline" data-term-auto="off">\(F_{2,12}=4F_{1,2}\)</span> corresponds to the
+decomposition</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[x_{1,2}E_{1,2}+x_{2,12}E_{2,12}
+= (x_{1,2}+4x_{2,12})E_{1,2}
+   +x_{2,12}(E_{2,12}-4E_{1,2}).\]</span></div>
+<p>The first coefficient tests
+whether the retained component vanishes; the second records the multiple
+of the relation removed. Doing this at all six omitted indices gives
+every integral relation, since the retained sections are independent. At
+base two and level two the relations are <span
 class="math inline" data-term-auto="off">\(E_{2,0}-2E_{1,0}\)</span> and <span
-class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>. The same elimination
-works at every omitted index.</p>
+class="math inline" data-term-auto="off">\(E_{2,2}-E_{1,1}\)</span>. The following corollary
+expresses the same calculation at arbitrary base and level.</p>
 <div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let <span class="math inline" data-term-auto="off">\(k\ge2\)</span> and
@@ -371,21 +373,23 @@ integer. The retained family therefore spans the section module over
 <span class="math inline" data-term-auto="off">\(\Z\)</span>, and its rational independence
 makes it a <span class="math inline" data-term-auto="off">\(\Z\)</span>-basis.</p>
 <p>For any vector <span class="math inline" data-term-auto="off">\(x=\sum_i x_iE_i\)</span>,
-subtracting <span class="math inline" data-term-auto="off">\(\sum_{i\text{
-omitted}}x_iR_i\)</span> leaves only retained coordinates. At a retained
-index <span class="math inline" data-term-auto="off">\(j\)</span>, the new coefficient is</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[x_j+\sum_{\substack{i\text{
-omitted}\\j(i)=j}}a_i x_i.\]</span></div>
-<p>Thus the substitutions give the
-integral coordinates explicitly. If <span
-class="math inline" data-term-auto="off">\(x\)</span> evaluates to zero, these new
-coefficients all vanish by independence, so <span
-class="math inline" data-term-auto="off">\(x=\sum_{i\text{ omitted}}x_iR_i\)</span>.
-Conversely, the coefficient at omitted index <span
+substitute <span class="math inline" data-term-auto="off">\(E_i=R_i+a_iE_{j(i)}\)</span> at
+each omitted index and collect terms:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[x=\sum_{j\text{ retained}}
+       \left(x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i
+x_i\right)E_j
+       +\sum_{i\text{ omitted}}x_iR_i.\]</span></div>
+<p>Evaluation kills the
+second sum. Independence of the retained sections therefore says that
+<span class="math inline" data-term-auto="off">\(x\)</span> is a relation exactly when every
+coefficient in the first sum is zero. In that case the second sum is its
+expression in the <span class="math inline" data-term-auto="off">\(R_i\)</span>. This
+expression is unique: the coefficient at omitted index <span
 class="math inline" data-term-auto="off">\(i\)</span> in <span class="math inline" data-term-auto="off">\(\sum_h
-c_hR_h\)</span> is <span class="math inline" data-term-auto="off">\(c_i\)</span> itself, so
-we recover every coefficient without division. This proves both
-independence and uniqueness. Counting omitted indices gives <span
+c_hR_h\)</span> is <span class="math inline" data-term-auto="off">\(c_i\)</span> itself. The
+unit coefficient at that index is also why no division is needed.
+Counting omitted indices gives <span
 class="math inline" data-term-auto="off">\((1+k+\cdots+k^e)-(k^e+1)=\sum_{j=1}^{e-1}k^j\)</span>. ◻</p>
 </div>
 <p>The assertion concerns the module generated by the sections. It need
@@ -403,15 +407,18 @@ class="math inline" data-term-auto="off">\(n=0,\ldots,36\)</span> to obtain a <s
 class="math inline" data-term-auto="off">\(37\times37\)</span> matrix. Its determinant is
 <span class="math inline" data-term-auto="off">\(17\)</span> modulo <span
 class="math inline" data-term-auto="off">\(101\)</span>, so it is nonsingular over <span
-class="math inline" data-term-auto="off">\(\Q\)</span> and detects every nonzero retained
-combination at one of these inputs. The script
+class="math inline" data-term-auto="off">\(\Q\)</span>. Consequently a retained combination
+is zero if and only if all <span class="math inline" data-term-auto="off">\(37\)</span> of
+its integer evaluations are zero. Here reduction modulo <span
+class="math inline" data-term-auto="off">\(101\)</span> certifies the matrix, not the
+equality of a proposed combination: <span
+class="math inline" data-term-auto="off">\(101F_{2,2}\)</span> would vanish modulo <span
+class="math inline" data-term-auto="off">\(101\)</span> at every input, although its integer
+value at <span class="math inline" data-term-auto="off">\(n=0\)</span> is <span
+class="math inline" data-term-auto="off">\(101\)</span>. The script
 <code>scripts/totient_kernel_normal_form.py</code> calculates the
-coordinates and the first such input using integer arithmetic. The
-equality test uses the integer evaluations. Reducing the proposed
-combination modulo <span class="math inline" data-term-auto="off">\(101\)</span> would miss
-<span class="math inline" data-term-auto="off">\(101F_{2,2}\)</span>, for example, although
-its value at <span class="math inline" data-term-auto="off">\(n=0\)</span> is <span
-class="math inline" data-term-auto="off">\(101\)</span>.</p>
+coordinates and the first nonzero evaluation using integer
+arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
@@ -535,12 +542,13 @@ class="math inline" data-term-auto="off">\(3f(1)/4+c/4\)</span>. ◻</p>
 <p>The first assertion is also an application of Erdős’s sparse-series
 criterion <span class="citation" data-cites="erdos1957"><a href="#ref-6">[6]</a></span>, and of
 Kaneko, Suzuki and Tachiya <span class="citation"
-data-cites="kst2026"><a href="#ref-7">[7]</a></span>. The nonzero residues occur on a set of
-density zero: an integer in that set has no prime divisor <span
-class="math inline" data-term-auto="off">\(p\equiv1\pmod m\)</span>. Wong gave the case in
-which the base equals the modulus <span class="citation"
-data-cites="wong2015"><a href="#ref-5">[5]</a></span>. The isolated-coefficient argument above
-also treats signed values of <span
+data-cites="kst2026"><a href="#ref-7">[7]</a></span>. The residues are bounded and nonnegative,
+and the prime construction above makes their support infinite. The
+nonzero residues occur on a set of density zero: an integer in that set
+has no prime divisor <span class="math inline" data-term-auto="off">\(p\equiv1\pmod
+m\)</span>. Wong gave the case in which the base equals the
+modulus <span class="citation" data-cites="wong2015"><a href="#ref-5">[5]</a></span>. The
+isolated-coefficient argument above also treats signed values of <span
 class="math inline" data-term-auto="off">\(f-f(0)\)</span>, for which those nonnegative
 sparse-series criteria need an additional spacing hypothesis. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-residue-extension">extension
@@ -708,13 +716,16 @@ M+2\)</span>, we have</p>
 \end{equation}\]</span></div>
 <p>The two tails are nonnegative, so their
 difference is bounded in absolute value by the larger tail bound, not
-the sum of the bounds. An integral <span
-class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> would put <span
-class="math inline" data-term-auto="off">\(D_{h,N,L}\)</span> within distance <span
-class="math inline" data-term-auto="off">\(B\)</span> of a multiple of <span
-class="math inline" data-term-auto="off">\(2^L\)</span>. Hence the finite inequality</p>
-<div class="math-display" id="eq:r3-certificate" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+the sum of the bounds. Thus <span
+class="math inline" data-term-auto="off">\(D_{h,N,L}/2^L\)</span> approximates <span
+class="math inline" data-term-auto="off">\(\Delta_h(N)\)</span> with error at most <span
+class="math inline" data-term-auto="off">\(B/2^L\)</span>. To exclude an integer value, the
+approximation must lie farther than this error from every integer.
+Equivalently, the residue of <span
+class="math inline" data-term-auto="off">\(D_{h,N,L}\)</span> must avoid both ends of the
+interval <span class="math inline" data-term-auto="off">\([0,2^L)\)</span>. Thus the finite
+inequality</p>
+<div class="math-display" id="eq:r3-certificate" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:r3-certificate}
 B&lt;D_{h,N,L}\bmod2^L&lt;2^L-B
 \end{equation}\]</span></div>
@@ -727,10 +738,14 @@ class="math inline" data-term-auto="off">\(2^L\|\Delta_h(N)\|_{\R/\Z}&gt;2B\)</s
 left side grows exponentially, whereas <span
 class="math inline" data-term-auto="off">\(B=N+h+L+2\)</span> grows linearly. The same error
 estimate gives <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. This detects
-every nonintegral difference at some depth; it does not produce such a
-difference for each <span class="math inline" data-term-auto="off">\(h\)</span>. For example,
-<span class="math inline" data-term-auto="off">\(D_{1,12,16}=-143140\)</span> has residue
-<span class="math inline" data-term-auto="off">\(53468\)</span> modulo <span
+every nonintegral difference at some depth. A failed test at one depth
+proves no integrality: the error interval may simply be too wide to
+separate the value from <span class="math inline" data-term-auto="off">\(\Z\)</span>.
+Increasing the depth eventually detects each fixed nonintegral
+difference, but does not produce such a difference for each <span
+class="math inline" data-term-auto="off">\(h\)</span>. For example, <span
+class="math inline" data-term-auto="off">\(D_{1,12,16}=-143140\)</span> has residue <span
+class="math inline" data-term-auto="off">\(53468\)</span> modulo <span
 class="math inline" data-term-auto="off">\(2^{16}\)</span>, and <span
 class="math inline" data-term-auto="off">\(B=31\)</span>, so it excludes denominators
 dividing <span class="math inline" data-term-auto="off">\(2^{12}\)</span>.</p>
@@ -760,7 +775,7 @@ failures would force the fixed nonintegral <span
 class="math inline" data-term-auto="off">\(\Delta_d(N)\)</span> arbitrarily close to an
 integer. The estimates are in <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-ray">Appendix A
-of the long record</a>. A single pair <span
+of the companion paper</a>. A single pair <span
 class="math inline" data-term-auto="off">\(d,N\)</span> need not imply irrationality; the
 final assertion requires every positive <span
 class="math inline" data-term-auto="off">\(d\)</span> and every <span
@@ -785,12 +800,19 @@ class="math display" data-term-auto="off">\[\begin{equation}
 c+H+1&lt;(-B_{H,c})\bmod M&lt;M-(c+H+1).
 \end{equation}\]</span></div>
 </div>
-<p>The <a
+<p>The choice of modulus makes <span
+class="math inline" data-term-auto="off">\(B_{H,c}=M(vR_c)-\Delta_H(c)\)</span>. Under the
+hypothetical rationality assumption, <span
+class="math inline" data-term-auto="off">\(vR_c\)</span> is an integer, so the first term is
+a multiple of <span class="math inline" data-term-auto="off">\(M\)</span> and only the small
+tail difference remains modulo <span class="math inline" data-term-auto="off">\(M\)</span>.
+The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-mersenne">proof
-and residue recurrence</a> use <span
-class="math inline" data-term-auto="off">\(B_{H,c}=M(vR_c)-\Delta_H(c)\)</span> and the
-linear tail bound. The required residues have not been shown to exist
-for every choice of the parameters in either test. A separate <a
+and residue recurrence</a> also give the converse by keeping <span
+class="math inline" data-term-auto="off">\(c,v\)</span> fixed and letting <span
+class="math inline" data-term-auto="off">\(H\)</span> grow. The required residues have not
+been shown to exist for every choice of the parameters in either test. A
+separate <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-farey">Farey-interval
 calculation</a> at depth <span class="math inline" data-term-auto="off">\(240\)</span>
 excludes <span class="math inline" data-term-auto="off">\(S=a/q\)</span> for <span
@@ -799,14 +821,24 @@ Q_0\approx7.96\times10^{34}\)</span>.</p>
 </section>
 <section id="sec:nogo" class="level3">
 <h3>Comparison sequences</h3>
-<p> Large ranks alone cannot settle the series question. There is an
+<p>Large ranks alone cannot settle the series question. There is an
 integer sequence <span class="math inline" data-term-auto="off">\(c\)</span> with <span
 class="math inline" data-term-auto="off">\(0\le c(n)\le n\)</span>, unchanged odd totients
 and <span class="math inline" data-term-auto="off">\(|c(n)-\varphi(n)|\le2\)</span> at even
 indices, for which <span class="math inline" data-term-auto="off">\(\sum
-c(n)2^{-n}=5/4\)</span>. Its integral carry still has dyadic rank at
-least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> through every positive
-level. The <a
+c(n)2^{-n}=5/4\)</span>. Its carry is the integer sequence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[u_N=4\sum_{j\ge1}c(N+j)2^{-j}
+     =5\cdot2^N-4\sum_{n=1}^{N}c(n)2^{N-n}.\]</span></div>
+<p>For <span
+class="math inline" data-term-auto="off">\(j\ge1\)</span> and odd <span
+class="math inline" data-term-auto="off">\(0&lt;r&lt;2^j\)</span>, the recurrence gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[4\varphi(2^jn+r)=2u_{2^jn+r-1}-u_{2^jn+r}.\]</span></div>
+<p>Thus the <span class="math inline" data-term-auto="off">\(2^e-1\)</span> independent
+odd-residue totient sections lie in the span of the carry sections
+through level <span class="math inline" data-term-auto="off">\(e\)</span>. This explains how
+the rank lower bound survives even though the sum is rational. The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-comparisons">construction
 and its limitations</a> explain why it fails the exact prime-dilation
 laws of <span class="math inline" data-term-auto="off">\(\varphi\)</span>. The same section
@@ -939,16 +971,22 @@ class="math display" data-term-auto="off">\[\begin{equation}
        &amp;\le\tfrac8{25}X.
 \end{aligned}
 \end{equation}\]</span></div>
-<p>Before taking real parts and absolute values,
-the four sums add to <span class="math inline" data-term-auto="off">\(\sum E_N\)</span>, so
-their bounds imply the real-part estimate <span
-class="math inline" data-term-auto="off">\(9X/10\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:r3-harmonic">eq:r3-harmonic</a>. Subtracting <span
-class="math inline" data-term-auto="off">\(\bar z_m\)</span> cancels the unweighted sum
-within its cofactor group, but the factors <span
-class="math inline" data-term-auto="off">\(w_N\)</span> may vary within that group. Thus
-centering alone does not bound the first sum. The second sum must also
-be estimated with those same weights. No independence has been assumed.
-The conclusion concerns the real part; it does not give a <span
+<p>The last two sums cover the indices outside
+<span class="math inline" data-term-auto="off">\(\mathcal G\)</span>. On <span
+class="math inline" data-term-auto="off">\(\mathcal G\)</span>, the identity <span
+class="math inline" data-term-auto="off">\(w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar
+z_{m_N}\)</span> gives the first two. The four sums therefore add to
+<span class="math inline" data-term-auto="off">\(\sum E_N\)</span> before any estimates are
+taken, and their bounds give <span
+class="math inline" data-term-auto="off">\((14/25+1/100+1/100+8/25)X=9X/10\)</span>.
+Subtracting <span class="math inline" data-term-auto="off">\(\bar z_m\)</span> cancels the
+unweighted sum over the whole cofactor group, but <span
+class="math inline" data-term-auto="off">\(w_N\)</span> varies with the same index <span
+class="math inline" data-term-auto="off">\(N\)</span>. That cancellation does not persist
+automatically after multiplication by <span
+class="math inline" data-term-auto="off">\(w_N\)</span>. Both of the first two sums still
+require weighted estimates; no independence has been assumed. The
+conclusion concerns the real part; it does not give a <span
 class="math inline" data-term-auto="off">\(21X/25\)</span> bound for the absolute value of
 the full sum.</p>
 <div class="problem" id="prob:firstharmonic">
@@ -1001,18 +1039,18 @@ with <span class="math inline" data-term-auto="off">\(L\)</span>, and the residu
 depends on other totient values in the window. That correlation theorem
 supplies neither of the two remaining estimates. Establishing them for
 the actual totient is the unresolved arithmetic step.</p>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
+</section>
+<section id="verification-and-reproducibility"
+class="level2 unnumbered">
+<h2 class="unnumbered">Verification and reproducibility</h2>
 <p>The <a
 href="../../../papers/erdos249-totient-reasoning-surface.pdf#long249-r3-declarations">declaration
-guide</a> preserves the individual formal-source links for the short
-paper, including the three results whose full proofs appear in
-Appendix A of the long record. The displayed arguments and the signed
-interpolation proof are to be read as ordinary mathematical proofs.
-Recorded Lean and Comparator checks refer to their exact declarations
-and source versions; this revision makes no claim of a new formal run or
-independent review.</p>
-</section>
+guide</a> links the formal sources for this paper. Complete proofs of
+three cited results appear in Appendix A of the companion paper. The
+displayed arguments, including signed interpolation, require ordinary
+mathematical review; the recorded Lean and Comparator checks cover their
+specified declarations and source versions. No new formal run or
+independent review was performed for this revision.</p>
 <section id="acknowledgement." class="level5">
 <h5>Acknowledgement.</h5>
 <p>I thank Wouter van Doorn for advice on writing for a first-time

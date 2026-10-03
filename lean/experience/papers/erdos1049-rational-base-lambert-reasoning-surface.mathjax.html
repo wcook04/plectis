@@ -451,10 +451,15 @@ give the least common power of the base denominator that clears the
 pair.</p>
 <p>Let <span
 class="math inline" data-term-auto="off">\(d_{n,k}=\deg\bigl(c_{n,k}(X)X^{a_0k}\bigr)\)</span>.
-The Gaussian-binomial degree formula gives</p>
+The Gaussian factors are monic of degrees <span
+class="math inline" data-term-auto="off">\((a_1-1)(k-a_1)\)</span> and <span
+class="math inline" data-term-auto="off">\((\beta_n-k-1)(k-a_2)\)</span>. Adding these to the
+monomial exponent gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[d_{n,k}=e_{n,k}+a_0k+(a_1-1)(k-a_1)+(\beta_n-k-1)(k-a_2)
-=\frac{-k^{2}+80kn+3k-340n^{2}-26n}{2},\]</span></div>
+=\frac{-k^{2}+80kn+3k-340n^{2}-26n}{2}.\]</span></div>
+<p>Taking the difference
+at consecutive indices, we obtain</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[d_{n,k+1}-d_{n,k}=40n+1-k&gt;0\qquad(a_2\le
 k\le\beta_n-2),\]</span></div>
@@ -488,6 +493,17 @@ Gaussian factors and <span class="math inline" data-term-auto="off">\(D_N/\Omega
 are monic. Thus the leading coefficient of <span
 class="math inline" data-term-auto="off">\(U_n\)</span> is <span
 class="math inline" data-term-auto="off">\((-1)^n\)</span>.</p>
+<p>The net decrease in degree is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[K_n-W_n=M_n-\deg(D_N/\Omega_n).\]</span></div>
+<p>Dividing
+by <span class="math inline" data-term-auto="off">\(X^{M_n}\)</span> lowers the degree by
+<span class="math inline" data-term-auto="off">\(M_n\)</span>, but multiplying by the
+remaining cyclotomic factors increases it by <span
+class="math inline" data-term-auto="off">\(\deg(D_N/\Omega_n)\)</span>. This is why the
+remainder estimate below involves <span
+class="math inline" data-term-auto="off">\(K_n-W_n\)</span>, rather than <span
+class="math inline" data-term-auto="off">\(M_n\)</span> alone.</p>
 <p>For a reduced fraction <span class="math inline" data-term-auto="off">\(a/b\)</span>, the
 unit leading coefficient also gives the exact denominator of <span
 class="math inline" data-term-auto="off">\(U_n(a/b)\)</span>, not just an upper bound. For
@@ -793,18 +809,17 @@ class="math inline" data-term-auto="off">\(\mu_{\rm irr}(F((31/4)^r))&lt;301\)</
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The coefficient <span
-class="math inline" data-term-auto="off">\(A_n\)</span> in <a class="math-ref" data-equation-ref="true" href="#long1049:eq:A-explicit">long1049:eq:A-explicit</a> is a sum
-of <span class="math inline" data-term-auto="off">\(O(n)\)</span> Laurent monomials times two
-Gaussian binomial polynomials. Each Gaussian polynomial has nonnegative
-coefficients summing to at most <span
-class="math inline" data-term-auto="off">\(2^{27n+2}\)</span>. Hence the sum of the absolute
-coefficients of <span class="math inline" data-term-auto="off">\(A_n\)</span> is <span
-class="math inline" data-term-auto="off">\(\exp(O(n))\)</span>. Since its largest exponent is
-<span class="math inline" data-term-auto="off">\(K_n\)</span>, <span
-class="math inline" data-term-auto="off">\(|A_n(x)|\le x^{K_n}\exp(O(n))\)</span> for each
-fixed <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>. The cyclotomic
-estimate in Section <a class="math-ref" href="#long1049:sec:integer-forms">2.4</a> bounds
+<p><em>Proof.</em> For the irrationality exponent, bound <span
+class="math inline" data-term-auto="off">\(A_n\)</span> in <a class="math-ref" data-equation-ref="true" href="#long1049:eq:A-explicit">long1049:eq:A-explicit</a>: its <span
+class="math inline" data-term-auto="off">\(O(n)\)</span> Laurent monomials multiply two
+Gaussian binomial polynomials, each with nonnegative coefficients
+summing to at most <span class="math inline" data-term-auto="off">\(2^{27n+2}\)</span>. Thus
+its absolute coefficient sum is <span
+class="math inline" data-term-auto="off">\(\exp(O(n))\)</span>, and its largest exponent
+<span class="math inline" data-term-auto="off">\(K_n\)</span> gives <span
+class="math inline" data-term-auto="off">\(|A_n(x)|\le x^{K_n}\exp(O(n))\)</span> for fixed
+<span class="math inline" data-term-auto="off">\(x&gt;1\)</span>. The cyclotomic estimate in
+Section <a class="math-ref" href="#long1049:sec:integer-forms">2.4</a> bounds
 the multiplier <span
 class="math inline" data-term-auto="off">\(x^{-M_n}D_N(x)/\Omega_n(x)\)</span> by <span
 class="math inline" data-term-auto="off">\(x^{W_n-K_n}\exp(O_x(n))\)</span>. Therefore</p>
@@ -839,7 +854,8 @@ large <span class="math inline" data-term-auto="off">\(n\)</span>, the estimates
 e^{-(\tau-\eta)n^2},
 \qquad |Q_n|\le e^{(\alpha+\eta)n^2}.\]</span></div>
 <p>For every sufficiently
-large denominator <span class="math inline" data-term-auto="off">\(q\)</span>, choose <span
+large denominator <span class="math inline" data-term-auto="off">\(q\)</span>, the upper
+remainder bound suggests choosing <span
 class="math inline" data-term-auto="off">\(n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil\)</span>.
 Then <span class="math inline" data-term-auto="off">\(2q(Q_n\xi-P_n)\le1\)</span>, so the
 preceding integer argument applies to <span
@@ -848,9 +864,10 @@ class="math inline" data-term-auto="off">\(p\)</span>. Also <span
 class="math inline" data-term-auto="off">\(Q_n\ne0\)</span>: otherwise <span
 class="math inline" data-term-auto="off">\(Q_n\xi-P_n\)</span> would be an integer strictly
 between <span class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span>. It follows that</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[|\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)n^2}
+class="math inline" data-term-auto="off">\(1\)</span>. The lower remainder bound and the
+coefficient bound now give</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|\xi-p/q|\ge
+e^{-(\alpha+\tau+2\eta)n^2}
              =q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)},\]</span></div>
 <p class="display-continue">since
 <span class="math inline" data-term-auto="off">\(n^2=\log(2q)/(\tau-\eta)+O_\eta(\sqrt{\log
@@ -1220,13 +1237,15 @@ class="math display" data-term-auto="off">\[|U_n(p)|,|V_n(p)|
 <p>Here <span
 class="math inline" data-term-auto="off">\(\log(d_n+1)=o(n^2)\)</span> by the degree bound.
 This is where the coefficient-height hypothesis is needed.</p>
-<p>Suppose <span class="math inline" data-term-auto="off">\(\sigma&gt;\delta\)</span> and
-choose an integer <span class="math inline" data-term-auto="off">\(p\ge2\)</span> such that
-<span class="math inline" data-term-auto="off">\((\sigma-\delta)\log p&gt;h\)</span>. Put
-<span class="math inline" data-term-auto="off">\(u_n=U_n(p)\)</span>, <span
+<p>Suppose <span class="math inline" data-term-auto="off">\(\sigma&gt;\delta\)</span>. To
+make remainder decay beat coefficient growth, choose an integer <span
+class="math inline" data-term-auto="off">\(p\ge2\)</span> with <span
+class="math inline" data-term-auto="off">\((\sigma-\delta)\log p&gt;h\)</span> and put <span
+class="math inline" data-term-auto="off">\(u_n=U_n(p)\)</span>, <span
 class="math inline" data-term-auto="off">\(v_n=V_n(p)\)</span> and <span
-class="math inline" data-term-auto="off">\(\ell_n=u_nF(p)-v_n\)</span>. The evaluation bound
-and hypothesis (4) give</p>
+class="math inline" data-term-auto="off">\(\ell_n=u_nF(p)-v_n\)</span>. The integer
+determinant eliminates <span class="math inline" data-term-auto="off">\(F(p)\)</span>; the
+evaluation bound and hypothesis (4) give</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[u_nv_{n+1}-u_{n+1}v_n=u_{n+1}\ell_n-u_n\ell_{n+1}=o(1).\]</span></div>
 <p>Indeed, each product on the right has absolute value at most <span
@@ -1277,14 +1296,13 @@ assumed.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Write <span class="math inline" data-term-auto="off">\(x=a/b\)</span> and
 suppose <span
-class="math inline" data-term-auto="off">\(C_n=b^{d_n}\Lambda_n(x)\to0\)</span>. Eventual
-nonvanishing gives <span class="math inline" data-term-auto="off">\(\log|C_n|=d_n\log
-b+\log|\Lambda_n(x)|\)</span> for all sufficiently large <span
-class="math inline" data-term-auto="off">\(n\)</span>. Also <span
-class="math inline" data-term-auto="off">\(|C_n|\le1\)</span> eventually. The lower side of
-the remainder asymptotic therefore implies</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[d_n\log b\le-\log|\Lambda_n(x)|
+class="math inline" data-term-auto="off">\(C_n=b^{d_n}\Lambda_n(x)\to0\)</span>. Since <span
+class="math inline" data-term-auto="off">\(C_n\ne0\)</span> and <span
+class="math inline" data-term-auto="off">\(|C_n|\le1\)</span> eventually, logarithms and the
+remainder asymptotic at <span class="math inline" data-term-auto="off">\(x\)</span> give the
+degree bound</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_n\log
+b\le-\log|\Lambda_n(x)|
        =\sigma\log x\,n^2+o(n^2).\]</span></div>
 <p>Set <span
 class="math inline" data-term-auto="off">\(c=\sigma\log x/\log b\)</span>. Since <span
@@ -1294,11 +1312,11 @@ inequality gives <span
 class="math inline" data-term-auto="off">\(d_n\le(c+\varepsilon)n^2\)</span> eventually for
 each <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>. Apply
 Theorem <a class="math-ref" href="#long1049:res:archcap">2.5</a>
-to the same family with degree upper rate <span
-class="math inline" data-term-auto="off">\(c\)</span>. Its height bound, nonvanishing and
-remainder asymptotics at every real base greater than one are unchanged.
-The theorem gives <span class="math inline" data-term-auto="off">\(\sigma\le c\)</span>, a
-contradiction. ◻</p>
+to the same polynomial family with degree upper rate <span
+class="math inline" data-term-auto="off">\(c\)</span>: its height bound, nonvanishing and
+all-base remainder asymptotics are unchanged. This gives <span
+class="math inline" data-term-auto="off">\(\sigma\le c\)</span>, contradicting <span
+class="math inline" data-term-auto="off">\(c&lt;\sigma\)</span>. ◻</p>
 </div>
 <p>This strengthens the failure of a sufficient-cutoff test to an
 exclusion of decay under the stated all-base hypotheses. It does not
@@ -4630,8 +4648,11 @@ integral rows have real remainders <span
 class="math inline" data-term-auto="off">\(e_j\)</span>, and suppose their subset sums have
 <span class="math inline" data-term-auto="off">\(Q\)</span> possible residues modulo a
 positive integer <span class="math inline" data-term-auto="off">\(D\)</span>. Put <span
-class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. All subset sums of the
-remainders lie in an interval of length <span
+class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. The least and greatest
+subset remainders are respectively</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{e_j&lt;0}e_j\quad\text{and}\quad\sum_{e_j&gt;0}e_j,\]</span></div>
+<p class="display-continue">so the interval between them has length <span
 class="math inline" data-term-auto="off">\(T\)</span>. Divide it into half-open intervals of
 width <span class="math inline" data-term-auto="off">\(D/n\)</span>, using a final interval
 for the right endpoint if necessary. At most <span
@@ -6402,14 +6423,6 @@ class="math inline" data-term-auto="off">\(\log4/\log31\)</span>.</p>
 </section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
-<section id="data-availability." class="level5">
-<h5>Data availability.</h5>
-<p>The <a href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">formal-source revision</a> contains the Lean
-sources with their toolchain and library manifest. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> lists the declarations and
-recorded checks. Proofs are given in the text, with ordinary arguments
-and finite computations distinguished from the formal results.</p>
-</section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
 <p>This work received no external funding. The author declares no
@@ -6421,18 +6434,15 @@ competing interests.</p>
 maintained by Thomas Bloom <span class="citation"
 data-cites="erdosproblems"><a href="#ref-26">[26]</a></span>. I thank Wouter van Doorn for advice
 on writing for a first-time reader, using fewer names and symbols, and
-explaining the force of a theorem’s hypotheses. His advice was given on
-another note and does not constitute mathematical review or endorsement
-of the results here.</p>
+explaining the force of a theorem’s hypotheses.</p>
 </section>
 </section>
 </section>
 <section id="long1049:app:index" class="level2">
-<h2>Guide to the formal sources</h2>
-<p>The links beside each statement and in the margin identify the
-supplied Lean declarations and their recorded Comparator comparisons.
-The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> lists those checks;
-no fresh execution or independent review of this revision is reported.
+<h2>Verification and reproducibility</h2>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> identifies the
+supplied Lean declarations and recorded Comparator comparisons; no fresh
+execution or independent review of this revision is reported.
 Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
 retains its checked polynomial shift-bound hypotheses, and its proof
 does not use the <a href="#long1049:thm:geometric-ratio">ratio-limit
@@ -6442,7 +6452,8 @@ href="#long1049:thm:calibrated-denominators">denominator calculation</a>
 and the <a href="#long1049:prop:calibrated-height">height bound</a> have
 ordinary proofs here but no Lean proofs in the supplied record. The
 unformalised material is kept separate from the checked fixed-base
-theorem.</p>
+theorem. The <a href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">source revision</a> includes the Lean
+sources, toolchain and library manifest. </p>
 <section id="formal-verification-and-computations.-1" class="level5">
 <h5>Formal verification and computations.</h5>
 <p>The printed proofs of Theorems <a class="math-ref" href="#long1049:res:region">2.2</a> and <a class="math-ref" href="#long1049:res:31over4">2.3</a> use Zudilin’s

@@ -26,7 +26,7 @@
 \title{Factorial Linear Forms and Denominators\\Detailed Proofs and Rationality Criteria}
 \subtitle{Erd\H{o}s Problem~\#68}
 \author{Will Cook}
-\date{1 September 2026; revised 30 September 2026}
+\date{1 September 2026; revised 1 October 2026}
 
 \setlength{\emergencystretch}{3em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -76,8 +76,9 @@ We also minimise support sizes and coefficient norms, and construct
 primitive vectors supported on arithmetic progressions. These impose
 additional requirements on the coefficients. The carry, digit and
 reduced-denominator arguments address nonintegrality of the resulting
-linear form. Changing a vector while preserving $M$ changes that form
-by an integer, so it cannot decide nonintegrality. That condition requires
+linear form. Changing a vector while preserving $M$ changes the remainder
+by an integer. It may simplify the calculation, but it cannot change
+whether the remainder is integral. That condition requires
 a separate argument.
 
 Throughout, write
@@ -139,11 +140,12 @@ for $V_d(c)$. The associated remainder is
 \[
  \mathcal R(c)=\sum_{d\ge2}\frac{V_d(c)}{d!-1}.
 \]
-For $d$ beyond the support, all floor exponents vanish and $V_d(c)=M(c)$,
-so the series converges absolutely. If its first weighted sums cancel,
-the remainder consists of a finite signed sum followed by $M(c)$ times
-the original tail. We show below that it differs from $M(c)S$ by an
-integer.
+The index $i$ selects a coefficient, whereas $d$ selects a summand
+of the remainder. If $c$ is supported on $i\le N$, then for $d>N$
+all floor exponents vanish and $V_d(c)=M(c)$. The series therefore
+converges absolutely. Cancellation of the first weighted sums leaves
+a finite signed sum followed by $M(c)$ times the original tail.
+We show below that the remainder differs from $M(c)S$ by an integer.
 
 The chosen exponent is a floor, rather than the largest possible power
 of $d!$ dividing $i!$. For example, at $d=2$, $i=6$, it is $3$
@@ -259,7 +261,10 @@ $V_d(c)=b+(d!-1)z_d$. These identities determine the coordinates:
 \]
 The congruence \eqref{long68:eq:channel-congruence} also verifies the
 integrality of the displayed coefficients. They vanish for $d>N$,
-since then $V_d(c)=M(c)$, so the expansion is finite.
+since then $V_d(c)=M(c)$, so the expansion is finite. These same
+coefficients occur in the integer-difference identity at the start of
+\S\ref{long68:sec:channels}: their sum is $\mathcal R(c)-M(c)S$.
+Thus the coordinates also recover the integer term in the linear form.
 
 Cancellation through $D$ forces $\Lc_D\mid M(c)$. To obtain
 $M(c)=\Lc_D$ in the enlarged space, start with $\Lc_De_1$, whose weighted
@@ -293,9 +298,13 @@ It gives $u_n=0$ for odd $n>1$. If $p$ is prime, the only proper divisor
 of $2p$ with a nonzero contribution is $2$, and therefore
 $u_{2p}=-(2p)!/2^{p-1}$, including $p=2$.
 
-Choose a prime $p$ with $D/2<p\le D$ and put $H=D(2p-1)$. Such a prime
-exists by Bertrand's postulate when $D\ge3$, and $p=2$ works when $D=2$.
-We claim that
+Choose a prime $p$ with $D/2<p\le D$. Such a prime exists by Bertrand's
+postulate when $D\ge3$, and $p=2$ works when $D=2$. The coefficient
+$u_{2p}$ lies in the tail and divides $(2p)!$. Once a finite initial
+interval includes that coefficient, its gcd therefore divides this
+factorial. To control the small-divisor weights beyond the interval,
+we shall require $n/d\ge2p$ whenever $d\le D$. This leads to the
+cutoff $H=D(2p-1)$. We claim that
 \begin{equation}\label{long68:eq:finite-horizon}
  \gcd\{u_n:n>D\}=\gcd(u_{D+1},\ldots,u_H)>0,\qquad H<2D^2.
 \end{equation}
@@ -380,6 +389,10 @@ subtracting the identities for two vectors with equal $M$ proves the
 last assertion.
 \end{proof}
 
+Here $M=tL_D$, so every denominator in $H_D$ divides $M$. Thus
+$MH_D\in\Z$, and the integer in the original form $MS+k$ is
+$k=-MH_D+\sum_{n>D}z_n$.
+
 \subsection{Examples and support refinements}\label{long68:sec:basis-examples}
 
 For $D=4$ we need a common divisor of the entire coefficient tail,
@@ -420,10 +433,12 @@ coordinate zero. Consequently
 \end{split}
 \label{long68:eq:constructed-depth-four}
 \end{equation}
-Its remainder is $1380(S-H_4)-44$, since the coefficients of the $U_n$
-in this expansion sum to $-44$. The exact interval calculation appears
-in \S\ref{long68:sec:ext-certificates}. The coordinate calculation gives
-$M$ and the cancellations independently of a search over supports.
+The coefficients of the $U_n$ in this expansion sum to $-44$.
+Since $H_4=143/115$, its remainder is
+$1380(S-H_4)-44=1380S-1760$. The exact interval calculation appears
+in \S\ref{long68:sec:ext-certificates}. Thus the coordinates give both
+the original linear form and the cancellations, independently of a
+search over supports.
 
 If support is additionally restricted to $n\le6$, only $u_5=0$ and
 $u_6=-180$ remain available in \eqref{long68:eq:low-channel-support}.
@@ -567,14 +582,15 @@ values of $M$ alone is not. For example, the compulsory factor $12L_D$ has
 $3$-adic valuation exactly $1$ for every $D$, so this necessary divisor
 alone does not guarantee $9\mid M$.
 
-A truncation cutoff can exceed the largest supported index without changing
-the vector. For example, $c=-6e_2+e_4$ has $M(c)=12$ and
-$\mathcal R(c)=12S-17$. At cutoff $4$, its finite part is $-239/115$:
+For $c=-6e_2+e_4$, we have $M(c)=12$ and $\mathcal R(c)=12S-17$. At cutoff $4$, its finite part is $-239/115$:
 the gap $9/115$ is smaller than the tail bound $24/119$. At cutoff $5$,
 the finite part is $-27061/13685$, whose gap $13376/13685$ exceeds the
-new bound $24/719$. Thus the second cutoff certifies nonintegrality of
-the same remainder, although the first does not. This excludes only
-denominators dividing $12$, already covered by the finite exclusions.
+new bound $24/719$. The finite part has crossed $-2$, so the next
+integer is now $-1$ rather than $-2$. This explains the larger gap.
+The second cutoff certifies nonintegrality of the same remainder;
+failure at the first cutoff was inconclusive. The successful test
+excludes denominators dividing the unchanged value $M=12$, already
+covered by the finite exclusions.
 
 For fixed $c$ with $M(c)>0$, the finite part increases to
 $\mathcal R(c)$, with omitted tail $M(c)(S-H_N)$. The upper bound
@@ -588,8 +604,12 @@ omitted tail itself and is smaller than that upper bound. At any one
 cutoff, success places the remainder strictly above the finite part and
 below the least integer strictly exceeding it, so it implies nonintegrality.
 The \href{erdos-68-factorial-denominator-irrationality.pdf\#r12-short-gap}{remainder comparison in the short paper}
-writes out the inequality; increasing the cutoff alone does not prove that it succeeds. This is a truncation choice, distinct from prescribing
-the largest nonzero coefficient index.
+writes out the inequality. Its eventual success for a fixed vector is
+therefore equivalent to that vector's nonintegral remainder, not a
+separate reason for nonintegrality. To exclude every denominator, for
+each $q>0$ we still need a vector with $q\mid M(c)$ for which the test
+succeeds. Choosing its coefficients and choosing a truncation cutoff
+are separate steps; the cutoff need not be the largest supported index.
 
 To impose this small-tail comparison at the largest supported index, one
 needs more than $L_D\mid M$: the positive coefficient $M$ must also be smaller than a
@@ -600,6 +620,7 @@ is used instead, the same numerical bound applies to that cutoff, not
 to the vector's actual support. The extra size assumption on $M$ is not
 a consequence of cancelling the weighted sums.
 
+\newpage
 \label{long68:res:lead-channel-radius}\phantomsection
 \begin{theorem}[a lower bound for the support parameter]\label{long68:res:channel-radius}
 Let $t,M,R\in\N$ satisfy
@@ -2940,19 +2961,21 @@ only by integers. A single finite calculation therefore tests all three:
 The first remainder lies strictly between $255$ and $256$. Subtracting
 the corresponding integer offsets gives the other two intervals.
 \begin{center}\small
-\begin{tabular}{p{.53\linewidth}rr}
-\papertablehead Vector & $k$ & Interval for $\mathcal R$\\
+\begin{tabular}{p{.42\linewidth}rrr}
+\papertablehead Vector & $\sum_{n>4}z_n$ & $k$ & Interval for $\mathcal R$\\
 \hline
-$12K_4+253U_6-11U_8$ & $242$ & $(255,256)$\\
+$12K_4+253U_6-11U_8$ & $242$ & $-1474$ & $(255,256)$\\
 The five-term vector \eqref{long68:eq:constructed-depth-four}
- & $-44$ & $(-31,-30)$\\
+ & $-44$ & $-1760$ & $(-31,-30)$\\
 The norm minimizer on $\{2,\ldots,8\}$
- & $-56$ & $(-43,-42)$\\
+ & $-56$ & $-1772$ & $(-43,-42)$\\
 \end{tabular}
 \end{center}
-Here $\mathcal R=1380(S-H_4)+k$. The five-term remainder is $286$
-less than the first, and the norm-minimising remainder is another $12$
-less. All three exclude exactly the same divisors of $1380$ by this
+The second column is the offset from $1380(S-H_4)$; the third is the
+integer $k$ in $\mathcal R=1380S+k$. Since $1380H_4=1716$, subtracting
+$1716$ converts the second column into the third. The five-term remainder
+is $286$ less than the first, and the norm-minimising remainder is another
+$12$ less. All three exclude exactly the same divisors of $1380$ by this
 argument. The coefficient and support improvements in
 \S\ref{long68:sec:basis-examples} do not enlarge that set of exclusions;
 the larger finite computations in \S\ref{long68:sec:finite} already

@@ -270,7 +270,7 @@
     "subject": "Erdős #243",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 20,
+    "pages": 21,
     "question": "For Erdős #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?",
     "precis": "Every strictly increasing sequence of positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n²→1 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=∏_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erdős #243 remains open.",
     "owns": "the cubic-rate irrationality theorem and the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate",
@@ -294,17 +294,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "d5a8acb84f750361",
-      "source_sha256": "1b2435b5b413843f434375affbfa1c24b0c31f5202ae2c1ca3e98b662c54856c",
+      "source_sha256": "668fd53715f3e8ff43baef623d97f9097b1f6cff769d1883df56caf062baee24",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 745,
+      "mathml_node_count": 751,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "cbd44e4e9fe2c7678b097b1ce5938c8e6e4411c9da7329c8591b5fde6db823ad",
-      "html_exact_tex_sha256": "ebf52c93f185dc2d6fed9f7582d5edf32b864dffbbd1324165ab4e91f995e7e6"
+      "html_mathml_sha256": "935224c0360ff7c7a587d19178a188850979e04cc64cbba043d6d4a6a3cb2dfb",
+      "html_exact_tex_sha256": "4a1db4600afdc633180739bca3a615cc7fc10d4f4c87d586f571eec4cdb6aff0"
     },
     "sections": [
       {
@@ -408,9 +408,9 @@
         "label": "Indexing of the canonical tails."
       },
       {
-        "level": 5,
-        "anchor": "verification.",
-        "label": "Verification."
+        "level": 2,
+        "anchor": "app:verification",
+        "label": "Verification and reproducibility"
       },
       {
         "level": 2,
@@ -459,7 +459,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 20,
+      "pages": 21,
       "question": "For Erdős #243, when does a cubic growth rate force an irrational reciprocal sum, and what separate increment bound forces a Sylvester tail?",
       "precis": "Every strictly increasing sequence of positive integers with a_n²/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum. A cubic profile for hypothetical rational-tail numerators is excluded by square specialisation and congruences modulo seven. The zero-indexed theorem has a Lean proof; the paper obtains the one-based statement by an ordinary finite-prefix argument. Separately, if a_{n+1}/a_n²→1 and the sum is rational, an eventual upper bound on increments of P_n/a_n, with P_n=∏_{j<n}a_j, forces the Sylvester recurrence eventually. That extra bound is not derived from growth and rationality alone; unrestricted Erdős #243 remains open.",
       "owns": "the cubic-rate irrationality theorem and the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional Sylvester criterion, and remaining arithmetic estimate",
@@ -483,17 +483,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d5a8acb84f750361",
-        "source_sha256": "1b2435b5b413843f434375affbfa1c24b0c31f5202ae2c1ca3e98b662c54856c",
+        "source_sha256": "668fd53715f3e8ff43baef623d97f9097b1f6cff769d1883df56caf062baee24",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 745,
+        "mathml_node_count": 751,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "cbd44e4e9fe2c7678b097b1ce5938c8e6e4411c9da7329c8591b5fde6db823ad",
-        "html_exact_tex_sha256": "ebf52c93f185dc2d6fed9f7582d5edf32b864dffbbd1324165ab4e91f995e7e6"
+        "html_mathml_sha256": "935224c0360ff7c7a587d19178a188850979e04cc64cbba043d6d4a6a3cb2dfb",
+        "html_exact_tex_sha256": "4a1db4600afdc633180739bca3a615cc7fc10d4f4c87d586f571eec4cdb6aff0"
       },
       "sections": [
         {
@@ -597,9 +597,9 @@
           "label": "Indexing of the canonical tails."
         },
         {
-          "level": 5,
-          "anchor": "verification.",
-          "label": "Verification."
+          "level": 2,
+          "anchor": "app:verification",
+          "label": "Verification and reproducibility"
         },
         {
           "level": 2,
@@ -644,11 +644,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos243-reciprocal-tail-reasoning-surface",
-      "title": "Reciprocal Sums and the Sylvester Recurrence:\\newline Further Results and Proofs",
+      "title": "Reciprocal Sums and the Sylvester Recurrence: Further Results and Proofs",
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 60,
+      "pages": 61,
       "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
       "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -672,10 +672,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "d5a8acb84f750361",
-        "source_sha256": "5496fda3202eea17c8194ce4b890ab4d1d09c5ad5d9f6129397a68f86fa095d6",
+        "source_sha256": "dfdaab021caf097d09d4d599976937724641ac405372dea1c1f3ecb89d430f0e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2488,
+        "mathml_node_count": 2502,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -691,8 +691,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "fe7ae5f09bcee02eb131033596acd85e305a4ef98299765454139585ec466dfd",
-        "html_exact_tex_sha256": "b6f4c9f701e8fcab846ed5d01a7404a14cdb6bd34bdc4d16ab950a4c0ee22a32"
+        "html_mathml_sha256": "234b592405ad9ced5a32a1b45b569a18c80624265cf3cfe34d835a8cab125e5d",
+        "html_exact_tex_sha256": "2fc25ebf720ee96f85c5248446dd4381612a59e8ba8d87042a3f24b35fe59a81"
       },
       "sections": [
         {
@@ -938,7 +938,7 @@
         {
           "level": 2,
           "anchor": "long243:app:index",
-          "label": "Guide to the formal sources"
+          "label": "Verification and reproducibility"
         },
         {
           "level": 3,

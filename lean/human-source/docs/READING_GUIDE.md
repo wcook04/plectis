@@ -29,8 +29,7 @@ historical correspondence.
 
 ## Two ways to begin
 
-You can follow one question or read across the corpus: a failed method in one
-programme can suggest a different theorem in another. The
+You can follow one question or read across the corpus. The
 [reading edition](reading-edition/README.md) gives a short research instruction
 and the opening of each short paper in one file. For #257, follow the weighted
 theorem, its averaging proof, the long record and Lean source. Then try the
@@ -108,9 +107,11 @@ and develop the mathematics they suggest. The
 
 ## How to read the evidence
 
-A Lean proof checks a formal statement; a claim record gives its public status
-and limits. A paper supplies motivation and a readable argument. A finite
-calculation covers only the range it reached.
+The verification concordance at the end of each problem paper links its
+statements to Lean proofs and recorded Comparator checks. A dagger identifies
+a proof that assumes a named input; pending and partial support are labelled
+explicitly. These links appear in one place, leaving the mathematical argument
+uninterrupted.
 
 Comparator compares selected statements with independently declared formal
 interfaces under fixed assumptions. It is not peer review and does not
@@ -118,13 +119,13 @@ establish novelty. The [Palomar guide](verification/PALOMAR_QUALIFICATION.md)
 distinguishes local packaging from recorded service submission or acceptance.
 
 This is a self-contained public record, not an entrypoint into any private
-development system. File, declaration and computation counts do not measure
-mathematical importance.
+development system. A finite computation covers its tested range; file and
+declaration counts do not measure mathematical importance.
 
 ## Reviewing one result
 
 Pick a statement in a short paper, read its assumptions and the step that does
-the work, then follow the longer record. Missing motivation, compressed hard
+the work, then follow the companion paper. Missing motivation, compressed hard
 steps and unclear attribution are useful feedback: a checked proof still needs
 an explanation others can understand and reuse.
 

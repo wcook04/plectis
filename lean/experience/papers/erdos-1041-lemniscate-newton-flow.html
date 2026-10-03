@@ -412,12 +412,21 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><msub><mi>ζ</mi><mn>6</mn></msub></mrow><annotation encoding="application/x-tex">8\zeta_6</annotation></semantics></math>
 by polygonal arcs in the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>-plane.
-Containment of the four inner segments follows by writing
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>ε</mi><mo>+</mo><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><msup><mi>ε</mi><mn>7</mn></msup><mo stretchy="false" form="prefix">|</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">7\varepsilon+\operatorname{Re}Q(w)
-                       -\tfrac12\varepsilon^7|Q(w)|^2</annotation></semantics></math>
-in the Bernstein basis of degree fourteen and checking that all fifteen
-coefficients are positive on each segment. For the remaining radial
-portions we use the root identity
+For the four inner segments we use
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>ρ</mi><mi>ε</mi><mi>w</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>≥</mo><mn>2</mn><msup><mi>ρ</mi><mn>14</mn></msup><msup><mi>ε</mi><mn>7</mn></msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>7</mn><mi>ε</mi><mo>+</mo><mi mathvariant="normal">Re</mi><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><msup><mi>ε</mi><mn>7</mn></msup><mo stretchy="false" form="prefix">|</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">1-|f(\rho\varepsilon w)|^2\ge
+ 2\rho^{14}\varepsilon^7
+ \left(7\varepsilon+\operatorname{Re}Q(w)
+                       -\tfrac12\varepsilon^7|Q(w)|^2\right).</annotation></semantics></math>
+This follows by expanding the square and using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>14</mn></msup><mo>≥</mo><mn>14</mn><msup><mi>ρ</mi><mn>14</mn></msup><msup><mi>ε</mi><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">1-\rho^{14}\ge14\rho^{14}\varepsilon^8</annotation></semantics></math>.
+On each segment, the expression in parentheses is a polynomial of degree
+at most fourteen in the segment parameter. All fifteen coefficients in
+its degree-fourteen Bernstein basis are positive. The basis polynomials
+are nonnegative and sum to one, so the expression is positive along the
+whole segment, which therefore stays inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
+after scaling. For the remaining radial portions we use the root
+identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>ζ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>t</mi><mn>7</mn></msup><mo>−</mo><mn>1</mn><mo>+</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mn>6</mn></munderover><msup><mi>ε</mi><mrow><mn>7</mn><mo>−</mo><mi>k</mi></mrow></msup><msub><mi>q</mi><mi>k</mi></msub><msup><mi>ζ</mi><mi>k</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>k</mi></msup><mo>−</mo><msup><mi>t</mi><mn>7</mn></msup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mn>7</mn></munderover><msub><mi>q</mi><mi>k</mi></msub><msup><mi>w</mi><mi>k</mi></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">F(t\zeta)=t^7-1+
        \sum_{k=1}^6\varepsilon^{7-k}q_k\zeta^k(t^k-t^7),
  \qquad Q(w)=\sum_{k=1}^7q_kw^k,</annotation></semantics></math> which
@@ -428,9 +437,15 @@ for
 All rational intervals, vertices and coefficient tests are specified in
 <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#counterexample-certificate">the
-companion’s finite verification</a>. Riemann–Hurwitz now shows that this
-component contains exactly two roots and every other component contains
-one.</p>
+companion’s finite verification</a>. At the regular level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f|=1</annotation></semantics></math>,
+Riemann–Hurwitz gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-1</annotation></semantics></math>
+critical points in a component with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+zeros, counted with multiplicity. Thus the component containing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>s</mi></msub><annotation encoding="application/x-tex">c_s</annotation></semantics></math>
+has exactly two roots, while every other component contains one.</p>
 <div class="proof">
 <p><em>Proof of Theorem 1.2.</em> Apply Lemma 2.1 to the component
 containing
@@ -930,13 +945,18 @@ above
 containing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
 has degree two, as follows by exhausting with regular discs and applying
-Riemann–Hurwitz. The square root
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mi>P</mi></mrow></msqrt></mrow><annotation encoding="application/x-tex">\xi=\sqrt{1-P}</annotation></semantics></math>
-then maps
+Riemann–Hurwitz. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
-biholomorphically onto
+is simply connected and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">1-P</annotation></semantics></math>
+has only a double zero at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+there, it has a single-valued analytic square root
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>.
+The resulting map is a proper local biholomorphism onto
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>ξ</mi><mo>:</mo><mo stretchy="false" form="prefix">|</mo><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>S</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}</annotation></semantics></math>,
-and its inverse maps
+which is star-shaped and hence simply connected. It is therefore
+biholomorphic, and its inverse maps
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1,1]</annotation></semantics></math>
 to the proposed connection. Along this interval
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>ξ</mi><mn>2</mn></msup><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P=1-\xi^2\in[0,1]</annotation></semantics></math>,
@@ -945,13 +965,13 @@ which gives the required containment.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">a=1-w_0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p=w_0(1-w_0)</annotation></semantics></math>.
-The coordinate
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mi>ξ</mi><msqrt><mfrac><mi>S</mi><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}</annotation></semantics></math>
-sends
+We map
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
-to the unit disc and
+to the unit disc by
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mi>ξ</mi><msqrt><mfrac><mi>S</mi><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">\zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}.</annotation></semantics></math>
+The endpoints
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi><mo>=</mo><mi>±</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\xi=\pm1</annotation></semantics></math>
-to
+map to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mi>±</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\zeta=\pm q</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mn>2</mn></msup><mo>=</mo><mi>S</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q^2=S/(S^2+p)</annotation></semantics></math>.
@@ -1052,7 +1072,8 @@ all roots lie in the disc and
 is a non-root critical point, but its unique nearest-root segment leaves
 the unit lemniscate. Moreover, every root-pair midpoint of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>3</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>99</mn><mi>/</mi><mn>100</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">z^3-(99/100)^3</annotation></semantics></math>
-lies outside it. The <a
+lies outside it. This cubic still admits the two-segment connections of
+Theorem 3.1; it is the straight chords that fail. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#straight-path-counterexamples">exact
 counterexamples</a> include the escape calculations.</p>
 <p> The cubic
@@ -1065,7 +1086,9 @@ criterion.</p>
 <p> A further cubic has two roots at its first merger but normalised
 component capacity one at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi></mrow><annotation encoding="application/x-tex">2\mu</annotation></semantics></math>.
-The normalisation uses the standard identity
+By that level, all three roots lie in one component. Its capacity is
+therefore that of the whole filled lemniscate, whose normalisation uses
+the standard identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cap</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>t</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>t</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{cap}(K_t(f))=t^{1/n}</annotation></semantics></math>
 <span class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>.</p>
 <p> Finally,
@@ -1093,7 +1116,35 @@ when
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
 is a monic cubic: if there are two distinct zeros, some such pair can be
-joined by a path consisting of two segments.</p>
+joined by a path consisting of two segments. The companion selects a
+nonzero root
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">]</mo><mo>⊂</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">[0,r]\subset\{|P|&lt;1\}</annotation></semantics></math>.
+Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>q</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(z)=P((z-h)^q)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mi>q</mi></msup><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">y^q=r</annotation></semantics></math>,
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><mi>t</mi><mi>y</mi><mi>ζ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>q</mi></msup><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(h+ty\zeta)=P(t^qr)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le t\le1</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>th
+root of unity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>.
+Thus one quotient segment gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+contained segments through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.
+Averaging
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>h</mi><mo>+</mo><mi>y</mi><mi>ζ</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|h+y\zeta|^2</annotation></semantics></math>
+over the full fibre gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>h</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">|</mo><mi>y</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|h|^2+|y|^2&lt;1</annotation></semantics></math>,
+so two distinct fibre points are joined with length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2|y|&lt;2</annotation></semantics></math>.</p>
 <p> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>5</mn></msup><mo>+</mo><mi>a</mi><msup><mi>z</mi><mn>4</mn></msup><mo>+</mo><mi>b</mi><mi>z</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">z^5+az^4+bz+c</annotation></semantics></math>,
 a harmonic-moment identity selects two root indices with
@@ -1143,8 +1194,7 @@ proof and equality case</a>.</p>
 </section>
 <section id="sec:freepoint" class="level3">
 <h3>Critical-value means</h3>
-<p> A weighted Poisson identity gives an estimate for critical values
-when the zeros lie in a disc. For
+<p> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo>∈</mo><mover><mi mathvariant="double-struck">𝔻</mi><mo accent="true">¯</mo></mover></mrow><annotation encoding="application/x-tex">c_j\in\overline{\mathbb D}</annotation></semantics></math>
 and positive weights of sum one, set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mn>1</mn><mo>−</mo><msub><mover><mi>c</mi><mo accent="true">‾</mo></mover><mi>j</mi></msub><mi>z</mi><msup><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>j</mi></msub></msup></mrow><annotation encoding="application/x-tex">G(z)=\prod_j|1-\bar c_jz|^{w_j}</annotation></semantics></math>.
@@ -1162,11 +1212,31 @@ and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>w</mi><mi>j</mi></msub><mi>G</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mo>∫</mo><mo stretchy="false" form="prefix">|</mo><mi>g</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mi>P</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>m</mi><mo>=</mo><mn>1</mn><mo>−</mo><munder><mo>∑</mo><mrow><mi>ν</mi><mo>≥</mo><mn>1</mn></mrow></munder><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>ν</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>ν</mi></msub><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_jw_jG(c_j)^2\le\int |g|^2P\,dm
           =1-\sum_{\nu\ge1}(2\nu-1)|a_\nu|^2.</annotation></semantics></math>
 Radial contraction gives the boundary case.</p>
-<p> The reflected derivative transfers the quadratic inequality to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>2</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}</annotation></semantics></math>
-when the zeros lie in a closed disc of radius
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>.
-An unformalised refinement, recorded as an ordinary argument, uses
+<p> To apply this inequality to a monic polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+of degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
+with zeros in the closed unit disc, take its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=n-1</annotation></semantics></math>
+critical points, counted with multiplicity, and give them equal weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">1/m</annotation></semantics></math>.
+The reflected-derivative comparison gives the pointwise bound
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>≤</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><mo stretchy="false" form="prefix">|</mo><mn>1</mn><mo>−</mo><msub><mover><mi>c</mi><mo accent="true">‾</mo></mover><mi>k</mi></msub><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>=</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">|f(c_j)|^{2/m}\le
+ \left(\prod_{k=1}^m|1-\bar c_kc_j|\right)^{2/m}=G(c_j)^2.</annotation></semantics></math>
+Summing and using the weighted inequality gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>m</mi></mrow></msup><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\sum_j|f(c_j)|^{2/m}\le m</annotation></semantics></math>.
+For zeros in a closed disc with centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R&gt;0</annotation></semantics></math>,
+apply this to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><mi>R</mi><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R^{-n}f(h+Rz)</annotation></semantics></math>
+and scale back to obtain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>2</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R=0</annotation></semantics></math>,
+all critical values vanish. An unformalised refinement, recorded as an
+ordinary argument, uses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>g</mi><mn>2</mn></msup><annotation encoding="application/x-tex">g^2</annotation></semantics></math>
 in the same Poisson integral and gives the proposed fourth-power bound
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>4</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>4</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{4/(n-1)}
@@ -1381,8 +1451,8 @@ data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> asks for a pat
 to the unit circle in the intersection of a lemniscate with the closed
 disc. Those endpoints and that additional region restriction differ from
 the present question.</p>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
+<section id="verification-and-reproducibility." class="level5">
+<h5>Verification and reproducibility.</h5>
 <p>The supplied Lean sources prove the fixed counterexample for
 preconnected sets, the negation and <code>answer(False)</code> forms of
 the Formal Conjectures statement, and the total-variation formulation.
@@ -1397,18 +1467,15 @@ stopping time and
 dual certificates; those are the computational results cited here. The
 analytic assertions in Remarks 4.1–5.2, the fourth-power mean and the
 later topological and compactness arguments remain outside the formal
-conclusions. The links beside each statement and in the margin retain
-the original statement identifiers and their conditional dependencies;
-they do not promote these remarks to unconditional Lean theorems. </p>
+conclusions. The evidence record retains the statement identifiers and
+their conditional dependencies. </p>
 </section>
 </section>
 <section id="acknowledgements" class="level2 unnumbered">
 <h2 class="unnumbered">Acknowledgements</h2>
-<p>I thank Wouter van Doorn for advice on mathematical exposition, in
-particular on explaining restrictive hypotheses, avoiding private
-terminology and introducing notation only when it helps the reader. His
-remarks concerned another note; this acknowledgement does not imply that
-he reviewed or endorsed the mathematics of the present paper.</p>
+<p>I thank Wouter van Doorn for advice on explaining restrictive
+hypotheses, avoiding private terminology and introducing notation only
+when useful.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

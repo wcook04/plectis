@@ -1111,10 +1111,21 @@ need:
  X^{a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}}
  \genfrac{[}{]}{0pt}{}{k-1}{a_1-1}_X
  \genfrac{[}{]}{0pt}{}{\beta-a_2-1}{\beta-k-1}_X.</annotation></semantics></math>
-On comparing successive summands, we find that the degree increases by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>−</mo><mi>k</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">40n+1-k&gt;0</annotation></semantics></math>
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">d_{n,k}</annotation></semantics></math>
+be the degree of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>th
+summand. Adding the monomial exponent and the degrees of the two
+Gaussian factors gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><msub><mi>a</mi><mn>0</mn></msub><mi>k</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><msub><mi>a</mi><mn>1</mn></msub><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>β</mi><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>β</mi><mo>−</mo><mi>k</mi></mrow><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="1.0em"></mspace><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>β</mi><mo>−</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mfrac><mrow><mi>−</mi><msup><mi>k</mi><mn>2</mn></msup><mo>+</mo><mn>80</mn><mi>k</mi><mi>n</mi><mo>+</mo><mn>3</mn><mi>k</mi><mo>−</mo><mn>340</mn><msup><mi>n</mi><mn>2</mn></msup><mo>−</mo><mn>26</mn><mi>n</mi></mrow><mn>2</mn></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ d_{n,k}
+ &amp;=a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}\\
+ &amp;\quad +(a_1-1)(k-a_1)+(\beta-k-1)(k-a_2)\\
+ &amp;=\frac{-k^2+80kn+3k-340n^2-26n}{2}.
+ \end{aligned}</annotation></semantics></math> Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>d</mi><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><mn>40</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>−</mo><mi>k</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_{n,k+1}-d_{n,k}=40n+1-k&gt;0</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>β</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_2\le k\le\beta-2</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>β</mi><mo>−</mo><mn>2</mn><mo>=</mo><mn>27</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">a_2\le k\le\beta-2=27n</annotation></semantics></math>.
 The last summand alone therefore determines the leading term, giving
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>:=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi>A</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><mn>1091</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>81</mn><mi>n</mi><mo>+</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>W</mi><mi>n</mi></msub><mo>:=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>M</mi><mi>n</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>ℓ</mi><mo>≤</mo><mn>15</mn><mi>n</mi></mrow></munder><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>ν</mi><mi>ℓ</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">K_n:=\deg A_n=\frac{1091n^2+81n+2}{2},\qquad
  W_n:=\deg U_n=K_n-M_n+\sum_{\ell\le15n}(1-\nu_\ell)\varphi(\ell).</annotation></semantics></math>
@@ -1122,7 +1133,17 @@ Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi mathvariant="normal">Φ</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">\varphi(\ell)=\deg\Phi_\ell</annotation></semantics></math>
 is Euler’s totient function, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ν</mi><mn>1</mn></msub><mo>=</mo><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\nu_1=\omega(n)=0</annotation></semantics></math>.
-The bounds for
+In particular,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>n</mi></msub><mo>−</mo><msub><mi>W</mi><mi>n</mi></msub><mo>=</mo><msub><mi>M</mi><mi>n</mi></msub><mo>−</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>N</mi></msub><mi>/</mi><msub><mi mathvariant="normal">Ω</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">K_n-W_n=M_n-\deg(D_N/\Omega_n).</annotation></semantics></math>
+The factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>X</mi><mrow><mi>−</mi><msub><mi>M</mi><mi>n</mi></msub></mrow></msup><annotation encoding="application/x-tex">X^{-M_n}</annotation></semantics></math>
+lowers the degree by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>n</mi></msub><annotation encoding="application/x-tex">M_n</annotation></semantics></math>,
+whereas the remaining cyclotomic factors increase it by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>N</mi></msub><mi>/</mi><msub><mi mathvariant="normal">Ω</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\deg(D_N/\Omega_n)</annotation></semantics></math>.
+Their difference will determine the decay of the cancelled
+remainder.</p>
+<p>The bounds for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>n</mi></msub><annotation encoding="application/x-tex">H_n</annotation></semantics></math>
 are uniform for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">x\ge2</annotation></semantics></math>:
@@ -1341,7 +1362,8 @@ We use the polynomials
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>,</mo><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">U_n,V_n</annotation></semantics></math>
 from Theorem 4.1, with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">W_n=\deg U_n</annotation></semantics></math>.
-In that construction the coefficient of
+The additional estimate we need is a growth bound for their
+coefficients. In that construction the coefficient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
 before cancellation is a sum of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math>
@@ -1372,7 +1394,18 @@ With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mi>n</mi></msub><mi>ξ</mi><mo>−</mo><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>τ</mi><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>Q</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|Q_n|\le\exp(\alpha n^2+o(n^2))</annotation></semantics></math>.</p>
-<p>For integers
+<p>For a rational approximation with denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+we will choose a remainder at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2q)</annotation></semantics></math>
+without letting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>Q</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|Q_n|</annotation></semantics></math>
+grow unnecessarily. The decay rate suggests taking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>
+near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">(\log q)/\tau</annotation></semantics></math>.
+The reason for this choice is the following integer comparison. For
+integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">A,B,p,q</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
@@ -1395,11 +1428,12 @@ and use the preceding estimates in the form
  \qquad |Q_n|\le e^{(\alpha+\eta)n^2}</annotation></semantics></math>
 for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-Given a sufficiently large denominator
+The upper remainder bound determines our choice: for a sufficiently
+large denominator
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
-we choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo>−</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo stretchy="false" form="postfix">⌉</mo></mrow><annotation encoding="application/x-tex">n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil</annotation></semantics></math>,
-so that
+take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo>−</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo stretchy="false" form="postfix">⌉</mo></mrow><annotation encoding="application/x-tex">n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil</annotation></semantics></math>.
+Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mi>n</mi></msub><mi>ξ</mi><mo>−</mo><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2q(Q_n\xi-P_n)\le1</annotation></semantics></math>.
 The preceding integer argument now applies to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mi>n</mi></msub><mo>,</mo><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A,B)=(Q_n,P_n)</annotation></semantics></math>
@@ -1413,7 +1447,7 @@ would be an integer strictly between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-It follows that
+The lower remainder bound and the coefficient bound now give
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo>−</mo><mi>p</mi><mi>/</mi><mi>q</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>τ</mi><mo>+</mo><mn>2</mn><mi>η</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mn>2</mn></msup></mrow></msup><mo>=</mo><msup><mi>q</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>τ</mi><mo>+</mo><mn>2</mn><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo>−</mo><mi>η</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">|\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)n^2}
              =q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)},</annotation></semantics></math>
 since
@@ -1518,8 +1552,8 @@ href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long
 model in the companion paper</a> has the same formal orders, leading
 coefficients and type of fixed-base power correction, although its
 target value is rational. The model and its denominator calculation are
-retained there with ordinary proofs as unformalised remarks. The long
-record also gives an <a
+retained there with ordinary proofs as unformalised remarks. The
+companion paper also gives an <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-ratio-extension">ordinary
 argument for the ratio-limit extension</a> under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub><mo>→</mo><mi>ρ</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_{k+1}/a_k\to\rho\in(0,q^{-1})</annotation></semantics></math>,
@@ -1596,10 +1630,17 @@ Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>e</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">T=\sum_j|e_j|</annotation></semantics></math>
 and suppose that at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-subsets give any fixed remainder within a residue class. For each
+subsets give any fixed remainder within a residue class. The least and
+greatest subset remainders are
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>&lt;</mo><mn>0</mn></mrow></munder><msub><mi>e</mi><mi>j</mi></msub><mspace width="1.0em"></mspace><mtext mathvariant="normal">and</mtext><mspace width="1.0em"></mspace><munder><mo>∑</mo><mrow><msub><mi>e</mi><mi>j</mi></msub><mo>&gt;</mo><mn>0</mn></mrow></munder><msub><mi>e</mi><mi>j</mi></msub><mo>;</mo></mrow><annotation encoding="application/x-tex">\sum_{e_j&lt;0}e_j\quad\text{and}\quad\sum_{e_j&gt;0}e_j;</annotation></semantics></math>
+their difference is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+bounds the width of the range in each residue class as well. For each
 positive integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
-the sufficient inequality
+the inequality
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>M</mi></msup><mo>&gt;</mo><mi>Q</mi><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>n</mi><mi>T</mi></mrow><mi>D</mi></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:quantitative-selector-budget}
  2^M&gt;Qk\left(\left\lfloor\frac{nT}{D}\right\rfloor+1\right)
@@ -1612,10 +1653,16 @@ and
 in absolute value. Indeed, in each residue class divide the range of
 remainders into half-open intervals of width
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">D/n</annotation></semantics></math>,
-starting at its least value. If each interval contained only one
-remainder value, it would contain at most
+starting at its least value. At most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>T</mi><mi>/</mi><mi>D</mi><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor nT/D\rfloor+1</annotation></semantics></math>
+intervals are needed, including a last interval when the greatest value
+is an endpoint. If each interval contained only one remainder value, it
+would contain at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 subsets, contrary to <code>[eq:quantitative-selector-budget]</code>.
+Thus some interval contains two different remainder values; the
+half-open convention makes their separation strictly less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">D/n</annotation></semantics></math>.
 Subtracting the two subset sums and dividing their coefficients by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
 gives an integral linear form of nonzero absolute value less than
@@ -1655,32 +1702,46 @@ parameter direction improves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>θ</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\theta^*</annotation></semantics></math>.
 The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-region-extensions">all-base
-degree restriction</a> proves the upper bound
+degree restriction</a> proves an upper bound of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
-for the degree cutoff under its stated uniform-in-base hypotheses. Thus
-this sufficient criterion does not include
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>.
-When the degrees have a quadratic limit, the stronger conclusion there
-excludes decay of the undivided forms at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>.
-Division by additional base-dependent content and other families remain
-unclassified. Equality in the rational-base cutoff is also unresolved by
-the estimates of Section 4.</p>
+for the degree cutoff. Its hypotheses require one polynomial family,
+with common leading constants in its degree, coefficient-height and
+remainder estimates at every fixed real base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x&gt;1</annotation></semantics></math>;
+the error terms may depend on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
+Merely having estimates at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>
+does not suffice.</p>
+<p>Under those hypotheses, the <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-no-decay">nondecay
+corollary</a> goes beyond the failure of a sufficient criterion: after
+denominator clearing, the undivided forms cannot tend to zero at any
+rational base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">a/b</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&lt;</mo><mi>a</mi><mo>&lt;</mo><msup><mi>b</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">b&lt;a&lt;b^2</annotation></semantics></math>,
+including
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
+even without a quadratic degree limit. If that limit exists, their
+absolute values tend to infinity in this strict region. Division by
+additional base-dependent content and families outside these hypotheses
+remain unclassified. Equality in the rational-base cutoff is also
+unresolved by the estimates of Section 4.</p>
 </section>
 </section>
 </section>
 <section id="app:index" class="level2">
-<h2>Proofs and source records</h2>
-<p>The links beside each statement and in the margin give the existing
-Lean proofs and recorded Comparator comparisons, indexed in the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> at the <a
+<h2>Verification and reproducibility</h2>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> indexes the
+existing Lean proofs and recorded Comparator comparisons at the <a
 href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">source revision</a>. Theorem 2.1 is the
 polynomial-bound specialisation of the <a
 href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">geometric-moment
-proof</a> cited in the long record; its Comparator association remains
-pending. The broader ratio-limit argument and rational-value model there
-have ordinary proofs only. This revision has had no fresh Lean or
-Comparator run and no independent review.</p>
+proof</a> cited in the companion paper; its Comparator association
+remains pending. The broader ratio-limit argument and rational-value
+model there have ordinary proofs only. This revision has had no fresh
+Lean or Comparator run and no independent review. </p>
 <section id="data-availability." class="level5">
 <h5>Data availability.</h5>
 <p>The cited source revision contains the Lean sources, toolchain and
@@ -1697,9 +1758,7 @@ competing interests.</p>
 <p>The problem numbering follows the catalogue maintained by Thomas
 Bloom <span class="citation" data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. I thank
 Wouter van Doorn for advice on writing for a first-time reader and
-explaining the force of a hypothesis. This advice concerned another note
-and does not imply mathematical review or endorsement of the present
-results.</p>
+explaining the force of a hypothesis.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">

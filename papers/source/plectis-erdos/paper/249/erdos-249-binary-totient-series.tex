@@ -3,6 +3,7 @@
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
 \input{evidence/erdos-249-binary-totient-series}
+\evidenceconcordancenewpage
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \renewcommand{\commitshort}{99f4bf47422a}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
@@ -22,7 +23,7 @@
 \title{Integral Relations among Totient Sections}
 \subtitle{Finite-level bases and bounded residue series}
 \author{Will Cook}
-\date{July 2026; revised 30 September 2026}
+\date{July 2026; revised 1 October 2026}
 
 
 % Named destinations are outside all theorem bodies.
@@ -160,7 +161,9 @@ For an omitted positive residue $r=k^tu$ with $t\ge1$ and $k\nmid u$,
 we have $t<j$ because $0<r<k^j$. Put $m=k^{j-t}n+u$. A prime $p\mid k$ divides $m$ exactly when it divides
 $u$. The product formula for $\varphi(k^tm)/\varphi(m)$ therefore
 contributes $k^t$ and one factor $1-1/p$ for each prime $p\mid k$
-absent from $u$. This gives $C_k(t,u)$ and proves that the stated family spans $V_{k,e}$.
+absent from $u$. The multiplier is an integer: its denominator is a
+product of distinct primes dividing $k$, and therefore divides $k^t$.
+This gives $C_k(t,u)$ and proves that the stated family spans $V_{k,e}$.
 
 \subsection*{Affine independence}
 Independence follows from Martin's theorem. For any ordering of
@@ -284,21 +287,22 @@ $1\le r<36$ and $6\nmid r$. The omitted sections satisfy
 \]
 Thus an integral combination of the $43$ sections vanishes precisely
 when these six substitutions leave all $37$ retained coefficients zero.
-The six differences obtained by moving the right-hand sides to the
-left give every integral relation. Indeed, subtracting the original
-coefficient of each omitted section times its difference removes
-all six omitted coordinates. The remaining retained coordinates must
-then vanish by Theorem~\ref{thm:kkernelrank}.
-Writing $x_{j,r}$ for the original coefficient of $F_{j,r}$, the
-coefficient at $F_{1,2}$ after substitution is $x_{1,2}+4x_{2,12}$.
-Meanwhile $x_{2,12}$ is the coefficient of
-$E_{2,12}-4E_{1,2}$ in the expression for the relation, where
-$E_{j,r}$ is the generator of the free abelian group at index $(j,r)$.
-The two kinds of coefficient have different roles: the retained
-coefficients test whether the combination vanishes, while the omitted
-coefficients give its expression as a sum of relations. At base two
-and level two those relations are $E_{2,0}-2E_{1,0}$ and
-$E_{2,2}-E_{1,1}$. The same elimination works at every omitted index.
+To recover the relation itself, keep track of what each substitution
+removes. Let $E_{j,r}$ denote the generator at index $(j,r)$ in the
+free abelian group on all section indices. The substitution
+$F_{2,12}=4F_{1,2}$ corresponds to the decomposition
+\[
+ x_{1,2}E_{1,2}+x_{2,12}E_{2,12}
+ = (x_{1,2}+4x_{2,12})E_{1,2}
+   +x_{2,12}(E_{2,12}-4E_{1,2}).
+\]
+The first coefficient tests whether the retained component vanishes;
+the second records the multiple of the relation removed. Doing this
+at all six omitted indices gives every integral relation, since the
+retained sections are independent. At base two and level two the
+relations are $E_{2,0}-2E_{1,0}$ and $E_{2,2}-E_{1,1}$.
+The following corollary expresses the same calculation at arbitrary
+base and level.
 
 \begin{corollary}[Integral coordinates and all integral relations]\label{cor:integral-normal-form}
 Let $k\ge2$ and $e\ge1$. The retained family is a $\Z$-basis of the
@@ -322,18 +326,19 @@ $C_k(t,u)$ is an integer. The retained family therefore spans the
 section module over $\Z$, and its rational independence makes it a
 $\Z$-basis.
 
-For any vector $x=\sum_i x_iE_i$, subtracting
-$\sum_{i\text{ omitted}}x_iR_i$ leaves only retained coordinates.
-At a retained index $j$, the new coefficient is
+For any vector $x=\sum_i x_iE_i$, substitute
+$E_i=R_i+a_iE_{j(i)}$ at each omitted index and collect terms:
 \[
- x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i x_i.
+ x=\sum_{j\text{ retained}}
+       \left(x_j+\sum_{\substack{i\text{ omitted}\\j(i)=j}}a_i x_i\right)E_j
+       +\sum_{i\text{ omitted}}x_iR_i.
 \]
-Thus the substitutions give the integral coordinates explicitly.
-If $x$ evaluates to zero, these new coefficients all vanish by
-independence, so $x=\sum_{i\text{ omitted}}x_iR_i$.
-Conversely, the coefficient at omitted index $i$ in
-$\sum_h c_hR_h$ is $c_i$ itself, so we recover every coefficient
-without division. This proves both independence and uniqueness.
+Evaluation kills the second sum. Independence of the retained sections
+therefore says that $x$ is a relation exactly when every coefficient
+in the first sum is zero. In that case the second sum is its expression
+in the $R_i$. This expression is unique: the coefficient at omitted
+index $i$ in $\sum_h c_hR_h$ is $c_i$ itself. The unit coefficient
+at that index is also why no division is needed.
 Counting omitted indices gives
 $(1+k+\cdots+k^e)-(k^e+1)=\sum_{j=1}^{e-1}k^j$.
 \end{proof}
@@ -348,13 +353,14 @@ An alternative is to test equality at finitely many inputs. Return
 to base six and level two. Order the retained columns as above, with
 residues increasing within each level, and evaluate at
 $n=0,\ldots,36$ to obtain a $37\times37$ matrix.
-Its determinant is $17$ modulo $101$, so it is nonsingular over $\Q$
-and detects every nonzero retained combination at one of these inputs.
+Its determinant is $17$ modulo $101$, so it is nonsingular over $\Q$.
+Consequently a retained combination is zero if and only if all $37$
+of its integer evaluations are zero. Here reduction modulo $101$
+certifies the matrix, not the equality of a proposed combination:
+$101F_{2,2}$ would vanish modulo $101$ at every input, although its
+integer value at $n=0$ is $101$.
 The script \texttt{scripts/totient\_kernel\_normal\_form.py} calculates
-the coordinates and the first such input using integer arithmetic.
-The equality test uses the integer evaluations. Reducing the proposed
-combination modulo $101$ would miss $101F_{2,2}$, for example,
-although its value at $n=0$ is $101$.
+the coordinates and the first nonzero evaluation using integer arithmetic.
 
 \section{Bounded functions of totient residues}\label{sec:family}
 \papersectiontarget{short249-residues}
@@ -443,8 +449,10 @@ $c$ and we obtain $3f(1)/4+c/4$.
 
 The first assertion is also an application of Erd\H{o}s's sparse-series
 criterion~\cite[Lem.~1, p.~213]{erdos1957}, and of Kaneko, Suzuki and
-Tachiya~\cite[Thm.~3]{kst2026}. The nonzero residues occur on a set of
-density zero: an integer in that set has no prime divisor
+Tachiya~\cite[Thm.~3]{kst2026}. The residues are bounded and nonnegative,
+and the prime construction above makes their support infinite.
+The nonzero residues occur on a set of density zero: an integer in that
+set has no prime divisor
 $p\equiv1\pmod m$. Wong gave the case in which the base equals the
 modulus~\cite{wong2015}. The isolated-coefficient argument above also
 treats signed values of $f-f(0)$, for which those nonnegative
@@ -581,8 +589,11 @@ Since $0\le R_M\le M+2$, we have
 \end{equation}
 The two tails are nonnegative, so their difference is bounded in
 absolute value by the larger tail bound, not the sum of the bounds.
-An integral $\Delta_h(N)$ would put $D_{h,N,L}$ within distance $B$
-of a multiple of $2^L$. Hence the finite inequality
+Thus $D_{h,N,L}/2^L$ approximates $\Delta_h(N)$ with error at most
+$B/2^L$. To exclude an integer value, the approximation must lie
+farther than this error from every integer. Equivalently, the residue
+of $D_{h,N,L}$ must avoid both ends of the interval $[0,2^L)$.
+Thus the finite inequality
 \begin{equation}\label{eq:r3-certificate}
  B<D_{h,N,L}\bmod2^L<2^L-B
 \end{equation}
@@ -592,7 +603,10 @@ $\|\Delta_h(N)\|_{\R/\Z}>0$. Choose $L$ so that
 $2^L\|\Delta_h(N)\|_{\R/\Z}>2B$: the left side grows exponentially,
 whereas $B=N+h+L+2$ grows linearly. The same error estimate gives
 \eqref{eq:r3-certificate}. This detects every nonintegral difference
-at some depth; it does not produce such a difference for each $h$.
+at some depth. A failed test at one depth proves no integrality:
+the error interval may simply be too wide to separate the value from
+$\Z$. Increasing the depth eventually detects each fixed nonintegral
+difference, but does not produce such a difference for each $h$.
 For example, $D_{1,12,16}=-143140$ has residue $53468$ modulo $2^{16}$,
 and $B=31$, so it excludes denominators dividing $2^{12}$.
 
@@ -613,7 +627,7 @@ $\Delta_{(t+1)d}(N)\equiv2^d\Delta_{td}(N)+\Delta_d(N)\pmod\Z$
 prevents two consecutive large shifts from both failing the test.
 Two failures would force the fixed nonintegral $\Delta_d(N)$ arbitrarily
 close to an integer. The estimates are in
-\longrecord{long249-r3-ray}{Appendix A of the long record}.
+\longrecord{long249-r3-ray}{Appendix A of the companion paper}.
 A single pair $d,N$ need not imply irrationality; the final assertion
 requires every positive $d$ and every $N\ge0$.
 
@@ -627,8 +641,12 @@ $v\ge1$, some positive multiple $H$ of $\ph(v)$ satisfies
  c+H+1<(-B_{H,c})\bmod M<M-(c+H+1).
 \end{equation}
 \end{equivform}
-The \longrecord{long249-r3-mersenne}{proof and residue recurrence} use
-$B_{H,c}=M(vR_c)-\Delta_H(c)$ and the linear tail bound.
+The choice of modulus makes
+$B_{H,c}=M(vR_c)-\Delta_H(c)$. Under the hypothetical rationality
+assumption, $vR_c$ is an integer, so the first term is a multiple of
+$M$ and only the small tail difference remains modulo $M$.
+The \longrecord{long249-r3-mersenne}{proof and residue recurrence}
+also give the converse by keeping $c,v$ fixed and letting $H$ grow.
 The required residues have not been shown to exist for every choice
 of the parameters in either test. A separate
 \longrecord{long249-r3-farey}{Farey-interval calculation} at depth $240$
@@ -638,8 +656,18 @@ excludes $S=a/q$ for $0<q\le Q_0\approx7.96\times10^{34}$.
 Large ranks alone cannot settle the series question. There is an integer
 sequence $c$ with $0\le c(n)\le n$, unchanged odd totients and
 $|c(n)-\varphi(n)|\le2$ at even indices, for which
-$\sum c(n)2^{-n}=5/4$. Its integral carry still has dyadic rank at least
-$2^e-1$ through every positive level.
+$\sum c(n)2^{-n}=5/4$. Its carry is the integer sequence
+\[
+ u_N=4\sum_{j\ge1}c(N+j)2^{-j}
+     =5\cdot2^N-4\sum_{n=1}^{N}c(n)2^{N-n}.
+\]
+For $j\ge1$ and odd $0<r<2^j$, the recurrence gives
+\[
+ 4\varphi(2^jn+r)=2u_{2^jn+r-1}-u_{2^jn+r}.
+\]
+Thus the $2^e-1$ independent odd-residue totient sections lie in the
+span of the carry sections through level $e$. This explains how the
+rank lower bound survives even though the sum is rational.
 The \longrecord{long249-r3-comparisons}{construction and its limitations}
 explain why it fails the exact prime-dilation laws of $\varphi$.
 The same section retains the cofinal LCM-diagonal criterion, its endpoint
@@ -743,13 +771,16 @@ We seek the four bounds
        &\le\tfrac8{25}X.
 \end{aligned}
 \end{equation}
-Before taking real parts and absolute values, the four sums add to
-$\sum E_N$, so their bounds imply the real-part estimate $9X/10$
-in \eqref{eq:r3-harmonic}. Subtracting $\bar z_m$ cancels the
-unweighted sum within its cofactor group, but the factors $w_N$ may
-vary within that group. Thus centering alone does not bound the first
-sum. The second sum must also be estimated with those same weights.
-No independence has been assumed. The conclusion concerns the real
+The last two sums cover the indices outside $\mathcal G$.
+On $\mathcal G$, the identity
+$w_Nz_N=w_N(z_N-\bar z_{m_N})+w_N\bar z_{m_N}$ gives the first two.
+The four sums therefore add to $\sum E_N$ before any estimates are
+taken, and their bounds give $(14/25+1/100+1/100+8/25)X=9X/10$.
+Subtracting $\bar z_m$ cancels the unweighted sum over the whole
+cofactor group, but $w_N$ varies with the same index $N$. That
+cancellation does not persist automatically after multiplication by
+$w_N$. Both of the first two sums still require weighted estimates;
+no independence has been assumed. The conclusion concerns the real
 part; it does not give a $21X/25$ bound for the absolute value of the
 full sum.
 
@@ -793,14 +824,15 @@ other totient values in the window. That correlation theorem supplies
 neither of the two remaining estimates. Establishing them for the
 actual totient is the unresolved arithmetic step.
 
-\paragraph{Verification.}
+\section*{Verification and reproducibility}
 \evidenceparagraph{\evidencerecordurl}
-The \longrecord{long249-r3-declarations}{declaration guide} preserves
-the individual formal-source links for the short paper, including the
-three results whose full proofs appear in Appendix~A of the long record. The displayed arguments and the signed interpolation proof
-are to be read as ordinary mathematical proofs. Recorded Lean and
-Comparator checks refer to their exact declarations and source versions;
-this revision makes no claim of a new formal run or independent review.
+The \longrecord{long249-r3-declarations}{declaration guide} links the
+formal sources for this paper. Complete proofs of three cited results
+appear in Appendix~A of the companion paper. The displayed arguments,
+including signed interpolation, require ordinary mathematical review;
+the recorded Lean and Comparator checks cover their specified
+declarations and source versions. No new formal run or independent
+review was performed for this revision.
 
 \paragraph{Acknowledgement.}
 I thank Wouter van Doorn for advice on writing for a first-time reader

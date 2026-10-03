@@ -327,15 +327,21 @@ estimates alone do not identify that pair. We join a small disc about
 <span class="math inline" data-term-auto="off">\(w_s\)</span> to points close to <span
 class="math inline" data-term-auto="off">\(8\zeta_3\)</span> and <span
 class="math inline" data-term-auto="off">\(8\zeta_6\)</span> by polygonal arcs in the <span
-class="math inline" data-term-auto="off">\(w\)</span>-plane. Containment of the four inner
-segments follows by writing</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[7\varepsilon+\operatorname{Re}Q(w)
-                       -\tfrac12\varepsilon^7|Q(w)|^2\]</span></div>
-<p class="display-continue">in the
-Bernstein basis of degree fourteen and checking that all fifteen
-coefficients are positive on each segment. For the remaining radial
-portions we use the root identity</p>
+class="math inline" data-term-auto="off">\(w\)</span>-plane. For the four inner segments we
+use</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[1-|f(\rho\varepsilon w)|^2\ge
+2\rho^{14}\varepsilon^7
+\left(7\varepsilon+\operatorname{Re}Q(w)
+                       -\tfrac12\varepsilon^7|Q(w)|^2\right).\]</span></div>
+<p>This follows by expanding the square and using <span
+class="math inline" data-term-auto="off">\(1-\rho^{14}\ge14\rho^{14}\varepsilon^8\)</span>.
+On each segment, the expression in parentheses is a polynomial of degree
+at most fourteen in the segment parameter. All fifteen coefficients in
+its degree-fourteen Bernstein basis are positive. The basis polynomials
+are nonnegative and sum to one, so the expression is positive along the
+whole segment, which therefore stays inside <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> after scaling. For the
+remaining radial portions we use the root identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F(t\zeta)=t^7-1+
        \sum_{k=1}^6\varepsilon^{7-k}q_k\zeta^k(t^k-t^7),
@@ -345,9 +351,12 @@ class="math inline" data-term-auto="off">\(|F(t\zeta)|&lt;1\)</span> for <span
 class="math inline" data-term-auto="off">\(8\varepsilon\le t\le1\)</span>. All rational
 intervals, vertices and coefficient tests are specified in <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#counterexample-certificate">the
-companion’s finite verification</a>. Riemann–Hurwitz now shows that this
-component contains exactly two roots and every other component contains
-one.</p>
+companion’s finite verification</a>. At the regular level <span
+class="math inline" data-term-auto="off">\(|f|=1\)</span>, Riemann–Hurwitz gives <span
+class="math inline" data-term-auto="off">\(k-1\)</span> critical points in a component with
+<span class="math inline" data-term-auto="off">\(k\)</span> zeros, counted with multiplicity.
+Thus the component containing <span class="math inline" data-term-auto="off">\(c_s\)</span>
+has exactly two roots, while every other component contains one.</p>
 <div class="proof">
 <p><em>Proof of Theorem <a class="math-ref" href="#res:ani-degree-seven-counterexample">1.2</a>.</em>
 Apply Lemma <a class="math-ref" href="#lem:two-sheet-bottleneck">2.1</a> to the
@@ -729,20 +738,24 @@ class="math inline" data-term-auto="off">\(P(z)=v^{-1}f(c+\alpha z)\)</span>. Th
 <span class="math inline" data-term-auto="off">\(U\)</span> above <span
 class="math inline" data-term-auto="off">\(D(w_0,S)\)</span> containing <span
 class="math inline" data-term-auto="off">\(0\)</span> has degree two, as follows by
-exhausting with regular discs and applying Riemann–Hurwitz. The square
-root <span class="math inline" data-term-auto="off">\(\xi=\sqrt{1-P}\)</span> then maps <span
-class="math inline" data-term-auto="off">\(U\)</span> biholomorphically onto <span
-class="math inline" data-term-auto="off">\(V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>, and its
-inverse maps <span class="math inline" data-term-auto="off">\([-1,1]\)</span> to the proposed
-connection. Along this interval <span
+exhausting with regular discs and applying Riemann–Hurwitz. Since <span
+class="math inline" data-term-auto="off">\(U\)</span> is simply connected and <span
+class="math inline" data-term-auto="off">\(1-P\)</span> has only a double zero at <span
+class="math inline" data-term-auto="off">\(0\)</span> there, it has a single-valued analytic
+square root <span class="math inline" data-term-auto="off">\(\xi\)</span>. The resulting map
+is a proper local biholomorphism onto <span
+class="math inline" data-term-auto="off">\(V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>, which is
+star-shaped and hence simply connected. It is therefore biholomorphic,
+and its inverse maps <span class="math inline" data-term-auto="off">\([-1,1]\)</span> to the
+proposed connection. Along this interval <span
 class="math inline" data-term-auto="off">\(P=1-\xi^2\in[0,1]\)</span>, which gives the
 required containment.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(a=1-w_0\)</span> and <span
-class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. The coordinate</p>
+class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. We map <span
+class="math inline" data-term-auto="off">\(V\)</span> to the unit disc by</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}\]</span></div>
-<p class="display-continue">sends <span class="math inline" data-term-auto="off">\(V\)</span> to the unit disc and <span
-class="math inline" data-term-auto="off">\(\xi=\pm1\)</span> to <span
+class="math display" data-term-auto="off">\[\zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}.\]</span></div>
+<p>The endpoints <span class="math inline" data-term-auto="off">\(\xi=\pm1\)</span> map to <span
 class="math inline" data-term-auto="off">\(\zeta=\pm q\)</span>, where <span
 class="math inline" data-term-auto="off">\(q^2=S/(S^2+p)\)</span>. The Bergman estimate is
 consequently</p>
@@ -823,7 +836,9 @@ class="math display" data-term-auto="off">\[(z-a)(z^2+p^2)\left(z^2+\frac{902}{9
 lie in the disc and <span class="math inline" data-term-auto="off">\(0\)</span> is a non-root
 critical point, but its unique nearest-root segment leaves the unit
 lemniscate. Moreover, every root-pair midpoint of <span
-class="math inline" data-term-auto="off">\(z^3-(99/100)^3\)</span> lies outside it. The <a
+class="math inline" data-term-auto="off">\(z^3-(99/100)^3\)</span> lies outside it. This
+cubic still admits the two-segment connections of Theorem <a class="math-ref" href="#res:trinomial-all-degree">3.1</a>; it is the
+straight chords that fail. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#straight-path-counterexamples">exact
 counterexamples</a> include the escape calculations.</p>
 <p> The cubic <span class="math inline" data-term-auto="off">\(z^3+3z/100-3/4\)</span>
@@ -833,8 +848,9 @@ class="math inline" data-term-auto="off">\(13/25\)</span>, while its two normali
 values are too close for the isolation criterion.</p>
 <p> A further cubic has two roots at its first merger but normalised
 component capacity one at level <span
-class="math inline" data-term-auto="off">\(2\mu\)</span>. The normalisation uses the standard
-identity <span
+class="math inline" data-term-auto="off">\(2\mu\)</span>. By that level, all three roots lie
+in one component. Its capacity is therefore that of the whole filled
+lemniscate, whose normalisation uses the standard identity <span
 class="math inline" data-term-auto="off">\(\operatorname{cap}(K_t(f))=t^{1/n}\)</span> <span
 class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>.</p>
 <p> Finally, <span class="math inline" data-term-auto="off">\(z^8-(3/2)z\)</span> has a
@@ -857,7 +873,22 @@ argument extends to <span class="math inline" data-term-auto="off">\(P((z-h)^q)\
 <span class="math inline" data-term-auto="off">\(q\ge2\)</span> and <span
 class="math inline" data-term-auto="off">\(P\)</span> is a monic cubic: if there are two
 distinct zeros, some such pair can be joined by a path consisting of two
-segments.</p>
+segments. The companion selects a nonzero root <span
+class="math inline" data-term-auto="off">\(r\)</span> of <span
+class="math inline" data-term-auto="off">\(P\)</span> for which <span
+class="math inline" data-term-auto="off">\([0,r]\subset\{|P|&lt;1\}\)</span>. Writing <span
+class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> and <span
+class="math inline" data-term-auto="off">\(y^q=r\)</span>, we have <span
+class="math inline" data-term-auto="off">\(f(h+ty\zeta)=P(t^qr)\)</span> for <span
+class="math inline" data-term-auto="off">\(0\le t\le1\)</span> and every <span
+class="math inline" data-term-auto="off">\(q\)</span>th root of unity <span
+class="math inline" data-term-auto="off">\(\zeta\)</span>. Thus one quotient segment gives
+<span class="math inline" data-term-auto="off">\(q\)</span> contained segments through <span
+class="math inline" data-term-auto="off">\(h\)</span>. Averaging <span
+class="math inline" data-term-auto="off">\(|h+y\zeta|^2\)</span> over the full fibre gives
+<span class="math inline" data-term-auto="off">\(|h|^2+|y|^2&lt;1\)</span>, so two distinct
+fibre points are joined with length <span
+class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>.</p>
 <p> For <span class="math inline" data-term-auto="off">\(z^5+az^4+bz+c\)</span>, a
 harmonic-moment identity selects two root indices with <span
 class="math inline" data-term-auto="off">\(|bz_j+c|&lt;1\)</span>, after which Abel summation
@@ -899,14 +930,12 @@ proof and equality case</a>.</p>
 </section>
 <section id="sec:freepoint" class="level3">
 <h3>Critical-value means</h3>
-<p>A weighted Poisson identity gives an estimate for critical values
-when the zeros lie in a disc. For <span
-class="math inline" data-term-auto="off">\(c_j\in\overline{\mathbb D}\)</span> and positive
-weights of sum one, set <span class="math inline" data-term-auto="off">\(G(z)=\prod_j|1-\bar
-c_jz|^{w_j}\)</span>. Then <span
-class="math inline" data-term-auto="off">\(\sum_jw_jG(c_j)^2\le1\)</span>, with equality only
-when all <span class="math inline" data-term-auto="off">\(c_j=0\)</span>. For interior
-points, we form the analytic product <span
+<p>For <span class="math inline" data-term-auto="off">\(c_j\in\overline{\mathbb D}\)</span>
+and positive weights of sum one, set <span
+class="math inline" data-term-auto="off">\(G(z)=\prod_j|1-\bar c_jz|^{w_j}\)</span>. Then
+<span class="math inline" data-term-auto="off">\(\sum_jw_jG(c_j)^2\le1\)</span>, with
+equality only when all <span class="math inline" data-term-auto="off">\(c_j=0\)</span>. For
+interior points, we form the analytic product <span
 class="math inline" data-term-auto="off">\(g(z)=1+\sum_{\nu\ge1}a_\nu z^\nu\)</span> with
 <span class="math inline" data-term-auto="off">\(|g|=G\)</span>. The weighted Poisson kernel
 is <span class="math inline" data-term-auto="off">\(P=1-2\operatorname{Re}(\zeta
@@ -916,13 +945,28 @@ class="math display" data-term-auto="off">\[\sum_jw_jG(c_j)^2\le\int |g|^2P\,dm
           =1-\sum_{\nu\ge1}(2\nu-1)|a_\nu|^2.\]</span></div>
 <p>Radial
 contraction gives the boundary case.</p>
-<p>The reflected derivative transfers the quadratic inequality to <span
-class="math inline" data-term-auto="off">\(\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}\)</span>
-when the zeros lie in a closed disc of radius <span
-class="math inline" data-term-auto="off">\(R\)</span>. An unformalised refinement, recorded
-as an ordinary argument, uses <span class="math inline" data-term-auto="off">\(g^2\)</span>
-in the same Poisson integral and gives the proposed fourth-power bound</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{j=1}^{n-1}|f(c_j)|^{4/(n-1)}
+<p>To apply this inequality to a monic polynomial <span
+class="math inline" data-term-auto="off">\(f\)</span> of degree <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> with zeros in the closed unit disc,
+take its <span class="math inline" data-term-auto="off">\(m=n-1\)</span> critical points,
+counted with multiplicity, and give them equal weights <span
+class="math inline" data-term-auto="off">\(1/m\)</span>. The reflected-derivative comparison
+gives the pointwise bound</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|f(c_j)|^{2/m}\le
+\left(\prod_{k=1}^m|1-\bar c_kc_j|\right)^{2/m}=G(c_j)^2.\]</span></div>
+<p>Summing and using the weighted inequality gives <span
+class="math inline" data-term-auto="off">\(\sum_j|f(c_j)|^{2/m}\le m\)</span>. For zeros in a
+closed disc with centre <span class="math inline" data-term-auto="off">\(h\)</span> and
+radius <span class="math inline" data-term-auto="off">\(R&gt;0\)</span>, apply this to <span
+class="math inline" data-term-auto="off">\(R^{-n}f(h+Rz)\)</span> and scale back to obtain
+<span
+class="math inline" data-term-auto="off">\(\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}\)</span>.
+If <span class="math inline" data-term-auto="off">\(R=0\)</span>, all critical values vanish.
+An unformalised refinement, recorded as an ordinary argument, uses <span
+class="math inline" data-term-auto="off">\(g^2\)</span> in the same Poisson integral and
+gives the proposed fourth-power bound</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{j=1}^{n-1}|f(c_j)|^{4/(n-1)}
        \le(n-1)R^{4n/(n-1)}\]</span></div>
 <p class="display-continue">for the same enclosing disc.
 Equality is attained by <span
@@ -1113,8 +1157,8 @@ data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> asks for a pat
 class="math inline" data-term-auto="off">\(0\)</span> to the unit circle in the intersection
 of a lemniscate with the closed disc. Those endpoints and that
 additional region restriction differ from the present question.</p>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
+<section id="verification-and-reproducibility." class="level5">
+<h5>Verification and reproducibility.</h5>
 <p>The supplied Lean sources prove the fixed counterexample for
 preconnected sets, the negation and <code>answer(False)</code> forms of
 the Formal Conjectures statement, and the total-variation formulation.
@@ -1128,19 +1172,15 @@ stopping time and <span class="math inline" data-term-auto="off">\(126\)</span> 
 certificates; those are the computational results cited here. The
 analytic assertions in Remarks <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">4.1</a>–<a class="math-ref" href="#res:critical-value-thresholds">5.2</a>, the
 fourth-power mean and the later topological and compactness arguments
-remain outside the formal conclusions. The links beside each statement
-and in the margin retain the original statement identifiers and their
-conditional dependencies; they do not promote these remarks to
-unconditional Lean theorems. </p>
+remain outside the formal conclusions. The evidence record retains the
+statement identifiers and their conditional dependencies. </p>
 </section>
 </section>
 <section id="acknowledgements" class="level2 unnumbered">
 <h2 class="unnumbered">Acknowledgements</h2>
-<p>I thank Wouter van Doorn for advice on mathematical exposition, in
-particular on explaining restrictive hypotheses, avoiding private
-terminology and introducing notation only when it helps the reader. His
-remarks concerned another note; this acknowledgement does not imply that
-he reviewed or endorsed the mathematics of the present paper.</p>
+<p>I thank Wouter van Doorn for advice on explaining restrictive
+hypotheses, avoiding private terminology and introducing notation only
+when useful.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

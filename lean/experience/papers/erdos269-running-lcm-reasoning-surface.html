@@ -1364,7 +1364,7 @@ On this subtorus each wall
 has the equation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⟨</mo><msub><mi>γ</mi><mi>q</mi></msub><mo>,</mo><mi>s</mi><mo stretchy="false" form="postfix">⟩</mo><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\langle\gamma_q,s\rangle\in\mathbb Z</annotation></semantics></math>,
 where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>q</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">ℤ</mi><mn>2</mn></msup><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\gamma_q\in\mathbb Z^2\setminus\{0\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>q</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">ℤ</mi><mn>2</mn></msup><mo>∖</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\gamma_q\in\mathbb Z^2\smallsetminus\{0\}</annotation></semantics></math>,
 and the vectors
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mi>q</mi></msub><annotation encoding="application/x-tex">\gamma_q</annotation></semantics></math>
 are pairwise nonparallel. A wall may have several components if
@@ -1410,14 +1410,15 @@ We shall compare the tails after
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>k</mi></msub><annotation encoding="application/x-tex">t_k</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>m</mi></msub><mo>=</mo><msub><mi>t</mi><mi>k</mi></msub><msup><mi>p</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">t_m=t_kp^n</annotation></semantics></math>.
-We choose
+We first choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-so that multiplication by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mi>n</mi></msup><annotation encoding="application/x-tex">p^n</annotation></semantics></math>
-preserves a long initial crossing word. A later block will be rearranged
-in a way that changes its numerator.</p>
-<p>For the initial word to force equality of the tails, its reciprocal
-product must be at most
+so that the phase returns close enough to its initial value to preserve
+a long initial crossing word. After fixing this return, we shall find a
+later group of crossings whose order it changes. The common initial word
+will force equality of the two tails; the later rearrangement will
+contradict that equality.</p>
+<p>For the common word to force equality, its reciprocal product must be
+at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>K</mi></mrow><annotation encoding="application/x-tex">1/K</annotation></semantics></math>.
 Choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T&gt;0</annotation></semantics></math>
@@ -1433,6 +1434,12 @@ be the minimum gap between distinct crossings in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>T</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,T+1]</annotation></semantics></math>.
 Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mrow><mi>q</mi><mo>≠</mo><mi>p</mi></mrow></msub><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi>k</mi><mo>,</mo><mi>q</mi></mrow></msub><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\beta=\min_{q\ne p}\operatorname{dist}(\theta_{k,q},0)&gt;0</annotation></semantics></math>.
+The gap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+will keep these early crossings in order, while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+will prevent a crossing from moving past the starting time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.
 When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">|P|\ge4</annotation></semantics></math>,
 also choose the point
@@ -1442,9 +1449,17 @@ and primes
 from Remark 5.5, and set
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>10</mn></mfrac><mo>,</mo><munder><mi mathvariant="normal">min</mi><mrow><mi>c</mi><mo>≠</mo><mi>a</mi><mo>,</mo><mi>b</mi></mrow></munder><mi mathvariant="normal">dist</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>&gt;</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\eta=\min\left(\frac1{10},
        \min_{c\ne a,b}\operatorname{dist}(\theta_c(x),0)\right)&gt;0.</annotation></semantics></math>
-Take
+In this case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
+leaves room to isolate the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>-
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>-crossings
+from all the others. Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&lt;</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>β</mi><mo>,</mo><mi>g</mi><mi>/</mi><mn>2</mn><mo>,</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varepsilon&lt;\min(\beta,g/2,\log2/(2|P|))</annotation></semantics></math>,
-and in this latter case require also
+and when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">|P|\ge4</annotation></semantics></math>
+require also
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&lt;</mo><mi>η</mi><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">\varepsilon&lt;\eta/8</annotation></semantics></math>.
 Dirichlet’s simultaneous approximation theorem gives arbitrarily large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -1510,6 +1525,11 @@ and its rearrangement
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>C</mi><mo>′</mo></msup><annotation encoding="application/x-tex">C&#39;</annotation></semantics></math>
 now satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>C</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(C)=f(C&#39;)</annotation></semantics></math>.</p>
+<p>The return, and hence every displacement
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mi>q</mi></msub><annotation encoding="application/x-tex">\delta_q</annotation></semantics></math>,
+is now fixed. It remains to find a chain that violates this last
+equality. For at most three primes, any change of order will do; for
+larger sets we will isolate a chain of length two.</p>
 <p>When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">|P|\le3</annotation></semantics></math>,
 choose
@@ -1573,14 +1593,17 @@ the nearest one is at distance at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>η</mi><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">7\eta/8</annotation></semantics></math>
 from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\eta/2</annotation></semantics></math>.</p>
-<p>These properties persist in a neighbourhood
+<p>The phase
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+thus has an isolated pair which the fixed displacement reverses. To
+obtain such a pair in the arithmetic crossing word, keep all the strict
+margins above and choose a neighbourhood
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
 of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
 in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>;
-all crossing positions and the difference condition have strict margins.
-Density gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_0</annotation></semantics></math>
+where they still hold. Density gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>t</mi><mo>*</mo></msup><mo>&gt;</mo><mi>T</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">t^*&gt;T+2</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>k</mi></msub><mo>+</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mo>*</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">\theta_k+\Theta(t^*)\in U</annotation></semantics></math>.
@@ -1590,8 +1613,8 @@ are less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>D</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn><mi>ε</mi></mrow><annotation encoding="application/x-tex">|D|&lt;2\varepsilon</annotation></semantics></math>
 apart, whereas every other crossing is more than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mi>/</mi><mn>2</mn><mo>&gt;</mo><mn>4</mn><mi>ε</mi></mrow><annotation encoding="application/x-tex">\eta/2&gt;4\varepsilon</annotation></semantics></math>
-away. They form a chain of length two. After shifting, their time
-difference becomes
+away. They form a chain of length two, beyond the initial word already
+used to equate the tails. After shifting, their time difference becomes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>τ</mi><mi>a</mi></msub><mo>−</mo><msub><mi>τ</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">(\tau_a-\tau_b)-D</annotation></semantics></math>,
 which has the opposite sign. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>a</mi><mi>b</mi><mo>,</mo><msup><mi>C</mi><mo>′</mo></msup><mo>=</mo><mi>b</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">C=ab,C&#39;=ba</annotation></semantics></math>
@@ -2722,7 +2745,7 @@ Put
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mo>+</mo></msub><mo>,</mo><msub><mi>A</mi><mo>−</mo></msub></mrow><annotation encoding="application/x-tex">A_+,A_-</annotation></semantics></math>
 partition the nonempty set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\setminus\{p\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∖</mo><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\smallsetminus\{p\}</annotation></semantics></math>,
 one of these two sets, say
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>s</mi></msub><annotation encoding="application/x-tex">A_s</annotation></semantics></math>
 with
@@ -2840,7 +2863,7 @@ brings in early terms from the rays
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
 supported on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\setminus\{p\}</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∖</mo><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\smallsetminus\{p\}</annotation></semantics></math>.
 The comparison above accounts only for the ray
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w=1</annotation></semantics></math>,
 so it gives no corresponding estimate for the difference of the full
@@ -3284,7 +3307,16 @@ for all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">i,j,k</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Put
+<p><em>Proof.</em> For fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-exponents
+still split into row and column terms. The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>-exponent
+also includes the carry from adding two fractional parts. To isolate it,
+put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\alpha=\log_r p</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\beta=\log_r q</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mi>α</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">x_i=\{i\alpha\}</annotation></semantics></math>
@@ -3321,13 +3353,14 @@ and
  \qquad t=r^{-1} .
 \end{equation}</annotation></semantics></math> The remaining matrix is
 independent of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
+Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mi>j</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_i+y_j\in[0,2)</annotation></semantics></math>,
-so its entries are
+its entry is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</p>
+when there is no carry and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+when there is one.</p>
 <p>Each of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
 and
@@ -3562,9 +3595,10 @@ interpretation, not for the two independent dense orbits.</p>
 </section>
 <section id="long269:sec:selected-kernel-height" class="level3">
 <h3>Smith factors of the selected staircase</h3>
-<p>To examine what the selected minors say about integer denominators,
-we clear their diagonal factors and compute the resulting Smith form.
-For integers
+<p>The preceding argument only uses that a determinant is nonzero. An
+irrationality argument would also need control of integer coefficients
+after denominators are cleared. We examine that separate question for
+the selected minors. For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mi>r</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N\ge1,r\ge2</annotation></semantics></math>,
 let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_N(r)</annotation></semantics></math>
@@ -3573,9 +3607,8 @@ have entry
 on and below the diagonal and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
 above it. This is the staircase used in Theorem 7.3. Its Smith factors
-determine the lattice index. They supply no bound on the height of a
-small integral linear form, which is a separate requirement in an
-irrationality argument.</p>
+determine the lattice index; they do not by themselves give a small
+integral linear form.</p>
 <p></p>
 <div class="remark">
 <p><em>Remark 7.5</em> (Smith factors of the selected staircase). The
@@ -3586,9 +3619,10 @@ are
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\det A_N(r)=(1-r)^{N-1}</annotation></semantics></math>.</p>
 </div>
-<p>The Smith calculation and its height consequence are ordinary
-arguments here; the existing Lean result proves nonvanishing of the
-selected minors, not these arithmetic statements.</p>
+<p>The Smith calculation and its consequence for integral coefficients
+are ordinary arguments here; the existing Lean result proves
+nonvanishing of the selected minors, not these arithmetic
+statements.</p>
 <div class="proof">
 <p><em>Proof.</em> Working from bottom to top, subtract row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1</annotation></semantics></math>
@@ -3615,7 +3649,7 @@ divides
 so this is its Smith form up to signs. Its determinant has the displayed
 sign. ◻</p>
 </div>
-<p>In the source-selected
+<p>For the selected
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
 minor, the positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>i</mi></msub><mo>,</mo><msub><mi>V</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">U_i,V_j</annotation></semantics></math>
@@ -3636,8 +3670,8 @@ attained by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>i</mi></msub><mo>=</mo><mn>5</mn><msub><mi>U</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">s_i=5U_i</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>j</mi></msub><mo>=</mo><msub><mi>V</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">t_j=V_j</annotation></semantics></math>.
 This optimality is restricted to diagonal entrywise clearings.</p>
-<p>For the selected carry pattern, the source’s injective nonnegative
-index families
+<p>For the selected carry pattern, the injective nonnegative index
+families
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">I,J</annotation></semantics></math>
 satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mo>∑</mo><mi>i</mi></msub><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mo>∑</mo><mi>j</mi></msub><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">v_2(W)\ge\sum_iI(i)+\sum_jJ(j)\ge N(N-1)\ge2(N-1)</annotation></semantics></math>.
@@ -3649,32 +3683,42 @@ and the <em>reduced</em> determinant is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>1</mn><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">\pm1/D</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>W</mi><mi>/</mi><msup><mn>4</mn><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">D=W/4^{N-1}\in\mathbb{N}_{&gt;0}</annotation></semantics></math>.
-The Smith index explains the numerator before reduction, while the
-reduced scalar has no numerator left to spend on a one-value denominator
-clearing. A bordered determinant with one target
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-illustrates the same limit: for
+Thus the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>4</mn><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">4^{N-1}</annotation></semantics></math>
+in the integer determinant is absorbed entirely by its denominator. For
+a linear form in one target value, a small rational prefactor likewise
+disappears when the coefficients are reduced to coprime integers.
+Indeed, for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∈</mo><msub><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">L</mi></mrow><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℚ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K\in\mathrm{GL}_N(\mathbb{Q})</annotation></semantics></math>
 and rational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u,v</annotation></semantics></math>,
 the Schur complement gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>K</mi></mtd><mtd columnalign="center" class="ta-c"><mi>u</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><msup><mi>v</mi><mi>T</mi></msup></mtd><mtd columnalign="center" class="ta-c"><mi>X</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>K</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>X</mi><mo>−</mo><msup><mi>v</mi><mi>T</mi></msup><msup><mi>K</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>u</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\det\begin{pmatrix}K&amp;u\\v^T&amp;X\end{pmatrix}
- =\det K\bigl(X-v^TK^{-1}u\bigr).</annotation></semantics></math> If
+ =\det K\bigl(X-v^TK^{-1}u\bigr).</annotation></semantics></math> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>v</mi><mi>T</mi></msup><msup><mi>K</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>u</mi><mo>=</mo><mi>s</mi><mi>/</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">v^TK^{-1}u=s/t</annotation></semantics></math>
-in lowest terms, an integral scalar multiple of
+in lowest terms, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t&gt;0</annotation></semantics></math>.
+If a nonzero rational scalar multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>−</mo><mi>s</mi><mi>/</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\det K(X-s/t)</annotation></semantics></math>
-must have its linear coefficient divisible by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
-Its primitive integral coefficient polynomial is therefore
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>X</mi><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pm(tX-s)</annotation></semantics></math>,
-regardless of the smallness of
+has integer coefficients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>X</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">aX+b</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>−</mi><mi>a</mi><mi>s</mi><mi>/</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">b=-as/t</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(s,t)=1</annotation></semantics></math>,
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∣</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">t\mid a</annotation></semantics></math>.
+Dividing the two coefficients by their common factor therefore leaves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>X</mi><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pm(tX-s)</annotation></semantics></math>.
+This is the primitive integral coefficient polynomial, regardless of the
+smallness of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">\det K</annotation></semantics></math>
-or a compatible rational change of basis. This is a one-target,
-diagonal-clearing boundary, not a prohibition on new recurrences,
-multiple target values, or stronger approximation data; it does not
-settle the repeated running-LCM problem. Smith form is used here in its
-standard sense <span class="citation"
-data-cites="stanley2016"><a href="#ref-14">[14]</a></span>.</p>
+or a compatible rational change of basis. The conclusion concerns this
+construction with one target and the diagonal clearings above. It does
+not exclude new recurrences, multiple target values or stronger
+approximation data, and it does not settle the repeated running-LCM
+problem. Smith form is used here in its standard sense <span
+class="citation" data-cites="stanley2016"><a href="#ref-14">[14]</a></span>.</p>
 </section>
 <section id="long269:sec:approximation" class="level3">
 <h3>Uniform approximation of the rescaled kernel</h3>
@@ -5064,11 +5108,27 @@ so
 is automatic.</p>
 <p>Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-is the integer bound obtained above from the jump count. The short paper
-uses the coarser bound
+is the integer bound obtained above from the jump count. Under the
+hypothesis that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
+is integral, the recurrence makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">BX_{\ell+h}</annotation></semantics></math>
+integral as well, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>≤</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;BX_{\ell+h}\le K(B,\ell+h)</annotation></semantics></math>.
+Equivalently, the starting integer must lie in
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mo>,</mo><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\left(\frac{BF_{\ell,h}}{W_{\ell,h}},
+       \frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}\right].</annotation></semantics></math>
+A residue exceeding
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+says exactly that this interval contains no integer. The floor in the
+definition of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+is legitimate here because integrality is being assumed. The short paper
+uses the coarser real-tail bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">90B(a+1)^2</annotation></semantics></math>
-instead. The argument needs the upper-bound property and the stated
-growth condition, rather than a particular numerical choice.</p>
+instead. The argument needs a valid bound on the possible integer tail
+and the stated growth condition, rather than a particular numerical
+choice.</p>
 <p>The two hypotheses on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
 in the next theorem serve different purposes. Domination of
@@ -5898,10 +5958,20 @@ remains open here.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>S</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\alpha=S/2</annotation></semantics></math>
 and retain the boundary running LCMs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>a</mi></msub><annotation encoding="application/x-tex">P_a</annotation></semantics></math>.
-We combine shifted tails after subtracting their finite rational
-corrections. Since the denominators change under a shift, the resulting
-identity has weights as well as shifted numerators. It concerns the
-repeated sum
+To combine shifted tails, we first express them with the same
+denominators. After multiplication by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>t</mi></msub><annotation encoding="application/x-tex">P_t</annotation></semantics></math>,
+the term with index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">a+t</annotation></semantics></math>
+becomes
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>P</mi><mi>t</mi></msub><msub><mi>m</mi><mrow><mi>a</mi><mo>+</mo><mi>t</mi></mrow></msub></mrow><msub><mi>P</mi><mrow><mi>a</mi><mo>+</mo><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>=</mo><mfrac><mrow><msub><mi>P</mi><mi>t</mi></msub><msub><mi>P</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><msub><mi>P</mi><mrow><mi>a</mi><mo>+</mo><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mspace width="0.167em"></mspace><mfrac><msub><mi>m</mi><mrow><mi>a</mi><mo>+</mo><mi>t</mi></mrow></msub><msub><mi>P</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{P_t m_{a+t}}{P_{a+t+1}}
+ =\frac{P_tP_{a+1}}{P_{a+t+1}}\,
+   \frac{m_{a+t}}{P_{a+1}}.</annotation></semantics></math> The first
+factor on the right is the weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mrow><mi>a</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\gamma_{a,t}</annotation></semantics></math>
+below. It is forced by the change of denominator, rather than chosen to
+produce cancellation. The removed finite prefix supplies the rational
+correction. The identity concerns the repeated sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 only. In this subsection and the next,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
@@ -6829,18 +6899,12 @@ two-prime case uses Fan’s earlier reduction to the cited Hecke–Mahler
 value theorem.</p>
 </section>
 <section id="long269:sec:proof-sources" class="level3 unnumbered">
-<h3 class="unnumbered">Proof sources and declarations</h3>
+<h3 class="unnumbered">Verification and reproducibility</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The margin marks retain the supplied formal-source links. A Lean mark
-identifies the declaration or declarations associated with a statement;
-a Comparator mark opens its recorded comparison. These are records of
-earlier checks, not fresh runs for this revision. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/\evidencerecordurl">evidence record</a> gives the versions and
-individual associations. A missing mark makes no claim of a Lean proof
-of the whole statement. The checks concern the propositions linked
-there, without establishing novelty or resolving the repeated-sum
-problem.</p>
+<p>The evidence record fixes the source versions and individual
+statement associations. These are earlier checks; this revision makes no
+fresh formal-verification claim.</p>
 <p>The general distinct-value assertion and its four word-and-torus
 arguments are stated as remarks with complete ordinary proofs in
 Section 5.1; they have no Lean proofs. The source record reports that

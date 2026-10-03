@@ -15,7 +15,7 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "2d5543f6e645c639f076229b2008558caeebc563dae6015a994d35038114509d",
+      "source_sha256": "49cba1ccca40e4817f5828297d380da1ad1e0f0e8921ba35c4ea4b567abc6779",
       "bytes": 1272712
     },
     {
@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "dcaf2b843a278d7718dff53ab24b4e91c7dee21384d70f4507164112d4246cc9",
+      "source_sha256": "8ea6fa6c0c3dd90f797b100b4b01fcb590f8fd55cdf2f3ab75b0d88496822736",
       "bytes": 1276704
     },
     {
@@ -51,8 +51,8 @@
       "source_ref": "main",
       "source_path": "docs/paper_lean_coverage.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
-      "source_sha256": "18d2717c30eb3fc49dc6467ba197978a65534b39bb574260ce1314a7738c7e0e",
-      "bytes": 1036823
+      "source_sha256": "b3d31b98b2d1e844947494c25fb04b4c1b9fc972315ca53925f5da040f83383d",
+      "bytes": 1036827
     },
     {
       "hosted_path": "lean/paper-evidence.json",
@@ -60,8 +60,8 @@
       "source_ref": "main",
       "source_path": "evidence/paper_evidence.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/paper_evidence.json",
-      "source_sha256": "dc92c925f8fe7b184447b2524483b02384075d9729e682bef91718058b6c3e69",
-      "bytes": 4457526
+      "source_sha256": "611c3b2c7bd7741b28b09e397b2ff5674b2a169973f2f6f03143d52255f69fb6",
+      "bytes": 4458604
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -78,8 +78,8 @@
       "source_ref": "main",
       "source_path": "docs/READING_GUIDE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md",
-      "source_sha256": "1996d83b320807116e6d70ac051c2483a0705a5549f292aa8f146a71c033d4b1",
-      "bytes": 8731
+      "source_sha256": "f3ba7f71cfdf586710c63e1f5286e53221d805f05af620492b365d975c6bce4c",
+      "bytes": 8811
     },
     {
       "hosted_path": "lean/human-source/paper/README.md",

@@ -910,10 +910,20 @@ class="math display" data-term-auto="off">\[A_n(X)=\sum_{k=a_2}^{\beta-1}(-1)^{a
 X^{a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}}
 \genfrac{[}{]}{0pt}{}{k-1}{a_1-1}_X
 \genfrac{[}{]}{0pt}{}{\beta-a_2-1}{\beta-k-1}_X.\]</span></div>
-<p>On comparing
-successive summands, we find that the degree increases by <span
-class="math inline" data-term-auto="off">\(40n+1-k&gt;0\)</span> for <span
-class="math inline" data-term-auto="off">\(a_2\le k\le\beta-2\)</span>. The last summand
+<p>Let <span
+class="math inline" data-term-auto="off">\(d_{n,k}\)</span> be the degree of the <span
+class="math inline" data-term-auto="off">\(k\)</span>th summand. Adding the monomial exponent
+and the degrees of the two Gaussian factors gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+d_{n,k}
+&amp;=a_0k+\binom{a_1}{2}-\binom{\beta-a_2}{2}+\binom{\beta-k}{2}\\
+&amp;\quad +(a_1-1)(k-a_1)+(\beta-k-1)(k-a_2)\\
+&amp;=\frac{-k^2+80kn+3k-340n^2-26n}{2}.
+\end{aligned}\]</span></div>
+<p>Hence <span
+class="math inline" data-term-auto="off">\(d_{n,k+1}-d_{n,k}=40n+1-k&gt;0\)</span> for <span
+class="math inline" data-term-auto="off">\(a_2\le k\le\beta-2=27n\)</span>. The last summand
 alone therefore determines the leading term, giving</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_n:=\deg A_n=\frac{1091n^2+81n+2}{2},\qquad
@@ -922,9 +932,17 @@ U_n=K_n-M_n+\sum_{\ell\le15n}(1-\nu_\ell)\varphi(\ell).\]</span></div>
 <p>Here
 <span class="math inline" data-term-auto="off">\(\varphi(\ell)=\deg\Phi_\ell\)</span> is
 Euler’s totient function, and <span
-class="math inline" data-term-auto="off">\(\nu_1=\omega(n)=0\)</span>. The bounds for <span
-class="math inline" data-term-auto="off">\(H_n\)</span> are uniform for <span
-class="math inline" data-term-auto="off">\(x\ge2\)</span>: then <span
+class="math inline" data-term-auto="off">\(\nu_1=\omega(n)=0\)</span>. In particular,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[K_n-W_n=M_n-\deg(D_N/\Omega_n).\]</span></div>
+<p>The
+factor <span class="math inline" data-term-auto="off">\(X^{-M_n}\)</span> lowers the degree
+by <span class="math inline" data-term-auto="off">\(M_n\)</span>, whereas the remaining
+cyclotomic factors increase it by <span
+class="math inline" data-term-auto="off">\(\deg(D_N/\Omega_n)\)</span>. Their difference will
+determine the decay of the cancelled remainder.</p>
+<p>The bounds for <span class="math inline" data-term-auto="off">\(H_n\)</span> are uniform
+for <span class="math inline" data-term-auto="off">\(x\ge2\)</span>: then <span
 class="math inline" data-term-auto="off">\(P\ge\prod_{j\ge1}(1-2^{-j})&gt;0\)</span> and
 <span class="math inline" data-term-auto="off">\((1-x^{-a_0})^{-1}\le2\)</span>. For fixed
 <span class="math inline" data-term-auto="off">\(n\)</span>, therefore, <span
@@ -1096,11 +1114,13 @@ each fixed base <span class="math inline" data-term-auto="off">\((a/b)^r\)</span
 bound independent of <span class="math inline" data-term-auto="off">\(r\)</span>. We use the
 polynomials <span class="math inline" data-term-auto="off">\(U_n,V_n\)</span> from
 Theorem <a class="math-ref" href="#res:rational-base-threshold">4.1</a>, with
-<span class="math inline" data-term-auto="off">\(W_n=\deg U_n\)</span>. In that construction
-the coefficient of <span class="math inline" data-term-auto="off">\(F\)</span> before
-cancellation is a sum of <span class="math inline" data-term-auto="off">\(O(n)\)</span>
-Laurent monomials times two Gaussian binomial polynomials. Each Gaussian
-polynomial has nonnegative coefficients summing to at most <span
+<span class="math inline" data-term-auto="off">\(W_n=\deg U_n\)</span>. The additional
+estimate we need is a growth bound for their coefficients. In that
+construction the coefficient of <span class="math inline" data-term-auto="off">\(F\)</span>
+before cancellation is a sum of <span
+class="math inline" data-term-auto="off">\(O(n)\)</span> Laurent monomials times two Gaussian
+binomial polynomials. Each Gaussian polynomial has nonnegative
+coefficients summing to at most <span
 class="math inline" data-term-auto="off">\(2^{27n+2}\)</span>. Thus the sum of the absolute
 coefficients is <span class="math inline" data-term-auto="off">\(\exp(O(n))\)</span>. Its
 largest exponent is <span
@@ -1123,7 +1143,14 @@ class="math display" data-term-auto="off">\[\alpha=(C_1-C_0)\log a,\qquad
 class="math inline" data-term-auto="off">\(\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)\)</span> and
 <span class="math inline" data-term-auto="off">\(|Q_n|\le\exp(\alpha
 n^2+o(n^2))\)</span>.</p>
-<p>For integers <span class="math inline" data-term-auto="off">\(A,B,p,q\)</span> with <span
+<p>For a rational approximation with denominator <span
+class="math inline" data-term-auto="off">\(q\)</span>, we will choose a remainder at most
+<span class="math inline" data-term-auto="off">\(1/(2q)\)</span> without letting <span
+class="math inline" data-term-auto="off">\(|Q_n|\)</span> grow unnecessarily. The decay rate
+suggests taking <span class="math inline" data-term-auto="off">\(n^2\)</span> near <span
+class="math inline" data-term-auto="off">\((\log q)/\tau\)</span>. The reason for this choice
+is the following integer comparison. For integers <span
+class="math inline" data-term-auto="off">\(A,B,p,q\)</span> with <span
 class="math inline" data-term-auto="off">\(q&gt;0\)</span>, if <span
 class="math inline" data-term-auto="off">\(L=A\xi-B\)</span> and <span
 class="math inline" data-term-auto="off">\(2q|L|\le1\)</span>, then</p>
@@ -1141,19 +1168,21 @@ class="math display" data-term-auto="off">\[e^{-(\tau+\eta)n^2}\le Q_n\xi-P_n\le
 e^{-(\tau-\eta)n^2},
 \qquad |Q_n|\le e^{(\alpha+\eta)n^2}\]</span></div>
 <p class="display-continue">for all sufficiently large
-<span class="math inline" data-term-auto="off">\(n\)</span>. Given a sufficiently large
-denominator <span class="math inline" data-term-auto="off">\(q\)</span>, we choose <span
-class="math inline" data-term-auto="off">\(n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil\)</span>,
-so that <span class="math inline" data-term-auto="off">\(2q(Q_n\xi-P_n)\le1\)</span>. The
+<span class="math inline" data-term-auto="off">\(n\)</span>. The upper remainder bound
+determines our choice: for a sufficiently large denominator <span
+class="math inline" data-term-auto="off">\(q\)</span>, take <span
+class="math inline" data-term-auto="off">\(n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil\)</span>.
+Then <span class="math inline" data-term-auto="off">\(2q(Q_n\xi-P_n)\le1\)</span>. The
 preceding integer argument now applies to <span
 class="math inline" data-term-auto="off">\((A,B)=(Q_n,P_n)\)</span> for every numerator <span
 class="math inline" data-term-auto="off">\(p\)</span>. Also <span
 class="math inline" data-term-auto="off">\(Q_n\ne0\)</span>: otherwise <span
 class="math inline" data-term-auto="off">\(Q_n\xi-P_n\)</span> would be an integer strictly
 between <span class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span>. It follows that</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[|\xi-p/q|\ge e^{-(\alpha+\tau+2\eta)n^2}
+class="math inline" data-term-auto="off">\(1\)</span>. The lower remainder bound and the
+coefficient bound now give</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|\xi-p/q|\ge
+e^{-(\alpha+\tau+2\eta)n^2}
              =q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)},\]</span></div>
 <p class="display-continue">since
 <span class="math inline" data-term-auto="off">\(n^2=\log(2q)/(\tau-\eta)+O_\eta(\sqrt{\log
@@ -1230,8 +1259,8 @@ href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long
 model in the companion paper</a> has the same formal orders, leading
 coefficients and type of fixed-base power correction, although its
 target value is rational. The model and its denominator calculation are
-retained there with ordinary proofs as unformalised remarks. The long
-record also gives an <a
+retained there with ordinary proofs as unformalised remarks. The
+companion paper also gives an <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-ratio-extension">ordinary
 argument for the ratio-limit extension</a> under <span
 class="math inline" data-term-auto="off">\(a_{k+1}/a_k\to\rho\in(0,q^{-1})\)</span>, without
@@ -1290,8 +1319,14 @@ that the subset sums take <span class="math inline" data-term-auto="off">\(Q\)</
 values modulo a positive integer <span class="math inline" data-term-auto="off">\(D\)</span>.
 Put <span class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span> and suppose that
 at most <span class="math inline" data-term-auto="off">\(k\)</span> subsets give any fixed
-remainder within a residue class. For each positive integer <span
-class="math inline" data-term-auto="off">\(n\)</span>, the sufficient inequality</p>
+remainder within a residue class. The least and greatest subset
+remainders are</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{e_j&lt;0}e_j\quad\text{and}\quad\sum_{e_j&gt;0}e_j;\]</span></div>
+<p class="display-continue">their difference is <span class="math inline" data-term-auto="off">\(T\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(T\)</span> bounds the width of the range in each
+residue class as well. For each positive integer <span
+class="math inline" data-term-auto="off">\(n\)</span>, the inequality</p>
 <div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:quantitative-selector-budget}
@@ -1303,12 +1338,16 @@ class="math inline" data-term-auto="off">\(0\)</span> and <span
 class="math inline" data-term-auto="off">\(D/n\)</span> in absolute value. Indeed, in each
 residue class divide the range of remainders into half-open intervals of
 width <span class="math inline" data-term-auto="off">\(D/n\)</span>, starting at its least
-value. If each interval contained only one remainder value, it would
-contain at most <span class="math inline" data-term-auto="off">\(k\)</span> subsets, contrary
-to <a class="math-ref" data-equation-ref="true" href="#eq:quantitative-selector-budget">eq:quantitative-selector-budget</a>.
-Subtracting the two subset sums and dividing their coefficients by <span
-class="math inline" data-term-auto="off">\(D\)</span> gives an integral linear form of
-nonzero absolute value less than <span
+value. At most <span class="math inline" data-term-auto="off">\(\lfloor
+nT/D\rfloor+1\)</span> intervals are needed, including a last interval
+when the greatest value is an endpoint. If each interval contained only
+one remainder value, it would contain at most <span
+class="math inline" data-term-auto="off">\(k\)</span> subsets, contrary to <a class="math-ref" data-equation-ref="true" href="#eq:quantitative-selector-budget">eq:quantitative-selector-budget</a>.
+Thus some interval contains two different remainder values; the
+half-open convention makes their separation strictly less than <span
+class="math inline" data-term-auto="off">\(D/n\)</span>. Subtracting the two subset sums and
+dividing their coefficients by <span class="math inline" data-term-auto="off">\(D\)</span>
+gives an integral linear form of nonzero absolute value less than <span
 class="math inline" data-term-auto="off">\(1/n\)</span>. The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-selectors">quantitative
 lemma and its proof</a> state the finite-set version without assumptions
@@ -1341,30 +1380,40 @@ approximation family. For the 2004 family one can instead ask whether a
 parameter direction improves <span
 class="math inline" data-term-auto="off">\(\theta^*\)</span>. The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-region-extensions">all-base
-degree restriction</a> proves the upper bound <span
-class="math inline" data-term-auto="off">\(1/2\)</span> for the degree cutoff under its
-stated uniform-in-base hypotheses. Thus this sufficient criterion does
-not include <span class="math inline" data-term-auto="off">\(3/2\)</span>. When the degrees
-have a quadratic limit, the stronger conclusion there excludes decay of
-the undivided forms at <span class="math inline" data-term-auto="off">\(3/2\)</span>.
-Division by additional base-dependent content and other families remain
-unclassified. Equality in the rational-base cutoff is also unresolved by
-the estimates of Section <a class="math-ref" href="#sec:rational-base-irrationality">4</a>.</p>
+degree restriction</a> proves an upper bound of <span
+class="math inline" data-term-auto="off">\(1/2\)</span> for the degree cutoff. Its hypotheses
+require one polynomial family, with common leading constants in its
+degree, coefficient-height and remainder estimates at every fixed real
+base <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>; the error terms may
+depend on <span class="math inline" data-term-auto="off">\(x\)</span>. Merely having
+estimates at <span class="math inline" data-term-auto="off">\(3/2\)</span> does not
+suffice.</p>
+<p>Under those hypotheses, the <a
+href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-no-decay">nondecay
+corollary</a> goes beyond the failure of a sufficient criterion: after
+denominator clearing, the undivided forms cannot tend to zero at any
+rational base <span class="math inline" data-term-auto="off">\(a/b\)</span> with <span
+class="math inline" data-term-auto="off">\(b&lt;a&lt;b^2\)</span>, including <span
+class="math inline" data-term-auto="off">\(3/2\)</span>, even without a quadratic degree
+limit. If that limit exists, their absolute values tend to infinity in
+this strict region. Division by additional base-dependent content and
+families outside these hypotheses remain unclassified. Equality in the
+rational-base cutoff is also unresolved by the estimates of
+Section <a class="math-ref" href="#sec:rational-base-irrationality">4</a>.</p>
 </section>
 </section>
 </section>
 <section id="app:index" class="level2">
-<h2>Proofs and source records</h2>
-<p>The links beside each statement and in the margin give the existing
-Lean proofs and recorded Comparator comparisons, indexed in the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> at the <a
+<h2>Verification and reproducibility</h2>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/\evidencerecordurl">evidence record</a> indexes the
+existing Lean proofs and recorded Comparator comparisons at the <a
 href="https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500">source revision</a>. Theorem <a class="math-ref" href="#thm:geometric-moments">2.1</a> is the
 polynomial-bound specialisation of the <a
 href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">geometric-moment
-proof</a> cited in the long record; its Comparator association remains
-pending. The broader ratio-limit argument and rational-value model there
-have ordinary proofs only. This revision has had no fresh Lean or
-Comparator run and no independent review.</p>
+proof</a> cited in the companion paper; its Comparator association
+remains pending. The broader ratio-limit argument and rational-value
+model there have ordinary proofs only. This revision has had no fresh
+Lean or Comparator run and no independent review. </p>
 <section id="data-availability." class="level5">
 <h5>Data availability.</h5>
 <p>The cited source revision contains the Lean sources, toolchain and
@@ -1381,9 +1430,7 @@ competing interests.</p>
 <p>The problem numbering follows the catalogue maintained by Thomas
 Bloom <span class="citation" data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>. I thank
 Wouter van Doorn for advice on writing for a first-time reader and
-explaining the force of a hypothesis. This advice concerned another note
-and does not imply mathematical review or endorsement of the present
-results.</p>
+explaining the force of a hypothesis.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">

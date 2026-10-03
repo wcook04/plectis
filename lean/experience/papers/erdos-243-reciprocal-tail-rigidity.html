@@ -92,8 +92,8 @@ in Section 3 follows this order.</p>
 <p>For the recurrence criteria we use the integer tail numerators of
 Koizumi <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. In
 Section 4, a stable gcd and the Chinese remainder theorem exclude a
-rational tail whose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P_n/a_n</annotation></semantics></math>
+rational tail whose quotient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mi>⋯</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_1\cdots a_{n-1}/a_n</annotation></semantics></math>
 has bounded upward increments. An elementary infinite product argument
 gives the separate summability criterion of Section 5. We then clear the
 tails by a least common multiple and count crossings of new maxima
@@ -181,9 +181,17 @@ so
  \qquad
  \frac{C_{n+1}}{C_n}=\frac{a_n^2}{a_{n+1}}+O(1/a_n).
 \end{equation}</annotation></semantics></math> For the second estimate,
-use
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}/C_n=a_nx_{n+1}/x_n</annotation></semantics></math>
-in the first. Quadratic growth makes
+the first gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_nx_n=1+O(1/a_n)</annotation></semantics></math>.
+Use this in
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>C</mi><mi>n</mi></msub></mfrac><mo>=</mo><mfrac><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mspace width="0.167em"></mspace><mfrac><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mrow><msub><mi>a</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{C_{n+1}}{C_n}
+ =\frac{a_n^2}{a_{n+1}}\,
+  \frac{a_{n+1}x_{n+1}}{a_nx_n}.</annotation></semantics></math> The
+last factor is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1+O(1/a_n)</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}\to1</annotation></semantics></math>,
+giving the stated additive error. Quadratic growth makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mi>k</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/a_n=o(n^{-k})</annotation></semantics></math>
 for every fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
@@ -1103,21 +1111,18 @@ under the pointwise eventual bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>n</mi></msub><mo>≤</mo><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\gamma_n\le1/n</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The hypothesis bounds the positive part of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\gamma_n</annotation></semantics></math>
-eventually by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi><mo>+</mo><mi>K</mi><mi>/</mi><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>ε</mi></mrow></msup></mrow><annotation encoding="application/x-tex">1/n+K/n^{1+\varepsilon}</annotation></semantics></math>.
-Since
+<p><em>Proof.</em> Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>t</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><msub><mi>γ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_{n+1}/t_n=1+\gamma_n</annotation></semantics></math>,
-comparison with
+division by the comparison sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-and the convergent product of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>K</mi><mi>/</mi><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>ε</mi></mrow></msup></mrow><annotation encoding="application/x-tex">1+K/n^{1+\varepsilon}</annotation></semantics></math>
 gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_n=O(n)</annotation></semantics></math>.
-Hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>t</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_n\gamma_n\le t_n(\gamma_n)_+=O(1)</annotation></semantics></math>,
-and Corollary 4.9 applies. ◻</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mi>n</mi></msub><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msub><mi>γ</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn><mo>+</mo><mi>K</mi><mi>/</mi><mo stretchy="false" form="prefix">[</mo><msup><mi>n</mi><mi>ε</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">(t_{n+1}/(n+1))/(t_n/n)=(1+\gamma_n)/(1+1/n)
+\le1+K/[n^\varepsilon(n+1)]</annotation></semantics></math>. The upper
+bounds have a convergent product, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_n=O(n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>t</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_n\gamma_n\le t_n(\gamma_n)_+=O(1)</annotation></semantics></math>.
+Corollary 4.9 applies. ◻</p>
 </div>
 <p>The weaker condition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\limsup n(\gamma_n)_+\le1</annotation></semantics></math>
@@ -1252,19 +1257,19 @@ so can give a smaller clearing denominator. We shall sum increases of
 the resulting integer numerator only when they create a new maximum.
 First crossings of selected heights will then control these sums even
 with a decreasing weight. Put
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
- M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.</annotation></semantics></math>
-The rational tail has denominator dividing
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>L</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
+ M_n=D_n/L_n,\quad U_n=L_nx_n=C_n/M_n,\quad V_n=E_n/M_n.</annotation></semantics></math>
+The denominator of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>n</mi></msub><annotation encoding="application/x-tex">x_n</annotation></semantics></math>
+divides
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>n</mi></msub><annotation encoding="application/x-tex">L_n</annotation></semantics></math>,
 so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">U_n\in\mathbb{Z}</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>n</mi></msub><annotation encoding="application/x-tex">V_n</annotation></semantics></math>
-are integers. This need not be a reduced fraction:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>n</mi></msub><annotation encoding="application/x-tex">L_n</annotation></semantics></math>
-may share a factor. With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>L</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>U</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">V_n=L_n-(a_n-1)U_n\in\mathbb{Z}</annotation></semantics></math>.
+The fraction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">U_n/L_n</annotation></semantics></math>
+need not be reduced. With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\rho_n=\gcd(L_n,a_n)</annotation></semantics></math>,
 the exact updates are
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>M</mi><mi>n</mi></msub><msub><mi>ρ</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ρ</mi><mi>n</mi></msub><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>U</mi><mi>n</mi></msub><mo>−</mo><msub><mi>V</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>L</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>U</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">M_{n+1}=M_n\rho_n,\qquad
@@ -1466,13 +1471,21 @@ so monotonicity gives
  \le(d_n-B)f(U_n).</annotation></semantics></math> Each selected height
 above
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>T</mi></msub><annotation encoding="application/x-tex">R_T</annotation></semantics></math>
-has exactly one first crossing. The first selected height is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">R_T+P</annotation></semantics></math>;
-each later height is
+has one first crossing. The heights are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-further on. For
+apart, with the first at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">R_T+P</annotation></semantics></math>.
+For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>N</mi></msub><mo>≥</mo><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">R_N\ge R_T+P</annotation></semantics></math>,
-comparison of each interval with its left endpoint gives
+the intervals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>τ</mi><mo>,</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>τ</mi><mo>+</mo><mi>P</mi><mo>,</mo><msub><mi>R</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[\tau,\min\{\tau+P,R_N\}]</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>≤</mo><msub><mi>R</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\tau\le R_N</annotation></semantics></math>
+cover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi><mo>,</mo><msub><mi>R</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[R_T+P,R_N]</annotation></semantics></math>.
+Monotonicity bounds each integral by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P f(\tau)</annotation></semantics></math>,
+so the crossing bounds give
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>T</mi><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mi>N</mi></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>n</mi><mo>∈</mo><mi mathvariant="script">ℛ</mi></mrow></mtd></mtr></mtable></munder><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mfrac><mn>1</mn><mi>P</mi></mfrac><msubsup><mo>∫</mo><mrow><msub><mi>R</mi><mi>T</mi></msub><mo>+</mo><mi>P</mi></mrow><msub><mi>R</mi><mi>N</mi></msub></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:weightedcrossing}
  \sum_{\substack{T\le n&lt;N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
@@ -1507,7 +1520,10 @@ The defect identity gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>n</mi></msub><mo>+</mo><msub><mi>θ</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>θ</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo>+</mo><msub><mi>θ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>&lt;</mo><msub><mi>γ</mi><mi>n</mi></msub><mo>+</mo><msub><mi>θ</mi><mi>n</mi></msub><mo>&lt;</mo><mn>3</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\gamma_n+\theta_n=
  \frac{(1-\theta_n)(a_n-1+\theta_{n+1})}{a_{n+1}},
  \qquad 0&lt;\gamma_n+\theta_n&lt;3/a_n</annotation></semantics></math>
-eventually. Thus the two nonnegative summands
+eventually. Taking positive parts cannot increase the absolute
+difference. Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>U</mi><mi>n</mi></msub><msub><mi>θ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">V_n=U_n\theta_n</annotation></semantics></math>,
+the two nonnegative summands
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>γ</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><mi>/</mi><msub><mi>U</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><annotation encoding="application/x-tex">U_nf(U_n)(\gamma_n-B/U_n)_+</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub><mo>−</mo><mi>B</mi><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-V_n-B)_+f(U_n)</annotation></semantics></math>
@@ -2013,16 +2029,16 @@ is made. The companion’s <a
 href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#243-long-indexing">indexing
 subsection</a> gives this finite-prefix bridge.</p>
 </section>
-<section id="verification." class="level5">
-<h5>Verification.</h5>
-<p>The margin marks link statements to fixed-revision Lean declarations
-and recorded Comparator evidence. The printed cubic argument uses
-Chebotarev, while the supplied formal square-specialisation proof uses a
-Dedekind-zeta pole comparison. Agreement of their conclusions does not
-verify each step of the printed argument. No Lean build, Comparator
-replay or independent review was performed for this revision, and the
-evidence records retain source-pin and index gaps. The estimate in
-Section 7 remains open.</p>
+</section>
+<section id="app:verification" class="level2">
+<h2>Verification and reproducibility</h2>
+<p>The links identify fixed-revision Lean declarations and recorded
+Comparator checks. The printed cubic argument uses Chebotarev; the
+formal square-specialisation proof uses a Dedekind-zeta pole comparison.
+Their common conclusion does not check each step of the printed proof.
+This revision includes no new Lean build, Comparator replay or
+independent review. The evidence record retains source-pin and index
+gaps, and the estimate in Section 7 remains open.</p>
 <p>The formal <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">factorial
 residue reduction</a> uses the <a
@@ -2036,7 +2052,6 @@ href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61
 formula</a> and its <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L69">factorial
 value at the initial index</a>.</p>
-</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

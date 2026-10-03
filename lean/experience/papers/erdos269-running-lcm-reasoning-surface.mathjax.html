@@ -1048,7 +1048,7 @@ On this subtorus each wall <span
 class="math inline" data-term-auto="off">\(\theta_q=0\)</span> has the equation <span
 class="math inline" data-term-auto="off">\(\langle\gamma_q,s\rangle\in\mathbb Z\)</span>,
 where <span class="math inline" data-term-auto="off">\(\gamma_q\in\mathbb
-Z^2\setminus\{0\}\)</span>, and the vectors <span
+Z^2\smallsetminus\{0\}\)</span>, and the vectors <span
 class="math inline" data-term-auto="off">\(\gamma_q\)</span> are pairwise nonparallel. A wall
 may have several components if <span
 class="math inline" data-term-auto="off">\(\gamma_q\)</span> is not primitive.</p>
@@ -1083,30 +1083,39 @@ class="math inline" data-term-auto="off">\(p\in P\)</span> and a jump <span
 class="math inline" data-term-auto="off">\(t_k\)</span> which is a power of <span
 class="math inline" data-term-auto="off">\(p\)</span>. We shall compare the tails after <span
 class="math inline" data-term-auto="off">\(t_k\)</span> and <span
-class="math inline" data-term-auto="off">\(t_m=t_kp^n\)</span>. We choose <span
-class="math inline" data-term-auto="off">\(n\)</span> so that multiplication by <span
-class="math inline" data-term-auto="off">\(p^n\)</span> preserves a long initial crossing
-word. A later block will be rearranged in a way that changes its
-numerator.</p>
-<p>For the initial word to force equality of the tails, its reciprocal
-product must be at most <span class="math inline" data-term-auto="off">\(1/K\)</span>. Choose
-<span class="math inline" data-term-auto="off">\(T&gt;0\)</span> so that the number <span
+class="math inline" data-term-auto="off">\(t_m=t_kp^n\)</span>. We first choose <span
+class="math inline" data-term-auto="off">\(n\)</span> so that the phase returns close enough
+to its initial value to preserve a long initial crossing word. After
+fixing this return, we shall find a later group of crossings whose order
+it changes. The common initial word will force equality of the two
+tails; the later rearrangement will contradict that equality.</p>
+<p>For the common word to force equality, its reciprocal product must be
+at most <span class="math inline" data-term-auto="off">\(1/K\)</span>. Choose <span
+class="math inline" data-term-auto="off">\(T&gt;0\)</span> so that the number <span
 class="math inline" data-term-auto="off">\(\nu\)</span> of crossings in <span
 class="math inline" data-term-auto="off">\((0,T]\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(2^\nu\ge K\)</span>, and let <span
 class="math inline" data-term-auto="off">\(g&gt;0\)</span> be the minimum gap between
 distinct crossings in <span class="math inline" data-term-auto="off">\([0,T+1]\)</span>. Put
 <span class="math inline" data-term-auto="off">\(\beta=\min_{q\ne
-p}\operatorname{dist}(\theta_{k,q},0)&gt;0\)</span>. When <span
+p}\operatorname{dist}(\theta_{k,q},0)&gt;0\)</span>. The gap <span
+class="math inline" data-term-auto="off">\(g\)</span> will keep these early crossings in
+order, while <span class="math inline" data-term-auto="off">\(\beta\)</span> will prevent a
+crossing from moving past the starting time <span
+class="math inline" data-term-auto="off">\(0\)</span>. When <span
 class="math inline" data-term-auto="off">\(|P|\ge4\)</span>, also choose the point <span
 class="math inline" data-term-auto="off">\(x\)</span> and primes <span
 class="math inline" data-term-auto="off">\(a,b\)</span> from Remark <a class="math-ref" href="#long269:res:dp-two-walls">5.5</a>, and set</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\eta=\min\left(\frac1{10},
        \min_{c\ne
 a,b}\operatorname{dist}(\theta_c(x),0)\right)&gt;0.\]</span></div>
-<p>Take <span
+<p>In this
+case <span class="math inline" data-term-auto="off">\(\eta\)</span> leaves room to isolate
+the <span class="math inline" data-term-auto="off">\(a\)</span>- and <span
+class="math inline" data-term-auto="off">\(b\)</span>-crossings from all the others. Take
+<span
 class="math inline" data-term-auto="off">\(\varepsilon&lt;\min(\beta,g/2,\log2/(2|P|))\)</span>,
-and in this latter case require also <span
+and when <span class="math inline" data-term-auto="off">\(|P|\ge4\)</span> require also <span
 class="math inline" data-term-auto="off">\(\varepsilon&lt;\eta/8\)</span>. Dirichlet’s
 simultaneous approximation theorem gives arbitrarily large <span
 class="math inline" data-term-auto="off">\(n\)</span> and integers <span
@@ -1151,6 +1160,11 @@ By Remark <a class="math-ref" href="#long269:res:dp-blocks">5.3</a>(i), every
 chain <span class="math inline" data-term-auto="off">\(C\)</span> and its rearrangement <span
 class="math inline" data-term-auto="off">\(C&#39;\)</span> now satisfy <span
 class="math inline" data-term-auto="off">\(f(C)=f(C&#39;)\)</span>.</p>
+<p>The return, and hence every displacement <span
+class="math inline" data-term-auto="off">\(\delta_q\)</span>, is now fixed. It remains to
+find a chain that violates this last equality. For at most three primes,
+any change of order will do; for larger sets we will isolate a chain of
+length two.</p>
 <p>When <span class="math inline" data-term-auto="off">\(|P|\le3\)</span>, choose <span
 class="math inline" data-term-auto="off">\(q\ne p\)</span>. If <span
 class="math inline" data-term-auto="off">\(\delta_q&gt;0\)</span>, density of <span
@@ -1186,18 +1200,20 @@ class="math inline" data-term-auto="off">\(D\)</span>. There are no other crossi
 interval: for <span class="math inline" data-term-auto="off">\(c\ne a,b\)</span> the nearest
 one is at distance at least <span class="math inline" data-term-auto="off">\(7\eta/8\)</span>
 from <span class="math inline" data-term-auto="off">\(\eta/2\)</span>.</p>
-<p>These properties persist in a neighbourhood <span
-class="math inline" data-term-auto="off">\(U\)</span> of <span
+<p>The phase <span class="math inline" data-term-auto="off">\(z\)</span> thus has an isolated
+pair which the fixed displacement reverses. To obtain such a pair in the
+arithmetic crossing word, keep all the strict margins above and choose a
+neighbourhood <span class="math inline" data-term-auto="off">\(U\)</span> of <span
 class="math inline" data-term-auto="off">\(z\)</span> in <span
-class="math inline" data-term-auto="off">\(T_0\)</span>; all crossing positions and the
-difference condition have strict margins. Density gives <span
-class="math inline" data-term-auto="off">\(t^*&gt;T+2\)</span> with <span
+class="math inline" data-term-auto="off">\(T_0\)</span> where they still hold. Density gives
+<span class="math inline" data-term-auto="off">\(t^*&gt;T+2\)</span> with <span
 class="math inline" data-term-auto="off">\(\theta_k+\Theta(t^*)\in U\)</span>. The two
 corresponding crossings of <span class="math inline" data-term-auto="off">\(\theta_k\)</span>
 are less than <span class="math inline" data-term-auto="off">\(|D|&lt;2\varepsilon\)</span>
 apart, whereas every other crossing is more than <span
 class="math inline" data-term-auto="off">\(\eta/2&gt;4\varepsilon\)</span> away. They form a
-chain of length two. After shifting, their time difference becomes <span
+chain of length two, beyond the initial word already used to equate the
+tails. After shifting, their time difference becomes <span
 class="math inline" data-term-auto="off">\((\tau_a-\tau_b)-D\)</span>, which has the opposite
 sign. Thus <span class="math inline" data-term-auto="off">\(C=ab,C&#39;=ba\)</span> or
 conversely, contradicting <span
@@ -2020,8 +2036,8 @@ A_+&amp;=\{q\ne p:v_q&lt;v_p\},
 <p>Since <span
 class="math inline" data-term-auto="off">\(0&lt;b_0\le\varepsilon/\mu&lt;\eta/4\)</span> and
 <span class="math inline" data-term-auto="off">\(A_+,A_-\)</span> partition the nonempty set
-<span class="math inline" data-term-auto="off">\(P\setminus\{p\}\)</span>, one of these two
-sets, say <span class="math inline" data-term-auto="off">\(A_s\)</span> with <span
+<span class="math inline" data-term-auto="off">\(P\smallsetminus\{p\}\)</span>, one of these
+two sets, say <span class="math inline" data-term-auto="off">\(A_s\)</span> with <span
 class="math inline" data-term-auto="off">\(s\in\{+1,-1\}\)</span>, differs from <span
 class="math inline" data-term-auto="off">\(B\)</span>. Take <span
 class="math inline" data-term-auto="off">\(b=sb_0/2\)</span> and consider <span
@@ -2095,12 +2111,12 @@ class="math inline" data-term-auto="off">\(t_k\)</span> to <span
 class="math inline" data-term-auto="off">\(t_kp^n\)</span> brings in early terms from the
 rays <span class="math inline" data-term-auto="off">\(p^\alpha w\)</span>, with <span
 class="math inline" data-term-auto="off">\(w\)</span> supported on <span
-class="math inline" data-term-auto="off">\(P\setminus\{p\}\)</span>. The comparison above
-accounts only for the ray <span class="math inline" data-term-auto="off">\(w=1\)</span>, so
-it gives no corresponding estimate for the difference of the full
-repeated tails. In the case <span
-class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> those normalised tails are
-unbounded, as the lower bounds below show.</p>
+class="math inline" data-term-auto="off">\(P\smallsetminus\{p\}\)</span>. The comparison
+above accounts only for the ray <span
+class="math inline" data-term-auto="off">\(w=1\)</span>, so it gives no corresponding
+estimate for the difference of the full repeated tails. In the case
+<span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> those normalised tails
+are unbounded, as the lower bounds below show.</p>
 </section>
 </section>
 </section>
@@ -2434,8 +2450,13 @@ class="math inline" data-term-auto="off">\(\operatorname{K}(i,j,k)=\sum_{\ell&lt
 for all <span class="math inline" data-term-auto="off">\(i,j,k\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(\alpha=\log_r
-p\)</span>, <span class="math inline" data-term-auto="off">\(\beta=\log_r q\)</span>, <span
+<p><em>Proof.</em> For fixed <span class="math inline" data-term-auto="off">\(k\)</span>, the
+<span class="math inline" data-term-auto="off">\(p\)</span>- and <span
+class="math inline" data-term-auto="off">\(q\)</span>-exponents still split into row and
+column terms. The <span class="math inline" data-term-auto="off">\(r\)</span>-exponent also
+includes the carry from adding two fractional parts. To isolate it, put
+<span class="math inline" data-term-auto="off">\(\alpha=\log_r p\)</span>, <span
+class="math inline" data-term-auto="off">\(\beta=\log_r q\)</span>, <span
 class="math inline" data-term-auto="off">\(x_i=\{i\alpha\}\)</span> and <span
 class="math inline" data-term-auto="off">\(y_j=\{j\beta\}\)</span>. Write <span
 class="math inline" data-term-auto="off">\(v_p(N)\)</span> for the exponent of the prime
@@ -2465,10 +2486,10 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \qquad t=r^{-1} .
 \end{equation}\]</span></div>
 <p>The remaining matrix is independent of <span
-class="math inline" data-term-auto="off">\(k\)</span>, and <span
-class="math inline" data-term-auto="off">\(x_i+y_j\in[0,2)\)</span>, so its entries are <span
-class="math inline" data-term-auto="off">\(1\)</span> and <span
-class="math inline" data-term-auto="off">\(t\)</span>.</p>
+class="math inline" data-term-auto="off">\(k\)</span>. Since <span
+class="math inline" data-term-auto="off">\(x_i+y_j\in[0,2)\)</span>, its entry is <span
+class="math inline" data-term-auto="off">\(1\)</span> when there is no carry and <span
+class="math inline" data-term-auto="off">\(t\)</span> when there is one.</p>
 <p>Each of <span class="math inline" data-term-auto="off">\(\alpha\)</span> and <span
 class="math inline" data-term-auto="off">\(\beta\)</span> is irrational, since a rational
 value would give an equality of positive powers of distinct primes, so
@@ -2645,16 +2666,17 @@ for the two independent dense orbits.</p>
 </section>
 <section id="long269:sec:selected-kernel-height" class="level3">
 <h3>Smith factors of the selected staircase</h3>
-<p>To examine what the selected minors say about integer denominators,
-we clear their diagonal factors and compute the resulting Smith form.
-For integers <span class="math inline" data-term-auto="off">\(N\ge1,r\ge2\)</span>, let <span
+<p>The preceding argument only uses that a determinant is nonzero. An
+irrationality argument would also need control of integer coefficients
+after denominators are cleared. We examine that separate question for
+the selected minors. For integers <span
+class="math inline" data-term-auto="off">\(N\ge1,r\ge2\)</span>, let <span
 class="math inline" data-term-auto="off">\(A_N(r)\)</span> have entry <span
 class="math inline" data-term-auto="off">\(1\)</span> on and below the diagonal and <span
 class="math inline" data-term-auto="off">\(r\)</span> above it. This is the staircase used in
 Theorem <a class="math-ref" href="#long269:res:infinite-rank">7.3</a>. Its
-Smith factors determine the lattice index. They supply no bound on the
-height of a small integral linear form, which is a separate requirement
-in an irrationality argument.</p>
+Smith factors determine the lattice index; they do not by themselves
+give a small integral linear form.</p>
 <p></p>
 <div class="remark" id="long269:lem:staircase-smith">
 <p><em>Remark 7.5</em> (Smith factors of the selected staircase). The
@@ -2662,9 +2684,10 @@ Smith factors of <span class="math inline" data-term-auto="off">\(A_N(r)\)</span
 class="math inline" data-term-auto="off">\(1,r-1,\ldots,r-1\)</span>, and <span
 class="math inline" data-term-auto="off">\(\det A_N(r)=(1-r)^{N-1}\)</span>.</p>
 </div>
-<p>The Smith calculation and its height consequence are ordinary
-arguments here; the existing Lean result proves nonvanishing of the
-selected minors, not these arithmetic statements.</p>
+<p>The Smith calculation and its consequence for integral coefficients
+are ordinary arguments here; the existing Lean result proves
+nonvanishing of the selected minors, not these arithmetic
+statements.</p>
 <div class="proof">
 <p><em>Proof.</em> Working from bottom to top, subtract row <span
 class="math inline" data-term-auto="off">\(i-1\)</span> from row <span
@@ -2681,7 +2704,7 @@ integral operations, and <span class="math inline" data-term-auto="off">\(1\)</s
 <span class="math inline" data-term-auto="off">\(r-1\)</span>, so this is its Smith form up
 to signs. Its determinant has the displayed sign. ◻</p>
 </div>
-<p>In the source-selected <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
+<p>For the selected <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
 minor, the positive integers <span
 class="math inline" data-term-auto="off">\(U_i,V_j\)</span> give</p>
 <div class="math-display" data-term-auto="off"><span
@@ -2701,36 +2724,40 @@ class="math inline" data-term-auto="off">\(4^{N-1}\)</span>, attained by <span
 class="math inline" data-term-auto="off">\(s_i=5U_i\)</span>, <span
 class="math inline" data-term-auto="off">\(t_j=V_j\)</span>. This optimality is restricted to
 diagonal entrywise clearings.</p>
-<p>For the selected carry pattern, the source’s injective nonnegative
-index families <span class="math inline" data-term-auto="off">\(I,J\)</span> satisfy <span
+<p>For the selected carry pattern, the injective nonnegative index
+families <span class="math inline" data-term-auto="off">\(I,J\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(v_2(W)\ge\sum_iI(i)+\sum_jJ(j)\ge
 N(N-1)\ge2(N-1)\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(4^{N-1}\)</span> divides <span
 class="math inline" data-term-auto="off">\(W\)</span>, and the <em>reduced</em> determinant
 is <span class="math inline" data-term-auto="off">\(\pm1/D\)</span>, where <span
-class="math inline" data-term-auto="off">\(D=W/4^{N-1}\in\N_{&gt;0}\)</span>. The Smith index
-explains the numerator before reduction, while the reduced scalar has no
-numerator left to spend on a one-value denominator clearing. A bordered
-determinant with one target <span class="math inline" data-term-auto="off">\(X\)</span>
-illustrates the same limit: for <span
+class="math inline" data-term-auto="off">\(D=W/4^{N-1}\in\N_{&gt;0}\)</span>. Thus the factor
+<span class="math inline" data-term-auto="off">\(4^{N-1}\)</span> in the integer determinant
+is absorbed entirely by its denominator. For a linear form in one target
+value, a small rational prefactor likewise disappears when the
+coefficients are reduced to coprime integers. Indeed, for <span
 class="math inline" data-term-auto="off">\(K\in\mathrm{GL}_N(\Q)\)</span> and rational <span
 class="math inline" data-term-auto="off">\(u,v\)</span>, the Schur complement gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\det\begin{pmatrix}K&amp;u\\v^T&amp;X\end{pmatrix}
 =\det K\bigl(X-v^TK^{-1}u\bigr).\]</span></div>
-<p>If <span
-class="math inline" data-term-auto="off">\(v^TK^{-1}u=s/t\)</span> in lowest terms, an
-integral scalar multiple of <span class="math inline" data-term-auto="off">\(\det
-K(X-s/t)\)</span> must have its linear coefficient divisible by <span
-class="math inline" data-term-auto="off">\(t\)</span>. Its primitive integral coefficient
-polynomial is therefore <span class="math inline" data-term-auto="off">\(\pm(tX-s)\)</span>,
-regardless of the smallness of <span class="math inline" data-term-auto="off">\(\det
-K\)</span> or a compatible rational change of basis. This is a
-one-target, diagonal-clearing boundary, not a prohibition on new
-recurrences, multiple target values, or stronger approximation data; it
-does not settle the repeated running-LCM problem. Smith form is used
-here in its standard sense <span class="citation"
-data-cites="stanley2016"><a href="#ref-14">[14]</a></span>.</p>
+<p>Write <span
+class="math inline" data-term-auto="off">\(v^TK^{-1}u=s/t\)</span> in lowest terms, with
+<span class="math inline" data-term-auto="off">\(t&gt;0\)</span>. If a nonzero rational
+scalar multiple of <span class="math inline" data-term-auto="off">\(\det K(X-s/t)\)</span>
+has integer coefficients <span class="math inline" data-term-auto="off">\(aX+b\)</span>, then
+<span class="math inline" data-term-auto="off">\(b=-as/t\)</span>. Since <span
+class="math inline" data-term-auto="off">\(\gcd(s,t)=1\)</span>, we have <span
+class="math inline" data-term-auto="off">\(t\mid a\)</span>. Dividing the two coefficients by
+their common factor therefore leaves <span
+class="math inline" data-term-auto="off">\(\pm(tX-s)\)</span>. This is the primitive integral
+coefficient polynomial, regardless of the smallness of <span
+class="math inline" data-term-auto="off">\(\det K\)</span> or a compatible rational change of
+basis. The conclusion concerns this construction with one target and the
+diagonal clearings above. It does not exclude new recurrences, multiple
+target values or stronger approximation data, and it does not settle the
+repeated running-LCM problem. Smith form is used here in its standard
+sense <span class="citation" data-cites="stanley2016"><a href="#ref-14">[14]</a></span>.</p>
 </section>
 <section id="long269:sec:approximation" class="level3">
 <h3>Uniform approximation of the rescaled kernel</h3>
@@ -3776,10 +3803,22 @@ class="math inline" data-term-auto="off">\((B,\ell)\)</span> does not verify the
 <span class="math inline" data-term-auto="off">\(b_a&gt;0\)</span>, so <span
 class="math inline" data-term-auto="off">\(W_{\ell,h}&gt;0\)</span> is automatic.</p>
 <p>Here <span class="math inline" data-term-auto="off">\(K\)</span> is the integer bound
-obtained above from the jump count. The short paper uses the coarser
+obtained above from the jump count. Under the hypothesis that <span
+class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral, the recurrence makes
+<span class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> integral as well, so
+<span class="math inline" data-term-auto="off">\(0&lt;BX_{\ell+h}\le K(B,\ell+h)\)</span>.
+Equivalently, the starting integer must lie in</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\left(\frac{BF_{\ell,h}}{W_{\ell,h}},
+       \frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}\right].\]</span></div>
+<p>A
+residue exceeding <span class="math inline" data-term-auto="off">\(K\)</span> says exactly
+that this interval contains no integer. The floor in the definition of
+<span class="math inline" data-term-auto="off">\(K\)</span> is legitimate here because
+integrality is being assumed. The short paper uses the coarser real-tail
 bound <span class="math inline" data-term-auto="off">\(90B(a+1)^2\)</span> instead. The
-argument needs the upper-bound property and the stated growth condition,
-rather than a particular numerical choice.</p>
+argument needs a valid bound on the possible integer tail and the stated
+growth condition, rather than a particular numerical choice.</p>
 <p>The two hypotheses on <span class="math inline" data-term-auto="off">\(G\)</span> in the
 next theorem serve different purposes. Domination of <span
 class="math inline" data-term-auto="off">\(K\)</span> lets a residue above <span
@@ -4387,14 +4426,22 @@ class="math inline" data-term-auto="off">\(S\)</span> remains open here.</p>
 <section id="long269:sec:weighted-shifts" class="level3">
 <h3>An exact weighted-shift identity for the repeated series</h3>
 <p>Set <span class="math inline" data-term-auto="off">\(\alpha=S/2\)</span> and retain the
-boundary running LCMs <span class="math inline" data-term-auto="off">\(P_a\)</span>. We
-combine shifted tails after subtracting their finite rational
-corrections. Since the denominators change under a shift, the resulting
-identity has weights as well as shifted numerators. It concerns the
-repeated sum <span class="math inline" data-term-auto="off">\(S\)</span> only. In this
-subsection and the next, <span class="math inline" data-term-auto="off">\(r\)</span> is a
-positive integer shift; the prime-generator notation is no longer in
-use.</p>
+boundary running LCMs <span class="math inline" data-term-auto="off">\(P_a\)</span>. To
+combine shifted tails, we first express them with the same denominators.
+After multiplication by <span class="math inline" data-term-auto="off">\(P_t\)</span>, the
+term with index <span class="math inline" data-term-auto="off">\(a+t\)</span> becomes</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{P_t m_{a+t}}{P_{a+t+1}}
+=\frac{P_tP_{a+1}}{P_{a+t+1}}\,
+   \frac{m_{a+t}}{P_{a+1}}.\]</span></div>
+<p>The first factor on the right is
+the weight <span class="math inline" data-term-auto="off">\(\gamma_{a,t}\)</span> below. It
+is forced by the change of denominator, rather than chosen to produce
+cancellation. The removed finite prefix supplies the rational
+correction. The identity concerns the repeated sum <span
+class="math inline" data-term-auto="off">\(S\)</span> only. In this subsection and the next,
+<span class="math inline" data-term-auto="off">\(r\)</span> is a positive integer shift; the
+prime-generator notation is no longer in use.</p>
 <div class="lemma" id="long269:res:weighted-shift-identity">
 <p><strong>Lemma 12.1</strong> (weighted shifts preserve the actual
 value). <em> Fix integers <span
@@ -5156,18 +5203,12 @@ two-prime case uses Fan’s earlier reduction to the cited Hecke–Mahler
 value theorem.</p>
 </section>
 <section id="long269:sec:proof-sources" class="level3 unnumbered">
-<h3 class="unnumbered">Proof sources and declarations</h3>
+<h3 class="unnumbered">Verification and reproducibility</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The margin marks retain the supplied formal-source links. A Lean mark
-identifies the declaration or declarations associated with a statement;
-a Comparator mark opens its recorded comparison. These are records of
-earlier checks, not fresh runs for this revision. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/\evidencerecordurl">evidence record</a> gives the versions and
-individual associations. A missing mark makes no claim of a Lean proof
-of the whole statement. The checks concern the propositions linked
-there, without establishing novelty or resolving the repeated-sum
-problem.</p>
+<p>The evidence record fixes the source versions and individual
+statement associations. These are earlier checks; this revision makes no
+fresh formal-verification claim.</p>
 <p>The general distinct-value assertion and its four word-and-torus
 arguments are stated as remarks with complete ordinary proofs in
 Section <a class="math-ref" href="#long269:sec:distinct-all">5.1</a>; they have

@@ -49,7 +49,7 @@
 \title{Running least common multiples:\\distinct values and multiplicities}
 \subtitle{Erd\H{o}s Problem~\#269}
 \author{Will Cook}
-\date{July 2026; revised 30 September 2026}
+\date{July 2026; revised 1 October 2026}
 
 \setlength{\emergencystretch}{2em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -830,7 +830,7 @@ polynomials cannot vanish on all rational pairs. An integer basis of the
 plane identifies its image with a two-dimensional subtorus of $T_0$.
 On this subtorus each wall $\theta_q=0$ has the equation
 $\langle\gamma_q,s\rangle\in\mathbb Z$, where
-$\gamma_q\in\mathbb Z^2\setminus\{0\}$, and the vectors $\gamma_q$ are
+$\gamma_q\in\mathbb Z^2\smallsetminus\{0\}$, and the vectors $\gamma_q$ are
 pairwise nonparallel. A wall may have several components if $\gamma_q$
 is not primitive.
 
@@ -855,24 +855,29 @@ vertex must therefore belong to exactly two, as required.
 \begin{proof}[Proof of Remark~\ref{long269:res:distinct-height-all}]
 Suppose that $\mathcal D_P=N/K$, with $K\ge1$. Fix $p\in P$ and a jump
 $t_k$ which is a power of $p$. We shall compare the tails after $t_k$ and
-$t_m=t_kp^n$. We choose $n$ so that multiplication by $p^n$ preserves a
-long initial crossing word. A later block will be rearranged in a way
-that changes its numerator.
+$t_m=t_kp^n$. We first choose $n$ so that the phase returns close enough
+to its initial value to preserve a long initial crossing word. After
+fixing this return, we
+shall find a later group of crossings whose order it changes. The
+common initial word will force equality of the two tails; the later
+rearrangement will contradict that equality.
 
-For the initial word to force equality of the tails, its reciprocal
-product must be at most $1/K$. Choose $T>0$ so that the number $\nu$ of
-crossings in $(0,T]$ satisfies
-$2^\nu\ge K$, and let $g>0$ be the minimum gap between distinct crossings
-in $[0,T+1]$. Put
+For the common word to force equality, its reciprocal product must be
+at most $1/K$. Choose $T>0$ so that the number $\nu$ of crossings in
+$(0,T]$ satisfies $2^\nu\ge K$, and let $g>0$ be the minimum gap between
+distinct crossings in $[0,T+1]$. Put
 $\beta=\min_{q\ne p}\operatorname{dist}(\theta_{k,q},0)>0$.
+The gap $g$ will keep these early crossings in order, while $\beta$
+will prevent a crossing from moving past the starting time $0$.
 When $|P|\ge4$, also choose the point $x$ and primes $a,b$ from
 Remark~\ref{long269:res:dp-two-walls}, and set
 \[
  \eta=\min\left(\frac1{10},
        \min_{c\ne a,b}\operatorname{dist}(\theta_c(x),0)\right)>0.
 \]
-Take $\varepsilon<\min(\beta,g/2,\log2/(2|P|))$, and in this latter
-case require also $\varepsilon<\eta/8$. Dirichlet's simultaneous
+In this case $\eta$ leaves room to isolate the $a$- and $b$-crossings
+from all the others. Take $\varepsilon<\min(\beta,g/2,\log2/(2|P|))$, and when
+$|P|\ge4$ require also $\varepsilon<\eta/8$. Dirichlet's simultaneous
 approximation theorem gives arbitrarily large $n$ and integers $m_q\ge1$
 for $q\ne p$ such that
 \[
@@ -904,6 +909,11 @@ $|x_k-x_m|<2^{-\nu}\le1/K$. The integral-tail lemma forces $x_k=x_m$.
 By Remark~\ref{long269:res:dp-blocks}(i), every chain $C$ and its rearrangement $C'$
 now satisfy $f(C)=f(C')$.
 
+The return, and hence every displacement $\delta_q$, is now fixed.
+It remains to find a chain that violates this last equality. For at
+most three primes, any change of order will do; for larger sets we
+will isolate a chain of length two.
+
 When $|P|\le3$, choose $q\ne p$. If $\delta_q>0$, density of
 $j\log p-i\log q+\log t_k$ for large positive $i,j$ supplies crossings
 $s_p,s_q>0$ with $s_q-\delta_q<s_p<s_q$. Their order reverses. The case
@@ -925,12 +935,14 @@ $(\eta/4,3\eta/4)$, and $\tau_a-\tau_b$ is strictly between $0$ and $D$.
 There are no other crossings in that interval: for $c\ne a,b$ the nearest
 one is at distance at least $7\eta/8$ from $\eta/2$.
 
-These properties persist in a neighbourhood $U$ of $z$ in $T_0$; all
-crossing positions and the difference condition have strict margins.
-Density gives $t^*>T+2$ with $\theta_k+\Theta(t^*)\in U$. The two
-corresponding crossings of $\theta_k$ are less than
-$|D|<2\varepsilon$ apart, whereas every other crossing is more than
-$\eta/2>4\varepsilon$ away. They form a chain of length two.
+The phase $z$ thus has an isolated pair which the fixed displacement
+reverses. To obtain such a pair in the arithmetic crossing word, keep
+all the strict margins above and choose a neighbourhood $U$ of $z$ in
+$T_0$ where they still hold. Density gives $t^*>T+2$ with
+$\theta_k+\Theta(t^*)\in U$. The two corresponding crossings of
+$\theta_k$ are less than $|D|<2\varepsilon$ apart, whereas every other
+crossing is more than $\eta/2>4\varepsilon$ away. They form a chain of
+length two, beyond the initial word already used to equate the tails.
 After shifting, their time difference becomes
 $(\tau_a-\tau_b)-D$, which has the opposite sign. Thus $C=ab,C'=ba$
 or conversely, contradicting $f(ab)-f(ba)=b-a\ne0$.
@@ -1398,7 +1410,7 @@ We shall contradict this equality near the origin of $T_0$. Put
  \end{aligned}
 \]
 Since $0<b_0\le\varepsilon/\mu<\eta/4$ and $A_+,A_-$ partition the
-nonempty set $P\setminus\{p\}$, one of these two sets, say $A_s$ with
+nonempty set $P\smallsetminus\{p\}$, one of these two sets, say $A_s$ with
 $s\in\{+1,-1\}$, differs from $B$. Take $b=sb_0/2$ and consider
 $z=bv+\Theta(-\eta/2)$. For each $q$, its crossing nearest $\eta/2$
 occurs at
@@ -1438,7 +1450,7 @@ $\log_{10}|y_k-y_m|=-58.098$.
 
 For the repeated sum $\mathcal R_P$, changing the scale from $t_k$ to
 $t_kp^n$ brings in early terms from the rays $p^\alpha w$, with $w$
-supported on $P\setminus\{p\}$. The comparison above accounts only for
+supported on $P\smallsetminus\{p\}$. The comparison above accounts only for
 the ray $w=1$, so it gives no corresponding estimate for the difference
 of the full repeated tails. In the case $P=\{2,3,5\}$ those normalised
 tails are unbounded, as the lower bounds below show.
@@ -1698,9 +1710,11 @@ $\Kernel(i,j,k)=\sum_{\ell<d}f_\ell(i)G_\ell(j,k)$ for all $i,j,k$.
 \end{theorem}
 
 \begin{proof}
-Put $\alpha=\log_r p$, $\beta=\log_r q$, $x_i=\{i\alpha\}$ and
-$y_j=\{j\beta\}$.  Write $v_p(N)$ for the exponent of the prime $p$ in
-the positive integer $N$.  The three prime exponents are
+For fixed $k$, the $p$- and $q$-exponents still split into row and column
+terms. The $r$-exponent also includes the carry from adding two fractional
+parts. To isolate it, put $\alpha=\log_r p$, $\beta=\log_r q$,
+$x_i=\{i\alpha\}$ and $y_j=\{j\beta\}$. Write $v_p(N)$ for the exponent
+of the prime $p$ in the positive integer $N$. The three prime exponents are
 \[
  \begin{split}
  v_p(\hgt(p^iq^jr^k))&=i+\lfloor j\log_pq+k\log_pr\rfloor,\\
@@ -1715,8 +1729,8 @@ alone, so with positive rational $R_i(k)$ and $C_j(k)$,
  \Kernel(i,j,k)=R_i(k)\,C_j(k)\,t^{\lfloor x_i+y_j\rfloor},
  \qquad t=r^{-1} .
 \end{equation}
-The remaining matrix is independent of $k$, and $x_i+y_j\in[0,2)$, so its
-entries are $1$ and $t$.
+The remaining matrix is independent of $k$. Since $x_i+y_j\in[0,2)$,
+its entry is $1$ when there is no carry and $t$ when there is one.
 
 Each of $\alpha$ and $\beta$ is irrational, since a rational value would give
 an equality of positive powers of distinct primes, so each fractional-part
@@ -1851,13 +1865,13 @@ running-LCM interpretation, not for the two independent dense orbits.
 
 \subsection{Smith factors of the selected staircase}
 \label{long269:sec:selected-kernel-height}
-To examine what the selected minors say about integer denominators, we
-clear their diagonal factors and compute the resulting Smith form. For integers $N\ge1,r\ge2$, let $A_N(r)$ have
-entry $1$ on and below the diagonal and $r$ above it. This is the
-staircase used in Theorem~\ref{long269:res:infinite-rank}.
-Its Smith factors determine the lattice index. They supply no bound on
-the height of a small integral linear form, which is a separate requirement
-in an irrationality argument.
+The preceding argument only uses that a determinant is nonzero. An
+irrationality argument would also need control of integer coefficients
+after denominators are cleared. We examine that separate question for the
+selected minors. For integers $N\ge1,r\ge2$, let $A_N(r)$ have entry $1$
+on and below the diagonal and $r$ above it. This is the staircase used in
+Theorem~\ref{long269:res:infinite-rank}. Its Smith factors determine the
+lattice index; they do not by themselves give a small integral linear form.
 
 \begin{remark}[Smith factors of the selected staircase]
 \label{long269:lem:staircase-smith}
@@ -1866,9 +1880,9 @@ $1,r-1,\ldots,r-1$, and
 $\det A_N(r)=(1-r)^{N-1}$.
 \end{remark}
 
-The Smith calculation and its height consequence are ordinary arguments
-here; the existing Lean result proves nonvanishing of the selected minors,
-not these arithmetic statements.
+The Smith calculation and its consequence for integral coefficients are
+ordinary arguments here; the existing Lean result proves nonvanishing of
+the selected minors, not these arithmetic statements.
 
 \begin{proof}
 Working from bottom to top, subtract row $i-1$ from row $i$ for every
@@ -1879,7 +1893,7 @@ unimodular integral operations, and $1$ divides $r-1$, so this is its
 Smith form up to signs.  Its determinant has the displayed sign.
 \end{proof}
 
-In the source-selected $\{2,3,5\}$ minor, the positive integers $U_i,V_j$ give
+For the selected $\{2,3,5\}$ minor, the positive integers $U_i,V_j$ give
 \[
  K=\operatorname{diag}(U_i)^{-1}A_N(5)\operatorname{diag}(5V_j)^{-1}.
 \]
@@ -1895,28 +1909,30 @@ $(-4)^{N-1}\prod_i z_i$.  Its absolute determinant is therefore at
 least $4^{N-1}$, attained by $s_i=5U_i$, $t_j=V_j$.
 This optimality is restricted to diagonal entrywise clearings.
 
-For the selected carry pattern, the source's injective nonnegative
-index families $I,J$ satisfy
+For the selected carry pattern, the injective nonnegative index families
+$I,J$ satisfy
 $v_2(W)\ge\sum_iI(i)+\sum_jJ(j)\ge N(N-1)\ge2(N-1)$.
 Thus $4^{N-1}$ divides $W$, and the \emph{reduced} determinant is
 $\pm1/D$, where $D=W/4^{N-1}\in\N_{>0}$.
-The Smith index explains the numerator before reduction, while the
-reduced scalar has no numerator left to spend on a one-value
-denominator clearing.  A bordered determinant with one target $X$
-illustrates the same limit: for $K\in\mathrm{GL}_N(\Q)$ and rational
+Thus the factor $4^{N-1}$ in the integer determinant is absorbed entirely
+by its denominator. For a linear form in one target value, a small
+rational prefactor likewise disappears when the coefficients are reduced
+to coprime integers. Indeed, for $K\in\mathrm{GL}_N(\Q)$ and rational
 $u,v$, the Schur complement gives
 \[
  \det\begin{pmatrix}K&u\\v^T&X\end{pmatrix}
  =\det K\bigl(X-v^TK^{-1}u\bigr).
 \]
-If $v^TK^{-1}u=s/t$ in lowest terms, an integral scalar multiple
-of $\det K(X-s/t)$ must have its linear coefficient divisible by $t$.
-Its primitive integral coefficient polynomial is therefore
-$\pm(tX-s)$, regardless of the smallness of
-$\det K$ or a compatible rational change of basis.  This is a
-one-target, diagonal-clearing boundary, not a prohibition on new
-recurrences, multiple target values, or stronger approximation data;
-it does not settle the repeated running-LCM problem.  Smith form is
+Write $v^TK^{-1}u=s/t$ in lowest terms, with $t>0$. If a nonzero
+rational scalar multiple of $\det K(X-s/t)$ has integer coefficients
+$aX+b$, then $b=-as/t$. Since $\gcd(s,t)=1$, we have $t\mid a$.
+Dividing the two coefficients by their common factor therefore leaves
+$\pm(tX-s)$. This is the primitive integral coefficient polynomial,
+regardless of the smallness of $\det K$ or a compatible rational change
+of basis. The conclusion concerns this construction with one target and
+the diagonal clearings above. It does not exclude new recurrences,
+multiple target values or stronger approximation data, and it does not
+settle the repeated running-LCM problem. Smith form is
 used here in its standard sense~\cite{stanley2016}.
 
 \subsection{Uniform approximation of the rescaled kernel}\label{long269:sec:approximation}
@@ -2682,9 +2698,19 @@ rectangle of $(B,\ell)$ does not verify them.  Every $b_a>0$, so
 $W_{\ell,h}>0$ is automatic.
 
 Here $K$ is the integer bound obtained above from the jump count.
-The short paper uses the coarser bound $90B(a+1)^2$ instead. The
-argument needs the upper-bound property and the stated growth
-condition, rather than a particular numerical choice.
+Under the hypothesis that $BX_\ell$ is integral, the recurrence makes
+$BX_{\ell+h}$ integral as well, so $0<BX_{\ell+h}\le K(B,\ell+h)$.
+Equivalently, the starting integer must lie in
+\[
+ \left(\frac{BF_{\ell,h}}{W_{\ell,h}},
+       \frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}\right].
+\]
+A residue exceeding $K$ says exactly that this interval contains no
+integer. The floor in the definition of $K$ is legitimate here because
+integrality is being assumed. The short paper uses the coarser real-tail
+bound $90B(a+1)^2$ instead. The argument needs a valid bound on the
+possible integer tail and the stated growth condition, rather than a
+particular numerical choice.
 
 The two hypotheses on $G$ in the next theorem serve different purposes.
 Domination of $K$ lets a residue above $G$ exclude a positive integer tail.
@@ -3122,12 +3148,20 @@ function-theoretic approach. The irrationality of $S$ remains open here.
 
 \subsection{An exact weighted-shift identity for the repeated series}
 \label{long269:sec:weighted-shifts}
-Set $\alpha=S/2$ and retain the boundary running LCMs $P_a$. We combine
-shifted tails after subtracting their finite rational corrections. Since
-the denominators change under a shift, the resulting identity has weights
-as well as shifted numerators. It concerns the repeated sum $S$ only.
-In this subsection and the next, $r$ is a positive integer shift; the
-prime-generator notation is no longer in use.
+Set $\alpha=S/2$ and retain the boundary running LCMs $P_a$. To combine
+shifted tails, we first express them with the same denominators. After
+multiplication by $P_t$, the term with index $a+t$ becomes
+\[
+ \frac{P_t m_{a+t}}{P_{a+t+1}}
+ =\frac{P_tP_{a+1}}{P_{a+t+1}}\,
+   \frac{m_{a+t}}{P_{a+1}}.
+\]
+The first factor on the right is the weight $\gamma_{a,t}$ below. It is
+forced by the change of denominator, rather than chosen to produce
+cancellation. The removed finite prefix supplies the rational correction.
+The identity concerns the repeated sum $S$ only. In this subsection and
+the next, $r$ is a positive integer shift; the prime-generator notation is
+no longer in use.
 
 \begin{lemma}[weighted shifts preserve the actual value]
 \label{long269:res:weighted-shift-identity}
@@ -3731,17 +3765,13 @@ support do not close the remaining argument.  The settled two-prime case
 uses Fan's earlier reduction to the cited Hecke--Mahler value theorem.
 
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
-\subsection*{Proof sources and declarations}\label{long269:sec:proof-sources}
+\subsection*{Verification and reproducibility}\label{long269:sec:proof-sources}
+\evidenceparagraph{\evidencerecordurl}
 
 \paragraph{Proof sources.}
-The margin marks retain the supplied formal-source links. A Lean mark
-identifies the declaration or declarations associated with a statement;
-a Comparator mark opens its recorded comparison. These are records of
-earlier checks, not fresh runs for this revision. The
-\href{\evidencerecordurl}{evidence record} gives the versions and individual
-associations. A missing mark makes no claim of a Lean proof of the whole
-statement. The checks concern the propositions linked there, without
-establishing novelty or resolving the repeated-sum problem.
+The evidence record fixes the source versions and individual statement
+associations. These are earlier checks; this revision makes no fresh
+formal-verification claim.
 
 The general distinct-value assertion and its four word-and-torus
 arguments are stated as remarks with complete ordinary proofs in

@@ -168,16 +168,18 @@ class="math inline" data-term-auto="off">\(p^{-1}(J)\cap U\subset B(c,r_0)\)</sp
 <span class="math inline" data-term-auto="off">\(U_1\cap\{|z-c|&gt;t\}\)</span> has relative
 boundary in <span class="math inline" data-term-auto="off">\(U\)</span> contained in the
 circle <span class="math inline" data-term-auto="off">\(|z-c|=t\)</span>. If that circle
-missed <span class="math inline" data-term-auto="off">\(K\cap U_1\)</span>, its intersection
-with <span class="math inline" data-term-auto="off">\(K\)</span> would be a nonempty proper
-subset both open and closed in <span class="math inline" data-term-auto="off">\(K\)</span>, a
-contradiction. Thus the radial map <span
-class="math inline" data-term-auto="off">\(z\mapsto|z-c|\)</span> sends <span
-class="math inline" data-term-auto="off">\(K\cap U_1\)</span> onto a set containing <span
-class="math inline" data-term-auto="off">\((r_0,|a-c|)\)</span> whenever that interval is
-nonempty. This map is <span class="math inline" data-term-auto="off">\(1\)</span>-Lipschitz,
-so</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal H^1(K\cap U_1)\ge
+missed <span class="math inline" data-term-auto="off">\(K\cap U_1\)</span>, then <span
+class="math inline" data-term-auto="off">\(K\cap U_1\cap\{|z-c|&gt;t\}\)</span> would be both
+open and closed in <span class="math inline" data-term-auto="off">\(K\)</span>. It contains
+<span class="math inline" data-term-auto="off">\(a\)</span> and excludes <span
+class="math inline" data-term-auto="off">\(b\)</span>, contradicting connectedness. Thus the
+radial map <span class="math inline" data-term-auto="off">\(z\mapsto|z-c|\)</span> sends
+<span class="math inline" data-term-auto="off">\(K\cap U_1\)</span> onto a set containing
+<span class="math inline" data-term-auto="off">\((r_0,|a-c|)\)</span> whenever that interval
+is nonempty. This map is <span
+class="math inline" data-term-auto="off">\(1\)</span>-Lipschitz, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal H^1(K\cap U_1)\ge
 (|a-c|-r_0)_+.\]</span></div>
 <p>The same argument applies to <span
 class="math inline" data-term-auto="off">\(b\)</span> and <span
@@ -562,14 +564,13 @@ also gives</p>
 <section id="subsec:counterexample-connections" class="level3">
 <h3>The two roots in the component</h3>
 <p>The local estimates identify a critical point, but we still have to
-find the two roots in its component. We join <span
-class="math inline" data-term-auto="off">\(b_3\)</span> and <span
-class="math inline" data-term-auto="off">\(b_6\)</span> to <span
-class="math inline" data-term-auto="off">\(c_s\)</span> using four segments followed by
-radial pieces. The following ordinary argument supplies that
-identification directly; the Lean source uses barriers. Put</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{align*}
+find the two roots in its component. The connections from <span
+class="math inline" data-term-auto="off">\(c_s\)</span> to <span
+class="math inline" data-term-auto="off">\(b_3,b_6\)</span> use a small disc and four
+segments near the critical point, short segments to the root directions,
+and radial segments out to the roots. The following ordinary argument
+identifies the component directly; the Lean source uses barriers. Put</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
 \operatorname{Re}w_q={}&amp;\frac{39226583259917038484346953200647}{10^{40}},\\
 \operatorname{Im}w_q={}&amp;\frac{8232474661944848953672917849472800078083}{10^{40}},\\
 x_3={}&amp;w_q-6+3i,\qquad x_6=w_q+5-5i,\\
@@ -647,7 +648,14 @@ radius <span class="math inline" data-term-auto="off">\(10^{-8}\)</span>, gives 
 class="math inline" data-term-auto="off">\(\mathscr H_0&gt;3556874/10^{12}\)</span>
 throughout it. The disc is contained in <span
 class="math inline" data-term-auto="off">\(|w-v_2|&lt;10^{-6}\)</span>, so this zero is <span
-class="math inline" data-term-auto="off">\(w_s\)</span>.</p>
+class="math inline" data-term-auto="off">\(w_s\)</span>. For each <span
+class="math inline" data-term-auto="off">\(j=3,6\)</span>, we can therefore follow the
+segments from <span class="math inline" data-term-auto="off">\(w_s\)</span> to <span
+class="math inline" data-term-auto="off">\(w_q\)</span>, then to <span
+class="math inline" data-term-auto="off">\(x_j\)</span> and <span
+class="math inline" data-term-auto="off">\(m_j\)</span>, staying where <span
+class="math inline" data-term-auto="off">\(\mathscr H_0&gt;0\)</span>. It remains to connect
+<span class="math inline" data-term-auto="off">\(m_j\)</span> to the corresponding root.</p>
 <p>For the remaining segments no large polynomial expansion is needed.
 The Cayley intervals give <span
 class="math inline" data-term-auto="off">\(|m_j/8-\zeta_j|&lt;1/10\)</span> and <span
@@ -2648,10 +2656,12 @@ class="math display" data-term-auto="off">\[\sum_{B(\zeta)=w}\frac1{|B&#39;(\zet
 =\frac{1-|B(0)|^2}{|w-B(0)|^2}\qquad(|w|=1).\]</span></div>
 <p>In particular each
 boundary fibre consists of <span class="math inline" data-term-auto="off">\(m\)</span>
-distinct points. Choosing <span
-class="math inline" data-term-auto="off">\(w=-B(0)/|B(0)|\)</span> yields</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\frac mn&lt;\frac{1-|B(0)|}{1+|B(0)|},
+distinct points. The Poisson kernel on the right is smallest at the
+boundary point opposite <span class="math inline" data-term-auto="off">\(B(0)\)</span>.
+Choosing <span class="math inline" data-term-auto="off">\(w=-B(0)/|B(0)|\)</span> therefore
+yields</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac
+mn&lt;\frac{1-|B(0)|}{1+|B(0)|},
 \qquad |B(0)|&lt;\frac{n-m}{n+m}=\frac{k}{2n-k}.\]</span></div>
 <p>Here <span
 class="math inline" data-term-auto="off">\(B(0)\ne0\)</span> because every excluded-root
@@ -3335,9 +3345,14 @@ class="math display" data-term-auto="off">\[(z-h)^{3q}+A(z-h)^{2q}+B(z-h)^q+C\]<
 every degree <span class="math inline" data-term-auto="off">\(3q\ge6\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Fix a <span class="math inline" data-term-auto="off">\(q\)</span>th root
-<span class="math inline" data-term-auto="off">\(y\)</span> of a quotient root and a
-primitive <span class="math inline" data-term-auto="off">\(q\)</span>th root of unity <span
+<p><em>Proof.</em> One nonzero root of <span
+class="math inline" data-term-auto="off">\(P\)</span> will supply both endpoints of the path
+through <span class="math inline" data-term-auto="off">\(h\)</span>. Before selecting it, we
+check that every zero of <span class="math inline" data-term-auto="off">\(P\)</span> lies in
+the open unit disc. Fix a <span class="math inline" data-term-auto="off">\(q\)</span>th root
+<span class="math inline" data-term-auto="off">\(y\)</span> of a zero of <span
+class="math inline" data-term-auto="off">\(P\)</span> and a primitive <span
+class="math inline" data-term-auto="off">\(q\)</span>th root of unity <span
 class="math inline" data-term-auto="off">\(\zeta\)</span>. The full fibre consists of <span
 class="math inline" data-term-auto="off">\(h+y\zeta^k\)</span>. Since every fibre point lies
 in the open unit disc,</p>
@@ -3850,10 +3865,8 @@ class="math inline" data-term-auto="off">\(q\)</span> at <span
 class="math inline" data-term-auto="off">\(h\)</span> and hence a constant path between two
 occurrences. The formal source checks the factorization, radial-segment
 estimate and finite length inequality. It does not establish the
-existence of a suitable quotient root or formalise the selection and
-lifting just described. The available formal statements cover the
-segment inequality and finite length calculation. They do not include
-the complete path construction or unrestricted Erdős #1041.</p>
+existence of a suitable quotient root, formalise the selection and
+lifting just described, or prove unrestricted Erdős #1041.</p>
 <p>The radial-segment identity and strict bound are formalised in <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/CyclicTrinomialFiberCase.lean#L46">cancellation
 along a trinomial root segment</a> and <a
@@ -4289,13 +4302,20 @@ class="math display" data-term-auto="off">\[r^n|f(c_j)|\le\prod_k|1-r^2\overline
 boundary critical points and all multiplicities without selecting local
 branches. ◻</p>
 </div>
-<p>Set <span class="math inline" data-term-auto="off">\(m=n-1\)</span>. The weighted Poisson
-proof below gives the quadratic finite inequality for every <span
-class="math inline" data-term-auto="off">\(m\ge1\)</span>. Gauss–Lucas and Lemma <a class="math-ref" href="#res:reflected-critical-value">10.3</a> then
-give <span class="math inline" data-term-auto="off">\(\sum_j|f(c_j)|^{2/m}\le m\)</span> on
-the unit disc. Applying this to <span
-class="math inline" data-term-auto="off">\(R^{-n}f(h+Rz)\)</span> and scaling back proves
-<a class="math-ref" data-equation-ref="true" href="#eq:critical-value-quadratic-budget">eq:critical-value-quadratic-budget</a>
+<p>First suppose the zeros of <span class="math inline" data-term-auto="off">\(f\)</span> lie
+in the closed unit disc, and set <span
+class="math inline" data-term-auto="off">\(m=n-1\)</span>. Gauss–Lucas puts the critical
+points in the same disc. Lemma <a class="math-ref" href="#res:reflected-critical-value">10.3</a> gives
+the first inequality below; the weighted Poisson inequality, proved next
+and applied with equal weights <span class="math inline" data-term-auto="off">\(1/m\)</span>,
+gives the second:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{j=1}^m|f(c_j)|^{2/m}
+\le\sum_{j=1}^m\left(\prod_{k=1}^m
+             |1-\overline{c_j}c_k|\right)^{2/m}\le m.\]</span></div>
+<p>Applying
+this to <span class="math inline" data-term-auto="off">\(R^{-n}f(h+Rz)\)</span> and scaling
+back proves <a class="math-ref" data-equation-ref="true" href="#eq:critical-value-quadratic-budget">eq:critical-value-quadratic-budget</a>
 for <span class="math inline" data-term-auto="off">\(R&gt;0\)</span>; if <span
 class="math inline" data-term-auto="off">\(R=0\)</span>, all critical values vanish.</p>
 <p>The two displayed consequences are the lower power means of the same
@@ -4767,12 +4787,18 @@ distinct indices <span class="math inline" data-term-auto="off">\(i,j\)</span> s
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|c-z_i|+|c-z_j|\le2r.\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Order the distances <span
-class="math inline" data-term-auto="off">\(d_1\le d_2\le\cdots\le d_n\)</span>. Isolating the
-nearest term in the reciprocal balance gives <span
-class="math inline" data-term-auto="off">\(d_2\le(n-1)d_1\)</span>, while <span
-class="math inline" data-term-auto="off">\(d_1d_2^{n-1}\le r^n\)</span>. For <span
-class="math inline" data-term-auto="off">\(t=d_2/d_1\in[1,n-1]\)</span>,</p>
+<p><em>Proof.</em> Relabel the points so that their distances satisfy
+<span class="math inline" data-term-auto="off">\(d_1\le d_2\le\cdots\le d_n\)</span>. The
+reciprocal balance and the triangle inequality give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{d_1}
+=\left|\sum_{j=2}^n\frac1{c-z_j}\right|
+\le\sum_{j=2}^n\frac1{d_j}\le\frac{n-1}{d_2}.\]</span></div>
+<p>Thus <span
+class="math inline" data-term-auto="off">\(d_2\le(n-1)d_1\)</span>. Also <span
+class="math inline" data-term-auto="off">\(d_1d_2^{n-1}\le r^n\)</span>, since every
+remaining distance is at least <span class="math inline" data-term-auto="off">\(d_2\)</span>.
+For <span class="math inline" data-term-auto="off">\(t=d_2/d_1\in[1,n-1]\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{d}{dt}\log\frac{2t^{(n-1)/n}}{1+t}
        =\frac{n-1-t}{nt(1+t)}\ge0.\]</span></div>
@@ -7009,13 +7035,6 @@ the Morse, monodromy and strip statements are not checked.</p>
 <p>The formal capacity conclusion takes as input the classical
 transfinite-diameter formula for a filled monic lemniscate. The root
 count at the first merger does not require that input.</p>
-</dd>
-<dt>Statement locations.</dt>
-<dd>
-<p>Formal associations are retained at each statement’s current
-location. The changes in this revision concern presentation and the
-explicit qualifications just listed; no new Lean proof or independent
-review is claimed.</p>
 </dd>
 </dl>
 <p>No supplied proof establishes the reported Runge construction of
