@@ -46,9 +46,9 @@
     universe: 13,
     problem: 11,
     integration_surface: 9,
-    paper: 7,
+    paper: 5.5,
     human_document: 6,
-    public_claim: 4.2,
+    public_claim: 3.6,
     mathematical_object: 2.8,
     paper_statement: 2.6,
     lean_module: 2
@@ -225,11 +225,15 @@
     var paperSequence = {};
     // Boxes taken by labels and anchor discs in the frame being drawn.
     var labelBoxes = [];
+    // Two boxes collide when they share more than a sliver: a label may
+    // graze the padding round a disc, it may not cover the disc.
+    var LABEL_GRACE = 2;
     function labelCollides(box) {
       for (var b = 0; b < labelBoxes.length; b++) {
         var p = labelBoxes[b];
         if (p.owner !== undefined && p.owner === box.owner) continue;
-        if (box.x0 < p.x1 && box.x1 > p.x0 && box.y0 < p.y1 && box.y1 > p.y0) return true;
+        if (box.x0 < p.x1 - LABEL_GRACE && box.x1 > p.x0 + LABEL_GRACE &&
+            box.y0 < p.y1 - LABEL_GRACE && box.y1 > p.y0 + LABEL_GRACE) return true;
       }
       return false;
     }
@@ -417,6 +421,8 @@
       if (n.kind === 'paper_statement' && paperSequence[n.paperId]) {
         paperSequence[n.paperId].forEach(function (k) { set[k] = true; });
       }
+      // And the same result where the other paper states it.
+      (n.twins || []).forEach(function (t) { set[t.at] = true; });
       if (n.kind === 'problem' && n.sector) {
         for (j = 0; j < nodes.length; j++) {
           if (j !== i && nodes[j].sector && sectorProblems(nodes[j]).indexOf(n.sector) !== -1) set[j] = true;
@@ -596,9 +602,30 @@
        are left out. */
     function drawConstellation(focus) {
       if (focus < 0 || nodes[focus].kind !== 'paper_statement') return;
+      var k = view.k;
+      // A result stated in both papers threads across to where the other
+      // paper states it: one dashed line per counterpart.
+      var twins = nodes[focus].twins || [];
+      if (twins.length) {
+        var f = nodes[focus];
+        ctx.globalAlpha = 0.9;
+        ctx.strokeStyle = palette.integration_surface;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        for (var t = 0; t < twins.length; t++) {
+          var m = nodes[twins[t].at];
+          if (!m || !visible(m)) continue;
+          ctx.moveTo(f.x * k + view.tx, f.y * k + view.ty);
+          ctx.lineTo(m.x * k + view.tx, m.y * k + view.ty);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
+      }
       var seq = paperSequence[nodes[focus].paperId];
       if (!seq || seq.length < 2) return;
-      var k = view.k, limit = 26 * k;
+      var limit = 26 * k;
       ctx.globalAlpha = 0.55;
       ctx.strokeStyle = palette.edgeHot;
       ctx.lineWidth = 1;
@@ -673,6 +700,38 @@
       }
     }
 
+    /* The claims ring is drawn the way the results ring is: each block of
+       claims on a faint plate, so the field reads as rings of segments. A
+       problem's block travels on its band, a shared block on its caption. */
+    function drawClaimPlate(shape, state) {
+      var k = view.k, pad = 9;
+      var lo = shape[0] - pad / shape[2], hi = shape[1] + pad / shape[2];
+      ctx.globalAlpha = state === 'off' ? 0.35 : 1;
+      ctx.fillStyle = state === 'on' ? palette.halo : palette.plate;
+      ctx.beginPath();
+      ctx.arc(view.tx, view.ty, (shape[3] + pad) * k, lo, hi);
+      ctx.arc(view.tx, view.ty, Math.max(0, (shape[2] - pad) * k), hi, lo, true);
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    function drawClaimPlates(focus) {
+      if (lensOff.public_claim) return;
+      var f = focus >= 0 ? nodes[focus] : null;
+      var quiet = !f || f.kind === 'universe' || f.kind === 'integration_surface';
+      var near = f ? sectorProblems(f) : [];
+      for (var i = 0; i < bands.length; i++) {
+        if (bands[i].claims) drawClaimPlate(bands[i].claims, quiet ? 'rest' : near.indexOf(bands[i].sector) !== -1 ? 'on' : 'off');
+      }
+      for (var j = 0; j < captions.length; j++) {
+        var c = captions[j];
+        if (!c.claims) continue;
+        var pair = (c.sector || '').split('+');
+        var touched = pair.some(function (pid) { return near.indexOf(pid) !== -1; });
+        drawClaimPlate(c.claims, quiet ? 'rest' : touched ? 'on' : 'off');
+      }
+    }
+
     function drawBandPlates(focus) {
       if (!bands.length || lensOff.paper_statement) return;
       drawHubWedges(focus);
@@ -708,14 +767,14 @@
             at = to;
           }
         }
-        // A faint guide from the problem out to its band: the band sits
-        // beyond the claims, and the eye needs the thread between them.
+        // A selected problem threads a guide out to its band, through its
+        // claims; at rest the sector's alignment says the same thing.
         var p = problemIndex[b.sector] !== undefined ? nodes[problemIndex[b.sector]] : null;
-        if (p && visible(p) && gaugeR > 0) {
+        if (p && visible(p) && gaugeR > 0 && state === 'on') {
           var dist = Math.sqrt(p.x * p.x + p.y * p.y) || 1;
           var ux = p.x / dist, uy = p.y / dist;
           var from = dist * k + p.r * radiusScale() + 3;
-          ctx.globalAlpha = state === 'off' ? 0.25 : state === 'on' ? 0.9 : 0.55;
+          ctx.globalAlpha = 0.9;
           ctx.strokeStyle = palette.edge;
           ctx.lineWidth = 1;
           ctx.setLineDash([2, 4]);
@@ -758,13 +817,16 @@
       }
     }
     /* Which way a label reads along the ring. Over the top it runs
-       clockwise, under the bottom anticlockwise, and within 40 degrees of
-       either side both run bottom to top, so the two sides of the ring never
-       read in opposite directions. */
+       clockwise, under the bottom anticlockwise. Near either side both run
+       bottom to top, so the two sides never read in opposite directions,
+       but only while the letters lean at most 15 degrees past upright: a
+       label just above the right-hand side reading upward would lie on its
+       back. */
     function readsDownward(mid) {
-      var c = Math.cos(mid), s = Math.sin(mid);
-      if (Math.abs(c) > 0.766) return c > 0;
-      return s > 0;
+      var deg = Math.atan2(Math.sin(mid), Math.cos(mid)) * 180 / Math.PI;
+      if (deg >= -15 && deg <= 40) return true;
+      if (deg >= 165 || deg <= -140) return false;
+      return deg > 0;
     }
 
     function drawBandLabels(focus, w, h) {
@@ -780,8 +842,9 @@
         var total = 0;
         for (var key in b.evidence) total += b.evidence[key];
         var base = (radii[1] + 6) * k + 9;
-        // A narrow field keeps the number and a compact count.
-        var narrow = w < 560;
+        // A narrow field, or a ring drawn small (the teaser), keeps the
+        // number and a compact count: full names would run into each other.
+        var narrow = w < 560 || radii[1] * k < 220;
         var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
                       font: '600 11px ' + SERIF, color: palette.muted, alpha: 1 };
         var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
@@ -858,6 +921,92 @@
         at += dir * cw / radius;
       }
       ctx.globalAlpha = 1;
+      // The run's box, from its two ends and its middle, so later labels
+      // keep clear of it.
+      var ends = [mid - span / 2, mid, mid + span / 2];
+      var box = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
+      for (var e = 0; e < ends.length; e++) {
+        var ex = view.tx + radius * Math.cos(ends[e]), ey = view.ty + radius * Math.sin(ends[e]);
+        box.x0 = Math.min(box.x0, ex - 7); box.x1 = Math.max(box.x1, ex + 7);
+        box.y0 = Math.min(box.y0, ey - 7); box.y1 = Math.max(box.y1, ey + 7);
+      }
+      labelBoxes.push(box);
+    }
+
+    function drawCaptions(focus, w, h) {
+      var i;
+      /* A shared block must remain named in the fitted overview. Its
+         compact callout sits beyond the band titles, on the shared edge
+         between the two sectors; the line runs from the block out along
+         that edge, an annotation and not a graph relationship. */
+      ctx.textBaseline = 'middle';
+      for (i = 0; i < captions.length; i++) {
+        var c = captions[i];
+        var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
+        if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
+        if (view.k < 1.1) {
+          var compactText = c.text.replace(/^shared by /, 'Shared: ');
+          ctx.font = '600 10px ' + SERIF;
+          var captionHalf = ctx.measureText(compactText).width / 2 + 6;
+          // Leave the right-hand zoom controls their own column.
+          var captionRight = Math.max(captionHalf, w - 74 - captionHalf);
+          var cr = Math.sqrt(c.x * c.x + c.y * c.y) || 1;
+          var dx = c.x / cr, dy = c.y / cr;
+          var bandOuter = 0;
+          for (var bi = 0; bi < bands.length; bi++) bandOuter = Math.max(bandOuter, bandRadii(bands[bi])[1] || 0);
+          var fromR = c.reach ? c.reach + 6 : cr * 1.8;
+          var toR = bandOuter ? bandOuter + 58 : cr * 2.35;
+          var calloutX = Math.max(captionHalf, Math.min(captionRight, dx * toR * view.k + view.tx));
+          var calloutY = Math.max(14, Math.min(h - 14, dy * toR * view.k + view.ty + 8));
+          // The band titles are already placed. Pushed off its own edge by
+          // the zoom controls, the name steps up or down until it clears them.
+          var shifts = [0, 16, -16, 32, -32, 48, -48];
+          for (var sh = 0; sh < shifts.length; sh++) {
+            var tryY = Math.max(14, Math.min(h - 14, calloutY + shifts[sh]));
+            if (!labelCollides({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: tryY - 8, y1: tryY + 8 })) {
+              calloutY = tryY;
+              break;
+            }
+          }
+          ctx.globalAlpha = 0.85;
+          ctx.strokeStyle = palette.faint;
+          ctx.lineWidth = 0.65;
+          ctx.setLineDash([2, 3]);
+          ctx.beginPath();
+          ctx.moveTo(dx * fromR * view.k + view.tx, dy * fromR * view.k + view.ty);
+          ctx.lineTo(calloutX, calloutY - 8);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.textAlign = 'center';
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = palette.ground;
+          ctx.strokeText(compactText, calloutX, calloutY);
+          ctx.fillStyle = palette.ink;
+          ctx.fillText(compactText, calloutX, calloutY);
+          ctx.globalAlpha = 1;
+          labelBoxes.push({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 });
+          continue;
+        }
+        labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
+        ctx.textAlign = c.reach ? 'center' : c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
+        ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
+        // Captions sit on the same paper halo as the node labels, so they
+        // stay legible where they cross a ring of claims.
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = palette.ground;
+        ctx.fillStyle = palette.faint;
+        ctx.font = 'italic 600 11.5px ' + SERIF;
+        ctx.strokeText(c.text, cx, cy - (c.sub ? 7 : 0));
+        ctx.fillText(c.text, cx, cy - (c.sub ? 7 : 0));
+        if (c.sub) {
+          ctx.font = 'italic 400 10.5px ' + SERIF;
+          ctx.strokeText(c.sub, cx, cy + 8);
+          ctx.fillText(c.sub, cx, cy + 8);
+        }
+        ctx.globalAlpha = 1;
+      }
+      ctx.textBaseline = 'alphabetic';
     }
 
     function draw() {
@@ -881,6 +1030,7 @@
       labelBoxes = [];
 
       drawGround(w, h);
+      drawClaimPlates(focus);
       drawBandPlates(focus);
 
       var hot = incidentEdges(focus), hotSet = {};
@@ -896,55 +1046,10 @@
       drawEdgeSet(quiet, focus >= 0 ? 0.3 : 0.65, 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
+      // The band titles go down first, outside the rings, so every label
+      // placed after them (the shared callout, the node labels) keeps clear.
+      drawBandLabels(focus, w, h);
 
-      /* A shared sector must remain named in the fitted overview. Its
-         compact callout sits beyond the claim band; the line identifies
-         that band and is an annotation, not a new graph relationship. */
-      ctx.textBaseline = 'middle';
-      for (i = 0; i < captions.length; i++) {
-        var c = captions[i];
-        var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
-        if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
-        if (view.k < 1.1) {
-          var compactText = c.text.replace(/^shared by /, 'Shared: ');
-          ctx.font = '600 10px ' + SERIF;
-          var captionHalf = ctx.measureText(compactText).width / 2 + 6;
-          // Leave the right-hand zoom controls their own column.
-          var captionRight = Math.max(captionHalf, w - 74 - captionHalf);
-          var calloutX = Math.max(captionHalf, Math.min(captionRight, c.x * view.k * 2.35 + view.tx));
-          var calloutY = Math.max(14, Math.min(h - 14, c.y * view.k * 2.35 + view.ty));
-          ctx.globalAlpha = 0.85;
-          ctx.strokeStyle = palette.faint;
-          ctx.lineWidth = 0.65;
-          ctx.setLineDash([2, 3]);
-          ctx.beginPath();
-          ctx.moveTo(c.x * view.k * 1.8 + view.tx, c.y * view.k * 1.8 + view.ty);
-          ctx.lineTo(calloutX, calloutY - 8);
-          ctx.stroke();
-          ctx.setLineDash([]);
-          ctx.textAlign = 'center';
-          ctx.lineWidth = 3.5;
-          ctx.strokeStyle = palette.ground;
-          ctx.strokeText(compactText, calloutX, calloutY);
-          ctx.fillStyle = palette.ink;
-          ctx.fillText(compactText, calloutX, calloutY);
-          ctx.globalAlpha = 1;
-          labelBoxes.push({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 });
-          continue;
-        }
-        labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
-        ctx.textAlign = c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
-        ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
-        ctx.fillStyle = palette.faint;
-        ctx.font = 'italic 600 11.5px ' + SERIF;
-        ctx.fillText(c.text, cx, cy - (c.sub ? 7 : 0));
-        if (c.sub) {
-          ctx.font = 'italic 400 10.5px ' + SERIF;
-          ctx.fillText(c.sub, cx, cy + 8);
-        }
-        ctx.globalAlpha = 1;
-      }
-      ctx.textBaseline = 'alphabetic';
 
       var shown = 0;
       for (i = 0; i < nodes.length; i++) {
@@ -1012,6 +1117,9 @@
         ctx.globalAlpha = 1;
       }
 
+      // The shared callout goes over the dots, so a band never covers it.
+      drawCaptions(focus, w, h);
+
       /* Labels are placed, not just drawn. Each is a box on the field, taken
          in priority order: the selected or hovered object, then the
          problems, the hubs and the core, their second lines, then the rest.
@@ -1070,12 +1178,12 @@
         var half = ctx.measureText(text).width / 2 + 6;
         var labelY = ly + n.r * rs + 15;
         if (n.kind === 'problem') {
-          // Beside the disc, where the field is empty. Along the orbit
-          // first (either way), then inward, then outward: the first spot
-          // that clears the problem's claims and papers wins.
+          // Toward the centre, where the field is open: the papers sit on
+          // the orbit either side of the disc and its claims outward. Along
+          // the orbit, then outward, only when that spot is taken.
           var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
           var ux = n.x / distance, uy = n.y / distance;
-          var dirs = [[-uy, ux], [uy, -ux], [-ux, -uy], [ux, uy]];
+          var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
           var px = lx, py = ly, chosen = null, fewest = Infinity;
           for (var d = 0; d < dirs.length; d++) {
             var dx = dirs[d][0], dy = dirs[d][1];
@@ -1119,8 +1227,17 @@
           plate = true;
         }
         lx = Math.max(half, Math.min(w - half, lx));
-        var priority = isFocus ? 10 : n.kind === 'problem' ? 8 : big ? 7 : 3;
-        candidates.push({ text: text, x: lx, y: labelY, font: font, size: big ? 13 : 12, plate: plate,
+        // The core and the two checking surfaces name themselves first: a
+        // problem's number is also on its band's title.
+        var priority = isFocus ? 10 : n.kind === 'universe' ? 9 :
+          n.kind === 'integration_surface' ? 8.5 : n.kind === 'problem' ? 8 : 3;
+        // The core's name goes above it when the checking surfaces below
+        // take the room, as they do on a phone; a checking surface's name
+        // goes beside its disc, on the side away from the other one.
+        var alt = n.kind === 'universe' ? { x: lx, y: ly - n.r * rs - 9 } :
+          n.kind === 'integration_surface' ? { x: n.x * view.k + view.tx, y: ly + 4,
+            side: n.x < 0 ? -1 : 1, r: n.r * rs } : null;
+        candidates.push({ text: text, x: lx, y: labelY, font: font, size: big ? 13 : 12, plate: plate, alt: alt,
                           color: palette.ink, priority: priority, owner: i, order: candidates.length });
         // A quieter second line: a hub's reach. It waits for room.
         if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
@@ -1135,6 +1252,12 @@
         var width = ctx.measureText(cand.text).width;
         var cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
         var box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
+        if (cand.priority < 10 && cand.alt && labelCollides(box)) {
+          cand.x = cand.alt.side ? cand.alt.x + cand.alt.side * (cand.alt.r + 6 + width / 2) : cand.alt.x;
+          cand.y = cand.alt.y;
+          cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
+          box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
+        }
         if (cand.priority < 10 && labelCollides(box)) continue;
         if (cand.plate) {
           box = { x0: cx0 - 9, x1: cx0 + width + 9, y0: cand.y - cand.size - 4, y1: cand.y + 7, owner: cand.owner };
@@ -1150,14 +1273,13 @@
           ctx.stroke();
         }
         labelBoxes.push(box);
-        ctx.lineWidth = 3.5;
+        ctx.lineWidth = 5;
         ctx.strokeStyle = palette.ground;
         ctx.strokeText(cand.text, cx0 + width / 2, cand.y);
         ctx.fillStyle = cand.color;
         ctx.fillText(cand.text, cx0 + width / 2, cand.y);
       }
       drawStatementNumbers(focus, near, searching, w, h);
-      drawBandLabels(focus, w, h);
       if (countOut) {
         var line = fmtCount(shown) + ' objects, ' + fmtCount(shownEdges) + ' of ' +
           fmtCount(availableEdges) + ' connections drawn';
@@ -1267,9 +1389,18 @@
         }
         parts.push('<p class="universe-inspector__kind">Reading the map</p>');
         parts.push('<h2 class="universe-inspector__title">' + fmtCount(evidence.total) + ' paper results</h2>');
-        parts.push('<p class="universe-inspector__body">Each dot beyond the ring is a result stated in one of the problem papers. ' +
-          'Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
-          'Select a problem to frame its band, or a result to read its Lean and its replay.</p>');
+        var problemCount = 0;
+        for (var pc = 0; pc < nodes.length; pc++) if (nodes[pc].kind === 'problem' && visible(nodes[pc])) problemCount++;
+        parts.push('<p class="universe-inspector__body">From the centre out, one ring for each layer:</p>');
+        parts.push('<ol class="universe-rings">' +
+          '<li>' + dotHtml('universe') + '<span>the Lean universe, with Comparator and Palomar</span></li>' +
+          '<li>' + dotHtml('problem') + '<span>' + problemCount + ' problems, each between its two papers</span></li>' +
+          '<li>' + dotHtml('public_claim') + '<span>the claims in each problem’s record</span></li>' +
+          '<li>' + dotHtml('paper_statement') + '<span>every result the papers state</span></li>' +
+          '</ol>');
+        parts.push('<p class="universe-inspector__body">Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
+          'A sector’s width is its number of results. ' +
+          'Select a problem to frame its sector, or a result to read its Lean and its replay.</p>');
         parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'All paper results') + '</div>');
         parts.push(evidence.html);
       } else {
@@ -1411,8 +1542,55 @@
     function externalAttrs() {
       return '" data-link-kind="exogenous" rel="external noopener" target="_blank"';
     }
+    /* Where a paper result appears: its own paper, and the other paper too
+       when that states the same result. Each place opens the rendered paper
+       at the result or its TeX source line on GitHub. */
+    var SIDE_ORDER = { short: 0, long: 1 };
+    function appearanceHtml(at, self, via, pinned) {
+      var m = nodes[at];
+      var role = m.side === 'long' ? 'The long record' : m.side === 'short' ? 'The short paper' : 'The paper';
+      var number = String(m.label || '').split(' (')[0];
+      var links = [];
+      if (m.paper) {
+        links.push('<a class="universe-appear__link" href="' + escapeHtml(m.paper) + '">Read it in the paper</a>');
+      }
+      if (m.tex && statementMeta && statementMeta.tex_source_base) {
+        links.push(extLink(statementMeta.tex_source_base + m.tex,
+          'TeX source' + (m.line ? ', line ' + m.line : ''), 'universe-appear__link'));
+      }
+      if (!self && pinned) {
+        links.push('<button type="button" class="universe-appear__link" data-universe-go="' + at + '">Show on the map</button>');
+      }
+      return '<li class="universe-appear' + (self ? ' universe-appear--self' : '') + '">' +
+        '<span class="universe-appear__role"><b>' + role + '</b>' +
+        (number && number !== m.label ? ', ' + escapeHtml(number) : '') + '</span>' +
+        '<span class="universe-appear__paper">' + escapeHtml(m.paperTitle || 'its paper') + '</span>' +
+        (via ? '<span class="universe-appear__via">Matched by ' + escapeHtml(via) + '</span>' : '') +
+        (links.length ? '<span class="universe-appear__links">' + links.join('') + '</span>' : '') + '</li>';
+    }
+    function appearancesHtml(i, pinned) {
+      var n = nodes[i];
+      var places = [{ at: i, self: true }].concat((n.twins || []).map(function (t) {
+        return { at: t.at, via: t.via };
+      }));
+      places.sort(function (a, b) {
+        return (SIDE_ORDER[nodes[a.at].side] || 0) - (SIDE_ORDER[nodes[b.at].side] || 0) ||
+          (nodes[a.at].seq || 0) - (nodes[b.at].seq || 0);
+      });
+      var cap = pinned ? 6 : 2;
+      var rows = places.slice(0, cap).map(function (p) { return appearanceHtml(p.at, p.self, p.via, pinned); });
+      if (places.length > cap) {
+        rows.push('<li class="universe-open__more">… and ' + (places.length - cap) + ' more' + (pinned ? '' : ' when pinned') + '</li>');
+      }
+      var sides = {};
+      places.forEach(function (p) { sides[nodes[p.at].side] = true; });
+      var head = sides.short && sides.long ? 'Stated in both papers' : 'Where it appears';
+      return '<h3 class="universe-inspector__sub">' + head + '</h3><ul class="universe-appears">' + rows.join('') + '</ul>';
+    }
+
     function openHtml(i, pinned) {
       var n = nodes[i];
+      if (n.kind === 'paper_statement') return appearancesHtml(i, pinned);
       var rows = [];
       if (n.paper) {
         rows.push('<a class="universe-open universe-open--primary" href="' + escapeHtml(n.paper) + '">' +
@@ -1512,10 +1690,6 @@
 
     function statementHtml(n, pinned) {
       var parts = [];
-      var where = n.paperTitle ? escapeHtml(n.paperTitle) : 'its paper';
-      if (n.side === 'long') where += ', the long record';
-      else if (n.side === 'short') where += ', the short paper';
-      parts.push('<p class="universe-inspector__note">Asserted in ' + where + '.</p>');
       var seq = paperSequence[n.paperId];
       if (pinned && seq && seq.length > 1 && n.seq != null) {
         // Walk the paper: the previous and next results in the order it
@@ -1605,9 +1779,6 @@
       }
       if (more && more.record) {
         parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result') + '</p>');
-      } else if (pinned && n.tex && statementMeta && statementMeta.tex_source_base) {
-        parts.push('<p class="universe-inspector__note">' +
-          extLink(statementMeta.tex_source_base + n.tex, 'The statement in the paper’s TeX source') + '</p>');
       }
       return parts.join('');
     }
@@ -1790,7 +1961,11 @@
     /* ---- Data --------------------------------------------------------- */
 
     function degreeBonus(kind, degree) {
-      var cap = (kind === 'lean_module' || kind === 'mathematical_object') ? 1 : 3.5;
+      // Claims sit in even rows, so their size stays near one: a large
+      // bonus would let a well-connected claim cover its neighbours. Papers
+      // stay smaller than the problem they flank.
+      var cap = (kind === 'lean_module' || kind === 'mathematical_object') ? 1 :
+        kind === 'public_claim' ? 1.2 : kind === 'paper' ? 1.5 : 3.5;
       return Math.min(cap, Math.sqrt(Math.max(0, degree - 1)) * 0.55);
     }
 
@@ -1899,6 +2074,32 @@
           return (nodes[a].line || 0) - (nodes[b].line || 0) || (nodes[a].id < nodes[b].id ? -1 : 1);
         });
         seq.forEach(function (idx, at) { nodes[idx].seq = at; });
+      });
+      // A result the other paper also states: the same label, or a Lean
+      // declaration both cite. Its card lists every place it appears.
+      var twinSlots = {};
+      for (i = 0; i < nodes.length; i++) {
+        var tn = nodes[i];
+        if (tn.kind !== 'paper_statement') continue;
+        tn.twins = [];
+        var slots = ['label|' + tn.sector + '|' + tn.paperLabel];
+        (tn.decls || []).forEach(function (d) { slots.push('decl|' + tn.sector + '|' + d.name); });
+        for (var si = 0; si < slots.length; si++) {
+          (twinSlots[slots[si]] = twinSlots[slots[si]] || []).push(i);
+        }
+      }
+      Object.keys(twinSlots).forEach(function (slot) {
+        var list = twinSlots[slot];
+        if (list.length < 2) return;
+        var via = slot.indexOf('label|') === 0 ? 'the same label' : 'a Lean declaration both cite';
+        list.forEach(function (a) {
+          list.forEach(function (b) {
+            if (a === b || nodes[a].paperId === nodes[b].paperId) return;
+            var have = nodes[a].twins.filter(function (t) { return t.at === b; })[0];
+            if (!have) nodes[a].twins.push({ at: b, via: via });
+            else if (via === 'the same label') have.via = via;
+          });
+        });
       });
       for (i = 0; i < edges.length; i++) {
         var a = edges[i][0], b = edges[i][1];

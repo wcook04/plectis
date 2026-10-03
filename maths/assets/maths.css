@@ -340,6 +340,30 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   cursor: grab;
   touch-action: pan-y;
 }
+.universe-rings {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+.universe-rings li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+}
+.universe-rings .dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  justify-self: center;
+  transform: translateY(0.5px);
+}
 .universe-wheel-hint {
   position: absolute;
   left: 50%;
@@ -531,6 +555,45 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .universe-open__where { color: var(--muted); font-size: var(--fs-micro); overflow-wrap: anywhere; }
 .universe-open__where code { font-size: 0.95em; }
 .universe-open__more { color: var(--faint); font-size: var(--fs-micro); padding: 0.1rem 0.2rem; }
+/* Where a paper result appears: one block per paper that states it, its
+   own paper marked, each with the rendered paper and the TeX line. */
+.universe-appears { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; gap: 0.45rem; }
+.universe-appear {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.55rem 0.7rem 0.6rem;
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-control);
+  background: var(--surface);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+}
+.universe-appear--self { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+.universe-appear__role { color: var(--ink); }
+.universe-appear__role b { font-weight: 600; }
+.universe-appear__paper { color: var(--muted); font-size: var(--fs-micro); }
+.universe-appear__via { color: var(--faint); font-size: var(--fs-micro); font-style: italic; }
+.universe-appear--self .universe-appear__link:first-child { border-color: var(--accent); color: var(--ink); }
+.universe-appear__links { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
+.universe-appear__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0.15rem 0.65rem;
+  font: inherit;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
+}
+.universe-appear__link:hover { border-color: var(--accent); color: var(--ink); }
+.universe-appear__link[data-link-kind="exogenous"]::after { content: "\2009\2197"; }
 .universe-sector__go {
   font: inherit;
   font-weight: 600;
