@@ -281,6 +281,25 @@ the ledger, the evidence or the rendered papers come from different editions.
 - Never claim Palomar submission or acceptance, per-declaration kernel
   acceptance (receipts are per corpus entry), or that Comparator checks a
   Challenge against the printed statement.
+- The landing's problems column reads along with the teaser (the companion,
+  `maths/assets/universe-companion.{js,css,json}`, named by hash in the
+  teaser data). Point at a problem's row or any dot of its sector and the
+  row's number and title travel up into the band heading's place; under them
+  come the question, the tally of its results, its short paper and, for the
+  dot under the pointer, that result's evidence and note. The map lights the
+  sector; leaving the band sets the list back. It keys on
+  `li.home-problem[data-problem-id]` inside `#mathematics .home-split__text`
+  and changes nothing in the landing's markup. It loads only on a fine
+  pointer and opens only where the list stands beside the drawing; a row's
+  link in focus opens it, Escape closes it, and reduced motion swaps without
+  travel. The companion lies over the column in three fixed slots (the
+  eight problems as tabs, the problem, the card) whose contents are replaced
+  rather than pushed, so hovering records no layout shift. While it can
+  open, the rows' glossary marks rest and the companion's title, the same
+  words and marks, offers the definitions instead.
+- The teaser resolves its routes against `data-universe-base`: on the
+  landing a dot opens `maths/papers/…`, where it had opened `/papers/…` and
+  404ed.
 
 ### Maths reading pages (October 2026)
 

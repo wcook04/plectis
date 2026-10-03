@@ -491,3 +491,88 @@ test('focus and Enter reconcile late restored values without creating false matc
   if (!stopped) map.document.fire('keydown', {key: 'Escape', target: {tagName: 'INPUT'}});
   assert.equal(map.location.hash, '', 'second Escape bubbles to clear the pin');
 });
+
+/* The landing teaser: the same script drawn from the site root, which names
+   maths/ in data-universe-base, beside a column of problem rows that the
+   companion reads along with. */
+async function mountTeaser({withCompanionHost = true} = {}) {
+  let arcs = [];
+  const context = new Proxy({
+    clearRect() { arcs = []; },
+    arc(x, y, r) { arcs.push({x, y, r}); },
+    measureText(text) { return {width: String(text).length * 6}; },
+  }, { get: (target, key) => target[key] ?? (() => {}) });
+  const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
+    clientWidth: 400, clientHeight: 400, getContext: () => context,
+    getBoundingClientRect: () => ({left: 0, top: 0}),
+  });
+  const announced = [];
+  const row = element({'data-problem-id': 'erdos_257'});
+  const host = Object.assign(element(), {querySelector: s => s.startsWith('li.home-problem') ? row : null});
+  const section = Object.assign(element(), {querySelector: s => s === '.home-split__text' ? host : null});
+  const stage = Object.assign(element(), {
+    querySelector: s => s === 'canvas' ? canvas : null,
+    querySelectorAll: () => [],
+    closest: s => s === 'section' && withCompanionHost ? section : null,
+    dispatchEvent: event => { announced.push(event); return true; },
+  });
+  const appended = [];
+  const document = Object.assign(element(), {
+    readyState: 'complete', documentElement: element(), activeElement: null,
+    head: {appendChild: node => { appended.push(node); }},
+    createElement: () => element(),
+    querySelector: () => null,
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
+  });
+  const location = {pathname: '/', search: '', hash: '', href: '/'};
+  const window = Object.assign(element(), {
+    location, devicePixelRatio: 1, isSecureContext: false,
+    matchMedia: () => ({matches: true}),
+    CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } },
+  });
+  const data = {initial: {
+    nodes: [
+      {id: 'problem:erdos_257', kind: 'problem', label: 'Reciprocal sums', x: -150, y: 0,
+       sector: 'erdos_257', page: 'problems/erdos_257.html'},
+      {id: 'statement:p257#thm:a', kind: 'paper_statement', label: 'Theorem 1.1', x: 150, y: 0,
+       sector: 'erdos_257', paper: 'papers/p257.html#thm:a', lean_status: 'exact',
+       comparator_status: 'compared', side: 'short'},
+    ],
+    edges: [[0, 1]],
+    companion: {script: 'assets/universe-companion.js?v=1', style: 'assets/universe-companion.css?v=1',
+                data: 'assets/universe-companion.json?v=1'},
+  }};
+  vm.runInNewContext(source, {document, window, navigator: {}, CustomEvent: window.CustomEvent,
+    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    fetch: async url => ({json: async () => data[url]}),
+    setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  // The statement is the rightmost disc drawn.
+  const dot = arcs.reduce((best, a) => (best && best.x >= a.x ? best : a), null);
+  return {canvas, location, announced, appended, dot};
+}
+
+test('a teaser dot opens its paper under the base the landing names', async () => {
+  const teaser = await mountTeaser({withCompanionHost: false});
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(teaser.location.href, 'maths/papers/p257.html#thm:a',
+    'a root-relative papers/ route 404ed on the landing');
+});
+
+test('beside a problem column the teaser announces what it hovers and loads the companion', async () => {
+  const teaser = await mountTeaser();
+  assert.deepEqual(teaser.appended.map(node => node.href || node.src), [
+    'maths/assets/universe-companion.css?v=1', 'maths/assets/universe-companion.js?v=1'],
+    'the companion style and script load from maths/');
+  teaser.canvas.fire('pointermove', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  const hover = teaser.announced.filter(event => event.type === 'universe:hover').pop();
+  assert.ok(hover && hover.detail, 'hovering a dot announces it');
+  assert.equal(hover.detail.sector, 'erdos_257');
+  assert.equal(hover.detail.tier, 'replayed');
+  assert.equal(hover.detail.href, 'maths/papers/p257.html#thm:a');
+  assert.equal(hover.detail.mapHref, 'maths/universe.html#o=statement%3Ap257%23thm%3Aa');
+  teaser.canvas.fire('pointerleave');
+  assert.equal(teaser.announced.filter(event => event.type === 'universe:hover').pop().detail, null,
+    'leaving the drawing announces nothing under the pointer');
+});

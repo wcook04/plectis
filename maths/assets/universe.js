@@ -243,6 +243,14 @@
     var detailUrl = canvas.getAttribute('data-universe-detail');
     var detail = null;
     var detailLoading = false;
+    /* The data's routes (papers/…, problems/…) are relative to maths/. The
+       landing draws the teaser from the site root and names that directory
+       in data-universe-base; without it a dot opened /papers/… and 404ed. */
+    var routeBase = canvas.getAttribute('data-universe-base') || '';
+    function route(href) {
+      if (!href || /^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) return href;
+      return routeBase + href;
+    }
 
     function readPalette() {
       var styles = getComputedStyle(document.documentElement);
@@ -1767,8 +1775,8 @@
        paper when one carries its label; otherwise the object's page on this
        site; otherwise the Lean declaration line on GitHub. */
     function primaryTarget(n) {
-      if (n.paper) return { href: n.paper, external: false };
-      if (n.page) return { href: n.page, external: false };
+      if (n.paper) return { href: route(n.paper), external: false };
+      if (n.page) return { href: route(n.page), external: false };
       if (n.lean && n.lean.length) return { href: n.lean[0].href, external: true };
       if (n.source_github) return { href: n.source_github, external: true };
       return null;
@@ -2205,9 +2213,100 @@
       }
       var n = nodes[i];
       var text = (KIND_LABEL[n.kind] || n.kind) + ': ' + clip(n.label, 96);
-      if (n.kind === 'paper_statement' && EVIDENCE_TEXT[n.tier]) text += ' · ' + EVIDENCE_TEXT[n.tier];
+      if (n.kind === 'paper_statement' && EVIDENCE_TEXT[n.tier]) text += ', ' + EVIDENCE_TEXT[n.tier];
+      // With the companion beside the drawing the column reads the object in
+      // full, so the caption only names it, in one line, and its box never
+      // grows.
+      if (companionApi) text = clip(n.label, 34);
       caption.textContent = text;
       caption.classList.add('is-shown');
+    }
+
+    /* ---- Companion (landing) -----------------------------------------
+       Beside the teaser the landing lists the eight problems. A companion
+       script (universe-companion.js) turns that column into a page for
+       whatever the pointer is over: the map announces each object it hovers
+       and lights a problem's sector when the column asks. It loads only on a
+       fine pointer, and only where the list stands beside the drawing. */
+    var companionApi = null;
+
+    function companionSummary(i) {
+      var n = nodes[i];
+      var decls = n.decls || [];
+      var target = primaryTarget(n);
+      return {
+        id: n.id, kind: n.kind, kindLabel: KIND_LABEL[n.kind] || n.kind,
+        label: n.label, sector: n.sector || null, tier: n.tier || null,
+        evidence: n.kind === 'paper_statement' ? (EVIDENCE_TEXT[n.tier] || null) : null,
+        lean_status: n.lean_status || null,
+        comparator_queued_at: n.comparator_queued_at || null,
+        status: n.status || null, statement: n.statement || null,
+        side: n.side || null, paperId: n.paperId || null, paperTitle: n.paperTitle || null,
+        decls: decls.slice(0, 2).map(function (d) { return { name: d.name, href: d.href }; }),
+        declCount: decls.length,
+        leanReasonHtml: n.lean_reason_html || null,
+        href: target && !target.external ? target.href : null,
+        mapHref: route('universe.html#o=' + encodeURIComponent(n.id))
+      };
+    }
+
+    function companionTallies() {
+      var out = {};
+      nodes.forEach(function (n, i) {
+        if (n.kind === 'problem' && n.sector) {
+          out[n.sector] = { index: i, results: 0, replayed: 0, lean: 0, modulo: 0, none: 0, claims: 0 };
+        }
+      });
+      nodes.forEach(function (n) {
+        var t = n.sector ? out[n.sector] : null;
+        if (!t) return;
+        if (n.kind === 'paper_statement') {
+          t.results++;
+          if (t[n.tier] !== undefined) t[n.tier]++;
+        } else if (n.kind === 'public_claim') {
+          t.claims++;
+        }
+      });
+      return out;
+    }
+
+    // The column asks for a problem's sector to be lit (a row or a chip under
+    // the pointer, or a row's link in focus); null lets the drawing rest.
+    function lightProblem(sector) {
+      var i = sector && problemIndex[sector] !== undefined ? problemIndex[sector] : -1;
+      if (i === hover) return;
+      hover = i;
+      draw();
+      showCaption(i);
+    }
+
+    function announce(i) {
+      if (!companionApi) return;
+      stage.dispatchEvent(new CustomEvent('universe:hover', { detail: i >= 0 ? companionSummary(i) : null }));
+    }
+
+    function loadCompanion(spec) {
+      if (pageMode || companionApi || !spec || !spec.script) return;
+      var section = stage.closest ? stage.closest('section') : null;
+      var host = section ? section.querySelector('.home-split__text') : null;
+      if (!host || !host.querySelector('li.home-problem[data-problem-id]')) return;
+      if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      if (typeof window.CustomEvent !== 'function') return;
+      companionApi = {
+        stage: stage, host: host, route: route, reduceMotion: reduceMotion,
+        dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem
+      };
+      var style = document.createElement('link');
+      style.rel = 'stylesheet';
+      style.href = route(spec.style);
+      document.head.appendChild(style);
+      var script = document.createElement('script');
+      script.src = route(spec.script);
+      script.async = true;
+      script.onload = function () {
+        if (window.PlectisUniverseCompanion) window.PlectisUniverseCompanion.attach(companionApi);
+      };
+      document.head.appendChild(script);
     }
 
     /* ---- Data --------------------------------------------------------- */
@@ -2265,6 +2364,7 @@
           row.comparator_status = n.comparator_status || null;
           row.palomar_status = n.palomar_status || null;
           row.lean_reason = n.lean_reason || null;
+          row.lean_reason_html = n.lean_reason_html || null;
           row.comparator_queued_at = n.comparator_queued_at || null;
           row.named_inputs = n.named_inputs || [];
           row.comparator_entries = n.comparator_entries ||
@@ -2389,6 +2489,7 @@
       if (opening) { reveal = 0; revealMs = 0; }
       ingest(data);
       if (opening) startReveal();
+      if (!pageMode) loadCompanion(data.companion);
     }).catch(function () {
       stage.classList.add('is-unavailable');
     });
@@ -2420,7 +2521,7 @@
         hover = i;
         canvas.classList.toggle('is-over', i >= 0);
         draw();
-        if (pageMode) renderInspector(); else showCaption(i);
+        if (pageMode) renderInspector(); else { showCaption(i); announce(i); }
       }
     });
     canvas.addEventListener('pointerleave', function () {
@@ -2428,7 +2529,7 @@
       hover = -1;
       canvas.classList.remove('is-over');
       draw();
-      if (pageMode) renderInspector(); else showCaption(-1);
+      if (pageMode) renderInspector(); else { showCaption(-1); announce(-1); }
     });
     canvas.addEventListener('click', function (event) {
       if (moved) return;

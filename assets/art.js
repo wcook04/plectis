@@ -76,19 +76,24 @@
 
   /* Palettes. Night: the ember stays in the orange register (never yellow or
      white-gold) and the cool cable is a real ultramarine that lifts to ice at
-     its front threads. Day: the same two inks printed on paper. */
+     its front threads. Day: the same two inks printed on paper. The cores
+     are the eyes: each cable's core is drawn in the other cable's ink. */
   function palette(dark) {
     if (dark) {
       return {
         warmBack: [176, 66, 34], warmFront: [255, 158, 92],
         coolBack: [52, 74, 186], coolFront: [184, 204, 255],
-        alpha: 0.62, glow: 0.5, width: 1.0, blend: 'lighter'
+        warmCore: [255, 146, 80], coolCore: [128, 152, 255],
+        alpha: 0.62, glow: 0.5, width: 1.0, blend: 'lighter',
+        coreWidth: 1.25, coreAlpha: 0.92, channel: 0.8
       };
     }
     return {
       warmBack: [190, 100, 64], warmFront: [140, 46, 16],
       coolBack: [110, 130, 200], coolFront: [30, 52, 142],
-      alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over'
+      warmCore: [168, 62, 26], coolCore: [36, 60, 156],
+      alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over',
+      coreWidth: 1.15, coreAlpha: 0.86, channel: 0.85
     };
   }
 
@@ -183,7 +188,9 @@
       var paths = [];
       for (b = 0; b < buckets; b += 1) paths.push([]);
       var prev = null;
-      for (x = x0; x <= x1 + 0.01; x += step) {
+      /* The last sample lands exactly on x1, so a thread meets its own
+         continuation in the next chunk with no gap at the join. */
+      for (x = x0; ; x = Math.min(x + step, x1)) {
         var u = x / g.W;
         var psi = (Math.PI * 2 * x) / g.ropeTwist + theta;
         var y = cableY(g, x, k) + g.rope(u) * Math.cos(psi);
@@ -195,6 +202,7 @@
           paths[bucket].push(prev[0], prev[1], x, y);
         }
         prev = [x, y];
+        if (x >= x1) break;
       }
       for (b = 0; b < buckets; b += 1) {
         var segs = paths[b];
@@ -214,20 +222,66 @@
     }
   }
 
+  /* The eye of each cable. A yin-yang turning as it travels left to right,
+     seen from the side, is this plait: each half sweeps out one cable, and
+     the dot of the other colour inside it sweeps out a thin thread along that
+     cable's axis. So the ember cable carries an ultramarine core and the
+     ultramarine cable an ember one. The core sits in a narrow cut channel, so
+     it reads as an inlaid thread rather than mixing into the rope, and it
+     dims with its cable as the cable passes behind. Butt caps let the core of
+     one chunk meet the next without a doubled joint. */
+  function drawCore(c, g, pal, k, x0, x1) {
+    var col = k === 0 ? pal.coolCore : pal.warmCore;
+    var pts = [];
+    var x, s;
+    for (x = x0; x < x1; x += 3) pts.push(x, cableY(g, x, k));
+    pts.push(x1, cableY(g, x1, k));
+    function trace() {
+      c.beginPath();
+      c.moveTo(pts[0], pts[1]);
+      for (var i = 2; i < pts.length; i += 2) c.lineTo(pts[i], pts[i + 1]);
+    }
+    var grad = c.createLinearGradient(x0, 0, x1, 0);
+    var stops = 8;
+    for (s = 0; s <= stops; s += 1) {
+      var z = (cableDepth(g, x0 + ((x1 - x0) * s) / stops, k) + 1) / 2;
+      var a = pal.coreAlpha * (0.45 + 0.55 * z);
+      grad.addColorStop(s / stops, 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + a.toFixed(3) + ')');
+    }
+    c.save();
+    c.lineCap = 'butt';
+    c.lineJoin = 'round';
+    c.globalCompositeOperation = 'destination-out';
+    c.strokeStyle = 'rgba(0,0,0,' + pal.channel + ')';
+    c.lineWidth = pal.coreWidth + 2;
+    trace();
+    c.stroke();
+    c.globalCompositeOperation = 'source-over';
+    c.strokeStyle = grad;
+    c.lineWidth = pal.coreWidth;
+    trace();
+    c.stroke();
+    c.restore();
+  }
+
   /* The break where one cable passes over the other: erase a band along the
-     front cable before drawing it, as in a knot diagram. */
+     front cable before drawing it, as in a knot diagram. The crossing sits
+     mid-chunk, so the erase stops 2px short of each join with butt caps: a
+     round cap bit a half-disc out of the rope already drawn at every crest,
+     which read as scales down the cable, and an erase reaching the join
+     column left a hairline there. */
   function eraseUnder(c, g, k, x0, x1, scale) {
+    var a = x0 + 2;
+    var b = x1 - 2;
     c.save();
     c.globalCompositeOperation = 'destination-out';
     c.strokeStyle = 'rgba(0,0,0,0.9)';
-    c.lineCap = 'round';
+    c.lineCap = 'butt';
     c.lineJoin = 'round';
     c.beginPath();
-    var first = true;
-    for (var x = x0; x <= x1 + 0.01; x += 3) {
-      var y = cableY(g, x, k);
-      if (first) { c.moveTo(x, y); first = false; } else { c.lineTo(x, y); }
-    }
+    c.moveTo(a, cableY(g, a, k));
+    for (var x = a + 3; x < b; x += 3) c.lineTo(x, cableY(g, x, k));
+    c.lineTo(b, cableY(g, b, k));
     c.lineWidth = 2 * g.rope(((x0 + x1) / 2) / g.W) + 7 * scale;
     c.stroke();
     c.restore();
@@ -286,9 +340,11 @@
       var x1 = Math.min(W + 20, end);
       if (x1 > x0) {
         drawCable(c, g, pal, backK, x0, x1, 1);
+        drawCore(c, g, pal, backK, x0, x1);
         eraseUnder(c, g, frontK, x0, x1, 1);
         c.globalCompositeOperation = pal.blend;
         drawCable(c, g, pal, frontK, x0, x1, 1);
+        drawCore(c, g, pal, frontK, x0, x1);
       }
       start = end;
       chunk += 1;

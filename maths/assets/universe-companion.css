@@ -1,0 +1,138 @@
+/* Plectis — the universe companion: the landing's problems column reading
+   along with the map beside it (universe-companion.js). universe.js loads
+   this only on a fine pointer, where the list stands beside the drawing.
+   Every value comes from the landing's own tokens, so both themes follow.
+   The companion lies over the column: nothing in the page moves in layout,
+   and only opacity and transform change. */
+
+.uc-host { position: relative; }
+/* The column's own content steps back quickly (so the rising title never
+   crosses visible words) and returns at an easier pace. */
+.uc-host > :not(.uc) {
+  transition: opacity 300ms var(--ease-out, ease-out), transform 300ms var(--ease-out, ease-out);
+}
+.uc-host--open > :not(.uc) {
+  opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition-duration: 150ms;
+}
+
+/* Three slots: the eight problems as tabs, the problem, and a card slot
+   that takes the rest of the height (its contents are replaced in place, so
+   a card never moves anything). */
+.uc {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+  opacity: 0; visibility: hidden;
+  transition: opacity 260ms var(--ease-out, ease-out), visibility 0s linear 260ms;
+}
+.uc.is-open {
+  opacity: 1; visibility: visible;
+  transition: opacity 200ms var(--ease-out, ease-out), visibility 0s;
+}
+
+/* The head takes the band heading's place and size: the row's number and
+   title travel up into it. */
+.uc__kicker, .uc__title { transform-origin: 0 0; }
+.uc__kicker {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-serif); font-size: 1.12rem; line-height: 1.2;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  color: var(--home-ember);
+}
+.uc__title {
+  margin: 0 0 0.95rem;
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(1.75rem, 2.7vw, 2.4rem); line-height: 1.08; letter-spacing: -0.015em;
+  color: var(--ink); text-wrap: balance;
+}
+.uc__title a { color: inherit; text-decoration: none; }
+.uc__title a:hover { color: var(--home-ember); text-decoration: none; }
+.uc__question {
+  margin: 0 0 0.7rem; max-width: 46ch;
+  font-size: 1.04rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
+}
+.uc__tally {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.7rem;
+  margin: 0 0 1.15rem; font-size: 0.84rem; line-height: 1.5; color: var(--muted);
+}
+.uc__tally-line .uc-mark { margin-right: 0.45rem; }
+.uc__status {
+  display: inline-flex; align-items: center;
+  padding: 0.05rem 0.55rem; border-radius: var(--r-pill, 999px);
+  font-size: 0.78rem; color: var(--home-ember);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--home-ember) 45%, transparent);
+}
+
+.uc__paper, .uc__focus { border-top: 1px solid var(--home-line); padding-top: 0.8rem; }
+.uc__focus { margin-top: 0.95rem; overflow: hidden; min-height: 0; }
+.uc__label { margin: 0 0 0.25rem; font-size: 0.78rem; font-weight: 600; color: var(--faint); }
+.uc__paper-title {
+  display: inline; font-family: var(--font-serif); font-size: 1.08rem; line-height: 1.35;
+  color: var(--ink); text-decoration: none;
+}
+a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
+.uc__precis, .uc__note {
+  margin: 0.3rem 0 0.4rem; max-width: 52ch;
+  font-size: 0.88rem; line-height: 1.55; color: var(--ink-soft);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+}
+.uc__note math { font-size: 1.04em; }
+.uc__focus-title {
+  display: flex; align-items: baseline; gap: 0.55rem; margin: 0;
+  font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.35; color: var(--ink);
+}
+.uc__focus-meta { margin: 0.25rem 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
+.uc__decl { margin: 0.25rem 0 0; font-size: 0.8rem; color: var(--faint); overflow-wrap: break-word; }
+.uc__decl code { font-size: 0.78rem; color: var(--ink-soft); }
+.uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
+.uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
+.uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }
+
+/* The eight problems as tabs over the head: the column moves between them
+   without the list. The current one wears the band's ember; a row's link
+   in keyboard focus is shown here, since the row lies under the companion. */
+.uc__switch { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0 0 1.05rem; }
+.uc__chip {
+  display: inline-flex; align-items: center; min-height: 24px;
+  padding: 0.05rem 0.55rem; border-radius: var(--r-pill, 999px);
+  font-family: var(--font-serif); font-size: 0.84rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--faint); text-decoration: none;
+  box-shadow: 0 0 0 1px var(--home-line);
+  transition: color var(--motion-fast, 140ms) var(--ease-out, ease-out),
+              box-shadow var(--motion-fast, 140ms) var(--ease-out, ease-out);
+}
+.uc__chip:hover, .uc__chip[aria-current="true"] {
+  color: var(--ink); text-decoration: none;
+  box-shadow: 0 0 0 1px var(--home-ember);
+}
+.uc__chip:focus-visible, .uc__chip.is-focus-proxy { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Evidence marks, drawn as the map draws them: Comparator's colour filled
+   for a replayed result, the Lean colour with a pip for one whose replay is
+   queued, a ring for Lean under named inputs, a faint ring for none. Claims
+   use the claim ink: filled, half, ring, faint ring. */
+.uc-mark {
+  flex: none; display: inline-block; position: relative; top: -0.02em;
+  width: 0.66em; height: 0.66em; border-radius: 50%;
+}
+.uc-mark--replayed { background: var(--u-integration); }
+.uc-mark--lean {
+  box-shadow: inset 0 0 0 1.5px var(--u-statement);
+  background: radial-gradient(circle, var(--u-statement) 0 26%, transparent 30%);
+}
+.uc-mark--modulo { box-shadow: inset 0 0 0 1.5px var(--u-statement); }
+.uc-mark--none { box-shadow: inset 0 0 0 1px var(--faint); }
+.uc-mark--proved { background: var(--u-claim); }
+.uc-mark--progress {
+  box-shadow: inset 0 0 0 1px var(--u-claim);
+  background: linear-gradient(90deg, var(--u-claim) 50%, transparent 50%);
+}
+.uc-mark--conditional { box-shadow: inset 0 0 0 1.5px var(--u-claim); }
+.uc-mark--open { box-shadow: inset 0 0 0 1px var(--faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .uc-host > :not(.uc), .uc, .uc.is-open, .uc__chip { transition: none; }
+  .uc-host--open > :not(.uc) { transform: none; }
+}
