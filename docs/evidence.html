@@ -20,16 +20,16 @@
   <meta name="twitter:description" content="How each component is backed: its evidence class, a 1-5 strength rank, and what that checks and where its scope stops.">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d0f15">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/style.css?v=4bf32d810136">
+  <link rel="stylesheet" href="../assets/style.css?v=3215c7e24b2d">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=48c0aebf92af"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=5d7cb6c9f281"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -118,6 +118,7 @@
          is exactly when a keyboard reader reaches the skip link. style.css
          suppresses the focus ring on #main so no stray outline appears. -->
     <main class="docs-main" id="main" tabindex="-1">
+      <div class="docs-headrow">
       <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off">
         <ol class="docs-breadcrumb__list">
           <li class="docs-crumb"><a href="../index.html">Plectis</a></li>
@@ -127,13 +128,13 @@
         </ol>
       </nav>
       <div class="docs-pagetools" data-pagetools data-term-auto="off">
-        <span class="docs-pagetools__label">This page</span>
+        <span class="docs-pagetools__label sr-only">This page</span>
         <button class="docs-pagetool" type="button" data-page-export="text" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
+      </div>
       <article class="docs-article">
-        <p class="eyebrow docs-eyebrow">Evaluate</p>
         <h1>Evidence and checks</h1>
         <p class="docs-lede">The 1–5 rank describes how a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">component</a>&#x27;s <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> reaches a pass or fail result. At 1, it <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the format of an answer supplied with the test input. At 5, it computes a verdict from the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">component</a>&#x27;s declared requirements. This is called verdict independence. It does not rate maturity, the amount of code <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-execution" data-term="execution" data-term-auto="1">executed</a> or correctness outside those requirements.</p>
         <p>Each of the 88 <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> lists its <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence class</a>, rank and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">scope limit</a>. The class identifies the method used to <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> it. The <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-scope-limit" data-term="scope_limit" data-term-auto="1">scope limit</a> states what the result can establish. The classes below are ordered by <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">component</a> count, with an explanation of each method and its <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>.</p>

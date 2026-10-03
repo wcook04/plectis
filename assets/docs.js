@@ -1371,7 +1371,7 @@
       // prose column, so page chrome that sits inside that root has to be named
       // here too: the breadcrumb trail, the toolbar itself, and the skip link.
       var SKIP_CLASS = ['copy-btn', 'page-export-btn', 'page-export-status',
-        'docs-pagetools', 'docs-pager', 'breadcrumb', 'docs-breadcrumb',
+        'docs-headrow', 'docs-pagetools', 'docs-pager', 'breadcrumb', 'docs-breadcrumb',
         'docs-toc', 'sr-only', 'copy-proxy', 'skip-link'];
       var BLOCK = { H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, H6: 1, P: 1, LI: 1,
         SECTION: 1, DETAILS: 1, SUMMARY: 1, TR: 1, BLOCKQUOTE: 1, FIGCAPTION: 1,

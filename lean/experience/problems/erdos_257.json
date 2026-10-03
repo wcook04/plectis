@@ -443,7 +443,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "9f993bf338f10bce",
+      "renderer_fingerprint": "d5a8acb84f750361",
       "source_sha256": "49dde5b195930bca30b6de1b56dff407a0e70559b8495cd33fa46d74822279dc",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -459,7 +459,7 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "3d5a35e759f9779c2e7a5704131124c439649dfdda5618a9f146bafeec35cda1",
+      "html_mathml_sha256": "99ff6fcbbcb9db467a0dba1bef549d6a383b4153418c82ad2b9aba2fa8163be1",
       "html_exact_tex_sha256": "61f41110b8fb38b0cf431b90c8655292d8d259d1c2a3654ea0d3c85293e6da41"
     },
     "sections": [
@@ -688,7 +688,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "9f993bf338f10bce",
+        "renderer_fingerprint": "d5a8acb84f750361",
         "source_sha256": "49dde5b195930bca30b6de1b56dff407a0e70559b8495cd33fa46d74822279dc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -704,7 +704,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "3d5a35e759f9779c2e7a5704131124c439649dfdda5618a9f146bafeec35cda1",
+        "html_mathml_sha256": "99ff6fcbbcb9db467a0dba1bef549d6a383b4153418c82ad2b9aba2fa8163be1",
         "html_exact_tex_sha256": "61f41110b8fb38b0cf431b90c8655292d8d259d1c2a3654ea0d3c85293e6da41"
       },
       "sections": [
@@ -933,7 +933,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "9f993bf338f10bce",
+        "renderer_fingerprint": "d5a8acb84f750361",
         "source_sha256": "981f27107c58f3d76f98cda73eda41a1b8f8612ce43c92039dfefb5c3d84fbf4",
         "source_manifest_match": true,
         "publication_manifest_match": true,

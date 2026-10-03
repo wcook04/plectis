@@ -20,16 +20,16 @@
   <meta name="twitter:description" content="For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate…">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d0f15">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
-  <link rel="stylesheet" href="../assets/maths.css?v=fa701342eccc">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=3215c7e24b2d">
+  <link rel="stylesheet" href="../assets/maths.css?v=52912e91762c">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5d7cb6c9f281"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
@@ -61,7 +61,7 @@
     </div>
   </header>
 
-  <div class="docs-layout docs-layout--wide maths-layout">
+  <div class="docs-layout maths-layout">
     <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
         <nav class="docs-nav" aria-label="Maths">
         <p class="docs-nav__group">Maths</p>
@@ -84,7 +84,7 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <div class="maths-pagebar">
-      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Distinct running least common multiples</li></ol></nav>
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Erdős #269 short paper</li></ol></nav>
       <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
@@ -92,16 +92,15 @@
       </div>
       </div>
       <header class="paper-head">
-        <p class="paper-head__eyebrow"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-problem-note" data-term="problem_note" data-term-auto="1">Problem note</a></p>
+        <p class="paper-head__eyebrow">Short paper</p>
         <h1>Distinct running least common multiples</h1>
         <div class="paper-head__meta">
           <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #269</a></span>
-          <span>16&#8202;pp</span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>July 2026; revised 30 September 2026</span>
         </div>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 16&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF, 16&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex"><span class="btn__format">TeX</span>LaTeX source</a>
           <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem dossier</a>
@@ -109,8 +108,7 @@
       </header>
 
       <div class="paper-precis">
-        <p class="eyebrow">Pr&eacute;cis</p>
-        <p>For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to 30 and arbitrarily late starts.</p>
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coprime" data-term="coprime" data-term-auto="1">coprime</a> to 30 and arbitrarily late starts.</p>
       </div>
 
       <div class="paper-notes">
@@ -122,7 +120,7 @@
         <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
-      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here · Editorial route</p><nav aria-label="Start here"><a href="#sec:problem">Two sums from running least common multiples</a><a href="#sec:rank">The three-prime kernel</a><a href="#sec:lcm">The repeated three-prime sum</a><a href="#sec:escape">A residue criterion</a></nav></div>
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:problem">Two sums from running least common multiples</a><a href="#sec:rank">The three-prime kernel</a><a href="#sec:lcm">The repeated three-prime sum</a><a href="#sec:escape">A residue criterion</a></nav></div>
       <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:problem">Two sums from running least common multiples</a><a class="toc-l2" href="#sec:distinct">Recovering the prime-power jumps</a><a class="toc-l2" href="#sec:lcm">The repeated three-prime sum</a><a class="toc-l2" href="#sec:escape">A residue criterion</a><a class="toc-l2" href="#sec:two-prime">Two-prime transcendence</a><a class="toc-l2" href="#sec:height-identities">Identities for the running LCM and multiplicities</a><a class="toc-l2" href="#sec:rank">The three-prime kernel</a><a class="toc-l2" href="#app:sources">Proof sources and further comparisons</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#references">References</a></nav></details>
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="erdos-269-three-prime-running-lcm" data-math-mode="mathjax">
@@ -1438,7 +1436,7 @@ author manuscript</a>.</p></li>
       <div class="paper-foot" aria-label="Other ways to read this paper">
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 16&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF, 16&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem dossier</a>
         </div>

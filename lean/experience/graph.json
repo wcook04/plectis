@@ -19767,6 +19767,7 @@
       "lean_reason": "the degree-two case and the closing inequality $(13/25)e^X<1$ at the recorded stopping time $X=635762889599/10^{12}$ are checked; the computation that certifies $X$ and the analytic argument in higher degrees are not",
       "page": "7",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-1041-lemniscate-newton-flow.md#res-low-critical-thirteen-twentyfifths",
+      "lean_reason_html": "the degree-two case and the closing inequality <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><mo stretchy=\"false\" form=\"prefix\">(</mo><mn>13</mn><mi>/</mi><mn>25</mn><mo stretchy=\"false\" form=\"postfix\">)</mo><msup><mi>e</mi><mi>X</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding=\"application/x-tex\">(13/25)e^X&lt;1</annotation></semantics></math> at the recorded stopping time <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><mi>X</mi><mo>=</mo><mn>635762889599</mn><mi>/</mi><msup><mn>10</mn><mn>12</mn></msup></mrow><annotation encoding=\"application/x-tex\">X=635762889599/10^{12}</annotation></semantics></math> are checked; the computation that certifies <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mi>X</mi><annotation encoding=\"application/x-tex\">X</annotation></semantics></math> and the analytic argument in higher degrees are not",
       "paper_label": "res:low-critical-thirteen-twentyfifths",
       "label": "Remark 4.1 (unformalised small-critical-value assertion)",
       "environment": "theorem"
@@ -21644,6 +21645,7 @@
       "lean_reason": "the new host existence claim has not been formalised; the mixed implication it invokes is already checked",
       "page": "12",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos-257-mersenne-support-subseries.md#res-strict-mixed-supports",
+      "lean_reason_html": "the new host existence claim has not been formalised; the mixed implication it invokes is already checked",
       "paper_label": "res:strict-mixed-supports",
       "label": "Corollary 5.2 (a support requiring the mixed criterion)",
       "environment": "corollary"
@@ -22673,6 +22675,7 @@
       "lean_reason": "Component-local surjectivity, finite fibres, covering and unique continuous root-labelled branches on a finite outward-slit domain are checked in OutwardSlitDomain at public commit 8bf96bdcae6b9201c670fff3037c49c70ec6de8d, alongside ray-disjointness, level-separation and saddle-scale prerequisites. The complete theorem still lacks a Lean proof of component sheet count, conformality, Morse, monodromy and embedded-tree assertions; prerequisite checking does not establish the complete theorem.",
       "page": "69",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1041-lemniscate-reasoning-surface.md#res-attachment-aware-reeb",
+      "lean_reason_html": "Component-local surjectivity, finite fibres, covering and unique continuous root-labelled branches on a finite outward-slit domain are checked in OutwardSlitDomain at public commit 8bf96bdcae6b9201c670fff3037c49c70ec6de8d, alongside ray-disjointness, level-separation and saddle-scale prerequisites. The complete theorem still lacks a Lean proof of component sheet count, conformality, Morse, monodromy and embedded-tree assertions; prerequisite checking does not establish the complete theorem.",
       "paper_label": "res:attachment-aware-reeb",
       "label": "Remark 13.1 (unformalised decomposition into inverse sheets)",
       "environment": "theorem"
@@ -23478,6 +23481,7 @@
       "lean_reason": "the degree-two case and the closing inequality $(13/25)e^X<1$ at the recorded stopping time $X=635762889599/10^{12}$ are checked; the computation that certifies $X$ and the analytic argument in higher degrees are not",
       "page": "10",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1041-lemniscate-reasoning-surface.md#res-low-critical-thirteen-twentyfifths",
+      "lean_reason_html": "the degree-two case and the closing inequality <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><mo stretchy=\"false\" form=\"prefix\">(</mo><mn>13</mn><mi>/</mi><mn>25</mn><mo stretchy=\"false\" form=\"postfix\">)</mo><msup><mi>e</mi><mi>X</mi></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding=\"application/x-tex\">(13/25)e^X&lt;1</annotation></semantics></math> at the recorded stopping time <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mrow><mi>X</mi><mo>=</mo><mn>635762889599</mn><mi>/</mi><msup><mn>10</mn><mn>12</mn></msup></mrow><annotation encoding=\"application/x-tex\">X=635762889599/10^{12}</annotation></semantics></math> are checked; the computation that certifies <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><semantics><mi>X</mi><annotation encoding=\"application/x-tex\">X</annotation></semantics></math> and the analytic argument in higher degrees are not",
       "paper_label": "res:low-critical-thirteen-twentyfifths",
       "label": "Remark 4.1 (unformalised small-critical-value criterion)",
       "environment": "theorem"
@@ -24134,6 +24138,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "40",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1049-rational-base-lambert-reasoning-surface.md#long1049-prop-calibrated-height",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long1049:prop:calibrated-height",
       "label": "Remark (determinant height and row denominators)",
       "environment": "proposition"
@@ -25304,6 +25309,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "39",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1049-rational-base-lambert-reasoning-surface.md#long1049-thm-calibrated-denominators",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long1049:thm:calibrated-denominators",
       "label": "Remark (exact denominators of the calibrated moments)",
       "environment": "theorem"
@@ -25322,6 +25328,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "37",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1049-rational-base-lambert-reasoning-surface.md#long1049-thm-calibrated-model",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long1049:thm:calibrated-model",
       "label": "Remark (a rational special value)",
       "environment": "theorem"
@@ -25340,6 +25347,7 @@
       "lean_reason": "the general adjacent-ratio theorem (a_{k+1}/a_k -> rho in (0,1/q), constant M(1;q)^2 M(rho;q)) is not formalised; geometric_universality proves only the rho=1 case and additionally assumes the polynomial shift bound a_{k+h}/a_k <= C(1+h)^kappa",
       "page": "34",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos1049-rational-base-lambert-reasoning-surface.md#long1049-thm-geometric-ratio",
+      "lean_reason_html": "the general adjacent-ratio theorem (a_{k+1}/a_k -&gt; rho in (0,1/q), constant M(1;q)^2 M(rho;q)) is not formalised; geometric_universality proves only the rho=1 case and additionally assumes the polynomial shift bound a_{k+h}/a_k &lt;= C(1+h)^kappa",
       "paper_label": "long1049:thm:geometric-ratio",
       "label": "Remark (limiting weight ratios; unformalised)",
       "environment": "theorem"
@@ -30354,6 +30362,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "117",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos249-totient-reasoning-surface/section-10.md#long249-cor-signed-observations",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long249:cor:signed-observations",
       "label": "Remark 10.9 (Observations that do not determine irrationality)",
       "environment": "cor"
@@ -30372,6 +30381,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "118",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos249-totient-reasoning-surface/section-10.md#long249-prop-signed-first-harmonic",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long249:prop:signed-first-harmonic",
       "label": "Remark 10.10 (The first-harmonic test on the rational members)",
       "environment": "prop"
@@ -30390,6 +30400,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "114",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos249-totient-reasoning-surface/section-10.md#long249-thm-signed-interpolation",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long249:thm:signed-interpolation",
       "label": "Remark 10.8 (Sparse interpolation around the totient)",
       "environment": "thm"
@@ -34116,6 +34127,7 @@
       "lean_reason": "ordinary proof in the record; the block construction from prime factors of Fermat numbers and the tail estimate are not formalised",
       "page": "8",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos249-totient-reasoning-surface/section-1.md#prop-slowmoduli",
+      "lean_reason_html": "ordinary proof in the record; the block construction from prime factors of Fermat numbers and the tail estimate are not formalised",
       "paper_label": "prop:slowmoduli",
       "label": "Remark 1.12 (Slowly growing dyadic moduli)",
       "environment": "proposition"
@@ -45465,6 +45477,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "23",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-lem-clock-swaps",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long269:lem:clock-swaps",
       "label": "Remark 6.2 (isolated interchanges in the crossing sequence)",
       "environment": "lemma"
@@ -45483,6 +45496,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "22",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-lem-late-swap",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long269:lem:late-swap",
       "label": "Remark 6.1 (interchanging two letters after a long common prefix)",
       "environment": "lemma"
@@ -45501,6 +45515,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "28",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-lem-staircase-smith",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long269:lem:staircase-smith",
       "label": "Remark 7.5 (Smith factors of the selected staircase)",
       "environment": "lemma"
@@ -45921,6 +45936,7 @@
       "lean_reason": "ordinary proof, checked step by step by a second, independent AI agent within the project on 26 September 2026, no human review; not formalised: a Lean proof would need Kronecker's theorem on the closure of a line in a torus (density of the forward orbit in the subtorus it generates) and the Euler-characteristic count for line arrangements on a two-dimensional subtorus",
       "page": "10",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-distinct-height-all",
+      "lean_reason_html": "ordinary proof, checked step by step by a second, independent AI agent within the project on 26 September 2026, no human review; not formalised: a Lean proof would need Kronecker’s theorem on the closure of a line in a torus (density of the forward orbit in the subtorus it generates) and the Euler-characteristic count for line arrangements on a two-dimensional subtorus",
       "paper_label": "long269:res:distinct-height-all",
       "label": "Remark 5.1 (the sums over distinct running LCMs)",
       "environment": "theorem"
@@ -45939,6 +45955,7 @@
       "lean_reason": "the lemma is stated for every finite set of primes; only its {2,3,5} case is checked in Lean, inside the proof of the {2,3,5} theorem",
       "page": "15",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-distinct-height-blocks",
+      "lean_reason_html": "the lemma is stated for every finite set of primes; only its {2,3,5} case is checked in Lean, inside the proof of the {2,3,5} theorem",
       "paper_label": "long269:res:distinct-height-blocks",
       "label": "Remark 5.6 (blocks, tails and integrality)",
       "environment": "lemma"
@@ -45957,6 +45974,7 @@
       "lean_reason": "the criterion for every finite set of primes is not formalised; Lean checks its {2,3,5} case at depth one with the single interval [3/10,13/15] (irrational_tsum_blockTerm)",
       "page": "16",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-distinct-height-criterion",
+      "lean_reason_html": "the criterion for every finite set of primes is not formalised; Lean checks its {2,3,5} case at depth one with the single interval [3/10,13/15] (irrational_tsum_blockTerm)",
       "paper_label": "long269:res:distinct-height-criterion",
       "label": "Remark 5.7 (a decoding criterion)",
       "environment": "theorem"
@@ -45975,6 +45993,7 @@
       "lean_reason": "ordinary proof from the decoding criterion and an exact finite computation for each set (research/experiments/erdos269/distinct_height); neither is formalised",
       "page": "17",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-distinct-height-sets",
+      "lean_reason_html": "ordinary proof from the decoding criterion and an exact finite computation for each set (research/experiments/erdos269/distinct_height); neither is formalised",
       "paper_label": "long269:res:distinct-height-sets",
       "label": "Remark 5.8 (three and four primes up to 31)",
       "environment": "corollary"
@@ -45993,6 +46012,7 @@
       "lean_reason": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker's theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "page": "11",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-dp-blocks",
+      "lean_reason_html": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker’s theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "paper_label": "long269:res:dp-blocks",
       "label": "Remark 5.3 (rearranged blocks)",
       "environment": "lemma"
@@ -46011,6 +46031,7 @@
       "lean_reason": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker's theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "page": "11",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-dp-integral-tails",
+      "lean_reason_html": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker’s theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "paper_label": "long269:res:dp-integral-tails",
       "label": "Remark 5.2 (integral tails)",
       "environment": "lemma"
@@ -46029,6 +46050,7 @@
       "lean_reason": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker's theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "page": "12",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-dp-short",
+      "lean_reason_html": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker’s theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "paper_label": "long269:res:dp-short",
       "label": "Remark 5.4 (short rearrangements)",
       "environment": "lemma"
@@ -46047,6 +46069,7 @@
       "lean_reason": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker's theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "page": "13",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-dp-two-walls",
+      "lean_reason_html": "ordinary proof, part of the agent-checked proof that D_P is irrational for every finite P; not formalised: the surrounding argument would need Kronecker’s theorem on subtori and an Euler-characteristic count, which are not formalised here",
       "paper_label": "long269:res:dp-two-walls",
       "label": "Remark 5.5 (two walls)",
       "environment": "lemma"
@@ -46678,6 +46701,7 @@
       "lean_reason": "ordinary proof (floor-sum carries of the height exponents); checked in exact arithmetic on finite ranges by research/experiments/erdos269/distinct_height/two_tail.py; not formalised",
       "page": "20",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-single-prime-identities",
+      "lean_reason_html": "ordinary proof (floor-sum carries of the height exponents); checked in exact arithmetic on finite ranges by research/experiments/erdos269/distinct_height/two_tail.py; not formalised",
       "paper_label": "long269:res:single-prime-identities",
       "label": "Remark 5.9 (sub-sums and the catalogue sum)",
       "environment": "proposition"
@@ -46696,6 +46720,7 @@
       "lean_reason": "ordinary proof, checked step by step by a second, independent AI agent within the project on 26 September 2026, no human review; not formalised: a Lean proof would need Kronecker's theorem on the closure of a line in a torus and the density of its forward orbit",
       "page": "20",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-res-single-prime-subsums",
+      "lean_reason_html": "ordinary proof, checked step by step by a second, independent AI agent within the project on 26 September 2026, no human review; not formalised: a Lean proof would need Kronecker’s theorem on the closure of a line in a torus and the density of its forward orbit",
       "paper_label": "long269:res:single-prime-subsums",
       "label": "Remark 5.10 (the single-prime sub-sums)",
       "environment": "theorem"
@@ -46907,6 +46932,7 @@
       "lean_reason": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "page": "24",
       "evidence_record": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/erdos269-running-lcm-reasoning-surface.md#long269-thm-clock-relations",
+      "lean_reason_html": "no proof of the full statement is recorded; the paper gives an ordinary proof reviewed by AI agents. Finite auxiliary checks have narrower scope, and independent human review is not recorded",
       "paper_label": "long269:thm:clock-relations",
       "label": "Remark 6.3 (rational relations among the subseries)",
       "environment": "theorem"

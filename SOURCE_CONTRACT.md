@@ -107,6 +107,46 @@ incoming fragment links when simplifying a page (old landing ids survive as
 `.anchor-alias` spans), and rebuild both page families after changing their
 shared shell or assets.
 
+Type is two self-hosted faces in `assets/fonts/`. STIX Two Text sets reading
+text and headings; it is the same design as the STIX Two math font MathJax uses
+for the papers' formulas, so prose and formulas read as one face. Source Sans 3
+sets interface and body text. Plectis Math, STIX Two Math's arrows and
+operators, supplies the symbols the text faces lack, and a page downloads it
+only when it prints one. All three are OFL fonts, subset and renamed by
+`tools/meta/dissemination/build_plectis_web_fonts.py` (run it with
+`uv run --no-project --with fonttools --with brotli python ...`); its report prints the
+`unicode-range` values and the fallback metric overrides that `style.css`
+declares, so change a subset there and copy the report, never edit the numbers
+by hand. Every page preloads the serif and sans roman files. Canvas text (the
+universe map) names the same family and redraws once the font has loaded.
+Running text uses proportional figures, columns ask for `tabular-nums`, and
+paper pages use lining figures so a number in a sentence matches the same
+number in a formula. Code stays in the system monospace.
+
+The second visual pass (3 October, from a fresh-eyes critique and a scout of
+GitHub design skills) settled these. Dark mode is the light theme at night:
+the dark neutrals sit in the light ink's wine hue (page `#1d0f15`), each token
+keeping the lightness its contrast ratios were checked at, and cards lift by
+lightness rather than shadow. The landing's bands share the header's 1320px
+container (`--home-max`), so every band starts on the wordmark's edge. The
+landing has one ink-filled primary action; cards use a 12px corner on a flat
+ground with no glows; every band heading, "Three papers to start with"
+included, sets at one size. The universe teaser reads the same `--u-*` values
+as `maths.css` (copy them when the map's palette changes) and keeps its two
+buttons in a strip below the drawing. On docs pages the breadcrumb and the page
+tools share one row (`.docs-headrow`), and an eyebrow that only names the
+page's section is dropped by the shell because the breadcrumb already says it.
+In the papers catalogue each entry names its problem and kind in one plain
+line, the page count rides on the PDF link, the routes form one spaced row,
+titles carry no glossary links, and questions, abstracts and scope lines are
+typeset through `plectis_math_notation`. A word used in a sense its glossary
+entry does not define ("sum" in "to sum up") is opted out of the glossary
+linker with a `data-term-auto="off"` span, and so is a second link to one term
+inside a paragraph; the landing's term floor (`_LANDING_TERM_FLOOR` in
+`test_internal_link_integrity.py`) keeps the links that are meant. Measure is
+counted in real characters (about 75 a line); CSS `ch` is a zero's width, so
+66ch of Source Sans 3 is about 77 characters.
+
 The shared stylesheet is `assets/style.css`. Mathematics-specific assets are
 owned by `tools/meta/dissemination/maths_site_assets/` and copied into
 `maths/assets/` by the maths builder; edit their source and regenerate. On long
@@ -188,13 +228,51 @@ the ledger, the evidence or the rendered papers come from different editions.
 - Labels are placed in priority order (selected object, core, checking
   surfaces, problems) after the band titles, and none may cover another or a
   disc; a label tries its fallback spot before it gives way. Problem numbers sit
-  inward of their discs. At small scale (phone, teaser) band titles shorten to
-  the number and a count, and no title leans more than 15 degrees past upright.
+  inward of their discs, except where that lands under Comparator's or
+  Palomar's caption: #257's number, at the foot of the core, read as a third
+  line of Comparator's caption, so that room is kept and the number moves along
+  the orbit, one step past the paper beside its disc. At small scale (phone,
+  teaser) band titles shorten to the number and a count, and no title leans
+  more than 15 degrees past upright.
+- A card's notes (why a Lean form is not exact, how the Lean statement gives
+  the printed one) arrive typeset: the experience build renders their inline
+  TeX to MathML with pandoc and the papers' house aliases (`\Npos`, `\Ach`,
+  `\hgt`, …) in one strict run, kept beside the authored text as
+  `lean_reason_html` and the detail's `html_mathml`. A note pandoc cannot
+  convert stops the build, so the card never shows a reader backslashes.
 - A result's card lists every place it is stated: its own paper and, when the
   other paper states it under the same label or through a Lean declaration both
   cite, that one too, each opening the rendered paper at the result and its TeX
   line on GitHub (`main`, the ref the hosted sources come from). The map draws
   a dashed thread between the two.
+- The page is the map and its placard: the field takes the panel's full
+  height on the left, so a laptop's first screen holds the whole map, and the
+  right-hand column carries the title, the four figures and the search above
+  the reading rail. The placard comes first in the source; on narrow screens
+  it stacks above the map and the rail below. The field opens once from the
+  centre out (never under reduced motion, in a hidden tab, or on a deep
+  link), and starts closed so the load shows no flash.
+- A selected or hovered object lights its whole sector as one flat slice
+  edged with a hairline. Plates have ruled edges and a fine tick marks each
+  gap between sectors. The evidence gauge repeats what the dots and titles
+  say, so it shows only for a band in focus.
+- Colour belongs to evidence alone (October 2026 aesthetic pass, from the
+  dataviz, make-interfaces-feel-better and huashu-design guidance): a problem
+  is an ink ring round a point like the core, carrying only its orange
+  evidence ring; papers are a quiet grey; context out of focus turns grey,
+  never a muddy tint of its own colour. Every kind keeps one size (a mark
+  that grew with its connections would suggest a quantity the legend never
+  names). A queued result carries a pip and a result with no Lean statement
+  is a faint ring, so colour is never the only signal; the queued teal was
+  checked against the replayed orange with the dataviz palette validator.
+- Motion: the opening fades the rings in reading order (core, orbit, claims,
+  results, then words; 90ms apart, 420ms each, expo-out), focus eases in over
+  180ms, camera moves are slow-in slow-out at 300ms plus 120ms per doubling
+  of scale, capped at 650ms. All of it is skipped under reduced motion.
+- Type on the canvas is the page's serif; halos are drawn before any letter
+  of a curved title, and letters are placed by the width of the text before
+  them so kerning survives. Titles sit 15px off their plates and the fitted
+  view keeps them inside a margin. Flat ground: no radial lighting anywhere.
 - The toolkit's system paper keeps its live position: the deploy restores it,
   so the system-paper arc is built to end exactly there.
 - New per-node label or band data travels as lists in
@@ -203,6 +281,34 @@ the ledger, the evidence or the rendered papers come from different editions.
 - Never claim Palomar submission or acceptance, per-declaration kernel
   acceptance (receipts are per corpus entry), or that Comparator checks a
   Challenge against the printed statement.
+
+### Maths reading pages (October 2026)
+
+The papers, problem dossiers, documents and overview under `maths/` are
+reading pages; only the universe map keeps the wide workbench layout.
+
+- Reading pages sit in the header's 1320px frame (`docs-layout`), so the
+  sidebar starts under the wordmark; `universe.html` alone is
+  `docs-layout--wide`.
+- One measure, `--paper-measure: 34.5rem`, for a paper's head, précis, notes
+  and text: STIX sets wide, and the old 42.5rem ran 71 characters a line in
+  the body and 81 in the notes (line boxes measured on the live #1041 page).
+  Caption-size notes and receipts take 62ch in their own face.
+- Labels are sentence case and say which paper this is ("Short paper",
+  "Erdős #1041 short paper" as the last crumb); no tracked capitals, no
+  middle-dot strings in visible text (the `<title>` keeps "·", as the docs
+  do). A PDF button carries its length as "Open the PDF, 17 pages".
+- The précis opens on a hairline with a run-in head. Theorem-like statements
+  and problems keep one hairline beside them; definitions, examples and
+  remarks rely on their run-in heads. No coloured side tabs or tinted panels.
+- Every page puts one primary action in a phone's first screen: the overview
+  offers the map and the reader's guide under its lede; a problem dossier
+  offers its short paper and the PDF in its head, and the papers section's
+  own buttons stay ghost.
+- Known audit warnings that stay: headline length on long manuscript titles
+  (three balanced lines); heading skips inside paper bodies (pandoc's
+  paragraph headings); measure on rows and paragraphs whose MathML
+  annotations count as text.
 
 ### Route namespace boundary
 

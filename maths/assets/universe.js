@@ -1350,11 +1350,29 @@
         if (gx < -40 || gy < -40 || gx > w + 40 || gy > h + 40) continue;
         glyphBoxes.push({ x0: gx - gr, x1: gx + gr, y0: gy - gr, y1: gy + gr });
       }
+      // The checking surfaces' names hang under their discs. A problem's
+      // name that lands just below them reads as a third line of their
+      // caption (#257's did, at the foot of the core), so that room is kept.
+      var captionZones = [];
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (!visible(n) || n.kind !== 'integration_surface') continue;
+        var zx = n.x * view.k + view.tx, zy = n.y * view.k + view.ty, zr = n.r * rs;
+        ctx.font = '600 13px ' + SERIF;
+        var zw = ctx.measureText(n.shortLabel || '').width;
+        if (n.sub) { ctx.font = '400 11px ' + SERIF; zw = Math.max(zw, ctx.measureText(n.sub).width); }
+        captionZones.push({ x0: zx - zw / 2 - 12, x1: zx + zw / 2 + 12,
+                            y0: zy - zr - 8, y1: zy + zr + 19 + (n.sub ? 13 : 0) + 12 });
+      }
       function glyphHits(box) {
         var count = 0;
         for (var g = 0; g < glyphBoxes.length; g++) {
           var q = glyphBoxes[g];
           if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count++;
+        }
+        for (g = 0; g < captionZones.length; g++) {
+          q = captionZones[g];
+          if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count += 10;
         }
         return count;
       }
@@ -1391,15 +1409,19 @@
           var ux = n.x / distance, uy = n.y / distance;
           var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
           var px = lx, py = ly, chosen = null, fewest = Infinity;
-          for (var d = 0; d < dirs.length; d++) {
-            var dx = dirs[d][0], dy = dirs[d][1];
-            var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy);
-            var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
-            var textHalf = half - 6;
-            var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
-            var hits = glyphHits(trial);
-            if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
-            if (!hits) break;
+          // Each side at the disc's edge first, then one step out, past the
+          // paper that sits on the orbit beside it.
+          search: for (var d = 0; d < dirs.length; d++) {
+            for (var step = 0; step < 2; step++) {
+              var dx = dirs[d][0], dy = dirs[d][1];
+              var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy) + step * 16;
+              var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
+              var textHalf = half - 6;
+              var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
+              var hits = glyphHits(trial);
+              if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
+              if (!hits) break search;
+            }
           }
           lx = chosen[0];
           labelY = chosen[1];
@@ -1930,7 +1952,10 @@
       facts.push('<li><b>Palomar</b> ' + escapeHtml(pal) + '</li>');
       parts.push('<ul class="universe-inspector__facts">' + facts.join('') + '</ul>');
       if (n.lean_reason) {
-        parts.push('<p class="universe-inspector__boundary">' + noteHtml(n.lean_reason) + '</p>');
+        // The build typesets the note's TeX as MathML; the authored text is
+        // the fallback for data built before it did.
+        parts.push('<p class="universe-inspector__boundary">' +
+          (n.lean_reason_html || noteHtml(n.lean_reason)) + '</p>');
       }
       var more = pinned && detail && detail.statements ? detail.statements[n.id] || null : null;
       if (pinned && !detail && detailUrl) {
@@ -1938,8 +1963,9 @@
         parts.push('<p class="universe-inspector__hint">Loading the Lean statements and Comparator checks…</p>');
       }
       if (more && more.relation_note) {
+        var typeset = more.html_mathml && more.html_mathml.relation_note;
         parts.push('<p class="universe-inspector__note"><b>How the Lean form gives the paper’s statement.</b> ' +
-          noteHtml(more.relation_note) + '</p>');
+          (typeset || noteHtml(more.relation_note)) + '</p>');
       }
       var decls = n.decls || [];
       if (decls.length) {
@@ -2037,6 +2063,14 @@
       return '';
     }
 
+    // A Lean name has no spaces, so a narrow card broke it mid-word
+    // ("…ResidueProj / ection"). It may break after a dot or an underscore.
+    function nameHtml(text) {
+      var safe = escapeHtml(String(text || ''));
+      if (/\s/.test(safe) || safe.length < 20) return safe;
+      return safe.replace(/([._])(?=[^._])/g, '$1<wbr>');
+    }
+
     function cardHtml(i, pinned) {
       var n = nodes[i];
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
@@ -2046,7 +2080,7 @@
           '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
       }
       var parts = [head,
-        '<h2 class="universe-inspector__title">' + escapeHtml(n.label) + '</h2>'];
+        '<h2 class="universe-inspector__title">' + nameHtml(n.label) + '</h2>'];
       var chips = '';
       if (n.status) {
         chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';

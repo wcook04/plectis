@@ -20,16 +20,16 @@
   <meta name="twitter:description" content="The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a…">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d0f15">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=4bf32d810136">
-  <link rel="stylesheet" href="../assets/maths.css?v=456efa466dfa">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=48c0aebf92af"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=3215c7e24b2d">
+  <link rel="stylesheet" href="../assets/maths.css?v=52912e91762c">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=5d7cb6c9f281"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=f7f9cf4b00ed"></script>
   <meta name="author" content="Will Cook">
@@ -61,7 +61,7 @@
     </div>
   </header>
 
-  <div class="docs-layout docs-layout--wide maths-layout">
+  <div class="docs-layout maths-layout">
     <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
         <nav class="docs-nav" aria-label="Maths">
         <p class="docs-nav__group">Maths</p>
@@ -84,7 +84,7 @@
     <main class="docs-main" id="main" tabindex="-1">
       <div class="wrap">
       <div class="maths-pagebar">
-      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Plectis: What a Stranger Can Check</li></ol></nav>
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Evidence boundary</li></ol></nav>
       <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
         <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
         <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
@@ -96,12 +96,11 @@
         <h1>Plectis: What a Stranger Can Check</h1>
         <div class="paper-head__meta">
           <span>Systems paper</span>
-          <span>22&#8202;pp</span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>July 2026; updated September 2026</span>
         </div>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 22&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF, 22&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis/paper/plectis-public-system.tex"><span class="btn__format">TeX</span>LaTeX source</a>
           <a class="btn btn--ghost" href="https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
           
@@ -109,8 +108,7 @@
       </header>
 
       <div class="paper-precis">
-        <p class="eyebrow">Pr&eacute;cis</p>
-        <p>The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.</p>
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> The author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.</p>
       </div>
 
       <div class="paper-notes">
@@ -122,7 +120,7 @@
         <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
-      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here · Editorial route</p><nav aria-label="Start here"><a href="#sec:problem">The problem</a><a href="#sec:early-example">One public test before the general design</a><a href="#sec:distinctions">Five distinctions</a><a href="#sec:stronger">What stronger evidence would look like</a></nav></div>
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:problem">The problem</a><a href="#sec:early-example">One public test before the general design</a><a href="#sec:distinctions">Five distinctions</a><a href="#sec:stronger">What stronger evidence would look like</a></nav></div>
       <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:problem">The problem</a><a class="toc-l2" href="#sec:early-example">One public test before the general design</a><a class="toc-l2" href="#sec:contract">The component contract</a><a class="toc-l2" href="#sec:run">One run, examined</a><a class="toc-l2" href="#sec:distinctions">Five distinctions</a><a class="toc-l3" href="#public-execution-versus-where-the-code-came-from">Public execution versus where the code came from</a><a class="toc-l3" href="#repeatability-versus-correctness">Repeatability versus correctness</a><a class="toc-l3" href="#a-validators-rule-versus-the-stated-claim">A validator’s rule versus the stated claim</a><a class="toc-l3" href="#selected-cases-versus-general-behaviour">Selected cases versus general behaviour</a><a class="toc-l3" href="#risk-reduction-versus-guarantee">Risk reduction versus guarantee</a><a class="toc-l2" href="#sec:collection">What the collection contains</a><a class="toc-l2" href="#sec:hand">The author’s hand</a><a class="toc-l2" href="#sec:stronger">What stronger evidence would look like</a><a class="toc-l3" href="#a-falsifiable-comparison">A falsifiable comparison</a><a class="toc-l3" href="#sec:hypothesis-handoff">From an open question to a falsifiable handoff</a><a class="toc-l3" href="#how-the-record-should-age">How the record should age</a><a class="toc-l2" href="#sec:conclusion">Conclusion</a><a class="toc-l2" href="#sec:appendix">Dated reproduction record</a><a class="toc-l2" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#references">References</a></nav></details>
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="plectis-public-system" data-math-mode="mathjax">
@@ -1467,7 +1465,7 @@ and Unsafe Definitions.”</a> Accessed 18 July 2026.</p></li>
       <div class="paper-foot" aria-label="Other ways to read this paper">
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
-          <a class="btn btn--primary btn--file" href="../../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF &middot; 22&#8202;pp</a>
+          <a class="btn btn--primary btn--file" href="../../papers/plectis-public-system.pdf"><span class="btn__format">PDF</span>Open the PDF, 22&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis/paper/plectis-public-system.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>

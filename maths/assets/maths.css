@@ -74,9 +74,22 @@
    wide module table would otherwise force page-level horizontal scroll on
    small screens; the table's own .table-scroll wrapper is the scroller. */
 .maths-layout .docs-main { min-width: 0; }
-/* The paper head, précis and notes share the manuscript's measure, so the
-   right edge of the reading column does not move as the page begins. */
-.maths-layout { --paper-measure: 42.5rem; }
+/* Labels in the reading room are sentence case, like the rest of its text:
+   tracked capitals over every section read as template chrome. The shared
+   eyebrow and the PDF/TeX badge are restyled here for these pages only. */
+.maths-layout .eyebrow {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--muted);
+}
+.maths-layout .btn__format { font-family: var(--font-sans); font-weight: 650; letter-spacing: 0.02em; }
+/* The paper head, précis, notes and manuscript share one measure, so the
+   right edge of the reading column does not move as the page begins. STIX
+   sets wide: 42.5rem ran 71 characters a line in the body and 81 in the
+   notes (measured 3 Oct 2026); 34.5rem holds the body near 65. */
+.maths-layout { --paper-measure: 34.5rem; }
 @media (min-width: 1281px) {
   .maths-layout:has(.docs-toc) { grid-template-columns: 220px minmax(0, 1fr) 220px; }
   .maths-layout .docs-toc { grid-column: 3; grid-row: 1; }
@@ -166,10 +179,8 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 /* ---- Landing ----------------------------------------------------------- */
 .maths-hero { padding: var(--space-7) 0 var(--space-6); }
 .maths-hero__kicker {
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--maths-gold);
+  font-size: var(--fs-meta);
+  color: var(--muted);
   font-weight: 600;
   margin: 0 0 var(--space-3);
 }
@@ -254,11 +265,9 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .maths-route h3 { margin: var(--space-1) 0 var(--space-3); }
 .maths-route__step {
   margin: 0;
-  color: var(--maths-gold);
-  font-size: .76rem;
-  font-weight: 650;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  font-weight: 600;
 }
 .maths-route__links { margin-bottom: 0; }
 
@@ -286,30 +295,34 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   background: var(--surface);
 }
 
-.maths-hero__map { margin-top: var(--space-2); }
-.maths-hero__map a { font-weight: 600; }
-
 /* The overview hero: every block on one measure and one rhythm. The lede and
-   the ways in lead; the note on who built the work and how to join it closes
-   the hero in a quieter voice under a hairline. */
-.reading-index .maths-hero { --hero-measure: 42rem; }
+   the ways in lead, then one pair of actions (the map, the guide) with a
+   line saying what the map holds. The note on who built the work and how to
+   join it follows the problem list in a quieter voice under a hairline. */
+.reading-index { --hero-measure: 42rem; }
 .reading-index .maths-hero__lede,
 .reading-index .maths-hero__starts,
-.maths-hero__more,
+.maths-hero__map,
 .maths-hero__about { max-width: var(--hero-measure); }
 .reading-index .maths-hero__lede { margin-bottom: var(--space-5); }
 .reading-index .maths-hero__starts { margin: 0 0 var(--space-5); gap: var(--space-3); }
-.maths-hero__more { margin: 0 0 var(--space-5); }
-.maths-hero__more p { margin: 0 0 var(--space-1); color: var(--ink-soft); }
-.maths-hero__more .maths-hero__map { margin-top: 0; }
+.maths-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-2);
+}
+.maths-hero__map { margin: 0 0 var(--space-6); color: var(--muted); }
 .maths-hero__about {
+  margin: var(--space-6) 0 var(--space-5);
   padding-top: var(--space-4);
   border-top: 1px solid var(--rule);
   color: var(--muted);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
 }
-.maths-hero__about p { margin: 0 0 var(--space-3); }
+.maths-hero__about p { margin: 0 0 var(--space-3); max-width: 62ch; }
 .maths-hero__about p:last-child { margin-bottom: 0; }
 
 /* Landing teaser: the same field, fixed portrait, one caption line. */
@@ -727,10 +740,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 /* ---- Shelves (papers, documents) ---------------------------------------- */
 .shelf-group { margin: var(--space-5) 0 0; }
 .shelf-group__label {
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--faint);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--muted);
   margin: 0 0 var(--space-2);
 }
 .shelf { list-style: none; margin: 0; padding: 0; }
@@ -767,18 +779,17 @@ html:not(.scripting) .universe-nojs { display: block; }
 .shelf__meta a:hover { color: var(--accent); }
 
 /* ---- Generation receipt strip ------------------------------------------- */
+/* Provenance closes the page under a hairline, in caption type. */
 .maths-receipt {
   margin: var(--space-8) 0 var(--space-6);
-  padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--rule);
-  border-left: 3px solid var(--maths-gold);
-  border-radius: var(--r-sm);
-  background: var(--surface);
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--rule);
   font-size: var(--fs-meta);
   color: var(--muted);
 }
 .maths-receipt code { font-size: var(--fs-small); }
-.maths-receipt p { margin: 0.35rem 0; max-width: none; }
+.maths-receipt p { margin: 0.35rem 0; max-width: 64ch; }
+.maths-receipt--inline { max-width: 62ch; }
 
 /* ---- Problem dossier pages ---------------------------------------------- */
 .dossier-head { margin: 0 0 var(--space-6); }
@@ -810,6 +821,14 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--muted);
   font-size: var(--fs-meta);
 }
+.dossier-head__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.dossier-head__actions .btn { font-size: var(--fs-meta); padding: 0.5rem 0.9rem; }
 
 .dossier-section { margin: var(--space-6) 0; }
 .dossier-section > h2 {
@@ -870,8 +889,10 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-size: var(--fs-meta);
 }
 
+/* A source link is a route, set in the text face; the module names inside a
+   table's links keep their own <code>. */
 .source-link {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-small);
   color: var(--maths-gold);
   text-decoration: none;
@@ -929,14 +950,16 @@ html:not(.scripting) .universe-nojs { display: block; }
 
 /* ---- Paper reading stage ------------------------------------------------ */
 .paper-head { margin: 0 0 var(--space-5); }
+/* Which paper this is, in the sentence case of the rest of the page: the
+   tracked capitals read as template chrome over a manuscript. */
 .paper-head__eyebrow {
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--maths-gold);
-  font-weight: 600;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  font-weight: 500;
   margin: 0 0 var(--space-2);
 }
+/* 24ch broke the long titles into four lines and split #1041's hyphenated
+   "Degree-Seven" across two; 32ch with balancing sets them in three. */
 .paper-head h1 {
   font-family: var(--font-serif);
   font-size: clamp(1.9rem, 4.2vw, 2.7rem);
@@ -944,22 +967,17 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 0 0 var(--space-3);
   letter-spacing: -0.012em;
   text-wrap: balance;
-  max-width: 24ch;
+  max-width: 32ch;
 }
+/* Problem, author and date are spaced apart rather than strung on dots. */
 .paper-head__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) 0;
+  gap: var(--space-1) 1.4em;
   align-items: baseline;
   color: var(--muted);
   font-size: var(--fs-meta);
   margin-bottom: var(--space-4);
-}
-/* The separator trails its item, so a wrapped line never opens with a dot. */
-.paper-head__meta > span:not(:last-child)::after {
-  content: "\00b7";
-  margin: 0 0.6em;
-  color: var(--faint);
 }
 /* One control, one size: the PDF leads as the filled button and every other
    route follows as a ghost button of the same height. A route that leaves
@@ -981,11 +999,13 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-head__routes .btn[data-link-kind="exogenous"]::after,
 .paper-choice__links .btn[data-link-kind="exogenous"]::after { color: var(--link-ext); }
 
+/* The précis opens on a hairline with a run-in head, the way a journal sets
+   an abstract; a coloured side bar and a capitals label made it a callout. */
 .paper-precis {
-  border-left: 3px solid var(--maths-gold);
-  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  border-top: 1px solid var(--rule);
+  padding: var(--space-4) 0 0;
   margin: var(--space-6) 0 var(--space-5);
-  max-width: var(--paper-measure, 42rem);
+  max-width: var(--paper-measure, 34.5rem);
 }
 .paper-precis p {
   margin: 0;
@@ -993,16 +1013,9 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-family: var(--font-serif);
   font-size: 1.1rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
-/* The label keeps the eyebrow type used everywhere else on the page; the
-   serif belongs to the précis itself. */
-.paper-precis .eyebrow {
-  margin-bottom: var(--space-1);
-  font-family: var(--font-sans);
-  font-size: var(--fs-micro);
-  line-height: var(--lh-snug);
-  color: var(--faint);
-}
+.paper-precis__head { font-weight: 600; color: var(--ink); }
 
 .authority-card {
   border: 1px solid var(--rule);
@@ -1041,6 +1054,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-notes .authority-card p { margin: 0; }
 .paper-notes .authority-card p + p { margin-top: var(--space-1); }
 .paper-notes > p.note { margin: var(--space-3) 0 0; }
+/* Caption type sets narrow: the shared measure ran these notes past 90
+   characters a line. */
+.paper-notes p { max-width: 62ch; }
 @media (max-width: 768px) { .paper-notes { padding-left: 0; } }
 
 /* The rendered manuscript. Pandoc emits section.levelN wrappers.
@@ -1050,7 +1066,7 @@ html:not(.scripting) .universe-nojs { display: block; }
    base sheet zeroes every <p> margin for its card layouts; the manuscript
    restores a reading rhythm here. */
 .paper-stage {
-  max-width: 68ch;
+  max-width: var(--paper-measure, 34.5rem);
   font-family: var(--font-serif);
   font-size: 1.125rem;
   line-height: 1.66;
@@ -1278,12 +1294,12 @@ html:not(.scripting) .universe-nojs { display: block; }
   text-decoration-color: var(--accent);
 }
 /*
-  amsthm environments. Results (theorem, lemma, proposition, corollary) are
-  set as quiet panels with a gold rule so the eye can find the statements on
-  a long page; definitions, examples, remarks, and problem statements keep a
-  plain hairline. Both the long Pandoc class names and the short manuscript
-  aliases (thm, lem, prop, cor, defn, rem, obs) are covered so every paper
-  and reasoning surface reads the same way.
+  amsthm environments. Results (theorem, lemma, proposition, corollary) and
+  problem statements keep one hairline beside them so the eye can find them
+  on a long page; definitions, examples and remarks are carried by their
+  run-in heads and spacing alone. Both the long Pandoc class names and the
+  short manuscript aliases (thm, lem, prop, cor, defn, rem, obs) are covered
+  so every paper and reasoning surface reads the same way.
 */
 .paper-stage .theorem, .paper-stage .thm,
 .paper-stage .lemma, .paper-stage .lem,
@@ -1296,22 +1312,21 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .remark, .paper-stage .rem,
 .paper-stage .obs {
   margin: 1.35em 0;
-  padding: 0.75em 1em 0.8em 1.05em;
-  border-left: 3px solid color-mix(in srgb, var(--rule-strong) 80%, transparent);
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 0;
   scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
+/* Statements are set as a journal sets them: the bold run-in head carries
+   the environment, and a theorem or a problem keeps one hairline beside it
+   so the eye can find the statements on a long page. The gold side tab and
+   tinted panel this replaces read as callout chrome (critique, 3 Oct 2026). */
 .paper-stage .theorem, .paper-stage .thm,
 .paper-stage .lemma, .paper-stage .lem,
 .paper-stage .proposition, .paper-stage .prop,
 .paper-stage .corollary, .paper-stage .cor,
-.paper-stage .equivform {
-  border-left-color: var(--maths-gold);
-  background: color-mix(in srgb, var(--maths-gold) 7%, transparent);
-}
+.paper-stage .equivform,
 .paper-stage .problem {
-  border-left-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  padding: 0.1em 0 0.15em 1.1em;
+  border-left: 1px solid var(--rule-strong);
 }
 .paper-stage .theorem p, .paper-stage .thm p,
 .paper-stage .lemma p, .paper-stage .lem p,
@@ -1498,11 +1513,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 
 /* ---- Document pages ------------------------------------------------------ */
 .doc-role-eyebrow {
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--maths-gold);
-  font-weight: 600;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  font-weight: 500;
   margin: 0 0 var(--space-2);
 }
 .doc-source-line {
@@ -1720,14 +1733,14 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .universe-hint {
   margin: var(--space-3) 0 0;
-  max-width: 52rem;
+  max-width: 62ch;
   color: var(--muted);
   font-size: var(--fs-small);
   text-wrap: pretty;
 }
-.universe-about { max-width: 68ch; margin: var(--space-7) 0 var(--space-5); }
+.universe-about { max-width: 62ch; margin: var(--space-7) 0 var(--space-5); }
 .universe-about h2 { font-size: var(--fs-h3); margin: 0 0 var(--space-3); }
-.universe-about p { max-width: 68ch; color: var(--ink-soft); line-height: var(--lh-body); text-wrap: pretty; margin: 0 0 var(--space-3); }
+.universe-about p { max-width: 62ch; color: var(--ink-soft); line-height: var(--lh-body); text-wrap: pretty; margin: 0 0 var(--space-3); }
 .universe-about .universe-about__snapshot,
 .universe-about .doc-source-line,
 .universe-about .universe-rule { color: var(--muted); font-size: var(--fs-small); }
@@ -1836,6 +1849,10 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .universe-inspector__boundary,
 .universe-inspector__note { color: var(--muted); }
+/* The notes' TeX arrives typeset as MathML, as on the paper pages. A long
+   formula may break at its operators, never out of the column. */
+.universe-inspector math { font-size: 1.06em; color: var(--ink-soft); overflow-wrap: normal; }
+.universe-inspector__note math, .universe-inspector__boundary math { max-width: 100%; }
 .universe-inspector.is-preview .universe-inspector__body {
   display: -webkit-box;
   -webkit-line-clamp: 6;
@@ -1983,7 +2000,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-inspector__clear:hover,
 .universe-inspector__copy:hover { color: var(--ink); border-color: var(--accent); }
 .universe-inspector__copy { margin-top: var(--space-3); }
-.universe-hint { color: var(--muted); font-size: var(--fs-small); margin: var(--space-3) 0 0; max-width: 68ch; }
+.universe-hint { color: var(--muted); font-size: var(--fs-small); margin: var(--space-3) 0 0; max-width: 62ch; }
 
 .universe-index { margin: var(--space-7) 0; }
 .universe-index details { border-top: 1px solid var(--rule); }
@@ -2024,10 +2041,8 @@ html:not(.scripting) .universe-nojs { display: block; }
 .maths-pager__link--next { text-align: right; margin-left: auto; }
 .maths-pager__dir {
   display: block;
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
-  color: var(--faint);
+  font-size: var(--fs-meta);
+  color: var(--muted);
   margin-bottom: 0.15rem;
 }
 .maths-pager__spacer { flex: 1; }
@@ -2166,6 +2181,10 @@ html:not(.scripting) .universe-nojs { display: block; }
 /* Problem rows share one shape: number and title, the question, an optional
    note in a quieter line, then the reading routes. */
 .problem-section { margin: var(--space-4) 0 0; }
+/* The rows keep the hero's measure, so a question never runs the width of
+   a monitor and the rules between rows end where the text does. */
+.problem-directory, .reading-index .reading-shelf { max-width: 40rem; }
+.reading-index .dossier-section > p { max-width: 62ch; }
 .problem-section__head { margin: 0 0 var(--space-4); }
 .problem-section__head h2 { font-family: var(--font-serif); font-size: 1.45rem; margin: 0 0 var(--space-1); }
 .problem-section__head .note { margin: 0; color: var(--muted); font-size: var(--fs-meta); }
@@ -2180,7 +2199,13 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-entry__question { color: var(--ink-soft); }
 .problem-entry__note { color: var(--muted); font-size: var(--fs-meta); line-height: var(--lh-body); }
 .problem-entry__note strong { font-weight: 600; color: var(--ink-soft); }
-.problem-entry__links { margin: .75rem 0 0 5.5rem; font-size: var(--fs-meta); }
+.problem-entry__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.4rem;
+  margin: .75rem 0 0 5.5rem;
+  font-size: var(--fs-meta);
+}
 .reading-next, .problem-jumps { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--u-edge); }
 .reading-shelf li { padding: 0.85rem 0; border-bottom: 1px solid var(--u-edge); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; align-items: center; }
 .reading-shelf li > a:first-child { flex: 1 1 100%; }
@@ -2266,7 +2291,14 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .source-file__name:hover { color: var(--accent); }
 .source-file__name[aria-pressed=true] { font-weight: 650; color: var(--accent); }
-.source-file__github { font-size: 0.8rem; align-self: center; color: var(--muted); }
+.source-file__github {
+  font-size: 0.8rem;
+  align-self: center;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
 .source-file__github:hover { color: var(--accent); }
 .source-file__path {
   grid-column: 1 / -1; color: var(--muted); overflow-wrap: break-word;
