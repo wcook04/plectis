@@ -147,7 +147,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 - [AI packet](plectis-ai-review-packet.json) (~19 MB): start here -- upload this file and ask for a guided tour of the website or either GitHub repository. It carries the papers, full glossary, page prose and source records, with question routes, indexed names, section links and exact source pointers. Open question_router.routes.guided_tour for a tour; use retrieval_index for a term, page, paper or repository file.
 - [reviewer brief](plectis-reviewer-brief.json) (~12 MB): smaller optional source download -- paper LaTeX, assertions, glossary, repository documents and path indexes. Use the full AI packet for website prose and guided tours.
-- [reader digest](plectis-ai-reader-digest.json) (~371 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
+- [reader digest](plectis-ai-reader-digest.json) (~372 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [complete text corpus](plectis-ai-reader-complete.json) (~13 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
