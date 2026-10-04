@@ -368,8 +368,10 @@ the ledger, the evidence or the rendered papers come from different editions.
   Palomar's caption: #257's number, at the foot of the core, read as a third
   line of Comparator's caption, so that room is kept and the number moves along
   the orbit, one step past the paper beside its disc. At small scale (phone,
-  teaser) band titles shorten to the number and a count, and no title leans
-  more than 15 degrees past upright.
+  teaser) band titles shorten to the number and a count said in words
+  ("20 of 20"; the map spells "20 of 20 replayed", the centre "616 of 689
+  replayed"), never a fraction, and no title leans more than 15 degrees past
+  upright.
 - A card's notes (why a Lean form is not exact, how the Lean statement gives
   the printed one) arrive typeset: the experience build renders their inline
   TeX to MathML with pandoc and the papers' house aliases (`\Npos`, `\Ach`,
@@ -407,7 +409,12 @@ the ledger, the evidence or the rendered papers come from different editions.
   words), 110ms apart, each fading in over 300ms and seating from a fortieth
   inside its place with a hard stop, about 0.82s in all. Focus eases in over
   180ms, camera moves are slow-in slow-out at 300ms plus 120ms per doubling
-  of scale, capped at 650ms. All of it is skipped under reduced motion.
+  of scale, capped at 650ms. A drill lights what it will frame first and the
+  camera leaves 90ms later; name plates wait while the camera moves (one
+  re-placed on every frame jumped from side to side) and arrive over 160ms
+  once it has settled. Walking a paper (Previous, Next, the arrow keys) keeps
+  the view the reader chose: the camera slides, at the same scale, only when
+  the next result would leave it. All of it is skipped under reduced motion.
 - Type on the canvas is the page's serif; halos are drawn before any letter
   of a curved title, and letters are placed by the width of the text before
   them so kerning survives. Titles stand outside the scale, on one circle,
@@ -418,11 +425,33 @@ the ledger, the evidence or the rendered papers come from different editions.
   one tick per result, each sector's short paper then its long record in the
   order the papers state them, every tenth tick longer and every fiftieth
   longer again, a mark between the two papers, and the sector boundaries
-  strongest; no numerals. Ticks closer than 3 device pixels thin to every
-  fifth. On the map page a pinned result puts a fine cursor on its tick (the
-  map's "Result 17 of 18"), which walks with Previous and Next over 220ms and
-  never moves on its own.
+  strongest; no numerals. Every tick stands at one spacing all the way round
+  (the closest any sector packs its results, less a twentieth) and each
+  sector's run is centred in its sector with clear ground at both ends, so the
+  scale's density is one everywhere and a run's length is its count. Ticks
+  closer than 3 device pixels thin to every fifth. On the map page a pinned
+  result puts a fine cursor on its tick (the map's "Result 17 of 18"), tied to
+  the result's dot by a dotted hairline laid under the marks, so the dot's
+  place in the band and its place in its paper read as one result however far
+  round the sector they stand; it walks with Previous and Next over 220ms and
+  never moves on its own. The card's step bar carries the same scale in small,
+  its own cursor on the result.
 - Focus is an engineering callout: four hairline corner ticks ease in from
+  1.35x over 140ms round the hovered or pinned object (Comparator and Palomar
+  keep their lit bands), and the object names itself on an opaque plate
+  joined by an elbow leader. The plate reads the name whole: on one line, on
+  two broken where they come out most nearly equal, or on three in a narrow
+  room; a name is cut only when no place can hold it whole, and a short name
+  breaks only when its room makes it. The plate takes the least-covering of
+  six places, each in one, two or three lines, weighing discs most, then
+  anchor names and the band titles in focus (a word a plate grazes steps
+  aside whole, so a graze costs the whole word: the reader keeps "#68
+  Factorial denominator" beside a pinned #68 result), the cursor, reticles and
+  the card's corner marks, and the band's own results a little; a pinned plate
+  holds still, a walked one keeps its side while the room allows, and two
+  plates never cross. Scale ticks give way under plates, leaders and
+  reticles, and a reticle corner that would cross a word is left out.
+: four hairline corner ticks ease in from
   1.35x over 140ms round the hovered or pinned object (Comparator and Palomar
   keep their lit bands), and the object names itself on an opaque plate
   joined by an elbow leader. The plate takes the least-covering of six
@@ -433,7 +462,16 @@ the ledger, the evidence or the rendered papers come from different editions.
 - Hairlines are one device pixel and straight ones sit on the device-pixel
   grid; the canvas backing store takes the box's exact device-pixel size, so
   nothing is resampled.
-- Drill-down on the map page: a problem frames its sector, a paper frames its
+- Drill-down on the map page: a problem frames its sector, a paper of it
+  frames its results, a result of that paper pins its card. Escape, a click on
+  empty ground or the card's head button retraces that trail exactly (result,
+  paper, problem, whole field), each level with its card and the view it had.
+  Below the top of the trail the head button says Back; every pinned card
+  ends by naming where going back leads ("go back to the long record on
+  #257", "go back to #257", "go back to the whole map", "close this card"). A
+  pin made anywhere else (a card's link, the search, an address) starts a new
+  trail, and going back returns the view it left.
+: a problem frames its sector, a paper frames its
   results, a result pins its card. Escape or a click on empty ground steps
   back one level (the pin, then the framed view, then the whole field), and
   the pinned card says so in one line.
@@ -579,6 +617,19 @@ the ledger, the evidence or the rendered papers come from different editions.
   under one.
 - Light belongs to the evidence, as colour does, and the ground stays flat.
   On the dark ground a replayed result glows faintly, an ember, brighter in
+  its lit sector; on paper there is no ambient glow, and nothing else glows
+  in either scheme: the mark in focus is framed by its reticle and ring, not
+  lit (Will, 4 Oct: precision, the engineering behind it). Settling on a
+  result plays one moment, after a tenth of a second so a sweeping pointer
+  leaves no trail: one ripple from the mark, a bead along each of its threads
+  (at most four, the checking surfaces first), and one answering ripple from
+  Comparator when it replayed the result. Palomar, which holds a prepared
+  corpus, does not answer. The companion's card mark ripples on the same beat
+  when its evidence is new, a new plate eases out of its mark over a sixth of
+  a second, and a selection plays its moment once. Reduced motion keeps the
+  still embers and plays none of the motion.
+, as colour does, and the ground stays flat.
+  On the dark ground a replayed result glows faintly, an ember, brighter in
   its lit sector; on paper there is no ambient glow. The mark in focus glows
   in either scheme. Settling on a result plays one moment, after a tenth of
   a second so a sweeping pointer leaves no trail: one ripple from the mark,
@@ -589,6 +640,18 @@ the ledger, the evidence or the rendered papers come from different editions.
   a new plate eases out of its mark over a sixth of a second, and a
   selection plays its moment once.
   Reduced motion keeps the still glow and plays none of the motion.
+- Names are plain words. Two #251 result names in the ledger carry a
+  Markdown link inside their parentheses ("Theorem 5.6 ([criterion using least
+  common multiples](https://…))"); the map reads the link as its words on
+  every plate, card, caption and search row.
+- The map page's count line under the search says how many objects the
+  legend shows ("881 of 897 shown", then ", 3 found" while searching), with
+  no middle-dot separator; the renderer's count of connections drawn is gone,
+  being no reader's question. On a small field Comparator's and Palomar's
+  counts ("616 of 689 replayed", "616 prepared") spread apart to keep a clear
+  gap, so they never give way or read as one phrase. The rail's problem rows
+  say "20 of 20 replayed", and its key now explains the evenly spaced scale
+  and that Esc "goes back the same way".
 
 ### Maths reading pages (October 2026)
 

@@ -1730,7 +1730,13 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-step__btn:hover:not([disabled]) { color: var(--ink); border-color: var(--accent); }
 .universe-step__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .universe-step__btn[disabled] { opacity: 0.4; cursor: default; }
-.universe-step__at { color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; text-align: center; }
+.universe-step__at { color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 4px; }
+/* The paper's scale in small, its cursor on this result: the map's own mark. */
+.universe-step__scale { display: block; overflow: visible; }
+.universe-step__ticks { fill: none; stroke: var(--faint); stroke-width: 1; }
+.universe-step__knock { stroke: var(--surface-sunk); stroke-width: 4; }
+.universe-step__cursor { stroke: var(--ink); stroke-width: 2; }
 .universe-toolbar .universe-count { margin-left: 0; font-variant-numeric: tabular-nums; }
 .universe-toolbar .universe-panel__cta { margin-left: 0; }
 /* The legend is the filter: each key switches its kind or glyph on and off. */

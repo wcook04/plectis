@@ -585,6 +585,35 @@
   document.body.appendChild(hint);
   root.setAttribute('data-glossary-hint', 'shown');
 
+  /* The map band's caption rows carry the drawings' buttons at the foot of
+     the band, where the chip stands when the band fills the window. While a
+     caption row that reaches the chip's column is in the bottom strip of the
+     window, the chip steps out of the way (landing only, 4 October 2026). */
+  var captions = document.querySelectorAll('.home-universe__caption, .home-system__caption');
+  if (captions.length && 'IntersectionObserver' in window) {
+    // Rows in the bottom strip, judged against the chip's column from live
+    // boxes: a row that slid in from the right edge settles elsewhere.
+    var inStrip = [];
+    var updateTuck = function () {
+      var limit = (window.innerWidth || 0) - 96;
+      var tuck = inStrip.some(function (row) { return row.getBoundingClientRect().right > limit; });
+      hint.classList.toggle('is-tucked', tuck);
+    };
+    var tuckWatch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var at = inStrip.indexOf(entry.target);
+        if (entry.isIntersecting && at < 0) inStrip.push(entry.target);
+        if (!entry.isIntersecting && at >= 0) inStrip.splice(at, 1);
+      });
+      updateTuck();
+    }, { rootMargin: '-86% 0px 0px 0px' });
+    for (var ci = 0; ci < captions.length; ci += 1) tuckWatch.observe(captions[ci]);
+    document.addEventListener('plectis:atlas', function (event) {
+      if (event.detail && event.detail.phase === 'end') updateTuck();
+    });
+    window.addEventListener('resize', updateTuck, { passive: true });
+  }
+
   var gone = false;
 
   function setCompact(on) {

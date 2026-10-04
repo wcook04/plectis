@@ -147,6 +147,15 @@
     return cut + '…';
   }
 
+  /* A name is plain words. Two of the ledger's result names carry a
+     Markdown link inside their parentheses ("Theorem 5.6 ([criterion using
+     least common multiples](https://…))"), and a plate printed the link as
+     it stands; the link's own words take its place. */
+  function plainText(text) {
+    return String(text == null ? '' : text)
+      .replace(/\[([^\]]*)\]\((?:[^()\s]|\([^()\s]*\))*\)/g, '$1');
+  }
+
   function escapeHtml(text) {
     return String(text).replace(/[&<>"']/g, function (ch) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
@@ -456,8 +465,9 @@
     /* Light belongs to the evidence, as colour does, and the ground stays
        flat. On the dark ground a replayed result glows faintly, an ember,
        so the checked ring reads as lit before a word is read; on paper a
-       glow would only smudge the mark, so there the ember stays a mark. The
-       mark in focus glows in either scheme. */
+       glow would only smudge the mark, so there the ember stays a mark.
+       Nothing else glows: the mark in focus is framed by its reticle and
+       ring, precisely, never lit. */
     var darkGround = false;
     // Measured on the landing at 1280 and 1440: below about a fifth, the
     // halo at a band's edge does not register at all.
@@ -508,11 +518,11 @@
 
     /* One orchestrated moment shows where a result's evidence goes. A
        reader who settles on a result sees its mark send out one ripple and
-       a bead of light run along each of its threads; when Comparator
-       replayed the result, Comparator answers with a brief glow. It waits a
+       a bead run along each of its threads; when Comparator replayed the
+       result, Comparator answers with one ripple of its own. It waits a
        tenth of a second, so a pointer sweeping across a band leaves no
        trail, plays once in about a second and a half, and is skipped under
-       reduced motion, which keeps the still glow. */
+       reduced motion, which keeps the still embers. */
     var PULSE_WAIT = 110, PULSE_RIPPLE = 720, PULSE_TRAVEL = 620, PULSE_STAGGER = 70, PULSE_BLOOM = 560;
     var PULSE_THREADS = 4;
     var PULSE_END = PULSE_WAIT + (PULSE_THREADS - 1) * PULSE_STAGGER + PULSE_TRAVEL + PULSE_BLOOM;
@@ -578,28 +588,12 @@
                    (lit ? EMBER_LIT : EMBER_REST) * fade * revealAlpha(3));
         }
       }
-      if (focus >= 0 && nodes[focus] && visible(nodes[focus])) {
-        n = nodes[focus];
-        x = n.x * view.k + view.tx; y = n.y * view.k + view.ty;
-        var r = n.r * rs + 1.5;
-        var swell = 1 - Math.pow(1 - pulsePhase(0, 240), 2);
-        drawGlow(x, y, r * (n.kind === 'problem' || n.kind === 'universe' ? 2.6 : 5.2), focusColor(n),
-                 (darkGround ? 0.62 : 0.3) * swell);
-        if (n.tier === 'replayed') {
-          threads.forEach(function (th) {
-            var m = nodes[th.other];
-            if (m.id === 'integration:palomar' || m.kind !== 'integration_surface') return;
-            var b = pulsePhase(th.delay + PULSE_TRAVEL, PULSE_BLOOM);
-            if (b <= 0 || b >= 1) return;
-            drawGlow(m.x * view.k + view.tx, m.y * view.k + view.ty, m.r * rs * 4.2,
-                     palette.integration_surface, (darkGround ? 0.85 : 0.45) * Math.sin(Math.PI * b));
-          });
-        }
-      }
+      // The mark in focus is framed by its reticle, not lit: the embers are
+      // the only light on the field.
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1;
     }
-    // Over the marks: the ripple and the beads.
+    // Over the marks: the ripple, the beads, and Comparator's answer.
     function drawPulse(focus, threads, rs) {
       if (focus < 0 || pulse.at !== focus || pulse.ms >= PULSE_END) return;
       var n = nodes[focus];
@@ -624,9 +618,6 @@
         var fade = Math.min(1, p * 6, (1 - p) * 6);
         var q = easeInOut(p);
         var bx = x + (mx - x) * q, by = y + (my - y) * q;
-        ctx.globalCompositeOperation = darkGround ? 'lighter' : 'source-over';
-        drawGlow(bx, by, 10 * size, color, (darkGround ? 0.9 : 0.5) * fade);
-        ctx.globalCompositeOperation = 'source-over';
         // The tail is three fading dots, in the map's own language of marks.
         ctx.fillStyle = color;
         for (var d = 3; d >= 1; d--) {
@@ -642,6 +633,24 @@
         ctx.arc(bx, by, 2.2 * size, 0, Math.PI * 2);
         ctx.fill();
       });
+      // A replayed result's bead reaches Comparator, which answers with one
+      // ripple of its own, the same mark the result sent out. Palomar, which
+      // holds a prepared corpus, does not answer.
+      if (n.tier === 'replayed') {
+        threads.forEach(function (th) {
+          var m = nodes[th.other];
+          if (m.id !== 'integration:comparator') return;
+          var b = pulsePhase(th.delay + PULSE_TRAVEL, PULSE_BLOOM);
+          if (b <= 0 || b >= 1) return;
+          var e = 1 - Math.pow(1 - b, 3), mr = m.r * rs;
+          ctx.globalAlpha = 0.7 * (1 - e);
+          ctx.lineWidth = 1.3;
+          ctx.strokeStyle = palette.integration_surface;
+          ctx.beginPath();
+          ctx.arc(m.x * view.k + view.tx, m.y * view.k + view.ty, mr + 2 + e * Math.max(12, mr * 1.1), 0, Math.PI * 2);
+          ctx.stroke();
+        });
+      }
       ctx.globalAlpha = 1;
     }
 
@@ -691,6 +700,14 @@
     // Per sector, its results in scale order and where each paper's run
     // starts; per result, its row and place on the scale.
     var scaleRows = [], scaleSlot = {};
+    /* One spacing for every tick round the ring. A sector is as wide as its
+       results plus a floor, so a small sector spread its ticks wider and
+       read as sparse beside a full one. Every tick now stands at the closest
+       spacing any sector allows (less a twentieth, so no run meets a
+       boundary), and each sector's run sits centred in it with clear ground
+       at both ends: the scale's density is one everywhere, and a run's
+       length is its count. */
+    var SCALE_FILL = 0.95, scalePitch = 0;
     function buildScale() {
       scaleRows = [];
       scaleSlot = {};
@@ -714,9 +731,17 @@
         });
         if (row.slots.length) scaleRows.push(row);
       });
+      scalePitch = Infinity;
+      scaleRows.forEach(function (row) { scalePitch = Math.min(scalePitch, (row.hi - row.lo) / row.slots.length); });
+      scalePitch = isFinite(scalePitch) ? scalePitch * SCALE_FILL : 0;
+      scaleRows.forEach(function (row) {
+        row.from = (row.lo + row.hi) / 2 - row.slots.length * scalePitch / 2;
+      });
     }
+    // The angle of a place on the scale: 0 is the start of its sector's run,
+    // a whole number the edge between two results.
     function slotAngle(row, at) {
-      return row.lo + at * (row.hi - row.lo) / row.slots.length;
+      return row.from + at * scalePitch;
     }
     // Half way across each gap between two sectors.
     function sectorGaps() {
@@ -762,8 +787,7 @@
       else if (f && f.kind === 'paper') litPaper = String(f.id).replace(/^paper:/, '');
       else if (f && f.sector && f.kind !== 'universe' && f.kind !== 'integration_surface') litSectors = sectorProblems(f);
       var rest = dimmed(0.4);
-      var pitch = Infinity, finest = 0;
-      scaleRows.forEach(function (row) { pitch = Math.min(pitch, (row.hi - row.lo) / row.slots.length * R); });
+      var pitch = scalePitch * R, finest = 0;
       for (var l = 1; l < SCALE_TICKS.length; l++) {
         if (pitch * SCALE_TICKS[l][0] / hairPx >= SCALE_PITCH) finest = l;
       }
@@ -781,7 +805,6 @@
       }
       scaleRows.forEach(function (row) {
         var sectorOn = !litSectors || litSectors.indexOf(row.sector) !== -1;
-        var step = (row.hi - row.lo) / row.slots.length;
         row.papers.forEach(function (paper) {
           var dim = (litPaper ? paper.pid === litPaper : sectorOn) ? 1 : rest;
           for (var j = 0; j < paper.count; j++) {
@@ -790,7 +813,7 @@
               if (c % SCALE_TICKS[q][0] === 0) { level = q; break; }
             }
             if (level > finest) continue;
-            put(SCALE_TICKS[level][2] * dim * ra, row.lo + (paper.from + j + 0.5) * step, SCALE_TICKS[level][1]);
+            put(SCALE_TICKS[level][2] * dim * ra, slotAngle(row, paper.from + j + 0.5), SCALE_TICKS[level][1]);
           }
         });
         // Between the two papers.
@@ -840,19 +863,20 @@
        it stands. It never moves by itself, and a hover elsewhere leaves it
        where it is. */
     var CURSOR_MOVE = 220, CURSOR_IN = 140, CURSOR_HOLD = 140, CURSOR_OUT = 220;
-    var cursor = { angle: 0, alpha: 0, target: null, turn: null, fade: null, frame: 0 };
+    var cursor = { angle: 0, alpha: 0, target: null, turn: null, fade: null, frame: 0, of: -1 };
     function cursorTarget() {
       var i = pageMode ? selected : -1;
       if (i < 0 || !scaleR || !nodes[i] || !visible(nodes[i])) return null;
       var slot = scaleSlot[i];
       if (!slot) return null;
-      var row = scaleRows[slot.row];
-      return row.lo + (slot.at + 0.5) * (row.hi - row.lo) / row.slots.length;
+      return slotAngle(scaleRows[slot.row], slot.at + 0.5);
     }
     function aimCursor(force) {
       var to = cursorTarget();
       if (to === cursor.target && !force) return;
       cursor.target = to;
+      // The result it marks, kept while it fades, so its tie fades with it.
+      if (to !== null) cursor.of = selected;
       var still = force || reduceMotion || !window.requestAnimationFrame || document.hidden || !onScreen;
       if (to === null) {
         cursor.turn = null;
@@ -891,12 +915,34 @@
       if (busy) cursor.frame = requestMotionFrame(stepCursor);
       draw();
     }
-    function drawCursor() {
+    /* A fine dotted tie runs from the pinned result to its cursor, so the
+       dot's place in the band and its place in its paper read as the same
+       result, however far round the sector the two stand. It is laid under
+       the marks, which stand over it, and walks with the cursor. */
+    function drawCursor(rs) {
       if (!scaleR || cursor.alpha <= 0.01) return;
       var R = seatedScaleR();
       var c = Math.cos(cursor.angle), s = Math.sin(cursor.angle);
       var x0 = view.tx + c * (R - 4), y0 = view.ty + s * (R - 4);
       var x1 = view.tx + c * (R + SCALE_MARK), y1 = view.ty + s * (R + SCALE_MARK);
+      var m = cursor.of >= 0 ? nodes[cursor.of] : null;
+      if (m && visible(m)) {
+        var mx = m.x * view.k + view.tx, my = m.y * view.k + view.ty;
+        var vx = x0 - mx, vy = y0 - my, len = Math.sqrt(vx * vx + vy * vy);
+        var from = reticleSize(m, rs) + 2;
+        if (len > from + 4) {
+          ctx.globalAlpha = 0.6 * cursor.alpha;
+          ctx.strokeStyle = palette.ink;
+          ctx.lineWidth = hairPx;
+          ctx.lineCap = 'butt';
+          ctx.setLineDash([1.5, 2.5]);
+          ctx.beginPath();
+          ctx.moveTo(mx + vx / len * from, my + vy / len * from);
+          ctx.lineTo(x0, y0);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      }
       // Its room is taken, so a reticle corner gives way to it.
       labelBoxes.push({ x0: Math.min(x0, x1) - 2, x1: Math.max(x0, x1) + 2,
                         y0: Math.min(y0, y1) - 2, y1: Math.max(y0, y1) + 2, owner: -2 });
@@ -1028,6 +1074,8 @@
       if (cursor.frame) { cancelMotionFrame(cursor.frame); cursor.frame = 0; }
       if (cursor.turn) { cursor.angle = cursor.turn.from + cursor.turn.by; cursor.turn = null; }
       if (cursor.fade) { cursor.alpha = cursor.fade.to; cursor.fade = null; }
+      if (arrival.frame) { cancelMotionFrame(arrival.frame); arrival.frame = 0; }
+      arrival.ms = 1e9;
       // With nothing left to advance, the shared frame is given back too.
       if (motionFrame && !Object.keys(motionCallbacks).length && window.cancelAnimationFrame) {
         window.cancelAnimationFrame(motionFrame);
@@ -1110,6 +1158,9 @@
       if (cursor.frame) cancelMotionFrame(cursor.frame);
       cursor.frame = 0;
       aimCursor(true);
+      if (arrival.frame) cancelMotionFrame(arrival.frame);
+      arrival.frame = 0;
+      arrival.ms = 1e9;
       if (overviewReady) draw();
     }
     if (reduceQuery && typeof reduceQuery.addEventListener === 'function') {
@@ -1119,7 +1170,11 @@
     }
     // A move under way lands where it was going if the canvas leaves view.
     var cameraGoal = null;
-    function cameraTo(target, fitted) {
+    /* A drill lights what it is about to frame before it moves (delay, in
+       ms): the lit slice comes up, then the camera travels to it. Plates
+       wait while the camera moves (a name re-placed on every frame of a move
+       jumped from side to side) and arrive once it has settled. */
+    function cameraTo(target, fitted, delay) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (cameraFrame && window.cancelAnimationFrame) cancelMotionFrame(cameraFrame);
       cameraFrame = 0;
@@ -1140,17 +1195,37 @@
       var duration = Math.min(650, 300 + 120 * Math.abs(Math.log(to.k / from.k) / Math.LN2));
       viewIsFitted = false;
       var step = function (now) {
-        if (start === null) start = now;
-        var t = Math.min(1, (now - start) / duration);
+        if (start === null) start = now + (delay || 0);
+        var t = Math.max(0, Math.min(1, (now - start) / duration));
         var e = easeInOut(t);
         var k = from.k * Math.pow(to.k / from.k, e);
         var cx = from.cx + (to.cx - from.cx) * e, cy = from.cy + (to.cy - from.cy) * e;
         view.k = k; view.tx = w / 2 - cx * k; view.ty = h / 2 - cy * k;
         draw();
         if (t < 1) cameraFrame = requestMotionFrame(step);
-        else { cameraFrame = 0; finish(); }
+        else { cameraFrame = 0; finish(); plateArrival(); }
       };
       cameraFrame = requestMotionFrame(step);
+    }
+    // Plates arrive over a sixth of a second once a camera move has settled.
+    var PLATE_IN = 160, arrival = { ms: 1e9, frame: 0 };
+    function plateArrival() {
+      if (arrival.frame) cancelMotionFrame(arrival.frame);
+      arrival.frame = 0;
+      arrival.ms = 1e9;
+      if (reduceMotion || !window.requestAnimationFrame || document.hidden || !onScreen) return;
+      var start = null;
+      arrival.ms = 0;
+      var step = function (now) {
+        if (start === null) start = now;
+        arrival.ms = now - start;
+        arrival.frame = arrival.ms < PLATE_IN ? requestMotionFrame(step) : 0;
+        draw();
+      };
+      arrival.frame = requestMotionFrame(step);
+    }
+    function plateEase(ms) {
+      return 1 - Math.pow(1 - Math.min(1, Math.max(0, ms) / PLATE_IN), 2);
     }
     function frameOf(indices, maxK) {
       var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
@@ -1174,6 +1249,8 @@
       cameraTo(target, true);
     }
 
+    // The beat between a drill lighting its target and the camera leaving.
+    var DRILL_BEAT = 90;
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
       var n = nodes[i];
@@ -1189,13 +1266,13 @@
             members.push(j);
           }
         }
-        cameraTo(frameOf(members, 3), false);
+        cameraTo(frameOf(members, 3), false, DRILL_BEAT);
         return;
       }
       // A paper frames its own results, the run its card walks.
       if (n.kind === 'paper') {
         var run = (paperSequence[String(n.id).replace(/^paper:/, '')] || []).filter(function (j) { return visible(nodes[j]); });
-        if (run.length) { cameraTo(frameOf(run.concat([i]), 3), false); return; }
+        if (run.length) { cameraTo(frameOf(run.concat([i]), 3), false, DRILL_BEAT); return; }
       }
       // A result is shown close enough to read its neighbours' numbers.
       var k = n.kind === 'paper_statement' ? Math.max(view.k, 3.2) : (view.k < 1.1 ? 1.6 : view.k);
@@ -1756,7 +1833,10 @@
         // with the scale drawn, every title stands outside it, all on one
         // circle.
         var base = Math.max((radii[1] + 6) * k + 15, scaleR ? scaleR + SCALE_MARK + 7 : 0);
-        var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
+        // Said as words, never as a fraction: "20 of 20" on a small ring,
+        // whose centre reads "616 of 689 replayed" beside Comparator, and
+        // "20 of 20 replayed" where the full name has room.
+        var count = { text: (b.evidence.replayed || 0) + ' of ' + total + (narrow ? '' : ' replayed'),
                       font: '400 11px ' + SERIF, color: palette.muted, alpha: 1 };
         var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
         // A count never stands without its problem's number: wherever the
@@ -1977,18 +2057,68 @@
     /* A hovered or selected result sits in a dense field, so its name goes
        beside it on a plate, toward the open side of the map, never across
        the band under it. Outward first; the other side only when it has
-       more room. A name longer than the room is shortened: the card has it
-       whole. The plate stands clear of the mark's reticle and a little
+       more room. The name is read whole: a long one sets in two lines,
+       broken where the two come out most nearly equal (three in a narrow
+       room), and only a name too long even for that is shortened (the card
+       has it whole). The plate stands clear of the mark's reticle and a little
        toward the open side of the field (up over its top half, down below),
        and a hairline leader leaves the reticle's corner on the plate's side
        and turns along to it; leaving from the corner, it never runs up the
        mark's radius into the scale. The place is chosen from six (beside
-       either way, a little up or down, or hung under or over the mark) as
-       the one that covers least of what the reader needs. */
+       either way, a little up or down, or hung under or over the mark), each
+       in one, two or three lines, as the one that covers least of what the
+       reader needs, the other marks of the field included: a plate laid
+       over a band hides the very results it sits among. */
     var LEAD_RISE = 9, LEAD_RUN = 10, LEAD_GAP = 1.5;
+    var PLATE_FONT = '500 12px ' + SERIF, PLATE_LEAD = 14.5, PLATE_ONE_LINE = 300, LINE_COST = [0, 30, 250];
+    // A name's balanced breaks into two and into three lines (the widest
+    // line as narrow as it can be), measured once per name in the plate's
+    // face.
+    var plateBreaks = {};
+    function balancedLines(text, count) {
+      var key = count + '|' + text;
+      if (Object.prototype.hasOwnProperty.call(plateBreaks, key)) return plateBreaks[key];
+      var words = text.split(' '), best = null, b, c;
+      var width = function (from, to) { return ctx.measureText(words.slice(from, to).join(' ')).width; };
+      for (b = 1; b < words.length; b++) {
+        if (count === 2) {
+          var two = Math.max(width(0, b), width(b));
+          if (!best || two < best.width) best = { lines: [words.slice(0, b).join(' '), words.slice(b).join(' ')], width: two };
+          continue;
+        }
+        for (c = b + 1; c < words.length; c++) {
+          var three = Math.max(width(0, b), width(b, c), width(c));
+          if (!best || three < best.width) {
+            best = { lines: [words.slice(0, b).join(' '), words.slice(b, c).join(' '), words.slice(c).join(' ')], width: three };
+          }
+        }
+      }
+      plateBreaks[key] = best;
+      return best;
+    }
+    // As much of a name as fits two lines of the room: the first line takes
+    // whole words, the second the rest, cut.
+    function cutLines(text, room) {
+      var words = text.split(' '), first = words[0];
+      for (var b = 1; b < words.length; b++) {
+        var more = first + ' ' + words[b];
+        if (ctx.measureText(more).width > room) break;
+        first = more;
+      }
+      var rest = text.slice(first.length + 1);
+      if (!rest) return { lines: [clip(first, Math.max(8, Math.floor(first.length * room / ctx.measureText(first).width) - 1))], cut: 1 };
+      var second = rest;
+      if (ctx.measureText(second).width > room) {
+        second = clip(rest, Math.max(6, Math.floor(rest.length * room / ctx.measureText(rest).width) - 1));
+      }
+      return { lines: [first, second], cut: rest.length - second.replace(/…$/, '').length };
+    }
     // This frame's plates, by the object they name, placed once per frame;
     // and the pinned plate's place, kept while only the hover changes.
     var platePlaced = {}, pinnedPlate = null;
+    // The side the last pinned plate took, so walking a paper keeps its
+    // plates on one side while the room allows rather than flicking across.
+    var plateHabit = null;
     // What a plate keeps clear of in the frame being drawn: the core, the two
     // checkers and the problems with the room their names take, and on the
     // landing the card's corner marks. A plate placed over one of them would
@@ -2011,16 +2141,25 @@
         var text = anchorText(n, w, false);
         var half = ctx.measureText(text).width / 2 + 6;
         var spot = n.kind === 'problem' ? problemLabelSpot(n, x, y, half, rs, w) : [x, y + r + 15];
-        out.push({ x0: spot[0] - half, x1: spot[0] + half, y0: spot[1] - 14, y1: spot[1] + 5, weight: 3 });
+        out.push({ x0: spot[0] - half, x1: spot[0] + half, y0: spot[1] - 14, y1: spot[1] + 5, weight: 3, whole: true });
         if (n.sub && n.kind !== 'problem') {
           ctx.font = '400 11px ' + SERIF;
           var sub = ctx.measureText(clip(n.sub, 36)).width / 2 + 4;
-          out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + 18, weight: 2 });
+          out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + 18, weight: 2, whole: true });
         }
       }
       if (!pageMode) {
         out.push({ x0: 0, x1: 30, y0: 0, y1: 30, weight: 4 });
         out.push({ x0: w - 30, x1: w, y0: 0, y1: 30, weight: 4 });
+      }
+      // Every other mark weighs a little, so between two places the plate
+      // takes the one over open ground rather than over a band's results.
+      for (var j = 0; j < nodes.length; j++) {
+        var m = nodes[j];
+        if (!visible(m) || m.kind === 'problem' || m.kind === 'universe' || m.kind === 'integration_surface') continue;
+        var mx = m.x * view.k + view.tx, my = m.y * view.k + view.ty, mr = m.r * rs + 1;
+        if (mx < -20 || my < -20 || mx > w + 20 || my > h + 20) continue;
+        out.push({ x0: mx - mr, x1: mx + mr, y0: my - mr, y1: my + mr, weight: 0.35 });
       }
       return out;
     }
@@ -2108,7 +2247,11 @@
       for (var j = 0; j < list.length; j++) {
         var q = list[j];
         var dx = Math.min(box.x1, q.x1) - Math.max(box.x0, q.x0), dy = Math.min(box.y1, q.y1) - Math.max(box.y0, q.y0);
-        if (dx > 0 && dy > 0) sum += dx * dy * (q.weight || 1);
+        if (!(dx > 0 && dy > 0)) continue;
+        // A word a plate so much as grazes steps aside whole, so a graze
+        // costs the word's whole room.
+        if (q.whole) { if (dx > LABEL_GRACE && dy > LABEL_GRACE) sum += (q.x1 - q.x0) * (q.y1 - q.y0) * (q.weight || 1); }
+        else sum += dx * dy * (q.weight || 1);
       }
       return sum;
     }
@@ -2119,58 +2262,94 @@
     }
     function namePlate(i, rs, w, h) {
       var n = nodes[i];
-      ctx.font = '500 12px ' + SERIF;
+      var habit = i === selected && plateHabit && plateHabit.paper && plateHabit.paper === n.paperId ? plateHabit : null;
+      ctx.font = PLATE_FONT;
       // A paper's short name is cut for the ring; on its plate it is whole.
-      var full = clip(n.kind === 'paper' ? n.label : n.shortLabel, 60);
+      var full = n.kind === 'paper' ? n.label : n.shortLabel;
       var fullWidth = ctx.measureText(full).width;
+      var words = full.split(' ').length;
+      var two = words > 1 && fullWidth > 160 ? balancedLines(full, 2) : null;
+      var three = words > 2 && fullWidth > 160 ? balancedLines(full, 3) : null;
       var mx = n.x * view.k + view.tx, my = n.y * view.k + view.ty;
       var s = reticleSize(n, rs), gap = s + LEAD_RUN + 9, near = s + LEAD_RISE;
       var out = n.y < 0 ? -1 : 1, pref = n.x >= 0 ? 1 : -1;
-      function fit(room) {
-        if (fullWidth <= room) return full;
-        return clip(full, Math.max(8, Math.floor(full.length * room / fullWidth) - 1));
+      // The ways a name can be set in a room: one line when it is short
+      // enough, two balanced lines when it is long, three in a narrow room;
+      // cut only when even three lines will not hold it.
+      function shapes(room) {
+        var list = [], oneFits = fullWidth <= Math.min(room, PLATE_ONE_LINE);
+        if (oneFits) list.push({ lines: [full], width: fullWidth, cut: 0 });
+        // A short name ("Reciprocal Mersenne Subseries") stays on one line
+        // unless its room makes it break.
+        if (two && two.width <= room && (!oneFits || fullWidth > 220)) list.push({ lines: two.lines, width: two.width, cut: 0 });
+        else if (!list.length && three && three.width <= room) list.push({ lines: three.lines, width: three.width, cut: 0 });
+        if (!list.length) {
+          var cut = cutLines(full, room);
+          var wide = 0;
+          cut.lines.forEach(function (line) { wide = Math.max(wide, ctx.measureText(line).width); });
+          list.push({ lines: cut.lines, width: wide, cut: Math.max(1, cut.cut) });
+        }
+        return list;
       }
-      function make(text, cx, y) {
-        var width = ctx.measureText(text).width;
+      // A plate's first baseline is y; each further line drops by the lead.
+      function make(shape, cx, y) {
+        var width = shape.width, extra = (shape.lines.length - 1) * PLATE_LEAD;
         // The whole plate, padding and edge, stays on the canvas.
         var x0 = Math.max(11, Math.min(w - width - 11, cx - width / 2));
-        return { text: text, x: x0 + width / 2, y: y, width: width,
-                 box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7, owner: i } };
+        return { lines: shape.lines, text: shape.lines.join(' '), cut: shape.cut, x: x0 + width / 2, y: y, width: width,
+                 box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7 + extra, owner: i } };
       }
       // Beside the mark, a little up or down, its near edge a leader's run
       // from the reticle; or hung under or over the mark.
       function beside(side, v) {
-        var room = side > 0 ? w - 14 - (mx + gap) : mx - gap - 14;
-        if (room < 90) return null;
+        // The text may come to 11px from the edge: its plate's padding and
+        // edge then stand 2px inside the canvas.
+        var room = side > 0 ? w - 11 - (mx + gap) : mx - gap - 11;
+        if (room < 80) return [];
         var mid = my + v * near;
-        if (mid - 12 < 2 || mid + 12 > h - 2) return null;
-        var text = fit(room), tw = ctx.measureText(text).width;
-        var p = make(text, mx + side * (gap + tw / 2), mid + 4.5);
-        var cx = mx + side * s;
-        p.leader = [[cx, my + v * (s + LEAD_GAP), cx, mid], [cx, mid, side > 0 ? p.box.x0 : p.box.x1, mid]];
-        return p;
+        return shapes(room).map(function (shape) {
+          var half = 11.5 + (shape.lines.length - 1) * PLATE_LEAD / 2;
+          if (mid - half < 2 || mid + half > h - 2) return null;
+          // The plate's middle sits level with the leader's run.
+          var p = make(shape, mx + side * (gap + shape.width / 2), mid + 4.5 - (shape.lines.length - 1) * PLATE_LEAD / 2);
+          var cx = mx + side * s;
+          p.leader = [[cx, my + v * (s + LEAD_GAP), cx, mid], [cx, mid, side > 0 ? p.box.x0 : p.box.x1, mid]];
+          return p;
+        });
       }
       function hung(v) {
-        var y = v > 0 ? my + near + 16 : my - near - 7;
-        if (y - 16 < 2 || y + 7 > h - 2) return null;
-        var p = make(fit(w - 28), mx, y);
-        p.leader = [[mx, my + v * (s + LEAD_GAP), mx, v > 0 ? p.box.y0 : p.box.y1]];
-        return p;
+        return shapes(w - 28).map(function (shape) {
+          var extra = (shape.lines.length - 1) * PLATE_LEAD;
+          var y = v > 0 ? my + near + 16 : my - near - 7 - extra;
+          if (y - 16 < 2 || y + 7 + extra > h - 2) return null;
+          var p = make(shape, mx, y);
+          p.leader = [[mx, my + v * (s + LEAD_GAP), mx, v > 0 ? p.box.y0 : p.box.y1]];
+          return p;
+        });
       }
-      var tries = [beside(pref, out), beside(pref, -out), beside(-pref, out), beside(-pref, -out), hung(-out), hung(out)];
+      var places = [beside(pref, out), beside(pref, -out), beside(-pref, out), beside(-pref, -out), hung(-out), hung(out)];
       var best = null, bestScore = Infinity;
-      for (var t = 0; t < tries.length; t++) {
-        var p = tries[t];
-        if (!p) continue;
-        // The least covered first; every letter a place cuts from the name
-        // counts against it, and among equals the earlier, more natural place
-        // wins.
-        var cut = p.text === full ? 0 : 200 + 40 * Math.max(0, full.length - p.text.length + 1);
-        var score = overlapArea(p.box, plateKeepOut) + cut + t;
-        if (score < bestScore) { best = p; bestScore = score; }
+      for (var t = 0; t < places.length; t++) {
+        for (var u = 0; u < places[t].length; u++) {
+          var p = places[t][u];
+          if (!p) continue;
+          p.place = t;
+          // The least covered first. A cut name loses to any whole one (the
+          // reader came for the name), a second line costs a little and a
+          // third a good deal, and among equals the earlier, more natural
+          // place wins.
+          var cost = p.cut ? 3000 + 80 * p.cut : 0;
+          var score = overlapArea(p.box, plateKeepOut) + cost + LINE_COST[p.lines.length - 1] + t;
+          if (habit && t === habit.t) score -= 200;
+          if (score < bestScore) { best = p; bestScore = score; }
+        }
       }
-      if (!best) best = hung(1) || hung(-1) || make(fit(w - 28), mx, Math.min(h - 9, my + near + 16));
+      if (!best) {
+        var fallback = shapes(w - 28)[0];
+        best = make(fallback, mx, Math.min(h - 9 - (fallback.lines.length - 1) * PLATE_LEAD, my + near + 16));
+      }
       if (!best.leader) best.leader = [];
+      if (i === selected) plateHabit = { paper: n.paperId || null, t: best.place };
       return best;
     }
 
@@ -2268,8 +2447,15 @@
       if (hover >= 0 || selected >= 0) {
         plateKeepOut = keepOutBoxes(rs, w, h);
         // The band titles, the cursor and every reticle hold their room too.
+        // A title in focus names where the reader is: a plate that grazed it
+        // would hide it whole, so a graze costs it whole, more than laying
+        // the plate over a band's results and less than covering a disc.
         titleLayout.forEach(function (item) {
-          item.rows.forEach(function (r) { plateKeepOut.push(r.box); });
+          item.rows.forEach(function (r) {
+            var t = weighted(r.box, 1);
+            t.whole = true;
+            plateKeepOut.push(t);
+          });
         });
         var cursorAt = cursorTarget();
         if (cursorAt !== null) {
@@ -2282,9 +2468,10 @@
         reticles.forEach(function (t) { plateKeepOut.push(weighted(t.box, 4)); });
       }
       // The pinned plate is placed first and holds still; a hovered one keeps
-      // clear of it.
+      // clear of it. While the camera moves the plates wait.
+      var moving = !!cameraFrame;
       [selected, hover].forEach(function (at, k) {
-        if (at < 0 || (k === 1 && at === selected)) return;
+        if (moving || at < 0 || (k === 1 && at === selected)) return;
         var pn = nodes[at];
         if (!pn || !visible(pn) || !namesOnPlate(pn)) return;
         var px = pn.x * view.k + view.tx, py = pn.y * view.k + view.ty;
@@ -2310,10 +2497,9 @@
       drawBandPlates(focus);
       scaleYield = plateBoxes.concat(reticles.map(function (t) { return t.box; }));
       drawScale(focus, w, h);
-      drawCursor();
+      drawCursor(rs);
 
-      var hot = graph.hot, quiet = graph.quiet, availableEdges = graph.availableEdges;
-      var shownEdges = quiet.length + hot.length;
+      var hot = graph.hot, quiet = graph.quiet;
       drawEdgeSet(quiet, (focus >= 0 ? 0.65 - 0.35 * focusMix : 0.65) * revealAlpha(1), 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
@@ -2476,15 +2662,15 @@
         }
         // A hovered or selected result or claim names itself on a plate,
         // where the frame's first step already placed it.
-        var plate = false, leader = null;
+        var plate = null, leader = null;
         if (isFocus && namesOnPlate(n)) {
-          var placed = platePlaced[i] || namePlate(i, rs, w, h);
-          text = placed.text;
-          lx = placed.x;
-          labelY = placed.y;
-          leader = placed.leader;
-          half = ctx.measureText(text).width / 2 + 6;
-          plate = true;
+          if (moving) continue;
+          plate = platePlaced[i] || namePlate(i, rs, w, h);
+          text = plate.text;
+          lx = plate.x;
+          labelY = plate.y;
+          leader = plate.leader;
+          half = plate.width / 2 + 6;
         }
         lx = Math.max(half, Math.min(w - half, lx));
         // The core and the two checking surfaces name themselves first: a
@@ -2502,14 +2688,31 @@
         // A quieter second line: a hub's reach. It waits for room.
         if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
           candidates.push({ text: clip(n.sub, 36), x: lx, y: labelY + 13, font: '400 11px ' + SERIF, size: 11,
-                            color: palette.faint, priority: 5, owner: i, order: candidates.length });
+                            color: palette.faint, priority: 5, owner: i, order: candidates.length,
+                            checker: n.kind === 'integration_surface' });
+        }
+      }
+      /* The checkers' second lines ("616 of 689 replayed", "616 prepared")
+         stand side by side under their names. On a small field they met,
+         and read as one phrase; they spread apart, each outward by the same
+         few pixels, to keep a clear gap. */
+      var checkerSubs = candidates.filter(function (c) { return c.checker; });
+      if (checkerSubs.length === 2) {
+        var left = checkerSubs[0].x <= checkerSubs[1].x ? checkerSubs[0] : checkerSubs[1];
+        var right = left === checkerSubs[0] ? checkerSubs[1] : checkerSubs[0];
+        ctx.font = left.font;
+        var clear = (right.x - ctx.measureText(right.text).width / 2) - (left.x + ctx.measureText(left.text).width / 2);
+        if (clear < 14) {
+          var spread = Math.min(12, (14 - clear) / 2);
+          left.x -= spread;
+          right.x += spread;
         }
       }
       candidates.sort(function (a, b) { return b.priority - a.priority || a.order - b.order; });
       for (var ci = 0; ci < candidates.length; ci++) {
         var cand = candidates[ci];
         ctx.font = cand.font;
-        var width = ctx.measureText(cand.text).width;
+        var width = cand.plate ? cand.plate.width : ctx.measureText(cand.text).width;
         var cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
         var box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
         if (cand.priority < 10 && cand.alt && labelCollides(box)) {
@@ -2521,7 +2724,7 @@
         if (cand.priority < 10 && labelCollides(box)) continue;
         // A new plate eases out of its mark over a sixth of a second; its
         // room is taken at once, so nothing else moves while it arrives.
-        var enter = cand.plate && cand.owner === pulse.at ? 1 - Math.pow(1 - Math.min(1, pulse.ms / 160), 2) : 1;
+        var enter = !cand.plate ? 1 : Math.min(cand.owner === pulse.at ? plateEase(pulse.ms) : 1, plateEase(arrival.ms));
         if (cand.plate && cand.leader) {
           // The leader stands where it ends; the plate eases along it, over
           // its end, so the two never part.
@@ -2533,8 +2736,10 @@
           ctx.save();
           ctx.translate((1 - enter) * 6 * (cand.x >= ownerX ? -1 : 1), 0);
         }
+        var lines = [cand.text];
         if (cand.plate) {
-          box = { x0: cx0 - 9, x1: cx0 + width + 9, y0: cand.y - cand.size - 4, y1: cand.y + 7, owner: cand.owner };
+          lines = cand.plate.lines;
+          box = { x0: cand.plate.box.x0, x1: cand.plate.box.x1, y0: cand.plate.box.y0, y1: cand.plate.box.y1, owner: cand.owner };
           // The plate's edge is one device pixel, laid on the grid.
           var bx0 = snapX(box.x0) + hairX / 2, by0 = snapY(box.y0) + hairY / 2;
           var bw0 = snapX(box.x1) - snapX(box.x0) - hairX, bh0 = snapY(box.y1) - snapY(box.y0) - hairY;
@@ -2554,9 +2759,12 @@
         ctx.globalAlpha = revealAlpha(4) * enter;
         ctx.lineWidth = 4;
         ctx.strokeStyle = palette.ground;
-        ctx.strokeText(cand.text, cx0 + width / 2, cand.y);
         ctx.fillStyle = cand.color;
-        ctx.fillText(cand.text, cx0 + width / 2, cand.y);
+        var tx = cand.plate ? (box.x0 + box.x1) / 2 : cx0 + width / 2;
+        // Every halo before any letter, so a second line's halo never
+        // clips the first line's descenders.
+        for (var li = 0; li < lines.length; li++) ctx.strokeText(lines[li], tx, cand.y + li * PLATE_LEAD);
+        for (li = 0; li < lines.length; li++) ctx.fillText(lines[li], tx, cand.y + li * PLATE_LEAD);
         ctx.globalAlpha = 1;
         if (enter < 1) ctx.restore();
       }
@@ -2564,11 +2772,12 @@
       drawReticles(rs, w, h);
       drawStatementNumbers(focus, near, searching, w, h);
       if (countOut) {
-        var line = fmtCount(shown) + ' objects, ' + fmtCount(shownEdges) + ' of ' +
-          fmtCount(availableEdges) + ' connections drawn';
-        if (searching) {
-          line += ' · ' + String(matchList.length) + (matchList.length === 1 ? ' match' : ' matches');
-        }
+        // Plain feedback for the legend and the search: how many of the
+        // loaded objects are shown, and how many the search found. (The
+        // count of connections drawn was the renderer's bookkeeping, not
+        // something a reader asks.)
+        var line = fmtCount(shown) + (shown === nodes.length ? ' shown' : ' of ' + fmtCount(nodes.length) + ' shown');
+        if (searching) line += ', ' + (matchList.length ? fmtCount(matchList.length) + ' found' : 'none found');
         if (line !== countText) {
           countText = line;
           countOut.textContent = line;
@@ -2697,10 +2906,10 @@
           '<li>' + dotHtml('paper_statement') + '<span>every result the papers state</span></li>' +
           '</ol>');
         parts.push('<p class="universe-inspector__body">Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
-          'A sector’s width is its number of results, and the scale round the outside has a tick for each, ' +
-          'every paper’s in the order the paper states them. ' +
-          'Select a problem to frame its sector, a paper to frame its results, or a result to read its Lean and its replay; ' +
-          '<kbd>Esc</kbd> or a click on empty ground steps back.</p>');
+          'Round the outside, a scale has one evenly spaced tick for each result, each paper’s in the order the paper ' +
+          'states them, so the length of a run is its paper’s count. ' +
+          'Select a problem to frame its sector, then a paper to frame its results, then a result to read its Lean and its replay; ' +
+          '<kbd>Esc</kbd> or a click on empty ground goes back the same way.</p>');
         parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'All paper results') + '</div>');
         parts.push(evidence.html);
       } else {
@@ -2715,7 +2924,7 @@
           for (var key in b.evidence) total += b.evidence[key];
           return '<li><button type="button" class="universe-problem" data-universe-go="' + at + '">' +
             '<span class="universe-problem__name">' + escapeHtml(b.title || nodes[at].shortLabel) + '</span>' +
-            '<span class="universe-problem__count">' + (b.evidence.replayed || 0) + '/' + total + '</span>' +
+            '<span class="universe-problem__count">' + (b.evidence.replayed || 0) + ' of ' + total + ' replayed</span>' +
             gaugeHtml(b.evidence, b.title) + '</button></li>';
         }).join('');
         parts.push('<h3 class="universe-inspector__sub">Problems</h3><ul class="universe-problems">' + problemRows + '</ul>');
@@ -3317,15 +3526,34 @@
         }).join('') + '</ul>';
     }
 
+    /* The step bar carries a small copy of the map's scale for this paper:
+       a tick per result (every fifth or tenth when they crowd, as on the
+       map), every tenth longer, and a cursor on this result, so the card's
+       "Result 17 of 18" and the map's cursor read as the same mark. */
+    function stepScaleHtml(at, count) {
+      var W = 96, H = 7, pitch = W / count, every = 50, path = '';
+      [10, 5, 1].forEach(function (e) { if (pitch * e >= 2.5) every = e; });
+      for (var j = 0; j < count; j++) {
+        var c = j + 1;
+        if (c % every) continue;
+        var tall = c % 50 === 0 ? H : c % 10 === 0 ? 5 : c % 5 === 0 ? 3.5 : 2.5;
+        // A one-pixel stroke centred on a half pixel lies on whole pixels.
+        path += 'M' + (Math.floor((j + 0.5) * pitch) + 0.5) + ' ' + (H - tall) + 'V' + H;
+      }
+      // The cursor, two pixels wide, centres on a whole pixel.
+      var x = Math.round((at + 0.5) * pitch);
+      return '<svg class="universe-step__scale" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
+        '" aria-hidden="true" focusable="false"><path class="universe-step__ticks" d="' + path + '"/>' +
+        '<path class="universe-step__knock" d="M' + x + ' 0V' + H + '"/>' +
+        '<path class="universe-step__cursor" d="M' + x + ' 0V' + H + '"/></svg>';
+    }
+
     function resultCardHtml(i, pinned) {
       var n = nodes[i];
       var lab = splitLabel(n.label);
       var ex = excerptOf(i);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) + 'Paper result</p>';
-      if (pinned) {
-        head = '<div class="universe-inspector__head">' + head +
-          '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
-      }
+      if (pinned) head = cardHeadHtml(head);
       var problem = n.sector && problemIndex[n.sector] !== undefined;
       var parts = [head,
         '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
@@ -3342,7 +3570,8 @@
         parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
           '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
           (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
-          '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length + '</span>' +
+          '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length +
+          stepScaleHtml(n.seq, seq.length) + '</span>' +
           '<button type="button" class="universe-step__btn" data-universe-step="1"' +
           (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
           '</div>');
@@ -3358,11 +3587,48 @@
       if (canCopy) {
         parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
       }
-      parts.push(STEP_BACK_HINT);
+      parts.push(stepBackHtml());
       return parts.join('');
     }
-    // How to go back up a level, said on every pinned card.
-    var STEP_BACK_HINT = '<p class="universe-inspector__hint">Press <kbd>Esc</kbd> or click empty ground to step back.</p>';
+    /* Where going back leads, said on every pinned card: the level the
+       reader came down from by name ("go back to #257", "go back to the
+       long record on #257"), the whole map, or simply closing the card. The
+       card's head button does what Esc does, and says Back when there is a
+       level to go back to. */
+    function backTarget() {
+      var last = trail.length ? trail[trail.length - 1] : null;
+      if (!last || last.at !== selected) return { up: -1, moves: false, fitted: false };
+      return { up: trail.length > 1 ? trail[trail.length - 2].at : -1,
+               moves: !!last.before, fitted: !!(last.before && last.before.fitted) };
+    }
+    // A level's name, as the hint and the Back button say it.
+    function placeName(i) {
+      var n = nodes[i];
+      if (!n) return 'the map';
+      var problem = n.sector && problemIndex[n.sector] !== undefined ? nodes[problemIndex[n.sector]].shortLabel : null;
+      if (n.kind === 'problem') return n.shortLabel;
+      if (n.kind === 'paper') {
+        var run = paperSequence[String(n.id).replace(/^paper:/, '')];
+        var side = run && nodes[run[0]] ? nodes[run[0]].side : null;
+        return (ROLE_NAME[side] || 'the paper') + (problem ? ' on ' + problem : '');
+      }
+      return clip(n.shortLabel, 40);
+    }
+    function cardHeadHtml(head) {
+      var back = backTarget();
+      var up = back.up >= 0;
+      return '<div class="universe-inspector__head">' + head +
+        '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="' +
+        escapeHtml(up ? 'Back to ' + placeName(back.up) + ' (Esc)' : 'Close this card (Esc)') + '">' +
+        (up ? '<span aria-hidden="true">←</span> Back' : 'Close') + '</button></div>';
+    }
+    function stepBackHtml() {
+      var back = backTarget(), where;
+      if (back.up >= 0) where = 'go back to ' + escapeHtml(placeName(back.up));
+      else if (back.moves) where = back.fitted ? 'go back to the whole map' : 'go back to where you were';
+      else where = 'close this card';
+      return '<p class="universe-inspector__hint">Press <kbd>Esc</kbd> or click empty ground to ' + where + '.</p>';
+    }
 
     // A card's first line names the kind of thing, in plain words.
     function kindLine(n) {
@@ -3376,10 +3642,7 @@
       if (n.kind === 'paper_statement') return resultCardHtml(i, pinned);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
         escapeHtml(kindLine(n)) + '</p>';
-      if (pinned) {
-        head = '<div class="universe-inspector__head">' + head +
-          '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
-      }
+      if (pinned) head = cardHeadHtml(head);
       var parts = [head,
         '<h2 class="universe-inspector__title">' + nameHtml(n.label) + '</h2>'];
       var chips = '';
@@ -3417,7 +3680,7 @@
         if (canCopy) {
           parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
         }
-        parts.push(STEP_BACK_HINT);
+        parts.push(stepBackHtml());
       } else {
         parts.push('<p class="universe-inspector__hint">Click to keep this card and see what it connects to; double-click to open it.</p>');
       }
@@ -3548,7 +3811,24 @@
       warmNodes.forEach(function (node) { document.head.appendChild(node); });
     }
 
-    function pin(i, center) {
+    /* The way the reader came down the map: each pin a click on the map
+       made one level below the last (a problem, a paper of it, a result of
+       that paper), with the view it replaced when it moved the camera. A
+       pin from anywhere else (a card's link, the search, an address)
+       starts the trail again. Going back retraces it exactly. */
+    var trail = [];
+    function viewNow() { return { k: view.k, tx: view.tx, ty: view.ty, fitted: viewIsFitted }; }
+    // Whether one object holds another a level down: a problem its sector's
+    // papers, claims and results; a paper its results.
+    function holds(parent, child) {
+      var p = nodes[parent], c = nodes[child];
+      if (!p || !c || parent === child) return false;
+      if (p.kind === 'problem') return !!c.sector && sectorProblems(c).indexOf(p.sector) !== -1;
+      if (p.kind === 'paper') return c.kind === 'paper_statement' && 'paper:' + c.paperId === p.id;
+      return false;
+    }
+    function pin(i, center, keepTrail) {
+      if (!keepTrail) trail = i >= 0 ? [{ at: i, before: center ? viewNow() : null }] : [];
       var restoreFocus = inspector && inspector.contains(document.activeElement);
       if (i !== selected) quoteAt = -1;
       selected = i;
@@ -3577,13 +3857,30 @@
       inspector.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     }
 
-    /* One level back up the map: a pinned card is let go first, keeping the
-       view; then a closer view returns to the whole field. */
+    /* One level back up the way the reader came: a result to the paper or
+       the problem it was opened from, a paper to its problem, a problem to
+       the whole field, each with its card and the view it had. With nothing
+       pinned, a closer view returns to the whole field. */
     function stepBack() {
-      if (selected >= 0) { pin(-1, false); return; }
+      var last = trail.length ? trail[trail.length - 1] : null;
+      if (last && last.at === selected) {
+        trail.pop();
+        pin(trail.length ? trail[trail.length - 1].at : -1, false, true);
+        if (last.before) restoreView(last.before);
+        return;
+      }
+      trail = [];
+      if (selected >= 0) { pin(-1, false, true); return; }
       if (!viewIsFitted) fitAnimated();
     }
+    function restoreView(v) {
+      if (v.fitted) fitAnimated();
+      else cameraTo({ k: v.k, tx: v.tx, ty: v.ty }, false);
+    }
 
+    /* Walking a paper keeps the view the reader chose: the camera moves
+       only when the next result would leave it, sliding across at the same
+       scale, and the step remembers the view it left. */
     function stepStatement(dir) {
       if (selected < 0 || !nodes[selected]) return;
       var n = nodes[selected];
@@ -3591,7 +3888,18 @@
       if (!seq || n.seq == null) return;
       var at = n.seq + dir;
       if (at < 0 || at >= seq.length) return;
-      pin(seq[at], true);
+      var next = seq[at], last = trail.length ? trail[trail.length - 1] : null;
+      if (last && last.at === selected) last.at = next;
+      else trail = [{ at: next, before: null }];
+      pin(next, false, true);
+      keepInView(next, trail[trail.length - 1]);
+    }
+    function keepInView(i, step) {
+      var n = nodes[i], w = canvas.clientWidth, h = canvas.clientHeight, inset = 56;
+      var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
+      if (x >= inset && x <= w - inset && y >= inset && y <= h - inset) return;
+      if (step && !step.before) step.before = viewNow();
+      cameraTo({ k: view.k, tx: w / 2 - n.x * view.k, ty: h / 2 - n.y * view.k }, false);
     }
 
     function resolvePending() {
@@ -3790,8 +4098,8 @@
       }
       nodes = data.nodes.map(function (n) {
         var row = {
-          id: n.id, kind: n.kind, label: n.label,
-          shortLabel: n.short || n.label,
+          id: n.id, kind: n.kind, label: plainText(n.label),
+          shortLabel: plainText(n.short || n.label),
           status: n.status || null, statement: n.statement || null,
           boundary: n.boundary || null, disposition: n.disposition || null,
           question: n.question || null, subject: n.subject || null,
@@ -3982,6 +4290,7 @@
       ]).then(function () {
         // Letter places measured in the fallback face no longer hold.
         arcPlaces = {};
+        plateBreaks = {};
         pinnedPlate = null;
         if (nodes.length) draw();
       }, function () {});
@@ -4026,7 +4335,12 @@
         if (i < 0) { stepBack(); return; }
         // Pinning a problem frames its sector and a paper its results, a
         // level down; a result or a claim pins where it is, under the pointer.
-        pin(i, nodes[i].kind === 'problem' || nodes[i].kind === 'paper');
+        // A click inside what is pinned goes a level further down its trail.
+        var frames = nodes[i].kind === 'problem' || nodes[i].kind === 'paper';
+        var last = trail.length ? trail[trail.length - 1] : null;
+        if (!last || last.at !== selected || !holds(last.at, i)) trail = [];
+        trail.push({ at: i, before: frames ? viewNow() : null });
+        pin(i, frames, true);
         revealCard();
         return;
       }
@@ -4200,7 +4514,7 @@
           return;
         }
         if (event.target.closest && event.target.closest('[data-universe-clear]')) {
-          pin(-1, false);
+          stepBack();
           return;
         }
         var stepBtn = event.target.closest ? event.target.closest('[data-universe-step]') : null;

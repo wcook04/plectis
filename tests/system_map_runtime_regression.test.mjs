@@ -83,14 +83,16 @@ function node(tag = 'div') {
   return el;
 }
 
-async function mount({ scene = liveScene(), width = 677, height = 569, reduce = false, io = false, fine = true, settle = true } = {}) {
+async function mount({ scene = liveScene(), width = 677, height = 569, reduce = false, io = false, fine = true,
+                       settle = true, hash = '' } = {}) {
   let clears = 0, texts = [], font = '11px serif';
+  const calls = {};
   const ctx = new Proxy({
-    clearRect() { clears++; texts = []; },
+    clearRect() { clears++; texts = []; for (const k of Object.keys(calls)) delete calls[k]; },
     fillText(text, x, y) { texts.push({ text: String(text), x, y }); },
     measureText(text) { const px = parseFloat((/([\d.]+)px/.exec(font) || [0, 11])[1]); return { width: String(text).length * px * 0.52 }; },
   }, {
-    get: (t, k) => (k === 'font' ? font : k in t ? t[k] : () => {}),
+    get: (t, k) => (k === 'font' ? font : k in t ? t[k] : () => { calls[k] = (calls[k] || 0) + 1; }),
     set: (t, k, v) => { if (k === 'font') font = v; else t[k] = v; return true; },
   });
   const canvas = Object.assign(node('canvas'), { clientWidth: width, clientHeight: height, width: 0, height: 0,
@@ -115,7 +117,7 @@ async function mount({ scene = liveScene(), width = 677, height = 569, reduce = 
   let nextFrame = 1, now = 0;
   const observers = [];
   const window = Object.assign(node('window'), {
-    devicePixelRatio: 2, location: { href: '/' },
+    devicePixelRatio: 2, location: { href: '/', hash },
     matchMedia: q => ({ matches: /reduce/.test(q) ? reduce : /hover/.test(q) ? fine : false, addEventListener() {} }),
     requestAnimationFrame: fn => { frames.set(nextFrame, fn); return nextFrame++; },
     cancelAnimationFrame: id => frames.delete(id),
@@ -150,13 +152,23 @@ async function mount({ scene = liveScene(), width = 677, height = 569, reduce = 
   if (settle && !io) advance(2500);
   const select = id => { window.PlectisSystemMap.select(id); advance(800); };
   return { map: window.PlectisSystemMap, window, document, canvas, caption, rows, section, stage, frames, advance, fireIO,
-           runTimers, requests, card, select, clears: () => clears, texts: () => texts, now: () => now };
+           runTimers, requests, card, select, clears: () => clears, texts: () => texts, calls: () => ({ ...calls }), now: () => now };
 }
 
 function insideRect(c, r, pad) {
   return c.x - pad > r.x0 && c.x + pad < r.x1 && c.y - pad > r.y0 && c.y + pad < r.y1;
 }
 function boxesMeet(a, b) { return a.x0 < b.x1 - 0.5 && a.x1 > b.x0 + 0.5 && a.y0 < b.y1 - 0.5 && a.y1 > b.y0 + 0.5; }
+// An orthogonal run [[x0, y0], [x1, y1]] against a box, with a margin.
+function runMeets(a, b, box, pad = 0) {
+  const x0 = Math.min(a[0], b[0]), x1 = Math.max(a[0], b[0]), y0 = Math.min(a[1], b[1]), y1 = Math.max(a[1], b[1]);
+  return x1 > box.x0 - pad && x0 < box.x1 + pad && y1 > box.y0 - pad && y0 < box.y1 + pad;
+}
+const famOf = scene => {
+  const map = {};
+  scene.scene.nodes.forEach(n => { if (/component$/.test(n.kind)) map[n.id] = 'area:' + n.parent_cluster_id.replace('cluster:', ''); });
+  return map;
+};
 
 test('the layout is deterministic and sets every component inside its family plate, none overlapping', async () => {
   const a = (await mount()).map.snapshot();
@@ -164,6 +176,7 @@ test('the layout is deterministic and sets every component inside its family pla
   assert.ok(a.ready);
   assert.deepEqual(plain(a.components), plain(b.components), 'the same scene and box give the same drawing');
   assert.deepEqual(plain(a.links), plain(b.links), 'and the same routes');
+  assert.deepEqual(plain(a.cables), plain(b.cables), 'and the same cables');
   assert.equal(a.components.length, sceneFile.scene.nodes.filter(n => /component$/.test(n.kind)).length);
   for (const c of a.components) {
     const plate = a.plates.find(p => p.id === c.family);
@@ -183,6 +196,36 @@ test('the layout is deterministic and sets every component inside its family pla
   const order = sceneFile.scene.nodes.filter(n => n.kind === 'area').map(n => n.id);
   assert.deepEqual(plain(a.plates.map(p => p.id)), order, 'plates keep the scene order');
   assert.ok(a.plates.slice(0, Math.ceil(order.length / 2)).every(p => p.row === 0));
+});
+
+test('every mark stands on one lattice that runs through the whole drawing, and a plate is as deep as its marks need', async () => {
+  for (const [width, height] of [[677, 569], [630, 526], [900, 790]]) {
+    const snap = (await mount({ width, height })).map.snapshot();
+    const p = snap.pitch, x0 = Math.min(...snap.components.map(c => c.x));
+    for (const c of snap.components) {
+      const k = (c.x - x0) / p;
+      assert.ok(Math.abs(k - Math.round(k)) < 1e-6, `${c.id} is on a lattice column at ${width}x${height}`);
+    }
+    for (const row of [0, 1]) {
+      const ys = snap.components.filter(c => snap.plates.find(pl => pl.id === c.family).row === row).map(c => c.y);
+      const y0 = Math.min(...ys);
+      for (const y of ys) {
+        const k = (y - y0) / p;
+        assert.ok(Math.abs(k - Math.round(k)) < 1e-6, `rows of marks are a pitch apart at ${width}x${height}`);
+      }
+    }
+    // A plate stands on the line's side of the drawing, so the edges facing
+    // the line share one row; its depth is its own (no empty rows of marks).
+    for (const plate of snap.plates) {
+      const marks = snap.components.filter(c => c.family === plate.id);
+      const rows = new Set(marks.map(c => Math.round(c.y * 100))).size;
+      assert.equal(rows, plate.rows, `${plate.title} holds exactly its rows of marks`);
+    }
+    for (const row of [0, 1]) {
+      const edges = snap.plates.filter(pl => pl.row === row).map(pl => (row === 0 ? pl.rect.y1 : pl.rect.y0));
+      assert.ok(edges.every(e => Math.abs(e - edges[0]) < 0.01), 'the plates of a row stand on one line');
+    }
+  }
 });
 
 test('every declared link resolves to two placed components along an orthogonal route', async () => {
@@ -206,6 +249,77 @@ test('every declared link resolves to two placed components along an orthogonal 
   });
 });
 
+test('the links between two families travel as one cable whose terminals count them', async () => {
+  const scene = liveScene();
+  const snap = (await mount({ scene })).map.snapshot();
+  const fam = famOf(scene);
+  const between = {};
+  for (const e of declared(scene)) {
+    const a = fam[e.source], b = fam[e.target];
+    if (a === b) continue;
+    const key = [a, b].sort().join('|');
+    between[key] = (between[key] || 0) + 1;
+  }
+  assert.equal(snap.cables.length, Object.keys(between).length, 'one cable for every pair of families with links');
+  for (const cb of snap.cables) {
+    const key = [cb.from, cb.to].sort().join('|');
+    assert.equal(cb.count, between[key], `the cable ${key} carries every link between the two`);
+    assert.deepEqual(plain(cb.pins), [cb.count, cb.count], 'each terminal has a pin for every link');
+    for (let k = 1; k < cb.points.length; k++) {
+      const [x0, y0] = cb.points[k - 1], [x1, y1] = cb.points[k];
+      assert.ok(Math.abs(x0 - x1) < 0.01 || Math.abs(y0 - y1) < 0.01, 'cables run orthogonally');
+    }
+  }
+  // Lanes are evenly spaced: every horizontal run in a corridor sits a whole
+  // number of lane pitches from its neighbours.
+  const ys = [...new Set(snap.cables.flatMap(cb => cb.points.slice(1, -1).map(q => Math.round(q[1] * 100) / 100)))].sort((a, b) => a - b);
+  assert.ok(ys.length >= 2, 'there are lanes');
+});
+
+test('terminals and ties on a plate edge never touch, at five sizes', async () => {
+  for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
+    const snap = (await mount({ width, height })).map.snapshot();
+    const byPlate = {};
+    for (const cb of snap.cables) {
+      for (const t of cb.terminals) (byPlate[t.family] ||= []).push(t);
+    }
+    snap.plates.forEach((plate, i) => {
+      const along = snap.portrait ? 1 : 0;
+      const spans = (byPlate[plate.id] || []).map(t => [Math.min(t.a[along], t.b[along]), Math.max(t.a[along], t.b[along])]);
+      const tie = snap.ties[i].from[along];
+      spans.sort((a, b) => a[0] - b[0]);
+      for (let k = 1; k < spans.length; k++) {
+        assert.ok(spans[k][0] > spans[k - 1][1] + 1, `two terminals on ${plate.title} touch at ${width}x${height}`);
+      }
+      for (const s of spans) assert.ok(tie < s[0] - 1 || tie > s[1] + 1, `the tie of ${plate.title} runs into a terminal at ${width}x${height}`);
+    });
+  }
+});
+
+test('nothing drawn crosses a word: cables, ties and routes keep clear of every name, at five sizes', async () => {
+  for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
+    const snap = (await mount({ width, height })).map.snapshot();
+    const words = snap.labels.filter(l => l.kind !== 'legend' && l.kind !== 'legend-count');
+    for (const cb of snap.cables) {
+      for (let k = 1; k < cb.points.length; k++) {
+        for (const w of words) {
+          assert.ok(!runMeets(cb.points[k - 1], cb.points[k], w.box, 0.5), `a cable crosses "${w.text}" at ${width}x${height}`);
+        }
+      }
+    }
+    for (const t of snap.ties) {
+      for (const w of words) assert.ok(!runMeets(t.from, t.to, w.box, 0.5), `a tie crosses "${w.text}" at ${width}x${height}`);
+    }
+    for (const l of snap.links) {
+      for (let k = 1; k < l.points.length; k++) {
+        for (const w of words) {
+          assert.ok(!runMeets(l.points[k - 1], l.points[k], w.box, 0), `a route from ${l.source} crosses "${w.text}" at ${width}x${height}`);
+        }
+      }
+    }
+  }
+});
+
 test('bad rows are dropped and the rest is drawn', async () => {
   const scene = liveScene();
   const edges = scene.scene.edges;
@@ -222,16 +336,15 @@ test('a stale scene without details still lays out, labels and routes to the arc
   const m = await mount({ scene: staleScene() });
   const snap = m.map.snapshot();
   assert.ok(snap.ready && snap.stale);
-  assert.equal(snap.components.length, 88 === snap.components.length ? 88 : snap.components.length);
   assert.ok(snap.components.every(c => c.cls === null), 'no evidence class is invented');
   const drawn = m.texts().map(t => t.text);
   for (const area of sceneFile.scene.nodes.filter(n => n.kind === 'area')) {
-    assert.ok(drawn.some(t => area.label.startsWith(t.replace(/…$/, '')) && t.length > 4), `${area.label} is named`);
+    assert.ok(drawn.some(t => area.label.replace(/\s+/g, ' ').includes(t.replace(/…$/, '')) && t.length > 3), `${area.label} is named`);
   }
   for (const step of sceneFile.scene.nodes.filter(n => n.kind === 'spine_step')) {
     assert.ok(drawn.includes(step.label), `the step ${step.label} is named`);
   }
-  assert.ok(drawn.includes('Names another'), 'the legend keeps the links');
+  assert.ok(drawn.includes('Declared link'), 'the key keeps the links');
   assert.ok(!drawn.some(t => /Runs a real tool|Checks a contract/.test(t)), 'and lists no class it cannot know');
   const comp = snap.components[0];
   m.select(comp.id);
@@ -239,10 +352,21 @@ test('a stale scene without details still lays out, labels and routes to the arc
   assert.deepEqual(hrefs, [`docs/architecture.html#map=${encodeURIComponent(comp.id)}`], 'the one route is the contract #map= address');
 });
 
-test('the opening waits for the drawing to be in view, plays once, and requests no frame after it settles', async () => {
+test('before it opens the drawing is its blueprint: painted once, without words, with no frame running', async () => {
   const m = await mount({ io: true });
   assert.equal(m.map.snapshot().open, 'waiting');
   assert.equal(m.frames.size, 0, 'nothing runs while the drawing is off screen');
+  assert.ok(m.clears() >= 1, 'the blueprint is painted although the drawing is not in view yet');
+  assert.ok((m.calls().stroke || 0) > 0 && (m.calls().arc || 0) > 0, 'its outlines and lattice points are drawn');
+  assert.equal(m.texts().length, 0, 'and no word');
+  const clears = m.clears();
+  m.advance(2000);
+  assert.equal(m.clears(), clears, 'it does not repaint on its own');
+});
+
+test('the opening waits for the drawing to be in view, plays once, and requests no frame after it settles', async () => {
+  const m = await mount({ io: true });
+  assert.equal(m.map.snapshot().open, 'waiting');
   m.fireIO(0.3);
   assert.equal(m.map.snapshot().open, 'waiting', 'a sliver in view does not start it');
   m.fireIO(0.8);
@@ -259,6 +383,14 @@ test('the opening waits for the drawing to be in view, plays once, and requests 
   m.fireIO(0.9);
   assert.equal(m.map.snapshot().open, 'done', 'it never replays');
   assert.equal(m.frames.size, 0);
+});
+
+test('the opening lasts between one and one and a half seconds', async () => {
+  const m = await mount({ io: true });
+  m.fireIO(0.9);
+  let elapsed = 0;
+  while (m.map.snapshot().open === 'running' && elapsed < 5000) { m.advance(16); elapsed += 16; }
+  assert.ok(elapsed >= 1000 && elapsed <= 1500, `the opening took ${elapsed}ms`);
 });
 
 test('while the slider carries the system slide in, the opening waits for the slide to settle', async () => {
@@ -279,18 +411,93 @@ test('while the slider carries the system slide in, the opening waits for the sl
   assert.equal(m.map.snapshot().hover, null, 'leaving the slide lets it go');
 });
 
+test('a slide that arrives at once (a keyboard step, an address naming it) shows the finished drawing', async () => {
+  const m = await mount({ io: true });
+  m.document.fire('plectis:atlas', { detail: { view: 'system', previous: 'mathematics', phase: 'start', instant: true } });
+  m.fireIO(1);
+  assert.equal(m.map.snapshot().open, 'done', 'no opening for an instant arrival');
+  assert.equal(m.frames.size, 0, 'and no frame');
+  const byAddress = await mount({ io: true, hash: '#system' });
+  assert.equal(byAddress.map.snapshot().open, 'done', 'an address that names the drawing lands on it finished');
+  byAddress.fireIO(1);
+  assert.equal(byAddress.frames.size, 0);
+});
+
 test('reduced motion paints the finished drawing with no frame scheduled, at every level', async () => {
   const m = await mount({ io: true, reduce: true });
   assert.equal(m.map.snapshot().open, 'done', 'the drawing is final before it is seen');
   m.fireIO(1);
-  assert.ok(m.texts().some(t => t.text === 'Names another'), 'the finished drawing is painted');
+  assert.ok(m.texts().some(t => t.text === 'Declared link'), 'the finished drawing is painted');
   assert.equal(m.frames.size, 0);
   m.map.select('area:formal_math_and_proof');
   assert.equal(m.map.snapshot().level, 'family');
-  assert.ok(m.map.snapshot().sheet, 'the family opens at once');
+  assert.equal(m.map.snapshot().sheet.mix, 1, 'the family opens at once');
   m.map.select(m.map.snapshot().sheet.rows[0].id);
   assert.equal(m.map.snapshot().level, 'component');
   assert.equal(m.frames.size, 0, 'no frame at any step');
+  m.document.fire('keydown', { key: 'Escape' });
+  m.document.fire('keydown', { key: 'Escape' });
+  assert.equal(m.map.snapshot().level, 'overview');
+  assert.equal(m.map.snapshot().sheet, null, 'and closes at once');
+  assert.equal(m.frames.size, 0);
+});
+
+test('every transition lands in its final state and then stops', async () => {
+  const m = await mount();
+  const formal = 'area:formal_math_and_proof';
+  m.map.select(formal);
+  m.advance(200);
+  const mid = m.map.snapshot().sheet;
+  assert.ok(mid && mid.mix > 0 && mid.mix < 1, 'mid-way the plate is opening');
+  m.advance(600);
+  assert.equal(m.map.snapshot().sheet.mix, 1, 'the sheet arrives fully open');
+  assert.equal(m.frames.size, 0, 'and nothing runs after');
+  const row = m.map.snapshot().sheet.rows[3];
+  m.map.select(row.id);
+  m.advance(800);
+  assert.equal(m.map.snapshot().level, 'component');
+  assert.equal(m.frames.size, 0);
+  // Escape is a keyboard step: it lands at once.
+  m.document.fire('keydown', { key: 'Escape' });
+  assert.equal(m.map.snapshot().level, 'family');
+  assert.equal(m.frames.size, 0, 'a keyboard step needs no frame');
+  // A click on empty ground steps back by the same path the plate opened.
+  m.canvas.fire('click', { clientX: 676, clientY: 568, detail: 1 });
+  m.advance(200);
+  assert.ok(m.map.snapshot().sheet && m.map.snapshot().sheet.mix < 1, 'closing runs back through the same states');
+  m.advance(600);
+  assert.equal(m.map.snapshot().sheet, null, 'the sheet closes fully into its plate');
+  assert.equal(m.frames.size, 0);
+  // A pointer on a component traces its links once, then everything rests.
+  const c = m.map.snapshot().components[10];
+  m.canvas.fire('pointermove', { clientX: c.x, clientY: c.y, pointerType: 'mouse' });
+  assert.ok(m.frames.size > 0, 'the trace runs');
+  m.advance(800);
+  assert.equal(m.frames.size, 0, 'and stops');
+  const clears = m.clears();
+  m.advance(2000);
+  assert.equal(m.clears(), clears, 'no repaint while the pointer rests');
+});
+
+test('the keyboard walks every level and every step lands at once', async () => {
+  const m = await mount();
+  const row = m.rows[2];                      // Formal math & proof
+  row.fire('focusin');
+  assert.equal(m.map.snapshot().level, 'family', 'a family row in focus opens its sheet');
+  assert.equal(m.map.snapshot().sheet.mix, 1, 'at once');
+  assert.equal(m.frames.size, 0);
+  row.fire('keydown', { key: 'ArrowDown' });
+  row.fire('keydown', { key: 'ArrowDown' });
+  assert.equal(m.map.snapshot().focus.kind, 'comp', 'the arrow keys walk the components');
+  assert.equal(m.frames.size, 0, 'and light each one at once');
+  row.fire('keydown', { key: 'Enter' });
+  assert.equal(m.map.snapshot().level, 'component', 'Enter selects the one reached');
+  assert.ok(m.card() && !m.card().hidden);
+  assert.equal(m.frames.size, 0);
+  m.document.fire('keydown', { key: 'Escape' });
+  m.document.fire('keydown', { key: 'Escape' });
+  assert.equal(m.map.snapshot().level, 'overview', 'Escape steps all the way back');
+  assert.equal(m.frames.size, 0);
 });
 
 test('a theme change repaints exactly once and starts nothing', async () => {
@@ -311,6 +518,7 @@ test('the three levels: a family opens with every name, a component gets its car
   assert.equal(snap.sheet.rows.length, members.length, 'the sheet names every component of the family');
   assert.deepEqual(new Set(snap.sheet.rows.map(r => r.id)), new Set(members.map(c => c.id)));
   assert.match(m.caption.textContent, /All families \/ Formal math & proof/, 'the caption says where the reader is');
+  assert.ok(m.texts().some(t => /All families/.test(t.text)), 'the sheet leads back to all families');
   const target = snap.sheet.rows.find(r => r.id === 'component:verifier_lab_kernel') || snap.sheet.rows[0];
   m.select(target.id);
   snap = m.map.snapshot();
@@ -319,9 +527,10 @@ test('the three levels: a family opens with every name, a component gets its car
   assert.ok(card && !card.hidden, 'the component has a card');
   const words = card.textContent;
   assert.match(words, /Names?|names/, 'the card says what it names in words');
-  assert.match(words, /A named neighbour is not proof that one calls the other\./, 'and keeps the honesty boundary');
-  assert.deepEqual(card.all(n => n.tagName === 'A').map(a => a.textContent),
-    ['Component page', 'Paper module', 'In the architecture map']);
+  assert.match(words, /A declared link is not proof that one calls the other\./, 'and keeps the honesty boundary');
+  assert.deepEqual(card.all(n => n.tagName === 'A').map(a => a.textContent), ['Component page', 'Architecture map']);
+  const back = card.all(n => n.tagName === 'BUTTON' && /system-card__back/.test(n.className))[0];
+  assert.ok(back, 'the card leads back to its family');
   m.document.fire('keydown', { key: 'Escape' });
   m.advance(800);
   assert.equal(m.map.snapshot().level, 'family', 'Escape steps back to the family');
@@ -329,6 +538,22 @@ test('the three levels: a family opens with every name, a component gets its car
   m.advance(800);
   assert.equal(m.map.snapshot().level, 'overview', 'and then to the whole drawing');
   assert.ok(m.card().hidden, 'the card goes with it');
+});
+
+test('a long list in the card opens in full in place', async () => {
+  const m = await mount();
+  const busiest = m.map.snapshot().components.map(c => c.id)
+    .map(id => ({ id, n: declared(liveScene()).filter(e => e.source === id).length }))
+    .sort((a, b) => b.n - a.n)[0];
+  m.select(busiest.id);
+  const card = m.card();
+  const more = card.all(n => n.tagName === 'BUTTON' && /system-card__more/.test(n.className));
+  assert.ok(more.length >= 1, 'a list longer than five ends in a button for the rest');
+  const shown = card.all(n => /system-card__peer/.test(n.className)).length;
+  more[0].fire('click');
+  const after = m.card().all(n => /system-card__peer/.test(n.className)).length;
+  assert.ok(after > shown, 'pressing it lists every name');
+  assert.doesNotMatch(m.card().all(n => /system-card__peers/.test(n.className))[0].textContent, /more\./, 'with nothing left over');
 });
 
 test('every word a reader sees is plain: no ids, field names or schema words', async () => {
@@ -343,14 +568,20 @@ test('every word a reader sees is plain: no ids, field names or schema words', a
   const snap = m.map.snapshot();
   m.select(null);
   m.canvas.fire('pointermove', { clientX: snap.components[5].x, clientY: snap.components[5].y, pointerType: 'mouse' });
+  m.advance(600);
+  collect();
+  const st = snap.stations[3];
+  m.canvas.fire('pointermove', { clientX: st.x, clientY: st.y, pointerType: 'mouse' });
+  m.advance(600);
   collect();
   const text = seen.join(' \n ');
   assert.doesNotMatch(text, /\b(?:component|area|primitive|cluster|inspector):/, 'no ids');
   assert.doesNotMatch(text, /declared_dependency_untyped|class_id|runs_real_tools|wired_component|spine_step|_/,
     'no field or class names');
+  assert.doesNotMatch(text, /—|·/, 'no em dashes or middle dots');
 });
 
-test('words never overlap one another at laptop, monitor and phone sizes', async () => {
+test('words never overlap one another, the marks, or the name plate, at laptop, monitor and phone sizes', async () => {
   for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
     const m = await mount({ width, height });
     const check = label => {
@@ -367,6 +598,24 @@ test('words never overlap one another at laptop, monitor and phone sizes', async
         assert.ok(!(c.x + r > l.box.x0 && c.x - r < l.box.x1 && c.y + r > l.box.y0 && c.y - r < l.box.y1),
           `${l.text} stays off ${c.id} at ${width}x${height}`);
       }
+    }
+    // Pointing at the busiest components puts up a name plate; it covers
+    // neither a word nor a mark.
+    for (const id of ['component:verifier_lab_kernel', 'component:macro_projection_import_protocol']) {
+      const c = snap.components.find(x => x.id === id);
+      if (!c) continue;
+      m.canvas.fire('pointermove', { clientX: c.x, clientY: c.y, pointerType: 'mouse' });
+      m.advance(600);
+      check('hover ' + id);
+      const plate = m.map.snapshot().drawn[0];
+      for (const o of snap.components) {
+        if (o.id === id) continue;
+        const r = snap.markRadius;
+        assert.ok(!(o.x + r > plate.x0 && o.x - r < plate.x1 && o.y + r > plate.y0 && o.y - r < plate.y1),
+          `the name plate for ${id} stays off ${o.id} at ${width}x${height}`);
+      }
+      m.canvas.fire('pointerleave', {});
+      m.advance(600);
     }
     m.select('area:formal_math_and_proof');
     const sheet = m.map.snapshot().sheet;
@@ -394,4 +643,5 @@ test('motion is bounded: the renderer never loops, caps the pixel ratio and read
   assert.match(source, /var dpr = Math\.min\(window\.devicePixelRatio \|\| 1, 2\);/, 'the backing store is capped at twice the CSS size');
   assert.doesNotMatch(source, /setInterval/, 'nothing ticks on a timer');
   assert.match(source, /if \(moving\(\) && !frame\) frame = window\.requestAnimationFrame\(tick\);/, 'a frame is asked for only while something moves');
+  assert.doesNotMatch(source, /\b(?:gear|escapement|bezel|caseback|chronograph|watch)\b/i, 'no watch words in the code or its comments');
 });

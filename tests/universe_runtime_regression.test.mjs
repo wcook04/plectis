@@ -117,13 +117,16 @@ test('zoom out shrinks a map already fitted below the desktop zoom floor', async
   assert.ok(map.span() > 0, 'zoom stays bounded');
 });
 
-test('filter feedback counts only connections whose endpoints remain visible', async () => {
+test('filter feedback says plainly how many objects are shown, and draws only links between them', async () => {
   const map = await mount();
-  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
+  assert.equal(map.count.textContent, '3 shown');
+  assert.equal(map.drawnSegments().length, 3);
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '2 objects, 1 of 1 connections drawn');
+  assert.equal(map.count.textContent, '2 of 3 shown');
+  assert.equal(map.drawnSegments().length, 1, 'only the link whose two ends remain visible is drawn');
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
+  assert.equal(map.count.textContent, '3 shown');
+  assert.equal(map.drawnSegments().length, 3);
 });
 
 test('resizing preserves an explored scale instead of refitting the graph', async () => {
@@ -246,7 +249,7 @@ async function fullHierarchy(options = {}) {
 
 test('a narrow Universe selection keeps anchors without lighting the containment fan', async () => {
   const map = await fullHierarchy();
-  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
   assert.equal(map.drawnSegments().length, 2, 'overview omits every global module edge');
   // Click the rendered core at the fitted canvas centre: no test calls an
   // internal selector or reimplements the renderer's edge classification.
@@ -263,7 +266,7 @@ test('a narrow Universe selection keeps anchors without lighting the containment
   const hot = map.hotSegments();
   assert.equal(hot.length, 2, 'only the two overview anchors are highlighted, not 96 module spokes');
   assert.equal(map.drawnSegments().length, 2);
-  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
   for (const anchor of ['Universe', 'East problem', 'West problem']) {
     assert.ok(map.labels().some(label => label.text === anchor), `${anchor} remains labelled`);
   }
@@ -277,33 +280,38 @@ test('a full-corpus module keeps its incident links through hash, search and len
   assert.match(map.inspector.innerHTML, /How it connects/);
   assert.equal(map.hotSegments().length, 3, 'module containment, proof and import are all drawn');
   assert.equal(map.drawnSegments().length, 5, 'two anchors remain in the background');
-  assert.equal(map.count.textContent, '100 objects, 5 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
   assert.ok(map.hotSegments().every(segment => segment.from.every(Number.isFinite) && segment.to.every(Number.isFinite)));
 
   map.search.value = 'Fan module 95';
   map.search.fire('input');
-  assert.match(map.count.textContent, / · 1 match$/);
+  assert.match(map.count.textContent, /, 1 found$/);
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.location.hash, '#o=lean-module%3AFan95');
   assert.match(map.inspector.innerHTML, /Fan module 95/);
   assert.equal(map.hotSegments().length, 1, 'the last module in the complete corpus remains selectable');
   map.search.fire('keydown', {key: 'Escape'});
-  assert.equal(map.count.textContent, '100 objects, 3 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
+  assert.equal(map.drawnSegments().length, 3);
 
   map.modules.fire('click');
   assert.equal(map.location.hash, '', 'hiding the selected kind clears its pin');
-  assert.equal(map.count.textContent, '4 objects, 2 of 2 connections drawn');
+  assert.equal(map.count.textContent, '4 of 100 shown');
+  assert.equal(map.drawnSegments().length, 2);
   assert.equal(map.hotSegments().length, 0);
   map.modules.fire('click');
-  assert.equal(map.count.textContent, '100 objects, 2 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
+  assert.equal(map.drawnSegments().length, 2);
   map.location.hash = '#o=lean-module%3AFan00';
   map.window.fire('hashchange');
   assert.equal(map.hotSegments().length, 3);
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '99 objects, 4 of 99 connections drawn');
+  assert.equal(map.count.textContent, '99 of 100 shown');
+  assert.equal(map.drawnSegments().length, 4);
   assert.equal(map.hotSegments().length, 2, 'hidden claim removes exactly its incident proof link');
   map.claims.fire('click');
-  assert.equal(map.count.textContent, '100 objects, 5 of 100 connections drawn');
+  assert.equal(map.count.textContent, '100 shown');
+  assert.equal(map.drawnSegments().length, 5);
   assert.equal(map.hotSegments().length, 3);
 });
 
@@ -351,7 +359,7 @@ test('dense module focus bounds actual strokes at phone and desktop sizes', asyn
     const hot = map.hotSegments();
     assert.equal(hot.length, cap, `actual focused strokes are bounded at ${width}px`);
     assert.equal(map.drawnSegments().length, cap);
-    assert.equal(map.count.textContent, `32 objects, ${cap} of 31 connections drawn`);
+    assert.equal(map.count.textContent, '32 shown');
     const endpointXs = hot.map(segment => segment.to[0]);
     assert.ok(endpointXs[0] < hot[0].from[0], 'the problem anchor takes priority over claims ingested earlier');
     assert.deepEqual(endpointXs, endpointXs.slice().sort((a, b) => a - b), 'label order wins over reversed edge ingestion');
@@ -374,7 +382,7 @@ test('loading the complete corpus preserves an explored camera, pin and lens', a
   assert.equal(map.location.hash, '#o=problem%3Aone');
   assert.match(map.inspector.innerHTML, /First problem/);
   assert.equal(map.claims.getAttribute('aria-pressed'), 'false');
-  assert.equal(map.count.textContent, '3 objects, 1 of 1 connections drawn · 1 match');
+  assert.equal(map.count.textContent, '3 of 4 shown, 1 found');
   assert.ok(Math.abs(map.span() - before) < 1e-9, 'full loading leaves the existing world-to-canvas scale intact');
 });
 
@@ -389,12 +397,12 @@ test('overview retains semantic edges while root-to-claim spokes stay quiet', as
   const map = await mount({data, hash: '#o=universe%3Aall'});
   assert.equal(map.hotSegments().length, 1, 'root highlights the programme only');
   assert.equal(map.drawnSegments().length, 2, 'the ordinary problem-to-claim edge remains drawn');
-  assert.equal(map.count.textContent, '3 objects, 2 of 3 connections drawn');
+  assert.equal(map.count.textContent, '3 shown');
   map.location.hash = '#o=claim%3Aone';
   map.window.fire('hashchange');
   assert.equal(map.hotSegments().length, 2, 'focusing the claim reveals both incident relationships');
   assert.equal(map.drawnSegments().length, 3);
-  assert.equal(map.count.textContent, '3 objects, 3 of 3 connections drawn');
+  assert.equal(map.count.textContent, '3 shown');
 });
 
 
@@ -409,7 +417,7 @@ test('friendly programme search normalizes only dashes and whitespace', async ()
     ' FACTORIAL\t denominator ', 'factorial\u2011denominator', 'factorial\u2014denominator']) {
     map.search.value = query;
     map.search.fire('input');
-    assert.match(map.count.textContent, / · 1 match$/, query);
+    assert.match(map.count.textContent, /, 1 found$/, query);
     map.search.fire('keydown', {key: 'Enter'});
     assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
     assert.match(map.inspector.innerHTML, /The factorial-denominator series/);
@@ -418,13 +426,13 @@ test('friendly programme search normalizes only dashes and whitespace', async ()
   for (const query of ['Factorial denominater', 'Denominator factorial', 'erdos 68', 'Erdos68 theorem']) {
     map.search.value = query;
     map.search.fire('input');
-    assert.match(map.count.textContent, / · 0 matches$/, query);
+    assert.match(map.count.textContent, /, none found$/, query);
     map.search.fire('keydown', {key: 'Enter'});
     assert.equal(map.location.hash, '#o=problem%3Aerdos_68', 'no-match Enter preserves the exact pin');
   }
   map.search.value = 'Erdos68.theorem';
   map.search.fire('input');
-  assert.match(map.count.textContent, / · 1 match$/);
+  assert.match(map.count.textContent, /, 1 found$/);
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.location.hash, '#o=claim%3Aother', 'qualified identifiers remain literal');
   map.search.value = '---';
@@ -441,7 +449,7 @@ test('normalized search preserves Enter kind order and reverse stepping', async 
   const map = await mount({data});
   map.search.value = 'Factorial denominator';
   map.search.fire('input');
-  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.match(map.count.textContent, /, 2 found$/);
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.location.hash, '#o=problem%3Aerdos_68');
   map.search.fire('keydown', {key: 'Enter'});
@@ -462,7 +470,7 @@ function restoredSearchFixture() {
 test('cold history restoration reads the existing search value when data arrives', async () => {
   const map = await mount({data: restoredSearchFixture(), searchValue: 'Factorial denominator',
     hash: '#o=problem%3Aerdos_68'});
-  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.match(map.count.textContent, /, 2 found$/);
   assert.match(map.inspector.innerHTML, /Factorial reciprocal irrationality remains open/);
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.location.hash, '#o=claim%3Afactorial', 'restored pin advances in existing kind order');
@@ -478,13 +486,13 @@ test('history lifecycle reconciles form values restored after the event task', a
   map.window.fire('pageshow', {persisted: false});
   map.search.value = 'Factorial denominator'; // UA restoration after pageshow; no input event.
   map.flushTimers();
-  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.match(map.count.textContent, /, 2 found$/);
   assert.equal(map.location.hash, '#o=problem%3Aerdos_68', 'reconciliation does not repin');
   assert.equal(map.span(), before, 'reconciliation does not reset the camera');
   map.window.fire('popstate');
   map.search.value = 'criterion'; // Same-document traversal restores state after popstate.
   map.flushTimers();
-  assert.match(map.count.textContent, / · 1 match$/);
+  assert.match(map.count.textContent, /, 1 found$/);
   map.search.fire('keydown', {key: 'Enter'});
   assert.equal(map.location.hash, '#o=claim%3Afactorial');
 });
@@ -502,7 +510,7 @@ test('BFcache pageshow preserves complete data, pin, lens and explored camera', 
   map.window.fire('pageshow', {persisted: true});
   map.flushTimers();
   assert.equal(map.count.textContent, count);
-  assert.match(map.count.textContent, / · 96 matches$/);
+  assert.match(map.count.textContent, /, 96 found$/);
   assert.equal(map.location.hash, hash);
   assert.equal(map.claims.getAttribute('aria-pressed'), 'false');
   assert.equal(map.full.textContent, 'Complete universe loaded');
@@ -516,20 +524,20 @@ test('focus and Enter reconcile late restored values without creating false matc
   const map = await mount({data: restoredSearchFixture(), hash: '#o=problem%3Aerdos_68'});
   map.search.value = 'Factorial denominator';
   map.search.fire('focus'); // Restored/autofilled DOM value need not emit input.
-  assert.match(map.count.textContent, / · 2 matches$/);
+  assert.match(map.count.textContent, /, 2 found$/);
   map.search.value = 'criterion';
   map.search.fire('keydown', {key: 'Enter'}); // Also correct if focus preceded late restoration.
-  assert.match(map.count.textContent, / · 1 match$/);
+  assert.match(map.count.textContent, /, 1 found$/);
   assert.equal(map.location.hash, '#o=claim%3Afactorial');
   map.search.value = 'Factorial denominater';
   map.search.fire('keydown', {key: 'Enter'});
-  assert.match(map.count.textContent, / · 0 matches$/);
+  assert.match(map.count.textContent, /, none found$/);
   assert.equal(map.location.hash, '#o=claim%3Afactorial', 'no-match Enter retains the pin');
   let stopped = false;
   map.search.fire('keydown', {key: 'Escape', stopPropagation() { stopped = true; }});
   assert.equal(stopped, true, 'search Escape stops the document pin-clear handler');
   assert.equal(map.search.value, '');
-  assert.doesNotMatch(map.count.textContent, /matches?$/);
+  assert.doesNotMatch(map.count.textContent, /found$/);
   assert.equal(map.location.hash, '#o=claim%3Afactorial', 'first Escape clears search only');
   stopped = false;
   map.search.fire('keydown', {key: 'Escape', stopPropagation() { stopped = true; }});
@@ -921,6 +929,8 @@ function structureData() {
     {id: 'problem:p1', kind: 'problem', label: 'First problem', short: '#1', sector: 'p1', ...at(250, -1.57)},
     {id: 'problem:p2', kind: 'problem', label: 'Second problem', short: '#2', sector: 'p2', ...at(250, 1.57)},
     {id: 'problem:p3', kind: 'problem', label: 'Third problem', short: '#3', sector: 'p3', ...at(250, 0)},
+    // The first problem's long record, on the orbit beside it.
+    {id: 'paper:a-long', kind: 'paper', label: 'The first long record', short: 'The first long record', sector: 'p1', ...at(250, -1.95)},
     // The first sector: a short paper of two results and a long record of four.
     result('a-short', 1, 'p1', -2.2, 350, 'short'), result('a-short', 2, 'p1', -2.0, 350, 'short'),
     result('a-long', 1, 'p1', -2.2, 364, 'long'), result('a-long', 2, 'p1', -1.8, 364, 'long'),
@@ -941,17 +951,20 @@ function structureData() {
                 data: 'assets/universe-companion.json?v=1'}}};
 }
 
-async function mountStructure({page = false, reduceMotion = false, csp = null, companion = false, speculation = false} = {}) {
-  let arcs = [], strokes = [], fills = [], rects = [], labels = [], path = [], pen = null, paints = 0;
+async function mountStructure({page = false, reduceMotion = false, csp = null, companion = false, speculation = false,
+  withInspector = false, data = structureData} = {}) {
+  let arcs = [], strokes = [], fills = [], rects = [], labels = [], path = [], pen = null, paints = 0, dash = [], images = 0;
   const context = new Proxy({
-    clearRect() { arcs = []; strokes = []; fills = []; rects = []; labels = []; paints++; },
+    clearRect() { arcs = []; strokes = []; fills = []; rects = []; labels = []; images = 0; paints++; },
     beginPath() { path = []; pen = null; },
     moveTo(x, y) { pen = [x, y]; },
     lineTo(x, y) { if (pen) path.push({from: pen, to: [x, y]}); pen = [x, y]; },
-    stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, width: context.lineWidth, segments: path.slice()}); },
+    setLineDash(segments) { dash = segments; },
+    stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, width: context.lineWidth, dashed: dash.length > 0, segments: path.slice()}); },
     fill() { fills.push({style: context.fillStyle, alpha: context.globalAlpha}); },
     fillRect(x, y, w, h) { rects.push({x, y, w, h, alpha: context.globalAlpha}); },
-    arc(x, y, r) { arcs.push({x, y, r, alpha: context.globalAlpha}); },
+    arc(x, y, r, a0, a1) { arcs.push({x, y, r, a0, a1, alpha: context.globalAlpha}); },
+    drawImage() { images++; },
     measureText(text) { return {width: String(text).length * 6}; },
     fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
   }, { get: (target, key) => target[key] ?? (() => {}) });
@@ -972,11 +985,12 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   });
   const appended = [];
   const meta = csp ? Object.assign(element({content: csp})) : null;
+  const inspector = withInspector ? element() : null;
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     head: {appendChild: node => { appended.push(node); }},
     createElement: () => element(),
-    querySelector: s => (s.indexOf('Content-Security-Policy') !== -1 ? meta : null),
+    querySelector: s => (s.indexOf('Content-Security-Policy') !== -1 ? meta : s === '[data-universe-inspector]' ? inspector : null),
     querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
   });
   const observers = [];
@@ -999,7 +1013,7 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   });
   const sandbox = {document, window, navigator: {}, CustomEvent, IntersectionObserver: IO, URL,
     getComputedStyle: () => ({getPropertyValue: () => ''}),
-    fetch: async url => ({json: async () => structureData()[url]}),
+    fetch: async url => ({json: async () => data()[url]}),
     setTimeout: fn => { fn(); return 1; }, clearTimeout() {}};
   if (speculation) sandbox.HTMLScriptElement = {supports: type => type === 'speculationrules'};
   vm.runInNewContext(source, sandbox);
@@ -1034,6 +1048,17 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
     const c = centre(), k = scale();
     return {x: c.x + n.x * k, y: c.y + n.y * k};
   };
+  // The camera in any view: the orbit through the problems (radius 250 in
+  // the fixture) is the widest whole circle drawn about the centre.
+  const view = () => {
+    const c = centre();
+    const whole = arcs.filter(a => Math.hypot(a.x - c.x, a.y - c.y) < 0.01 && Math.abs((a.a1 - a.a0) - 2 * Math.PI) < 1e-9);
+    return {k: Math.max(...whole.map(a => a.r)) / 250, tx: c.x, ty: c.y};
+  };
+  const at = id => {
+    const n = data().initial.nodes.find(m => m.id === id), v = view();
+    return {x: v.tx + n.x * v.k, y: v.ty + n.y * v.k};
+  };
   const results = () => {
     const c = centre();
     return arcs.filter(a => a.r < 4 && Math.hypot(a.x - c.x, a.y - c.y) > 190);
@@ -1053,7 +1078,7 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   };
   return {canvas, caption, document, window, location, announced, appended, frames, advanceTo, now: () => now,
     rafCalls: () => rafCalls, paints: () => paints, arcs: () => arcs, rects: () => rects, labels: () => labels,
-    strokes: () => strokes, centre, place, results, cursor, ticks,
+    strokes: () => strokes, images: () => images, inspector, centre, place, view, at, results, cursor, ticks,
     intersect(on) { for (const o of observers) if (!o.gone) o.callback([{isIntersecting: on, target: o.target}]); },
     atlas(view, previous) { document.fire('plectis:atlas', {detail: {view, previous, phase: 'start', instant: false}}); },
     key(key) { document.fire('keydown', {key, target: {tagName: 'BODY'}}); },
@@ -1125,7 +1150,10 @@ test('the cursor marks the pinned result’s place in its paper and moves only w
   map.advanceTo(map.now() + 2000);
   assert.equal(map.frames.size, 0, 'the map’s own opening has played and stopped');
   assert.equal(map.cursor(), null, 'no cursor without a pin');
-  const lo = -2.4, step = (-0.74 - lo) / 6;
+  // Every tick stands at one spacing, the closest any sector packs its
+  // results less a twentieth, and each sector's run is centred in it.
+  const step = Math.min((-0.74 + 2.4) / 6, (2.4 - 0.74) / 4, 0.6 / 1) * 0.95;
+  const lo = (-2.4 - 0.74) / 2 - 3 * step;
   // The long record's first result is the third tick of six: the short
   // paper's two come first.
   const a = map.place('statement:a-long#r1'), b = map.place('statement:a-long#r3');
@@ -1186,36 +1214,57 @@ test('a reticle frames the focus and its name plate keeps clear of a problem’s
   assert.ok(near.every(r => r.w <= 1 + 1e-9 || r.h <= 1 + 1e-9), 'each a single device pixel wide');
 });
 
-test('Esc and a click on empty ground step back one level at a time; a problem click frames its sector', async () => {
-  const map = await mountStructure({page: true});
+test('going back retraces the drill: result, paper, problem, whole field, each with its card and frame', async () => {
+  const map = await mountStructure({page: true, withInspector: true});
   map.advanceTo(map.now() + 2000);
-  const gap = () => {
-    const rs = map.results();
-    const xs = rs.map(a => a.x).sort((p, q) => p - q);
-    return xs.at(-1) - xs[0];
-  };
-  const fitted = gap();
-  const p1 = map.place('problem:p1');
-  map.canvas.fire('click', {clientX: p1.x, clientY: p1.y, detail: 1});
-  map.advanceTo(map.now() + 2000);
-  assert.equal(map.location.hash, '#o=problem%3Ap1', 'the click pins the problem');
-  assert.ok(gap() > fitted * 1.3, 'and frames its sector, closer in');
+  const fitted = map.view().k;
+  const click = id => { const p = map.at(id); map.canvas.fire('click', {clientX: p.x, clientY: p.y, detail: 1}); map.advanceTo(map.now() + 2000); };
+  const hint = () => (map.inspector.innerHTML.match(/click empty ground to ([^.<]*)/) || [])[1];
+  // Down: the problem frames its sector, a paper of it frames its results,
+  // and a result of that paper pins its card where it is.
+  click('problem:p1');
+  assert.equal(map.location.hash, '#o=problem%3Ap1');
+  const sector = map.view().k;
+  assert.ok(sector > fitted * 1.3, 'the problem frames its sector, closer in');
+  assert.equal(hint(), 'go back to the whole map');
+  assert.match(map.inspector.innerHTML, />Close<\/button>/, 'at the top of the trail the card closes');
+  click('paper:a-long');
+  assert.equal(map.location.hash, '#o=paper%3Aa-long');
+  const paperView = map.view();
+  assert.equal(hint(), 'go back to #1', 'the card names the level above');
+  click('statement:a-long#r2');
+  assert.equal(map.location.hash, '#o=statement%3Aa-long%23r2');
+  assert.ok(Math.abs(map.view().k - paperView.k) < 1e-9, 'a result pins without moving the camera');
+  assert.equal(hint(), 'go back to the long record on #1');
+  assert.match(map.inspector.innerHTML, /aria-label="Back to the long record on #1 \(Esc\)"><span aria-hidden="true">←<\/span> Back<\/button>/,
+    'below the top the head button says Back and names where it goes');
+  // Back up the same way: Esc to the paper, its frame as it was...
   map.key('Escape');
   map.advanceTo(map.now() + 2000);
-  assert.equal(map.location.hash, '', 'Esc first lets the pin go');
-  assert.ok(gap() > fitted * 1.3, 'keeping the framed view');
+  assert.equal(map.location.hash, '#o=paper%3Aa-long');
+  assert.ok(Math.abs(map.view().k - paperView.k) < 1e-9 && Math.abs(map.view().tx - paperView.tx) < 1e-6);
+  // ...the card's Back button to the problem, its sector framed again...
+  map.inspector.fire('click', {target: {closest: sel => sel === '[data-universe-clear]' ? {} : null}});
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '#o=problem%3Ap1');
+  assert.ok(Math.abs(map.view().k - sector) < 1e-9, 'the sector frame returns');
+  // ...and a click on empty ground to the whole field.
+  map.canvas.fire('click', {clientX: 3, clientY: 3, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '');
+  assert.ok(Math.abs(map.view().k - fitted) < 1e-9, 'and the whole field');
+  // A pin made away from the trail goes back to the view it left.
+  click('problem:p2');
+  click('statement:a-long#r1');
+  assert.equal(map.location.hash, '#o=statement%3Aa-long%23r1');
+  assert.equal(hint(), 'close this card', 'a result outside the pinned problem starts a new trail');
   map.key('Escape');
   map.advanceTo(map.now() + 2000);
-  assert.ok(Math.abs(gap() - fitted) < 1, 'and then returns to the whole field');
-  map.canvas.fire('click', {clientX: p1.x, clientY: p1.y, detail: 1});
+  assert.equal(map.location.hash, '');
+  assert.ok(map.view().k > fitted * 1.3, 'closing it keeps the view');
+  map.key('Escape');
   map.advanceTo(map.now() + 2000);
-  assert.ok(gap() > fitted * 1.3);
-  map.canvas.fire('click', {clientX: 3, clientY: 3, detail: 1});
-  assert.equal(map.location.hash, '', 'a click on empty ground lets the pin go');
-  assert.ok(gap() > fitted * 1.3, 'keeping the framed view');
-  map.canvas.fire('click', {clientX: 3, clientY: 3, detail: 1});
-  map.advanceTo(map.now() + 2000);
-  assert.ok(Math.abs(gap() - fitted) < 1, 'and a second steps back to the whole field');
+  assert.ok(Math.abs(map.view().k - fitted) < 1e-9, 'and Esc with nothing pinned returns to the whole field');
 });
 
 test('leaving the mathematics view lets go of the hover, the pin and the column’s card', async () => {
@@ -1306,4 +1355,195 @@ test('the teaser’s own caption says what the pointer is on in a plain sentence
   map.canvas.fire('pointermove', {clientX: 3, clientY: 3});
   assert.equal(map.caption.textContent, '', 'empty ground leaves no stale name behind');
   assert.ok(!map.caption.classList.contains('is-shown'));
+});
+
+/* Wave 2 (4 October 2026): every name read whole, words for counts, one
+   scale spacing, the cursor tied to its dot, walking without a zoom, and
+   light kept for the evidence. */
+function wave2Data({long = 'Proposition 10.1 (A rational series preserving totient parity and the stated separation properties)'} = {}) {
+  return () => {
+    const d = structureData();
+    const n = d.initial.nodes.find(m => m.id === 'statement:c-long#r1');
+    n.label = long;
+    n.short = long;
+    d.initial.nodes.push({id: 'statement:b-long#md', kind: 'paper_statement', sector: 'p2', side: 'long', line: 99,
+      lean_status: 'exact', comparator_status: 'compared', paper: 'papers/b-long.html#md',
+      label: 'Theorem 5.6 ([criterion using least common multiples](https://github.com/x/y/blob/z/A.lean#L153))',
+      x: 364 * Math.cos(2.3), y: 364 * Math.sin(2.3)});
+    return d;
+  };
+}
+
+test('a long name is read whole on two balanced lines, never cut where the room allows', async () => {
+  const map = await mountStructure({page: true, data: wave2Data()});
+  map.advanceTo(map.now() + 2000);
+  const dot = map.at('statement:c-long#r1');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.advanceTo(map.now() + 2000);
+  const lines = map.labels().filter(l => /Proposition 10\.1|separation properties\)/.test(l.text));
+  assert.equal(lines.length, 2, 'the plate sets the name in two lines');
+  assert.equal(lines.map(l => l.text).join(' '),
+    'Proposition 10.1 (A rational series preserving totient parity and the stated separation properties)', 'whole, no letter cut');
+  assert.ok(!map.labels().some(l => l.text.endsWith('…')), 'nothing on the field is shortened');
+  const [a, b] = lines;
+  assert.ok(Math.abs(a.text.length - b.text.length) <= 12, 'the break makes the two lines nearly equal');
+  assert.ok(b.y - a.y > 12 && b.y - a.y < 17 && a.x === b.x, 'one under the other, on one centre');
+});
+
+test('a Markdown link in a ledger name is read as its words', async () => {
+  const map = await mountStructure({page: true, data: wave2Data()});
+  map.advanceTo(map.now() + 2000);
+  const dot = map.at('statement:b-long#md');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.advanceTo(map.now() + 2000);
+  const text = map.labels().map(l => l.text).join(' ');
+  assert.match(text, /Theorem 5\.6 \(criterion using least common multiples\)/);
+  assert.doesNotMatch(text, /\]\(|https?:|github/, 'no link syntax or address reaches the field');
+});
+
+test('band counts are said in words: "N of M" on a small ring, "N of M replayed" on the map', async () => {
+  const teaser = await mountStructure();
+  teaser.intersect(true);
+  teaser.advanceTo(teaser.now() + 2000);
+  const page = await mountStructure({page: true});
+  page.advanceTo(page.now() + 2000);
+  for (const map of [teaser, page]) {
+    const text = map.labels().map(l => l.text).join('');
+    assert.doesNotMatch(text, /\d+\/\d+/, 'no count is set as a fraction');
+  }
+  assert.match(page.labels().map(l => l.text).join(''), /6of6replayed/, 'the map spells the count out, letter by letter along the ring');
+});
+
+test('the scale has one spacing all the way round, each sector’s run centred in it', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  const c = map.centre();
+  // A result's tick is short; the mark between two papers is longer.
+  const angles = map.ticks().filter(seg => Math.hypot(seg.to[0] - seg.from[0], seg.to[1] - seg.from[1]) < 3)
+    .map(seg => Math.atan2(seg.from[1] - c.y, seg.from[0] - c.x)).sort((p, q) => p - q);
+  const gaps = angles.slice(1).map((a, i) => a - angles[i]).filter(g => g > 1e-6);
+  const pitch = Math.min(...gaps);
+  const step = Math.min((-0.74 + 2.4) / 6, (2.4 - 0.74) / 4, 0.6) * 0.95;
+  assert.ok(Math.abs(pitch - step) < 1e-6, 'neighbouring ticks stand one spacing apart, in every sector');
+  // The four results of the second sector make one run about its middle.
+  const second = angles.filter(a => a > 0.74 && a < 2.4);
+  assert.equal(second.length, 4);
+  // (The harness reads the centre to a hundredth of a pixel.)
+  assert.ok(Math.abs((second[0] + second[3]) / 2 - (0.74 + 2.4) / 2) < 1e-3, 'centred in its sector');
+  assert.ok(second[0] - 0.74 > step && 2.4 - second[3] > step, 'with clear ground at both ends');
+});
+
+test('a pinned result is tied to its cursor by a dotted line that walks with it', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  // The tie: a dotted ink line that ends on the cursor's own angle.
+  const tie = () => {
+    const c = map.centre(), at = map.cursor();
+    if (at === null) return undefined;
+    return map.strokes().filter(s => s.dashed && s.style === '#211318' && s.segments.length === 1).map(s => s.segments[0])
+      .find(seg => Math.abs(Math.atan2(seg.to[1] - c.y, seg.to[0] - c.x) - at) < 1e-6);
+  };
+  assert.equal(tie(), undefined, 'no tie without a pin');
+  const a = map.at('statement:a-long#r1');
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  map.advanceTo(map.now() + 400);
+  const t = tie();
+  assert.ok(t, 'the pin draws its tie');
+  assert.ok(Math.hypot(t.from[0] - a.x, t.from[1] - a.y) < 14, 'from just outside the dot’s reticle');
+  const c = map.centre(), end = Math.atan2(t.to[1] - c.y, t.to[0] - c.x);
+  assert.ok(Math.abs(end - map.cursor()) < 1e-6, 'to the cursor’s own tick');
+  map.key('ArrowRight');
+  map.advanceTo(map.now() + 2000);
+  const moved = tie(), next = map.at('statement:a-long#r2');
+  assert.ok(Math.hypot(moved.from[0] - next.x, moved.from[1] - next.y) < 14, 'the next result takes the tie');
+  assert.ok(Math.abs(Math.atan2(moved.to[1] - c.y, moved.to[0] - c.x) - map.cursor()) < 1e-6, 'and it ends on the moved cursor');
+});
+
+test('walking a paper keeps the view the reader chose; the camera moves only to bring a result back', async () => {
+  const map = await mountStructure({page: true, withInspector: true});
+  map.advanceTo(map.now() + 2000);
+  const before = map.view();
+  const a = map.at('statement:a-long#r1');
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  for (const expected of ['r2', 'r3', 'r4']) {
+    map.key('ArrowRight');
+    map.advanceTo(map.now() + 2000);
+    assert.equal(map.location.hash, '#o=statement%3Aa-long%23' + expected);
+  }
+  const after = map.view();
+  assert.ok(Math.abs(after.k - before.k) < 1e-9 && Math.abs(after.tx - before.tx) < 1e-6, 'no zoom, no pan from the whole field');
+  assert.equal(map.frames.size, 0, 'and nothing runs once each step has settled');
+});
+
+test('light belongs to the evidence: on paper no glow is drawn round a mark in focus', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  const a = map.at('statement:a-long#r2');
+  map.canvas.fire('pointermove', {clientX: a.x, clientY: a.y});
+  for (const ms of [40, 120, 240, 600]) {
+    map.advanceTo(map.now() + ms);
+    assert.equal(map.images(), 0, 'the reticle frames the focus; no lit disc is laid behind it');
+  }
+});
+
+test('plates wait while the camera moves and arrive once it has settled', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  const p = map.at('paper:a-long');
+  map.canvas.fire('pointermove', {clientX: p.x, clientY: p.y});
+  map.canvas.fire('click', {clientX: p.x, clientY: p.y, detail: 1});
+  map.advanceTo(map.now() + 260);
+  assert.ok(!map.labels().some(l => l.text === 'The first long record'), 'mid-move, the paper names itself nowhere');
+  map.advanceTo(map.now() + 2000);
+  const name = map.labels().find(l => l.text === 'The first long record');
+  assert.ok(name && name.alpha > 0.99, 'settled, its plate is there whole');
+  assert.equal(map.frames.size, 0);
+});
+
+test('a pinned plate keeps off its own band’s title, which names where the reader is', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  for (const id of ['statement:a-long#r1', 'statement:a-long#r2', 'statement:a-long#r4']) {
+    const dot = map.at(id);
+    map.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+    map.advanceTo(map.now() + 2000);
+    const text = map.labels().map(l => l.text).join('');
+    assert.match(text, /#1Firstproblem/, `${id}: the band title stays in view`);
+    assert.match(text, /6of6replayed/, `${id}: and its count`);
+  }
+});
+
+test('on a small field the two checkers’ counts both stand, apart, never run together', async () => {
+  const data = {initial: {nodes: [
+    {id: 'problem:west', kind: 'problem', label: 'West', short: '#1', x: -500, y: 0},
+    {id: 'problem:east', kind: 'problem', label: 'East', short: '#2', x: 500, y: 0},
+    {id: 'integration:comparator', kind: 'integration_surface', label: 'Comparator', sub: '616 of 689 replayed', x: -87, y: 40},
+    {id: 'integration:palomar', kind: 'integration_surface', label: 'Palomar', sub: '616 prepared', x: 87, y: 40},
+  ], edges: []}};
+  const map = await mount({data, width: 600});
+  const replayed = map.labels().find(l => l.text === '616 of 689 replayed');
+  const prepared = map.labels().find(l => l.text === '616 prepared');
+  assert.ok(replayed && prepared, 'both counts are lettered');
+  // The fake face sets six pixels a letter; labels are centred.
+  const gap = (prepared.x - prepared.text.length * 3) - (replayed.x + replayed.text.length * 3);
+  assert.ok(gap >= 13, `a clear gap between the two (${gap.toFixed(1)}px)`);
+});
+
+test('the card’s step bar carries the paper’s scale in small, its cursor on this result', async () => {
+  const map = await mount({data: resultCardData(), hash: '#o=statement%3Ap257%23thm%3Aa'});
+  await map.settle();
+  const cursorAt = () => {
+    const m = map.inspector.innerHTML.match(/<path class="universe-step__cursor" d="M([\d.]+) 0V7"\/>/);
+    return m ? Number(m[1]) : null;
+  };
+  assert.match(map.inspector.innerHTML, /Result 1 of 2<svg class="universe-step__scale"[^>]*aria-hidden="true"/,
+    'a scale under "Result 1 of 2", hidden from assistive technology (the words say it)');
+  assert.equal(cursorAt(), 24, 'the first of two results: the cursor a quarter of the way along');
+  const ticks = map.inspector.innerHTML.match(/<path class="universe-step__ticks" d="([^"]*)"/)[1];
+  assert.equal((ticks.match(/M/g) || []).length, 2, 'a tick for each result');
+  map.inspector.fire('click', {target: {closest: sel => sel === '[data-universe-step]' ? {getAttribute: () => '1'} : null}});
+  await map.settle();
+  assert.match(map.inspector.innerHTML, /Result 2 of 2/);
+  assert.equal(cursorAt(), 72, 'Next moves the card’s cursor with the map’s');
 });
