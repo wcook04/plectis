@@ -350,8 +350,9 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .universe-teaser__stage { position: relative; background: var(--surface); }
 .universe-canvas--teaser { height: 380px; cursor: pointer; }
 @media (max-width: 720px) { .universe-canvas--teaser { height: 300px; } }
-/* The page scrolls past the field on touch and wheel; a pinch or a held
-   modifier zooms it, so the canvas never traps the reader. */
+/* Over the field the wheel zooms, as on a map, and beside it the page
+   scrolls; on touch a swipe scrolls the page past the field and a pinch
+   zooms it, so the canvas never traps the reader. */
 .universe-canvas--page {
   /* The field fills the panel's height: on a laptop's first screen the
      whole map shows, and it grows with taller screens. */
@@ -383,25 +384,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   justify-self: center;
   transform: translateY(0.5px);
 }
-.universe-wheel-hint {
-  position: absolute;
-  left: 50%;
-  top: var(--space-3);
-  transform: translateX(-50%);
-  margin: 0;
-  padding: 0.35rem 0.8rem;
-  font-size: var(--fs-small);
-  color: var(--ink);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  border: 1px solid var(--rule-strong);
-  border-radius: var(--r-pill);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 160ms var(--ease);
-  z-index: 4;
-}
-.universe-wheel-hint.is-shown { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .universe-wheel-hint { transition: none; } }
 /* The evidence chip carries its glyph's colour, faintly. */
 .universe-chip--replayed { background: color-mix(in srgb, var(--u-integration) 14%, var(--surface)); }
 .universe-chip--lean { background: color-mix(in srgb, var(--u-statement) 14%, var(--surface)); }
@@ -419,13 +401,13 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   .universe-figures { gap: var(--space-1) var(--space-4); }
   .universe-figures dd { font-size: 1.3rem; }
   .universe-figures dt { font-size: var(--fs-micro); }
-  .universe-toolbar /* Inside the map's rail, a link that leaves the site keeps its arrow but
+  .universe-toolbar .universe-count { display: none; }
+  .universe-head__lede { font-size: var(--fs-body); }
+}
+/* Inside the map's rail, a link that leaves the site keeps its arrow but
    takes the ink colour: amber there would read as Comparator's orange. */
 .universe-inspector a[data-link-kind="exogenous"],
 .universe-panel__side a[data-link-kind="exogenous"] { color: var(--ink); text-decoration-color: var(--rule-strong); }
-.universe-count { display: none; }
-  .universe-head__lede { font-size: var(--fs-body); }
-}
 .universe-canvas--page.is-panning { cursor: grabbing; }
 .universe-canvas.is-over { cursor: pointer; }
 
@@ -619,45 +601,84 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .universe-open__where { color: var(--muted); font-size: var(--fs-micro); overflow-wrap: anywhere; }
 .universe-open__where code { font-size: 0.95em; }
 .universe-open__more { color: var(--faint); font-size: var(--fs-micro); padding: 0.1rem 0.2rem; }
-/* Where a paper result appears: one block per paper that states it, its
-   own paper marked, each with the rendered paper and the TeX line. */
-.universe-appears { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; gap: 0.45rem; }
-.universe-appear {
-  display: grid;
-  gap: 0.15rem;
-  padding: 0.55rem 0.7rem 0.6rem;
-  border: 1px solid var(--rule-control);
-  border-radius: var(--r-control);
-  background: var(--surface);
-  font-size: var(--fs-small);
-  line-height: var(--lh-snug);
-}
-.universe-appear--self { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
-.universe-appear__role { color: var(--ink); }
-.universe-appear__role b { font-weight: 600; }
-.universe-appear__paper { color: var(--muted); font-size: var(--fs-micro); }
-.universe-appear__via { color: var(--faint); font-size: var(--fs-micro); font-style: italic; }
-.universe-appear--self .universe-appear__link:first-child { border-color: var(--accent); color: var(--ink); }
-.universe-appear__links { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
-.universe-appear__link {
-  display: inline-flex;
-  align-items: center;
+/* A paper result's card. First the paper's own words: the environment it
+   prints, set like the paper (serif, the statement in italic, display maths
+   centred and scrolling sideways rather than spilling), on a quiet sunk
+   ground with a rule down its side. When two papers state it, a tab for
+   each. Then the ways out, as buttons. */
+.universe-result__where { margin: -0.2rem 0 var(--space-2); color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-snug); }
+.universe-result__where b { color: var(--ink-soft); font-weight: 600; }
+.universe-quote { margin: var(--space-2) 0 var(--space-3); }
+.universe-quote__from { margin: 0 0 0.4rem; color: var(--muted); font-size: var(--fs-micro); line-height: var(--lh-snug); }
+.universe-quote__tabs { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0 0 0.45rem; }
+.universe-quote__tab {
+  font: inherit;
+  font-size: var(--fs-micro);
   min-height: 26px;
   padding: 0.15rem 0.65rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
+}
+.universe-quote__tab:hover { color: var(--ink); border-color: var(--accent); }
+.universe-quote__tab[aria-selected="true"] { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.universe-quote__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.universe-quote__text {
+  margin: 0;
+  padding: 0.65rem 0.8rem 0.7rem;
+  background: var(--surface-sunk);
+  border-left: 2px solid var(--rule-strong);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-family: var(--font-serif);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+.universe-quote__text p { margin: 0 0 0.5em; }
+.universe-quote__text p:last-child { margin-bottom: 0; }
+.universe-quote__text .math-display { margin: 0.45em 0; overflow-x: auto; overflow-y: hidden; }
+.universe-quote__text math { color: var(--ink); font-size: 1.04em; }
+.universe-quote__text math[display="block"] { margin: 0.1em 0; }
+.universe-quote__text a { color: inherit; text-decoration-color: var(--rule-strong); text-underline-offset: 0.16em; }
+.universe-quote__text a:hover { color: var(--accent); }
+.universe-quote__name { margin: 0 0 0.35em; font-style: normal; font-weight: 600; }
+.universe-quote__wait { margin: 0; padding: 0.65rem 0.8rem; color: var(--faint); font-size: var(--fs-small); background: var(--surface-sunk); border-left: 2px solid var(--rule); }
+.universe-quote__via,
+.universe-quote__more { margin: 0.4rem 0 0; color: var(--faint); font-size: var(--fs-micro); line-height: var(--lh-snug); }
+.universe-quote__go { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.55rem 0 0; }
+/* A hovered result previews its words, cut at a dozen lines and faded. */
+.universe-inspector.is-preview .universe-quote__text {
+  max-height: 13em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent);
+}
+.universe-go {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.18rem 0.75rem;
   font: inherit;
   font-size: var(--fs-micro);
   font-weight: 600;
   color: var(--ink-soft);
   background: var(--surface);
   border: 1px solid var(--rule-control);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   transition: border-color var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
 }
-.universe-appear__link:hover { border-color: var(--accent); color: var(--ink); }
-.universe-appear__link[data-link-kind="exogenous"]::after { content: "\2009\2197"; }
+.universe-go:hover { border-color: var(--accent); color: var(--ink); }
+.universe-go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.universe-quote__go .universe-go--primary { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.universe-go--small { min-height: 24px; padding: 0.08rem 0.6rem; font-weight: 500; }
+.universe-inspector a.universe-go[data-link-kind="exogenous"]::after { content: "\2009\2197"; color: var(--muted); }
 .universe-sector__go {
   font: inherit;
   font-weight: 600;
@@ -1587,6 +1608,14 @@ html:not(.scripting) .universe-nojs { display: block; }
   justify-content: space-between;
   gap: var(--space-2);
 }
+/* With a card pinned the placard steps back to its title and the search, so
+   the card (the paper's words first) fills the column's first screen; the
+   figures return when the card closes. */
+.universe-panel.is-reading .universe-head__lede,
+.universe-panel.is-reading .universe-figures,
+.universe-panel.is-reading .universe-toolbar__row { display: none; }
+.universe-panel.is-reading .universe-head { margin-bottom: var(--space-2); }
+.universe-panel.is-reading .universe-head h1 { font-size: 1.3rem; margin-bottom: 0; }
 .universe-find { position: relative; }
 .universe-find .universe-search { width: 100%; min-width: 0; }
 /* The first matches open under the field; the map lights the rest. */
@@ -1923,46 +1952,105 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: var(--space-4) 0 var(--space-1);
   font-weight: 600;
 }
-.universe-inspector__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* How a result is checked: three stations down one thread, Lean, then
+   Comparator, then Palomar, each a mark and a sentence. The mark speaks the
+   map's evidence language: filled in its colour when done, the queued pip
+   while it waits, half filled under named inputs, a faint ring when not
+   yet; Palomar, which holds a prepared corpus, is a ring with a centre. */
+.universe-checks { list-style: none; margin: var(--space-2) 0 var(--space-3); padding: 0; }
+.universe-check {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.85rem minmax(0, 1fr);
+  column-gap: 0.65rem;
+  padding-bottom: 0.8rem;
+  --check: var(--faint);
 }
-/* A paper result's evidence: one line each for Lean, Comparator, Palomar,
-   then the declarations that state it. */
-.universe-inspector__facts {
+.universe-check:last-child { padding-bottom: 0; }
+.universe-check:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(0.425rem - 0.5px);
+  top: 1.2rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: var(--rule-strong);
+}
+.universe-check--lean { --check: var(--u-statement); }
+.universe-check--comparator { --check: var(--u-integration); }
+.universe-check--palomar { --check: var(--muted); }
+.universe-check__mark {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: 0.22rem;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1.6px solid var(--check);
+}
+.universe-check--done .universe-check__mark { background: var(--check); }
+.universe-check--queued .universe-check__mark { background: radial-gradient(circle, var(--surface) 0 30%, var(--check) 35%); }
+.universe-check--part .universe-check__mark { background: linear-gradient(90deg, var(--check) 50%, transparent 50%); }
+.universe-check--ready .universe-check__mark { background: radial-gradient(circle, var(--check) 0 28%, transparent 33%); }
+.universe-check--none .universe-check__mark { border-width: 1px; border-color: var(--faint); opacity: 0.8; }
+.universe-check__body { min-width: 0; }
+.universe-check__text { margin: 0; color: var(--ink-soft); font-size: var(--fs-small); line-height: var(--lh-body); }
+.universe-check__text b { color: var(--ink); font-weight: 600; }
+.universe-check--none .universe-check__text { color: var(--muted); }
+.universe-check__more { margin: 0.35rem 0 0; color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-body); }
+.universe-check__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 0.45rem 0 0; }
+.universe-check__entry { color: var(--faint); font-size: var(--fs-micro); margin: 0 0.1rem 0 0.2rem; font-variant-numeric: tabular-nums; }
+.universe-check__entry:first-child { margin-left: 0; }
+.universe-check__record { margin: 0 0 var(--space-3); }
+/* The Lean code, one step down: a disclosure the reader opens, the shared
+   namespace said once, each theorem's name opening its line on GitHub and
+   its statement set as code. */
+.universe-lean { margin-top: 0.45rem; }
+.universe-lean summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 24px;
   list-style: none;
-  margin: 0 0 var(--space-3);
-  padding: 0;
-  font-size: var(--fs-small);
+  cursor: pointer;
   color: var(--muted);
-}
-.universe-inspector__facts li { padding: 0.18rem 0; }
-.universe-inspector__facts b { color: var(--ink-soft); font-weight: 600; margin-right: 0.4em; }
-.universe-inspector__list--decls li {
   font-size: var(--fs-small);
-  padding: 0.22rem 0;
-  border-top: 1px solid var(--rule);
-  overflow-wrap: anywhere;
+  font-weight: 600;
 }
-.universe-inspector__list--decls li:first-child { border-top: 0; }
-.universe-decl__line,
-.universe-decl__links { color: var(--faint); font-size: var(--fs-micro); margin-left: 0.4em; white-space: nowrap; }
-.universe-decl__sig { margin-top: 0.25rem; }
-.universe-decl__sig summary { cursor: pointer; color: var(--muted); font-size: var(--fs-micro); }
-.universe-inspector__list--decls pre {
+.universe-lean summary::-webkit-details-marker { display: none; }
+.universe-lean summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.universe-lean[open] summary::before { transform: rotate(90deg); }
+.universe-lean summary:hover { color: var(--ink); }
+.universe-lean summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); }
+.universe-lean__where { margin: 0.3rem 0 0.45rem; color: var(--faint); font-size: var(--fs-micro); line-height: var(--lh-snug); }
+.universe-lean__list { list-style: none; margin: 0.35rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+.universe-lean__list li { min-width: 0; }
+.universe-lean__name { font-size: var(--fs-micro); overflow-wrap: anywhere; }
+.universe-lean__line { margin-left: 0.45em; color: var(--faint); font-size: var(--fs-micro); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.universe-lean__code {
   margin: 0.3rem 0 0;
-  padding: 0.45rem 0.55rem;
-  max-height: 14rem;
+  padding: 0.5rem 0.6rem;
+  max-height: 16rem;
   overflow: auto;
   background: var(--surface-sunk);
   border: 1px solid var(--rule);
   border-radius: var(--r-sm);
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.76rem;
+  line-height: 1.5;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  tab-size: 2;
 }
+/* What else rests on the same Lean theorems; a row selects it. */
+.universe-related { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
+.universe-related li:first-child .universe-goto { border-top: 0; }
 .universe-goto {
   font: inherit;
   font-size: var(--fs-small);
@@ -1978,7 +2066,6 @@ html:not(.scripting) .universe-nojs { display: block; }
   padding: 0.32rem 0.1rem;
   cursor: pointer;
 }
-.universe-inspector__list li:first-child .universe-goto { border-top: 0; }
 .universe-goto:hover { color: var(--accent); }
 .universe-goto .dot { flex: none; transform: translateY(-1px); }
 .universe-goto__label { min-width: 0; overflow-wrap: anywhere; }

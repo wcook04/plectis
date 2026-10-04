@@ -28,8 +28,8 @@
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/style.css?v=9fcaebbce19f">
-  <link rel="stylesheet" href="../assets/maths.css?v=332e33881d52">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=07c5c54dd026"></script></template>
+  <link rel="stylesheet" href="../assets/maths.css?v=134eda936a55">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=0703724dd95f"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=d2f8c36969f0"></script>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
@@ -326,7 +326,7 @@ could be replaced by an unstated weaker but more complicated condition;
 printed p. 226 suggests <span class="math inline" data-term-auto="off" data-tex="\(\sum _{n_{i}&lt;x}1/n_{i}=o(\log \log x)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D456">𝑖</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D456">𝑖</mjx-c></mjx-mi></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D45C">𝑜</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6C" noic="true">l</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c67">g</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2061">⁡</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><msub><mi>n</mi><mrow data-mjx-texclass="ORD"><mi>i</mi></mrow></msub><mo>&lt;</mo><mi>x</mi></mrow></munder><mn>1</mn><mo>/</mo><msub><mi>n</mi><mrow data-mjx-texclass="ORD"><mi>i</mi></mrow></msub><mo>=</mo><mi>o</mi><mo stretchy="false">(</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>log</mi><mo data-mjx-texclass="NONE">⁡</mo><mi>x</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>
 via Brun’s method for pairwise coprime supports and says the all-primes
 case is not handled. The source therefore states the coprimality-free
-reciprocal-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-summability" data-term="summability" data-term-auto="1">summable</a> extension without proof; the #257 note credits that
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-summable-support" data-term="reciprocal_summable_support" data-term-auto="1">reciprocal-summable</a> extension without proof; the #257 note credits that
 stated extension to Erdős and gives a complete proof of it. The source
 does not settle universal #257 or supply the release’s Lean/Comparator
 proofs, and the note does not identify Erdős’s unstated weaker condition
@@ -527,7 +527,7 @@ href="https://doi.org/10.11429/ptmps1907.7.14_250"><em>On the Set of
 Partial Sums of an Infinite Series</em> (1914)</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/kakeya-1914-source-closure.md">read
 source closure</a>)</p>
-<p>Classical strict-tail criterion for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsum</a> sets: domination of every
+<p>Classical strict-tail criterion for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-achievement-set" data-term="achievement_set" data-term-auto="1">subsum sets</a>: domination of every
 remaining tail by its term gives the Cantor-set regime.</p>
 <p><strong>Boundary.</strong> The release uses this as historical
 geometry, not as a claim that Kakeya supplied the local executable
@@ -542,7 +542,7 @@ source closure</a>)</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>ℓ</mi><mo>&gt;</mo><mi>n</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>ℓ</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>t</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{\ell&gt;n}(t^\ell-1)^{-1}&lt;(t^n-1)^{-1}</annotation></semantics></math>
 for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">t\ge2</annotation></semantics></math>,
-and deduces distinct Lambert subsums and a Cantor set. Their Theorem 2.3
+and deduces distinct Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> and a Cantor set. Their Theorem 2.3
 (PDF p. 5; proof pp. 13–14) separately constructs rational
 <em>merged</em> sums from several bases under a mass hypothesis.</p>
 <p><strong>Boundary.</strong> At
@@ -936,7 +936,7 @@ whose reciprocal sums represent all rational numbers in an interval</em>
 href="https://arxiv.org/abs/2509.24971v3">arXiv:2509.24971v3</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources/reciprocal-tail/van-doorn-kovac-2026-source-closure.md">read
 source closure</a>)</p>
-<p>Proposition 8 proves that the finite <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sums</a> take every
+<p>Proposition 8 proves that the finite reciprocal sums take every
 rational value in an interval, combining the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-dense-subset" data-term="dense_subset" data-term-auto="1">dense</a> filling of Lemma 7
 with a divisibility chain among distinguished terms that eventually
 absorbs every positive integer. The #251 note and reasoning record cite
@@ -961,7 +961,7 @@ href="https://doi.org/10.4064/aa220323-18-1">doi:10.4064/aa220323-18-1</a></p>
 <p>The Hecke–Mahler value theorem (Loxton–van der Poorten Theorem 8,
 p. 40, in the modern form of Bugeaud–Laurent Theorem 1.1) is the
 transcendence input for the note’s two-prime theorems: both the
-de-duplicated and repeated running-lcm reciprocal sums are
+de-duplicated and repeated running-lcm <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sums</a> are
 transcendental for every pair of distinct primes, by a paper
 argument.</p>
 <p><strong>Boundary.</strong> Lean proves the two-prime transcendence
@@ -1065,7 +1065,7 @@ on p. 161, the direction <span class="math inline" data-term-auto="off" data-te
 intervals, and the constant <span class="math inline" data-term-auto="off" data-tex="\(C_{1}/C_{0}=2.46497868\ldots\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D436">𝐶</mjx-c></mjx-mi><mjx-script class="mjx-s-6d49f81678d9ec43"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msub><mjx-mi><mjx-c class="mjx-c1D436">𝐶</mjx-c></mjx-mi><mjx-script class="mjx-s-6d49f81678d9ec43"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c32" noic="true">2</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c2E" noic="true">.</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c34" noic="true">4</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c39" noic="true">9</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c37" noic="true">7</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38" noic="true">8</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c36" noic="true">6</mjx-c><mjx-c class="mjx-s-ba57d72d3d43bb53 mjx-c38">8</mjx-c></mjx-mn><mjx-mo space="2"><mjx-c class="mjx-c2026">…</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mrow data-mjx-texclass="ORD"><mn>1</mn></mrow></msub><mo>/</mo><msub><mi>C</mi><mrow data-mjx-texclass="ORD"><mn>0</mn></mrow></msub><mo>=</mo><mn>2.46497868</mn><mo>…</mo></math></mjx-assistive-mml></mjx-container></span> printed
 on p. 162 as an integer-base exponent bound, which defines the
 rational-base region of the #1049 notes. The 2016 paper proves the
-<span class="math inline" data-term-auto="off" data-tex="\(q\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45E">𝑞</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>q</mi></math></mjx-assistive-mml></mjx-container></span>-order inequality for the normalised Hankel determinant
+<span class="math inline" data-term-auto="off" data-tex="\(q\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45E">𝑞</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>q</mi></math></mjx-assistive-mml></mjx-container></span>-order inequality for the normalised <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hankel-determinant" data-term="hankel_determinant" data-term-auto="1">Hankel determinant</a>
 and remarks in its Section 2, on p. 4, that its results can be given at
 non-integer rational bases under a computable height restriction.</p>
 <p><strong>Boundary.</strong> Both papers state their theorems for

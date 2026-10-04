@@ -277,6 +277,14 @@
     var detailUrl = canvas.getAttribute('data-universe-detail');
     var detail = null;
     var detailLoading = false;
+    /* A result's card quotes its paper. Each paper's excerpts (the printed
+       environment, its maths as MathML) come in one small file, fetched the
+       first time the pointer or a pin reaches one of its results. */
+    var excerptRoutes = {};
+    var excerpts = {};
+    var excerptLoading = {};
+    // Which place a pinned result's quote shows when two papers state it.
+    var quoteAt = -1;
     /* The data's routes (papers/…, problems/…) are relative to maths/. The
        landing draws the teaser from the site root and names that directory
        in data-universe-base; without it a dot opened /papers/… and 404ed. */
@@ -2054,6 +2062,7 @@
     }
 
     function connectionRows(i) {
+      var owner = nodes[i];
       var rows = (adj[i] || []).slice();
       rows.sort(function (p, q) {
         var a = nodes[p.to], b = nodes[q.to];
@@ -2069,20 +2078,32 @@
         var row = rows[j];
         var m = nodes[row.to];
         var key = row.rel + ':' + row.out + ':' + m.kind;
-        if (!groups[key]) { groups[key] = { kind: m.kind, phrase: relPhrase(row.rel, row.out), items: [] }; order.push(key); }
-        groups[key].items.push('<button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
-          dotHtml(m.kind) + '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span></button>');
+        if (!groups[key]) { groups[key] = { kind: m.kind, phrase: relPhrase(row.rel, row.out), rel: row.rel, out: row.out, items: [] }; order.push(key); }
+        groups[key].items.push({ to: row.to, html: '<button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
+          dotHtml(m.kind) + '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span></button>' });
       }
       var html = '';
       for (var g = 0; g < order.length; g++) {
         var group = groups[order[g]];
+        // A paper's States list walks the same source order as Previous/Next.
+        // Generic relation groups keep their kind/name order, including a
+        // partial or foreign paper sequence that cannot establish this order.
+        if (owner.kind === 'paper' && group.kind === 'paper_statement' &&
+            group.rel === 'states' && group.out && group.items.every(function (item) {
+              var statement = nodes[item.to];
+              return owner.id === 'paper:' + statement.paperId &&
+                typeof statement.seq === 'number' && isFinite(statement.seq);
+            })) {
+          group.items.sort(function (a, b) { return nodes[a.to].seq - nodes[b.to].seq; });
+        }
+        var items = group.items.map(function (item) { return item.html; }).join('');
         var many = (KIND_PLURAL[group.kind] || group.kind).toLowerCase();
         html += group.items.length <= 3
           ? '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) + '</span>' +
-            group.items.join('') + '</li>'
+            items + '</li>'
           : '<li class="universe-link"><details class="universe-link__fold"><summary><span class="universe-link__how">' +
             escapeHtml(group.phrase) + '</span> ' + group.items.length + ' ' + escapeHtml(many) + '</summary>' +
-            group.items.join('') + '</details></li>';
+            items + '</details></li>';
       }
       return { html: html ? '<ul class="universe-links">' + html + '</ul>' : '', total: rows.length };
     }
@@ -2157,55 +2178,11 @@
     function externalAttrs() {
       return '" data-link-kind="exogenous" rel="external noopener" target="_blank"';
     }
-    /* Where a paper result appears: its own paper, and the other paper too
-       when that states the same result. Each place opens the rendered paper
-       at the result or its TeX source line on GitHub. */
+    // The short paper before the long record, wherever places are listed.
     var SIDE_ORDER = { short: 0, long: 1 };
-    function appearanceHtml(at, self, via, pinned) {
-      var m = nodes[at];
-      var role = m.side === 'long' ? 'The long record' : m.side === 'short' ? 'The short paper' : 'The paper';
-      var number = String(m.label || '').split(' (')[0];
-      var links = [];
-      if (m.paper) {
-        links.push('<a class="universe-appear__link" href="' + escapeHtml(m.paper) + '">Read it in the paper</a>');
-      }
-      if (m.tex && statementMeta && statementMeta.tex_source_base) {
-        links.push(extLink(statementMeta.tex_source_base + m.tex,
-          'TeX source' + (m.line ? ', line ' + m.line : ''), 'universe-appear__link'));
-      }
-      if (!self && pinned) {
-        links.push('<button type="button" class="universe-appear__link" data-universe-go="' + at + '">Show on the map</button>');
-      }
-      return '<li class="universe-appear' + (self ? ' universe-appear--self' : '') + '">' +
-        '<span class="universe-appear__role"><b>' + role + '</b>' +
-        (number && number !== m.label ? ', ' + escapeHtml(number) : '') + '</span>' +
-        '<span class="universe-appear__paper">' + escapeHtml(m.paperTitle || 'its paper') + '</span>' +
-        (via ? '<span class="universe-appear__via">Matched by ' + escapeHtml(via) + '</span>' : '') +
-        (links.length ? '<span class="universe-appear__links">' + links.join('') + '</span>' : '') + '</li>';
-    }
-    function appearancesHtml(i, pinned) {
-      var n = nodes[i];
-      var places = [{ at: i, self: true }].concat((n.twins || []).map(function (t) {
-        return { at: t.at, via: t.via };
-      }));
-      places.sort(function (a, b) {
-        return (SIDE_ORDER[nodes[a.at].side] || 0) - (SIDE_ORDER[nodes[b.at].side] || 0) ||
-          (nodes[a.at].seq || 0) - (nodes[b.at].seq || 0);
-      });
-      var cap = pinned ? 6 : 2;
-      var rows = places.slice(0, cap).map(function (p) { return appearanceHtml(p.at, p.self, p.via, pinned); });
-      if (places.length > cap) {
-        rows.push('<li class="universe-open__more">… and ' + (places.length - cap) + ' more' + (pinned ? '' : ' when pinned') + '</li>');
-      }
-      var sides = {};
-      places.forEach(function (p) { sides[nodes[p.at].side] = true; });
-      var head = sides.short && sides.long ? 'Stated in both papers' : 'Where it is stated';
-      return '<h3 class="universe-inspector__sub">' + head + '</h3><ul class="universe-appears">' + rows.join('') + '</ul>';
-    }
 
     function openHtml(i, pinned) {
       var n = nodes[i];
-      if (n.kind === 'paper_statement') return appearancesHtml(i, pinned);
       var rows = [];
       if (n.paper) {
         rows.push('<a class="universe-open universe-open--primary" href="' + escapeHtml(n.paper) + '">' +
@@ -2320,102 +2297,6 @@
       return text;
     }
 
-    function statementHtml(n, pinned) {
-      var parts = [];
-      var seq = paperSequence[n.paperId];
-      if (pinned && seq && seq.length > 1 && n.seq != null) {
-        // Walk the paper: the previous and next results in the order it
-        // states them (the arrow keys do the same).
-        parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
-          '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
-          (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
-          '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length + '</span>' +
-          '<button type="button" class="universe-step__btn" data-universe-step="1"' +
-          (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
-          '</div>');
-      }
-      if (n.lean_reason) {
-        // The build typesets the note's TeX as MathML; the authored text is
-        // the fallback for data built before it did.
-        parts.push('<p class="universe-inspector__boundary">' +
-          (n.lean_reason_html || noteHtml(n.lean_reason)) + '</p>');
-      }
-      var more = pinned && detail && detail.statements ? detail.statements[n.id] || null : null;
-      if (pinned && !detail && detailUrl) {
-        loadDetail();
-        parts.push('<p class="universe-inspector__hint">Loading the Lean statements and Comparator checks…</p>');
-      }
-      if (more && more.relation_note) {
-        var typeset = more.html_mathml && more.html_mathml.relation_note;
-        parts.push('<p class="universe-inspector__note"><b>How the Lean form gives the paper’s statement.</b> ' +
-          (typeset || noteHtml(more.relation_note)) + '</p>');
-      }
-      var decls = n.decls || [];
-      if (decls.length) {
-        var cap = pinned ? 10 : 2;
-        var sigs = more && more.statements ? more.statements : {};
-        var rows = decls.slice(0, cap).map(function (d) {
-          var where = d.line ? '<span class="universe-decl__line">line ' + d.line + '</span>' : '';
-          // A Lean name breaks only after a dot or an underscore.
-          var row = '<li>' + extLink(d.href, '<code>' + nameHtml(d.name) + '</code>') + where;
-          if (sigs[d.name]) {
-            row += '<details class="universe-decl__sig"><summary>Show the Lean statement</summary><pre><code>' +
-              escapeHtml(sigs[d.name]) + '</code></pre></details>';
-          }
-          return row + '</li>';
-        });
-        if (decls.length > cap) {
-          rows.push('<li class="universe-open__more">… and ' + (decls.length - cap) + ' more' + (pinned ? '' : ' when pinned') + '</li>');
-        }
-        parts.push('<h3 class="universe-inspector__sub">In Lean' +
-          (decls.length > 1 ? ', in ' + decls.length + ' declarations' : '') + '</h3>' +
-          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rows.join('') + '</ul>');
-      }
-      if (more && (more.named_inputs || []).length) {
-        parts.push('<h3 class="universe-inspector__sub">Named inputs</h3><ul class="universe-inspector__list universe-inspector__list--decls">' +
-          more.named_inputs.map(function (input) {
-            return '<li>' + extLink(input.href, '<code>' + escapeHtml(input.name) + '</code>') +
-              (input.text ? '<pre><code>' + escapeHtml(input.text) + '</code></pre>' : '') + '</li>';
-          }).join('') + '</ul>');
-      } else if ((n.named_inputs || []).length) {
-        parts.push('<p class="universe-inspector__note">Named inputs: ' + n.named_inputs.map(function (name) {
-          return '<code>' + escapeHtml(name) + '</code>';
-        }).join(', ') + '</p>');
-      }
-      if (more && (more.checks || []).length) {
-        var byEntry = {}, order = [];
-        more.checks.forEach(function (check) {
-          if (!byEntry[check.entry]) { byEntry[check.entry] = []; order.push(check.entry); }
-          byEntry[check.entry].push(check);
-        });
-        var restated = more.checks.some(function (check) { return !check.same_as_lean; });
-        var rowsCmp = order.map(function (entry) {
-          var check = byEntry[entry][0], links = [];
-          if (check.challenge) links.push(extLink(check.challenge, 'the challenge'));
-          if (check.solution) links.push(extLink(check.solution, 'the solution'));
-          if (check.receipt) links.push(extLink(check.receipt, 'its receipt'));
-          return '<li>Entry <code>' + escapeHtml(entry) + '</code>' +
-            (links.length ? ': ' + links.join(', ') : '') + '</li>';
-        });
-        var replay = detail.replay || {};
-        // What a check is, said once: the challenge restates the Lean
-        // statement without its proof, and the solution must prove exactly it.
-        parts.push('<h3 class="universe-inspector__sub">Checked by Comparator</h3>' +
-          '<p class="universe-inspector__note">Comparator compares a challenge, which restates the Lean statement ' +
-          'without its proof, with a solution that proves it. ' +
-          (order.length > 1 ? 'These entries passed' : 'This entry passed') +
-          (replay.href ? ' in ' + extLink(replay.href, 'run ' + escapeHtml(replay.run_id)) : '') +
-          ': the Lean kernel and nanoda both accepted the proof.' +
-          (restated ? ' Here the challenge restates the declaration in another form; the evidence record prints both.' : '') +
-          '</p>' +
-          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rowsCmp.join('') + '</ul>');
-      }
-      if (more && more.record) {
-        parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result') + '</p>');
-      }
-      return parts.join('');
-    }
-
     /* What a verification hub reaches, from the same ledger the band draws. */
     function surfaceHtml(n) {
       var s = statementMeta && statementMeta.summary;
@@ -2460,8 +2341,344 @@
       return safe.replace(/([._])(?=[^._])/g, '$1<wbr>');
     }
 
+    /* ---- A paper result's card ---------------------------------------- */
+    /* The card reads in the order a reader asks. What does the paper say?
+       Its own words, quoted, maths typeset. How far has that been checked?
+       Lean, then Comparator, then Palomar, a sentence each. What is it tied
+       to? The claims and results on the same Lean theorems. The Lean code
+       and the Comparator files wait one step down for whoever wants them,
+       and every way out (the paper, the TeX, GitHub) is a button. */
+
+    var ROLE_NAME = { short: 'the short paper', long: 'the long record' };
+    var TAB_NAME = { short: 'Short paper', long: 'Long record' };
+    function roleName(m) { return ROLE_NAME[m.side] || 'the paper'; }
+    // A name the paper prints in lower case ("conditional numerical
+    // thresholds") heads the card with a capital; markup and maths are left be.
+    function capitalFirst(text) {
+      return /^[a-z]/.test(text) ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+    }
+    // "Theorem 6.3 (Two-channel and dyadic cap sufficiency)" → number, name.
+    function splitLabel(label) {
+      var text = String(label || '');
+      var m = /^(.*?)\s*\((.*)\)\s*$/.exec(text);
+      return m ? { number: m[1], name: m[2] } : { number: text, name: '' };
+    }
+
+    function loadExcerpts(pid) {
+      var href = excerptRoutes[pid];
+      if (!href || excerpts[pid] || excerptLoading[pid]) return;
+      excerptLoading[pid] = true;
+      fetch(route(href)).then(function (r) { return r.json(); }).then(function (payload) {
+        var table = {};
+        (payload.excerpts || []).forEach(function (row) {
+          table[row[0]] = { name: row[1] || '', body: row[2] || '' };
+        });
+        excerpts[pid] = table;
+        excerptLoading[pid] = false;
+        refreshResultCard(pid);
+      }).catch(function () {
+        excerpts[pid] = {};
+        excerptLoading[pid] = false;
+        refreshResultCard(pid);
+      });
+    }
+    // The quote arrives after the card: draw it again if it is still on show.
+    function refreshResultCard(pid) {
+      var at = selected >= 0 ? selected : hover;
+      if (at < 0 || !nodes[at] || nodes[at].kind !== 'paper_statement') return;
+      var shown = [at].concat((nodes[at].twins || []).map(function (t) { return t.at; }));
+      if (shown.some(function (k) { return nodes[k].paperId === pid; })) renderInspector();
+    }
+    // A result's quote: {name, body}; null when its paper has none; undefined
+    // while the file is on its way.
+    function excerptOf(i) {
+      var m = nodes[i];
+      if (!excerptRoutes[m.paperId]) return null;
+      var table = excerpts[m.paperId];
+      if (!table) { loadExcerpts(m.paperId); return undefined; }
+      return table[m.id] || null;
+    }
+
+    // Every place a result is stated, the short paper first.
+    function placesOf(i) {
+      var places = [{ at: i, via: null }].concat((nodes[i].twins || []).map(function (t) {
+        return { at: t.at, via: t.via };
+      }));
+      places.sort(function (a, b) {
+        return (SIDE_ORDER[nodes[a.at].side] || 0) - (SIDE_ORDER[nodes[b.at].side] || 0) ||
+          (nodes[a.at].seq || 0) - (nodes[b.at].seq || 0);
+      });
+      return places;
+    }
+
+    function quoteHtml(i, pinned) {
+      var places = placesOf(i);
+      var tabs = pinned ? places.slice(0, 3) : [];
+      var place = places[0];
+      var want = pinned && quoteAt >= 0 ? quoteAt : i;
+      for (var p = 0; p < places.length; p++) if (places[p].at === want) place = places[p];
+      if (!pinned) place = { at: i, via: null };
+      var m = nodes[place.at];
+      var html = '<figure class="universe-quote">';
+      if (tabs.length > 1) {
+        // Two papers state it: a tab for each, the reader's choice kept.
+        html += '<div class="universe-quote__tabs" role="tablist" aria-label="Where it is stated">' +
+          tabs.map(function (t) {
+            var tm = nodes[t.at];
+            // "Short paper, 5.2": short enough for two tabs on one line.
+            return '<button type="button" role="tab" class="universe-quote__tab" aria-selected="' +
+              (t.at === place.at) + '" data-universe-place="' + t.at + '" aria-label="' +
+              escapeHtml(capitalFirst(roleName(tm)) + ', ' + splitLabel(tm.label).number) + '">' +
+              (TAB_NAME[tm.side] || 'Paper') + ', ' + escapeHtml(tm.num || splitLabel(tm.label).number) + '</button>';
+          }).join('') + '</div>';
+      } else {
+        html += '<figcaption class="universe-quote__from">From ' + roleName(m) +
+          (m.paperTitle ? ', <cite>' + escapeHtml(m.paperTitle) + '</cite>' : '') + '</figcaption>';
+      }
+      var ex = excerptOf(place.at);
+      if (ex === undefined) {
+        html += '<p class="universe-quote__wait">Loading the paper’s words…</p>';
+      } else if (ex && ex.body) {
+        // The card's title already names this result; another paper's
+        // statement carries its own name.
+        var named = place.at !== i && ex.name ? '<p class="universe-quote__name">' + ex.name + '</p>' : '';
+        html += '<blockquote class="universe-quote__text">' + named + ex.body + '</blockquote>';
+      }
+      if (place.via && place.via !== 'the same label') {
+        html += '<p class="universe-quote__via">Shown with this result because both papers cite the same Lean theorem for it.</p>';
+      }
+      var go = [];
+      if (m.paper) {
+        // universe-open--primary is the hook the site's navigation warming
+        // (docs.js) reads to fetch a pinned card's paper ahead of the click.
+        go.push('<a class="universe-go universe-go--primary universe-open--primary" href="' +
+          escapeHtml(route(m.paper)) + '">Read it in the paper</a>');
+      }
+      if (m.tex && statementMeta && statementMeta.tex_source_base) {
+        go.push(extLink(statementMeta.tex_source_base + m.tex, 'TeX source' + (m.line ? ', line ' + m.line : ''), 'universe-go'));
+      }
+      if (pinned && place.at !== i) {
+        go.push('<button type="button" class="universe-go" data-universe-go="' + place.at + '">Select it on the map</button>');
+      }
+      if (go.length) html += '<p class="universe-quote__go">' + go.join('') + '</p>';
+      if (pinned && places.length > tabs.length) {
+        html += '<p class="universe-quote__more">' + (places.length - tabs.length) +
+          ' more results in the other paper cite the same Lean theorems.</p>';
+      }
+      return html + '</figure>';
+    }
+
+    // The namespace every declaration shares ("Erdos249257."), said once.
+    function sharedNamespace(decls) {
+      var first = String(decls[0].name);
+      var cut = first.lastIndexOf('.');
+      while (cut > 0) {
+        var prefix = first.slice(0, cut + 1);
+        if (decls.every(function (d) { return String(d.name).indexOf(prefix) === 0; })) return prefix;
+        cut = first.lastIndexOf('.', cut - 1);
+      }
+      return '';
+    }
+
+    function leanListHtml(n, more) {
+      var decls = n.decls || [];
+      if (!decls.length) return '';
+      var sigs = more && more.statements ? more.statements : {};
+      var ns = sharedNamespace(decls);
+      var items = decls.map(function (d) {
+        var name = ns ? String(d.name).slice(ns.length) : String(d.name);
+        return '<li>' + extLink(d.href, '<code>' + nameHtml(name) + '</code>', 'universe-lean__name') +
+          (d.line ? '<span class="universe-lean__line">line ' + d.line + '</span>' : '') +
+          (sigs[d.name] ? '<pre class="universe-lean__code"><code>' + escapeHtml(sigs[d.name]) + '</code></pre>' : '') +
+          '</li>';
+      });
+      return '<details class="universe-lean" data-keep="lean"><summary>Show the Lean' +
+        (decls.length > 1 ? ' (' + decls.length + ' theorems)' : '') + '</summary>' +
+        (ns ? '<p class="universe-lean__where">Each sits in the namespace <code>' + escapeHtml(ns.slice(0, -1)) + '</code>; the names open the source on GitHub.</p>' : '') +
+        '<ol class="universe-lean__list">' + items.join('') + '</ol></details>';
+    }
+
+    function checkHtml(state, station, sentence, more) {
+      return '<li class="universe-check universe-check--' + state + ' universe-check--' + station.toLowerCase() + '">' +
+        '<span class="universe-check__mark" aria-hidden="true"></span>' +
+        '<div class="universe-check__body"><p class="universe-check__text"><b>' + station + '.</b> ' + sentence + '</p>' +
+        (more || '') + '</div></li>';
+    }
+
+    function checksHtml(n, pinned) {
+      var more = pinned && detail && detail.statements ? detail.statements[n.id] || null : null;
+      if (pinned && !detail && detailUrl) loadDetail();
+      var decls = n.decls || [];
+      var rows = [];
+      // Lean: how its statement stands to the printed one.
+      var lean = n.lean_status || 'none';
+      var count = decls.length > 1 ? ', in ' + decls.length + ' theorems' : '';
+      var leanMore = '';
+      if (pinned) {
+        if (more && more.relation_note) {
+          var typeset = more.html_mathml && more.html_mathml.relation_note;
+          leanMore += '<p class="universe-check__more">How the Lean statement gives the printed one: ' +
+            (typeset || noteHtml(more.relation_note)) + '</p>';
+        }
+        if (n.lean_reason) {
+          leanMore += '<p class="universe-check__more">' + (n.lean_reason_html || noteHtml(n.lean_reason)) + '</p>';
+        }
+        var inputs = more && (more.named_inputs || []).length ? more.named_inputs : null;
+        if (inputs) {
+          leanMore += '<details class="universe-lean" data-keep="inputs"><summary>Show the named inputs (' + inputs.length + ')</summary>' +
+            '<ol class="universe-lean__list">' + inputs.map(function (input) {
+              return '<li>' + extLink(input.href, '<code>' + nameHtml(input.name) + '</code>', 'universe-lean__name') +
+                (input.text ? '<pre class="universe-lean__code"><code>' + escapeHtml(input.text) + '</code></pre>' : '') + '</li>';
+            }).join('') + '</ol></details>';
+        }
+        leanMore += leanListHtml(n, more);
+      }
+      if (lean === 'exact') {
+        rows.push(checkHtml('done', 'Lean', 'It states this result exactly' + count + '.', leanMore));
+      } else if (lean === 'exact_or_stronger') {
+        rows.push(checkHtml('done', 'Lean', 'It states this result or something stronger' + count + '.', leanMore));
+      } else if (lean === 'modulo_named_input') {
+        var names = (n.named_inputs || []).length;
+        rows.push(checkHtml('part', 'Lean', 'It states this result from ' +
+          (names ? names + ' named input' + (names > 1 ? 's' : '') : 'named inputs') +
+          ' it has not proved yet' + count + '.', leanMore));
+      } else {
+        rows.push(checkHtml('none', 'Lean', 'No Lean statement is recorded for it yet.', leanMore));
+      }
+      // Comparator: the replay of the Lean statement, with its files.
+      if (n.comparator_status === 'compared') {
+        var replay = (detail && detail.replay) || {};
+        var runId = replay.run_id || (n.comparator_runs || [])[0] || (statementMeta && statementMeta.summary && statementMeta.summary.replay_run);
+        var runHref = replay.href || (statementMeta && statementMeta.summary && statementMeta.summary.replay_href);
+        var entries = n.comparator_entries || [];
+        // A receipt is per corpus entry, so the acceptance is the entry's.
+        var said = 'It replayed this result: from the Lean statement alone (the challenge) it checked that the proof ' +
+          '(the solution) proves exactly that statement.';
+        var run = runId ? (runHref ? extLink(runHref, 'run ' + escapeHtml(runId)) : 'run ' + escapeHtml(runId)) : '';
+        if (entries.length) {
+          said += (run ? ' In ' + run + ' its' : ' Its') + ' corpus entr' + (entries.length > 1 ? 'ies ' : 'y ') +
+            entries.map(escapeHtml).join(' and ') + ' passed, the Lean kernel and nanoda ' +
+            (entries.length > 1 ? 'accepting each.' : 'both accepting it.');
+        } else if (run) {
+          said += ' It passed in ' + run + ', the Lean kernel and nanoda both accepting its corpus entry.';
+        }
+        var cmpMore = '';
+        if (more && (more.checks || []).length) {
+          var byEntry = {}, order = [];
+          more.checks.forEach(function (check) {
+            if (!byEntry[check.entry]) { byEntry[check.entry] = check; order.push(check.entry); }
+          });
+          cmpMore = '<p class="universe-check__links">' + order.map(function (entry) {
+            var check = byEntry[entry], links = [];
+            if (check.receipt) links.push(extLink(check.receipt, 'Receipt', 'universe-go universe-go--small'));
+            if (check.challenge) links.push(extLink(check.challenge, 'Challenge', 'universe-go universe-go--small'));
+            if (check.solution) links.push(extLink(check.solution, 'Solution', 'universe-go universe-go--small'));
+            return (order.length > 1 ? '<span class="universe-check__entry">' + escapeHtml(entry) + '</span>' : '') + links.join('');
+          }).join('') + '</p>';
+          if (more.checks.some(function (check) { return !check.same_as_lean; })) {
+            cmpMore += '<p class="universe-check__more">The challenge states it in an equivalent form; the evidence record prints both.</p>';
+          }
+        }
+        rows.push(checkHtml('done', 'Comparator', said, cmpMore));
+      } else if (lean === 'exact' || lean === 'exact_or_stronger') {
+        rows.push(checkHtml('queued', 'Comparator', 'Its replay is queued' +
+          (n.comparator_queued_at ? ' since ' + escapeHtml(n.comparator_queued_at) : '') + '.'));
+      } else {
+        rows.push(checkHtml('none', 'Comparator', 'Nothing to replay until Lean states it exactly.'));
+      }
+      // Palomar: a prepared corpus; nothing has been submitted.
+      if (n.palomar_status === 'prepared') {
+        rows.push(checkHtml('ready', 'Palomar', 'It is in the corpus prepared for Palomar. Nothing has been submitted.'));
+      } else if (n.palomar_status === 'pending') {
+        rows.push(checkHtml('none', 'Palomar', 'It joins the prepared corpus once Comparator has replayed it.'));
+      } else {
+        rows.push(checkHtml('none', 'Palomar', 'It is not in the prepared corpus.'));
+      }
+      var html = '<h3 class="universe-inspector__sub">How it is checked</h3><ol class="universe-checks">' + rows.join('') + '</ol>';
+      if (more && more.record) {
+        html += '<p class="universe-check__record">' + extLink(more.record, 'The evidence record for this result', 'universe-go universe-go--small') + '</p>';
+      }
+      if (pinned && !detail && detailUrl) {
+        html += '<p class="universe-inspector__hint">Loading the Lean statements and Comparator files…</p>';
+      }
+      return html;
+    }
+
+    // The claims and results that rest on the same Lean theorems; a click
+    // selects one.
+    function relatedHtml(i) {
+      var n = nodes[i];
+      var skip = {};
+      skip[i] = true;
+      (n.twins || []).forEach(function (t) { skip[t.at] = true; });
+      var rows = [];
+      (adj[i] || []).forEach(function (e) {
+        var m = nodes[e.to];
+        if (skip[e.to] || (m.kind !== 'paper_statement' && m.kind !== 'public_claim')) return;
+        skip[e.to] = true;
+        rows.push(e.to);
+      });
+      if (!rows.length) return '';
+      rows.sort(function (a, b) {
+        return kindOrder(nodes[a].kind) - kindOrder(nodes[b].kind) ||
+          (nodes[a].label < nodes[b].label ? -1 : nodes[a].label > nodes[b].label ? 1 : 0);
+      });
+      return '<h3 class="universe-inspector__sub">On the same Lean theorems</h3><ul class="universe-related">' +
+        rows.map(function (at) {
+          var m = nodes[at];
+          return '<li><button type="button" class="universe-goto" data-universe-go="' + at + '">' + dotHtml(m.kind) +
+            '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 90)) + '</span>' +
+            '<span class="universe-goto__rel">' + escapeHtml(KIND_LABEL[m.kind] || m.kind) + '</span></button></li>';
+        }).join('') + '</ul>';
+    }
+
+    function resultCardHtml(i, pinned) {
+      var n = nodes[i];
+      var lab = splitLabel(n.label);
+      var ex = excerptOf(i);
+      var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) + 'Paper result</p>';
+      if (pinned) {
+        head = '<div class="universe-inspector__head">' + head +
+          '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
+      }
+      var problem = n.sector && problemIndex[n.sector] !== undefined;
+      var parts = [head,
+        '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
+        '<p class="universe-result__where">' + (lab.name ? '<b>' + escapeHtml(lab.number) + '</b> in ' : 'In ') +
+          roleName(n) + (problem ? ' on ' + problemChipHtml(n.sector) : '') + '</p>'];
+      if (n.tier) {
+        parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' +
+          glyphHtml(n.tier) + escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span></p>');
+      }
+      var seq = paperSequence[n.paperId];
+      if (pinned && seq && seq.length > 1 && n.seq != null) {
+        // Walk the paper: the previous and next results in the order it
+        // states them (the arrow keys do the same).
+        parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
+          '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
+          (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
+          '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length + '</span>' +
+          '<button type="button" class="universe-step__btn" data-universe-step="1"' +
+          (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
+          '</div>');
+      }
+      parts.push(quoteHtml(i, pinned));
+      if (!pinned) {
+        parts.push('<p class="universe-inspector__evidence">' + escapeHtml(evidenceSentence(n)) + '</p>');
+        parts.push('<p class="universe-inspector__hint">Click to keep this card; double-click to read it in the paper.</p>');
+        return parts.join('');
+      }
+      parts.push(checksHtml(n, true));
+      parts.push(relatedHtml(i));
+      if (canCopy) {
+        parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
+      }
+      return parts.join('');
+    }
+
     function cardHtml(i, pinned) {
       var n = nodes[i];
+      if (n.kind === 'paper_statement') return resultCardHtml(i, pinned);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
         escapeHtml(KIND_LABEL[n.kind] || n.kind) + '</p>';
       if (pinned) {
@@ -2474,18 +2691,8 @@
       if (n.status) {
         chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';
       }
-      if (n.kind === 'paper_statement' && n.tier) {
-        chips += '<span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' + glyphHtml(n.tier) +
-          escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span>';
-      }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
-      // A paper result leads with where to read it; its evidence follows.
-      var openFirst = n.kind === 'paper_statement';
-      // Its evidence in one sentence, as the landing's card says it, before
-      // where to read it; Palomar holds a prepared corpus, nothing submitted.
-      if (openFirst) parts.push('<p class="universe-inspector__evidence">' + escapeHtml(evidenceSentence(n)) + '</p>');
-      if (openFirst) parts.push(openHtml(i, pinned));
       var body = n.statement || n.question || null;
       if (body) parts.push('<p class="universe-inspector__body">' + escapeHtml(body) + '</p>');
       if (n.boundary) {
@@ -2494,16 +2701,14 @@
       if (n.subject) {
         parts.push('<p class="universe-inspector__note">Subject: ' + escapeHtml(n.subject) + '</p>');
       }
-      if (n.kind === 'paper_statement') parts.push(statementHtml(n, pinned));
       if (n.kind === 'integration_surface' || n.kind === 'universe') parts.push(surfaceHtml(n));
       if (n.declaration_count != null) {
         var counts = String(n.declaration_count) + ' declarations';
         if (n.theorem_count != null) counts += ', ' + String(n.theorem_count) + ' theorems';
         parts.push('<p class="universe-inspector__note">' + counts + '</p>');
       }
-      // A result's "where it is stated" already says which problem it sits with.
-      if (n.kind !== 'paper_statement') parts.push(placementHtml(i));
-      if (!openFirst) parts.push(openHtml(i, pinned));
+      parts.push(placementHtml(i));
+      parts.push(openHtml(i, pinned));
       if (pinned) {
         parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
@@ -2518,13 +2723,25 @@
           parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
         }
       } else {
-        parts.push('<p class="universe-inspector__hint">Click to keep this card and see what it connects to; click again to open it.</p>');
+        parts.push('<p class="universe-inspector__hint">Click to keep this card and see what it connects to; double-click to open it.</p>');
       }
       return parts.join('');
     }
 
+    // A disclosure the reader opened (the Lean code, the named inputs) stays
+    // open while the card is drawn again: when its files arrive, and from one
+    // result to the next.
+    var keptOpen = {};
+    var panel = pageMode && stage.closest ? stage.closest('.universe-panel') : null;
     function renderInspector() {
       if (!inspector) return;
+      // A pinned card takes the column; the placard keeps its title and search.
+      if (panel) panel.classList.toggle('is-reading', selected >= 0);
+      if (inspector.querySelectorAll) {
+        Array.prototype.forEach.call(inspector.querySelectorAll('details[data-keep]'), function (d) {
+          keptOpen[d.getAttribute('data-keep')] = d.open;
+        });
+      }
       // A pinned card stays put: the pointer crossing other dots on its way
       // to the rail names them on the field and leaves the card alone.
       if (hover >= 0 && hover !== selected && selected < 0) {
@@ -2536,6 +2753,11 @@
       } else {
         inspector.innerHTML = overviewHtml();
         inspector.classList.remove('is-preview');
+      }
+      if (inspector.querySelectorAll) {
+        Array.prototype.forEach.call(inspector.querySelectorAll('details[data-keep]'), function (d) {
+          if (keptOpen[d.getAttribute('data-keep')]) d.open = true;
+        });
       }
     }
 
@@ -2549,12 +2771,52 @@
       }
     }
 
+    /* The paper a pinned result opens in starts loading at once, so its
+       button, or a double-click, opens without the wait. Where the browser
+       takes speculation rules the page is prepared whole (a prerender); the
+       document also goes into the cache, so a browser that declines to
+       prerender (an embedded view, a busy machine) still opens it from
+       there. On the map the site's navigation warming (docs.js) already
+       fetches the pinned card's paper, so the map asks only for the
+       prerender. One page at a time, for a pin only, never a hover, and
+       never when the reader has asked to save data. */
+    var warmedHref = null;
+    var warmNodes = [];
+    function warmPaper(i) {
+      var target = i >= 0 && nodes[i] ? primaryTarget(nodes[i]) : null;
+      if (!target || target.external || typeof document.createElement !== 'function' || !document.head) return;
+      var connection = typeof navigator !== 'undefined' ? navigator.connection : null;
+      if (connection && connection.saveData) return;
+      var href;
+      try { href = new URL(target.href, window.location.href).href; } catch (err) { return; }
+      if (href === warmedHref) return;
+      warmedHref = href;
+      warmNodes.forEach(function (node) { if (node.parentNode) node.parentNode.removeChild(node); });
+      warmNodes = [];
+      if (typeof HTMLScriptElement !== 'undefined' && HTMLScriptElement.supports &&
+          HTMLScriptElement.supports('speculationrules')) {
+        var rules = document.createElement('script');
+        rules.type = 'speculationrules';
+        rules.textContent = JSON.stringify({ prerender: [{ source: 'list', urls: [href] }] });
+        warmNodes.push(rules);
+      }
+      if (!pageMode) {
+        var link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = href;
+        warmNodes.push(link);
+      }
+      warmNodes.forEach(function (node) { document.head.appendChild(node); });
+    }
+
     function pin(i, center) {
       var restoreFocus = inspector && inspector.contains(document.activeElement);
+      if (i !== selected) quoteAt = -1;
       selected = i;
       hover = -1;
       canvas.classList.remove('is-over');
       if (i >= 0) pendingId = null;
+      warmPaper(i);
       renderInspector();
       if (restoreFocus) {
         var nextFocus = inspector.querySelector('[data-universe-clear]') || searchIn;
@@ -2644,6 +2906,7 @@
     function pinInTeaser(i) {
       selected = i;
       if (i >= 0) pulsedSelection = i;
+      warmPaper(i);
       draw();
       if (companionApi) {
         stage.dispatchEvent(new CustomEvent('universe:select', { detail: i >= 0 ? companionSummary(i) : null }));
@@ -2741,6 +3004,10 @@
       var keepView = nodes.length > 0;
       if (data.statements) statementMeta = data.statements;
       if (data.bands) bands = data.bands;
+      if (data.excerpts) {
+        excerptRoutes = {};
+        data.excerpts.forEach(function (pair) { excerptRoutes[pair[0]] = pair[1]; });
+      }
       nodes = data.nodes.map(function (n) {
         var row = {
           id: n.id, kind: n.kind, label: n.label,
@@ -2943,6 +3210,10 @@
       if (moved) return;
       var rect = canvas.getBoundingClientRect();
       var i = nodeAt(event.clientX - rect.left, event.clientY - rect.top);
+      // A double-click reads the object where it lives: a result at its
+      // place in its paper, in this tab. The first click has already pinned
+      // it, which set its paper loading.
+      if (event.detail === 2 && i >= 0) { openTarget(nodes[i]); return; }
       if (pageMode) {
         // First click pins; a second click on the pinned object opens it.
         if (i >= 0 && i === selected) { openTarget(nodes[i]); return; }
@@ -3022,32 +3293,31 @@
         px0 = event.clientX; py0 = event.clientY;
         draw();
       });
-      /* The page scrolls past the map; a held modifier (or a trackpad pinch,
-         which arrives with ctrlKey) zooms it. A plain wheel shows a brief
-         hint instead of trapping the reader inside a tall canvas. */
-      var wheelHint = typeof document.createElement === 'function' ? document.createElement('p') : null;
-      if (wheelHint) {
-        var nav = typeof navigator !== 'undefined' ? navigator : {};
-        var isMac = /Mac|iPhone|iPad/.test((nav.platform || '') + (nav.userAgent || ''));
-        wheelHint.className = 'universe-wheel-hint';
-        wheelHint.setAttribute('aria-hidden', 'true');
-        wheelHint.textContent = 'Pinch, or hold ' + (isMac ? '⌘' : 'Ctrl') + ' and scroll, to zoom';
-        if (stage.appendChild) stage.appendChild(wheelHint);
+      /* Over the map the wheel zooms about the pointer, as a map does;
+         beside it the page scrolls. A scroll already moving the page carries
+         on when the map slides under the pointer, so reading past the map
+         never catches in it: a wheel event on the map within a moment of one
+         elsewhere still scrolls. A pinch (ctrlKey) always zooms. */
+      var pageWheelAt = -1e9;
+      if (window.addEventListener) {
+        window.addEventListener('wheel', function (event) {
+          if (event.target !== canvas) pageWheelAt = event.timeStamp || Date.now();
+        }, { passive: true, capture: true });
       }
-      var wheelHintTimer = null;
       canvas.addEventListener('wheel', function (event) {
-        if (!(event.ctrlKey || event.metaKey)) {
-          if (wheelHint && wheelHint.classList) {
-            wheelHint.classList.add('is-shown');
-            if (wheelHintTimer) clearTimeout(wheelHintTimer);
-            wheelHintTimer = setTimeout(function () { wheelHint.classList.remove('is-shown'); }, 1400);
-          }
+        var now = event.timeStamp || Date.now();
+        if (!event.ctrlKey && !event.metaKey && now - pageWheelAt < 350) {
+          pageWheelAt = now;
           return;
         }
         event.preventDefault();
         var rect = canvas.getBoundingClientRect();
+        // Lines and pages arrive as their own units; one notch of a wheel is
+        // about a fifth, a pinch's small steps add up smoothly.
+        var dy = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvas.clientHeight : 1);
+        dy = Math.max(-240, Math.min(240, dy));
         zoomAt(event.clientX - rect.left, event.clientY - rect.top,
-          Math.exp(-event.deltaY * 0.0016));
+          Math.exp(-dy * (event.ctrlKey ? 0.01 : 0.0022)));
       }, { passive: false });
 
       document.addEventListener('keydown', function (event) {
@@ -3097,6 +3367,26 @@
         if (go) {
           var i = parseInt(go.getAttribute('data-universe-go'), 10);
           if (!isNaN(i) && nodes[i]) pin(i, true);
+          return;
+        }
+        // A quote's reference to another result on the map selects it there;
+        // with a modifier it opens in the paper as a link does.
+        var ref = event.target.closest ? event.target.closest('[data-universe-ref]') : null;
+        if (ref && !(event.metaKey || event.ctrlKey || event.shiftKey)) {
+          var at = byId[ref.getAttribute('data-universe-ref')];
+          if (at !== undefined) {
+            event.preventDefault();
+            pin(at, true);
+            return;
+          }
+        }
+        // A result two papers state: the tab chooses whose words it shows.
+        var tab = event.target.closest ? event.target.closest('[data-universe-place]') : null;
+        if (tab) {
+          quoteAt = parseInt(tab.getAttribute('data-universe-place'), 10);
+          renderInspector();
+          var again = inspector.querySelector('[data-universe-place="' + quoteAt + '"]');
+          if (again) again.focus({ preventScroll: true });
           return;
         }
         if (event.target.closest && event.target.closest('[data-universe-clear]')) {

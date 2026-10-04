@@ -8,7 +8,9 @@
    under the pointer, that result's evidence (how Lean states it, whether
    Comparator has replayed it, the declaration, and the note on how the Lean
    form gives the printed statement). The map lights the problem's sector
-   while the column reads it. Leaving the band sets the list back.
+   while the column reads it. Taking the pointer off the column and the
+   drawing, or resting it on empty ground in the drawing, sets the list
+   back, so the next row can be read.
 
    It is a pointer enhancement over an ordinary list of links. universe.js
    loads it only on a fine pointer and only where the list stands beside the
@@ -20,8 +22,8 @@
   'use strict';
 
   var DWELL = 140;      // a row must hold the pointer this long before the column turns
-  var LEAVE = 360;      // after the pointer leaves the band, before the column turns back
-  var LINGER = 900;     // a result's card stays this long after the pointer leaves its dot
+  var LEAVE = 260;      // after the pointer leaves the column and the drawing, before the list returns
+  var LINGER = 900;     // after the pointer leaves a dot for empty ground, before the list returns
   var EASE = 'cubic-bezier(0.2, 0.75, 0.25, 1)';
 
   var CLAIM_TIER = {
@@ -482,7 +484,7 @@
     host.addEventListener('focusout', function (event) {
       if (event.relatedTarget && host.contains(event.relatedTarget)) return;
       state.keyboard = false;
-      if (!section.matches(':hover')) close();
+      if (!host.matches(':hover') && !figure.matches(':hover')) close();
     });
 
     // The chips: the column moves between problems without the list.
@@ -514,7 +516,8 @@
       var s = event.detail;
       if (state.pinned) return;
       if (!s) {
-        if (state.open && !state.overPanel) later('linger', function () { setFocus(null); }, LINGER);
+        // Resting on empty ground lets the problem go, as leaving its row does.
+        if (state.open && !state.overPanel && !state.keyboard) later('linger', close, LINGER);
         return;
       }
       clearTimeout(timers.linger);
@@ -532,14 +535,25 @@
     });
     root.addEventListener('pointerleave', function () { state.overPanel = false; });
 
-    // The band as a whole: leaving it sets the list back.
-    section.addEventListener('pointerleave', function () {
+    // The column and the drawing read together; taking the pointer off both
+    // (to the margin, the gap between them, the next band) sets the list
+    // back. Crossing the gap from one to the other is quicker than LEAVE.
+    function pointerOff() {
       clearTimeout(timers.dwell);
       state.hushed = false;
       if (state.keyboard) return;
       later('leave', close, LEAVE);
+    }
+    function pointerOn() { clearTimeout(timers.leave); }
+    [host, figure].forEach(function (area) {
+      area.addEventListener('pointerleave', pointerOff);
+      area.addEventListener('pointerenter', pointerOn);
     });
-    section.addEventListener('pointerenter', function () { clearTimeout(timers.leave); });
+    // Arriving on the drawing away from any dot counts as resting on empty
+    // ground; the first dot under the pointer keeps the column.
+    figure.addEventListener('pointerenter', function () {
+      if (state.open && !state.pinned && !state.keyboard) later('linger', close, LINGER);
+    });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && state.open) {
         state.hushed = true;
