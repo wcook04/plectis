@@ -2335,11 +2335,11 @@
       fetch(detailUrl).then(function (r) { return r.json(); }).then(function (payload) {
         detail = payload;
         detailLoading = false;
-        if (selected >= 0 || hover >= 0) renderInspector();
+        if (selected >= 0 || hover >= 0) refreshInspector();
       }).catch(function () {
         detailLoading = false;
         detailUrl = null;
-        if (selected >= 0) renderInspector();
+        if (selected >= 0) refreshInspector();
       });
     }
 
@@ -2450,7 +2450,7 @@
       if (at < 0 || !nodes[at] || nodes[at].kind !== 'paper_statement') return;
       var shown = [at].concat((nodes[at].twins || []).map(function (t) { return t.at; }));
       if (!shown.some(function (k) { return nodes[k].paperId === pid; })) return;
-      if (pageMode) { renderInspector(); return; }
+      if (pageMode) { refreshInspector(); return; }
       // On the landing the column's card quotes the result once its words
       // arrive: the same pin or hover, sent again with them.
       if (companionApi) {
@@ -2802,6 +2802,32 @@
     // result to the next.
     var keptOpen = {};
     var panel = pageMode && stage.closest ? stage.closest('.universe-panel') : null;
+    // Detail and quoted words arrive independently of the reader's actions.
+    // Keep an active link's exact occurrence when those files rebuild its card.
+    // Intentional pin, step and quote-tab changes retain their own focus rules.
+    function refreshInspector() {
+      var active = document.activeElement, href = null, occurrence = 0;
+      if (inspector && active && inspector.contains(active) && active.tagName === 'A') {
+        href = active.getAttribute('href');
+        var before = inspector.querySelectorAll('a[href]');
+        for (var i = 0; i < before.length && before[i] !== active; i++) {
+          if (before[i].getAttribute('href') === href) occurrence++;
+        }
+      }
+      renderInspector();
+      if (!href) return;
+      // A focusout handler may have deliberately moved focus while the old
+      // node was removed. That newer choice outranks the hydrated card.
+      var now = document.activeElement;
+      if (now && now !== document.body && now !== document.documentElement && now !== active) return;
+      var after = inspector.querySelectorAll('a[href]'), n = 0;
+      for (var j = 0; j < after.length; j++) {
+        if (after[j].getAttribute('href') !== href || n++ !== occurrence) continue;
+        try { after[j].focus({ preventScroll: true }); } catch (err) { after[j].focus(); }
+        break;
+      }
+    }
+
     function renderInspector() {
       if (!inspector) return;
       // A pinned card takes the column; the placard keeps its title and search.
@@ -3223,8 +3249,11 @@
       // its exact scale and centre when complete data arrives.
       if (!keepView || viewIsFitted) fit();
       draw();
-      renderInspector();
+      refreshInspector();
       resolvePending();
+      // Input can arrive before either graph response; refresh the same
+      // guarded combobox view without reopening a departed search field.
+      renderResults();
     }
 
     readPalette();

@@ -824,6 +824,41 @@
     // their old position -- twice, since opening <details> and focusing can reflow
     // the page under the first scroll correction (focus runs before the scrolls so
     // a no-preventScroll fallback can't leave them off-position).
+    // The selected map card is built from a separate data response. Wait for
+    // its saved link once, while leaving every newer reader action in charge.
+    function waitForMapFocus(anchor) {
+      var canvas = document.querySelector('canvas.universe-canvas--page');
+      var inspector = canvas && document.querySelector('[data-universe-inspector]');
+      if (!anchor || !inspector || !window.MutationObserver) return;
+      var expectedUrl = location.pathname + location.search + location.hash;
+      var observer;
+      function cancel() {
+        if (observer) observer.disconnect();
+        document.removeEventListener('pointerdown', cancel, true);
+        document.removeEventListener('keydown', cancel, true);
+        document.removeEventListener('focusin', cancel, true);
+        window.removeEventListener('hashchange', cancel);
+        window.removeEventListener('pagehide', cancel);
+      }
+      function resolve() {
+        if (location.pathname + location.search + location.hash !== expectedUrl) { cancel(); return; }
+        var active = document.activeElement;
+        if (active && active !== document.body && active !== document.documentElement) { cancel(); return; }
+        var target = findFocus(anchor);
+        if (!target || !inspector.contains(target)) return;
+        cancel();
+        try { target.focus({ preventScroll: true }); } catch (e) { try { target.focus(); } catch (e2) {} }
+      }
+      observer = new MutationObserver(resolve);
+      observer.observe(inspector, { childList: true, subtree: true });
+      document.addEventListener('pointerdown', cancel, true);
+      document.addEventListener('keydown', cancel, true);
+      document.addEventListener('focusin', cancel, true);
+      window.addEventListener('hashchange', cancel);
+      window.addEventListener('pagehide', cancel);
+      resolve();
+    }
+
     function applyPendingRestore() {
       var pending = read(KEY_RESTORE);
       if (!pending || pending.path !== location.pathname) return;
@@ -844,6 +879,8 @@
         var focusEl = findFocus(pending.focus);
         if (focusEl && typeof focusEl.focus === 'function') {
           try { focusEl.focus({ preventScroll: true }); } catch (e) { try { focusEl.focus(); } catch (e2) {} }
+        } else if (pending.focus) {
+          waitForMapFocus(pending.focus);
         }
         var y = pending.y || 0;
         window.scrollTo(0, y);
