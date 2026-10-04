@@ -8,7 +8,9 @@
   <div class="lean-paper__body" data-source="../../../paper/257/erdos257-mersenne-reasoning-surface.tex">
 <section id="introduction" class="level4 unnumbered">
 <h4 class="unnumbered">Introduction</h4>
-<p>The series
+<p>For an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
+the series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}(b^a-1)^{-1}</annotation></semantics></math>
 is irrational for several classes of infinite supports
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
@@ -17,19 +19,22 @@ only convergence of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a</annotation></semantics></math>;
 the periodic-support results belong to Luca and Tachiya. We begin with
 these antecedents and prove two hereditary criteria which also admit
-supports of divergent reciprocal sum. For a rational value
+supports of divergent reciprocal sum. The proofs subtract an explicitly
+chosen integer from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b^N-1)X_A(b)</annotation></semantics></math>,
+leaving a positive difference
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)</annotation></semantics></math>.
+If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
-the associated positive quantities
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)</annotation></semantics></math>
-satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">q\Delta_{b,A}(N)\in\mathbb Z</annotation></semantics></math>
-and hence
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">q\Delta_{b,A}(N)\in\mathbb Z</annotation></semantics></math>,
+so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)\ge1/q</annotation></semantics></math>.
-We rule out rationality by making them arbitrarily small. In a finite
-average, the incomplete residue periods produce an error without the
-factor
+We rule out rationality by making this difference arbitrarily small. In
+a finite average, the incomplete residue periods produce an error
+without the factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">1/a</annotation></semantics></math>
 needed for summation over exponents. Averaging again over dyadic lengths
 restores this factor. The decisive point for the union theorem is
@@ -740,8 +745,9 @@ their (1.7) on p. 3 of arXiv v1. Under a counting condition on the
 support and a bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>c</mi></msub><annotation encoding="application/x-tex">R_c</annotation></semantics></math>,
 most scaled tails in a range are small, and arbitrarily small nonzero
-scaled tails give irrationality (Lemmas 1 and 2, pp. 6–8). The
-divisor-incidence coefficients
+scaled tails give irrationality (Lemmas 1 and 2, pp. 6–8). Here sparsity
+concerns the positions of nonzero power-series coefficients, not the set
+of selected Lambert denominators. The divisor-incidence coefficients
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\#\{a\in A:a\mid n\}</annotation></semantics></math>
 are positive on every multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>.
@@ -945,8 +951,9 @@ replacing its geometric factor by
 The estimate must therefore allow
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>B</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1&lt;B\le2</annotation></semantics></math>.
 It must also keep the modulus, first dyadic scale and number of scales
-separate: the mixed theorem will use the windows already chosen by the
-weighted proof.</p>
+separate. In the mixed theorem, the weighted construction chooses these
+parameters after the finite divisibility requirements have been
+fixed.</p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>B</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1&lt;B\le2</annotation></semantics></math>,
 positive integers
@@ -1449,8 +1456,8 @@ Theorem 1.4 applies with these same sets
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>,</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">E,V</annotation></semantics></math>
 and gives irrationality at every integer base. Irrationality of the two
 summands separately would not suffice. This proves the short paper’s
-strictness corollary from the two constructions, under the review
-qualification given in the introduction.</p>
+strictness corollary from the two constructions, with the ordinary-proof
+qualification stated below.</p>
 <p>The positive-weight variant of Theorem 1.3, with its hereditary
 all-base conclusion, also has a <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L19">kernel-checked

@@ -367,14 +367,17 @@ bound <span class="math inline" data-term-auto="off">\(1/4\)</span> in every lay
 already excluded reciprocal summability.</p>
 <p>A related selection of a term from an average over an arithmetic
 progression occurs in Duverney–Tachiya <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. The sparse-coefficient criteria of
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. In the criteria of
 Kaneko–Suzuki–Tachiya <span class="citation"
-data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span> do not apply directly to the
-divisor counts <span class="math inline" data-term-auto="off">\(c_A(n)=\#\{a\in A:a\mid
-n\}\)</span>: for nonempty <span class="math inline" data-term-auto="off">\(A\)</span>, these
-are positive on every multiple of <span class="math inline" data-term-auto="off">\(\min
-A\)</span>. The corresponding density calculation, and the distinction
-between their remote-tail average and our displacement, are given in <a
+data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>, sparsity concerns the
+positions of nonzero power-series coefficients, not the set of selected
+Lambert denominators. The divisor counts <span
+class="math inline" data-term-auto="off">\(c_A(n)=\#\{a\in A:a\mid n\}\)</span> are positive
+on every multiple of <span class="math inline" data-term-auto="off">\(\min A\)</span> for
+nonempty <span class="math inline" data-term-auto="off">\(A\)</span>, so those criteria do
+not apply directly. The corresponding density calculation, and the
+distinction between their remote-tail average and our displacement, are
+given in <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:weighted-proof">Section 1.2
 of the companion paper</a>.</p>
 <p>The sets of primes for which the weighted sum converges can also be
@@ -505,9 +508,10 @@ factor by <span class="math inline" data-term-auto="off">\(B=2^\alpha\)</span>. 
 need to estimate this expression for <span
 class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, including <span
 class="math inline" data-term-auto="off">\(B\)</span> close to <span
-class="math inline" data-term-auto="off">\(1\)</span>. The weighted proof has already chosen
-its modulus and dyadic lengths; to use the same observations, the
-estimate must keep both choices explicit.</p>
+class="math inline" data-term-auto="off">\(1\)</span>. In the mixed theorem, the weighted
+construction will choose the modulus and dyadic scales after the finite
+covering sets have been fixed. The estimate must therefore retain these
+parameters.</p>
 <p>For <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, positive
 integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and an integer
 <span class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
@@ -695,12 +699,11 @@ source theorem</a>.</p>
 </section>
 <section id="sec:mixed" class="level2">
 <h2>A common index for the two criteria</h2>
-<p>Irrationality of two summands alone does not imply irrationality of
-their sum, and separate sequences on which the two displacements are
-small would not suffice either. The preceding estimates provide the
-stronger input we need: after all finite divisibility requirements are
-absorbed into one modulus, both nonnegative errors can be averaged on
-the same finite distribution. Only then do we choose an index.</p>
+<p>The cover estimate retains its dependence on the modulus so that it
+can use the larger modulus chosen by the weighted construction. This
+lets us add the two nonnegative errors on one finite distribution and
+only then choose an index. We work at base two and obtain the all-base
+conclusion by the displacement comparison proved above.</p>
 <div class="theorem" id="res:mixed-supports">
 <p><strong>Theorem 4.1</strong> (mixed weighted and cover supports). <em>
 Let <span class="math inline" data-term-auto="off">\(E,V\subseteq\Npos\)</span>. Suppose
@@ -806,7 +809,7 @@ rationality. ◻</p>
 satisfying the finite-prime weighted hypothesis at base <span
 class="math inline" data-term-auto="off">\(b\)</span>, and <span
 class="math inline" data-term-auto="off">\(\mathcal C\)</span> for supports admitting a
-strengthened positive cover as in <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>. Neither
+divisor cover satisfying <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>. Neither
 condition includes the other.</p>
 <div class="proposition" id="res:weighted-cover-incomparability">
 <p><strong>Proposition 5.1</strong> (incomparable support criteria). <em>
@@ -2016,16 +2019,19 @@ positive-cover criterion.</p>
 class="level3 unnumbered">
 <h3 class="unnumbered">The cost for a finite set of divisors</h3>
 <p>For the following finite divisor sets, the lower bound is
-asymptotically attained. For <span
+asymptotically attained. Here <span
+class="math inline" data-term-auto="off">\(K_*(F)\)</span> is the infimum of the cover cost
+<span class="math inline" data-term-auto="off">\(K\)</span> from Section <a class="math-ref" href="#sec:comparison">5</a>, taken over finite
+or countable covers of <span class="math inline" data-term-auto="off">\(F\)</span> and all
+positive weights of total one. For <span
 class="math inline" data-term-auto="off">\(F(q,P)=\{qd:d\mid\prod_{p\in P}p\}\)</span>, where
 <span class="math inline" data-term-auto="off">\(q\ge2\)</span> and no <span
 class="math inline" data-term-auto="off">\(p\in P\)</span> divides <span
 class="math inline" data-term-auto="off">\(q\)</span>, put <span
 class="math inline" data-term-auto="off">\(S=\sum_{p\in P}1/p\)</span>. If <span
-class="math inline" data-term-auto="off">\(S\ge1\)</span>, the infimum <span
-class="math inline" data-term-auto="off">\(K_*\)</span> over finite or countable covers
-satisfies</p>
-<div class="math-display" id="eq:optimal-cube-cost" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+class="math inline" data-term-auto="off">\(S\ge1\)</span>, then</p>
+<div class="math-display" id="eq:optimal-cube-cost" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
 \frac{e(S-1)}q\le K_*\bigl(F(q,P)\bigr)\le\frac{eS}q.
 \label{eq:optimal-cube-cost}
 \end{equation}\]</span></div>
@@ -2041,8 +2047,8 @@ class="math display" data-term-auto="off">\[\frac{2^{\alpha z}}{2^\alpha-1}
 <p class="display-continue">for <span
 class="math inline" data-term-auto="off">\(0\le z\le1\)</span> the claimed lower bound is
 nonpositive. Thus <span class="math inline" data-term-auto="off">\(\Psi(2^z)\ge
-e(z-1)\)</span>. For the upper bound, use the one-set cover with <span
-class="math inline" data-term-auto="off">\(z=1/S\)</span> and <span
+e(z-1)\)</span>. For the upper bound, use the one-set cover, whose
+weight is one, with <span class="math inline" data-term-auto="off">\(z=1/S\)</span> and <span
 class="math inline" data-term-auto="off">\(\alpha=\log_2(1+z)\)</span>; its exact positive
 expansion has cost</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac1{qz}\prod_{p\in
@@ -2070,13 +2076,15 @@ retrieved. The <em>Formal Conjectures</em> file <span class="citation"
 data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span> is statement-level prior art,
 not a proof dependency.</p>
 <p>The evidence record identifies the exact statements, source revisions
-and recorded comparisons. The mixed implication has a formal proof; its
-construction of <span class="math inline" data-term-auto="off">\(V\)</span> uses finite sets
-of squarefree divisors. The <span class="math inline" data-term-auto="off">\(A_\star\)</span>
-calculation, fresh-prime construction, signed finite-denominator
-extension and Theorem <a class="math-ref" href="#res:one-over-twenty-one-frontier">D.1</a>
+and recorded comparisons. The mixed implication has a formal proof. A
+separate formal construction of a separating support <span
+class="math inline" data-term-auto="off">\(V\)</span> uses finite sets of squarefree
+divisors. The <span class="math inline" data-term-auto="off">\(A_\star\)</span> calculation,
+printed fresh-prime construction, Corollary <a class="math-ref" href="#res:strict-mixed-supports">5.2</a>, signed
+finite-denominator extension and Theorem <a class="math-ref" href="#res:one-over-twenty-one-frontier">D.1</a>
 have ordinary arguments here, without independent human review. The
-companion paper locates the separate comparisons for its three
+strictness corollary has no formal binding in the record. The companion
+paper locates the separate comparisons for its three
 logarithmic-sampling results. No historical priority is asserted for the
 support comparison.</p>
 <section id="reproducing-the-weighted-theorem." class="level5">

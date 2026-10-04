@@ -382,10 +382,10 @@ at most one power of $5$. Along with the final factor $2$, these give
 $b_a\in\{2,6,10,30\}$.
 \end{proof}
 
-Although $b_a$ has only four possible values, the recurrence also
-depends on $m_a$, which counts contributions from every smooth integer
-in the block. Thus the finite set of bases does not give a finite
-family of affine maps for $X_a$.
+In the distinct-value proof, the ordered jumps in a block determine
+its numerator $\mu_\tau$. For the repeated sum, that word does not record
+how many smooth integers share each running LCM. We therefore retain
+the full block contribution $m_a$, not just the jumps.
 
 \begin{proposition}[the tail recurrence and a quadratic bound]
 \label{res:actual-orbit}
@@ -424,9 +424,11 @@ $S/2=\sum_{a\ge0}m_a/(b_0\cdots b_a)$. The criteria in
 \cite[Theorem~3.1]{hancltijdeman2004} require a small-numerator hypothesis
 $m_a/(b_{a-1}b_a)\to0$. Here the $b_a$ are bounded and $m_a$ grows
 quadratically. The \longrecord{r3-repeated-bounds}{companion's tail estimates}
-prove this lower bound as well as sharper upper bounds. In particular,
-$X_a>m_a/30$ is unbounded, so the finite-value argument in Section~\ref{sec:distinct-235} no longer
-applies to these normalised tails.
+prove this lower bound as well as sharper upper bounds. Thus these
+criteria do not apply, and $X_a>m_a/30$ is unbounded. Rationality still
+places the tails in a fixed lattice, but no longer in a finite set as
+in Section~\ref{sec:distinct-235}. We shall use their quadratic bound
+to exclude possible integer tails instead.
 
 \begin{theorem}[rationality gives positive integer tails]
 \label{res:denominator-reduction}
@@ -491,6 +493,15 @@ Induction yields
 \begin{equation}\label{eq:actual-tail}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}
+The quotient $F_{\ell,h}/W_{\ell,h}$ is the contribution of these $h$
+blocks to the starting tail:
+\[
+ \frac{F_{\ell,h}}{W_{\ell,h}}
+ =h_\ell\sum_{a=\ell}^{\ell+h-1}s_a.
+\]
+The remainder is $X_{\ell+h}/W_{\ell,h}$. Thus
+\eqref{eq:actual-tail} splits $X_\ell$ into a finite sum and its tail,
+with both measured in the starting normalisation.
 Throughout this section let
 \begin{equation}\label{eq:actual-bound}
  K(B,a)=90B(a+1)^2.
@@ -501,10 +512,12 @@ The bound $0<BX_{\ell+h}\le K(B,\ell+h)$ and
  \frac{BF_{\ell,h}}{W_{\ell,h}}<BX_\ell
  \le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.
 \]
-If this interval contains no integer, then $BX_\ell$ cannot be integral.
-The residue test expresses the same exclusion at the other end of the
-segment: an integral starting tail would make $BX_{\ell+h}$ a positive
-integer congruent to $-BF_{\ell,h}$ modulo $W_{\ell,h}$.
+Its width is $K(B,\ell+h)/W_{\ell,h}$, but a width below $1$ does not
+by itself exclude an integer. We must compare its right endpoint with
+the first integer strictly above its left endpoint. The residue test
+makes this comparison at the other end of the segment: an integral
+starting tail would make $BX_{\ell+h}$ a positive integer congruent to
+$-BF_{\ell,h}$ modulo $W_{\ell,h}$.
 
 For integers $W\ge1,t$, define
 $\operatorname{lpr}_W(t)=1+((t-1)\bmod W)$, with the remainder in
@@ -529,9 +542,9 @@ $W_{1,6}=648000$ and $F_{1,6}=524431$. Since $K(1,7)=5760$, the interval is
 \]
 It contains no integer. Equivalently,
 $\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569>5760$ excludes an integral
-$X_1$. A rational denominator might clear only later, so a criterion
-for irrationality must allow every late start and every denominator
-part coprime to $30$.
+$X_1$. A rational denominator might clear only later. The criterion
+must therefore test every denominator part coprime to $30$ beyond
+any prescribed clearing index, rather than just at one early start.
 
 \papersectiontarget{r4-repeated-criterion}
 \begin{theorem}[a residue criterion for irrationality]\label{res:windowconsumer}
@@ -576,10 +589,11 @@ needed for this direction.
 
 As $h$ grows, the interval above narrows towards the fixed value
 $BX_\ell$. If that value is nonintegral, a sufficiently narrow interval
-contains no integer. The converse formalises this observation, but gives
-no estimate for the gap $\delta$. To use the forward implication, we
-must prove~\eqref{eq:escape} for the actual coefficients without assuming
-that nonintegrality.
+contains no integer. Failure to exclude an integer at a finite length
+proves neither integrality nor failure at every longer length. The
+converse gives no estimate for the gap $\delta$; to use the forward
+implication, we must prove~\eqref{eq:escape} for the actual coefficients
+without assuming that nonintegrality.
 
 The upper-bound property of $K$ is essential: choosing the zero function
 would make every residue inequality automatic. The

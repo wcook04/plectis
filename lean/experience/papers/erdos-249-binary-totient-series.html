@@ -400,8 +400,9 @@ in the last evaluation.</p>
 </section>
 <section id="sec:base-six-test" class="level2">
 <h2>Integral relations</h2>
-<p>The reductions give a second way to test a linear identity, by
-substitution. Consider base six at level two, where the family has
+<p>Once independence is known, a linear identity can be tested by
+substitution alone: reduce to the retained sections and compare their
+coefficients. Consider base six at level two, where the family has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>43</mn><annotation encoding="application/x-tex">43</annotation></semantics></math>
 indices. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>37</mn><annotation encoding="application/x-tex">37</annotation></semantics></math>
@@ -555,14 +556,14 @@ arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
-<p>A similar use of congruences produces a nonzero totient residue
-between arbitrarily long blocks of zero residues. We use this to
-classify the rational series obtained from bounded functions of dyadic
-totient residues. The proof rests on a tail estimate: one zero block
-makes the tail vanish under the assumption of rationality, and the other
-leaves a nonzero term too small for that assumption. In the first sum
-below, residues are represented by their least nonnegative values. These
-coefficients need not be binary digits.</p>
+<p>In the evaluation proof, congruences make one totient value nonzero
+modulo the auxiliary prime in each row. Here they isolate one nonzero
+residue between two arbitrarily long zero blocks. Rationality confines
+every scaled tail to a fixed discrete set. Boundedness and the zero
+blocks then force a nonzero tail whose absolute value is smaller than
+the spacing of that set. In the first sum below, residues are
+represented by their least nonnegative values. These coefficients need
+not be binary digits.</p>
 <div class="theorem">
 <p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
 every
@@ -876,9 +877,10 @@ The tail bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(N+L+2)2^{-L}</annotation></semantics></math>
 then exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-Thus this divisibility construction does not supply the small nonzero
-tail needed to exclude a rational value. We consider instead a finite
-test for differences of scaled tails.</p>
+This is a failure of the estimate, not a lower bound on the tail. Thus
+this divisibility construction does not supply the small nonzero tail
+needed to exclude a rational value. We consider instead a finite test
+for differences of scaled tails.</p>
 <p>Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>N</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">R_N=\sum_{j\ge1}\varphi(N+j)2^{-j}</annotation></semantics></math>
 and
@@ -1177,9 +1179,11 @@ satisfy
        \exp(2\pi iD_{h,N,L}/2^L)\le\frac9{10}X.
 \end{equation}</annotation></semantics></math> These inequalities would
 prove irrationality. Indeed, if every residue failed
-<code>[eq:r3-certificate]</code>, each phase would be within
+<code>[eq:r3-certificate]</code>, each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">D_{h,N,L}/2^L</annotation></semantics></math>
+would be within
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">1/16</annotation></semantics></math>
-of an integer, so every real part would be at least
+of an integer. Each exponential would then have real part at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>/</mi><mn>8</mn><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">\cos(\pi/8)&gt;9/10</annotation></semantics></math>.
 Some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>

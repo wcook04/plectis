@@ -309,10 +309,10 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
       "renderer_fingerprint": "1d7bde0fc530e17f",
-      "source_sha256": "bca8f7ea251c1b615269db36255bc33fd1234342019becaa3913b8f61cd2136a",
+      "source_sha256": "4a9e5c6e60ab8c679dac1936dd5bd544d64e1665e4516bcec9523e69dbd00047",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 347,
+      "mathml_node_count": 350,
       "raw_math_fallback_count": 1,
       "warnings": {
         "mathml": [
@@ -327,8 +327,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "2dfe2966b1edeb4de0872997347e8f05357e6e2ec46fb29159ab376208ed6527",
-      "html_exact_tex_sha256": "38a25fda45e8f2382c8ce830bfc117ab19732f0ecce80f2b0f853612b3132d9d"
+      "html_mathml_sha256": "1de7622e2d752f82e466e9111d01b7a0cc2f6ad037e67c12665a47f499b621ba",
+      "html_exact_tex_sha256": "9d5235ce72e97667b36001cb5fcf2d6bd91ea86d184642e437035bb16b1ef713"
     },
     "sections": [
       {
@@ -350,6 +350,11 @@
         "level": 3,
         "anchor": "sec:finite-gcd",
         "label": "A finite gcd calculation"
+      },
+      {
+        "level": 3,
+        "anchor": "sec:coordinate-remainder",
+        "label": "The associated remainder"
       },
       {
         "level": 2,
@@ -442,10 +447,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "1d7bde0fc530e17f",
-        "source_sha256": "bca8f7ea251c1b615269db36255bc33fd1234342019becaa3913b8f61cd2136a",
+        "source_sha256": "4a9e5c6e60ab8c679dac1936dd5bd544d64e1665e4516bcec9523e69dbd00047",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 347,
+        "mathml_node_count": 350,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -460,8 +465,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "2dfe2966b1edeb4de0872997347e8f05357e6e2ec46fb29159ab376208ed6527",
-        "html_exact_tex_sha256": "38a25fda45e8f2382c8ce830bfc117ab19732f0ecce80f2b0f853612b3132d9d"
+        "html_mathml_sha256": "1de7622e2d752f82e466e9111d01b7a0cc2f6ad037e67c12665a47f499b621ba",
+        "html_exact_tex_sha256": "9d5235ce72e97667b36001cb5fcf2d6bd91ea86d184642e437035bb16b1ef713"
       },
       "sections": [
         {
@@ -483,6 +488,11 @@
           "level": 3,
           "anchor": "sec:finite-gcd",
           "label": "A finite gcd calculation"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:coordinate-remainder",
+          "label": "The associated remainder"
         },
         {
           "level": 2,
@@ -575,10 +585,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
         "renderer_fingerprint": "1d7bde0fc530e17f",
-        "source_sha256": "f9d44a4ced96cce8ef871aa16014633d99d4afdf56751c8aafececeae90990e4",
+        "source_sha256": "4cdd8600b86eb2f1a56471e9603bd1ef69b718d73fd20102e638850933fa69ee",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2092,
+        "mathml_node_count": 2094,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -591,8 +601,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "eff652e078a2b1cdb75bbb0549746b3338bbf6b30fa91f15d16484741c84c6e5",
-        "html_exact_tex_sha256": "86c4d479e377d92e31cd72edbb652f7c31e2c99827b91d8de56ce55456e8b18a"
+        "html_mathml_sha256": "2c9362eb305851b4af45bf7ebb542b062445b8ea2f038cbba1d913d7574e1af0",
+        "html_exact_tex_sha256": "eab1b8a804ecbecaef697f559a920c46fa7689eaf04ba9f16a4ed60867573803"
       },
       "sections": [
         {

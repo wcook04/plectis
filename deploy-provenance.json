@@ -10,7 +10,7 @@
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "e0326043024b7b946083eeb2915c3ed5d98c71b4",
+  "generator_commit": "c8331140be70a68025c7085e6ab423a425656937",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
@@ -20,7 +20,7 @@
       "repository": "wcook04/plectis"
     },
     "plectis-erdos": {
-      "commit": "090c1715e78dad3d7709f42c0458e2986ee67e5e",
+      "commit": "f9ad7e269da32d27ab71ddb3ae576a2844ac7b57",
       "ref": "main",
       "repository": "wcook04/plectis-erdos"
     }

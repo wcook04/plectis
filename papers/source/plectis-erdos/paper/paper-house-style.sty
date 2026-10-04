@@ -50,7 +50,7 @@
 % more durable than a page number: sections may move while their semantic role
 % remains the same. All public PDFs are copied to one directory at release.
 \newcommand{\papersectiontarget}[1]{\hypertarget{#1}{}}
-\newcommand{\papersectionlink}[3]{\href{#1\#nameddest=#2}{#3}}
+\newcommand{\papersectionlink}[3]{\href{#1\##2}{#3}}
 
 \RequirePackage{titlesec}
 \titleformat{\section}{\Large\bfseries}{\thesection}{0.85em}{}

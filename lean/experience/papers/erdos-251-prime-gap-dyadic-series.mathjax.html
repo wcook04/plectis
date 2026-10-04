@@ -25,20 +25,20 @@ prescribed value.</p>
 series with nonnegative integer coefficients. All corrections are
 supported on one sparse set, chosen before the value of the sum. Their
 sizes may be eventually bounded by any prescribed function tending to
-infinity, while the sums still fill an interval. We also prescribe,
+infinity, while the sums still fill an interval. The construction fixes,
 before choosing the target, a cutoff for each modulus beyond which both
 the corrections and their partial sums are divisible by that modulus.
-For prime gaps the same construction retains the distributions of blocks
-of length <span class="math inline" data-term-auto="off">\(o(\log\log X)\)</span> sampled in
-<span class="math inline" data-term-auto="off">\([X,2X)\)</span> and gives cumulative
-positions asymptotic to <span class="math inline" data-term-auto="off">\(n\log n\)</span>.
-The irrationality of the actual prime series remains a distinct
-question: these comparison sequences need not have prime cumulative
-positions.</p>
+For prime gaps, the original and altered empirical block distributions
+have total variation distance tending to zero for lengths <span
+class="math inline" data-term-auto="off">\(o(\log\log X)\)</span> sampled in <span
+class="math inline" data-term-auto="off">\([X,2X)\)</span>. The cumulative positions are
+asymptotic to <span class="math inline" data-term-auto="off">\(n\log n\)</span>. The
+irrationality of the actual prime series remains a distinct question:
+these comparison sequences need not have prime cumulative positions.</p>
 <p>We use a standard interval-covering argument for series with finite
 choices. Fridy’s generalised-base lemma <span class="citation"
-data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats bounded digits and decreasing
-weights. Crmarić and Kovač <span class="citation"
+data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats prescribed digit bounds and
+nonincreasing weights. Crmarić and Kovač <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-17">[17]</a></span> give the finite-choice form used
 here, and Kovač and Tao <span class="citation"
 data-cites="kovactao2024"><a href="#ref-6">[6]</a></span> use analogous intervals of reciprocal
@@ -115,9 +115,12 @@ class="math inline" data-term-auto="off">\(m=m(X)\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(m(X)=o(\log\log X)\)</span>, uniformly over target
 values.</em></p>
 </div>
-<p>The support of <span class="math inline" data-term-auto="off">\(e\)</span> may depend on
-<span class="math inline" data-term-auto="off">\(r\)</span> and occupy only part of <span
-class="math inline" data-term-auto="off">\(S\)</span>. Polynomially growing nonnegative
+<p>The set <span class="math inline" data-term-auto="off">\(S\)</span>, the interval <span
+class="math inline" data-term-auto="off">\(I\)</span> and every congruence cutoff are fixed
+before <span class="math inline" data-term-auto="off">\(r\)</span> is chosen. The correction
+<span class="math inline" data-term-auto="off">\(e\)</span> depends on <span
+class="math inline" data-term-auto="off">\(r\)</span>; its support may occupy only part of
+<span class="math inline" data-term-auto="off">\(S\)</span>. Polynomially growing nonnegative
 integer sequences satisfy the convergence hypothesis, whereas <span
 class="math inline" data-term-auto="off">\(a_n=2^n\)</span> does not. The prescribed bound
 may grow as slowly as <span

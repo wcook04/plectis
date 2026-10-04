@@ -263,3 +263,50 @@ test('#system in the address opens the band on the system drawing without a move
   assert.ok(page.events.some((e) => e.type === 'plectis:runtime' && e.detail.name === 'system'));
   assert.deepEqual(page.replaced, [], 'arriving by a link does not rewrite the address');
 });
+
+test('map band and carousel buttons answer at once while docs.js is still loading', () => {
+  // A button the landing runs itself must never be held for docs.js: on a
+  // slow line the switch sat dead for seconds and then moved the band late.
+  const listeners = {};
+  const scripts = [];
+  const refs = [
+    runtimeRef('docs', 'assets/docs.js?v=docs'),
+    runtimeRef('art', 'assets/art.js?v=art'),
+  ];
+  const document = {
+    body: { appendChild(node) { scripts.push(node); } },
+    head: { appendChild() {} },
+    documentElement: { scrollTop: 0, getAttribute() { return null; }, setAttribute() {} },
+    activeElement: null,
+    title: 'Plectis',
+    querySelectorAll(selector) { return selector === 'template[data-plectis-runtime]' ? refs : []; },
+    querySelector() { return null; },
+    getElementById() { return null; },
+    createElement: element,
+    addEventListener(type, fn, capture) { if (capture) listeners[type] = fn; },
+    removeEventListener() {},
+  };
+  const window = {
+    location: { href: 'https://example.test/', origin: 'https://example.test', pathname: '/', search: '', hash: '' },
+    pageYOffset: 0, scrollTo() {}, requestAnimationFrame() {}, requestIdleCallback() {},
+    setTimeout() {}, addEventListener() {}, sessionStorage: { getItem() { return null; }, setItem() {} },
+  };
+  vm.runInNewContext(SOURCE, { document, window, navigator: {}, URL, Event }, { filename: 'landing.js' });
+  const click = (inside) => {
+    let prevented = false;
+    const button = {
+      tagName: 'BUTTON',
+      closest(sel) {
+        if (sel === '[data-atlas], [data-results-carousel]') return inside ? {} : null;
+        if (sel.includes('button')) return button;
+        return null;
+      },
+      getAttribute() { return null; },
+    };
+    listeners.click({ target: button, button: 0, preventDefault() { prevented = true; }, stopImmediatePropagation() {} });
+    return prevented;
+  };
+  assert.equal(click(true), false, 'a band or carousel control runs at once');
+  assert.equal(scripts.length, 0, 'and does not wait on docs.js');
+  assert.equal(click(false), true, 'other buttons still wait for the shared runtime');
+});

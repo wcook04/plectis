@@ -3366,7 +3366,11 @@ corresponding tails differ by an integer. ◻</p>
 <p>The strict upper endpoint is what permits division by two. A cutoff
 including <span class="math inline" data-term-auto="off">\(2^b\)</span> would not clear its
 term at the normalising factor <span
-class="math inline" data-term-auto="off">\(h_b=P_b/2\)</span>.</p>
+class="math inline" data-term-auto="off">\(h_b=P_b/2\)</span>. The pigeonhole argument
+identifies two tails modulo <span class="math inline" data-term-auto="off">\(\Z\)</span>, not
+two equal tails. Since <span class="math inline" data-term-auto="off">\(X_a\)</span> is
+unbounded, the lattice condition does not force the exact repetition
+used in the distinct-value proof.</p>
 <div class="theorem" id="long269:res:actual-cancellation"><span class="tex-label" id="long269:res:lead-carry-bridge" hidden></span><span class="tex-label" id="long269:res:actual-carry-bound" hidden></span><span class="tex-label" id="long269:res:denominator-reduction" hidden></span>
 <p><strong>Theorem 9.3</strong> (rationality gives positive integer
 tails). <em> Suppose <span class="math inline" data-term-auto="off">\(S=N/D\)</span> with
@@ -3754,11 +3758,23 @@ d_{\ell+h}=W_{\ell,h}d_\ell-BF_{\ell,h}
 class="math inline" data-term-auto="off">\(d_{n+1}=b_nd_n-Bm_n\)</span>. Since <span
 class="math inline" data-term-auto="off">\(b_a=P_{a+1}/P_a\)</span>, the product telescopes
 to <span class="math inline" data-term-auto="off">\(W_{\ell,h}=P_{\ell+h}/P_\ell\)</span>.
-The previously proved bounds <span
-class="math inline" data-term-auto="off">\(8^a/15&lt;P_a\le8^a\)</span> therefore give <span
-class="math inline" data-term-auto="off">\(W_{\ell,h}&gt;8^h/15\)</span>. For a positive
-integer <span class="math inline" data-term-auto="off">\(C\)</span> and an integer <span
-class="math inline" data-term-auto="off">\(N\)</span>, use <span
+For the actual block masses, <span
+class="math inline" data-term-auto="off">\(m_a=h_{a+1}s_a\)</span> and <span
+class="math inline" data-term-auto="off">\(h_a=P_a/2\)</span> identify the two terms after
+division by <span class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{F_{\ell,h}}{W_{\ell,h}}
+=h_\ell\sum_{a=\ell}^{\ell+h-1}s_a,
+\qquad
+\frac{X_{\ell+h}}{W_{\ell,h}}=h_\ell T_{\ell+h}.\]</span></div>
+<p>Thus the
+accumulated numerator records a finite part of the original reciprocal
+sum, in the same normalisation as the starting tail. No assumption of
+rationality or integrality is used in these identities. The previously
+proved bounds <span class="math inline" data-term-auto="off">\(8^a/15&lt;P_a\le8^a\)</span>
+also give <span class="math inline" data-term-auto="off">\(W_{\ell,h}&gt;8^h/15\)</span>. For
+a positive integer <span class="math inline" data-term-auto="off">\(C\)</span> and an integer
+<span class="math inline" data-term-auto="off">\(N\)</span>, use <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_C(N)=1+((N-1)\bmod
 C)\in\{1,\ldots,C\}\)</span>. In particular <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_C(0)=C\)</span>. Positivity of
@@ -4076,17 +4092,18 @@ eligible multipliers, although a particular segment may have one.</p>
 </section>
 <section id="how-fast-the-product-of-the-bases-grows" class="level3">
 <h3>How fast the product of the bases grows</h3>
-<p>We can enlarge the class of admissible bounds by using the running
-LCM formula in the converse argument. The elementary estimate <span
-class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^h\)</span> allows <span
-class="math inline" data-term-auto="off">\(G(B,a)=o(2^a)\)</span> for each fixed <span
-class="math inline" data-term-auto="off">\(B\)</span>, whereas the running LCM formula gives
-<span class="math inline" data-term-auto="off">\(W_{\ell,h}\asymp8^h\)</span> uniformly in
-<span class="math inline" data-term-auto="off">\(\ell\)</span> and allows <span
+<p>The growth scale in the preceding criterion comes from the running
+LCM formula. The elementary estimate <span
+class="math inline" data-term-auto="off">\(W_{\ell,h}\ge2^h\)</span> would suffice for bounds
+<span class="math inline" data-term-auto="off">\(G(B,a)=o(2^a)\)</span> with <span
+class="math inline" data-term-auto="off">\(B\)</span> fixed; the exact formula gives <span
+class="math inline" data-term-auto="off">\(W_{\ell,h}\asymp8^h\)</span> uniformly in <span
+class="math inline" data-term-auto="off">\(\ell\)</span> and allows <span
 class="math inline" data-term-auto="off">\(G(B,a)=o(8^a)\)</span>. For an irrational <span
 class="math inline" data-term-auto="off">\(S\)</span>, the preceding lower-limit condition
-characterises all dominating bounds that suffice, including bounds
-outside these two classes.</p>
+also covers dominating bounds outside these two classes. The same growth
+estimate will give a necessary lower bound on successful segment
+lengths.</p>
 <div class="proposition" id="long269:res:window-growth">
 <p><strong>Proposition 10.4</strong> (growth of the product of consecutive
 bases). <em> Put <span class="math inline" data-term-auto="off">\(\theta_3=\log_32\)</span>
@@ -5345,25 +5362,26 @@ Laurent <span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-15"
 through the affine identity of Section <a class="math-ref" href="#long269:sec:two-prime">4</a>, by the route
 Fan used for <span class="math inline" data-term-auto="off">\(\mathcal R_{\{p,q\}}\)</span>.
 We do not know what argument Erdős had in mind.</p>
-<p>We have not found a proof of the assertion in print. Erdős and Graham
-state only the question for <span class="math inline" data-term-auto="off">\(\mathcal
-R_P\)</span>: the sum is irrational for infinite <span
-class="math inline" data-term-auto="off">\(P\)</span>, and they ask what happens for finite
-<span class="math inline" data-term-auto="off">\(P\)</span> with more than one element <span
-class="citation" data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span>; the sum over
-distinct running LCMs does not appear there. Erdős’s survey of 1975 on
-the irrationality of series <span class="citation"
+<p>The literature search recorded here did not locate a proof of the
+assertion in print. Erdős and Graham state only the question for <span
+class="math inline" data-term-auto="off">\(\mathcal R_P\)</span>: the sum is irrational for
+infinite <span class="math inline" data-term-auto="off">\(P\)</span>, and they ask what
+happens for finite <span class="math inline" data-term-auto="off">\(P\)</span> with more than
+one element <span class="citation" data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span>;
+the sum over distinct running LCMs does not appear there. Erdős’s survey
+of 1975 on the irrationality of series <span class="citation"
 data-cites="erdos1975"><a href="#ref-8">[8]</a></span> does not mention the running least common
 multiple of the <span class="math inline" data-term-auto="off">\(P\)</span>-smooth integers,
 his survey of 1980 on combinatorial number theory <span class="citation"
 data-cites="erdos1980survey"><a href="#ref-6">[6]</a></span> does not discuss irrationality, and
 his survey of 1988 states only the question for <span
 class="math inline" data-term-auto="off">\(\mathcal R_P\)</span> <span class="citation"
-data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. Every Hecke–Mahler transcendence theorem
-we found, including those of Loxton and van der Poorten, Bugeaud and
-Laurent, and Luca–Ouaknine–Worrell <span class="citation"
-data-cites="lucaouaknineworrell2025"><a href="#ref-26">[26]</a></span>, has a single slope, and so
-reaches <span class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> only for <span
+data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. The Hecke–Mahler transcendence theorems
+cited here, of Loxton and van der Poorten, Bugeaud and Laurent, and
+Luca–Ouaknine–Worrell <span class="citation"
+data-cites="lucaouaknineworrell2025"><a href="#ref-26">[26]</a></span>, have a single slope; the
+identifications in Section <a class="math-ref" href="#long269:sec:two-prime">4</a> apply to
+<span class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> when <span
 class="math inline" data-term-auto="off">\(|P|=2\)</span>. The rationality criterion of
 Diananda and Oppenheim <span class="citation"
 data-cites="dianandaoppenheim1955"><a href="#ref-7">[7]</a></span>, which condenses a Cantor
@@ -5371,8 +5389,8 @@ series into blocks of consecutive terms, has the form of the dyadic
 argument of Section <a class="math-ref" href="#long269:sec:distinct-235">2</a>; it
 restates rationality and does not decide <span
 class="math inline" data-term-auto="off">\(\mathcal D_P\)</span>. The discussion thread of
-Problem #269 contains no argument for <span
-class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> with <span
+Problem #269, as inspected for that search, supplied no argument for
+<span class="math inline" data-term-auto="off">\(\mathcal D_P\)</span> with <span
 class="math inline" data-term-auto="off">\(|P|\ge3\)</span>, and the <em>Formal
 Conjectures</em> statement <span class="citation"
 data-cites="formalconjectures269"><a href="#ref-9">[9]</a></span> concerns <span

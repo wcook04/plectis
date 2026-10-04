@@ -458,7 +458,12 @@
 
     if (states.docs === 'ready') return;
     if (anchor) primeNavigationTrail(anchor);
-    var needsRuntime = target.tagName === 'BUTTON';
+    /* The map band's switch and arrows and the results carousel's arrows are
+       run by this file, not by docs.js. Holding their clicks until docs.js
+       had loaded left them dead for seconds on a slow line, and the replay
+       then moved the band after the reader had given up (4 October 2026). */
+    var landingControl = target.closest && target.closest('[data-atlas], [data-results-carousel]');
+    var needsRuntime = target.tagName === 'BUTTON' && !landingControl;
     if (!needsRuntime) return;
 
     event.preventDefault();

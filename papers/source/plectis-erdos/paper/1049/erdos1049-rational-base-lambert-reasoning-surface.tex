@@ -2066,9 +2066,9 @@ of the five factors $\mathcal E(w)$, leaving
 \]
 Every step holds coefficientwise, and absolutely for $|w|$ small.
 
-A $q$-multinomial coefficient has nonnegative integral coefficients, degree
-$\sum_{i<j}n_in_j$, and value $1$ at $q=1$ after division by the corresponding
-multinomial. Summing over compositions gives coefficient sum $r^k$ for
+A $q$-multinomial coefficient has nonnegative integral coefficients and degree
+$\sum_{i<j}n_in_j$. At $q=1$ it equals the corresponding ordinary
+multinomial coefficient. Summing over compositions gives coefficient sum $r^k$ for
 $R_k^{(r)}$ and hence $6^k$ for the product. The degree is maximised by
 balanced parts, which gives $\lfloor k^2/4\rfloor$ for $r=2$ and
 $\lfloor k^2/3\rfloor$ for $r=3$; no leading cancellation occurs because all
@@ -2192,8 +2192,9 @@ It follows that
 Dividing the correction $-3L(k+1)$ by the leading term
 $\binom{k+2}{2}$ gives the relative correction $-6L/(k+2)$.
 The two-fold convolution contributes $-2L/(k+1)$ in the same way.
-Since $(q;q)_k=P(1+O_q(q^k))$ and
-$c_k=(k+1)^2(k+2)/2$, multiplication yields
+Since $(q;q)_k=P(1+O_q(q^k))$, the leading constants in
+$a_k=P^4(q;q)_k b_k^{(2)}b_k^{(3)}$ multiply to $P^5E^5=1$.
+With $c_k=(k+1)^2(k+2)/2$, the two relative corrections therefore give
 \begin{align*}
  \frac{a_k}{c_k}
  &=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
@@ -2210,13 +2211,16 @@ Theorem~\ref{long1049:thm:geometric-universality} applies.
 Positivity of $a_k$ and summability of
 $\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})$
 show that $\mathcal A(q)$ converges to a positive number.
-In the logarithm of the product, the first-order term contributes
-$-8L\sum_{k<N}(k+1)^{-1}$, while the summable remainder contributes
-a finite constant. Using
-$\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$, we obtain
+Since $\prod_{k<N}c_k=C_N$, we can separate these contributions exactly:
 \[
- \prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8L}.
+ \log\frac{\prod_{k<N}a_k}{C_N}
+ =-8L\sum_{k<N}\frac1{k+1}
+  +\sum_{k<N}\left(\log\frac{a_k}{c_k}+\frac{8L}{k+1}\right).
 \]
+The second sum tends to $\log\mathcal A(q)+8\gamma_{\!E}L$.
+Using $\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$,
+the Euler-constant terms cancel, giving
+$\prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8L}$.
 Theorem~\ref{long1049:thm:geometric-universality} now gives the
 stated determinant asymptotic. Taking logarithms yields
 \[
@@ -3587,9 +3591,11 @@ points. Summing over its at most $|B||J|$ fibres gives
 $|A|\le |B||J|k$, a contradiction.
 \end{proof}
 
-For an application, let $M$ integral rows have real remainders $e_j$,
-and suppose their subset sums have $Q$ possible residues modulo a
-positive integer $D$. Put $T=\sum_j|e_j|$. The least and greatest
+For an application, let $M$ integral coefficient rows $(A_j,B_j)$ have
+real remainders $e_j$ at the same target. Let $D$ be a positive integer,
+and suppose that the coefficient-pair subset sums $\sum_{j\in I}(A_j,B_j)$
+take $Q$ values in $(\mathbb Z/D\mathbb Z)^2$.
+Put $T=\sum_j|e_j|$. The least and greatest
 subset remainders are respectively
 \[
  \sum_{e_j<0}e_j\quad\text{and}\quad\sum_{e_j>0}e_j,

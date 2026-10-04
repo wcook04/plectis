@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "1d7bde0fc530e17f",
-    "source_sha256": "0478fa0e7bcaa4d055e9de67ce893d674a7acf17041298c9aa554433107e1476",
+    "source_sha256": "6321a07eb19adea4439282c2a9d52d3016ccf8615b9d2d267990a286729ae238",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 183,
+    "mathml_node_count": 185,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "b2db840a527dae0b758b5ffa3c061e5fee9be042e787b6775bde5f106575f1d0",
-    "html_exact_tex_sha256": "c19d111a833ac248f49df3bf665c3020fdcc692bc31e48fb984035d7b4131167"
+    "html_mathml_sha256": "66218fa856a926e632d0878026bb03d6b710356cdfea3fe637e6386ce4bfa36d",
+    "html_exact_tex_sha256": "78bd744e8b427474d498031b2a26906f574f3ff40da288d2bb0566135f6b1a49"
   },
   "sections": [
     {
@@ -110,12 +110,17 @@
     {
       "level": 2,
       "anchor": "sec:review",
-      "label": "What the integrating reviewer must decide"
+      "label": "Review changes without changing their meaning"
     },
     {
       "level": 3,
       "anchor": "replace-a-local-term-without-losing-its-definition",
       "label": "Replace a local term without losing its definition"
+    },
+    {
+      "level": 3,
+      "anchor": "check-the-ordinary-words-that-carry-scope",
+      "label": "Check the ordinary words that carry scope"
     },
     {
       "level": 3,
@@ -169,8 +174,8 @@
     },
     {
       "level": 3,
-      "anchor": "what-the-next-packet-must-contain",
-      "label": "What the next packet must contain"
+      "anchor": "keep-a-revision-recoverable",
+      "label": "Keep a revision recoverable"
     },
     {
       "level": 3,
@@ -214,7 +219,7 @@
       },
       {
         "id": "sec:review",
-        "title": "What the integrating reviewer must decide",
+        "title": "Review changes without changing their meaning",
         "level": 2
       },
       {

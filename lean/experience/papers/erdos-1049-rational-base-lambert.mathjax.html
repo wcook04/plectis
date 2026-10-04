@@ -563,9 +563,12 @@ the leading term <span class="math inline" data-term-auto="off">\(\binom{k+2}{2}
 gives the relative correction <span
 class="math inline" data-term-auto="off">\(-6L/(k+2)\)</span>. The two-fold convolution
 contributes <span class="math inline" data-term-auto="off">\(-2L/(k+1)\)</span> in the same
-way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>
-and <span class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>,
-multiplication yields</p>
+way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>,
+the leading constants in <span class="math inline" data-term-auto="off">\(a_k=P^4(q;q)_k
+b_k^{(2)}b_k^{(3)}\)</span> multiply to <span
+class="math inline" data-term-auto="off">\(P^5E^5=1\)</span>. With <span
+class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>, the two relative
+corrections therefore give</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
 \frac{a_k}{c_k}
 &amp;=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
@@ -593,26 +596,30 @@ constant and put</p>
 class="math inline" data-term-auto="off">\(a_k\)</span> and summability of <span
 class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>
 show that <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> converges
-to a positive number. In the logarithm of the product, the first-order
-term contributes <span
-class="math inline" data-term-auto="off">\(-8L\sum_{k&lt;N}(k+1)^{-1}\)</span>, while the
-summable remainder contributes a finite constant. Using <span
-class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
-N+\gamma_{\!E}+o(1)\)</span>, we obtain</p>
+to a positive number. Since <span
+class="math inline" data-term-auto="off">\(\prod_{k&lt;N}c_k=C_N\)</span>, we can separate
+these contributions exactly:</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\prod_{k&lt;N}a_k\sim\mathcal
-A(q)C_NN^{-8L}.\]</span></div>
-<p>Substitution in <a class="math-ref" data-equation-ref="true" href="#eq:geometric-limit">eq:geometric-limit</a> proves the
+class="math display" data-term-auto="off">\[\log\frac{\prod_{k&lt;N}a_k}{C_N}
+=-8L\sum_{k&lt;N}\frac1{k+1}
+  +\sum_{k&lt;N}\left(\log\frac{a_k}{c_k}+\frac{8L}{k+1}\right).\]</span></div>
+<p>The second sum tends to <span class="math inline" data-term-auto="off">\(\log\mathcal
+A(q)+8\gamma_{\!E}L\)</span>. Using <span
+class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
+N+\gamma_{\!E}+o(1)\)</span>, the Euler-constant terms cancel, giving
+<span class="math inline" data-term-auto="off">\(\prod_{k&lt;N}a_k\sim\mathcal
+A(q)C_NN^{-8L}\)</span>. Substitution in <a class="math-ref" data-equation-ref="true" href="#eq:geometric-limit">eq:geometric-limit</a> proves the
 theorem, or equivalently</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log V_N^*=B_N\log
 q+\log C_N+2N\log P
              -8L\log N+\log K(q)+o(1).\]</span></div>
 <p>◻</p>
 </div>
-<p>Thus the leading cubic term <span class="math inline" data-term-auto="off">\(c_k\)</span>
-determines <span class="math inline" data-term-auto="off">\(C_N\)</span>, whereas the first
-correction to <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span> determines
-<span class="math inline" data-term-auto="off">\(N^{-8F(1/q)}\)</span>.</p>
+<p>Thus the product of the cubic weights <span
+class="math inline" data-term-auto="off">\(c_k\)</span> gives <span
+class="math inline" data-term-auto="off">\(C_N\)</span>, whereas the first correction to
+<span class="math inline" data-term-auto="off">\(a_k/c_k\)</span> determines <span
+class="math inline" data-term-auto="off">\(N^{-8F(1/q)}\)</span>.</p>
 </section>
 <section id="sec:hankel-order" class="level3">
 <h3>The first nonzero formal term</h3>
@@ -1314,13 +1321,15 @@ data-cites="stanley2016"><a href="#ref-6">[6]</a></span>, but does not estimate 
 remainders.</p>
 <p>For example, suppose that <span class="math inline" data-term-auto="off">\(M\)</span>
 integral rows <span class="math inline" data-term-auto="off">\((A_j,B_j)\)</span> have
-remainders <span class="math inline" data-term-auto="off">\(e_j=A_jF(3/2)-B_j\)</span>, and
-that the subset sums take <span class="math inline" data-term-auto="off">\(Q\)</span> residue
-values modulo a positive integer <span class="math inline" data-term-auto="off">\(D\)</span>.
-Put <span class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span> and suppose that
-at most <span class="math inline" data-term-auto="off">\(k\)</span> subsets give any fixed
-remainder within a residue class. The least and greatest subset
-remainders are</p>
+remainders <span class="math inline" data-term-auto="off">\(e_j=A_jF(3/2)-B_j\)</span>. Let
+<span class="math inline" data-term-auto="off">\(D\)</span> be a positive integer, and
+suppose that the coefficient-pair subset sums <span
+class="math inline" data-term-auto="off">\(\sum_{j\in I}(A_j,B_j)\)</span> take <span
+class="math inline" data-term-auto="off">\(Q\)</span> values in <span
+class="math inline" data-term-auto="off">\((\mathbb Z/D\mathbb Z)^2\)</span>. Put <span
+class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span> and suppose that at most
+<span class="math inline" data-term-auto="off">\(k\)</span> subsets give any fixed remainder
+within a residue class. The least and greatest subset remainders are</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{e_j&lt;0}e_j\quad\text{and}\quad\sum_{e_j&gt;0}e_j;\]</span></div>
 <p class="display-continue">their difference is <span class="math inline" data-term-auto="off">\(T\)</span>. Thus <span
@@ -1356,13 +1365,16 @@ about Lambert series.</p>
 Vandehey <span class="citation" data-cites="vandehey2013"><a href="#ref-10">[10]</a></span> and
 Duverney and Tachiya <span class="citation"
 data-cites="duverneytachiya2019"><a href="#ref-11">[11]</a></span> use integer-base expansions. At
-a noninteger rational base the cleared tails satisfy a recurrence with a
-growing denominator contribution. The <a
+a noninteger rational base the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187">cleared-tail
+recurrence</a> has a growing denominator contribution. The <a
 href="../../../papers/erdos1049-rational-base-lambert-reasoning-surface.pdf#long1049-clearing">clearing
-and tail-recurrence calculations</a> in the companion paper rule out one
-coordinatewise scheme at <span class="math inline" data-term-auto="off">\(3/2\)</span>. They
-make no assertion about other approximation families. At the function
-level, Bell and Smertnig <span class="citation"
+and tail-recurrence calculations</a> in the companion paper include the
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
+obstruction at <span class="math inline" data-term-auto="off">\(3/2\)</span></a>. They make
+no assertion about other approximation families. At the function level,
+Bell and Smertnig <span class="citation"
 data-cites="bellsmertnig2026"><a href="#ref-9">[9]</a></span> exclude Mahler equations for the
 divisor generating series, while leaving the arithmetic of a single
 rational argument undecided.</p>

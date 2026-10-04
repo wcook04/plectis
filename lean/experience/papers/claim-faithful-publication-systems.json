@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "1d7bde0fc530e17f",
-    "source_sha256": "37f579eebec08962d54324c6053fbfaf78fffac9002cdaf6a2ad0f88e8330cbf",
+    "source_sha256": "9c7392d5e686da61bd5f3f761ffad93865c350201ca4c3e6628c2af7d35ff6a7",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 146,
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "469d274b69afb2d9daeda4d4f62d27884a6a0c641132a953bc608b62da2f4004",
-    "html_exact_tex_sha256": "ecb13a0e4bbd3e5af699c62d82d4054e0c111696cd126ddafbc399f5bcacbc90"
+    "html_mathml_sha256": "0425f9d54ca473cfa27d5f923410c79f061594235dace4d10bb468da4741cf25",
+    "html_exact_tex_sha256": "470dbb56b4ae940698fde54f606af98a6b2a1218e16f1a54409e461a9c175b38"
   },
   "sections": [
     {
@@ -54,8 +54,18 @@
     },
     {
       "level": 3,
-      "anchor": "stored-artifacts-and-executable-tools",
-      "label": "Stored artifacts and executable tools"
+      "anchor": "stored-records-and-derived-views",
+      "label": "Stored records and derived views"
+    },
+    {
+      "level": 3,
+      "anchor": "finding-the-relevant-work",
+      "label": "Finding the relevant work"
+    },
+    {
+      "level": 3,
+      "anchor": "operations-on-the-records",
+      "label": "Operations on the records"
     },
     {
       "level": 3,
@@ -65,7 +75,7 @@
     {
       "level": 2,
       "anchor": "sec:example",
-      "label": "Worked case: publishing a conditional theorem"
+      "label": "Worked case: reviewing an explanation"
     },
     {
       "level": 2,
@@ -101,6 +111,11 @@
       "level": 2,
       "anchor": "sec:related",
       "label": "Related work"
+    },
+    {
+      "level": 5,
+      "anchor": "prove2me.",
+      "label": "Prove2Me."
     },
     {
       "level": 2,
@@ -169,7 +184,7 @@
       },
       {
         "id": "sec:example",
-        "title": "Worked case: publishing a conditional theorem",
+        "title": "Worked case: reviewing an explanation",
         "level": 2
       },
       {

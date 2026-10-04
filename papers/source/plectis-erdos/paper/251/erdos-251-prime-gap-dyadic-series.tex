@@ -32,11 +32,13 @@
 For each convergent dyadic series with nonnegative integer coefficients,
 we construct nonnegative integer perturbations whose sums fill an interval
 and whose supports lie in one set of upper Banach density zero.
-The corrections obey any prescribed bound tending to infinity and eventually
-preserve coefficient and partial-sum residues modulo every fixed integer.
-The construction varies adjacent corrections while keeping their ordinary
-sum fixed.  For prime gaps it also preserves growing-block distributions
-and cumulative size.  The cumulative positions need not be prime, and the
+The corrections satisfy any prescribed bound tending to infinity for all
+sufficiently large indices; for each fixed modulus, coefficient and partial-sum
+residues are eventually preserved.  The construction varies adjacent corrections
+while keeping their ordinary sum fixed.  In the prime-gap application with
+eventual correction bound $\log(n+3)$, it gives vanishing total variation error for
+blocks of length $o(\log\log X)$ sampled on $[X,2X)$ and preserves the
+cumulative asymptotic $n\log n$.  The cumulative positions need not be prime, and the
 irrationality question remains open.
 \end{abstract}
 
@@ -56,18 +58,18 @@ We prove a perturbation theorem for arbitrary convergent dyadic series
 with nonnegative integer coefficients.  All corrections are supported on
 one sparse set, chosen before the value of the sum.  Their sizes may be
 eventually bounded by any prescribed function tending to infinity, while the sums
-still fill an interval.  We also prescribe, before choosing
-the target, a cutoff for each modulus beyond which both the corrections and
-their partial sums are divisible by that modulus.  For prime gaps the same
-construction retains the distributions of blocks of length
-$o(\log\log X)$ sampled in $[X,2X)$ and gives cumulative positions
-asymptotic to $n\log n$.  The irrationality of the actual prime series
+still fill an interval.  The construction fixes, before choosing the target,
+a cutoff for each modulus beyond which both the corrections and their
+partial sums are divisible by that modulus.  For prime gaps, the original
+and altered empirical block distributions have total variation distance
+tending to zero for lengths $o(\log\log X)$ sampled in $[X,2X)$.
+The cumulative positions are asymptotic to $n\log n$.  The irrationality of the actual prime series
 remains a distinct question: these comparison sequences need not have
 prime cumulative positions.
 
 We use a standard interval-covering argument for series with finite choices.
-Fridy's generalised-base lemma \cite[p.~194]{fridy1966} treats bounded
-digits and decreasing weights.  Crmari\'{c} and Kova\v{c}
+Fridy's generalised-base lemma \cite[p.~194]{fridy1966} treats prescribed
+digit bounds and nonincreasing weights.  Crmari\'{c} and Kova\v{c}
 \cite[Lemma~4]{crmarickovac2025} give the finite-choice form used here,
 and Kova\v{c} and Tao \cite[Lemma~5.1]{kovactao2024} use analogous
 intervals of reciprocal choices.  We must arrange these choices on a sparse set while preserving cumulative
@@ -125,7 +127,9 @@ In particular the distance tends to zero for every integer-valued
 $m=m(X)\ge1$ with $m(X)=o(\log\log X)$, uniformly over target values.
 \end{proposition}
 
-The support of $e$ may depend on $r$ and occupy only part of $S$.
+The set $S$, the interval $I$ and every congruence cutoff are fixed before
+$r$ is chosen.  The correction $e$ depends on $r$; its support may occupy
+only part of $S$.
 Polynomially growing nonnegative integer sequences satisfy the convergence
 hypothesis, whereas $a_n=2^n$ does not.  The prescribed bound may grow as slowly as
 $\log\log(n+3)$.  A bounded correction would have to vanish identically:

@@ -509,8 +509,9 @@ CRT makes each neighbour
 divisible by its own prime congruent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1\pmod m</annotation></semantics></math>,
 so all neighbouring residues vanish. A bound on the remaining tail then
-proves irrationality. The same argument works in any integer base and
-yields the dilation statements below.</p>
+proves irrationality. The same tail estimate works in any integer base.
+For several dilations, the extra step is to prevent cancellation at the
+isolated coefficient.</p>
 <div class="prop">
 <p><strong>Proposition 1.10</strong> (Residue series in every integer
 base). <em> Let
@@ -1511,11 +1512,11 @@ approaches considered here.</p>
 </section>
 <section id="sec:survivors" class="level2">
 <h2>Conditions that would imply irrationality</h2>
-<p>Below are three quantitative sufficient conditions, an equivalent
-residue formulation, and a proposed generic rank bound. The rank bound
-is false, as its rational counterexample shows. The other arithmetic
-conditions remain open for the totient; the proofs establish their
-stated implications. They are examples of possible approaches, not an
+<p>Below are quantitative sufficient conditions, an equivalent residue
+formulation, and a proposed generic rank bound. The rank bound is false,
+as its rational counterexample shows. The other arithmetic conditions
+remain open for the totient; the proofs establish their stated
+implications. They are examples of possible approaches, not an
 exhaustive list.</p>
 <section id="cancellation-on-a-full-block" class="level3">
 <h3>Cancellation on a full block</h3>
@@ -2080,9 +2081,11 @@ not supply it.</p>
 </section>
 <section id="certificates-with-depth-equal-to-the-shift" class="level3">
 <h3>Certificates with depth equal to the shift</h3>
-<p>The unrestricted depth can be replaced by a multiple of the shift.
-The propagation argument in Appendix A.1 explains why doing so preserves
-the equivalence below.</p>
+<p>The shift and truncation depth can be required to agree, provided the
+shift is allowed to run through positive multiples of a fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
+The propagation argument in Appendix A.1 explains why this restriction
+preserves the equivalence below.</p>
 <div class="defn">
 <p><strong>Definition 3.7</strong> (Depth equal to a shift multiple). For
 every
@@ -2103,23 +2106,19 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a></p>
 </div>
-<p>For the actual totient series, the condition in Definition 3.7 is
-equivalent to irrationality, by the full-depth amplification argument of
-the short paper (the propagation theorem in Appendix A.1; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
-For a fixed pair
+<p>For a fixed pair
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d,N)</annotation></semantics></math>,
 a nonintegral tail difference supplies a certificate in every
-sufficiently late adjacent pair of multipliers. The missing arithmetic
-input is a nonintegral tail difference for every relevant pair, not a
-converse implication for the condition with depth equal to the shift.
-This is an exact reformulation of the open problem, which remains
-unproved.</p>
-<p>The finite examples establish the hypothesis for individual pairs
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d,N)</annotation></semantics></math>,
-not for all pairs. Thus the universally quantified condition is not a
-mild regularity assumption: it has the full strength of the
-irrationality question.</p>
+sufficiently late adjacent pair of multipliers. Appendix A.1 proves this
+propagation and hence the equivalence in Definition 3.7 (<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
+The finite examples verify the starting hypothesis for individual pairs,
+not for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d,N</annotation></semantics></math>.
+That universal supply of nonintegral differences is the missing
+arithmetic input. With these quantifiers, the condition has the full
+strength of the irrationality question; it is not a mild regularity
+assumption. The open problem remains unproved.</p>
 <p>Formal sources: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L67"><code>windowDiscrepancy_self_eq_totientBlock_sub</code></a></p>
 </section>
@@ -16098,16 +16097,20 @@ which gives <code>[eq:canonical-gap]</code> for all sufficiently large
 such
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>. ◻</p>
 </div>
-<p>With its universal quantifiers, this condition is equivalent to the
-unresolved irrationality assertion. A rational value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>c</mi></msup><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a/(2^cv)</annotation></semantics></math>
-fails the test for that same
+<p>For fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">c,v</annotation></semantics></math>,
-whereas irrationality gives it for every sufficiently large allowed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
-The proof does not find such an
+one successful test excludes every value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>c</mi></msup><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S=a/(2^cv)</annotation></semantics></math>,
+regardless of the numerator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+Conversely, irrationality gives success for every sufficiently large
+allowed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-without assuming irrationality.</p>
+for each fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">c,v</annotation></semantics></math>.
+This converse does not supply successful tests for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">c,v</annotation></semantics></math>
+without the irrationality assumption.</p>
 <p>A formal declaration for the equivalence is <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">available
 here</a>, with the modulus written as

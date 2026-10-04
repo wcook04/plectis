@@ -111,7 +111,9 @@ sequence; unit fractions; Lean 4. <strong>MSC 2020.</strong> 11J72
 than the quadratic limit alone. At rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>3</mn><mi>/</mi><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1+3/n+o(n^{-3})</annotation></semantics></math>,
 its numerator must eventually be cubic. The denominator recurrence will
-exclude every possible cubic. Here the increments of
+exclude every possible cubic. For the prefix product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">P_n=\prod_{1\le k&lt;n}a_k</annotation></semantics></math>,
+the increments of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P_n/a_n</annotation></semantics></math>
 grow like a positive multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>,
@@ -160,8 +162,10 @@ by induction. Hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≥</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><mn>4</mn><mo>≥</mo><mn>2</mn><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_{n+1}\ge a_n^2/4\ge2a_n</annotation></semantics></math>,
 so the sequence is strictly increasing. Rounding upwards gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mn>1</mn><mo>+</mo><mfrac><mn>3</mn><mi>n</mi></mfrac><mo>−</mo><mfrac><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>&lt;</mo><mfrac><mn>16</mn><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup></mfrac><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">0\le1+\frac3n-\frac{a_n^2}{a_{n+1}}&lt;\frac{16}{a_n^2}=o(n^{-3}).</annotation></semantics></math>
-Thus its reciprocal sum is irrational. The proof of the theorem uses the
-following arithmetic obstruction.</p>
+Thus its reciprocal sum is irrational. Lemma 2.11 will turn the rate
+assumption into an eventual rising-factorial cubic for the integer tail
+numerator. We first prove the arithmetic obstruction that rules out this
+cubic using only the exact integer recurrences.</p>
 <div class="theorem">
 <p><strong>Theorem 2.3</strong> (rising-factorial cubic exclusion). <em>
 Let
@@ -181,13 +185,15 @@ In particular no such orbit satisfies
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</em></p>
 </div>
-<p>The short paper needs only to exclude eventual equality with a cubic.
-Here we keep track of where each congruence fails and obtain positive
-lower density of disagreement. The bound may depend on the orbit and the
-cubic; no uniform numerical constant is claimed.</p>
-<p>Suppose, then, that the disagreement set has lower density zero. It
-leaves arbitrarily late four-term blocks intact. On each such block, a
-third difference bounds
+<p>The short paper needs only to exclude eventual equality with a cubic
+of this form. Here we prove more: the disagreement set has positive
+lower density. The bound may depend on the orbit and the cubic; no
+uniform numerical constant is claimed.</p>
+<p>Suppose, then, that the disagreement set has lower density zero. This
+does not give agreement on a whole tail; it gives cutoffs along which
+the proportion of disagreements tends to zero. In particular, it leaves
+arbitrarily late four-term blocks intact. On each such block, a third
+difference bounds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G_n=\gcd(C_n,D_n)</annotation></semantics></math>;
 the divisibility chain therefore stabilises. Dividing it out leaves the
 proposed numerator
@@ -227,10 +233,12 @@ is a positive integer as well. From
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">x_n=1/a_n+x_{n+1}</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>D</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>D</mi><mi>n</mi></msub><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mn>1</mn><msub><mi>a</mi><mi>n</mi></msub></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>D</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>D</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>D</mi><mi>n</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
  \qquad D_{n+1}=a_nD_n,</annotation></semantics></math> which is
-<code>[long243:eq:cubicorbit]</code>. These are the tail variables of
-Koizumi’s Lemma 4 <span class="citation"
-data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor.
-Section 4 constructs these variables together with the error
+<code>[long243:eq:cubicorbit]</code>. These are the unreduced tail
+variables of Koizumi’s Lemma 4 <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor. The
+rate estimate in Lemma 2.12 uses this numerator, without reducing each
+tail fraction separately. Section 4 constructs these variables together
+with the error
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>,
 which this section does not need. The subsequent cubic exclusion uses
 only these integer recurrences; it does not assume a reciprocal sum. To
@@ -1417,9 +1425,7 @@ The rate implies
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}/a_n^2\to1</annotation></semantics></math>
 and excludes the eventual Sylvester recurrence, so the conclusion is
 irrationality on a restricted class of the sequences in Problem 1.1.</p>
-<p>Writing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">P_n=\prod_{k&lt;n}a_k</annotation></semantics></math>,
-at the cubic rate
+<p>At the cubic rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P_n/a_n</annotation></semantics></math>
 grows like
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>3</mn></msup><annotation encoding="application/x-tex">n^3</annotation></semantics></math>
@@ -2573,7 +2579,8 @@ contradicting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>d</mi><mi>n</mi></msub><mo>≤</mo><mi>B</mi><mo>&lt;</mo><msub><mi>m</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">0&lt;d_n\le B&lt;m_i</annotation></semantics></math>.</p>
 <p>Every crossing therefore has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">d_n&gt;B</annotation></semantics></math>.
-If it first crosses
+A single jump may first cross several selected heights; their combined
+weight must be bounded by that jump’s excess. If it first crosses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
 selected heights, their spacing gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo>&lt;</mo><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">(h-1)P&lt;d_n</annotation></semantics></math>.

@@ -402,14 +402,50 @@ the ledger, the evidence or the rendered papers come from different editions.
   names). A queued result carries a pip and a result with no Lean statement
   is a faint ring, so colour is never the only signal; the queued teal was
   checked against the replayed orange with the dataviz palette validator.
-- Motion: the opening fades the rings in reading order (core, orbit, claims,
-  results, then words; 90ms apart, 420ms each, expo-out), focus eases in over
+- Motion: the opening assembles the rings in reading order (core with
+  Comparator and Palomar, orbit, claims, results with their scale, then
+  words), 110ms apart, each fading in over 300ms and seating from a fortieth
+  inside its place with a hard stop, about 0.82s in all. Focus eases in over
   180ms, camera moves are slow-in slow-out at 300ms plus 120ms per doubling
   of scale, capped at 650ms. All of it is skipped under reduced motion.
 - Type on the canvas is the page's serif; halos are drawn before any letter
   of a curved title, and letters are placed by the width of the text before
-  them so kerning survives. Titles sit 15px off their plates and the fitted
-  view keeps them inside a margin. Flat ground: no radial lighting anywhere.
+  them so kerning survives. Titles stand outside the scale, on one circle,
+  and the fitted view keeps them inside a margin. Flat ground: no radial
+  lighting anywhere.
+- Every mark is a datum or a boundary (4 October 2026, Will: "the engineering
+  behind it", never watch props). The results scale round the outer ring has
+  one tick per result, each sector's short paper then its long record in the
+  order the papers state them, every tenth tick longer and every fiftieth
+  longer again, a mark between the two papers, and the sector boundaries
+  strongest; no numerals. Ticks closer than 3 device pixels thin to every
+  fifth. On the map page a pinned result puts a fine cursor on its tick (the
+  map's "Result 17 of 18"), which walks with Previous and Next over 220ms and
+  never moves on its own.
+- Focus is an engineering callout: four hairline corner ticks ease in from
+  1.35x over 140ms round the hovered or pinned object (Comparator and Palomar
+  keep their lit bands), and the object names itself on an opaque plate
+  joined by an elbow leader. The plate takes the least-covering of six
+  places, weighing discs most, then anchor names, the cursor, reticles and
+  the card's corner marks, then band titles; a pinned plate holds still and
+  two plates never cross. Scale ticks give way under plates, leaders and
+  reticles, and a reticle corner that would cross a word is left out.
+- Hairlines are one device pixel and straight ones sit on the device-pixel
+  grid; the canvas backing store takes the box's exact device-pixel size, so
+  nothing is resampled.
+- Drill-down on the map page: a problem frames its sector, a paper frames its
+  results, a result pins its card. Escape or a click on empty ground steps
+  back one level (the pin, then the framed view, then the whole field), and
+  the pinned card says so in one line.
+- The canvas paints only in view (and an opening under way is spent while
+  one not yet started stays closed); on `plectis:atlas` leaving the
+  mathematics it lets go of the hover, the pin and the column's card, and
+  coming back replays nothing. The teaser's caption is one plain sentence
+  ("Theorem 6.32 on #257, replayed by Comparator") and clears when the
+  pointer leaves; card kind lines are sentence case, with "Centre of the
+  map", "Replay checker" and "Prepared corpus" for the core and the checkers.
+- The landing's `script-src 'self'` refuses inline speculation rules, so a pin
+  on the landing only prefetches its paper; the map page still prerenders.
 - The toolkit's system paper keeps its live position: the deploy restores it,
   so the system-paper arc is built to end exactly there.
 - New per-node label or band data travels as lists in
@@ -533,8 +569,9 @@ the ledger, the evidence or the rendered papers come from different editions.
 - The teaser resolves its routes against `data-universe-base`: on the
   landing a dot opens `maths/papers/…`, where it had opened `/papers/…` and
   404ed.
-- A hovered or selected result names itself on a plate, and each frame
-  places that plate before anything is lettered (`namePlate`). A band title
+- A hovered or selected object (a result, paper or claim; the core, the
+  checkers and the problems carry their own names) names itself on a plate,
+  and each frame places that plate before anything is lettered (`namePlate`). A band title
   or the shared callout the plate would cover steps aside while the reader
   points, both lines of a title and the callout's dashed line with it, and
   keeps its room so no other label moves. A label must never show through a

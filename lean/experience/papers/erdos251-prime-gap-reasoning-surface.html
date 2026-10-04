@@ -27,15 +27,19 @@ tails.</p>
 <p>Our main construction is Theorem 2.1. For any convergent dyadic
 series with nonnegative integer coefficients, we choose one sparse set
 containing all correction supports. By varying the corrections on this
-set, we attain every value in an interval. The corrections can grow
-arbitrarily slowly, and every fixed modulus eventually divides both
-their terms and their partial sums, with cutoffs fixed before the
-target. The construction varies adjacent entries while keeping their
-ordinary sum fixed. This separates the choice of weighted sum from the
-subsequent congruence calculations.</p>
-<p>With a polylogarithmic bound on the corrections we also preserve
-empirical blocks of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>.
+set, we attain every value in an interval. Given any function tending to
+infinity, we can choose corrections bounded by it for all sufficiently
+large indices. Every fixed modulus eventually divides both their terms
+and their partial sums, with cutoffs fixed before the target. The
+construction varies adjacent entries while keeping their ordinary sum
+fixed. This separates the choice of weighted sum from the subsequent
+congruence calculations.</p>
+<p>With a polylogarithmic bound on the corrections, the original and
+altered empirical block distributions have total variation distance
+tending to zero for lengths
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
+sampled in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X)</annotation></semantics></math>.
 Applied to prime gaps, the theorem gives rational sums and cumulative
 positions asymptotic to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n\log n</annotation></semantics></math>.
@@ -211,9 +215,14 @@ A fixed bound is not possible here: eventual boundedness together with
 eventual divisibility by every fixed modulus would make the corrections
 eventually zero; their fixed total would then have to be divisible by
 every modulus and hence be zero. Nonnegative corrections could not
-change the sum. The supports of all corrections lie in
+change the sum. The set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
-but each may be a proper subset depending on the value of the sum.
+the interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+and every congruence cutoff are fixed before the target value is chosen.
+Each correction depends on that value, and its support may be a proper
+subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
 Requiring upper Banach density zero is stronger than requiring ordinary
 density zero. For example, the union of the integer intervals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mi>!</mi><mo>,</mo><mi>k</mi><mi>!</mi><mo>+</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[k!,k!+k)</annotation></semantics></math>,
@@ -225,8 +234,8 @@ at most
 indices have occurred, so their proportion is at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>k</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k(k+1)/(2k!)\to0</annotation></semantics></math>.
 Nevertheless each interval is filled and their lengths are unbounded.
-The hypothesis rules out this concentration in long intervals, however
-far apart those intervals lie.</p>
+Upper Banach density zero rules out this concentration in long
+intervals, however far apart those intervals lie.</p>
 <div class="proof">
 <p><em>Proof.</em> <em>Fixed totals.</em> At stage
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
@@ -844,7 +853,7 @@ most the sum of the subsequent diameters. Here the sets are
 and the condition is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>≤</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>&gt;</mo><mi>j</mi></mrow></msub><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_j\le\sum_{i&gt;j}D_iw_i</annotation></semantics></math>.
 The proof checks this inequality at every stage. Fridy’s lemma <span
-class="citation" data-cites="fridy1966"><a href="#ref-9">[9]</a></span> assumes decreasing
+class="citation" data-cites="fridy1966"><a href="#ref-9">[9]</a></span> assumes nonincreasing
 weights, a restriction avoided by the finite-choice form. Kovač and Tao
 use reciprocal choices <span class="citation"
 data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>.</p>
@@ -2230,8 +2239,9 @@ after a prescribed prefix. The weighted choices form a binary expansion,
 so we can choose a rational sum while preserving every coefficient
 modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
-This construction uses all late indices and imposes neither density-zero
-support nor eventual preservation of all moduli.</p>
+This construction permits changes at every index after the prefix; it
+imposes neither density-zero support nor eventual preservation of all
+moduli.</p>
 <div class="theorem">
 <p><strong>Theorem 8.1</strong> (bounded perturbations preserving
 congruences). <em> Let
@@ -3708,11 +3718,11 @@ print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pr
 <p>The source links identify definitions and proof steps at fixed
 revisions; the short paper’s source index retains its different revision
 in Appendix G. The formal sparse construction changes one coordinate per
-stage, whereas the printed proof uses triples. Both fix supports, the
-interval of sums and the modulus cutoffs before choosing a value. The
-formal proofs use the published inputs stated below; the linked
-declarations do not check the different printed arguments step by
-step.</p>
+stage, whereas the printed proof uses triples. Both fix a set containing
+all correction supports, the interval of sums and the modulus cutoffs
+before choosing a value. The formal proofs use the published inputs
+stated below; the linked declarations do not check the different printed
+arguments step by step.</p>
 <p>Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-14">[14]</a></span> and
 mathlib <span class="citation" data-cites="mathlib"><a href="#ref-15">[15]</a></span> supply the
 proof-checking environment. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/\evidencerecordurl">evidence

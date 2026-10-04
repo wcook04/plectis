@@ -533,34 +533,47 @@ contained in <span class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>.
 class="math inline" data-term-auto="off">\(2\)</span> in <span
 class="math inline" data-term-auto="off">\(\Omega_f\)</span>. At a regular level <span
 class="math inline" data-term-auto="off">\(t\in(\mu,1)\)</span> we take the component <span
-class="math inline" data-term-auto="off">\(C_t\)</span> containing a chosen first merger and
-write <span
-class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\le1\)</span>, <span
-class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span>. Uniformising <span
-class="math inline" data-term-auto="off">\(C_t\)</span> by the disc, the Bergman segment
-estimate bounds the length between roots at hyperbolic distance <span
+class="math inline" data-term-auto="off">\(C_t\)</span> containing a chosen first merger. Let
+<span class="math inline" data-term-auto="off">\(k\ge2\)</span> be its number of roots, and
+put <span
+class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\le1\)</span> and
+<span class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span>. In the disc
+uniformisation, hyperbolic distance is normalised by <span
+class="math inline" data-term-auto="off">\(d(0,s)=2\operatorname{artanh}s\)</span> for <span
+class="math inline" data-term-auto="off">\(0\le s&lt;1\)</span>. The Bergman segment estimate
+bounds the length between roots at hyperbolic distance <span
 class="math inline" data-term-auto="off">\(d\)</span> by <span
 class="math inline" data-term-auto="off">\(\sqrt{2a\log\cosh(d/2)}\)</span>. The assumption
 on connecting curves therefore forces pairwise distance at least <span
 class="math inline" data-term-auto="off">\(D\)</span>, where <span
 class="math inline" data-term-auto="off">\(\cosh(D/2)=e^{2/a}\)</span>.</p>
-<p>Choose the centre of this uniformisation on a connected set through
-the first pair in <span class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, outside
-every intrinsic open unit ball centred at a root. Such a point exists:
-those balls are pairwise disjoint under that assumption and cannot cover
-a connected set containing two roots. If <span
-class="math inline" data-term-auto="off">\(d_j\)</span> are the distances of the roots from
-this centre, the one-root Bergman estimate and the finite Blaschke
-product for <span class="math inline" data-term-auto="off">\(f/t\)</span> give</p>
+<p>Intrinsic distance in <span class="math inline" data-term-auto="off">\(C_t\)</span> means
+the infimum of Euclidean lengths of curves in <span
+class="math inline" data-term-auto="off">\(C_t\)</span>. Choose the centre <span
+class="math inline" data-term-auto="off">\(h\)</span> of the uniformisation on a connected
+set through the first pair in <span
+class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, outside every intrinsic open
+unit ball centred at a root. Such a point exists: those balls are
+pairwise disjoint under that assumption and cannot cover a connected set
+containing two roots. If <span class="math inline" data-term-auto="off">\(d_j\)</span> are
+the hyperbolic distances of the roots from this centre, we obtain</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lambda(d_j)\le\tfrac12\delta(a),\qquad
 \sum_j\lambda(d_j)\ge x,\qquad
 \lambda(d)=-\log\tanh(d/2),\quad
 \delta(a)=-\log(1-e^{-1/a}).\]</span></div>
-<p>The Blaschke product requires a
-total contribution of at least <span class="math inline" data-term-auto="off">\(x\)</span>,
-while each root contributes at most <span
-class="math inline" data-term-auto="off">\(\delta(a)/2\)</span>. This already gives <span
+<p>The one-root Bergman estimate
+gives the first bound because every root has intrinsic distance at least
+<span class="math inline" data-term-auto="off">\(1\)</span> from <span
+class="math inline" data-term-auto="off">\(h\)</span>. For the second, <span
+class="math inline" data-term-auto="off">\(h\)</span> is not a root and lies in <span
+class="math inline" data-term-auto="off">\(K_\mu(f)\)</span>, so evaluating the finite
+Blaschke product for <span class="math inline" data-term-auto="off">\(f/t\)</span> at the
+centre gives <span
+class="math inline" data-term-auto="off">\(\sum_j\lambda(d_j)=\log(t/|f(h)|)\ge x\)</span>.
+Thus the total contribution is at least <span
+class="math inline" data-term-auto="off">\(x\)</span>, while each root contributes at most
+<span class="math inline" data-term-auto="off">\(\delta(a)/2\)</span>, giving <span
 class="math inline" data-term-auto="off">\(k\ge2x/\delta(a)\)</span>. The pairwise separation
 gives additional information, which the following packing estimate uses
 to improve this lower bound. The passage through a first merger,
@@ -579,9 +592,10 @@ class="math display" data-term-auto="off">\[w(d,r)=\arccos\!\left(\operatorname{
 <p>This circle-slice inequality is
 formalised separately. If nonnegative weights <span
 class="math inline" data-term-auto="off">\(\sigma_i\)</span> at radii <span
-class="math inline" data-term-auto="off">\(r_i\)</span> give <span
+class="math inline" data-term-auto="off">\(r_i&gt;0\)</span> give <span
 class="math inline" data-term-auto="off">\(\lambda(d)\le U+\sum_i\sigma_iw(d,r_i)\)</span>
-for every admissible <span class="math inline" data-term-auto="off">\(d\)</span>, where <span
+for every <span class="math inline" data-term-auto="off">\(d&gt;0\)</span> satisfying <span
+class="math inline" data-term-auto="off">\(\lambda(d)\le\delta(a)/2\)</span>, where <span
 class="math inline" data-term-auto="off">\(U&gt;0\)</span>, summing at the <span
 class="math inline" data-term-auto="off">\(k\)</span> roots gives</p>
 <div class="math-display" id="eq:short-packing" data-term-auto="off"><span
@@ -595,11 +609,13 @@ distances can overlap.</p>
 <p>To obtain area growth, lift one common value radius from all <span
 class="math inline" data-term-auto="off">\(k\)</span> roots to <span
 class="math inline" data-term-auto="off">\(\partial C_t\)</span>, and join successive
-endpoints by boundary arcs. Splitting the lift integral at level <span
-class="math inline" data-term-auto="off">\(\mu\)</span> gives mean total length at most <span
-class="math inline" data-term-auto="off">\(\sqrt{ka(x+2)/2}\)</span>. The sum of the <span
-class="math inline" data-term-auto="off">\(k\)</span> adjacent-root connections counts each
-lift twice and the boundary once, so <span
+endpoints by boundary arcs. These arcs remain in <span
+class="math inline" data-term-auto="off">\(\Omega_f\)</span> because <span
+class="math inline" data-term-auto="off">\(t&lt;1\)</span>. Splitting the lift integral at
+level <span class="math inline" data-term-auto="off">\(\mu\)</span> gives mean total length
+at most <span class="math inline" data-term-auto="off">\(\sqrt{ka(x+2)/2}\)</span>. The sum
+of the <span class="math inline" data-term-auto="off">\(k\)</span> adjacent-root connections
+counts each lift twice and the boundary once, so <span
 class="math inline" data-term-auto="off">\(2k\le\sqrt{2ka(x+2)}+\mathcal H^1(\partial
 C_t)\)</span>. Combining this with <span class="math inline" data-term-auto="off">\(\mathcal
 H^1(\partial C_t)^2\le2\pi k t\,(d/dt)\operatorname{Area}(C_t)\)</span>
@@ -738,54 +754,73 @@ class="math inline" data-term-auto="off">\(P(z)=v^{-1}f(c+\alpha z)\)</span>. Th
 <span class="math inline" data-term-auto="off">\(U\)</span> above <span
 class="math inline" data-term-auto="off">\(D(w_0,S)\)</span> containing <span
 class="math inline" data-term-auto="off">\(0\)</span> has degree two, as follows by
-exhausting with regular discs and applying Riemann–Hurwitz. Since <span
-class="math inline" data-term-auto="off">\(U\)</span> is simply connected and <span
-class="math inline" data-term-auto="off">\(1-P\)</span> has only a double zero at <span
-class="math inline" data-term-auto="off">\(0\)</span> there, it has a single-valued analytic
-square root <span class="math inline" data-term-auto="off">\(\xi\)</span>. The resulting map
-is a proper local biholomorphism onto <span
+exhausting with regular discs and applying Riemann–Hurwitz. The
+exhaustion is needed because other critical values may lie on the outer
+boundary. Since <span class="math inline" data-term-auto="off">\(U\)</span> is simply
+connected and <span class="math inline" data-term-auto="off">\(1-P\)</span> has only a double
+zero at <span class="math inline" data-term-auto="off">\(0\)</span> there, it has a
+single-valued analytic square root <span
+class="math inline" data-term-auto="off">\(\xi\)</span>. The resulting map is a proper local
+biholomorphism onto <span
 class="math inline" data-term-auto="off">\(V=\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>, which is
 star-shaped and hence simply connected. It is therefore biholomorphic,
 and its inverse maps <span class="math inline" data-term-auto="off">\([-1,1]\)</span> to the
 proposed connection. Along this interval <span
 class="math inline" data-term-auto="off">\(P=1-\xi^2\in[0,1]\)</span>, which gives the
-required containment.</p>
+required containment. Let <span class="math inline" data-term-auto="off">\(L\)</span> be the
+Euclidean length of this normalised curve.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(a=1-w_0\)</span> and <span
-class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. We map <span
-class="math inline" data-term-auto="off">\(V\)</span> to the unit disc by</p>
+class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. Squaring maps <span
+class="math inline" data-term-auto="off">\(V\)</span> onto <span
+class="math inline" data-term-auto="off">\(D(a,S)\)</span>. A Möbius map from this disc to
+the unit disc fixing <span class="math inline" data-term-auto="off">\(0\)</span>, followed by
+taking a square root, gives the conformal map</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\zeta=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}.\]</span></div>
-<p>The endpoints <span class="math inline" data-term-auto="off">\(\xi=\pm1\)</span> map to <span
+<p>Choose the square-root factor positive at <span
+class="math inline" data-term-auto="off">\(0\)</span>. The endpoints <span
+class="math inline" data-term-auto="off">\(\xi=\pm1\)</span> then map to <span
 class="math inline" data-term-auto="off">\(\zeta=\pm q\)</span>, where <span
-class="math inline" data-term-auto="off">\(q^2=S/(S^2+p)\)</span>. The Bergman estimate is
-consequently</p>
+class="math inline" data-term-auto="off">\(q^2=S/(S^2+p)\)</span>. The hypothesis on <span
+class="math inline" data-term-auto="off">\(S\)</span> gives <span
+class="math inline" data-term-auto="off">\(S^2-S+p=(S-w_0)(S-(1-w_0))&gt;0\)</span>, so <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The Bergman segment estimate
+therefore applies and gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L^2\le\frac2\pi\log\frac{S^2+S+p}{S^2-S+p}\,
                     \operatorname{Area}(U).\]</span></div>
 <p>The remaining
-estimate uses the fact that <span class="math inline" data-term-auto="off">\(U\)</span>
-contains only two of the <span class="math inline" data-term-auto="off">\(n\)</span> roots.
-An area bound for the whole lemniscate would lose this information. The
-companion therefore first treats a regular component <span
-class="math inline" data-term-auto="off">\(W\)</span> containing <span
-class="math inline" data-term-auto="off">\(k&lt;n\)</span> roots, using an exterior map.
-Reflecting the <span class="math inline" data-term-auto="off">\(n-k\)</span> exterior-root
-factors into the disc gives a Blaschke product <span
-class="math inline" data-term-auto="off">\(B\)</span> with <span
-class="math inline" data-term-auto="off">\(|B(0)|=\operatorname{cap}(\overline
+estimate uses the degree-two count; an area bound for the whole
+lemniscate would lose this information. The companion first treats a
+monic polynomial <span class="math inline" data-term-auto="off">\(F\)</span> of degree <span
+class="math inline" data-term-auto="off">\(n\)</span>, a regular level <span
+class="math inline" data-term-auto="off">\(t&gt;0\)</span> of <span
+class="math inline" data-term-auto="off">\(|F|\)</span>, and a component <span
+class="math inline" data-term-auto="off">\(W\)</span> of <span
+class="math inline" data-term-auto="off">\(\{|F|&lt;t\}\)</span> containing <span
+class="math inline" data-term-auto="off">\(k&lt;n\)</span> zeros of <span
+class="math inline" data-term-auto="off">\(F\)</span>, counted with multiplicity. Reflecting
+the <span class="math inline" data-term-auto="off">\(n-k\)</span> exterior-root factors into
+the disc gives a Blaschke product <span class="math inline" data-term-auto="off">\(B\)</span>
+with <span class="math inline" data-term-auto="off">\(|B(0)|=\operatorname{cap}(\overline
 W)^n/t\)</span> and <span class="math inline" data-term-auto="off">\(|B&#39;|&lt;n\)</span>
 on the boundary. Summing reciprocal derivatives over the fibre opposite
 <span class="math inline" data-term-auto="off">\(B(0)\)</span> gives <span
 class="math inline" data-term-auto="off">\((n-k)/n&lt;(1-|B(0)|)/(1+|B(0)|)\)</span>, or
 equivalently <span class="math inline" data-term-auto="off">\(\operatorname{cap}(\overline
-W)^n/t&lt;k/(2n-k)\)</span>. For <span
-class="math inline" data-term-auto="off">\(k=2\)</span>, this inequality and Pólya’s
-area–capacity inequality <span class="citation"
-data-cites="polya1928"><a href="#ref-15">[15]</a></span>, <span class="citation"
-data-cites="crane"><a href="#ref-7">[7]</a></span>, followed by exhaustion, give <span
+W)^n/t&lt;k/(2n-k)\)</span>.</p>
+<p>Apply this to <span class="math inline" data-term-auto="off">\(F=P-w_0\)</span> on the
+regular inner components exhausting <span
+class="math inline" data-term-auto="off">\(U\)</span>. Their degree is two, so <span
+class="math inline" data-term-auto="off">\(k=2\)</span> and <span
+class="math inline" data-term-auto="off">\(k/(2n-k)=1/(n-1)\)</span>. Pólya’s area–capacity
+inequality <span class="citation" data-cites="polya1928"><a href="#ref-15">[15]</a></span>, <span
+class="citation" data-cites="crane"><a href="#ref-7">[7]</a></span>, followed by exhaustion, now
+gives <span
 class="math inline" data-term-auto="off">\(\operatorname{Area}(U)\le\pi(S/(n-1))^{2/n}\)</span>.
-We restore the length scale <span
-class="math inline" data-term-auto="off">\(|v|^{1/n}\)</span> to obtain <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a>. Dubinin’s
+The original curve has length <span
+class="math inline" data-term-auto="off">\(\operatorname{length}(\Gamma)=|v|^{1/n}L\)</span>,
+which gives <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a>. Dubinin’s
 relative area inequality <span class="citation"
 data-cites="dubinin"><a href="#ref-14">[14]</a></span> has a different full-covering hypothesis;
 the absolute component estimate is needed here.</p>
@@ -796,8 +831,8 @@ class="math inline" data-term-auto="off">\(p\ge0\)</span> and <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span>, the logarithm is at most <span
 class="math inline" data-term-auto="off">\(\log7&lt;2\)</span> and <span
 class="math inline" data-term-auto="off">\((S/(n-1))^{2/n}\le1\)</span>, giving <span
-class="math inline" data-term-auto="off">\(L&lt;2|v|^{1/n}&lt;2\)</span>. For <span
-class="math inline" data-term-auto="off">\(n=3,w_0=1,S=6/5\)</span>, use <span
+class="math inline" data-term-auto="off">\(\operatorname{length}(\Gamma)&lt;2|v|^{1/n}&lt;2\)</span>.
+For <span class="math inline" data-term-auto="off">\(n=3,w_0=1,S=6/5\)</span>, use <span
 class="math inline" data-term-auto="off">\((3/5)^{2/3}\log11&lt;2\)</span>. The chosen
 critical value must be nonzero and have modulus less than one. Root
 locations by themselves do not isolate it from the others. </p>
@@ -1042,11 +1077,15 @@ Nonzero endpoint values therefore lie on the same positive ray. Critical
 values with distinct arguments exclude such a connection; distinct
 moduli are insufficient.</p>
 <p> A generic constant perturbation separates rays when the original
-critical values are distinct, but cannot split equal values. The
-companion records an unformalised argument that a linear perturbation
-can do so generically. Neither qualitative assertion supplies a
-numerical perturbation bound that preserves a near-extremal path
-inequality. The <a
+critical values are distinct, but cannot split equal values. The formal
+sources give the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">one-parameter
+collision locus</a> and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">finite
+affine-line avoidance argument</a>. The companion records an
+unformalised argument that a linear perturbation can do so generically.
+Neither qualitative assertion supplies a numerical perturbation bound
+that preserves a near-extremal path inequality. The <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#argument-perturbation-proof">forbidden-ray
 locus calculation</a> and the local logarithmic expansion, with
 remainder <span class="math inline" data-term-auto="off">\(nq^{N+1}/((N+1)(1-q))\)</span> for

@@ -13,14 +13,14 @@
       "artifacts": [
         {
           "excerpt_sha256": "sha256:4fccb25970fe4d947353fbb0ac94e7491bdd3e9ff10f3d53ddab5ffa734e53e8",
-          "line_end": 603,
-          "line_start": 603,
+          "line_end": 607,
+          "line_start": 607,
           "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
         },
         {
           "excerpt_sha256": "sha256:bfb4918e3aead559a22c89f378d6a1e6371158599e673680944f0bdc187f9e4b",
-          "line_end": 733,
-          "line_start": 711,
+          "line_end": 737,
+          "line_start": 715,
           "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
         },
         {
@@ -72,9 +72,9 @@
       "anchor": "credit-correspondence-005",
       "artifacts": [
         {
-          "excerpt_sha256": "sha256:c28f49fa5b966035e1acc601b6fdee1738bfe70821923da14b9e485b58aa846f",
-          "line_end": 73,
-          "line_start": 68,
+          "excerpt_sha256": "sha256:1ab1c0d45ed163c3d6109bb69e7ef350daad697816ad030e33bac851a4b79ca4",
+          "line_end": 75,
+          "line_start": 70,
           "path": "paper/251/erdos-251-prime-gap-dyadic-series.tex"
         },
         {
@@ -294,5 +294,5 @@
   "naming_policy": "Every entry starts with the name withheld. A name appears only after that person confirms the public name they want, and an entry stays anonymous if they ask. Private messages stay outside this repository.",
   "schema": "plectis-credit-ledger/1",
   "source_registry": "docs/research-commons/source-attributions.json",
-  "source_registry_sha256": "sha256:1341330c011f551b2ec59653d1a9c4d901a59f10ee6fc7b8dc5dc63361b687c0"
+  "source_registry_sha256": "sha256:9f4ad23ecff6d7ccd55a05d9a574e396e9c53c29bb6372ab5f1875ffa26f2726"
 }

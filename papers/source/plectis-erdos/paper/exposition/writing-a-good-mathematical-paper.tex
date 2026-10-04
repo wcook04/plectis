@@ -9,15 +9,16 @@
 \title{Writing a Good Mathematical Paper}
 \subtitle{A compact guide for authors and AI assistants}
 \author{Will Cook}
-\date{1 October 2026}
+\date{4 October 2026}
 \emergencystretch=1.5em
 \newcommand{\instruction}[2]{\par\medskip\noindent\textbf{#1.} #2\par}
 \begin{document}
 \maketitle
 \paperprovenance
 \papersectiontarget{compact-writing-guide}
-Enable a reader who knows the field to state the result, explain why the proof
-works and use it correctly. Spend words where they remove a specific difficulty.
+Help a reader who knows the field state the result, explain why the proof works
+and use it correctly. Use these instructions to resolve a difficulty, not to
+add a sentence about every item.
 
 \instruction{1. Decide what the paper contributes}{
 Choose a coherent principal result and an intended reader. Say what becomes
@@ -55,8 +56,8 @@ Name the quantity to control and the accuracy required before deriving an estima
 Explain which constraint selects a parameter or change of variables. For an
 interval certificate, compare the error with both endpoint gaps. For a
 small-integer contradiction, justify integrality, nonvanishing and $|N|<1$
-separately. Spend detail on the decisive inference. A proof paragraph should
-make clear what the operation establishes and what remains to prove.}
+separately. When a technique recurs for a new task, name that task. Spend detail
+on the decisive inference and make clear what remains to prove.}
 
 \instruction{6. Separate construction from completion}{
 Account for each choice and preserved condition. A classification needs both
@@ -89,37 +90,34 @@ remainders, and a value from the interval enclosing it.}
 Replace ``We proceed with the estimate'' by a reason: ``Orthogonality makes the
 first sum zero; it remains to bound the second.'' Make connectives and referents
 unambiguous. After ``similarly'', check that the same hypotheses apply.
-Punctuate displayed equations as parts of sentences. Use parallel syntax for
-parallel claims and keep conditions attached to their consequences. Remove
-throat-clearing and inflated significance; retain precise terms without
-manufacturing variety.}
+Punctuate displayed equations as sentences. Keep parallel claims parallel
+and conditions beside their consequences. Remove filler; retain precise terms.}
 
 \instruction{10. Credit the exact input at its use}{
 Distinguish applied theorems, adapted constructions, historical attribution,
 terminology and expository models. Check the original's hypotheses, version
-and passage. State what changes when an argument is adapted. Credit supplied
+and passage. Say what an adaptation retains and changes. Credit supplied
 ideas and corrections locally. A writing analogy supplies no proof. Report
 only reading and checks actually performed.}
 
 \instruction{11. State what has actually been established}{
-Separate logical scope from evidence. A conditional implication may have an
-ordinary or formal proof; a computation or conjecture needs its own label.
-Keep unproved mathematical inputs beside the dependent result. A checked nearby
-lemma does not formalise the whole proof; missing formalisation does not
-invalidate an ordinary proof. Give finite computations their scope and
-reproduction details in a compact verification section. A test can eventually detect every nonintegral fixed value
-without certifying integrality when it fails. It still does not produce the
-witnesses required by a quantified theorem.}
+Separate logical scope from evidence. A conditional implication can have an
+ordinary or formal proof; label computations and conjectures separately. Keep
+unproved inputs beside the dependent result. A checked nearby lemma does not
+formalise the whole proof; missing formalisation does not invalidate an ordinary
+proof. Give computations their finite scope and reproduction details in one
+verification section. For a one-sided test, distinguish what passing proves
+from what failure leaves undecided. Pointwise eventual detection need not
+supply a uniform stopping bound or the witnesses a quantified theorem requires.}
 
 \instruction{12. Preserve useful detail and informative failures}{
-Let the short paper sustain its principal argument and the longer record make
-the rest recoverable. Move detail only after checking its destination; reconcile
-statements, assumptions and evidence in both directions. Preserve the attempted
-implication, assumptions, witness and missing ingredient of a useful failed route.
-Distinguish a flawed step, a failed method and a counterexample to a theorem.
-Motivate the finished proof without inventing its discovery history. Cite a
-specific section or theorem for omitted arguments; keep build commands and
-source identifiers with the verification record.}
+When there is a longer companion, keep the short argument readable and omitted
+detail recoverable. Verify passage destinations and reconcile statements,
+assumptions and evidence in both directions. Preserve a useful failed route's
+attempted implication, assumptions, witness and missing ingredient. Distinguish
+flawed steps, failed methods and counterexamples. Explain the proof without
+inventing its discovery history. Cite omitted arguments by section or theorem;
+keep build commands and source identifiers in the verification record.}
 
 \instruction{13. Review changes as claims, then as prose}{
 Compare old and new meanings, including explanatory words beside unchanged
@@ -134,8 +132,8 @@ Render the final sources. Inspect formulas, captions, page breaks, bibliography
 and cross-reference destinations. Read without supplying steps from memory:
 can the intended reader reconstruct the hard inference, apply the result in an
 example and identify an excluded case? Record actual difficulties. A successful
-build is not a comprehension test. Stop adding prose when it removes no
-identifiable difficulty and improves neither accuracy nor recovery of the argument.}
+build is not a comprehension test. Add prose only to resolve a difficulty,
+improve accuracy or recover an argument.}
 
 \par\medskip\noindent\small
 \textit{Further reading.}

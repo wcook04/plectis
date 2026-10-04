@@ -26,23 +26,23 @@ value.</p>
 series with nonnegative integer coefficients. All corrections are
 supported on one sparse set, chosen before the value of the sum. Their
 sizes may be eventually bounded by any prescribed function tending to
-infinity, while the sums still fill an interval. We also prescribe,
+infinity, while the sums still fill an interval. The construction fixes,
 before choosing the target, a cutoff for each modulus beyond which both
 the corrections and their partial sums are divisible by that modulus.
-For prime gaps the same construction retains the distributions of blocks
-of length
+For prime gaps, the original and altered empirical block distributions
+have total variation distance tending to zero for lengths
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
 sampled in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X)</annotation></semantics></math>
-and gives cumulative positions asymptotic to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X)</annotation></semantics></math>.
+The cumulative positions are asymptotic to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n\log n</annotation></semantics></math>.
 The irrationality of the actual prime series remains a distinct
 question: these comparison sequences need not have prime cumulative
 positions.</p>
 <p>We use a standard interval-covering argument for series with finite
 choices. Fridy’s generalised-base lemma <span class="citation"
-data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats bounded digits and decreasing
-weights. Crmarić and Kovač <span class="citation"
+data-cites="fridy1966"><a href="#ref-5">[5]</a></span> treats prescribed digit bounds and
+nonincreasing weights. Crmarić and Kovač <span class="citation"
 data-cites="crmarickovac2025"><a href="#ref-17">[17]</a></span> give the finite-choice form used
 here, and Kovač and Tao <span class="citation"
 data-cites="kovactao2024"><a href="#ref-6">[6]</a></span> use analogous intervals of reciprocal
@@ -139,11 +139,17 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m(X)=o(\log\log X)</annotation></semantics></math>,
 uniformly over target values.</em></p>
 </div>
-<p>The support of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-may depend on
+<p>The set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
+the interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+and every congruence cutoff are fixed before
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-and occupy only part of
+is chosen. The correction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+depends on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>;
+its support may occupy only part of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
 Polynomially growing nonnegative integer sequences satisfy the
 convergence hypothesis, whereas

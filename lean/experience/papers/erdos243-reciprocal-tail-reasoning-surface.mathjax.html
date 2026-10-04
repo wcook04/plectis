@@ -99,12 +99,14 @@ sequence; unit fractions; Lean 4. <strong>MSC 2020.</strong> 11J72
 than the quadratic limit alone. At rate <span
 class="math inline" data-term-auto="off">\(1+3/n+o(n^{-3})\)</span>, its numerator must
 eventually be cubic. The denominator recurrence will exclude every
-possible cubic. Here the increments of <span
-class="math inline" data-term-auto="off">\(P_n/a_n\)</span> grow like a positive multiple of
-<span class="math inline" data-term-auto="off">\(n^2\)</span>, so the bounded-increase
-criterion later in the paper does not apply. The eventual Sylvester
-recurrence gives deviation <span class="math inline" data-term-auto="off">\(O(1/a_n)\)</span>
-and is also excluded by this rate.</p>
+possible cubic. For the prefix product <span
+class="math inline" data-term-auto="off">\(P_n=\prod_{1\le k&lt;n}a_k\)</span>, the
+increments of <span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> grow like a
+positive multiple of <span class="math inline" data-term-auto="off">\(n^2\)</span>, so the
+bounded-increase criterion later in the paper does not apply. The
+eventual Sylvester recurrence gives deviation <span
+class="math inline" data-term-auto="off">\(O(1/a_n)\)</span> and is also excluded by this
+rate.</p>
 <div class="theorem" id="long243:res:cubicrate">
 <p><strong>Theorem 2.1</strong> (cubic-rate irrationality). <em> If
 strictly increasing positive integers satisfy <span
@@ -142,8 +144,10 @@ Hence <span class="math inline" data-term-auto="off">\(a_{n+1}\ge a_n^2/4\ge2a_n
 the sequence is strictly increasing. Rounding upwards gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[0\le1+\frac3n-\frac{a_n^2}{a_{n+1}}&lt;\frac{16}{a_n^2}=o(n^{-3}).\]</span></div>
-<p>Thus its reciprocal sum is irrational. The proof of the theorem uses the
-following arithmetic obstruction.</p>
+<p>Thus its reciprocal sum is irrational. Lemma <a class="math-ref" href="#long243:res:extraction">2.11</a> will turn
+the rate assumption into an eventual rising-factorial cubic for the
+integer tail numerator. We first prove the arithmetic obstruction that
+rules out this cubic using only the exact integer recurrences.</p>
 <div class="theorem" id="long243:res:cubicexclusion">
 <p><strong>Theorem 2.3</strong> (rising-factorial cubic exclusion). <em>
 Let <span class="math inline" data-term-auto="off">\(a,C,D:\N\to\Z_{&gt;0}\)</span> satisfy
@@ -163,13 +167,15 @@ particular no such orbit satisfies <span
 class="math inline" data-term-auto="off">\(C_n=A\,n(n+1)(n+2)+B\)</span> for all large <span
 class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>The short paper needs only to exclude eventual equality with a cubic.
-Here we keep track of where each congruence fails and obtain positive
-lower density of disagreement. The bound may depend on the orbit and the
-cubic; no uniform numerical constant is claimed.</p>
-<p>Suppose, then, that the disagreement set has lower density zero. It
-leaves arbitrarily late four-term blocks intact. On each such block, a
-third difference bounds <span
+<p>The short paper needs only to exclude eventual equality with a cubic
+of this form. Here we prove more: the disagreement set has positive
+lower density. The bound may depend on the orbit and the cubic; no
+uniform numerical constant is claimed.</p>
+<p>Suppose, then, that the disagreement set has lower density zero. This
+does not give agreement on a whole tail; it gives cutoffs along which
+the proportion of disagreements tends to zero. In particular, it leaves
+arbitrarily late four-term blocks intact. On each such block, a third
+difference bounds <span
 class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span>; the divisibility chain
 therefore stabilises. Dividing it out leaves the proposed numerator
 <span class="math inline" data-term-auto="off">\(m n(n+1)(n+2)/6+c\)</span>, with <span
@@ -207,10 +213,11 @@ class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>,</p>
 class="math display" data-term-auto="off">\[C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
 \qquad D_{n+1}=a_nD_n,\]</span></div>
 <p class="display-continue">which is <a class="math-ref" data-equation-ref="true" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>. These are
-the tail variables of Koizumi’s Lemma 4 <span class="citation"
-data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor.
-Section <a class="math-ref" href="#long243:sec:state">4</a>
-constructs these variables together with the error <span
+the unreduced tail variables of Koizumi’s Lemma 4 <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor. The
+rate estimate in Lemma <a class="math-ref" href="#long243:res:tailratio">2.12</a> uses this
+numerator, without reducing each tail fraction separately. Section <a class="math-ref" href="#long243:sec:state">4</a> constructs these
+variables together with the error <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>, which this section
 does not need. The subsequent cubic exclusion uses only these integer
 recurrences; it does not assume a reciprocal sum. To apply its
@@ -1082,8 +1089,7 @@ above.</p>
 The rate implies <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>
 and excludes the eventual Sylvester recurrence, so the conclusion is
 irrationality on a restricted class of the sequences in Problem <a class="math-ref" href="#long243:res:problem">1.1</a>.</p>
-<p>Writing <span class="math inline" data-term-auto="off">\(P_n=\prod_{k&lt;n}a_k\)</span>,
-at the cubic rate <span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> grows
+<p>At the cubic rate <span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> grows
 like <span class="math inline" data-term-auto="off">\(n^3\)</span> and its increment like
 <span class="math inline" data-term-auto="off">\(n^2\)</span>. Thus neither the
 bounded-increment criterion nor Koizumi’s nonpositive upper-limit
@@ -2061,7 +2067,9 @@ class="math inline" data-term-auto="off">\(m_i\mid L_n\)</span> as well, we obta
 class="math inline" data-term-auto="off">\(m_i\mid d_n=(a_n-1)U_n-L_n\)</span>, contradicting
 <span class="math inline" data-term-auto="off">\(0&lt;d_n\le B&lt;m_i\)</span>.</p>
 <p>Every crossing therefore has <span
-class="math inline" data-term-auto="off">\(d_n&gt;B\)</span>. If it first crosses <span
+class="math inline" data-term-auto="off">\(d_n&gt;B\)</span>. A single jump may first cross
+several selected heights; their combined weight must be bounded by that
+jump’s excess. If it first crosses <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span> selected heights, their spacing
 gives <span class="math inline" data-term-auto="off">\((h-1)P&lt;d_n\)</span>. Writing <span
 class="math inline" data-term-auto="off">\(r=d_n-B\ge1\)</span> and using <span

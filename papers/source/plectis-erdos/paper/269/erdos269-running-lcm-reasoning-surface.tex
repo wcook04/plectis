@@ -2374,6 +2374,9 @@ modulo $D$, and the corresponding tails differ by an integer.
 
 The strict upper endpoint is what permits division by two.  A cutoff
 including $2^b$ would not clear its term at the normalising factor $h_b=P_b/2$.
+The pigeonhole argument identifies two tails modulo $\Z$, not two equal
+tails. Since $X_a$ is unbounded, the lattice condition does not force
+the exact repetition used in the distinct-value proof.
 
 \begin{theorem}[rationality gives positive integer tails]
 \label{long269:res:actual-cancellation}\label{long269:res:lead-carry-bridge}
@@ -2665,8 +2668,20 @@ Induction gives
 \end{equation}
 for any sequence satisfying $d_{n+1}=b_nd_n-Bm_n$.
 Since $b_a=P_{a+1}/P_a$, the product telescopes to
-$W_{\ell,h}=P_{\ell+h}/P_\ell$.  The previously proved bounds
-$8^a/15<P_a\le8^a$ therefore give $W_{\ell,h}>8^h/15$.
+$W_{\ell,h}=P_{\ell+h}/P_\ell$.  For the actual block masses,
+$m_a=h_{a+1}s_a$ and $h_a=P_a/2$ identify the two terms after division
+by $W_{\ell,h}$:
+\[
+ \frac{F_{\ell,h}}{W_{\ell,h}}
+ =h_\ell\sum_{a=\ell}^{\ell+h-1}s_a,
+ \qquad
+ \frac{X_{\ell+h}}{W_{\ell,h}}=h_\ell T_{\ell+h}.
+\]
+Thus the accumulated numerator records a finite part of the original
+reciprocal sum, in the same normalisation as the starting tail. No
+assumption of rationality or integrality is used in these identities.
+The previously proved bounds $8^a/15<P_a\le8^a$ also give
+$W_{\ell,h}>8^h/15$.
 For a positive integer $C$ and an integer $N$, use
 $\lpr_C(N)=1+((N-1)\bmod C)\in\{1,\ldots,C\}$.
 In particular $\lpr_C(0)=C$.  Positivity of this representative is what
@@ -2901,13 +2916,13 @@ multipliers, although a particular segment may have one.
 
 \subsection{How fast the product of the bases grows}
 
-We can enlarge the class of admissible bounds by using the running LCM formula
-in the converse argument. The elementary estimate $W_{\ell,h}\ge2^h$
-allows $G(B,a)=o(2^a)$ for each fixed $B$, whereas the running LCM formula gives
+The growth scale in the preceding criterion comes from the running
+LCM formula. The elementary estimate $W_{\ell,h}\ge2^h$ would suffice
+for bounds $G(B,a)=o(2^a)$ with $B$ fixed; the exact formula gives
 $W_{\ell,h}\asymp8^h$ uniformly in $\ell$ and allows $G(B,a)=o(8^a)$.
-For an irrational $S$, the preceding lower-limit condition characterises
-all dominating bounds that suffice, including bounds outside these two
-classes.
+For an irrational $S$, the preceding lower-limit condition also covers
+dominating bounds outside these two classes. The same growth estimate
+will give a necessary lower bound on successful segment lengths.
 
 \begin{proposition}[growth of the product of consecutive bases]\label{long269:res:window-growth}
 Put $\theta_3=\log_32$ and $\theta_5=\log_52$.  For all $\ell\ge0$ and
@@ -3890,8 +3905,8 @@ Section~\ref{long269:sec:two-prime}, by the route Fan used for
 $\mathcal R_{\{p,q\}}$.  We do not know what
 argument Erd\H{o}s had in mind.
 
-We have not found a proof of the assertion in print.  Erd\H{o}s and
-Graham state only the question for $\mathcal R_P$: the sum is irrational
+The literature search recorded here did not locate a proof of the
+assertion in print. Erd\H{o}s and Graham state only the question for $\mathcal R_P$: the sum is irrational
 for infinite $P$, and they ask what happens for finite $P$ with more than
 one element \cite[p.~65]{erdosgraham1980}; the sum over distinct running LCMs does not
 appear there.  Erd\H{o}s's survey of
@@ -3900,16 +3915,18 @@ running least common multiple of the $P$-smooth integers, his survey of
 1980 on combinatorial number theory \cite{erdos1980survey} does not discuss
 irrationality, and his survey of
 1988 states only the question for $\mathcal R_P$ \cite[p.~106]{erdos1988}.
-Every Hecke--Mahler transcendence theorem we found, including those of
-Loxton and van der Poorten, Bugeaud and Laurent, and
-Luca--Ouaknine--Worrell~\cite{lucaouaknineworrell2025}, has a single
-slope, and so reaches $\mathcal D_P$ only for $|P|=2$.  The rationality
+The Hecke--Mahler transcendence theorems cited here, of Loxton and
+van der Poorten, Bugeaud and Laurent, and
+Luca--Ouaknine--Worrell~\cite{lucaouaknineworrell2025}, have a single
+slope; the identifications in Section~\ref{long269:sec:two-prime}
+apply to $\mathcal D_P$ when $|P|=2$.  The rationality
 criterion of Diananda and Oppenheim~\cite{dianandaoppenheim1955}, which
 condenses a Cantor series into blocks of consecutive terms, has the form of
 the dyadic argument of Section~\ref{long269:sec:distinct-235}; it restates
 rationality and does not decide $\mathcal D_P$.
-The discussion thread of Problem~\#269 contains no argument for
-$\mathcal D_P$ with $|P|\ge3$, and the \emph{Formal Conjectures} statement
+The discussion thread of Problem~\#269, as inspected for that search,
+supplied no argument for $\mathcal D_P$ with $|P|\ge3$, and the
+\emph{Formal Conjectures} statement
 \cite{formalconjectures269} concerns $\mathcal R_P$ only.  The Cantor-series
 criteria of Erd\H{o}s--Straus~\cite[Theorem~2.1]{erdosstraus1974} and
 Han\v{c}l--Tijdeman~\cite[Theorem~3.1]{hancltijdeman2004} do not apply to

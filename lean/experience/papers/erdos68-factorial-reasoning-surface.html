@@ -42,11 +42,13 @@ finite-gcd proof, and an example attaining the least positive value
 when the sums indexed by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">2,3,4</annotation></semantics></math>
 vanish.</p>
-<p>We also minimise support sizes and coefficient norms, and construct
-primitive vectors supported on arithmetic progressions. These impose
-additional requirements on the coefficients. The carry, digit and
-reduced-denominator arguments address nonintegrality of the resulting
-linear form. Changing a vector while preserving
+<p>For the depth-four calculation, we also minimise support sizes and
+coefficient norms among vectors supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,\ldots,8\}</annotation></semantics></math>.
+A separate construction gives primitive vectors supported on arithmetic
+progressions. The carry, digit and reduced-denominator arguments address
+nonintegrality of the resulting linear form. Changing a vector while
+preserving
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 changes the remainder by an integer. It may simplify the calculation,
 but it cannot change whether the remainder is integral. That condition
@@ -614,11 +616,13 @@ independent of the eligible prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>. ◻</p>
 </div>
 <p>The support equation determines which basis coefficients are
-admissible. The same coefficients give the remainder explicitly. This
-identifies what remains to be proved after constructing a vector: its
-fractional part is fixed by
+admissible. For a fixed admissible value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
-whereas the free higher coordinates change only its integer part.</p>
+those choices give remainders differing by integers. The following
+formula records the integer offset and shows why changing the vector at
+that value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+cannot alter nonintegrality.</p>
 <div class="theorem">
 <p><strong>Theorem 1.4</strong> (how the coefficient choices change the
 remainder). <em> For the vector in
@@ -1103,12 +1107,13 @@ each positive integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 must divide the coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-of some nonintegral form in the family. Eventual divisibility by every
-fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-is sufficient; growth of the values of
+of some nonintegral form in the family. It would suffice to find a
+family of nonintegral forms whose values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-alone is not. For example, the compulsory factor
+are eventually divisible by every fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>;
+growth alone does not give this divisibility. For example, the
+compulsory factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">12L_D</annotation></semantics></math>
 has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>-adic
@@ -2842,9 +2847,9 @@ is composite, the example supplies no prime-index instance.</p>
 <h3>The series with denominators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">n!+t</annotation></semantics></math></h3>
 <p>The digit argument also applies to the other shifts mentioned by
-Erdős. We restrict here to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge-1</annotation></semantics></math>
-so that every denominator from index two onwards is positive. Put
+Erdős. For an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge-1</annotation></semantics></math>,
+put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_t=\sum_{n\ge2}1/(n!+t)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>t</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)</annotation></semantics></math>,

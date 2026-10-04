@@ -166,7 +166,10 @@ If the tail is restarted with its value in lowest terms, both
 coordinates are divided by the same fixed integer. We retain the
 unreduced fraction
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_n/D_n</annotation></semantics></math>
-to keep the denominator update multiplicative.</p>
+to keep the denominator update multiplicative. In the cubic proof we
+first extract a polynomial for this
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>,
+then divide out the eventual fixed gcd in Section 3.2.</p>
 <p>For large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≥</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><mn>2</mn><mo>≥</mo><mn>2</mn><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_{n+1}\ge a_n^2/2\ge2a_n</annotation></semantics></math>.
@@ -296,7 +299,8 @@ it divides four consecutive values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>,
 and hence their third difference
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>A</mi></mrow><annotation encoding="application/x-tex">6A</annotation></semantics></math>.
-Thus
+Unlike the vanishing fourth difference used above, this positive third
+difference bounds the gcd. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>n</mi></msub><annotation encoding="application/x-tex">G_n</annotation></semantics></math>
 stabilises at a positive integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>.</p>
@@ -545,7 +549,11 @@ with
 </section>
 <section id="sec:cubic-trace" class="level3">
 <h3>Traces in the cubic field</h3>
-<p>The square relation gives a pair of reciprocal elements:
+<p>To constrain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>,
+we use the square relation to express
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+through a pair of reciprocal elements in the same cubic field:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>−</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">(\alpha+\beta)(\alpha-\beta)=1.</annotation></semantics></math>
 Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mi>α</mi><mo>+</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">z=\alpha+\beta</annotation></semantics></math>.
@@ -1453,7 +1461,8 @@ contradicting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>d</mi><mi>n</mi></msub><mo>≤</mo><mi>B</mi><mo>&lt;</mo><msub><mi>m</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">0&lt;d_n\le B&lt;m_i</annotation></semantics></math>.</p>
 <p>It follows that every crossing has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">d_n&gt;B</annotation></semantics></math>.
-If one step first crosses
+A single jump may first cross several selected heights, so we must bound
+their combined weight by that jump’s excess. If one step first crosses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
 selected heights, their spacing gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo>&lt;</mo><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">(h-1)P&lt;d_n</annotation></semantics></math>.

@@ -25,21 +25,22 @@
 \title{Integer Linear Forms for a\\Factorial Reciprocal Series}
 \subtitle{An integral basis and a finite gcd formula}
 \author{Will Cook}
-\date{31 August 2026; revised 1 October 2026}
+\date{31 August 2026; revised 4 October 2026}
 
 \begin{document}
 \maketitle
 \noteprovenance
 
 \begin{abstract}
-We classify the integer vectors that cancel prescribed initial weighted
-sums in linear forms $MS+k$, where $S=\sum_{n\ge2}(n!-1)^{-1}$.
-An integral basis reduces the support restriction to one linear
-Diophantine equation. The possible values of $M$ are determined by a gcd
+We classify finitely supported integer vectors on indices $n\ge2$ that
+cancel prescribed initial weighted sums in linear forms $MS+k$, where
+$S=\sum_{n\ge2}(n!-1)^{-1}$.
+Temporarily allowing index one gives an integral basis; removing that
+coordinate requires one linear Diophantine equation. The possible values of $M$ are determined by a gcd
 over fewer than $2D^2$ indices when cancellation is imposed through $D$.
 For $D=4$ we construct a vector with the least positive value $M=1380$.
-Nonintegrality for a family with the required denominator divisibility
-remains open.
+An irrationality proof by these forms still requires, for each $q>0$,
+a nonintegral form with $q\mid M$.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -86,8 +87,10 @@ We derive a vector attaining this value and bound its remainder between
 consecutive integers. The classification itself does not assume that
 $S$ is rational. An irrationality proof would require, for each $q>0$,
 a nonintegral form whose coefficient $M$ is divisible by $q$.
-The companion constructs primitive vectors with this divisibility
-property; nonintegrality of their remainders remains unproved.
+The companion's
+\href{erdos68-factorial-reasoning-surface.pdf\#r5-progression}{progression construction}
+gives primitive vectors with this divisibility property;
+nonintegrality of their remainders remains unproved.
 
 Han\v{c}l and Tijdeman's tail-integrality lemma treats factorial series
 with integer coefficients \cite[Lemma~2.1 and the following remark,
@@ -261,19 +264,8 @@ Uniqueness of the coordinates now gives the complete solution
  \label{eq:low-channel-classification}
 \end{equation}
 with $t\in\mathbb Z$ and finitely many nonzero integers $z_n$.
-The lower coordinates are fixed by $t$; all higher coordinates remain
-free. These free coordinates help impose the support restriction, but
-they change the remainder only by an integer. Indeed,
-$\mathcal R(e_1)=S$ and $\mathcal R(U_n)=1$ give
-\begin{equation}
- \mathcal R\left(tK_D+\sum_{n>D}z_nU_n\right)
- =tL_D(S-H_D)+\sum_{n>D}z_n,
- \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
- \label{eq:residual-transparency}
-\end{equation}
-Since $M=tL_D$ clears the denominators of $H_D$, the integer in
-$\mathcal R=MS+k$ is $k=-MH_D+\sum_{n>D}z_n$. Thus the sum of the
-free coordinates is the offset from $M(S-H_D)$, not from $MS$.
+The parameter $t$ fixes the lower coordinates; the higher $z_n$ remain
+arbitrary until we impose $\lambda_1=0$.
 
 It remains to remove index one. Write $a_D$ for its coefficient in
 $K_D$, and $u_n$ for its coefficient in $U_n$. All other coordinates
@@ -374,6 +366,22 @@ makes $ta_D+\sum z_nu_n=0$. Substitution in
 \eqref{eq:low-channel-classification} therefore produces a vector with
 $M=\mu_D$. This gives an attaining vector as well as the minimum.
 Minimising its support or its coefficient norm is a separate problem.
+
+\subsection{The associated remainder}\label{sec:coordinate-remainder}
+
+For a fixed admissible value $M=tL_D$, the higher coordinates must
+still satisfy \eqref{eq:support-equation}. Among those choices, the
+remainder changes only by an integer: $\mathcal R(e_1)=S$ and
+$\mathcal R(U_n)=1$ give
+\begin{equation}
+ \mathcal R\left(tK_D+\sum_{n>D}z_nU_n\right)
+ =tL_D(S-H_D)+\sum_{n>D}z_n,
+ \qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
+ \label{eq:residual-transparency}
+\end{equation}
+Since $M=tL_D$ clears the denominators of $H_D$, the integer in
+$\mathcal R=MS+k$ is $k=-MH_D+\sum_{n>D}z_n$. Thus the sum of the
+higher coordinates is the offset from $M(S-H_D)$, not from $MS$.
 
 \section{An example attaining the minimum}\label{sec:depth-four}
 

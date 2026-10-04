@@ -2700,12 +2700,11 @@ E(w)^3\sum_{j\ge0}\frac{w^j}{(q;q)_j}
 <p>Every step holds coefficientwise, and absolutely for
 <span class="math inline" data-term-auto="off">\(|w|\)</span> small.</p>
 <p>A <span class="math inline" data-term-auto="off">\(q\)</span>-multinomial coefficient has
-nonnegative integral coefficients, degree <span
-class="math inline" data-term-auto="off">\(\sum_{i&lt;j}n_in_j\)</span>, and value <span
-class="math inline" data-term-auto="off">\(1\)</span> at <span
-class="math inline" data-term-auto="off">\(q=1\)</span> after division by the corresponding
-multinomial. Summing over compositions gives coefficient sum <span
-class="math inline" data-term-auto="off">\(r^k\)</span> for <span
+nonnegative integral coefficients and degree <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;j}n_in_j\)</span>. At <span
+class="math inline" data-term-auto="off">\(q=1\)</span> it equals the corresponding ordinary
+multinomial coefficient. Summing over compositions gives coefficient sum
+<span class="math inline" data-term-auto="off">\(r^k\)</span> for <span
 class="math inline" data-term-auto="off">\(R_k^{(r)}\)</span> and hence <span
 class="math inline" data-term-auto="off">\(6^k\)</span> for the product. The degree is
 maximised by balanced parts, which gives <span
@@ -2868,9 +2867,12 @@ the leading term <span class="math inline" data-term-auto="off">\(\binom{k+2}{2}
 gives the relative correction <span
 class="math inline" data-term-auto="off">\(-6L/(k+2)\)</span>. The two-fold convolution
 contributes <span class="math inline" data-term-auto="off">\(-2L/(k+1)\)</span> in the same
-way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>
-and <span class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>,
-multiplication yields</p>
+way. Since <span class="math inline" data-term-auto="off">\((q;q)_k=P(1+O_q(q^k))\)</span>,
+the leading constants in <span class="math inline" data-term-auto="off">\(a_k=P^4(q;q)_k
+b_k^{(2)}b_k^{(3)}\)</span> multiply to <span
+class="math inline" data-term-auto="off">\(P^5E^5=1\)</span>. With <span
+class="math inline" data-term-auto="off">\(c_k=(k+1)^2(k+2)/2\)</span>, the two relative
+corrections therefore give</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{align*}
 \frac{a_k}{c_k}
 &amp;=\left(1-\frac{2L}{k+1}+O_q(q^k)\right)
@@ -2890,16 +2892,19 @@ applies.</p>
 summability of <span
 class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>
 show that <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> converges
-to a positive number. In the logarithm of the product, the first-order
-term contributes <span
-class="math inline" data-term-auto="off">\(-8L\sum_{k&lt;N}(k+1)^{-1}\)</span>, while the
-summable remainder contributes a finite constant. Using <span
-class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
-N+\gamma_{\!E}+o(1)\)</span>, we obtain</p>
+to a positive number. Since <span
+class="math inline" data-term-auto="off">\(\prod_{k&lt;N}c_k=C_N\)</span>, we can separate
+these contributions exactly:</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\prod_{k&lt;N}a_k\sim\mathcal
-A(q)C_NN^{-8L}.\]</span></div>
-<p>Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
+class="math display" data-term-auto="off">\[\log\frac{\prod_{k&lt;N}a_k}{C_N}
+=-8L\sum_{k&lt;N}\frac1{k+1}
+  +\sum_{k&lt;N}\left(\log\frac{a_k}{c_k}+\frac{8L}{k+1}\right).\]</span></div>
+<p>The second sum tends to <span class="math inline" data-term-auto="off">\(\log\mathcal
+A(q)+8\gamma_{\!E}L\)</span>. Using <span
+class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
+N+\gamma_{\!E}+o(1)\)</span>, the Euler-constant terms cancel, giving
+<span class="math inline" data-term-auto="off">\(\prod_{k&lt;N}a_k\sim\mathcal
+A(q)C_NN^{-8L}\)</span>. Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
 now gives the stated determinant asymptotic. Taking logarithms yields</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log V_N^*=B_N\log q+\log C_N+2N\log P
              -8L\log N+\log K(q)+o(1).\]</span></div>
@@ -4644,10 +4649,13 @@ class="math inline" data-term-auto="off">\(|B||J|\)</span> fibres gives <span
 class="math inline" data-term-auto="off">\(|A|\le |B||J|k\)</span>, a contradiction. ◻</p>
 </div>
 <p>For an application, let <span class="math inline" data-term-auto="off">\(M\)</span>
-integral rows have real remainders <span
-class="math inline" data-term-auto="off">\(e_j\)</span>, and suppose their subset sums have
-<span class="math inline" data-term-auto="off">\(Q\)</span> possible residues modulo a
-positive integer <span class="math inline" data-term-auto="off">\(D\)</span>. Put <span
+integral coefficient rows <span class="math inline" data-term-auto="off">\((A_j,B_j)\)</span>
+have real remainders <span class="math inline" data-term-auto="off">\(e_j\)</span> at the
+same target. Let <span class="math inline" data-term-auto="off">\(D\)</span> be a positive
+integer, and suppose that the coefficient-pair subset sums <span
+class="math inline" data-term-auto="off">\(\sum_{j\in I}(A_j,B_j)\)</span> take <span
+class="math inline" data-term-auto="off">\(Q\)</span> values in <span
+class="math inline" data-term-auto="off">\((\mathbb Z/D\mathbb Z)^2\)</span>. Put <span
 class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. The least and greatest
 subset remainders are respectively</p>
 <div class="math-display" data-term-auto="off"><span

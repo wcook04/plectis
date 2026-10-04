@@ -391,12 +391,11 @@ power of <span class="math inline" data-term-auto="off">\(5\)</span>. Along with
 factor <span class="math inline" data-term-auto="off">\(2\)</span>, these give <span
 class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>. ◻</p>
 </div>
-<p>Although <span class="math inline" data-term-auto="off">\(b_a\)</span> has only four
-possible values, the recurrence also depends on <span
-class="math inline" data-term-auto="off">\(m_a\)</span>, which counts contributions from
-every smooth integer in the block. Thus the finite set of bases does not
-give a finite family of affine maps for <span
-class="math inline" data-term-auto="off">\(X_a\)</span>.</p>
+<p>In the distinct-value proof, the ordered jumps in a block determine
+its numerator <span class="math inline" data-term-auto="off">\(\mu_\tau\)</span>. For the
+repeated sum, that word does not record how many smooth integers share
+each running LCM. We therefore retain the full block contribution <span
+class="math inline" data-term-auto="off">\(m_a\)</span>, not just the jumps.</p>
 <div class="proposition" id="res:actual-orbit">
 <p><strong>Proposition 3.2</strong> (the tail recurrence and a quadratic
 bound). <em> The series defining <span
@@ -453,10 +452,11 @@ class="math inline" data-term-auto="off">\(b_a\)</span> are bounded and <span
 class="math inline" data-term-auto="off">\(m_a\)</span> grows quadratically. The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-repeated-bounds">companion’s
 tail estimates</a> prove this lower bound as well as sharper upper
-bounds. In particular, <span
-class="math inline" data-term-auto="off">\(X_a&gt;m_a/30\)</span> is unbounded, so the
-finite-value argument in Section <a class="math-ref" href="#sec:distinct">2</a> no longer applies
-to these normalised tails.</p>
+bounds. Thus these criteria do not apply, and <span
+class="math inline" data-term-auto="off">\(X_a&gt;m_a/30\)</span> is unbounded. Rationality
+still places the tails in a fixed lattice, but no longer in a finite set
+as in Section <a class="math-ref" href="#sec:distinct">2</a>. We shall use
+their quadratic bound to exclude possible integer tails instead.</p>
 <div class="theorem" id="res:denominator-reduction">
 <p><strong>Theorem 3.3</strong> (rationality gives positive integer
 tails). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
@@ -546,9 +546,18 @@ F_{\ell,h+1}=b_{\ell+h}F_{\ell,h}+m_{\ell+h}.\]</span></div>
 \label{eq:actual-tail}
 X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}\]</span></div>
-<p>Throughout this section let</p>
-<div class="math-display" id="eq:actual-bound" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+<p>The quotient <span
+class="math inline" data-term-auto="off">\(F_{\ell,h}/W_{\ell,h}\)</span> is the contribution
+of these <span class="math inline" data-term-auto="off">\(h\)</span> blocks to the starting
+tail:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{F_{\ell,h}}{W_{\ell,h}}
+=h_\ell\sum_{a=\ell}^{\ell+h-1}s_a.\]</span></div>
+<p>The remainder is <span
+class="math inline" data-term-auto="off">\(X_{\ell+h}/W_{\ell,h}\)</span>. Thus <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a> splits <span
+class="math inline" data-term-auto="off">\(X_\ell\)</span> into a finite sum and its tail,
+with both measured in the starting normalisation. Throughout this
+section let</p>
+<div class="math-display" id="eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:actual-bound}
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
@@ -558,13 +567,15 @@ starting tail in the interval</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{BF_{\ell,h}}{W_{\ell,h}}&lt;BX_\ell
 \le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.\]</span></div>
-<p>If this interval
-contains no integer, then <span class="math inline" data-term-auto="off">\(BX_\ell\)</span>
-cannot be integral. The residue test expresses the same exclusion at the
-other end of the segment: an integral starting tail would make <span
-class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> a positive integer congruent
-to <span class="math inline" data-term-auto="off">\(-BF_{\ell,h}\)</span> modulo <span
-class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>.</p>
+<p>Its width is
+<span class="math inline" data-term-auto="off">\(K(B,\ell+h)/W_{\ell,h}\)</span>, but a width
+below <span class="math inline" data-term-auto="off">\(1\)</span> does not by itself exclude
+an integer. We must compare its right endpoint with the first integer
+strictly above its left endpoint. The residue test makes this comparison
+at the other end of the segment: an integral starting tail would make
+<span class="math inline" data-term-auto="off">\(BX_{\ell+h}\)</span> a positive integer
+congruent to <span class="math inline" data-term-auto="off">\(-BF_{\ell,h}\)</span> modulo
+<span class="math inline" data-term-auto="off">\(W_{\ell,h}\)</span>.</p>
 <p>For integers <span class="math inline" data-term-auto="off">\(W\ge1,t\)</span>, define
 <span class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(t)=1+((t-1)\bmod
 W)\)</span>, with the remainder in <span
@@ -596,9 +607,10 @@ class="math display" data-term-auto="off">\[\frac{524431}{648000}&lt;X_1\le\frac
 <p>It contains no integer. Equivalently, <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;5760\)</span>
 excludes an integral <span class="math inline" data-term-auto="off">\(X_1\)</span>. A
-rational denominator might clear only later, so a criterion for
-irrationality must allow every late start and every denominator part
-coprime to <span class="math inline" data-term-auto="off">\(30\)</span>.</p>
+rational denominator might clear only later. The criterion must
+therefore test every denominator part coprime to <span
+class="math inline" data-term-auto="off">\(30\)</span> beyond any prescribed clearing index,
+rather than just at one early start.</p>
 <div class="theorem" id="res:windowconsumer">
 <p><strong>Theorem 4.2</strong> (a residue criterion for irrationality).
 <em> The number <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if
@@ -655,9 +667,10 @@ class="math inline" data-term-auto="off">\(\ell\)</span> is needed for this dire
 <p>As <span class="math inline" data-term-auto="off">\(h\)</span> grows, the interval above
 narrows towards the fixed value <span
 class="math inline" data-term-auto="off">\(BX_\ell\)</span>. If that value is nonintegral, a
-sufficiently narrow interval contains no integer. The converse
-formalises this observation, but gives no estimate for the gap <span
-class="math inline" data-term-auto="off">\(\delta\)</span>. To use the forward implication,
+sufficiently narrow interval contains no integer. Failure to exclude an
+integer at a finite length proves neither integrality nor failure at
+every longer length. The converse gives no estimate for the gap <span
+class="math inline" data-term-auto="off">\(\delta\)</span>; to use the forward implication,
 we must prove <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> for
 the actual coefficients without assuming that nonintegrality.</p>
 <p>The upper-bound property of <span class="math inline" data-term-auto="off">\(K\)</span> is

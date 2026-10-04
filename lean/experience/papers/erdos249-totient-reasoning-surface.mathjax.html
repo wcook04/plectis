@@ -405,8 +405,9 @@ neighbour <span class="math inline" data-term-auto="off">\(p+j\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;|j|\le L\)</span>, divisible by its own prime
 congruent to <span class="math inline" data-term-auto="off">\(1\pmod m\)</span>, so all
 neighbouring residues vanish. A bound on the remaining tail then proves
-irrationality. The same argument works in any integer base and yields
-the dilation statements below.</p>
+irrationality. The same tail estimate works in any integer base. For
+several dilations, the extra step is to prevent cancellation at the
+isolated coefficient.</p>
 <div class="prop" id="prop:radixresidue">
 <p><strong>Proposition 1.10</strong> (Residue series in every integer
 base). <em> Let <span class="math inline" data-term-auto="off">\(t\ge2\)</span> be an
@@ -1152,11 +1153,11 @@ approaches considered here.</p>
 </section>
 <section id="sec:survivors" class="level2">
 <h2>Conditions that would imply irrationality</h2>
-<p>Below are three quantitative sufficient conditions, an equivalent
-residue formulation, and a proposed generic rank bound. The rank bound
-is false, as its rational counterexample shows. The other arithmetic
-conditions remain open for the totient; the proofs establish their
-stated implications. They are examples of possible approaches, not an
+<p>Below are quantitative sufficient conditions, an equivalent residue
+formulation, and a proposed generic rank bound. The rank bound is false,
+as its rational counterexample shows. The other arithmetic conditions
+remain open for the totient; the proofs establish their stated
+implications. They are examples of possible approaches, not an
 exhaustive list.</p>
 <section id="cancellation-on-a-full-block" class="level3">
 <h3>Cancellation on a full block</h3>
@@ -1586,9 +1587,11 @@ here. Certificate completeness alone does not supply it.</p>
 </section>
 <section id="certificates-with-depth-equal-to-the-shift" class="level3">
 <h3>Certificates with depth equal to the shift</h3>
-<p>The unrestricted depth can be replaced by a multiple of the shift.
-The propagation argument in Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a> explains why doing
-so preserves the equivalence below.</p>
+<p>The shift and truncation depth can be required to agree, provided the
+shift is allowed to run through positive multiples of a fixed <span
+class="math inline" data-term-auto="off">\(d\)</span>. The propagation argument in
+Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a>
+explains why this restriction preserves the equivalence below.</p>
 <div class="defn" id="defn:apfde">
 <p><strong>Definition 3.7</strong> (Depth equal to a shift multiple). For
 every <span class="math inline" data-term-auto="off">\(d \ge 1\)</span> and every <span
@@ -1604,20 +1607,17 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a></p>
 </div>
-<p>For the actual totient series, the condition in Definition <a class="math-ref" href="#defn:apfde">3.7</a> is equivalent to
-irrationality, by the full-depth amplification argument of the short
-paper (the propagation theorem in Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
-For a fixed pair <span class="math inline" data-term-auto="off">\((d,N)\)</span>, a
+<p>For a fixed pair <span class="math inline" data-term-auto="off">\((d,N)\)</span>, a
 nonintegral tail difference supplies a certificate in every sufficiently
-late adjacent pair of multipliers. The missing arithmetic input is a
-nonintegral tail difference for every relevant pair, not a converse
-implication for the condition with depth equal to the shift. This is an
-exact reformulation of the open problem, which remains unproved.</p>
-<p>The finite examples establish the hypothesis for individual pairs
-<span class="math inline" data-term-auto="off">\((d,N)\)</span>, not for all pairs. Thus the
-universally quantified condition is not a mild regularity assumption: it
-has the full strength of the irrationality question.</p>
+late adjacent pair of multipliers. Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a> proves this
+propagation and hence the equivalence in Definition <a class="math-ref" href="#defn:apfde">3.7</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
+The finite examples verify the starting hypothesis for individual pairs,
+not for every <span class="math inline" data-term-auto="off">\(d,N\)</span>. That universal
+supply of nonintegral differences is the missing arithmetic input. With
+these quantifiers, the condition has the full strength of the
+irrationality question; it is not a mild regularity assumption. The open
+problem remains unproved.</p>
 <p>Formal sources: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L67"><code>windowDiscrepancy_self_eq_totientBlock_sub</code></a></p>
 </section>
@@ -13288,13 +13288,15 @@ stays away from both endpoints of <span
 class="math inline" data-term-auto="off">\([0,1]\)</span>, which gives <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">eq:canonical-gap</a> for all
 sufficiently large such <span class="math inline" data-term-auto="off">\(H\)</span>. ◻</p>
 </div>
-<p>With its universal quantifiers, this condition is equivalent to the
-unresolved irrationality assertion. A rational value <span
-class="math inline" data-term-auto="off">\(a/(2^cv)\)</span> fails the test for that same
-<span class="math inline" data-term-auto="off">\(c,v\)</span>, whereas irrationality gives it
-for every sufficiently large allowed <span
-class="math inline" data-term-auto="off">\(H\)</span>. The proof does not find such an <span
-class="math inline" data-term-auto="off">\(H\)</span> without assuming irrationality.</p>
+<p>For fixed <span class="math inline" data-term-auto="off">\(c,v\)</span>, one successful
+test excludes every value <span
+class="math inline" data-term-auto="off">\(S=a/(2^cv)\)</span>, regardless of the numerator
+<span class="math inline" data-term-auto="off">\(a\)</span>. Conversely, irrationality gives
+success for every sufficiently large allowed <span
+class="math inline" data-term-auto="off">\(H\)</span> for each fixed <span
+class="math inline" data-term-auto="off">\(c,v\)</span>. This converse does not supply
+successful tests for every <span class="math inline" data-term-auto="off">\(c,v\)</span>
+without the irrationality assumption.</p>
 <p>A formal declaration for the equivalence is <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">available
 here</a>, with the modulus written as <span

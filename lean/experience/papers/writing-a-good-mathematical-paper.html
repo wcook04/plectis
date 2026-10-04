@@ -6,9 +6,9 @@
     <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="writing-a-good-mathematical-paper.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/exposition/writing-a-good-mathematical-paper.tex">
-<p>Enable a reader who knows the field to state the result, explain why
-the proof works and use it correctly. Spend words where they remove a
-specific difficulty.</p>
+<p>Help a reader who knows the field state the result, explain why the
+proof works and use it correctly. Use these instructions to resolve a
+difficulty, not to add a sentence about every item.</p>
 <p><strong>1. Decide what the paper contributes.</strong> Choose a
 coherent principal result and an intended reader. Say what becomes
 possible or understood because of the result, how it differs from the
@@ -48,8 +48,8 @@ which constraint selects a parameter or change of variables. For an
 interval certificate, compare the error with both endpoint gaps. For a
 small-integer contradiction, justify integrality, nonvanishing and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>N</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|N|&lt;1</annotation></semantics></math>
-separately. Spend detail on the decisive inference. A proof paragraph
-should make clear what the operation establishes and what remains to
+separately. When a technique recurs for a new task, name that task.
+Spend detail on the decisive inference and make clear what remains to
 prove.</p>
 <p><strong>6. Separate construction from completion.</strong> Account
 for each choice and preserved condition. A classification needs both
@@ -86,37 +86,34 @@ it.</p>
 proceed with the estimate” by a reason: “Orthogonality makes the first
 sum zero; it remains to bound the second.” Make connectives and
 referents unambiguous. After “similarly”, check that the same hypotheses
-apply. Punctuate displayed equations as parts of sentences. Use parallel
-syntax for parallel claims and keep conditions attached to their
-consequences. Remove throat-clearing and inflated significance; retain
-precise terms without manufacturing variety.</p>
+apply. Punctuate displayed equations as sentences. Keep parallel claims
+parallel and conditions beside their consequences. Remove filler; retain
+precise terms.</p>
 <p><strong>10. Credit the exact input at its use.</strong> Distinguish
 applied theorems, adapted constructions, historical attribution,
 terminology and expository models. Check the original’s hypotheses,
-version and passage. State what changes when an argument is adapted.
-Credit supplied ideas and corrections locally. A writing analogy
-supplies no proof. Report only reading and checks actually
-performed.</p>
+version and passage. Say what an adaptation retains and changes. Credit
+supplied ideas and corrections locally. A writing analogy supplies no
+proof. Report only reading and checks actually performed.</p>
 <p><strong>11. State what has actually been established.</strong>
-Separate logical scope from evidence. A conditional implication may have
-an ordinary or formal proof; a computation or conjecture needs its own
-label. Keep unproved mathematical inputs beside the dependent result. A
-checked nearby lemma does not formalise the whole proof; missing
-formalisation does not invalidate an ordinary proof. Give finite
-computations their scope and reproduction details in a compact
-verification section. A test can eventually detect every nonintegral
-fixed value without certifying integrality when it fails. It still does
-not produce the witnesses required by a quantified theorem.</p>
+Separate logical scope from evidence. A conditional implication can have
+an ordinary or formal proof; label computations and conjectures
+separately. Keep unproved inputs beside the dependent result. A checked
+nearby lemma does not formalise the whole proof; missing formalisation
+does not invalidate an ordinary proof. Give computations their finite
+scope and reproduction details in one verification section. For a
+one-sided test, distinguish what passing proves from what failure leaves
+undecided. Pointwise eventual detection need not supply a uniform
+stopping bound or the witnesses a quantified theorem requires.</p>
 <p><strong>12. Preserve useful detail and informative failures.</strong>
-Let the short paper sustain its principal argument and the longer record
-make the rest recoverable. Move detail only after checking its
-destination; reconcile statements, assumptions and evidence in both
-directions. Preserve the attempted implication, assumptions, witness and
-missing ingredient of a useful failed route. Distinguish a flawed step,
-a failed method and a counterexample to a theorem. Motivate the finished
-proof without inventing its discovery history. Cite a specific section
-or theorem for omitted arguments; keep build commands and source
-identifiers with the verification record.</p>
+When there is a longer companion, keep the short argument readable and
+omitted detail recoverable. Verify passage destinations and reconcile
+statements, assumptions and evidence in both directions. Preserve a
+useful failed route’s attempted implication, assumptions, witness and
+missing ingredient. Distinguish flawed steps, failed methods and
+counterexamples. Explain the proof without inventing its discovery
+history. Cite omitted arguments by section or theorem; keep build
+commands and source identifiers in the verification record.</p>
 <p><strong>13. Review changes as claims, then as prose.</strong> Compare
 old and new meanings, including explanatory words beside unchanged
 formulas. Correct overclaims and stale underclaims. Removing shorthand
@@ -130,8 +127,8 @@ bibliography and cross-reference destinations. Read without supplying
 steps from memory: can the intended reader reconstruct the hard
 inference, apply the result in an example and identify an excluded case?
 Record actual difficulties. A successful build is not a comprehension
-test. Stop adding prose when it removes no identifiable difficulty and
-improves neither accuracy nor recovery of the argument.</p>
+test. Add prose only to resolve a difficulty, improve accuracy or
+recover an argument.</p>
 <p> <em>Further reading.</em> Halmos, <a
 href="https://doi.org/10.5169/seals-43857"><em>How to write
 mathematics</em></a>, §§3–5 (1970); Knuth et al., <a

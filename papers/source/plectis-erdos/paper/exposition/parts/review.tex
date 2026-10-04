@@ -1,23 +1,18 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
-\section{What the integrating reviewer must decide}\label{sec:review}
+\section{Review changes without changing their meaning}\label{sec:review}
 \papersectiontarget{exposition-review}
 
-A proposed revision has several possible fates. It can be accepted verbatim,
-accepted after a mathematical or expository repair, rejected, or left pending
-a named check. Its lesson may already be expressed in the writing guidance.
-These decisions should not be collapsed into a single ``accepted'' label.
-The revision of a paragraph and the adoption of a general rule are different
-acts, as are admission of a returned archive and acceptance of the mathematics
-inside it.
+Begin with the current statement and proof. Compare the old passage with the
+proposal, then record whether it was accepted as written, revised, rejected or
+left pending a named check. A proposal requiring mathematical repair belongs
+in a separate mathematical review. Retain the exact passages and the decision's
+source; a text match helps locate an accepted edit but does not prove that two
+statements are equivalent.
 
-The reviewer begins with the current statement and proof. For a substantive
-change, the record retains the old passage, the proposed passage, the source
-of the proposal and the decision actually made in the canonical manuscript.
-A digest identifies the source bytes; a commit, path and label identify the
-accepted passage. An exact text match, after whitespace normalization, can
-help locate it. Such a match does not establish equivalence of two theorem
-statements or prove that a general recommendation is sound.
+Acceptance of a paragraph does not adopt a general writing rule. Nor does an
+intact returned archive establish the mathematics inside it. The cases below
+show why these decisions must remain separate.
 
 \subsection{Replace a local term without losing its definition}
 
@@ -50,6 +45,25 @@ proposal and from later rendering or formal correspondence checks. These
 cases show why terminology, grammar and quantification belong in the same
 review. A plainer noun is useful only if the sentence still makes the same
 claim.
+
+\subsection{Check the ordinary words that carry scope}
+
+An unchanged formula can acquire a stronger claim from its surrounding prose.
+The R11 \#251 revision replaces ``uses all late indices'' by
+``permits changes at every index after the prefix'' in a comparison
+construction~\cite[comparison construction]{paper251long}. The second describes allowed positions, not a promise that
+every one is changed. In the sparse construction, the containing set $S$ and
+target interval are fixed before the target is chosen; the correction depends
+on that target, and its support may occupy only part of $S$
+\cite[sparse-perturbation proposition]{paper251}.
+
+The same revision replaces the claim that corrections can ``grow arbitrarily
+slowly'' by an eventual upper bound chosen in advance. Given any prescribed
+function tending to infinity, the corrections can eventually be bounded by
+it. This does not say that the corrections themselves tend to infinity.
+These repairs spell out the dependency that the short phrases obscured.
+They do not call for expanding every familiar expression: expand the one
+whose ordinary reading changes the theorem's scope.
 
 \subsection{Rejecting an attractive universal rule}
 

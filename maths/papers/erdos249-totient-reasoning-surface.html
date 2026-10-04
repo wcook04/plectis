@@ -28,7 +28,7 @@
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/style.css?v=6d6258a510ba">
-  <link rel="stylesheet" href="../assets/maths.css?v=523772f0a53a">
+  <link rel="stylesheet" href="../assets/maths.css?v=8957b2c048d1">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=0c60f2d88c51"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=bc60ddaae0e5"></script>
@@ -525,8 +525,9 @@ neighbour <span class="math inline" data-term-auto="off" data-tex="\(p+j\)" data
 class="math inline" data-term-auto="off" data-tex="\(0&lt;|j|\le L\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mo space="4"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D457">𝑗</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D43F">𝐿</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn><mo>&lt;</mo><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>j</mi><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>≤</mo><mi>L</mi></math></mjx-assistive-mml></mjx-container></span>, divisible by its own prime
 congruent to <span class="math inline" data-term-auto="off" data-tex="\(1\pmod m\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mspace class="mjx-s-0df9cf6740c68079"></mjx-mspace><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6D" noic="true">m</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c6F" noic="true">o</mjx-c><mjx-c class="mjx-s-552b21227d21ccd8 mjx-c64">d</mjx-c></mjx-mi><mjx-mspace class="mjx-s-d60f43109120f36e"></mjx-mspace><mjx-mi space="2"><mjx-c class="mjx-c1D45A">𝑚</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mspace width="0.444em" linebreak="nobreak"></mspace><mo stretchy="false">(</mo><mi>mod</mi><mspace width="0.333em" linebreak="nobreak"></mspace><mi>m</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, so all
 neighbouring residues vanish. A bound on the remaining tail then proves
-irrationality. The same argument works in any integer base and yields
-the dilation statements below.</p>
+irrationality. The same tail estimate works in any integer base. For
+several dilations, the extra step is to prevent cancellation at the
+isolated coefficient.</p>
 <div class="prop" id="prop:radixresidue">
 <p><strong>Proposition 1.10</strong> (Residue series in every integer
 base). <em> Let <span class="math inline" data-term-auto="off" data-tex="\(t\ge2\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D461">𝑡</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>≥</mo><mn>2</mn></math></mjx-assistive-mml></mjx-container></span> be an
@@ -1272,11 +1273,11 @@ approaches considered here.</p>
 </section>
 <section id="sec:survivors" class="level2">
 <h2>Conditions that would imply irrationality</h2>
-<p>Below are three quantitative sufficient conditions, an equivalent
-residue formulation, and a proposed generic rank bound. The rank bound
-is false, as its rational counterexample shows. The other arithmetic
-conditions remain open for the totient; the proofs establish their
-stated implications. They are examples of possible approaches, not an
+<p>Below are quantitative sufficient conditions, an equivalent residue
+formulation, and a proposed generic rank bound. The rank bound is false,
+as its rational counterexample shows. The other arithmetic conditions
+remain open for the totient; the proofs establish their stated
+implications. They are examples of possible approaches, not an
 exhaustive list.</p>
 <section id="cancellation-on-a-full-block" class="level3">
 <h3>Cancellation on a full block</h3>
@@ -1736,9 +1737,11 @@ here. Certificate completeness alone does not supply it.</p>
 </section>
 <section id="certificates-with-depth-equal-to-the-shift" class="level3">
 <h3>Certificates with depth equal to the shift</h3>
-<p>The unrestricted depth can be replaced by a multiple of the shift.
-The propagation argument in Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a> explains why doing
-so preserves the equivalence below.</p>
+<p>The shift and truncation depth can be required to agree, provided the
+shift is allowed to run through positive multiples of a fixed <span
+class="math inline" data-term-auto="off" data-tex="\(d\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi></math></mjx-assistive-mml></mjx-container></span>. The propagation argument in
+Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a>
+explains why this restriction preserves the equivalence below.</p>
 <div class="defn" id="defn:apfde">
 <p><strong>Definition 3.7</strong> (Depth equal to a shift multiple). For
 every <span class="math inline" data-term-auto="off" data-tex="\(d \ge 1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>≥</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> and every <span
@@ -1754,20 +1757,17 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a></p>
 </div>
-<p>For the actual totient series, the condition in Definition <a class="math-ref" href="#defn:apfde">3.7</a> is equivalent to
-irrationality, by the full-depth amplification argument of the short
-paper (the propagation theorem in Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
-For a fixed pair <span class="math inline" data-term-auto="off" data-tex="\((d,N)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mi>d</mi><mo>,</mo><mi>N</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, a
+<p>For a fixed pair <span class="math inline" data-term-auto="off" data-tex="\((d,N)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mi>d</mi><mo>,</mo><mi>N</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, a
 nonintegral tail difference supplies a certificate in every sufficiently
-late adjacent pair of multipliers. The missing arithmetic input is a
-nonintegral tail difference for every relevant pair, not a converse
-implication for the condition with depth equal to the shift. This is an
-exact reformulation of the open problem, which remains unproved.</p>
-<p>The finite examples establish the hypothesis for individual pairs
-<span class="math inline" data-term-auto="off" data-tex="\((d,N)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mi>d</mi><mo>,</mo><mi>N</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, not for all pairs. Thus the
-universally quantified condition is not a mild regularity assumption: it
-has the full strength of the irrationality question.</p>
+late adjacent pair of multipliers. Appendix <a class="math-ref" href="#long249:r3-ray">A.1</a> proves this
+propagation and hence the equivalence in Definition <a class="math-ref" href="#defn:apfde">3.7</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/FullDepthRayAmplifier.lean#L406"><code>apFullDepthEscape_iff_irrational</code></a>).
+The finite examples verify the starting hypothesis for individual pairs,
+not for every <span class="math inline" data-term-auto="off" data-tex="\(d,N\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D451">𝑑</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>,</mo><mi>N</mi></math></mjx-assistive-mml></mjx-container></span>. That universal
+supply of nonintegral differences is the missing arithmetic input. With
+these quantifiers, the condition has the full strength of the
+irrationality question; it is not a mild regularity assumption. The open
+problem remains unproved.</p>
 <p>Formal sources: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L67"><code>windowDiscrepancy_self_eq_totientBlock_sub</code></a></p>
 </section>
@@ -13540,13 +13540,15 @@ stays away from both endpoints of <span
 class="math inline" data-term-auto="off" data-tex="\([0,1]\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c5B">[</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mn space="2"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c5D">]</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></math></mjx-assistive-mml></mjx-container></span>, which gives <a class="math-ref" data-equation-ref="true" href="#eq:canonical-gap">(8)</a> for all
 sufficiently large such <span class="math inline" data-term-auto="off" data-tex="\(H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>H</mi></math></mjx-assistive-mml></mjx-container></span>. ◻</p>
 </div>
-<p>With its universal quantifiers, this condition is equivalent to the
-unresolved irrationality assertion. A rational value <span
-class="math inline" data-term-auto="off" data-tex="\(a/(2^cv)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mi><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>c</mi></msup><mi>v</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> fails the test for that same
-<span class="math inline" data-term-auto="off" data-tex="\(c,v\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi><mo>,</mo><mi>v</mi></math></mjx-assistive-mml></mjx-container></span>, whereas irrationality gives it
-for every sufficiently large allowed <span
-class="math inline" data-term-auto="off" data-tex="\(H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>H</mi></math></mjx-assistive-mml></mjx-container></span>. The proof does not find such an <span
-class="math inline" data-term-auto="off" data-tex="\(H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>H</mi></math></mjx-assistive-mml></mjx-container></span> without assuming irrationality.</p>
+<p>For fixed <span class="math inline" data-term-auto="off" data-tex="\(c,v\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi><mo>,</mo><mi>v</mi></math></mjx-assistive-mml></mjx-container></span>, one successful
+test excludes every value <span
+class="math inline" data-term-auto="off" data-tex="\(S=a/(2^cv)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mi><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi><mo>=</mo><mi>a</mi><mo>/</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>c</mi></msup><mi>v</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>, regardless of the numerator
+<span class="math inline" data-term-auto="off" data-tex="\(a\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D44E">𝑎</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi></math></mjx-assistive-mml></mjx-container></span>. Conversely, irrationality gives
+success for every sufficiently large allowed <span
+class="math inline" data-term-auto="off" data-tex="\(H\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D43B">𝐻</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>H</mi></math></mjx-assistive-mml></mjx-container></span> for each fixed <span
+class="math inline" data-term-auto="off" data-tex="\(c,v\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi><mo>,</mo><mi>v</mi></math></mjx-assistive-mml></mjx-container></span>. This converse does not supply
+successful tests for every <span class="math inline" data-term-auto="off" data-tex="\(c,v\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D450">𝑐</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D463">𝑣</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi><mo>,</mo><mi>v</mi></math></mjx-assistive-mml></mjx-container></span>
+without the irrationality assumption.</p>
 <p>A formal declaration for the equivalence is <a
 href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">available
 here</a>, with the modulus written as <span
@@ -14497,7 +14499,7 @@ Theorem 5.2, p. 1138.</p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           <a class="btn btn--ghost" href="../problems/erdos_249.html">Problem dossier</a>
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:b34f469d721b83a3</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:f92a0159d48f2e24</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

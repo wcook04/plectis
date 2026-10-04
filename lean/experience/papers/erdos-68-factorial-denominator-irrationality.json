@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
     "renderer_fingerprint": "1d7bde0fc530e17f",
-    "source_sha256": "bca8f7ea251c1b615269db36255bc33fd1234342019becaa3913b8f61cd2136a",
+    "source_sha256": "4a9e5c6e60ab8c679dac1936dd5bd544d64e1665e4516bcec9523e69dbd00047",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 347,
+    "mathml_node_count": 350,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -47,8 +47,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "2dfe2966b1edeb4de0872997347e8f05357e6e2ec46fb29159ab376208ed6527",
-    "html_exact_tex_sha256": "38a25fda45e8f2382c8ce830bfc117ab19732f0ecce80f2b0f853612b3132d9d"
+    "html_mathml_sha256": "1de7622e2d752f82e466e9111d01b7a0cc2f6ad037e67c12665a47f499b621ba",
+    "html_exact_tex_sha256": "9d5235ce72e97667b36001cb5fcf2d6bd91ea86d184642e437035bb16b1ef713"
   },
   "sections": [
     {
@@ -70,6 +70,11 @@
       "level": 3,
       "anchor": "sec:finite-gcd",
       "label": "A finite gcd calculation"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:coordinate-remainder",
+      "label": "The associated remainder"
     },
     {
       "level": 2,

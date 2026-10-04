@@ -31,10 +31,10 @@
 \maketitle
 \noteprovenance
 \begin{abstract}
-We prove a hereditary irrationality criterion for Lambert subseries
-supported on a union $E\cup V$.  The set $E$ satisfies a finite-prime
-weighted summability condition, while $V$ admits a summable positive
-divisor cover.  The two support classes are incomparable, both extend
+We prove that $\sum_{a\in A}(b^a-1)^{-1}$ is irrational for every
+integer $b\ge2$ and every infinite $A\subseteq E\cup V$ under two
+hypotheses. The set $E$ satisfies a finite-prime weighted summability
+condition at base two, while $V$ admits a summable positive divisor cover.  The two support classes are incomparable, both extend
 beyond reciprocal-summable supports, and the union criterion reaches
 supports in neither class.  The proof turns on a second average over
 dyadic lengths: it restores the reciprocal factor lost by incomplete
@@ -304,10 +304,12 @@ in every layer has already excluded reciprocal summability.
 A related selection of a term from an average over an arithmetic
 progression occurs in
 Duverney--Tachiya~\cite[Section~2, (2.3)--(2.9)]{duverneytachiya}.
-The sparse-coefficient criteria of Kaneko--Suzuki--Tachiya
-\cite[Theorems~1 and~3]{kanekosuzukitachiya} do not apply directly to
-the divisor counts $c_A(n)=\#\{a\in A:a\mid n\}$: for nonempty $A$,
-these are positive on every multiple of $\min A$.
+In the criteria of Kaneko--Suzuki--Tachiya
+\cite[Theorems~1 and~3]{kanekosuzukitachiya}, sparsity concerns the
+positions of nonzero power-series coefficients, not the set of selected
+Lambert denominators. The divisor counts $c_A(n)=\#\{a\in A:a\mid n\}$
+are positive on every multiple of $\min A$ for nonempty $A$, so those
+criteria do not apply directly.
 The corresponding density calculation, and the distinction between
 their remote-tail average and our displacement, are given in
 \papersectionlink{erdos257-mersenne-reasoning-surface.pdf}{record257:weighted-proof}
@@ -403,9 +405,10 @@ $d-(N\bmod d),2d-(N\bmod d),\ldots$, so
 \]
 Raising a base-two tail to the power $\alpha$ replaces its geometric
 factor by $B=2^\alpha$. We therefore need to estimate this expression
-for $1<B\le2$, including $B$ close to $1$. The weighted proof has already
-chosen its modulus and dyadic lengths; to use the same observations,
-the estimate must keep both choices explicit.
+for $1<B\le2$, including $B$ close to $1$. In the mixed theorem, the
+weighted construction will choose the modulus and dyadic scales after
+the finite covering sets have been fixed. The estimate must therefore
+retain these parameters.
 
 For $1<B\le2$, positive integers $L,d,M$, and an integer $R\ge0$, put
 \[
@@ -539,12 +542,11 @@ optimisation over all covers, the inclusion of support classes is
 strict by a \href{https://github.com/wcook04/plectis-erdos/blob/3973d3b10bce72017b8f60093f0d6c3f4f592d80/lean/ErdosProblems/Erdos257/PaperCompleteR8/AnalyticIncomparability.lean\#L41}{corresponding source theorem}.
 
 \section{A common index for the two criteria}\label{sec:mixed}
-Irrationality of two summands alone does not imply irrationality of their
-sum, and separate sequences on which the two displacements are small would
-not suffice either. The preceding estimates provide the stronger input we
-need: after all finite divisibility requirements are absorbed into one
-modulus, both nonnegative errors can be averaged on the same finite
-distribution. Only then do we choose an index.
+The cover estimate retains its dependence on the modulus so that it can
+use the larger modulus chosen by the weighted construction. This lets us
+add the two nonnegative errors on one finite distribution and only then
+choose an index. We work at base two and obtain the all-base conclusion
+by the displacement comparison proved above.
 \begin{samepage}
 \begin{theorem}[mixed weighted and cover supports]\label{res:mixed-supports}
 Let $E,V\subseteq\Npos$.  Suppose $E$ satisfies
@@ -617,7 +619,7 @@ base. Equation~\eqref{eq:intro-displacement} rules out rationality.
 \section{Comparison of the support classes}\label{sec:comparison}
 Write $\mathcal W_b$ for supports satisfying the finite-prime weighted
 hypothesis at base $b$, and $\mathcal C$ for supports admitting a
-strengthened positive cover as in~\eqref{eq:strengthened-cover}.
+divisor cover satisfying~\eqref{eq:strengthened-cover}.
 Neither condition includes the other.
 
 \begin{proposition}[incomparable support criteria]
@@ -1531,10 +1533,12 @@ calculation.  This scalar identity does not supply a converse to the
 positive-cover criterion.
 
 \subsection*{The cost for a finite set of divisors}
-For the following finite divisor sets, the lower bound is asymptotically attained. For
-$F(q,P)=\{qd:d\mid\prod_{p\in P}p\}$, where $q\ge2$ and no $p\in P$
-divides $q$, put $S=\sum_{p\in P}1/p$.  If $S\ge1$, the infimum $K_*$
-over finite or countable covers satisfies
+For the following finite divisor sets, the lower bound is asymptotically
+attained. Here $K_*(F)$ is the infimum of the cover cost $K$ from
+Section~\ref{sec:comparison}, taken over finite or countable covers of $F$
+and all positive weights of total one.
+For $F(q,P)=\{qd:d\mid\prod_{p\in P}p\}$, where $q\ge2$ and no $p\in P$
+divides $q$, put $S=\sum_{p\in P}1/p$.  If $S\ge1$, then
 \begin{equation}
  \frac{e(S-1)}q\le K_*\bigl(F(q,P)\bigr)\le\frac{eS}q.
  \label{eq:optimal-cube-cost}
@@ -1548,8 +1552,8 @@ $\mathbb EZ=S$.  For $z\ge0$ and $v=\alpha\log2>0$,
 \]
 for $0\le z\le1$ the claimed lower bound is nonpositive.
 Thus $\Psi(2^z)\ge e(z-1)$.  For the upper bound, use the
-one-set cover with $z=1/S$ and $\alpha=\log_2(1+z)$; its exact
-positive expansion has cost
+one-set cover, whose weight is one, with $z=1/S$ and
+$\alpha=\log_2(1+z)$; its exact positive expansion has cost
 \[
  \frac1{qz}\prod_{p\in P}(1+z/p)\le\frac{eS}q.
 \]
@@ -1573,11 +1577,13 @@ file~\cite{formalconjectures257} is statement-level prior art, not a
 proof dependency.
 
 The evidence record identifies the exact statements, source revisions and
-recorded comparisons. The mixed implication has a formal proof; its
-construction of $V$ uses finite sets of squarefree divisors. The
-$A_\star$ calculation, fresh-prime construction, signed finite-denominator
-extension and Theorem~\ref{res:one-over-twenty-one-frontier} have ordinary
-arguments here, without independent human review. The companion paper locates
+recorded comparisons. The mixed implication has a formal proof. A separate
+formal construction of a separating support $V$ uses finite sets of
+squarefree divisors. The $A_\star$ calculation, printed fresh-prime
+construction, Corollary~\ref{res:strict-mixed-supports}, signed
+finite-denominator extension and Theorem~\ref{res:one-over-twenty-one-frontier}
+have ordinary arguments here, without independent human review. The
+strictness corollary has no formal binding in the record. The companion paper locates
 the separate comparisons for its three logarithmic-sampling results.
 No historical priority is asserted for the support comparison.
 

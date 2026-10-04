@@ -28,14 +28,14 @@
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/style.css?v=6d6258a510ba">
-  <link rel="stylesheet" href="../assets/maths.css?v=523772f0a53a">
+  <link rel="stylesheet" href="../assets/maths.css?v=8957b2c048d1">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=0c60f2d88c51"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=bc60ddaae0e5"></script>
   <meta name="author" content="Will Cook">
   <meta name="citation_title" content="Writing a Good Mathematical Paper">
   <meta name="citation_author" content="Will Cook">
-  <meta name="citation_date" content="2026/10/01">
+  <meta name="citation_date" content="2026/10/04">
   <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/writing-a-good-mathematical-paper.pdf">
   <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
@@ -97,7 +97,7 @@
         <div class="paper-head__meta">
           <span>Exposition method</span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
-          <span>1 October 2026</span>
+          <span>4 October 2026</span>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/writing-a-good-mathematical-paper.pdf"><span class="btn__format">PDF</span>Open the PDF, 2&nbsp;pages</a>
@@ -125,9 +125,9 @@
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="writing-a-good-mathematical-paper" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/exposition/writing-a-good-mathematical-paper.tex">
-<p>Enable a reader who knows the field to state the result, explain why
-the proof works and use it correctly. Spend words where they remove a
-specific difficulty.</p>
+<p>Help a reader who knows the field state the result, explain why the
+proof works and use it correctly. Use these instructions to resolve a
+difficulty, not to add a sentence about every item.</p>
 <p><strong>1. Decide what the paper contributes.</strong> Choose a
 coherent principal result and an intended reader. Say what becomes
 possible or understood because of the result, how it differs from the
@@ -165,9 +165,9 @@ control and the accuracy required before deriving an estimate. Explain
 which constraint selects a parameter or change of variables. For an
 interval certificate, compare the error with both endpoint gaps. For a
 small-integer contradiction, justify integrality, nonvanishing and <span
-class="math inline" data-term-auto="off" data-tex="\(|N|&lt;1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f0f31f51e9c5e561"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>N</mi><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>&lt;</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> separately. Spend detail on the
-decisive inference. A proof paragraph should make clear what the
-operation establishes and what remains to prove.</p>
+class="math inline" data-term-auto="off" data-tex="\(|N|&lt;1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f0f31f51e9c5e561"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>N</mi><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>&lt;</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> separately. When a technique
+recurs for a new task, name that task. Spend detail on the decisive
+inference and make clear what remains to prove.</p>
 <p><strong>6. Separate construction from completion.</strong> Account
 for each choice and preserved condition. A classification needs both
 construction and exhaustiveness. An enclosure alone does not show that
@@ -199,37 +199,34 @@ its remainders, and a value from the interval enclosing it.</p>
 proceed with the estimate” by a reason: “Orthogonality makes the first
 sum zero; it remains to bound the second.” Make connectives and
 referents unambiguous. After “similarly”, check that the same hypotheses
-apply. Punctuate displayed equations as parts of sentences. Use parallel
-syntax for parallel claims and keep conditions attached to their
-consequences. Remove throat-clearing and inflated significance; retain
-precise terms without manufacturing variety.</p>
+apply. Punctuate displayed equations as sentences. Keep parallel claims
+parallel and conditions beside their consequences. Remove filler; retain
+precise terms.</p>
 <p><strong>10. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">Credit</a> the exact input at its use.</strong> Distinguish
 applied theorems, adapted constructions, historical attribution,
 terminology and expository models. Check the original’s hypotheses,
-version and passage. State what changes when an argument is adapted.
-Credit supplied ideas and corrections locally. A writing analogy
-supplies no proof. Report only reading and checks actually
-performed.</p>
+version and passage. Say what an adaptation retains and changes. Credit
+supplied ideas and corrections locally. A writing analogy supplies no
+proof. Report only reading and checks actually performed.</p>
 <p><strong>11. State what has actually been established.</strong>
-Separate logical scope from evidence. A conditional implication may have
-an ordinary or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>; a computation or conjecture needs its own
-label. Keep unproved mathematical inputs beside the dependent result. A
-checked nearby lemma does not formalise the whole proof; missing
-formalisation does not invalidate an ordinary proof. Give finite
-computations their scope and reproduction details in a compact
-verification section. A test can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a> detect every nonintegral
-fixed value without certifying integrality when it fails. It still does
-not produce the witnesses required by a quantified theorem.</p>
+Separate logical scope from evidence. A conditional implication can have
+an ordinary or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>; label computations and conjectures
+separately. Keep unproved inputs beside the dependent result. A checked
+nearby lemma does not formalise the whole proof; missing formalisation
+does not invalidate an ordinary proof. Give computations their finite
+scope and reproduction details in one verification section. For a
+one-sided test, distinguish what passing proves from what failure leaves
+undecided. Pointwise eventual detection need not supply a uniform
+stopping bound or the witnesses a quantified theorem requires.</p>
 <p><strong>12. Preserve useful detail and informative failures.</strong>
-Let the short paper sustain its principal argument and the longer record
-make the rest recoverable. Move detail only after checking its
-destination; reconcile statements, assumptions and evidence in both
-directions. Preserve the attempted implication, assumptions, witness and
-missing ingredient of a useful failed route. Distinguish a flawed step,
-a failed method and a counterexample to a theorem. Motivate the finished
-proof without inventing its discovery history. Cite a specific section
-or theorem for omitted arguments; keep build commands and source
-identifiers with the verification record.</p>
+When there is a longer companion, keep the short argument readable and
+omitted detail recoverable. Verify passage destinations and reconcile
+statements, assumptions and evidence in both directions. Preserve a
+useful failed route’s attempted implication, assumptions, witness and
+missing ingredient. Distinguish flawed steps, failed methods and
+counterexamples. Explain the proof without inventing its discovery
+history. Cite omitted arguments by section or theorem; keep build
+commands and source identifiers in the verification record.</p>
 <p><strong>13. Review changes as claims, then as prose.</strong> Compare
 old and new meanings, including explanatory words beside unchanged
 formulas. Correct overclaims and stale underclaims. Removing shorthand
@@ -243,8 +240,8 @@ bibliography and cross-reference destinations. Read without supplying
 steps from memory: can the intended reader reconstruct the hard
 inference, apply the result in an example and identify an excluded case?
 Record actual difficulties. A successful build is not a comprehension
-test. Stop adding prose when it removes no identifiable difficulty and
-improves neither accuracy nor recovery of the argument.</p>
+test. Add prose only to resolve a difficulty, improve accuracy or
+recover an argument.</p>
 <p> <em>Further reading.</em> Halmos, <a
 href="https://doi.org/10.5169/seals-43857"><em>How to write
 mathematics</em></a>, §§3–5 (1970); Knuth et al., <a
@@ -267,7 +264,7 @@ companion</em></a>.</p>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:84b3d0b289481f93</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:3ea8de2c71651873</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>

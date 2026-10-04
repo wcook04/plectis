@@ -694,7 +694,8 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   text-underline-offset: 0.15em;
 }
 .universe-sector__go:hover { color: var(--accent); text-decoration-color: currentColor; }
-.universe-hint kbd {
+.universe-hint kbd,
+.universe-inspector kbd {
   font: inherit;
   font-size: var(--fs-micro);
   padding: 0 0.35em;

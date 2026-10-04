@@ -565,11 +565,12 @@
       var i, n, x, y;
       ctx.globalCompositeOperation = darkGround ? 'lighter' : 'source-over';
       if (darkGround && !lensOff.paper_statement) {
+        var ek = layerK(3);
         for (i = 0; i < nodes.length; i++) {
           n = nodes[i];
           if (n.kind !== 'paper_statement' || n.tier !== 'replayed' || !visible(n)) continue;
           if (searching && !matches(n)) continue;
-          x = n.x * view.k + view.tx; y = n.y * view.k + view.ty;
+          x = n.x * ek + view.tx; y = n.y * ek + view.ty;
           if (x < -30 || y < -30 || x > w + 30 || y > h + 30) continue;
           var lit = focus >= 0 && (i === focus || near[i]);
           var fade = focus >= 0 && !lit ? 1 - focusMix : 1;
@@ -644,18 +645,423 @@
       ctx.globalAlpha = 1;
     }
 
-    /* Each ring fades in after the one inside it, in reading order: the
-       core, the orbit, the claims, the results, then the words. One layer
-       never cuts through a mark or a letter, and the whole opening is under
-       a second. */
-    var reveal = 1, revealMs = 1e9;
-    var REVEAL_DELAY = [0, 90, 180, 270, 450], REVEAL_FADE = 420;
+    /* ---- Structure ----------------------------------------------------- */
+    /* The field shows how it is built, the way a careful technical drawing
+       does. Round the results ring runs a scale with one tick for every
+       result: each sector's short paper first, then its long record, each
+       in the order the paper states them, so the scale is the papers laid
+       end to end and a tick's place is a result's place in its paper. Every
+       tenth tick of a paper is longer and every fiftieth longer again, a
+       mark stands between a sector's two papers, and the strongest marks are
+       the boundaries between sectors, the ring's own divisions carried out
+       to the scale. On the map page a cursor stands on the tick of the
+       pinned result, so walking a paper walks the cursor along it, tick by
+       tick. The object in focus is framed by four corner ticks, and any
+       object but the core, the checkers and the problems (which carry their
+       names at rest) is tied to its name plate by a hairline leader. Every
+       mark is a datum or a boundary, and no number is drawn that the data
+       does not hold. Straight
+       hairlines are filled rectangles on the device-pixel grid, so each is
+       one device pixel wide and never smeared across two. */
+    var hairX = 0.5, hairY = 0.5, hairPx = 0.5;
+    function snapX(v) { return Math.round(v / hairX) * hairX; }
+    function snapY(v) { return Math.round(v / hairY) * hairY; }
+
+    // The scale's ticks by count within a paper: [every, length, ink]. The
+    // finest step drawn keeps its ticks three device pixels apart, so a
+    // laptop's field shows every fifth result and a closer view every one.
+    var SCALE_TICKS = [[50, 6, 0.5], [10, 4.5, 0.4], [5, 3, 0.3], [1, 2, 0.22]];
+    var SCALE_GAP = 2.5, SCALE_MARK = 8, SCALE_PAPER = 6.5, SCALE_PITCH = 3;
+    // Where this frame's scale stands (px from the centre), or 0 without one.
+    var scaleR = 0;
+    function scaleRadius(w) {
+      if (!scaleRows.length || lensOff.paper_statement || (!pageMode && w < 520)) return 0;
+      var outer = 0;
+      for (var i = 0; i < bands.length; i++) {
+        var r1 = bandRadii(bands[i])[1];
+        if (isFinite(r1)) outer = Math.max(outer, r1);
+      }
+      var R = outer > 0 ? (outer + 6) * view.k + SCALE_GAP : 0;
+      return R >= 90 ? R : 0;
+    }
+    // While the opening seats the results ring, the scale seats with it.
+    function seatedScaleR() {
+      return (scaleR - SCALE_GAP) * seatOf(3) + SCALE_GAP;
+    }
+    // Per sector, its results in scale order and where each paper's run
+    // starts; per result, its row and place on the scale.
+    var scaleRows = [], scaleSlot = {};
+    function buildScale() {
+      scaleRows = [];
+      scaleSlot = {};
+      bands.forEach(function (b) {
+        var pids = Object.keys(paperSequence).filter(function (pid) {
+          var first = nodes[paperSequence[pid][0]];
+          return !!first && first.sector === b.sector;
+        });
+        pids.sort(function (p, q) {
+          var a = nodes[paperSequence[p][0]], c = nodes[paperSequence[q][0]];
+          return (SIDE_ORDER[a.side] || 0) - (SIDE_ORDER[c.side] || 0) || (p < q ? -1 : p > q ? 1 : 0);
+        });
+        var row = { sector: b.sector, lo: b.lo, hi: b.hi, slots: [], breaks: [], papers: [] };
+        pids.forEach(function (pid) {
+          if (row.slots.length) row.breaks.push(row.slots.length);
+          row.papers.push({ pid: pid, from: row.slots.length, count: paperSequence[pid].length });
+          paperSequence[pid].forEach(function (i) {
+            scaleSlot[i] = { row: scaleRows.length, at: row.slots.length };
+            row.slots.push(i);
+          });
+        });
+        if (row.slots.length) scaleRows.push(row);
+      });
+    }
+    function slotAngle(row, at) {
+      return row.lo + at * (row.hi - row.lo) / row.slots.length;
+    }
+    // Half way across each gap between two sectors.
+    function sectorGaps() {
+      var sorted = bands.slice().sort(function (a, c) { return a.lo - c.lo; });
+      var out = [];
+      if (sorted.length < 2) return out;
+      for (var s = 0; s < sorted.length; s++) {
+        var cur = sorted[s], nxt = sorted[(s + 1) % sorted.length];
+        out.push((cur.hi + nxt.lo + (s + 1 === sorted.length ? Math.PI * 2 : 0)) / 2);
+      }
+      return out;
+    }
+    var TURN = Math.PI * 2;
+    // The short way round from one angle to another.
+    function shortArc(from, to) {
+      var d = (to - from) % TURN;
+      if (d > Math.PI) d -= TURN;
+      if (d < -Math.PI) d += TURN;
+      return d;
+    }
+
+    // Room the scale gives up in this frame: under the plates and leaders,
+    // and inside the reticles, no tick is drawn.
+    var scaleYield = [];
+    function yields(x0, y0, x1, y1) {
+      var a = Math.min(x0, x1) - 0.5, b = Math.max(x0, x1) + 0.5, c = Math.min(y0, y1) - 0.5, d = Math.max(y0, y1) + 0.5;
+      for (var j = 0; j < scaleYield.length; j++) {
+        var q = scaleYield[j];
+        if (a < q.x1 && b > q.x0 && c < q.y1 && d > q.y0) return true;
+      }
+      return false;
+    }
+    /* The scale, drawn. While a result or a paper is in focus that paper's
+       run keeps its ink; with any other object of a sector, the sector's
+       runs do; the rest recedes with the field. */
+    function drawScale(focus, w, h) {
+      if (!scaleR) return;
+      var ra = revealAlpha(3);
+      if (ra <= 0.01) return;
+      var R = seatedScaleR();
+      var f = focus >= 0 ? nodes[focus] : null, litPaper = null, litSectors = null;
+      if (f && f.kind === 'paper_statement') litPaper = f.paperId;
+      else if (f && f.kind === 'paper') litPaper = String(f.id).replace(/^paper:/, '');
+      else if (f && f.sector && f.kind !== 'universe' && f.kind !== 'integration_surface') litSectors = sectorProblems(f);
+      var rest = dimmed(0.4);
+      var pitch = Infinity, finest = 0;
+      scaleRows.forEach(function (row) { pitch = Math.min(pitch, (row.hi - row.lo) / row.slots.length * R); });
+      for (var l = 1; l < SCALE_TICKS.length; l++) {
+        if (pitch * SCALE_TICKS[l][0] / hairPx >= SCALE_PITCH) finest = l;
+      }
+      var buckets = {}, order = [];
+      function put(alpha, a, len) {
+        if (alpha <= 0.01) return;
+        var c = Math.cos(a), s = Math.sin(a);
+        var x0 = view.tx + c * R, y0 = view.ty + s * R;
+        if (x0 < -12 || y0 < -12 || x0 > w + 12 || y0 > h + 12) return;
+        var x1 = view.tx + c * (R + len), y1 = view.ty + s * (R + len);
+        if (yields(x0, y0, x1, y1)) return;
+        var key = Math.round(alpha * 50);
+        if (!buckets[key]) { buckets[key] = []; order.push(key); }
+        buckets[key].push(x0, y0, x1, y1);
+      }
+      scaleRows.forEach(function (row) {
+        var sectorOn = !litSectors || litSectors.indexOf(row.sector) !== -1;
+        var step = (row.hi - row.lo) / row.slots.length;
+        row.papers.forEach(function (paper) {
+          var dim = (litPaper ? paper.pid === litPaper : sectorOn) ? 1 : rest;
+          for (var j = 0; j < paper.count; j++) {
+            var c = j + 1, level = SCALE_TICKS.length - 1;
+            for (var q = 0; q < SCALE_TICKS.length - 1; q++) {
+              if (c % SCALE_TICKS[q][0] === 0) { level = q; break; }
+            }
+            if (level > finest) continue;
+            put(SCALE_TICKS[level][2] * dim * ra, row.lo + (paper.from + j + 0.5) * step, SCALE_TICKS[level][1]);
+          }
+        });
+        // Between the two papers.
+        row.breaks.forEach(function (at) {
+          put(0.55 * (sectorOn && !litPaper ? 1 : rest) * ra, slotAngle(row, at), SCALE_PAPER);
+        });
+      });
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = hairPx;
+      ctx.lineCap = 'butt';
+      order.forEach(function (key) {
+        var run = buckets[key];
+        ctx.globalAlpha = key / 50;
+        ctx.beginPath();
+        for (var j = 0; j < run.length; j += 4) {
+          ctx.moveTo(run[j], run[j + 1]);
+          ctx.lineTo(run[j + 2], run[j + 3]);
+        }
+        ctx.stroke();
+      });
+      // The boundaries between sectors are its strongest marks.
+      var gaps = sectorGaps(), any = false;
+      ctx.beginPath();
+      gaps.forEach(function (mid) {
+        var c = Math.cos(mid), s = Math.sin(mid);
+        var x0 = view.tx + c * (R - 1.5), y0 = view.ty + s * (R - 1.5);
+        var x1 = view.tx + c * (R + SCALE_MARK), y1 = view.ty + s * (R + SCALE_MARK);
+        if (yields(x0, y0, x1, y1)) return;
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        any = true;
+      });
+      if (any) {
+        ctx.globalAlpha = (0.72 - 0.2 * (focus >= 0 ? focusMix : 0)) * ra;
+        ctx.lineWidth = hairPx * 2;
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* The cursor: a fine bar across the scale on the tick of the pinned
+       result, cut clear of the ticks beside it. It is the map's own mark of
+       the card's "Result 93 of 204": walking the paper with the arrow keys
+       or the card's buttons moves both together, the short way round, in a
+       little under a quarter of a second. Pinned from rest it appears where
+       it belongs, without travel; let go, it holds a moment and fades where
+       it stands. It never moves by itself, and a hover elsewhere leaves it
+       where it is. */
+    var CURSOR_MOVE = 220, CURSOR_IN = 140, CURSOR_HOLD = 140, CURSOR_OUT = 220;
+    var cursor = { angle: 0, alpha: 0, target: null, turn: null, fade: null, frame: 0 };
+    function cursorTarget() {
+      var i = pageMode ? selected : -1;
+      if (i < 0 || !scaleR || !nodes[i] || !visible(nodes[i])) return null;
+      var slot = scaleSlot[i];
+      if (!slot) return null;
+      var row = scaleRows[slot.row];
+      return row.lo + (slot.at + 0.5) * (row.hi - row.lo) / row.slots.length;
+    }
+    function aimCursor(force) {
+      var to = cursorTarget();
+      if (to === cursor.target && !force) return;
+      cursor.target = to;
+      var still = force || reduceMotion || !window.requestAnimationFrame || document.hidden || !onScreen;
+      if (to === null) {
+        cursor.turn = null;
+        if (still || cursor.alpha <= 0) { cursor.alpha = 0; cursor.fade = null; }
+        else cursor.fade = { from: cursor.alpha, to: 0, dur: CURSOR_OUT, delay: CURSOR_HOLD, start: null };
+      } else {
+        if (still || cursor.alpha < 0.02) {
+          cursor.angle = to;
+          cursor.turn = null;
+        } else {
+          cursor.turn = { from: cursor.angle, by: shortArc(cursor.angle, to), start: null };
+        }
+        if (still) { cursor.alpha = 1; cursor.fade = null; }
+        else if (cursor.alpha < 1) cursor.fade = { from: cursor.alpha, to: 1, dur: CURSOR_IN * (1 - cursor.alpha), delay: 0, start: null };
+        else cursor.fade = null;
+      }
+      if (!still && (cursor.turn || cursor.fade) && !cursor.frame) cursor.frame = requestMotionFrame(stepCursor);
+    }
+    function stepCursor(now) {
+      cursor.frame = 0;
+      var busy = false;
+      var tt = cursor.turn;
+      if (tt) {
+        if (tt.start === null) tt.start = now;
+        var p = Math.min(1, (now - tt.start) / CURSOR_MOVE);
+        cursor.angle = tt.from + tt.by * easeInOut(p);
+        if (p < 1) busy = true; else cursor.turn = null;
+      }
+      var f = cursor.fade;
+      if (f) {
+        if (f.start === null) f.start = now;
+        var q = Math.max(0, Math.min(1, (now - f.start - f.delay) / Math.max(1, f.dur)));
+        cursor.alpha = f.from + (f.to - f.from) * (1 - (1 - q) * (1 - q));
+        if (q < 1) busy = true; else cursor.fade = null;
+      }
+      if (busy) cursor.frame = requestMotionFrame(stepCursor);
+      draw();
+    }
+    function drawCursor() {
+      if (!scaleR || cursor.alpha <= 0.01) return;
+      var R = seatedScaleR();
+      var c = Math.cos(cursor.angle), s = Math.sin(cursor.angle);
+      var x0 = view.tx + c * (R - 4), y0 = view.ty + s * (R - 4);
+      var x1 = view.tx + c * (R + SCALE_MARK), y1 = view.ty + s * (R + SCALE_MARK);
+      // Its room is taken, so a reticle corner gives way to it.
+      labelBoxes.push({ x0: Math.min(x0, x1) - 2, x1: Math.max(x0, x1) + 2,
+                        y0: Math.min(y0, y1) - 2, y1: Math.max(y0, y1) + 2, owner: -2 });
+      ctx.lineCap = 'butt';
+      ctx.globalAlpha = cursor.alpha;
+      ctx.strokeStyle = palette.ground;
+      ctx.lineWidth = hairPx * 6;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.stroke();
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = hairPx * 2;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    /* A reticle: four corner ticks round the object in focus, a target
+       lock, on the square that touches the mark's focus ring at four points.
+       It eases in from a third wider over a seventh of a second, once for
+       each new focus; the pinned object keeps its own, a little firmer. A
+       result's or claim's plate hangs off it on a leader. Comparator and
+       Palomar, whose reach is the whole ring, answer with their lit bands
+       instead. */
+    var RETICLE_IN = 140, RETICLE_FROM = 1.35;
+    function reticleSize(n, rs) {
+      var r = n.r * rs + 1.5;
+      return n.kind === 'problem' ? r + 7.5 : r + 5;
+    }
+    function reticleEase(i) {
+      if (pulse.at !== i) return 1;
+      return 1 - Math.pow(1 - Math.min(1, Math.max(0, pulse.ms) / RETICLE_IN), 3);
+    }
+    // The objects that carry a reticle in this frame, with the square each
+    // settles on.
+    function reticleTargets(rs, w, h) {
+      var out = [];
+      [selected, hover].forEach(function (at, k) {
+        if (at < 0 || (k === 1 && at === selected) || !nodes[at] || !visible(nodes[at])) return;
+        var n = nodes[at];
+        if (n.kind === 'integration_surface') return;
+        var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
+        if (x < -60 || y < -60 || x > w + 60 || y > h + 60) return;
+        var s = reticleSize(n, rs);
+        out.push({ at: at, x: x, y: y, s: s, box: { x0: x - s - 2, x1: x + s + 2, y0: y - s - 2, y1: y + s + 2 } });
+      });
+      return out;
+    }
+    // Drawn after every name is placed: a corner a name, a plate or the
+    // cursor already holds is left out, and the corners drawn take their room.
+    function drawReticles(rs, w, h) {
+      reticleTargets(rs, w, h).forEach(function (t) {
+        var e = reticleEase(t.at);
+        if (e <= 0.01) return;
+        var size = t.s * (RETICLE_FROM - (RETICLE_FROM - 1) * e);
+        var x0 = snapX(t.x - size), x1 = snapX(t.x + size), y0 = snapY(t.y - size), y1 = snapY(t.y + size);
+        var ax = Math.max(hairX * 4, snapX(Math.max(3, Math.min(8, size * 0.3)))),
+            ay = Math.max(hairY * 4, snapY(Math.max(3, Math.min(8, size * 0.3))));
+        ctx.globalAlpha = e * (t.at === selected ? 0.92 : 0.72);
+        ctx.fillStyle = palette.ink;
+        // Each corner is one horizontal and one vertical run that meet
+        // without overlapping, so no corner pixel is inked twice.
+        [[x0, y0, 1, 1], [x1, y0, -1, 1], [x0, y1, 1, -1], [x1, y1, -1, -1]].forEach(function (c) {
+          var hx = c[2] > 0 ? c[0] : c[0] - ax, vx = c[2] > 0 ? c[0] : c[0] - hairX;
+          var hy = c[3] > 0 ? c[1] : c[1] - hairY, vy = c[3] > 0 ? c[1] + hairY : c[1] - ay;
+          var box = { x0: Math.min(hx, vx) - 1, x1: Math.max(hx + ax, vx + hairX) + 1,
+                      y0: Math.min(hy, vy) - 1, y1: Math.max(hy + hairY, vy + ay - hairY) + 1, owner: t.at };
+          if (labelCollides(box)) return;
+          ctx.fillRect(hx, hy, ax, hairY);
+          ctx.fillRect(vx, vy, hairX, ay - hairY);
+          labelBoxes.push(box);
+        });
+        ctx.globalAlpha = 1;
+      });
+    }
+    // A leader, as runs of hairline: [x0, y0, x1, y1] each, level or upright.
+    function drawLeader(runs, alpha) {
+      if (!runs || !runs.length || alpha <= 0.01) return;
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = palette.ink;
+      for (var j = 0; j < runs.length; j++) {
+        var run = runs[j];
+        if (run[1] === run[3]) {
+          var a = snapX(Math.min(run[0], run[2])), b = snapX(Math.max(run[0], run[2]));
+          if (b - a >= hairX) ctx.fillRect(a, snapY(run[1] - hairY / 2), b - a, hairY);
+        } else {
+          var c = snapY(Math.min(run[1], run[3])), d = snapY(Math.max(run[1], run[3]));
+          if (d - c >= hairY) ctx.fillRect(snapX(run[0] - hairX / 2), c, hairX, d - c);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    // The room a leader takes, so no label is set across it.
+    function leaderBoxes(runs, owner) {
+      return (runs || []).map(function (run) {
+        return { x0: Math.min(run[0], run[2]) - 2, x1: Math.max(run[0], run[2]) + 2,
+                 y0: Math.min(run[1], run[3]) - 2, y1: Math.max(run[1], run[3]) + 2, owner: owner };
+      });
+    }
+
+    /* ---- Visibility ---------------------------------------------------- */
+    /* Nothing is painted while the canvas is out of view (the landing's
+       atlas slides it off screen) or its tab is hidden: a paint asked for
+       then waits and is made once, when the canvas is back. Leaving view
+       brings every motion to where it was going, so an opening cut short is
+       spent rather than replayed. */
+    var onScreen = true, paintPending = false;
+    // The canvas box in device pixels, when the browser reports it.
+    var deviceBox = null;
+    function settleMotion() {
+      // An opening under way is spent; one still waiting for the teaser to
+      // come into view stays closed, so its first view is the assembly and
+      // never a flash of the finished field.
+      if (reveal < 1 && revealStarted) { reveal = 1; revealMs = 1e9; }
+      if (revealFrame) { cancelMotionFrame(revealFrame); revealFrame = 0; }
+      if (pulse.frame) { cancelMotionFrame(pulse.frame); pulse.frame = 0; }
+      pulse.ms = 1e9;
+      if (focusFrame) { cancelMotionFrame(focusFrame); focusFrame = 0; }
+      if (focusFade) {
+        focusMix = focusFade.to;
+        if (focusFade.to === 0) focusHeld = -1;
+        focusFade = null;
+      }
+      if (cameraFrame) { cancelMotionFrame(cameraFrame); cameraFrame = 0; }
+      if (cameraGoal) cameraGoal(true);
+      if (cursor.frame) { cancelMotionFrame(cursor.frame); cursor.frame = 0; }
+      if (cursor.turn) { cursor.angle = cursor.turn.from + cursor.turn.by; cursor.turn = null; }
+      if (cursor.fade) { cursor.alpha = cursor.fade.to; cursor.fade = null; }
+      // With nothing left to advance, the shared frame is given back too.
+      if (motionFrame && !Object.keys(motionCallbacks).length && window.cancelAnimationFrame) {
+        window.cancelAnimationFrame(motionFrame);
+        motionFrame = 0;
+      }
+      paintPending = true;
+    }
+
+    /* The field assembles from the centre out, one ring at a time, in
+       reading order: the core, the orbit, the claims, the results with
+       their scale, then the words. Each ring arrives with its structure (the
+       orbit's line, the plates' rulings, the boundaries) and seats: it comes
+       up from a fortieth inside its place and stops there, decelerating
+       hard, so each lands with a definite stop rather than a drift. One
+       layer never cuts through a mark or a letter, the rings are 110ms
+       apart, and the whole opening takes a little over 0.8s. */
+    var reveal = 1, revealMs = 1e9, revealFrame = 0, revealStarted = false;
+    var REVEAL_DELAY = [0, 110, 220, 330, 520], REVEAL_FADE = 300, REVEAL_SEAT = 0.025;
     var REVEAL_END = REVEAL_DELAY[REVEAL_DELAY.length - 1] + REVEAL_FADE;
     function revealAlpha(layer) {
       if (reveal >= 1) return 1;
       var t = (revealMs - REVEAL_DELAY[layer]) / REVEAL_FADE;
       if (t <= 0) return 0;
       return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+    // A ring's radial seat during the opening: its scale about the centre.
+    function seatOf(layer) {
+      if (reveal >= 1) return 1;
+      var t = (revealMs - REVEAL_DELAY[layer]) / REVEAL_FADE;
+      if (t >= 1) return 1;
+      return 1 - REVEAL_SEAT * Math.pow(1 - Math.max(0, t), 4);
+    }
+    function layerK(layer) {
+      return reveal >= 1 ? view.k : view.k * seatOf(layer);
     }
     function revealLayer(kind) {
       if (kind === 'universe' || kind === 'integration_surface') return 0;
@@ -671,14 +1077,16 @@
       var start = null;
       reveal = 0;
       revealMs = 0;
+      revealStarted = true;
       var step = function (now) {
+        revealFrame = 0;
         if (start === null) start = now;
         revealMs = now - start;
         if (revealMs >= REVEAL_END) reveal = 1;
         draw();
-        if (reveal < 1) requestMotionFrame(step);
+        if (reveal < 1) revealFrame = requestMotionFrame(step);
       };
-      requestMotionFrame(step);
+      revealFrame = requestMotionFrame(step);
     }
     /* Reduced motion is followed live: turning it on part-way stops the
        opening, the evidence moment and the focus fade, and draws the still
@@ -689,6 +1097,8 @@
       reduceMotion = !!(reduceQuery && reduceQuery.matches);
       if (!reduceMotion) return;
       reveal = 1;
+      if (revealFrame) cancelMotionFrame(revealFrame);
+      revealFrame = 0;
       if (pulse.frame && window.cancelAnimationFrame) cancelMotionFrame(pulse.frame);
       pulse.frame = 0;
       pulse.ms = 1e9;
@@ -697,6 +1107,9 @@
       focusFade = null;
       focusHeld = -1;
       focusMix = 1;
+      if (cursor.frame) cancelMotionFrame(cursor.frame);
+      cursor.frame = 0;
+      aimCursor(true);
       if (overviewReady) draw();
     }
     if (reduceQuery && typeof reduceQuery.addEventListener === 'function') {
@@ -704,16 +1117,20 @@
     } else if (reduceQuery && typeof reduceQuery.addListener === 'function') {
       reduceQuery.addListener(followReduceMotion);
     }
+    // A move under way lands where it was going if the canvas leaves view.
+    var cameraGoal = null;
     function cameraTo(target, fitted) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (cameraFrame && window.cancelAnimationFrame) cancelMotionFrame(cameraFrame);
       cameraFrame = 0;
-      var finish = function () {
+      var finish = function (quiet) {
+        cameraGoal = null;
         view.k = target.k; view.tx = target.tx; view.ty = target.ty;
         viewIsFitted = !!fitted;
-        draw();
+        if (!quiet) draw();
       };
-      if (reduceMotion || !window.requestAnimationFrame || !w) { finish(); return; }
+      cameraGoal = finish;
+      if (reduceMotion || !window.requestAnimationFrame || !w || !onScreen) { finish(); return; }
       var from = { k: view.k, cx: (w / 2 - view.tx) / view.k, cy: (h / 2 - view.ty) / view.k };
       var to = { k: target.k, cx: (w / 2 - target.tx) / target.k, cy: (h / 2 - target.ty) / target.k };
       // Slow in and slow out, as statistical-graphics studies recommend for
@@ -774,6 +1191,11 @@
         }
         cameraTo(frameOf(members, 3), false);
         return;
+      }
+      // A paper frames its own results, the run its card walks.
+      if (n.kind === 'paper') {
+        var run = (paperSequence[String(n.id).replace(/^paper:/, '')] || []).filter(function (j) { return visible(nodes[j]); });
+        if (run.length) { cameraTo(frameOf(run.concat([i]), 3), false); return; }
       }
       // A result is shown close enough to read its neighbours' numbers.
       var k = n.kind === 'paper_statement' ? Math.max(view.k, 3.2) : (view.k < 1.1 ? 1.6 : view.k);
@@ -933,11 +1355,14 @@
       ctx.strokeStyle = color;
       ctx.globalAlpha = alpha;
       ctx.beginPath();
+      var opening = reveal < 1;
       for (var j = 0; j < indices.length; j++) {
         var i = indices[j];
         var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
-        ctx.moveTo(a.x * view.k + view.tx, a.y * view.k + view.ty);
-        ctx.lineTo(b.x * view.k + view.tx, b.y * view.k + view.ty);
+        // While the rings seat, each end rides its own ring.
+        var ak = opening ? layerK(revealLayer(a.kind)) : view.k, bk = opening ? layerK(revealLayer(b.kind)) : view.k;
+        ctx.moveTo(a.x * ak + view.tx, a.y * ak + view.ty);
+        ctx.lineTo(b.x * bk + view.tx, b.y * bk + view.ty);
       }
       ctx.stroke();
       ctx.globalAlpha = 1;
@@ -1024,7 +1449,7 @@
       if (!outer) return;
       // The ground stays flat: no light at the centre, which would read as
       // emphasis the data does not carry.
-      var k = view.k;
+      var k = layerK(1);
       var orbit = 0, count = 0;
       for (var pid in problemIndex) {
         var p = nodes[problemIndex[pid]];
@@ -1033,9 +1458,10 @@
         count++;
       }
       if (!count) return;
-      ctx.globalAlpha = 0.7 * revealAlpha(1);
+      // A hairline: one device pixel, at the weight the old full pixel had.
+      ctx.globalAlpha = revealAlpha(1);
       ctx.strokeStyle = palette.edge;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = hairPx;
       ctx.beginPath();
       ctx.arc(view.tx, view.ty, orbit / count * k, 0, Math.PI * 2);
       ctx.stroke();
@@ -1091,7 +1517,7 @@
        claims on a faint plate, so the field reads as rings of segments. A
        problem's block travels on its band, a shared block on its caption. */
     function drawClaimPlate(shape, state) {
-      var k = view.k, pad = 9;
+      var k = layerK(2), pad = 9;
       var lo = shape[0] - pad / shape[2], hi = shape[1] + pad / shape[2];
       var outerR = (shape[3] + pad) * k, innerR = Math.max(0, (shape[2] - pad) * k);
       var ra = revealAlpha(2);
@@ -1102,10 +1528,10 @@
       ctx.arc(view.tx, view.ty, innerR, hi, lo, true);
       ctx.closePath();
       ctx.fill();
-      // Its two long edges are ruled, like an engraved scale.
-      ctx.globalAlpha = (state === 'off' ? 0.6 - 0.4 * focusMix : 0.6) * ra;
+      // Its two long edges are ruled, like an engraved scale, in hairline.
+      ctx.globalAlpha = (state === 'off' ? 1 - 0.65 * focusMix : 1) * ra;
       ctx.strokeStyle = palette.edge;
-      ctx.lineWidth = 0.8;
+      ctx.lineWidth = hairPx;
       ctx.beginPath();
       ctx.arc(view.tx, view.ty, outerR, lo, hi);
       ctx.stroke();
@@ -1145,8 +1571,8 @@
         ctx.arc(view.tx, view.ty, inner, b.hi + 0.012, b.lo - 0.012, true);
         ctx.closePath();
         ctx.fill();
-        ctx.globalAlpha = 0.3 * focusMix;
-        ctx.lineWidth = 0.75;
+        ctx.globalAlpha = 0.42 * focusMix;
+        ctx.lineWidth = hairPx;
         ctx.strokeStyle = palette.ink;
         ctx.stroke();
       }
@@ -1171,7 +1597,7 @@
 
     function drawBandPlates(focus) {
       if (!bands.length || lensOff.paper_statement) return;
-      var k = view.k;
+      var k = layerK(3);
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
         if (!isFinite(radii[0])) continue;
@@ -1185,12 +1611,12 @@
         ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.hi, b.lo, true);
         ctx.closePath();
         ctx.fill();
-        // Both long edges are ruled. The evidence gauge, which repeats what
-        // the dots and the title already say, shows only for a band in
-        // focus.
-        ctx.globalAlpha = (state === 'off' ? 0.6 - 0.4 * focusMix : 0.6) * ra;
+        // Both long edges are ruled, in hairline. The evidence gauge, which
+        // repeats what the dots and the title already say, shows only for a
+        // band in focus.
+        ctx.globalAlpha = (state === 'off' ? 1 - 0.65 * focusMix : 1) * ra;
         ctx.strokeStyle = palette.edge;
-        ctx.lineWidth = 0.8;
+        ctx.lineWidth = hairPx;
         ctx.beginPath();
         ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, b.hi);
         ctx.stroke();
@@ -1238,22 +1664,22 @@
           ctx.setLineDash([]);
         }
       }
-      // Graduations: a fine tick in each gap between two sectors, across the
-      // results ring, the way a dial marks its divisions.
-      var sorted = bands.slice().sort(function (a, c) { return a.lo - c.lo; });
+      // A fine line in each gap between two sectors, across the results
+      // ring, marks the division. Where the scale is drawn the line runs on
+      // into it as the scale's strongest mark.
+      var gaps = sectorGaps();
       var r0 = Infinity, r1 = 0;
-      sorted.forEach(function (sb) { var rr = bandRadii(sb); r0 = Math.min(r0, rr[0]); r1 = Math.max(r1, rr[1]); });
-      if (sorted.length > 1 && isFinite(r0)) {
-        ctx.globalAlpha = (focus >= 0 ? 0.45 : 0.85) * revealAlpha(3);
+      bands.forEach(function (sb) { var rr = bandRadii(sb); r0 = Math.min(r0, rr[0]); r1 = Math.max(r1, rr[1]); });
+      if (gaps.length && isFinite(r0)) {
+        var tickTo = scaleR ? seatedScaleR() - 1.5 : (r1 + 12) * k;
+        ctx.globalAlpha = (focus >= 0 ? 0.6 : 1) * revealAlpha(3);
         ctx.strokeStyle = palette.edge;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = hairPx * 1.5;
         ctx.beginPath();
-        for (var s = 0; s < sorted.length; s++) {
-          var cur = sorted[s], nxt = sorted[(s + 1) % sorted.length];
-          var mid = (cur.hi + nxt.lo + (s + 1 === sorted.length ? Math.PI * 2 : 0)) / 2;
-          var cx = Math.cos(mid), sy = Math.sin(mid);
+        for (var s = 0; s < gaps.length; s++) {
+          var cx = Math.cos(gaps[s]), sy = Math.sin(gaps[s]);
           ctx.moveTo(view.tx + cx * (r0 - 16) * k, view.ty + sy * (r0 - 16) * k);
-          ctx.lineTo(view.tx + cx * (r1 + 12) * k, view.ty + sy * (r1 + 12) * k);
+          ctx.lineTo(view.tx + cx * tickTo, view.ty + sy * tickTo);
         }
         ctx.stroke();
       }
@@ -1301,9 +1727,12 @@
       return deg > 0;
     }
 
-    function drawBandLabels(focus, w, h) {
-      if (!bands.length || lensOff.paper_statement) return;
-      if (!pageMode && w < 520) return;
+    /* The band titles are laid out at the start of a frame, before the name
+       plates are placed, so a plate can keep clear of them; they are drawn
+       later, after the plates have taken their room. */
+    function bandLabelLayout(focus, w, h) {
+      if (!bands.length || lensOff.paper_statement) return [];
+      if (!pageMode && w < 520) return [];
       var k = view.k;
       var items = [];
       // A narrow field, or a ring drawn small (the teaser), keeps the number
@@ -1323,8 +1752,10 @@
         if (state === 'off') continue;
         var total = 0;
         for (var key in b.evidence) total += b.evidence[key];
-        // A clear gap between the plate's edge and the first line of text.
-        var base = (radii[1] + 6) * k + 15;
+        // A clear gap between the plate's edge and the first line of text;
+        // with the scale drawn, every title stands outside it, all on one
+        // circle.
+        var base = Math.max((radii[1] + 6) * k + 15, scaleR ? scaleR + SCALE_MARK + 7 : 0);
         var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
                       font: '400 11px ' + SERIF, color: palette.muted, alpha: 1 };
         var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
@@ -1365,21 +1796,25 @@
           cur.title.text = cur.title.text.split(' ')[0];
         }
       }
-      for (var n = 0; n < items.length; n++) {
-        var item = items[n], lower = readsDownward(item.mid);
+      return items.map(function (item) {
+        var lower = readsDownward(item.mid);
         // Reading downward the name sits inside the count; upward, outside.
         var rows = item.title ? (lower ? [item.title, item.count] : [item.count, item.title]) : [item.count];
+        return { mid: item.mid, lower: lower, rows: rows.map(function (row, li) {
+          return { row: row, radius: item.base + li * 13, box: arcRunBox(row, item.base + li * 13, item.mid) };
+        }) };
+      });
+    }
+    function drawBandLabels(layout) {
+      layout.forEach(function (item) {
         // Under a name plate both lines step aside together. Their room
         // stays taken, so no other label moves while the reader points.
-        var covered = false;
-        for (var li = 0; li < rows.length; li++) {
-          if (underPlate(arcRunBox(rows[li], item.base + li * 13, item.mid))) covered = true;
-        }
-        for (li = 0; li < rows.length; li++) {
-          if (covered) labelBoxes.push(arcRunBox(rows[li], item.base + li * 13, item.mid));
-          else drawArcText(rows[li], item.base + li * 13, item.mid, lower);
-        }
-      }
+        var covered = item.rows.some(function (r) { return underPlate(r.box); });
+        item.rows.forEach(function (r) {
+          if (covered) labelBoxes.push(r.box);
+          else drawArcText(r.row, r.radius, item.mid, item.lower);
+        });
+      });
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'center';
     }
@@ -1543,35 +1978,200 @@
        beside it on a plate, toward the open side of the map, never across
        the band under it. Outward first; the other side only when it has
        more room. A name longer than the room is shortened: the card has it
-       whole. */
-    function namePlate(i, rs, w) {
+       whole. The plate stands clear of the mark's reticle and a little
+       toward the open side of the field (up over its top half, down below),
+       and a hairline leader leaves the reticle's corner on the plate's side
+       and turns along to it; leaving from the corner, it never runs up the
+       mark's radius into the scale. The place is chosen from six (beside
+       either way, a little up or down, or hung under or over the mark) as
+       the one that covers least of what the reader needs. */
+    var LEAD_RISE = 9, LEAD_RUN = 10, LEAD_GAP = 1.5;
+    // This frame's plates, by the object they name, placed once per frame;
+    // and the pinned plate's place, kept while only the hover changes.
+    var platePlaced = {}, pinnedPlate = null;
+    // What a plate keeps clear of in the frame being drawn: the core, the two
+    // checkers and the problems with the room their names take, and on the
+    // landing the card's corner marks. A plate placed over one of them would
+    // hide what the reader needs to find their way.
+    var plateKeepOut = [];
+    function keepOutBoxes(rs, w, h) {
+      var out = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (!visible(n) || (n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface')) continue;
+        var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty, r = n.r * rs;
+        if (x < -80 || y < -80 || x > w + 80 || y > h + 80) continue;
+        // The disc, with its focus ring and evidence ring: covering it hides
+        // a mark, so it weighs most. Its name at rest weighs next: a name a
+        // plate lies on is left out while the reader points. A band title
+        // weighs least, since it steps aside and keeps its room.
+        out.push({ x0: x - r - 4, x1: x + r + 4, y0: y - r - 4, y1: y + r + 4, weight: 6 });
+        out.push({ x0: x - r - 9, x1: x + r + 9, y0: y - r - 9, y1: y + r + 9, weight: 1 });
+        ctx.font = '600 13px ' + SERIF;
+        var text = anchorText(n, w, false);
+        var half = ctx.measureText(text).width / 2 + 6;
+        var spot = n.kind === 'problem' ? problemLabelSpot(n, x, y, half, rs, w) : [x, y + r + 15];
+        out.push({ x0: spot[0] - half, x1: spot[0] + half, y0: spot[1] - 14, y1: spot[1] + 5, weight: 3 });
+        if (n.sub && n.kind !== 'problem') {
+          ctx.font = '400 11px ' + SERIF;
+          var sub = ctx.measureText(clip(n.sub, 36)).width / 2 + 4;
+          out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + 18, weight: 2 });
+        }
+      }
+      if (!pageMode) {
+        out.push({ x0: 0, x1: 30, y0: 0, y1: 30, weight: 4 });
+        out.push({ x0: w - 30, x1: w, y0: 0, y1: 30, weight: 4 });
+      }
+      return out;
+    }
+
+    /* The names of the anchors (the core, the checkers, the problems) at
+       rest. A problem's sits toward the centre, where the field is open: the
+       papers sit on the orbit either side of the disc and its claims
+       outward. Along the orbit, then outward, only when that spot is taken.
+       The same places serve the labels and the plates that keep clear of
+       them. */
+    function anchorText(n, w, isFocus) {
+      var text = clip(n.shortLabel, isFocus ? 60 : 42);
+      if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
+        var number = n.id.match(/(?:^|[:_])(\d+)$/);
+        if (number) text = '#' + number[1];
+      }
+      return text;
+    }
+    // Glyphs a problem's name must not sit on (the claims and papers that
+    // crowd round each problem) and the room under the checkers' names,
+    // gathered once a frame.
+    var frameGlyphBoxes = [], frameCaptionZones = [];
+    function gatherLabelObstacles(rs, w, h) {
+      frameGlyphBoxes = [];
+      frameCaptionZones = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (!visible(n)) continue;
+        if (n.kind === 'public_claim' || n.kind === 'paper') {
+          var gx = n.x * view.k + view.tx, gy = n.y * view.k + view.ty, gr = n.r * rs + 3;
+          if (gx < -40 || gy < -40 || gx > w + 40 || gy > h + 40) continue;
+          frameGlyphBoxes.push({ x0: gx - gr, x1: gx + gr, y0: gy - gr, y1: gy + gr });
+        } else if (n.kind === 'integration_surface') {
+          // The checking surfaces' names hang under their discs. A problem's
+          // name that lands just below them reads as a third line of their
+          // caption (#257's did, at the foot of the core), so that room is
+          // kept.
+          var zx = n.x * view.k + view.tx, zy = n.y * view.k + view.ty, zr = n.r * rs;
+          ctx.font = '600 13px ' + SERIF;
+          var zw = ctx.measureText(n.shortLabel || '').width;
+          if (n.sub) { ctx.font = '400 11px ' + SERIF; zw = Math.max(zw, ctx.measureText(n.sub).width); }
+          frameCaptionZones.push({ x0: zx - zw / 2 - 12, x1: zx + zw / 2 + 12,
+                                   y0: zy - zr - 8, y1: zy + zr + 19 + (n.sub ? 13 : 0) + 12 });
+        }
+      }
+    }
+    function glyphHits(box) {
+      var count = 0, g, q;
+      for (g = 0; g < frameGlyphBoxes.length; g++) {
+        q = frameGlyphBoxes[g];
+        if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count++;
+      }
+      for (g = 0; g < frameCaptionZones.length; g++) {
+        q = frameCaptionZones[g];
+        if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count += 10;
+      }
+      return count;
+    }
+    function problemLabelSpot(n, px, py, half, rs, w) {
+      var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
+      var ux = n.x / distance, uy = n.y / distance;
+      var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
+      var chosen = null, fewest = Infinity;
+      // Each side at the disc's edge first, then one step out, past the
+      // paper that sits on the orbit beside it.
+      search: for (var d = 0; d < dirs.length; d++) {
+        for (var step = 0; step < 2; step++) {
+          var dx = dirs[d][0], dy = dirs[d][1];
+          var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy) + step * 16;
+          var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
+          var textHalf = half - 6;
+          var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
+          var hits = glyphHits(trial);
+          if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
+          if (!hits) break search;
+        }
+      }
+      return chosen;
+    }
+    function weighted(box, weight) {
+      return { x0: box.x0, x1: box.x1, y0: box.y0, y1: box.y1, weight: weight };
+    }
+    function overlapArea(box, list) {
+      var sum = 0;
+      for (var j = 0; j < list.length; j++) {
+        var q = list[j];
+        var dx = Math.min(box.x1, q.x1) - Math.max(box.x0, q.x0), dy = Math.min(box.y1, q.y1) - Math.max(box.y0, q.y0);
+        if (dx > 0 && dy > 0) sum += dx * dy * (q.weight || 1);
+      }
+      return sum;
+    }
+    // Everything but the core, the checkers and the problems, which carry
+    // their names at rest, names itself on a plate when in focus.
+    function namesOnPlate(n) {
+      return n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface';
+    }
+    function namePlate(i, rs, w, h) {
       var n = nodes[i];
       ctx.font = '500 12px ' + SERIF;
-      var text = clip(n.shortLabel, 60);
-      var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
-      var y = ly + n.r * rs + 15;
-      var tw = ctx.measureText(text).width, gap = n.r * rs + 16;
-      var roomRight = w - 14 - (lx + gap), roomLeft = lx - gap - 14;
-      var side = n.x >= 0 ? 1 : -1;
-      var room = side > 0 ? roomRight : roomLeft;
-      if (room < tw && (side > 0 ? roomLeft : roomRight) > room) {
-        side = -side;
-        room = side > 0 ? roomRight : roomLeft;
+      // A paper's short name is cut for the ring; on its plate it is whole.
+      var full = clip(n.kind === 'paper' ? n.label : n.shortLabel, 60);
+      var fullWidth = ctx.measureText(full).width;
+      var mx = n.x * view.k + view.tx, my = n.y * view.k + view.ty;
+      var s = reticleSize(n, rs), gap = s + LEAD_RUN + 9, near = s + LEAD_RISE;
+      var out = n.y < 0 ? -1 : 1, pref = n.x >= 0 ? 1 : -1;
+      function fit(room) {
+        if (fullWidth <= room) return full;
+        return clip(full, Math.max(8, Math.floor(full.length * room / fullWidth) - 1));
       }
-      if (room >= 90) {
-        if (tw > room) {
-          text = clip(text, Math.max(8, Math.floor(text.length * room / tw) - 1));
-          tw = ctx.measureText(text).width;
-        }
-        lx += side * (gap + tw / 2);
-        y = ly + 4;
-      } else if (tw > w - 28) {
-        text = clip(text, Math.max(8, Math.floor(text.length * (w - 28) / tw) - 1));
+      function make(text, cx, y) {
+        var width = ctx.measureText(text).width;
+        // The whole plate, padding and edge, stays on the canvas.
+        var x0 = Math.max(11, Math.min(w - width - 11, cx - width / 2));
+        return { text: text, x: x0 + width / 2, y: y, width: width,
+                 box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7, owner: i } };
       }
-      var width = ctx.measureText(text).width, half = width / 2 + 6;
-      var x = Math.max(half, Math.min(w - half, lx));
-      var x0 = Math.max(2, Math.min(w - width - 2, x - width / 2));
-      return { text: text, x: x, y: y, box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7, owner: i } };
+      // Beside the mark, a little up or down, its near edge a leader's run
+      // from the reticle; or hung under or over the mark.
+      function beside(side, v) {
+        var room = side > 0 ? w - 14 - (mx + gap) : mx - gap - 14;
+        if (room < 90) return null;
+        var mid = my + v * near;
+        if (mid - 12 < 2 || mid + 12 > h - 2) return null;
+        var text = fit(room), tw = ctx.measureText(text).width;
+        var p = make(text, mx + side * (gap + tw / 2), mid + 4.5);
+        var cx = mx + side * s;
+        p.leader = [[cx, my + v * (s + LEAD_GAP), cx, mid], [cx, mid, side > 0 ? p.box.x0 : p.box.x1, mid]];
+        return p;
+      }
+      function hung(v) {
+        var y = v > 0 ? my + near + 16 : my - near - 7;
+        if (y - 16 < 2 || y + 7 > h - 2) return null;
+        var p = make(fit(w - 28), mx, y);
+        p.leader = [[mx, my + v * (s + LEAD_GAP), mx, v > 0 ? p.box.y0 : p.box.y1]];
+        return p;
+      }
+      var tries = [beside(pref, out), beside(pref, -out), beside(-pref, out), beside(-pref, -out), hung(-out), hung(out)];
+      var best = null, bestScore = Infinity;
+      for (var t = 0; t < tries.length; t++) {
+        var p = tries[t];
+        if (!p) continue;
+        // The least covered first; every letter a place cuts from the name
+        // counts against it, and among equals the earlier, more natural place
+        // wins.
+        var cut = p.text === full ? 0 : 200 + 40 * Math.max(0, full.length - p.text.length + 1);
+        var score = overlapArea(p.box, plateKeepOut) + cut + t;
+        if (score < bestScore) { best = p; bestScore = score; }
+      }
+      if (!best) best = hung(1) || hung(-1) || make(fit(w - 28), mx, Math.min(h - 9, my + near + 16));
+      if (!best.leader) best.leader = [];
+      return best;
     }
 
     /* Focus, evidence, opening and camera motion share one display frame.
@@ -1606,6 +2206,10 @@
       }
     }
     function draw() {
+      // Out of view, or in a hidden tab, a paint waits and is made once the
+      // canvas is back.
+      if (!onScreen || document.hidden) { paintPending = true; return; }
+      paintPending = false;
       if (advancingMotion) { motionNeedsPaint = true; return; }
       paint();
     }
@@ -1615,12 +2219,27 @@
       // frame for no visible gain. The glow sprites draw in CSS pixels.
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       var w = canvas.clientWidth, h = canvas.clientHeight;
-      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-        canvas.width = Math.round(w * dpr);
-        canvas.height = Math.round(h * dpr);
+      var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+      // Where the browser gives the box in device pixels the backing store
+      // takes exactly that size, so each pixel drawn is one pixel on the
+      // screen and a hairline is never resampled across two.
+      if (deviceBox && Math.abs(deviceBox[0] - w * dpr) < 2 && Math.abs(deviceBox[1] - h * dpr) < 2) {
+        bw = deviceBox[0];
+        bh = deviceBox[1];
       }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (canvas.width !== bw || canvas.height !== bh) {
+        canvas.width = bw;
+        canvas.height = bh;
+      }
+      var sx = w ? bw / w : dpr, sy = h ? bh / h : dpr;
+      ctx.setTransform(sx, 0, 0, sy, 0, 0);
+      hairX = 1 / sx;
+      hairY = 1 / sy;
+      hairPx = 2 / (sx + sy);
       ctx.clearRect(0, 0, w, h);
+      // Kerning is asked for by name; left to the browser it can drop out at
+      // the small sizes the labels use.
+      if ('fontKerning' in ctx) ctx.fontKerning = 'normal';
 
       var searching = query.length >= 2;
       // Dimming, the lit sector and the threads follow the focus, and for a
@@ -1633,24 +2252,65 @@
          at desktop size would then cover each other, so they shrink with the
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
+      scaleR = scaleRadius(w);
+      aimCursor(false);
       labelBoxes = [];
-      // The hovered and the selected result name themselves on plates. The
-      // plates are placed first, so the band titles and the shared callout,
-      // lettered before the labels, can step aside from under them.
+      // The hovered and the selected object name themselves on plates. The
+      // plates and their leaders are placed first, so the band titles and
+      // the shared callout, lettered before the labels, can step aside from
+      // under them.
       plateBoxes = [];
-      [hover, selected].forEach(function (at, k) {
-        if (at < 0 || (k === 1 && at === hover)) return;
+      platePlaced = {};
+      gatherLabelObstacles(rs, w, h);
+      var titleLayout = bandLabelLayout(focus, w, h);
+      var reticles = reticleTargets(rs, w, h);
+      plateKeepOut = [];
+      if (hover >= 0 || selected >= 0) {
+        plateKeepOut = keepOutBoxes(rs, w, h);
+        // The band titles, the cursor and every reticle hold their room too.
+        titleLayout.forEach(function (item) {
+          item.rows.forEach(function (r) { plateKeepOut.push(r.box); });
+        });
+        var cursorAt = cursorTarget();
+        if (cursorAt !== null) {
+          var cc = Math.cos(cursorAt), cs = Math.sin(cursorAt), cR = seatedScaleR();
+          var cx0 = view.tx + cc * (cR - 4), cy0 = view.ty + cs * (cR - 4);
+          var cx1 = view.tx + cc * (cR + SCALE_MARK), cy1 = view.ty + cs * (cR + SCALE_MARK);
+          plateKeepOut.push({ x0: Math.min(cx0, cx1) - 3, x1: Math.max(cx0, cx1) + 3,
+                              y0: Math.min(cy0, cy1) - 3, y1: Math.max(cy0, cy1) + 3, weight: 4 });
+        }
+        reticles.forEach(function (t) { plateKeepOut.push(weighted(t.box, 4)); });
+      }
+      // The pinned plate is placed first and holds still; a hovered one keeps
+      // clear of it.
+      [selected, hover].forEach(function (at, k) {
+        if (at < 0 || (k === 1 && at === selected)) return;
         var pn = nodes[at];
-        if (!pn || !visible(pn) || (pn.kind !== 'paper_statement' && pn.kind !== 'public_claim')) return;
+        if (!pn || !visible(pn) || !namesOnPlate(pn)) return;
         var px = pn.x * view.k + view.tx, py = pn.y * view.k + view.ty;
         if (px < -60 || py < -60 || px > w + 60 || py > h + 60) return;
-        plateBoxes.push(namePlate(at, rs, w).box);
+        // The pinned plate keeps the place it was given until the pin or the
+        // view changes: a hover elsewhere never moves it.
+        var placed, key = k === 0 ? [at, view.k, view.tx, view.ty, w, h, rs].join('|') : null;
+        if (key && pinnedPlate && pinnedPlate.key === key) placed = pinnedPlate.placed;
+        else placed = namePlate(at, rs, w, h);
+        if (key) pinnedPlate = { key: key, placed: placed };
+        var lead = leaderBoxes(placed.leader, at);
+        platePlaced[at] = placed;
+        plateBoxes.push(placed.box);
+        Array.prototype.push.apply(plateBoxes, lead);
+        // Two plates, or a plate and the other's leader, never cross.
+        plateKeepOut.push(weighted(placed.box, 12));
+        lead.forEach(function (b) { plateKeepOut.push(weighted(b, 12)); });
       });
 
       drawGround(w, h);
       drawSectorSlice(focus);
       drawClaimPlates(focus);
       drawBandPlates(focus);
+      scaleYield = plateBoxes.concat(reticles.map(function (t) { return t.box; }));
+      drawScale(focus, w, h);
+      drawCursor();
 
       var hot = graph.hot, quiet = graph.quiet, availableEdges = graph.availableEdges;
       var shownEdges = quiet.length + hot.length;
@@ -1661,16 +2321,17 @@
       drawLight(focus, near, searching, threads, rs, w, h);
       // The band titles go down first, outside the rings, so every label
       // placed after them (the shared callout, the node labels) keeps clear.
-      drawBandLabels(focus, w, h);
+      drawBandLabels(titleLayout);
 
 
-      var shown = 0;
+      var shown = 0, seating = reveal < 1;
       for (i = 0; i < nodes.length; i++) {
         n = nodes[i];
         if (!visible(n)) continue;
         shown++;
-        x = n.x * view.k + view.tx;
-        y = n.y * view.k + view.ty;
+        var nk = seating ? layerK(revealLayer(n.kind)) : view.k;
+        x = n.x * nk + view.tx;
+        y = n.y * nk + view.ty;
         if (x < -24 || y < -24 || x > w + 24 || y > h + 24) continue;
         var r = n.r * rs;
         if (n.kind === 'lean_module' && i !== focus) {
@@ -1787,42 +2448,6 @@
         var ax = n.x * view.k + view.tx, ay = n.y * view.k + view.ty, ar = n.r * rs + 4;
         labelBoxes.push({ x0: ax - ar, x1: ax + ar, y0: ay - ar, y1: ay + ar, owner: i });
       }
-      // Glyphs a problem's label must not sit on: the claims and papers that
-      // crowd round each problem.
-      var glyphBoxes = [];
-      for (i = 0; i < nodes.length; i++) {
-        n = nodes[i];
-        if (!visible(n) || (n.kind !== 'public_claim' && n.kind !== 'paper')) continue;
-        var gx = n.x * view.k + view.tx, gy = n.y * view.k + view.ty, gr = n.r * rs + 3;
-        if (gx < -40 || gy < -40 || gx > w + 40 || gy > h + 40) continue;
-        glyphBoxes.push({ x0: gx - gr, x1: gx + gr, y0: gy - gr, y1: gy + gr });
-      }
-      // The checking surfaces' names hang under their discs. A problem's
-      // name that lands just below them reads as a third line of their
-      // caption (#257's did, at the foot of the core), so that room is kept.
-      var captionZones = [];
-      for (i = 0; i < nodes.length; i++) {
-        n = nodes[i];
-        if (!visible(n) || n.kind !== 'integration_surface') continue;
-        var zx = n.x * view.k + view.tx, zy = n.y * view.k + view.ty, zr = n.r * rs;
-        ctx.font = '600 13px ' + SERIF;
-        var zw = ctx.measureText(n.shortLabel || '').width;
-        if (n.sub) { ctx.font = '400 11px ' + SERIF; zw = Math.max(zw, ctx.measureText(n.sub).width); }
-        captionZones.push({ x0: zx - zw / 2 - 12, x1: zx + zw / 2 + 12,
-                            y0: zy - zr - 8, y1: zy + zr + 19 + (n.sub ? 13 : 0) + 12 });
-      }
-      function glyphHits(box) {
-        var count = 0;
-        for (var g = 0; g < glyphBoxes.length; g++) {
-          var q = glyphBoxes[g];
-          if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count++;
-        }
-        for (g = 0; g < captionZones.length; g++) {
-          q = captionZones[g];
-          if (box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0) count += 10;
-        }
-        return count;
-      }
       var candidates = [];
       for (i = 0; i < nodes.length; i++) {
         n = nodes[i];
@@ -1841,46 +2466,23 @@
         var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         var font = (big ? '600 13px ' : '500 12px ') + SERIF;
         ctx.font = font;
-        var text = clip(n.shortLabel, isFocus ? 60 : 42);
-        if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
-          var number = n.id.match(/(?:^|[:_])(\d+)$/);
-          if (number) text = '#' + number[1];
-        }
+        var text = anchorText(n, w, isFocus);
         var half = ctx.measureText(text).width / 2 + 6;
         var labelY = ly + n.r * rs + 15;
         if (n.kind === 'problem') {
-          // Toward the centre, where the field is open: the papers sit on
-          // the orbit either side of the disc and its claims outward. Along
-          // the orbit, then outward, only when that spot is taken.
-          var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
-          var ux = n.x / distance, uy = n.y / distance;
-          var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
-          var px = lx, py = ly, chosen = null, fewest = Infinity;
-          // Each side at the disc's edge first, then one step out, past the
-          // paper that sits on the orbit beside it.
-          search: for (var d = 0; d < dirs.length; d++) {
-            for (var step = 0; step < 2; step++) {
-              var dx = dirs[d][0], dy = dirs[d][1];
-              var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy) + step * 16;
-              var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
-              var textHalf = half - 6;
-              var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
-              var hits = glyphHits(trial);
-              if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
-              if (!hits) break search;
-            }
-          }
+          var chosen = problemLabelSpot(n, lx, ly, half, rs, w);
           lx = chosen[0];
           labelY = chosen[1];
         }
         // A hovered or selected result or claim names itself on a plate,
         // where the frame's first step already placed it.
-        var plate = false;
-        if (isFocus && (n.kind === 'paper_statement' || n.kind === 'public_claim')) {
-          var placed = namePlate(i, rs, w);
+        var plate = false, leader = null;
+        if (isFocus && namesOnPlate(n)) {
+          var placed = platePlaced[i] || namePlate(i, rs, w, h);
           text = placed.text;
           lx = placed.x;
           labelY = placed.y;
+          leader = placed.leader;
           half = ctx.measureText(text).width / 2 + 6;
           plate = true;
         }
@@ -1896,7 +2498,7 @@
           n.kind === 'integration_surface' ? { x: n.x * view.k + view.tx, y: ly + 4,
             side: n.x < 0 ? -1 : 1, r: n.r * rs } : null;
         candidates.push({ text: text, x: lx, y: labelY, font: font, size: big ? 13 : 12, plate: plate, alt: alt,
-                          color: palette.ink, priority: priority, owner: i, order: candidates.length });
+                          leader: leader, color: palette.ink, priority: priority, owner: i, order: candidates.length });
         // A quieter second line: a hub's reach. It waits for room.
         if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
           candidates.push({ text: clip(n.sub, 36), x: lx, y: labelY + 13, font: '400 11px ' + SERIF, size: 11,
@@ -1920,6 +2522,12 @@
         // A new plate eases out of its mark over a sixth of a second; its
         // room is taken at once, so nothing else moves while it arrives.
         var enter = cand.plate && cand.owner === pulse.at ? 1 - Math.pow(1 - Math.min(1, pulse.ms / 160), 2) : 1;
+        if (cand.plate && cand.leader) {
+          // The leader stands where it ends; the plate eases along it, over
+          // its end, so the two never part.
+          drawLeader(cand.leader, 0.66 * enter);
+          Array.prototype.push.apply(labelBoxes, leaderBoxes(cand.leader, cand.owner));
+        }
         if (enter < 1) {
           var ownerX = nodes[cand.owner].x * view.k + view.tx;
           ctx.save();
@@ -1927,15 +2535,19 @@
         }
         if (cand.plate) {
           box = { x0: cx0 - 9, x1: cx0 + width + 9, y0: cand.y - cand.size - 4, y1: cand.y + 7, owner: cand.owner };
+          // The plate's edge is one device pixel, laid on the grid.
+          var bx0 = snapX(box.x0) + hairX / 2, by0 = snapY(box.y0) + hairY / 2;
+          var bw0 = snapX(box.x1) - snapX(box.x0) - hairX, bh0 = snapY(box.y1) - snapY(box.y0) - hairY;
           ctx.beginPath();
-          if (typeof ctx.roundRect === 'function') ctx.roundRect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0, 6);
-          else ctx.rect(box.x0, box.y0, box.x1 - box.x0, box.y1 - box.y0);
-          ctx.globalAlpha = 0.94 * enter;
+          if (typeof ctx.roundRect === 'function') ctx.roundRect(bx0, by0, bw0, bh0, 3);
+          else ctx.rect(bx0, by0, bw0, bh0);
+          // Opaque: nothing under a plate shows through it.
+          ctx.globalAlpha = enter;
           ctx.fillStyle = palette.ground;
           ctx.fill();
-          ctx.globalAlpha = enter;
-          ctx.lineWidth = 1;
-          ctx.strokeStyle = palette.faint;
+          ctx.globalAlpha = 0.5 * enter;
+          ctx.lineWidth = hairPx;
+          ctx.strokeStyle = palette.ink;
           ctx.stroke();
         }
         labelBoxes.push(box);
@@ -1948,6 +2560,8 @@
         ctx.globalAlpha = 1;
         if (enter < 1) ctx.restore();
       }
+      // The reticles go down once every name has its place.
+      drawReticles(rs, w, h);
       drawStatementNumbers(focus, near, searching, w, h);
       if (countOut) {
         var line = fmtCount(shown) + ' objects, ' + fmtCount(shownEdges) + ' of ' +
@@ -2083,8 +2697,10 @@
           '<li>' + dotHtml('paper_statement') + '<span>every result the papers state</span></li>' +
           '</ol>');
         parts.push('<p class="universe-inspector__body">Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
-          'A sector’s width is its number of results. ' +
-          'Select a problem to frame its sector, or a result to read its Lean and its replay.</p>');
+          'A sector’s width is its number of results, and the scale round the outside has a tick for each, ' +
+          'every paper’s in the order the paper states them. ' +
+          'Select a problem to frame its sector, a paper to frame its results, or a result to read its Lean and its replay; ' +
+          '<kbd>Esc</kbd> or a click on empty ground steps back.</p>');
         parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'All paper results') + '</div>');
         parts.push(evidence.html);
       } else {
@@ -2742,14 +3358,24 @@
       if (canCopy) {
         parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
       }
+      parts.push(STEP_BACK_HINT);
       return parts.join('');
     }
+    // How to go back up a level, said on every pinned card.
+    var STEP_BACK_HINT = '<p class="universe-inspector__hint">Press <kbd>Esc</kbd> or click empty ground to step back.</p>';
 
+    // A card's first line names the kind of thing, in plain words.
+    function kindLine(n) {
+      if (n.id === 'integration:comparator') return 'Replay checker';
+      if (n.id === 'integration:palomar') return 'Prepared corpus';
+      if (n.kind === 'universe') return 'Centre of the map';
+      return capitalFirst(KIND_LABEL[n.kind] || n.kind);
+    }
     function cardHtml(i, pinned) {
       var n = nodes[i];
       if (n.kind === 'paper_statement') return resultCardHtml(i, pinned);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
-        escapeHtml(KIND_LABEL[n.kind] || n.kind) + '</p>';
+        escapeHtml(kindLine(n)) + '</p>';
       if (pinned) {
         head = '<div class="universe-inspector__head">' + head +
           '<button type="button" class="universe-inspector__clear" data-universe-clear aria-label="Close this card (Esc)">Close</button></div>';
@@ -2791,6 +3417,7 @@
         if (canCopy) {
           parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
         }
+        parts.push(STEP_BACK_HINT);
       } else {
         parts.push('<p class="universe-inspector__hint">Click to keep this card and see what it connects to; double-click to open it.</p>');
       }
@@ -2877,6 +3504,23 @@
        never when the reader has asked to save data. */
     var warmedHref = null;
     var warmNodes = [];
+    /* Speculation rules are an inline script. The landing's policy admits
+       only the scripts it serves (script-src 'self'), so there an inline
+       rule set is refused and the refusal logged on every pin; where the
+       page's policy says so, the paper is prefetched only. */
+    function inlineScriptsAllowed() {
+      var meta = null;
+      try { meta = document.querySelector ? document.querySelector('meta[http-equiv="Content-Security-Policy" i]') : null; }
+      catch (err) { meta = null; }
+      if (!meta) return true;
+      var policy = String(meta.getAttribute('content') || '');
+      var rule = /(?:^|;)\s*script-src-elem\s+([^;]*)/i.exec(policy) ||
+        /(?:^|;)\s*script-src\s+([^;]*)/i.exec(policy) ||
+        /(?:^|;)\s*default-src\s+([^;]*)/i.exec(policy);
+      if (!rule) return true;
+      // A nonce, a hash or 'strict-dynamic' switches 'unsafe-inline' off.
+      return /'unsafe-inline'/i.test(rule[1]) && !/'(?:nonce-|sha(?:256|384|512)-|strict-dynamic)/i.test(rule[1]);
+    }
     function warmPaper(i) {
       var target = i >= 0 && nodes[i] ? primaryTarget(nodes[i]) : null;
       if (!target || target.external || typeof document.createElement !== 'function' || !document.head) return;
@@ -2889,7 +3533,7 @@
       warmNodes.forEach(function (node) { if (node.parentNode) node.parentNode.removeChild(node); });
       warmNodes = [];
       if (typeof HTMLScriptElement !== 'undefined' && HTMLScriptElement.supports &&
-          HTMLScriptElement.supports('speculationrules')) {
+          HTMLScriptElement.supports('speculationrules') && inlineScriptsAllowed()) {
         var rules = document.createElement('script');
         rules.type = 'speculationrules';
         rules.textContent = JSON.stringify({ prerender: [{ source: 'list', urls: [href] }] });
@@ -2933,6 +3577,13 @@
       inspector.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     }
 
+    /* One level back up the map: a pinned card is let go first, keeping the
+       view; then a closer view returns to the whole field. */
+    function stepBack() {
+      if (selected >= 0) { pin(-1, false); return; }
+      if (!viewIsFitted) fitAnimated();
+    }
+
     function stepStatement(dir) {
       if (selected < 0 || !nodes[selected]) return;
       var n = nodes[selected];
@@ -2955,15 +3606,37 @@
 
     /* ---- Caption (landing teaser) ------------------------------------ */
 
+    /* The caption under the teaser says what the pointer is on in a short
+       plain sentence, two lines at most, so it never grows over the drawing:
+       "Theorem 6.32 on #257, replayed by Comparator", "#249: The binary
+       totient series", "Comparator: 616 of 689 replayed". */
+    var CAPTION_EVIDENCE = {
+      replayed: 'replayed by Comparator',
+      lean: 'exact in Lean, replay queued',
+      modulo: 'in Lean under named inputs',
+      none: 'not yet stated in Lean'
+    };
+    function captionText(n) {
+      var problem = n.sector && problemIndex[n.sector] !== undefined ? nodes[problemIndex[n.sector]].shortLabel : null;
+      if (n.kind === 'paper_statement') {
+        return clip(splitLabel(n.label).number, 28) + (problem ? ' on ' + problem : '') +
+          (CAPTION_EVIDENCE[n.tier] ? ', ' + CAPTION_EVIDENCE[n.tier] : '');
+      }
+      if (n.kind === 'problem') return n.shortLabel + ': ' + clip(n.label, 44);
+      if (n.kind === 'integration_surface') return n.label + (n.sub ? ': ' + n.sub : '');
+      return clip(n.label, 52);
+    }
     function showCaption(i) {
       if (!caption) return;
       if (i < 0) {
+        // The words go with the class: the landing's stylesheet does not
+        // hide an unshown caption, and a stale name would linger there.
         caption.classList.remove('is-shown');
+        caption.textContent = '';
         return;
       }
       var n = nodes[i];
-      var text = (KIND_LABEL[n.kind] || n.kind) + ': ' + clip(n.label, 96);
-      if (n.kind === 'paper_statement' && EVIDENCE_TEXT[n.tier]) text += ', ' + EVIDENCE_TEXT[n.tier];
+      var text = captionText(n);
       // With the companion beside the drawing the column reads the object in
       // full, so the caption only names it, in one line, and its box never
       // grows.
@@ -3202,6 +3875,9 @@
         });
         seq.forEach(function (idx, at) { nodes[idx].seq = at; });
       });
+      // The scale round the results ring reads the same sequences.
+      buildScale();
+      pinnedPlate = null;
       // A result the other paper also states: the same label, or a Lean
       // declaration both cite. Its card lists every place it appears.
       var twinSlots = {};
@@ -3306,6 +3982,7 @@
       ]).then(function () {
         // Letter places measured in the fallback face no longer hold.
         arcPlaces = {};
+        pinnedPlate = null;
         if (nodes.length) draw();
       }, function () {});
     }
@@ -3344,8 +4021,13 @@
       if (pageMode) {
         // First click pins; a second click on the pinned object opens it.
         if (i >= 0 && i === selected) { openTarget(nodes[i]); return; }
-        pin(i, false);
-        if (i >= 0) revealCard();
+        // A click on empty ground steps back: it lets a pin go, and with
+        // nothing pinned it returns a closer view to the whole field.
+        if (i < 0) { stepBack(); return; }
+        // Pinning a problem frames its sector and a paper its results, a
+        // level down; a result or a claim pins where it is, under the pointer.
+        pin(i, nodes[i].kind === 'problem' || nodes[i].kind === 'paper');
+        revealCard();
         return;
       }
       if (companionApi && (i >= 0 || selected >= 0)) {
@@ -3451,7 +4133,7 @@
       document.addEventListener('keydown', function (event) {
         var tag = event.target && event.target.tagName;
         var typing = tag === 'INPUT' || tag === 'TEXTAREA' || (event.target && event.target.isContentEditable);
-        if (event.key === 'Escape' && selected >= 0) { pin(-1, false); return; }
+        if (event.key === 'Escape' && (selected >= 0 || (!typing && !viewIsFitted))) { stepBack(); return; }
         if (!typing && (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
             selected >= 0 && nodes[selected].kind === 'paper_statement') {
           event.preventDefault();
@@ -3546,6 +4228,7 @@
 
     function afterFilterChange() {
       frameGraphCache = null;
+      pinnedPlate = null;
       if (hover >= 0 && !visible(nodes[hover])) hover = -1;
       if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
       else renderInspector();
@@ -3854,27 +4537,87 @@
       });
     }
 
+    function followBox() {
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (w === viewWidth && h === viewHeight) return false;
+      if (viewIsFitted) fit();
+      else {
+        // Keep the same object under the centre when rotating a phone or
+        // resizing a window; only Reset should discard an explored view.
+        view.tx += (w - viewWidth) / 2;
+        view.ty += (h - viewHeight) / 2;
+        viewWidth = w; viewHeight = h;
+      }
+      return true;
+    }
     var resizeTimer = null;
     window.addEventListener('resize', function () {
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        if (w === viewWidth && h === viewHeight) return;
-        if (viewIsFitted) fit();
-        else {
-          // Keep the same object under the centre when rotating a phone or
-          // resizing a window; only Reset should discard an explored view.
-          view.tx += (w - viewWidth) / 2;
-          view.ty += (h - viewHeight) / 2;
-          viewWidth = w; viewHeight = h;
-        }
-        draw();
+        if (followBox()) draw();
       }, 120);
     });
-    document.addEventListener('plectis:theme', function () {
+    /* The canvas's own box, observed directly: the drawing follows it when
+       the page changes it without a window resize, and learns its exact
+       size in device pixels, which the backing store then takes. */
+    if (typeof ResizeObserver === 'function') {
+      var sizer = new ResizeObserver(function (entries) {
+        var entry = entries[entries.length - 1];
+        var box = entry && entry.devicePixelContentBoxSize && entry.devicePixelContentBoxSize[0];
+        var was = deviceBox;
+        deviceBox = box && (window.devicePixelRatio || 1) <= 2 ? [box.inlineSize, box.blockSize] : null;
+        var moved = nodes.length ? followBox() : false;
+        if (moved || String(was) !== String(deviceBox)) draw();
+      });
+      try { sizer.observe(canvas, { box: 'device-pixel-content-box' }); }
+      catch (err) { sizer.observe(canvas); }
+    }
+    // Out of view (scrolled past, or slid aside by the landing's atlas) the
+    // canvas is not painted; it is painted once when it returns.
+    if (typeof IntersectionObserver === 'function') {
+      new IntersectionObserver(function (entries) {
+        var now = !!entries[entries.length - 1].isIntersecting;
+        if (now === onScreen) return;
+        onScreen = now;
+        if (!now) settleMotion();
+        else if (paintPending) draw();
+      }, { rootMargin: '120px 0px' }).observe(canvas);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) settleMotion();
+      else if (paintPending) draw();
+    });
+    function repaint() {
       readPalette();
       draw();
-    });
+    }
+    document.addEventListener('plectis:theme', repaint);
+    // The system scheme can change under a page that follows it.
+    var schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    if (schemeQuery && typeof schemeQuery.addEventListener === 'function') {
+      schemeQuery.addEventListener('change', repaint);
+    } else if (schemeQuery && typeof schemeQuery.addListener === 'function') {
+      schemeQuery.addListener(repaint);
+    }
+    /* The landing's atlas slides this drawing aside for the system map and
+       back (plectis:atlas, from landing.js). Leaving, the drawing lets go of
+       what it was showing: the hover, a pin, and the column's card, so
+       nothing stays lit out of view. Coming back plays nothing: the opening
+       has been spent, and the canvas simply paints when it is in view. */
+    if (!pageMode) {
+      document.addEventListener('plectis:atlas', function (event) {
+        var detail = (event && event.detail) || {};
+        if (detail.phase !== 'start' || detail.previous !== 'mathematics' || detail.view === 'mathematics') return;
+        var had = hover >= 0 || selected >= 0;
+        hover = -1;
+        canvas.classList.remove('is-over');
+        showCaption(-1);
+        if (selected >= 0) pinInTeaser(-1);
+        else if (companionApi) stage.dispatchEvent(new CustomEvent('universe:select', { detail: null }));
+        announce(-1);
+        if (had) draw();
+      });
+    }
   }
 
   function boot() {

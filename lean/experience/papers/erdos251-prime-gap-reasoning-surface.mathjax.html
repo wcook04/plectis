@@ -25,19 +25,22 @@ tails.</p>
 <p>Our main construction is Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">2.1</a>.
 For any convergent dyadic series with nonnegative integer coefficients,
 we choose one sparse set containing all correction supports. By varying
-the corrections on this set, we attain every value in an interval. The
-corrections can grow arbitrarily slowly, and every fixed modulus
-eventually divides both their terms and their partial sums, with cutoffs
-fixed before the target. The construction varies adjacent entries while
+the corrections on this set, we attain every value in an interval. Given
+any function tending to infinity, we can choose corrections bounded by
+it for all sufficiently large indices. Every fixed modulus eventually
+divides both their terms and their partial sums, with cutoffs fixed
+before the target. The construction varies adjacent entries while
 keeping their ordinary sum fixed. This separates the choice of weighted
 sum from the subsequent congruence calculations.</p>
-<p>With a polylogarithmic bound on the corrections we also preserve
-empirical blocks of length <span class="math inline" data-term-auto="off">\(o(\log\log
-X)\)</span>. Applied to prime gaps, the theorem gives rational sums and
-cumulative positions asymptotic to <span class="math inline" data-term-auto="off">\(n\log
-n\)</span>. These positions are comparison integers and are not shown to
-be prime. These congruences and statistics are therefore compatible with
-a rational sum. The irrationality of the actual prime series remains
+<p>With a polylogarithmic bound on the corrections, the original and
+altered empirical block distributions have total variation distance
+tending to zero for lengths <span class="math inline" data-term-auto="off">\(o(\log\log
+X)\)</span> sampled in <span class="math inline" data-term-auto="off">\([X,2X)\)</span>.
+Applied to prime gaps, the theorem gives rational sums and cumulative
+positions asymptotic to <span class="math inline" data-term-auto="off">\(n\log n\)</span>.
+These positions are comparison integers and are not shown to be prime.
+These congruences and statistics are therefore compatible with a
+rational sum. The irrationality of the actual prime series remains
 unresolved.</p>
 <p>The proofs about the actual primes begin in Section <a class="math-ref" href="#long251:sec:parts">4</a> and are
 independent of the sparse construction. Finite summation by parts
@@ -181,20 +184,22 @@ not possible here: eventual boundedness together with eventual
 divisibility by every fixed modulus would make the corrections
 eventually zero; their fixed total would then have to be divisible by
 every modulus and hence be zero. Nonnegative corrections could not
-change the sum. The supports of all corrections lie in <span
-class="math inline" data-term-auto="off">\(S\)</span>, but each may be a proper subset
-depending on the value of the sum. Requiring upper Banach density zero
-is stronger than requiring ordinary density zero. For example, the union
-of the integer intervals <span class="math inline" data-term-auto="off">\([k!,k!+k)\)</span>,
+change the sum. The set <span class="math inline" data-term-auto="off">\(S\)</span>, the
+interval <span class="math inline" data-term-auto="off">\(I\)</span> and every congruence
+cutoff are fixed before the target value is chosen. Each correction
+depends on that value, and its support may be a proper subset of <span
+class="math inline" data-term-auto="off">\(S\)</span>. Requiring upper Banach density zero is
+stronger than requiring ordinary density zero. For example, the union of
+the integer intervals <span class="math inline" data-term-auto="off">\([k!,k!+k)\)</span>,
 <span class="math inline" data-term-auto="off">\(k\ge3\)</span>, has ordinary density zero
 but upper Banach density one. If <span class="math inline" data-term-auto="off">\(k!\le
 x&lt;(k+1)!\)</span>, at most <span
 class="math inline" data-term-auto="off">\(k(k+1)/2\)</span> indices have occurred, so their
 proportion is at most <span
 class="math inline" data-term-auto="off">\(k(k+1)/(2k!)\to0\)</span>. Nevertheless each
-interval is filled and their lengths are unbounded. The hypothesis rules
-out this concentration in long intervals, however far apart those
-intervals lie.</p>
+interval is filled and their lengths are unbounded. Upper Banach density
+zero rules out this concentration in long intervals, however far apart
+those intervals lie.</p>
 <div class="proof">
 <p><em>Proof.</em> <em>Fixed totals.</em> At stage <span
 class="math inline" data-term-auto="off">\(j\)</span> we put a correction at <span
@@ -676,7 +681,7 @@ class="math inline" data-term-auto="off">\(\{0,w_j,\ldots,D_jw_j\}\)</span>, and
 condition is <span
 class="math inline" data-term-auto="off">\(w_j\le\sum_{i&gt;j}D_iw_i\)</span>. The proof
 checks this inequality at every stage. Fridy’s lemma <span
-class="citation" data-cites="fridy1966"><a href="#ref-9">[9]</a></span> assumes decreasing
+class="citation" data-cites="fridy1966"><a href="#ref-9">[9]</a></span> assumes nonincreasing
 weights, a restriction avoided by the finite-choice form. Kovač and Tao
 use reciprocal choices <span class="citation"
 data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>.</p>
@@ -1760,9 +1765,9 @@ class="math inline" data-term-auto="off">\(0\)</span> or <span
 class="math inline" data-term-auto="off">\(M\)</span> after a prescribed prefix. The weighted
 choices form a binary expansion, so we can choose a rational sum while
 preserving every coefficient modulo <span
-class="math inline" data-term-auto="off">\(M\)</span>. This construction uses all late
-indices and imposes neither density-zero support nor eventual
-preservation of all moduli.</p>
+class="math inline" data-term-auto="off">\(M\)</span>. This construction permits changes at
+every index after the prefix; it imposes neither density-zero support
+nor eventual preservation of all moduli.</p>
 <div class="theorem" id="long251:res:boundedperturbation">
 <p><strong>Theorem 8.1</strong> (bounded perturbations preserving
 congruences). <em> Let <span class="math inline" data-term-auto="off">\(a_n\)</span> be
@@ -2882,10 +2887,11 @@ print(&quot;Both tail rows and the denominator floor verified.&quot;)</code></pr
 revisions; the short paper’s source index retains its different revision
 in Appendix <a class="math-ref" href="#long251:app:short-source-index">G</a>. The
 formal sparse construction changes one coordinate per stage, whereas the
-printed proof uses triples. Both fix supports, the interval of sums and
-the modulus cutoffs before choosing a value. The formal proofs use the
-published inputs stated below; the linked declarations do not check the
-different printed arguments step by step.</p>
+printed proof uses triples. Both fix a set containing all correction
+supports, the interval of sums and the modulus cutoffs before choosing a
+value. The formal proofs use the published inputs stated below; the
+linked declarations do not check the different printed arguments step by
+step.</p>
 <p>Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-14">[14]</a></span> and
 mathlib <span class="citation" data-cites="mathlib"><a href="#ref-15">[15]</a></span> supply the
 proof-checking environment. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/251/\evidencerecordurl">evidence

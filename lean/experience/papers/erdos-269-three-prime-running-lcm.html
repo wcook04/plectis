@@ -505,13 +505,13 @@ Along with the final factor
 these give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>10</mn><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b_a\in\{2,6,10,30\}</annotation></semantics></math>. ◻</p>
 </div>
-<p>Although
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>a</mi></msub><annotation encoding="application/x-tex">b_a</annotation></semantics></math>
-has only four possible values, the recurrence also depends on
+<p>In the distinct-value proof, the ordered jumps in a block determine
+its numerator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">\mu_\tau</annotation></semantics></math>.
+For the repeated sum, that word does not record how many smooth integers
+share each running LCM. We therefore retain the full block contribution
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>a</mi></msub><annotation encoding="application/x-tex">m_a</annotation></semantics></math>,
-which counts contributions from every smooth integer in the block. Thus
-the finite set of bases does not give a finite family of affine maps for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>.</p>
+not just the jumps.</p>
 <div class="proposition">
 <p><strong>Proposition 3.2</strong> (the tail recurrence and a quadratic
 bound). <em> The series defining
@@ -589,10 +589,11 @@ are bounded and
 grows quadratically. The <a
 href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#r3-repeated-bounds">companion’s
 tail estimates</a> prove this lower bound as well as sharper upper
-bounds. In particular,
+bounds. Thus these criteria do not apply, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>&gt;</mo><msub><mi>m</mi><mi>a</mi></msub><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">X_a&gt;m_a/30</annotation></semantics></math>
-is unbounded, so the finite-value argument in Section 2 no longer
-applies to these normalised tails.</p>
+is unbounded. Rationality still places the tails in a fixed lattice, but
+no longer in a finite set as in Section 2. We shall use their quadratic
+bound to exclude possible integer tails instead.</p>
 <div class="theorem">
 <p><strong>Theorem 3.3</strong> (rationality gives positive integer
 tails). <em> If
@@ -704,8 +705,19 @@ Induction yields
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:actual-tail}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
-\end{equation}</annotation></semantics></math> Throughout this section
-let
+\end{equation}</annotation></semantics></math> The quotient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{\ell,h}/W_{\ell,h}</annotation></semantics></math>
+is the contribution of these
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+blocks to the starting tail:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mo>=</mo><msub><mi>h</mi><mi>ℓ</mi></msub><munderover><mo>∑</mo><mrow><mi>a</mi><mo>=</mo><mi>ℓ</mi></mrow><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>s</mi><mi>a</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{F_{\ell,h}}{W_{\ell,h}}
+ =h_\ell\sum_{a=\ell}^{\ell+h-1}s_a.</annotation></semantics></math> The
+remainder is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">X_{\ell+h}/W_{\ell,h}</annotation></semantics></math>.
+Thus <code>[eq:actual-tail]</code> splits
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>ℓ</mi></msub><annotation encoding="application/x-tex">X_\ell</annotation></semantics></math>
+into a finite sum and its tail, with both measured in the starting
+normalisation. Throughout this section let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:actual-bound}
  K(B,a)=90B(a+1)^2.
@@ -715,10 +727,14 @@ and <code>[eq:actual-tail]</code> enclose the starting tail in the
 interval
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mo>&lt;</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>≤</mo><mfrac><mrow><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>+</mo><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{BF_{\ell,h}}{W_{\ell,h}}&lt;BX_\ell
  \le\frac{BF_{\ell,h}+K(B,\ell+h)}{W_{\ell,h}}.</annotation></semantics></math>
-If this interval contains no integer, then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>
-cannot be integral. The residue test expresses the same exclusion at the
-other end of the segment: an integral starting tail would make
+Its width is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">K(B,\ell+h)/W_{\ell,h}</annotation></semantics></math>,
+but a width below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+does not by itself exclude an integer. We must compare its right
+endpoint with the first integer strictly above its left endpoint. The
+residue test makes this comparison at the other end of the segment: an
+integral starting tail would make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">BX_{\ell+h}</annotation></semantics></math>
 a positive integer congruent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>B</mi><msub><mi>F</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">-BF_{\ell,h}</annotation></semantics></math>
@@ -767,10 +783,11 @@ It contains no integer. Equivalently,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lpr</mi><mo>&#8289;</mo></mrow><msub><mi>W</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>F</mi><mrow><mn>1</mn><mo>,</mo><mn>6</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>123569</mn><mo>&gt;</mo><mn>5760</mn></mrow><annotation encoding="application/x-tex">\operatorname{lpr}_{W_{1,6}}(-F_{1,6})=123569&gt;5760</annotation></semantics></math>
 excludes an integral
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>.
-A rational denominator might clear only later, so a criterion for
-irrationality must allow every late start and every denominator part
-coprime to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>.</p>
+A rational denominator might clear only later. The criterion must
+therefore test every denominator part coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>
+beyond any prescribed clearing index, rather than just at one early
+start.</p>
 <div class="theorem">
 <p><strong>Theorem 4.2</strong> (a residue criterion for irrationality).
 <em> The number
@@ -843,10 +860,11 @@ is needed for this direction. ◻</p>
 grows, the interval above narrows towards the fixed value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">BX_\ell</annotation></semantics></math>.
 If that value is nonintegral, a sufficiently narrow interval contains no
-integer. The converse formalises this observation, but gives no estimate
-for the gap
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>.
-To use the forward implication, we must prove <code>[eq:escape]</code>
+integer. Failure to exclude an integer at a finite length proves neither
+integrality nor failure at every longer length. The converse gives no
+estimate for the gap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>;
+to use the forward implication, we must prove <code>[eq:escape]</code>
 for the actual coefficients without assuming that nonintegrality.</p>
 <p>The upper-bound property of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>

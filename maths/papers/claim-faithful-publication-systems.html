@@ -28,7 +28,7 @@
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/style.css?v=6d6258a510ba">
-  <link rel="stylesheet" href="../assets/maths.css?v=523772f0a53a">
+  <link rel="stylesheet" href="../assets/maths.css?v=8957b2c048d1">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=0c60f2d88c51"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=bc60ddaae0e5"></script>
@@ -120,65 +120,94 @@
         <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
-      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:intro">Introduction</a><a href="#sec:example">Worked case: publishing a conditional theorem</a><a href="#sec:paper">Publication and revision</a><a href="#sec:checks">Proof and publication checks</a><a href="#sec:limits">Limits</a></nav></div>
-      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:intro">Introduction</a><a class="toc-l2" href="#sec:world">A repository organised around problems</a><a class="toc-l3" href="#stored-artifacts-and-executable-tools">Stored artifacts and executable tools</a><a class="toc-l3" href="#researcher-agent-and-maintainer-responsibilities">Researcher, agent and maintainer responsibilities</a><a class="toc-l2" href="#sec:example">Worked case: publishing a conditional theorem</a><a class="toc-l2" href="#sec:checks">Proof and publication checks</a><a class="toc-l2" href="#sec:paper">Publication and revision</a><a class="toc-l3" href="#work-assignments-and-review">Work assignments and review</a><a class="toc-l3" href="#proposing-and-reviewing-a-revision">Proposing and reviewing a revision</a><a class="toc-l2" href="#sec:contribute">An open route for contributions</a><a class="toc-l2" href="#sec:instance">Recorded observations</a><a class="toc-l2" href="#sec:related">Related work</a><a class="toc-l2" href="#sec:limits">Limits</a><a class="toc-l2" href="#app:repro">Inspection and reproduction</a><a class="toc-l3" href="#earlier-design-accounts-and-current-status">Earlier design accounts and current status</a><a class="toc-l2" href="#app:worked-proof">Calculation for the worked theorem</a><a class="toc-l3" href="#other-mathematical-attribution-and-scope-examples">Other mathematical attribution and scope examples</a><a class="toc-l2" href="#app:source-map">Sources by role</a><a class="toc-l2" href="#references">References</a></nav></details>
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:intro">Introduction</a><a href="#sec:example">Worked case: reviewing an explanation</a><a href="#sec:paper">Publication and revision</a><a href="#sec:checks">Proof and publication checks</a><a href="#sec:limits">Limits</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="#sec:intro">Introduction</a><a class="toc-l2" href="#sec:world">A repository organised around problems</a><a class="toc-l3" href="#stored-records-and-derived-views">Stored records and derived views</a><a class="toc-l3" href="#finding-the-relevant-work">Finding the relevant work</a><a class="toc-l3" href="#operations-on-the-records">Operations on the records</a><a class="toc-l3" href="#researcher-agent-and-maintainer-responsibilities">Researcher, agent and maintainer responsibilities</a><a class="toc-l2" href="#sec:example">Worked case: reviewing an explanation</a><a class="toc-l2" href="#sec:checks">Proof and publication checks</a><a class="toc-l2" href="#sec:paper">Publication and revision</a><a class="toc-l3" href="#work-assignments-and-review">Work assignments and review</a><a class="toc-l3" href="#proposing-and-reviewing-a-revision">Proposing and reviewing a revision</a><a class="toc-l2" href="#sec:contribute">An open route for contributions</a><a class="toc-l2" href="#sec:instance">Recorded observations</a><a class="toc-l2" href="#sec:related">Related work</a><a class="toc-l2" href="#sec:limits">Limits</a><a class="toc-l2" href="#app:repro">Inspection and reproduction</a><a class="toc-l3" href="#earlier-design-accounts-and-current-status">Earlier design accounts and current status</a><a class="toc-l2" href="#app:worked-proof">Calculation for the worked theorem</a><a class="toc-l3" href="#other-mathematical-attribution-and-scope-examples">Other mathematical attribution and scope examples</a><a class="toc-l2" href="#app:source-map">Sources by role</a><a class="toc-l2" href="#references">References</a></nav></details>
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="claim-faithful-publication-systems" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/systems/claim-faithful-publication-systems-paper.tex">
 <section id="sec:intro" class="level2">
 <h2>Introduction</h2>
-<p>A research repository must support several activities: choosing a
-question, recovering earlier work, testing an argument, reviewing a
-claim and publishing an explanation. Their outputs need to remain
-connected when a proof, experiment or manuscript changes. Otherwise a
-new contributor must reconstruct the history, and a correct result can
-acquire a misleading description. Plectis is the public repository
-prototype studied here. It keeps questions, prior sources, computations,
-proofs and unresolved steps together, with records of proposed
-contributions and their review. Its implemented scope is the research
-and publication workflow in this repository; broader autonomous
-discovery and services for other scientific fields are proposals
-(Section <a class="math-ref" href="#sec:limits">9</a>). The
-architecture separates stored research artifacts, tools that locate or
-check them, and decisions made by authors and maintainers. Figure <a class="math-ref" href="#fig:lifecycle">1</a> follows a selected
-result into publication and back through contributions. Source
-consistency, mathematical validity and the usefulness of an explanation
-remain distinct responsibilities.</p>
-<p class="figure-elsewhere" id="fig:lifecycle" data-term-auto="off">This figure is drawn in the <a href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>.</p>
+<p>Research continues across sessions, contributors and drafts. The next
+researcher needs to recover which question is open, what has been tried,
+and what supports the claims already published. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a> may
+remain correct while an edited explanation drops a hypothesis, or an
+unresolved step is later described as complete. Keeping the proof is
+therefore only part of keeping a usable research record.</p>
+<p>Plectis is the public repository prototype studied here. It stores
+questions, prior sources, computations, proofs and unresolved steps
+alongside proposed contributions and their review. The implemented
+workflow is local to this repository; broader autonomous discovery and
+services for other scientific fields are proposals (Section <a class="math-ref" href="#sec:limits">9</a>).</p>
+<p>The architecture separates authored research and publication records
+from the tools that inspect them and the indexes and summaries generated
+from them. Researchers and maintainers decide what to investigate and
+what a proposed change justifies. Figure <a class="math-ref" href="#fig:lifecycle">1</a> follows the resulting
+path from research artifacts to publication and back through
+contributions.</p>
 <p>Erdős Problems supplies the questions and their public discussion,
 while Lean and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">mathlib</a> supply the formal language and library <span
 class="citation" data-cites="erdosproblems lean4 mathlib"><a href="#ref-1">[1]</a><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a></span>.
-Formalisation blueprints link a written mathematical argument to named
-Lean declarations <span class="citation"
-data-cites="leanblueprint leanarchitect"><a href="#ref-35">[35]</a><a href="#ref-74">[74]</a></span>. Persistent problem
-records and open agent collaboration have antecedents in the Equational
-Theories Project and Prove2Me <span class="citation"
-data-cites="etp prove2me"><a href="#ref-75">[75]</a><a href="#ref-31">[31]</a></span>. For a selected paper statement, the
-paper-to-Lean ledger records its registered formal supports and their
-stated relation to it. A separate sentence ledger records the source
-passages and rationale used in an explanation. Together with the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim
-registry</a> and contribution history, these records let a reviewer recover
-the basis of a public assertion at a specified revision. We describe the
-components and their responsibilities, then trace a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional theorem</a>
-through the evidence checks. The revision and contribution workflows
-explain how accepted changes return to the repository. Recorded
-observations and limits distinguish implemented procedures from their
-unmeasured effects; Appendix <a class="math-ref" href="#app:worked-proof">B</a> retains the
+Formalisation blueprints link a written argument to named Lean
+declarations <span class="citation"
+data-cites="leanblueprint leanarchitect"><a href="#ref-35">[35]</a><a href="#ref-74">[74]</a></span>, and the Equational
+Theories Project maintains shared problem records <span class="citation"
+data-cites="etp"><a href="#ref-75">[75]</a></span>. Prove2Me combines human-audited missions,
+source-linked milestones and separately submitted proofs, with
+intermediate results available for other agents to reuse <span
+class="citation" data-cites="prove2me"><a href="#ref-31">[31]</a></span>.</p>
+<p>Publication review follows a paper assertion at a specified revision.
+Its coverage record identifies the printed statement, registered Lean
+supports and their stated relationship. A separate passage record binds
+the explanation to sources and rationale; contribution records retain
+entered review decisions. Together these links make the basis of a
+proposed revision inspectable. Agreement between the records does not
+establish that the prose is true.</p>
+<p>We first describe the stored records, inspection tools and
+contributor responsibilities. A proposed change to a theorem's
+explanation then illustrates the publication checks. The revision and
+contribution workflows show how accepted work returns to the repository.
+Recorded observations and limits distinguish these implemented
+procedures from their unmeasured effects; Appendix <a class="math-ref" href="#app:worked-proof">B</a> retains the
 mathematical calculation.</p>
+<p class="figure-elsewhere" id="fig:lifecycle" data-term-auto="off">This figure is drawn in the <a href="../../papers/claim-faithful-publication-systems-paper.pdf">PDF</a>.</p>
 </section>
 <section id="sec:world" class="level2">
 <h2>A repository organised around problems</h2>
-<p>Within this collection, a reader may want a proof, a counterexample
-to a proposed extension, or the argument behind a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed approach</a>. Exact
-experiments and corrected references remain beside the original question
-as contributions in their own right. The first task is to find the
-relevant work without compiling the whole repository. Four views answer
-different parts of that question (Figure <a class="math-ref" href="#fig:world">2</a>).</p>
+<section id="stored-records-and-derived-views" class="level3">
+<h3>Stored records and derived views</h3>
+<p>Lean and manuscript files contain the arguments. Claim records state
+selected assertions and what remains open; evidence records identify
+their registered supports; the journal retains entered returns and
+decisions. Builders read these authored files to produce indexes, source
+coordinates and status summaries. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md"><code>architecture guide</code></a>
+identifies the source of each derived view. A changed summary can
+therefore be investigated at its input record rather than treated as a
+new research result.</p>
+<p>For publication, the coverage ledger identifies a <em>paper
+occurrence</em>: a labelled assertion in a particular manuscript,
+together with its source location and a digest of its statement. The row
+lists its registered Lean supports and their evidence status. Where the
+formal result is stronger than the printed statement, an authored
+relation note explains the correspondence and is bound to both
+statements. The passage ledger used for this systems paper has a
+different purpose: it records explanatory text, cited source <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-span" data-term="span" data-term-auto="1">spans</a>, an
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence class</a> and a rationale. Neither ledger derives the prose from a
+Lean proof.</p>
+</section>
+<section id="finding-the-relevant-work" class="level3">
+<h3>Finding the relevant work</h3>
+<p>Within each problem collection, a reader may want a proof, a
+counterexample to a proposed extension, or the argument behind a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed
+approach</a>. Exact experiments and corrected references remain beside the
+original question as contributions in their own right. The reader can
+locate these records without first compiling the whole repository. Four
+views answer different parts of that search (Figure <a class="math-ref" href="#fig:world">2</a>).</p>
 <p>A declaration is a named Lean definition, theorem or lemma. The
 declaration index locates its source; the dependency index records which
 earlier declarations the selected results use. A separate graph records
 authored interpretations of those declarations and their connections,
-while a claim registry records selected mathematical assertions, their
+while a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> records selected mathematical assertions, their
 status and the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> still open.</p>
 <figure id="fig:world" data-latex-placement="htbp">
 <div class="minipage">
@@ -235,20 +264,10 @@ selective and largely contextual; they do not document an individual
 reading of every proof. A source link by itself records no successful
 execution. When a question requires a Lean check, the reader can request
 a focused build and inspect its recorded result. </p>
-<section id="stored-artifacts-and-executable-tools" class="level3">
-<h3>Stored artifacts and executable tools</h3>
-<p>The checkout contains authored Lean and manuscript sources, JSON
-records for selected claims and their evidence, and a journal of
-research returns. Indexes, source coordinates and status summaries are
-derived from those records. Authors edit the sources; builders
-regenerate the derived views. This division gives a reviewer a source to
-inspect when a generated view changes. In reviewing a claim, the
-maintainer must still distinguish a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite computation</a>’s tested range
-from a general theorem, or a failed attempt from an argument that every
-approach must fail. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/ARCHITECTURE.md"><code>architecture guide</code></a>
-identifies the source files and their derived views.</p>
-<p>The command-line tools have bounded jobs:</p>
+</section>
+<section id="operations-on-the-records" class="level3">
+<h3>Operations on the records</h3>
+<p>The tools provide the following operations:</p>
 <div class="center">
 <table>
 <thead>
@@ -283,8 +302,8 @@ process, and binds a session claim to an accepted probe.</td>
 <td class="ta-l">Statement evidence</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_evidence.py"><code>paper_evidence.py</code></a>
-resolves mathematical paper statements against source and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">verification
-records</a>; <a
+locates each registered support at the recorded revision and checks its
+source and verification bindings; <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/paper_claim_evidence.py"><code>paper_claim_evidence.py</code></a>
 projects their evidence status and reported gaps.</td>
 </tr>
@@ -299,8 +318,8 @@ approving the return.</td>
 <td class="ta-l">Research history</td>
 <td class="ta-l"> <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/research_record.py"><code>research_record.py</code></a>
-verifies the journal of entered returns and dispositions and reports
-what recorded outputs still owe.</td>
+verifies the journal of entered returns and dispositions and reports the
+outstanding milestones of recorded outputs.</td>
 </tr>
 <tr>
 <td class="ta-l">Derived views</td>
@@ -316,17 +335,18 @@ checks release contracts and freshness.</td>
 <p>A separate self-audit, <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/scripts/systems_paper_evidence.py"><code>systems_paper_evidence.py</code></a>,
 checks this systems manuscript’s text and cited source bindings. These
-are inspectable software responsibilities, not measurements of research
-quality or new execution results.</p>
-<p>The tools retain state in repository files rather than in the agent’s
-conversation. An optional proof session appends notes, probe receipts
-and its closing outcome to a ledger, with the exact submitted Lean
-inputs stored beside it. These session claims remain distinct from the
-reviewed public claim registry. The research journal separately retains
-entered returns and review dispositions and checks their sequence and
-hash chain. A human or agent chooses the next task and invokes these
-tools; recording the sequence does not make the workbench an autonomous
-search policy.</p>
+commands provide the operations; the researcher or agent chooses which
+to invoke. Their presence is not evidence of a successful run or of
+research quality.</p>
+<p>Control remains with the researcher or agent; persistent state
+remains in files. An optional proof session stores notes, exact Lean
+inputs, process-derived probe receipts and a closing outcome. Its claim
+command requires an accepted probe, then appends a session record; it
+does not update the reviewed public claim registry. The research journal
+separately records entered returns and review dispositions, checking
+their sequence and hash chain. These records allow later work to inspect
+earlier inputs and decisions without relying on the original
+conversation.</p>
 </section>
 <section id="researcher-agent-and-maintainer-responsibilities"
 class="level3">
@@ -342,21 +362,20 @@ Public setup and review instructions are in the <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/agents/README.md"><code>agent quickstart</code></a>
 and <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/CONTRIBUTING.md"><code>contribution guide</code></a>.</p>
-<p>A typical iteration starts with a question and the recorded work that
-bears on it. The researcher investigates, then returns an argument,
+<p>A typical iteration starts by retrieving the work relevant to a
+question. The researcher investigates and submits an argument,
 experiment, correction or manuscript change with its evidence and
 limitations. Review may adopt it, request revision, defer it or reject
-it. Accepted work changes the authored claims, papers and evidence
-records; builders and release checks update the dependent views before
-the next task uses them. The journal preserves dispositions for the
-structured returns explicitly entered into it. Ordinary issues, pull
-requests and ideas can enter review without a journal session.
-Sections <a class="math-ref" href="#sec:paper">5</a> and <a class="math-ref" href="#sec:contribute">6</a> give the implemented
-publication exchange and the wider contribution procedure.</p>
+it. Accepted work updates the affected authored records; builders
+regenerate their dependent views, and release checks test those views
+for consistency. The journal preserves dispositions for structured
+returns explicitly entered into it. Ordinary issues, pull requests and
+ideas can enter review without a journal session. Sections <a class="math-ref" href="#sec:paper">5</a> and <a class="math-ref" href="#sec:contribute">6</a> describe these two
+contribution routes.</p>
 </section>
 </section>
 <section id="sec:example" class="level2">
-<h2>Worked case: publishing a conditional theorem</h2>
+<h2>Worked case: reviewing an explanation</h2>
 <p></p>
 <p>The worked case concerns a theorem about infinite sums of reciprocals
 over a restricted set of positive integer exponents. A base-two weighted
@@ -365,32 +384,37 @@ infinite subset gives an irrational sum at every integer base at least
 two. Removing the condition would assert a solution of a more general
 problem that remains open. Appendix <a class="math-ref" href="#app:worked-proof">B</a> gives the exact
 statement and calculation.</p>
-<p>The example uses two records with different jobs. In <a
+<p>Suppose a contributor rewrites this theorem's explanation. Its
+coverage row, <code>res:weighted-support</code> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/paper_lean_coverage.json"><code>paper_lean_coverage.json</code></a>,
-a row identifies the weighted-support theorem’s occurrence in the
-mathematical paper, its statement digest, source location and two Lean
-supports. A separate <a
-href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json"><code>sentence ledger</code></a>
-binds this systems paper’s explanation to specified source passages and
-an authored rationale. For example, the appendix’s hereditary conclusion
-is bound to both the ordinary proof and its formal declaration. These
-records make the two correspondences inspectable; deciding whether the
-explanation preserves the condition remains a review task.</p>
+identifies the statement in the mathematical paper and two registered
+Lean supports. An explanatory passage in this systems paper is instead
+recorded in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/992cf60a27efd8c34f437e347c413bb781d75c32/docs/systems_paper_sentences.json"><code>passage ledger</code></a>,
+with sources and a rationale. For the appendix's hereditary conclusion,
+these sources are the ordinary proof and a formal declaration. If the
+contributor drops the weighted hypothesis from that explanation, both
+Lean proofs and both source links can remain unchanged. The reviewer
+must compare the new wording with the cited statements. Section <a class="math-ref" href="#sec:checks">4</a> explains which part of
+this comparison the tools check.</p>
 </section>
 <section id="sec:checks" class="level2">
 <h2>Proof and publication checks</h2>
 <p> The example has two registered formal supports (Figure <a class="math-ref" href="#fig:theorem">6</a>). One gives fixed-base
 irrationality and the all-base conclusion for every infinite subset; the
 other makes the fixed-base hereditary conclusion explicit. Their roles
-overlap. The publication check requires the registered set, even if one
-declaration suffices for the clause under discussion. This is an
-accounting requirement, not an additional hypothesis of the theorem. The
-resolver also follows any registered named inputs and checks the
-identified source revisions. A result dependent on an additional named
-input retains that dependency; the weighted theorem above illustrates a
-different issue, a restriction within the proved statement. A changed
-statement or source must be checked against its records again. Evidence
-attached to one revision cannot silently support another.</p>
+overlap. Here the <em>registered support set</em> means the declarations
+listed for this paper occurrence, not every declaration on which their
+proofs depend. The publication check accounts for that full list even
+when one declaration suffices for the clause under discussion. This is a
+record-consistency requirement, not an additional hypothesis of the
+theorem. The resolver also follows any registered named inputs and
+checks the identified source revisions. A result dependent on an
+additional named input retains that dependency; the weighted theorem
+above illustrates a different issue, a restriction within the proved
+statement. A changed statement or source must be checked against its
+records again. Evidence attached to one revision cannot silently support
+another.</p>
 <p>These checks make omissions and changes inspectable. Figure <a class="math-ref" href="#fig:checks">3</a> separates them from
 proof checking and from the judgements needed to publish a faithful
 account.</p>
@@ -454,18 +478,19 @@ adds a separately stated challenge and a check of its selected Lean
 implementation under the permitted axioms <span class="citation"
 data-cites="leanfrocomparator nanodalib"><a href="#ref-19">[19]</a><a href="#ref-20">[20]</a></span>.</p>
 <p>Each marked passage in this systems paper has a recorded text,
-specified source lines, an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence-class" data-term="evidence_class" data-term-auto="1">evidence class</a> and an authored rationale for
-citing those sources.</p>
-<p>For the appendix’s hereditary conclusion, the cited sources explain
-why restriction to an infinite subset preserves the weighted condition.
-The sentence checker compares cryptographic hashes of the marked text
-and its declared source passages; it also rejects missing records or
-passages without a binding.</p>
-<p>Changing the sentence alone therefore makes its recorded digest
-stale. Changing the sentence and updating its record can restore byte
-agreement without restoring the implication claimed by the prose. For
-example, a paraphrase could drop the support hypothesis while retaining
-both correct Lean links in Figure <a class="math-ref" href="#fig:theorem">6</a>. A reviewer must
+specified source lines, an evidence class and a rationale for citing
+those sources. The record groups prose for checking; it need not
+correspond to one grammatical sentence.</p>
+<p>For the appendix's hereditary conclusion, the sources explain why
+restriction to an infinite subset preserves the weighted condition. The
+passage checker compares cryptographic hashes of the marked text and
+declared sources and requires a nonempty rationale. It also rejects
+missing records or unbound passages. It does not assess whether that
+rationale justifies the text.</p>
+<p>Changing the passage alone makes its recorded digest stale. Updating
+its record as well can restore byte agreement while leaving the new
+assertion unsupported. For example, a paraphrase could drop the support
+hypothesis while retaining both correct Lean links in Figure <a class="math-ref" href="#fig:theorem">6</a>. A reviewer must
 compare its hypothesis and quantifiers with the source statement. This
 is an illustrative editing failure, distinct from historical edit 8,
 which replaced a limitation by a false completion claim (Table <a class="math-ref" href="#tab:mutations">1</a>).</p>
@@ -482,27 +507,27 @@ independent human mathematical review of the corpus is recorded.</p>
 </section>
 <section id="sec:paper" class="level2">
 <h2>Publication and revision</h2>
-<p> The worked case suggests a concrete editorial task: retain the
-result’s conditions and scope, explain the decisive step, and link the
-short account to the full argument. A useful explanation lets a reader
-recover why the conclusion holds and where it stops applying. A
-dependency graph locates the ingredients. Choosing their order and
-explaining their role require reading the argument; the manuscript audit
-supplies no such judgement. The companion paper retains the complete
-proof and subsidiary cases. A correspondence link names the passage
-supporting a particular short-paper claim, so the reader can move from
-the explanation to the calculation without searching the whole paper.
-The assembler preserves these authored parts and their cross-references;
-it supplies no missing mathematical step. Readers may need a hint, a
-worked example or the full argument. The reading guide invites them to
-reconstruct a decisive step or change a hypothesis, and the explanation
-instructions require an agent to respect the requested depth. These are
-authoring rules; they do not establish that a reader has understood the
-proof.</p>
+<p> Publication turns a result into an account a reader can use. The
+short paper states its conditions, explains the decisive step and points
+to the full argument, so the reader can recover both why the conclusion
+holds and where it applies. A dependency graph locates the ingredients.
+Choosing their order and explaining their role require reading the
+argument; the manuscript audit supplies no such judgement. The companion
+paper retains the complete proof and subsidiary cases. A correspondence
+link names the passage supporting each linked short-paper claim, taking
+the reader from explanation to calculation. The assembler inlines the
+companion's authored sections into a flat manuscript, retaining their
+cross-references. It supplies no missing mathematical step. Readers may
+need a hint, a worked example or the full argument. The reading guide
+invites them to reconstruct a decisive step or change a hypothesis, and
+the explanation instructions require an agent to respect the requested
+depth. These are authoring rules; they do not establish that a reader
+has understood the proof.</p>
 <section id="work-assignments-and-review" class="level3">
 <h3>Work assignments and review</h3>
-<p>We call an agent that can alter the live repository <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-a" data-term="type_a" data-term-auto="1">Type A</a> and an
-advisory agent returning proposals against supplied sources <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-b" data-term="type_b" data-term-auto="1">Type B</a>.</p>
+<p>An integrating agent can alter the live checkout; an advisory agent
+returns proposed changes against supplied sources. The local names <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-a" data-term="type_a" data-term-auto="1">Type
+A</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-type-b" data-term="type_b" data-term-auto="1">Type B</a> denote those two permissions.</p>
 <p>Repository authority and the assigned task are separate choices. The
 task may be mathematical research, proof or claim audit, literature and
 attribution review, or exposition.</p>
@@ -517,9 +542,12 @@ returned for a separate audit or research assignment.</p>
 whole statement and all its registered declarations. An ordinary
 argument retains its actual evidence class where formalisation is
 incomplete.</p>
-<p>After acceptance, integration requires restoring the companion
-paper’s authored sections, regenerating evidence and navigation, and
-inspecting the compiled pages, figures and proof links.</p>
+<p>After acceptance, the integrating reviewer applies changes to the
+owning manuscript sources and updates the affected evidence bindings.
+For an assembled companion, edits belong in its authored sections before
+rebuilding the flat paper. Integration also requires regenerating
+evidence and navigation, then inspecting the compiled pages, figures and
+proof links.</p>
 <p>A writing rule learned from the revision travels with its example and
 limits as a candidate. Its adoption requires a reviewed change to the
 owning writing contract.</p>
@@ -530,10 +558,10 @@ owning writing contract.</p>
 difficult proof transitions and unresolved questions with their source
 locations. The author decides which argument deserves the short paper;
 the checker audits source consistency and the specified manuscript
-rules. We freeze the selected manuscripts, their required input files,
-coverage ledger and audit rules under a manifest of their exact bytes,
-so the writer and integrating reviewer can identify what the proposed
-changes were based on.</p>
+rules. The exchange freezes selected manuscripts, required inputs, the
+coverage ledger and audit rules under a manifest of their exact bytes.
+Writer and integrating reviewer can therefore identify the same starting
+sources.</p>
 <p>An advisory model can return a proposal against those sources; a
 tool-enabled agent can prepare it in a checkout. In either case the
 integrating reviewer decides whether the mathematics and its description
@@ -579,11 +607,12 @@ may withdraw something previously endorsed. Ordinary issues and pull
 requests need not become journal events. Discovery investigates a
 question, while stewardship compares the return with prior work, groups
 related results, reconciles affected papers and selects the next
-question. The proposed coupling is event-driven: a stable result or
-changed appraisal prompts work, whereas an unchanged repository supplies
-no reason for another run. The journal preserves the entered return and
-its recorded disposition. Judging what was learned requires comparison
-with earlier work and inspection of the returned evidence.</p>
+question. A changed result or appraisal can prompt another task. The
+public workbench leaves that choice to the researcher or agent; the
+journal records entered decisions and does not schedule further
+research. The journal preserves the entered return and its recorded
+disposition. Judging what was learned requires comparison with earlier
+work and inspection of the returned evidence.</p>
 <p>Generalising a local result requires a separate literature and
 library comparison, a proof of the proposed extension, and a second
 useful instance before an expert takes it to an upstream project <span
@@ -634,7 +663,7 @@ mechanisms, not to a general unsoundness claim about
 <tbody>
 <tr>
 <td class="ta-l">edit 1</td>
-<td class="ta-l">Conditional result labelled proved</td>
+<td class="ta-l"><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">Conditional result</a> labelled proved</td>
 <td class="ta-l">Projection freshness</td>
 <td class="ta-l">rejected</td>
 </tr>
@@ -701,7 +730,7 @@ mechanisms, not to a general unsoundness claim about
 The false completion clause passed all recorded checks.</p>
 </div>
 <div class="minipage">
-<p><strong>Later witness: baseline and edit 8</strong><br />
+<p><strong>Later <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>: baseline and edit 8</strong><br />
 Baseline accepted, edit 8 rejected; the other nine edits were not
 rerun.</p>
 </div>
@@ -731,24 +760,53 @@ unmeasured.</p>
 </section>
 <section id="sec:related" class="level2">
 <h2>Related work</h2>
-<p> The comparison with earlier systems is clearest at the relations
-they record. Lean and mathlib provide formal statements and proofs;
-blueprints link declarations to exposition; Prove2Me organises
-formalisation missions, reusable statements and contributions <span
-class="citation"
-data-cites="lean4 mathlib leanblueprint prove2me"><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a><a href="#ref-35">[35]</a><a href="#ref-31">[31]</a></span>. The
-additional records here follow all registered supports and the source
-passages used in prose. Appendix <a class="math-ref" href="#app:source-map">C</a> preserves the wider
-source map of the three original accounts. Prove2Me's first arXiv
-version appeared on 28 August 2026, before the first public version of
-this paper, and already described public agent contributions, task
-decomposition, reusable statements and credit for reuse <span
-class="citation" data-cites="prove2me"><a href="#ref-31">[31]</a></span>. Its hosted verification
-service and this repository-based record provide different places for
-those activities; we claim neither priority for persistent research
-records nor a measured advantage over these systems. Polymath, BOINC and
-GIMPS supply precedents for small mathematical contributions and donated
-compute <span class="citation"
+<p> The closest comparisons concern the objects a system records and the
+work it lets contributors perform. Lean and mathlib provide formal
+statements, proofs and a maintained library; blueprints connect
+declarations to exposition <span class="citation"
+data-cites="lean4 mathlib leanblueprint"><a href="#ref-11">[11]</a><a href="#ref-76">[76]</a><a href="#ref-35">[35]</a></span>. Prove2Me provides a
+more direct comparison for agent-assisted collaboration. Appendix <a class="math-ref" href="#app:source-map">C</a> retains the wider
+source map.</p>
+<section id="prove2me." class="level5">
+<h3 class="paper-minor-head">Prove2Me.</h3>
+<p>We use its published version 2, dated 31 August 2026; the first
+version appeared on 28 August 2026 <span class="citation"
+data-cites="prove2me"><a href="#ref-31">[31]</a></span>. Its basic unit is an immutable theorem
+statement, stored separately from the proofs submitted for it. A proof
+is checked against the target type in a pinned verification environment.
+A <em>proof-sketch</em> derives a target using imported theorem
+statements, some of which may remain open. Contributors can prove those
+children separately; the target becomes verified when the required
+children are verified. Immutability makes those local proofs composable
+without changing their targets <span class="citation"
+data-cites="prove2me"><a href="#ref-31">[31]</a></span>.</p>
+<p>Human review is part of Prove2Me's design. A mission fixes a
+human-audited core of goals, definitions and milestones; each milestone
+pairs a source statement with its attested canonical formalisation. For
+read-back, an independent agent receives the Lean declaration and
+dependent definitions without the original source; a human compares its
+mathematical rendering with that source. Natural-language accounts
+accompany statements and proofs, statement descriptions support library
+search, and imports give contributors reuse credit. The discussion
+record also includes a disproved statement followed by a corrected
+replacement <span class="citation" data-cites="prove2me"><a href="#ref-31">[31]</a></span>.
+Explanation, reuse, correction and shared agent work are therefore
+established parts of this comparison.</p>
+<p>For correspondence with a source, the closest analogue is Prove2Me's
+milestone: both designs identify the mathematical statement whose
+formalisation is being reviewed. Our coverage record follows a
+particular paper occurrence and can list several overlapping formal
+supports, with a relation note explaining their connection to the
+printed claim. It is not a proof-sketch: listing those supports does not
+compose <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-term" data-term="proof_term" data-term-auto="1">proof terms</a> or discharge open lemmas. A separate passage record
+binds the explanation to sources and rationale, while entered
+contribution records retain revision decisions and role credit. The
+focus here is the consistency and review of these publication records
+across revisions. This difference of focus establishes neither priority
+for persistent research records nor a measured advantage over
+Prove2Me.</p>
+<p>Polymath, BOINC and GIMPS supply precedents for small mathematical
+contributions and donated compute <span class="citation"
 data-cites="polymath boinc gimps"><a href="#ref-99">[99]</a><a href="#ref-97">[97]</a><a href="#ref-98">[98]</a></span>, while the Carleson blueprint
 shows formalisation organised into publicly claimable tasks <span
 class="citation" data-cites="carleson"><a href="#ref-87">[87]</a></span>.</p>
@@ -761,6 +819,7 @@ bindings and the journal record artifact provenance, including the
 inputs and revision to which a claim or entered return refers. These
 records serve inspection and reproducibility, with research efficiency
 and semantic correctness left to separate evaluation.</p>
+</section>
 </section>
 <section id="sec:limits" class="level2">
 <h2>Limits</h2>
@@ -1424,7 +1483,7 @@ September 2026, <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861">erdosproblems.com
 forum</a>.</p></li>
 <li id="ref-24"><p>Formal Conjectures, pull request 6505, <em>Erdős 1041: mark
-solved with answer(False) and link a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a></em>, merged 23
+solved with answer(False) and link a formal proof</em>, merged 23
 September 2026, <a
 href="https://github.com/google-deepmind/formal-conjectures/pull/6505">GitHub</a>.</p></li>
 <li id="ref-25"><p>T. Zheng, X. Wu, Z. Zhang, et al., <em>Dream-RSI: Recursive
@@ -1749,11 +1808,11 @@ href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           
         </div>
-        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:37f579eebec08962</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:9c7392d5e686da61</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
       </div>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:intro">Introduction</a><a class="toc-l2" href="#sec:world">A repository organised around problems</a><a class="toc-l2" href="#sec:example">Worked case: publishing a conditional theorem</a><a class="toc-l2" href="#sec:checks">Proof and publication checks</a><a class="toc-l2" href="#sec:paper">Publication and revision</a><a class="toc-l2" href="#sec:contribute">An open route for contributions</a><a class="toc-l2" href="#sec:instance">Recorded observations</a><a class="toc-l2" href="#sec:related">Related work</a><a class="toc-l2" href="#sec:limits">Limits</a><a class="toc-l2" href="#app:repro">Inspection and reproduction</a><a class="toc-l2" href="#app:worked-proof">Calculation for the worked theorem</a><a class="toc-l2" href="#app:source-map">Sources by role</a><a class="toc-l2" href="#references">References</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:intro">Introduction</a><a class="toc-l2" href="#sec:world">A repository organised around problems</a><a class="toc-l2" href="#sec:example">Worked case: reviewing an explanation</a><a class="toc-l2" href="#sec:checks">Proof and publication checks</a><a class="toc-l2" href="#sec:paper">Publication and revision</a><a class="toc-l2" href="#sec:contribute">An open route for contributions</a><a class="toc-l2" href="#sec:instance">Recorded observations</a><a class="toc-l2" href="#sec:related">Related work</a><a class="toc-l2" href="#sec:limits">Limits</a><a class="toc-l2" href="#app:repro">Inspection and reproduction</a><a class="toc-l2" href="#app:worked-proof">Calculation for the worked theorem</a><a class="toc-l2" href="#app:source-map">Sources by role</a><a class="toc-l2" href="#references">References</a></aside>
   </div>
 </body>
 </html>

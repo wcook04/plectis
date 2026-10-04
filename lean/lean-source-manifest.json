@@ -15,7 +15,7 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "49cba1ccca40e4817f5828297d380da1ad1e0f0e8921ba35c4ea4b567abc6779",
+      "source_sha256": "a9585ba52513078c062569fa95acc7291a990e08daab3b70ac315f6282106751",
       "bytes": 1272712
     },
     {
@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "8ea6fa6c0c3dd90f797b100b4b01fcb590f8fd55cdf2f3ab75b0d88496822736",
+      "source_sha256": "18cd7fd8d6ced94942c562778bebb9c7848f416275172166050596b6601533bb",
       "bytes": 1276704
     },
     {
@@ -51,7 +51,7 @@
       "source_ref": "main",
       "source_path": "docs/paper_lean_coverage.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
-      "source_sha256": "b3d31b98b2d1e844947494c25fb04b4c1b9fc972315ca53925f5da040f83383d",
+      "source_sha256": "fe656ab45f924d5c3f883ec1e54325cc359beaeca3eaa9ff1d1bab6f00933b49",
       "bytes": 1036827
     },
     {
@@ -60,7 +60,7 @@
       "source_ref": "main",
       "source_path": "evidence/paper_evidence.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/evidence/paper_evidence.json",
-      "source_sha256": "611c3b2c7bd7741b28b09e397b2ff5674b2a169973f2f6f03143d52255f69fb6",
+      "source_sha256": "8c7de6f8f5e082fa91698d0c8314620207603080c348a526aa31fa250042b423",
       "bytes": 4458604
     },
     {
@@ -213,7 +213,7 @@
       "source_ref": "main",
       "source_path": "docs/research-commons/credit-ledger.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/credit-ledger.json",
-      "source_sha256": "5a3bf2d23cd4053b46438b6c27cffedaf04bad10cd307dd511f65c3201fd9dd8",
+      "source_sha256": "bb065e5611b1d562463dae153005ee0614c5cd5e335a294e58d40bd6c53b3fe7",
       "bytes": 12270
     }
   ]

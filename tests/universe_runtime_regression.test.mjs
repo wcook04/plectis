@@ -903,3 +903,407 @@ test('under the map a tap on a dot brings its card into view; beside the map not
   desk.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
   assert.equal(desk.scrolled.length, 0, 'a card beside the map stays where it is');
 });
+
+/* The structure pass (4 October 2026): the results ring carries a scale with
+   a tick for every result, the pinned result has a cursor on it, a focus is
+   framed by a reticle and named on a plate at the end of a leader, the
+   opening assembles the rings once, and nothing paints out of view. This
+   harness adds bands, a controllable IntersectionObserver, a frame clock
+   and a canvas that records what each paint draws. */
+function structureData() {
+  const at = (r, angle) => ({x: r * Math.cos(angle), y: r * Math.sin(angle)});
+  const result = (paper, n, sector, angle, r, side) => ({
+    id: `statement:${paper}#r${n}`, kind: 'paper_statement', label: `Theorem ${n}.1 (Result ${n} of ${paper})`,
+    sector, side, line: n * 10, lean_status: 'exact', comparator_status: 'compared',
+    paper: `papers/${paper}.html#r${n}`, ...at(r, angle)});
+  const nodes = [
+    {id: 'universe:all', kind: 'universe', label: 'Lean universe', short: 'Lean universe', x: 0, y: 0},
+    {id: 'problem:p1', kind: 'problem', label: 'First problem', short: '#1', sector: 'p1', ...at(250, -1.57)},
+    {id: 'problem:p2', kind: 'problem', label: 'Second problem', short: '#2', sector: 'p2', ...at(250, 1.57)},
+    {id: 'problem:p3', kind: 'problem', label: 'Third problem', short: '#3', sector: 'p3', ...at(250, 0)},
+    // The first sector: a short paper of two results and a long record of four.
+    result('a-short', 1, 'p1', -2.2, 350, 'short'), result('a-short', 2, 'p1', -2.0, 350, 'short'),
+    result('a-long', 1, 'p1', -2.2, 364, 'long'), result('a-long', 2, 'p1', -1.8, 364, 'long'),
+    result('a-long', 3, 'p1', -1.4, 364, 'long'), result('a-long', 4, 'p1', -1.0, 364, 'long'),
+    // The second: a long record of four.
+    result('b-long', 1, 'p2', 1.0, 364, 'long'), result('b-long', 2, 'p2', 1.4, 364, 'long'),
+    result('b-long', 3, 'p2', 1.8, 364, 'long'), result('b-long', 4, 'p2', 2.2, 364, 'long'),
+    // The third, at the right-hand edge, beside its own problem.
+    result('c-long', 1, 'p3', 0, 380, 'long'),
+  ];
+  const bands = [
+    {sector: 'p1', lo: -2.4, hi: -0.74, rings: {short: [350, 350, 2], long: [364, 373, 4]}, title: '#1 First problem', evidence: {replayed: 6}},
+    {sector: 'p2', lo: 0.74, hi: 2.4, rings: {long: [364, 373, 4]}, title: '#2 Second problem', evidence: {replayed: 4}},
+    {sector: 'p3', lo: -0.3, hi: 0.3, rings: {long: [380, 380, 1]}, title: '#3 Third problem', evidence: {replayed: 1}},
+  ];
+  return {initial: {nodes, edges: [[0, 1], [0, 2], [0, 3]], bands,
+    companion: {script: 'assets/universe-companion.js?v=1', style: 'assets/universe-companion.css?v=1',
+                data: 'assets/universe-companion.json?v=1'}}};
+}
+
+async function mountStructure({page = false, reduceMotion = false, csp = null, companion = false, speculation = false} = {}) {
+  let arcs = [], strokes = [], fills = [], rects = [], labels = [], path = [], pen = null, paints = 0;
+  const context = new Proxy({
+    clearRect() { arcs = []; strokes = []; fills = []; rects = []; labels = []; paints++; },
+    beginPath() { path = []; pen = null; },
+    moveTo(x, y) { pen = [x, y]; },
+    lineTo(x, y) { if (pen) path.push({from: pen, to: [x, y]}); pen = [x, y]; },
+    stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, width: context.lineWidth, segments: path.slice()}); },
+    fill() { fills.push({style: context.fillStyle, alpha: context.globalAlpha}); },
+    fillRect(x, y, w, h) { rects.push({x, y, w, h, alpha: context.globalAlpha}); },
+    arc(x, y, r) { arcs.push({x, y, r, alpha: context.globalAlpha}); },
+    measureText(text) { return {width: String(text).length * 6}; },
+    fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
+  }, { get: (target, key) => target[key] ?? (() => {}) });
+  const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
+    clientWidth: 640, clientHeight: 600, getContext: () => context,
+    getBoundingClientRect: () => ({left: 0, top: 0, bottom: 600}),
+  });
+  if (page) canvas.classList.add('universe-canvas--page');
+  const announced = [];
+  const row = element({'data-problem-id': 'p1'});
+  const host = Object.assign(element(), {querySelector: s => s.startsWith('li.home-problem') ? row : null});
+  const section = Object.assign(element(), {querySelector: s => s === '.home-split__text' ? host : null});
+  const caption = element();
+  const stage = Object.assign(element(), {
+    querySelector: s => s === 'canvas' ? canvas : s === '.universe-caption' ? caption : null, querySelectorAll: () => [],
+    closest: s => s === 'section' && companion ? section : null,
+    dispatchEvent: event => { announced.push(event); return true; },
+  });
+  const appended = [];
+  const meta = csp ? Object.assign(element({content: csp})) : null;
+  const document = Object.assign(element(), {
+    readyState: 'complete', documentElement: element(), activeElement: null,
+    head: {appendChild: node => { appended.push(node); }},
+    createElement: () => element(),
+    querySelector: s => (s.indexOf('Content-Security-Policy') !== -1 ? meta : null),
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
+  });
+  const observers = [];
+  class IO {
+    constructor(callback, options) { this.callback = callback; this.options = options; observers.push(this); }
+    observe(target) { this.target = target; }
+    disconnect() { this.gone = true; }
+  }
+  const frames = new Map();
+  let nextFrame = 1, now = 0, rafCalls = 0;
+  const location = {pathname: page ? '/maths/universe.html' : '/', search: '', hash: '', href: 'https://example.test/'};
+  const CustomEvent = class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } };
+  const window = Object.assign(element(), {
+    location, devicePixelRatio: 1, isSecureContext: false,
+    history: {replaceState(_a, _b, url) { location.hash = new URL(url, 'http://test').hash; }},
+    matchMedia: query => ({matches: /reduce/.test(query) ? reduceMotion : true}),
+    requestAnimationFrame: fn => { rafCalls++; frames.set(nextFrame, fn); return nextFrame++; },
+    cancelAnimationFrame: id => { frames.delete(id); },
+    IntersectionObserver: IO, CustomEvent,
+  });
+  const sandbox = {document, window, navigator: {}, CustomEvent, IntersectionObserver: IO, URL,
+    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    fetch: async url => ({json: async () => structureData()[url]}),
+    setTimeout: fn => { fn(); return 1; }, clearTimeout() {}};
+  if (speculation) sandbox.HTMLScriptElement = {supports: type => type === 'speculationrules'};
+  vm.runInNewContext(source, sandbox);
+  await new Promise(resolve => setImmediate(resolve));
+  const advanceTo = ms => {
+    while (now < ms) {
+      now += 16;
+      const due = [...frames.entries()];
+      frames.clear();
+      for (const [, fn] of due) fn(now);
+    }
+  };
+  // The field's centre: every ring and plate is an arc about it.
+  const centre = () => {
+    const tally = new Map();
+    for (const a of arcs) {
+      const key = `${a.x.toFixed(2)},${a.y.toFixed(2)}`;
+      tally.set(key, (tally.get(key) || 0) + 1);
+    }
+    const [key] = [...tally.entries()].sort((p, q) => q[1] - p[1])[0];
+    const [x, y] = key.split(',').map(Number);
+    return {x, y};
+  };
+  // Screen place of a node, from where its problem is drawn.
+  const scale = () => {
+    const c = centre();
+    const p = arcs.filter(a => a.r >= 13).map(a => Math.hypot(a.x - c.x, a.y - c.y)).filter(d => d > 100 && d < 200);
+    return p.length ? p[0] / 250 : 1;
+  };
+  const place = id => {
+    const n = structureData().initial.nodes.find(m => m.id === id);
+    const c = centre(), k = scale();
+    return {x: c.x + n.x * k, y: c.y + n.y * k};
+  };
+  const results = () => {
+    const c = centre();
+    return arcs.filter(a => a.r < 4 && Math.hypot(a.x - c.x, a.y - c.y) > 190);
+  };
+  // The cursor: one ink bar twelve pixels long across the scale.
+  const cursor = () => {
+    const c = centre();
+    const bar = strokes.find(s => s.style === '#211318' && s.width === 2 && s.segments.length === 1 &&
+      Math.abs(Math.hypot(s.segments[0].to[0] - s.segments[0].from[0], s.segments[0].to[1] - s.segments[0].from[1]) - 12) < 0.01);
+    return bar ? Math.atan2(bar.segments[0].from[1] - c.y, bar.segments[0].from[0] - c.x) : null;
+  };
+  // The scale's ticks: short radial strokes standing out past the deepest plate.
+  const ticks = () => {
+    const c = centre();
+    return strokes.filter(s => s.style === '#211318' && s.width === 1).flatMap(s => s.segments)
+      .filter(seg => Math.hypot(seg.from[0] - c.x, seg.from[1] - c.y) > 200);
+  };
+  return {canvas, caption, document, window, location, announced, appended, frames, advanceTo, now: () => now,
+    rafCalls: () => rafCalls, paints: () => paints, arcs: () => arcs, rects: () => rects, labels: () => labels,
+    strokes: () => strokes, centre, place, results, cursor, ticks,
+    intersect(on) { for (const o of observers) if (!o.gone) o.callback([{isIntersecting: on, target: o.target}]); },
+    atlas(view, previous) { document.fire('plectis:atlas', {detail: {view, previous, phase: 'start', instant: false}}); },
+    key(key) { document.fire('keydown', {key, target: {tagName: 'BODY'}}); },
+  };
+}
+
+test('the teaser assembles once, ring by ring, and a trip away on the atlas and back replays nothing', async () => {
+  const map = await mountStructure();
+  assert.equal(map.frames.size, 0, 'closed and still until it comes into view');
+  assert.ok(map.results().every(a => a.alpha < 0.01), 'no result shows before the teaser is in view');
+  map.intersect(true);
+  assert.ok(map.frames.size > 0, 'coming into view starts the opening');
+  const start = map.now();
+  map.advanceTo(start + 16 + 200);
+  const core = map.arcs().filter(a => a.r > 10 && Math.hypot(a.x - map.centre().x, a.y - map.centre().y) < 0.5);
+  assert.ok(core.some(a => a.alpha > 0.5), 'the core is up first');
+  assert.ok(map.results().every(a => a.alpha < 0.01), 'while the results ring has not begun');
+  map.advanceTo(start + 16 + 352);
+  const seating = map.results().map(a => Math.hypot(a.x - map.centre().x, a.y - map.centre().y));
+  assert.ok(map.results().some(a => a.alpha > 0.1 && a.alpha < 0.9), 'the results ring is arriving');
+  map.advanceTo(start + 2000);
+  assert.equal(map.frames.size, 0, 'the opening ends and nothing keeps running');
+  const final = map.results().map(a => Math.hypot(a.x - map.centre().x, a.y - map.centre().y));
+  assert.ok(seating.every((d, i) => d < final[i] - 1), 'arriving, the ring stood inside its place and seated outward');
+  assert.ok(map.results().every(a => a.alpha > 0.99), 'every result is drawn whole');
+  assert.ok(map.ticks().length >= 10, 'the scale has a tick for every result');
+  const paints = map.paints();
+  map.atlas('system', 'mathematics');
+  map.intersect(false);
+  map.advanceTo(map.now() + 600);
+  map.intersect(true);
+  map.atlas('mathematics', 'system');
+  map.advanceTo(map.now() + 600);
+  assert.equal(map.frames.size, 0, 'coming back plays nothing');
+  assert.ok(map.paints() <= paints + 2, 'and costs no more than a repaint');
+  assert.ok(map.results().every(a => a.alpha > 0.99), 'the field is simply there, whole');
+});
+
+test('an opening cut short by the atlas is spent at once, and nothing paints while away', async () => {
+  const map = await mountStructure();
+  map.intersect(true);
+  map.advanceTo(map.now() + 16 + 150);
+  map.intersect(false);
+  assert.equal(map.frames.size, 0, 'leaving view stops the opening there and then');
+  const paints = map.paints();
+  map.document.fire('plectis:theme');
+  map.window.fire('resize');
+  assert.equal(map.paints(), paints, 'a theme change or a resize waits while the canvas is away');
+  map.intersect(true);
+  assert.equal(map.paints(), paints + 1, 'and is painted once when it is back');
+  assert.equal(map.frames.size, 0, 'with no opening replayed');
+  assert.ok(map.results().every(a => a.alpha > 0.99), 'the opening that was cut short is spent, not resumed');
+});
+
+test('once the field has settled no animation frame is asked for at rest', async () => {
+  const map = await mountStructure();
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.frames.size, 0);
+  const calls = map.rafCalls();
+  map.advanceTo(map.now() + 3000);
+  map.document.fire('plectis:theme');
+  map.window.fire('resize');
+  assert.equal(map.rafCalls(), calls, 'a theme change or a resize repaints in place without a frame loop');
+});
+
+test('the cursor marks the pinned result’s place in its paper and moves only when the pin does', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.frames.size, 0, 'the map’s own opening has played and stopped');
+  assert.equal(map.cursor(), null, 'no cursor without a pin');
+  const lo = -2.4, step = (-0.74 - lo) / 6;
+  // The long record's first result is the third tick of six: the short
+  // paper's two come first.
+  const a = map.place('statement:a-long#r1'), b = map.place('statement:a-long#r3');
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  map.advanceTo(map.now() + 400);
+  assert.ok(Math.abs(map.cursor() - (lo + 2.5 * step)) < 1e-3, 'the pin sets the cursor on its own tick, without travel');
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.frames.size, 0, 'and everything rests');
+  const pinnedAt = map.cursor();
+  map.canvas.fire('pointermove', {clientX: b.x, clientY: b.y});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(Math.abs(map.cursor() - pinnedAt) < 1e-9, 'a hover elsewhere leaves it where it is');
+  map.canvas.fire('pointermove', {clientX: 2, clientY: 2});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(Math.abs(map.cursor() - pinnedAt) < 1e-9, 'idle, it never moves by itself');
+  map.canvas.fire('click', {clientX: b.x, clientY: b.y, detail: 1});
+  map.advanceTo(map.now() + 112);
+  const between = map.cursor(), target = lo + 4.5 * step;
+  assert.ok(between > pinnedAt + 0.01 && between < target - 0.01, 'a new pin turns it along the scale');
+  map.advanceTo(map.now() + 2000);
+  assert.ok(Math.abs(map.cursor() - target) < 1e-3, 'to the new result’s tick');
+  assert.equal(map.frames.size, 0, 'where it stops');
+});
+
+test('under reduced motion the field, its scale and the cursor are drawn final at once', async () => {
+  const teaser = await mountStructure({reduceMotion: true});
+  teaser.intersect(true);
+  assert.equal(teaser.frames.size, 0, 'no opening plays');
+  assert.ok(teaser.results().length && teaser.results().every(a => a.alpha > 0.99), 'every result is drawn whole');
+  assert.ok(teaser.ticks().length >= 10, 'with its scale');
+  const map = await mountStructure({page: true, reduceMotion: true});
+  assert.equal(map.frames.size, 0, 'the map page opens still too');
+  const a = map.place('statement:a-long#r1');
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  assert.ok(map.cursor() !== null, 'a pin shows its cursor at once');
+  assert.equal(map.frames.size, 0, 'and asks for no frame');
+});
+
+test('a reticle frames the focus and its name plate keeps clear of a problem’s disc', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  // The third sector's one result sits at the right-hand edge with its own
+  // problem just inward of it: beside it to the left, a plate would lie
+  // across the problem.
+  const dot = map.place('statement:c-long#r1'), problem = map.place('problem:p3');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.advanceTo(map.now() + 2000);
+  const name = map.labels().find(l => l.text.startsWith('Theorem 1.1 ('));
+  assert.ok(name, 'the hovered result names itself on a plate');
+  const half = name.text.length * 3 + 9;
+  const plate = {x0: name.x - half, x1: name.x + half, y0: name.y - 16, y1: name.y + 7};
+  const disc = {x0: problem.x - 14, x1: problem.x + 14, y0: problem.y - 14, y1: problem.y + 14};
+  const overlaps = plate.x0 < disc.x1 && plate.x1 > disc.x0 && plate.y0 < disc.y1 && plate.y1 > disc.y0;
+  assert.ok(!overlaps, 'the plate is set where it covers no problem');
+  // Four corners of hairline about the mark: each a level and an upright run.
+  const near = map.rects().filter(r => Math.abs(r.x + r.w / 2 - dot.x) < 20 && Math.abs(r.y + r.h / 2 - dot.y) < 20);
+  assert.ok(near.length >= 8, 'four corner ticks frame the mark');
+  assert.ok(near.every(r => r.w <= 1 + 1e-9 || r.h <= 1 + 1e-9), 'each a single device pixel wide');
+});
+
+test('Esc and a click on empty ground step back one level at a time; a problem click frames its sector', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  const gap = () => {
+    const rs = map.results();
+    const xs = rs.map(a => a.x).sort((p, q) => p - q);
+    return xs.at(-1) - xs[0];
+  };
+  const fitted = gap();
+  const p1 = map.place('problem:p1');
+  map.canvas.fire('click', {clientX: p1.x, clientY: p1.y, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '#o=problem%3Ap1', 'the click pins the problem');
+  assert.ok(gap() > fitted * 1.3, 'and frames its sector, closer in');
+  map.key('Escape');
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '', 'Esc first lets the pin go');
+  assert.ok(gap() > fitted * 1.3, 'keeping the framed view');
+  map.key('Escape');
+  map.advanceTo(map.now() + 2000);
+  assert.ok(Math.abs(gap() - fitted) < 1, 'and then returns to the whole field');
+  map.canvas.fire('click', {clientX: p1.x, clientY: p1.y, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(gap() > fitted * 1.3);
+  map.canvas.fire('click', {clientX: 3, clientY: 3, detail: 1});
+  assert.equal(map.location.hash, '', 'a click on empty ground lets the pin go');
+  assert.ok(gap() > fitted * 1.3, 'keeping the framed view');
+  map.canvas.fire('click', {clientX: 3, clientY: 3, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(Math.abs(gap() - fitted) < 1, 'and a second steps back to the whole field');
+});
+
+test('leaving the mathematics view lets go of the hover, the pin and the column’s card', async () => {
+  const map = await mountStructure({companion: true});
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const dot = map.results()[0];
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+  assert.ok(map.canvas.classList.contains('is-over'));
+  const events = type => map.announced.filter(e => e.type === type);
+  assert.ok(events('universe:select').pop().detail, 'the click pinned a result for the column');
+  map.atlas('system', 'mathematics');
+  assert.equal(events('universe:select').pop().detail, null, 'leaving lets the pin go');
+  assert.equal(events('universe:hover').pop().detail, null, 'and the hover');
+  assert.ok(!map.canvas.classList.contains('is-over'), 'the pointer state is cleared too');
+});
+
+test('under a policy that refuses inline scripts a pin prefetches its paper without speculation rules', async () => {
+  const strict = await mountStructure({companion: true, speculation: true,
+    csp: "default-src 'self'; script-src 'self'; style-src 'self'"});
+  strict.intersect(true);
+  strict.advanceTo(strict.now() + 2000);
+  let dot = strict.results()[0];
+  strict.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+  assert.ok(strict.appended.some(node => node.rel === 'prefetch'), 'the paper is prefetched');
+  assert.ok(!strict.appended.some(node => node.type === 'speculationrules'), 'no inline rule set is written for the policy to refuse');
+  const open = await mountStructure({companion: true, speculation: true});
+  open.intersect(true);
+  open.advanceTo(open.now() + 2000);
+  dot = open.results()[0];
+  open.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+  assert.ok(open.appended.some(node => node.type === 'speculationrules'), 'without such a policy the paper is prerendered as before');
+});
+
+test('structure (2026-10-04): every mark a datum, no clock or dial props, words for people', () => {
+  // The scale is built from the papers' own sequences, a tick per result.
+  assert.match(source, /function buildScale\(\) \{[\s\S]{0,400}?paperSequence/);
+  // No sweeping hand, dial or bezel vocabulary survives in the source.
+  assert.doesNotMatch(source, /\b(?:chronograph|bezel|minute track|watch|wristwatch|clock hand|dial)s?\b/i);
+  // The teaser's caption is a plain sentence, not "kind: label".
+  assert.doesNotMatch(source, /\(KIND_LABEL\[n\.kind\] \|\| n\.kind\) \+ ': '/);
+});
+
+test('a pinned name plate holds its place while the pointer names other results', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  const a = map.place('statement:a-long#r2'), b = map.place('statement:a-long#r3');
+  map.canvas.fire('pointermove', {clientX: a.x, clientY: a.y});
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  const pinned = () => map.labels().find(l => l.text.startsWith('Theorem 2.1 ('));
+  const before = pinned();
+  assert.ok(before, 'the pinned result names itself on a plate');
+  map.canvas.fire('pointermove', {clientX: b.x, clientY: b.y});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(map.labels().some(l => l.text.startsWith('Theorem 3.1 (')), 'the hovered result has its own plate');
+  const after = pinned();
+  assert.ok(after && after.x === before.x && after.y === before.y, 'and the pinned plate has not moved');
+});
+
+test('a teaser still out of view when its data arrives stays closed, then assembles on first view', async () => {
+  const map = await mountStructure();
+  // The page opened on the system map, or below the fold: the canvas is
+  // reported out of view before the reader ever reaches it.
+  map.intersect(false);
+  map.advanceTo(map.now() + 1000);
+  assert.equal(map.frames.size, 0, 'nothing runs while it waits');
+  map.intersect(true);
+  assert.ok(map.results().every(a => a.alpha < 0.01), 'its first sight is not the finished field');
+  assert.ok(map.frames.size > 0, 'the assembly starts');
+  map.advanceTo(map.now() + 2000);
+  assert.ok(map.results().every(a => a.alpha > 0.99), 'and ends whole');
+  assert.equal(map.frames.size, 0);
+});
+
+test('the teaser’s own caption says what the pointer is on in a plain sentence, and nothing once it leaves', async () => {
+  const map = await mountStructure();
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const dot = map.place('statement:a-long#r1');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  assert.equal(map.caption.textContent, 'Theorem 1.1 on #1, replayed by Comparator', 'a result: its number, its problem, its evidence');
+  assert.doesNotMatch(map.caption.textContent, /paper result:|statement:|_/, 'no kind prefix, id or field name');
+  const problem = map.place('problem:p2');
+  map.canvas.fire('pointermove', {clientX: problem.x, clientY: problem.y});
+  assert.equal(map.caption.textContent, '#2: Second problem');
+  map.canvas.fire('pointermove', {clientX: 3, clientY: 3});
+  assert.equal(map.caption.textContent, '', 'empty ground leaves no stale name behind');
+  assert.ok(!map.caption.classList.contains('is-shown'));
+});

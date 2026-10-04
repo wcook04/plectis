@@ -145,7 +145,9 @@ class="math inline" data-term-auto="off">\(C_n,D_n,D_n-(a_n-1)C_n\)</span>. If t
 restarted with its value in lowest terms, both coordinates are divided
 by the same fixed integer. We retain the unreduced fraction <span
 class="math inline" data-term-auto="off">\(C_n/D_n\)</span> to keep the denominator update
-multiplicative.</p>
+multiplicative. In the cubic proof we first extract a polynomial for
+this <span class="math inline" data-term-auto="off">\(C_n\)</span>, then divide out the
+eventual fixed gcd in Section <a class="math-ref" href="#sec:cubic-normalisation">3.2</a>.</p>
 <p>For large <span class="math inline" data-term-auto="off">\(n\)</span>, <span
 class="math inline" data-term-auto="off">\(a_{n+1}\ge a_n^2/2\ge2a_n\)</span>. The terms
 after <span class="math inline" data-term-auto="off">\(1/a_{n+1}\)</span> sum to at most
@@ -254,9 +256,10 @@ forms a divisibility chain: <span class="math inline" data-term-auto="off">\(G_n
 G_{n+1}\)</span>. For every sufficiently late <span
 class="math inline" data-term-auto="off">\(n\)</span>, it divides four consecutive values of
 <span class="math inline" data-term-auto="off">\(C_n\)</span>, and hence their third
-difference <span class="math inline" data-term-auto="off">\(6A\)</span>. Thus <span
-class="math inline" data-term-auto="off">\(G_n\)</span> stabilises at a positive integer
-<span class="math inline" data-term-auto="off">\(g\)</span>.</p>
+difference <span class="math inline" data-term-auto="off">\(6A\)</span>. Unlike the vanishing
+fourth difference used above, this positive third difference bounds the
+gcd. Thus <span class="math inline" data-term-auto="off">\(G_n\)</span> stabilises at a
+positive integer <span class="math inline" data-term-auto="off">\(g\)</span>.</p>
 <p>We can therefore reduce all sufficiently late fractions by the same
 factor: put <span class="math inline" data-term-auto="off">\(u_n=C_n/g\)</span> and <span
 class="math inline" data-term-auto="off">\(v_n=D_n/g\)</span>. The recurrences persist after
@@ -430,7 +433,9 @@ class="math inline" data-term-auto="off">\(\beta^2=\alpha^2-1\)</span>.</p>
 </section>
 <section id="sec:cubic-trace" class="level3">
 <h3>Traces in the cubic field</h3>
-<p>The square relation gives a pair of reciprocal elements:</p>
+<p>To constrain <span class="math inline" data-term-auto="off">\(\eta\)</span>, we use the
+square relation to express <span class="math inline" data-term-auto="off">\(\alpha\)</span>
+through a pair of reciprocal elements in the same cubic field:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[(\alpha+\beta)(\alpha-\beta)=1.\]</span></div>
 <p>Put
@@ -1131,7 +1136,9 @@ class="math inline" data-term-auto="off">\(m_i\mid L_n\)</span> as well, we obta
 class="math inline" data-term-auto="off">\(m_i\mid d_n=(a_n-1)U_n-L_n\)</span>, contradicting
 <span class="math inline" data-term-auto="off">\(0&lt;d_n\le B&lt;m_i\)</span>.</p>
 <p>It follows that every crossing has <span
-class="math inline" data-term-auto="off">\(d_n&gt;B\)</span>. If one step first crosses <span
+class="math inline" data-term-auto="off">\(d_n&gt;B\)</span>. A single jump may first cross
+several selected heights, so we must bound their combined weight by that
+jump’s excess. If one step first crosses <span
 class="math inline" data-term-auto="off">\(h\ge1\)</span> selected heights, their spacing
 gives <span class="math inline" data-term-auto="off">\((h-1)P&lt;d_n\)</span>. Write <span
 class="math inline" data-term-auto="off">\(r=d_n-B\ge1\)</span>. Since <span

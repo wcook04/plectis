@@ -500,17 +500,19 @@ Summation proves <code>[eq:weighted-return]</code>. The lower bound
 in every layer has already excluded reciprocal summability.</p>
 <p>A related selection of a term from an average over an arithmetic
 progression occurs in Duverney–Tachiya <span class="citation"
-data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. The sparse-coefficient criteria of
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. In the criteria of
 Kaneko–Suzuki–Tachiya <span class="citation"
-data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span> do not apply directly to the
-divisor counts
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">c_A(n)=\#\{a\in A:a\mid n\}</annotation></semantics></math>:
+data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>, sparsity concerns the
+positions of nonzero power-series coefficients, not the set of selected
+Lambert denominators. The divisor counts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">c_A(n)=\#\{a\in A:a\mid n\}</annotation></semantics></math>
+are positive on every multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>
 for nonempty
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
-these are positive on every multiple of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>.
-The corresponding density calculation, and the distinction between their
-remote-tail average and our displacement, are given in <a
+so those criteria do not apply directly. The corresponding density
+calculation, and the distinction between their remote-tail average and
+our displacement, are given in <a
 href="../../../papers/erdos257-mersenne-reasoning-surface.pdf#nameddest=record257:weighted-proof">Section 1.2
 of the companion paper</a>.</p>
 <p>The sets of primes for which the weighted sum converges can also be
@@ -678,9 +680,9 @@ including
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 close to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-The weighted proof has already chosen its modulus and dyadic lengths; to
-use the same observations, the estimate must keep both choices
-explicit.</p>
+In the mixed theorem, the weighted construction will choose the modulus
+and dyadic scales after the finite covering sets have been fixed. The
+estimate must therefore retain these parameters.</p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>B</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1&lt;B\le2</annotation></semantics></math>,
 positive integers
@@ -931,12 +933,11 @@ source theorem</a>.</p>
 </section>
 <section id="sec:mixed" class="level2">
 <h2>A common index for the two criteria</h2>
-<p>Irrationality of two summands alone does not imply irrationality of
-their sum, and separate sequences on which the two displacements are
-small would not suffice either. The preceding estimates provide the
-stronger input we need: after all finite divisibility requirements are
-absorbed into one modulus, both nonnegative errors can be averaged on
-the same finite distribution. Only then do we choose an index.</p>
+<p>The cover estimate retains its dependence on the modulus so that it
+can use the larger modulus chosen by the weighted construction. This
+lets us add the two nonnegative errors on one finite distribution and
+only then choose an index. We work at base two and obtain the all-base
+conclusion by the displacement comparison proved above.</p>
 <div class="theorem">
 <p><strong>Theorem 4.1</strong> (mixed weighted and cover supports). <em>
 Let
@@ -1088,9 +1089,9 @@ for supports satisfying the finite-prime weighted hypothesis at base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒞</mi><annotation encoding="application/x-tex">\mathcal C</annotation></semantics></math>
-for supports admitting a strengthened positive cover as
-in <code>[eq:strengthened-cover]</code>. Neither condition includes the
-other.</p>
+for supports admitting a divisor cover
+satisfying <code>[eq:strengthened-cover]</code>. Neither condition
+includes the other.</p>
 <div class="proposition">
 <p><strong>Proposition 5.1</strong> (incomparable support criteria). <em>
 There are infinite positive supports
@@ -2677,7 +2678,13 @@ supply a converse to the positive-cover criterion.</p>
 class="level3 unnumbered">
 <h3 class="unnumbered">The cost for a finite set of divisors</h3>
 <p>For the following finite divisor sets, the lower bound is
-asymptotically attained. For
+asymptotically attained. Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mo>*</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K_*(F)</annotation></semantics></math>
+is the infimum of the cover cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+from Section 5, taken over finite or countable covers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+and all positive weights of total one. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>q</mi><mi>d</mi><mo>:</mo><mi>d</mi><mo>∣</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><mi>p</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">F(q,P)=\{qd:d\mid\prod_{p\in P}p\}</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q\ge2</annotation></semantics></math>
@@ -2689,9 +2696,7 @@ put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">S=\sum_{p\in P}1/p</annotation></semantics></math>.
 If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">S\ge1</annotation></semantics></math>,
-the infimum
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mo>*</mo></msub><annotation encoding="application/x-tex">K_*</annotation></semantics></math>
-over finite or countable covers satisfies
+then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mi>q</mi></mfrac><mo>≤</mo><msub><mi>K</mi><mo>*</mo></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>≤</mo><mfrac><mrow><mi>e</mi><mi>S</mi></mrow><mi>q</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
  \frac{e(S-1)}q\le K_*\bigl(F(q,P)\bigr)\le\frac{eS}q.
  \label{eq:optimal-cube-cost}
@@ -2712,7 +2717,7 @@ for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>z</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le z\le1</annotation></semantics></math>
 the claimed lower bound is nonpositive. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ψ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>z</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Psi(2^z)\ge e(z-1)</annotation></semantics></math>.
-For the upper bound, use the one-set cover with
+For the upper bound, use the one-set cover, whose weight is one, with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">z=1/S</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha=\log_2(1+z)</annotation></semantics></math>;
@@ -2745,14 +2750,15 @@ retrieved. The <em>Formal Conjectures</em> file <span class="citation"
 data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span> is statement-level prior art,
 not a proof dependency.</p>
 <p>The evidence record identifies the exact statements, source revisions
-and recorded comparisons. The mixed implication has a formal proof; its
-construction of
+and recorded comparisons. The mixed implication has a formal proof. A
+separate formal construction of a separating support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
 uses finite sets of squarefree divisors. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">A_\star</annotation></semantics></math>
-calculation, fresh-prime construction, signed finite-denominator
-extension and Theorem D.1 have ordinary arguments here, without
-independent human review. The companion paper locates the separate
+calculation, printed fresh-prime construction, Corollary 5.2, signed
+finite-denominator extension and Theorem D.1 have ordinary arguments
+here, without independent human review. The strictness corollary has no
+formal binding in the record. The companion paper locates the separate
 comparisons for its three logarithmic-sampling results. No historical
 priority is asserted for the support comparison.</p>
 <section id="reproducing-the-weighted-theorem." class="level5">

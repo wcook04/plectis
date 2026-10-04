@@ -304,8 +304,9 @@ class="math inline" data-term-auto="off">\(k\)</span> in the last evaluation.</p
 </section>
 <section id="sec:base-six-test" class="level2">
 <h2>Integral relations</h2>
-<p>The reductions give a second way to test a linear identity, by
-substitution. Consider base six at level two, where the family has <span
+<p>Once independence is known, a linear identity can be tested by
+substitution alone: reduce to the retained sections and compare their
+coefficients. Consider base six at level two, where the family has <span
 class="math inline" data-term-auto="off">\(43\)</span> indices. The <span
 class="math inline" data-term-auto="off">\(37\)</span> retained sections are <span
 class="math inline" data-term-auto="off">\(F_{0,0},F_{1,0}\)</span>, the five <span
@@ -422,14 +423,14 @@ arithmetic.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded functions of totient residues</h2>
-<p>A similar use of congruences produces a nonzero totient residue
-between arbitrarily long blocks of zero residues. We use this to
-classify the rational series obtained from bounded functions of dyadic
-totient residues. The proof rests on a tail estimate: one zero block
-makes the tail vanish under the assumption of rationality, and the other
-leaves a nonzero term too small for that assumption. In the first sum
-below, residues are represented by their least nonnegative values. These
-coefficients need not be binary digits.</p>
+<p>In the evaluation proof, congruences make one totient value nonzero
+modulo the auxiliary prime in each row. Here they isolate one nonzero
+residue between two arbitrarily long zero blocks. Rationality confines
+every scaled tail to a fixed discrete set. Boundedness and the zero
+blocks then force a nonzero tail whose absolute value is smaller than
+the spacing of that set. In the first sum below, residues are
+represented by their least nonnegative values. These coefficients need
+not be binary digits.</p>
 <div class="theorem" id="res:residueseries">
 <p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
 every <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, </em></p>
@@ -679,10 +680,10 @@ but forcing <span class="math inline" data-term-auto="off">\(2^L\mid\varphi(N+L)
 with <span class="math inline" data-term-auto="off">\(N+L&gt;1\)</span> already requires
 <span class="math inline" data-term-auto="off">\(2^L\le N+L-1\)</span>. The tail bound <span
 class="math inline" data-term-auto="off">\((N+L+2)2^{-L}\)</span> then exceeds <span
-class="math inline" data-term-auto="off">\(1\)</span>. Thus this divisibility construction
-does not supply the small nonzero tail needed to exclude a rational
-value. We consider instead a finite test for differences of scaled
-tails.</p>
+class="math inline" data-term-auto="off">\(1\)</span>. This is a failure of the estimate, not
+a lower bound on the tail. Thus this divisibility construction does not
+supply the small nonzero tail needed to exclude a rational value. We
+consider instead a finite test for differences of scaled tails.</p>
 <p>Put <span
 class="math inline" data-term-auto="off">\(R_N=\sum_{j\ge1}\varphi(N+j)2^{-j}\)</span> and
 <span class="math inline" data-term-auto="off">\(\Delta_h(N)=R_{N+h}-R_N\)</span>.
@@ -917,9 +918,10 @@ class="math display" data-term-auto="off">\[\begin{equation}
        \exp(2\pi iD_{h,N,L}/2^L)\le\frac9{10}X.
 \end{equation}\]</span></div>
 <p>These inequalities would prove irrationality.
-Indeed, if every residue failed <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>, each phase
-would be within <span class="math inline" data-term-auto="off">\(1/16\)</span> of an integer,
-so every real part would be at least <span
+Indeed, if every residue failed <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>, each <span
+class="math inline" data-term-auto="off">\(D_{h,N,L}/2^L\)</span> would be within <span
+class="math inline" data-term-auto="off">\(1/16\)</span> of an integer. Each exponential
+would then have real part at least <span
 class="math inline" data-term-auto="off">\(\cos(\pi/8)&gt;9/10\)</span>. Some <span
 class="math inline" data-term-auto="off">\(N\)</span> in the block must therefore satisfy
 <a class="math-ref" data-equation-ref="true" href="#eq:r3-certificate">eq:r3-certificate</a>. For a

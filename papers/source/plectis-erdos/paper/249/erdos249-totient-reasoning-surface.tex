@@ -532,8 +532,9 @@ the even residues. Both assertions follow by isolating a prime $p$
 with prescribed $\varphi(p)\bmod m$: CRT makes each neighbour $p+j$,
 $0<|j|\le L$, divisible by its own prime congruent to $1\pmod m$,
 so all neighbouring residues vanish. A bound on the remaining tail
-then proves irrationality. The same argument works in any integer
-base and yields the dilation statements below.
+then proves irrationality. The same tail estimate works in any integer
+base. For several dilations, the extra step is to prevent cancellation
+at the isolated coefficient.
 
 \begin{prop}[Residue series in every integer base]
 \label{prop:radixresidue}
@@ -1078,7 +1079,7 @@ approaches considered here.
 \section{Conditions that would imply irrationality}
 \label{sec:survivors}
 
-Below are three quantitative sufficient conditions, an equivalent
+Below are quantitative sufficient conditions, an equivalent
 residue formulation, and a proposed generic rank bound. The rank bound
 is false, as its rational counterexample shows. The other arithmetic
 conditions remain open for the totient; the proofs establish their
@@ -1422,9 +1423,10 @@ does not supply it.
 
 \subsection{Certificates with depth equal to the shift}
 
-The unrestricted depth can be replaced by a multiple of the shift.
-The propagation argument in Appendix~\ref{long249:r3-ray} explains
-why doing so preserves the equivalence below.
+The shift and truncation depth can be required to agree, provided
+the shift is allowed to run through positive multiples of a fixed
+$d$. The propagation argument in Appendix~\ref{long249:r3-ray}
+explains why this restriction preserves the equivalence below.
 
 \begin{defn}[Depth equal to a shift multiple]
 \label{defn:apfde}
@@ -1439,20 +1441,16 @@ It is equivalent to $S\notin\mathbb Q$.
 \lean{apFullDepthEscape\_iff\_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}
 \end{defn}
 
-For the actual totient series, the condition in Definition~\ref{defn:apfde} is equivalent to
-irrationality, by the full-depth amplification argument of the short paper
-(the propagation theorem in Appendix~\ref{long249:r3-ray};
-\lean{apFullDepthEscape\_iff\_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}).
-For a fixed pair $(d,N)$, a nonintegral tail difference supplies a certificate
-in every sufficiently late adjacent pair of multipliers. The missing
-arithmetic input is a nonintegral tail difference for every relevant pair,
-not a converse implication for the condition with depth equal to the shift. This is an exact
-reformulation of the open problem, which remains unproved.
-
-The finite examples establish the hypothesis for individual pairs
-$(d,N)$, not for all pairs. Thus the universally quantified condition is
-not a mild regularity assumption: it has the full strength of the
-irrationality question.
+For a fixed pair $(d,N)$, a nonintegral tail difference supplies a
+certificate in every sufficiently late adjacent pair of multipliers.
+Appendix~\ref{long249:r3-ray} proves this propagation and hence the
+equivalence in Definition~\ref{defn:apfde}
+(\lean{apFullDepthEscape\_iff\_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}).
+The finite examples verify the starting hypothesis for individual
+pairs, not for every $d,N$. That universal supply of nonintegral
+differences is the missing arithmetic input. With these quantifiers,
+the condition has the full strength of the irrationality question;
+it is not a mild regularity assumption. The open problem remains unproved.
 
 \noindent Formal sources: \lean{windowDiscrepancy\_self\_eq\_totientBlock\_sub}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:67}
 
@@ -9607,11 +9605,11 @@ $\Delta_H(c)/M\to0$ and $(c+H+1)/M\to0$. Hence the fractional part of
 $-B_{H,c}/M=-vR_c+\Delta_H(c)/M$ stays away from both endpoints of $[0,1]$,
 which gives \eqref{eq:canonical-gap} for all sufficiently large such $H$.
 \end{proof}
-With its universal quantifiers, this condition is equivalent to the
-unresolved irrationality assertion. A rational value
-$a/(2^cv)$ fails the test for that same $c,v$, whereas irrationality gives
-it for every sufficiently large allowed $H$. The proof does not find such
-an $H$ without assuming irrationality.
+For fixed $c,v$, one successful test excludes every value
+$S=a/(2^cv)$, regardless of the numerator $a$. Conversely,
+irrationality gives success for every sufficiently large allowed $H$
+for each fixed $c,v$. This converse does not supply successful tests
+for every $c,v$ without the irrationality assumption.
 
 A formal declaration for the equivalence is
 \href{https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean\#L3165}{available here},

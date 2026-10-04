@@ -35,11 +35,12 @@ short paper gives the basis construction, the finite-gcd proof, and an
 example attaining the least positive value <span
 class="math inline" data-term-auto="off">\(M=1380\)</span> when the sums indexed by <span
 class="math inline" data-term-auto="off">\(2,3,4\)</span> vanish.</p>
-<p>We also minimise support sizes and coefficient norms, and construct
-primitive vectors supported on arithmetic progressions. These impose
-additional requirements on the coefficients. The carry, digit and
-reduced-denominator arguments address nonintegrality of the resulting
-linear form. Changing a vector while preserving <span
+<p>For the depth-four calculation, we also minimise support sizes and
+coefficient norms among vectors supported on <span
+class="math inline" data-term-auto="off">\(\{2,\ldots,8\}\)</span>. A separate construction
+gives primitive vectors supported on arithmetic progressions. The carry,
+digit and reduced-denominator arguments address nonintegrality of the
+resulting linear form. Changing a vector while preserving <span
 class="math inline" data-term-auto="off">\(M\)</span> changes the remainder by an integer. It
 may simplify the calculation, but it cannot change whether the remainder
 is integral. That condition requires a separate argument.</p>
@@ -452,10 +453,11 @@ equations, so its positive generator is independent of the eligible
 prime <span class="math inline" data-term-auto="off">\(p\)</span>. ◻</p>
 </div>
 <p>The support equation determines which basis coefficients are
-admissible. The same coefficients give the remainder explicitly. This
-identifies what remains to be proved after constructing a vector: its
-fractional part is fixed by <span class="math inline" data-term-auto="off">\(M\)</span>,
-whereas the free higher coordinates change only its integer part.</p>
+admissible. For a fixed admissible value of <span
+class="math inline" data-term-auto="off">\(M\)</span>, those choices give remainders
+differing by integers. The following formula records the integer offset
+and shows why changing the vector at that value of <span
+class="math inline" data-term-auto="off">\(M\)</span> cannot alter nonintegrality.</p>
 <div class="theorem" id="long68:res:residual-transparency">
 <p><strong>Theorem 1.4</strong> (how the coefficient choices change the
 remainder). <em> For the vector in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>,
@@ -772,10 +774,11 @@ Integer translation can choose a representative near zero, but cannot
 change this distance. To exclude every rational denominator this way,
 each positive integer <span class="math inline" data-term-auto="off">\(q\)</span> must divide
 the coefficient <span class="math inline" data-term-auto="off">\(M\)</span> of some
-nonintegral form in the family. Eventual divisibility by every fixed
-<span class="math inline" data-term-auto="off">\(q\)</span> is sufficient; growth of the
-values of <span class="math inline" data-term-auto="off">\(M\)</span> alone is not. For
-example, the compulsory factor <span
+nonintegral form in the family. It would suffice to find a family of
+nonintegral forms whose values of <span class="math inline" data-term-auto="off">\(M\)</span>
+are eventually divisible by every fixed <span
+class="math inline" data-term-auto="off">\(q\)</span>; growth alone does not give this
+divisibility. For example, the compulsory factor <span
 class="math inline" data-term-auto="off">\(12L_D\)</span> has <span
 class="math inline" data-term-auto="off">\(3\)</span>-adic valuation exactly <span
 class="math inline" data-term-auto="off">\(1\)</span> for every <span
@@ -2108,9 +2111,8 @@ prime-index instance.</p>
 <h3>The series with denominators <span
 class="math inline" data-term-auto="off">\(n!+t\)</span></h3>
 <p>The digit argument also applies to the other shifts mentioned by
-Erdős. We restrict here to <span class="math inline" data-term-auto="off">\(t\ge-1\)</span>
-so that every denominator from index two onwards is positive. Put <span
-class="math inline" data-term-auto="off">\(S_t=\sum_{n\ge2}1/(n!+t)\)</span> and <span
+Erdős. For an integer <span class="math inline" data-term-auto="off">\(t\ge-1\)</span>, put
+<span class="math inline" data-term-auto="off">\(S_t=\sum_{n\ge2}1/(n!+t)\)</span> and <span
 class="math inline" data-term-auto="off">\(C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)\)</span>,
 so that <span class="math inline" data-term-auto="off">\(S_t=-tC_t+(e-2)\)</span>.</p>
 <p>The restriction <span class="math inline" data-term-auto="off">\(t\ge-1\)</span> keeps

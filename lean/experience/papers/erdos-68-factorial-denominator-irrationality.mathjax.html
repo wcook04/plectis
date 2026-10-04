@@ -55,9 +55,10 @@ class="math inline" data-term-auto="off">\(S\)</span> is rational. An irrational
 would require, for each <span class="math inline" data-term-auto="off">\(q&gt;0\)</span>, a
 nonintegral form whose coefficient <span
 class="math inline" data-term-auto="off">\(M\)</span> is divisible by <span
-class="math inline" data-term-auto="off">\(q\)</span>. The companion constructs primitive
-vectors with this divisibility property; nonintegrality of their
-remainders remains unproved.</p>
+class="math inline" data-term-auto="off">\(q\)</span>. The companion’s <a
+href="../../../papers/erdos68-factorial-reasoning-surface.pdf#r5-progression">progression
+construction</a> gives primitive vectors with this divisibility
+property; nonintegrality of their remainders remains unproved.</p>
 <p>Hančl and Tijdeman’s tail-integrality lemma treats factorial series
 with integer coefficients <span class="citation"
 data-cites="hancl-tijdeman"><a href="#ref-4">[4]</a></span>. Their factorial-scaled partial sums
@@ -332,27 +333,10 @@ V_2=\cdots=V_D=0
 \end{equation}\]</span></div>
 <p class="display-continue">with <span class="math inline" data-term-auto="off">\(t\in\mathbb
 Z\)</span> and finitely many nonzero integers <span
-class="math inline" data-term-auto="off">\(z_n\)</span>. The lower coordinates are fixed by
-<span class="math inline" data-term-auto="off">\(t\)</span>; all higher coordinates remain
-free. These free coordinates help impose the support restriction, but
-they change the remainder only by an integer. Indeed, <span
-class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and <span
-class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span> give</p>
-<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
-\mathcal R\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
-=tL_D(S-H_D)+\sum_{n&gt;D}z_n,
-\qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
-\label{eq:residual-transparency}
-\end{equation}\]</span></div>
-<p>Since <span
-class="math inline" data-term-auto="off">\(M=tL_D\)</span> clears the denominators of <span
-class="math inline" data-term-auto="off">\(H_D\)</span>, the integer in <span
-class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span> is <span
-class="math inline" data-term-auto="off">\(k=-MH_D+\sum_{n&gt;D}z_n\)</span>. Thus the sum of
-the free coordinates is the offset from <span
-class="math inline" data-term-auto="off">\(M(S-H_D)\)</span>, not from <span
-class="math inline" data-term-auto="off">\(MS\)</span>.</p>
+class="math inline" data-term-auto="off">\(z_n\)</span>. The parameter <span
+class="math inline" data-term-auto="off">\(t\)</span> fixes the lower coordinates; the higher
+<span class="math inline" data-term-auto="off">\(z_n\)</span> remain arbitrary until we
+impose <span class="math inline" data-term-auto="off">\(\lambda_1=0\)</span>.</p>
 <p>It remains to remove index one. Write <span
 class="math inline" data-term-auto="off">\(a_D\)</span> for its coefficient in <span
 class="math inline" data-term-auto="off">\(K_D\)</span>, and <span
@@ -490,6 +474,30 @@ therefore produces a vector with <span
 class="math inline" data-term-auto="off">\(M=\mu_D\)</span>. This gives an attaining vector
 as well as the minimum. Minimising its support or its coefficient norm
 is a separate problem.</p>
+</section>
+<section id="sec:coordinate-remainder" class="level3">
+<h3>The associated remainder</h3>
+<p>For a fixed admissible value <span
+class="math inline" data-term-auto="off">\(M=tL_D\)</span>, the higher coordinates must still
+satisfy <a class="math-ref" data-equation-ref="true" href="#eq:support-equation">eq:support-equation</a>. Among those
+choices, the remainder changes only by an integer: <span
+class="math inline" data-term-auto="off">\(\mathcal R(e_1)=S\)</span> and <span
+class="math inline" data-term-auto="off">\(\mathcal R(U_n)=1\)</span> give</p>
+<div class="math-display" id="eq:residual-transparency" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\mathcal R\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
+=tL_D(S-H_D)+\sum_{n&gt;D}z_n,
+\qquad H_D=\sum_{d=2}^D\frac1{d!-1}.
+\label{eq:residual-transparency}
+\end{equation}\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(M=tL_D\)</span> clears the denominators of <span
+class="math inline" data-term-auto="off">\(H_D\)</span>, the integer in <span
+class="math inline" data-term-auto="off">\(\mathcal R=MS+k\)</span> is <span
+class="math inline" data-term-auto="off">\(k=-MH_D+\sum_{n&gt;D}z_n\)</span>. Thus the sum of
+the higher coordinates is the offset from <span
+class="math inline" data-term-auto="off">\(M(S-H_D)\)</span>, not from <span
+class="math inline" data-term-auto="off">\(MS\)</span>.</p>
 </section>
 </section>
 <section id="sec:depth-four" class="level2">

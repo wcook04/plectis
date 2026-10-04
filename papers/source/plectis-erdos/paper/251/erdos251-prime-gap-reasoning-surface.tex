@@ -50,8 +50,9 @@ with nonnegative integer coefficients, together with exact criteria for
 the prime-gap series.  Varying adjacent corrections with a fixed sum gives an interval of
 dyadic sums while preserving eventual congruences.  One sparse set contains
 all correction supports, and the congruence cutoffs are independent of
-the value attained.  Applied to prime gaps,
-the construction preserves growing-block statistics and cumulative size
+the value attained.  Applied to prime gaps with eventual correction bound $\log(n+3)$,
+the construction gives vanishing total variation error for blocks of length
+$o(\log\log X)$ sampled on $[X,2X)$ and preserves the cumulative asymptotic
 $n\log n$, without ensuring primality.  The actual tails satisfy a
 recurrence whose integral shifts characterise rationality.  We give
 counterexamples to weaker coefficient conditions and integer certificates
@@ -75,16 +76,18 @@ what would be needed from the actual prime-gap tails.
 Our main construction is Theorem~\ref{long251:res:sparse-rationalisation}.
 For any convergent dyadic series with nonnegative integer coefficients,
 we choose one sparse set containing all correction supports.  By varying
-the corrections on this set, we attain every value in an interval.  The corrections
-can grow arbitrarily slowly, and every fixed modulus eventually divides
-both their terms and their partial sums, with cutoffs fixed before the
-target.  The construction varies adjacent entries while keeping their
+the corrections on this set, we attain every value in an interval.  Given any
+function tending to infinity, we can choose corrections bounded by it for all
+sufficiently large indices.  Every fixed modulus eventually divides both
+their terms and their partial sums, with cutoffs fixed before the target.  The construction varies adjacent entries while keeping their
 ordinary sum fixed.  This separates the choice of weighted sum from
 the subsequent congruence calculations.
 
-With a polylogarithmic bound on the corrections we also preserve empirical blocks of
-length $o(\log\log X)$.  Applied to prime gaps, the theorem gives rational
-sums and cumulative positions asymptotic to $n\log n$.  These positions
+With a polylogarithmic bound on the corrections, the original and altered
+empirical block distributions have total variation distance tending to zero
+for lengths $o(\log\log X)$ sampled in $[X,2X)$.  Applied to prime gaps,
+the theorem gives rational sums and cumulative positions asymptotic to
+$n\log n$.  These positions
 are comparison integers and are not shown to be prime.  These congruences and statistics are therefore compatible with a rational
 sum.  The irrationality of the actual prime series remains unresolved.
 
@@ -202,15 +205,16 @@ possible here: eventual boundedness together with eventual divisibility
 by every fixed modulus would make the corrections eventually zero; their
 fixed total would then have to be divisible by every modulus and hence be
 zero.  Nonnegative corrections could not change the sum.
-The supports of all corrections lie in $S$, but each may be a proper
-subset depending on the value of the sum.  Requiring
+The set $S$, the interval $I$ and every congruence cutoff are fixed before
+the target value is chosen.  Each correction depends on that value, and
+its support may be a proper subset of $S$.  Requiring
 upper Banach density zero is stronger than requiring ordinary density
 zero.  For example, the union of the integer intervals
 $[k!,k!+k)$, $k\ge3$, has ordinary density zero but upper Banach density
 one.  If $k!\le x<(k+1)!$, at most $k(k+1)/2$ indices have occurred,
 so their proportion is at most $k(k+1)/(2k!)\to0$.  Nevertheless each
-interval is filled and their lengths are unbounded.  The hypothesis rules out this concentration in long intervals, however far
-apart those intervals lie.
+interval is filled and their lengths are unbounded.  Upper Banach density zero rules out this concentration in long intervals,
+however far apart those intervals lie.
 
 \begin{proof}
 \emph{Fixed totals.}
@@ -577,7 +581,7 @@ summable maxima, their lemma fills a single interval if each largest
 successive gap is at most the sum of the subsequent diameters.
 Here the sets are $\{0,w_j,\ldots,D_jw_j\}$, and the condition is
 $w_j\le\sum_{i>j}D_iw_i$.  The proof checks this inequality at every
-stage.  Fridy's lemma \cite[Lemma, p.~194]{fridy1966} assumes decreasing
+stage.  Fridy's lemma \cite[Lemma, p.~194]{fridy1966} assumes nonincreasing
 weights, a restriction avoided by the finite-choice form.
 Kova\v{c} and Tao use reciprocal choices
 \cite[Lemma~5.1, Theorem~2.5]{kovactao2024}.
@@ -1393,8 +1397,9 @@ nevertheless include arbitrarily large indices.
 For one fixed positive modulus $M$, we may add either $0$ or $M$
 after a prescribed prefix.  The weighted choices form a binary expansion,
 so we can choose a rational sum while preserving every coefficient
-modulo $M$.  This construction uses all late indices and imposes neither
-density-zero support nor eventual preservation of all moduli.
+modulo $M$.  This construction permits changes at every index after the
+prefix; it imposes neither density-zero support nor eventual preservation
+of all moduli.
 
 \begin{theorem}[bounded perturbations preserving congruences]\label{long251:res:boundedperturbation}
 Let $a_n$ be natural numbers with $\sum_{n\ge0}a_n2^{-(n+1)}$ convergent.  For
@@ -2251,8 +2256,8 @@ The source links identify definitions and proof steps at fixed revisions;
 the short paper's source index retains its different revision in
 Appendix~\ref{long251:app:short-source-index}. The formal sparse
 construction changes one coordinate per stage, whereas the printed
-proof uses triples. Both fix supports, the interval of sums and the
-modulus cutoffs before choosing a value. The formal proofs use the
+proof uses triples. Both fix a set containing all correction supports,
+the interval of sums and the modulus cutoffs before choosing a value. The formal proofs use the
 published inputs stated below; the linked declarations do not check
 the different printed arguments step by step.
 
