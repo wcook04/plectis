@@ -233,11 +233,21 @@
 
   function replay(target, type) {
     if (!target) return;
-    if (type === 'pointerover') {
+    if (type === 'pointerover' || type === 'focusin') {
+      // Loading the full runtime must preserve the intent that started it.
+      // Match docs-loader's current-target guard: a departed hover or focus
+      // must not open an old term after the script finishes downloading.
+      if (type === 'focusin') {
+        if (doc.activeElement !== target) return;
+      } else {
+        try { if (!target.matches || !target.matches(':hover')) return; }
+        catch (e) { return; }
+      }
       try {
-        var event = typeof window.PointerEvent === 'function'
-          ? new window.PointerEvent('pointerover', { bubbles: true, pointerType: 'mouse' })
-          : new Event('pointerover', { bubbles: true });
+        // The shared glossary consumes mouseover, rather than pointerover.
+        var event = type === 'focusin'
+          ? new Event('focusin', { bubbles: true })
+          : new MouseEvent('mouseover', { bubbles: true });
         target.dispatchEvent(event);
       } catch (e) {}
       return;
@@ -263,8 +273,9 @@
        on their hover path. */
     if (href.charAt(0) === '#') return;
     startDocs(function () {
-      if (event.type === 'pointerover' && target.hasAttribute && target.hasAttribute('data-term')) {
-        replay(target, 'pointerover');
+      if ((event.type === 'pointerover' || event.type === 'focusin') &&
+          target.hasAttribute && target.hasAttribute('data-term')) {
+        replay(target, event.type);
       }
     });
   }

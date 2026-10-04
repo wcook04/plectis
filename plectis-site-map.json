@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:571f4192f43b3f53a5b0475901077bc886f96460788d8a62cb47c9ed05076544",
+    "payload_sha256_excluding_identity": "sha256:9666e416c185a4c894202647d71e822a237349252ca34390cff916a7be20189b",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1"
@@ -7095,11 +7095,11 @@
       ],
       "title": "Plectis",
       "visible_text": {
-        "byte_count": 16874,
+        "byte_count": 20563,
         "format": "markdown",
         "packaging": "curated_landing_public_text_markdown_without_repeated_export_chrome",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Plectis: Lean research on Erd\u0151s problems [Skip to content](index.html#main) [Will Cook](https://wcook04.github.io/) / [Plectis](index.html) [Mathematics](maths/index.html) [Papers](docs/papers.html) [Videos](index.html#videos) [Glossary](docs/glossary.html) [About](docs/introduction.html)\n\n### Plectis\n\nResearch on eight Erd\u0151s problems, with Lean proofs, papers and open questions.\n\nAs AI improves, I want to tackle harder problems and leave work that other people can understand and continue.\n\n[Explore the mathematics](maths/index.html) [Read the papers](docs/papers.html)\n\nBuilt and maintained by Will Cook. Independent and self-funded.\n\n[Watch the one-minute version](https://youtu.be/R_--vExxWyk) 1:25 on YouTube [Erd\u0151s problems](index.html#mathematics) 8 [papers](docs/papers.html) 19 [glossary terms](docs/glossary.html) 660\n\n#### Eight Erd\u0151s problem programmes\n\nEach page gives the original question, the results checked in the Lean proof assistant, the approaches that failed and what remains unproved. Start with the short paper and follow its links to the proof and the longer explanation.\n1. [#68 The factorial - denominator series Open](maths/problems/erdos_68.html)\n2. [#243 Reciprocal -tail rigidity near the Sylvester recurrence Open](maths/problems/erdos_243.html)\n3. [#249 The binary totient series Open](maths/problems/erdos_249.html)\n4. [#251 The prime -gap dyadic series Open](maths/problems/erdos_251.html)\n5. [#257 Reciprocal sums over infinite exponent supports Open](maths/problems/erdos_257.html)\n6. [#269 Three- prime running least common multiples Open](maths/problems/erdos_269.html)\n7. [#1041 Short connections inside polynomial lemniscates Formal statement refuted](maths/problems/erdos_1041.html)\n8. [#1049 Lambert-type series at rational bases Open](maths/problems/erdos_1049.html)\n\nStatus labels distinguish open targets from exact statements refuted in Lean. Correspondence with the historical wording requires separate human review.\n\n[Open the universe map](maths/universe.html) [Lean source on GitHub](https://github.com/wcook04/plectis-erdos)\n\nA result on Erd\u0151s #257\n\n#### Reciprocal sums over infinite exponent supports\n\n1 1 2 1 \u22121 + 1 3 2 2 \u22121 + 1 7 2 3 \u22121 + 1 15 2 4 \u22121 + \u22ef\n\nTake 1, 1/3, 1/7, 1/15 and so on: each denominator is a power of two minus one. Erd\u0151s asked whether every infinite selection of these terms has an irrational sum.\n\nFor #257, a Lean-checked theorem proves the following. Let A be an infinite set of positive exponents, P a nonempty finite set of primes, and h ( a) the part of each a in A built from primes in P. If the sum of h ( a)/( a (2 h ( a) \u22121)) over A is finite, then the sum of 1/( b a \u22121) over A is irrational at every integer base b \u2265 2. The paper constructs such a set A whose sum of 1/ a diverges. The question for every infinite exponent set remains open.\n\n[Read the #257 theorem and proof](maths/problems/erdos_257.html)\n\n#### Three papers to start with\n\nShort paper on Erd\u0151s #257\n\n[Irrationality criteria for Lambert subseries](maths/papers/erdos-257-mersenne-support-subseries.html)\n\nWhich weighted- support Mersenne subseries are proved irrational, and what still blocks the universal Erd\u0151s #257 question?\n\n[PDF, 26 pages](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf)\n\nCross-problem paper\n\n[Reading Eight Erd\u0151s Problems Together](maths/papers/optimal-sparse-perturbations.html)\n\nWhen do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erd\u0151s programmes?\n\n[PDF, 38 pages](https://wcook04.github.io/plectis/papers/optimal-sparse-perturbations.pdf)\n\nLean system paper\n\n[A Repository -Based System for Research and Publication](maths/papers/claim-faithful-publication-systems.html)\n\nHow can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?\n\n[PDF, 22 pages](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)\n\nEach problem has a short paper, which contains the compressed ideas, and a long paper, which is a reasoning record of all the failed routes and attempted avenues. [Browse all nineteen papers, with abstracts and sources \u2192](docs/papers.html)\n\nThese author-released papers are not externally peer reviewed and have no DOI. Lean checks statements; readers judge novelty and significance.\n\n#### Videos\n\nThe same walkthrough at three lengths, filmed on the private system where this research is done.\n1. [1:25](https://youtu.be/R_--vExxWyk)\n\n##### [The one-minute version](https://youtu.be/R_--vExxWyk)\n\nTranscript\n\nI built a large Python system with agents helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any agent can keep in its context window at any one moment. And building got easier before being able to understand what has been built could catch up.\n\nSo it exists because an agent saying \"I committed the fix\" is pretty ephemeral and doesn't really mean anything. Agents can lie, or agents can misunderstand, or they can forget.\n\nSo we essentially have this mechanical, semantic process which is able to actually read the claim. Let's say it says \"landed\", which is a common word that they use. There's an actual checklist that it has to run in order to make sure that it really is landed.\n\nMy entire front end could be completely made up and you wouldn't know. Plectis, the open- source repo, is falsifiable. You can check it. You can really check it.\n\nSo I made the public bit as open and clear as I could, but I also needed to be able to signal the capability of the wider system beyond just claiming it.\n2. [4:57](https://youtu.be/VoWByIOIuBE)\n\n##### [The five-minute walk-through](https://youtu.be/VoWByIOIuBE)\n\nTranscript\n\nI built a large Python system with agents helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any agent can keep in its context window at any one moment. And building got easier before being able to understand what has been built could catch up.\n\nSo it exists because an agent saying \"I committed the fix\" is pretty ephemeral and doesn't really mean anything. Agents can lie, or agents can misunderstand, or they can forget.\n\nTo sum the whole thing up in one sentence: I built a large Python agent -work system, and the front end is the inspection layer that lets a human, or an agent through its own routes, move from maps to files to traces to evidence, so that claims stay auditable as the system outgrows comprehension.\n\nI'm actually recording this video on what I call the Demo Take Console. It's a bit like OBS, but it's integrated into the system. It uses Whisper to get the transcripts and timestamp them, and then it uses screenshots of frames in the middle of each word to correspond what's said to what's shown. It indexes all of that, and then it can compile videos without me having to edit them, because I'm that lazy.\n\nAgent Trace lets you see what's happening, or what happened: the thinking summaries, the commands running, the metadata, the files read and the edits made.\n\nIf we have a look at Code Map first, I think this is the best example of the system's core principle: don't hard-code anything, derive everything from the backend. We'll start with the Atlas. This is the full system, most of which I haven't released. There's many different parts. This is like a contents page, in a way, and an example of presenting information in a human-interpretable way.\n\nYou can project the system into a readable shape, select a target, route to that object, open the source or work record, and check the evidence and trace.\n\nSo if the map and the source disagree, the source wins.\n\nI built this whole website which is projected from it, so I think you'll find it quite cool. There are something like 88 different components, across formal proof of mathematics, agent reliability and safety research, forecasting, projection, control, validators, work planning, and continuity.\n\nAnd I think the tendency of models to just have a certain degree of hyperbole really causes problems. At system scale, truth and precision become ever more important, because the consequences of a mistake can cause increasing amounts of damage depending on how you build a system.\n\nSo as much as you can, externalise repeatable lessons into mechanics of the system that are not stochastic, like the LLMs, but are things like hooks, for instance, or guards. You can accumulate them over time and make them your own. For any problem you encounter, I'd highly recommend telling another thread to make generalised improvements to the system, given that local instance, but generalised to fix the class of mistakes that might be recurrent.\n\nCheck it. There's definitely mistakes. I'd love to hear what they are. But you can see every single claim and you can evaluate for yourself, and I think that's the most important thing in dissemination.\n\nThink of it like a factory. The system these components come from is the factory, and the public components are like the various individual parts of the rockets that the factory makes.\n\nSo the practical test is pretty simple. I just need somebody to clone the repo and put it into Claude Code, put it into Codex, Cursor, Antigravity, whatever harness you use, and just ask it to follow any one claim, or any set of claims, back to the source, the receipts, the evidence, and the place where that claim stops.\n3. [28:58](https://youtu.be/jA_xC8gmdSs)\n\n##### [The long version](https://youtu.be/jA_xC8gmdSs)\n\nThe route it takes\n\nThe long version runs half an hour, so what follows is the route it takes rather than every word. The one- and five-minute transcripts above carry the same argument verbatim.\n\n**The problem.** The system has outgrown what I can hold in my head or an agent can hold in context, and building got easier before understanding could catch up. So the priority became inspection: what ran, what changed, what evidence backs a claim, what's missing, and what the unknown unknowns are.\n\n**What it is.** One backend with two front ends. The visual one is for human reading and exploration; the kernel is the agents ' equivalent, reached through routes and context packets. Same information, shaped for each reader.\n\n**That it's real.** Agent Trace is shown live, with real agents working concurrently, because that's harder to fake than a screenshot. Nothing on screen is hard-coded; it's derived from the backend, so the views and the source can't quietly drift apart.\n\n**How agents navigate.** Kernel routes, standards, and contracts. A standard defines what a thing has to satisfy, and the check is mechanical rather than a matter of the agent 's word.\n\n** Governance.** Axioms, principles, and anti-principles sit in the repo. I can't retrain a model, so instead the environment carries the rules, and agents have refused things I asked for because the principles didn't allow them. Multi-step effects land as a transaction: a change to the world only counts once it really landed.\n\n**How it got built.** Months of thinking out loud into voice notes, mined into ideas, then grounded against the system and turned into refinements. Around thirteen thousand captures exist so that a problem noticed in one chat doesn't die there.\n\n**Breadth.** Forecasting and finance feeds fanned into a shared state, and formal mathematics with machine-checked proofs. Built solo, over roughly a year.\n\n**The honest close.** The front end I built is not to be trusted, because appearances are easy to fake. Where I could get it to run real tools, I did; where I couldn't, I say so. The evidence view is there to keep it honest by showing which routes are still incomplete. I've tried to be careful about overclaiming, because of how many repos and startups I see doing the opposite. It ends on one question: can any claim survive the path from the map to the source and the evidence?\n\n#### Why I am building it\n\nI was vibe-mathing back in early 2025, and even then I immediately realised formal verification is necessary but not sufficient for a lay person wanting to use AI to do maths. The case that AI would eventually be able to do mathematics as well as any human in this decade was strong enough that I decided to try. Trying lets you encounter failure modes, and time spent with them lets you try to fix them. If AI is any level more intelligent than a person, I see no reason why that intelligence can\u2019t then be applied to convert the resulting \u201c uninterpretable \u201d mathematics back into something that can be interpreted.\n\n[The longer account: how this started and what I am trying to do](docs/contact.html#who-built-this)\n\n[Download the AI packet](plectis-ai-review-packet.json) (or the [smaller source brief](plectis-reviewer-brief.json)) and ask: \u201cGive me a tour of the website and both GitHub repositories.\u201d It includes the papers, glossary, website text and source links.\n\nFor AI readers and coding agents\n\nJSON packets are more trusted than cloning a repo. You don\u2019t even need an IDE or a coding app: you can simply upload one on the AI websites. It is like holding a hologram of this \u201cuniverse\u201d in your pocket, able to zoom with a queryable microscope into any part of it, and to be told what the parts even are before you look. Reading is not a verification run; a check counts as passed only when the stated command was run and its evidence shown.\n\nSetup prompt for a coding agent\n\nA mathematics task needs only the mathematics repository. A software task needs only the software repository. This prompt is for an assessment across both.\n\n```text\nMy task is [describe the question or change]. Use https://github.com/wcook04/plectis for software components and https://github.com/wcook04/plectis-erdos for mathematics and Lean proofs. Clone the repository my task needs from current main; use both only if the task crosses them. Preserve any existing local work. Read README.md and the compact agent entry: AGENTS.override.md where present, otherwise AGENTS.md. Record the checkout commit and local changes. For mathematics, use python3 scripts/agent_entry.py --entry with my task, and --checkout --check-upstream to compare with public main. For software, follow QUICKSTART.md and run the quickstart check or selected component example, saving output under .microcosm/. Do the task and return source paths, exact commands and outcomes, and the remaining assumptions or unresolved step. Report anything you could not run as not established, never as false. A release tag is a frozen edition, not current main.\n```\n\nCopy the setup prompt\n\n[The coding-agent guide walks through each step](docs/coding-agents.html)\n\n#### Take part\n\nIf you have a correction, a mathematical idea or a software improvement, send me the specific point. You don\u2019t have to implement it yourself, and I\u2019ll credit your contribution with your permission. If you solve a result, I will ask for zero priority and that result is yours.\n\nEmail me [Work on a problem](https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md) [Credit policy](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md)\n\nOr email me about research collaboration, a partnership or licence, or just a conversation about the work. I\u2019m not asking for money up front. For context, my own funding runs out in early November 2026. The [contact page](docs/contact.html#audience-routes) lists the other routes, from checking a claim to reusing the source.\n\nEarlier software\n\nThe earlier Plectis software toolkit is a separate part of the public record: 88 components from my research system, each with its source and tests, and the doctrine they follow.\n\n[Browse the software](docs/index.html) [Software map](docs/architecture.html#whole-system-map) [Doctrine](docs/doctrine.html) [Open questions](docs/open-questions.html) [wcook04/plectis](https://github.com/wcook04/plectis)\n\nPlectis\n\nResearch with AI, mathematics and software. Built and maintained by Will Cook.\n\nMathematics\n\n[Universe map](maths/universe.html) [All papers](docs/papers.html) [Maths repository](https://github.com/wcook04/plectis-erdos)\n\nEarlier software\n\n[Overview](docs/index.html) [Quickstart](docs/quickstart.html) [Software repository](https://github.com/wcook04/plectis)\n\nProject\n\n[Glossary](docs/glossary.html) [Updates](docs/updates.html) [Contact](docs/contact.html)\n\n21 June 2026: Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. [Read the lineage note and changelog](docs/lineage.html).\n\nFront door [Will Cook: public work](https://wcook04.github.io/)"
+        "text": "Plectis: Lean research on Erd\u0151s problems [Skip to content](index.html#main) [Will Cook](https://wcook04.github.io/) / [Plectis](index.html) [Mathematics](maths/index.html) [Papers](docs/papers.html) [Videos](index.html#videos) [Glossary](docs/glossary.html) [About](docs/introduction.html)\n\n### Plectis\n\nResearch on eight Erd\u0151s problems, with Lean proofs, papers and open questions.\n\nAs AI improves, I want to tackle harder problems and leave work that other people can understand and continue.\n\n[Explore the mathematics](maths/index.html) [Read the papers](docs/papers.html)\n\nBuilt and maintained by Will Cook. Independent and self-funded.\n\n[Watch the one-minute version](https://youtu.be/R_--vExxWyk) 1:25 on YouTube [Erd\u0151s problems](index.html#mathematics) 8 [papers](docs/papers.html) 19 [glossary terms](docs/glossary.html) 660\n\n#### Eight Erd\u0151s problem programmes\n\nEach page gives the original question, the results checked in the Lean proof assistant, the approaches that failed and what remains unproved. Start with the short paper and follow its links to the proof and the longer explanation.\n1. [#68 The factorial - denominator series Open](maths/problems/erdos_68.html)\n2. [#243 Reciprocal -tail rigidity near the Sylvester recurrence Open](maths/problems/erdos_243.html)\n3. [#249 The binary totient series Open](maths/problems/erdos_249.html)\n4. [#251 The prime -gap dyadic series Open](maths/problems/erdos_251.html)\n5. [#257 Reciprocal sums over infinite exponent supports Open](maths/problems/erdos_257.html)\n6. [#269 Three- prime running least common multiples Open](maths/problems/erdos_269.html)\n7. [#1041 Short connections inside polynomial lemniscates Formal statement refuted](maths/problems/erdos_1041.html)\n8. [#1049 Lambert-type series at rational bases Open](maths/problems/erdos_1049.html)\n\nStatus labels distinguish open targets from exact statements refuted in Lean. Correspondence with the historical wording requires separate human review.\n\n[Open the universe map](maths/universe.html) [Lean source on GitHub](https://github.com/wcook04/plectis-erdos)\n\nA result on Erd\u0151s #257\n\n#### Reciprocal sums over infinite exponent supports\n\n1 1 2 1 \u22121 + 1 3 2 2 \u22121 + 1 7 2 3 \u22121 + 1 15 2 4 \u22121 + \u22ef\n\nTake 1, 1/3, 1/7, 1/15 and so on: each denominator is a power of two minus one. Erd\u0151s asked whether every infinite selection of these terms has an irrational sum.\n\nFor #257, a Lean-checked theorem proves the following. Let A be an infinite set of positive exponents, P a nonempty finite set of primes, and h ( a) the part of each a in A built from primes in P. If the sum of h ( a)/( a (2 h ( a) \u22121)) over A is finite, then the sum of 1/( b a \u22121) over A is irrational at every integer base b \u2265 2. The paper constructs such a set A whose sum of 1/ a diverges. The question for every infinite exponent set remains open.\n\n[Read the #257 theorem and proof](maths/problems/erdos_257.html)\n\n#### Three papers to start with\n\nShort paper on Erd\u0151s #257\n\n[Irrationality criteria for Lambert subseries](maths/papers/erdos-257-mersenne-support-subseries.html)\n\nWhich weighted- support Mersenne subseries are proved irrational, and what still blocks the universal Erd\u0151s #257 question?\n\n[PDF, 26 pages](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf)\n\nCross-problem paper\n\n[Reading Eight Erd\u0151s Problems Together](maths/papers/optimal-sparse-perturbations.html)\n\nWhen do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erd\u0151s programmes?\n\n[PDF, 38 pages](https://wcook04.github.io/plectis/papers/optimal-sparse-perturbations.pdf)\n\nLean system paper\n\n[A Repository -Based System for Research and Publication](maths/papers/claim-faithful-publication-systems.html)\n\nHow can AI-assisted work on an open problem persist as a record that people and models can check, understand and extend?\n\n[PDF, 22 pages](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)\n\nEach problem has a short paper, which contains the compressed ideas, and a long paper, which is a reasoning record of all the failed routes and attempted avenues. [Browse all nineteen papers, with abstracts and sources \u2192](docs/papers.html)\n\nThese author-released papers are not externally peer reviewed and have no DOI. Lean checks statements; readers judge novelty and significance.\n\n#### Videos\n\nThe same walkthrough at three lengths, filmed on the private system where this research is done.\n1. [1:25](https://youtu.be/R_--vExxWyk)\n\n##### [The one-minute version](https://youtu.be/R_--vExxWyk)\n\nTranscript\n\nI built a large Python system with agents helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any agent can keep in its context window at any one moment. And building got easier before being able to understand what has been built could catch up.\n\nSo it exists because an agent saying \"I committed the fix\" is pretty ephemeral and doesn't really mean anything. Agents can lie, or agents can misunderstand, or they can forget.\n\nSo we essentially have this mechanical, semantic process which is able to actually read the claim. Let's say it says \"landed\", which is a common word that they use. There's an actual checklist that it has to run in order to make sure that it really is landed.\n\nMy entire front end could be completely made up and you wouldn't know. Plectis, the open- source repo, is falsifiable. You can check it. You can really check it.\n\nSo I made the public bit as open and clear as I could, but I also needed to be able to signal the capability of the wider system beyond just claiming it.\n2. [4:57](https://youtu.be/VoWByIOIuBE)\n\n##### [The five-minute walk-through](https://youtu.be/VoWByIOIuBE)\n\nTranscript\n\nI built a large Python system with agents helping me build and inspect it. It now has far more moving parts than I can keep in my head at any one moment, and more than any agent can keep in its context window at any one moment. And building got easier before being able to understand what has been built could catch up.\n\nSo it exists because an agent saying \"I committed the fix\" is pretty ephemeral and doesn't really mean anything. Agents can lie, or agents can misunderstand, or they can forget.\n\nTo sum the whole thing up in one sentence: I built a large Python agent -work system, and the front end is the inspection layer that lets a human, or an agent through its own routes, move from maps to files to traces to evidence, so that claims stay auditable as the system outgrows comprehension.\n\nI'm actually recording this video on what I call the Demo Take Console. It's a bit like OBS, but it's integrated into the system. It uses Whisper to get the transcripts and timestamp them, and then it uses screenshots of frames in the middle of each word to correspond what's said to what's shown. It indexes all of that, and then it can compile videos without me having to edit them, because I'm that lazy.\n\nAgent Trace lets you see what's happening, or what happened: the thinking summaries, the commands running, the metadata, the files read and the edits made.\n\nIf we have a look at Code Map first, I think this is the best example of the system's core principle: don't hard-code anything, derive everything from the backend. We'll start with the Atlas. This is the full system, most of which I haven't released. There's many different parts. This is like a contents page, in a way, and an example of presenting information in a human-interpretable way.\n\nYou can project the system into a readable shape, select a target, route to that object, open the source or work record, and check the evidence and trace.\n\nSo if the map and the source disagree, the source wins.\n\nI built this whole website which is projected from it, so I think you'll find it quite cool. There are something like 88 different components, across formal proof of mathematics, agent reliability and safety research, forecasting, projection, control, validators, work planning, and continuity.\n\nAnd I think the tendency of models to just have a certain degree of hyperbole really causes problems. At system scale, truth and precision become ever more important, because the consequences of a mistake can cause increasing amounts of damage depending on how you build a system.\n\nSo as much as you can, externalise repeatable lessons into mechanics of the system that are not stochastic, like the LLMs, but are things like hooks, for instance, or guards. You can accumulate them over time and make them your own. For any problem you encounter, I'd highly recommend telling another thread to make generalised improvements to the system, given that local instance, but generalised to fix the class of mistakes that might be recurrent.\n\nCheck it. There's definitely mistakes. I'd love to hear what they are. But you can see every single claim and you can evaluate for yourself, and I think that's the most important thing in dissemination.\n\nThink of it like a factory. The system these components come from is the factory, and the public components are like the various individual parts of the rockets that the factory makes.\n\nSo the practical test is pretty simple. I just need somebody to clone the repo and put it into Claude Code, put it into Codex, Cursor, Antigravity, whatever harness you use, and just ask it to follow any one claim, or any set of claims, back to the source, the receipts, the evidence, and the place where that claim stops.\n3. [28:58](https://youtu.be/jA_xC8gmdSs)\n\n##### [The long version](https://youtu.be/jA_xC8gmdSs)\n\nThe route it takes\n\nThe long version runs half an hour, so what follows is the route it takes rather than every word. The one- and five-minute transcripts above carry the same argument verbatim.\n\n**The problem.** The system has outgrown what I can hold in my head or an agent can hold in context, and building got easier before understanding could catch up. So the priority became inspection: what ran, what changed, what evidence backs a claim, what's missing, and what the unknown unknowns are.\n\n**What it is.** One backend with two front ends. The visual one is for human reading and exploration; the kernel is the agents ' equivalent, reached through routes and context packets. Same information, shaped for each reader.\n\n**That it's real.** Agent Trace is shown live, with real agents working concurrently, because that's harder to fake than a screenshot. Nothing on screen is hard-coded; it's derived from the backend, so the views and the source can't quietly drift apart.\n\n**How agents navigate.** Kernel routes, standards, and contracts. A standard defines what a thing has to satisfy, and the check is mechanical rather than a matter of the agent 's word.\n\n** Governance.** Axioms, principles, and anti-principles sit in the repo. I can't retrain a model, so instead the environment carries the rules, and agents have refused things I asked for because the principles didn't allow them. Multi-step effects land as a transaction: a change to the world only counts once it really landed.\n\n**How it got built.** Months of thinking out loud into voice notes, mined into ideas, then grounded against the system and turned into refinements. Around thirteen thousand captures exist so that a problem noticed in one chat doesn't die there.\n\n**Breadth.** Forecasting and finance feeds fanned into a shared state, and formal mathematics with machine-checked proofs. Built solo, over roughly a year.\n\n**The honest close.** The front end I built is not to be trusted, because appearances are easy to fake. Where I could get it to run real tools, I did; where I couldn't, I say so. The evidence view is there to keep it honest by showing which routes are still incomplete. I've tried to be careful about overclaiming, because of how many repos and startups I see doing the opposite. It ends on one question: can any claim survive the path from the map to the source and the evidence?\n\n#### Why I am building it\n\nI was vibe-mathing back in early 2025, and even then I realised formal verification is necessary but not sufficient for a lay person wanting to use AI to do maths. It\u2019s necessary because I can\u2019t check a proof myself, so Lean is how I know a statement is actually proved. It isn\u2019t sufficient because you can\u2019t really replace understanding, and Lean won\u2019t tell you whether a statement is the one you meant, whether it was worth asking, or whether anyone can follow why it\u2019s true. A lot of mathematicians wrote about exactly this in September, [De Toffoli and Duede](https://terrytao.wordpress.com/2026/09/12/after-math/) on logical versus intelligible proof, and [Henry Cohn](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/) on unexplained AI proofs as technical debt that somebody else has to pay.\n\nBasically, the idea would be that human mathematicians provide direction. I\u2019ve been struggling to get that, so I\u2019ve tried to see how far you can get without any: a short paper for each problem that tries to make the argument readable, a long paper recording every route that failed, and seminar-style videos we\u2019re trying to automate from them. It\u2019s more of a proof of concept than me claiming I understand the mathematics deeply enough to explain it, and I\u2019m not presupposing the videos are any good, but if an unknown person with no understanding can get even part of the way, I think that says something about what an expert could do. When one mathematician pointed out what was going wrong with how we were writing the papers, every problem paper was rewritten, and the credit ledger below lists that and every other case.\n\nIf AI is any level more intelligent than a person, I see no reason why that intelligence can\u2019t then be applied to convert the resulting \u201c uninterpretable \u201d mathematics back into something that can be interpreted.\n\n[The longer account: how this started and what I am trying to do](docs/contact.html#who-built-this)\n\n[Download the AI packet](plectis-ai-review-packet.json) (or the [smaller source brief](plectis-reviewer-brief.json)) and ask: \u201cGive me a tour of the website and both GitHub repositories.\u201d It includes the papers, glossary, website text and source links.\n\nFor AI readers and coding agents\n\nJSON packets are more trusted than cloning a repo. You don\u2019t even need an IDE or a coding app: you can simply upload one on the AI websites. It is like holding a hologram of this \u201cuniverse\u201d in your pocket, able to zoom with a queryable microscope into any part of it, and to be told what the parts even are before you look. Reading is not a verification run; a check counts as passed only when the stated command was run and its evidence shown.\n\nSetup prompt for a coding agent\n\nA mathematics task needs only the mathematics repository. A software task needs only the software repository. This prompt is for an assessment across both.\n\n```text\nMy task is [describe the question or change]. Use https://github.com/wcook04/plectis for software components and https://github.com/wcook04/plectis-erdos for mathematics and Lean proofs. Clone the repository my task needs from current main; use both only if the task crosses them. Preserve any existing local work. Read README.md and the compact agent entry: AGENTS.override.md where present, otherwise AGENTS.md. Record the checkout commit and local changes. For mathematics, use python3 scripts/agent_entry.py --entry with my task, and --checkout --check-upstream to compare with public main. For software, follow QUICKSTART.md and run the quickstart check or selected component example, saving output under .microcosm/. Do the task and return source paths, exact commands and outcomes, and the remaining assumptions or unresolved step. Report anything you could not run as not established, never as false. A release tag is a frozen edition, not current main.\n```\n\nCopy the setup prompt\n\n[The coding-agent guide walks through each step](docs/coding-agents.html)\n\n#### Take part\n\nIf you have a correction, a mathematical idea or a software improvement, send me the specific point. You don\u2019t have to implement it yourself, and I\u2019ll credit your contribution with your permission. If you solve a result, I will ask for zero priority and that result is yours.\n\nEmail me [Work on a problem](https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md) [Credit policy](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md)\n\nOr email me about research collaboration, a partnership or licence, or just a conversation about the work. I\u2019m not asking for money up front. For context, my own funding runs out in early November 2026. The [contact page](docs/contact.html#audience-routes) lists the other routes, from checking a claim to reusing the source.\n\n#### Credit ledger\n\nWhat people told me, what changed because of it, and where to see the change. Names stay withheld until each person confirms, and thanks here doesn\u2019t mean they checked the mathematics.\n1.\n\nSeptember 2026\n\nA mathematician said the #243 note used names that meant nothing on a first or second reading, defined notation it used once, and never said how restrictive its main hypothesis was.\n\nWhat changed: All sixteen problem papers were rewritten for a first-time reader, naming standard tools and saying how restrictive each hypothesis is, and the public writing rules now require it.\n\nName withheld until they confirm. [See the change](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-004)\n2.\n\nSeptember 2026\n\nA mathematician said the trouble with AI-assisted mathematics is that it rarely shows where its methods and ideas come from.\n\nWhat changed: A literature review was run for each of the eight problems, and each paper now credits its sources at the point where they are used.\n\nName withheld until they confirm. [See the change](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-005)\n3.\n\nAugust 2026\n\nA mathematician advised leading the #249 paper with its exact finite -level theorem, explaining the mechanism behind it, and comparing it precisely with the existing literature on regular sequences.\n\nWhat changed: The #249 paper now opens with the exact rank and basis, compares the result with work of Allouche and Shallit, Coons and Martin, and links a minimal Lean entry; the irrationality question stays open.\n\nName withheld until they confirm. [See the change](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-002)\n4.\n\nAugust 2026\n\nA mathematician advised listing each selected result with its exact statement, proof source, novelty status, axioms and limits, and giving reviewers a cheap way to check the statements themselves.\n\nWhat changed: formalization.yaml now lists the selected results this way, and Comparator checks them against separately written statements, including an altered statement that must be rejected.\n\nName withheld until they confirm. [See the change](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md#credit-correspondence-001)\n\nAll 5 entries, with the exact lines and commits, are in [the full credit ledger](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md).\n\nEarlier software\n\nThe earlier Plectis software toolkit is a separate part of the public record: 88 components from my research system, each with its source and tests, and the doctrine they follow.\n\n[Browse the software](docs/index.html)\n\nPlectis\n\nResearch with AI, mathematics and software. Built and maintained by Will Cook.\n\nMathematics\n\n[Universe map](maths/universe.html) [All papers](docs/papers.html) [Maths repository](https://github.com/wcook04/plectis-erdos)\n\nEarlier software\n\n[Overview](docs/index.html) [Quickstart](docs/quickstart.html) [Software repository](https://github.com/wcook04/plectis)\n\nProject\n\n[Glossary](docs/glossary.html) [Updates](docs/updates.html) [Contact](docs/contact.html)\n\n21 June 2026: Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. [Read the lineage note and changelog](docs/lineage.html).\n\nFront door [Will Cook: public work](https://wcook04.github.io/)"
       }
     },
     {
@@ -15009,7 +15009,7 @@
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Site\n\n### Source & license\n\nThe public software and Lean mathematics live in separate repositories. The published website files are on the software repository's gh-pages branch. The site builder runs in a private working repository.\n\n#### Public sources\n\n[**Repository root** The source of record for the standalone public slice. Open](https://github.com/wcook04/plectis) [**Plectis package** Runnable local source, public fixtures, and generated records; compatibility package ids still use microcosm. Open](https://github.com/wcook04/plectis) [**Mathematics repository** Lean proofs, paper sources, and research records for the eight Erd\u0151s problem programmes. Open](https://github.com/wcook04/plectis-erdos) [**Published website files** The generated HTML, styles, scripts, and static assets served at this site. Open](https://github.com/wcook04/plectis/tree/gh-pages) [**README** The entry point and the full component map. Open](https://github.com/wcook04/plectis/blob/main/README.md) [**Mathematical results and open questions** Current results, supporting source and the questions that remain open. Open](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md) [**Quickstart** The one-page cold-clone run path. Open](https://github.com/wcook04/plectis/blob/main/QUICKSTART.md)\n\n#### Maps\n\n[**Architecture map** The system shape and each component's wiring. Open](https://github.com/wcook04/plectis/blob/main/ARCHITECTURE.md) [**Rendered whole-system map** The public map generated from the same source refs. Open](docs/architecture.html#whole-system-map) [**Machine-readable map packet** The generated scene data behind the public architecture map. Open](docs/architecture-graph-scene.json) [**Repository atlas** A source card for every one of the 88 components. Open](https://github.com/wcook04/plectis/blob/main/ORGANS.md)\n\n#### License\n\nReuse follows the repository license and the linked source paths.\n\n[**License** Reuse terms. Open](https://github.com/wcook04/plectis/blob/main/LICENSE) [**Notice** Project notice and attribution posture. Open](https://github.com/wcook04/plectis/blob/main/NOTICE) [**Citation record** Machine-readable software metadata; cite the exact repository commit you used. Open](https://github.com/wcook04/plectis/blob/main/CITATION.cff)\n\n#### Security & public boundary\n\nSecurity reports use the private vulnerability-reporting route; this policy explains what belongs there and what the public repository does not authorize.\n\n[**Security policy** Vulnerability reporting, privacy, and non-authority boundaries. Open](https://github.com/wcook04/plectis/blob/main/SECURITY.md)\n\n#### Provenance\n\nPlectis is an independent, AI-assisted project by Will Cook. The standalone software release and the Lean mathematics companion are public repositories; the working root and site builder behind them are private. Microcosm remains a legacy and technical compatibility name for repo paths, package ids, generated state, and historical links.\n\n[**Provenance** Authorship, source-of-record, no-affiliation, and no-advice boundaries. Open](https://github.com/wcook04/plectis/blob/main/PROVENANCE.md)\n\n#### Acknowledgements\n\nI would like to thank Wouter van Doorn and Thomas Bloom for taking the time to read and respond to an early partial-proof attempt connected to the companion Erd\u0151s #249/#257 project. Their kindness, candour, and useful feedback helped me better distinguish formal reformulation from meaningful mathematical progress and pushed the work towards a more disciplined, evidence-first direction.\n\nThis is a thank-you for their time and feedback; it does not imply endorsement of Plectis or of any mathematical claim.\n\n#### Lineage\n\nMicrocosm became Plectis on 21 June 2026 after a public naming check found an established Southampton hypermedia system with the same name. The acknowledgement is source-backed and does not imply endorsement or affiliation.\n\n[**Lineage & changelog** Rename acknowledgement, historical citations, and compatibility boundary. Open](docs/lineage.html)\n\n#### Updates\n\nPlectis has no mailing list or signup database. Public changes are exposed through the generated update feed and repository routes.\n\n[**Follow updates** Atom feed, repository watch routes, and public discussion links. Open](docs/updates.html) [**Atom feed** Machine-readable public update feed generated from the same narrative owner. Open](updates.xml)\n\n#### Site contract\n\nThe site is a static projection over public source refs. It has no runtime backend and no browser path back into the private working environment. It is not legal, financial, investment, trading, security, medical, or other professional advice.\n\nThe public software and Lean repositories are the sources of record for their released artifacts. This site maps those artifacts alongside curated publication inputs; when a site claim disagrees with linked source, consult the source.\n\nThe component index draws on released component records and private working inputs. Other pages combine released sources with curated publication inputs through the private generator. The current content fingerprint is `b3cd770524cbb9159e9e9ab24fe554b1`; when the source changes, a rebuild regenerates the pages and a drift check fails until the site is current.\n\n#### Projection status\n\nA private generator assembles this static site. The panel identifies its source records; the machine record beside it also reports which fields were too internal to show and were deliberately omitted. The published output and linked public sources can be inspected in the repositories above.\n\nContent fingerprint `b3cd770524cbb9159e9e9ab24fe554b1` Map revision `gsc_b608602ce6ed9268bbd2` Components projected 88 Declared links 239 Runtime backend none (static files only, no network calls) [**Projection status record** The full machine detail: source hashes, generated outputs, omitted fields, and the stale-check. Open](projection-status.json) [**Content graph** The single public-safe data packet every page on this site is a view of. Open](content-graph.json)"
+        "text": "Site\n\n### Source & license\n\nThe public software and Lean mathematics live in separate repositories. The published website files are on the software repository's gh-pages branch. The site builder runs in a private working repository.\n\n#### Public sources\n\n[**Repository root** The source of record for the standalone public slice. Open](https://github.com/wcook04/plectis) [**Plectis package** Runnable local source, public fixtures, and generated records; compatibility package ids still use microcosm. Open](https://github.com/wcook04/plectis) [**Mathematics repository** Lean proofs, paper sources, and research records for the eight Erd\u0151s problem programmes. Open](https://github.com/wcook04/plectis-erdos) [**Published website files** The generated HTML, styles, scripts, and static assets served at this site. Open](https://github.com/wcook04/plectis/tree/gh-pages) [**README** The entry point and the full component map. Open](https://github.com/wcook04/plectis/blob/main/README.md) [**Mathematical results and open questions** Current results, supporting source and the questions that remain open. Open](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md) [**Quickstart** The one-page cold-clone run path. Open](https://github.com/wcook04/plectis/blob/main/QUICKSTART.md)\n\n#### Maps\n\n[**Architecture map** The system shape and each component's wiring. Open](https://github.com/wcook04/plectis/blob/main/ARCHITECTURE.md) [**Rendered whole-system map** The public map generated from the same source refs. Open](docs/architecture.html#whole-system-map) [**Machine-readable map packet** The generated scene data behind the public architecture map. Open](docs/architecture-graph-scene.json) [**Repository atlas** A source card for every one of the 88 components. Open](https://github.com/wcook04/plectis/blob/main/ORGANS.md)\n\n#### License\n\nReuse follows the repository license and the linked source paths.\n\n[**License** Reuse terms. Open](https://github.com/wcook04/plectis/blob/main/LICENSE) [**Notice** Project notice and attribution posture. Open](https://github.com/wcook04/plectis/blob/main/NOTICE) [**Citation record** Machine-readable software metadata; cite the exact repository commit you used. Open](https://github.com/wcook04/plectis/blob/main/CITATION.cff)\n\n#### Security & public boundary\n\nSecurity reports use the private vulnerability-reporting route; this policy explains what belongs there and what the public repository does not authorize.\n\n[**Security policy** Vulnerability reporting, privacy, and non-authority boundaries. Open](https://github.com/wcook04/plectis/blob/main/SECURITY.md)\n\n#### Provenance\n\nPlectis is an independent, AI-assisted project by Will Cook. The standalone software release and the Lean mathematics companion are public repositories; the working root and site builder behind them are private. Microcosm remains a legacy and technical compatibility name for repo paths, package ids, generated state, and historical links.\n\n[**Provenance** Authorship, source-of-record, no-affiliation, and no-advice boundaries. Open](https://github.com/wcook04/plectis/blob/main/PROVENANCE.md)\n\n#### Acknowledgements\n\nI would like to thank Wouter van Doorn and Thomas Bloom for taking the time to read and respond to an early partial-proof attempt connected to the companion Erd\u0151s #249/#257 project. Their kindness, candour, and useful feedback helped me better distinguish formal reformulation from meaningful mathematical progress and pushed the work towards a more disciplined, evidence-first direction.\n\nThis is a thank-you for their time and feedback; it does not imply endorsement of Plectis or of any mathematical claim.\n\n#### Lineage\n\nMicrocosm became Plectis on 21 June 2026 after a public naming check found an established Southampton hypermedia system with the same name. The acknowledgement is source-backed and does not imply endorsement or affiliation.\n\n[**Lineage & changelog** Rename acknowledgement, historical citations, and compatibility boundary. Open](docs/lineage.html)\n\n#### Updates\n\nPlectis has no mailing list or signup database. Public changes are exposed through the generated update feed and repository routes.\n\n[**Follow updates** Atom feed, repository watch routes, and public discussion links. Open](docs/updates.html) [**Atom feed** Machine-readable public update feed generated from the same narrative owner. Open](updates.xml)\n\n#### Site contract\n\nThe site is a static projection over public source refs. It has no runtime backend and no browser path back into the private working environment. It is not legal, financial, investment, trading, security, medical, or other professional advice.\n\nThe public software and Lean repositories are the sources of record for their released artifacts. This site maps those artifacts alongside curated publication inputs; when a site claim disagrees with linked source, consult the source.\n\nThe component index draws on released component records and private working inputs. Other pages combine released sources with curated publication inputs through the private generator. The current content fingerprint is `b3cd770524cbb9159e9e9ab24fe554b1`; when the source changes, a rebuild regenerates the pages and a drift check fails until the site is current.\n\n#### Projection status\n\nA private generator assembles this static site. The panel identifies its source records; the machine record beside it also reports which fields were too internal to show and were deliberately omitted. The published output and linked public sources can be inspected in the repositories above.\n\nContent fingerprint `b3cd770524cbb9159e9e9ab24fe554b1` Map revision `gsc_7cea3412e41e495455f8` Components projected 88 Declared links 239 Runtime backend none (static files only, no network calls) [**Projection status record** The full machine detail: source hashes, generated outputs, omitted fields, and the stale-check. Open](projection-status.json) [**Content graph** The single public-safe data packet every page on this site is a view of. Open](content-graph.json)"
       }
     },
     {
@@ -15030,11 +15030,11 @@
       ],
       "title": "Contact",
       "visible_text": {
-        "byte_count": 4523,
+        "byte_count": 8365,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I try my best to create things that I think of, because it's fun.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nMy biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nYou will get the credit. I just want my system used.\n\nThank you for your time and interest.\n\nBuilder and operator credit is not mathematical authorship. The cited Lean sources, papers, claim registry, and receipts carry mathematical authority; the papers and proof records name contributors. The University of Bristol has no affiliation with this work. This public record is published so it can be inspected and corrected.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Talk about the work** A conversation, with no money asked up front. For context, my own funding runs out in early November 2026. Talk **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
+        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I try my best to create things that I think of, because it's fun.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nThen I picked eight Erd\u0151s problems. I didn\u2019t expect to be able to solve them, the point was the journey getting there and what you can learn from it, so every no-go and failed route gets written down where the next person can use it.\n\nIn September a lot of mathematicians wrote about AI and mathematics, and a lot of it lands on the point I started from, that formal verification is necessary but not sufficient. [De Toffoli and Duede](https://terrytao.wordpress.com/2026/09/12/after-math/) separate a logical proof, which Lean can certify, from an intelligible one that people can understand and build on. [Henry Cohn](https://terrytao.wordpress.com/2026/09/15/the-technical-debt-of-ai-generated-mathematics/) calls unexplained AI proofs technical debt, and asks whoever pushed the button to take responsibility for the result, talk to people in the field and shed light on how it was found. [Bryna Kra](https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/) wants authors who can explain a proof\u2019s mechanism and how they got there, with discovery, proof, formalisation and explanation credited separately. [Daniel Litt](https://www.daniellitt.com/blog/2026/9/13/a-beginning-for-mathematics/) argues that talks now show understanding better than papers do, and that working out what is interesting is the community\u2019s job. [Grant Sanderson](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/) points out that an AI proof arrives with its explanation still to be written, and no proof assistant will ever check that part. [Terence Tao](https://mathstodon.xyz/@tao/117237320796901560) says the scarce thing now is a promising problem, along with knowing which nearby problems are easy, hard or out of reach. And the [AGMAI recommendations](https://agmai.org/general-sep29/) of 29 September ask AI labs that release mathematics nobody yet understands to cite related work, write it up as a normal paper, formalise it with a Comparator challenge and a formalization.yaml, and say how AI was used and what it tried and failed.\n\nSo that\u2019s basically what I\u2019ve been trying to build as a lay person. Creating a Lean corpus is one thing, but what I think is my main contribution is the pipeline that distils it into papers that try to avoid the common pitfalls of AI-written papers, like just dropping Lean bombs: Lean for the logical part, a short paper for the intelligible part, a long paper for the routes that failed and how hard each nearby question turned out to be, and seminar-style videos we\u2019re trying to automate, because a talk shows whether something is understood. It\u2019s more of a proof of concept than me claiming I understand the mathematics deeply enough to explain it. If someone unknown with no understanding can get even part of the way, it\u2019s an example of what an expert could do with the same tools. I\u2019m not presupposing any of it is good, which is why the claims link to their evidence and why I need people who know the field to tell me what\u2019s wrong.\n\nHuman mathematicians are meant to provide the direction. I\u2019ve been struggling to get it, so a lot of this is me seeing how far you can get without it. Ideally a mathematician glances through, finds an idea worth their time, and either works on it themselves or emails me a direction, and we take that as the seed and get agents to attack it, given all of the failed routes and the short paper as it stands. When someone has told me what was wrong, it changed the work, and the [credit ledger](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_LEDGER.md) lists every case, with names withheld until each person says they\u2019re happy to be named.\n\nMy biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nYou will get the credit. I just want my system used.\n\nThank you for your time and interest.\n\nBuilder and operator credit is not mathematical authorship. The cited Lean sources, papers, claim registry, and receipts carry mathematical authority; the papers and proof records name contributors. The University of Bristol has no affiliation with this work. This public record is published so it can be inspected and corrected.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Talk about the work** A conversation, with no money asked up front. For context, my own funding runs out in early November 2026. Talk **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
       }
     },
     {
@@ -16979,7 +16979,7 @@
               "page": "coding-agents.html"
             }
           ],
-          "total_occurrences": 776
+          "total_occurrences": 777
         },
         "visible_text_byte_count": 770
       },
@@ -20872,7 +20872,7 @@
               "page": "paper-module-generated-projection-drift-runtime.html"
             }
           ],
-          "total_occurrences": 2145
+          "total_occurrences": 2146
         },
         "visible_text_byte_count": 754
       },
@@ -21121,7 +21121,7 @@
               "page": "paper-module-doctrine-fact-claim-audit.html"
             }
           ],
-          "total_occurrences": 2099
+          "total_occurrences": 2100
         },
         "visible_text_byte_count": 853
       },
@@ -21404,7 +21404,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 2,
+          "page_count": 3,
           "top_page": "papers.html",
           "top_pages": [
             {
@@ -21413,10 +21413,14 @@
             },
             {
               "count": 1,
+              "page": "contact.html"
+            },
+            {
+              "count": 1,
               "page": "introduction.html"
             }
           ],
-          "total_occurrences": 3
+          "total_occurrences": 4
         },
         "visible_text_byte_count": 844
       },
@@ -22691,7 +22695,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 5,
+          "page_count": 6,
           "top_page": "paper-module-verifier-lab-kernel.html",
           "top_pages": [
             {
@@ -22708,6 +22712,10 @@
             },
             {
               "count": 1,
+              "page": "contact.html"
+            },
+            {
+              "count": 1,
               "page": "introduction.html"
             },
             {
@@ -22715,7 +22723,7 @@
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 6
+          "total_occurrences": 7
         },
         "visible_text_byte_count": 846
       },
@@ -23329,7 +23337,7 @@
         "status": "active",
         "term_kind": "doctrine",
         "used_in": {
-          "page_count": 46,
+          "page_count": 47,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -23357,7 +23365,7 @@
               "page": "paper-module-tool-server-pressure-inventory.html"
             }
           ],
-          "total_occurrences": 94
+          "total_occurrences": 95
         },
         "visible_text_byte_count": 1195
       },
@@ -24236,7 +24244,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 13,
+          "page_count": 14,
           "top_page": "papers.html",
           "top_pages": [
             {
@@ -24264,7 +24272,7 @@
               "page": "paper-module-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 27
+          "total_occurrences": 28
         },
         "visible_text_byte_count": 889
       },
@@ -24318,11 +24326,11 @@
             },
             {
               "count": 3,
-              "page": "paper-module-engine-room-lean-proof-search-lab.html"
+              "page": "contact.html"
             },
             {
-              "count": 2,
-              "page": "contact.html"
+              "count": 3,
+              "page": "paper-module-engine-room-lean-proof-search-lab.html"
             },
             {
               "count": 2,
@@ -24333,7 +24341,7 @@
               "page": "introduction.html"
             }
           ],
-          "total_occurrences": 13
+          "total_occurrences": 14
         },
         "visible_text_byte_count": 909
       },
@@ -24698,7 +24706,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 78,
+          "page_count": 79,
           "top_page": "paper-module-corpus-readiness-mathlib-absence-gate.html",
           "top_pages": [
             {
@@ -24726,7 +24734,7 @@
               "page": "component-corpus-readiness-mathlib-absence-gate.html"
             }
           ],
-          "total_occurrences": 299
+          "total_occurrences": 300
         },
         "visible_text_byte_count": 753
       },
@@ -28542,7 +28550,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 13,
+          "page_count": 14,
           "top_page": "papers.html",
           "top_pages": [
             {
@@ -28570,7 +28578,7 @@
               "page": "paper-modules.html"
             }
           ],
-          "total_occurrences": 106
+          "total_occurrences": 107
         },
         "visible_text_byte_count": 1002
       },
@@ -28922,7 +28930,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 2254
+          "total_occurrences": 2255
         },
         "visible_text_byte_count": 814
       },
@@ -31155,9 +31163,13 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 2,
-          "top_page": "doctrine.html",
+          "page_count": 3,
+          "top_page": "contact.html",
           "top_pages": [
+            {
+              "count": 1,
+              "page": "contact.html"
+            },
             {
               "count": 1,
               "page": "doctrine.html"
@@ -31167,7 +31179,7 @@
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 2
+          "total_occurrences": 3
         },
         "visible_text_byte_count": 1046
       },
@@ -31216,9 +31228,13 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 3,
-          "top_page": "papers.html",
+          "page_count": 4,
+          "top_page": "contact.html",
           "top_pages": [
+            {
+              "count": 3,
+              "page": "contact.html"
+            },
             {
               "count": 3,
               "page": "papers.html"
@@ -31232,7 +31248,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 6
+          "total_occurrences": 9
         },
         "visible_text_byte_count": 1064
       },
@@ -36403,10 +36419,15 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 0,
-          "top_page": null,
-          "top_pages": [],
-          "total_occurrences": 0
+          "page_count": 1,
+          "top_page": "contact.html",
+          "top_pages": [
+            {
+              "count": 1,
+              "page": "contact.html"
+            }
+          ],
+          "total_occurrences": 1
         },
         "visible_text_byte_count": 784
       },
@@ -36475,7 +36496,7 @@
               "page": "paper-module-formal-math-lean-proof-witness.html"
             }
           ],
-          "total_occurrences": 912
+          "total_occurrences": 916
         },
         "visible_text_byte_count": 839
       },
@@ -38307,11 +38328,11 @@
           "top_page": "contact.html",
           "top_pages": [
             {
-              "count": 1,
+              "count": 4,
               "page": "contact.html"
             }
           ],
-          "total_occurrences": 1
+          "total_occurrences": 4
         },
         "visible_text_byte_count": 739
       },
@@ -38367,6 +38388,10 @@
               "page": "papers.html"
             },
             {
+              "count": 4,
+              "page": "contact.html"
+            },
+            {
               "count": 3,
               "page": "coding-agents.html"
             },
@@ -38377,13 +38402,9 @@
             {
               "count": 3,
               "page": "source.html"
-            },
-            {
-              "count": 2,
-              "page": "paper-module-navigation-fitness-benchmark.html"
             }
           ],
-          "total_occurrences": 39
+          "total_occurrences": 42
         },
         "visible_text_byte_count": 877
       },
@@ -38698,7 +38719,7 @@
         "status": "active",
         "term_kind": "doctrine",
         "used_in": {
-          "page_count": 119,
+          "page_count": 120,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -38726,7 +38747,7 @@
               "page": "doctrine.html"
             }
           ],
-          "total_occurrences": 798
+          "total_occurrences": 799
         },
         "visible_text_byte_count": 1118
       },
@@ -40680,10 +40701,15 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 0,
-          "top_page": null,
-          "top_pages": [],
-          "total_occurrences": 0
+          "page_count": 1,
+          "top_page": "contact.html",
+          "top_pages": [
+            {
+              "count": 1,
+              "page": "contact.html"
+            }
+          ],
+          "total_occurrences": 1
         },
         "visible_text_byte_count": 868
       },
@@ -42697,11 +42723,11 @@
               "page": "open-questions.html"
             },
             {
-              "count": 9,
-              "page": "component-research-replication-rubric-artifact-replay.html"
+              "count": 10,
+              "page": "contact.html"
             }
           ],
-          "total_occurrences": 300
+          "total_occurrences": 307
         },
         "visible_text_byte_count": 1057
       },
@@ -43884,7 +43910,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 45,
+          "page_count": 46,
           "top_page": "paper-module-batch8-compliance-pipeline-capsule.html",
           "top_pages": [
             {
@@ -43912,7 +43938,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 168
+          "total_occurrences": 169
         },
         "visible_text_byte_count": 842
       },
@@ -45537,7 +45563,7 @@
               "page": "paper-module-formal-math-readiness-gate.html"
             }
           ],
-          "total_occurrences": 1611
+          "total_occurrences": 1617
         },
         "visible_text_byte_count": 883
       },
@@ -45578,9 +45604,13 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 2,
-          "top_page": "paper-module-engine-room-lean-proof-search-lab.html",
+          "page_count": 3,
+          "top_page": "contact.html",
           "top_pages": [
+            {
+              "count": 1,
+              "page": "contact.html"
+            },
             {
               "count": 1,
               "page": "paper-module-engine-room-lean-proof-search-lab.html"
@@ -45590,7 +45620,7 @@
               "page": "paper-module-formal-evidence-cell-anchor-resolver.html"
             }
           ],
-          "total_occurrences": 2
+          "total_occurrences": 3
         },
         "visible_text_byte_count": 806
       },
@@ -47947,7 +47977,7 @@
               "page": "component-batch12-release-claim-language-gate.html"
             },
             {
-              "count": 3,
+              "count": 4,
               "page": "contact.html"
             },
             {
@@ -47955,7 +47985,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 53
+          "total_occurrences": 54
         },
         "visible_text_byte_count": 789
       },
@@ -54687,8 +54717,12 @@
         "term_kind": "public_projection",
         "used_in": {
           "page_count": 22,
-          "top_page": "paper-module-certificate-kernel-execution-lab.html",
+          "top_page": "contact.html",
           "top_pages": [
+            {
+              "count": 4,
+              "page": "contact.html"
+            },
             {
               "count": 2,
               "page": "paper-module-certificate-kernel-execution-lab.html"
@@ -54708,13 +54742,9 @@
             {
               "count": 1,
               "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
-            },
-            {
-              "count": 1,
-              "page": "component-agent-monitor-redteam-falsification-replay.html"
             }
           ],
-          "total_occurrences": 26
+          "total_occurrences": 29
         },
         "visible_text_byte_count": 747
       },
@@ -63101,7 +63131,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:7c5117c73518612e4b88bf11b39870b49fd8f6513d865acabc089ae2a5a8230c",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:24761a536076c5e5febc786b99e22c91ef5c4151b648903ee3f8c1aed1aacad1"
+      "sites/microcosm/index.html": "sha256:924ab3a1cbce5f027cf8edf9d1ebbee7b66ec62384a33da0a56c48a39956377d"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
@@ -63120,7 +63150,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 3990005,
       "page_count": 219,
-      "page_text_byte_count": 436357,
+      "page_text_byte_count": 443888,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 660,
       "roster_section_count": 3,
@@ -189445,7 +189475,7 @@
                 "page": "coding-agents.html"
               }
             ],
-            "total_occurrences": 776
+            "total_occurrences": 777
           },
           "visible_text_byte_count": 770
         },
@@ -193338,7 +193368,7 @@
                 "page": "paper-module-generated-projection-drift-runtime.html"
               }
             ],
-            "total_occurrences": 2145
+            "total_occurrences": 2146
           },
           "visible_text_byte_count": 754
         },
@@ -193587,7 +193617,7 @@
                 "page": "paper-module-doctrine-fact-claim-audit.html"
               }
             ],
-            "total_occurrences": 2099
+            "total_occurrences": 2100
           },
           "visible_text_byte_count": 853
         },
@@ -193870,7 +193900,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 2,
+            "page_count": 3,
             "top_page": "papers.html",
             "top_pages": [
               {
@@ -193879,10 +193909,14 @@
               },
               {
                 "count": 1,
+                "page": "contact.html"
+              },
+              {
+                "count": 1,
                 "page": "introduction.html"
               }
             ],
-            "total_occurrences": 3
+            "total_occurrences": 4
           },
           "visible_text_byte_count": 844
         },
@@ -195157,7 +195191,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 5,
+            "page_count": 6,
             "top_page": "paper-module-verifier-lab-kernel.html",
             "top_pages": [
               {
@@ -195174,6 +195208,10 @@
               },
               {
                 "count": 1,
+                "page": "contact.html"
+              },
+              {
+                "count": 1,
                 "page": "introduction.html"
               },
               {
@@ -195181,7 +195219,7 @@
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 6
+            "total_occurrences": 7
           },
           "visible_text_byte_count": 846
         },
@@ -195795,7 +195833,7 @@
           "status": "active",
           "term_kind": "doctrine",
           "used_in": {
-            "page_count": 46,
+            "page_count": 47,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -195823,7 +195861,7 @@
                 "page": "paper-module-tool-server-pressure-inventory.html"
               }
             ],
-            "total_occurrences": 94
+            "total_occurrences": 95
           },
           "visible_text_byte_count": 1195
         },
@@ -196702,7 +196740,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 13,
+            "page_count": 14,
             "top_page": "papers.html",
             "top_pages": [
               {
@@ -196730,7 +196768,7 @@
                 "page": "paper-module-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 27
+            "total_occurrences": 28
           },
           "visible_text_byte_count": 889
         },
@@ -196784,11 +196822,11 @@
               },
               {
                 "count": 3,
-                "page": "paper-module-engine-room-lean-proof-search-lab.html"
+                "page": "contact.html"
               },
               {
-                "count": 2,
-                "page": "contact.html"
+                "count": 3,
+                "page": "paper-module-engine-room-lean-proof-search-lab.html"
               },
               {
                 "count": 2,
@@ -196799,7 +196837,7 @@
                 "page": "introduction.html"
               }
             ],
-            "total_occurrences": 13
+            "total_occurrences": 14
           },
           "visible_text_byte_count": 909
         },
@@ -197164,7 +197202,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 78,
+            "page_count": 79,
             "top_page": "paper-module-corpus-readiness-mathlib-absence-gate.html",
             "top_pages": [
               {
@@ -197192,7 +197230,7 @@
                 "page": "component-corpus-readiness-mathlib-absence-gate.html"
               }
             ],
-            "total_occurrences": 299
+            "total_occurrences": 300
           },
           "visible_text_byte_count": 753
         },
@@ -201008,7 +201046,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 13,
+            "page_count": 14,
             "top_page": "papers.html",
             "top_pages": [
               {
@@ -201036,7 +201074,7 @@
                 "page": "paper-modules.html"
               }
             ],
-            "total_occurrences": 106
+            "total_occurrences": 107
           },
           "visible_text_byte_count": 1002
         },
@@ -201388,7 +201426,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 2254
+            "total_occurrences": 2255
           },
           "visible_text_byte_count": 814
         },
@@ -203621,9 +203659,13 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 2,
-            "top_page": "doctrine.html",
+            "page_count": 3,
+            "top_page": "contact.html",
             "top_pages": [
+              {
+                "count": 1,
+                "page": "contact.html"
+              },
               {
                 "count": 1,
                 "page": "doctrine.html"
@@ -203633,7 +203675,7 @@
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 2
+            "total_occurrences": 3
           },
           "visible_text_byte_count": 1046
         },
@@ -203682,9 +203724,13 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 3,
-            "top_page": "papers.html",
+            "page_count": 4,
+            "top_page": "contact.html",
             "top_pages": [
+              {
+                "count": 3,
+                "page": "contact.html"
+              },
               {
                 "count": 3,
                 "page": "papers.html"
@@ -203698,7 +203744,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 6
+            "total_occurrences": 9
           },
           "visible_text_byte_count": 1064
         },
@@ -208869,10 +208915,15 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 0,
-            "top_page": null,
-            "top_pages": [],
-            "total_occurrences": 0
+            "page_count": 1,
+            "top_page": "contact.html",
+            "top_pages": [
+              {
+                "count": 1,
+                "page": "contact.html"
+              }
+            ],
+            "total_occurrences": 1
           },
           "visible_text_byte_count": 784
         },
@@ -208941,7 +208992,7 @@
                 "page": "paper-module-formal-math-lean-proof-witness.html"
               }
             ],
-            "total_occurrences": 912
+            "total_occurrences": 916
           },
           "visible_text_byte_count": 839
         },
@@ -210773,11 +210824,11 @@
             "top_page": "contact.html",
             "top_pages": [
               {
-                "count": 1,
+                "count": 4,
                 "page": "contact.html"
               }
             ],
-            "total_occurrences": 1
+            "total_occurrences": 4
           },
           "visible_text_byte_count": 739
         },
@@ -210833,6 +210884,10 @@
                 "page": "papers.html"
               },
               {
+                "count": 4,
+                "page": "contact.html"
+              },
+              {
                 "count": 3,
                 "page": "coding-agents.html"
               },
@@ -210843,13 +210898,9 @@
               {
                 "count": 3,
                 "page": "source.html"
-              },
-              {
-                "count": 2,
-                "page": "paper-module-navigation-fitness-benchmark.html"
               }
             ],
-            "total_occurrences": 39
+            "total_occurrences": 42
           },
           "visible_text_byte_count": 877
         },
@@ -211164,7 +211215,7 @@
           "status": "active",
           "term_kind": "doctrine",
           "used_in": {
-            "page_count": 119,
+            "page_count": 120,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -211192,7 +211243,7 @@
                 "page": "doctrine.html"
               }
             ],
-            "total_occurrences": 798
+            "total_occurrences": 799
           },
           "visible_text_byte_count": 1118
         },
@@ -213146,10 +213197,15 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 0,
-            "top_page": null,
-            "top_pages": [],
-            "total_occurrences": 0
+            "page_count": 1,
+            "top_page": "contact.html",
+            "top_pages": [
+              {
+                "count": 1,
+                "page": "contact.html"
+              }
+            ],
+            "total_occurrences": 1
           },
           "visible_text_byte_count": 868
         },
@@ -215163,11 +215219,11 @@
                 "page": "open-questions.html"
               },
               {
-                "count": 9,
-                "page": "component-research-replication-rubric-artifact-replay.html"
+                "count": 10,
+                "page": "contact.html"
               }
             ],
-            "total_occurrences": 300
+            "total_occurrences": 307
           },
           "visible_text_byte_count": 1057
         },
@@ -216350,7 +216406,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 45,
+            "page_count": 46,
             "top_page": "paper-module-batch8-compliance-pipeline-capsule.html",
             "top_pages": [
               {
@@ -216378,7 +216434,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 168
+            "total_occurrences": 169
           },
           "visible_text_byte_count": 842
         },
@@ -218003,7 +218059,7 @@
                 "page": "paper-module-formal-math-readiness-gate.html"
               }
             ],
-            "total_occurrences": 1611
+            "total_occurrences": 1617
           },
           "visible_text_byte_count": 883
         },
@@ -218044,9 +218100,13 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 2,
-            "top_page": "paper-module-engine-room-lean-proof-search-lab.html",
+            "page_count": 3,
+            "top_page": "contact.html",
             "top_pages": [
+              {
+                "count": 1,
+                "page": "contact.html"
+              },
               {
                 "count": 1,
                 "page": "paper-module-engine-room-lean-proof-search-lab.html"
@@ -218056,7 +218116,7 @@
                 "page": "paper-module-formal-evidence-cell-anchor-resolver.html"
               }
             ],
-            "total_occurrences": 2
+            "total_occurrences": 3
           },
           "visible_text_byte_count": 806
         },
@@ -220413,7 +220473,7 @@
                 "page": "component-batch12-release-claim-language-gate.html"
               },
               {
-                "count": 3,
+                "count": 4,
                 "page": "contact.html"
               },
               {
@@ -220421,7 +220481,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 53
+            "total_occurrences": 54
           },
           "visible_text_byte_count": 789
         },
@@ -227153,8 +227213,12 @@
           "term_kind": "public_projection",
           "used_in": {
             "page_count": 22,
-            "top_page": "paper-module-certificate-kernel-execution-lab.html",
+            "top_page": "contact.html",
             "top_pages": [
+              {
+                "count": 4,
+                "page": "contact.html"
+              },
               {
                 "count": 2,
                 "page": "paper-module-certificate-kernel-execution-lab.html"
@@ -227174,13 +227238,9 @@
               {
                 "count": 1,
                 "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
-              },
-              {
-                "count": 1,
-                "page": "component-agent-monitor-redteam-falsification-replay.html"
               }
             ],
-            "total_occurrences": 26
+            "total_occurrences": 29
           },
           "visible_text_byte_count": 747
         },
@@ -266502,7 +266562,7 @@
     },
     "pages": [
       {
-        "byte_count": 16874,
+        "byte_count": 20563,
         "content_refs": {
           "component_refs": [],
           "family_id": null
@@ -271102,7 +271162,7 @@
         "title": "Source & license"
       },
       {
-        "byte_count": 4523,
+        "byte_count": 8365,
         "content_refs": {
           "component_refs": [],
           "family_id": null

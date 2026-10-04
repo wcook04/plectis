@@ -166,6 +166,28 @@
   function relText(rel) {
     return String(rel || 'linked').replace(/_/g, ' ');
   }
+  /* A connection in words, from the object on the card: the first phrase
+     when it is the edge's source, the second when it is the target. The
+     edges run Comparator → result (replayed, queued), Palomar → result,
+     paper → result, claim → result (a shared declaration), problem →
+     paper, and universe → problem, paper, document and claim. */
+  var REL_PHRASE = {
+    replayed: ['Replayed', 'Replayed by'],
+    queued: ['Will replay', 'Queued for a replay by'],
+    holds_prepared: ['Holds prepared', 'Prepared for'],
+    states: ['States', 'Stated in'],
+    same_lean_declaration: ['Shares a Lean declaration with', 'Shares a Lean declaration with'],
+    explained_by: ['Written up in', 'Writes up'],
+    contains: ['Contains', 'Part of'],
+    interpreted_by: ['Described in', 'Describes'],
+    publishes: ['Publishes', 'Published by']
+  };
+  function relPhrase(rel, out) {
+    var pair = REL_PHRASE[rel];
+    if (pair) return pair[out ? 0 : 1];
+    var text = relText(rel);
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
 
   function tierOf(node) {
     if (node.kind === 'paper_statement') return node.evidence || evidenceOf(node);
@@ -370,15 +392,15 @@
       if (focus >= 0 && focusWas < 0 && !reduceMotion && window.requestAnimationFrame) {
         var start = null;
         focusMix = 0;
-        if (focusFrame && window.cancelAnimationFrame) window.cancelAnimationFrame(focusFrame);
+        if (focusFrame && window.cancelAnimationFrame) cancelMotionFrame(focusFrame);
         var tick = function (now) {
           if (start === null) start = now;
           var t = Math.min(1, (now - start) / 180);
           focusMix = 1 - (1 - t) * (1 - t);
-          focusFrame = t < 1 ? window.requestAnimationFrame(tick) : 0;
+          focusFrame = t < 1 ? requestMotionFrame(tick) : 0;
           draw();
         };
-        focusFrame = window.requestAnimationFrame(tick);
+        focusFrame = requestMotionFrame(tick);
       }
       if (focus !== focusWas) {
         // A selection plays its moment once; focus returning to it after a
@@ -399,7 +421,9 @@
        glow would only smudge the mark, so there the ember stays a mark. The
        mark in focus glows in either scheme. */
     var darkGround = false;
-    var EMBER_REST = 0.1, EMBER_LIT = 0.2;
+    // Measured on the landing at 1280 and 1440: below about a fifth, the
+    // halo at a band's edge does not register at all.
+    var EMBER_REST = 0.22, EMBER_LIT = 0.36, EMBER_REACH = 4.4;
     function groundIsDark(color) {
       var rgb = null, hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color || '');
       if (hex) {
@@ -456,7 +480,7 @@
     var PULSE_END = PULSE_WAIT + (PULSE_THREADS - 1) * PULSE_STAGGER + PULSE_TRAVEL + PULSE_BLOOM;
     var pulse = { at: -1, ms: 1e9, frame: 0 };
     function startPulse(at) {
-      if (pulse.frame && window.cancelAnimationFrame) window.cancelAnimationFrame(pulse.frame);
+      if (pulse.frame && window.cancelAnimationFrame) cancelMotionFrame(pulse.frame);
       pulse.frame = 0;
       pulse.at = at;
       pulse.ms = 1e9;
@@ -466,10 +490,10 @@
       var step = function (now) {
         if (start === null) start = now;
         pulse.ms = now - start;
-        pulse.frame = pulse.ms < PULSE_END ? window.requestAnimationFrame(step) : 0;
+        pulse.frame = pulse.ms < PULSE_END ? requestMotionFrame(step) : 0;
         draw();
       };
-      pulse.frame = window.requestAnimationFrame(step);
+      pulse.frame = requestMotionFrame(step);
     }
     function pulsePhase(delay, length) {
       var t = (pulse.ms - delay) / length;
@@ -511,7 +535,7 @@
           if (x < -30 || y < -30 || x > w + 30 || y > h + 30) continue;
           var lit = focus >= 0 && (i === focus || near[i]);
           var fade = focus >= 0 && !lit ? 1 - focusMix : 1;
-          drawGlow(x, y, n.r * rs * 3.4, palette.integration_surface,
+          drawGlow(x, y, n.r * rs * EMBER_REACH, palette.integration_surface,
                    (lit ? EMBER_LIT : EMBER_REST) * fade * revealAlpha(3));
         }
       }
@@ -611,13 +635,13 @@
         revealMs = now - start;
         if (revealMs >= REVEAL_END) reveal = 1;
         draw();
-        if (reveal < 1) window.requestAnimationFrame(step);
+        if (reveal < 1) requestMotionFrame(step);
       };
-      window.requestAnimationFrame(step);
+      requestMotionFrame(step);
     }
     function cameraTo(target, fitted) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
-      if (cameraFrame && window.cancelAnimationFrame) window.cancelAnimationFrame(cameraFrame);
+      if (cameraFrame && window.cancelAnimationFrame) cancelMotionFrame(cameraFrame);
       cameraFrame = 0;
       var finish = function () {
         view.k = target.k; view.tx = target.tx; view.ty = target.ty;
@@ -641,10 +665,10 @@
         var cx = from.cx + (to.cx - from.cx) * e, cy = from.cy + (to.cy - from.cy) * e;
         view.k = k; view.tx = w / 2 - cx * k; view.ty = h / 2 - cy * k;
         draw();
-        if (t < 1) cameraFrame = window.requestAnimationFrame(step);
+        if (t < 1) cameraFrame = requestMotionFrame(step);
         else { cameraFrame = 0; finish(); }
       };
-      cameraFrame = window.requestAnimationFrame(step);
+      cameraFrame = requestMotionFrame(step);
     }
     function frameOf(indices, maxK) {
       var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
@@ -815,6 +839,28 @@
         return a.kind === 'problem' || b.kind === 'problem';
       }
       return true;
+    }
+
+    // Camera and animation frames change positions and ink, not topology.
+    // Reuse the same ordered connections until their inputs change.
+    var frameGraphCache = null;
+    function frameGraph(focus) {
+      var narrow = canvas.clientWidth < 600;
+      if (frameGraphCache && frameGraphCache.nodes === nodes &&
+          frameGraphCache.focus === focus && frameGraphCache.narrow === narrow) return frameGraphCache;
+      var near = neighbourSet(focus);
+      var hot = incidentEdges(focus), hotSet = {};
+      hot.forEach(function (at) { hotSet[at] = true; });
+      var quiet = [], availableEdges = 0;
+      for (var i = 0; i < edges.length; i++) {
+        var ea = nodes[edges[i][0]], eb = nodes[edges[i][1]];
+        if (!ea || !eb || !visible(ea) || !visible(eb)) continue;
+        availableEdges++;
+        if (overviewEdge(i) && !hotSet[i]) quiet.push(i);
+      }
+      frameGraphCache = { nodes: nodes, focus: focus, narrow: narrow, near: near,
+        hot: hot, quiet: quiet, availableEdges: availableEdges, threads: pulseThreads(focus, hot) };
+      return frameGraphCache;
     }
 
     function drawEdgeSet(indices, alpha, width, color) {
@@ -1195,6 +1241,16 @@
       if (!pageMode && w < 520) return;
       var k = view.k;
       var items = [];
+      // A narrow field, or a ring drawn small (the teaser), keeps the number
+      // and a compact count: full names would run into each other. The ring
+      // decides once, by its smallest band, so one title never reads in a
+      // different style from its neighbours.
+      var innermost = Infinity;
+      for (var r0 = 0; r0 < bands.length; r0++) {
+        var outer = bandRadii(bands[r0])[1];
+        if (isFinite(outer)) innermost = Math.min(innermost, outer);
+      }
+      var narrow = w < 560 || innermost * k < 220;
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
         if (!isFinite(radii[1])) continue;
@@ -1204,13 +1260,12 @@
         for (var key in b.evidence) total += b.evidence[key];
         // A clear gap between the plate's edge and the first line of text.
         var base = (radii[1] + 6) * k + 15;
-        // A narrow field, or a ring drawn small (the teaser), keeps the
-        // number and a compact count: full names would run into each other.
-        var narrow = w < 560 || radii[1] * k < 220;
         var count = { text: (b.evidence.replayed || 0) + (narrow ? '/' + total : ' of ' + total + ' replayed'),
                       font: '400 11px ' + SERIF, color: palette.muted, alpha: 1 };
         var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
-        var title = titleText && (pageMode || w >= 640) ?
+        // A count never stands without its problem's number: wherever the
+        // band labels show, so does the title, short on a narrow field.
+        var title = titleText ?
           { text: titleText, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.86 } : null;
         items.push({ band: b, base: base, mid: (b.lo + b.hi) / 2, count: count, title: title });
       }
@@ -1454,7 +1509,42 @@
       return { text: text, x: x, y: y, box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7, owner: i } };
     }
 
+    /* Focus, evidence, opening and camera motion share one display frame.
+       Every callback advances on the same timestamp before the canvas paints;
+       direct pointer/filter feedback and the no-RAF fallback stay immediate. */
+    var motionFrame = 0, motionSerial = 0, motionCallbacks = {};
+    var advancingMotion = false, motionNeedsPaint = false;
+    function requestMotionFrame(callback) {
+      var id = ++motionSerial;
+      motionCallbacks[id] = callback;
+      if (!motionFrame && !advancingMotion) {
+        motionFrame = window.requestAnimationFrame(advanceMotion);
+      }
+      return id;
+    }
+    function cancelMotionFrame(id) {
+      delete motionCallbacks[id];
+    }
+    function advanceMotion(now) {
+      motionFrame = 0;
+      var due = motionCallbacks;
+      motionCallbacks = {};
+      advancingMotion = true;
+      Object.keys(due).forEach(function (id) { due[id](now); });
+      advancingMotion = false;
+      if (motionNeedsPaint) {
+        motionNeedsPaint = false;
+        paint();
+      }
+      if (!motionFrame && Object.keys(motionCallbacks).length) {
+        motionFrame = window.requestAnimationFrame(advanceMotion);
+      }
+    }
     function draw() {
+      if (advancingMotion) { motionNeedsPaint = true; return; }
+      paint();
+    }
+    function paint() {
       var dpr = window.devicePixelRatio || 1;
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
@@ -1467,7 +1557,7 @@
       var searching = query.length >= 2;
       var focus = focusIndex();
       trackFocus(focus);
-      var near = neighbourSet(focus);
+      var graph = frameGraph(focus), near = graph.near;
       var i, n, x, y;
       /* A phone fits the whole field into a few hundred pixels; marks drawn
          at desktop size would then cover each other, so they shrink with the
@@ -1492,20 +1582,12 @@
       drawClaimPlates(focus);
       drawBandPlates(focus);
 
-      var hot = incidentEdges(focus), hotSet = {};
-      hot.forEach(function (at) { hotSet[at] = true; });
-      var quiet = [], availableEdges = 0;
-      for (i = 0; i < edges.length; i++) {
-        var ea = nodes[edges[i][0]], eb = nodes[edges[i][1]];
-        if (!ea || !eb || !visible(ea) || !visible(eb)) continue;
-        availableEdges++;
-        if (overviewEdge(i) && !hotSet[i]) quiet.push(i);
-      }
+      var hot = graph.hot, quiet = graph.quiet, availableEdges = graph.availableEdges;
       var shownEdges = quiet.length + hot.length;
       drawEdgeSet(quiet, (focus >= 0 ? 0.65 - 0.35 * focusMix : 0.65) * revealAlpha(1), 0.65, palette.edge);
       drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
-      var threads = pulseThreads(focus, hot);
+      var threads = graph.threads;
       drawLight(focus, near, searching, threads, rs, w, h);
       // The band titles go down first, outside the rings, so every label
       // placed after them (the shared callout, the node labels) keeps clear.
@@ -1816,7 +1898,12 @@
       // as solid marks rather than specks; the fitted view itself is
       // unchanged.
       var k = view.k;
-      var base = Math.min(1, Math.max(0.5, k / 0.6));
+      // A monitor's field is drawn larger, and its marks grow with it (up to
+      // half again) so a band stays a dense ring rather than spaced specks;
+      // a laptop or the teaser, under about 680px, keeps the design size.
+      var room = Math.min(canvas.clientWidth || 0, canvas.clientHeight || 0);
+      var grow = Math.min(1.5, Math.max(1, room / 680));
+      var base = Math.min(grow, Math.max(0.5, k / 0.6));
       var from = Math.max(0.6, fittedScale || 0.6);
       if (k <= from) return base;
       return Math.min(1.9, base * (1 + 0.45 * Math.log(k / from) / Math.LN2));
@@ -1974,29 +2061,30 @@
         if (byKind) return byKind;
         return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
       });
+      // Said in words: "Replayed by Comparator", "Stated in The Binary
+      // Totient Series". A short group reads as one line; a long one folds
+      // under its count.
       var groups = {}, order = [];
       for (var j = 0; j < rows.length; j++) {
         var row = rows[j];
         var m = nodes[row.to];
-        var key = m.kind + ':' + row.rel + ':' + row.out;
-        if (!groups[key]) { groups[key] = { kind: m.kind, rel: row.rel, out: row.out, rows: [] }; order.push(key); }
-        groups[key].rows.push('<li><button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
-          dotHtml(m.kind) +
-          '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span>' +
-          '<span class="universe-goto__rel">' + (row.out ? '→ ' : '← ') +
-          escapeHtml(relText(row.rel)) + '</span>' +
-          '</button></li>');
+        var key = row.rel + ':' + row.out + ':' + m.kind;
+        if (!groups[key]) { groups[key] = { kind: m.kind, phrase: relPhrase(row.rel, row.out), items: [] }; order.push(key); }
+        groups[key].items.push('<button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
+          dotHtml(m.kind) + '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span></button>');
       }
       var html = '';
       for (var g = 0; g < order.length; g++) {
         var group = groups[order[g]];
-        html += '<details class="universe-connections"' + (group.kind === 'problem' || rows.length <= 12 ? ' open' : '') + '>' +
-          '<summary>' + escapeHtml(KIND_PLURAL[group.kind] || group.kind) +
-          ' ' + (group.out ? '→ ' : '← ') + escapeHtml(relText(group.rel)) +
-          ' <b>' + group.rows.length + '</b></summary>' +
-          '<ul class="universe-inspector__list">' + group.rows.join('') + '</ul></details>';
+        var many = (KIND_PLURAL[group.kind] || group.kind).toLowerCase();
+        html += group.items.length <= 3
+          ? '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) + '</span>' +
+            group.items.join('') + '</li>'
+          : '<li class="universe-link"><details class="universe-link__fold"><summary><span class="universe-link__how">' +
+            escapeHtml(group.phrase) + '</span> ' + group.items.length + ' ' + escapeHtml(many) + '</summary>' +
+            group.items.join('') + '</details></li>';
       }
-      return { html: html, total: rows.length };
+      return { html: html ? '<ul class="universe-links">' + html + '</ul>' : '', total: rows.length };
     }
 
     /* What sits with a problem, by status, with the shared fan named. */
@@ -2111,7 +2199,7 @@
       }
       var sides = {};
       places.forEach(function (p) { sides[nodes[p.at].side] = true; });
-      var head = sides.short && sides.long ? 'Stated in both papers' : 'Where it appears';
+      var head = sides.short && sides.long ? 'Stated in both papers' : 'Where it is stated';
       return '<h3 class="universe-inspector__sub">' + head + '</h3><ul class="universe-appears">' + rows.join('') + '</ul>';
     }
 
@@ -2133,9 +2221,10 @@
       var cap = pinned ? 6 : 1;
       for (var j = 0; j < lean.length && j < cap; j++) {
         var primary = !n.paper && !n.page && j === 0;
+        // One label over the list; each row is a declaration and its line.
         rows.push('<a class="universe-open' + (primary ? ' universe-open--primary' : '') + '" href="' + escapeHtml(lean[j].href) + externalAttrs() + '>' +
-          '<span class="universe-open__verb">' + (j === 0 ? 'Lean source on GitHub' : 'Also proved at') + '</span>' +
-          '<span class="universe-open__where"><code>' + escapeHtml(lean[j].name) + '</code> · line ' + lean[j].line + '</span></a>');
+          (j === 0 ? '<span class="universe-open__verb">' + (lean.length > 1 ? 'In Lean, on GitHub' : 'Lean source on GitHub') + '</span>' : '') +
+          '<span class="universe-open__where"><code>' + nameHtml(lean[j].name) + '</code>, line ' + lean[j].line + '</span></a>');
       }
       if (lean.length > cap) {
         rows.push('<span class="universe-open__more">… and ' + (lean.length - cap) + ' more declarations' + (pinned ? '' : ' when pinned') + '</span>');
@@ -2215,6 +2304,22 @@
       });
     }
 
+    function evidenceSentence(n) {
+      var how = n.lean_status === 'exact_or_stronger' ? 'Lean states it or something stronger' : 'Lean states it exactly';
+      var text;
+      if (n.lean_status === 'exact' || n.lean_status === 'exact_or_stronger') {
+        text = n.comparator_status === 'compared' ? how + ', and Comparator has replayed that statement.' :
+          how + '; its Comparator replay is queued' + (n.comparator_queued_at ? ' since ' + n.comparator_queued_at : '') + '.';
+      } else if (n.lean_status === 'modulo_named_input') {
+        text = 'Lean states it under named inputs.';
+      } else {
+        text = 'No Lean statement is recorded for it yet.';
+      }
+      if (n.palomar_status === 'prepared') text += ' It is in the corpus prepared for Palomar; nothing has been submitted.';
+      else if (n.palomar_status === 'pending') text += ' It joins the Palomar corpus once Comparator has replayed it.';
+      return text;
+    }
+
     function statementHtml(n, pinned) {
       var parts = [];
       var seq = paperSequence[n.paperId];
@@ -2224,20 +2329,11 @@
         parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
           '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
           (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
-          '<span class="universe-step__at">' + (n.seq + 1) + ' of ' + seq.length + ' in this paper</span>' +
+          '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length + '</span>' +
           '<button type="button" class="universe-step__btn" data-universe-step="1"' +
           (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
           '</div>');
       }
-      var facts = [];
-      facts.push('<li><b>Lean</b> ' + escapeHtml(LEAN_STATUS_TEXT[n.lean_status] || n.lean_status || 'not recorded') + '</li>');
-      var cmp = COMPARATOR_STATUS_TEXT[n.comparator_status] || n.comparator_status || 'not recorded';
-      if (n.comparator_status === 'pending' && n.comparator_queued_at) cmp += ' since ' + n.comparator_queued_at;
-      facts.push('<li><b>Comparator</b> ' + escapeHtml(cmp) + '</li>');
-      var pal = n.palomar_status === 'prepared' ? 'in the prepare-only corpus' :
-        n.palomar_status === 'pending' ? 'waits on the Comparator replay' : 'not applicable';
-      facts.push('<li><b>Palomar</b> ' + escapeHtml(pal) + '</li>');
-      parts.push('<ul class="universe-inspector__facts">' + facts.join('') + '</ul>');
       if (n.lean_reason) {
         // The build typesets the note's TeX as MathML; the authored text is
         // the fallback for data built before it did.
@@ -2260,9 +2356,10 @@
         var sigs = more && more.statements ? more.statements : {};
         var rows = decls.slice(0, cap).map(function (d) {
           var where = d.line ? '<span class="universe-decl__line">line ' + d.line + '</span>' : '';
-          var row = '<li>' + extLink(d.href, '<code>' + escapeHtml(d.name) + '</code>') + where;
+          // A Lean name breaks only after a dot or an underscore.
+          var row = '<li>' + extLink(d.href, '<code>' + nameHtml(d.name) + '</code>') + where;
           if (sigs[d.name]) {
-            row += '<details class="universe-decl__sig"><summary>Lean statement</summary><pre><code>' +
+            row += '<details class="universe-decl__sig"><summary>Show the Lean statement</summary><pre><code>' +
               escapeHtml(sigs[d.name]) + '</code></pre></details>';
           }
           return row + '</li>';
@@ -2270,7 +2367,8 @@
         if (decls.length > cap) {
           rows.push('<li class="universe-open__more">… and ' + (decls.length - cap) + ' more' + (pinned ? '' : ' when pinned') + '</li>');
         }
-        parts.push('<h3 class="universe-inspector__sub">Lean declarations (' + decls.length + ')</h3>' +
+        parts.push('<h3 class="universe-inspector__sub">In Lean' +
+          (decls.length > 1 ? ', in ' + decls.length + ' declarations' : '') + '</h3>' +
           '<ul class="universe-inspector__list universe-inspector__list--decls">' + rows.join('') + '</ul>');
       }
       if (more && (more.named_inputs || []).length) {
@@ -2293,20 +2391,24 @@
         var restated = more.checks.some(function (check) { return !check.same_as_lean; });
         var rowsCmp = order.map(function (entry) {
           var check = byEntry[entry][0], links = [];
-          if (check.challenge) links.push(extLink(check.challenge, 'Challenge'));
-          if (check.solution) links.push(extLink(check.solution, 'Solution'));
-          if (check.receipt) links.push(extLink(check.receipt, 'receipt'));
-          return '<li><code>' + escapeHtml(entry) + '</code>' +
-            (links.length ? ' <span class="universe-decl__links">' + links.join(', ') + '</span>' : '') + '</li>';
+          if (check.challenge) links.push(extLink(check.challenge, 'the challenge'));
+          if (check.solution) links.push(extLink(check.solution, 'the solution'));
+          if (check.receipt) links.push(extLink(check.receipt, 'its receipt'));
+          return '<li>Entry <code>' + escapeHtml(entry) + '</code>' +
+            (links.length ? ': ' + links.join(', ') : '') + '</li>';
         });
         var replay = detail.replay || {};
-        parts.push('<h3 class="universe-inspector__sub">Comparator replay</h3>' +
-          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rowsCmp.join('') + '</ul>' +
-          '<p class="universe-inspector__note">Each entry passed' +
+        // What a check is, said once: the challenge restates the Lean
+        // statement without its proof, and the solution must prove exactly it.
+        parts.push('<h3 class="universe-inspector__sub">Checked by Comparator</h3>' +
+          '<p class="universe-inspector__note">Comparator compares a challenge, which restates the Lean statement ' +
+          'without its proof, with a solution that proves it. ' +
+          (order.length > 1 ? 'These entries passed' : 'This entry passed') +
           (replay.href ? ' in ' + extLink(replay.href, 'run ' + escapeHtml(replay.run_id)) : '') +
-          ', with the Lean kernel and nanoda both accepting it.' +
-          (restated ? ' Here the Challenge restates the Lean declaration in another form; the evidence record prints both.' : '') +
-          '</p>');
+          ': the Lean kernel and nanoda both accepted the proof.' +
+          (restated ? ' Here the challenge restates the declaration in another form; the evidence record prints both.' : '') +
+          '</p>' +
+          '<ul class="universe-inspector__list universe-inspector__list--decls">' + rowsCmp.join('') + '</ul>');
       }
       if (more && more.record) {
         parts.push('<p class="universe-inspector__note">' + extLink(more.record, 'The evidence record for this result') + '</p>');
@@ -2380,6 +2482,9 @@
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
       // A paper result leads with where to read it; its evidence follows.
       var openFirst = n.kind === 'paper_statement';
+      // Its evidence in one sentence, as the landing's card says it, before
+      // where to read it; Palomar holds a prepared corpus, nothing submitted.
+      if (openFirst) parts.push('<p class="universe-inspector__evidence">' + escapeHtml(evidenceSentence(n)) + '</p>');
       if (openFirst) parts.push(openHtml(i, pinned));
       var body = n.statement || n.question || null;
       if (body) parts.push('<p class="universe-inspector__body">' + escapeHtml(body) + '</p>');
@@ -2396,26 +2501,24 @@
         if (n.theorem_count != null) counts += ', ' + String(n.theorem_count) + ' theorems';
         parts.push('<p class="universe-inspector__note">' + counts + '</p>');
       }
-      parts.push(placementHtml(i));
+      // A result's "where it is stated" already says which problem it sits with.
+      if (n.kind !== 'paper_statement') parts.push(placementHtml(i));
       if (!openFirst) parts.push(openHtml(i, pinned));
       if (pinned) {
         parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
         if (rows.total) {
-          parts.push('<h3 class="universe-inspector__sub">Connections (' + rows.total + ')</h3>');
+          parts.push('<h3 class="universe-inspector__sub">How it connects</h3>');
           if (n.kind === 'integration_surface') {
-            parts.push('<p class="universe-inspector__hint">The map lights every result this hub reaches; each group below lists them.</p>');
-          } else {
-            parts.push('<p class="universe-inspector__hint">The map highlights up to ' +
-              (canvas.clientWidth < 600 ? 12 : 24) + ' local connections. Expand a group below to inspect every connection, including those outside the current filters.</p>');
+            parts.push('<p class="universe-inspector__hint">The map lights every result it reaches.</p>');
           }
           parts.push(rows.html);
         }
         if (canCopy) {
-          parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy link to this object</button>');
+          parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
         }
       } else {
-        parts.push('<p class="universe-inspector__hint">Click to pin this card and list its connections; click the pinned object again to open it.</p>');
+        parts.push('<p class="universe-inspector__hint">Click to keep this card and see what it connects to; click again to open it.</p>');
       }
       return parts.join('');
     }
@@ -2525,8 +2628,28 @@
         declCount: decls.length,
         leanReasonHtml: n.lean_reason_html || null,
         href: target && !target.external ? target.href : null,
+        // The Lean source line on GitHub: the first declaration's, else the
+        // object's own.
+        github: (decls[0] && decls[0].href) || (n.lean && n.lean.length ? n.lean[0].href : null) ||
+          n.source_github || null,
         mapHref: route('universe.html#o=' + encodeURIComponent(n.id))
       };
+    }
+
+    /* Beside the problems column a click pins a result instead of leaving
+       the page: the column's card holds it, with buttons to its place in
+       the paper, its Lean source on GitHub and the full map. The pinned dot
+       keeps its ring; a click on it again, or on empty ground, lets it go.
+       Its moment has already played under the pointer. */
+    function pinInTeaser(i) {
+      selected = i;
+      if (i >= 0) pulsedSelection = i;
+      draw();
+      if (companionApi) {
+        stage.dispatchEvent(new CustomEvent('universe:select', { detail: i >= 0 ? companionSummary(i) : null }));
+        // Let go under the pointer, the card reads what the pointer is on.
+        if (i < 0 && hover >= 0) announce(hover);
+      }
     }
 
     function companionTallies() {
@@ -2573,7 +2696,9 @@
       if (typeof window.CustomEvent !== 'function') return;
       companionApi = {
         stage: stage, host: host, route: route, reduceMotion: reduceMotion,
-        dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem
+        dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem,
+        // The column lets a pin go (Escape, leaving the band, another problem).
+        release: function () { if (selected >= 0) { selected = -1; draw(); } }
       };
       var style = document.createElement('link');
       style.rel = 'stylesheet';
@@ -2761,7 +2886,11 @@
       } catch (err) { pendingId = null; }
     }
     var dataUrl = canvas.getAttribute('data-universe-src');
-    fetch(dataUrl).then(function (r) { return r.json(); }).then(function (data) {
+    fetchGraphJson(dataUrl).then(function (data) {
+      validateOverview(data);
+      overviewGeneration = data.generation_id || null;
+      overviewReady = true;
+      if (loadFullBtn) loadFullBtn.disabled = false;
       // The reveal starts closed, so the load's own draw shows no flash of
       // the whole map before the first frame opens it.
       var opening = pageMode && !pendingId && !reduceMotion && !!window.requestAnimationFrame && !document.hidden;
@@ -2820,7 +2949,13 @@
         pin(i, false);
         return;
       }
-      if (i >= 0) { openTarget(nodes[i]); return; }
+      if (companionApi && (i >= 0 || selected >= 0)) {
+        pinInTeaser(i >= 0 && i !== selected ? i : -1);
+        return;
+      }
+      // Without the column a click opens the full map on the object, whose
+      // card carries the same ways out; no click jumps straight to GitHub.
+      if (i >= 0) { window.location.href = route('universe.html#o=' + encodeURIComponent(nodes[i].id)); return; }
       var target = canvas.getAttribute('data-universe-href');
       if (target) window.location.href = target;
     });
@@ -2983,7 +3118,7 @@
           navigator.clipboard.writeText(window.location.href).then(function () {
             copy.textContent = 'Link copied';
           }, function () {
-            copy.textContent = 'Copy failed — use the address bar';
+            copy.textContent = 'Copy failed; use the address bar';
           });
         }
       });
@@ -2992,6 +3127,7 @@
     /* ---- Controls ----------------------------------------------------- */
 
     function afterFilterChange() {
+      frameGraphCache = null;
       if (hover >= 0 && !visible(nodes[hover])) hover = -1;
       if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
       else renderInspector();
@@ -3134,18 +3270,93 @@
       });
     }
 
+    // Data may arrive from independent caches. Validate a whole handoff before
+    // ingest mutates selection, adjacency or the currently working overview.
+    var overviewReady = false;
+    var overviewGeneration = null;
+    if (loadFullBtn) loadFullBtn.disabled = true;
+
+    function fetchGraphJson(url) {
+      return fetch(url).then(function (response) {
+        if (response.ok === false) throw new Error('Map data request failed');
+        return response.json();
+      });
+    }
+
+    function nodeIndex(rows, positioned) {
+      if (!Array.isArray(rows) || !rows.length) throw new Error('Map has no objects');
+      var ids = Object.create(null);
+      rows.forEach(function (node) {
+        if (!node || typeof node.id !== 'string' || !node.id || ids[node.id]) {
+          throw new Error('Map object identity is missing or duplicated');
+        }
+        ids[node.id] = true;
+        if (positioned && !finitePoint([node.x, node.y])) {
+          throw new Error('Map object has no finite position');
+        }
+      });
+      return ids;
+    }
+
+    function finitePoint(point) {
+      return Array.isArray(point) && point.length === 2 && point.every(function (value) {
+        return typeof value === 'number' && isFinite(value);
+      });
+    }
+
+    function validateOverview(data) {
+      if (!data || !Array.isArray(data.edges)) throw new Error('Invalid map overview');
+      nodeIndex(data.nodes, true);
+      data.edges.forEach(function (edge) {
+        if (!Array.isArray(edge) || edge.length < 2 || edge.length > 3 ||
+            !edge.every(function (value) { return typeof value === 'number' && value >= 0 && value % 1 === 0; }) ||
+            edge[0] >= data.nodes.length || edge[1] >= data.nodes.length ||
+            (edge.length === 3 && (!Array.isArray(data.relations) ||
+              edge[2] >= data.relations.length || typeof data.relations[edge[2]] !== 'string'))) {
+          throw new Error('Overview connection does not resolve');
+        }
+      });
+    }
+
+    function validateComplete(graph, layout) {
+      if (!graph || !Array.isArray(graph.edges) || !layout || !layout.positions) {
+        throw new Error('Invalid complete map');
+      }
+      if (overviewGeneration && layout.generation_id !== overviewGeneration) {
+        throw new Error('Map assets belong to different generations');
+      }
+      var ids = nodeIndex(graph.nodes, false);
+      var pos = layout.positions;
+      if (Object.keys(pos).length !== graph.nodes.length) throw new Error('Map layout coverage differs');
+      graph.nodes.forEach(function (node) {
+        if (!Object.prototype.hasOwnProperty.call(pos, node.id) || !finitePoint(pos[node.id])) {
+          throw new Error('Complete map object has no finite position');
+        }
+      });
+      var edgeIds = Object.create(null);
+      graph.edges.forEach(function (edge) {
+        if (!edge || !ids[edge.source] || !ids[edge.target]) {
+          throw new Error('Complete map connection does not resolve');
+        }
+        var key = JSON.stringify([edge.source, edge.relation || 'linked', edge.target]);
+        if (edgeIds[key]) throw new Error('Complete map connection is duplicated');
+        edgeIds[key] = true;
+      });
+    }
+
     function loadFull() {
-      if (!loadFullBtn || fullLoaded || fullLoading) return;
+      if (!loadFullBtn || !overviewReady || fullLoaded || fullLoading) return;
       fullLoading = true;
       loadFullBtn.disabled = true;
       loadFullBtn.textContent = 'Loading the complete universe…';
       var graphUrl = loadFullBtn.getAttribute('data-graph-src');
       var layoutUrl = loadFullBtn.getAttribute('data-layout-src');
       Promise.all([
-        fetch(graphUrl).then(function (r) { return r.json(); }),
-        fetch(layoutUrl).then(function (r) { return r.json(); })
+        fetchGraphJson(graphUrl),
+        fetchGraphJson(layoutUrl)
       ]).then(function (results) {
         var graph = results[0], layout = results[1];
+        validateComplete(graph, layout);
         var pos = layout.positions || {};
         var pages = layout.pages || {};
         var sectors = layout.sectors || {};

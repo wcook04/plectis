@@ -52,6 +52,48 @@ readers find and understand that work; private working state is outside its scop
 
 ## Audience route contract
 
+### Map data contracts
+
+Both maps keep their data independent of their geometry. A different visual
+design should consume these existing projections and stable object IDs.
+
+- The architecture builder joins `build_component_record` output to the scene
+  through `microcosm_architecture_graph.py`. The published
+  `docs/architecture-graph-scene.json` carries complete `node_links`,
+  `node_routes`, route bases, directed `adjacency`, family `membership`, and
+  exact join `coverage`. Full detail bodies live once in `scene.inspectors`;
+  each node's `inspector_ref` resolves there. Commands, summaries, evidence and
+  source links come from the same public component records as the reader pages.
+- Family membership is navigation grouping. `declared_dependency_untyped`
+  retains the source's `wires_to` direction and provenance; an incoming edge
+  means another component declared this target. Neither relation proves a
+  runtime call, causation, maturity or mathematical dependence. Components
+  without declared neighbours remain present and are counted explicitly.
+- The architecture landing projection and full view use the same scene.
+  `node_routes` supplies docs-relative and site-root routes, including encoded
+  `architecture.html#map=<node-id>` selection links. Changing the shape must
+  preserve those identities and the textual/no-JavaScript routes. The current
+  landing need not display the component preview to keep that projection usable.
+- The maths builder validates its overview as the exact induced view of the
+  complete experience graph and requires a finite layout position for every
+  full-graph object. `universe-data.json` and `universe-layout-full.json` carry
+  the same top-level `generation_id` and a one-item `contract` receipt array.
+  The receipt describes source hashes, actual counts, deferred object kinds,
+  directed relation labels and navigation. It is an array because the deploy
+  preservation guard treats top-level dictionaries as node-indexed tables.
+- The complete graph URL is content-versioned from the bytes actually parsed.
+  The runtime validates an entire data handoff before replacing the working
+  overview, rejects mismatched generation IDs, dangling connections, duplicate
+  identities and non-finite positions, and keeps failed full loads retryable.
+  Landing links resolve through `data-universe-base`; full-view selections keep
+  `#o=<encodeURIComponent(node.id)>`. Source/claim status stays with the public
+  experience graph and its evidence, not with the map's visual appearance.
+
+Focused regression owners are `test_microcosm_architecture_graph.py`,
+`test_plectis_universe_contract.py`, `test_universe_data_loading.py`, and
+`sites/microcosm/tests/universe_runtime_regression.test.mjs`. Regenerate through
+the existing site builders; never patch the emitted graph or layout JSON.
+
 ### Front door (October 2026)
 
 The landing has one subject, the mathematics. In order: the introduction and
@@ -308,6 +350,42 @@ the ledger, the evidence or the rendered papers come from different editions.
   changed, and a line moves (100ms) only when its words changed: the links
   keep their words while their addresses change, so they hold still. The
   card's mark ripples only when the evidence it shows changes.
+- A click selects; it never leaves the page by itself (Will, 3 Oct: "it
+  should just select it… and then buttons to go to the places"). Beside
+  the column a click pins the result: the card holds it while the pointer
+  crosses other dots to reach its buttons (its place in the paper, its Lean
+  source on GitHub in a new tab, the full map), and the card's rule turns
+  ember. A click on the pinned dot or on empty ground, Escape, a tab for
+  another problem, or leaving the band lets it go. Without the column a
+  click opens the full map on the object. The buttons sit under the
+  evidence sentence, above the declaration and the note, so they stay in
+  the first screen at laptop height; the declaration and the note give way
+  first on a short screen.
+- While the column reads the object under the pointer, the drawing's own
+  one-line caption steps out (it would only repeat the card); a stacked
+  layout keeps it. A band's count never stands without its problem's
+  number: wherever band labels show, so do the titles, and the ring picks
+  one style for all of them by its smallest band (compact on the teaser,
+  full names on the map).
+- On a wide screen the map takes the room it is given (Will, 3 Oct: "use
+  all the available space"). Only `universe.html` lifts the reading
+  layout's width caps, so the field spans the window beside the navigation
+  and grows to the window's height (up to 1600px); every other page keeps
+  its reading width. At 2560x1313 the canvas is 1823x1143 where it was
+  738x900. Its marks grow with the field above about 680px, up to half
+  again, so a monitor's band stays a dense ring; laptops and the teaser
+  keep the design size.
+- The map's card speaks plainly (Will, 3 Oct: the old one was "utterly
+  incomprehensible"). A paper result opens with its evidence in one
+  sentence ("Lean states it exactly, and Comparator has replayed that
+  statement. It is in the corpus prepared for Palomar; nothing has been
+  submitted."), then where it is stated with its buttons, then "In Lean"
+  (declarations, breaking only at dots and underscores) and "Checked by
+  Comparator" (what a challenge and a solution are, said once, then the
+  run and the entry). Connections read as phrases over what they name:
+  "Replayed by Comparator", "Prepared for Palomar", "Stated in …",
+  "Shares a Lean declaration with …"; never relation keys with arrows,
+  and never a note about how many links the map draws.
 - The teaser resolves its routes against `data-universe-base`: on the
   landing a dot opens `maths/papers/…`, where it had opened `/papers/…` and
   404ed.

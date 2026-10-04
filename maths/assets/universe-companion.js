@@ -72,7 +72,7 @@
     var detailAsked = false;
     // focusKey starts unset, so the first card (even "nothing in focus") is drawn.
     var state = { open: false, problem: null, focusKey: undefined, focus: null, overPanel: false, keyboard: false,
-                  card: { shape: null, tier: null, lines: {} } };
+                  card: { shape: null, tier: null, lines: {} }, pinned: null };
     var timers = { dwell: 0, leave: 0, linger: 0 };
     var motion = !api.reduceMotion && typeof Element !== 'undefined' && !!Element.prototype.animate;
 
@@ -190,10 +190,16 @@
       return 'No Lean statement is recorded for it yet.';
     }
 
+    // The card's ways out, as buttons: its place in the paper first, then its
+    // Lean source on GitHub (in a new tab) and the full map.
     function linksInner(s, readLabel) {
       var links = [];
-      if (s.href) links.push('<a href="' + esc(s.href) + '">' + esc(readLabel) + '</a>');
-      if (s.mapHref) links.push('<a href="' + esc(s.mapHref) + '">Open it in the map</a>');
+      if (s.href) links.push('<a class="uc__go uc__go--first" href="' + esc(s.href) + '">' + esc(readLabel) + '</a>');
+      if (s.github) {
+        links.push('<a class="uc__go" href="' + esc(s.github) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">' +
+          'Lean on GitHub</a>');
+      }
+      if (s.mapHref) links.push('<a class="uc__go" href="' + esc(s.mapHref) + '">Open it in the map</a>');
       return links.join('');
     }
 
@@ -208,8 +214,8 @@
       result: '<p class="uc__label" data-line="label"></p>' +
         '<p class="uc__focus-title"><span class="uc-mark" aria-hidden="true"><span class="uc-mark__ring"></span></span>' +
         '<span data-line="name"></span></p>' +
-        '<p class="uc__focus-meta" data-line="meta"></p><p class="uc__decl" data-line="decl"></p>' +
-        '<p class="uc__note" data-line="note"></p><p class="uc__links" data-line="links"></p>',
+        '<p class="uc__focus-meta" data-line="meta"></p><p class="uc__links" data-line="links"></p>' +
+        '<p class="uc__decl" data-line="decl"></p><p class="uc__note" data-line="note"></p>',
       paper: '<p class="uc__label" data-line="label"></p><p class="uc__focus-title"><span data-line="name"></span></p>' +
         '<p class="uc__links" data-line="links"></p>',
       hint: '<p class="uc__hint" data-line="hint"></p>'
@@ -243,7 +249,8 @@
         return { shape: 'paper', tier: null, lines: { label: 'Paper', name: esc(s.label),
           links: linksInner(s, 'Read the paper') } };
       }
-      return { shape: 'hint', tier: null, lines: { hint: 'Point at a dot on the map to read that result here.' } };
+      return { shape: 'hint', tier: null,
+               lines: { hint: 'Point at a dot on the map to read that result here; click it to keep it.' } };
     }
 
     function drawCard(card, quiet) {
@@ -365,6 +372,9 @@
       root.removeAttribute('aria-hidden');
       root.classList.add('is-open');
       host.classList.add('uc-host--open');
+      // While the column reads the object, the drawing's own one-line
+      // caption would only repeat it.
+      api.stage.classList.add('uc-reading');
       var row = rows[pid];
       travel(el.kicker, row.querySelector('.home-problem__num'));
       travel(el.title, row.querySelector('.home-problem__title'));
@@ -372,8 +382,17 @@
       rise([el.question, el.tally, el.paper, el.focus], 140);
     }
 
+    // A pin is let go with the column, or for another problem.
+    function unpin() {
+      if (!state.pinned) return;
+      state.pinned = null;
+      root.classList.remove('is-pinned');
+      if (api.release) api.release();
+    }
+
     function close() {
       if (!state.open) return;
+      unpin();
       var pid = state.problem;
       state.open = false;
       state.problem = null;
@@ -382,6 +401,7 @@
       clearTimeout(timers.linger);
       api.light(null);
       host.classList.remove('uc-host--open');
+      api.stage.classList.remove('uc-reading');
       root.classList.remove('is-open');
       root.setAttribute('aria-hidden', 'true');
       root.inert = true;
@@ -436,13 +456,19 @@
     order.forEach(function (pid) {
       var li = rows[pid];
       li.addEventListener('pointerenter', function () {
+        // After Escape the row under a resting pointer does not turn the
+        // column straight back; the next row the pointer enters does.
+        if (state.hushed) return;
         later('dwell', function () {
           state.keyboard = false;
           show(pid, null);
           api.light(pid);
         }, state.open ? 0 : DWELL);
       });
-      li.addEventListener('pointerleave', function () { clearTimeout(timers.dwell); });
+      li.addEventListener('pointerleave', function () {
+        clearTimeout(timers.dwell);
+        state.hushed = false;
+      });
     });
     host.addEventListener('focusin', function (event) {
       var li = event.target.closest ? event.target.closest('li.home-problem[data-problem-id]') : null;
@@ -464,14 +490,29 @@
       var chip = event.target.closest ? event.target.closest('.uc__chip') : null;
       if (!chip) return;
       var pid = chip.getAttribute('data-problem');
+      if (state.pinned && pid === state.problem) return;
+      unpin();
       show(pid, null);
       api.light(pid);
+    });
+
+    // A click on the drawing pins a result: the card holds it while the
+    // pointer travels to its buttons, and other dots light only the map.
+    api.stage.addEventListener('universe:select', function (event) {
+      var s = event.detail;
+      clearTimeout(timers.dwell);
+      clearTimeout(timers.linger);
+      state.pinned = s && s.sector && rows[s.sector] ? s : null;
+      root.classList.toggle('is-pinned', !!state.pinned);
+      if (state.pinned) show(s.sector, s);
+      else if (state.open && !state.overPanel) setFocus(null);
     });
 
     // The drawing: every dot of a problem's sector turns the column to it,
     // and its card follows the pointer from dot to dot.
     api.stage.addEventListener('universe:hover', function (event) {
       var s = event.detail;
+      if (state.pinned) return;
       if (!s) {
         if (state.open && !state.overPanel) later('linger', function () { setFocus(null); }, LINGER);
         return;
@@ -494,12 +535,17 @@
     // The band as a whole: leaving it sets the list back.
     section.addEventListener('pointerleave', function () {
       clearTimeout(timers.dwell);
+      state.hushed = false;
       if (state.keyboard) return;
       later('leave', close, LEAVE);
     });
     section.addEventListener('pointerenter', function () { clearTimeout(timers.leave); });
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && state.open) close();
+      if (event.key === 'Escape' && state.open) {
+        state.hushed = true;
+        clearTimeout(timers.dwell);
+        close();
+      }
     });
     // A layout that stacks the list over the drawing has no companion: the
     // rows keep their definitions and an open companion closes.

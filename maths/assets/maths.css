@@ -433,7 +433,17 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
    the search on top, the reading rail filling the rest of the field's
    height and scrolling inside it; the panel never chases the cursor. On
    narrow screens the head comes first, then the map, then the rail. */
-.universe-page { --universe-h: clamp(480px, calc(100svh - 170px), 900px); }
+.universe-page { --universe-h: clamp(480px, calc(100svh - 170px), 1600px); }
+/* On a wide screen the map takes the room it is given. Only its page lifts
+   the reading layout's width caps (1680px for the layout, the site measure
+   for the wrap), so on a monitor the field spans the window beside the
+   navigation and grows to the window's height; every other page keeps its
+   reading width. */
+.docs-layout--wide:has(.universe-page) { width: calc(100% - 48px); }
+.wrap.universe-page { width: calc(100% - var(--gutter) * 2); }
+@media (min-width: 1800px) {
+  .universe-panel__body { grid-template-columns: minmax(0, 1fr) 380px; }
+}
 .universe-panel__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
@@ -1979,6 +1989,24 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-size: var(--fs-micro);
   white-space: nowrap;
 }
+/* How the card's object connects, said in words: each line is a phrase
+   ("Replayed by", "Stated in") over what it names; a long group folds
+   under its count. A result's evidence reads as one sentence. */
+.universe-inspector__evidence {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-soft);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+}
+.universe-links { list-style: none; margin: 0 0 var(--space-3); padding: 0; font-size: var(--fs-small); }
+.universe-link { padding: 0.4rem 0 0.2rem; border-top: 1px solid var(--rule); }
+.universe-link:first-child { border-top: 0; padding-top: 0; }
+.universe-link__how { display: block; color: var(--faint); font-size: var(--fs-micro); margin-bottom: 0.1rem; }
+.universe-link .universe-goto { border-top: 0; padding: 0.18rem 0.1rem; color: var(--ink-soft); }
+.universe-link .universe-goto:hover { color: var(--accent); }
+.universe-link__fold summary { cursor: pointer; color: var(--ink-soft); padding: 0.1rem 0; }
+.universe-link__fold summary .universe-link__how { display: inline; font-size: inherit; color: var(--muted); }
+.universe-link__fold summary:focus-visible { outline: 2px solid var(--u-edge-hot); outline-offset: 3px; }
 .universe-goto__more {
   color: var(--faint);
   font-size: var(--fs-small);

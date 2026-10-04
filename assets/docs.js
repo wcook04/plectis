@@ -4661,6 +4661,20 @@
          demands. Empty space, rules, chevrons and backgrounds are fine to
          cover; words are not. Falls back to above/below when the card would
          run off the screen (phones, narrow split screens). */
+      /* Side candidates inspect overlapping bands of the same document. Keep
+         geometry for this synchronous placement only: every hover, expansion,
+         notation change and resize still starts with fresh measurements. The
+         walker retains its candidate-specific pruning and text visibility. */
+      var elementRectCache = new WeakMap();
+      var textRectCache = new WeakMap();
+      function measuredRect(e) {
+        var r = elementRectCache.get(e);
+        if (!r) {
+          r = e.getBoundingClientRect();
+          elementRectCache.set(e, r);
+        }
+        return r;
+      }
       function intersectsY(r, top, bottom) { return r.bottom > top && r.top < bottom; }
       function textRectsIn(container, top, bottom, skip) {
         var out = [];
@@ -4668,7 +4682,7 @@
         var walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
           acceptNode: function (e) {
             if (e === node || node.contains(e) || (skip && (e === skip || skip.contains(e)))) return NodeFilter.FILTER_REJECT;
-            var r = e.getBoundingClientRect();
+            var r = measuredRect(e);
             if (r.width === 0 && r.height === 0) return NodeFilter.FILTER_REJECT;
             if (!intersectsY(r, top - 2, bottom + 2)) return NodeFilter.FILTER_REJECT;
             return NodeFilter.FILTER_ACCEPT;
@@ -4680,7 +4694,11 @@
           for (var c = e.firstChild; c; c = c.nextSibling) {
             if (c.nodeType !== 3 || !/\S/.test(c.nodeValue)) continue;
             range.selectNodeContents(c);
-            var rs = range.getClientRects();
+            var rs = textRectCache.get(c);
+            if (!rs) {
+              rs = range.getClientRects();
+              textRectCache.set(c, rs);
+            }
             for (var i = 0; i < rs.length; i++) {
               var r = rs[i];
               if (r.width < 1 || r.height < 1 || !intersectsY(r, top, bottom)) continue;
@@ -5646,7 +5664,8 @@
    the swap feels immediate. Touch has no hover: touchstart warms the same
    cache in the gap before touchend commits. Visitors on data-saver or 2G are
    left alone, one page never asks for more than 8 documents, and a URL is
-   only ever asked for once. Browsers without <link rel=prefetch> (Safari)
+   only ever asked for once. Keyboard focus warms the same destination without
+   requiring a pointer. Browsers without <link rel=prefetch> (Safari)
    fall back to a plain same-origin fetch, which primes the HTTP cache the
    navigation then reuses. */
 (function () {
@@ -5679,9 +5698,10 @@
     if (url.origin !== window.location.origin) return null;
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
     if (!/(\.html|\/)$/.test(url.pathname)) return null;
-    if (url.pathname === window.location.pathname) return null;
-    if (seen[url.pathname]) return null;
-    return url.pathname;
+    var path = url.pathname + url.search;
+    if (path === window.location.pathname + window.location.search) return null;
+    if (seen[path]) return null;
+    return path;
   }
 
   function warm(anchor) {
@@ -5694,6 +5714,7 @@
       var link = document.createElement('link');
       link.rel = 'prefetch';
       link.href = path;
+      try { link.fetchPriority = 'low'; } catch (e) {}
       document.head.appendChild(link);
     } else if (window.fetch) {
       try { window.fetch(path, { credentials: 'same-origin' }).catch(function () {}); } catch (e) {}
@@ -5704,15 +5725,54 @@
     return event.target && event.target.closest ? event.target.closest('a[href]') : null;
   }
 
+  /* A map selection is deliberate intent before the pointer reaches its
+     paper link. Observe only the small inspector's card replacement; hover
+     previews and the ordinary map view never download a paper. The primary
+     card link uses the same URL, reader preferences and budget as link intent. */
+  if (window.MutationObserver && document.querySelectorAll) {
+    var inspectors = document.querySelectorAll('[data-universe-inspector]');
+    for (var inspectorIndex = 0; inspectorIndex < inspectors.length; inspectorIndex++) {
+      (function (inspector) {
+        function warmSelectedPaper() {
+          if (inspector.classList.contains('is-preview')) return;
+          var anchor = inspector.querySelector(
+            '.universe-appear--self a.universe-appear__link[href], a.universe-open--primary[href]'
+          );
+          var path = eligiblePath(anchor);
+          if (!path || !/(?:^|\/)papers\/[^/]+\.html(?:\?|$)/.test(path)) return;
+          warm(anchor);
+        }
+        new MutationObserver(warmSelectedPaper).observe(inspector, { childList: true });
+        warmSelectedPaper();
+      })(inspectors[inspectorIndex]);
+    }
+  }
+
   var restTimer = 0;
+  var restingAnchor = null;
+  function cancelRest() {
+    if (restTimer) window.clearTimeout(restTimer);
+    restTimer = 0;
+    restingAnchor = null;
+  }
   document.addEventListener('pointerover', function (event) {
     var anchor = anchorFrom(event);
-    if (!anchor) return;
-    if (restTimer) window.clearTimeout(restTimer);
-    restTimer = window.setTimeout(function () { restTimer = 0; warm(anchor); }, 140);
+    if (!anchor || anchor === restingAnchor) return;
+    cancelRest();
+    restingAnchor = anchor;
+    restTimer = window.setTimeout(function () {
+      restTimer = 0;
+      restingAnchor = null;
+      warm(anchor);
+    }, 140);
   }, true);
-  document.addEventListener('pointerout', function () {
-    if (restTimer) { window.clearTimeout(restTimer); restTimer = 0; }
+  document.addEventListener('pointerout', function (event) {
+    if (restingAnchor && event.relatedTarget && restingAnchor.contains(event.relatedTarget)) return;
+    cancelRest();
+  }, true);
+  document.addEventListener('focusin', function (event) {
+    var anchor = anchorFrom(event);
+    if (anchor) warm(anchor);
   }, true);
   document.addEventListener('touchstart', function (event) {
     var anchor = anchorFrom(event);

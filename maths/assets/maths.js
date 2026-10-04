@@ -264,7 +264,7 @@
   });
   // Deep links into a collapsed section reveal their destination; module
   // selections survive reload and browser Back/Forward as ordinary URLs.
-  function revealHash() {
+  function revealHash(initial) {
     var id = hashId();
     if (selectFromPage(id, {force: true, fromPaper: true})) return;
     document.querySelectorAll('[data-source-map]').forEach(function (map) {
@@ -272,14 +272,19 @@
     });
     var target = document.getElementById(id);
     if (!target) return;
+    var opened = false;
     for (var parent = target; parent; parent = parent.parentElement) {
-      if (parent.tagName === 'DETAILS') parent.open = true;
+      if (parent.tagName === 'DETAILS' && !parent.open) { parent.open = true; opened = true; }
     }
-    target.scrollIntoView();
+    // The browser already resolves an initial manuscript fragment. Repeating
+    // that scroll forces layout across a long paper before its reader mounts.
+    // A newly opened disclosure and a source-map selection still need their
+    // lightweight fallback; later fragment changes keep their normal reveal.
+    if (initial !== true || opened || document.querySelector('[data-source-map]')) target.scrollIntoView();
   }
   window.addEventListener('hashchange', revealHash);
   window.addEventListener('popstate', revealHash);
-  revealHash();
+  revealHash(true);
 })();
 
 /* Keep long proof coordinates available without letting them dominate prose.
@@ -409,27 +414,59 @@
     measureItems(inline.filter(function (item) { return onScreen(item.math); }),
       equations.filter(onScreen));
   }
-  var lazyBlocks = document.querySelectorAll('.paper-stage section > :not(h1, h2, h3, h4, h5, h6, section)');
-  lazyBlocks.forEach(function (block) {
+  // Visit section children directly: matching the child exclusion against
+  // every typeset equation descendant is costly in a long manuscript.
+  var lazyBlocks = new Set();
+  document.querySelectorAll('.paper-stage section').forEach(function (section) {
+    Array.prototype.forEach.call(section.children, function (block) {
+      if (!block.matches('h1, h2, h3, h4, h5, h6, section')) lazyBlocks.add(block);
+    });
+  });
+  var blockItems = new Map();
+  var pendingInline = new Set(), pendingDisplay = new Set();
+  var scheduled = false, fullMeasure = false;
+  function indexItem(node, kind, item) {
+    var block = node;
+    while (block && !lazyBlocks.has(block)) block = block.parentElement;
+    if (!block) return;
+    var items = blockItems.get(block);
+    if (!items) { items = {inline: [], display: []}; blockItems.set(block, items); }
+    items[kind].push(item);
+  }
+  inline.forEach(function (item) { indexItem(item.math, 'inline', item); });
+  equations.forEach(function (equation) { indexItem(equation, 'display', equation); });
+  // A visibility event only queues its own expressions. Several newly visible
+  // blocks share one frame, rather than rescanning the entire manuscript and
+  // forcing layout separately for each block.
+  blockItems.forEach(function (items, block) {
     block.addEventListener('contentvisibilityautostatechange', function (event) {
       if (event.skipped) return;
-      measureItems(inline.filter(function (item) { return block.contains(item.math); }),
-        equations.filter(function (equation) { return block.contains(equation); }));
+      items.inline.forEach(function (item) { pendingInline.add(item); });
+      items.display.forEach(function (equation) { pendingDisplay.add(equation); });
+      schedule(false);
     });
   });
   function measureItems(inlineItems, displayItems) {
     // Read the natural inline layout once, then promote only expressions
     // whose indivisible content is wider than their paragraph. Tables already
     // own their scrolling. This also restores inline flow on wider screens.
-    inlineItems.forEach(function (item) { item.flow.removeAttribute('data-math-overflow'); });
+    inlineItems.forEach(function (item) {
+      if (item.flow.hasAttribute('data-math-overflow')) item.flow.removeAttribute('data-math-overflow');
+    });
     var wide = inlineItems.filter(function (item) {
       var math = item.math;
       var paragraph = math.closest('p, li, td, th, .paper-stage');
       return paragraph && math.getBoundingClientRect().width > paragraph.clientWidth + 2;
     });
     wide.forEach(function (item) { item.flow.setAttribute('data-math-overflow', 'true'); });
-    displayItems.concat(inlineItems.map(function (item) { return item.flow; })).forEach(function (equation) {
-      var overflow = equation.scrollWidth > equation.clientWidth + 2;
+    // Read all scroll geometry before changing tabindex or accessibility
+    // attributes: those writes must not invalidate layout between reads.
+    var scrollItems = displayItems.concat(inlineItems.map(function (item) { return item.flow; }));
+    var overflows = scrollItems.map(function (equation) {
+      return equation.scrollWidth > equation.clientWidth + 2;
+    });
+    scrollItems.forEach(function (equation, index) {
+      var overflow = overflows[index];
       if (overflow) {
         if (!overflowTabStops.has(equation)) overflowTabStops.set(equation, equation.getAttribute('tabindex'));
         equation.setAttribute('tabindex', '0');
@@ -459,11 +496,22 @@
       }
     });
   }
-  var scheduled = false;
-  function schedule() {
+  function schedule(measureAll) {
+    if (measureAll !== false) fullMeasure = true;
     if (scheduled) return;
     scheduled = true;
-    requestAnimationFrame(function () { scheduled = false; measure(); });
+    requestAnimationFrame(function () {
+      scheduled = false;
+      if (fullMeasure) {
+        fullMeasure = false;
+        measure();
+      } else {
+        measureItems(Array.from(pendingInline).filter(function (item) { return onScreen(item.math); }),
+          Array.from(pendingDisplay).filter(onScreen));
+      }
+      pendingInline.clear();
+      pendingDisplay.clear();
+    });
   }
   window.addEventListener('resize', schedule);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
@@ -539,10 +587,12 @@
     var api = window.PlectisTermHelp;
     if (!api || typeof api.registerNotation !== 'function') return;
     document.querySelectorAll('.math[data-tex]').forEach(function (math) {
-      if (registered.has(math) || math.closest('a, button, pre, code') || math.querySelector('button, code')) return;
+      if (registered.has(math)) return;
       if (!parsed.has(math)) parsed.set(math, Object.freeze(scan(math.getAttribute('data-tex') || '')));
       var ids = parsed.get(math);
-      if (!ids.length) return;
+      // Most manuscript expressions contain no supported fixed operator. Read
+      // their small TeX attribute before querying the generated equation tree.
+      if (!ids.length || math.closest('a, button, pre, code') || math.querySelector('button, code')) return;
       // Every operator gets a keyboard introduction; repeated definitions do
       // not turn every equation into another stop through the manuscript.
       var keyboardFocus = !math.closest('[hidden], details:not([open])') &&

@@ -7011,6 +7011,7 @@ html.plait-live .plait { opacity: 1; }
   /* About 75 letters a line in STIX; the wider band let it run to 88. */
   max-width: 64ch;
 }
+.home-about__why > p:not([class]) + p:not([class]) { margin-top: 0.9em; }
 .home-about__more { margin-top: 1.1rem; font-size: 0.95rem; }
 .home-about__join {
   padding: clamp(22px, 2.6vw, 34px); border-radius: 12px;
@@ -7023,6 +7024,50 @@ html.plait-live .plait { opacity: 1; }
 .home-about__ai { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--home-line);
   font-size: 0.95rem; line-height: 1.6; color: var(--muted); max-width: 62ch; }
 .home-about__ai a:not(.narrative-ref--term) { font-weight: 600; }
+
+/* ── Credit ledger, projected by sync_curated_landing_credits ─────────────── */
+.home-credit {
+  margin-top: clamp(56px, 8vh, 88px); padding-top: 1.9rem;
+  border-top: 1px solid var(--home-line);
+}
+.home-credit__head {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 0.6rem clamp(24px, 3.5vw, 52px); align-items: baseline; margin-bottom: 1.6rem;
+}
+.home-credit__head h2 {
+  margin: 0; font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.1; letter-spacing: -0.012em;
+}
+.home-credit__head p { margin: 0; max-width: 62ch; font-size: 0.98rem; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+.home-credits {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px);
+}
+.home-credit-entry {
+  display: flex; flex-direction: column; gap: 0.55rem;
+  padding: clamp(18px, 2vw, 24px); border-radius: 12px;
+  background: var(--home-card); box-shadow: 0 0 0 1px var(--home-line);
+}
+.home-credit-entry p { margin: 0; }
+.home-credit-entry__date { font-size: 0.84rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+.home-credit-entry__told {
+  font-family: var(--font-serif); font-size: 1.06rem; line-height: 1.5; color: var(--ink); text-wrap: pretty;
+}
+.home-credit-entry__changed { font-size: 0.93rem; line-height: 1.58; color: var(--ink-soft); text-wrap: pretty; }
+.home-credit-entry__label { font-weight: 600; color: var(--ink); }
+.home-credit-entry__meta {
+  margin-top: auto; padding-top: 0.35rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 1rem;
+  font-size: 0.85rem; color: var(--muted);
+}
+.home-credit-entry__meta a { color: var(--ink-soft); font-weight: 600; }
+.home-credit-entry__meta a:hover { color: var(--ink); }
+.home-credit-entry[data-credit-naming="named_with_permission"] .home-credit-entry__meta span { color: var(--ink-soft); }
+.home-credit__more { margin-top: 1.2rem; font-size: 0.92rem; color: var(--muted); }
+.home-credit__more a { color: var(--ink-soft); font-weight: 600; }
+@media (max-width: 960px) {
+  .home-credit__head, .home-credits { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ── Footer ───────────────────────────────────────────────────────────────── */
 .home .site-footer { border-top: 1px solid var(--home-line); }

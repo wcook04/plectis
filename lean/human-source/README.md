@@ -244,6 +244,14 @@ registry records. An archived edition may differ from the current paper.
 This main checkout contains the mathematics and tools needed to work with the corpus.
 Do not infer results from private or unreleased work.
 
+## Credit
+
+Some of the biggest changes here came from people telling me what was wrong.
+One mathematician's comments on the #243 note led to all sixteen problem papers
+being rewritten for a first-time reader. The [credit ledger](docs/research-commons/CREDIT_LEDGER.md)
+lists each piece of advice, what it changed and the lines where you can see the
+change. Names stay withheld until each person confirms they want to be named.
+
 ## Citation and licence
 
 Use [CITATION.cff](CITATION.cff) and record the commit used. For a tagged

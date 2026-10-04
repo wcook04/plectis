@@ -37,7 +37,7 @@
         "clusters": 9,
         "edges": 255,
         "focus_paths": 3,
-        "inspectors": 0,
+        "inspectors": 106,
         "lanes": 0,
         "nodes": 106,
         "rows": 0
@@ -62,10 +62,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_b608602ce6ed9268bbd2",
+      "revision": "gsc_7cea3412e41e495455f8",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "4dc6101db2f1820365430b28e4fc7f65",
+      "source_fingerprint": "0cdf2fb821949ad6eb6ae7fa33a1610a",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -5772,7 +5772,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:24761a536076c5e5febc786b99e22c91ef5c4151b648903ee3f8c1aed1aacad1",
+    "sites/microcosm/index.html": "sha256:924ab3a1cbce5f027cf8edf9d1ebbee7b66ec62384a33da0a56c48a39956377d",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:39576e20db3a8f8819d700305e813fda3efe63525c93e748c9c9c99fad550e03"
   },
   "source_of_truth_contract": {

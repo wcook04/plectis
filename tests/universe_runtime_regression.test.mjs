@@ -248,11 +248,11 @@ test('a narrow Universe selection keeps anchors without lighting the containment
   const core = map.arcs().reduce((largest, arc) => arc.r > largest.r ? arc : largest);
   map.canvas.fire('click', {clientX: core.x, clientY: core.y});
   assert.equal(map.location.hash, '#o=universe%3Aall');
-  assert.match(map.inspector.innerHTML, /Connections \(98\)/);
+  assert.match(map.inspector.innerHTML, /How it connects/);
   assert.equal((map.inspector.innerHTML.match(/data-universe-go=/g) || []).length, 98, 'every adjacency remains reachable in the inspector');
   assert.match(map.inspector.innerHTML, /Fan module 95/, 'the last containment entry is not truncated');
-  const moduleGroup = [...map.inspector.innerHTML.matchAll(/<details([^>]*)><summary>([^<]*)/g)]
-    .find(([, , title]) => title.startsWith('Lean modules'));
+  const moduleGroup = [...map.inspector.innerHTML.matchAll(/<details([^>]*)><summary>(.*?)<\/summary>/g)]
+    .find(([, , title]) => /\d+ lean modules$/.test(title));
   assert.ok(moduleGroup, 'module adjacency is grouped behind a disclosure');
   assert.doesNotMatch(moduleGroup[1], /\bopen\b/, 'the dense module group starts collapsed');
   const hot = map.hotSegments();
@@ -269,7 +269,7 @@ test('a full-corpus module keeps its incident links through hash, search and len
   await map.settle();
   assert.equal(map.requests.filter(url => url === 'graph').length, 1);
   assert.match(map.inspector.innerHTML, /Fan module 00/);
-  assert.match(map.inspector.innerHTML, /Connections \(3\)/);
+  assert.match(map.inspector.innerHTML, /How it connects/);
   assert.equal(map.hotSegments().length, 3, 'module containment, proof and import are all drawn');
   assert.equal(map.drawnSegments().length, 5, 'two anchors remain in the background');
   assert.equal(map.count.textContent, '100 objects, 5 of 100 connections drawn');
@@ -341,7 +341,7 @@ test('dense module focus bounds actual strokes at phone and desktop sizes', asyn
   }};
   for (const [width, cap] of [[292, 12], [599, 12], [600, 24], [800, 24]]) {
     const map = await mount({width, data, hash: '#o=lean-module%3Ahub'});
-    assert.match(map.inspector.innerHTML, /Connections \(31\)/);
+    assert.match(map.inspector.innerHTML, /How it connects/);
     assert.equal((map.inspector.innerHTML.match(/data-universe-go=/g) || []).length, 31, 'canvas cap does not truncate navigable adjacency');
     const hot = map.hotSegments();
     assert.equal(hot.length, cap, `actual focused strokes are bounded at ${width}px`);
@@ -687,11 +687,26 @@ test('under reduced motion a hover plays no ripple and sends no bead', async () 
   assert.equal(map.frames.size, 0, 'nothing is scheduled');
 });
 
-test('a teaser dot opens its paper under the base the landing names', async () => {
+test('without the column a teaser dot opens the full map on it, under the base the landing names', async () => {
   const teaser = await mountTeaser({withCompanionHost: false});
   teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
-  assert.equal(teaser.location.href, 'maths/papers/p257.html#thm:a',
-    'a root-relative papers/ route 404ed on the landing');
+  assert.equal(teaser.location.href, 'maths/universe.html#o=statement%3Ap257%23thm%3Aa',
+    'a click selects the result where its card offers the ways out (a root-relative route 404ed)');
+});
+
+test('beside the column a click pins the result instead of leaving the page', async () => {
+  const teaser = await mountTeaser();
+  const selects = () => teaser.announced.filter(event => event.type === 'universe:select');
+  teaser.canvas.fire('pointermove', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(teaser.location.href, '/', 'the page stays where it is');
+  const pinned = selects().pop();
+  assert.ok(pinned && pinned.detail, 'the click pins the result for the column');
+  assert.equal(pinned.detail.id, 'statement:p257#thm:a');
+  assert.equal(pinned.detail.href, 'maths/papers/p257.html#thm:a', 'the card can still go to the paper');
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(selects().pop().detail, null, 'a click on the pinned dot lets it go');
+  assert.equal(teaser.location.href, '/', 'and still leaves the page where it is');
 });
 
 test('beside a problem column the teaser announces what it hovers and loads the companion', async () => {

@@ -1,0 +1,298 @@
+{
+  "artifact_role": "generated_credit_ledger_for_implemented_advice",
+  "authority_boundary": "Acknowledges advice that changed public files in this repository. It does not say that the person reviewed, checked or endorsed any mathematics, and it does not make them an author.",
+  "counts": {
+    "anonymous_by_request": 0,
+    "entries": 5,
+    "named_with_permission": 0,
+    "withheld_pending_confirmation": 5
+  },
+  "entries": [
+    {
+      "anchor": "credit-correspondence-004",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:4fccb25970fe4d947353fbb0ac94e7491bdd3e9ff10f3d53ddab5ffa734e53e8",
+          "line_end": 603,
+          "line_start": 603,
+          "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:bfb4918e3aead559a22c89f378d6a1e6371158599e673680944f0bdc187f9e4b",
+          "line_end": 733,
+          "line_start": 711,
+          "path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:e0e13da38d38e09f8750613516947c6ecc6895f947339efa10f17e32951fe324",
+          "line_end": 215,
+          "line_start": 204,
+          "path": "skills/public-mathematical-writing/SKILL.md"
+        },
+        {
+          "excerpt_sha256": "sha256:43ae7aa3892935664831547944b3b27f554b3fd290c430f00cc870396a0f8a9e",
+          "line_end": 15,
+          "line_start": 15,
+          "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+        },
+        {
+          "excerpt_sha256": "sha256:ff5754db474f064134ae8227c14f4824529f41415521823ca5a324a5154ab45c",
+          "line_end": 23,
+          "line_start": 23,
+          "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+        }
+      ],
+      "changed": "All sixteen problem papers were rewritten for a first-time reader, naming standard tools and saying how restrictive each hypothesis is, and the public writing rules now require it.",
+      "commits": [],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-004",
+      "id": "correspondence-004",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [
+        "68",
+        "243",
+        "249",
+        "251",
+        "257",
+        "269",
+        "1041",
+        "1049"
+      ],
+      "received_on": "2026-09-17",
+      "role": "mathematician",
+      "title": "Writing for a first-time reader",
+      "told": "A mathematician said the #243 note used names that meant nothing on a first or second reading, defined notation it used once, and never said how restrictive its main hypothesis was."
+    },
+    {
+      "anchor": "credit-correspondence-005",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:c28f49fa5b966035e1acc601b6fdee1738bfe70821923da14b9e485b58aa846f",
+          "line_end": 73,
+          "line_start": 68,
+          "path": "paper/251/erdos-251-prime-gap-dyadic-series.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:25842c87b62e2854557a2e4add69568a3d3398b523afd982a2f0348cca448abf",
+          "line_end": 19,
+          "line_start": 19,
+          "path": "docs/papers/SHORT_PAPER_CONTRACT.md"
+        }
+      ],
+      "changed": "A literature review was run for each of the eight problems, and each paper now credits its sources at the point where they are used.",
+      "commits": [
+        {
+          "sha": "029c90d4144d6087ba62d08ffc8b3cee1a9a165e",
+          "url": "https://github.com/wcook04/plectis-erdos/commit/029c90d4144d6087ba62d08ffc8b3cee1a9a165e"
+        },
+        {
+          "sha": "7148c5ae4a4a2f3802cccdeed62c394f64593340",
+          "url": "https://github.com/wcook04/plectis-erdos/commit/7148c5ae4a4a2f3802cccdeed62c394f64593340"
+        }
+      ],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-005",
+      "id": "correspondence-005",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [
+        "68",
+        "243",
+        "249",
+        "251",
+        "257",
+        "269",
+        "1041",
+        "1049"
+      ],
+      "received_on": "2026-09-15",
+      "role": "mathematician",
+      "title": "Showing where methods and ideas come from",
+      "told": "A mathematician said the trouble with AI-assisted mathematics is that it rarely shows where its methods and ideas come from."
+    },
+    {
+      "anchor": "credit-correspondence-002",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:88b60a7e65dd8caa239cb470e4423911058629e75c0bb69c7656677329f9429a",
+          "line_end": 24,
+          "line_start": 22,
+          "path": "paper/249/erdos-249-binary-totient-series.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:b6ce0fb599e9bf02898ae89ea89e3bf47a7a31efcaab7ffbe2a9e2aaaae8ab8c",
+          "line_end": 78,
+          "line_start": 78,
+          "path": "paper/249/erdos-249-binary-totient-series.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:c1960cd50c0146b008839691c83ef53220ec6bdf251ce3c02d30ff006670e01a",
+          "line_end": 77,
+          "line_start": 77,
+          "path": "paper/249/erdos-249-binary-totient-series.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:e4bbeef9407526e58653fc7ed307d51530c41af7bd6d225f36388486dc845a6e",
+          "line_end": 1145,
+          "line_start": 935,
+          "path": "lean/Erdos249257/TotientMahlerDefect.lean"
+        },
+        {
+          "excerpt_sha256": "sha256:b323e9a098414f61b29469d542453a446713a6650efbe384accb4d657f9a1e7e",
+          "line_end": 216,
+          "line_start": 159,
+          "path": "formalization.yaml"
+        },
+        {
+          "excerpt_sha256": "sha256:cb49ade0a57a20d0355d24a8ebc443b2be0b82e0f3c2bdd61f361abe2913a17b",
+          "line_end": 544,
+          "line_start": 534,
+          "path": "docs/EXTERNAL_VERIFICATION.md"
+        }
+      ],
+      "changed": "The #249 paper now opens with the exact rank and basis, compares the result with work of Allouche and Shallit, Coons and Martin, and links a minimal Lean entry; the irrationality question stays open.",
+      "commits": [],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-002",
+      "id": "correspondence-002",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [
+        "249"
+      ],
+      "received_on": "2026-08-06",
+      "role": "mathematician",
+      "title": "Leading the #249 paper with its exact theorem",
+      "told": "A mathematician advised leading the #249 paper with its exact finite-level theorem, explaining the mechanism behind it, and comparing it precisely with the existing literature on regular sequences."
+    },
+    {
+      "anchor": "credit-correspondence-001",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:301b260737a1b5176e64724b27eb990eaeda45fba3a6cb92b482ca3bfe6bfd0f",
+          "line_end": 60,
+          "line_start": 1,
+          "path": "formalization.yaml"
+        },
+        {
+          "excerpt_sha256": "sha256:8b08466c661aa5a0f1977d62d091fd0a355dd90ba5d7d74a51ca6c578639737f",
+          "line_end": 40,
+          "line_start": 1,
+          "path": "verification/comparator.json"
+        },
+        {
+          "excerpt_sha256": "sha256:43aca5f4da7f5f42baf826e53324c045e4fa11acd20ffd1743609e20b5084157",
+          "line_end": 13,
+          "line_start": 1,
+          "path": "verification/comparator-negative-mismatch.json"
+        },
+        {
+          "excerpt_sha256": "sha256:841f2dd16d4a52b7d08408468dd3f4f231b7d8aeb174d9ffad383abbde1acfe9",
+          "line_end": 14,
+          "line_start": 4,
+          "path": "docs/EXTERNAL_VERIFICATION.md"
+        }
+      ],
+      "changed": "formalization.yaml now lists the selected results this way, and Comparator checks them against separately written statements, including an altered statement that must be rejected.",
+      "commits": [
+        {
+          "sha": "e062d93809b6a394a067b4ea1bbdac7b228e0510",
+          "url": "https://github.com/wcook04/plectis-erdos/commit/e062d93809b6a394a067b4ea1bbdac7b228e0510"
+        }
+      ],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-001",
+      "id": "correspondence-001",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [
+        "68",
+        "243",
+        "249",
+        "251",
+        "257",
+        "269",
+        "1041",
+        "1049"
+      ],
+      "received_on": "2026-08-06",
+      "role": "mathematician",
+      "title": "Listing each checked result, with a cheap way to check it",
+      "told": "A mathematician advised listing each selected result with its exact statement, proof source, novelty status, axioms and limits, and giving reviewers a cheap way to check the statements themselves."
+    },
+    {
+      "anchor": "credit-correspondence-003",
+      "artifacts": [
+        {
+          "excerpt_sha256": "sha256:2dd1c6e867a779af56358ca64dc97076e8c0c4f4fe8db1128aed5624673e206b",
+          "line_end": 41,
+          "line_start": 1,
+          "path": "docs/primary-sources/reciprocal-tail/amdeberhan-zeilberger-1998-q-apery-source-closure.md"
+        },
+        {
+          "excerpt_sha256": "sha256:5e2e6c2c874886e16da148e50ad853ae95b8bd51917063f56898eede0c49e406",
+          "line_end": 869,
+          "line_start": 869,
+          "path": "paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex"
+        },
+        {
+          "excerpt_sha256": "sha256:c9f8d191bbf7d39a3e75436d9d7036604d3f396d1223d6f8d505668cafc4971e",
+          "line_end": 393,
+          "line_start": 389,
+          "path": "docs/PRIOR_ART.md"
+        },
+        {
+          "excerpt_sha256": "sha256:2869c3db2da5857a4c9fc56be272d52f5a7b1242f3633bd8ed0b01f0da016724",
+          "line_end": 100,
+          "line_start": 1,
+          "path": "lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean"
+        }
+      ],
+      "changed": "The comparison was carried out: a source note and a Lean module recording where the two methods part are public, and the #1049 record cites the paper where they meet.",
+      "commits": [
+        {
+          "sha": "f5342c683a321f752b6994423e1e9ec40979809f",
+          "url": "https://github.com/wcook04/plectis-erdos/commit/f5342c683a321f752b6994423e1e9ec40979809f"
+        }
+      ],
+      "credited_as": "A mathematician (name withheld pending confirmation)",
+      "detail": "SOURCE_ATTRIBUTIONS.md#source-correspondence-003",
+      "id": "correspondence-003",
+      "naming": {
+        "confirmation_status": "not_confirmed",
+        "confirmed_on": null,
+        "display": "Name withheld until they confirm.",
+        "state": "withheld_pending_confirmation"
+      },
+      "problems": [
+        "1049"
+      ],
+      "received_on": "2026-08-05",
+      "role": "mathematician",
+      "title": "Earlier work on the #1049 Lambert value",
+      "told": "A mathematician suggested comparing the #1049 construction with an earlier irrationality paper."
+    }
+  ],
+  "generated_by": "scripts/build_source_attributions.py",
+  "naming_policy": "Every entry starts with the name withheld. A name appears only after that person confirms the public name they want, and an entry stays anonymous if they ask. Private messages stay outside this repository.",
+  "schema": "plectis-credit-ledger/1",
+  "source_registry": "docs/research-commons/source-attributions.json",
+  "source_registry_sha256": "sha256:1341330c011f551b2ec59653d1a9c4d901a59f10ee6fc7b8dc5dc63361b687c0"
+}

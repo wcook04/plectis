@@ -92,6 +92,30 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
 .uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }
 
+/* The card's ways out are buttons: quiet rings, the paper's in ember. A
+   pinned card's rule turns ember too, so the reader sees what is held. The
+   card is a column in which the buttons always keep their room: on a short
+   screen the note and the declaration give way first. */
+.uc__focus { display: flex; flex-direction: column; }
+.uc__focus > * { flex: none; }
+.uc__focus > .uc__note, .uc__focus > .uc__decl { flex: 0 1 auto; min-height: 0; overflow: hidden; }
+.uc__focus .uc__links { gap: 0.4rem 0.45rem; margin: 0.5rem 0 0.35rem; }
+.uc__go {
+  min-height: 26px; padding: 0.05rem 0.75rem; border-radius: var(--r-pill, 999px);
+  color: var(--ink); text-decoration: none;
+  box-shadow: 0 0 0 1px var(--home-line);
+  transition: box-shadow var(--motion-fast, 140ms) var(--ease-out, ease-out),
+              background-color var(--motion-fast, 140ms) var(--ease-out, ease-out);
+}
+.uc__go--first { box-shadow: 0 0 0 1px var(--home-ember); }
+.uc__go:hover {
+  color: var(--ink); text-decoration: none;
+  box-shadow: 0 0 0 1px var(--home-ember);
+  background-color: color-mix(in oklab, var(--home-ember) 10%, transparent);
+}
+.uc__go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.uc.is-pinned .uc__focus { border-top-color: var(--home-ember); }
+
 /* The eight problems as tabs over the head: the column moves between them
    without the list. The current one wears the band's ember; a row's link
    in keyboard focus is shown here, since the row lies under the companion. */
@@ -157,6 +181,9 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
   box-shadow: 0 0 0 1px var(--home-ember),
               0 0 14px -3px color-mix(in oklab, var(--home-ember) var(--uc-glow), transparent);
 }
+/* While the column reads the object under the pointer, the drawing's own
+   caption, which would only repeat it, steps out. */
+.uc-reading .universe-caption.is-shown { visibility: hidden; }
 /* A card line with nothing to say takes no room (its own display rule
    would otherwise outrank the hidden attribute). */
 .uc [data-line][hidden] { display: none; }
