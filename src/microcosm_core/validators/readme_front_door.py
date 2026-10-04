@@ -170,6 +170,7 @@ def _component_inspection_guidance(text: str) -> bool:
     the README does not describe a reading task.
     """
     needs = (
+        r"\b(?:open|read|inspect|follow|start|compare)\b",
         r"\b(?:component|example)\b",
         r"\b(?:inputs?|example data)\b",
         r"\b(?:code|source|function|implementation)\b",
@@ -178,7 +179,7 @@ def _component_inspection_guidance(text: str) -> bool:
     )
     for paragraph in re.split(r"\n\s*\n", text):
         prose = " ".join(paragraph.lower().split())
-        if not prose.startswith("```") and all(re.search(p, prose) for p in needs):
+        if not prose.startswith(("```", "|")) and all(re.search(p, prose) for p in needs):
             return True
     return False
 
@@ -568,7 +569,11 @@ def validate_readme_front_door(
         blocking.append("README_OVERCLAIM")
 
     # --- 10. compatibility lineage note present (but not in the hero) ---
-    findings["compatibility_note_present"] = "Microcosm became Plectis" in text
+    findings["compatibility_note_present"] = bool(re.search(
+        r"\bmicrocosm (?:became|was renamed to) plectis\b"
+        r"|\bcalled microcosm\b.{0,100}\bbecame plectis\b",
+        normalized.lower(),
+    ))
     if not findings["compatibility_note_present"]:
         blocking.append("README_COMPATIBILITY_NOTE_MISSING")
 

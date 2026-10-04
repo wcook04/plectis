@@ -364,6 +364,18 @@ def _normalized_text(text: str) -> str:
     return " ".join(text.split())
 
 
+def _markdown_link_destinations(text: str) -> set[str]:
+    """Read inline Markdown link destinations independently of human labels."""
+    return {
+        match.group(1) or match.group(2)
+        for match in re.finditer(
+            r"(?<!!)\[[^\]]+\]\(\s*(?:<([^>\n]+)>|([^\s)]+))"
+            r"(?:\s+\"[^\"]*\"|\s+'[^']*')?\s*\)",
+            text,
+        )
+    }
+
+
 def _accepted_organs(public_root: Path) -> list[str]:
     """
     Produce the accepted organs value used by `microcosm_core.validators.public_entry_docs`.
@@ -1145,8 +1157,8 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
         #   - machine-token route (AGENTS.md, agent-facing): names both registry
         #     files plus the inventory-only posture, OR
         #   - human-link route (README.md, the human front door): links to the
-        #     generated System map (ORGANS.md) and the Release review
-        #     (RELEASE_REVIEW.md) in plain English.
+        #     generated inventory (ORGANS.md) and release review
+        #     (RELEASE_REVIEW.md), with labels chosen for the human reader.
         # The registries-exist-and-validate TRUTH is enforced independently by
         # _accepted_organs + _evidence_class_registry_summary, so the human front
         # door need not echo the raw JSON paths / status-enum / field-name tokens
@@ -1159,9 +1171,8 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
                 or "public entry inventory" in normalized
             )
         )
-        human_link_route = (
-            "[System map](ORGANS.md)" in text
-            and "[Release review](RELEASE_REVIEW.md)" in text
+        human_link_route = {"ORGANS.md", "RELEASE_REVIEW.md"} <= (
+            _markdown_link_destinations(text)
         )
         registry_route_present = machine_token_route or human_link_route
         expected_count = len(expected_organs)

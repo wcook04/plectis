@@ -11,7 +11,11 @@ from typing import Any
 
 import pytest
 
-from microcosm_core.validators.public_entry_docs import validate_public_entry_docs
+from microcosm_core.validators.public_entry_docs import (
+    _markdown_link_destinations,
+    validate_public_entry_docs,
+)
+from microcosm_core.validators.readme_front_door import validate_readme_front_door
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -567,6 +571,74 @@ def test_public_entry_docs_block_registry_route_with_false_inline_coverage(
     assert agents_claim["missing_organs"]
 
 
+@pytest.mark.parametrize("link_title", ["", ' "Public reference"'])
+def test_public_entry_docs_accepts_renamed_readme_inventory_link_labels(
+    tmp_path: Path,
+    link_title: str,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    for destination, label in (
+        ("ORGANS.md", "Browse the components"),
+        ("RELEASE_REVIEW.md", "Inspect claims and results"),
+    ):
+        text, replacements = re.subn(
+            rf"(?<!!)\[[^\]]+\]\({re.escape(destination)}\)",
+            f"[{label}]({destination}{link_title})",
+            text,
+        )
+        assert replacements, destination
+    readme.write_text(text, encoding="utf-8")
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "pass", receipt["blocking_codes"]
+    readme_claim = receipt["entry_spine_claims"]["docs"]["README.md"]
+    assert readme_claim["status"] == "pass"
+    assert readme_claim["claim_mode"] == "registry_route"
+
+
+@pytest.mark.parametrize("destination", ["ORGANS.md", "RELEASE_REVIEW.md"])
+@pytest.mark.parametrize("replacement_destination", [None, "SOURCE_STATUS.md"])
+def test_public_entry_docs_blocks_missing_or_wrong_readme_inventory_destinations(
+    tmp_path: Path,
+    destination: str,
+    replacement_destination: str | None,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    replacement = (
+        r"\1"
+        if replacement_destination is None
+        else rf"[\1]({replacement_destination})"
+    )
+    text, replacements = re.subn(
+        rf"(?<!!)\[([^\]]+)\]\({re.escape(destination)}\)",
+        replacement,
+        text,
+    )
+    assert replacements, destination
+    readme.write_text(text, encoding="utf-8")
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH" in receipt["blocking_codes"]
+    readme_claim = receipt["entry_spine_claims"]["docs"]["README.md"]
+    assert readme_claim["status"] == "blocked"
+    assert readme_claim["registry_route_present"] is False
+
+
 def test_public_entry_docs_block_hardcoded_numeric_organ_count_claim(
     tmp_path: Path,
 ) -> None:
@@ -942,22 +1014,18 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     # validators/readme_front_door.py whenever a banner is present.
     assert "# Plectis" in text
     # Rename / compatibility lineage fact stays available to the human reader.
-    assert "Microcosm became Plectis" in text
-    assert (
-        "Microcosm remains only where compatibility or historical continuity requires it"
-        in normalized_text
-    )
+    assert validate_readme_front_door(MICROCOSM_ROOT)["findings"]["compatibility_note_present"]
+    assert "compatibility" in normalized_text
     assert "Microcosm is the public repo form of the macro system" not in text
     # Registry-route inventory posture: the registries own the inventory; the
     # human README only routes to them in plain English and states the boundary.
     # The raw JSON paths / status-enum / field-name tokens were retired from
     # human prose (their truth is enforced independently by the registries
-    # themselves), so retain links to the generated System map and Release
+    # themselves), so retain links to the generated inventory and release
     # review. The README binding validator owns inventory/claim constraints;
     # this test must not force a particular explanation or internal field name.
-    assert "[System map](ORGANS.md)" in text
-    assert "[Release review](RELEASE_REVIEW.md)" in text
-    assert "repo -> .microcosm" in text
+    assert {"ORGANS.md", "RELEASE_REVIEW.md"} <= _markdown_link_destinations(text)
+    assert ".microcosm/" in text
     # The agent first-action product is reachable from the human front door.
     assert "comprehend --first-action" in text
     # Negative guards: no stale macro / reconstruction / false-coverage framing.

@@ -11,8 +11,11 @@ installing anything.
 
 | Task | Document | Contents |
 |---|---|---|
-| Understand what Plectis is | [Understanding Plectis](UNDERSTANDING_PLECTIS.md) | The two uses of the toolkit, the terms used in the code, and one example followed from input to result. |
+| Understand why these tools belong together | [Project overview](../README.md#why-this-exists) | The research purpose and how this toolkit, the mathematics and the website fit together. |
 | Try it on your computer | [Quickstart](../QUICKSTART.md) | A local run and a record you can inspect, with no package installation required. |
+| Check an agent's claim that work is finished | [Checking agent completion](guides/checking-agent-completion.md) | A sample repository, actual Git and pytest runs, and completion claims that pass or fail. |
+| Change an input and see a check reject it | [Prompt-injection walkthrough](UNDERSTANDING_PLECTIS.md#one-example-you-can-follow) | A prepared record, the code that checks it, and an altered input that must fail. |
+| Prepare a question for an expert | [Hypothesis handoffs](guides/hypothesis-handoffs.md) | A tentative answer, alternatives and proposed observations that could distinguish them. |
 | Find the code to change | [Repository layout](../README.md#repository-layout) and [implementation map](maintainers/architecture.md#implementation-map) | Command dispatch, shared runtime, component code, generated documents and packaging owners. |
 | Find a component in your field | [Component specialties](../ORGANS.md#find-your-specialty) or the [interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) | The Python program, prepared input files, saved output and pass/fail conditions for that component. |
 | Read the argument and evidence | [Paper guide](papers/README.md) | A paper chosen by the question it answers, with a PDF and searchable text. |
