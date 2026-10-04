@@ -279275,7 +279275,7 @@
       "schema": "microcosm_public_content_graph_v1"
     },
     "contract_id": "microcosm_public_machine_surface_sync",
-    "derived_view_count": 7,
+    "derived_view_count": 8,
     "derived_views": [
       {
         "join_fields": [
@@ -279306,6 +279306,15 @@
         "path": "assets/search-index.js",
         "schema": "microcosm_public_search_index_v1",
         "surface_id": "search_index"
+      },
+      {
+        "join_fields": [
+          "source_fingerprint",
+          "object_id"
+        ],
+        "path": "assets/search-core.js",
+        "schema": "microcosm_public_search_core_index_v1",
+        "surface_id": "search_core"
       },
       {
         "join_fields": [

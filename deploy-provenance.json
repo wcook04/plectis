@@ -1,5 +1,5 @@
 {
-  "generator_commit": "aa694b8203d72fb94ca702217a9d38376c453ce0",
+  "generator_commit": "bd3b31cd6ead55292638ced634ddc0c3a1194ea0",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {

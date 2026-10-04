@@ -44,11 +44,18 @@
 
   var mcSearchIndexState = 'idle';
   var mcSearchIndexCallbacks = [];
-  function mcSearchIndexRecords() {
-    var data = window.__MICROCOSM_INDEX__ || {};
-    // Each owning corpus keeps its own projection; the reader uses one palette.
-    // Maths entries point from the docs dialogs to canonical maths pages.
+  var mcFullSearchIndexState = 'idle';
+  var mcFullSearchIndexCallbacks = [];
+  function searchIndexRecords(data) {
+    data = data || {};
     return (data.records || []).concat(data.terms || [], data.maths || []);
+  }
+  function mcSearchIndexRecords() {
+    // Each owning corpus keeps its own projection; the reader uses one palette.
+    // Rich glossary records remain on the legacy index; Search needs only the
+    // fields used for ranking, snippets, routes and actions.
+    var full = searchIndexRecords(window.__MICROCOSM_INDEX__);
+    return full.length ? full : searchIndexRecords(window.__MICROCOSM_SEARCH_CORE__);
   }
 
   function completeSearchIndex(records) {
@@ -58,13 +65,40 @@
     queued.forEach(function (cb) { cb(records || []); });
   }
 
-  function existingSearchIndexScript() {
-    var tagged = document.querySelector('script[data-search-index]');
+  function existingSearchIndexScript(name, attribute) {
+    var tagged = document.querySelector('script[' + attribute + ']');
     if (tagged) return tagged;
     var scripts = Array.prototype.slice.call(document.querySelectorAll('script[src]'));
     return scripts.filter(function (s) {
-      return /(?:^|\/)search-index\.js(?:[?#].*)?$/.test(s.getAttribute('src') || s.src || '');
+      var src = (s.getAttribute('src') || s.src || '').split(/[?#]/)[0];
+      return src.slice(src.lastIndexOf('/') + 1) === name;
     }).pop() || null;
+  }
+
+  function withFullSearchIndex(cb) {
+    var records = searchIndexRecords(window.__MICROCOSM_INDEX__);
+    if (records.length) { cb(records); return; }
+    if (mcFullSearchIndexState === 'failed') { cb([]); return; }
+    mcFullSearchIndexCallbacks.push(cb);
+    if (mcFullSearchIndexState === 'loading') return;
+    mcFullSearchIndexState = 'loading';
+    function complete() {
+      var loaded = searchIndexRecords(window.__MICROCOSM_INDEX__);
+      mcFullSearchIndexState = loaded.length ? 'ready' : 'failed';
+      var queued = mcFullSearchIndexCallbacks.slice();
+      mcFullSearchIndexCallbacks = [];
+      queued.forEach(function (callback) { callback(loaded); });
+    }
+    var existing = existingSearchIndexScript('search-index.js', 'data-search-index');
+    var script = existing || document.createElement('script');
+    script.addEventListener('load', complete);
+    script.addEventListener('error', complete);
+    if (!existing) {
+      script.src = mcAssetUrl('search-index.js');
+      script.async = true;
+      script.setAttribute('data-search-index', '');
+      document.head.appendChild(script);
+    }
   }
 
   function withSearchIndex(cb) {
@@ -82,22 +116,31 @@
     if (mcSearchIndexState === 'loading') return;
     mcSearchIndexState = 'loading';
 
-    var existing = existingSearchIndexScript();
+    // A legacy page may already be loading its complete index. Share that
+    // request rather than adding a second projection alongside it.
+    if (mcFullSearchIndexState !== 'failed' &&
+        existingSearchIndexScript('search-index.js', 'data-search-index')) {
+      withFullSearchIndex(completeSearchIndex);
+      return;
+    }
+    function loaded() {
+      var records = mcSearchIndexRecords();
+      if (records.length) completeSearchIndex(records);
+      else withFullSearchIndex(completeSearchIndex);
+    }
+    var existing = existingSearchIndexScript('search-core.js', 'data-search-core');
     if (existing) {
-      existing.addEventListener('load', function () { completeSearchIndex(mcSearchIndexRecords()); });
-      existing.addEventListener('error', function () { completeSearchIndex([]); });
+      existing.addEventListener('load', loaded);
+      existing.addEventListener('error', function () { withFullSearchIndex(completeSearchIndex); });
       return;
     }
 
     var s = document.createElement('script');
-    s.src = mcAssetUrl('search-index.js');
+    s.src = mcAssetUrl('search-core.js');
     s.async = true;
-    s.setAttribute('data-search-index', '');
-    s.addEventListener('load', function () { completeSearchIndex(mcSearchIndexRecords()); });
-    s.addEventListener('error', function () {
-      if (window.console && console.warn) console.warn('Microcosm: search-index.js failed to load; site search unavailable.');
-      completeSearchIndex([]);
-    });
+    s.setAttribute('data-search-core', '');
+    s.addEventListener('load', loaded);
+    s.addEventListener('error', function () { withFullSearchIndex(completeSearchIndex); });
     document.head.appendChild(s);
   }
 
@@ -4550,7 +4593,7 @@
           initTermLayer(previewRows);
           return;
         }
-        withSearchIndex(function () {
+        withFullSearchIndex(function () {
           layerLoading = false;
           var loaded = currentTerms();
           if (!loaded.length) loaded = passiveInlineRows;
@@ -5096,6 +5139,7 @@
       tipHideTimer = setTimeout(hideTip, 110); // grace so the pointer can land on the tip
     }
     tip.addEventListener('mouseenter', function (ev) {
+      if (suppressPointerPreview) return;
       var under = canFollowUnderlyingTerm(ev) ? termUnderPointer(ev.clientX, ev.clientY) : null;
       if (under && under !== tipFor) {
         if (stateFor(under) || byId[under.getAttribute('data-term')]) showTip(under, 'pointer');
@@ -5164,6 +5208,8 @@
       var popupNotation = tipFor && stateFor(tipFor) && tip.contains(document.activeElement) ? tipFor : null;
       var keyboardNotation = focusedNotation || popupNotation;
       if ((ev.key === 'Escape' || ev.key === 'Esc') && !tip.hidden) {
+        suppressPointerPreview = true;
+        document.addEventListener('mousemove', releasePointerSuppression, { once: true, capture: true });
         if (!popupNotation) { hideTip(); return; }
         ev.preventDefault();
         suppressFocusPreview = true;

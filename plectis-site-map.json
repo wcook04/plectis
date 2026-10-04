@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:ec152feb3fe14563f91c108a02642c93ef8a8dc81a5e89fe0b01a2d8487dcffc",
+    "payload_sha256_excluding_identity": "sha256:48dd9e5e285630cad1c76fc11e430d6f27e8fe8136dfe1d876d1cf56522542d0",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "bd2199dcce35b73224b4d75efb54ecd4"
@@ -6161,7 +6161,7 @@
       "paper_module": 103,
       "principle": 20
     },
-    "surface_sync_derived_view_count": 7
+    "surface_sync_derived_view_count": 8
   },
   "coverage_scope": {
     "authority_boundary": "This packet is a public-site projection and orientation aid. The Plectis source repository and the public source refs remain source authority; answers stop where those public records stop.",
@@ -15072,6 +15072,7 @@
     "projection_status_path": "projection-status.json",
     "public_reader_assurance_path": "plectis-public-reader-assurance.json",
     "role": "derived_view",
+    "search_core_path": "assets/search-core.js",
     "search_index_path": "assets/search-index.js",
     "surface_sync_contract_ref": "content-graph.json::surface_sync_contract"
   },
@@ -69148,6 +69149,11 @@
       "schema": "plectis_public_reader_assurance_dossier_v0"
     },
     "schema": "microcosm_public_site_packet_sidecar_refs_v1",
+    "search_core": {
+      "global": "window.__MICROCOSM_SEARCH_CORE__",
+      "path": "assets/search-core.js",
+      "schema": "microcosm_public_search_core_index_v1"
+    },
     "search_index": {
       "global": "window.__MICROCOSM_INDEX__",
       "path": "assets/search-index.js",
@@ -69254,7 +69260,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:7c5117c73518612e4b88bf11b39870b49fd8f6513d865acabc089ae2a5a8230c",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:2271d05ac4d4997e304f5a6daa4c80ac0c9abbdcb42576bf13394bde90e27ebf"
+      "sites/microcosm/index.html": "sha256:2fe522d762b8ed680467ad2f7b78abf5d04f090ee0931ec75cfa47aa51955b70"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
