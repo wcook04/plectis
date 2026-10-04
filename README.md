@@ -1,5 +1,11 @@
 # Plectis
 
+**Plectis is research on eight Erdős problems, with Lean proofs and papers.
+Read it at [wcook04.github.io/plectis](https://wcook04.github.io/plectis/).**
+The Lean proofs are in [wcook04/plectis-erdos](https://github.com/wcook04/plectis-erdos).
+This repository holds the website's source and the earlier Python toolkit
+described below.
+
 [Website](https://wcook04.github.io/plectis/) ·
 [Quickstart](QUICKSTART.md) ·
 [Human guides](docs/README.md#human-guides) ·
