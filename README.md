@@ -1,23 +1,18 @@
 # Plectis
 
-**Plectis is research on eight Erdős problems, with Lean proofs and papers.
-Read it at [wcook04.github.io/plectis](https://wcook04.github.io/plectis/).**
-The Lean proofs are in [wcook04/plectis-erdos](https://github.com/wcook04/plectis-erdos).
-This repository holds the website's source and the earlier Python toolkit
-described below.
-
-[Website](https://wcook04.github.io/plectis/) ·
-[Quickstart](QUICKSTART.md) ·
-[Human guides](docs/README.md#human-guides) ·
-[Contributing](CONTRIBUTING.md)
-
-**Plectis is a public Python toolkit developed as part of the research and
-engineering system I built with AI coding agents.** There are programs for
+**Plectis is a public Python toolkit for inspecting projects and trying
+reproducible AI research and engineering components.** There are programs for
 running Lean on proposed proofs, rejecting inconsistent records of agent
 actions, comparing forecasts,
 comparing generated files with their source, and recording unfinished work.
 You can run the examples, read the code and change the inputs to test what
 happens.
+
+[Quickstart](QUICKSTART.md) ·
+[Human guides](docs/README.md#human-guides) ·
+[Components](ORGANS.md) ·
+[Contributing](CONTRIBUTING.md) ·
+[Website](https://wcook04.github.io/plectis/)
 
 Start with a tour of this repository. It lists project files, identifies files
 such as the README and Python package configuration, and suggests a task
@@ -26,7 +21,7 @@ run locally. The tour
 makes no network or model calls and does not edit your source files or run
 your project's tests.
 
-Two commands, no install, any Python 3.11 or newer:
+Two commands, no install, Python 3.11 or newer:
 
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
@@ -43,28 +38,9 @@ page abbreviates a command to `plectis`, you can use
 macOS or Linux shell; in Windows PowerShell, set `$env:PYTHONPATH = 'src'`
 first, then use `python -m plectis`.
 
-**How this was built, and why it is built the way it is.** One person sets the
-direction; large-language-model agents write and maintain most of the code.
-William Cook selects the public claims and is responsible for them. Each
-component includes source code, runnable examples and files recording the
-results, so that another developer can inspect how a result was obtained.
-
-This is an *AI-native* repository: it includes instructions, task maps and
-JSON records designed for coding agents to use when working on the code.
-This README, the [human guides](docs/README.md#human-guides) and the
-[website](https://wcook04.github.io/plectis/) explain the work for readers.
-For exploring the code, I recommend [cloning the repository and using a
-coding agent](#explore-with-a-coding-agent).
-
-For the argument behind the toolkit, read [the Plectis paper](plectis-public-system.pdf).
-The [paper guide](docs/papers/README.md) introduces the other papers, with PDFs
-and searchable text available in the clone.
-
-The [mathematics companion](https://github.com/wcook04/plectis-erdos) contains
-papers and Lean proofs across eight Erdős problem programmes. A maths task needs
-only that repository; a software task needs only this one.
-[Recorded walkthroughs](https://wcook04.github.io/plectis/#demo-videos)
-show the private interface; they do not establish its reliability.
+The toolkit runs locally without an API key or access to the author's private
+system. The separate [mathematics companion](https://github.com/wcook04/plectis-erdos)
+contains the Lean proof corpus and mathematical papers.
 
 ## Where to start
 
@@ -112,17 +88,9 @@ JSON records contain inputs, configuration and saved results. You can read
 the explanations and source directly, or ask an agent to locate and explain
 particular files.
 
-For the website, *digestion* means turning source material into explanations,
-examples and diagrams for a particular reader or question. People can do
-this work themselves; here, AI agents draft the explanations. For mathematics,
-this is *AI pre-digestion*: preparing material for a reader. The reader still
-needs to reconstruct the argument, examine its assumptions and difficult
-steps, and understand how to use the result. Build scripts assemble component
-pages and source links from the repository's records. The aim is to repeat
-this process when the source changes. The website provides explanations and
-navigation for readers; the repository also provides structured records and
-commands for agents. Both include links to the source files and recorded
-results.
+This is an *AI-native* repository: agents use these instructions, task maps
+and JSON records to locate code, run examples and check changes. The
+[human guides](docs/README.md#human-guides) explain the same programs for readers.
 
 ## What you get
 
@@ -224,6 +192,24 @@ For the test dependencies and development setup, see
 [Contributing](CONTRIBUTING.md). The legacy `microcosm` command remains
 available as an alias for older scripts.
 
+## Develop and verify
+
+From the clone root:
+
+```bash
+make check   # fast registry and Lean-source checks; no installation
+make ci      # public tests, command smoke tests and a fresh package installation
+```
+
+`make ci` creates temporary virtual environments and installs its build and
+test dependencies; it can need network access. `make help` lists the narrower
+targets. See [Contributing](CONTRIBUTING.md) for focused tests and the
+[validation guide](docs/maintainers/validation.md) for what each check covers.
+
+Local runs belong under the ignored `.microcosm/` directory. Keep committed
+example results in `receipts/` unchanged unless you are deliberately
+regenerating them with their producing command.
+
 ## How it works
 
 The project-reading code creates a file inventory, identifies source,
@@ -241,6 +227,25 @@ identified separately in the component's instructions and output.
 [Architecture](ARCHITECTURE.md) lists the implementation modules and their
 relationships. The website has an
 [interactive diagram](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map).
+
+## Repository layout
+
+| Location | Responsibility |
+|---|---|
+| `src/plectis/` | Public command and module entry points. |
+| `src/microcosm_core/` | Shared runtime, command dispatch and installed-data lookup; the import name is retained for compatibility. |
+| `src/microcosm_core/organs/` | Individual component implementations. |
+| `core/` | Component registries and the JSON data behind the generated maps. |
+| `examples/`, `fixtures/`, `tests/` | Worked inputs, test cases and executable assertions. |
+| `scripts/`, `Makefile`, `.github/workflows/` | Builders, local validation and CI. |
+| `docs/` | Human guides and maintenance runbooks. |
+| `atlas/`, `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md` | Generated reference maps; edit their source and rerun the builder. |
+| `standards/`, `skills/`, `paper_modules/` | Component contracts, procedures and detailed explanations. |
+| `receipts/` | Recorded example results, distinct from the outputs of your own runs. |
+
+The [architecture maintenance guide](docs/maintainers/architecture.md) traces
+the command flow and names each source owner. Root reference documents keep
+their existing paths so commands and incoming links continue to work.
 
 ## Browse the component map
 
@@ -329,6 +334,12 @@ compares the live website's downloadable packets with this source tree.
 
 ## Name and history
 
+**How this was built.** William Cook sets the direction and is responsible for the public claims;
+AI coding agents write and maintain most of the code. Each component provides
+source, examples and recorded results for another developer to inspect.
+The [Plectis paper](plectis-public-system.pdf) explains the research argument;
+the [paper guide](docs/papers/README.md) lists the other manuscripts.
+
 This project was published under the name Microcosm until 21 June 2026, when
 **Microcosm became Plectis** to avoid confusion with the earlier Southampton
 Microcosm hypermedia system, and to acknowledge that lineage without implying
@@ -349,6 +360,19 @@ Plectis is Copyright 2026 William Cook and is licensed under the Apache
 License, Version 2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). It was
 developed by William Cook as an independent project using AI coding agents; see
 [PROVENANCE.md](PROVENANCE.md) for authorship and third-party sources.
+
+## Mathematics companion
+
+The separate [plectis-erdos repository](https://github.com/wcook04/plectis-erdos)
+contains mathematical papers and Lean proof source. Its
+[results guide](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md)
+records the statements, assumptions and remaining questions.
+Running a toolkit example here does not rerun those proofs. Use the companion's
+own instructions when checking mathematics or contributing a proof.
+
+<!-- The two snapshot/release bullets are maintained by scripts/check_lean_companion_snapshot.py. -->
+<details>
+<summary>Recorded companion snapshot and source references</summary>
 
 ## Companion project: eight open Erdős problems in Lean 4
 
@@ -392,3 +416,5 @@ the broader test suite runs.
   latest tagged release.
 - [**Release v0.10.0**](https://github.com/wcook04/plectis-erdos/releases/tag/v0.10.0):
   the version to cite when referring to that release.
+
+</details>

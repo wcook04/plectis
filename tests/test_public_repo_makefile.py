@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MAKEFILE = MICROCOSM_ROOT / "Makefile"
@@ -305,7 +307,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "TMPDIR ?= /tmp",
         "PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')",
         "PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)",
-        "VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)",
+        "PYTHON_ENV_KEY := $(PYTHON_ENV_KEY)",
+        "VENV ?= $(TMPDIR)/microcosm-substrate-venv-$(PYTEST_TMP_KEY)-$(PYTHON_ENV_KEY)",
         "VENV_PYTHON ?= $(VENV)/bin/python",
         "PIP_CACHE_DIR ?= $(TMPDIR)/microcosm-substrate-pip-cache-$(PYTEST_TMP_KEY)",
         "PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)",
@@ -376,7 +379,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "> $(SMOKE_OUT)/stripping-guard.json",
         "$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)",
         "$(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON)",
-        'if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
+        'if [ "$$status" -eq 0 ] && [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
             "ci: check test smoke package-smoke",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
@@ -426,13 +429,11 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         "first-action.json",
     ):
         assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
-        assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact} || true") == 1
+        assert f"> $(SMOKE_OUT)/{smoke_artifact} || true" not in text
     assert text.count("--out $(SMOKE_OUT)/served-status-card.json") == 1
-    assert (
-        text.count("--out $(SMOKE_OUT)/served-status-card.json || true") == 1
-    )
+    assert "--out $(SMOKE_OUT)/served-status-card.json || true" not in text
     assert text.count("scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)") == 1
-    assert "Collect receipts first; check_smoke_outputs owns the final pass/fail reason." in text
+    assert "The checker validates those cards; command errors must still stop the run." in text
     assert "Microcosm smoke receipts written to %s" not in text
 
 
@@ -790,3 +791,71 @@ def test_public_repo_makefile_ci_target_runs_preflight_test_and_smoke() -> None:
     assert "test-all: install" in text
     assert not re.search(r"^ci:.*standalone-export", text, flags=re.MULTILINE)
     assert "microcosm_core.cli" not in text
+
+
+def test_make_venv_reuse_is_bound_to_the_selected_python(tmp_path: Path) -> None:
+    alternate_python = tmp_path / "alternate-python"
+    alternate_python.symlink_to(sys.executable)
+    probe_makefile = tmp_path / "probe.mk"
+    include_path = str(MAKEFILE).replace(" ", "\\ ")
+    probe_makefile.write_text(
+        f"include {include_path}\n"
+        "print-selected-venv:\n\t@printf '%s\\n' '$(VENV)'\n",
+        encoding="utf-8",
+    )
+
+    def selected_venv(python: Path) -> str:
+        result = subprocess.run(
+            [
+                "make", "--no-print-directory", "-s", "-f", str(probe_makefile),
+                "print-selected-venv", f"PYTHON={python}", f"TMPDIR={tmp_path}",
+            ],
+            cwd=MICROCOSM_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+
+    original = selected_venv(Path(sys.executable))
+    assert selected_venv(Path(sys.executable)) == original
+    assert selected_venv(alternate_python) != original
+
+
+@pytest.mark.parametrize(("command", "exit_code"), [("hello", 1), ("tour", 2)])
+def test_make_smoke_rejects_unexpected_process_exits_before_card_check(
+    tmp_path: Path,
+    command: str,
+    exit_code: int,
+) -> None:
+    log_path = tmp_path / "commands.jsonl"
+    fake_python = tmp_path / "fake-python"
+    fake_python.write_text(
+        f"#!{sys.executable}\n"
+        "import json, sys\n"
+        "from pathlib import Path\n"
+        f"with Path({str(log_path)!r}).open('a', encoding='utf-8') as log:\n"
+        "    log.write(json.dumps(sys.argv[1:]) + '\\n')\n"
+        "print('{}')\n"
+        f"if sys.argv[1:4] == ['-m', 'microcosm_core', {command!r}]:\n"
+        f"    raise SystemExit({exit_code})\n",
+        encoding="utf-8",
+    )
+    fake_python.chmod(0o755)
+
+    result = subprocess.run(
+        [
+            "make", "--no-print-directory", "smoke", f"PYTHON={fake_python}",
+            "PYTHON_ENV_KEY=test", "PYTEST_TMP_KEY=test", "PYTEST_RUN_ID=test",
+            f"SMOKE_OUT={tmp_path / 'smoke'}",
+        ],
+        cwd=MICROCOSM_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode != 0
+    commands = [json.loads(line) for line in log_path.read_text().splitlines()]
+    assert commands[-1][:3] == ["-m", "microcosm_core", command]
+    assert not any("scripts/check_smoke_outputs.py" in row for row in commands)

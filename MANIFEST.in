@@ -1,6 +1,7 @@
 include .gitignore
 include .github/PULL_REQUEST_TEMPLATE.md
 include .github/copilot-instructions.md
+include .github/dependabot.yml
 include AGENTS.md
 include AGENTS.override.md
 include AGENT_ROUTES.md
@@ -29,7 +30,9 @@ include SECURITY.md
 include SOURCE_STATUS.md
 include bootstrap.sh
 include pyproject.toml
+include plectis-public-system.pdf
 
+graft .github/ISSUE_TEMPLATE
 graft .github/workflows
 graft assets
 graft atlas
@@ -37,6 +40,7 @@ graft core
 graft docs
 graft examples
 graft fixtures
+graft paper
 graft paper_modules
 graft receipts
 graft scripts

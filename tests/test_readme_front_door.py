@@ -29,6 +29,7 @@ _LINKED_SIBLINGS = (
     "docs/README.md",
     "docs/UNDERSTANDING_PLECTIS.md",
     "docs/maintainers/validation.md",
+    "docs/maintainers/architecture.md",
     "ORGANS.md",
     "AGENTS.md",
     "AGENTS.override.md",
@@ -201,13 +202,13 @@ def test_blocks_attribution_above_the_first_command(tmp_path: Path) -> None:
 
     This is where it sat until 2026-08-16: between the promise and anything
     runnable, so the second thing a stranger read was who wrote the code rather
-    than what it does. The paragraph itself is not the problem and stays on the
-    first screen; only its position ahead of the demonstration is blocked.
+    than what it does. The paragraph itself is not the problem; only its
+    position ahead of the demonstration is blocked.
     """
     root = _front_door_tree(tmp_path)
     readme = root / "README.md"
     text = readme.read_text(encoding="utf-8")
-    marker = "**How this was built, and why it is built the way it is.**"
+    marker = "**How this was built.**"
     start = text.find(marker)
     assert start >= 0, "fixture needs the provenance paragraph to relocate"
     end = text.find("\n\n", start)

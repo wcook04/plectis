@@ -48,6 +48,8 @@ PYTHON_TOOL_ALLOWED = {
     "CITATION.cff", "CONTRIBUTING.md", "GEMINI.md",
     "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
     "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
+    # setuptools adds these standard metadata files to source distributions.
+    "PKG-INFO", "setup.cfg",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
     "paper_modules", "plectis-public-system.pdf",
     "receipts", "scripts", "skills", "src", "standards", "tests",

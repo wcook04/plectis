@@ -43,6 +43,9 @@ jobs:
       - name: Run repository verification target
         run: make ci
 
+      - name: Ensure verification preserves tracked inputs
+        run: git diff --exit-code HEAD --
+
   first-contact:
     # The published first screen, run as a stranger runs it. Deliberately no
     # actions/setup-python step: the promise this repository makes is to the
@@ -83,6 +86,9 @@ jobs:
           .venv/bin/python -m pip install .
           .venv/bin/plectis tour --format text .
 
+      - name: Ensure first contact preserves tracked inputs
+        run: git diff --exit-code HEAD --
+
   user-smoke:
     name: User smoke and timing
     runs-on: ubuntu-latest
@@ -107,3 +113,6 @@ jobs:
 
       - name: Run installed package smoke
         run: make package-smoke
+
+      - name: Ensure smoke preserves tracked inputs
+        run: git diff --exit-code HEAD --

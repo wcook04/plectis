@@ -226,6 +226,10 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     work_dir = work_dir.resolve()
     if not (source_root / "pyproject.toml").is_file():
         raise SystemExit(f"source root lacks pyproject.toml: {source_root}")
+    # Cleanup is recursive, and staging copies the entire source tree. Keep
+    # both operations away from the source and any symlink alias of it.
+    if source_root.is_relative_to(work_dir) or work_dir.is_relative_to(source_root):
+        raise SystemExit("source root and work directory must not overlap")
 
     if work_dir.exists():
         shutil.rmtree(work_dir)
@@ -461,7 +465,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
     parser.add_argument("--source-root", type=Path, default=Path.cwd())
-    parser.add_argument("--work-dir", type=Path, required=True)
+    parser.add_argument(
+        "--work-dir", type=Path, required=True,
+        help="Disposable directory recreated for this run; must not overlap the source tree.",
+    )
     parser.add_argument("--python", default=sys.executable)
     args = parser.parse_args(argv)
     run_package_smoke(args.source_root, args.work_dir, args.python)

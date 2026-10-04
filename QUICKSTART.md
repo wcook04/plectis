@@ -38,7 +38,7 @@ prints introductory text without creating files. In PowerShell, set `$env:PYTHON
 
 ## 2. Install
 
-Installation is optional. The browse and browser steps use the source form,
+Installation is optional. The component and browser steps use the source form,
 so you can skip this step. To install into a virtual environment on macOS / Linux:
 
 ```bash
@@ -107,4 +107,4 @@ it does not measure a model's response to a hostile page.
 [Name and history](README.md#name-and-history). Once you know which result you
 want to inspect, `PYTHONPATH=src python3 -m plectis evidence list . --limit 25`
 lists the saved result files. Continue with [the documentation map](docs/README.md), or
-[CONTRIBUTING.md](CONTRIBUTING.md) if you want to change or check the code.
+[CONTRIBUTING.md](CONTRIBUTING.md) if you want to change or check the code. [Troubleshooting](docs/README.md#troubleshooting) covers common setup errors.

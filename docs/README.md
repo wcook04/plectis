@@ -13,6 +13,7 @@ installing anything.
 |---|---|---|
 | Understand what Plectis is | [Understanding Plectis](UNDERSTANDING_PLECTIS.md) | The two uses of the toolkit, the terms used in the code, and one example followed from input to result. |
 | Try it on your computer | [Quickstart](../QUICKSTART.md) | A local run and a record you can inspect, with no package installation required. |
+| Find the code to change | [Repository layout](../README.md#repository-layout) and [implementation map](maintainers/architecture.md#implementation-map) | Command dispatch, shared runtime, component code, generated documents and packaging owners. |
 | Find a component in your field | [Component specialties](../ORGANS.md#find-your-specialty) or the [interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) | The Python program, prepared input files, saved output and pass/fail conditions for that component. |
 | Read the argument and evidence | [Paper guide](papers/README.md) | A paper chosen by the question it answers, with a PDF and searchable text. |
 | Read the mathematics | [Lean companion](https://github.com/wcook04/plectis-erdos) | Problem papers, theorem statements and the corresponding Lean source. |
@@ -123,3 +124,12 @@ and [rules for editing source and regenerating results](../AGENTS.md).
 
 The [source directory map](UNDERSTANDING_PLECTIS.md#where-the-files-fit) explains
 `src/`, `examples/`, `tests/`, the JSON registries and the generated documents.
+
+## Troubleshooting
+
+| Symptom | Next step |
+|---|---|
+| `No module named plectis` | Run the source command from the clone root with `PYTHONPATH=src`, or use the Python interpreter in the environment where you installed Plectis. |
+| `plectis: command not found` | Use `.venv/bin/plectis` on macOS/Linux or `.venv\Scripts\plectis.exe` on Windows; activating that environment also puts the command on your path. |
+| A component reports unavailable dependencies | Read that component's entry in [ORGANS.md](../ORGANS.md). The core runtime uses the standard library, but individual examples can require external tools. |
+| Port 8765 is already in use | Choose another port with `--port`, then open that port in your browser. |
