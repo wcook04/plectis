@@ -425,7 +425,7 @@ def test_package_data_contract_includes_all_public_fixture_directories() -> None
     }
 
     assert observed == expected
-    assert "share/plectis/fixtures" not in data_files
+    assert data_files["share/plectis/fixtures"] == ["fixtures/README.md"]
 
 
 def test_package_data_contract_includes_all_public_example_directories() -> None:
@@ -440,7 +440,7 @@ def test_package_data_contract_includes_all_public_example_directories() -> None
     }
 
     assert observed == expected
-    assert "share/plectis/examples" not in data_files
+    assert data_files["share/plectis/examples"] == ["examples/README.md"]
 
 
 def test_package_data_contract_excludes_generated_runtime_state() -> None:
@@ -603,3 +603,30 @@ def test_resource_root_follows_prefix_install_module_layout(
 
     assert resource_root.installed_microcosm_root() == installed_root
     assert resource_root.microcosm_root() == installed_root
+
+
+def test_documentation_and_companion_snapshot_travel_with_installed_resources():
+    data_files = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())["tool"]["setuptools"]["data-files"]
+    # A path migration must move the installed reader and its data together.
+    # Paper metadata is also consumed by comprehension.load_inputs().
+    required = [
+        "examples/README.md",
+        "fixtures/README.md",
+        "receipts/README.md",
+        "paper/README.md",
+        "docs/README.md",
+        "docs/overview.md",
+        "docs/guides/README.md",
+        "docs/guides/prompt-injection.md",
+        "docs/reference/terminology.md",
+        "docs/reference/README.md",
+        "docs/reference/lean-companion.md",
+        "docs/lean_companion_snapshot.json",
+        "docs/maintainers/README.md",
+        "docs/maintainers/architecture.md",
+        "docs/papers/README.md",
+        "docs/papers/corpus.json",
+    ]
+    for ref in required:
+        assert (MICROCOSM_ROOT / ref).is_file(), ref
+        assert _is_packaged_by_data_files(data_files, ref), ref

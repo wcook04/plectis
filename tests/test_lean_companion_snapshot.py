@@ -30,8 +30,15 @@ def _companion_checkout() -> Path:
 
 def _fixture_root(tmp_path: Path) -> Path:
     root = tmp_path / "plectis"
-    (root / "docs").mkdir(parents=True)
-    shutil.copy2(PLECTIS_ROOT / "README.md", root / "README.md")
+    (root / "docs/reference").mkdir(parents=True)
+    (root / "README.md").write_text(
+        "# Plectis\n\n[Lean companion reference](docs/reference/lean-companion.md)\n",
+        encoding="utf-8",
+    )
+    shutil.copy2(
+        PLECTIS_ROOT / companion.REFERENCE_REL,
+        root / companion.REFERENCE_REL,
+    )
     # The compact agent entry is a governed surface, not decoration: it asserts
     # the companion's problem scope to every provider adapter that routes here.
     # A fixture without it would let the surface checks pass vacuously.
@@ -46,14 +53,57 @@ def _fixture_root(tmp_path: Path) -> Path:
     return root
 
 
-def test_real_lean_companion_snapshot_is_bound_to_readme() -> None:
+def test_real_lean_companion_snapshot_is_bound_to_reference_page() -> None:
     receipt = validate_lean_companion_snapshot(PLECTIS_ROOT)
     assert receipt["status"] == "pass", receipt["errors"]
     assert receipt["errors"] == []
     assert receipt["findings"]["scale"]["module_count"] > 0
     assert receipt["findings"]["scale"]["theorem_like_count"] > 0
+    assert receipt["findings"]["reference_ref"] == "docs/reference/lean-companion.md"
     assert receipt["authority_ceiling"]["release_authorized"] is False
     assert receipt["authority_ceiling"]["proof_correctness_claim"] is False
+
+
+def test_blocks_missing_companion_reference_page(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path)
+    (root / companion.REFERENCE_REL).unlink()
+
+    receipt = validate_lean_companion_snapshot(root)
+
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_REFERENCE_MISSING" in {
+        row["code"] for row in receipt["errors"]
+    }
+
+
+@pytest.mark.parametrize("replacement", ["Companion reference", "[Companion](docs/README.md)"])
+def test_requires_readme_link_to_companion_reference(
+    tmp_path: Path,
+    replacement: str,
+) -> None:
+    root = _fixture_root(tmp_path)
+    readme = root / "README.md"
+    readme.write_text("# Plectis\n\n" + replacement + "\n", encoding="utf-8")
+
+    receipt = validate_lean_companion_snapshot(root)
+
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_REFERENCE_LINK_MISSING" in {
+        row["code"] for row in receipt["errors"]
+    }
+
+
+def test_readme_link_label_is_independent_of_snapshot_wording(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path)
+    readme = root / "README.md"
+    readme.write_text(
+        '# Plectis\n\n[Recorded source references](docs/reference/lean-companion.md "Companion")\n',
+        encoding="utf-8",
+    )
+
+    receipt = validate_lean_companion_snapshot(root)
+
+    assert receipt["status"] == "pass", receipt["errors"]
 
 
 def test_upstream_checkout_matches_recorded_public_commit() -> None:
@@ -69,16 +119,16 @@ def test_upstream_checkout_matches_recorded_public_commit() -> None:
     )
 
 
-def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
+def test_blocks_stale_reference_counts(tmp_path: Path) -> None:
     root = _fixture_root(tmp_path)
     payload = json.loads(
         (root / "docs/lean_companion_snapshot.json").read_text(encoding="utf-8")
     )
     module_count = f"{payload['scale']['module_count']:,}"
     theorem_like_count = f"{payload['scale']['theorem_like_count']:,}"
-    readme_path = root / "README.md"
-    readme_path.write_text(
-        readme_path.read_text(encoding="utf-8").replace(
+    reference_path = root / companion.REFERENCE_REL
+    reference_path.write_text(
+        reference_path.read_text(encoding="utf-8").replace(
             f"{module_count} Lean modules and {theorem_like_count}",
             "540 Lean modules and 5,850",
             1,
@@ -94,7 +144,7 @@ def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
 
 def test_accepts_previous_scale_wording_with_exact_commit_citation(tmp_path: Path) -> None:
     root = _fixture_root(tmp_path)
-    path = root / "README.md"
+    path = root / companion.REFERENCE_REL
     text = path.read_text(encoding="utf-8")
     text = text.replace(
         "These counts include library declarations; they do\n"
@@ -122,7 +172,7 @@ def test_blocks_missing_or_reversed_count_and_citation_limits(
     tmp_path: Path, old: str, new: str,
 ) -> None:
     root = _fixture_root(tmp_path)
-    path = root / "README.md"
+    path = root / companion.REFERENCE_REL
     text = path.read_text(encoding="utf-8")
     assert old in text
     path.write_text(text.replace(old, new), encoding="utf-8")
@@ -137,7 +187,8 @@ def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
 ) -> None:
     """Refreshing either prose edition needs no sibling checkout or network."""
     root = _fixture_root(tmp_path)
-    path = root / "README.md"
+    path = root / companion.REFERENCE_REL
+    readme_before = (root / "README.md").read_bytes()
     text = path.read_text(encoding="utf-8")
     if legacy_prose:
         text = text.replace(
@@ -156,6 +207,7 @@ def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
 
     first = refresh_lean_companion_snapshot(root, upstream_root=tmp_path)
     assert first["status"] == "pass", first["errors"]
+    assert (root / "README.md").read_bytes() == readme_before
     refreshed = path.read_text(encoding="utf-8")
     assert refreshed.startswith(prefix)
     assert refreshed.endswith(suffix)
@@ -169,6 +221,7 @@ def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
     second = refresh_lean_companion_snapshot(root, upstream_root=tmp_path)
     assert second["status"] == "pass", second["errors"]
     assert path.read_text(encoding="utf-8") == refreshed
+    assert (root / "README.md").read_bytes() == readme_before
 
 
 @pytest.mark.parametrize("ending", ["", "\n"])
@@ -291,15 +344,15 @@ def test_refresh_tracks_public_ref_and_is_idempotent(tmp_path: Path) -> None:
     )
     assert first["status"] == "pass", first["errors"]
     snapshot_path = root / "docs/lean_companion_snapshot.json"
-    readme_path = root / "README.md"
+    reference_path = root / companion.REFERENCE_REL
     snapshot_after_first = snapshot_path.read_text(encoding="utf-8")
-    readme_after_first = readme_path.read_text(encoding="utf-8")
+    reference_after_first = reference_path.read_text(encoding="utf-8")
     payload = json.loads(snapshot_after_first)
     assert payload["upstream"]["public_ref"] == first["findings"]["upstream"][
         "tracked_branch_head"
     ]
     assert payload["refresh"]["local_command"].find("--write") >= 0
-    assert payload["upstream"]["public_ref"] in readme_after_first
+    assert payload["upstream"]["public_ref"] in reference_after_first
 
     second = refresh_lean_companion_snapshot(
         root,
@@ -307,4 +360,4 @@ def test_refresh_tracks_public_ref_and_is_idempotent(tmp_path: Path) -> None:
     )
     assert second["status"] == "pass", second["errors"]
     assert snapshot_path.read_text(encoding="utf-8") == snapshot_after_first
-    assert readme_path.read_text(encoding="utf-8") == readme_after_first
+    assert reference_path.read_text(encoding="utf-8") == reference_after_first

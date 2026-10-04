@@ -245,10 +245,14 @@ def test_standalone_export_preserves_documentation_routes(tmp_path: Path) -> Non
         "paper/README.md",
         "docs/governance/public-boundary.md",
         "docs/governance/release-discipline.md",
-        "docs/guides/hypothesis-handoffs.md",
+        "docs/overview.md",
+        "examples/README.md",
+        "fixtures/README.md",
+        "receipts/README.md",
         *sorted(
             path.relative_to(root).as_posix()
-            for path in (root / "docs/maintainers").glob("*.md")
+            for directory in ("guides", "reference", "maintainers")
+            for path in (root / "docs" / directory).glob("*.md")
         ),
     ]
     # Copy the documentation and each linked destination through the same
@@ -368,6 +372,7 @@ where = ["src"]
     _write(root / "assets/.keep", "")
     _write(root / "docs/README.md", "[Explanation](UNDERSTANDING_PLECTIS.md)\n")
     _write(root / "docs/UNDERSTANDING_PLECTIS.md", "[Papers](papers/README.md)\n")
+    _write(root / "docs/reference/lean-companion.md", "[Docs](../README.md)\n")
     _write(root / "docs/papers/README.md", "[Paper source](../../paper/README.md)\n")
     _write(root / "docs/maintainers/validation.md", "[Docs](../README.md)\n")
     _write(root / "docs/.venv/local.txt", "local documentation environment\n")

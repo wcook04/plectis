@@ -1,7 +1,8 @@
 """Validate Plectis's bounded public Lean-companion scale projection.
 
-This validator binds the human-facing README counts to an exact upstream
-public commit. It may also compare that commit with a sibling Lean checkout.
+This validator binds the companion reference page to an exact upstream public
+commit and requires a README link to that page. It may also compare that commit
+with a sibling Lean checkout.
 The receipt is navigation evidence only: it does not establish mathematical
 correctness, authorize release, or assert equivalence with private work.
 """
@@ -15,9 +16,12 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators.public_entry_docs import _markdown_link_destinations
+
 
 SNAPSHOT_REL = Path("docs/lean_companion_snapshot.json")
 README_REL = Path("README.md")
+REFERENCE_REL = Path("docs/reference/lean-companion.md")
 # The compact cold-clone contract. Every provider adapter -- CLAUDE.md,
 # CODEX.md, CURSOR.md and friends -- routes here, so a stale companion fact in
 # this file is the first thing an unprimed agent learns about the mathematics.
@@ -226,24 +230,24 @@ def refresh_lean_companion_snapshot(
     *,
     upstream_root: Path,
 ) -> dict[str, Any]:
-    """Refresh the bounded projection and its README binding from public Git."""
+    """Refresh the bounded projection and reference page from public Git."""
     root = root.resolve()
     upstream_root = upstream_root.resolve()
     snapshot_path = root / SNAPSHOT_REL
-    readme_path = root / README_REL
+    reference_path = root / REFERENCE_REL
     payload = _load_json(snapshot_path)
     refreshed = _build_snapshot_from_upstream(payload, upstream_root)
 
-    readme = readme_path.read_text(encoding="utf-8")
-    refreshed_readme = _replace_readme_companion_block(
-        readme, _readme_companion_block(refreshed),
+    reference = reference_path.read_text(encoding="utf-8")
+    refreshed_reference = _replace_readme_companion_block(
+        reference, _readme_companion_block(refreshed),
     )
 
     snapshot_path.write_text(
         json.dumps(refreshed, indent=2) + "\n",
         encoding="utf-8",
     )
-    readme_path.write_text(refreshed_readme, encoding="utf-8")
+    reference_path.write_text(refreshed_reference, encoding="utf-8")
     receipt = validate_lean_companion_snapshot(
         root,
         upstream_root=upstream_root,
@@ -253,19 +257,19 @@ def refresh_lean_companion_snapshot(
 
 
 def _replace_readme_companion_block(readme: str, replacement: str) -> str:
-    """Replace two named bullets, scanning each continuation line once."""
+    """Replace two named bullets; retain the old helper name for compatibility."""
     lines = readme.splitlines(keepends=True)
     for start, line in enumerate(lines):
         if line.startswith("- [**Browse the Lean source**]"):
             break
     else:
-        raise ValueError("README Lean companion block is missing")
+        raise ValueError("Lean companion reference block is missing")
 
     end = start + 1
     while end < len(lines) and lines[end].startswith((" ", "\t")):
         end += 1
     if end == len(lines) or not lines[end].startswith("- [**Release "):
-        raise ValueError("README Lean companion release bullet is missing")
+        raise ValueError("Lean companion reference release bullet is missing")
     end += 1
     while end < len(lines) and lines[end].startswith((" ", "\t")):
         end += 1
@@ -302,10 +306,10 @@ def _expected_readme_fragments(payload: dict[str, Any]) -> list[tuple[str, ...]]
 def _expected_companion_fact_phrase(payload: dict[str, Any]) -> str:
     """The one sentence fragment any surface asserting the companion's scope owes.
 
-    Deliberately a phrase and not a managed block: the README states this in
-    running prose and the compact agent entry states it in its opening
-    paragraph. Both must agree with the registry; neither should be rewritten
-    wholesale by a refresh.
+    Deliberately a phrase and not a managed block: the reference page records
+    this scope and the compact agent entry states it in its opening paragraph.
+    Both must agree with the registry; neither should be rewritten wholesale
+    by a refresh.
     """
     inventory = payload["problem_inventory"]
     count = int(inventory["problem_count"])
@@ -343,7 +347,7 @@ def _validate_companion_facts(
 
     findings["companion_fact_phrase"] = phrase
     surfaces_missing: list[str] = []
-    for rel in (README_REL, AGENT_ENTRY_REL):
+    for rel in (REFERENCE_REL, AGENT_ENTRY_REL):
         path = root / rel
         if not path.is_file():
             errors.append(
@@ -484,6 +488,7 @@ def validate_lean_companion_snapshot(
     root = root.resolve()
     snapshot_path = root / SNAPSHOT_REL
     readme_path = root / README_REL
+    reference_path = root / REFERENCE_REL
     errors: list[dict[str, str]] = []
     findings: dict[str, Any] = {}
 
@@ -571,20 +576,40 @@ def validate_lean_companion_snapshot(
                 }
             )
 
+        findings["reference_ref"] = REFERENCE_REL.as_posix()
         if readme_path.is_file():
-            readme = readme_path.read_text(encoding="utf-8")
-            normalized_readme = " ".join(readme.split())
+            destinations = _markdown_link_destinations(
+                readme_path.read_text(encoding="utf-8")
+            )
+            if REFERENCE_REL.as_posix() not in destinations:
+                errors.append(
+                    {
+                        "code": "LEAN_COMPANION_REFERENCE_LINK_MISSING",
+                        "detail": f"{README_REL} must link to {REFERENCE_REL}",
+                    }
+                )
+        else:
+            errors.append(
+                {
+                    "code": "LEAN_COMPANION_README_MISSING",
+                    "detail": str(README_REL),
+                }
+            )
+
+        if reference_path.is_file():
+            reference = reference_path.read_text(encoding="utf-8")
+            normalized_reference = " ".join(reference.split())
             try:
                 missing = [
                     " or ".join(alternatives)
                     for alternatives in _expected_readme_fragments(payload)
-                    if not any(fragment in normalized_readme for fragment in alternatives)
+                    if not any(fragment in normalized_reference for fragment in alternatives)
                 ]
             except (KeyError, TypeError, ValueError) as exc:
                 errors.append(
                     {
                         "code": "LEAN_COMPANION_README_BINDING_INVALID",
-                        "detail": str(exc),
+                        "detail": f"{REFERENCE_REL}: {exc}",
                     }
                 )
                 missing = []
@@ -592,15 +617,17 @@ def validate_lean_companion_snapshot(
                 errors.append(
                     {
                         "code": "LEAN_COMPANION_README_DRIFT",
-                        "detail": "; ".join(missing),
+                        "detail": f"{REFERENCE_REL}: " + "; ".join(missing),
                     }
                 )
+            findings["reference_binding_missing"] = missing
+            # Keep the original receipt key and drift codes for existing callers.
             findings["readme_binding_missing"] = missing
         else:
             errors.append(
                 {
-                    "code": "LEAN_COMPANION_README_MISSING",
-                    "detail": str(README_REL),
+                    "code": "LEAN_COMPANION_REFERENCE_MISSING",
+                    "detail": str(REFERENCE_REL),
                 }
             )
 

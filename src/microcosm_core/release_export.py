@@ -96,6 +96,7 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     "docs/README.md",
     "docs/UNDERSTANDING_PLECTIS.md",
     "docs/papers/README.md",
+    "docs/reference/lean-companion.md",
     "paper/README.md",
     "plectis-public-system.pdf",
     "LICENSE",

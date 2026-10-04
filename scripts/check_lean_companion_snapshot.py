@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the README binding for the public Lean companion snapshot."""
+"""Check the reference-page binding for the public Lean companion snapshot."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def main() -> int:
     parser.add_argument(
         "--write",
         action="store_true",
-        help="refresh the snapshot and README binding from the upstream public ref",
+        help="refresh the snapshot and reference page from the upstream public ref",
     )
     args = parser.parse_args()
 

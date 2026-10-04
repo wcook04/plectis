@@ -56,8 +56,11 @@ content and writers before considering a move.
 
 | Surface | Source or builder |
 |---|---|
+| `README.md`, `docs/overview.md` | Authored introduction and fuller project explanation. Keep runnable first contact in the README and background in the overview. |
+| `docs/guides/`, `docs/reference/`, `docs/maintainers/` | Worked examples, lookup material and maintenance instructions respectively. Each has a README index; add links there when adding a page. |
+| `examples/README.md`, `fixtures/README.md`, `receipts/README.md` | Authored directory guides. Explain inputs, test cases and recorded outputs without relocating source copies or historical data. |
 | `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, agent route JSON | [`organ_atlas.py`](../../src/microcosm_core/projections/organ_atlas.py), reading the component registries under `core/`; run `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`. |
-| README companion snapshot/release bullets | [`check_lean_companion_snapshot.py`](../../scripts/check_lean_companion_snapshot.py), using `docs/lean_companion_snapshot.json`. Preserve these managed bullets during README edits; the checker owns refresh and validation. |
+| `docs/reference/lean-companion.md` snapshot/release bullets | [`check_lean_companion_snapshot.py`](../../scripts/check_lean_companion_snapshot.py), using `docs/lean_companion_snapshot.json`. Preserve these managed bullets during reference-page edits; the checker owns refresh and validation. |
 | `FIRST_ACTION.md` | [`build_first_action_demo.py`](../../scripts/build_first_action_demo.py). |
 | `RELEASE_REVIEW.md` | [`build_release_review.py`](../../scripts/build_release_review.py), using the result contract in [`release_candidate_proof.py`](../../src/microcosm_core/release_candidate_proof.py). |
 | `PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, `AXIOMS.md` | Authored doctrine consumed by [`doctrine_lattice.py`](../../src/microcosm_core/doctrine_lattice.py) and `standards/`. Preserve the authored argument and regenerate its projections. |
