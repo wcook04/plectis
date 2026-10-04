@@ -127,7 +127,8 @@
 
     fetch(api.dataUrl).then(function (r) { return r.json(); }).then(function (payload) {
       data = payload;
-    }).catch(function () {});
+      restoreRequestedProblem();
+    }).catch(function () { host.dispatchEvent(new CustomEvent('plectis:companion-failed')); });
 
     /* ---- What the panel says ------------------------------------------ */
 
@@ -452,6 +453,22 @@
       setFocus(s || null);
     }
 
+    // Only the docs return owner may publish this DOM-local request. Recheck
+    // fresh input/focus/exact URL immediately before changing the live panel.
+    function restoreRequestedProblem() {
+      var request = host.mcLandingProblemRestore;
+      if (!request || request.applied || typeof request.allowed !== 'function' ||
+          !request.allowed() || !data || !data.problems || !rows[request.problem] ||
+          !data.problems[request.problem] || !sideBySide() || state.open) return;
+      state.keyboard = true;
+      show(request.problem, null);
+      if (!state.open || state.problem !== request.problem) return;
+      request.applied = true;
+      api.light(request.problem);
+      host.dispatchEvent(new CustomEvent('plectis:companion-ready'));
+    }
+    host.addEventListener('plectis:companion-restore', restoreRequestedProblem);
+
     function later(name, fn, ms) {
       clearTimeout(timers[name]);
       timers[name] = window.setTimeout(fn, ms);
@@ -573,6 +590,7 @@
     }
     window.addEventListener('resize', syncLayout);
     syncLayout();
+    restoreRequestedProblem();
   }
 
   window.PlectisUniverseCompanion = { attach: attach };

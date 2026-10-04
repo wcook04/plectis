@@ -310,3 +310,18 @@ test('map band and carousel buttons answer at once while docs.js is still loadin
   assert.equal(scripts.length, 0, 'and does not wait on docs.js');
   assert.equal(click(false), true, 'other buttons still wait for the shared runtime');
 });
+
+test('the docs runtime never takes over the landing map band', () => {
+  // docs.js carries an older carousel keyed on the same data-atlas names. On
+  // the landing it disabled the band's back arrow (4 October 2026), so it must
+  // pass over the band, which landing.js runs.
+  const DOCS = readFileSync(join(SITE, 'assets', 'docs.js'), 'utf8');
+  const start = DOCS.indexOf('(function initAtlasCarousel()');
+  assert.ok(start > 0, 'the docs atlas carousel is present');
+  const block = DOCS.slice(start, DOCS.indexOf('})();', start) + 5);
+  const asked = [];
+  const document = { querySelector(sel) { asked.push(sel); return null; } };
+  vm.runInNewContext(block, { document, window: {} });
+  assert.deepEqual(asked, ['[data-atlas]:not(.home-atlas)']);
+  assert.match(HTML, /class="home-band home-maths home-atlas" id="mathematics" data-atlas/);
+});

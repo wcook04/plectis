@@ -707,8 +707,8 @@
       } catch (e) {}
       return 'unknown';
     }
-    function focusAnchor() {
-      var el = document.activeElement;
+    function focusAnchor(el) {
+      el = el || document.activeElement;
       if (!el || el.nodeType !== 1 || el === document.body || el === document.documentElement) return null;
       if (el.id) { try { if (document.getElementById(el.id) === el) return { by: 'id', v: el.id }; } catch (e) {} }
       if (el.tagName === 'A' && el.getAttribute) {
@@ -766,6 +766,49 @@
       for (i = 0; i < list.length; i++) ids.push(list[i].id);
       return ids;
     }
+    // Navigation-only memory: a click can leave the panel before pagehide.
+    // Keep the event locally so late preventDefault is checked at consumption.
+    var landingDeparture = null;
+    var landingIntent = 0;
+    function exactUrl() { return location.pathname + location.search + location.hash; }
+    function landingRow(problem) {
+      var list = document.querySelectorAll('li.home-problem[data-problem-id]');
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].getAttribute('data-problem-id') === problem) return list[i];
+      }
+      return null;
+    }
+    function freshLandingIntent(event) {
+      if (event && !event.isTrusted) return;
+      landingIntent++;
+      landingDeparture = null;
+    }
+    ['pointerdown', 'pointermove', 'keydown', 'input', 'focusin'].forEach(function (name) {
+      document.addEventListener(name, freshLandingIntent, true);
+    });
+    window.addEventListener('hashchange', freshLandingIntent);
+    document.addEventListener('click', function (event) {
+      landingDeparture = null;
+      if (!event.isTrusted || event.defaultPrevented || event.button !== 0 ||
+          event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      var link = event.target.closest && event.target.closest('.uc__problem a[href]');
+      if (!link || link.hasAttribute('download') ||
+          (link.target && link.target.toLowerCase() !== '_self') ||
+          (document.querySelector('base[target]') && !link.target)) return;
+      var panel = link.closest('.uc.is-open'), host = panel && panel.closest('.home-split__text');
+      var chip = panel && panel.querySelector('.uc__chip[aria-current="true"][data-problem]');
+      var problem = chip && chip.getAttribute('data-problem'), row = landingRow(problem);
+      if (!row || !host || !host.contains(row) || panel.inert) return;
+      var destination;
+      try { destination = new URL(link.href, location.href); } catch (e) { return; }
+      // Only the problem's ordinary HTML paper links, never a PDF/new tab or
+      // fragment within this document; href and browser navigation stay native.
+      if (destination.origin !== location.origin || !/\.html$/.test(destination.pathname) ||
+          (destination.pathname === location.pathname && destination.search === location.search)) return;
+      landingDeparture = { problem: problem, origin: exactUrl(), destination: destination.href,
+        link: link, href: link.getAttribute('href'), focus: focusAnchor(link), event: event };
+    }, true);
+
     function snapshot() {
       var view = {
         viewStateVersion: 2,
@@ -781,6 +824,16 @@
       var search = document.querySelector('canvas.universe-canvas--page') &&
         document.querySelector('input#universe-find[type="search"][data-universe-search]');
       if (search) view.universeQuery = search.value;
+      var departure = landingDeparture;
+      landingDeparture = null; // consumed only by the existing pagehide writer
+      if (departure && !departure.event.defaultPrevented && departure.origin === view.url &&
+          departure.link.isConnected && departure.link.getAttribute('href') === departure.href &&
+          departure.link.href === departure.destination && !departure.link.hasAttribute('download') &&
+          (!departure.link.target || departure.link.target.toLowerCase() === '_self') &&
+          !(document.querySelector('base[target]') && !departure.link.target) && landingRow(departure.problem)) {
+        view.landingProblem = departure.problem;
+        view.focus = departure.focus;
+      }
       return view;
     }
 
@@ -889,6 +942,80 @@
       resolve();
     }
 
+    // The landing's optional companion owns its data and markup. Give it only
+    // the validated problem identity, then focus the exact rebuilt link once.
+    function restoreLandingProblem(problem, anchor) {
+      if (typeof problem !== 'string') return false;
+      var row = landingRow(problem), host = row && row.closest('.home-split__text');
+      if (!host || !anchor || !window.MutationObserver) return;
+      var expectedIntent = 0; // no genuine gesture since this document installed its return owner
+      function allowed() {
+        var active = document.activeElement;
+        return landingIntent === expectedIntent && exactUrl() === expectedUrl &&
+          (!active || active === document.body || active === document.documentElement);
+      }
+      // Keep the authored fine-pointer, beside-the-map enhancement boundary.
+      var section = host.closest('section'), figure = section && section.querySelector('.home-split__figure');
+      var a = host.getBoundingClientRect(), b = figure && figure.getBoundingClientRect();
+      if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches ||
+          !b || !a.width || a.right > b.left + 2) return false;
+      var expectedUrl = location.pathname + location.search + location.hash;
+      // Reject a newer focused control BEFORE publishing or invoking show.
+      if (!allowed()) return;
+      var request = { problem: problem, allowed: allowed }, observer;
+      function cancelInput(event) { if (event.isTrusted) cancel(); }
+      function cancel() {
+        if (observer) observer.disconnect();
+        if (host.mcLandingProblemRestore === request) delete host.mcLandingProblemRestore;
+        document.removeEventListener('pointerdown', cancel, true);
+        document.removeEventListener('pointermove', cancel, true);
+        document.removeEventListener('keydown', cancel, true);
+        document.removeEventListener('input', cancelInput, true);
+        document.removeEventListener('focusin', cancel, true);
+        window.removeEventListener('hashchange', cancel);
+        window.removeEventListener('pagehide', cancel);
+        host.removeEventListener('plectis:companion-ready', resolve);
+        host.removeEventListener('plectis:companion-failed', cancel);
+      }
+      function resolve() {
+        if (!allowed()) { cancel(); return; }
+        var panel = host.querySelector('.uc.is-open');
+        var chip = panel && panel.querySelector('.uc__chip[aria-current="true"]');
+        if (!chip || chip.getAttribute('data-problem') !== problem || panel.inert) return;
+        if (!anchor) { cancel(); return; }
+        // No global first-href fallback may focus an unrelated or inert card.
+        var target = null;
+        if (anchor.by === 'id') target = document.getElementById(anchor.v);
+        else if (anchor.by === 'href') {
+          var links = document.getElementsByTagName('a'), n = 0;
+          var wanted = typeof anchor.n === 'number' && anchor.n >= 0 &&
+            Math.floor(anchor.n) === anchor.n ? anchor.n : 0;
+          for (var j = 0; j < links.length; j++) {
+            if (links[j].getAttribute('href') === anchor.v && n++ === wanted) { target = links[j]; break; }
+          }
+        }
+        if (!target || !panel.contains(target) || !target.getClientRects().length) return;
+        cancel();
+        try { target.focus({ preventScroll: true }); } catch (e) { try { target.focus(); } catch (e2) {} }
+      }
+      observer = new MutationObserver(resolve);
+      observer.observe(host, { childList: true, subtree: true, attributes: true });
+      document.addEventListener('pointerdown', cancel, true);
+      document.addEventListener('pointermove', cancel, true);
+      document.addEventListener('keydown', cancel, true);
+      document.addEventListener('input', cancelInput, true);
+      document.addEventListener('focusin', cancel, true);
+      window.addEventListener('hashchange', cancel);
+      window.addEventListener('pagehide', cancel);
+      host.addEventListener('plectis:companion-ready', resolve);
+      host.addEventListener('plectis:companion-failed', cancel);
+      if (!allowed()) { cancel(); return; }
+      host.mcLandingProblemRestore = request;
+      host.dispatchEvent(new CustomEvent('plectis:companion-restore'));
+      resolve();
+      return true;
+    }
+
     function applyPendingRestore() {
       var pending = read(KEY_RESTORE);
       if (!pending || pending.path !== location.pathname) return;
@@ -909,10 +1036,16 @@
             hydrateDeferredDetails(el);
           }
         });
-        var focusEl = findFocus(pending.focus);
+        // A saved companion departure never falls back to a global first href
+        // if the reader has acted, layout changed or the panel is unavailable.
+        var landingRestore = typeof pending.landingProblem === 'string';
+        if (landingRestore && pending.url === exactUrl()) {
+          restoreLandingProblem(pending.landingProblem, pending.focus);
+        }
+        var focusEl = landingRestore ? null : findFocus(pending.focus);
         if (focusEl && typeof focusEl.focus === 'function') {
           try { focusEl.focus({ preventScroll: true }); } catch (e) { try { focusEl.focus(); } catch (e2) {} }
-        } else if (pending.focus) {
+        } else if (pending.focus && !landingRestore) {
           waitForMapFocus(pending.focus);
         }
         var y = pending.y || 0;
@@ -4405,7 +4538,10 @@
   // click-through carousel (prev/next + dots on desktop, native swipe on touch).
   // No-JS fallback: the track is a scroll-snap container, so it still scrolls.
   (function initAtlasCarousel() {
-    var atlas = document.querySelector('[data-atlas]');
+    // The landing's map band (.home-atlas) shares these data-atlas names and is
+    // run by landing.js; taking it over here disabled its back arrow because
+    // this carousel reads a scroll position the band never has (4 Oct 2026).
+    var atlas = document.querySelector('[data-atlas]:not(.home-atlas)');
     if (!atlas) return;
     var track = atlas.querySelector('[data-atlas-track]');
     if (!track) return;
