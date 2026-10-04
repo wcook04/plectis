@@ -732,6 +732,17 @@ test('beside the column a click pins the result instead of leaving the page', as
   teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
   assert.equal(selects().pop().detail, null, 'a click on the pinned dot lets it go');
   assert.equal(teaser.location.href, '/', 'and still leaves the page where it is');
+  teaser.canvas.fire('click', {clientX: 2, clientY: 2});
+  assert.equal(teaser.location.href, '/', 'a near miss on empty ground never throws the reader off the landing');
+});
+
+test('a pinned result keeps the column when the pointer leaves; a click elsewhere lets it go', () => {
+  const companion = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.js', import.meta.url), 'utf8');
+  const off = companion.slice(companion.indexOf('function pointerOff()'));
+  assert.match(off.slice(0, 400), /if \(state\.keyboard \|\| state\.pinned\) return;\s*later\('leave', close, LEAVE\)/,
+    'leaving the column and the drawing must not close a pinned card (Will, 4 Oct)');
+  assert.match(companion, /addEventListener\('pointerdown'[\s\S]{0,240}state\.pinned[\s\S]{0,240}close\(\)/,
+    'a click outside the column and the drawing lets a pinned card go');
 });
 
 test('beside a problem column the teaser announces what it hovers and loads the companion', async () => {

@@ -595,12 +595,20 @@
     // The column and the drawing read together; taking the pointer off both
     // (to the margin, the gap between them, the next band) sets the list
     // back. Crossing the gap from one to the other is quicker than LEAVE.
+    // A pinned result stays put when the pointer wanders off: the reader
+    // chose it, and only a choice lets it go (Escape, empty ground, its dot
+    // again, another problem's chip, or a click elsewhere on the page).
     function pointerOff() {
       clearTimeout(timers.dwell);
       state.hushed = false;
-      if (state.keyboard) return;
+      if (state.keyboard || state.pinned) return;
       later('leave', close, LEAVE);
     }
+    document.addEventListener('pointerdown', function (event) {
+      if (!state.pinned || !event.target || !event.target.closest) return;
+      if (host.contains(event.target) || figure.contains(event.target)) return;
+      close();
+    });
     function pointerOn() { clearTimeout(timers.leave); }
     [host, figure].forEach(function (area) {
       area.addEventListener('pointerleave', pointerOff);

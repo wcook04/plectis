@@ -31,10 +31,12 @@ readers find and understand that work; private working state is outside its scop
   `build_plectis_lean_experience.py` renders that material and
   `build_plectis_maths_site.py` builds the maths pages. Change the source or
   registry, then regenerate; do not patch hosted copies.
-- Deployment resolves one public snapshot per repository and uses it for the
-  papers, maths pages and reader packets. It rebuilds and validates the complete
-  site before preparing the Pages commit. A failed reader-packet build stops
-  publication, so new guides cannot ship beside an older source packet.
+- Deployment resolves one public snapshot per repository for the selected
+  publication scope. Full releases rebuild and validate the complete site;
+  a failed reader-packet build stops publication. Reading-room releases rebuild
+  the maths projections and preserve the published root/docs reader packets,
+  which are outside that scope. They do not invoke the full-site packet builder;
+  protected-scope identity checks enforce byte preservation before publication.
 - Keep guide URLs stable when source files move. The guide registry owns
   their source paths, titles and order; the render cache must include those
   values and the complete document link map. Current reading routes lead to

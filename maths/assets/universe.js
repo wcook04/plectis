@@ -4398,8 +4398,11 @@
         revealCard();
         return;
       }
-      if (companionApi && (i >= 0 || selected >= 0)) {
-        pinInTeaser(i >= 0 && i !== selected ? i : -1);
+      // Beside the column the drawing never leaves the page: a dot pins, and
+      // empty ground lets a pin go. A near miss used to fall through to the
+      // full map, throwing the reader off the landing.
+      if (companionApi) {
+        if (i >= 0 || selected >= 0) pinInTeaser(i >= 0 && i !== selected ? i : -1);
         return;
       }
       // Without the column a click opens the full map on the object, whose

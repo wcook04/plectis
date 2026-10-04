@@ -32,7 +32,7 @@
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=35e532814de2"></script></template>
   <script defer src="../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="assets/maths.js?v=bc60ddaae0e5"></script>
-  <script defer src="assets/universe.js?v=b038156fc1bc"></script>
+  <script defer src="assets/universe.js?v=d4c0de05e390"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -119,13 +119,13 @@
               </div>
               <div class="universe-toolbar__row">
                 <span class="universe-count" data-universe-count aria-live="polite"></span>
-                <button type="button" class="btn btn--ghost universe-panel__cta" data-universe-load-full data-graph-src="../lean/experience/graph.json?v=60cdc38da601" data-layout-src="assets/universe-layout-full.json?v=d3aba570efa6">Load the complete universe</button>
+                <button type="button" class="btn btn--ghost universe-panel__cta" data-universe-load-full data-graph-src="../lean/experience/graph.json?v=60cdc38da601" data-layout-src="assets/universe-layout-full.json?v=7dfa2c91004f">Load the complete universe</button>
               </div>
             </div>
           </div>
           <aside class="universe-inspector" data-universe-inspector aria-label="Object details"></aside>
           <div class="universe-panel__stage" data-universe-stage>
-            <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=a6715494d2a1" data-universe-detail="../lean/experience/statements.json?v=18287be2a198" aria-label="Interactive Lean map. Use search and Enter to inspect objects; text indexes and source data follow below."></canvas>
+            <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=fead1b0bab04" data-universe-detail="../lean/experience/statements.json?v=18287be2a198" aria-label="Interactive Lean map. Use search and Enter to inspect objects; text indexes and source data follow below."></canvas>
             <div class="universe-zoom" role="group" aria-label="Zoom">
               <button type="button" class="universe-zoom__btn" data-universe-zoom="in" aria-label="Zoom in">+</button>
               <button type="button" class="universe-zoom__btn" data-universe-zoom="out" aria-label="Zoom out">&minus;</button>
@@ -147,7 +147,7 @@
         <p>The map reads from the centre out, one ring for each layer. The Lean universe sits at the centre, with Comparator and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> below it. The problems sit on one orbit, each between its two papers, and just outside each one are the claims in its record; claims two problems share sit on the edge between their sectors. Outermost, a band holds every result its short paper and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a> assert, short paper first, each in the order the paper states it. Each problem owns one sector of the circle, as wide as its results need, so the outer ring has the same depth all the way round. Statements that cite the same file-qualified Lean declaration are linked across the two papers. This records shared formal support, not equivalence of the statements. A result is filled in Comparator&#8217;s colour when a Comparator replay has checked the Lean declarations that state it, filled in the Lean colour when Lean states it exactly and the replay is queued, ringed when Lean states it under named inputs, and faint when no Lean statement is recorded. These marks come from the public <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json" data-link-kind="exogenous" rel="external noopener">paper-to-Lean coverage ledger</a> at Lean commit <code>436f55ebda</code>. A claim&#8217;s glyph is its status in the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a>; a claim and a result that name the same Lean declaration are connected.</p>
         <p>Selecting Comparator or Palomar lights the results each one reaches. The complete universe adds the Lean modules, each placed with the problem whose folder holds it or whose results it states, and the steps of the recorded argument graph. Research and verification files outside the library graph are excluded.</p>
         <p class="universe-about__snapshot">A public source snapshot: 2,904 objects and 9,142 connections, including 1,902 Lean modules in the graph. The initial navigation view shows 897 objects. Load the complete universe to add the modules and argument steps covered by this snapshot; it fetches about 1.5&#8202;MB once.</p>
-        <p class="doc-source-line">Public data snapshot <a href="../lean/experience/manifest.json"><code>6e074d57fcf21cc2</code></a>, drawn from the <a class="source-link" href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">public Lean source</a>.</p>
+        <p class="doc-source-line">Public data snapshot <a href="../lean/experience/manifest.json"><code>e5b6fef9f06d7482</code></a>, drawn from the <a class="source-link" href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">public Lean source</a>.</p>
         <p class="universe-rule">Papers explain, Comparator checks the Lean statements of paper results against separately declared copies, and Palomar holds a prepare-only corpus. None widens Lean’s proposition or records peer review or an accepted outcome unless its own source says so.</p>
       </section>
 
