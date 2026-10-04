@@ -1,0 +1,45 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "writing-a-good-mathematical-paper",
+  "title": "Writing a Good Mathematical Paper",
+  "subject": "Exposition method",
+  "subject_kind": "system",
+  "form": "Compact writing guide",
+  "pages": 2,
+  "question": "How should an AI write a clear and mathematically faithful paper?",
+  "precis": "A self-contained guide to explaining a mathematical argument: read nearby primary literature, state the exact hypotheses and conclusion, connect proof steps, introduce notation, attribute borrowed ideas, and inspect the rendered paper. The guide offers writing practice rather than mathematical certification.",
+  "owns": "the exposition methodology: a compact general guide for writing a mathematically faithful paper",
+  "not_authority_for": "a mathematical result, independent review, or a measured improvement in writing",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/writing-a-good-mathematical-paper.html",
+    "html_exact_tex": "papers/writing-a-good-mathematical-paper.mathjax.html",
+    "pdf": "../../papers/writing-a-good-mathematical-paper.pdf",
+    "latex": "../../papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-a-good-mathematical-paper.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "a10bacf890d3c0fa",
+    "source_sha256": "84b3d0b289481f93504ba9353784c4ba8500da04de69f19e8e00a74b23ef0059",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "mathml_node_count": 8,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "3f2f2b2e07b507129661dc19424a4fb636ef6f0354a0e798bba24fe1762d6990",
+    "html_exact_tex_sha256": "62bb499154232cfd22d5753e266592744539583095c938ca6f230d7a19f20b6b"
+  },
+  "sections": []
+}

@@ -1846,7 +1846,12 @@ html:not(.scripting) .universe-nojs { display: block; }
     border-left: 0;
     border-top: 1px solid var(--rule);
     max-height: 320px;
+    scroll-margin-top: calc(var(--topbar-h) + 8px);
   }
+  /* Under the map (a phone, a narrow window) a pinned card reads at its
+     full length in the page, rather than in a box that scrolls inside it;
+     a tap on a dot brings it into view. */
+  .universe-panel.is-reading .universe-inspector { max-height: none; overflow-y: visible; }
 }
 .universe-inspector__head {
   display: flex;
@@ -2678,4 +2683,23 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
   font-size: var(--fs-meta);
   color: var(--muted);
   scroll-margin-top: calc(var(--topbar-h) + 16px);
+}
+
+/* ── Motion (2026-10-04) ──────────────────────────────────────────────────────
+   The maths pages share the site's motion grammar (the "Motion" block in
+   assets/style.css). One thing is theirs alone: arriving at a statement.
+   The map's "read it in the paper" buttons and every cross-reference land on
+   a theorem's anchor, so the statement says it is the one: its hairline
+   flares ember and settles back over about two seconds, under the same light
+   wash every arrival gets. The flare is a shadow beside the rule, so nothing
+   moves; reduced motion keeps the page still. */
+@keyframes mc-statement-arrive {
+  0%, 35% { border-left-color: var(--home-ember); box-shadow: -2px 0 0 0 var(--home-ember); }
+  100% { border-left-color: var(--rule-strong); box-shadow: -2px 0 0 0 transparent; }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .paper-stage :is(.theorem, .thm, .lemma, .lem, .proposition, .prop,
+                   .corollary, .cor, .equivform, .problem):target {
+    animation: mc-target-arrive 900ms var(--ease-out), mc-statement-arrive 2.1s var(--ease-out);
+  }
 }

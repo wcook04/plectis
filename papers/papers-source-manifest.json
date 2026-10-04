@@ -228,6 +228,32 @@
       "tex_bytes": 120067
     },
     {
+      "hosted_path": "papers/writing-a-good-mathematical-paper.pdf",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.pdf",
+      "source_sha256": "bff08ec5e088d7725c639619839100d9cae5545442b9ad73a624324cfd82ea73",
+      "bytes": 34319,
+      "source_tex_path": "paper/exposition/writing-a-good-mathematical-paper.tex",
+      "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-a-good-mathematical-paper.tex",
+      "hosted_tex_path": "papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex",
+      "hosted_tex_sha256": "84b3d0b289481f93504ba9353784c4ba8500da04de69f19e8e00a74b23ef0059",
+      "tex_bytes": 9045
+    },
+    {
+      "hosted_path": "papers/writing-mathematics-from-reviewed-revisions.pdf",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.pdf",
+      "source_sha256": "7fa1c21bfb297c825a8747d4745ba3805dc362ae642d4bb84106e3c94e9941ea",
+      "bytes": 130940,
+      "source_tex_path": "paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
+      "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
+      "hosted_tex_path": "papers/source/plectis-erdos/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
+      "hosted_tex_sha256": "0478fa0e7bcaa4d055e9de67ce893d674a7acf17041298c9aa554433107e1476",
+      "tex_bytes": 2200
+    },
+    {
       "hosted_path": "papers/claim-faithful-publication-systems-paper.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
@@ -278,6 +304,46 @@
       "source_path": "paper/paper-house-style.sty",
       "source_sha256": "1b4630ead32bfb407a2f29f5953fbb8d4140a659f6500799282a4805ba54a883",
       "bytes": 7919
+    },
+    {
+      "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/reading.tex",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "paper/exposition/parts/reading.tex",
+      "source_sha256": "94c2fcc95b65f88be54f02ecb386b89537812b8047b23236dd6ac3ebd3665fa7",
+      "bytes": 10457
+    },
+    {
+      "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/revisions.tex",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "paper/exposition/parts/revisions.tex",
+      "source_sha256": "3da45d656c8f7f6919475b256fa08cf80de6b97e53b3a46a214b23de0bae4d13",
+      "bytes": 15962
+    },
+    {
+      "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/review.tex",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "paper/exposition/parts/review.tex",
+      "source_sha256": "6dd8a1e28533c6ac1f7fb33442738000bb5af49cb5a5bbd9be3dd563f1650445",
+      "bytes": 11089
+    },
+    {
+      "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/practice.tex",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "paper/exposition/parts/practice.tex",
+      "source_sha256": "f330a9932a3b8576a7678eb01e441fa49d6583f60274cfb225e0993e3b7d232d",
+      "bytes": 17597
+    },
+    {
+      "hosted_path": "papers/source/plectis-erdos/paper/exposition/parts/references.tex",
+      "source_repo": "plectis-erdos",
+      "source_ref": "main",
+      "source_path": "paper/exposition/parts/references.tex",
+      "source_sha256": "1c2cb7a1308c17ceda78fc33627a9fe330bf6d500017860685c77d0c377a6ec3",
+      "bytes": 6724
     },
     {
       "hosted_path": "papers/source/plectis-erdos/paper/paper-evidence.tex",

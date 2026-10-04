@@ -7,9 +7,10 @@
 
    Motion and heat contract (unchanged from the earlier field):
    - One paint, then nothing. The weave is drawn once into an offscreen
-     canvas and revealed left to right over about a second and a half. No
-     ambient animation loop survives the reveal, so an idle or background
-     tab costs nothing.
+     canvas and revealed left to right over about a second and a half,
+     behind a soft front that two points of light ride, one per cable (the
+     needles). No ambient animation loop survives the reveal, so an idle or
+     background tab costs nothing.
    - Nothing is painted while the document is hidden.
    - prefers-reduced-motion paints the finished weave with no reveal.
    - Save-data keeps the static CSS composition and starts nothing.
@@ -369,6 +370,47 @@
     }
   }
 
+  /* The two needles: one point of light at the front of each cable, in that
+     cable's front ink, carried along the cable's axis as the weave is drawn.
+     They wind round each other as they travel, the yin-yang turning through
+     time that the plait is a side view of, and the one behind dims as its
+     cable does. On the night ground they glow; on paper they are two small
+     points of ink with a faint wash. They exist only while the reveal runs. */
+  function drawNeedles(c, g, pal, x, dpr, p) {
+    if (x < 0 || x > g.W) return;
+    var fade = Math.min(1, p / 0.08) * Math.min(1, (1 - p) / 0.12);
+    if (fade <= 0) return;
+    var dark = pal.blend === 'lighter';
+    c.save();
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+    for (var k = 0; k < 2; k += 1) {
+      var y = cableY(g, x, k);
+      var z = (cableDepth(g, x, k) + 1) / 2;
+      var col = k === 0 ? pal.warmFront : pal.coolFront;
+      var a = fade * (0.35 + 0.65 * z);
+      var rgb = col[0] + ',' + col[1] + ',' + col[2];
+      var reach = dark ? 16 : 7;
+      var halo = c.createRadialGradient(x, y, 0, x, y, reach);
+      halo.addColorStop(0, 'rgba(' + rgb + ',' + (a * (dark ? 0.55 : 0.22)).toFixed(3) + ')');
+      halo.addColorStop(1, 'rgba(' + rgb + ',0)');
+      c.fillStyle = halo;
+      c.beginPath();
+      c.arc(x, y, reach, 0, Math.PI * 2);
+      c.fill();
+      c.fillStyle = 'rgba(' + rgb + ',' + (a * (dark ? 0.95 : 0.8)).toFixed(3) + ')';
+      c.beginPath();
+      c.arc(x, y, dark ? 1.9 : 1.5, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.restore();
+  }
+
+  /* The reveal draws the finished weave in from the left behind a soft front
+     (about a seventh of the width), so the thread appears rather than being
+     uncovered by a hard edge, and the needles ride the middle of that front.
+     The front runs on past the right edge so the last of the weave arrives
+     whole, and the final frame is the finished picture with no needles. */
   function reveal(off, W, H, dpr, immediate, gen) {
     if (!ctx) return;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -377,6 +419,9 @@
       ctx.drawImage(off, 0, 0);
       return;
     }
+    var g = geometry(W, H);
+    var pal = palette(isDark());
+    var feather = Math.round(Math.min(240, Math.max(90, W * 0.14)) * dpr);
     var t0 = 0;
     var dur = 1500;
     function frame(now) {
@@ -384,9 +429,24 @@
       if (!t0) t0 = now;
       var p = Math.min(1, (now - t0) / dur);
       var e = 1 - Math.pow(1 - p, 3);
-      var w = Math.max(1, Math.round(canvas.width * e));
+      var front = Math.round((canvas.width + feather) * e);
+      var w = Math.max(1, Math.min(canvas.width, front));
+      ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(off, 0, 0, w, canvas.height, 0, 0, w, canvas.height);
+      if (p >= 1) {
+        ctx.drawImage(off, 0, 0);
+      } else {
+        ctx.drawImage(off, 0, 0, w, canvas.height, 0, 0, w, canvas.height);
+        var tail = front - feather;
+        var soft = ctx.createLinearGradient(tail, 0, front, 0);
+        soft.addColorStop(0, 'rgba(0,0,0,0)');
+        soft.addColorStop(1, 'rgba(0,0,0,1)');
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = soft;
+        ctx.fillRect(Math.max(0, tail), 0, w - Math.max(0, tail), canvas.height);
+        ctx.globalCompositeOperation = 'source-over';
+        drawNeedles(ctx, g, pal, (front - feather * 0.55) / dpr, dpr, p);
+      }
       if (p < 1) {
         revealFrame = window.requestAnimationFrame(frame);
       } else {

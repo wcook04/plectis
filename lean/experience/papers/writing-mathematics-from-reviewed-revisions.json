@@ -1,0 +1,227 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "writing-mathematics-from-reviewed-revisions",
+  "title": "Writing Mathematics from the Literature and Reviewed Revisions",
+  "subject": "Exposition method",
+  "subject_kind": "system",
+  "form": "Editorial method companion",
+  "pages": 21,
+  "question": "How can reading nearby papers and reviewed revisions improve the explanation of a particular mathematical argument?",
+  "precis": "A method for reading nearby mathematical prose, examining reviewed revisions, and retaining editorial lessons with their source, native decision and limit. The examples come from eight Erdős-problem papers. This documented practice has not been evaluated as an intervention in reader understanding.",
+  "owns": "the exposition methodology: reading primary mathematical prose, reviewing specific revisions, and retaining bounded editorial lessons",
+  "not_authority_for": "the example mathematics, independent mathematical review, or a measured improvement in reader understanding",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/writing-mathematics-from-reviewed-revisions.html",
+    "html_exact_tex": "papers/writing-mathematics-from-reviewed-revisions.mathjax.html",
+    "pdf": "../../papers/writing-mathematics-from-reviewed-revisions.pdf",
+    "latex": "../../papers/source/plectis-erdos/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 35,
+    "renderer_fingerprint": "a10bacf890d3c0fa",
+    "source_sha256": "0478fa0e7bcaa4d055e9de67ce893d674a7acf17041298c9aa554433107e1476",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "mathml_node_count": 183,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "b2db840a527dae0b758b5ffa3c061e5fee9be042e787b6775bde5f106575f1d0",
+    "html_exact_tex_sha256": "c19d111a833ac248f49df3bf665c3020fdcc692bc31e48fb984035d7b4131167"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": "sec:reading",
+      "label": "Learning to explain a particular argument"
+    },
+    {
+      "level": 3,
+      "anchor": "choose-sources-by-the-work-the-prose-must-do",
+      "label": "Choose sources by the work the prose must do"
+    },
+    {
+      "level": 3,
+      "anchor": "read-sentences-as-mathematical-relations",
+      "label": "Read sentences as mathematical relations"
+    },
+    {
+      "level": 3,
+      "anchor": "use-examples-without-delaying-the-result",
+      "label": "Use examples without delaying the result"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:revisions",
+      "label": "Two revisions and the mathematics that permits them"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:remainder",
+      "label": "From repeated choice to an attained infinite sum"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:estimate",
+      "label": "State how accurate the estimate must be"
+    },
+    {
+      "level": 3,
+      "anchor": "an-example-must-reveal-the-relevant-difference",
+      "label": "An example must reveal the relevant difference"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:worked-explanations",
+      "label": "From a formula to the sentence that explains it"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:certificate",
+      "label": "How does the target determine the finite test?"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:formula-choice",
+      "label": "Why was this base or kernel chosen?"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:fixed-partition",
+      "label": "What remains to justify after an index is fixed?"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:detection",
+      "label": "Does a complete test provide the required witnesses?"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:review",
+      "label": "What the integrating reviewer must decide"
+    },
+    {
+      "level": 3,
+      "anchor": "replace-a-local-term-without-losing-its-definition",
+      "label": "Replace a local term without losing its definition"
+    },
+    {
+      "level": 3,
+      "anchor": "rejecting-an-attractive-universal-rule",
+      "label": "Rejecting an attractive universal rule"
+    },
+    {
+      "level": 3,
+      "anchor": "distinguish-clarification-from-a-proof-repair",
+      "label": "Distinguish clarification from a proof repair"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:words-as-claims",
+      "label": "Read explanatory words as mathematical claims"
+    },
+    {
+      "level": 3,
+      "anchor": "correct-the-source-without-rewriting-its-history",
+      "label": "Correct the source without rewriting its history"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:practice",
+      "label": "Keeping a useful practice small"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:revision-order",
+      "label": "Revise in an order that preserves the argument"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:short-long",
+      "label": "Keep the short paper and long record useful separately"
+    },
+    {
+      "level": 3,
+      "anchor": "put-verification-details-where-they-can-be-checked",
+      "label": "Put verification details where they can be checked"
+    },
+    {
+      "level": 3,
+      "anchor": "how-the-practice-developed",
+      "label": "How the practice developed"
+    },
+    {
+      "level": 3,
+      "anchor": "from-one-case-to-a-bounded-amendment",
+      "label": "From one case to a bounded amendment"
+    },
+    {
+      "level": 3,
+      "anchor": "what-the-next-packet-must-contain",
+      "label": "What the next packet must contain"
+    },
+    {
+      "level": 3,
+      "anchor": "read-the-page-that-will-be-read",
+      "label": "Read the page that will be read"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:genre-transfer",
+      "label": "Transfer the method across research genres"
+    },
+    {
+      "level": 2,
+      "anchor": "acknowledgement",
+      "label": "Acknowledgement"
+    },
+    {
+      "level": 2,
+      "anchor": "availability-and-authorship",
+      "label": "Availability and authorship"
+    },
+    {
+      "level": 2,
+      "anchor": "references",
+      "label": "References"
+    }
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:reading",
+        "title": "Learning to explain a particular argument",
+        "level": 2
+      },
+      {
+        "id": "sec:revisions",
+        "title": "Two revisions and the mathematics that permits them",
+        "level": 2
+      },
+      {
+        "id": "sec:review",
+        "title": "What the integrating reviewer must decide",
+        "level": 2
+      },
+      {
+        "id": "sec:practice",
+        "title": "Keeping a useful practice small",
+        "level": 2
+      }
+    ]
+  }
+}

@@ -34,11 +34,13 @@
     } catch (e) { return false; }
   }
 
-  /* The two gates that are a reader's stated preference rather than a device
-     guess. art.js owns the full gate — device memory, core count — and a
+  /* Save-Data is the reader's stated preference against the drawing. Reduced
+     motion is a preference against movement, not against the image: art.js
+     paints the finished weave at once for those readers (one paint, no
+     reveal), where this gate used to leave an empty 95px band in the first
+     screen (critique, 4 October 2026). art.js owns the full gate, and a
      mismatch here only ever costs or saves its 20KB, never correctness. */
   function fieldWanted() {
-    if (prefersReducedMotion()) return false;
     try {
       if (navigator.connection && navigator.connection.saveData) return false;
     } catch (e) {}
@@ -326,19 +328,30 @@
       window.scrollTo(0, end);
       return;
     }
-    /* Distance-scaled, but capped inside the site's motion budget: --motion-panel
-       is 260ms for a disclosure, and a jump across the page should not read as
-       four times slower than opening a fold. The old 260–520ms band spent its
-       upper half feeling deliberate rather than responsive. The cubic ease-out
-       below is the JS twin of --ease-out. */
-    var duration = Math.min(380, Math.max(200, Math.abs(distance) * 0.12));
+    /* An in-page jump is a move the eye follows, so it eases in and out
+       (--ease-move): the cubic ease-out it used covered half of a 2,600px
+       jump in its first frames and the reader lost where they came from
+       (critique, 4 October 2026). A long jump (over two screens) lands 240px
+       short at once and glides the last stretch, easing out, so the reader
+       sees where they arrive. Durations stay inside the motion budget. */
+    var glide = false;
+    var screen = window.innerHeight || 800;
+    if (Math.abs(distance) > screen * 2) {
+      start = distance > 0 ? end - 240 : end + 240;
+      window.scrollTo(0, start);
+      distance = end - start;
+      glide = true;
+    }
+    var duration = glide ? 280 :
+      Math.min(600, Math.max(320, 200 + 90 * Math.log(1 + Math.abs(distance) / 300) / Math.LN2));
     var started = 0;
     var token = ++anchorMotionToken;
     function frame(now) {
       if (token !== anchorMotionToken) return;
       if (!started) started = now;
       var p = Math.min(1, (now - started) / duration);
-      var eased = 1 - Math.pow(1 - p, 3);
+      var eased = glide ? 1 - Math.pow(1 - p, 3) :
+        (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
       window.scrollTo(0, start + distance * eased);
       if (p < 1) anchorRaf = window.requestAnimationFrame(frame);
       else anchorRaf = 0;
@@ -577,9 +590,33 @@
      reader starts reading (the first real scroll) or uses a term, so it
      never sits over a button or a figure for the rest of the page. Touch:
      it starts folded so the small screen stays clear. */
+  /* On a short laptop screen the open chip would sit on the plait's band (at
+     1280x800 it covered the band's right third, and the contract keeps the
+     drawing clear of text), so there it starts folded to its mark, which
+     still opens it. Landing only: the docs pages have no band, so docs.js's
+     copy needs no twin of this check. */
+  var band = document.querySelector('[data-plait-band]');
+  function overBand() {
+    if (!band || !band.getBoundingClientRect) return false;
+    var chipBox = hint.getBoundingClientRect();
+    var bandBox = band.getBoundingClientRect();
+    return chipBox.top < bandBox.bottom && chipBox.bottom > bandBox.top &&
+      chipBox.left < bandBox.right && chipBox.right > bandBox.left;
+  }
+  // The band settles once the web fonts arrive, so look again then and at
+  // load; a chip the reader has already folded or opened is left alone.
+  function foldIfOverBand() {
+    if (gone || hint.classList.contains('is-compact') || hint.classList.contains('is-open')) return;
+    if (overBand()) setCompact(true);
+  }
   if (touch) {
     setCompact(true);
   } else {
+    foldIfOverBand();
+    try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(foldIfOverBand); } catch (e) {}
+    window.addEventListener('load', foldIfOverBand, { once: true });
+  }
+  if (!touch) {
     var folded = false;
     var onScroll = function () { if ((window.scrollY || 0) > 240) foldOnce(); };
     var onTerm = function (ev) {
@@ -596,4 +633,62 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('pointerover', onTerm, true);
   }
+})();
+
+/* Results carousel (2026-10-04). The strongest results sit in one fixed
+   window; the arrows, the left and right keys and a swipe move between them,
+   and the window never changes size. Without this script the window is a
+   horizontal strip that scrolls and snaps, so every result stays reachable.
+   Slides out of view are inert, so a keyboard only meets the visible one.
+   A click or swipe plays one move; a key press lands at once, because a
+   keyboard action never waits on an animation. */
+(function () {
+  var root = document.querySelector('[data-results-carousel]');
+  if (!root) return;
+  var track = root.querySelector('.home-results__track');
+  var slides = track ? Array.prototype.slice.call(track.children) : [];
+  var prev = root.querySelector('[data-results-prev]');
+  var next = root.querySelector('[data-results-next]');
+  var count = root.querySelector('[data-results-count]');
+  if (!track || slides.length < 2 || !prev || !next) return;
+  var index = 0;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('is-live');
+  if (reduced) root.classList.add('is-still');
+
+  function show(target, direction, instant) {
+    index = (target + slides.length) % slides.length;
+    if (instant) {
+      root.classList.add('is-instant');
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () { root.classList.remove('is-instant'); });
+      });
+    }
+    track.style.transform = 'translateX(' + (-100 * index) + '%)';
+    root.setAttribute('data-direction', direction > 0 ? 'next' : 'prev');
+    slides.forEach(function (slide, i) {
+      var on = i === index;
+      slide.classList.toggle('is-active', on);
+      slide.setAttribute('aria-hidden', on ? 'false' : 'true');
+      if ('inert' in slide) slide.inert = !on;
+    });
+    if (count) count.textContent = (index + 1) + ' / ' + slides.length;
+  }
+
+  prev.addEventListener('click', function () { show(index - 1, -1); });
+  next.addEventListener('click', function () { show(index + 1, 1); });
+  root.addEventListener('keydown', function (event) {
+    if (event.target && /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+    if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1, 1, true); }
+    else if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1, -1, true); }
+  });
+  var startX = null;
+  track.addEventListener('pointerdown', function (event) { startX = event.clientX; }, { passive: true });
+  track.addEventListener('pointerup', function (event) {
+    if (startX === null) return;
+    var dx = event.clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 48) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  }, { passive: true });
+  show(0, 1, true);
 })();

@@ -3,7 +3,7 @@
   "papers": {
     "schema": "plectis_lean_paper_render_receipt_v1",
     "renderer": "pandoc 3.9.0.2",
-    "paper_count": 19,
+    "paper_count": 21,
     "papers_with_warnings": 12,
     "warnings": {
       "erdos-68-factorial-denominator-irrationality": {
@@ -308,7 +308,7 @@
   },
   "statement_notes": {
     "schema": "plectis_statement_note_render_cache_v1",
-    "renderer_fingerprint": "a0b1bd8de624d8d9",
+    "renderer_fingerprint": "a10bacf890d3c0fa",
     "pandoc": "pandoc 3.9.0.2",
     "notes_sha256": "bc915ad3ee9f3c445a1cfa0eb28c11cd931768c9e69fee55d86787ec0fedd9c0",
     "typeset_sha256": "123d202a3752ee08f1a4057062006fcb0a72c4e9b520571b8bfbd9229aa61099",

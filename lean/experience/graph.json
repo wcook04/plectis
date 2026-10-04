@@ -3,14 +3,14 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2902,
-    "edges": 9140,
+    "nodes": 2904,
+    "edges": 9142,
     "node_kinds": {
       "human_document": 16,
       "integration_surface": 2,
       "lean_module": 1902,
       "mathematical_object": 105,
-      "paper": 19,
+      "paper": 21,
       "paper_statement": 689,
       "problem": 8,
       "public_claim": 160,
@@ -22,7 +22,7 @@
       "contains": 1909,
       "corollary_of": 1,
       "eliminates_case": 1,
-      "explained_by": 19,
+      "explained_by": 21,
       "formalized_in": 43,
       "holds_prepared": 616,
       "imports": 3883,
@@ -19465,6 +19465,24 @@
       "form": "Evidence boundary",
       "href": "papers/plectis-public-system.json",
       "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex"
+    },
+    {
+      "id": "paper:writing-a-good-mathematical-paper",
+      "kind": "paper",
+      "label": "Writing a Good Mathematical Paper",
+      "subject": "Exposition method",
+      "form": "Compact writing guide",
+      "href": "papers/writing-a-good-mathematical-paper.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.tex"
+    },
+    {
+      "id": "paper:writing-mathematics-from-reviewed-revisions",
+      "kind": "paper",
+      "label": "Writing Mathematics from the Literature and Reviewed Revisions",
+      "subject": "Exposition method",
+      "form": "Editorial method companion",
+      "href": "papers/writing-mathematics-from-reviewed-revisions.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex"
     },
     {
       "id": "problem:erdos_1041",
@@ -92957,6 +92975,16 @@
       "source": "universe:plectis-lean",
       "relation": "explained_by",
       "target": "paper:plectis-public-system"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:writing-a-good-mathematical-paper"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:writing-mathematics-from-reviewed-revisions"
     },
     {
       "source": "universe:plectis-lean",

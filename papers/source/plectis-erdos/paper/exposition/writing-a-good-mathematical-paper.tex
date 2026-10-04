@@ -1,0 +1,148 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+\documentclass[10pt]{article}
+\usepackage{paper-house-style}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,citecolor=linkinternal]{hyperref}
+\hypersetup{pdftitle={Writing a Good Mathematical Paper},pdfauthor={Will Cook},pdflang={en-GB},bookmarksnumbered=true}
+\runninghead{Writing a good mathematical paper}
+\title{Writing a Good Mathematical Paper}
+\subtitle{A compact guide for authors and AI assistants}
+\author{Will Cook}
+\date{1 October 2026}
+\emergencystretch=1.5em
+\newcommand{\instruction}[2]{\par\medskip\noindent\textbf{#1.} #2\par}
+\begin{document}
+\maketitle
+\paperprovenance
+\papersectiontarget{compact-writing-guide}
+Enable a reader who knows the field to state the result, explain why the proof
+works and use it correctly. Spend words where they remove a specific difficulty.
+
+\instruction{1. Decide what the paper contributes}{
+Choose a coherent principal result and an intended reader. Say what becomes
+possible or understood because of the result, how it differs from the nearest
+prior work, and what remains open. For a conditional result, explain how
+restrictive the hypothesis is. An abstract should identify the actual result
+and mechanism; theorem count and generality alone do not establish importance.}
+
+\instruction{2. Read the kind of mathematics you are writing}{
+Read nearby papers in the same subject and genre, including complete local
+arguments. Study terminology, hypothesis placement, notation, proof order and
+attribution. Also seek a proof with the same explanatory difficulty: a choice,
+a limit or an estimate. Check the edition and passage. Adapt the reason for a
+choice; write your own sentences and supply your own mathematical warrant.}
+
+\instruction{3. Check the statement before polishing its prose}{
+Check domains, quantifiers, signs, endpoints, constants, parameter dependencies
+and both directions of any claimed equivalence. State assumptions where the
+claim is made. Compare titles, abstracts and conclusions with the full statement.
+Separate witnesses need not be a common witness: over the natural numbers,
+$\forall n\,\exists x\;(x>n)$ does not imply
+$\exists x\,\forall n\;(x>n)$. An exposition pass that exposes a proof gap must
+refer it for mathematical review; elegant wording cannot close it.}
+
+\instruction{4. Organise by logical dependence}{
+Present the question, the result and the proof's main idea before technical
+detail accumulates. Use an example where it prepares the reader for an unfamiliar
+operation. State a lemma's purpose before its proof; place prerequisites before
+use. Let headings name the object, result or operation. Give a reader entering
+at a theorem enough information to find its assumptions and proof. Choose length
+to suit the argument; there is no universal page quota.}
+
+\instruction{5. Explain the hard transition}{
+Name the quantity to control and the accuracy required before deriving an estimate.
+Explain which constraint selects a parameter or change of variables. For an
+interval certificate, compare the error with both endpoint gaps. For a
+small-integer contradiction, justify integrality, nonvanishing and $|N|<1$
+separately. Spend detail on the decisive inference. A proof paragraph should
+make clear what the operation establishes and what remains to prove.}
+
+\instruction{6. Separate construction from completion}{
+Account for each choice and preserved condition. A classification needs both
+construction and exhaustiveness. An enclosure alone does not show that every
+target is attained. For example, $r_n=x-S_n$, $0\le r_n\le\varepsilon_n$
+and $\varepsilon_n\to0$ give $S_n\to x$; repeated choice alone does not.
+State which parameters are fixed and justify the limit of the whole summand,
+including any growing product. To interchange a limit and a sum, identify an
+applicable theorem and check its hypotheses.}
+
+% Keep the final reading paragraph with the fourteen instructions.
+\newpage\enlargethispage{3\baselineskip}
+\instruction{7. Make examples and figures do work}{
+Choose a small instance that reveals a definition, invariant, obstruction or
+necessary hypothesis. Show the operation and its consequence, including an
+endpoint case when the convention matters. Explain what the example leaves
+unproved. A finite check supports an infinite claim only through a proved
+reduction. Check that a witness belongs to the claimed object. Label a diagram's
+objects, maps and conventions, and keep its explanation nearby.}
+
+\instruction{8. Use the field's words and purposeful notation}{
+Keep established terms when their definitions fit, such as ``Stieltjes moment
+sequence''. Replace private labels by the actual condition; $u_n/2^n\to0$
+is weaker than subexponential growth. Define symbols before use, keep their
+roles stable and remove names that save no work. Translate borrowed indices,
+coordinates and normalisations. Distinguish a sum, its partial sums and its
+remainders, and a value from the interval enclosing it.}
+
+\instruction{9. Make sentences express the argument}{
+Replace ``We proceed with the estimate'' by a reason: ``Orthogonality makes the
+first sum zero; it remains to bound the second.'' Make connectives and referents
+unambiguous. After ``similarly'', check that the same hypotheses apply.
+Punctuate displayed equations as parts of sentences. Use parallel syntax for
+parallel claims and keep conditions attached to their consequences. Remove
+throat-clearing and inflated significance; retain precise terms without
+manufacturing variety.}
+
+\instruction{10. Credit the exact input at its use}{
+Distinguish applied theorems, adapted constructions, historical attribution,
+terminology and expository models. Check the original's hypotheses, version
+and passage. State what changes when an argument is adapted. Credit supplied
+ideas and corrections locally. A writing analogy supplies no proof. Report
+only reading and checks actually performed.}
+
+\instruction{11. State what has actually been established}{
+Separate logical scope from evidence. A conditional implication may have an
+ordinary or formal proof; a computation or conjecture needs its own label.
+Keep unproved mathematical inputs beside the dependent result. A checked nearby
+lemma does not formalise the whole proof; missing formalisation does not
+invalidate an ordinary proof. Give finite computations their scope and
+reproduction details in a compact verification section. A test can eventually detect every nonintegral fixed value
+without certifying integrality when it fails. It still does not produce the
+witnesses required by a quantified theorem.}
+
+\instruction{12. Preserve useful detail and informative failures}{
+Let the short paper sustain its principal argument and the longer record make
+the rest recoverable. Move detail only after checking its destination; reconcile
+statements, assumptions and evidence in both directions. Preserve the attempted
+implication, assumptions, witness and missing ingredient of a useful failed route.
+Distinguish a flawed step, a failed method and a counterexample to a theorem.
+Motivate the finished proof without inventing its discovery history. Cite a
+specific section or theorem for omitted arguments; keep build commands and
+source identifiers with the verification record.}
+
+\instruction{13. Review changes as claims, then as prose}{
+Compare old and new meanings, including explanatory words beside unchanged
+formulas. Correct overclaims and stale underclaims. Removing shorthand must
+preserve its hypotheses; a familiar term must meet its definition. Accept,
+repair, reject or defer each substantive proposal for a stated reason.
+Generalise a lesson only as far as its evidence supports, retaining its limit.
+Keep useful rejected revisions recoverable.}
+
+\instruction{14. Read the delivered paper from a cold start}{
+Render the final sources. Inspect formulas, captions, page breaks, bibliography
+and cross-reference destinations. Read without supplying steps from memory:
+can the intended reader reconstruct the hard inference, apply the result in an
+example and identify an excluded case? Record actual difficulties. A successful
+build is not a comprehension test. Stop adding prose when it removes no
+identifiable difficulty and improves neither accuracy nor recovery of the argument.}
+
+\par\medskip\noindent\small
+\textit{Further reading.}
+Halmos, \href{https://doi.org/10.5169/seals-43857}{\emph{How to write mathematics}}, \S\S3--5 (1970);
+Knuth et al., \href{https://cs.stanford.edu/~knuth/klr.html}{\emph{Mathematical Writing}}, \S\S1--3 (1988);
+Gowers, \href{https://gowers.wordpress.com/2007/10/19/my-favourite-pedagogical-principle-examples-first/}{\emph{Examples first!}} (2007);
+Tao, \href{https://terrytao.wordpress.com/advice-on-writing-papers/}{\emph{On writing}}.
+Worked cases, sources and revision history: the
+\href{https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.pdf}{\emph{long companion}}.
+\end{document}

@@ -4,8 +4,8 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 895,
-    "edges": 2240,
+    "nodes": 897,
+    "edges": 2242,
     "deferred_node_kinds": {
       "lean_module": 1902,
       "mathematical_object": 105
@@ -1443,6 +1443,24 @@
       "form": "Evidence boundary",
       "href": "papers/plectis-public-system.json",
       "source_github": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex"
+    },
+    {
+      "id": "paper:writing-a-good-mathematical-paper",
+      "kind": "paper",
+      "label": "Writing a Good Mathematical Paper",
+      "subject": "Exposition method",
+      "form": "Compact writing guide",
+      "href": "papers/writing-a-good-mathematical-paper.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.tex"
+    },
+    {
+      "id": "paper:writing-mathematics-from-reviewed-revisions",
+      "kind": "paper",
+      "label": "Writing Mathematics from the Literature and Reviewed Revisions",
+      "subject": "Exposition method",
+      "form": "Editorial method companion",
+      "href": "papers/writing-mathematics-from-reviewed-revisions.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.tex"
     },
     {
       "id": "problem:erdos_1041",
@@ -15970,6 +15988,16 @@
       "source": "universe:plectis-lean",
       "relation": "explained_by",
       "target": "paper:plectis-public-system"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:writing-a-good-mathematical-paper"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
+      "target": "paper:writing-mathematics-from-reviewed-revisions"
     },
     {
       "source": "universe:plectis-lean",

@@ -180,10 +180,11 @@
   --dur: 0.16s;
   --dur-slow: 0.2s;
 
-  /* Three motion classes, and no others. Motion here has to read as causality
-     -- the chevron turned because the section changed state -- not as flourish,
-     so there is no overshoot, bounce or spring easing anywhere. Nothing
-     animates merely because it entered the viewport. */
+  /* Three feedback classes, plus the arrivals defined in the Motion block
+     near the end of this file. Motion here has to read as causality -- the
+     chevron turned because the section changed state -- not as flourish, so
+     there is no overshoot, bounce or spring easing anywhere. Reading text
+     never animates merely because it entered the viewport. */
   --ease-out: cubic-bezier(0.2, 0.75, 0.25, 1);
   --motion-fast: 140ms;   /* immediate feedback: hover, press, focus, copied */
   --motion-ui: 190ms;     /* interface state: chevrons, rules, small labels */
@@ -5753,10 +5754,11 @@ html[data-landing-bands="on"] .section--quiet .quiet-links { margin-top: 0.2rem;
    the motion constitution stated at the top of this file (three motion
    classes, causality over flourish, nothing viewport-entrance-animated):
 
-   1. Cross-document view transitions: a same-origin page swap reads as one
-      surface changing state instead of a white flash, and the topbar and
-      docs sidebar hold still while the article changes under them. The
-      motion is the navigation the reader just caused.
+   1. (Retired.) Cross-document view transitions were tried here and taken
+      out: a transition holds the old page until the next one paints, and a
+      long record is 6MB of HTML. viewback_regression keeps links off that
+      critical input path; the only view transition left is the same-document
+      day/night flip (see the Motion block near the end of this file).
    2. A press stratum: the .btn family already settles one pixel under the
       pointer; the same settle now answers a press on every bordered control
       that navigates or acts, so input reads back before the page answers.
@@ -5766,8 +5768,7 @@ html[data-landing-bands="on"] .section--quiet .quiet-links { margin-top: 0.2rem;
 
    The prefetch companion ("Warm navigation") lives at the end of docs.js:
    by the time a click lands, the next document is usually already local,
-   which is what makes the 150ms crossfade below read as immediacy rather
-   than as a loading treatment.
+   so the swap reads as immediacy rather than as a loading treatment.
 ============================================================================ */
 
 /* Layout that holds still. Reserving the classic-scrollbar gutter keeps short
@@ -7030,25 +7031,42 @@ html.plait-live .plait { opacity: 1; }
   margin-top: clamp(56px, 8vh, 88px); padding-top: 1.9rem;
   border-top: 1px solid var(--home-line);
 }
-.home-credit__head {
+/* Heading on the left, a fixed-height window of entries on the right that the
+   reader scrolls within; the frame never changes size as the ledger grows. */
+.home-credit {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: 0.6rem clamp(24px, 3.5vw, 52px); align-items: baseline; margin-bottom: 1.6rem;
+  grid-template-rows: auto 1fr; column-gap: clamp(24px, 3.5vw, 52px); row-gap: 1rem;
 }
+.home-credit__head { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 0.8rem; }
 .home-credit__head h2 {
   margin: 0; font-family: var(--font-serif); font-weight: 500;
   font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.1; letter-spacing: -0.012em;
 }
 .home-credit__head p { margin: 0; max-width: 62ch; font-size: 0.98rem; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+.home-credits-frame {
+  grid-column: 2; grid-row: 1 / span 2;
+  height: clamp(22rem, 56vh, 31rem); overflow-y: auto; overscroll-behavior: contain;
+  scroll-snap-type: y proximity; scrollbar-gutter: stable; scrollbar-width: thin;
+  scrollbar-color: var(--home-line-strong) transparent;
+  padding: 2px 10px 2.4rem 2px; border-radius: 12px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3.2rem), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 3.2rem), transparent);
+}
+.home-credits-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .home-credits {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px);
+  display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 16px);
 }
+.home-credits > li { scroll-snap-align: start; }
 .home-credit-entry {
   display: flex; flex-direction: column; gap: 0.55rem;
   padding: clamp(18px, 2vw, 24px); border-radius: 12px;
   background: var(--home-card); box-shadow: 0 0 0 1px var(--home-line);
 }
 .home-credit-entry p { margin: 0; }
+/* A reading measure: a wide frame never stretches an entry past ~80
+   characters a line (public_web_audit.py line-length, 2026-10-04). */
+.home-credit-entry__told, .home-credit-entry__changed { max-width: 66ch; }
 .home-credit-entry__date { font-size: 0.84rem; color: var(--faint); font-variant-numeric: tabular-nums; }
 .home-credit-entry__told {
   font-family: var(--font-serif); font-size: 1.06rem; line-height: 1.5; color: var(--ink); text-wrap: pretty;
@@ -7061,12 +7079,17 @@ html.plait-live .plait { opacity: 1; }
   font-size: 0.85rem; color: var(--muted);
 }
 .home-credit-entry__meta a { color: var(--ink-soft); font-weight: 600; }
+/* Small text links still get a 24px hit area (WCAG 2.5.8), without moving
+   the line: the padding sits inside the inline box. */
+.home-credit-entry__meta a, .home-earlier__links a { display: inline-block; padding-block: 3px; }
 .home-credit-entry__meta a:hover { color: var(--ink); }
 .home-credit-entry[data-credit-naming="named_with_permission"] .home-credit-entry__meta span { color: var(--ink-soft); }
-.home-credit__more { margin-top: 1.2rem; font-size: 0.92rem; color: var(--muted); }
+.home-credit__more { grid-column: 1; grid-row: 2; align-self: end; margin: 0; font-size: 0.92rem; color: var(--muted); max-width: 46ch; }
 .home-credit__more a { color: var(--ink-soft); font-weight: 600; }
 @media (max-width: 960px) {
-  .home-credit__head, .home-credits { grid-template-columns: minmax(0, 1fr); }
+  .home-credit { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .home-credit__head, .home-credits-frame, .home-credit__more { grid-column: 1; grid-row: auto; }
+  .home-credits-frame { height: clamp(20rem, 60vh, 28rem); }
 }
 
 /* ── Footer ───────────────────────────────────────────────────────────────── */
@@ -7101,6 +7124,277 @@ html.plait-live .plait { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-film__frame img, .home-video__frame img, .home-film__play, .home-video__play { transition: none; }
+}
+
+/* ── Motion (2026-10-04) ──────────────────────────────────────────────────────
+   Will, 4 October: "subtle animations that really add to things", on every
+   page people visit often. One grammar, taken from the universe map's
+   opening: things arrive in the order they are read, a little apart, easing
+   out, and settle. Every movement has a cause the reader made (a click, a
+   hover, a link followed) and a one-line reason; nothing loops and nothing
+   moves while the reader is idle. Reading text never fades in, on load or as
+   it is scrolled to (NN/g measured that it slows readers), no page replays an
+   entrance on every load, and a keyboard action never waits on an animation.
+   Reduced motion keeps every final state and drops the movement.
+
+   Each page has one moment. The landing's is the plait, drawn across by its
+   two needles (assets/art.js); the words are simply there. The map's is its
+   opening, ring by ring, which the teasers play when they first come into
+   view. A paper's is the arrival at a statement (maths.css). Two reviews
+   (a motion scout over Emil Kowalski's and Krehel's skills, Chrome's
+   guidance and NN/g; a fresh-eyes critique timed in Chrome) took out a
+   first draft's hero fade-up, a top line drawn like a loading bar, scroll
+   fades on text and a circular theme wipe.
+
+   Durations  feedback 140 / 190 / 260ms (the classes above); exits about
+              two thirds of their entrance.
+   Curves     --ease-emph (expo-out) for arrivals, --ease-move for an
+              on-screen move, --ease-exit for a departure.
+   Only transform and opacity animate, except where a comment says why.
+──────────────────────────────────────────────────────────────────────────── */
+:root {
+  --ease-emph: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+}
+@keyframes mc-tip-down {
+  from { opacity: 0; transform: translateY(-4px) scale(0.985); }
+}
+@keyframes mc-tip-up {
+  from { opacity: 0; transform: translateY(4px) scale(0.985); }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* A glossary definition opens out of the word it defines, from the corner
+     its placement names (transform-origin is set with the placement). */
+  .term-tip { animation: mc-tip-down 150ms var(--ease-emph); }
+  .term-tip[data-placement="above"] { animation-name: mc-tip-up; }
+
+  /* One press grammar for the pill controls and the switch: they settle to
+     97% while held, as the buttons settle a pixel. */
+  .site-header nav.site-nav a:active,
+  .docs-topbar__links.site-nav a:active,
+  .home-universe__open:active,
+  .home-universe__repo:active,
+  .theme-toggle:active .theme-toggle__track { transform: scale(0.97); }
+}
+
+/* The problem rows and the overview's problem entries: under the pointer an
+   ember thread runs along the row's own rule from the left, and leaving lets
+   it run out to the right, the plait's thread at the scale of one line. A
+   keyboard focus draws it too. Touch screens skip it, so a tap never leaves
+   a line behind, and the landing skips it where the map's companion takes
+   the column over on hover (it would run under the companion unseen). */
+#mathematics .home-split__text:not(.uc-host) .home-problem,
+.docs-main .problem-entry { position: relative; }
+#mathematics .home-split__text:not(.uc-host) .home-problem::after,
+.docs-main .problem-entry::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: var(--home-ember); pointer-events: none;
+  transform: scaleX(0); transform-origin: 100% 50%;
+  transition: transform 180ms var(--ease-exit);
+}
+#mathematics .home-split__text:not(.uc-host) .home-problem:focus-within::after,
+.docs-main .problem-entry:focus-within::after {
+  transform: scaleX(1); transform-origin: 0 50%;
+  transition: transform var(--motion-panel) var(--ease-emph);
+}
+@media (hover: hover) and (pointer: fine) {
+  #mathematics .home-split__text:not(.uc-host) .home-problem:hover::after,
+  .docs-main .problem-entry:hover::after {
+    transform: scaleX(1); transform-origin: 0 50%;
+    transition: transform var(--motion-panel) var(--ease-emph);
+  }
+}
+.home-problem__num { transition: color var(--motion-fast) var(--ease-out); }
+.home-problem > a:hover .home-problem__num,
+.home-problem > a:focus-visible .home-problem__num { color: var(--home-ember); }
+
+/* Paper and problem titles: an underline rises into place under the words
+   (per line, so a two-line title underlines both). The line is present at
+   rest in a transparent colour, so hover only fades and lifts it and never
+   switches it on. Titles that end in an off-site arrow keep a colour-only
+   hover, because a propagated underline would run under the arrow too. */
+.home-paper__title, .docs-main .problem-entry__title a {
+  text-decoration-line: underline; text-decoration-thickness: 1px;
+  text-decoration-color: transparent; text-underline-offset: 0.42em;
+  transition: color var(--motion-fast) var(--ease-out),
+              text-decoration-color var(--motion-ui) var(--ease-out),
+              text-underline-offset var(--motion-panel) var(--ease-emph);
+}
+.home-paper__title:focus-visible, .docs-main .problem-entry__title a:focus-visible {
+  text-decoration-line: underline; text-decoration-color: currentColor; text-underline-offset: 0.2em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-paper__title:hover, .docs-main .problem-entry__title a:hover {
+    text-decoration-line: underline; text-decoration-color: currentColor; text-underline-offset: 0.2em;
+  }
+}
+
+/* The landing's other interactive words answer at one tempo, 140ms, where
+   some eased and some snapped (critique, 4 October). */
+.home-film__title, .home-video__title a, .home-about__more a, .home-papers__route a,
+.home-paper__routes a, .home-earlier__links a {
+  transition: color var(--motion-fast) var(--ease-out),
+              text-decoration-color var(--motion-fast) var(--ease-out);
+}
+
+/* The film and video stills: no zoom under the pointer (a slow scale read
+   as a marketing gesture and kept moving after the pointer left). The
+   saturation lift and the play disc carry the hover. */
+.home-film__frame img, .home-video__frame img {
+  transition: filter var(--motion-ui) var(--ease-out);
+}
+.home-film__frame:hover img, .home-video__frame:hover img { transform: none; }
+
+/* Pill controls: the press settle needs a transform in the transition list,
+   and the teaser's two pills keep their own ink under the pointer; the
+   global link hover would turn them blue inside an ember ring. */
+.site-header nav.site-nav a,
+.docs-topbar__links.site-nav a {
+  transition: color var(--motion-fast) var(--ease-out),
+              background-color var(--motion-fast) var(--ease-out),
+              transform var(--motion-fast) var(--ease-out);
+}
+.home-universe__open, .home-universe__repo {
+  transition: color var(--motion-fast) var(--ease-out),
+              box-shadow var(--motion-ui) var(--ease-out),
+              transform var(--motion-fast) var(--ease-out);
+}
+.home-universe__open:hover, .home-universe__open:focus-visible { color: var(--ink); }
+.home-universe__repo:hover, .home-universe__repo:focus-visible { color: var(--ink); }
+.theme-toggle__track { transition: transform var(--motion-fast) var(--ease-out); }
+
+/* Buttons: the hover glow eases with the fill instead of snapping in. In
+   the dark scheme a pressed or hovered ink button lifts to a warm bone, not
+   to untinted white (the one pure white on the night page). */
+.btn {
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease), transform var(--dur-fast) var(--ease),
+              box-shadow var(--motion-ui) var(--ease-out);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { --ink-press: #fbf2e4; }
+}
+:root[data-theme="dark"] { --ink-press: #fbf2e4; }
+
+/* File-format badges (PDF, TeX) set in the interface face with tabular
+   figures: monospace is for code (public-web-design rubric). */
+.btn__format { font-family: var(--font-sans); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+
+/* The docs pager: "Previous" and "Next" read in sentence case like every
+   other label (in tracked capitals they spent the eyebrow budget on every
+   docs page), and under the pointer the title leans three pixels toward
+   where it goes. */
+.docs-pager__dir { font-size: 0.82rem; letter-spacing: normal; text-transform: none; }
+.docs-pager__title {
+  transition: color var(--motion-fast) var(--ease-out), transform var(--motion-ui) var(--ease-emph);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .docs-pager__link--next:hover .docs-pager__title { transform: translateX(3px); }
+  .docs-pager__link--prev:hover .docs-pager__title { transform: translateX(-3px); }
+}
+
+/* The rails follow the reader: the current section is marked by colour and
+   its rule, which fade across, and never by weight. Bold made long entries
+   wrap to two lines as they became current and pushed the rail down 22px. */
+.docs-toc a {
+  transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out);
+}
+.docs-toc a.is-current { font-weight: inherit; }
+.docs-nav a {
+  transition: color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
+}
+
+/* Arriving on a deep link: the wash is lighter and shorter, so a tall
+   target (an opened glossary card) is marked rather than flooded, and a
+   glossary card also takes the statements' ember rule at its left edge. */
+@keyframes mc-target-arrive {
+  from { background-color: color-mix(in srgb, var(--select-bg) 55%, transparent); }
+  to { background-color: transparent; }
+}
+@keyframes mc-card-arrive {
+  0%, 30% { box-shadow: inset 3px 0 0 var(--home-ember); }
+  100% { box-shadow: inset 3px 0 0 transparent; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .docs-main :target { animation: mc-target-arrive 900ms var(--ease-out); }
+  .docs-main .term-card:target { animation: mc-target-arrive 900ms var(--ease-out), mc-card-arrive 1.6s var(--ease-out); }
+}
+
+/* The transcripts' and the catalogue's +/− marks: the plus turns a half
+   turn as its upright folds away, so the mark says which way the section
+   moved. Drawn from two bars, so the glyph never changes font. The summary
+   answers the pointer, so it reads as something to open. */
+.home-video__transcript > summary::after,
+.docs-main .paper-entry details > summary::after {
+  content: ""; flex: none; align-self: center;
+  width: 0.62em; height: 0.62em;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+  transition: transform var(--motion-panel) var(--ease-emph), background-size var(--motion-panel) var(--ease-emph);
+}
+.home-video__transcript[open] > summary::after,
+.docs-main .paper-entry details[open] > summary::after {
+  content: ""; transform: rotate(180deg);
+  background-size: 100% 1.5px, 1.5px 0;
+}
+.home-video__transcript > summary, .docs-main .paper-entry details > summary {
+  transition: color var(--motion-fast) var(--ease-out);
+}
+.home-video__transcript > summary:hover { color: var(--accent-strong); }
+.docs-main .paper-entry details > summary:hover { color: var(--ink); }
+
+/* Disclosures open to their height and close back down, so the text below
+   moves with the section instead of jumping, and a closing section never
+   leaves an empty panel behind. block-size animates here: it is the only way
+   a disclosure can grow, and it is limited to these few sections a reader
+   opens one at a time (the transcripts scroll inside a capped box). The
+   glossary's 660 cards (which fill themselves in as they open), the margin
+   contents and the software folds keep their own behaviour. Chromium only
+   (interpolate-size); elsewhere the content fades in as before. */
+@supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .home-video__transcript, .home-agent,
+    .docs-main details:not(.dcard, .reader-contents, .fold) { interpolate-size: allow-keywords; }
+    .home-video__transcript::details-content, .home-agent::details-content,
+    .docs-main details:not(.dcard, .reader-contents, .fold)::details-content {
+      block-size: 0; overflow-y: clip;
+      transition: block-size 180ms var(--ease-exit), opacity 140ms var(--ease-exit),
+                  content-visibility 180ms allow-discrete;
+    }
+    .home-video__transcript[open]::details-content, .home-agent[open]::details-content,
+    .docs-main details[open]:not(.dcard, .reader-contents, .fold)::details-content {
+      block-size: auto;
+      transition: block-size var(--motion-panel) var(--ease-emph), opacity 220ms var(--ease-out) 40ms,
+                  content-visibility var(--motion-panel) allow-discrete;
+    }
+  }
+}
+
+/* The switch's reserved slot matches the switch, so the nav holds still when
+   the script mounts it. The shared header gives the switch a 0.6rem margin
+   and the placeholder had none, so every page's links slid 7 to 9px left on
+   load; and on the maths pages maths.js mounts the switch before docs.js
+   stamps html.js, so for a moment the slot and the switch both took room. */
+html:not(.js) .site-header nav.site-nav::after,
+html:not(.js) .docs-topbar__links.site-nav::after { margin-left: 0.6rem; }
+html:not(.js) .site-header nav.site-nav:has(> .theme-toggle)::after,
+html:not(.js) .docs-topbar__links.site-nav:has(> .theme-toggle)::after { content: none; }
+
+/* Day and night. The flip never smears: while the scheme changes no colour
+   transition runs (docs.js and maths.js set html.vt-theme around the change;
+   the suppression and the view-transition rules sit at the end of this file,
+   and the class has to live in the stylesheet because the CSP blocks
+   injected styles). Where view transitions exist, the new scheme fades in
+   over the old in 200ms, a cross-dissolve rather than a wipe. The switch
+   itself still slides: it is the reader's direct feedback. */
+html.vt-theme .theme-toggle__knob {
+  transition: transform var(--dur-slow) var(--ease-out) !important;
+}
+html.vt-theme .theme-toggle__ico {
+  transition: opacity var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out) !important;
 }
 
 /* ── The earlier software: one quiet row ──────────────────────────────────── */
@@ -7145,37 +7439,6 @@ html.plait-live .plait { opacity: 1; }
 }
 .site-footer__name a { color: inherit; }
 
-/* ── One result, at full strength, with its open boundary ─────────────────── */
-.home-result { padding-top: clamp(76px, 10vh, 112px); }
-.home-result__inner {
-  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: clamp(24px, 4vw, 64px); align-items: start;
-  padding: clamp(26px, 3vw, 42px); border-radius: 12px;
-  background: var(--home-card);
-  box-shadow: 0 0 0 1px var(--home-line);
-}
-/* The series sits at the foot of its column, level with the theorem's button,
-   so the card's left half is composed rather than ending a third of the way
-   down: label and title at the top, the object itself at the bottom. */
-.home-result__inner { align-items: stretch; }
-.home-result__head { display: flex; flex-direction: column; }
-.home-result__head > .home-result__series { margin-top: auto; padding-top: 2.1rem; }
-.home-result h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); margin: 0; }
-.home-result__label { margin: 0 0 0.85rem; font-size: 0.92rem; font-weight: 600; color: var(--home-ember); }
-.home-result__theorem sup { line-height: 0; }
-/* The question is mathematics too, so it shares the theorem's serif: italic,
-   as the catalogue sets every paper's question. */
-.home-result__question {
-  font-family: var(--font-serif); font-style: italic;
-  font-size: 1.08rem; line-height: 1.55; color: var(--ink-soft); max-width: 62ch;
-}
-.home-result__theorem {
-  margin-top: 0.95rem; max-width: 62ch;
-  font-family: var(--font-serif); font-size: clamp(1.12rem, 1.5vw, 1.27rem); line-height: 1.56; color: var(--ink);
-}
-.home-result__actions { margin-top: 1.4rem; }
-.home-result__actions .btn { border-radius: var(--r-pill); padding: 0.62rem 1.15rem; }
-
 /* The credit policy rides beside the take-part buttons as a plain link. */
 .home-about__actions { align-items: center; }
 .home-about__credit { flex-basis: 100%; margin-top: 0.1rem; font-size: 0.9rem; }
@@ -7187,40 +7450,89 @@ html.plait-live .plait { opacity: 1; }
 .site-footer__lineage > span { display: block; max-width: 64ch; }
 .site-footer__lineage a { color: var(--muted); }
 
-@media (max-width: 960px) {
-  .home-result__inner { grid-template-columns: minmax(0, 1fr); }
-}
-
 /* ── Typographic details (public-web-design rubric, 2026-10-03) ─────────── */
 .home h1, .home h2, .home h3 { text-wrap: balance; }
 .home main p { text-wrap: pretty; }
 .home main p a[data-link-kind="exogenous"] { white-space: nowrap; }
 
-/* ── The #257 card: its series, typeset (round 7) ─────────────────────────── */
-.home-result__series {
-  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 0.5em;
-  margin: 2.1rem 0 0; font-family: var(--font-serif); color: var(--ink);
-  font-size: clamp(1.45rem, 2.05vw, 1.85rem); font-variant-numeric: lining-nums;
-}
-.series-term { display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-.frac { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.12; }
-.frac__num { padding: 0 0.22em 0.06em; border-bottom: 1.5px solid currentColor; }
-.frac__den { padding-top: 0.08em; }
-.series-term__note {
-  font-family: var(--font-sans); font-size: 0.42em; line-height: 1; color: var(--muted);
-  font-variant-numeric: tabular-nums; white-space: nowrap;
-}
-.series-term__note sup { font-size: 0.75em; line-height: 0; }
-.series-op { display: inline-flex; align-items: center; height: 2.36em; color: var(--muted); }
-.series-op--dots { letter-spacing: 0.04em; }
-@media (max-width: 560px) {
-  .home-result__series { font-size: 1.22rem; flex-wrap: nowrap; gap: 0 0.4em; }
-}
-
-/* Mathematics in the theorem reads as typeset: italic variables, real minus. */
-.home-result__theorem var { font-style: italic; font-family: inherit; }
-.home-result__theorem sup var { font-size: 1em; }
-
 /* The coding-agent guide route inside the AI disclosure. */
 .home-agent__more { margin-top: 0.6rem; font-size: 0.86rem; }
 
+
+/* ── Strongest results: one fixed window, arrows move between them ───────── */
+.home-results { padding-top: clamp(76px, 10vh, 112px); }
+.home-results__inner {
+  border-radius: 12px; background: var(--home-card); box-shadow: 0 0 0 1px var(--home-line);
+  padding: clamp(22px, 2.6vw, 36px);
+}
+.home-results__head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 0.6rem 2rem; margin-bottom: 1.4rem;
+}
+.home-results__head h2 { margin: 0; font-size: clamp(1.6rem, 2.4vw, 2.1rem); }
+.home-results__head p { margin: 0.35rem 0 0; max-width: 60ch; font-size: 0.95rem; line-height: 1.55; color: var(--muted); }
+.home-results__controls { display: flex; align-items: center; gap: 0.6rem; }
+.home-results__count { min-width: 3.4em; text-align: center; font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.home-results__arrow {
+  width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0; cursor: pointer;
+  display: inline-grid; place-items: center; font-size: 1.05rem; line-height: 1;
+  color: var(--ink); background: transparent; box-shadow: 0 0 0 1px var(--home-line-strong);
+  transition: background var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+}
+.home-results__arrow:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.home-results__arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.home-results:not(.is-live) .home-results__controls { display: none; }
+/* The window. Without the script it is a strip that scrolls and snaps. */
+.home-results__window { overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
+.home-results.is-live .home-results__window { overflow: hidden; }
+.home-results__track {
+  list-style: none; margin: 0; padding: 0; display: flex;
+  /* One move per click, eased in and out, settling in about a third of a
+     second; the text inside fades rather than moving a second time. */
+  transition: transform 340ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.home-results.is-still .home-results__track { transition: none; }
+.home-result-slide {
+  flex: 0 0 100%; min-width: 0; scroll-snap-align: start; box-sizing: border-box;
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(20px, 3vw, 48px);
+  min-height: 15.5rem; padding-right: 2px;
+}
+.home-result-slide__aside { display: flex; flex-direction: column; gap: 0.5rem; }
+.home-result-slide__problem { margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--home-ember); }
+.home-result-slide__headline {
+  margin: 0; font-family: var(--font-serif); font-weight: 500;
+  font-size: clamp(1.3rem, 1.9vw, 1.65rem); line-height: 1.22; color: var(--ink); text-wrap: balance;
+}
+.home-result-slide__evidence { margin-top: auto; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; font-size: 0.86rem; }
+.home-result-slide__evidence a { color: var(--ink-soft); font-weight: 600; }
+.home-result-slide__evidence a:hover { color: var(--ink); }
+.home-result-slide__statement {
+  margin: 0; font-family: var(--font-serif); font-size: clamp(1.04rem, 1.35vw, 1.16rem); line-height: 1.6; color: var(--ink-soft);
+}
+.home-result-slide__why { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.58; color: var(--ink-soft); }
+.home-result-slide__open { margin: 0.6rem 0 0; font-size: 0.88rem; line-height: 1.5; color: var(--muted); }
+/* A reading measure, so a wide window never stretches a statement past ~75
+   characters a line. */
+.home-result-slide__body > p { max-width: 64ch; }
+/* Arriving slide: the text fades in as the track settles. */
+.home-results.is-live .home-result-slide > * { transition: opacity 160ms linear; }
+.home-results.is-live .home-result-slide:not(.is-active) > * { opacity: 0; }
+.home-results.is-still .home-result-slide > *,
+.home-results.is-instant .home-result-slide > *,
+.home-results.is-instant .home-results__track { transition: none; }
+@media (max-width: 960px) {
+  .home-result-slide { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+}
+
+/* Keep the old page visible outside the circular theme reveal. */
+html.vt-theme *, html.vt-theme *::before, html.vt-theme *::after {
+  transition: none !important;
+}
+html.vt-theme::view-transition-old(root),
+html.vt-theme::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+html.vt-theme::view-transition-old(root) { z-index: 1; }
+html.vt-theme::view-transition-new(root) { z-index: 2; }

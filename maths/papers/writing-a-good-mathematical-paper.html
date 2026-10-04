@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing a Good Mathematical Paper · Plectis maths</title>
+  <meta name="description" content="A self-contained guide to explaining a mathematical argument: read nearby primary literature, state the exact hypotheses and conclusion, connect proof…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/writing-a-good-mathematical-paper.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Writing a Good Mathematical Paper · Plectis maths">
+  <meta property="og:description" content="A self-contained guide to explaining a mathematical argument: read nearby primary literature, state the exact hypotheses and conclusion, connect proof…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/writing-a-good-mathematical-paper.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Writing a Good Mathematical Paper · Plectis maths">
+  <meta name="twitter:description" content="A self-contained guide to explaining a mathematical argument: read nearby primary literature, state the exact hypotheses and conclusion, connect proof…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d0f15">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=79ad1b1a5511">
+  <link rel="stylesheet" href="../assets/maths.css?v=c3104192eebd">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=575b013604bf"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=f5177d7932da"></script>
+  <script defer src="../assets/maths.js?v=d3c0c630d9b4"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Writing a Good Mathematical Paper">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/10/01">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/writing-a-good-mathematical-paper.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/17e972cd2437cf97.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Compact writing guide</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Compact writing guide</p>
+        <h1>Writing a Good Mathematical Paper</h1>
+        <div class="paper-head__meta">
+          <span>Exposition method</span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>1 October 2026</span>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/writing-a-good-mathematical-paper.pdf"><span class="btn__format">PDF</span>Open the PDF, 2&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-a-good-mathematical-paper.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> A self-contained guide to explaining a mathematical argument: read nearby primary literature, state the exact hypotheses and conclusion, connect proof steps, introduce notation, attribute borrowed ideas, and inspect the rendered paper. The guide offers writing practice rather than mathematical certification.</p>
+      </div>
+
+      <div class="paper-notes">
+        <div class="authority-card">
+          <p><b>This paper owns</b> the exposition methodology: a compact general guide for writing a mathematically faithful paper.</p>
+          <p><b>It is not authority for</b> a mathematical result, independent review, or a measured improvement in writing.</p>
+        </div>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+      </div>
+
+      
+      
+      <div class="paper-stage">
+<article class="lean-paper" data-paper-id="writing-a-good-mathematical-paper" data-math-mode="mathjax">
+  <div class="lean-paper__body" data-source="../../../paper/exposition/writing-a-good-mathematical-paper.tex">
+<p>Enable a reader who knows the field to state the result, explain why
+the proof works and use it correctly. Spend words where they remove a
+specific difficulty.</p>
+<p><strong>1. Decide what the paper contributes.</strong> Choose a
+coherent principal result and an intended reader. Say what becomes
+possible or understood because of the result, how it differs from the
+nearest prior work, and what remains open. For a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional result</a>,
+explain how restrictive the hypothesis is. An abstract should identify
+the actual result and mechanism; theorem count and generality alone do
+not establish importance.</p>
+<p><strong>2. Read the kind of mathematics you are writing.</strong>
+Read nearby papers in the same subject and genre, including complete
+local arguments. Study terminology, hypothesis placement, notation,
+proof order and attribution. Also seek a proof with the same explanatory
+difficulty: a choice, a limit or an estimate. Check the edition and
+passage. Adapt the reason for a choice; write your own sentences and
+supply your own mathematical warrant.</p>
+<p><strong>3. Check the statement before polishing its prose.</strong>
+Check domains, quantifiers, signs, endpoints, constants, parameter
+dependencies and both directions of any claimed equivalence. State
+assumptions where the claim is made. Compare titles, abstracts and
+conclusions with the full statement. Separate witnesses need not be a
+common <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-witness" data-term="witness" data-term-auto="1">witness</a>: over the natural numbers, <span
+class="math inline" data-term-auto="off" data-tex="\(\forall n\,\exists x\;(x&gt;n)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c2200">∀</mjx-c></mjx-mi><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="0"> </mjx-break><mjx-mspace class="mjx-s-6c576990d7b4b5f4"></mjx-mspace><mjx-mi><mjx-c class="mjx-c2203">∃</mjx-c></mjx-mi><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="0"> </mjx-break><mjx-mspace class="mjx-s-ec6b4466d4d2d2ed"></mjx-mspace><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">∀</mi><mi>n</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">∃</mi><mi>x</mi><mspace width="0.278em"></mspace><mo stretchy="false">(</mo><mi>x</mi><mo>&gt;</mo><mi>n</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span> does not
+imply <span class="math inline" data-term-auto="off" data-tex="\(\exists x\,\forall
+n\;(x&gt;n)\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c2203">∃</mjx-c></mjx-mi><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="0"> </mjx-break><mjx-mspace class="mjx-s-6c576990d7b4b5f4"></mjx-mspace><mjx-mi><mjx-c class="mjx-c2200">∀</mjx-c></mjx-mi><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-break size="0"> </mjx-break><mjx-mspace class="mjx-s-ec6b4466d4d2d2ed"></mjx-mspace><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3E">&gt;</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">∃</mi><mi>x</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">∀</mi><mi>n</mi><mspace width="0.278em"></mspace><mo stretchy="false">(</mo><mi>x</mi><mo>&gt;</mo><mi>n</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></span>. An exposition pass that exposes a proof gap must
+refer it for mathematical review; elegant wording cannot close it.</p>
+<p><strong>4. Organise by logical dependence.</strong> Present the
+question, the result and the proof’s main idea before technical detail
+accumulates. Use an example where it prepares the reader for an
+unfamiliar operation. State a lemma’s purpose before its proof; place
+prerequisites before use. Let headings name the object, result or
+operation. Give a reader entering at a theorem enough information to
+find its assumptions and proof. Choose length to suit the argument;
+there is no universal page quota.</p>
+<p><strong>5. Explain the hard transition.</strong> Name the quantity to
+control and the accuracy required before deriving an estimate. Explain
+which constraint selects a parameter or change of variables. For an
+interval certificate, compare the error with both endpoint gaps. For a
+small-integer contradiction, justify integrality, nonvanishing and <span
+class="math inline" data-term-auto="off" data-tex="\(|N|&lt;1\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mo class="mjx-s-f0f31f51e9c5e561"><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D441">𝑁</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c7C">|</mjx-c></mjx-mo><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3C">&lt;</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mi>N</mi><mo data-mjx-texclass="ORD" stretchy="false">|</mo><mo>&lt;</mo><mn>1</mn></math></mjx-assistive-mml></mjx-container></span> separately. Spend detail on the
+decisive inference. A proof paragraph should make clear what the
+operation establishes and what remains to prove.</p>
+<p><strong>6. Separate construction from completion.</strong> Account
+for each choice and preserved condition. A classification needs both
+construction and exhaustiveness. An enclosure alone does not show that
+every target is attained. For example, <span
+class="math inline" data-term-auto="off" data-tex="\(r_n=x-S_n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c3D">=</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-msub space="3"><mjx-mi><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi><mjx-script class="mjx-s-a088fc5a41302dc0"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>r</mi><mi>n</mi></msub><mo>=</mo><mi>x</mi><mo>−</mo><msub><mi>S</mi><mi>n</mi></msub></math></mjx-assistive-mml></mjx-container></span>, <span
+class="math inline" data-term-auto="off" data-tex="\(0\le r_n\le\varepsilon_n\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-msub space="4"><mjx-mi><mjx-c class="mjx-c1D45F">𝑟</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2264">≤</mjx-c></mjx-mo><mjx-msub space="4"><mjx-mi><mjx-c class="mjx-c1D700">𝜀</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn><mo>≤</mo><msub><mi>r</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>ε</mi><mi>n</mi></msub></math></mjx-assistive-mml></mjx-container></span> and <span
+class="math inline" data-term-auto="off" data-tex="\(\varepsilon_n\to 0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D700">𝜀</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>ε</mi><mi>n</mi></msub><mo accent="false" stretchy="false">→</mo><mn>0</mn></math></mjx-assistive-mml></mjx-container></span> give <span
+class="math inline" data-term-auto="off" data-tex="\(S_n\to x\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D446">𝑆</mjx-c></mjx-mi><mjx-script class="mjx-s-a088fc5a41302dc0"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mi space="4"><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>S</mi><mi>n</mi></msub><mo accent="false" stretchy="false">→</mo><mi>x</mi></math></mjx-assistive-mml></mjx-container></span>; repeated choice alone does not.
+State which parameters are fixed and justify the limit of the whole
+summand, including any growing product. To interchange a limit and a
+sum, identify an applicable theorem and check its hypotheses.</p>
+<p><strong>7. Make examples and figures do work.</strong> Choose a small
+instance that reveals a definition, invariant, obstruction or necessary
+hypothesis. Show the operation and its consequence, including an
+endpoint case when the convention matters. Explain what the example
+leaves unproved. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite-computation" data-term="finite_computation" data-term-auto="1">finite check</a> supports an infinite claim only through
+a proved reduction. Check that a witness belongs to the claimed object.
+Label a diagram’s objects, maps and conventions, and keep its
+explanation nearby.</p>
+<p><strong>8. Use the field’s words and purposeful notation.</strong>
+Keep established terms when their definitions fit, such as “Stieltjes
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-moment-sequence" data-term="moment_sequence" data-term-auto="1">moment sequence</a>”. Replace private labels by the actual condition; <span
+class="math inline" data-term-auto="off" data-tex="\(u_n/2^n\to 0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-msub><mjx-mi><mjx-c class="mjx-c1D462">𝑢</mjx-c></mjx-mi><mjx-script class="mjx-s-c8c0a10ae672ab56"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msub><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>u</mi><mi>n</mi></msub><mo>/</mo><msup><mn>2</mn><mi>n</mi></msup><mo accent="false" stretchy="false">→</mo><mn>0</mn></math></mjx-assistive-mml></mjx-container></span> is weaker than
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subexponential-growth" data-term="subexponential_growth" data-term-auto="1">subexponential growth</a>. Define symbols before use, keep their roles
+stable and remove names that save no work. Translate borrowed indices,
+coordinates and normalisations. Distinguish a sum, its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-partial-sum" data-term="partial_sum" data-term-auto="1">partial sums</a> and
+its remainders, and a value from the interval enclosing it.</p>
+<p><strong>9. Make sentences express the argument.</strong> Replace “We
+proceed with the estimate” by a reason: “Orthogonality makes the first
+sum zero; it remains to bound the second.” Make connectives and
+referents unambiguous. After “similarly”, check that the same hypotheses
+apply. Punctuate displayed equations as parts of sentences. Use parallel
+syntax for parallel claims and keep conditions attached to their
+consequences. Remove throat-clearing and inflated significance; retain
+precise terms without manufacturing variety.</p>
+<p><strong>10. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contributor-credit" data-term="contributor_credit" data-term-auto="1">Credit</a> the exact input at its use.</strong> Distinguish
+applied theorems, adapted constructions, historical attribution,
+terminology and expository models. Check the original’s hypotheses,
+version and passage. State what changes when an argument is adapted.
+Credit supplied ideas and corrections locally. A writing analogy
+supplies no proof. Report only reading and checks actually
+performed.</p>
+<p><strong>11. State what has actually been established.</strong>
+Separate logical scope from evidence. A conditional implication may have
+an ordinary or <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>; a computation or conjecture needs its own
+label. Keep unproved mathematical inputs beside the dependent result. A
+checked nearby lemma does not formalise the whole proof; missing
+formalisation does not invalidate an ordinary proof. Give finite
+computations their scope and reproduction details in a compact
+verification section. A test can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-eventual-property" data-term="eventual_property" data-term-auto="1">eventually</a> detect every nonintegral
+fixed value without certifying integrality when it fails. It still does
+not produce the witnesses required by a quantified theorem.</p>
+<p><strong>12. Preserve useful detail and informative failures.</strong>
+Let the short paper sustain its principal argument and the longer record
+make the rest recoverable. Move detail only after checking its
+destination; reconcile statements, assumptions and evidence in both
+directions. Preserve the attempted implication, assumptions, witness and
+missing ingredient of a useful failed route. Distinguish a flawed step,
+a failed method and a counterexample to a theorem. Motivate the finished
+proof without inventing its discovery history. Cite a specific section
+or theorem for omitted arguments; keep build commands and source
+identifiers with the verification record.</p>
+<p><strong>13. Review changes as claims, then as prose.</strong> Compare
+old and new meanings, including explanatory words beside unchanged
+formulas. Correct overclaims and stale underclaims. Removing shorthand
+must preserve its hypotheses; a familiar term must meet its definition.
+Accept, repair, reject or defer each substantive proposal for a stated
+reason. Generalise a lesson only as far as its evidence supports,
+retaining its limit. Keep useful rejected revisions recoverable.</p>
+<p><strong>14. Read the delivered paper from a cold start.</strong>
+Render the final sources. Inspect formulas, captions, page breaks,
+bibliography and cross-reference destinations. Read without supplying
+steps from memory: can the intended reader reconstruct the hard
+inference, apply the result in an example and identify an excluded case?
+Record actual difficulties. A successful build is not a comprehension
+test. Stop adding prose when it removes no identifiable difficulty and
+improves neither accuracy nor recovery of the argument.</p>
+<p> <em>Further reading.</em> Halmos, <a
+href="https://doi.org/10.5169/seals-43857"><em>How to write
+mathematics</em></a>, §§3–5 (1970); Knuth et al., <a
+href="https://cs.stanford.edu/~knuth/klr.html"><em>Mathematical
+Writing</em></a>, §§1–3 (1988); Gowers, <a
+href="https://gowers.wordpress.com/2007/10/19/my-favourite-pedagogical-principle-examples-first/"><em>Examples
+first!</em></a> (2007); Tao, <a
+href="https://terrytao.wordpress.com/advice-on-writing-papers/"><em>On
+writing</em></a>. Worked cases, sources and revision history: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/exposition/writing-mathematics-from-reviewed-revisions.pdf"><em>long
+companion</em></a>.</p>
+  </div>
+</article>
+
+      </div>
+      <div class="paper-foot" aria-label="Other ways to read this paper">
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/writing-a-good-mathematical-paper.pdf"><span class="btn__format">PDF</span>Open the PDF, 2&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/exposition/writing-a-good-mathematical-paper.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:84b3d0b289481f93</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -93,7 +93,9 @@ test('landing keeps heavyweight runtimes inert behind the small scheduler', () =
   assert.match(HTML, /<template data-plectis-runtime="universe"><script src="maths\/assets\/universe\.js\?v=/);
   assert.match(HTML, /<script async src="assets\/landing\.js\?v=/);
   assert.doesNotMatch(HTML, /<script async src="assets\/(?:docs|art)\.js/);
-  assert.match(SOURCE, /var eased = 1 - Math\.pow\(1 - p, 3\)/);
+  // In-page jumps ease in and out; a long jump lands 240px short and glides
+  // the last stretch, easing out (critique, 4 Oct 2026).
+  assert.match(SOURCE, /var eased = glide \? 1 - Math\.pow\(1 - p, 3\) :\s*\(p < 0\.5 \? 4 \* p \* p \* p : 1 - Math\.pow\(-2 \* p \+ 2, 3\) \/ 2\);/);
   assert.match(SOURCE, /window\.cancelAnimationFrame\(anchorRaf\)/);
 });
 

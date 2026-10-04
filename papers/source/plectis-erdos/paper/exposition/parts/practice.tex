@@ -1,0 +1,286 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+\section{Keeping a useful practice small}\label{sec:practice}
+\papersectiontarget{exposition-practice}
+
+Use the two-page \emph{Writing a Good Mathematical Paper}~\cite{compact} as a
+working guide; use this companion when a particular instruction needs an
+example or a limit. The repository's writing skill~\cite{skill} incorporates
+the literature-reading pass, while its records retain the detailed cases and
+exceptions. A writer need not read every past return before explaining a proof.
+The next revision should resolve a specific difficulty, not demonstrate that
+every rule has been mentioned.
+
+\subsection{Revise in an order that preserves the argument}\label{sec:revision-order}
+
+Begin with the full statement, proof and closest prior results. Write a brief
+account of the contribution, the decisive inference and the exact boundary.
+Check this account against the abstract and introduction. When a condition is
+only sufficient, a witness is shared, or a parameter is fixed, preserve that
+qualification in every compressed occurrence. Agreement among several summaries
+is not enough if all have inherited the same overstatement.
+
+Next choose the passage where the intended reader must supply the most
+consequential missing explanation. Ask a concrete question: why this parameter,
+why this normalisation, why this error threshold, or why does this limit give
+the asserted object? Read a relevant local argument in an original source,
+then find the mathematical answer in the manuscript. Write the sentence that
+connects that answer to the next step. If the answer is absent, record the
+mathematical issue rather than concealing it with a connective.
+
+Review the revised paragraph with its predecessor and successor. Definitions
+must arrive before they are used, and the paragraph's conclusion must supply
+what the next one needs. Read displayed formulas as parts of grammatical
+sentences, checking punctuation and the referent of each symbol. Conrad's
+examples illustrate how unspecified variables and loose quantification can
+make ordinary-looking prose say the wrong thing~\cite[\S\S1--2]{conrad}.
+A sentence-level pass is valuable after the dependency structure is sound;
+it cannot substitute for that earlier work.
+
+Finally, remove explanation that repeats an already intelligible operation.
+Keep a second account when it serves a different purpose, such as showing how
+to apply a formula after deriving it. Stop when another sentence would resolve
+no specific ambiguity, justify no missing transition and improve no useful
+route through the paper. This gives brevity a reader-facing purpose without
+imposing a page target.
+
+\subsection{Keep the short paper and long record useful separately}\label{sec:short-long}
+
+Before moving a passage, identify what a reader of each document must still be
+able to do. The short paper should support its principal result through an
+intelligible proof or a clearly identified proof sketch with a precise full-proof
+destination. A long record should preserve the omitted derivation, its assumptions
+and its relation to the main argument. A link labelled ``details'' is insufficient
+when its destination proves a different statement or omits the difficult step.
+
+Compare the shared assertions in both directions. A repaired endpoint in the
+short paper must reach the long proof; an assumption exposed in the long proof
+must reach the short statement. After a move, follow the link to the actual
+passage and check that its notation can be translated. Retain substantial
+alternatives and counterexamples where they explain the scope or a failed
+method. Material that serves only the revision history can remain in the
+editorial record rather than interrupting the mathematical argument.
+
+\subsection{Put verification details where they can be checked}
+
+The mathematical argument should state its hypotheses and explain the
+inference. An exact computation may be part of that inference; give its
+mathematical input, output and finite scope at the point of use. Put the
+software version, source identifiers, replay commands and review history in
+one verification and reproducibility section or appendix. Refer there from
+a theorem when its evidence class matters. This keeps proof status available
+without making a reader decode repository machinery between proof steps.
+
+Give a single account of a shared limitation, then repeat it only when a
+different claim would otherwise appear unconditional. A conditional premise
+belongs beside the statement it conditions; an editorial disclaimer does
+not need to recur after every equation. For an omitted proof, name its
+mathematical destination by section or theorem and cite the original source
+where an external result is used. A reference to a file or a ``long record''
+alone does not tell a reader which argument to inspect.
+
+\subsection{How the practice developed}
+
+The recorded process began with reviewers proposing changes to particular
+papers: move the result forward, explain a construction, shorten a repetitive
+section or repair an unsupported implication. Successive returns did not form
+a single consistent programme. In the earlier \#243 reviews, a cubic result
+and a bounded negative result were each proposed as the lead at different
+stages. Comparing these requests with the manuscripts yielded a narrower
+instruction: choose the result that gives the current paper its most coherent
+argument. The historical request remains evidence about that draft, not a
+permanent ranking of result types.
+
+Each returned manuscript then met a separate integration decision. In the
+later second round, only one of nine candidates was accepted, although the
+returns had passed transport checks. In the third round, integration included
+restoring seventeen named-input remarks removed during compression. These
+events exposed different questions: did the proposed files arrive intact,
+did the revision preserve the mathematics and credit, and did it explain the
+argument? A pass on the first question could not answer the others. Comparing
+short papers with their longer records also recovered useful material, as the
+\#251 buffer-coordinate case illustrates.
+
+The recent rounds supplied more explicit literary models, before-and-after
+passages and proposed general lessons. We compared these with the selected
+native source, reopened the cited passages and retained repairs alongside
+acceptances. The finite-remainder explanation survived this review; a claimed
+Knuth locator needed correction; a broad author--reader analogy did not by
+itself justify a specific rule about estimates. The resulting instructions
+therefore combine mathematical checks with reading practice, while the
+records preserve the disagreements and limits that compression would hide.
+
+This short/long pair is the next distillation of that sequence. The compact
+guide gives the writer actions; this companion explains why those actions are
+useful and when they are insufficient. A later packet can carry both at a
+fixed version, solicit another local revision and repeat the review. The
+systems paper~\cite{systems} describes the repository mechanisms supporting
+the process. Here the object of review is the editorial decision itself.
+
+\subsection{From one case to a bounded amendment}
+
+Most accepted changes should become examples of existing guidance. Add a rule
+only when the case exposes a reusable distinction that the present instruction
+misses. State the circumstance in which it applies, the action to take, the
+evidence motivating it and a case in which it would fail. A page-one request
+can become a reminder to remove unnecessary delay without becoming a page-one
+quota. A failed proof can become an explanation of a missing hypothesis without
+becoming a claim that every alternative approach is impossible.
+
+The public records separate recent proposals, historical requests, source
+identities and the manuscript decisions used to assess them. They retain
+unmatched and pending cases explicitly. A return may describe an edit in
+summary rather than supply the exact accepted words; this should be recorded
+as a correspondence still requiring inspection, not counted as either a
+rejected edit or a verbatim acceptance. Source passages are reviewed for their
+stated writing use. Inclusion in the source list does not assert a complete
+mathematical review of every cited paper.
+
+The record of a failure should be equally specific. Preserve the attempted
+implication, its assumptions, the witness to failure and the information
+missing from the argument. Failure of one estimate does not refute the
+theorem. Failure to run a check says that the check is unrun. An unavailable
+source says something about the review's evidence, not about the truth of the
+source's claim. These distinctions prevent a later writer from giving a
+historical obstacle more force than it had.
+
+\subsection{What the next packet must contain}
+
+A frozen review packet should include the exact skill and guide it asks the
+recipient to follow, the compact paper, the relevant lessons, the source
+identities and this companion paper. A manifest records their paths and byte digests. The packet
+must also carry the primary originals needed for its selected specimens,
+with versions and reading-status declarations kept separate. A title in a
+bibliography or a list of annex files is not a substitute for a source that
+the recipient can actually inspect.
+
+The recipient can then compare those papers with the supplied manuscript:
+how does each introduce its object, make a hypothesis visible, motivate an
+estimate or credit an input? The return should identify the passage read,
+the feature adapted, the proposed local change and its limit. The repository
+agent reviews the proposal against the current mathematics, integrates an
+accepted change and amends the guidance only if the evidence warrants it.
+The next packet can consume that resulting version. This is a sequence of
+explicit document revisions, not training of model weights.
+
+Freezing a version matters because guidance can change during a review.
+An earlier packet cannot have applied a later correction to Knuth's locator,
+and a later integration should not attribute that correction to the original
+return. Keeping both versions makes the difference inspectable. The same
+principle applies to mathematical status: a later accepted ordinary proof
+does not turn an earlier unassessed proposal into an already checked result.
+
+\subsection{Read the page that will be read}
+
+The final pass uses the repository's native sources and rendering tools.
+After changing a figure, inspect it at the size in which it appears. Follow a
+reference to the intended theorem or long-form argument, rather than merely
+checking that a target file exists. After reflow, inspect the affected pages
+and their neighbours: a useful explanation can be separated from its figure,
+or a small heading can be stranded above a page break. Bibliographic labels,
+captions, interval endpoints and cross-document links belong to this review.
+
+Read the result along three routes. First, scan the title, abstract,
+introduction and main statements: recover the contribution and its boundary
+without importing private knowledge. Second, reconstruct the proof: identify
+where each hypothesis is used and explain the difficult inference in your own
+words. Third, try to use a result: check its assumptions on an example, locate
+an excluded case and find the cited input needed for an application.
+
+For the examples here, these tasks have specific answers. In
+Section~\ref{sec:certificate}, the certificate places a value in $(1/2,1)$;
+its two inequalities come from the two endpoint gaps; the value $D=3/4$ with
+the loose enclosure $[1/2,1]$ shows why a failed test is inconclusive. A reader
+who can repeat ``compare both endpoints'' but cannot explain that failure has
+not yet recovered how to use the certificate. This identifies a passage to
+revisit, not a numerical score for understanding.
+
+When an independent reader is available, ask for the exact place where their
+reconstruction stopped and what they believed had been established there.
+An author's own cold-start pass is still useful, but should be reported as
+self-review. No independent reader is implied by the procedure described here.
+
+The checks answer limited questions. A successful build establishes that the
+source rendered under the recorded toolchain. A passage comparison helps
+establish what changed. A source inspection supports a citation's locator
+and role. Neither those checks nor a lower rate of phrases flagged by a style
+detector establishes improved comprehension. A reported style comparison must
+identify the versions, prose denominator and genre, and retain regressions
+alongside gains. A claim of improved comprehension would require evidence
+from readers performing a specified task on identified versions, with the
+comparison and its limitations recorded.
+
+The method leaves that empirical question open. It makes a particular editorial
+decision inspectable: a source suggests an explanatory choice, the local
+mathematics warrants the new sentence, and the review records its fate. The
+practical standard remains the reader's ability to recover the argument. A
+different proof may warrant a different choice.
+
+
+\section{Transfer the method across research genres}\label{sec:genre-transfer}
+
+The common task is to make the relation between a claim and its warrant
+legible. What counts as a warrant depends on the field and the sentence.
+For a mathematical theorem, state the domain and hypotheses, then explain
+the proof's hard implication. A systems paper may describe a design, report an
+implemented mechanism or compare performance under a workload. Identify which
+of these is being claimed. An empirical comparison needs the tested
+implementation, conditions, comparator and observed result; a proposed design
+must not be presented as an implemented one. A build or artifact check concerns
+the tested objects, not unrestricted performance or usability.
+
+Levin and Redell distinguish papers about implemented systems, proposed
+systems and theoretical work, and caution that evaluation criteria vary across
+those classes~\cite{levin-redell}. The SIGPLAN empirical-evaluation guidance
+asks authors to state claims and limitations clearly, and treats its checklist
+as an aid to judgment rather than a universal score~\cite{sigplan-evaluation}.
+These are genre-specific primary sources, not proof authority for any
+particular system. A nearby systems paper's opening and evaluation should also
+be read at their actual passages before transferring a sentence pattern.
+
+The repository's systems manuscript gives a concrete example. It reports nine
+rejections among ten deliberately false, author-selected edits in a historical
+trial. After one edit escaped, a follow-up checked the intact baseline and
+that escaped edit against a repair; the other nine edits were not rerun
+\cite[recorded observations]{systems}. The first report describes those ten
+trials, not a general $90\%$ reliability rate. The second describes the tested
+repair, not a post-repair ten-out-of-ten result. The manuscript also records
+missing original logs and the absence of an independent comparison. Those
+qualifications determine which conclusion the observations can support; they
+are not incidental implementation details.
+
+In an expository scientific paper, similarly identify the underlying study or
+derivation, the population or model, the observed or cited result, and the
+author's synthesis. If the paper contributes no new experiment, say so.
+Compare each inference with the cited primary study and with nearby expositions
+in that field; do not turn a reported association into causation or a model's
+prediction into an observation.
+
+Sentence structure should expose these dependencies. Put the condition before
+its consequence when the condition controls the claim; name the measured
+quantity and comparator in the same sentence as the reported change; keep
+parallel outcomes in parallel clauses. The value of this practice is local:
+it lets a reader test exactly which evidence licenses each statement. It is
+not a single prose template for mathematics, systems research and every
+science.
+
+\section*{Acknowledgement}
+Wouter van Doorn's feedback on first-reader legibility, recorded in the project's
+writing guidance, helped sharpen the attention to private terminology, unnecessary
+notation and restrictive hypotheses. This acknowledges advice on exposition;
+it does not attribute mathematical verification or endorsement to him.
+
+\section*{Availability and authorship}
+The writing skill, source records, lesson history and this paper's LaTeX source
+are maintained in the public repository~\cite{ledger,skill}. The accompanying
+editorial return documents the new-return examples separately from the accepted
+historical cases. The public writing method and its review ledger record
+selected guidance, with source-reading and acceptance boundaries preserved.
+The worked revisions were made across papers on eight Erd\H{o}s problems.
+Some agents worked from frozen packets; others integrated changes against the
+live repository. Their editorial judgements do not measure how independent
+mathematical readers understood the papers. The method has not been tested
+for improved reader comprehension.
+Will Cook built and directed the research infrastructure and reviewed
+the claims when he could. AI agents did most of the research and drafting.
+Cook did not independently verify every claim.

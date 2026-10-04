@@ -5,9 +5,9 @@
    problem rises to the head of the column: its number and title travel up
    from the row into the place of the band's heading, and under them come
    the question, the tally of its results, its short paper and, for a dot
-   under the pointer, that result's evidence (how Lean states it, whether
-   Comparator has replayed it, the declaration, and the note on how the Lean
-   form gives the printed statement). The map lights the problem's sector
+   under the pointer, that result in its paper's own words (the excerpt the
+   map quotes) with how far it has been checked: how Lean states it and
+   whether Comparator has replayed it. The map lights the problem's sector
    while the column reads it. Taking the pointer off the column and the
    drawing, or resting it on empty ground in the drawing, sets the list
    back, so the next row can be read.
@@ -70,8 +70,6 @@
     if (!order.length) return;
 
     var data = null;
-    var detail = null;
-    var detailAsked = false;
     // focusKey starts unset, so the first card (even "nothing in focus") is drawn.
     var state = { open: false, problem: null, focusKey: undefined, focus: null, overPanel: false, keyboard: false,
                   card: { shape: null, tier: null, lines: {} }, pinned: null };
@@ -130,16 +128,6 @@
     fetch(api.dataUrl).then(function (r) { return r.json(); }).then(function (payload) {
       data = payload;
     }).catch(function () {});
-
-    function needDetail() {
-      if (detailAsked || !data || !data.detail) return;
-      detailAsked = true;
-      fetch(api.route(data.detail)).then(function (r) { return r.json(); }).then(function (payload) {
-        detail = payload;
-        // The note for the card on show arrives with the file.
-        if (state.focus && state.focus.kind === 'paper_statement') drawCard(cardOf(state.focus), true);
-      }).catch(function () {});
-    }
 
     /* ---- What the panel says ------------------------------------------ */
 
@@ -213,11 +201,14 @@
        in a tenth of a second. The mark ripples only when the evidence it
        shows is new. A card of another kind is drawn whole. */
     var CARD_SHAPES = {
+      // A result: its name, its own words from the paper, how far it is
+      // checked, the ways out. A claim keeps its statement as the note.
       result: '<p class="uc__label" data-line="label"></p>' +
         '<p class="uc__focus-title"><span class="uc-mark" aria-hidden="true"><span class="uc-mark__ring"></span></span>' +
         '<span data-line="name"></span></p>' +
+        '<div class="uc__quote" data-line="quote"></div>' +
         '<p class="uc__focus-meta" data-line="meta"></p><p class="uc__links" data-line="links"></p>' +
-        '<p class="uc__decl" data-line="decl"></p><p class="uc__note" data-line="note"></p>',
+        '<p class="uc__note" data-line="note"></p>',
       paper: '<p class="uc__label" data-line="label"></p><p class="uc__focus-title"><span data-line="name"></span></p>' +
         '<p class="uc__links" data-line="links"></p>',
       hint: '<p class="uc__hint" data-line="hint"></p>'
@@ -225,25 +216,20 @@
 
     function cardOf(s) {
       if (s && s.kind === 'paper_statement') {
-        var d = detail && detail.statements ? detail.statements[s.id] : null;
-        var decl = s.decls && s.decls[0];
-        // A declaration's last two segments name it; the full name is its title.
-        var parts = decl ? String(decl.name).split('.') : [];
-        var shortName = parts.length > 2 ? '…' + parts.slice(-2).join('.') : (decl ? decl.name : '');
+        // The paper's own words, from the map's excerpt file (typeset as
+        // MathML at build time); the Lean code stays on the map's card.
         return { shape: 'result', tier: s.tier || 'none', lines: {
           label: s.side === 'long' ? 'In the long record' : 'In the short paper',
           name: esc(s.label),
+          quote: s.quote || '',
           meta: esc(leanSentence(s)),
-          decl: decl ? '<code title="' + esc(decl.name) + '">' +
-            esc(shortName).replace(/([._])(?=[^._])/g, '$1<wbr>') + '</code>' +
-            (s.declCount > 1 ? esc(' and ' + count(s.declCount - 1, 'more declaration', 'more declarations')) : '') : '',
-          note: (d && d.html_mathml && d.html_mathml.relation_note) || s.leanReasonHtml || '',
+          note: '',
           links: linksInner(s, 'Read it in the paper') } };
       }
       if (s && s.kind === 'public_claim') {
         return { shape: 'result', tier: CLAIM_TIER[s.status] || 'proved', lines: {
-          label: 'Checked claim', name: esc(s.label),
-          meta: s.status ? esc(capital(s.status)) + '.' : '', decl: '',
+          label: 'Checked claim', name: esc(s.label), quote: '',
+          meta: s.status ? esc(capital(s.status)) + '.' : '',
           note: s.statement ? esc(s.statement) : '',
           links: linksInner(s, 'Read it') } };
       }
@@ -278,6 +264,17 @@
         var words = function (text) { return String(text || '').replace(/<[^>]*>/g, ''); };
         if (html && words(html) !== words(was)) moved.push(node);
       });
+      // A long quote is cut and fades; a short one shows whole, with no fade
+      // over its last line. Measured once every line is set (the buttons
+      // below take their room first), and again after the frame's layout.
+      var quote = el.focus.querySelector('[data-line="quote"]');
+      if (quote) {
+        var measureQuote = function () {
+          quote.classList.toggle('is-cut', !quote.hidden && quote.scrollHeight > quote.clientHeight + 2);
+        };
+        measureQuote();
+        if (window.requestAnimationFrame) window.requestAnimationFrame(measureQuote);
+      }
       var mark = el.focus.querySelector('.uc-mark');
       var newEvidence = !!mark && card.tier !== state.card.tier;
       if (newEvidence) {
@@ -335,11 +332,12 @@
     }
 
     function setFocus(s, quiet) {
-      var key = s ? s.id : null;
+      // The same result sent again with its words is a new card to draw;
+      // only the quote line, which changed, moves.
+      var key = s ? s.id + (s.quote ? '+quote' : '') : null;
       if (key === state.focusKey) return;
       state.focusKey = key;
       state.focus = s;
-      if (s && s.kind === 'paper_statement') needDetail();
       drawCard(cardOf(s), quiet);
     }
 
@@ -356,15 +354,19 @@
       var scale = parseFloat(getComputedStyle(source).fontSize) / parseFloat(getComputedStyle(target).fontSize) || 1;
       var away = { transform: 'translate(' + (a.left - b.left) + 'px,' + (a.top - b.top) + 'px) scale(' + scale + ')', opacity: 0.3 };
       var home = { transform: 'none', opacity: 1 };
+      // A third of a second home: at 560ms the title was still in flight
+      // over the half-faded list and the question when the slots arrived.
       return target.animate(back ? [home, away] : [away, home],
-        { duration: back ? 340 : 560, easing: back ? 'cubic-bezier(0.4, 0, 0.7, 0.2)' : EASE });
+        { duration: back ? 260 : 320, easing: back ? 'cubic-bezier(0.4, 0, 0.7, 0.2)' : EASE });
     }
 
+    // The slots arrive behind the title, a little apart (40ms), each in a
+    // fifth of a second.
     function rise(nodes, delay) {
       if (!motion) return;
       nodes.forEach(function (node, at) {
-        node.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
-          { duration: 420, delay: delay + at * 55, easing: EASE, fill: 'backwards' });
+        node.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 220, delay: delay + at * 40, easing: EASE, fill: 'backwards' });
       });
     }
 
@@ -380,8 +382,8 @@
       var row = rows[pid];
       travel(el.kicker, row.querySelector('.home-problem__num'));
       travel(el.title, row.querySelector('.home-problem__title'));
-      rise([el.sw], 60);
-      rise([el.question, el.tally, el.paper, el.focus], 140);
+      rise([el.sw], 200);
+      rise([el.question, el.tally, el.paper, el.focus], 260);
     }
 
     // A pin is let go with the column, or for another problem.
@@ -414,12 +416,13 @@
       }
     }
 
-    // Another problem while the column is already turned: the head and the
-    // body are set again and rise a little, without the long travel.
+    // Another problem while the column is already turned: the new problem
+    // crossfades in place. Replaying the opening stagger blanked the column
+    // for a beat on every chip; the stagger belongs to the first open only.
     function swap(pid) {
       fillProblem(pid);
-      rise([el.kicker, el.title], 0);
-      rise([el.question, el.tally, el.paper], 60);
+      if (!motion) return;
+      el.problem.animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 160, easing: EASE });
     }
 
     /* ---- When ---------------------------------------------------------- */

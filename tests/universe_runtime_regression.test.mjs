@@ -43,13 +43,18 @@ async function mount(options = {}) {
     measureText(text) { return {width: String(text).length * 6}; },
     fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
   }, { get: (target, key) => target[key] ?? (() => {}) });
-  const canvas = Object.assign(element({'data-universe-src': 'initial'}), {
+  const canvas = Object.assign(element({'data-universe-src': 'initial', ...(options.attrs || {})}), {
     clientWidth: options.width ?? 292, clientHeight: 340, getContext: () => context,
-    getBoundingClientRect: () => ({left: 0, top: 0}),
+    getBoundingClientRect: () => ({left: 0, top: 0, bottom: 340}),
   });
   canvas.classList.add('universe-canvas--page');
   const count = element();
   const inspector = element();
+  const scrolled = [];
+  if (options.inspectorTop != null) {
+    Object.assign(inspector, {getBoundingClientRect: () => ({top: options.inspectorTop}),
+      scrollIntoView: opts => { scrolled.push(opts); }});
+  }
   const search = element();
   search.value = options.searchValue ?? '';
   const modules = element({'data-universe-lens': 'lean_module', 'aria-pressed': 'true'});
@@ -70,7 +75,7 @@ async function mount(options = {}) {
   });
   const location = {pathname: '/maths/universe.html', search: '', hash: options.hash ?? ''};
   const window = Object.assign(element(), {
-    location, devicePixelRatio: 1, isSecureContext: false,
+    location, devicePixelRatio: 1, isSecureContext: false, innerHeight: 664,
     history: {replaceState(_a, _b, url) { location.hash = new URL(url, 'http://test').hash; }},
   });
   const nodes = [
@@ -94,7 +99,7 @@ async function mount(options = {}) {
   });
   const settle = () => new Promise(resolve => setImmediate(resolve));
   await settle();
-  return {canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window,
+  return {canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window, scrolled,
     document, requests, settle, flushTimers, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
     drawnSegments: () => strokes.flatMap(stroke => stroke.segments),
     dashedSegments: () => strokes.filter(stroke => stroke.dashed).flatMap(stroke => stroke.segments),
@@ -581,7 +586,12 @@ async function mountTeaser({withCompanionHost = true} = {}) {
     edges: [[0, 1]],
     companion: {script: 'assets/universe-companion.js?v=1', style: 'assets/universe-companion.css?v=1',
                 data: 'assets/universe-companion.json?v=1'},
-  }};
+    excerpts: [['p257', 'assets/excerpts/p257.json?v=1']],
+  },
+  // The teaser names excerpt routes relative to maths/, as the map does.
+  'maths/assets/excerpts/p257.json?v=1': {schema: 'plectis_maths_universe_excerpts_v1', paper: 'p257',
+    excerpts: [['statement:p257#thm:a', '', '<p><em>The paper’s own words.</em></p>']]},
+  };
   vm.runInNewContext(source, {document, window, navigator: {}, CustomEvent: window.CustomEvent,
     getComputedStyle: () => ({getPropertyValue: () => ''}),
     fetch: async url => ({json: async () => data[url]}),
@@ -595,11 +605,11 @@ async function mountTeaser({withCompanionHost = true} = {}) {
 
 // A teaser with Comparator and a frame clock the test drives, to follow the
 // moment a settled hover plays.
-async function mountPulse({reduceMotion = false} = {}) {
+async function mountPulse({reduceMotion = false, extraNodes = []} = {}) {
   let arcs = [];
   const context = new Proxy({
     clearRect() { arcs = []; },
-    arc(x, y, r) { arcs.push({x, y, r}); },
+    arc(x, y, r) { arcs.push({x, y, r, alpha: context.globalAlpha}); },
     measureText(text) { return {width: String(text).length * 6}; },
   }, { get: (target, key) => target[key] ?? (() => {}) });
   const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
@@ -630,6 +640,7 @@ async function mountPulse({reduceMotion = false} = {}) {
       {id: 'statement:p257#thm:a', kind: 'paper_statement', label: 'Theorem 1.1', x: 150, y: 0,
        sector: 'erdos_257', paper: 'papers/p257.html#thm:a', lean_status: 'exact',
        comparator_status: 'compared', side: 'short'},
+      ...extraNodes,
     ],
     edges: [[0, 2], [1, 2]],
   }};
@@ -724,4 +735,171 @@ test('beside a problem column the teaser announces what it hovers and loads the 
   teaser.canvas.fire('pointerleave');
   assert.equal(teaser.announced.filter(event => event.type === 'universe:hover').pop().detail, null,
     'leaving the drawing announces nothing under the pointer');
+});
+
+// A paper result, its neighbour in the same paper and a claim on the same
+// Lean theorem, with the excerpt file and the statement detail the card reads.
+function resultCardData() {
+  return {
+    initial: {
+      nodes: [
+        {id: 'problem:erdos_257', kind: 'problem', label: 'Reciprocal sums', short: '#257', x: -200, y: 0, sector: 'erdos_257'},
+        {id: 'statement:p257#thm:a', kind: 'paper_statement', label: 'Theorem 1.1 (Half membership)', x: 150, y: 0,
+         sector: 'erdos_257', paper: 'papers/p257.html#thm:a', lean_status: 'exact_or_stronger',
+         comparator_status: 'compared', palomar_status: 'prepared', side: 'short', line: 40,
+         decls: [['Erdos257.half_mem', 0, 12], ['Erdos257.half_mem_iff', 0, 30]], cmp_entries: [0], cmp_runs: [0]},
+        {id: 'statement:p257#thm:b', kind: 'paper_statement', label: 'Theorem 1.2 (Cap)', x: 150, y: 90,
+         sector: 'erdos_257', paper: 'papers/p257.html#thm:b', lean_status: 'exact', comparator_status: 'pending',
+         palomar_status: 'pending', side: 'short', line: 60},
+        {id: 'claim:half', kind: 'public_claim', label: 'Half membership claim', x: 0, y: 160, status: 'proved here'},
+      ],
+      edges: [[0, 1, 0], [3, 1, 1]],
+      relations: ['states', 'same_lean_declaration'],
+      statements: {summary: {replay_run: '359', replay_href: 'https://example.test/run/359'},
+        lean_files: ['Erdos257/Half.lean'], comparator_entries: ['E257_1'], comparator_runs: ['359'],
+        lean_source_base: 'https://example.test/blob/pin/', tex_source_base: 'https://example.test/blob/main/',
+        tex_paths: {p257: 'papers/p257.tex'}},
+      excerpts: [['p257', 'assets/excerpts/p257.json?v=1']],
+    },
+    'assets/excerpts/p257.json?v=1': {schema: 'plectis_maths_universe_excerpts_v1', paper: 'p257', excerpts: [
+      ['statement:p257#thm:a', 'Half <math><mi>A</mi></math> membership',
+       '<p><em>Suppose <span class="math inline"><math><mi>n</mi></math></span>. Then see Theorem ' +
+       '<a class="math-ref" href="papers/p257.html#thm:b" data-universe-ref="statement:p257#thm:b">1.2</a>.</em></p>'],
+      ['statement:p257#thm:b', '', '<p><em>The cap holds.</em></p>'],
+    ]},
+    detail: {replay: {run_id: '359', href: 'https://example.test/run/359'}, statements: {'statement:p257#thm:a': {
+      statements: {'Erdos257.half_mem': 'theorem half_mem : (1 / 2 : ℝ) ∈ A'},
+      relation_note: 'Items one and two give it.', html_mathml: {relation_note: 'Items one and two give it.'},
+      record: 'https://example.test/record', named_inputs: [],
+      checks: [{declaration: 'Erdos257.half_mem', entry: 'E257_1', same_as_lean: true,
+                challenge: 'https://example.test/c', solution: 'https://example.test/s', receipt: 'https://example.test/r'}]}}},
+  };
+}
+
+test('a result card quotes its paper first, then says in words how it is checked, code one step down', async () => {
+  const map = await mount({data: resultCardData(), attrs: {'data-universe-detail': 'detail'},
+    hash: '#o=statement%3Ap257%23thm%3Aa'});
+  await map.settle();
+  await map.settle();
+  const html = map.inspector.innerHTML;
+  assert.match(html, /<h2 class="universe-inspector__title">Half <math><mi>A<\/mi><\/math> membership<\/h2>/,
+    'the title is the printed name, its maths typeset');
+  assert.match(html, /<b>Theorem 1\.1<\/b> in the short paper/);
+  assert.match(html, /<blockquote class="universe-quote__text"><p><em>Suppose/, 'the paper’s own words come first');
+  assert.ok(html.indexOf('universe-quote__text') < html.indexOf('How it is checked'));
+  assert.match(html, /class="universe-go universe-go--primary universe-open--primary" href="papers\/p257\.html#thm:a">Read it in the paper/,
+    'the paper button keeps the hook the site’s navigation warming reads');
+  for (const station of ['Lean', 'Comparator', 'Palomar']) assert.match(html, new RegExp(`<b>${station}\\.</b>`));
+  assert.match(html, /It states this result or something stronger, in 2 theorems\./);
+  assert.match(html, /In <a[^>]*>run 359<\/a> its corpus entry E257_1 passed, the Lean kernel and nanoda both accepting it\./,
+    'acceptance is the corpus entry’s, as its receipt is');
+  assert.match(html, /Nothing has been submitted\./, 'Palomar holds a prepared corpus only');
+  assert.match(html, /How the Lean statement gives the printed one: Items one and two give it\./);
+  const code = html.indexOf('<pre');
+  assert.ok(code > html.indexOf('<details class="universe-lean"'), 'Lean code sits inside the disclosure, never on the card face');
+  assert.match(html, /On the same Lean theorems[\s\S]*Half membership claim/);
+  // A reference in the quote to another result on the map selects it there.
+  map.inspector.fire('click', {target: {closest: s => s === '[data-universe-ref]'
+    ? {getAttribute: () => 'statement:p257#thm:b'} : null}});
+  await map.settle();
+  assert.match(map.inspector.innerHTML, /<h2 class="universe-inspector__title">Cap<\/h2>/);
+  assert.match(map.inspector.innerHTML, /The cap holds\./);
+  assert.match(map.inspector.innerHTML, /Its replay is queued\./);
+  assert.equal(map.location.hash, '#o=statement%3Ap257%23thm%3Ab');
+});
+
+test('a double-click on a result opens it at its place in its paper', async () => {
+  const map = await mount({data: resultCardData()});
+  const arcs = map.arcs();
+  const right = Math.max(...arcs.map(a => a.x));
+  const dot = arcs.filter(a => Math.abs(a.x - right) < 0.5).reduce((best, a) => (best && best.y <= a.y ? best : a), null);
+  map.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+  assert.equal(map.location.href, undefined, 'the first click only selects');
+  map.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 2});
+  assert.equal(map.location.href, 'papers/p257.html#thm:a');
+  const teaser = await mountTeaser();
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y, detail: 1});
+  assert.equal(teaser.location.href, '/', 'beside the column the first click pins');
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y, detail: 2});
+  assert.equal(teaser.location.href, 'maths/papers/p257.html#thm:a', 'the second goes to the paper, not back to nothing');
+});
+
+test('over the map the wheel zooms; a scroll already moving the page carries on past it', async () => {
+  const map = await mount();
+  let prevented = 0;
+  const wheel = (deltaY, timeStamp) => map.canvas.fire('wheel', {deltaY, deltaMode: 0, clientX: 146, clientY: 170,
+    timeStamp, preventDefault() { prevented++; }});
+  const before = map.span();
+  wheel(-120, 5000);
+  assert.ok(map.span() > before, 'a plain wheel over the map zooms in, no key held');
+  assert.equal(prevented, 1, 'and the page does not scroll under it');
+  const zoomed = map.span();
+  map.window.fire('wheel', {target: {}, timeStamp: 9000});
+  wheel(120, 9100);
+  assert.equal(map.span(), zoomed, 'a page scroll that slides the map under the pointer keeps scrolling the page');
+  assert.equal(prevented, 1);
+  wheel(120, 9800);
+  assert.ok(map.span() < zoomed, 'once the page has come to rest the wheel zooms again');
+});
+
+test('motion (2026-10-04): teasers open once in view, reduced motion is live, DPR is capped', () => {
+  // A teaser waits closed and plays the map's opening once, when the canvas
+  // is first well in view; a reveal that cannot animate opens at once.
+  assert.match(source, /var teaserOpening = !pageMode && !reduceMotion/);
+  assert.match(source, /new IntersectionObserver\(function \(entries\) \{[\s\S]{0,200}?seen\.disconnect\(\);\s*startReveal\(\);/);
+  assert.match(source, /function startReveal\(\) \{\s*if \(reduceMotion \|\| !window\.requestAnimationFrame \|\| document\.hidden\) \{\s*if \(reveal < 1\) \{ reveal = 1; draw\(\); \}/);
+  // Turning reduced motion on part-way stops the motion and draws the still map.
+  assert.match(source, /function followReduceMotion\(\) \{\s*reduceMotion = !!\(reduceQuery && reduceQuery\.matches\);/);
+  // The backing store is capped at twice the CSS size, as the plait's is.
+  assert.match(source, /var dpr = Math\.min\(window\.devicePixelRatio \|\| 1, 2\);/);
+  assert.doesNotMatch(source, /var dpr = window\.devicePixelRatio \|\| 1;/);
+});
+
+test('beside the column a hovered result reaches the card with its paper’s words, sent again once they arrive', async () => {
+  const teaser = await mountTeaser();
+  const hovers = () => teaser.announced.filter(event => event.type === 'universe:hover' && event.detail);
+  teaser.canvas.fire('pointermove', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(hovers()[0].detail.quote, null, 'the hover goes out at once, before the excerpt file is in');
+  await new Promise(resolve => setImmediate(resolve));
+  const last = hovers().pop();
+  assert.equal(last.detail.id, 'statement:p257#thm:a');
+  assert.equal(last.detail.quote, '<p><em>The paper’s own words.</em></p>',
+    'the same result is sent again with the words the card quotes');
+  assert.ok(!('decls' in last.detail), 'the card no longer carries a declaration name to print');
+});
+
+test('a gap between two dots under a sweeping pointer keeps the field dimmed, then lets it go', async () => {
+  // A paper with no thread to the result: the field dims it while the result is in focus.
+  const map = await mountPulse({extraNodes: [{id: 'paper:far', kind: 'paper', label: 'Far paper', x: -150, y: 150}]});
+  const far = () => map.arcs().filter(a => a.x < map.dot.x && a.y > map.dot.y + 20)
+    .reduce((best, a) => (best && best.r >= a.r ? best : a), null);
+  const rest = far().alpha;
+  map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
+  map.advanceTo(map.now() + 400);
+  const dim = far().alpha;
+  assert.ok(dim < rest - 0.2, 'a result in focus dims the unconnected paper');
+  map.canvas.fire('pointermove', {clientX: 2, clientY: 2});
+  map.advanceTo(map.now() + 48);
+  assert.ok(far().alpha < rest - 0.2, 'the gap after a dot holds the dim instead of snapping the field bright');
+  map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
+  map.advanceTo(map.now() + 32);
+  assert.ok(far().alpha <= dim + 0.02, 'the next dot carries on from the held dim, never restarting from nothing');
+  map.canvas.fire('pointermove', {clientX: 2, clientY: 2});
+  map.advanceTo(map.now() + 900);
+  assert.ok(Math.abs(far().alpha - rest) < 0.02, 'once the pointer has really left, the field eases back');
+  assert.equal(map.frames.size, 0, 'and nothing keeps running');
+});
+
+test('under the map a tap on a dot brings its card into view; beside the map nothing scrolls', async () => {
+  const smallest = arcs => arcs.reduce((best, a) => (best && best.r <= a.r ? best : a), null);
+  const phone = await mount({inspectorTop: 900});
+  const claim = smallest(phone.arcs());
+  phone.canvas.fire('click', {clientX: claim.x, clientY: claim.y, detail: 1});
+  assert.match(phone.inspector.innerHTML, /One checked claim/, 'the tap pins the claim');
+  assert.equal(phone.scrolled.length, 1, 'the card under the map scrolls into view');
+  assert.equal(phone.scrolled[0].block, 'start');
+  const desk = await mount({inspectorTop: 0});
+  const dot = smallest(desk.arcs());
+  desk.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
+  assert.equal(desk.scrolled.length, 0, 'a card beside the map stays where it is');
 });

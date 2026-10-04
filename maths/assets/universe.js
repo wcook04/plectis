@@ -393,22 +393,51 @@
        on a chosen object. */
     /* Focus fades in: the first hover or selection dims the rest of the
        field over a sixth of a second rather than at once. Moving from one
-       object to the next keeps the dimming as it is, so a sweeping pointer
-       never makes the field pulse. Skipped under reduced motion. */
-    var focusMix = 1, focusWas = -1, focusFrame = 0;
+       object to the next keeps the dimming as it is. Letting go holds the
+       dim a moment (FOCUS_HOLD), then eases it out, the field still dimmed
+       toward the object let go of; a new focus picks up from wherever that
+       fade has reached and never restarts from nothing. So the gap between
+       two dots under a sweeping pointer no longer snaps the field bright
+       and dark again (it strobed: measured 33.8 to 40.5 luminance three
+       times in a 1.2s sweep). Name plates follow the pointer at once.
+       Skipped under reduced motion. */
+    var FOCUS_IN = 180, FOCUS_HOLD = 140, FOCUS_OUT = 220;
+    var focusMix = 1, focusWas = -1, focusFrame = 0, focusFade = null, focusHeld = -1;
+    function fadeFocus(to, dur, delay) {
+      if (reduceMotion || !window.requestAnimationFrame) {
+        focusMix = to;
+        focusFade = null;
+        if (to === 0) focusHeld = -1;
+        return;
+      }
+      focusFade = { from: focusMix, to: to, dur: Math.max(1, dur), delay: delay, start: null };
+      if (!focusFrame) focusFrame = requestMotionFrame(stepFocusFade);
+    }
+    function stepFocusFade(now) {
+      focusFrame = 0;
+      var f = focusFade;
+      if (!f) return;
+      if (f.start === null) f.start = now;
+      var t = Math.max(0, Math.min(1, (now - f.start - f.delay) / f.dur));
+      focusMix = f.from + (f.to - f.from) * (1 - (1 - t) * (1 - t));
+      if (t < 1) {
+        focusFrame = requestMotionFrame(stepFocusFade);
+      } else {
+        focusFade = null;
+        if (f.to === 0) focusHeld = -1;
+      }
+      draw();
+    }
+    // The object the field dims toward: the focus, or, while the dim eases
+    // out, the one just let go of.
     function trackFocus(focus) {
-      if (focus >= 0 && focusWas < 0 && !reduceMotion && window.requestAnimationFrame) {
-        var start = null;
-        focusMix = 0;
-        if (focusFrame && window.cancelAnimationFrame) cancelMotionFrame(focusFrame);
-        var tick = function (now) {
-          if (start === null) start = now;
-          var t = Math.min(1, (now - start) / 180);
-          focusMix = 1 - (1 - t) * (1 - t);
-          focusFrame = t < 1 ? requestMotionFrame(tick) : 0;
-          draw();
-        };
-        focusFrame = requestMotionFrame(tick);
+      if (focus >= 0 && focusWas < 0) {
+        if (!focusFade) focusMix = 0;
+        focusHeld = -1;
+        fadeFocus(1, FOCUS_IN * (1 - focusMix), 0);
+      } else if (focus < 0 && focusWas >= 0) {
+        focusHeld = focusWas;
+        fadeFocus(0, FOCUS_OUT, FOCUS_HOLD);
       }
       if (focus !== focusWas) {
         // A selection plays its moment once; focus returning to it after a
@@ -417,6 +446,7 @@
         if (focus >= 0 && focus === selected) pulsedSelection = selected;
       }
       focusWas = focus;
+      return focus >= 0 ? focus : focusHeld;
     }
     var pulsedSelection = -1;
     // What a dimmed thing's alpha is, part way through the fade.
@@ -634,7 +664,10 @@
       return 3;
     }
     function startReveal() {
-      if (!pageMode || reduceMotion || !window.requestAnimationFrame || document.hidden) return;
+      if (reduceMotion || !window.requestAnimationFrame || document.hidden) {
+        if (reveal < 1) { reveal = 1; draw(); }
+        return;
+      }
       var start = null;
       reveal = 0;
       revealMs = 0;
@@ -646,6 +679,30 @@
         if (reveal < 1) requestMotionFrame(step);
       };
       requestMotionFrame(step);
+    }
+    /* Reduced motion is followed live: turning it on part-way stops the
+       opening, the evidence moment and the focus fade, and draws the still
+       map. (The tests' stand-in matchMedia has no listener, hence the
+       guards.) */
+    var reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    function followReduceMotion() {
+      reduceMotion = !!(reduceQuery && reduceQuery.matches);
+      if (!reduceMotion) return;
+      reveal = 1;
+      if (pulse.frame && window.cancelAnimationFrame) cancelMotionFrame(pulse.frame);
+      pulse.frame = 0;
+      pulse.ms = 1e9;
+      if (focusFrame && window.cancelAnimationFrame) cancelMotionFrame(focusFrame);
+      focusFrame = 0;
+      focusFade = null;
+      focusHeld = -1;
+      focusMix = 1;
+      if (overviewReady) draw();
+    }
+    if (reduceQuery && typeof reduceQuery.addEventListener === 'function') {
+      reduceQuery.addEventListener('change', followReduceMotion);
+    } else if (reduceQuery && typeof reduceQuery.addListener === 'function') {
+      reduceQuery.addListener(followReduceMotion);
     }
     function cameraTo(target, fitted) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
@@ -1553,7 +1610,10 @@
       paint();
     }
     function paint() {
-      var dpr = window.devicePixelRatio || 1;
+      // The backing store stops at twice the CSS size, as the plait's does: a
+      // three-times screen would paint 2.25 times the pixels on every camera
+      // frame for no visible gain. The glow sprites draw in CSS pixels.
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
         canvas.width = Math.round(w * dpr);
@@ -1563,8 +1623,10 @@
       ctx.clearRect(0, 0, w, h);
 
       var searching = query.length >= 2;
-      var focus = focusIndex();
-      trackFocus(focus);
+      // Dimming, the lit sector and the threads follow the focus, and for a
+      // moment after it goes, the object just let go of; plates follow the
+      // pointer.
+      var focus = trackFocus(focusIndex());
       var graph = frameGraph(focus), near = graph.near;
       var i, n, x, y;
       /* A phone fits the whole field into a few hundred pixels; marks drawn
@@ -2387,7 +2449,14 @@
       var at = selected >= 0 ? selected : hover;
       if (at < 0 || !nodes[at] || nodes[at].kind !== 'paper_statement') return;
       var shown = [at].concat((nodes[at].twins || []).map(function (t) { return t.at; }));
-      if (shown.some(function (k) { return nodes[k].paperId === pid; })) renderInspector();
+      if (!shown.some(function (k) { return nodes[k].paperId === pid; })) return;
+      if (pageMode) { renderInspector(); return; }
+      // On the landing the column's card quotes the result once its words
+      // arrive: the same pin or hover, sent again with them.
+      if (companionApi) {
+        stage.dispatchEvent(new CustomEvent(selected >= 0 ? 'universe:select' : 'universe:hover',
+          { detail: companionSummary(at) }));
+      }
     }
     // A result's quote: {name, body}; null when its paper has none; undefined
     // while the file is on its way.
@@ -2827,6 +2896,17 @@
       draw();
     }
 
+    // Where the card sits under the map (a phone, a narrow window), a tap on
+    // a dot brings the card into view; the map is one scroll back up. Beside
+    // the map, or already on screen, nothing moves.
+    function revealCard() {
+      if (!inspector || !inspector.getBoundingClientRect || !inspector.scrollIntoView) return;
+      var card = inspector.getBoundingClientRect();
+      var field = canvas.getBoundingClientRect();
+      if (card.top < field.bottom - 4 || card.top < (window.innerHeight || 0) * 0.7) return;
+      inspector.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+
     function stepStatement(dir) {
       if (selected < 0 || !nodes[selected]) return;
       var n = nodes[selected];
@@ -2878,7 +2958,11 @@
       var n = nodes[i];
       var decls = n.decls || [];
       var target = primaryTarget(n);
+      // A result's own words, once its paper's excerpts are here; asking
+      // starts the fetch, and the card is sent again when they arrive.
+      var quote = n.kind === 'paper_statement' ? excerptOf(i) : null;
       return {
+        quote: quote ? quote.body : null,
         id: n.id, kind: n.kind, kindLabel: KIND_LABEL[n.kind] || n.kind,
         label: n.label, sector: n.sector || null, tier: n.tier || null,
         evidence: n.kind === 'paper_statement' ? (EVIDENCE_TEXT[n.tier] || null) : null,
@@ -2886,9 +2970,6 @@
         comparator_queued_at: n.comparator_queued_at || null,
         status: n.status || null, statement: n.statement || null,
         side: n.side || null, paperId: n.paperId || null, paperTitle: n.paperTitle || null,
-        decls: decls.slice(0, 2).map(function (d) { return { name: d.name, href: d.href }; }),
-        declCount: decls.length,
-        leanReasonHtml: n.lean_reason_html || null,
         href: target && !target.external ? target.href : null,
         // The Lean source line on GitHub: the first declaration's, else the
         // object's own.
@@ -3161,9 +3242,26 @@
       // The reveal starts closed, so the load's own draw shows no flash of
       // the whole map before the first frame opens it.
       var opening = pageMode && !pendingId && !reduceMotion && !!window.requestAnimationFrame && !document.hidden;
-      if (opening) { reveal = 0; revealMs = 0; }
+      // A teaser (the landing, the maths overview) plays the same opening
+      // once, when the drawing first comes into view, so the reader sees the
+      // rings arrive in reading order instead of a finished picture that was
+      // drawn offscreen. It waits closed, and a hidden tab opens it at once.
+      var teaserOpening = !pageMode && !reduceMotion && !!window.requestAnimationFrame &&
+        !document.hidden && 'IntersectionObserver' in window;
+      if (opening || teaserOpening) { reveal = 0; revealMs = 0; }
       ingest(data);
       if (opening) startReveal();
+      if (teaserOpening) {
+        var seen = new IntersectionObserver(function (entries) {
+          for (var i = 0; i < entries.length; i += 1) {
+            if (!entries[i].isIntersecting) continue;
+            seen.disconnect();
+            startReveal();
+            return;
+          }
+        }, { threshold: 0.35 });
+        seen.observe(canvas);
+      }
       if (!pageMode) loadCompanion(data.companion);
     }).catch(function () {
       stage.classList.add('is-unavailable');
@@ -3218,6 +3316,7 @@
         // First click pins; a second click on the pinned object opens it.
         if (i >= 0 && i === selected) { openTarget(nodes[i]); return; }
         pin(i, false);
+        if (i >= 0) revealCard();
         return;
       }
       if (companionApi && (i >= 0 || selected >= 0)) {

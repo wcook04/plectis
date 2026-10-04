@@ -1176,7 +1176,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1",
+    "source_fingerprint": "bd2199dcce35b73224b4d75efb54ecd4",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -5482,7 +5482,7 @@
     }
   },
   "source_hashes": {
-    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:692c9c722ead4f85eab3b82aa1ba573f31b5bec6e8f9a08dc412bbfdc6e13639",
+    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:e8518564773a7cc9f40d356d240b13c617d9cf7b1804c45790df89796f1c36aa",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:abbc8c21b86c7d7ec1da7d20c6c3f1c8ba4a545e1c654b8df9644dd3042a5007",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:4eca37f8f77d9a61a8009f6c67a2b6bc1c1639d8d99f85cc7c5abd2375d906a3",
@@ -5772,7 +5772,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:c386eb58435c42b8c8dc621542e021e3f639639f3dfddf3b2d3696ded82de3b0",
+    "sites/microcosm/index.html": "sha256:2271d05ac4d4997e304f5a6daa4c80ac0c9abbdcb42576bf13394bde90e27ebf",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:39576e20db3a8f8819d700305e813fda3efe63525c93e748c9c9c99fad550e03"
   },
   "source_of_truth_contract": {

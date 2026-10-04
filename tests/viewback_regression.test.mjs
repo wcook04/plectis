@@ -517,12 +517,15 @@ test('docs.js loads on a bare page with no thrown error (landing participation s
 test('landing enhancement work stays off the critical input path', () => {
   assert.doesNotMatch(SOURCE, /warmTermLayer/);
   assert.match(SOURCE, /var budget = 8;/);
-  assert.match(SOURCE, /setTimeout\(function \(\) \{ restTimer = 0; warm\(anchor\); \}, 140\)/);
+  // The 140ms rest before warming is the contract; 2629c951be added a
+  // restingAnchor reset inside the same callback.
+  assert.match(SOURCE, /setTimeout\(function \(\) \{\s*restTimer = 0;[^}]{0,80}?warm\(anchor\);\s*\}, 140\)/);
   assert.match(STYLE_SOURCE, /html\s*\{[^}]*scroll-behavior:\s*auto/s);
   assert.doesNotMatch(STYLE_SOURCE, /@view-transition|mc-ember-drift/);
   // The plait (2026-10-03) keeps the field's heat contract: one 2D paint, a
   // single bounded left-to-right reveal, no GPU context, no scroll work, and
-  // nothing at all for reduced motion, save-data or a hidden tab.
+  // nothing at all for save-data or a hidden tab; reduced motion gets the
+  // finished weave in one paint with no reveal (4 Oct 2026).
   assert.doesNotMatch(ART_SOURCE, /CYCLE_MS|VEIL_MS|cycleTimer|function cycle\(/);
   assert.doesNotMatch(ART_SOURCE, /getContext\('webgl|experimental-webgl/);
   assert.doesNotMatch(ART_SOURCE, /addEventListener\('scroll'/);
@@ -534,6 +537,40 @@ test('landing enhancement work stays off the critical input path', () => {
   assert.match(ART_SOURCE, /Math\.min\(window\.devicePixelRatio \|\| 1, 2\)/);
   assert.match(SOURCE, /links\.length > 80\) return/);
   assert.match(SOURCE, /if \(\/\\\/glossary\\\.html\$\/\.test\(window\.location\.pathname/);
+});
+
+test('motion (2026-10-04) stays caused, bounded and reduced-motion safe', () => {
+  // The plait's needles live only inside the bounded reveal, and its last
+  // frame is the finished picture.
+  assert.match(ART_SOURCE, /function drawNeedles\(c, g, pal, x, dpr, p\)/);
+  assert.match(ART_SOURCE, /if \(p >= 1\) \{\s*ctx\.drawImage\(off, 0, 0\);/);
+  // The day/night flip is a same-document transition, skipped for reduced
+  // motion, never a cross-document @view-transition rule, and it never
+  // smears: no colour transition runs while the scheme changes.
+  assert.match(SOURCE, /document\.startViewTransition\(function \(\) \{ apply\(next\); \}\)/);
+  assert.match(SOURCE, /reduce = window\.matchMedia\('\(prefers-reduced-motion: reduce\)'\)\.matches/);
+  assert.match(SOURCE, /function quiet\(next\) \{\s*root\.classList\.add\('vt-theme'\);/);
+  assert.match(STYLE_SOURCE, /html\.vt-theme \*, html\.vt-theme \*::before, html\.vt-theme \*::after \{\s*transition: none !important;/);
+  assert.match(STYLE_SOURCE, /html\.vt-theme \.theme-toggle__knob \{\s*transition: transform/);
+  // Arrivals fill backwards only, so nothing holds a transform afterwards;
+  // reading text never fades in as it is scrolled to, and pages do not
+  // replay an entrance on every load.
+  const motion = STYLE_SOURCE.slice(STYLE_SOURCE.indexOf('/* ── Motion (2026-10-04)')).split('/* ── The earlier software')[0];
+  assert.ok(motion.length > 1000, 'the Motion block is present');
+  assert.doesNotMatch(motion, /mc-arrive[^;]*\bboth\b|mc-arrive[^;]*\bforwards\b/);
+  assert.doesNotMatch(STYLE_SOURCE, /animation-timeline:\s*view\(\)/);
+  assert.doesNotMatch(motion, /\.docs-main\s*\{[^}]*animation/);
+  // Both reviews' traps stay out: no hero fade-up, no top line drawn like a
+  // loading bar, no circular wipe on the theme switch; the map hears the flip.
+  assert.doesNotMatch(motion, /home-hero__(title|lede|why|actions)\s*\{[^}]*animation/);
+  assert.doesNotMatch(STYLE_SOURCE, /body(\.home)?::after\s*\{[^}]*animation/);
+  assert.doesNotMatch(SOURCE, /clipPath: \['circle/);
+  assert.match(SOURCE, /\{ opacity: \[0, 1\] \}/);
+  assert.match(SOURCE, /dispatchEvent\(new CustomEvent\('plectis:theme'/);
+  // Reduced motion keeps the plait as a still drawing; only Save-Data skips it.
+  const LANDING = readFileSync(join(ASSETS, 'landing.js'), 'utf8');
+  assert.doesNotMatch(LANDING, /function fieldWanted\(\) \{\s*if \(prefersReducedMotion\(\)\) return false;/);
+  assert.match(LANDING, /var eased = glide \?/);
 });
 
 test('term first click stays local, second click drills down, and explicit actions remain', () => {

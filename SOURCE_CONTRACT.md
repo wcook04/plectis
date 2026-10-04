@@ -189,6 +189,54 @@ inside a paragraph; the landing's term floor (`_LANDING_TERM_FLOOR` in
 counted in real characters (about 75 a line); CSS `ch` is a zero's width, so
 66ch of Source Sans 3 is about 77 characters.
 
+Motion (4 October 2026; Will asked for "subtle animations that really add to
+things" on every page people visit often) follows one grammar, the universe
+map's opening: things arrive in the order they are read, a little apart,
+easing out, and settle. Every movement has a cause the reader made (a click, a
+hover, a link followed) and a one-line reason; nothing loops and nothing moves
+while the reader is idle. Reading text never fades in, on load or as it is
+scrolled to (NN/g measured that it slows readers); no page replays an entrance
+on every load; a keyboard action never waits on an animation. A motion scout
+(Emil Kowalski's and Krehel's skills, Chrome's guidance, NN/g) and a
+fresh-eyes critique timed in Chrome took a first draft's hero fade-up, a top
+line drawn like a loading bar, scroll fades on text and a circular theme wipe
+back out. The rules live in the "Motion" block of `assets/style.css` (the
+statement arrival in `maths.css`); `viewback_regression.test.mjs` and
+`universe_runtime_regression.test.mjs` pin them, and `public_web_audit.py`
+checks idle motion and theme smear.
+
+- Each page has one moment. The landing's is the plait, drawn in by two
+  points of light, one per cable in its front ink, riding a soft front from
+  left to right; they wind round each other at every crossing and leave
+  nothing behind (one paint, one bounded reveal, nothing afterwards). The
+  words, the film and the figures are simply there at first paint.
+- The map's moment is its opening, ring by ring. A teaser (the landing, the
+  maths overview) plays it once, when the drawing first comes into view.
+- A paper's moment is the arrival at a statement: a theorem reached by a link
+  (the map's "read it in the paper", a cross-reference) flares its hairline
+  ember for about two seconds under a light wash. Any other deep-link target
+  takes the light wash (900ms); a glossary card also takes an ember rule at
+  its left edge rather than a flood of colour.
+- Feedback answers at one tempo (140ms): an ember thread along a problem
+  row's rule under the pointer (on the overview, and on the landing where the
+  map's companion does not take the column over); an underline that rises
+  under paper and problem titles; pills and the switch settle to 97% when
+  pressed; the +/− marks turn a half turn; the margin rail marks the current
+  section by colour and rule, never by weight; the pager leans toward where
+  it goes. Hover effects are for a fine pointer only, and no still image
+  zooms under the pointer.
+- Disclosures (transcripts, the agent notes, catalogue abstracts, dossier
+  sections) open to their height and close back down, in Chromium; elsewhere
+  they fade as before. The glossary's cards, which fill themselves in as they
+  open, the margin contents and the software folds keep their own behaviour.
+- Day and night never smears: no colour transition runs while the scheme
+  changes (`html.vt-theme`), and where view transitions exist the new scheme
+  fades in over the old in 200ms. The map and its teasers repaint on the
+  `plectis:theme` event that both docs.js and maths.js send. Links never use
+  a cross-document `@view-transition`, so navigation never waits on one.
+- Reduced motion keeps every final state and none of the movement; print sees
+  none of it.
+
 The shared stylesheet is `assets/style.css`. Mathematics-specific assets are
 owned by `tools/meta/dissemination/maths_site_assets/` and copied into
 `maths/assets/` by the maths builder; edit their source and regenerate. On long
@@ -257,9 +305,14 @@ the ledger, the evidence or the rendered papers come from different editions.
 - Structure (problems, papers, claims) is drawn in low-chroma inks; saturated
   colour is kept for evidence. Each problem's marker carries an evidence ring.
   Palomar is a hollow ring because it holds a prepared corpus.
-- A plain wheel scrolls the page past the field; a held modifier or a pinch
-  zooms. A pinned card stays put while the pointer crosses other dots. With a
-  result pinned, the arrow keys and the card's buttons walk its paper.
+- Over the field the wheel zooms about the pointer, as a map does (Will, 4
+  Oct: the plus and minus were "really clunky"); beside it the page scrolls.
+  A scroll already moving the page carries on when the field slides under
+  the pointer (a wheel event on the field within 350ms of one elsewhere still
+  scrolls), so reading past the map never catches in it; a pinch always
+  zooms, and on touch a swipe scrolls the page. A pinned card stays put while
+  the pointer crosses other dots. With a result pinned, the arrow keys and
+  the card's buttons walk its paper.
 - The field reads from the centre out, one ring per layer: the Lean universe
   with Comparator and Palomar below it; the problems on one orbit, each between
   its two papers; the claims of each record, on plates; then every result, on
@@ -282,11 +335,12 @@ the ledger, the evidence or the rendered papers come from different editions.
   `\hgt`, …) in one strict run, kept beside the authored text as
   `lean_reason_html` and the detail's `html_mathml`. A note pandoc cannot
   convert stops the build, so the card never shows a reader backslashes.
-- A result's card lists every place it is stated: its own paper and, when the
+- A result's card quotes every place it is stated: its own paper and, when the
   other paper states it under the same label or through a Lean declaration both
-  cite, that one too, each opening the rendered paper at the result and its TeX
-  line on GitHub (`main`, the ref the hosted sources come from). The map draws
-  a dashed thread between the two.
+  cite, that one too, as a tab each ("Short paper, 5.2"), each with buttons to
+  the rendered paper at the result and its TeX line on GitHub (`main`, the ref
+  the hosted sources come from). The map draws a dashed thread between the
+  two.
 - The page is the map and its placard: the field takes the panel's full
   height on the left, so a laptop's first screen holds the whole map, and the
   right-hand column carries the title, the four figures and the search above
@@ -328,8 +382,17 @@ the ledger, the evidence or the rendered papers come from different editions.
   teaser data). Point at a problem's row or any dot of its sector and the
   row's number and title travel up into the band heading's place; under them
   come the question, the tally of its results, its short paper and, for the
-  dot under the pointer, that result's evidence and note. The map lights the
-  sector; leaving the band sets the list back. It keys on
+  dot under the pointer, that result in its paper's own words (the excerpt
+  the map quotes, cut at about seven lines) with how Lean states it and
+  whether Comparator has replayed it. The declaration's name and the Lean
+  note stay on the map's card, so the landing never loads the statement
+  detail (`statements.json`, about 2 MB); a result is sent to the card at
+  once and again when its words arrive. The map lights the sector. Taking the pointer off the column and the drawing (to the margin,
+  the gap, the next band) sets the list back after a quarter of a second, and
+  so does resting it on empty ground in the drawing, so the next row can be
+  read (Will, 4 Oct: "if you remove your mouse from it… it should unselect
+  it and then you can go back on"); crossing between the two is quicker than
+  that. It keys on
   `li.home-problem[data-problem-id]` inside `#mathematics .home-split__text`
   and changes nothing in the landing's markup. It loads only on a fine
   pointer and opens only where the list stands beside the drawing; a row's
@@ -356,8 +419,17 @@ the ledger, the evidence or the rendered papers come from different editions.
   crosses other dots to reach its buttons (its place in the paper, its Lean
   source on GitHub in a new tab, the full map), and the card's rule turns
   ember. A click on the pinned dot or on empty ground, Escape, a tab for
-  another problem, or leaving the band lets it go. Without the column a
-  click opens the full map on the object. The buttons sit under the
+  another problem, or leaving the column and the drawing lets it go. A
+  double-click, on the landing or the map, opens the result at its place in
+  its paper (Will, 4 Oct). Without the column a click opens the full map on
+  the object. A pin starts the paper loading, one page at a time and never on
+  a hover or under Save-Data: where the browser takes speculation rules the
+  page is prerendered whole, and the document goes into the cache as well,
+  so a browser that declines to prerender (an embedded view, headless
+  Chrome, a busy machine) still opens it from there. On the map that fetch
+  is the site's navigation warming (`docs.js`), through the
+  `universe-open--primary` hook the card's paper button keeps; the landing
+  asks for it itself. The buttons sit under the
   evidence sentence, above the declaration and the note, so they stay in
   the first screen at laptop height; the declaration and the note give way
   first on a short screen.
@@ -375,14 +447,45 @@ the ledger, the evidence or the rendered papers come from different editions.
   738x900. Its marks grow with the field above about 680px, up to half
   again, so a monitor's band stays a dense ring; laptops and the teaser
   keep the design size.
-- The map's card speaks plainly (Will, 3 Oct: the old one was "utterly
-  incomprehensible"). A paper result opens with its evidence in one
-  sentence ("Lean states it exactly, and Comparator has replayed that
-  statement. It is in the corpus prepared for Palomar; nothing has been
-  submitted."), then where it is stated with its buttons, then "In Lean"
-  (declarations, breaking only at dots and underscores) and "Checked by
-  Comparator" (what a challenge and a solution are, said once, then the
-  run and the entry). Connections read as phrases over what they name:
+- A result's card quotes its paper first (Will, 4 Oct: show "the excerpt
+  of the section of written prose… and then just render it there"; the
+  code-line card was "just not super clear"). Its title is the printed name,
+  then "Theorem 6.32 in the long record on #257", the evidence chip and the
+  step bar, then the environment the paper prints, cut from the finished
+  paper page so its equation numbers and references match, its maths as
+  native MathML, set in the serif on a sunk ground. A reference in the quote
+  to another result on the map selects it there. Then "How it is checked":
+  Lean, Comparator, Palomar down one thread, each a mark in the map's
+  evidence language and one sentence ("It states this result or something
+  stronger, in 7 theorems."; "It replayed this result: from the Lean
+  statement alone (the challenge) it checked that the proof (the solution)
+  proves exactly that statement. In run … its corpus entry … passed, the
+  Lean kernel and nanoda both accepting it." The acceptance is the entry's,
+  as its receipt is; "It is in the corpus prepared for Palomar. Nothing has
+  been submitted."). The Lean code sits one step down,
+  in "Show the Lean (7 theorems)", the shared namespace said once; the
+  Comparator files are buttons (Receipt, Challenge, Solution). Last come the
+  claims and results on the same Lean theorems, each selecting itself. A
+  disclosure the reader opened stays open from one result to the next.
+- Each paper's quotes travel in `maths/assets/excerpts/<paper>.json`
+  (`[id, name HTML, body HTML]` rows), fetched when a hover or a pin first
+  reaches one of its results and named in the map data as `[paper, route]`
+  pairs, versioned by the paper fragment's hash with the excerpt schema. The
+  build swaps MathJax's CHTML for the MathML it writes beside it, drops ids
+  and exact-TeX attributes, keeps glossary words as plain words, resolves
+  every reference from `maths/`, and writes `mathvariant` letters as Unicode
+  mathematical alphanumerics (MathML Core ignores the attribute: ℝ read as R
+  and the #257 papers' script A as an italic A). The printed head moves to
+  the card's title only when the paper prints exactly the result's label.
+  The files belong to the reading-room deploy scope.
+- With a card pinned the placard steps back to its title and the search
+  (the lede, the figures, the count and the load button return when it
+  closes), so at laptop height the paper's words, not the figures, fill the
+  column's first screen. Under the map (a phone, a narrow window) a pinned
+  card reads at its full length in the page, not in a 320px box scrolling
+  inside it, and a tap on a dot brings the card into view.
+- Other objects' cards speak plainly (Will, 3 Oct: the old one was "utterly
+  incomprehensible"). Connections read as phrases over what they name:
   "Replayed by Comparator", "Prepared for Palomar", "Stated in …",
   "Shares a Lean declaration with …"; never relation keys with arrows,
   and never a note about how many links the map draws.

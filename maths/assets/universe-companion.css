@@ -11,9 +11,11 @@
 .uc-host > :not(.uc) {
   transition: opacity 300ms var(--ease-out, ease-out), transform 300ms var(--ease-out, ease-out);
 }
+/* It leaves by opacity alone, in an eighth of a second, so the travelling
+   title never crosses words still on their way out. */
 .uc-host--open > :not(.uc) {
-  opacity: 0; transform: translateY(10px); pointer-events: none;
-  transition-duration: 150ms;
+  opacity: 0; pointer-events: none;
+  transition-duration: 120ms;
 }
 
 /* Three slots: the eight problems as tabs, the problem, and a card slot
@@ -86,8 +88,24 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
   font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.35; color: var(--ink);
 }
 .uc__focus-meta { margin: 0.25rem 0 0; max-width: 54ch; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
-.uc__decl { margin: 0.25rem 0 0; font-size: 0.8rem; color: var(--faint); overflow-wrap: break-word; }
-.uc__decl code { font-size: 0.78rem; color: var(--ink-soft); }
+/* A result's own words, quoted from its paper (the map's excerpt files):
+   the paper's serif and its maths, a rule down the side, cut at about seven
+   lines, with a fade only when it runs on. */
+.uc__quote {
+  margin: 0.45rem 0 0.1rem; padding: 0 0 0 0.75rem; max-width: 52ch; max-height: 10.6em;
+  border-left: 2px solid var(--home-line);
+  font-family: var(--font-serif); font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft);
+  overflow: hidden;
+}
+.uc__quote.is-cut {
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+.uc__quote p { margin: 0 0 0.35em; }
+.uc__quote p:last-child { margin-bottom: 0; }
+.uc__quote .math-display { margin: 0.3em 0; overflow: hidden; }
+.uc__quote math { font-size: 1.03em; color: var(--ink-soft); }
+.uc__quote a { color: inherit; text-decoration-color: var(--home-line); }
 .uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
 .uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
 .uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }
@@ -95,10 +113,10 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 /* The card's ways out are buttons: quiet rings, the paper's in ember. A
    pinned card's rule turns ember too, so the reader sees what is held. The
    card is a column in which the buttons always keep their room: on a short
-   screen the note and the declaration give way first. */
+   screen the quote and the note give way first. */
 .uc__focus { display: flex; flex-direction: column; }
 .uc__focus > * { flex: none; }
-.uc__focus > .uc__note, .uc__focus > .uc__decl { flex: 0 1 auto; min-height: 0; overflow: hidden; }
+.uc__focus > .uc__note, .uc__focus > .uc__quote { flex: 0 1 auto; min-height: 0; overflow: hidden; }
 .uc__focus .uc__links { gap: 0.4rem 0.45rem; margin: 0.5rem 0 0.35rem; }
 .uc__go {
   min-height: 26px; padding: 0.05rem 0.75rem; border-radius: var(--r-pill, 999px);

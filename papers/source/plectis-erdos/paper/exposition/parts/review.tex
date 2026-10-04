@@ -1,0 +1,192 @@
+% SPDX-FileCopyrightText: 2026 Will Cook
+% SPDX-License-Identifier: CC-BY-4.0
+\section{What the integrating reviewer must decide}\label{sec:review}
+\papersectiontarget{exposition-review}
+
+A proposed revision has several possible fates. It can be accepted verbatim,
+accepted after a mathematical or expository repair, rejected, or left pending
+a named check. Its lesson may already be expressed in the writing guidance.
+These decisions should not be collapsed into a single ``accepted'' label.
+The revision of a paragraph and the adoption of a general rule are different
+acts, as are admission of a returned archive and acceptance of the mathematics
+inside it.
+
+The reviewer begins with the current statement and proof. For a substantive
+change, the record retains the old passage, the proposed passage, the source
+of the proposal and the decision actually made in the canonical manuscript.
+A digest identifies the source bytes; a commit, path and label identify the
+accepted passage. An exact text match, after whitespace normalization, can
+help locate it. Such a match does not establish equivalence of two theorem
+statements or prove that a general recommendation is sound.
+
+\subsection{Replace a local term without losing its definition}
+
+The next short-paper round, R7, provides a direct example of terminology
+review. In the \#249 record, a local growth adjective was replaced by the
+condition it denoted:
+\begin{quote}
+\emph{Before:} tempered integer carry orbit.\par
+\emph{Selected revision:} integer carry sequence $u$ with
+$u(N)/2^N\to0$.
+\end{quote}
+The gain is specific. A reader no longer has to recover a private definition
+to know the required rate. It would be incorrect to replace this condition by
+the more familiar phrase ``subexponential growth'', which says something
+stronger. Other revisions retained standard terms such as upper Banach
+density because those terms denote the properties the paper actually uses.
+The rule is to compare meanings, not to replace every unusual expression.
+
+Removing a shorthand can also remove the visible source of its assumptions.
+In \#243, ``positive exact state'' bundled recurrence and positivity
+conditions. A proposed replacement referred to the same assumptions after
+that definition had disappeared. The integrating reviewer instead stated the
+recurrences for the first implication, then explicitly added natural-number
+domains and $a_n>1$, $C_n>0$ for the eventual consequence. In a second passage,
+the reviewer removed ``earlier'' from ``earlier decreases'': the original
+qualification did not restrict the time at which decreases could occur.
+
+The R7 lesson records distinguish these reviewed selections from the donor's
+proposal and from later rendering or formal correspondence checks. These
+cases show why terminology, grammar and quantification belong in the same
+review. A plainer noun is useful only if the sentence still makes the same
+claim.
+
+\subsection{Rejecting an attractive universal rule}
+
+Earlier reviews of the \#243 manuscript illustrate why historical advice
+needs its original setting. One round asked for a cubic irrationality example
+near the beginning. A subsequent round explicitly retained the live
+bounded-negative result as the paper's lead and rejected an invariant rule
+that an irrationality result must always come first. Later editorial routes
+treated page targets as subordinate to the proof's dependencies.
+
+The retained lesson is to choose a coherent principal contribution and explain
+its relation to the named problem. It does not prescribe a theorem category
+or a fixed page on which every proof must finish. A conditional reduction
+can be the useful result; an unconditional statement can be too weak to carry
+the paper. The choice requires comparing what the results actually say. The
+history record preserves the successive recommendations instead of combining
+them into contradictory commands.
+
+This distinction also protects the longer research record. Shortening a
+paper can be appropriate when the subordinate details have a complete,
+checked destination. Regenerating the long record from the shortened version
+would lose the very argument that made the shorter presentation possible.
+The two documents must be compared in both directions: a stronger hypothesis,
+a repaired endpoint or a newly explained limiting step may appear first in
+either one.
+
+\subsection{Distinguish clarification from a proof repair}
+
+An earlier \#251 review identified a defect in the manuscript's condensed
+account of a sparse construction: a buffer quantity was used without being
+assigned a sequence coordinate and included in the value, size and capacity
+accounting. The original returned memorandum did include those coordinates
+and their contribution to the weighted sum. The accepted ordinary
+repair assigned the relevant coordinates and performed the accounting across
+all indices. Calling the original paragraph unclear would have understated
+the issue. The condensed proof needed repair before the account of it could be trusted.
+Here the recoverable original prevented a loss during shortening or integration
+from being attributed to the original construction. This is a historical
+mathematical repair, undertaken in its own review. A current exposition-only
+assignment should locate such a defect and refer it for a separately authorised
+proof review. It should not silently add the missing mathematics.
+
+That decision must be distinguished from a later sharp companion construction
+which remained unreviewed at its recorded disposition. The presence of both
+in a returned bundle does not give them the same status. A usable history
+names the particular construction, the defect and the accepted replacement;
+it does not summarize the whole problem's sequence of returns as progress
+through increasingly strong theorems.
+
+Other cases expose similar changes of meaning in small amounts of prose.
+In \#1049, language suggesting that a degree bound was inevitable was repaired
+to state a sufficient inequality and preserve the qualification contributed
+by a remaining factor. In \#1041, the revision retained the fixed-polynomial
+scope instead of turning it into a freely varying family. For mixed
+irrationality criteria in \#257, independently chosen witnesses cannot replace
+the common witness required by the argument. These are local mathematical
+checks, even when the proposed edit was presented as compression or style.
+
+An ordinary proof and its formal support also require separate decisions.
+An accepted ordinary argument need not already have a complete Lean
+formalization. Conversely, a checked lemma nearby does not check every
+sentence in a new proof. Review should identify the exact statement supported
+by each kind of evidence, leaving named inputs and pending comparisons visible.
+The publication system's broader evidence responsibilities are described
+separately~\cite{systems}; the writing method uses those distinctions rather
+than creating another proof registry.
+
+A late-September integration supplies a concrete limit on deleting operational
+language. A prose pass had removed remarks that identified named mathematical
+inputs beside the results depending on them. The integrating agent restored
+those remarks. Routine details about running a check could recede, but the
+reader still needed to know which assertion depended on an input. Calling
+both kinds of sentence workflow commentary had erased a substantive
+qualification.
+
+\subsection{Read explanatory words as mathematical claims}\label{sec:words-as-claims}
+
+Test a mathematical adjective by substituting its definition. A ``convex
+combination'' requires nonnegative weights whose sum is one. Checking only
+their signs leaves half the condition untested. In \#1041, Abel summation
+expresses $f(t\zeta)$ as
+\[
+ f(t\zeta)=\sum_{j=0}^{n-1}(t^j-t^{j+1})S_j,
+ \qquad S_j=\sum_{k=0}^{j}a_k\zeta^k,
+\]
+where $n\ge1$, $f(z)=\sum_{k=0}^n a_kz^k$ and $f(\zeta)=0$.
+For $0\le t<1$, the nonnegative coefficients sum to $1-t^n$.
+Thus it is $f(t\zeta)/(1-t^n)$ that the calculation directly presents as a
+convex combination of the $S_j$~\cite[section on trinomials]{paper1041}.
+At $t=1$ this quotient is undefined, and the proof instead uses $f(\zeta)=0$.
+Naming the normalised quantity checks the definition and the endpoint in the
+same sentence. A root-distance calculation or a statement about segments to
+zeros must likewise retain the particular geometric object it controls.
+
+A shorter proof can also be clearer when its reason is already available.
+The \#243 arithmetic normal form is
+\[
+                 Q(n)=m\binom{n+2}{3}+c,
+                 \qquad m\in\mathbb Z_{>0},
+\]
+and $Q(n)$ is known to be integral at every sufficiently large integer $n$.
+At any such nonnegative $n$, the binomial coefficient is integral, so
+$c=Q(n)-m\binom{n+2}{3}$ is integral
+\cite[reduction and the constant term]{paper243}.
+The proposed explanation uses exactly those established facts. Replacing them
+by ``$Q$ is an integer polynomial'' would be unsafe: an integer-valued polynomial
+can have nonintegral coefficients, as $n(n-1)/2$ shows. The useful simplification
+names the available arithmetic structure.
+
+Even prose that seems to paraphrase a bound deserves this review. In the
+\#257 finite average, $L,d,T$ are positive integers. The residues of
+$L,2L,3L,\ldots$ modulo $d$ repeat with period $d/\gcd(L,d)$; the sample
+uses only the first $T$ terms. The inequality $d\le LT$ does not assert
+that one whole period occurs. For $L=3,d=5,T=2$, it holds while the period
+has length five. Splitting the sample into complete periods, possibly none,
+and one remainder is sufficient for the displayed bound
+\cite[finite means for shifted divisor tails]{paper257}.
+Adding the two words ``possibly none'' corrects a gloss while leaving the
+estimate unchanged. This is different from a proof whose estimate itself
+fails. That distinction belongs in the review decision.
+
+\subsection{Correct the source without rewriting its history}
+
+The R6 \#1049 return attached a reader-motivation specimen from Knuth's notes
+to \S1, item~18. Inspection of the original places the passage in item~12,
+on printed page~3 (PDF page~5). Item~18 concerns a different matter. The
+public lesson record retains both the reported locator and the correction.
+
+This small example explains why a plausible quotation and a plausible page
+number are insufficient. A phrase search can find the table of contents,
+another occurrence of a common sentence, or text from an adjacent PDF column.
+The reviewer must inspect the intended passage in context. A corrected locator
+does not invalidate an otherwise useful revision, but the revision's success
+does not excuse a false citation.
+
+The same care applies to the role of the source. A paper may supply a theorem,
+historical attribution, established terminology or an example of composition.
+Those uses call for different claims. A paragraph about proof pacing does not
+validate the proof being paced. A literature specimen establishes that an
+author made a particular choice, not that this choice is universally preferable.

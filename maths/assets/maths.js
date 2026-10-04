@@ -25,7 +25,10 @@
     document.dispatchEvent(new CustomEvent('plectis:theme', { detail: theme }));
   }
 
-  /* Same control the docs runtime injects, appended to the topbar links. */
+  /* Same control the docs runtime injects, appended to the topbar links,
+     with the same sun and moon, so the switch looks alike on every page. */
+  var SUN = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>';
+  var MOON = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>';
   var toggle = null;
   function mountToggle() {
     var nav = document.querySelector('.docs-topbar__links');
@@ -37,24 +40,72 @@
     btn.setAttribute('aria-label', 'Dark mode');
     btn.innerHTML =
       '<span class="theme-toggle__track" aria-hidden="true">' +
-      '<span class="theme-toggle__ico theme-toggle__ico--sun"></span>' +
-      '<span class="theme-toggle__ico theme-toggle__ico--moon"></span>' +
+      '<span class="theme-toggle__ico theme-toggle__ico--sun">' + SUN + '</span>' +
+      '<span class="theme-toggle__ico theme-toggle__ico--moon">' + MOON + '</span>' +
       '<span class="theme-toggle__knob"></span>' +
       '</span>';
     btn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
-      apply(next);
+      flip(next);
     });
     nav.appendChild(btn);
     toggle = btn;
     apply(resolved());
   }
 
+  /* The flip. For the moment the scheme changes no colour transition runs
+     (.vt-theme in style.css), so nothing smears through the page. Where
+     view transitions exist, the new scheme then fades in over the old in
+     200ms, one cross-dissolve of the whole page: a same-document transition,
+     never a link transition, so navigation never waits on it. Reduced
+     motion, a hidden tab or an older browser get the same quiet flip,
+     instantly. The canvases repaint in their own listeners, and the
+     transition's new view is live, so they arrive inside the dissolve. */
+  function quiet(next) {
+    root.classList.add('vt-theme');
+    apply(next);
+    void root.offsetWidth;
+    var lift = function () { root.classList.remove('vt-theme'); };
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(function () { window.requestAnimationFrame(lift); });
+    } else {
+      window.setTimeout(lift, 50);
+    }
+  }
+  function flip(next) {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce || typeof document.startViewTransition !== 'function' ||
+        document.visibilityState === 'hidden') {
+      quiet(next);
+      return;
+    }
+    var transition;
+    root.classList.add('vt-theme');
+    try {
+      transition = document.startViewTransition(function () { apply(next); });
+    } catch (e) {
+      root.classList.remove('vt-theme');
+      quiet(next);
+      return;
+    }
+    var done = function () { root.classList.remove('vt-theme'); };
+    transition.finished.then(done, done);
+    transition.ready.then(function () {
+      try {
+        root.animate(
+          { opacity: [0, 1] },
+          { duration: 200, easing: 'cubic-bezier(0.2, 0.75, 0.25, 1)', pseudoElement: '::view-transition-new(root)' }
+        );
+      } catch (e) {}
+    }, function () {});
+  }
+
   /* Follow OS changes only while the reader has not chosen explicitly. */
   if (mq && mq.addEventListener) {
     mq.addEventListener('change', function () {
-      if (stored() !== 'dark' && stored() !== 'light') apply(resolved());
+      if (stored() !== 'dark' && stored() !== 'light') quiet(resolved());
     });
   }
 

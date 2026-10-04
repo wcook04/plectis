@@ -455,10 +455,31 @@
       return;
     }
     frames = frames || 3;
+    // A distant glossary card starts with an intrinsic off-screen height.
+    // Revealing its neighbours can resize the preceding list after the first
+    // three frames, leaving the definition's heading under the fixed header.
+    // Keep that one arrival aligned through a bounded settling window, then
+    // retire it. Reader input always ends the correction immediately.
+    var deferredCard = target && target.closest && target.closest('.term-card');
+    var remaining = deferredCard ? Math.max(frames, 12) : frames;
+    var stopped = false;
+    var interrupts = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+    function stop() {
+      if (stopped) return;
+      stopped = true;
+      if (deferredCard) interrupts.forEach(function (name) {
+        window.removeEventListener(name, stop, true);
+      });
+    }
+    if (deferredCard) interrupts.forEach(function (name) {
+      window.addEventListener(name, stop, { passive: true, capture: true });
+    });
     var tick = function () {
+      if (stopped) return;
       alignTarget(target);
-      frames -= 1;
-      if (frames > 0) window.requestAnimationFrame(tick);
+      remaining -= 1;
+      if (remaining > 0) window.requestAnimationFrame(tick);
+      else stop();
     };
     window.requestAnimationFrame(tick);
   }
@@ -626,7 +647,17 @@
       if (el.id) { try { if (document.getElementById(el.id) === el) return { by: 'id', v: el.id }; } catch (e) {} }
       if (el.tagName === 'A' && el.getAttribute) {
         var href = el.getAttribute('href');
-        if (href) return { by: 'href', v: href };
+        if (href) {
+          // Header, main action and footer can share a destination. Preserve
+          // its occurrence so return focus goes to the link the reader used.
+          var links = document.getElementsByTagName('a'), n = 0, i;
+          for (i = 0; i < links.length; i++) {
+            if (links[i].getAttribute('href') !== href) continue;
+            if (links[i] === el) return { by: 'href', v: href, n: n };
+            n++;
+          }
+          return { by: 'href', v: href };
+        }
       }
       return null;
     }
@@ -635,8 +666,16 @@
       try {
         if (anchor.by === 'id') return document.getElementById(anchor.v);
         if (anchor.by === 'href') {
-          var links = document.getElementsByTagName('a'), i;
-          for (i = 0; i < links.length; i++) { if (links[i].getAttribute('href') === anchor.v) return links[i]; }
+          var links = document.getElementsByTagName('a'), i, n = 0, first = null;
+          var wanted = typeof anchor.n === 'number' && anchor.n >= 0 &&
+            Math.floor(anchor.n) === anchor.n ? anchor.n : 0;
+          for (i = 0; i < links.length; i++) {
+            if (links[i].getAttribute('href') !== anchor.v) continue;
+            if (!first) first = links[i];
+            if (n++ === wanted) return links[i];
+          }
+          // Old snapshots, or changed markup, retain the original fallback.
+          return first;
         }
       } catch (e) {}
       return null;
@@ -662,7 +701,7 @@
       return ids;
     }
     function snapshot() {
-      return {
+      var view = {
         url: location.pathname + location.search + location.hash,
         path: location.pathname,
         title: pageTitle(),
@@ -670,6 +709,12 @@
         open: openDetailIds(),
         focus: focusAnchor()
       };
+      // The public map's query is part of its exact view, like the selected
+      // object in the hash. Deliberately do not snapshot other form fields.
+      var search = document.querySelector('canvas.universe-canvas--page') &&
+        document.querySelector('input#universe-find[type="search"][data-universe-search]');
+      if (search) view.universeQuery = search.value;
+      return view;
     }
 
     // Record the view we leave. pagehide fires for every navigation away -- an
@@ -741,6 +786,14 @@
       if (!pending || pending.path !== location.pathname) return;
       drop(KEY_RESTORE);
       var run = function () {
+        var search = document.querySelector('canvas.universe-canvas--page') &&
+          document.querySelector('input#universe-find[type="search"][data-universe-search]');
+        if (search && typeof pending.universeQuery === 'string') {
+          search.value = pending.universeQuery;
+          // Reuse the map's normal search synchronization whether its data has
+          // arrived already or installs after the field is restored.
+          search.dispatchEvent(new Event('input', { bubbles: true }));
+        }
         (pending.open || []).forEach(function (id) {
           var el = document.getElementById(id);
           if (el && el.tagName === 'DETAILS') el.open = true;
@@ -5564,6 +5617,10 @@
     root.setAttribute('data-theme', theme);
     try { root.style.colorScheme = theme; } catch (e) {}
     if (toggle) toggle.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
+    // The map and its teasers re-read their palette on this event (maths.js
+    // sends it too); without it the landing's teaser kept the old scheme's
+    // inks on the new ground after a flip.
+    try { document.dispatchEvent(new CustomEvent('plectis:theme', { detail: theme })); } catch (e) {}
   }
 
   apply(resolved());
@@ -5592,10 +5649,58 @@
     btn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
-      apply(next);
+      flip(next);
     });
     toggle = btn;
     nav.appendChild(btn);
+  }
+
+  /* The flip. For the moment the scheme changes no colour transition runs
+     (.vt-theme in style.css), so nothing smears through the page. Where
+     view transitions exist, the new scheme then fades in over the old in
+     200ms, one cross-dissolve of the whole page: a same-document transition,
+     never a link transition, so navigation never waits on it. Reduced
+     motion, a hidden tab or an older browser get the same quiet flip,
+     instantly. The canvases repaint in their own listeners, and the
+     transition's new view is live, so they arrive inside the dissolve. */
+  function quiet(next) {
+    root.classList.add('vt-theme');
+    apply(next);
+    void root.offsetWidth;
+    var lift = function () { root.classList.remove('vt-theme'); };
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(function () { window.requestAnimationFrame(lift); });
+    } else {
+      window.setTimeout(lift, 50);
+    }
+  }
+  function flip(next) {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce || typeof document.startViewTransition !== 'function' ||
+        document.visibilityState === 'hidden') {
+      quiet(next);
+      return;
+    }
+    var transition;
+    root.classList.add('vt-theme');
+    try {
+      transition = document.startViewTransition(function () { apply(next); });
+    } catch (e) {
+      root.classList.remove('vt-theme');
+      quiet(next);
+      return;
+    }
+    var done = function () { root.classList.remove('vt-theme'); };
+    transition.finished.then(done, done);
+    transition.ready.then(function () {
+      try {
+        root.animate(
+          { opacity: [0, 1] },
+          { duration: 200, easing: 'cubic-bezier(0.2, 0.75, 0.25, 1)', pseudoElement: '::view-transition-new(root)' }
+        );
+      } catch (e) {}
+    }, function () {});
   }
 
   if (document.readyState === 'loading') {
@@ -5606,7 +5711,7 @@
 
   // Track the OS only while the visitor has not made an explicit choice.
   if (mq) {
-    var onChange = function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); };
+    var onChange = function (e) { if (!stored()) quiet(e.matches ? 'dark' : 'light'); };
     if (mq.addEventListener) mq.addEventListener('change', onChange);
     else if (mq.addListener) mq.addListener(onChange);
   }

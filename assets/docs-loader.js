@@ -125,7 +125,14 @@
       var focus = null;
       if (active && active.id) focus = { by: 'id', v: active.id };
       else if (active && active.tagName === 'A' && active.getAttribute('href')) {
-        focus = { by: 'href', v: active.getAttribute('href') };
+        var href = active.getAttribute('href');
+        var links = doc.getElementsByTagName('a'), n = 0;
+        focus = { by: 'href', v: href };
+        for (var linkIndex = 0; linkIndex < links.length; linkIndex += 1) {
+          if (links[linkIndex].getAttribute('href') !== href) continue;
+          if (links[linkIndex] === active) { focus.n = n; break; }
+          n += 1;
+        }
       }
       var open = [];
       var details = doc.querySelectorAll('details[open][id]');
@@ -138,6 +145,11 @@
         open: open,
         focus: focus
       };
+      // Keep the same map-only field as docs.js when native navigation wins
+      // the race against runtime activation. Other form values stay private.
+      var search = doc.querySelector('canvas.universe-canvas--page') &&
+        doc.querySelector('input#universe-find[type="search"][data-universe-search]');
+      if (search) row.universeQuery = search.value;
       if (stack.length && stack[stack.length - 1] && stack[stack.length - 1].path === row.path) {
         stack[stack.length - 1] = row;
       } else {
