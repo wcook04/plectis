@@ -186,12 +186,23 @@
     function linksInner(s, readLabel) {
       var links = [];
       if (s.href) links.push('<a class="uc__go uc__go--first" href="' + esc(s.href) + '">' + esc(readLabel) + '</a>');
-      if (s.github) {
-        links.push('<a class="uc__go" href="' + esc(s.github) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">' +
-          'Lean on GitHub</a>');
-      }
-      if (s.mapHref) links.push('<a class="uc__go" href="' + esc(s.mapHref) + '">Open it in the map</a>');
+      // A result's other places, each named for what it opens: the paper's
+      // PDF, its TeX source at the line, the Lean on GitHub, the full map.
+      var pdf = s.kind === 'paper_statement' ? paperPdf(s) : null;
+      if (pdf) links.push('<a class="uc__go" href="' + esc(pdf) + '">PDF</a>');
+      if (s.tex) links.push(outLink(s.tex, 'TeX source'));
+      if (s.github) links.push(outLink(s.github, 'Lean on GitHub'));
+      if (s.mapHref) links.push('<a class="uc__go" href="' + esc(s.mapHref) + '">In the map</a>');
       return links.join('');
+    }
+    function outLink(href, text) {
+      return '<a class="uc__go" href="' + esc(href) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">' +
+        esc(text) + '</a>';
+    }
+    function paperPdf(s) {
+      var problem = data && data.problems && s.sector ? data.problems[s.sector] : null;
+      var paper = problem ? (problem.papers || []).filter(function (row) { return row.id === s.paperId; })[0] : null;
+      return paper && paper.pdf ? api.route(paper.pdf) : null;
     }
 
     /* ---- The card ------------------------------------------------------ */
@@ -215,17 +226,24 @@
       hint: '<p class="uc__hint" data-line="hint"></p>'
     };
 
+    function problemNumber(s) {
+      var problem = data && data.problems && s.sector ? data.problems[s.sector] : null;
+      return problem ? problem.number : null;
+    }
+
     function cardOf(s) {
       if (s && s.kind === 'paper_statement') {
         // The paper's own words, from the map's excerpt file (typeset as
         // MathML at build time); the Lean code stays on the map's card.
         return { shape: 'result', tier: s.tier || 'none', lines: {
-          label: s.side === 'long' ? 'In the long record' : 'In the short paper',
+          // Which problem and which paper, so the card reads on its own.
+          label: esc((s.side === 'long' ? 'In the long record' : 'In the short paper') +
+            (problemNumber(s) ? ' on Erdős #' + problemNumber(s) : '')),
           name: esc(s.label),
           quote: s.quote || '',
           meta: esc(leanSentence(s)),
           note: '',
-          links: linksInner(s, 'Read it in the paper') } };
+          links: linksInner(s, 'Read it on this site') } };
       }
       if (s && s.kind === 'public_claim') {
         return { shape: 'result', tier: CLAIM_TIER[s.status] || 'proved', lines: {
@@ -240,6 +258,28 @@
       }
       return { shape: 'hint', tier: null,
                lines: { hint: 'Point at a dot on the map to read that result here; click it to keep it.' } };
+    }
+
+    // A long quote is cut at its last whole paragraph or display that fits,
+    // never through a formula, and says that it goes on in the paper; only a
+    // single block too tall for the room is faded.
+    function fitQuote(quote) {
+      if (quote.hidden) return;
+      quote.classList.remove('is-cut');
+      var trimmed = false;
+      while (quote.scrollHeight > quote.clientHeight + 2 && quote.children.length > 1) {
+        var last = quote.lastElementChild;
+        if (last.classList.contains('uc__quote-more')) { quote.removeChild(last); continue; }
+        quote.removeChild(last);
+        trimmed = true;
+        if (!quote.querySelector('.uc__quote-more')) {
+          quote.insertAdjacentHTML('beforeend', '<p class="uc__quote-more">The statement continues in the paper.</p>');
+        }
+      }
+      if (trimmed && !quote.querySelector('.uc__quote-more')) {
+        quote.insertAdjacentHTML('beforeend', '<p class="uc__quote-more">The statement continues in the paper.</p>');
+      }
+      if (quote.scrollHeight > quote.clientHeight + 2) quote.classList.add('is-cut');
     }
 
     function drawCard(card, quiet) {
@@ -270,11 +310,8 @@
       // below take their room first), and again after the frame's layout.
       var quote = el.focus.querySelector('[data-line="quote"]');
       if (quote) {
-        var measureQuote = function () {
-          quote.classList.toggle('is-cut', !quote.hidden && quote.scrollHeight > quote.clientHeight + 2);
-        };
-        measureQuote();
-        if (window.requestAnimationFrame) window.requestAnimationFrame(measureQuote);
+        fitQuote(quote);
+        if (window.requestAnimationFrame) window.requestAnimationFrame(function () { fitQuote(quote); });
       }
       var mark = el.focus.querySelector('.uc-mark');
       var newEvidence = !!mark && card.tier !== state.card.tier;

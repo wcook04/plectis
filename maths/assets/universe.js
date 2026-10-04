@@ -247,6 +247,11 @@
       lensOff.human_document = true;
     }
     var tierOff = {};
+    var paperScope = 'all';
+    var sharedOnly = false;
+    var checking = 'all';
+    var overlapInput = document.querySelector('[data-universe-overlap]');
+    var checkingInput = document.querySelector('[data-universe-checking]');
     var palette = {};
     var fullLoaded = false;
     var fullLoading = false;
@@ -330,6 +335,14 @@
 
     function visible(node) {
       if (lensOff[node.kind]) return false;
+      if (node.kind === 'paper_statement') {
+        if (paperScope !== 'all' && node.side !== paperScope) return false;
+        if (sharedOnly && !(node.twins || []).length) return false;
+        if (checking === 'ordinary_proof' && node.proof_status !== 'ordinary_proof') return false;
+        if (checking !== 'all' && checking !== 'ordinary_proof' && node.tier !== checking) return false;
+      } else if (node.kind === 'public_claim' && checking === 'ordinary_proof' && node.proof_status !== 'ordinary_proof') {
+        return false;
+      }
       return !(node.tier && tierOff[node.tier]);
     }
     function matches(node) {
@@ -1323,6 +1336,14 @@
     /* A claim's glyph is its status. Rings are filled with the paper colour
        so the edges beneath do not read as marks inside them. */
     function drawGlyph(x, y, r, color, tier) {
+      if (tier === 'ordinary_proof') {
+        ctx.beginPath();
+        ctx.moveTo(x, y - r * 1.25); ctx.lineTo(x + r * 1.25, y);
+        ctx.lineTo(x, y + r * 1.25); ctx.lineTo(x - r * 1.25, y);
+        ctx.closePath(); ctx.fillStyle = palette.ground; ctx.fill();
+        ctx.strokeStyle = palette.paper || color; ctx.lineWidth = 1.4; ctx.stroke();
+        return;
+      }
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
       if (!tier || tier === 'proved' || tier === 'replayed' || tier === 'lean') {
@@ -1977,7 +1998,7 @@
         var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
         if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
         if (view.k < 1.1) {
-          var compactText = c.text.replace(/^shared by /, 'Shared: ');
+          var compactText = c.text.replace(/^shared by /, 'Shared claims: ');
           ctx.font = '600 10px ' + SERIF;
           var captionHalf = ctx.measureText(compactText).width / 2 + 6;
           // Leave the right-hand zoom controls their own column.
@@ -2524,7 +2545,7 @@
           r = Math.min(r, Math.max(0.45, view.k * 1.5));
         }
         var alpha = 1;
-        if (n.tier === 'open' || n.tier === 'none') alpha = 0.7;
+        if ((n.tier === 'open' || n.tier === 'none') && !n.proof_status) alpha = 0.7;
         if (n.kind === 'lean_module' && i !== focus) alpha = 0.45;
         var anchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         if (searching && !matches(n) && !anchor) alpha = 0.12;
@@ -2586,13 +2607,13 @@
           // the focus fades in, the colour crossfades into the grey.
           if (focusMix < 1) {
             ctx.globalAlpha = undimmed * (1 - focusMix);
-            drawGlyph(x, y, r, glyphColor(n), n.tier);
+            drawGlyph(x, y, r, glyphColor(n), n.proof_status || n.tier);
             if (n.kind === 'problem') drawProblemRing(n, x, y, r);
           }
           ctx.globalAlpha = undimmed * focusMix * 0.5;
-          drawGlyph(x, y, r, palette.faint, n.tier);
+          drawGlyph(x, y, r, palette.faint, n.proof_status || n.tier);
         } else {
-          drawGlyph(x, y, r, glyphColor(n), n.tier);
+          drawGlyph(x, y, r, glyphColor(n), n.proof_status || n.tier);
           if (n.kind === 'problem') drawProblemRing(n, x, y, r);
         }
         if (i === selected) {
@@ -2896,6 +2917,12 @@
         // The placard above already gives the totals; the rail names how to
         // read the field.
         parts.push('<h2 class="universe-inspector__title">Reading the map</h2>');
+        var sides = {short: 0, long: 0};
+        nodes.forEach(function (n) {
+          if (n.kind === 'paper_statement' && visible(n) && sides[n.side] != null) sides[n.side]++;
+        });
+        parts.push('<div class="universe-paper-coverage" aria-label="Visible paper statements">' +
+          '<span><b>' + sides.short + '</b>in short papers</span><span><b>' + sides.long + '</b>in long papers</span></div>');
         var problemCount = 0;
         for (var pc = 0; pc < nodes.length; pc++) if (nodes[pc].kind === 'problem' && visible(nodes[pc])) problemCount++;
         parts.push('<p class="universe-inspector__body">From the centre out, one ring for each layer:</p>');
@@ -2903,31 +2930,36 @@
           '<li>' + dotHtml('universe') + '<span>the Lean universe, with Comparator and Palomar</span></li>' +
           '<li>' + dotHtml('problem') + '<span>' + problemCount + ' problems, each between its two papers</span></li>' +
           '<li>' + dotHtml('public_claim') + '<span>the claims in each problem’s record</span></li>' +
-          '<li>' + dotHtml('paper_statement') + '<span>every result the papers state</span></li>' +
+          '<li>' + dotHtml('paper_statement') + '<span>paper statements: short paper first, then long paper</span></li>' +
           '</ol>');
-        parts.push('<p class="universe-inspector__body">Comparator’s colour marks a result whose Lean statement a replay has checked. ' +
+        parts.push('<p class="universe-inspector__body">Comparator’s colour marks a recorded replay of the Lean declarations. A hollow diamond marks an ordinary proof recorded in the paper. ' +
           'Round the outside, a scale has one evenly spaced tick for each result, each paper’s in the order the paper ' +
           'states them, so the length of a run is its paper’s count. ' +
           'Select a problem to frame its sector, then a paper to frame its results, then a result to read its Lean and its replay; ' +
           '<kbd>Esc</kbd> or a click on empty ground goes back the same way.</p>');
-        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'All paper results') + '</div>');
+        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'Visible paper statements') + '</div>');
         parts.push(evidence.html);
       } else {
         parts.push('<p class="universe-inspector__kind">The universe</p>');
         parts.push('<h2 class="universe-inspector__title">' + shown + ' objects in view</h2>');
+        parts.push('<p class="universe-inspector__body">No paper statements match these filters. Change the paper or verification selection to see more.</p>');
       }
       if (bands.length) {
         var problemRows = bands.map(function (b) {
           var at = problemIndex[b.sector];
           if (at === undefined) return '';
-          var total = 0;
-          for (var key in b.evidence) total += b.evidence[key];
+          var total = 0, visibleEvidence = {};
+          nodes.forEach(function (n) {
+            if (n.kind !== 'paper_statement' || n.sector !== b.sector || !visible(n)) return;
+            total++;
+            visibleEvidence[n.tier] = (visibleEvidence[n.tier] || 0) + 1;
+          });
           return '<li><button type="button" class="universe-problem" data-universe-go="' + at + '">' +
             '<span class="universe-problem__name">' + escapeHtml(b.title || nodes[at].shortLabel) + '</span>' +
-            '<span class="universe-problem__count">' + (b.evidence.replayed || 0) + ' of ' + total + ' replayed</span>' +
-            gaugeHtml(b.evidence, b.title) + '</button></li>';
+            '<span class="universe-problem__count">' + (visibleEvidence.replayed || 0) + ' of ' + total + ' replayed</span>' +
+            gaugeHtml(visibleEvidence, b.title) + '</button></li>';
         }).join('');
-        parts.push('<h3 class="universe-inspector__sub">Problems</h3><ul class="universe-problems">' + problemRows + '</ul>');
+        parts.push('<h3 class="universe-inspector__sub">Problems in this view</h3><ul class="universe-problems">' + problemRows + '</ul>');
       }
       if (status.total) {
         parts.push('<details class="universe-connections"><summary>Headline claims by status <b>' + status.total + '</b></summary>' + status.html + '</details>');
@@ -3236,8 +3268,8 @@
        and the Comparator files wait one step down for whoever wants them,
        and every way out (the paper, the TeX, GitHub) is a button. */
 
-    var ROLE_NAME = { short: 'the short paper', long: 'the long record' };
-    var TAB_NAME = { short: 'Short paper', long: 'Long record' };
+    var ROLE_NAME = { short: 'the short paper', long: 'the long paper' };
+    var TAB_NAME = { short: 'Short paper', long: 'Long paper' };
     function roleName(m) { return ROLE_NAME[m.side] || 'the paper'; }
     // A name the paper prints in lower case ("conditional numerical
     // thresholds") heads the card with a capital; markup and maths are left be.
@@ -3293,7 +3325,7 @@
       return table[m.id] || null;
     }
 
-    // Every place a result is stated, the short paper first.
+    // Related statement locations, the short paper first. Shared formal support is not equivalence.
     function placesOf(i) {
       var places = [{ at: i, via: null }].concat((nodes[i].twins || []).map(function (t) {
         return { at: t.at, via: t.via };
@@ -3315,8 +3347,8 @@
       var m = nodes[place.at];
       var html = '<figure class="universe-quote">';
       if (tabs.length > 1) {
-        // Two papers state it: a tab for each, the reader's choice kept.
-        html += '<div class="universe-quote__tabs" role="tablist" aria-label="Where it is stated">' +
+        // Related statements in two papers; retain the reader's chosen excerpt.
+        html += '<div class="universe-quote__tabs" role="tablist" aria-label="Related statements in the two papers">' +
           tabs.map(function (t) {
             var tm = nodes[t.at];
             // "Short paper, 5.2": short enough for two tabs on one line.
@@ -3338,8 +3370,8 @@
         var named = place.at !== i && ex.name ? '<p class="universe-quote__name">' + ex.name + '</p>' : '';
         html += '<blockquote class="universe-quote__text">' + named + ex.body + '</blockquote>';
       }
-      if (place.via && place.via !== 'the same label') {
-        html += '<p class="universe-quote__via">Shown with this result because both papers cite the same Lean theorem for it.</p>';
+      if (place.at !== i && place.via) {
+        html += '<p class="universe-quote__via">These statements cite a common Lean declaration. Compare their hypotheses and conclusions; shared support does not establish equivalence.</p>';
       }
       var go = [];
       if (m.paper) {
@@ -3548,6 +3580,13 @@
         '<path class="universe-step__cursor" d="M' + x + ' 0V' + H + '"/></svg>';
     }
 
+    function proofHtml(n) {
+      if (n.proof_status !== 'ordinary_proof') return '';
+      return '<div class="universe-proof"><p class="universe-inspector__meta">' +
+        '<span class="universe-chip">' + glyphHtml('ordinary_proof') + 'Ordinary proof in the paper</span></p>' +
+        '<p class="universe-inspector__note">' + escapeHtml(n.proof_note || '') + '</p></div>';
+    }
+
     function resultCardHtml(i, pinned) {
       var n = nodes[i];
       var lab = splitLabel(n.label);
@@ -3559,6 +3598,8 @@
         '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
         '<p class="universe-result__where">' + (lab.name ? '<b>' + escapeHtml(lab.number) + '</b> in ' : 'In ') +
           roleName(n) + (problem ? ' on ' + problemChipHtml(n.sector) : '') + '</p>'];
+      parts.push(proofHtml(n));
+      if ((n.twins || []).length) parts.push('<p class="universe-inspector__note">Shared Lean support in both papers · compare the statements below.</p>');
       if (n.tier) {
         parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' +
           glyphHtml(n.tier) + escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span></p>');
@@ -3569,11 +3610,11 @@
         // states them (the arrow keys do the same).
         parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
           '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
-          (n.seq === 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
+          (adjacentStatement(n, -1) < 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
           '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length +
           stepScaleHtml(n.seq, seq.length) + '</span>' +
           '<button type="button" class="universe-step__btn" data-universe-step="1"' +
-          (n.seq === seq.length - 1 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
+          (adjacentStatement(n, 1) < 0 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
           '</div>');
       }
       parts.push(quoteHtml(i, pinned));
@@ -3651,6 +3692,7 @@
       }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
+      parts.push(proofHtml(n));
       var body = n.statement || n.question || null;
       if (body) parts.push('<p class="universe-inspector__body">' + escapeHtml(body) + '</p>');
       if (n.boundary) {
@@ -3881,14 +3923,21 @@
     /* Walking a paper keeps the view the reader chose: the camera moves
        only when the next result would leave it, sliding across at the same
        scale, and the step remembers the view it left. */
+    function adjacentStatement(n, dir) {
+      var seq = paperSequence[n.paperId] || [];
+      for (var at = n.seq + dir; at >= 0 && at < seq.length; at += dir) {
+        if (visible(nodes[seq[at]])) return seq[at];
+      }
+      return -1;
+    }
     function stepStatement(dir) {
       if (selected < 0 || !nodes[selected]) return;
       var n = nodes[selected];
       var seq = paperSequence[n.paperId];
       if (!seq || n.seq == null) return;
-      var at = n.seq + dir;
-      if (at < 0 || at >= seq.length) return;
-      var next = seq[at], last = trail.length ? trail[trail.length - 1] : null;
+      var next = adjacentStatement(n, dir);
+      if (next < 0) return;
+      var last = trail.length ? trail[trail.length - 1] : null;
       if (last && last.at === selected) last.at = next;
       else trail = [{ at: next, before: null }];
       pin(next, false, true);
@@ -3982,6 +4031,8 @@
         // object's own.
         github: (decls[0] && decls[0].href) || (n.lean && n.lean.length ? n.lean[0].href : null) ||
           n.source_github || null,
+        // The TeX line the paper states it at, on GitHub.
+        tex: n.tex && statementMeta && statementMeta.tex_source_base ? statementMeta.tex_source_base + n.tex : null,
         mapHref: route('universe.html#o=' + encodeURIComponent(n.id))
       };
     }
@@ -4078,12 +4129,12 @@
       if (n.decls && statementMeta) {
         return n.decls.map(function (d) {
           var file = statementMeta.lean_files[d[1]] || '';
-          return { name: d[0], line: d[2] || null,
+          return { name: d[0], file: file, line: d[2] || null,
                    href: statementMeta.lean_source_base + file + (d[2] ? '#L' + d[2] : '') };
         });
       }
       return (n.declarations || []).map(function (d) {
-        return { name: d.name, href: d.href, line: d.line || null };
+        return { name: d.name, file: d.file || '', href: d.href, line: d.line || null };
       });
     }
 
@@ -4101,6 +4152,7 @@
           id: n.id, kind: n.kind, label: plainText(n.label),
           shortLabel: plainText(n.short || n.label),
           status: n.status || null, statement: n.statement || null,
+          proof_status: n.proof_status || null, proof_note: n.proof_note || null,
           boundary: n.boundary || null, disposition: n.disposition || null,
           question: n.question || null, subject: n.subject || null,
           declaration_count: n.declaration_count != null ? n.declaration_count : null,
@@ -4141,7 +4193,8 @@
         }
         row.tier = tierOf(row);
         row.search = normalizeSearchText([row.label, row.id, row.status || '', row.disposition || '',
-          row.subject || '', row.statement || '', row.paperLabel || '',
+          row.subject || '', row.statement || '', row.paperLabel || '', row.side || '',
+          row.proof_status === 'ordinary_proof' ? 'ordinary proof' : '',
           row.tier && EVIDENCE_TEXT[row.tier] ? EVIDENCE_TEXT[row.tier] : '',
           (row.decls || []).map(function (d) { return d.name; }).join(' ')].join(' '));
         return row;
@@ -4186,15 +4239,17 @@
       // The scale round the results ring reads the same sequences.
       buildScale();
       pinnedPlate = null;
-      // A result the other paper also states: the same label, or a Lean
-      // declaration both cite. Its card lists every place it appears.
+      // Link shared formal support across short and long papers. A matching
+      // label or name alone does not establish identity or equivalence.
       var twinSlots = {};
       for (i = 0; i < nodes.length; i++) {
         var tn = nodes[i];
         if (tn.kind !== 'paper_statement') continue;
         tn.twins = [];
-        var slots = ['label|' + tn.sector + '|' + tn.paperLabel];
-        (tn.decls || []).forEach(function (d) { slots.push('decl|' + tn.sector + '|' + d.name); });
+        var slots = [];
+        (tn.decls || []).forEach(function (d) {
+          if (d.file && d.name) slots.push(JSON.stringify([tn.sector, d.file, d.name]));
+        });
         for (var si = 0; si < slots.length; si++) {
           (twinSlots[slots[si]] = twinSlots[slots[si]] || []).push(i);
         }
@@ -4202,13 +4257,12 @@
       Object.keys(twinSlots).forEach(function (slot) {
         var list = twinSlots[slot];
         if (list.length < 2) return;
-        var via = slot.indexOf('label|') === 0 ? 'the same label' : 'a Lean declaration both cite';
+        var via = 'a Lean declaration both cite';
         list.forEach(function (a) {
           list.forEach(function (b) {
-            if (a === b || nodes[a].paperId === nodes[b].paperId) return;
+            if (a === b || !nodes[a].side || !nodes[b].side || nodes[a].side === nodes[b].side) return;
             var have = nodes[a].twins.filter(function (t) { return t.at === b; })[0];
             if (!have) nodes[a].twins.push({ at: b, via: via });
-            else if (via === 'the same label') have.via = via;
           });
         });
       });
@@ -4446,7 +4500,7 @@
 
       document.addEventListener('keydown', function (event) {
         var tag = event.target && event.target.tagName;
-        var typing = tag === 'INPUT' || tag === 'TEXTAREA' || (event.target && event.target.isContentEditable);
+        var typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (event.target && event.target.isContentEditable);
         if (event.key === 'Escape' && (selected >= 0 || (!typing && !viewIsFitted))) { stepBack(); return; }
         if (!typing && (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
             selected >= 0 && nodes[selected].kind === 'paper_statement') {
@@ -4547,6 +4601,7 @@
       if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
       else renderInspector();
       countMatches();
+      renderResults();
       draw();
     }
 
@@ -4565,8 +4620,32 @@
         var pressed = btn.getAttribute('aria-pressed') === 'true';
         btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
         tierOff[tier] = pressed;
+        if (EVIDENCE_ORDER.indexOf(tier) >= 0 && checkingInput) { checking = 'all'; checkingInput.value = 'all'; }
         afterFilterChange();
       });
+    });
+
+    document.querySelectorAll('[data-universe-scope]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        paperScope = btn.getAttribute('data-universe-scope');
+        document.querySelectorAll('[data-universe-scope]').forEach(function (other) {
+          other.setAttribute('aria-pressed', String(other === btn));
+        });
+        afterFilterChange();
+      });
+    });
+    if (overlapInput) overlapInput.addEventListener('change', function () {
+      sharedOnly = overlapInput.checked;
+      afterFilterChange();
+    });
+    if (checkingInput) checkingInput.addEventListener('change', function () {
+      checking = checkingInput.value;
+      // Choosing a verification view replaces evidence toggles from the key.
+      EVIDENCE_ORDER.forEach(function (tier) { delete tierOff[tier]; });
+      document.querySelectorAll('[data-universe-tier]').forEach(function (btn) {
+        if (EVIDENCE_ORDER.indexOf(btn.getAttribute('data-universe-tier')) >= 0) btn.setAttribute('aria-pressed', 'true');
+      });
+      afterFilterChange();
     });
 
     /* ---- Search results --------------------------------------------- */
@@ -4603,7 +4682,7 @@
       if (activeResult >= top.length) activeResult = top.length - 1;
       resultsBox.innerHTML = top.map(function (idx, at) {
         var n = nodes[idx];
-        var mark = n.kind === 'paper_statement' || n.kind === 'public_claim' ? glyphHtml(n.tier) : dotHtml(n.kind);
+        var mark = n.kind === 'paper_statement' || n.kind === 'public_claim' ? glyphHtml(n.proof_status || n.tier) : dotHtml(n.kind);
         return '<li role="option" id="universe-result-' + at + '" class="universe-result' +
           (at === activeResult ? ' is-active' : '') + '" aria-selected="' + (at === activeResult) +
           '" data-universe-go="' + idx + '">' + mark +
@@ -4793,6 +4872,7 @@
             short: layout.short && layout.short[n.id] || n.label,
             sub: subs[n.id] || null,
             status: n.status, statement: n.statement, boundary: n.boundary,
+            proof_status: n.proof_status, proof_note: n.proof_note,
             disposition: n.disposition, question: n.question, subject: n.subject,
             declaration_count: n.declaration_count, theorem_count: n.theorem_count,
             page: pages[n.id] || null, source_github: n.source_github,

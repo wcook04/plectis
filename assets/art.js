@@ -1,6 +1,7 @@
 /* Plectis: the plait.
-   Two cables of fine thread, one ember and one ultramarine, plaited across
-   the top of the landing. The mark is two woven strands; this is the same
+   Two cables of fine thread, one brick red and one steel blue, plaited across
+   the top of the landing (the inks of the entangled-photon yin-yang Will keyed
+   the palette to, held at a mature chroma: never neon). The mark is two woven strands; this is the same
    weave at the scale of the page. Each cable is a rope of hairline threads
    wound round its own axis, and the two cables cross with real over and
    under breaks, the way a braid or knot diagram is drawn.
@@ -75,24 +76,25 @@
     ];
   }
 
-  /* Palettes. Night: the ember stays in the orange register (never yellow or
-     white-gold) and the cool cable is a real ultramarine that lifts to ice at
-     its front threads. Day: the same two inks printed on paper. The cores
-     are the eyes: each cable's core is drawn in the other cable's ink. */
+  /* Palettes. Night: a brick red that warms to coral at its front threads
+     and a steel blue that lifts to a pale sky, both held at a mature chroma
+     (Will, 4 October: "a bit of glow, prudent, not flamboyant"). Day: the
+     same two inks printed on paper. The cores are the eyes: each cable's
+     core is drawn in the other cable's ink. */
   function palette(dark) {
     if (dark) {
       return {
-        warmBack: [176, 66, 34], warmFront: [255, 158, 92],
-        coolBack: [52, 74, 186], coolFront: [184, 204, 255],
-        warmCore: [255, 146, 80], coolCore: [128, 152, 255],
+        warmBack: [160, 63, 60], warmFront: [230, 123, 109],
+        coolBack: [53, 96, 143], coolFront: [147, 197, 230],
+        warmCore: [225, 115, 102], coolCore: [123, 178, 217],
         alpha: 0.62, glow: 0.5, width: 1.0, blend: 'lighter',
         coreWidth: 1.25, coreAlpha: 0.92, channel: 0.8
       };
     }
     return {
-      warmBack: [190, 100, 64], warmFront: [140, 46, 16],
-      coolBack: [110, 130, 200], coolFront: [30, 52, 142],
-      warmCore: [168, 62, 26], coolCore: [36, 60, 156],
+      warmBack: [209, 137, 128], warmFront: [147, 43, 39],
+      coolBack: [124, 156, 185], coolFront: [37, 83, 124],
+      warmCore: [154, 50, 44], coolCore: [42, 89, 130],
       alpha: 0.64, glow: 0, width: 0.95, blend: 'source-over',
       coreWidth: 1.15, coreAlpha: 0.86, channel: 0.85
     };

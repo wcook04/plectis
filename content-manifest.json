@@ -1455,7 +1455,7 @@
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
       "byte_compatible_alias": 24,
-      "html_redirect": 220,
+      "html_redirect": 221,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1521,7 +1521,7 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 220,
+        "route_count": 221,
         "sample_paths": [
           "index.html",
           "docs/index.html",
@@ -1546,18 +1546,18 @@
         ]
       }
     ],
-    "route_count": 248,
+    "route_count": 249,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
-    "canonical_page_object_count": 219,
+    "canonical_page_object_count": 220,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Page objects with route_role=canonical_page.",
       "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
       "route_alias_count": "Compatibility routes that resolve to a canonical page object."
     },
-    "emitted_route_count": 220,
+    "emitted_route_count": 221,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -1711,6 +1711,22 @@
         "microcosm-substrate/core/organ_atlas.json"
       ],
       "title": "How it fits together"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:system-map",
+      "generated": true,
+      "nav_group": "The system",
+      "output_path": "docs/system-map.html",
+      "public_label": "System map",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/architecture_kernel.json"
+      ],
+      "title": "The system map"
     },
     {
       "alternate_labels": [],
@@ -5776,7 +5792,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:f76f783fc8603478bdd486cf4f47eab67eae8283e4b466c4d8450003dd19742b",
+    "sites/microcosm/index.html": "sha256:245064cacf126e79425457f2a2fc33ba7506df0c4c59883b1d1af509eba455a4",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:39576e20db3a8f8819d700305e813fda3efe63525c93e748c9c9c99fad550e03"
   },
   "source_of_truth_contract": {

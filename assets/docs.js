@@ -1094,7 +1094,9 @@
       lab.appendChild(document.createTextNode('Back to '));
       var where = document.createElement('span');
       where.className = 'viewback__where';
-      where.textContent = prev.title;
+      // Mid-sentence, a title's leading article reads lower case:
+      // "Back to the universe map", never "Back to The universe map".
+      where.textContent = String(prev.title).replace(/^The\s/, 'the ');
       lab.appendChild(where);
       btn.appendChild(arrow);
       btn.appendChild(lab);
@@ -1116,6 +1118,22 @@
       });
       (document.body || document.documentElement).appendChild(btn);
       if (document.body) document.body.classList.add('has-viewback');
+      // Once the reader starts reading, the pill folds to its arrow, as the
+      // glossary chip folds to its mark, so it stops covering a line of text;
+      // pointer or keyboard focus unfolds it in place (its left edge never
+      // moves). Only the reader's own scrolling folds it: the exact-return
+      // restore scrolls the page too, and must not.
+      var foldKeys = { PageDown: 1, PageUp: 1, ArrowDown: 1, ArrowUp: 1, ' ': 1, End: 1, Home: 1 };
+      var foldOn = function (ev) {
+        if (ev.type === 'keydown' && !foldKeys[ev.key]) return;
+        btn.classList.add('is-folded');
+        window.removeEventListener('wheel', foldOn);
+        window.removeEventListener('touchmove', foldOn);
+        window.removeEventListener('keydown', foldOn);
+      };
+      window.addEventListener('wheel', foldOn, { passive: true });
+      window.addEventListener('touchmove', foldOn, { passive: true });
+      window.addEventListener('keydown', foldOn);
       // The pill rests at opacity 0 and only the .is-shown class reveals it, so
       // whatever schedules that class is load-bearing for the control being
       // visible at all. A lone rAF is not safe for that job: it fires on the

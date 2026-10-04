@@ -6,9 +6,9 @@
   "subject_kind": "problem",
   "form": "Problem note",
   "pages": 17,
-  "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
-  "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
-  "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
+  "question": "Why is the sum over distinct running LCMs of the 5-smooth integers irrational?",
+  "precis": "A five-map argument proves irrationality of the reciprocal sum over distinct running least common multiples of the 5-smooth integers. The spacing of powers of five separates the tail images, so rationality would force a periodic jump sequence. Counting running LCMs with multiplicity gives a different number, whose irrationality remains open here.",
+  "owns": "the five-map proof for distinct running LCMs over {2,3,5}; the long paper treats general prime sets, the sum with multiplicity, kernels and residue criteria",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
   "problem_id": "erdos_269",
   "routes": {
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "1d7bde0fc530e17f",
+    "renderer_fingerprint": "f4a483d215eb8e2b",
     "source_sha256": "ea4fb775bf4c8fffcdcf90e4c33e47a58e3b28e6bbfdcef20bd01d871b7673c4",
     "source_manifest_match": true,
     "publication_manifest_match": true,
@@ -133,18 +133,8 @@
         "level": 2
       },
       {
-        "id": "sec:rank",
-        "title": "The three-prime kernel",
-        "level": 2
-      },
-      {
-        "id": "sec:lcm",
-        "title": "The repeated three-prime sum",
-        "level": 2
-      },
-      {
-        "id": "sec:escape",
-        "title": "A residue criterion",
+        "id": "sec:distinct",
+        "title": "Recovering the prime-power jumps",
         "level": 2
       }
     ]

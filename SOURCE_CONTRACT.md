@@ -97,10 +97,44 @@ the existing site builders; never patch the emitted graph or layout JSON.
 ### Front door (October 2026)
 
 The landing has one subject, the mathematics. In order: the introduction and
-the featured film; the eight problems beside the universe map teaser; three
-papers to start with; the films; why the project exists and how to take part;
+the featured film; the eight problems beside the universe map teaser; the
+papers, as three reading pairs; the films; why the project exists and how to take part;
 one line for the earlier software. Every route is visible without opening
 anything. Only the transcripts fold.
+
+The strongest-results band uses one reading column: result, precise statement,
+proof idea, surviving boundary, then three adjacent evidence links. Quiet previous/next arrows and a count navigate the twelve; touch swipes remain, and
+no-JavaScript readers get the complete horizontal strip. There is no autoplay
+or delayed transition. Do not add a dropdown here (Will, 4 October). Each result keeps a stable `result-*` fragment; `#result`
+continues to open the section. Inactive results are hidden and inert, and carousel keys
+must never remove focus from an evidence link or hijack native input keys.
+
+Eligibility is an exact intersection: a Lean-checked theorem and an accepted
+Comparator check covering that proposition. A prepared interface, a green
+programme-level check, or a paper proof alone cannot qualify. The proof link
+pins the declaration to a commit; the Comparator link opens the corresponding
+receipt; the paper link names and targets the section explaining the result.
+Keep mathematical significance separate from evidence status: rank distinct
+consequences and mechanisms, preserve hypotheses and attribution, and state
+the remaining open boundary once. Do not pad the twelve with corollaries of a
+stronger selected result merely to reach the count.
+
+The 4 October selection leads with the exact #1041 path-image refutation and
+#257 weighted-support irrationality, followed by #243 cubic irrationality,
+#1049 rational-base values, #249 bounded-residue classification, #1041
+trinomial connections, #251 sparse perturbations, #243 one-sided rigidity,
+#249 all-base sections, #269 kernel rank, #68 denominator growth and #257
+subsum-set measure. These are twelve distinct mechanisms, not a quota per
+problem. The selected `data-comparator-interface` names are bound to passing
+replay 35935225572 at Lean commit `cc7e541cf2081c6fef5a5e377d52e365e33b01eb`;
+the linked receipts are pinned in `plectis-erdos` at
+`ac4d19c579390b2b4f7733f56b434be637c4556a`. Each linked Solution-file digest
+matches its receipt. Comparator checks propositions and kernel acceptance;
+it does not provide human peer review or certify novelty. Later unpublished
+strengthenings do not inherit this status automatically. In particular, use
+the exact checked sufficient threshold `81/200` in the short #1049 statement,
+not unverified decimal rounding of the sharper constant.
+
 
 The map band (4 October 2026). Will asked for an arrow that "scrolls that
 horizontal slice, from left to right, all the way wall to wall", bounded above
@@ -129,6 +163,45 @@ the band is a strip that scrolls and snaps. The earlier software keeps its
 quiet row at the foot of the page: the band's second drawing is one switch
 away and never the default.
 
+The system map and its doctrine (4 October 2026). Will asked for the system
+drawing to show "how the doctrine manifests", with "red" components and
+"blue" doctrine, each component opening its own interior up to the axioms,
+the reading text in the left column, and no wasted space. The machinery is
+drawn in the palette's red and the doctrine in its azure, by reference
+(`--s-ember: var(--home-ember)`, `--s-doctrine: var(--home-ice)`,
+`--s-ground: var(--surface)`), the two cables of the Plectis mark. The
+doctrine links come from `docs/doctrine-manifest.json`, which
+`microcosm_doctrine_manifest.py` projects from the object map's "abides by"
+and "governed by" relations; the drawing shows only links the record holds.
+Selecting a component fills the drawing with its interior (the principles
+that govern it, the axioms they rest on, the failures that guard them,
+routed and lit upward once); the doctrine lens shows each axiom's reach
+across every component; the left column is a live page for the family,
+component or rule in focus. `docs/system-map.html` is the same drawing at
+full height beside its column (no preamble), reached from the landing's
+"Open the system map" and from every card's "Full map"; `#map=<node id>`
+deep links select and are written on selection. The old
+`docs/architecture.html` stays for its existing links.
+
+The papers band (4 October 2026). Will: the short paper is "the main focus
+and attraction", its companion sits beside it, small, and the band had "too
+much information". It holds three reading pairs chosen by
+`landing_paper_pairs()` in `build_microcosm_public_site.py`: the system paper
+with the paper on what a stranger can check, the Erdős #257 short paper with
+its long paper, and the two-page writing guide with the longer method paper.
+Each pair stands its lead's real first page in front of its companion's,
+smaller and behind, on one hairline shelf; under it sit the subject, the title
+and "PDF, n pages", then one line for the companion (its role, its length, its
+title). Questions and abstracts stay in the catalogue, which the heading row
+routes to. The pages are ink on a transparent ground in
+`assets/paper-sheets/`, rendered from the live PDFs by
+`tools/meta/dissemination/build_landing_paper_sheets.py` (`--check` names the
+pages a republished PDF has made stale); the frame is the paper, and at night
+the ink inverts while the paper keeps the theme's surface. The drawing is a
+mouse-only twin of the title link. Floating controls share one grammar: the
+back pill and the glossary chip carry a hairline and a short lift, no halo,
+and fold to their mark once reading starts.
+
 Copy is Will's own sentences: the hero is the site's title line and the
 sentence he opens the films with. No taglines, em dashes or "not X, Y"
 constructions. Counts sit in `data-mc-fact` spans; the problem list and the
@@ -137,7 +210,56 @@ regions.
 
 The one image is the plait in `assets/art.js`: two cables of thread drawn in
 the band the hero reserves for it (`data-plait-band`), never under text. The
-wash behind every page is two soft corner lights.
+ground behind every page is one flat colour: Will asked for "a fixed colour in
+the background, not clouds or blobs" (4 October), so no wash, glow or grain is
+painted behind content.
+
+The palette (4 October 2026) is keyed to a photograph Will chose: two
+entangled photons imaged as a yin-yang, a red half and an azure half, each
+holding a dot of the other ringed in near-black, on a grainy dusty violet. He
+reads the plait as that yin-yang turning through time, seen side-on. Sampled
+in OKLCH, the photograph's red is 0.61 0.25 29, its azure 0.56 0.14 243 and
+its ground 0.27 to 0.35, chroma 0.05, hue 306. The rules that follow from it:
+
+- The ground is the two inks mixed. Red at 29 degrees and blue at 243
+  average to 316 (the photograph sits at 306), so the dark ground and every
+  dark neutral sit at hue about 302 with low chroma (page `#1c1526`, oklch
+  0.212 0.034), and the light theme's ink is the same violet (`#191520`).
+  Paper stays cream, violet's complement.
+- Mature, never neon. A first pass took the photograph's full chroma, added
+  glows, a bloom and grain to the plait and lit the page; Will rejected it
+  as an "80s neon glowing sign" and asked for "the same style as before,
+  just tweaked colours with taste", "a bit of glow, prudent", and "not too
+  deep either". So the plait keeps its original drawing and modest glow, and
+  only its colours changed: a brick red and a steel blue.
+- Each ink has three steps, moved only in lightness, never in hue. Glow, for
+  drawn light at night (the plait's front threads, the mark): red `#e67b6d`,
+  blue `#93c5e6`. Mark, for fills, dots and rings (`--weave-red`,
+  `--weave-azure`): light `#9a322c` / `#2a5982`, dark `#b84e45` /
+  `#4d7fa9`. Text (`--home-ember`, `--home-ice`, `--accent`): dark `#e18a79`
+  / `#97c1df`, light `#9a322c` / `#29527b`. Every text step clears WCAG
+  4.5:1 on page and card.
+- Red against blue stays apart for colour-blind readers (the pair was checked
+  with the dataviz `validate_palette.js`). A third identity colour cannot
+  be a hue: violet collapses into azure and gold into red for colour-blind
+  readers. A third mark separates by lightness, and only with a label.
+- Gold (`--link-ext`) stays for links that leave the site; it is violet's
+  complement and is never an identity colour beside the inks.
+- The mark keeps two registers: by night the brick and steel S on
+  violet-black, by day the classic black-and-bone yin-yang on paper.
+  `tools/brand/plectis_favicon.py` samples the night tile's ground, so a
+  change to `--night-ground` in `favicon.svg` changes `GROUND` there too.
+- Checked against a scout of GitHub colour skills (4 October:
+  jakubkrehel/skills better-colors, adobe/leonardo, anthropics/skills
+  frontend-design, educlopez/ui-craft, Leonxlnx/taste-skill,
+  pbakaus/impeccable, meodai/skill.color-expert, thrillmade palette and APCA
+  skills). Kept from them: one hue per ramp, chroma as a share of each hue's
+  ceiling, APCA beside WCAG, neutrals largest and the inks rare, boldness spent
+  in one place (the plait), and no red-to-blue gradient across an area (in
+  OKLCH it sweeps through this violet and reads as the purple-gradient tell).
+  Rejected: a violet-tinted light ground (cream is violet's complement and the
+  publication register the October passes chose), and "one accent only"
+  (the two inks act as one pair).
 
 Every page carries the same five destinations, defined once as
 `SITE_PRIMARY_NAV` in `build_microcosm_public_site.py`: Mathematics, Papers,
@@ -194,7 +316,8 @@ number in a formula. Code stays in the system monospace.
 
 The second visual pass (3 October, from a fresh-eyes critique and a scout of
 GitHub design skills) settled these. Dark mode is the light theme at night:
-the dark neutrals sit in the light ink's wine hue (page `#1d0f15`), each token
+the dark neutrals sit in the light ink's hue (wine then, page `#1d0f15`; the
+violet of the 4 October palette since), each token
 keeping the lightness its contrast ratios were checked at, and cards lift by
 lightness rather than shadow. The landing's bands share the header's 1320px
 container (`--home-max`), so every band starts on the wordmark's edge. The
@@ -378,12 +501,28 @@ the ledger, the evidence or the rendered papers come from different editions.
   `\hgt`, …) in one strict run, kept beside the authored text as
   `lean_reason_html` and the detail's `html_mathml`. A note pandoc cannot
   convert stops the build, so the card never shows a reader backslashes.
-- A result's card quotes every place it is stated: its own paper and, when the
-  other paper states it under the same label or through a Lean declaration both
-  cite, that one too, as a tab each ("Short paper, 5.2"), each with buttons to
-  the rendered paper at the result and its TeX line on GitHub (`main`, the ref
-  the hosted sources come from). The map draws a dashed thread between the
-  two.
+- A result's card quotes its paper and related statements in the other
+  paper through excerpt tabs ("Short paper, 5.2" / "Long paper, 8.1").
+  Counterparts require a shared `(Lean file, fully qualified declaration)`
+  across the short and long sides of the same problem. Reused labels or
+  names in different files do not suffice. The dashed thread and the
+  "Shared Lean support in both" filter record common formal support, not
+  equality or equivalence of the mathematical statements. Each excerpt keeps
+  its own hypotheses, conclusion, paper route and TeX source link.
+- Publication scope and verification are independent controls beside the
+  search, visible before the canvas: All / Short papers / Long papers, the
+  shared-support checkbox, and the verification selector. Counts in the
+  reading rail count visible statement occurrences in each side, not unique
+  theorems. Filtering retains the map's stable geometry and context anchors;
+  search, pinning, excerpt tabs and complete-graph loading use the same rules.
+- An ordinary-proof mark comes only from the authored reviewed ordinary-proof
+  family in `docs/claims.json`, joined through its claim IDs, exact narrative
+  owner and literal paper label. The claim must have unconditional-progress
+  status and no Lean declarations. A hollow neutral diamond marks this proof
+  category; the card retains the family's formalisation and human-review
+  ceiling. Absence of Lean alone never supplies an ordinary-proof category.
+  The proof field travels in both overview and complete graph projections;
+  Comparator replay remains an independent recorded fact.
 - The page is the map and its placard: the field takes the panel's full
   height on the left, so a laptop's first screen holds the whole map, and the
   right-hand column carries the title, the four figures and the search above

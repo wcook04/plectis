@@ -708,13 +708,10 @@
   }
 })();
 
-/* Results carousel (2026-10-04). The strongest results sit in one fixed
-   window; the arrows, the left and right keys and a swipe move between them,
-   and the window never changes size. Without this script the window is a
-   horizontal strip that scrolls and snaps, so every result stays reachable.
-   Slides out of view are inert, so a keyboard only meets the visible one.
-   A click or swipe plays one move; a key press lands at once, because a
-   keyboard action never waits on an animation. */
+/* Results carousel: quiet arrows, a count and one readable theorem at a time.
+   Live slides use normal block layout so native fragment and focus scrolling
+   cannot fight a horizontal transform. Inactive slides are hidden and inert.
+   Without JavaScript, all results remain in a scrollable, snapping strip. */
 (function () {
   var root = document.querySelector('[data-results-carousel]');
   if (!root) return;
@@ -725,20 +722,10 @@
   var count = root.querySelector('[data-results-count]');
   if (!track || slides.length < 2 || !prev || !next) return;
   var index = 0;
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   root.classList.add('is-live');
-  if (reduced) root.classList.add('is-still');
 
-  function show(target, direction, instant) {
+  function show(target, updateHash) {
     index = (target + slides.length) % slides.length;
-    if (instant) {
-      root.classList.add('is-instant');
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () { root.classList.remove('is-instant'); });
-      });
-    }
-    track.style.transform = 'translateX(' + (-100 * index) + '%)';
-    root.setAttribute('data-direction', direction > 0 ? 'next' : 'prev');
     slides.forEach(function (slide, i) {
       var on = i === index;
       slide.classList.toggle('is-active', on);
@@ -746,24 +733,42 @@
       if ('inert' in slide) slide.inert = !on;
     });
     if (count) count.textContent = (index + 1) + ' / ' + slides.length;
+    if (updateHash && slides[index].id && window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '#' + slides[index].id);
+    }
   }
-
-  prev.addEventListener('click', function () { show(index - 1, -1); });
-  next.addEventListener('click', function () { show(index + 1, 1); });
+  function fromHash() {
+    var id = window.location.hash.slice(1);
+    var target = slides.findIndex(function (slide) { return slide.id === id; });
+    if (target >= 0) {
+      show(target, false);
+      root.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }
+    return target >= 0;
+  }
+  prev.addEventListener('click', function () { show(index - 1, true); });
+  next.addEventListener('click', function () { show(index + 1, true); });
   root.addEventListener('keydown', function (event) {
-    if (event.target && /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
-    if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1, 1, true); }
-    else if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1, -1, true); }
+    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a')))) return;
+    if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1, true); }
+    else if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1, true); }
+    else if (event.key === 'Home') { event.preventDefault(); show(0, true); }
+    else if (event.key === 'End') { event.preventDefault(); show(slides.length - 1, true); }
   });
-  var startX = null;
-  track.addEventListener('pointerdown', function (event) { startX = event.clientX; }, { passive: true });
-  track.addEventListener('pointerup', function (event) {
-    if (startX === null) return;
-    var dx = event.clientX - startX;
-    startX = null;
-    if (Math.abs(dx) > 48) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  var start = null;
+  track.addEventListener('pointerdown', function (event) {
+    if (event.pointerType === 'mouse' || (event.target.closest && event.target.closest('a, button, select'))) return;
+    start = { x: event.clientX, y: event.clientY };
   }, { passive: true });
-  show(0, 1, true);
+  track.addEventListener('pointercancel', function () { start = null; }, { passive: true });
+  track.addEventListener('pointerup', function (event) {
+    if (!start) return;
+    var dx = event.clientX - start.x, dy = event.clientY - start.y;
+    start = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1), true);
+  }, { passive: true });
+  window.addEventListener('hashchange', fromHash);
+  if (!fromHash()) show(0, false);
 })();
 
 /* The map band (2026-10-04). Will asked for an arrow that "scrolls that

@@ -106,6 +106,9 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc__quote .math-display { margin: 0.3em 0; overflow: hidden; }
 .uc__quote math { font-size: 1.03em; color: var(--ink-soft); }
 .uc__quote a { color: inherit; text-decoration-color: var(--home-line); }
+/* Where a long statement is cut at its last whole block, a quiet line says so;
+   the buttons below go on to the paper. */
+.uc__quote-more { margin: 0.3em 0 0; font-family: var(--font-sans); font-style: normal; font-size: 0.8rem; color: var(--faint); }
 .uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
 .uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
 .uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }

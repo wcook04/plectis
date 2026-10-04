@@ -224,8 +224,8 @@
     "form": "Problem note",
     "pages": 14,
     "question": "Which sparse congruence-preserving corrections can rationalise a dyadic series, and why does that not prove Erdős #251 irrational?",
-    "precis": "Sparse nonnegative integer corrections can rationalise a convergent dyadic series with nonnegative integer coefficients. Given a finite prefix to retain and any allowance f(n)→∞, one permitted index set of upper Banach density zero supports corrections attaining every real target in a nondegenerate interval above the original sum. The corrections are eventually bounded by f; each fixed modulus divides both the corrections and their cumulative sums beyond a cutoff independent of the target. For f(n)=(log(n+3))^ε, the empirical unnormalised block distributions of original and corrected sequences become close in total variation for lengths o(log log X). Applied to prime gaps, the construction gives rational dyadic sums while cumulative positions remain asymptotic to n log n. These congruences and block statistics alone cannot establish irrationality, and the construction does not assert that the cumulative positions are prime.",
-    "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
+    "precis": "Sparse nonnegative integer corrections to a convergent dyadic series can attain every target in an interval. One set of upper Banach density zero supports the corrections, which satisfy any prescribed bound tending to infinity and eventually preserve each fixed coefficient and partial-sum congruence. For prime gaps with logarithmic corrections, block distributions remain close for lengths o(log log X), and cumulative positions remain asymptotic to n log n. Those positions need not be prime; the original irrationality question remains open.",
+    "owns": "the sparse correction construction and its prime-gap application; the long paper develops tail recurrences, local certificates and the limitations of other irrationality methods",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
     "problem_id": "erdos_251",
     "routes": {
@@ -245,7 +245,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "1d7bde0fc530e17f",
+      "renderer_fingerprint": "f4a483d215eb8e2b",
       "source_sha256": "2f0b93403565ac78b1a26a188e5fb6e7b633b6537904e2c23aed338f9d7772d2",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -330,18 +330,13 @@
           "level": 2
         },
         {
-          "id": "sec:tail",
-          "title": "Integral shifts",
-          "level": 3
-        },
-        {
-          "id": "sec:local-certificate",
-          "title": "Small tail differences and finite tests",
+          "id": "sec:construction",
+          "title": "Proof of Proposition 1.1",
           "level": 2
         },
         {
-          "id": "sec:open",
-          "title": "Further consequences and questions",
+          "id": "sec:prime-application",
+          "title": "Application to prime gaps",
           "level": 2
         }
       ]
@@ -363,8 +358,8 @@
       "form": "Problem note",
       "pages": 14,
       "question": "Which sparse congruence-preserving corrections can rationalise a dyadic series, and why does that not prove Erdős #251 irrational?",
-      "precis": "Sparse nonnegative integer corrections can rationalise a convergent dyadic series with nonnegative integer coefficients. Given a finite prefix to retain and any allowance f(n)→∞, one permitted index set of upper Banach density zero supports corrections attaining every real target in a nondegenerate interval above the original sum. The corrections are eventually bounded by f; each fixed modulus divides both the corrections and their cumulative sums beyond a cutoff independent of the target. For f(n)=(log(n+3))^ε, the empirical unnormalised block distributions of original and corrected sequences become close in total variation for lengths o(log log X). Applied to prime gaps, the construction gives rational dyadic sums while cumulative positions remain asymptotic to n log n. These congruences and block statistics alone cannot establish irrationality, and the construction does not assert that the cumulative positions are prime.",
-      "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
+      "precis": "Sparse nonnegative integer corrections to a convergent dyadic series can attain every target in an interval. One set of upper Banach density zero supports the corrections, which satisfy any prescribed bound tending to infinity and eventually preserve each fixed coefficient and partial-sum congruence. For prime gaps with logarithmic corrections, block distributions remain close for lengths o(log log X), and cumulative positions remain asymptotic to n log n. Those positions need not be prime; the original irrationality question remains open.",
+      "owns": "the sparse correction construction and its prime-gap application; the long paper develops tail recurrences, local certificates and the limitations of other irrationality methods",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
       "routes": {
@@ -384,7 +379,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "1d7bde0fc530e17f",
+        "renderer_fingerprint": "f4a483d215eb8e2b",
         "source_sha256": "2f0b93403565ac78b1a26a188e5fb6e7b633b6537904e2c23aed338f9d7772d2",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -469,18 +464,13 @@
             "level": 2
           },
           {
-            "id": "sec:tail",
-            "title": "Integral shifts",
-            "level": 3
-          },
-          {
-            "id": "sec:local-certificate",
-            "title": "Small tail differences and finite tests",
+            "id": "sec:construction",
+            "title": "Proof of Proposition 1.1",
             "level": 2
           },
           {
-            "id": "sec:open",
-            "title": "Further consequences and questions",
+            "id": "sec:prime-application",
+            "title": "Application to prime gaps",
             "level": 2
           }
         ]
@@ -523,7 +513,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "1d7bde0fc530e17f",
+        "renderer_fingerprint": "f4a483d215eb8e2b",
         "source_sha256": "5ce843e2c0c751a3c762851e098f797a6f79119c8f752f2c57099b1c5aad58cd",
         "source_manifest_match": true,
         "publication_manifest_match": true,

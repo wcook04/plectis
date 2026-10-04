@@ -8,12 +8,12 @@
   "legacy_site_base_url": "https://wcook04.github.io/plectis/",
   "mode_counts": {
     "byte_compatible_alias": 24,
-    "html_redirect": 220,
+    "html_redirect": 221,
     "legacy_404": 1,
     "legacy_projection_status": 1,
     "legacy_security_txt": 2
   },
-  "route_count": 248,
+  "route_count": 249,
   "route_policy": {
     "byte_compatible_alias": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
     "html_redirect": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
@@ -109,6 +109,16 @@
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/architecture.html",
       "legacy_url": "https://wcook04.github.io/plectis/docs/architecture.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/system-map.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/system-map.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/system-map.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/system-map.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },

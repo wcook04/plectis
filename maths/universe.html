@@ -20,19 +20,19 @@
   <meta name="twitter:description" content="Every result in the sixteen problem papers on one map, marked by how far it has been checked. Select a result to read its Lean statement, its Comparator replay and where the paper states it.">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d0f15">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/style.css?v=846d618ae589">
-  <link rel="stylesheet" href="assets/maths.css?v=385757cbfcfc">
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=8b666f6bc70f"></script></template>
+  <link rel="stylesheet" href="../assets/style.css?v=fbb13e3b0be4">
+  <link rel="stylesheet" href="assets/maths.css?v=ccead5ee7e7a">
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=35e532814de2"></script></template>
   <script defer src="../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="assets/maths.js?v=bc60ddaae0e5"></script>
-  <script defer src="assets/universe.js?v=82be14db417b"></script>
+  <script defer src="assets/universe.js?v=b038156fc1bc"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -82,8 +82,8 @@
           <div class="universe-panel__side">
             <header class="universe-head">
               <h1>The universe map</h1>
-              <p class="universe-head__lede">Every result in the sixteen problem papers, marked by how far it has been checked.</p>
-              <dl class="universe-figures"><div class="universe-figures__item"><dt>Paper results</dt><dd>689</dd></div><div class="universe-figures__item"><dt>Stated exactly in <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a></dt><dd>640</dd></div><div class="universe-figures__item"><dt>Replayed by <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a></dt><dd>616</dd></div><div class="universe-figures__item"><dt>Lean declarations</dt><dd>1,506</dd></div></dl>
+              <p class="universe-head__lede">Explore the short papers, the long papers and their shared <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> support.</p>
+              <dl class="universe-figures"><div class="universe-figures__item"><dt>Paper results</dt><dd>689</dd></div><div class="universe-figures__item"><dt>Stated exactly in Lean</dt><dd>640</dd></div><div class="universe-figures__item"><dt>Replayed by <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a></dt><dd>616</dd></div><div class="universe-figures__item"><dt>Lean declarations</dt><dd>1,506</dd></div></dl>
             </header>
             <div class="universe-toolbar" data-term-auto="off">
               <div class="universe-find">
@@ -91,15 +91,41 @@
                 <input type="search" id="universe-find" class="universe-search" data-universe-search placeholder="Find a theorem or a Lean declaration&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="universe-results" autocomplete="off" spellcheck="false">
                 <ul class="universe-results" id="universe-results" role="listbox" aria-label="Matches" data-universe-results hidden></ul>
               </div>
+              <div class="universe-filters">
+                <div class="universe-scope" role="group" aria-label="Where results are stated">
+                  <span class="universe-filter__label">Where stated</span>
+                  <div class="universe-scope__choices">
+                    <button type="button" data-universe-scope="all" aria-pressed="true">All</button>
+                    <button type="button" data-universe-scope="short" aria-pressed="false">Short papers</button>
+                    <button type="button" data-universe-scope="long" aria-pressed="false">Long papers</button>
+                  </div>
+                  <label class="universe-overlap"><input type="checkbox" data-universe-overlap aria-describedby="universe-overlap-help"> Shared Lean support in both</label>
+                  <p id="universe-overlap-help" class="universe-filter__help">Linked statements cite a common Lean declaration; their wording and scope may differ.</p>
+                </div>
+                <label class="universe-checking"><span class="universe-filter__label">Verification</span>
+                  <select data-universe-checking aria-label="Filter results by verification">
+                    <option value="all">All verification states</option>
+                    <option value="replayed">Comparator replay checked</option>
+                    <option value="lean">Exact Lean, replay queued</option>
+                    <option value="modulo">Lean under named inputs</option>
+                    <option value="none">No Lean statement recorded</option>
+                    <option value="ordinary_proof">Ordinary proof recorded</option>
+                  </select>
+                </label>
+                <div class="universe-proof-key" aria-label="Verification symbols">
+                  <span><span class="glyph glyph--replayed" aria-hidden="true"></span>Comparator replay</span>
+                  <span><span class="glyph glyph--ordinary_proof" aria-hidden="true"></span>Ordinary proof</span>
+                </div>
+              </div>
               <div class="universe-toolbar__row">
                 <span class="universe-count" data-universe-count aria-live="polite"></span>
-                <button type="button" class="btn btn--ghost universe-panel__cta" data-universe-load-full data-graph-src="../lean/experience/graph.json?v=673864af8de5" data-layout-src="assets/universe-layout-full.json?v=dc858500bd5d">Load the complete universe</button>
+                <button type="button" class="btn btn--ghost universe-panel__cta" data-universe-load-full data-graph-src="../lean/experience/graph.json?v=60cdc38da601" data-layout-src="assets/universe-layout-full.json?v=7dfa2c91004f">Load the complete universe</button>
               </div>
             </div>
           </div>
           <aside class="universe-inspector" data-universe-inspector aria-label="Object details"></aside>
           <div class="universe-panel__stage" data-universe-stage>
-            <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=fa83385680c4" data-universe-detail="../lean/experience/statements.json?v=18287be2a198" aria-label="Interactive Lean map. Use search and Enter to inspect objects; text indexes and source data follow below."></canvas>
+            <canvas class="universe-canvas universe-canvas--page" data-universe-src="assets/universe-data.json?v=3125dd9cef93" data-universe-detail="../lean/experience/statements.json?v=18287be2a198" aria-label="Interactive Lean map. Use search and Enter to inspect objects; text indexes and source data follow below."></canvas>
             <div class="universe-zoom" role="group" aria-label="Zoom">
               <button type="button" class="universe-zoom__btn" data-universe-zoom="in" aria-label="Zoom in">+</button>
               <button type="button" class="universe-zoom__btn" data-universe-zoom="out" aria-label="Zoom out">&minus;</button>
@@ -110,15 +136,15 @@
         <p class="universe-nojs">The interactive map needs JavaScript. Every object it shows is in the lists below, and the complete graph is published as <a href="../lean/experience/graph.json"><code>graph.json</code></a>.</p>
         <div class="universe-keys" data-term-auto="off">
           <div class="universe-key" role="group" aria-label="Show or hide kinds"><span class="universe-key__label">Show</span><button type="button" class="universe-key__btn" data-universe-lens="problem" aria-pressed="true"><span class="dot dot--problem" aria-hidden="true"></span><span>Problems</span></button><button type="button" class="universe-key__btn" data-universe-lens="paper_statement" aria-pressed="true"><span class="dot dot--statement" aria-hidden="true"></span><span>Paper results</span></button><button type="button" class="universe-key__btn" data-universe-lens="public_claim" aria-pressed="true"><span class="dot dot--claim" aria-hidden="true"></span><span>Claims</span></button><button type="button" class="universe-key__btn" data-universe-lens="paper" aria-pressed="true"><span class="dot dot--paper" aria-hidden="true"></span><span>Papers</span></button><button type="button" class="universe-key__btn" data-universe-lens="integration_surface" aria-pressed="true"><span class="dot dot--integration" aria-hidden="true"></span><span>Comparator and Palomar</span></button><button type="button" class="universe-key__btn" data-universe-lens="human_document" aria-pressed="false"><span class="dot dot--document" aria-hidden="true"></span><span>Documents</span></button><button type="button" class="universe-key__btn" data-universe-lens="lean_module" aria-pressed="true" data-universe-lens-full hidden><span class="dot dot--module" aria-hidden="true"></span><span>Lean modules</span></button><button type="button" class="universe-key__btn" data-universe-lens="mathematical_object" aria-pressed="true" data-universe-lens-full hidden><span class="dot dot--object" aria-hidden="true"></span><span>Argument steps</span></button></div>
-          <div class="universe-key" role="group" aria-label="Paper results by evidence"><span class="universe-key__label">Paper results</span><button type="button" class="universe-key__btn" data-universe-tier="replayed" aria-pressed="true" title="An exact Lean statement whose declarations a recorded Comparator replay checked"><span class="glyph glyph--replayed" aria-hidden="true"></span><span>Replayed by Comparator</span></button><button type="button" class="universe-key__btn" data-universe-tier="lean" aria-pressed="true" title="An exact Lean statement waiting for its Comparator replay"><span class="glyph glyph--lean" aria-hidden="true"></span><span>Exact Lean, replay queued</span></button><button type="button" class="universe-key__btn" data-universe-tier="modulo" aria-pressed="true" title="Lean states the result under named input propositions"><span class="glyph glyph--modulo" aria-hidden="true"></span><span>Lean under named inputs</span></button><button type="button" class="universe-key__btn" data-universe-tier="none" aria-pressed="true" title="No Lean statement is recorded for this result"><span class="glyph glyph--none" aria-hidden="true"></span><span>No Lean statement</span></button></div>
+          <div class="universe-key" role="group" aria-label="Paper results by evidence"><span class="universe-key__label">Paper results</span><span class="universe-evidence-key"><span class="glyph glyph--replayed" aria-hidden="true"></span><span>Comparator replay checked</span></span><span class="universe-evidence-key"><span class="glyph glyph--lean" aria-hidden="true"></span><span>Exact Lean, replay queued</span></span><span class="universe-evidence-key"><span class="glyph glyph--modulo" aria-hidden="true"></span><span>Lean under named inputs</span></span><span class="universe-evidence-key"><span class="glyph glyph--none" aria-hidden="true"></span><span>No Lean statement</span></span><span class="universe-evidence-key"><span class="glyph glyph--ordinary_proof" aria-hidden="true"></span><span>Ordinary proof in the paper</span></span></div>
           <div class="universe-key" role="group" aria-label="Claims by status"><span class="universe-key__label">Claims</span><button type="button" class="universe-key__btn" data-universe-tier="proved" aria-pressed="true"><span class="glyph glyph--proved" aria-hidden="true"></span><span>Proved, formalised or finite instance</span></button><button type="button" class="universe-key__btn" data-universe-tier="progress" aria-pressed="true"><span class="glyph glyph--progress" aria-hidden="true"></span><span>Unconditional progress</span></button><button type="button" class="universe-key__btn" data-universe-tier="conditional" aria-pressed="true"><span class="glyph glyph--conditional" aria-hidden="true"></span><span>Conditional reduction</span></button><button type="button" class="universe-key__btn" data-universe-tier="open" aria-pressed="true"><span class="glyph glyph--open" aria-hidden="true"></span><span>Open or cited</span></button></div>
         </div>
       </div>
-      <p class="universe-hint">Drag to move and scroll to zoom; press <kbd>/</kbd> to find. Click a dot to read the result in its paper’s words with how far it has been checked; double-click to open it in the paper. The legend under the map switches each kind on and off.</p>
+      <p class="universe-hint">Drag to move and scroll to zoom; press <kbd>/</kbd> to find. Filter by paper or verification, then click a dot to read the statement and its evidence; double-click to open it in the paper. The legend under the map switches each kind on and off.</p>
 
       <section class="universe-about" aria-labelledby="universe-about-title">
         <h2 id="universe-about-title">How the map is drawn</h2>
-        <p>The map reads from the centre out, one ring for each layer. The Lean universe sits at the centre, with Comparator and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> below it. The problems sit on one orbit, each between its two papers, and just outside each one are the claims in its record; claims two problems share sit on the edge between their sectors. Outermost, a band holds every result its short paper and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a> assert, short paper first, each in the order the paper states it. Each problem owns one sector of the circle, as wide as its results need, so the outer ring has the same depth all the way round. A result stated in both papers opens in both. A result is filled in Comparator&#8217;s colour when a Comparator replay has checked the Lean declarations that state it, filled in the Lean colour when Lean states it exactly and the replay is queued, ringed when Lean states it under named inputs, and faint when no Lean statement is recorded. These marks come from the public <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json" data-link-kind="exogenous" rel="external noopener">paper-to-Lean coverage ledger</a> at Lean commit <code>436f55ebda</code>. A claim&#8217;s glyph is its status in the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a>; a claim and a result that name the same Lean declaration are connected.</p>
+        <p>The map reads from the centre out, one ring for each layer. The Lean universe sits at the centre, with Comparator and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a> below it. The problems sit on one orbit, each between its two papers, and just outside each one are the claims in its record; claims two problems share sit on the edge between their sectors. Outermost, a band holds every result its short paper and <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long record</a> assert, short paper first, each in the order the paper states it. Each problem owns one sector of the circle, as wide as its results need, so the outer ring has the same depth all the way round. Statements that cite the same file-qualified Lean declaration are linked across the two papers. This records shared formal support, not equivalence of the statements. A result is filled in Comparator&#8217;s colour when a Comparator replay has checked the Lean declarations that state it, filled in the Lean colour when Lean states it exactly and the replay is queued, ringed when Lean states it under named inputs, and faint when no Lean statement is recorded. These marks come from the public <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json" data-link-kind="exogenous" rel="external noopener">paper-to-Lean coverage ledger</a> at Lean commit <code>436f55ebda</code>. A claim&#8217;s glyph is its status in the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a>; a claim and a result that name the same Lean declaration are connected.</p>
         <p>Selecting Comparator or Palomar lights the results each one reaches. The complete universe adds the Lean modules, each placed with the problem whose folder holds it or whose results it states, and the steps of the recorded argument graph. Research and verification files outside the library graph are excluded.</p>
         <p class="universe-about__snapshot">A public source snapshot: 2,904 objects and 9,142 connections, including 1,902 Lean modules in the graph. The initial navigation view shows 897 objects. Load the complete universe to add the modules and argument steps covered by this snapshot; it fetches about 1.5&#8202;MB once.</p>
         <p class="doc-source-line">Public data snapshot <a href="../lean/experience/manifest.json"><code>e5b6fef9f06d7482</code></a>, drawn from the <a class="source-link" href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">public Lean source</a>.</p>

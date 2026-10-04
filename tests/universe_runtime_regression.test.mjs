@@ -12,6 +12,7 @@ function element(attrs = {}) {
   return {
     innerHTML: '', textContent: '', value: '', disabled: false, hidden: false,
     getAttribute: name => attrs[name] ?? null,
+    removeAttribute: name => { delete attrs[name]; },
     setAttribute: (name, value) => { attrs[name] = value; },
     contains: () => false, focus() {}, select() {},
     querySelector: () => null,
@@ -48,6 +49,10 @@ async function mount(options = {}) {
     getBoundingClientRect: () => ({left: 0, top: 0, bottom: 340}),
   });
   canvas.classList.add('universe-canvas--page');
+  const scope = Object.fromEntries(['all', 'short', 'long'].map(value => [value,
+    element({'data-universe-scope': value, 'aria-pressed': String(value === 'all')})]));
+  const overlap = element(); overlap.checked = false;
+  const checking = element(); checking.value = 'all';
   const count = element();
   const inspector = element();
   const scrolled = [];
@@ -55,6 +60,7 @@ async function mount(options = {}) {
     Object.assign(inspector, {getBoundingClientRect: () => ({top: options.inspectorTop}),
       scrollIntoView: opts => { scrolled.push(opts); }});
   }
+  const results = element();
   const search = element();
   search.value = options.searchValue ?? '';
   const modules = element({'data-universe-lens': 'lean_module', 'aria-pressed': 'true'});
@@ -66,12 +72,12 @@ async function mount(options = {}) {
     querySelector: s => s === 'canvas' ? canvas : null,
     querySelectorAll: s => s === '[data-universe-zoom]' ? [zoom, fit] : [],
   });
-  const selectors = {'[data-universe-inspector]': inspector, '[data-universe-count]': count,
+  const selectors = {'[data-universe-results]': results, '[data-universe-scope]': scope.all, '[data-universe-overlap]': overlap, '[data-universe-checking]': checking, '[data-universe-inspector]': inspector, '[data-universe-count]': count,
     '[data-universe-search]': search, '[data-universe-load-full]': full};
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     querySelector: s => selectors[s] || null,
-    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : s === '[data-universe-lens]' ? [claims, modules] : [],
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : s === '[data-universe-lens]' ? [claims, modules] : s === '[data-universe-scope]' ? Object.values(scope) : [],
   });
   const location = {pathname: '/maths/universe.html', search: '', hash: options.hash ?? ''};
   const window = Object.assign(element(), {
@@ -99,7 +105,7 @@ async function mount(options = {}) {
   });
   const settle = () => new Promise(resolve => setImmediate(resolve));
   await settle();
-  return {canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window, scrolled,
+  return {results, scope, overlap, checking, canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window, scrolled,
     document, requests, settle, flushTimers, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
     drawnSegments: () => strokes.flatMap(stroke => stroke.segments),
     dashedSegments: () => strokes.filter(stroke => stroke.dashed).flatMap(stroke => stroke.segments),
@@ -152,7 +158,7 @@ test('the shared claim band stays named in a fitted phone view with another prog
   }};
   const map = await mount({data, hash: '#o=problem%3Aerdos_68'});
   map.fit.fire('click');
-  const label = map.labels().find(mark => mark.text === 'Shared: #249 and #257');
+  const label = map.labels().find(mark => mark.text === 'Shared claims: #249 and #257');
   assert.ok(label, 'the fitted view identifies both programmes even when neither is selected');
   assert.ok(label.alpha >= 0.8, 'an unrelated pin does not make the label unreadable');
   assert.ok(label.x >= 0 && label.x <= map.canvas.clientWidth && label.y >= 0 && label.y <= map.canvas.clientHeight);
@@ -176,7 +182,7 @@ test('a name plate over the shared callout makes the callout step aside, not sho
     edges: [[0, 1], [0, 2], [0, 3]],
     captions: [caption],
   }});
-  const SHARED = 'Shared: #249 and #257';
+  const SHARED = 'Shared claims: #249 and #257';
   const plain = await mount({data: data(), width: 900});
   plain.fit.fire('click');
   const callout = plain.labels().find(mark => mark.text === SHARED);
@@ -1235,8 +1241,8 @@ test('going back retraces the drill: result, paper, problem, whole field, each w
   click('statement:a-long#r2');
   assert.equal(map.location.hash, '#o=statement%3Aa-long%23r2');
   assert.ok(Math.abs(map.view().k - paperView.k) < 1e-9, 'a result pins without moving the camera');
-  assert.equal(hint(), 'go back to the long record on #1');
-  assert.match(map.inspector.innerHTML, /aria-label="Back to the long record on #1 \(Esc\)"><span aria-hidden="true">←<\/span> Back<\/button>/,
+  assert.equal(hint(), 'go back to the long paper on #1');
+  assert.match(map.inspector.innerHTML, /aria-label="Back to the long paper on #1 \(Esc\)"><span aria-hidden="true">←<\/span> Back<\/button>/,
     'below the top the head button says Back and names where it goes');
   // Back up the same way: Esc to the paper, its frame as it was...
   map.key('Escape');
@@ -1546,4 +1552,83 @@ test('the card’s step bar carries the paper’s scale in small, its cursor on 
   await map.settle();
   assert.match(map.inspector.innerHTML, /Result 2 of 2/);
   assert.equal(cursorAt(), 72, 'Next moves the card’s cursor with the map’s');
+});
+
+
+test('publication scope and verification compose without inventing statement equivalence', async () => {
+  const decl = (name, file) => ({name, file, href: 'https://example.org/' + file});
+  const row = (paper, side, num, declarations = [], proof = false) => ({
+    id: `statement:${paper}#thm:${num}`, kind: 'paper_statement', label: `Theorem ${num} (Fixture)`,
+    paper_id: paper, side, sector: 'one', x: num * 20, y: 50, declarations,
+    lean_status: declarations.length ? 'exact' : 'none',
+    comparator_status: declarations.length ? 'compared' : 'not_applicable',
+    proof_status: proof ? 'ordinary_proof' : null,
+    proof_note: proof ? 'Reviewed ordinary proof; independent human review not recorded.' : null,
+  });
+  const nodes = [
+    {id: 'problem:one', kind: 'problem', label: 'Programme', sector: 'one', x: -100, y: 0},
+    row('short', 'short', 1, [decl('N.shared', 'A.lean')]),
+    row('long', 'long', 2, [decl('N.shared', 'A.lean')]),
+    row('long', 'long', 3, [decl('N.shared', 'B.lean')]),
+    row('long', 'long', 4, [], true),
+    row('short', 'short', 5),
+    row('long', 'long', 5), // same label alone is not overlap
+  ];
+  const data = {initial: {nodes, edges: [], bands: [
+    {sector: 'one', title: 'Programme', lo: 0, hi: 1, rings: {}, evidence: {replayed: 3, none: 3}},
+  ]}, graph: {nodes, edges: []},
+    layout: {positions: Object.fromEntries(nodes.map(n => [n.id, [n.x, n.y]])),
+      sectors: Object.fromEntries(nodes.map(n => [n.id, ['one', 'fixture']]))}};
+  const map = await mount({data});
+  assert.equal(map.count.textContent, '7 shown');
+  map.scope.short.fire('click');
+  assert.equal(map.count.textContent, '3 of 7 shown');
+  assert.equal(map.scope.short.getAttribute('aria-pressed'), 'true');
+  assert.equal(map.scope.long.getAttribute('aria-pressed'), 'false');
+  assert.match(map.inspector.innerHTML, /1 of 2 replayed/);
+  map.overlap.checked = true; map.overlap.fire('change');
+  assert.equal(map.count.textContent, '2 of 7 shown');
+  map.scope.all.fire('click');
+  assert.equal(map.count.textContent, '3 of 7 shown', 'only file-qualified shared support links');
+  map.full.fire('click'); await map.settle();
+  assert.equal(map.count.textContent, '3 of 7 shown', 'full graph preserves scope and file-qualified overlap');
+  map.overlap.checked = false; map.overlap.fire('change');
+  map.checking.value = 'ordinary_proof'; map.checking.fire('change');
+  assert.equal(map.count.textContent, '2 of 7 shown', 'missing Lean alone is not an ordinary proof');
+  assert.match(map.inspector.innerHTML, /0 of 1 replayed/);
+  map.scope.short.fire('click');
+  assert.match(map.inspector.innerHTML, /No paper statements match these filters/);
+  map.scope.all.fire('click');
+  map.search.value = 'ordinary proof'; map.search.fire('input'); map.search.fire('keydown', {key: 'Enter'});
+  assert.match(map.inspector.innerHTML, /Ordinary proof in the paper/);
+  assert.match(map.inspector.innerHTML, /independent human review not recorded/);
+  assert.match(map.inspector.innerHTML, /no Lean statement/);
+  map.search.value = ''; map.search.fire('input');
+  map.checking.value = 'replayed'; map.checking.fire('change');
+  assert.equal(map.count.textContent, '4 of 7 shown');
+});
+
+
+test('walking filtered results skips hidden statements and search keeps proof symbols', async () => {
+  const nodes = [1, 2, 3].map(number => ({
+    id: `statement:long#thm:${number}`, kind: 'paper_statement', label: `Theorem ${number} (Fixture)`,
+    x: number * 20, y: 50, side: 'long', line: number, lean_status: 'none',
+    proof_status: number === 2 ? null : 'ordinary_proof', proof_note: 'Reviewed ordinary proof.',
+  }));
+  const map = await mount({data: {initial: {nodes, edges: []}}, hash: '#o=statement%3Along%23thm%3A1'});
+  map.checking.value = 'ordinary_proof'; map.checking.fire('change');
+  map.document.fire('keydown', {key: 'ArrowRight', target: {tagName: 'SELECT'}});
+  assert.equal(map.location.hash, '#o=statement%3Along%23thm%3A1', 'native selector keys do not walk the canvas');
+  map.document.fire('keydown', {key: 'ArrowRight'});
+  assert.equal(map.location.hash, '#o=statement%3Along%23thm%3A3', 'skip hidden result two');
+  assert.match(map.inspector.innerHTML, /data-universe-step="1" disabled/);
+  map.document.fire('keydown', {key: 'ArrowRight'});
+  assert.equal(map.location.hash, '#o=statement%3Along%23thm%3A3');
+  map.document.fire('keydown', {key: 'ArrowLeft'});
+  assert.equal(map.location.hash, '#o=statement%3Along%23thm%3A1');
+  assert.match(map.inspector.innerHTML, /data-universe-step="-1" disabled/);
+  map.document.activeElement = map.search;
+  map.search.value = 'ordinary proof'; map.search.fire('input');
+  assert.equal((map.results.innerHTML.match(/glyph--ordinary_proof/g) || []).length, 2);
+  assert.doesNotMatch(map.results.innerHTML, /glyph--none/);
 });

@@ -6,13 +6,13 @@
        One geometry, two palettes, because the sheet has two registers and the
        mark should obey the same law as the page it heads:
 
-         night — the incandescent register. The two strands are the sheet's two
-         keys held against each other: the warm strand is the ember line that
-         heads every page, phrased vertically (plum entering cold, the mass
-         peaking amber at the centre crossing, one magenta flare after the peak,
-         violet cooling out); the cold strand answers in the same shape (indigo
-         entering, ultramarine rising, ice at the centre crossing where it rides
-         over, indigo cooling out). Wine-black ground.
+         night — after the photograph of two entangled photons the site is
+         keyed to (a red half and a blue half on violet), held at a mature
+         chroma: the warm strand enters plum, rises through brick red to a
+         coral peak at the centre crossing and cools back to plum; the cold
+         strand answers in the same shape (deep steel entering, steel blue
+         rising, pale sky at the centre crossing where it rides over).
+         Violet-black ground.
 
          day — the printed register. No temperature to spend, so the strands
          separate on value alone: one goes to ink exactly where the other goes to
@@ -43,7 +43,7 @@
   <style>
     /* Each palette is written once. Everything below is plumbing. */
     :root {
-      --night-ground: #171020;
+      --night-ground: #140c1e;
       --night-warm: url(#p-ember);
       --night-cold: url(#p-night);
       --night-edge: #f2e6d4;
@@ -85,25 +85,25 @@
   </style>
   <defs>
     <linearGradient id="p-ember" x1="0.18" y1="0" x2="0.82" y2="1">
-      <stop offset="0" stop-color="#55175a"/>
-      <stop offset="0.16" stop-color="#8f2740"/>
-      <stop offset="0.34" stop-color="#c05028"/>
-      <stop offset="0.5" stop-color="#f0a63f"/>
-      <stop offset="0.66" stop-color="#d0512c"/>
-      <stop offset="0.82" stop-color="#b0356a"/>
-      <stop offset="1" stop-color="#4a2464"/>
+      <stop offset="0" stop-color="#3a1d42"/>
+      <stop offset="0.16" stop-color="#6e2630"/>
+      <stop offset="0.34" stop-color="#a8443d"/>
+      <stop offset="0.5" stop-color="#e08070"/>
+      <stop offset="0.66" stop-color="#a8443d"/>
+      <stop offset="0.82" stop-color="#6c2a40"/>
+      <stop offset="1" stop-color="#352142"/>
     </linearGradient>
-    <!-- The cold key, on the ember's own light axis. Deep enough at the ends to
+    <!-- The cold key, azure, on the warm strand's own light axis. Deep enough at the ends to
          read as night rather than as pale blue plastic; the ice at 0.5 is the
          only near-white in the tile and it is spent on the centre crossing. -->
     <linearGradient id="p-night" x1="0.2" y1="0" x2="0.8" y2="1">
-      <stop offset="0" stop-color="#16205c"/>
-      <stop offset="0.18" stop-color="#2440ba"/>
-      <stop offset="0.34" stop-color="#4f6fda"/>
-      <stop offset="0.5" stop-color="#b8ccff"/>
-      <stop offset="0.66" stop-color="#4a6ad6"/>
-      <stop offset="0.82" stop-color="#2a3fae"/>
-      <stop offset="1" stop-color="#191a5c"/>
+      <stop offset="0" stop-color="#1b2a44"/>
+      <stop offset="0.18" stop-color="#2c4a6c"/>
+      <stop offset="0.34" stop-color="#4d7fa9"/>
+      <stop offset="0.5" stop-color="#bad6ea"/>
+      <stop offset="0.66" stop-color="#4d7fa9"/>
+      <stop offset="0.82" stop-color="#2a4668"/>
+      <stop offset="1" stop-color="#1c2a46"/>
     </linearGradient>
     <!-- Day: the ember's slot, taken to ink. Darkest at the centre crossing,
          lifting to graphite where the tile cuts it. -->

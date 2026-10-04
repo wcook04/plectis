@@ -422,8 +422,8 @@
     "form": "Problem note",
     "pages": 26,
     "question": "Which supports are proved to give irrational Lambert subseries, and what still blocks the arbitrary infinite support that Erdős #257 asks about?",
-    "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
-    "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
+    "precis": "The series ∑_{a∈A}(b^a−1)^{-1} is irrational for every integer b≥2 and infinite A contained in E∪V when E satisfies a finite-prime weighted summability condition and V has a summable positive divisor cover. The two classes are incomparable, and their union reaches supports in neither class. A common average over dyadic lengths produces one index with both displacements small. Arbitrary infinite supports at base two remain unresolved.",
+    "owns": "the weighted, divisor-cover and mixed support criteria with complete proofs and method limits; the long paper treats finite denominators, the achievement set and rational membership",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
     "problem_id": "erdos_257",
     "routes": {
@@ -443,7 +443,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "1d7bde0fc530e17f",
+      "renderer_fingerprint": "f4a483d215eb8e2b",
       "source_sha256": "d261bce1baa7dbabb89517cdc47fc0215165b03132bc0f3e86736c9fa61f555f",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -644,8 +644,8 @@
           "level": 2
         },
         {
-          "id": "sec:open",
-          "title": "Integer quotients, approximation and further questions",
+          "id": "sec:map",
+          "title": "Limits of the small-displacement criterion",
           "level": 2
         }
       ]
@@ -667,8 +667,8 @@
       "form": "Problem note",
       "pages": 26,
       "question": "Which supports are proved to give irrational Lambert subseries, and what still blocks the arbitrary infinite support that Erdős #257 asks about?",
-      "precis": "For a finite nonempty set P of primes, let h(a) be the P-part of a. If ∑_{a∈A} h(a)/(a(2^{h(a)}−1)) is finite, then ∑_{a∈B}(b^a−1)^{-1} is irrational for every integer b≥2 and every infinite B⊆A. The condition permits a divergent reciprocal sum, but excludes full support and all odd exponents. The proof averages positive displacements over multiples of a finite modulus; a second, dyadic average controls incomplete periods. The paper also proves the reciprocal-summable criterion stated by Erdős and a common-average extension using positive divisor covers. Supplementary results concern finite denominators and conditional rational-membership tests, not a resolution of the universal problem.",
-      "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
+      "precis": "The series ∑_{a∈A}(b^a−1)^{-1} is irrational for every integer b≥2 and infinite A contained in E∪V when E satisfies a finite-prime weighted summability condition and V has a summable positive divisor cover. The two classes are incomparable, and their union reaches supports in neither class. A common average over dyadic lengths produces one index with both displacements small. Arbitrary infinite supports at base two remain unresolved.",
+      "owns": "the weighted, divisor-cover and mixed support criteria with complete proofs and method limits; the long paper treats finite denominators, the achievement set and rational membership",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
       "routes": {
@@ -688,7 +688,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "1d7bde0fc530e17f",
+        "renderer_fingerprint": "f4a483d215eb8e2b",
         "source_sha256": "d261bce1baa7dbabb89517cdc47fc0215165b03132bc0f3e86736c9fa61f555f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -889,8 +889,8 @@
             "level": 2
           },
           {
-            "id": "sec:open",
-            "title": "Integer quotients, approximation and further questions",
+            "id": "sec:map",
+            "title": "Limits of the small-displacement criterion",
             "level": 2
           }
         ]
@@ -933,7 +933,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "1d7bde0fc530e17f",
+        "renderer_fingerprint": "f4a483d215eb8e2b",
         "source_sha256": "b5bb906130585421403fb2955ee08a596207ff928ac2197a1d6afe5a0daeb853",
         "source_manifest_match": true,
         "publication_manifest_match": true,

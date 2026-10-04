@@ -1,0 +1,44 @@
+{
+  "claim-faithful-publication-systems": {
+    "bytes": 23268,
+    "height": 498,
+    "pdf": "papers/claim-faithful-publication-systems-paper.pdf",
+    "pdf_sha256": "sha256:38521d1b5a4c24277bcaa6a239a6b2549eb31bf9bda3fe61b497afad92b64a1a",
+    "width": 352
+  },
+  "erdos-257-mersenne-support-subseries": {
+    "bytes": 18466,
+    "height": 498,
+    "pdf": "papers/erdos-257-mersenne-support-subseries.pdf",
+    "pdf_sha256": "sha256:408f82956379fca0c385dc0d9ed591c543a1919d04bce9336527cad10d5d675d",
+    "width": 352
+  },
+  "erdos257-mersenne-reasoning-surface": {
+    "bytes": 21308,
+    "height": 498,
+    "pdf": "papers/erdos257-mersenne-reasoning-surface.pdf",
+    "pdf_sha256": "sha256:f7589e7d29959c9f635d89f94a3d12c3e960e2e81d339fd7df18a7929155f77c",
+    "width": 352
+  },
+  "plectis-public-system": {
+    "bytes": 22254,
+    "height": 498,
+    "pdf": "papers/plectis-public-system.pdf",
+    "pdf_sha256": "sha256:c42b0ca4af0343026b7d14863a07b542fa5e5b7bcdf60eca701e06d707e3a187",
+    "width": 352
+  },
+  "writing-a-good-mathematical-paper": {
+    "bytes": 25346,
+    "height": 498,
+    "pdf": "papers/writing-a-good-mathematical-paper.pdf",
+    "pdf_sha256": "sha256:c111145c70abaeddcf1af4050f4d7fb823d75ec4d745fa65f50cb68eea1e286c",
+    "width": 352
+  },
+  "writing-mathematics-from-reviewed-revisions": {
+    "bytes": 20324,
+    "height": 498,
+    "pdf": "papers/writing-mathematics-from-reviewed-revisions.pdf",
+    "pdf_sha256": "sha256:21800ba85b39d0ad194c0585d7c2fa8c80e97d8df8f0ec7f14c4fe1b8070032a",
+    "width": 352
+  }
+}

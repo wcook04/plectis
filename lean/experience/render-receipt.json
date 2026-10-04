@@ -308,7 +308,7 @@
   },
   "statement_notes": {
     "schema": "plectis_statement_note_render_cache_v1",
-    "renderer_fingerprint": "1d7bde0fc530e17f",
+    "renderer_fingerprint": "f4a483d215eb8e2b",
     "pandoc": "pandoc 3.9.0.2",
     "notes_sha256": "bc915ad3ee9f3c445a1cfa0eb28c11cd931768c9e69fee55d86787ec0fedd9c0",
     "typeset_sha256": "123d202a3752ee08f1a4057062006fcb0a72c4e9b520571b8bfbd9229aa61099",

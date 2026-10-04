@@ -19,7 +19,7 @@
     "source_sha256": "da3391cb4b3ebd0308569046774412c88593a2e444ddf32a67aac3af8b64fd33",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 35,
-    "renderer_fingerprint": "1d7bde0fc530e17f",
+    "renderer_fingerprint": "f4a483d215eb8e2b",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
