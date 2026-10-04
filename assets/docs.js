@@ -152,6 +152,19 @@
   var mcTermPreviewCallbacks = [];
   function mcTermPreviewRecords() {
     var data = window.__MICROCOSM_TERM_PREVIEWS__ || {};
+    // Presentation-only CSS shares the paper renderer's local fonts. Warm it
+    // with the idle preview payload, without a math download on other pages.
+    if (data.math_css && /^math\/[a-f0-9]+\.css$/.test(data.math_css) &&
+        !document.querySelector('link[data-term-math]')) {
+      var mathStyle = document.createElement('link');
+      mathStyle.rel = 'stylesheet';
+      mathStyle.href = mcAssetUrl(data.math_css);
+      mathStyle.setAttribute('data-term-math', '');
+      mathStyle.addEventListener('load', function () {
+        document.dispatchEvent(new CustomEvent('plectis:term-math-ready'));
+      });
+      document.head.appendChild(mathStyle);
+    }
     var terms = data.terms || [];
     return terms && terms.length ? terms : [];
   }
@@ -4592,7 +4605,11 @@
           reader_preview: preview,
           reader_card: anchor.getAttribute('data-term-card') || '',
           reader_rule: anchor.getAttribute('data-term-rule') || '',
-          reader_deep: anchor.getAttribute('data-term-deep') || ''
+          reader_deep: anchor.getAttribute('data-term-deep') || '',
+          reader_preview_html: anchor.getAttribute('data-term-preview-html') || '',
+          reader_card_html: anchor.getAttribute('data-term-card-html') || '',
+          reader_rule_html: anchor.getAttribute('data-term-rule-html') || '',
+          reader_deep_html: anchor.getAttribute('data-term-deep-html') || ''
         });
       }
       return rows;
@@ -5025,6 +5042,9 @@
     var previewIntent = null; // pointer hover, keyboard focus, or deliberate click
     var pointerX = null;
     var pointerY = null;
+    document.addEventListener('plectis:term-math-ready', function () {
+      if (tipFor && !tip.hidden) placeFloater(tip, tipFor);
+    });
 
     function renderTermMarkup(text) {
       var value = String(text || '');
@@ -5038,8 +5058,14 @@
       escaped = escaped.replace(/\*([^*]+?)\*/g, '<em>$1</em>');
       return escaped;
     }
-    function setTermText(node, text) {
-      node.innerHTML = renderTermMarkup(text);
+    function termMarkup(data, field, fallback) {
+      // These HTML fields are produced by the same build-time STIX renderer
+      // as the papers. Never typeset on hover: insert the ready formula once,
+      // then let the existing placement routine measure its final geometry.
+      return data[field + '_html'] || renderTermMarkup(fallback || data[field] || '');
+    }
+    function setTermText(node, text, html) {
+      node.innerHTML = html || renderTermMarkup(text);
     }
     function renderTier(data, anchor) {
       tipLabel.textContent = data.preferred_label || data.label || '';
@@ -5050,14 +5076,16 @@
         var cardText = data.reader_card || '';
         // Elaboration can assume the short definition has already been read.
         // Keep that definition when touch or keyboard opens the longer card.
-        setTermText(tipText, previewText && cardText && cardText.indexOf(previewText) === -1
-          ? previewText + ' ' + cardText : cardText || previewText);
+        var includePreview = previewText && cardText && cardText.indexOf(previewText) === -1;
+        setTermText(tipText, '', includePreview
+          ? termMarkup(data, 'reader_preview', previewText) + ' ' + termMarkup(data, 'reader_card', cardText)
+          : cardText ? termMarkup(data, 'reader_card', cardText) : termMarkup(data, 'reader_preview', previewText));
         if (data.reader_rule && data.reader_rule !== data.reader_card) {
-          setTermText(tipRule, data.reader_rule); tipRule.hidden = false;
+          setTermText(tipRule, data.reader_rule, termMarkup(data, 'reader_rule')); tipRule.hidden = false;
         } else { tipRule.textContent = ''; tipRule.hidden = true; }
         if (data.reader_deep && data.reader_deep !== data.reader_card &&
             data.reader_deep !== data.reader_rule) {
-          setTermText(tipDeep, data.reader_deep); tipDeep.hidden = false;
+          setTermText(tipDeep, data.reader_deep, termMarkup(data, 'reader_deep')); tipDeep.hidden = false;
         } else { tipDeep.textContent = ''; tipDeep.hidden = true; }
         var href = hrefFor(anchor);
         if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
@@ -5066,7 +5094,9 @@
         tipCue.textContent = 'Click again to open the full glossary';
       } else {
         tip.classList.remove('is-expanded');
-        setTermText(tipText, data.reader_preview || data.text || data.reader_card || '');
+        setTermText(tipText, '', data.reader_preview || data.text
+          ? termMarkup(data, 'reader_preview', data.reader_preview || data.text)
+          : termMarkup(data, 'reader_card'));
         tipRule.textContent = ''; tipRule.hidden = true;
         tipDeep.textContent = ''; tipDeep.hidden = true;
         tipFull.hidden = true;

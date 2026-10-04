@@ -2,20 +2,20 @@
   "asset_transforms": {
     "assets/style.css": {
       "preserved_comment_count": 29,
-      "published_bytes": 268048,
-      "published_sha256": "31fc55ddec6e55a939d206f89fbd39a9e5cdeac22499b9876b6e4e9712be6c39",
+      "published_bytes": 268034,
+      "published_sha256": "b561572ca323842bd61555fbb8c294b3985d45b295465c707ca3a55f0d5a9703",
       "removed_comment_count": 502,
-      "source_bytes": 390789,
-      "source_sha256": "572188481266858672fbba0ae3d249c94f1782e7369edd974b6205ee6d865c1c",
+      "source_bytes": 390775,
+      "source_sha256": "b8b292da18c776de984036466f8f29395821695bcd138c66d5422d19f37bef0b",
       "transform": "isolated-css-comments-v1"
     }
   },
-  "generator_commit": "0ce4f5c60480964ba186cf7a51f6d0d49db20ac8",
+  "generator_commit": "65b189f1deb8a51e2eaa42c934008e7a352acec1",
   "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
-      "commit": "6b279150b815d446cb6382bb4ffac2a00cb5c24f",
+      "commit": "84b4c2d9119db3daf4c0b5561ac631b3300d96a7",
       "ref": "main",
       "repository": "wcook04/plectis"
     },

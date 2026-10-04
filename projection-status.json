@@ -33,7 +33,7 @@
       },
       "404.html": {
         "byte_count": 731,
-        "sha256": "sha256:eb7bf80851c1f7dfc1cec4f5a091e1832d2224341f10d3ef6110b41215b0d4ee",
+        "sha256": "sha256:76ef47c621fb1bb5fca3773d60818dc992615f72277438a7c3acc8f6a1f011ae",
         "term_markup_neutral_byte_count": 731
       },
       "_headers": {
@@ -46,47 +46,47 @@
       },
       "assets/ai-orientation-packet.js": {
         "byte_count": 163431,
-        "sha256": "sha256:67699e171ca6bdbbb6b441bf50b2fb1c4a1e7b851f3ab399cfd715acdd4cbf89"
+        "sha256": "sha256:96f9afa4773f15e6a4f03d688a1e60cbda3f9f880052c0313ce7638b04d4a296"
       },
       "assets/ai-reader-digest-packet.js": {
-        "byte_count": 397250,
-        "sha256": "sha256:52e7148f8ad3a1ae0c6a70e48fed7ebd15ec9df36f7b3a75f21106cd95290f69"
+        "byte_count": 397347,
+        "sha256": "sha256:ff57a033b9a2181c126aae43d6df58ebdf50dc4e6ce7f58e67e7211c8ed4ee74"
       },
       "assets/ai-review-packet.js": {
-        "byte_count": 20196654,
-        "sha256": "sha256:5ab9ccc43d718daca03df67a7e31dc7a951ea5f6a93abdf818659c17a5949db1"
+        "byte_count": 20201915,
+        "sha256": "sha256:2f10be29cfd9c8aa238624f8e4b26d7efb06ed2541a1bc02070a8d90997ad89f"
       },
       "assets/object-map.js": {
         "byte_count": 6467681,
-        "sha256": "sha256:19ebabb33160c15bdcd7f8a8391299d44e08e0c20dc19d3829302282e9ed06cf"
+        "sha256": "sha256:78119dba05c6a21022c0a72677251cd253a95d2522e077cf96eaf3053152ea56"
       },
       "assets/public-reader-assurance-packet.js": {
         "byte_count": 121706,
-        "sha256": "sha256:1854fa619f3adf1c9da5f708f3966f4cde3047063fec1f711781a53f41d37409"
+        "sha256": "sha256:4e6c4ef5997b52053aa7414b8160288b248b9bc5e6b53e842e9dffd4fb6d3cec"
       },
       "assets/search-core.js": {
-        "byte_count": 933807,
-        "sha256": "sha256:a593f9f619dd045ebfa534ab0113b32c16baccb91d16ef19ca2134f0b01339c6"
+        "byte_count": 934234,
+        "sha256": "sha256:71c419db59de8a1842264d37fb5976eb93f3cb5b015f4e6c73f72f630f10f99f"
       },
       "assets/search-index.js": {
-        "byte_count": 1872666,
-        "sha256": "sha256:155638049fbbddad7471705f7ec87c139719cf80e2e65d598bb0827aa6325ba3"
+        "byte_count": 1874259,
+        "sha256": "sha256:74ad4f479ae2a82ba4da19fbfa94555aa6cb7b689c7332cbc273ee367c9c2b55"
       },
       "assets/site-packet.js": {
-        "byte_count": 14707329,
-        "sha256": "sha256:fb054769955637904a861d09831acc225ddf956c0a438d78fe3410322affac2c"
+        "byte_count": 14715069,
+        "sha256": "sha256:a3881f5e7859d2119fc3fb42df21cfd3e174ab24119132df282f356fa82ec3c7"
       },
       "assets/term-previews.js": {
-        "byte_count": 664485,
-        "sha256": "sha256:ccbee589b11021d8f723eb184e3d40ec21363f47b4900192f559e65fe03c0c9b"
+        "byte_count": 665423,
+        "sha256": "sha256:b8875b5d9eac7c1a291ec5ae41c55819b9210399084370257a1977c4c93f175d"
       },
       "content-graph.json": {
-        "byte_count": 18232034,
-        "sha256": "sha256:c978e0109b656cb0f61892cef797713c3f1982ef4bf971215c585d7a0f60a2e0"
+        "byte_count": 18235772,
+        "sha256": "sha256:4d37ff6f54bd2324c43fbc1e9d9bd82ae92ff0975ef06bcd3ec369b755cfcd24"
       },
       "content-manifest.json": {
         "byte_count": 302605,
-        "sha256": "sha256:44917d3fe559d88fce1d670b03a381fa25d05a272fdf965779ceaa6d68912268"
+        "sha256": "sha256:6cbc4cc26770a3fda8d75353bb4dd404576cc1ec433053cf1ed4fe2a71aa5d59"
       },
       "docs/architecture-graph-scene.json": {
         "byte_count": 1270910,
@@ -94,1107 +94,1107 @@
       },
       "docs/architecture.html": {
         "byte_count": 173751,
-        "sha256": "sha256:200aac25a1cf65a712bbe5b2abac7868de4769f6f6dc5fbbc0a17ccee4f7dde7",
+        "sha256": "sha256:63e248c6ed2d3f7a99f8191d1f625cde2179f7881bddadf156e1be94c65caf9a",
         "term_markup_neutral_byte_count": 153684
       },
       "docs/area-agent-reliability.html": {
         "byte_count": 130576,
-        "sha256": "sha256:611007e3326d0eb6a6a94d228b2700ec3706887a2f7d5d9082d76f06b73a98d1",
+        "sha256": "sha256:6e311ea5f0f4d9570435f7f96bd34de11b317c99e521a44aff31d93b4e21cdda",
         "term_markup_neutral_byte_count": 84487
       },
       "docs/area-architecture.html": {
         "byte_count": 79312,
-        "sha256": "sha256:29f27faa5bcce628302db9697311754ca24d22cddf3d2390a3cb772468aae6da",
+        "sha256": "sha256:3abf3c76c538feab1194bcc4b163126e8f6a740283d7f7322bbb6b3f5be6427d",
         "term_markup_neutral_byte_count": 52592
       },
       "docs/area-continuity.html": {
         "byte_count": 40803,
-        "sha256": "sha256:d53235eedc82ea8a4c12f33f485fba06c12635ba494b0ee2de6fe084ce4a87df",
+        "sha256": "sha256:d95d3cbf056f3e04a1e8db6bb78c995369be2c2ff0ae438c59b6e12445a33d5f",
         "term_markup_neutral_byte_count": 30460
       },
       "docs/area-entry.html": {
         "byte_count": 25779,
-        "sha256": "sha256:4b49db974c01764bf3ac47776097ed42309e4d28573134cb6b7e5b4cd7138110",
+        "sha256": "sha256:bb4eed6c4607d911f1889fa1789a4fb1f4be40fe6e1a97dc24f2719031c2a74c",
         "term_markup_neutral_byte_count": 19192
       },
       "docs/area-formal-math.html": {
         "byte_count": 142967,
-        "sha256": "sha256:4a1c97ee34b63c30a2e276a7f0c160e5e217ae9b6612979155e987a3395f05de",
+        "sha256": "sha256:e50dd85875174e0a04b36f7a9046e866cd4dd959d60b425652632d582af1baf0",
         "term_markup_neutral_byte_count": 86340
       },
       "docs/area-import-drift.html": {
         "byte_count": 118599,
-        "sha256": "sha256:83f2d19316a253a88e0f81b633b83ec363bfe58102feaf6f5e4d4820b8210f16",
+        "sha256": "sha256:83f9a758a4c12d998b9f49af5bb8caa7c2eb475b2916c2bd2f7dfbd1b9eed373",
         "term_markup_neutral_byte_count": 77534
       },
       "docs/area-research.html": {
         "byte_count": 63348,
-        "sha256": "sha256:6c77ef4f97e70db2511bfc08c44c61175a7d50bcf58acba5196a56bb74a7391a",
+        "sha256": "sha256:5d17688495f82c31e3d9f578ae72cfa5bbd69ea5178d1eaa0225de35dc33f0d2",
         "term_markup_neutral_byte_count": 44791
       },
       "docs/coding-agents.html": {
         "byte_count": 30668,
-        "sha256": "sha256:f63788fdad2592d1935b7abb5bc52b66ac3cfba4561264cdc99fa1c247c8eaaf",
+        "sha256": "sha256:1efd887db5579f4ff027437a12d16e9122b2f839f6a479b879a26ba9e0438f0e",
         "term_markup_neutral_byte_count": 18092
       },
       "docs/component-agent-benchmark-integrity-anti-gaming-replay.html": {
         "byte_count": 25066,
-        "sha256": "sha256:3279e2a38d767558f61c27914f6ee1ce804c19bd6986f16f7a01b40ac6c38616",
+        "sha256": "sha256:984248442e132017eb5cc3629dff97e47a7473ee6fa79fd0c0b40a49d40f075c",
         "term_markup_neutral_byte_count": 16429
       },
       "docs/component-agent-closeout-faithfulness-audit.html": {
         "byte_count": 20671,
-        "sha256": "sha256:ead13e7e0772a91f86160941dc07a422e3c7f4240935e5dbbeffbfc09aea45b2",
+        "sha256": "sha256:8d23aac39684f75f784466eead8b42730231a7bf647a2c609fac0a1db9f135d4",
         "term_markup_neutral_byte_count": 15387
       },
       "docs/component-agent-memory-temporal-conflict-replay.html": {
         "byte_count": 23193,
-        "sha256": "sha256:0d89149d5aafb5b11e0374f404f081cc3b98b36aa63d7a9ce87b7dc8d0408ca9",
+        "sha256": "sha256:76a9a41752e24b671ed88a28405e491baf43a4bdc77e6c41640001be6f239492",
         "term_markup_neutral_byte_count": 16481
       },
       "docs/component-agent-monitor-redteam-falsification-replay.html": {
         "byte_count": 23953,
-        "sha256": "sha256:1444313baa808926870b9decd0e3db3e0d4e21aef7b6123af3131dff0e5b70c7",
+        "sha256": "sha256:83550f41c64355471b7e2078091909ad5468b69d97eaa1166a98c32f07c3375e",
         "term_markup_neutral_byte_count": 16218
       },
       "docs/component-agent-route-observability-runtime.html": {
         "byte_count": 27513,
-        "sha256": "sha256:72c34f623c68bb19b765317889d9ae788582b6a41f4ee46bb4c17958b1b86f89",
+        "sha256": "sha256:e71aeebe9eafa4ab2e9279155801f2bbaeb65874029e9a89cedcebd487219027",
         "term_markup_neutral_byte_count": 17938
       },
       "docs/component-agent-sabotage-scheming-monitor-replay.html": {
         "byte_count": 23593,
-        "sha256": "sha256:68db183057f01d138da1b73be3e72d87c41344d864a925d26fcb14a27115159b",
+        "sha256": "sha256:690f3bf69190ceee43acfa9a8905417e63aa5fc5560a30f21de215c54b3c5253",
         "term_markup_neutral_byte_count": 16189
       },
       "docs/component-agent-sandbox-policy-escape-replay.html": {
         "byte_count": 22635,
-        "sha256": "sha256:1270e7b5928e7b61d2cfd156eb3780dc364796fe618405b02a88d1ae4371c668",
+        "sha256": "sha256:a3ce39f56efff53dbb0cd5d486597fe7ae6fcc55ef40ff9d3197fedd00c5b4a3",
         "term_markup_neutral_byte_count": 16240
       },
       "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html": {
         "byte_count": 24430,
-        "sha256": "sha256:3f617203e1b89137686a74b5f7ef9f90b821facefe08b05297b9cd53a9063266",
+        "sha256": "sha256:1bcfd862ea060e3ba1a672087e8d65dc9451d9194425c9c0bd3f2458c51a47f2",
         "term_markup_neutral_byte_count": 17107
       },
       "docs/component-annex-knowledge-routing.html": {
         "byte_count": 21938,
-        "sha256": "sha256:44f9ee2a4c3f2cc2d329703321cdfb7c14b3c68146c5e064184f0843c1243e9e",
+        "sha256": "sha256:684c145f5a8791f126b9cd7a3b016fd341090aa94815c18ba591239d34c9f68d",
         "term_markup_neutral_byte_count": 16399
       },
       "docs/component-batch10-cold-eval-honesty-capsule.html": {
         "byte_count": 21649,
-        "sha256": "sha256:5e80503248dd82887add19cb004365f6da8f16795c79e442fef4bccd3874d4f5",
+        "sha256": "sha256:ef8e8463a9a6b4f79a4194224eddcf0e06acc99c83f616265b506bdad840bd18",
         "term_markup_neutral_byte_count": 15769
       },
       "docs/component-batch10-governance-compilers-capsule.html": {
         "byte_count": 24294,
-        "sha256": "sha256:53064f625f857867a9f585700b944299fb39dc101d5a7bcf1b13533fd6d726e4",
+        "sha256": "sha256:d39e08a1c0e100f75b01588c56807ccee5a05a8ab8318fbd6981655ea559598e",
         "term_markup_neutral_byte_count": 16191
       },
       "docs/component-batch10-live-source-drift-capsule.html": {
         "byte_count": 22631,
-        "sha256": "sha256:43b265d56487746bc8767045c4ef8a4b7fd64ad1f77c626251b0eb9eb2cb374f",
+        "sha256": "sha256:fbe5dd2a5b51b79c6c7a4c085360faf4a336cff519f3b7ead41ee495d371d2dd",
         "term_markup_neutral_byte_count": 16030
       },
       "docs/component-batch11-saturation-engines-capsule.html": {
         "byte_count": 23140,
-        "sha256": "sha256:798c86eabc5869537a573e16ddf5b961e54e7894626d4e0a85e82555ae7094fd",
+        "sha256": "sha256:31017c328d30cd707a312cc7453516943bfb60d10061a48e6972333b2e7f0635",
         "term_markup_neutral_byte_count": 16380
       },
       "docs/component-batch12-market-dashboard-read-model-capsule.html": {
         "byte_count": 22138,
-        "sha256": "sha256:f52365e0e64a631e407437e6e005d39fc9a5ac53ee7c104c838fc0f4e053180c",
+        "sha256": "sha256:63e96c4d345f69a9f956a4254c5217c2ca8972bb5444c6fa69161b7f75c3002e",
         "term_markup_neutral_byte_count": 15993
       },
       "docs/component-batch12-prediction-market-board-capsule.html": {
         "byte_count": 20863,
-        "sha256": "sha256:3882444514478463ec7bcc011bb2841cdf991ba0fb34084fb969d9816cb76179",
+        "sha256": "sha256:30dbf9fd10f88ecf0755e53d5e98400dbecb4420d753bc15e71f48a4ce584222",
         "term_markup_neutral_byte_count": 15850
       },
       "docs/component-batch12-release-claim-language-gate.html": {
         "byte_count": 20463,
-        "sha256": "sha256:0d1b262783ce256a9dbdf0acbbc426c2b033d07ce75eed054bcdfe5c4619431e",
+        "sha256": "sha256:02d644163eb23d04ef2b770ffc884bb57bce167fc25d03e2b78d53f07563e5a6",
         "term_markup_neutral_byte_count": 15462
       },
       "docs/component-batch4-proof-authority-runtime.html": {
         "byte_count": 25452,
-        "sha256": "sha256:34947b267471e9abcdd542fbafdd04227638e80358c40d3c36f2f8ff69680702",
+        "sha256": "sha256:c0cdc8d48ea98e9b724ad4a1d61d5af8d1b78a1bebd55b893c187990777b9d78",
         "term_markup_neutral_byte_count": 16031
       },
       "docs/component-batch5-authority-systems-capsule.html": {
         "byte_count": 25479,
-        "sha256": "sha256:950991f80c8a562ea3d36bec0db2fef71d26cd7a9f395c92151663bd3cd4792a",
+        "sha256": "sha256:8c48347aebd70e1d2dd65c26fe02119595a7e48ad9d0cdca3014371a1ba9e39b",
         "term_markup_neutral_byte_count": 16293
       },
       "docs/component-batch6-unsurfaced-primitives-capsule.html": {
         "byte_count": 22258,
-        "sha256": "sha256:bc4639f0a349fcca023885ca0b68f908cbc4b44a80d14f9ef810985cbb9b3a2a",
+        "sha256": "sha256:840604397a21d1eb60219f23112b1f360e33cc3c5f1715f7529a4452709562dc",
         "term_markup_neutral_byte_count": 16103
       },
       "docs/component-batch7-demo-take-console-capsule.html": {
         "byte_count": 23334,
-        "sha256": "sha256:4d6317d0738d17b74dc3b7a9999f52d4256fcf58e44bde5258b6458a3c242ea8",
+        "sha256": "sha256:9b008ac403e245ce7bf76cf243d1ac10d294d379719dfd56ab18afa76a4461d5",
         "term_markup_neutral_byte_count": 16479
       },
       "docs/component-batch7-macro-engines-capsule.html": {
         "byte_count": 23507,
-        "sha256": "sha256:af3cc0ad5d9a1999e33f7fb1aeb89b983607a76819f722f912ef7201573c4a15",
+        "sha256": "sha256:d6ddd3e79b1c5a5d662c53800e7ccd56ee75bf6475995a272276abba70b5da3a",
         "term_markup_neutral_byte_count": 16397
       },
       "docs/component-batch7-oracle-sibling-capsule.html": {
         "byte_count": 22973,
-        "sha256": "sha256:b3340faa99964565f6b0b7f7032c4658b37798809a7fb8657b0adcb0eb5c6023",
+        "sha256": "sha256:07218571f1ad23ab5183fcd2678e56e4b91f510a0cf0a6f00a61713ea42eaa95",
         "term_markup_neutral_byte_count": 16220
       },
       "docs/component-batch7-secondary-runtime-capsule.html": {
         "byte_count": 22277,
-        "sha256": "sha256:f4bbf205c3c03b789dc5c83e5ffd7092475a3a6a8cd925e92e9a77b646093fad",
+        "sha256": "sha256:157cb14fb4ed52174e17f8430053ea5bc22807ad20a9f4ff047976b1b53b38f6",
         "term_markup_neutral_byte_count": 15948
       },
       "docs/component-batch8-audio-level-rms-port.html": {
         "byte_count": 18753,
-        "sha256": "sha256:9d9ca83084e0db6c8d49b1f5c4775a0fa7c8b33bd2ffbe63e5f746c2200b4c69",
+        "sha256": "sha256:3686db09a14d7f0771dd64f0e1b86eabe1694d45130c7fc6d6c9c075c6eb0ae3",
         "term_markup_neutral_byte_count": 15508
       },
       "docs/component-batch8-compliance-pipeline-capsule.html": {
         "byte_count": 23028,
-        "sha256": "sha256:3e00c762f8b583727429204ab2a19d5487bede0b664662996ff18a2ab73a2ec7",
+        "sha256": "sha256:12e4a455bab2e8abac39b1841cb43968cb968c947bd3a8e51532a917c590394a",
         "term_markup_neutral_byte_count": 16144
       },
       "docs/component-batch8-policy-engines-capsule.html": {
         "byte_count": 20949,
-        "sha256": "sha256:6dc8827b738bb6a187bdcc4a7c3636ea4d78c59b2e0d27a2c8d7d01ea8943bb7",
+        "sha256": "sha256:136529854d72dd7cd8a6f99b6cabd031bae85e879fbe5a85f735a8b30208423d",
         "term_markup_neutral_byte_count": 15595
       },
       "docs/component-batch8-structural-theses-capsule.html": {
         "byte_count": 21180,
-        "sha256": "sha256:2f6f04a5322166e742ba15d80eb2fd937823c90d0cd871a5ef70f1533fb60f33",
+        "sha256": "sha256:7ed66efd49e8125922c71c23ee4f05ddb0dae5c949bc3f760a0882bc62492ad3",
         "term_markup_neutral_byte_count": 16095
       },
       "docs/component-batch8-tools-tail-primitives-capsule.html": {
         "byte_count": 20845,
-        "sha256": "sha256:4caa53af55d6d6afa7babaa8a42d584a2db05a1748996b9cf5a7e25939015753",
+        "sha256": "sha256:264fbbb59ae51bf0f7a96a08bc54a02d4d4dcf6f833f79b18f440ff5266103eb",
         "term_markup_neutral_byte_count": 15833
       },
       "docs/component-batch8-validator-checker-capsule.html": {
         "byte_count": 22984,
-        "sha256": "sha256:be4843163e8fafd60f83fe8c23554851dea40bb9162c2a2b9466be81c04530d8",
+        "sha256": "sha256:998b94d627fcfa00cb4adf318627691239004f858d946023914b3f6cfba0b9d0",
         "term_markup_neutral_byte_count": 16023
       },
       "docs/component-batch9-macro-engines-capsule.html": {
         "byte_count": 24432,
-        "sha256": "sha256:d3d02ddbd4cb6e36e49bca5e38c6a3ebc585e959c5a37b2f640b6c3762501606",
+        "sha256": "sha256:203c47873394d739bc766044a9f69141cb3c711e478df5541d41046814eb9eb5",
         "term_markup_neutral_byte_count": 16189
       },
       "docs/component-belief-state-process-reward-replay.html": {
         "byte_count": 21630,
-        "sha256": "sha256:b440bb4f6c364cd33eaad822de51a7c851a8c92b833c800f325ebde35ac55ef2",
+        "sha256": "sha256:fca5e9e49be4d83c7f01a37742b6918ea15693ca1efeef17235df00b0bc7b3e7",
         "term_markup_neutral_byte_count": 15977
       },
       "docs/component-bounded-autonomy-campaign-packet.html": {
         "byte_count": 18923,
-        "sha256": "sha256:be4673a60e7234d1018f35ea80845b4b16085c16772bb94c85bfce957d7ec5f8",
+        "sha256": "sha256:a147ecb32dfc588a262f72ef77747d0346edc781212f23e1064c717b1def46db",
         "term_markup_neutral_byte_count": 15115
       },
       "docs/component-bridge-campaign-dag-validation.html": {
         "byte_count": 24210,
-        "sha256": "sha256:32cb132a1d1102f4217070a7c04ab787c4ca9c036dd19899a7be5689407ab4a9",
+        "sha256": "sha256:fb37599bc2a414b6b0ec8cbbb8e16cf54d049405820d62f130ca0f778e0794a0",
         "term_markup_neutral_byte_count": 16862
       },
       "docs/component-bridge-phase-continuity-runtime.html": {
         "byte_count": 22813,
-        "sha256": "sha256:1c7b1308a7966edad2b866e896686a45b59bd57f10081e1d99510d5a29131e16",
+        "sha256": "sha256:422a1529438c4cb6d8247ff0b7334ab195d21d9575aeb0e99e02f37368fadf57",
         "term_markup_neutral_byte_count": 16202
       },
       "docs/component-certificate-kernel-execution-lab.html": {
         "byte_count": 23847,
-        "sha256": "sha256:848e7605f2ad824c106fe8011aebcd5eaecb761ef763f114153e3b1952b6f21a",
+        "sha256": "sha256:0258d50ec96013bd095e728d7fdfa217a7c121b0b77facd6b6917561e1a970f9",
         "term_markup_neutral_byte_count": 15818
       },
       "docs/component-cognitive-operator-registry.html": {
         "byte_count": 22132,
-        "sha256": "sha256:e4bab92e5d52319958d311edf682b47b8182a50814d049245205a1f3ba2c2bae",
+        "sha256": "sha256:076a945e195cfad6852472f2ecaf56e693d3735d9542950ca8c1f3eb6d042726",
         "term_markup_neutral_byte_count": 15861
       },
       "docs/component-cold-reader-route-map.html": {
         "byte_count": 23463,
-        "sha256": "sha256:a338194cc476e2ca8f30186c4f57806aab03466537a85002de7cc905d120c0ce",
+        "sha256": "sha256:0f6fda02ac603e3f334a616453ef0463cba6164af7fe67fbcb30a90d731cdb11",
         "term_markup_neutral_byte_count": 16307
       },
       "docs/component-concurrency-mission-control.html": {
         "byte_count": 22049,
-        "sha256": "sha256:f240a4cb69869528eefbe01ecf66598716ae26d550ba2117af0e9fbff8d1d70b",
+        "sha256": "sha256:29cc23b34a18c359049a763cd338b33ff4068f461a297150eb12cbf341201b7f",
         "term_markup_neutral_byte_count": 16036
       },
       "docs/component-corpus-readiness-mathlib-absence-gate.html": {
         "byte_count": 25844,
-        "sha256": "sha256:e983a1e69a9f779458354794016d1f669d083380cf096c09e48b8fca298d1996",
+        "sha256": "sha256:ee9b60fcb148bd9d043ce02c36254c4baafd49f357214dd9fd4cfb650055174c",
         "term_markup_neutral_byte_count": 16675
       },
       "docs/component-derived-fact-provider-runtime.html": {
         "byte_count": 22570,
-        "sha256": "sha256:c01c86fabf310f4365e640d1c65af645091722b4e696d485022c40b5e0d8397f",
+        "sha256": "sha256:5147b172111c043e9cbb4888b043d585bf3803c1aefab3f6adce76537ce7bec8",
         "term_markup_neutral_byte_count": 16789
       },
       "docs/component-doctrine-fact-claim-audit.html": {
         "byte_count": 19027,
-        "sha256": "sha256:62e9098de467ec822b69a7ecefad92fba42b6a5351bcbb16c03e2b3eaf285f30",
+        "sha256": "sha256:178537dd77eea7441a74908857e1f35a0661e12e14bdeae68cf1a81422db02cd",
         "term_markup_neutral_byte_count": 15166
       },
       "docs/component-durable-agent-work-landing-replay.html": {
         "byte_count": 23618,
-        "sha256": "sha256:67f0ec1bfb4a6acb397d216ffeb31b45bf4d8f1fe20bd082b7891038cd1436cf",
+        "sha256": "sha256:d7aaa08b0502c7a90d0778afec8eab84683e1eb0c2355ccc87c3dfe8970e7da2",
         "term_markup_neutral_byte_count": 16072
       },
       "docs/component-egress-self-compliance-audit.html": {
         "byte_count": 20749,
-        "sha256": "sha256:2b0f5d24cf79f94ad9c5463073fd69ca234c932f51a323be066bf7cf1b5aa3bc",
+        "sha256": "sha256:a783206d2ebd92d605251f879beaca1bb0720a3a2da90a63527e4a2eb3d848fb",
         "term_markup_neutral_byte_count": 16441
       },
       "docs/component-engine-room-demo.html": {
         "byte_count": 22165,
-        "sha256": "sha256:620d1a1a453bd0d90ab5ae84595f2d82c40418dcd753e05e7cc067aee85bfc89",
+        "sha256": "sha256:09b1e99093641fff0d1ced58a147e548fec2f1a3e9d43ba987ef4dd9b3c5c5a1",
         "term_markup_neutral_byte_count": 15677
       },
       "docs/component-executable-doctrine-grammar.html": {
         "byte_count": 24920,
-        "sha256": "sha256:4a05fc34f1ef40870cb2d49dec100b7da0899e300c3a02720d508aaf7772b201",
+        "sha256": "sha256:adaba31d9ff22fd148a440bf6d50ffa303a2a6d415adb632cb85336026d4bbf7",
         "term_markup_neutral_byte_count": 16223
       },
       "docs/component-finance-forecast-evaluation-spine.html": {
         "byte_count": 19360,
-        "sha256": "sha256:9f61159b9ad8207c30bc734725740c493a863210c9eb603037495925bc8f0e5f",
+        "sha256": "sha256:b0a5c53c0a02f5415c260066af5d0a8cbf3b8d91f8f022e89117faafafecdd67",
         "term_markup_neutral_byte_count": 15592
       },
       "docs/component-finite-erdos-denominator-certificate-strike.html": {
         "byte_count": 27061,
-        "sha256": "sha256:304bd0c4274c66a1185e8d9537d095750f1dea938fc2ddd6e0fd0c6c234b858e",
+        "sha256": "sha256:c3d343fdef97ce8db8b334e502da57de247430d1483ffcfbdf509050fac19a98",
         "term_markup_neutral_byte_count": 17315
       },
       "docs/component-formal-evidence-cell-anchor-resolver.html": {
         "byte_count": 25338,
-        "sha256": "sha256:a190aaece3b18c383d7ea3dbe592d8fbe0c942f2e2595fb0b6235a47c9c97e71",
+        "sha256": "sha256:d3883777c794ff518614cd3d2fce6f5f9f6f8e56d257784aae265aaad2c62050",
         "term_markup_neutral_byte_count": 16417
       },
       "docs/component-formal-math-lean-proof-witness.html": {
         "byte_count": 26521,
-        "sha256": "sha256:eb4e83543fb99728953f255b2cb6254df9a486477a43bcf0859f8982dbad2606",
+        "sha256": "sha256:16988b26685d9e5dce22eff255e58c89620efdf99a2ed6b8df2880a5e3f7e34e",
         "term_markup_neutral_byte_count": 16841
       },
       "docs/component-formal-math-premise-retrieval.html": {
         "byte_count": 24360,
-        "sha256": "sha256:da3da366393180ada076e4d6e57b5919d741ae21e09704f70706d6816515d6c2",
+        "sha256": "sha256:9bcb761abcc355c3bea772ac3ea920292976d3179ed134794a21e412afd20aa8",
         "term_markup_neutral_byte_count": 16580
       },
       "docs/component-formal-math-readiness-gate.html": {
         "byte_count": 25465,
-        "sha256": "sha256:e070c7c948c1c733acb7291fe78a60adf929dcad47b06fbb7baa158a5d721c5d",
+        "sha256": "sha256:c5cafb714211c6e78fe40d654f7d39b1d4e78f7e6106f380f0ca4a0773dae3ca",
         "term_markup_neutral_byte_count": 16541
       },
       "docs/component-formal-math-verifier-trace-repair-loop.html": {
         "byte_count": 22995,
-        "sha256": "sha256:821841926e1321865883e580aea453ac3c6cc216099fe6f92cd881eeef76e2b1",
+        "sha256": "sha256:48a7997dccf09e5b63a7933534e2cfd7eb5488974181ac0ce89f327863ce290f",
         "term_markup_neutral_byte_count": 16414
       },
       "docs/component-generated-projection-drift-runtime.html": {
         "byte_count": 24707,
-        "sha256": "sha256:8ab8a62b7506eb9cc0dc79f3a8ec086d2d826d644165298c6c77f179078a8323",
+        "sha256": "sha256:90dd9343098049f2b0c6f1cab6a94cb53cd3b577dd4e32f36c698a7a7d3ba2e0",
         "term_markup_neutral_byte_count": 16893
       },
       "docs/component-indirect-prompt-injection-information-flow-policy-replay.html": {
         "byte_count": 21258,
-        "sha256": "sha256:d44a24d479e5d381ae9e5758ac46f38bccc6758ada30f97591074cdd7ae1e24e",
+        "sha256": "sha256:c764d540b8103125a0676ee9fafd9775214b61f9363ba178286bf34d04bd8044",
         "term_markup_neutral_byte_count": 16299
       },
       "docs/component-lean-proof-search-lab-runtime.html": {
         "byte_count": 25476,
-        "sha256": "sha256:5eaa6cdb5ef12213faf108031a1d3d61e21c6ff97b76620da498cc67549834d5",
+        "sha256": "sha256:6088a17ab2f18e335a06ba8d738ad343a1038eea8eb0f0e36373b3b74be50132",
         "term_markup_neutral_byte_count": 16933
       },
       "docs/component-lean-std-premise-index.html": {
         "byte_count": 24844,
-        "sha256": "sha256:368728840214f509bf4d0cdc22202256992c9dc6c49308e3de3aac8f371cb9b6",
+        "sha256": "sha256:2fa64b93b52b50ea2ecfee3d85978bcf21ea4a84a3e1b6ad16bd42389f76731c",
         "term_markup_neutral_byte_count": 16505
       },
       "docs/component-macro-projection-import-protocol.html": {
         "byte_count": 30531,
-        "sha256": "sha256:cd5fe08846e84ec2071bb0ef398e215db0b1b4e7fc56e208b2f5f8e8ab00ad10",
+        "sha256": "sha256:f864eae01163a17ede7c3399225ea3b81ef63aa7436d7ebd1b759651904eb1a0",
         "term_markup_neutral_byte_count": 18706
       },
       "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html": {
         "byte_count": 20573,
-        "sha256": "sha256:2eeef21348570c72ec5b97b98527ca6987204f51b2a90720c7f563efd4854842",
+        "sha256": "sha256:47f7445dfc1112ba4819f43f2bed3aca1e46043e66e923428d21029485a26845",
         "term_markup_neutral_byte_count": 16238
       },
       "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html": {
         "byte_count": 20010,
-        "sha256": "sha256:3d2b11047e96efb4efe0864dff4193d02ad2a1b2c8fc4ce7e18c9f53abee71f0",
+        "sha256": "sha256:f9c592d2e705b6b84c7e48c80ab06eaa00506e1a786df73018b255c3a4d9cfce",
         "term_markup_neutral_byte_count": 15748
       },
       "docs/component-mcp-tool-authority-replay.html": {
         "byte_count": 22960,
-        "sha256": "sha256:ae0036bbfdc90aa5fb668be5e255c6da2f184f8b738b4a73f4112530f96140f6",
+        "sha256": "sha256:dcecf8b6dfc4103a01b9bea5932f1427b5a5bca9b3cc4f22c4d55e3644739817",
         "term_markup_neutral_byte_count": 16203
       },
       "docs/component-mechanistic-interpretability-circuit-attribution-replay.html": {
         "byte_count": 22071,
-        "sha256": "sha256:f51ff13341d2279f963d090e5427d85b8b9164718ffdbff9b07497a299c9dda2",
+        "sha256": "sha256:1d43e473543f0fccbe31336c4dc7d17982f193c93d19ff89a12ababd50181074",
         "term_markup_neutral_byte_count": 16195
       },
       "docs/component-metabolism-queue-reconciliation.html": {
         "byte_count": 23308,
-        "sha256": "sha256:33ce3a39441d4f61a0bd3ab5051d98457d34563bad31c67bb5d8e5d3066f71c5",
+        "sha256": "sha256:323be59c84e9e14774a001bfa437f8b5ff6416946f9eff7284dcdcf978ff8948",
         "term_markup_neutral_byte_count": 16799
       },
       "docs/component-mission-transaction-work-spine.html": {
         "byte_count": 25184,
-        "sha256": "sha256:87022774b477b09ac4b88261bc1a84525bf5e87e6423902a5ea9797c668d05fb",
+        "sha256": "sha256:8e95c068e0ff8a207a133842c722372a5fcfca9a740313615fb4abdcc0c882ba",
         "term_markup_neutral_byte_count": 17012
       },
       "docs/component-navigation-fitness-benchmark.html": {
         "byte_count": 22724,
-        "sha256": "sha256:bcf60cb020d9df88b4147024a3f75665dcdfe7078cca2d57551e0876474ff865",
+        "sha256": "sha256:5392252a191c2ac6741c9dc3a11313103533e20e1a56051f104f2123999c2335",
         "term_markup_neutral_byte_count": 16820
       },
       "docs/component-navigation-hologram-route-plane.html": {
         "byte_count": 26174,
-        "sha256": "sha256:54ea9abd168dfac5719cc9182c94fb529a16e331697f3d7d9549c0e0b56b0316",
+        "sha256": "sha256:d384a5778606c8c0d7639f1530acfcd4f72cb765bf722b799ed6e8d5e8fd0a97",
         "term_markup_neutral_byte_count": 16904
       },
       "docs/component-pattern-assimilation-step.html": {
         "byte_count": 20835,
-        "sha256": "sha256:0376d25d183b41babe3c7e984c7e441bda0450af2ea6c7279159c926c0222c30",
+        "sha256": "sha256:deed8ece2acc8585eda92008700bacfea3c68f4639f1fb614322d5ba2d1b9e12",
         "term_markup_neutral_byte_count": 15731
       },
       "docs/component-pattern-binding-contract.html": {
         "byte_count": 23380,
-        "sha256": "sha256:f9b836dfbfc96f8297f20f687640171ed761c94d867b0592a9574cfb1eda6cc0",
+        "sha256": "sha256:9ce3bb0de4bade56f2e6f4732151a1bcf86f9371b1504816461ab60c7edc8550",
         "term_markup_neutral_byte_count": 16291
       },
       "docs/component-prediction-oracle-reconciliation.html": {
         "byte_count": 20846,
-        "sha256": "sha256:e7fd49c3fad730472f1ca1b10d4eeb4eeeee9497e2b34427821d5842bab8e1a9",
+        "sha256": "sha256:a7a0fe89f4a9718ed4d85357c68ef979bc545577243d1a19755676ff8ee62521",
         "term_markup_neutral_byte_count": 16264
       },
       "docs/component-proof-derived-governed-mutation-authorization.html": {
         "byte_count": 25203,
-        "sha256": "sha256:b552c89652b5b035b7ebae4ba7345451b65bb1710e346c5b43a9662f8ecdeacc",
+        "sha256": "sha256:c320762b0c2e85762d153ca59b1f0667e6f8dda2c5d66d1c687f8c6683f232bf",
         "term_markup_neutral_byte_count": 17161
       },
       "docs/component-proof-diagnostic-evidence-spine.html": {
         "byte_count": 25895,
-        "sha256": "sha256:b7c4710ee690ddee7b66c1fc0f1850901a6714d8a680f1be7e94e91c2b21822b",
+        "sha256": "sha256:a25cd34abc7c6b0c187dbf18542f66eb5c33edbc09d578a3117266cbb4ada61a",
         "term_markup_neutral_byte_count": 16476
       },
       "docs/component-provider-context-recipe-budget-policy.html": {
         "byte_count": 22953,
-        "sha256": "sha256:8ab5694debabf830818ac5a5175a2c69d24c8ded2b037df13cbaca3312176392",
+        "sha256": "sha256:20ea7671093c1ef2133a633864b32b26a02bf2ed6b3c0b167107d73e9ae9adf4",
         "term_markup_neutral_byte_count": 16369
       },
       "docs/component-public-reveal-walkthrough.html": {
         "byte_count": 22968,
-        "sha256": "sha256:459e7afd0e22a27526573ff5c0c4ccf1590b2f6fe9da2d82cb59ff57b57698a2",
+        "sha256": "sha256:69e42349577f4b26b314e2f28ea93a7cf91859b404f05c4f76b2b742b5bcc530",
         "term_markup_neutral_byte_count": 16080
       },
       "docs/component-research-replication-rubric-artifact-replay.html": {
         "byte_count": 25345,
-        "sha256": "sha256:eb6a9e167cc82ae6ac5707be692c9f0b3d86efda51a91db79ca0c3a03c35e828",
+        "sha256": "sha256:c8ca63b641880f95f86c140394aa1b921066bd95b563b21fff1fb517c2251550",
         "term_markup_neutral_byte_count": 17303
       },
       "docs/component-ring2-premise-retrieval-precision-recall-harness.html": {
         "byte_count": 23785,
-        "sha256": "sha256:a72b48ef3db63fd8c9ab27ee5c6afad21ec77deff676b72ff20f69c26b7844db",
+        "sha256": "sha256:9d575eafa2885edb5b397cb6cbd429d9d768e6dac64b832ec7970f211501e84b",
         "term_markup_neutral_byte_count": 16683
       },
       "docs/component-routing-anti-patterns-registry.html": {
         "byte_count": 22077,
-        "sha256": "sha256:42c43451246c3b2dbc0b987e90dfa9eb7fb38690bbcf5cfac3643ac60e281651",
+        "sha256": "sha256:07f4d55191fc4e8fb27db503220efc5c66015a8c2e95ac6fdc035dc770b7a891",
         "term_markup_neutral_byte_count": 15769
       },
       "docs/component-self-ignorance-coverage-ledger.html": {
         "byte_count": 18619,
-        "sha256": "sha256:b17836d0fb0aa92299c0377f4b50155ceba258153ee253611632b7cc914aa1de",
+        "sha256": "sha256:a2a1441c1ed39e5db6d1470a4bfa4d9fa72698f60c25de3a47052422c504526b",
         "term_markup_neutral_byte_count": 14948
       },
       "docs/component-semantic-singleflight-dedup-runtime.html": {
         "byte_count": 21211,
-        "sha256": "sha256:4d6ef80b991636922cb18c8c1bf24d74b164e72337115d29ab7df7cb32f75f54",
+        "sha256": "sha256:ed7efaf82670e23fd0a448153112412acf2ef9c3a075d54ae3070bc4365cfd9b",
         "term_markup_neutral_byte_count": 17050
       },
       "docs/component-sleeper-memory-poisoning-quarantine-replay.html": {
         "byte_count": 22903,
-        "sha256": "sha256:32bcadf0d625f94e4bd7caf2cb779e8258f5967c1cc5b8492a85dc0167dbc11f",
+        "sha256": "sha256:3639c6043f2eec8aa765912faf0d15b0e86678b41285dfda36090211527a3db9",
         "term_markup_neutral_byte_count": 16779
       },
       "docs/component-spatial-world-model-counterfactual-simulation-replay.html": {
         "byte_count": 22756,
-        "sha256": "sha256:0224ec28097bb53290d1398bbd8032bd772735b300318801a486ef0010783e20",
+        "sha256": "sha256:66d7f766f19c2c5fefd6a035b6b60dbe902c8f4c5d33262fa9c75b870f9b990f",
         "term_markup_neutral_byte_count": 16245
       },
       "docs/component-standards-meta-diagnostics.html": {
         "byte_count": 20822,
-        "sha256": "sha256:d53a42cddebfbb6b5270321f24649d7580cbbcb2bc4eb9fdbd93c4313905c3b1",
+        "sha256": "sha256:29706714d46272e61c11c512a5960fc8a5e248330745c13c4510e6e7017fcec9",
         "term_markup_neutral_byte_count": 15405
       },
       "docs/component-tactic-portfolio-availability-probe.html": {
         "byte_count": 22591,
-        "sha256": "sha256:ce7d9785f11627755a7ee5c52ccffd6793b919f2cdbe56d87c692c02c007e2a3",
+        "sha256": "sha256:db9864f57e8b0a4219a8141f27248e259d1fff80bc181c94c2ba6ee9ebb064be",
         "term_markup_neutral_byte_count": 16726
       },
       "docs/component-target-shape-tactic-routing-gate.html": {
         "byte_count": 24357,
-        "sha256": "sha256:ac0bc7e6d028c855a0ff29c944f4d2edd822eb2a294b71e472bc5cb254a556ed",
+        "sha256": "sha256:fa1d638ac35589b1369c96e5d25c7a9fd6c7b22e949380c19a19068a921087cf",
         "term_markup_neutral_byte_count": 16558
       },
       "docs/component-tool-server-pressure-inventory.html": {
         "byte_count": 19729,
-        "sha256": "sha256:125932ce9b1dc164462abd2594e011c8770ccf48b0757c30af67a8b155ab70ae",
+        "sha256": "sha256:622c5084589e184bd87f1e85c5061aa7bead881b7c2aabee324c15cbd9c51687",
         "term_markup_neutral_byte_count": 15743
       },
       "docs/component-undeclared-library-prior-symbol-classifier.html": {
         "byte_count": 21957,
-        "sha256": "sha256:f5cdc03ff4337ea1000839cc5243682414956db6bc29e5e373c574db1d0e6333",
+        "sha256": "sha256:1b7a1b6c3a63d7673b61ac396c31a38d0f547c315a1be83e6fc8d5fdb1fa718f",
         "term_markup_neutral_byte_count": 16365
       },
       "docs/component-verifier-lab-execution-spine.html": {
         "byte_count": 23012,
-        "sha256": "sha256:38e3ea4606125aa7729aa1313ce2401a6319bea47d5100c3f9465099e9840c0e",
+        "sha256": "sha256:461cc00a2c723dbce678c8fd8e43eb0cfdfac80e62a93dc5663c523e3d49a217",
         "term_markup_neutral_byte_count": 16018
       },
       "docs/component-verifier-lab-kernel.html": {
         "byte_count": 26042,
-        "sha256": "sha256:62ee31f0ddcc9f61f2d5c7492cd985ed8fac3a5279c503685e9296c99fbbfd99",
+        "sha256": "sha256:a690cea94d06336ea3a7f83a3adc061a0f225d7d5a995f1ca7820c4735d51ccd",
         "term_markup_neutral_byte_count": 16777
       },
       "docs/component-voice-to-doctrine-self-improvement-loop.html": {
         "byte_count": 20967,
-        "sha256": "sha256:a06fcd55ba6c62d721733c7b676fe6d01c15af976971115a688d4069354c373e",
+        "sha256": "sha256:c9dc56fffc0fe15932c6377d1c0876d2703b960926b78042af380da9dcb7c2c7",
         "term_markup_neutral_byte_count": 15933
       },
       "docs/component-world-model-projection-drift-control-room.html": {
         "byte_count": 25012,
-        "sha256": "sha256:121818b1e639d608f6d9edaef596bb0bbf817a6fbc20b3280685e13c88e5744c",
+        "sha256": "sha256:56a9c57117c2d5060b986d8af03ca3591359ad047aebbf7fd47dc115e06b6b6d",
         "term_markup_neutral_byte_count": 16787
       },
       "docs/components.html": {
         "byte_count": 509582,
-        "sha256": "sha256:533a32287feffc4762176b3bcec9d7d7095b1066968d95dafcca325e2f5780e2",
+        "sha256": "sha256:81cb9271d41a8e8e9d91d1ee57a621d429eb37c6d4aca5918b128bc6e6c593a7",
         "term_markup_neutral_byte_count": 321738
       },
       "docs/contact.html": {
         "byte_count": 37268,
-        "sha256": "sha256:53c13de019ebe167f30a1c61be3aff4d62ae47f28ac3aecb26c496a445000230",
+        "sha256": "sha256:4c17fbef0dac4edf9f7a4445aa16d274a6abac0307f6ebf10d626ea11d19aaa8",
         "term_markup_neutral_byte_count": 23593
       },
       "docs/doctrine.html": {
         "byte_count": 1036608,
-        "sha256": "sha256:0499860fc67e02988b64c9f6ca1cba7ab1366a96288208e4bfb7baa133ff67a9",
+        "sha256": "sha256:174776e4d47b8f03e8d02636bf811985ca3962f851d0cd97454d10ea5a817784",
         "term_markup_neutral_byte_count": 533528
       },
       "docs/evidence.html": {
         "byte_count": 56969,
-        "sha256": "sha256:5da0cbb02c9e5b460f59f98d85ece4ec61984a513fc17cb2029ce957debc3ff9",
+        "sha256": "sha256:f2724ea1f6ddbd65649050a8ed0ab9cec38e43fdd8b08f9999773bf7f17059ab",
         "term_markup_neutral_byte_count": 31599
       },
       "docs/field-guide.html": {
         "byte_count": 12276,
-        "sha256": "sha256:dcaae5b906e2118de1a17071314cc094ad2cf447ed2734ffcfe8ad02f8bc0595",
+        "sha256": "sha256:8f8a0b7f8b2bc2940d4f355185164d0f8f689ec5488fb2e1bac300c3ab444db5",
         "term_markup_neutral_byte_count": 11246
       },
       "docs/glossary.html": {
-        "byte_count": 3830889,
-        "sha256": "sha256:34970efd27848bd2e1a4101d900dba91198d4300231caa39141a23f95fc9a8a1",
-        "term_markup_neutral_byte_count": 2417402
+        "byte_count": 3836479,
+        "sha256": "sha256:839c94d9297e24fdc37c44a65c8febb0fd6ad05d002a88ee3c95bac0e14db73a",
+        "term_markup_neutral_byte_count": 2420387
       },
       "docs/index.html": {
         "byte_count": 15553,
-        "sha256": "sha256:c4a9d1d73762704d442191cadbef616f57cc59da759f0c00878e0bfb2c4af781",
+        "sha256": "sha256:321d565b39308ed4ccffa554e2f6a8d2c1067758894ae9cc722cadc71e3ba639",
         "term_markup_neutral_byte_count": 13170
       },
       "docs/introduction.html": {
-        "byte_count": 34858,
-        "sha256": "sha256:f8c8d1e7caff54daf23d6361517169d04ff5a31e49509b2a4a500a7342686c43",
-        "term_markup_neutral_byte_count": 22037
+        "byte_count": 35284,
+        "sha256": "sha256:848311e9329482a9ad0066e98f28d5e415e51aaf5005fc10494fbb7b487ef086",
+        "term_markup_neutral_byte_count": 23690
       },
       "docs/lineage.html": {
         "byte_count": 25953,
-        "sha256": "sha256:c3724d886119f25b7634b1d8df6d1c8024cb0d90025aa6f88845b1e41d2f8e7f",
+        "sha256": "sha256:2b9785be8733fd555944f715da3156c20c1b1a302ee84f1e89295ec2126cc86f",
         "term_markup_neutral_byte_count": 18826
       },
       "docs/open-questions.html": {
         "byte_count": 142064,
-        "sha256": "sha256:3ef5663f06a88b536901a984dac3c598a88bd0174d8c03c7b67d88e523c1232e",
+        "sha256": "sha256:628586734711c8274ecdb747ef61e57b34c918c06b474d58be97ff563b4ea101",
         "term_markup_neutral_byte_count": 84702
       },
       "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html": {
         "byte_count": 80990,
-        "sha256": "sha256:e35f830ad9800f2758bdceb3f3c7b1c9ce2b9993a2fc24a3d5219ecf06832301",
+        "sha256": "sha256:a459cf0e85298b299bfa29f9dffd59fb2e10a514ec85800f08fc79a2a691458a",
         "term_markup_neutral_byte_count": 39971
       },
       "docs/paper-module-agent-closeout-faithfulness-audit.html": {
         "byte_count": 71498,
-        "sha256": "sha256:e169c21e95155276e847f54b75051876b8f38b0ec33175069bf1247f0ce3b84d",
+        "sha256": "sha256:b9cb7f7cf19f700c1389c73f521dab82d7a77d4084e5fe7c6e9370f317378129",
         "term_markup_neutral_byte_count": 37575
       },
       "docs/paper-module-agent-memory-temporal-conflict-replay.html": {
         "byte_count": 85255,
-        "sha256": "sha256:262e3ad8a5b3287d8f9b927e1b7c9f23aa6d1f930ed9d178fe000c0a33528bed",
+        "sha256": "sha256:46c43456daf9ac5ab4104d11fe24b8d74163b70e8ec4b643efd6fddc3fcaf9dc",
         "term_markup_neutral_byte_count": 41590
       },
       "docs/paper-module-agent-monitor-redteam-falsification-replay.html": {
         "byte_count": 76530,
-        "sha256": "sha256:103ac1bbde95dad0734aa0f3f024e774cb5f0727c3d15be4e0fc655fa5271dff",
+        "sha256": "sha256:386291e8a6b9287cf16dff622e802f9cdfd7b98cc554e25ef573e44cbf0b55b9",
         "term_markup_neutral_byte_count": 41030
       },
       "docs/paper-module-agent-route-observability-runtime.html": {
         "byte_count": 110826,
-        "sha256": "sha256:4a7367c702504b1b7da62c071f4a8efb872c6a2ce80da6a6baece032f2e20d8f",
+        "sha256": "sha256:acea86dbbeec49f376c25ad86f6e471d77c6b3862a1f964b041dbf0701a56d2f",
         "term_markup_neutral_byte_count": 51285
       },
       "docs/paper-module-agent-sabotage-scheming-monitor-replay.html": {
         "byte_count": 82043,
-        "sha256": "sha256:200f9deccd1c6d0be773c4279e1eaf0ec0b0c76975d386144af28cba93b03d22",
+        "sha256": "sha256:b592d49d0646a592c2977a86db4e5d19ef3bc10ed7b18edf0bb19e24938c3a63",
         "term_markup_neutral_byte_count": 44313
       },
       "docs/paper-module-agent-sandbox-policy-escape-replay.html": {
         "byte_count": 88577,
-        "sha256": "sha256:075920d5e8994f74c0e4333c11604aa0eb69e06a4861cd3462402a275c6e3ec8",
+        "sha256": "sha256:2e83bae43b04d684bde620edf4e8dd79ab57714a5165334885a631c3ab536c96",
         "term_markup_neutral_byte_count": 42153
       },
       "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html": {
         "byte_count": 95032,
-        "sha256": "sha256:1a2dd8efda14dfad5cf08ef2b883e0e79c7d376325d111b5c2d1ff03e018e92c",
+        "sha256": "sha256:9d985319cbacdeb7c2446259c0e6b6417235fcf00a5d722c8b4917e0e9d8651b",
         "term_markup_neutral_byte_count": 43587
       },
       "docs/paper-module-annex-knowledge-routing.html": {
         "byte_count": 76969,
-        "sha256": "sha256:2ca4f0dd919e5555339d49c68de4906b313a1f5875c720e45e7ca7835252525c",
+        "sha256": "sha256:c269ae8b1c723f9630facbda1fa3ed1a1795c749dae6d019b22d8a41de165fc8",
         "term_markup_neutral_byte_count": 44428
       },
       "docs/paper-module-batch10-cold-eval-honesty-capsule.html": {
         "byte_count": 71626,
-        "sha256": "sha256:9d489ea1ba6b9e0f4d8f0302abb1fd66ed08865254526885fe95b2b6f6f15efb",
+        "sha256": "sha256:1743306fc3c814d67bb2cb3dda03a1f081b06b18db8c2981ac35917948e18bef",
         "term_markup_neutral_byte_count": 39284
       },
       "docs/paper-module-batch10-governance-compilers-capsule.html": {
         "byte_count": 82357,
-        "sha256": "sha256:de412d8f425593130540944457673bc23718734a32c0b7d077daa323b966d95c",
+        "sha256": "sha256:26a542751538f97927ce54006363b1b028fad5d05da25453d158119ebaba8551",
         "term_markup_neutral_byte_count": 41449
       },
       "docs/paper-module-batch10-live-source-drift-capsule.html": {
         "byte_count": 81539,
-        "sha256": "sha256:15d7447416884616aeaf73d7053e5fb56451376e651631f2e004e06801fa0f3a",
+        "sha256": "sha256:c991fad8e35ea2e9d8831e47c6351cf601827c9e5b5c08885462cb7a56b3ec33",
         "term_markup_neutral_byte_count": 40559
       },
       "docs/paper-module-batch11-saturation-engines-capsule.html": {
         "byte_count": 81118,
-        "sha256": "sha256:8a9a5b6a51b1ec30bb2b655f54fca3442b952b3e66c17b0356da2440d1f829ac",
+        "sha256": "sha256:a5926737c196e0331069b287aeb885dbcd5aa61a647e4c112cbaec3e057cc916",
         "term_markup_neutral_byte_count": 41455
       },
       "docs/paper-module-batch12-market-dashboard-read-model-capsule.html": {
         "byte_count": 84036,
-        "sha256": "sha256:a7dd5c59d6a1bdb90bd6bbc7bc88c57cf1e36e19f3b5b333163f5c629e463514",
+        "sha256": "sha256:f66b46b235729f29431d1aefd46e7eb350e44b0b7f5010151e6985059da358d3",
         "term_markup_neutral_byte_count": 44416
       },
       "docs/paper-module-batch12-prediction-market-board-capsule.html": {
         "byte_count": 76544,
-        "sha256": "sha256:564ee5d2d1158b06687dc4bfc3adcd3a15d8e31aedf9150e6fbc792d972e9e75",
+        "sha256": "sha256:7625ecfc0e4d4fd3113032bca1008b6aea495876c3b9d76fb0ed7390a0643c41",
         "term_markup_neutral_byte_count": 43904
       },
       "docs/paper-module-batch12-release-claim-language-gate.html": {
         "byte_count": 73059,
-        "sha256": "sha256:755011f03c662c8a90ab32cd2ccd8f666552caa758a9bd32249ee1f7d1335a80",
+        "sha256": "sha256:42a4fc4571828759d61f6a9a187cb4f1c480a2d9e92a619f15019801c83c805e",
         "term_markup_neutral_byte_count": 43229
       },
       "docs/paper-module-batch4-proof-authority-runtime.html": {
         "byte_count": 99515,
-        "sha256": "sha256:fed35417a786ed6615760973ceea5c1bf0f78ff02c201a5d2c0512a70c9f0fc9",
+        "sha256": "sha256:f86dea124ec1fe7aad5e790c703cbf80283612588d409aa7be84b3e27c6a4f87",
         "term_markup_neutral_byte_count": 42919
       },
       "docs/paper-module-batch5-authority-systems-capsule.html": {
         "byte_count": 85771,
-        "sha256": "sha256:7cecc0202a610cbb914729dd6196e772e3583dca7304c9f3d5ef86094851dcb5",
+        "sha256": "sha256:b22e2e243f51027824db683589f52b1e7ec049b9f520a531e9338c252a3662bf",
         "term_markup_neutral_byte_count": 41229
       },
       "docs/paper-module-batch6-unsurfaced-primitives-capsule.html": {
         "byte_count": 76653,
-        "sha256": "sha256:876e3e290600c0d3b09113a3ac49ebe5ecbe36d2407cc39560f0aea9b2b5bd21",
+        "sha256": "sha256:1264d1c7e0e58782a50ed03c0e09d845ced8bcd60cdb2a36ae2a7498e3746f4b",
         "term_markup_neutral_byte_count": 43087
       },
       "docs/paper-module-batch7-demo-take-console-capsule.html": {
         "byte_count": 69895,
-        "sha256": "sha256:6fe99d8ddd6478928a1acae6275a1733927440f4ee9b6688b2c27c6d18ff57fb",
+        "sha256": "sha256:11540da33a7145356cae9f48a3d628ca5b15b956d31a591ae61e54437fe80069",
         "term_markup_neutral_byte_count": 37137
       },
       "docs/paper-module-batch7-macro-engines-capsule.html": {
         "byte_count": 72285,
-        "sha256": "sha256:1a89fc3424ded952094dba10ebfd8d5a3eb9a202f61093c39389e9070738b248",
+        "sha256": "sha256:623fed9f92b4c5989b5cb5ed850af22108dca99b8839da7835c19c439d578bb3",
         "term_markup_neutral_byte_count": 38810
       },
       "docs/paper-module-batch7-oracle-sibling-capsule.html": {
         "byte_count": 76693,
-        "sha256": "sha256:6063c413642d8080bc11a2b0b981bc870e7fe6d67c4ff5293d806d111f052e90",
+        "sha256": "sha256:6e6f015471f4296a0b4198a31d93839dc874d3dc2db74fd80739adf0e598d7ec",
         "term_markup_neutral_byte_count": 40032
       },
       "docs/paper-module-batch7-secondary-runtime-capsule.html": {
         "byte_count": 67218,
-        "sha256": "sha256:9f88dea52bd0bc286d51adb230b3473179e6114a00792de9ce8dfd95faa7d0f6",
+        "sha256": "sha256:6f74b6915a3594fae3e9af53ce7047eaefe703ba47f19ff5443cdc42fb9be075",
         "term_markup_neutral_byte_count": 40050
       },
       "docs/paper-module-batch8-audio-level-rms-port.html": {
         "byte_count": 64946,
-        "sha256": "sha256:4051192e8da72331fe262ae76c842fe11a46ffed1d6c39384080b47e1514b788",
+        "sha256": "sha256:23457ed59f3474a80768c0649b4992fea81f63458c9e6c5dc6f40e3f496d3b4f",
         "term_markup_neutral_byte_count": 40028
       },
       "docs/paper-module-batch8-compliance-pipeline-capsule.html": {
         "byte_count": 76329,
-        "sha256": "sha256:0fb64e30bb00223937cb6fae305b91cee1e3744e4cdaf8ca35d2738f90efeac9",
+        "sha256": "sha256:c0fe10318e07be77c4f8631b4931a2936a1a77bba5761ce208321e9d868e9c7b",
         "term_markup_neutral_byte_count": 38810
       },
       "docs/paper-module-batch8-policy-engines-capsule.html": {
         "byte_count": 67010,
-        "sha256": "sha256:4c86eacabe588d905afff0cc6d884b54794780b00e01536cad2fd93e84343b4f",
+        "sha256": "sha256:734ae92d794ceb7edcfb750ac20c7a5223fb986878789053fba86440829766e0",
         "term_markup_neutral_byte_count": 36946
       },
       "docs/paper-module-batch8-structural-theses-capsule.html": {
         "byte_count": 79682,
-        "sha256": "sha256:70687b867d1772c346fee8c512d977939b740d97fec79c1e6a1773cf06561710",
+        "sha256": "sha256:6ca20be4ded3a4666e110e97d16ca4cf547ced7744e66cc43fef1663ab6e6e2b",
         "term_markup_neutral_byte_count": 45734
       },
       "docs/paper-module-batch8-tools-tail-primitives-capsule.html": {
         "byte_count": 72072,
-        "sha256": "sha256:3cb2ffa9a802dc6bbda50be608567e4541368e184c8d166bcbb03497f2841320",
+        "sha256": "sha256:f2a9b1d861437950e70c7149ae9448e8aae1342f20a24269410bf9601fd723e5",
         "term_markup_neutral_byte_count": 40290
       },
       "docs/paper-module-batch8-validator-checker-capsule.html": {
         "byte_count": 80069,
-        "sha256": "sha256:b3dfe537432fa8fb5153ea8c70a5734d03dbf66a3c54ef532f6fcb5707af944d",
+        "sha256": "sha256:9708bc08568129f287eeac0f829a202a7dd5355d3d3647f2f1063d88b9ddb55b",
         "term_markup_neutral_byte_count": 39853
       },
       "docs/paper-module-batch9-macro-engines-capsule.html": {
         "byte_count": 83356,
-        "sha256": "sha256:2944ed240ddee70a9639017eba23c5d306612fafc706622bed5516a57cb03676",
+        "sha256": "sha256:16e919f87e73b54ccdf0cf608aaabac0228c0b763659eac10f3be64796badae2",
         "term_markup_neutral_byte_count": 42781
       },
       "docs/paper-module-belief-state-process-reward-replay.html": {
         "byte_count": 82587,
-        "sha256": "sha256:d6d55f6617348da5a584f4c6a7085e723e677e8ecb0171bad8a2b17a66bb166d",
+        "sha256": "sha256:37c3bc67aba12df01710a65927a0747dd1f1601c42d4835744ff9a6a1d70ecb2",
         "term_markup_neutral_byte_count": 42669
       },
       "docs/paper-module-bounded-autonomy-campaign-packet.html": {
         "byte_count": 74293,
-        "sha256": "sha256:192ee87869ae648f00ead78818a10260288d75d6191489205d9faf883d0458cd",
+        "sha256": "sha256:8ac8d023a707796a6b1b3e6297a4caa18b04a3d3b36075a4f986de4320fa7453",
         "term_markup_neutral_byte_count": 41379
       },
       "docs/paper-module-bridge-campaign-dag-validation.html": {
         "byte_count": 68306,
-        "sha256": "sha256:77a1192bbf58a53ee4c43579e5f4d2c7871e7e7b9d05c095c5195f9c1d63e20b",
+        "sha256": "sha256:f5dbe1999e9b8ac309d426a673dfee1f24c53150d22e1ce712375759884ee9d0",
         "term_markup_neutral_byte_count": 37838
       },
       "docs/paper-module-bridge-phase-continuity-runtime.html": {
         "byte_count": 86501,
-        "sha256": "sha256:1b717085c06441d84b928ec2383a4ac9f80eaa48d8fbaf23dc3ef0e785c8858c",
+        "sha256": "sha256:7fd2ca46549fe9f0ca527e1c225e9fd4cbddfe6eefdb9a8807b352138c0cff25",
         "term_markup_neutral_byte_count": 43772
       },
       "docs/paper-module-certificate-kernel-execution-lab.html": {
         "byte_count": 93913,
-        "sha256": "sha256:04ef80b6a59cacaf6fbc81ecf71f096b6e178131eead93350e0e0298e442a14a",
+        "sha256": "sha256:c053a8cc5a3d1c96707850f6beb6245ef14d258054024936f0d540766de7270b",
         "term_markup_neutral_byte_count": 40687
       },
       "docs/paper-module-cognitive-operator-registry.html": {
         "byte_count": 75024,
-        "sha256": "sha256:87b3c1fdbafd38ae7e0ee01a621a3ed3b05768a2b3dd67fc31e0cc75edea3caf",
+        "sha256": "sha256:ab5a2c177046e6f5cf5a3ea843a86e4908756d2ceb1fc971652a537c9d499e04",
         "term_markup_neutral_byte_count": 39077
       },
       "docs/paper-module-cold-clone-probe.html": {
         "byte_count": 72818,
-        "sha256": "sha256:7084edf270e2ecad61098d9a3346eca901f91456150c57f1d2eae0aede12fcda",
+        "sha256": "sha256:06a46f0875f4a36b44e5f2739858b6cf2632cc5f59fe9f4411193feae0ef2cd3",
         "term_markup_neutral_byte_count": 40246
       },
       "docs/paper-module-cold-reader-route-map.html": {
         "byte_count": 91511,
-        "sha256": "sha256:d5183ade9d1edc194a5489806a56c0dbf5daeddf097d220fab655013a1bf7ee5",
+        "sha256": "sha256:982f77e27caa2092ed8cbad61ef0ccf1c8e8efe2c7dd60a1d6258df2adfe5b65",
         "term_markup_neutral_byte_count": 42550
       },
       "docs/paper-module-computer-use-action-trace-replay.html": {
         "byte_count": 81989,
-        "sha256": "sha256:11711b798076b8829340e51d1a308eaa955e85f66d8239ae5ec3475bf54a2e1f",
+        "sha256": "sha256:4d3c865f0ceee8df83e0644225e9e6320f80e2b4bb3f73f29a5442d0a170a6b0",
         "term_markup_neutral_byte_count": 43915
       },
       "docs/paper-module-concurrency-mission-control.html": {
         "byte_count": 77116,
-        "sha256": "sha256:ef7e4f6c3833ae4de54501f7218d465578ff1c070189aa35cd7b7298e7dfc389",
+        "sha256": "sha256:77ab8c9d32a7982f6a49443742c75135d4f35ed11c5ab1417bc74f3fecf7737f",
         "term_markup_neutral_byte_count": 39968
       },
       "docs/paper-module-corpus-readiness-mathlib-absence-gate.html": {
         "byte_count": 92488,
-        "sha256": "sha256:684693c6ac2096b8a4b6318330e0619b9d4dc1a79e906d86e546e3f7bb51ad6e",
+        "sha256": "sha256:145b38a7da3a21c1e527ace8c3490d4c3b63d346e495048e7290c308f4d062c1",
         "term_markup_neutral_byte_count": 41787
       },
       "docs/paper-module-derived-fact-provider-runtime.html": {
         "byte_count": 75668,
-        "sha256": "sha256:2a808e56fea140a4b410143f6c5e33eaecbeb7714b273ae2bb37b085ff6e36c9",
+        "sha256": "sha256:c4b7a819df72b24863e74791297b2c7d1eb89b67e97169040ce0c435927be6a9",
         "term_markup_neutral_byte_count": 42736
       },
       "docs/paper-module-doctrine-fact-claim-audit.html": {
         "byte_count": 84398,
-        "sha256": "sha256:b411fe2e175ac5b4268a0d698e192a78e717da5e17f2cdd79ae25e4204565eb7",
+        "sha256": "sha256:cd454f9d4fe2d21d8160f5cab5eef1bead6fa697b5332423b94dfa350291696c",
         "term_markup_neutral_byte_count": 43467
       },
       "docs/paper-module-durable-agent-work-landing-replay.html": {
         "byte_count": 86787,
-        "sha256": "sha256:17cab4c36a3f8dbe8d921a278ca6ae2f37edcd2bfd5f5b67e48e830216d37b05",
+        "sha256": "sha256:278ab9bc1b6d3641207ce3bf50bbffc982f2897f4f70a41ce533e272aa60e863",
         "term_markup_neutral_byte_count": 39728
       },
       "docs/paper-module-egress-self-compliance-audit.html": {
         "byte_count": 71248,
-        "sha256": "sha256:57c2122d3fc69b9c12f96039b6cb3fe7a4b743bba4f2155fe3f802303e3ea504",
+        "sha256": "sha256:848ebc0321fd240f9f8aad46632604f306469830f9152f4fc1bc8ec179ccb24c",
         "term_markup_neutral_byte_count": 42344
       },
       "docs/paper-module-engine-room-annex-knowledge-router.html": {
         "byte_count": 73536,
-        "sha256": "sha256:874dd5eb20137547577de3d529f16aa8c55bbf933d5c82dfdaa66336ee934b69",
+        "sha256": "sha256:1e395bac077b680dfa7431e098b2d8416f36738dd3cfe38fa87f25f991340e32",
         "term_markup_neutral_byte_count": 42973
       },
       "docs/paper-module-engine-room-bridge-campaign-dag.html": {
         "byte_count": 78044,
-        "sha256": "sha256:745259568e0f000003d228458171f81852e1528422b5e8266d193a07875c48bc",
+        "sha256": "sha256:f0016d54e24e73c3ee122d3d7704ef473fc0ce71fcbdecb8a931956693a779a3",
         "term_markup_neutral_byte_count": 42721
       },
       "docs/paper-module-engine-room-command-run-singleflight.html": {
         "byte_count": 58722,
-        "sha256": "sha256:b52b8ce2e0dad84ec4a36f5cab9d5ee90bda422737cab51ebb5c3857e04666cd",
+        "sha256": "sha256:bd776f3ef4c92d3008dd42e78f8e9c3af2c0909128784e0e49d888bbffd56a5b",
         "term_markup_neutral_byte_count": 37616
       },
       "docs/paper-module-engine-room-demo.html": {
         "byte_count": 77987,
-        "sha256": "sha256:2bee3d341e07fc79456143d1e04f05139eccb6945c72872360e9890688f38e63",
+        "sha256": "sha256:edfd70223eee4cf6d8cbcb7eb210a1036628b9620c93b02f1031f1b20fa1b69f",
         "term_markup_neutral_byte_count": 38894
       },
       "docs/paper-module-engine-room-derived-fact-provider-engine.html": {
         "byte_count": 74747,
-        "sha256": "sha256:a8f8fcc3e4663e5633ae61531ad51bc45a0335ce11291322e9daa3111c7f35a9",
+        "sha256": "sha256:00617a9605981236afedb00637f4ad6fc0d5166d61aaf429719d74aedd82b85f",
         "term_markup_neutral_byte_count": 43754
       },
       "docs/paper-module-engine-room-egress-self-compliance-gate.html": {
         "byte_count": 65018,
-        "sha256": "sha256:f58d518f3ade3ea088c0b26ca5a0030b40f117fbfc61ef83db3634c26ceb529f",
+        "sha256": "sha256:d8cc08b8cdd5581548fa11f11959f6e475c77eab7563662b8edc7db3928b076d",
         "term_markup_neutral_byte_count": 40995
       },
       "docs/paper-module-engine-room-generated-projection-drift-gate.html": {
         "byte_count": 81538,
-        "sha256": "sha256:88127d267e8d7327169e054530f40fbee19d9e54ee0763569f8d5af2e8238e9d",
+        "sha256": "sha256:fbc0f2c27c8f60e4e2e4dd2c62d1619b2f8637928218f96b85c853e2a6de0d1c",
         "term_markup_neutral_byte_count": 42058
       },
       "docs/paper-module-engine-room-lean-proof-search-lab.html": {
         "byte_count": 71456,
-        "sha256": "sha256:04371ff85f442fb4bc036a64598ed8faa2b361c8e0738bf90c390eb3b2769b6d",
+        "sha256": "sha256:b9857020b49fa94859f53f9342a562ce7e38a6d2f20ac31f99224ac951c36daa",
         "term_markup_neutral_byte_count": 40722
       },
       "docs/paper-module-engine-room-metabolism-runtime.html": {
         "byte_count": 79753,
-        "sha256": "sha256:e12893229106270314ff6ce8cac94fb25d2dd5677cba1e83a5ce2f1da008e01e",
+        "sha256": "sha256:6611b52a051b218201ff3de4fb6de061c98a185a0b377976b99e9c3d45e45298",
         "term_markup_neutral_byte_count": 44568
       },
       "docs/paper-module-engine-room-navigation-fitness-benchmark.html": {
         "byte_count": 73266,
-        "sha256": "sha256:b122bd96b5b2b8aee86a82ea3d2096db926f25f7faa6c14007050107f5adc01e",
+        "sha256": "sha256:ff55479685a42551a4fc38fc0c8ffe3bccc59b7f9f9d02a53b28fb0c6de218eb",
         "term_markup_neutral_byte_count": 42941
       },
       "docs/paper-module-engine-room-public-projection-leak-gate.html": {
         "byte_count": 64443,
-        "sha256": "sha256:9f2f8395e1f504a396c17505d173bc537eac4912fb4f6a58fc534d7c6b73a27d",
+        "sha256": "sha256:07b39d16dd6cbcdf11f5515d921dd84b7827705563c2eb2d5216e7be41179f93",
         "term_markup_neutral_byte_count": 43237
       },
       "docs/paper-module-executable-doctrine-grammar.html": {
         "byte_count": 89028,
-        "sha256": "sha256:9f061c938dd202c9a95d7ef8449ab0488336fd4027d50558adb9a122dbb830a8",
+        "sha256": "sha256:d17155d38683310f03e7f530408f2c78d03cc41d667890434750407f21349df3",
         "term_markup_neutral_byte_count": 41646
       },
       "docs/paper-module-finance-forecast-evaluation-spine.html": {
         "byte_count": 75390,
-        "sha256": "sha256:7465609a303f6249de9a3bb21c3f59e90b712943174e31cc14d9b4acc026d53f",
+        "sha256": "sha256:07c4c3c5a10d19280ca9ec7dd55fc8ac1101045ad4aaadc0792ada0fe30851bf",
         "term_markup_neutral_byte_count": 44105
       },
       "docs/paper-module-finite-erdos-denominator-certificate-strike.html": {
         "byte_count": 79184,
-        "sha256": "sha256:82d2748f73a98305c408495acd71119d349ec2f72274543ed03bd74de4e03d3d",
+        "sha256": "sha256:910d252ff1826bb12d70cdd9cd7b3b08b63265cda8064bd102dc158fa3573af8",
         "term_markup_neutral_byte_count": 39422
       },
       "docs/paper-module-first-screen-composition-root.html": {
         "byte_count": 79484,
-        "sha256": "sha256:15ba0944c8e469cae37a66f32c9174146ccd4d03d0492cc213d644615f5e939c",
+        "sha256": "sha256:95bf47eb9a58dfc60df10fc04fc09b6478534fef18c78a08420e2a16bb3a3c02",
         "term_markup_neutral_byte_count": 41092
       },
       "docs/paper-module-formal-evidence-cell-anchor-resolver.html": {
         "byte_count": 96816,
-        "sha256": "sha256:29b10c9afa70499bf163ee987a7519f000326ba81745f7459611b434d18a5134",
+        "sha256": "sha256:547a1885206e50fcf0f34d5350dd20779e59de9e7c89984b0296f43a6043ecd1",
         "term_markup_neutral_byte_count": 41789
       },
       "docs/paper-module-formal-math-lean-proof-witness.html": {
         "byte_count": 108486,
-        "sha256": "sha256:f747814175f6ba86d1f71f4335db68bddfbe02f591e2a00a0742aa564f95293b",
+        "sha256": "sha256:ebbb0e69181747250c4a89ff0331b49ffe51d02f1823237f1ce31fb268daa0e0",
         "term_markup_neutral_byte_count": 47871
       },
       "docs/paper-module-formal-math-premise-retrieval.html": {
         "byte_count": 100830,
-        "sha256": "sha256:f410cfdf57a51a148bd50fc06cdfa5c659c13e17f74f0cb753f6edd14d153632",
+        "sha256": "sha256:34b4ee1bef28db05f87e613575d1a95e181cc6185689e09e810d1256360c6b31",
         "term_markup_neutral_byte_count": 47261
       },
       "docs/paper-module-formal-math-readiness-gate.html": {
         "byte_count": 191263,
-        "sha256": "sha256:1a490cc5366d1480e536f075678363994a6f1c21d2baaf5bba9a01e279dc8da8",
+        "sha256": "sha256:50541bda8e497a748c9ce45038653b067aaa6fc2ff2f1a6b02b5b9bb1622df0a",
         "term_markup_neutral_byte_count": 63222
       },
       "docs/paper-module-formal-math-verifier-trace-repair-loop.html": {
         "byte_count": 97563,
-        "sha256": "sha256:d754ca00dd23a981b84a22110732515413c959e54e7ccc136c5ebdbbc24da8df",
+        "sha256": "sha256:fd412f8b8ffb35d5655e20f14f89a55bd6e9ceb42de622d3392a09b00c55c9bd",
         "term_markup_neutral_byte_count": 45787
       },
       "docs/paper-module-generated-projection-drift-runtime.html": {
         "byte_count": 80206,
-        "sha256": "sha256:0f5896ab070515572340725f61bc5f33f6eaa26dcbecad6dcf99c49f1c98f6c9",
+        "sha256": "sha256:1da33e7e46a7bc8a8336c9a3b3ca613ce59946562b8670ee035df338f47d0c4b",
         "term_markup_neutral_byte_count": 40595
       },
       "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html": {
         "byte_count": 78096,
-        "sha256": "sha256:2d206329b3f8e9a955fca755a507ec2d693dc28f3fbe8b6113bc02752c3888dd",
+        "sha256": "sha256:8e1543f9d40a54c06c94e728806a80b6ab626ac7eec44bfd1c8bd2d99bbc4c4e",
         "term_markup_neutral_byte_count": 42060
       },
       "docs/paper-module-lean-proof-search-lab-runtime.html": {
         "byte_count": 76962,
-        "sha256": "sha256:5f6ab6b8da08bec800e49abc3dcc113802372ec8e41905f08d83303dbecb5089",
+        "sha256": "sha256:4c15a1158a6bbedeb04462be893dbe4ece9f2cab43d42d83c68f40b9dc48567f",
         "term_markup_neutral_byte_count": 42565
       },
       "docs/paper-module-lean-std-premise-index.html": {
         "byte_count": 88736,
-        "sha256": "sha256:f878d0d4bd9bffdb953143c21168312515b1d42b5c822e64fca9d94a1cc27e6d",
+        "sha256": "sha256:4dbab14f8d2a8a1a8bebcc72b62b887cf86abba6df71d98f3f6a93fba2af91a3",
         "term_markup_neutral_byte_count": 38698
       },
       "docs/paper-module-macro-projection-import-protocol.html": {
         "byte_count": 96225,
-        "sha256": "sha256:e77d8def0d6ffe1c117d2db9985d635a5710f1ad8e9a83066a7d28e4ede01d7f",
+        "sha256": "sha256:d0c631519eaeb546661ad3226ca1aa546b66044b6f472e3367d1a50dd55ddcea",
         "term_markup_neutral_byte_count": 43295
       },
       "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html": {
         "byte_count": 82240,
-        "sha256": "sha256:cc948b74e7ecc54f77af21c655d0e3ed7ffa9590a9d115948d9116a140aebccb",
+        "sha256": "sha256:41cf3b09db97401cdd47af0d264ecbffccdb6415feb19a0afa22a10214805ea1",
         "term_markup_neutral_byte_count": 46586
       },
       "docs/paper-module-mathematical-strategy-atlas.html": {
         "byte_count": 79763,
-        "sha256": "sha256:ba6745bc79083675088a2c4c508c3ad1e5a9d9fc49941160ee40dc8aa7cb9cd8",
+        "sha256": "sha256:65429289c85c9ecea4abb4c3a6494dd123205afec2702d79973cfb29dab2cdc6",
         "term_markup_neutral_byte_count": 42840
       },
       "docs/paper-module-mcp-tool-authority-replay.html": {
         "byte_count": 84541,
-        "sha256": "sha256:8eb1e27e1251c74d667c0e034be2db7806ea0caf22a1af7d575932d7db8e8256",
+        "sha256": "sha256:528a04e73360f48a4bbf9324a7939d78c81fe527228eda5d4b713588687f12c8",
         "term_markup_neutral_byte_count": 40434
       },
       "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html": {
         "byte_count": 83479,
-        "sha256": "sha256:95bdc34085123e953e2309d9d01ce7b470971822e98648d9d92f8ff901aa0b06",
+        "sha256": "sha256:2787b1e92d673044fd715b9c3e1074291bd824f006b379f1d543ee92e8ae928a",
         "term_markup_neutral_byte_count": 43312
       },
       "docs/paper-module-metabolism-queue-reconciliation.html": {
         "byte_count": 76223,
-        "sha256": "sha256:d8b0c0c1acb10db4d5253ad5aabae35310a5a1afea87f9e86e253a04072b5acb",
+        "sha256": "sha256:6a9d110e675224c8ef9ca9bb257ab343ba6bbe96e3d8fd0181a702be3af5bdb8",
         "term_markup_neutral_byte_count": 40572
       },
       "docs/paper-module-microcosm-axiom-substrate.html": {
         "byte_count": 101057,
-        "sha256": "sha256:1e60a6626011d65fe9e446e20f59005ce2c215146af316fb6af2c06d99e120d9",
+        "sha256": "sha256:ccf492f02b1f558a5c5d4931fdf63e4c7c8dce1e7ae8a101f825da9ee081d391",
         "term_markup_neutral_byte_count": 42904
       },
       "docs/paper-module-mission-transaction-work-spine.html": {
         "byte_count": 87229,
-        "sha256": "sha256:0a29975e28a1aab6a17d521596e938a426fb7969b0e0607d6f70d588599b8a77",
+        "sha256": "sha256:097e66b2dad2cf0f444c8489cc7f2fe3b5a5d91f8f98a9ae7bf5ce40545c24d7",
         "term_markup_neutral_byte_count": 41672
       },
       "docs/paper-module-navigation-fitness-benchmark.html": {
         "byte_count": 67883,
-        "sha256": "sha256:27250cf03af431dc7f7b97b9aedc44b922e44f570b6f830b837c6c37d94183e4",
+        "sha256": "sha256:ce8a07b2a492e424d81c2d17b6aa3ba0768a1162ae940dac49ffe926fc00e713",
         "term_markup_neutral_byte_count": 39468
       },
       "docs/paper-module-navigation-hologram-route-plane.html": {
         "byte_count": 101554,
-        "sha256": "sha256:38965e4c6fd40bd5a1d44e16901e6d899cd0c316689e5f6c54a2d0992da5490f",
+        "sha256": "sha256:7d6d07b55b770cfdc96a49197049a0f3e9c173f04ab1880fea7757eb18829452",
         "term_markup_neutral_byte_count": 47772
       },
       "docs/paper-module-pattern-assimilation.html": {
         "byte_count": 84203,
-        "sha256": "sha256:816b4fde1edd8d12acb37930579daac6913efcf54535ce938e0268c6e119afcf",
+        "sha256": "sha256:fca4851335cb4a15c617b9c3d84b415960059ccf28f855cb34d4688b4d801743",
         "term_markup_neutral_byte_count": 42173
       },
       "docs/paper-module-pattern-binding-contract.html": {
         "byte_count": 105624,
-        "sha256": "sha256:890f3e1d1f37e6da37009251a9fc6fbe64451adde9091045ce44bd15ab3bbd68",
+        "sha256": "sha256:997078608eb24861be974ebe8c9afbd512cb7cea51b7b9a7a5268e8510cd1bfa",
         "term_markup_neutral_byte_count": 47259
       },
       "docs/paper-module-prediction-oracle-reconciliation.html": {
         "byte_count": 76925,
-        "sha256": "sha256:4a5ccacb7e6a588f61ce23bded6b284b36fa5bd9d79d4fce39f1bd523d33212d",
+        "sha256": "sha256:41ac5439e13d528984b569b071e3c65e7e22412e877e7e8015ad60eaee882b29",
         "term_markup_neutral_byte_count": 42424
       },
       "docs/paper-module-proof-derived-governed-mutation-authorization.html": {
         "byte_count": 91607,
-        "sha256": "sha256:14b8d75a9976aefd6cf539ba53b2434d2d824d9d1f702bf8c42e8cadde507897",
+        "sha256": "sha256:f1ad129017571df7f44e6d4f2cba11421b4ffc12c418b1d7c1a99c7c2f45434b",
         "term_markup_neutral_byte_count": 45598
       },
       "docs/paper-module-proof-diagnostic-evidence-spine.html": {
         "byte_count": 89281,
-        "sha256": "sha256:2ed3cd54bfa72afc5609f5529d1a99b24f9cff74d5cfe8f469e30cb824f321d8",
+        "sha256": "sha256:00f37c8cd759f9e941bc167a1af2e2b2db6691ed48c624a1fd50add5701b5195",
         "term_markup_neutral_byte_count": 41641
       },
       "docs/paper-module-provider-context-recipe-budget.html": {
         "byte_count": 80583,
-        "sha256": "sha256:447984bfa68f3a67efd2a380f54a4d4d205755b5865ff6306b9a29c08a058814",
+        "sha256": "sha256:df231129cf99478fc24fdf9e0707fd90d84e32a4e7f06dcabcb11424a36c23b4",
         "term_markup_neutral_byte_count": 41920
       },
       "docs/paper-module-public-reveal-walkthrough.html": {
         "byte_count": 85639,
-        "sha256": "sha256:a2e927ef01f40333df2fffd4fd58707ab44bd55c5bd8a9345faa1647bc4431fb",
+        "sha256": "sha256:d08bdcadfeda5cba147023d34250af7693921cb9f7d8c449a0a73fce0ff54bfc",
         "term_markup_neutral_byte_count": 39402
       },
       "docs/paper-module-research-replication-rubric-artifact-replay.html": {
         "byte_count": 84277,
-        "sha256": "sha256:598372c506193d2ee19b3f54083a08005f0a7832b23a34583553618fb547d637",
+        "sha256": "sha256:ec0ea0cd1f858ffe41941b05f0a038467f99c5a147c47c9b96f52919c05e9f4b",
         "term_markup_neutral_byte_count": 39453
       },
       "docs/paper-module-ring2-premise-precision-recall.html": {
         "byte_count": 73898,
-        "sha256": "sha256:1ea91ecf6f4f7e62a04798be007dacbb2adeaa9afbcddfd3af5fc8aea5b30f76",
+        "sha256": "sha256:bb8103700eabccc6306db393495b92883a61deb7f8a88c6737f5bc521ce4e1bc",
         "term_markup_neutral_byte_count": 40590
       },
       "docs/paper-module-routing-anti-patterns-registry.html": {
         "byte_count": 76251,
-        "sha256": "sha256:c0287dd27980133fd8c4b374ee39e370f932a1b5bd2526212d85c810bcc462e8",
+        "sha256": "sha256:afe4d9d864093c45c1267b9b70a286dd00bdb81b165a5071b444cf83b36903cc",
         "term_markup_neutral_byte_count": 39484
       },
       "docs/paper-module-self-ignorance-coverage-ledger.html": {
         "byte_count": 90981,
-        "sha256": "sha256:39040d3bb739b4dd124852b2645379d2475fdbd7bd47d71b59cf38cbd9bf55ea",
+        "sha256": "sha256:e064304cf0b5608d794c49507dbf4b5ef156662d9e16b6ad42dc06d7b088dc20",
         "term_markup_neutral_byte_count": 42263
       },
       "docs/paper-module-semantic-singleflight-dedup-runtime.html": {
         "byte_count": 62285,
-        "sha256": "sha256:1c9cb855ef569b31274a4b8f56dc3aa6d2c4bedf5beea73ca66c3eb0da7ca0f4",
+        "sha256": "sha256:354805b8d5d47655e1f7d9668477cbe2fa47e2ebdb20be34cf61a47ed5a20be2",
         "term_markup_neutral_byte_count": 39033
       },
       "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html": {
         "byte_count": 75593,
-        "sha256": "sha256:de759b5a5ab9888d9e7fb016a07c6c63246ad442780916795e095281ac9dd8b8",
+        "sha256": "sha256:5e895193f9576f0902c4a9b0c489261eeeabe99ef9ee208234cf5e52d57fd5e9",
         "term_markup_neutral_byte_count": 39758
       },
       "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html": {
         "byte_count": 78348,
-        "sha256": "sha256:0e68e0ff10b8a805903d98fdd9610e30cdb88a1ba35cf5f11cff0f377fddaaa0",
+        "sha256": "sha256:053478c1c22789f7cd181a7c2a250d07056bae7986d32a87a19adc1f74beccaf",
         "term_markup_neutral_byte_count": 40884
       },
       "docs/paper-module-standards-meta-diagnostics.html": {
         "byte_count": 77011,
-        "sha256": "sha256:61a7b291e7d65d993a47d41446d9028133448e19b0dd721773e45d1680dc5178",
+        "sha256": "sha256:3a2947795be152e91c3a5e01a984968783e69ea4a065a7c24ba40af5f0707ad7",
         "term_markup_neutral_byte_count": 38706
       },
       "docs/paper-module-tactic-portfolio-availability.html": {
         "byte_count": 77864,
-        "sha256": "sha256:3d966a716eefbba6eaba3b73543c38732caec1f720609e99c2229d4cc6e9a87e",
+        "sha256": "sha256:83e798fc88b765443ac9f21ead1db264320d7f9502c787901df9973c2e38d22c",
         "term_markup_neutral_byte_count": 38194
       },
       "docs/paper-module-target-shape-tactic-routing.html": {
         "byte_count": 76979,
-        "sha256": "sha256:0b2f4e5c462cf0aa3d5f3cfb3a729ecb84e0eb6deedba4bc7873f82efc5d7ecd",
+        "sha256": "sha256:36d07f474de5363f402b805d1cd8d1f4542e1d47deab64cdede395ee2f05dfab",
         "term_markup_neutral_byte_count": 41080
       },
       "docs/paper-module-tool-server-pressure-inventory.html": {
         "byte_count": 71102,
-        "sha256": "sha256:5fe8bf9c1ee2d88ed1935e84de10e709a5afeebe1286986bce302acba38d003c",
+        "sha256": "sha256:e1ba7dee899966e9f4ad0f9baa1d7b371bfdaa020b3649b49618fc17f45e0479",
         "term_markup_neutral_byte_count": 42279
       },
       "docs/paper-module-undeclared-library-prior-classifier.html": {
         "byte_count": 88406,
-        "sha256": "sha256:665586fc239ea9ae2723bdc8a562d67831203de3ac9667b23502ccda3355bc21",
+        "sha256": "sha256:c882397f08cb41e15ebe42e3451cbc6fdcf0d30191cb403ccdfbdfad2e2059a6",
         "term_markup_neutral_byte_count": 44204
       },
       "docs/paper-module-verifier-lab-execution-spine.html": {
         "byte_count": 85056,
-        "sha256": "sha256:1357d8e64912ec32d75c59f57915b7f02eb3db80bf524271aa9ee3f3da01f9ab",
+        "sha256": "sha256:8bc20ff95a0aec2c6b86486ec74cd598891ed665eae3ebd9f02c4c412749b9b3",
         "term_markup_neutral_byte_count": 42307
       },
       "docs/paper-module-verifier-lab-kernel.html": {
         "byte_count": 89711,
-        "sha256": "sha256:0aef835bb49295c8b2285a708acc42701c235756471ef2053ea62069d1c8481f",
+        "sha256": "sha256:e3890fefbc6ee9bf88c895280a414c3dc2724cf340051003496eb072f11c678b",
         "term_markup_neutral_byte_count": 39652
       },
       "docs/paper-module-voice-to-doctrine-self-improvement-loop.html": {
         "byte_count": 79392,
-        "sha256": "sha256:c948893dedff6e396c957ab48c263d9c3763bf22ecdb9d923a417a571e04d00c",
+        "sha256": "sha256:572b42980eca1c5535d62acfc5746ccc0a854fbc34ff5cf1e804a4120d8fd4fb",
         "term_markup_neutral_byte_count": 44085
       },
       "docs/paper-module-work-landing-control-spine.html": {
         "byte_count": 80631,
-        "sha256": "sha256:fd63d2b81eae8317c0ff8bba7c58f3176558749cc550dfe19f45e7dea4f6f009",
+        "sha256": "sha256:ce4990e39f7353238293d7c81459c09c47bcd60d1ec4724c2a4cc7689f491104",
         "term_markup_neutral_byte_count": 42602
       },
       "docs/paper-module-world-model-projection-drift-control-room.html": {
         "byte_count": 99493,
-        "sha256": "sha256:e264a3856eb8af355d0be9f04387204f887ec88b0957ee223aab5f09788b992a",
+        "sha256": "sha256:f8daa4c90df24b7aa8cfb3f61fe1e679566ff55c7f4208bbe988d87b9e0f0a6a",
         "term_markup_neutral_byte_count": 43891
       },
       "docs/paper-modules.html": {
         "byte_count": 1168222,
-        "sha256": "sha256:068ca9e6046ecb06caf04bbda69c4b4cc26fe4e0d8dafcb4de14767bb0ff11e5",
+        "sha256": "sha256:f7d289309d81d98a56d57932ba7f75f4d1f8e5ed31ef2ad373c3e0fc232bc307",
         "term_markup_neutral_byte_count": 586872
       },
       "docs/papers.html": {
         "byte_count": 224209,
-        "sha256": "sha256:235991bf7d64975a0c7f30244b500b498f119d57603cf2a366671c0804f6547a",
+        "sha256": "sha256:debe1b099d5d16d9887e1068e68b98b27ccdcb50422f406dfab5f68645a68e46",
         "term_markup_neutral_byte_count": 89016
       },
       "docs/quickstart.html": {
         "byte_count": 18017,
-        "sha256": "sha256:baf1d8a88c8caf71ff950169d44e9157993e83501a74ec5507c7869024c509c1",
+        "sha256": "sha256:e788c4e1303edb2486fbc57e68a8ad7719ff26529c1dd69b80d72e5214b3e516",
         "term_markup_neutral_byte_count": 14389
       },
       "docs/reference.html": {
         "byte_count": 229662,
-        "sha256": "sha256:bddf1b404b86d7134b80bbea1f54888de08726f270c51edae2d057cd5eb1d389",
+        "sha256": "sha256:812854f2e4400048a73b0f2f01c3d830238c019896a666ac74cbe86ca1a0c4c6",
         "term_markup_neutral_byte_count": 156734
       },
       "docs/rules-and-ideas.html": {
         "byte_count": 1827346,
-        "sha256": "sha256:41c14b1ec38bc5a710d7333e368adec1c39b13656ab5ef53efead4a3ada81770",
+        "sha256": "sha256:519fe1543f544f89f121516b73222b27aad4e52ae8806dbda000ca6cf98b1b0d",
         "term_markup_neutral_byte_count": 973876
       },
       "docs/source.html": {
         "byte_count": 37230,
-        "sha256": "sha256:154ca37d0aa7951baa6bd27b8aee17c56f783f315800eb0050bb40beaf9312ee",
+        "sha256": "sha256:9fffd6cd30c76b73d01d69ec72693b78aac6f3ffa45f224427038814cc680b3b",
         "term_markup_neutral_byte_count": 22739
       },
       "docs/tour.html": {
         "byte_count": 33796,
-        "sha256": "sha256:35ea72f8657542f7d1c44a0b54ae33fac3027431cb572839c0961fe8238f9b48",
+        "sha256": "sha256:e7c3a78744a47e2762ceb4c5d038201e0dd8c44909c9569babf5e2ee007b58a8",
         "term_markup_neutral_byte_count": 23375
       },
       "docs/updates.html": {
         "byte_count": 21313,
-        "sha256": "sha256:21cdb58bd08c674e95d8610c9edfe0ce3684f22330fc54e6664d3bb36afb22f0",
+        "sha256": "sha256:fa37fc80e7ac88f03193371ed5a8f5a7017117586f1ee1ec42fdac0ca0bb63a8",
         "term_markup_neutral_byte_count": 15507
       },
       "docs/vulnerability-disclosure.html": {
         "byte_count": 21834,
-        "sha256": "sha256:fc4d34dd141cb933d3452bd8fe6823e197337047a4afbcfe1733c9f339552ee4",
+        "sha256": "sha256:b7d036be86873a2ef5f96b863465d27915c9d1b21607b138c7ab987f116ad06f",
         "term_markup_neutral_byte_count": 14847
       },
       "index.html": {
         "byte_count": 124957,
-        "sha256": "sha256:bca3352cf507fa305147b8c96423402b5f76dd99a8751a0e5252edae7956defd",
+        "sha256": "sha256:a45288a2765a6c2a3f61f5214edb27fad74e7ce698c820d830c4bcafeaf1c24d",
         "term_markup_neutral_byte_count": 71500
       },
       "legacy-route-manifest.json": {
         "byte_count": 187341,
-        "sha256": "sha256:2a52e10a48a8503b6e290a86f6dc96f0c70ef864ae660b272827edaa04990550"
+        "sha256": "sha256:2b32f07c1c22880c3476cacfc32662bb9f3a229c811756c3b54e777bf36f1f60"
       },
       "llms.txt": {
         "byte_count": 16868,
@@ -1227,23 +1227,23 @@
       },
       "microcosm-legacy/assets/ai-orientation-packet.js": {
         "byte_count": 163431,
-        "sha256": "sha256:67699e171ca6bdbbb6b441bf50b2fb1c4a1e7b851f3ab399cfd715acdd4cbf89"
+        "sha256": "sha256:96f9afa4773f15e6a4f03d688a1e60cbda3f9f880052c0313ce7638b04d4a296"
       },
       "microcosm-legacy/assets/ai-reader-digest-packet.js": {
-        "byte_count": 397250,
-        "sha256": "sha256:52e7148f8ad3a1ae0c6a70e48fed7ebd15ec9df36f7b3a75f21106cd95290f69"
+        "byte_count": 397347,
+        "sha256": "sha256:ff57a033b9a2181c126aae43d6df58ebdf50dc4e6ce7f58e67e7211c8ed4ee74"
       },
       "microcosm-legacy/assets/ai-review-packet.js": {
-        "byte_count": 20196654,
-        "sha256": "sha256:5ab9ccc43d718daca03df67a7e31dc7a951ea5f6a93abdf818659c17a5949db1"
+        "byte_count": 20201915,
+        "sha256": "sha256:2f10be29cfd9c8aa238624f8e4b26d7efb06ed2541a1bc02070a8d90997ad89f"
       },
       "microcosm-legacy/assets/art.js": {
         "byte_count": 20064,
         "sha256": "sha256:bd91073cdfdc4c946a8e2f3bb20ac66b1e122052ded0a8af9667036148654a24"
       },
       "microcosm-legacy/assets/docs.js": {
-        "byte_count": 279323,
-        "sha256": "sha256:a358237c6e0596eedcdabb3e01903e7da57126d4e3bae435ba92179514ac1f4e"
+        "byte_count": 281216,
+        "sha256": "sha256:fce865d2fc514f20e1fa58a4f1afb3ae5e347454b6732c034625b33980109714"
       },
       "microcosm-legacy/assets/fragment-open.js": {
         "byte_count": 5712,
@@ -1255,39 +1255,39 @@
       },
       "microcosm-legacy/assets/object-map.js": {
         "byte_count": 6467681,
-        "sha256": "sha256:19ebabb33160c15bdcd7f8a8391299d44e08e0c20dc19d3829302282e9ed06cf"
+        "sha256": "sha256:78119dba05c6a21022c0a72677251cd253a95d2522e077cf96eaf3053152ea56"
       },
       "microcosm-legacy/assets/public-reader-assurance-packet.js": {
         "byte_count": 121706,
-        "sha256": "sha256:1854fa619f3adf1c9da5f708f3966f4cde3047063fec1f711781a53f41d37409"
+        "sha256": "sha256:4e6c4ef5997b52053aa7414b8160288b248b9bc5e6b53e842e9dffd4fb6d3cec"
       },
       "microcosm-legacy/assets/search-index.js": {
-        "byte_count": 1872666,
-        "sha256": "sha256:155638049fbbddad7471705f7ec87c139719cf80e2e65d598bb0827aa6325ba3"
+        "byte_count": 1874259,
+        "sha256": "sha256:74ad4f479ae2a82ba4da19fbfa94555aa6cb7b689c7332cbc273ee367c9c2b55"
       },
       "microcosm-legacy/assets/site-packet.js": {
-        "byte_count": 14707329,
-        "sha256": "sha256:fb054769955637904a861d09831acc225ddf956c0a438d78fe3410322affac2c"
+        "byte_count": 14715069,
+        "sha256": "sha256:a3881f5e7859d2119fc3fb42df21cfd3e174ab24119132df282f356fa82ec3c7"
       },
       "microcosm-legacy/assets/style.css": {
-        "byte_count": 267771,
-        "sha256": "sha256:dca7addabc8923a0a77ea3088615c965e9eb61b8ce3a99a8487e25799f94dd9c"
+        "byte_count": 267757,
+        "sha256": "sha256:2154bc9fc12ff25c69f5716b49793c5a7e91498d43cdd96436a757681e4d48a4"
       },
       "microcosm-legacy/assets/term-previews.js": {
-        "byte_count": 664485,
-        "sha256": "sha256:ccbee589b11021d8f723eb184e3d40ec21363f47b4900192f559e65fe03c0c9b"
+        "byte_count": 665423,
+        "sha256": "sha256:b8875b5d9eac7c1a291ec5ae41c55819b9210399084370257a1977c4c93f175d"
       },
       "microcosm-legacy/assets/theme-init.js": {
         "byte_count": 2151,
         "sha256": "sha256:283f6fa43e96c85469a91f0823df063cca620dd3c4cbf9399f2afedd0d70cfe9"
       },
       "microcosm-legacy/content-graph.json": {
-        "byte_count": 18232034,
-        "sha256": "sha256:c978e0109b656cb0f61892cef797713c3f1982ef4bf971215c585d7a0f60a2e0"
+        "byte_count": 18235772,
+        "sha256": "sha256:4d37ff6f54bd2324c43fbc1e9d9bd82ae92ff0975ef06bcd3ec369b755cfcd24"
       },
       "microcosm-legacy/content-manifest.json": {
         "byte_count": 302605,
-        "sha256": "sha256:44917d3fe559d88fce1d670b03a381fa25d05a272fdf965779ceaa6d68912268"
+        "sha256": "sha256:6cbc4cc26770a3fda8d75353bb4dd404576cc1ec433053cf1ed4fe2a71aa5d59"
       },
       "microcosm-legacy/docs/architecture.html": {
         "byte_count": 1463,
@@ -2391,31 +2391,31 @@
       },
       "microcosm-legacy/legacy-route-manifest.json": {
         "byte_count": 187341,
-        "sha256": "sha256:2a52e10a48a8503b6e290a86f6dc96f0c70ef864ae660b272827edaa04990550"
+        "sha256": "sha256:2b32f07c1c22880c3476cacfc32662bb9f3a229c811756c3b54e777bf36f1f60"
       },
       "microcosm-legacy/microcosm-ai-reader-complete.json": {
-        "byte_count": 12591285,
-        "sha256": "sha256:1d99518f7b1ceea089f5146ab16acd622c4df92cbecf445d4c52d6f4751e005c"
+        "byte_count": 12595535,
+        "sha256": "sha256:8bd2ae15cca197757b313176075e9af5bd3981baedafc0077163069c49d19d8e"
       },
       "microcosm-legacy/microcosm-ai-reader-digest.json": {
-        "byte_count": 371355,
-        "sha256": "sha256:266084ab26d1244cb0f1e482d561b9e1c1adbabe5689a05f9381497afc93021b"
+        "byte_count": 371444,
+        "sha256": "sha256:05154f4f966d803443867d380f3fbe0f546e479be6d4ad7267cab8750ab8e53e"
       },
       "microcosm-legacy/microcosm-ai-review-packet.json": {
-        "byte_count": 19119580,
-        "sha256": "sha256:c1d0c47409b6ec0d34f2df984d7c80a42d4ee0676fa35d36d09b0ea3e65e9222"
+        "byte_count": 19124649,
+        "sha256": "sha256:b598dd620be325410c8b363f70328a66a50829843d2e4862ff38408cfb4c9be1"
       },
       "microcosm-legacy/microcosm-public-reader-assurance.json": {
         "byte_count": 113219,
-        "sha256": "sha256:101082261c8da580880a81016ad9c53397d942d98b88009a802a0baf7cce6dd3"
+        "sha256": "sha256:f6a58f33325509b8657855c151ad67d6de110303a873d95d66e88288fa375b6e"
       },
       "microcosm-legacy/microcosm-site-map.json": {
-        "byte_count": 18236571,
-        "sha256": "sha256:02f5390e5d0cd98d5ee1886120c9a350cf93a99071d51e4679f7872a4fc2a133"
+        "byte_count": 18245907,
+        "sha256": "sha256:14c800de45a8a7da08fa6ac7b20910296442832c3f41973bb6c5d4616ac989e5"
       },
       "microcosm-legacy/object-map.json": {
         "byte_count": 8316119,
-        "sha256": "sha256:1f73a1753663014e16e6a11d4b1ee32ecf244905597b9c55ff1b2740aa8f101e"
+        "sha256": "sha256:0c8c28f9f8763f665776dadf4a8447fec83bf86b486b24645cf21db445b52b46"
       },
       "microcosm-legacy/projection-status.json": {
         "byte_count": 812,
@@ -2439,35 +2439,35 @@
       },
       "object-map.json": {
         "byte_count": 8316119,
-        "sha256": "sha256:1f73a1753663014e16e6a11d4b1ee32ecf244905597b9c55ff1b2740aa8f101e"
+        "sha256": "sha256:0c8c28f9f8763f665776dadf4a8447fec83bf86b486b24645cf21db445b52b46"
       },
       "plectis-ai-reader-complete.json": {
-        "byte_count": 12591285,
-        "sha256": "sha256:1d99518f7b1ceea089f5146ab16acd622c4df92cbecf445d4c52d6f4751e005c"
+        "byte_count": 12595535,
+        "sha256": "sha256:8bd2ae15cca197757b313176075e9af5bd3981baedafc0077163069c49d19d8e"
       },
       "plectis-ai-reader-digest.json": {
-        "byte_count": 371355,
-        "sha256": "sha256:266084ab26d1244cb0f1e482d561b9e1c1adbabe5689a05f9381497afc93021b"
+        "byte_count": 371444,
+        "sha256": "sha256:05154f4f966d803443867d380f3fbe0f546e479be6d4ad7267cab8750ab8e53e"
       },
       "plectis-ai-review-packet.identity.json": {
         "byte_count": 1529,
-        "sha256": "sha256:61b99061280517137b0cdd3174c07ddbeef07835bb824d89aaf11badc3536fa4"
+        "sha256": "sha256:5962e0cb66378ec05cc0a760a9656a96a4e3d60c37c1bf08df73bca2c1c2da1e"
       },
       "plectis-ai-review-packet.json": {
-        "byte_count": 19119580,
-        "sha256": "sha256:c1d0c47409b6ec0d34f2df984d7c80a42d4ee0676fa35d36d09b0ea3e65e9222"
+        "byte_count": 19124649,
+        "sha256": "sha256:b598dd620be325410c8b363f70328a66a50829843d2e4862ff38408cfb4c9be1"
       },
       "plectis-public-reader-assurance.json": {
         "byte_count": 113219,
-        "sha256": "sha256:101082261c8da580880a81016ad9c53397d942d98b88009a802a0baf7cce6dd3"
+        "sha256": "sha256:f6a58f33325509b8657855c151ad67d6de110303a873d95d66e88288fa375b6e"
       },
       "plectis-reviewer-brief.json": {
-        "byte_count": 11856379,
-        "sha256": "sha256:06617936a3c961c783378a88d74a03bd5b4c6dff684d7226b730894b3e594236"
+        "byte_count": 11859865,
+        "sha256": "sha256:df8c9023d442224897bcbad397774579d8cc61c0eb5c5e2bd83a1aa330c208f9"
       },
       "plectis-site-map.json": {
-        "byte_count": 18236571,
-        "sha256": "sha256:02f5390e5d0cd98d5ee1886120c9a350cf93a99071d51e4679f7872a4fc2a133"
+        "byte_count": 18245907,
+        "sha256": "sha256:14c800de45a8a7da08fa6ac7b20910296442832c3f41973bb6c5d4616ac989e5"
       },
       "plectis.html": {
         "byte_count": 503,
@@ -2492,16 +2492,16 @@
       }
     },
     "lite_public_handoff": "plectis-ai-reader-digest.json",
-    "lite_public_handoff_sha256": "sha256:266084ab26d1244cb0f1e482d561b9e1c1adbabe5689a05f9381497afc93021b",
+    "lite_public_handoff_sha256": "sha256:05154f4f966d803443867d380f3fbe0f546e479be6d4ad7267cab8750ab8e53e",
     "primary_public_handoff": "plectis-ai-review-packet.json",
-    "primary_public_handoff_sha256": "sha256:c1d0c47409b6ec0d34f2df984d7c80a42d4ee0676fa35d36d09b0ea3e65e9222",
+    "primary_public_handoff_sha256": "sha256:b598dd620be325410c8b363f70328a66a50829843d2e4862ff38408cfb4c9be1",
     "projection_status_self_digest": "not_self_embedded",
     "public_reader_assurance_dossier": "plectis-public-reader-assurance.json",
-    "public_reader_assurance_dossier_sha256": "sha256:101082261c8da580880a81016ad9c53397d942d98b88009a802a0baf7cce6dd3",
+    "public_reader_assurance_dossier_sha256": "sha256:f6a58f33325509b8657855c151ad67d6de110303a873d95d66e88288fa375b6e",
     "reader_digest": "plectis-ai-reader-digest.json",
-    "reader_digest_sha256": "sha256:266084ab26d1244cb0f1e482d561b9e1c1adbabe5689a05f9381497afc93021b",
+    "reader_digest_sha256": "sha256:05154f4f966d803443867d380f3fbe0f546e479be6d4ad7267cab8750ab8e53e",
     "schema": "microcosm_public_generated_artifact_identity_v0",
-    "source_fingerprint": "bd2199dcce35b73224b4d75efb54ecd4"
+    "source_fingerprint": "205840fdedca1288812219d1d5ca9f92"
   },
   "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
   "component_count": 88,
@@ -3151,7 +3151,7 @@
       "finance_forecast_evaluation_spine"
     ]
   },
-  "content_fingerprint": "bd2199dcce35b73224b4d75efb54ecd4",
+  "content_fingerprint": "205840fdedca1288812219d1d5ca9f92",
   "contract": {
     "browser_connect_src": "none",
     "repository_is_source_of_record": true,
@@ -3872,7 +3872,7 @@
       "note": "The single public query kernel. Every derived view below is a projection of this packet and carries this source_fingerprint; none re-projects source independently.",
       "path": "content-graph.json",
       "schema": "microcosm_public_content_graph_v1",
-      "source_fingerprint": "bd2199dcce35b73224b4d75efb54ecd4"
+      "source_fingerprint": "205840fdedca1288812219d1d5ca9f92"
     },
     "derived_views": [
       {
@@ -4599,7 +4599,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:bca3352cf507fa305147b8c96423402b5f76dd99a8751a0e5252edae7956defd"
+    "sites/microcosm/index.html": "sha256:a45288a2765a6c2a3f61f5214edb27fad74e7ce698c820d830c4bcafeaf1c24d"
   },
   "source_refs": [
     "microcosm-substrate/anti_principles/AP-1.json",
