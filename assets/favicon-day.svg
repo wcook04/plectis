@@ -78,7 +78,7 @@
     .tile { fill: var(--ground); }
     /* The knockout is the ground redrawn wider, which is what cuts the gap that
        makes one strand read as passing behind the other. */
-    .knock { stroke: var(--ground); stroke-width: 21; }
+    .knock { stroke: var(--ground); stroke-width: 22; }
     .warm { stroke: var(--warm); }
     .cold { stroke: var(--cold); }
     .edge { stroke: var(--edge); stroke-opacity: var(--edge-a); }
@@ -127,24 +127,24 @@
       <stop offset="0.84" stop-color="#d8cab4"/>
       <stop offset="1" stop-color="#bdac94"/>
     </linearGradient>
-    <clipPath id="p-tile"><rect width="64" height="64" rx="14"/></clipPath>
+    <clipPath id="p-tile"><rect width="64" height="64" rx="32"/></clipPath>
     <!-- The two bands where the warm strand is the one on top. -->
     <clipPath id="p-over"><rect x="-12" y="-4" width="88" height="24"/><rect x="-12" y="44" width="88" height="24"/></clipPath>
   </defs>
-  <rect class="tile" width="64" height="64" rx="14"/>
+  <rect class="tile" width="64" height="64" rx="32"/>
   <g clip-path="url(#p-tile)">
-    <g fill="none" stroke-width="14">
-      <path class="warm" d="M19 -4 C19 2.5 45 13.5 45 20 C45 26.5 19 37.5 19 44 C19 50.5 45 61.5 45 68"/>
-      <path class="knock" d="M45 -4 C45 2.5 19 13.5 19 20 C19 26.5 45 37.5 45 44 C45 50.5 19 61.5 19 68"/>
-      <path class="cold" d="M45 -4 C45 2.5 19 13.5 19 20 C19 26.5 45 37.5 45 44 C45 50.5 19 61.5 19 68"/>
+    <g fill="none" stroke-width="16">
+      <path class="warm" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
+      <path class="knock" d="M47 -4 C47 2.5 17 13.5 17 20 C17 26.5 47 37.5 47 44 C47 50.5 17 61.5 17 68"/>
+      <path class="cold" d="M47 -4 C47 2.5 17 13.5 17 20 C17 26.5 47 37.5 47 44 C47 50.5 17 61.5 17 68"/>
       <g clip-path="url(#p-over)">
-        <path class="knock" d="M19 -4 C19 2.5 45 13.5 45 20 C45 26.5 19 37.5 19 44 C19 50.5 45 61.5 45 68"/>
-        <path class="warm" d="M19 -4 C19 2.5 45 13.5 45 20 C45 26.5 19 37.5 19 44 C19 50.5 45 61.5 45 68"/>
+        <path class="knock" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
+        <path class="warm" d="M17 -4 C17 2.5 47 13.5 47 20 C47 26.5 17 37.5 17 44 C17 50.5 47 61.5 47 68"/>
       </g>
     </g>
   </g>
   <!-- id and class are both load-bearing: tools/brand/plectis_favicon.py hides
        this rect and squares every rx via injected CSS when it renders the
        maskable rasters, so the tile stays a single source of truth. -->
-  <rect id="p-edge" class="edge" x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none"/>
+  <rect id="p-edge" class="edge" x="0.5" y="0.5" width="63" height="63" rx="31.5" fill="none"/>
 </svg>
