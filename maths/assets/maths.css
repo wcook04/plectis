@@ -304,7 +304,9 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .reading-index .maths-hero__starts,
 .maths-hero__map,
 .maths-hero__about { max-width: var(--hero-measure); }
-.reading-index .maths-hero__lede { margin-bottom: var(--space-5); }
+/* The lede is set larger than the blocks beside it, so on their shared
+   measure it ran to 88 characters; at 32em it keeps to about 75. */
+.reading-index .maths-hero__lede { margin-bottom: var(--space-5); max-width: min(var(--hero-measure), 32em); }
 .reading-index .maths-hero__starts { margin: 0 0 var(--space-5); gap: var(--space-3); }
 .maths-hero__actions {
   display: flex;
@@ -1220,12 +1222,16 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-weight: 600;
   margin: 1.9em 0 0.5em;
 }
-.paper-stage h4, .paper-stage h5, .paper-stage h6 {
+.paper-stage h4, .paper-stage h5, .paper-stage h6,
+.paper-stage .paper-minor-head {
   font-size: 1.05rem;
   font-weight: 600;
   font-style: italic;
   margin: 1.5em 0 0.4em;
 }
+/* A \paragraph head the build moved up a level (so the outline never skips
+   one) keeps the run-in look it had as h5, even where it is now an h3. */
+.paper-stage h2 + .paper-minor-head { margin-top: 0.6em; }
 .paper-stage h2 + h3, .paper-stage h3 + h4 { margin-top: 0.6em; }
 .paper-stage h2 + p, .paper-stage h3 + p, .paper-stage h4 + p { text-indent: 0; }
 .paper-stage math { font-size: 1.05em; overflow-wrap: normal; word-break: normal; }

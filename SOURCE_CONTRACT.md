@@ -237,7 +237,21 @@ checks idle motion and theme smear.
 - Reduced motion keeps every final state and none of the movement; print sees
   none of it.
 
-The shared stylesheet is `assets/style.css`. Mathematics-specific assets are
+The shared stylesheet is `assets/style.css`, the single handwritten source.
+Its comments, design rationale, notices and directives stay in that source.
+For a full release, `deploy_plectis_site.py` compacts only ordinary isolated CSS
+comment tokens in its disposable build copy, before either page builder reads
+it. Quoted strings, escapes, URL contents, notices, directives and comments
+at token boundaries are preserved; declarations and non-comment bytes are
+unchanged. The deployment provenance binds the authored input hash, transform
+version and published output hash. Page cache tokens name the published bytes;
+freeze, Pages copy and live readback must agree on those exact bytes. This
+explicit authored-input-to-published-output transform applies only to the
+shared stylesheet and does not relax paper or other asset byte parity.
+Reading-room-only releases do not compile or overwrite shared CSS: selected
+pages use the retained Pages stylesheet's hash and protected files keep their
+bytes and modes. Local editing and normal builder checks retain authored CSS.
+Mathematics-specific assets are
 owned by `tools/meta/dissemination/maths_site_assets/` and copied into
 `maths/assets/` by the maths builder; edit their source and regenerate. On long
 documents, keep the margin contents to major sections and offer the full list
@@ -535,10 +549,25 @@ reading pages; only the universe map keeps the wide workbench layout.
   offers the map and the reader's guide under its lede; a problem dossier
   offers its short paper and the PDF in its head, and the papers section's
   own buttons stay ghost.
-- Known audit warnings that stay: headline length on long manuscript titles
-  (three balanced lines); heading skips inside paper bodies (pandoc's
-  paragraph headings); measure on rows and paragraphs whose MathML
-  annotations count as text.
+- A heading never sits more than one level below the one before it. The
+  build moves a `\paragraph` head (pandoc's h5, which under a `\section`
+  skipped two levels) up to one below its predecessor and keeps its run-in
+  look with `paper-minor-head`; the contents read the section's `levelN`
+  class, so they are unchanged (`clamp_heading_levels`, 4 Oct).
+- The overview's lede keeps to 32em, about 75 characters: it is set larger
+  than the hero blocks beside it, so on their shared measure it ran to 88.
+- No mathematics in a code font. `plectis_code_math` typesets every code span
+  its closed grammar reads whole as a formula (now with the starred set `A★`
+  and the set-builder words odd, even and prime), and a one-line plain-text
+  block that is wholly a formula becomes displayed mathematics. The maths
+  build stops on an inline code span that still holds TeX grouping (`_{`,
+  `^{`): the #257 dossier showed `∑_{a∈A★} 1/a` that way. Code blocks stay
+  transcripts.
+- The audit's measure counts prose characters only: it averages character
+  width over a paragraph's text with its formulas removed, because
+  MathJax's hidden MathML copy made 75-character proof lines read as 95.
+- A known audit warning that stays: headline length on long manuscript
+  titles (three balanced lines).
 
 ### Route namespace boundary
 

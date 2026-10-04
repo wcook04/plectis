@@ -1732,7 +1732,10 @@ test('a search index arriving after dismissal does not reactivate the hidden com
   assert.match(page.doc.querySelector('[data-search-empty]').textContent, /Loading/);
   page.modal.dispatch('keydown', { key: 'Escape', preventDefault() {} });
   page.win.__MICROCOSM_INDEX__ = { records: page.records };
-  const script = page.doc.head.querySelector('script[data-search-index]');
+  // Search now fetches the lossless core projection first (1b4add7940); the
+  // full index script is only a fallback, so either may be the late arrival.
+  page.win.__MICROCOSM_SEARCH_CORE__ = { records: page.records };
+  const script = page.doc.head.querySelector('script[data-search-core], script[data-search-index]');
   assert.ok(script);
   script.dispatch('load');
   assert.equal(page.modal.hidden, true);
