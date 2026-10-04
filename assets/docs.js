@@ -150,6 +150,7 @@
   // usable while this request is in flight or if it fails entirely.
   var mcTermPreviewState = 'idle';
   var mcTermPreviewCallbacks = [];
+  var mcTermMathReady = true;
   function mcTermPreviewRecords() {
     var data = window.__MICROCOSM_TERM_PREVIEWS__ || {};
     // Presentation-only CSS shares the paper renderer's local fonts. Warm it
@@ -157,10 +158,12 @@
     if (data.math_css && /^math\/[a-f0-9]+\.css$/.test(data.math_css) &&
         !document.querySelector('link[data-term-math]')) {
       var mathStyle = document.createElement('link');
+      mcTermMathReady = false;
       mathStyle.rel = 'stylesheet';
       mathStyle.href = mcAssetUrl(data.math_css);
       mathStyle.setAttribute('data-term-math', '');
       mathStyle.addEventListener('load', function () {
+        mcTermMathReady = true;
         document.dispatchEvent(new CustomEvent('plectis:term-math-ready'));
       });
       document.head.appendChild(mathStyle);
@@ -5042,8 +5045,12 @@
     var previewIntent = null; // pointer hover, keyboard focus, or deliberate click
     var pointerX = null;
     var pointerY = null;
+    var currentTipData = null;
     document.addEventListener('plectis:term-math-ready', function () {
-      if (tipFor && !tip.hidden) placeFloater(tip, tipFor);
+      if (tipFor && currentTipData && !tip.hidden && !tip.classList.contains('is-leaving')) {
+        renderTier(currentTipData, tipFor);
+        placeFloater(tip, tipFor);
+      }
     });
 
     function renderTermMarkup(text) {
@@ -5062,12 +5069,18 @@
       // These HTML fields are produced by the same build-time STIX renderer
       // as the papers. Never typeset on hover: insert the ready formula once,
       // then let the existing placement routine measure its final geometry.
-      return data[field + '_html'] || renderTermMarkup(fallback || data[field] || '');
+      if (mcTermMathReady && data[field + '_html']) return data[field + '_html'];
+      var text = data[field + '_text'] || fallback || data[field] || '';
+      // Old preview records lack rendered plain text. Keep their prose readable
+      // if CSS fails, without displaying TeX commands as ordinary text.
+      text = String(text).replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g, '[formula in glossary]');
+      return renderTermMarkup(text);
     }
     function setTermText(node, text, html) {
       node.innerHTML = html || renderTermMarkup(text);
     }
     function renderTier(data, anchor) {
+      currentTipData = data;
       tipLabel.textContent = data.preferred_label || data.label || '';
       tipCue.hidden = isPassivePreview(anchor);
       if (tier === 1) {

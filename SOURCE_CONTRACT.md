@@ -102,6 +102,33 @@ papers to start with; the films; why the project exists and how to take part;
 one line for the earlier software. Every route is visible without opening
 anything. Only the transcripts fold.
 
+The map band (4 October 2026). Will asked for an arrow that "scrolls that
+horizontal slice, from left to right, all the way wall to wall", bounded above
+and below by the map, and a switch between "system versus maths". The band
+(`div.home-atlas#mathematics[data-atlas]`) holds two slides in a track as wide
+as the window, each with its own `.wrap`: the mathematics first and by default
+(the eight problems beside the universe teaser), then the system (the earlier
+software's families beside the drawing `assets/system-map.js` makes of
+`docs/architecture-graph-scene.json`). The family list is the generated
+`mc:landing-families` region (`sync_curated_landing_families`, from the
+scene's family rows), and the system slide sits between
+`mc:landing-depth` markers, so the orientation budget charges only the slide on
+screen. The switch (`role="tablist"`, Mathematics and System) is the keyboard
+and screen-reader route, its arrow keys land at once, and its thumb travels
+with the slice; the edge arrows are mouse-only twins (`aria-hidden`,
+`tabindex="-1"`) and lean the slice 26px toward the drawing they open after a
+90ms rest. A click moves the slice in 720ms on `--ease-move`, each drawing
+covering a few per cent more ground than its text; the slide out of view is
+inert, `aria-hidden` and unpainted once the move settles; `#system` opens the
+band on the system drawing without a move; reduced motion never animates.
+landing.js loads the system drawing's script on the first sign of intent and
+prefetches it when the band nears the viewport, and `plectis:atlas`
+`{view, previous, phase, instant}` tells both drawings when the band moves.
+Both cards wear the same four corner registration marks. Without JavaScript
+the band is a strip that scrolls and snaps. The earlier software keeps its
+quiet row at the foot of the page: the band's second drawing is one switch
+away and never the default.
+
 Copy is Will's own sentences: the hero is the site's title line and the
 sentence he opens the films with. No taglines, em dashes or "not X, Y"
 constructions. Counts sit in `data-mc-fact` spans; the problem list and the
