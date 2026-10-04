@@ -5071,13 +5071,16 @@
       if (next && (tip.contains(next) || (tipFor && tipFor.contains(next)))) return;
       scheduleHideTip();
     });
+    // A keyboard reader can go Back repeatedly before ever moving a pointer.
+    // Keep one pending release listener across those repeated activations.
+    function releasePointerSuppression() {
+      suppressPointerPreview = false;
+    }
     tipBack.addEventListener('click', function () {
       var anchor = tipFor;
       suppressFocusPreview = true;
       suppressPointerPreview = true;
-      document.addEventListener('mousemove', function releasePointerSuppression() {
-        suppressPointerPreview = false;
-      }, { once: true, capture: true });
+      document.addEventListener('mousemove', releasePointerSuppression, { once: true, capture: true });
       hideTip(true);
       requestAnimationFrame(function () {
         if (anchor && typeof anchor.focus === 'function') {

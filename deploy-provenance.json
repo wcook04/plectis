@@ -1,45 +1,6 @@
 {
-  "last_scoped_release": {
-    "changed_paths": {
-      "maths/index.html": {
-        "after": {
-          "mode": 420,
-          "sha256": "1710546a87c4230a71df71857ce1dc08d48d84d79e11ccc5b79aeeb5f31ca83b"
-        },
-        "before": {
-          "mode": 420,
-          "sha256": "36f69abda465fc16a04ec0bd112f6588e410286f1043a67689dafd6abdc52ba4"
-        }
-      }
-    },
-    "current_universe_paths": [
-      "maths/assets/maths.css",
-      "maths/assets/maths.js",
-      "maths/assets/universe-companion.css",
-      "maths/assets/universe-companion.js",
-      "maths/assets/universe-companion.json",
-      "maths/assets/universe-data.json",
-      "maths/assets/universe-layout-full.json",
-      "maths/assets/universe.js",
-      "maths/universe.html"
-    ],
-    "generator_commit": "ec4438e98a9e2a6bc0e22a969e7240ace4955265",
-    "pages_base_commit": "277e2aad7223aae071e2c55c36952d6783709d68",
-    "private_root_released": false,
-    "protected_file_count": 469,
-    "protected_products": "preserved Pages baseline bytes/modes; historical generation, not relabeled current",
-    "protected_sha256": "70bb7feb7daaf1a76b3d8c3735d455d9442b94c55ecb2a1320c652a1bc62a7ad",
-    "retained_dependency_recovery": [],
-    "scope": "lean_math_reading_room",
-    "universe_parity": {
-      "full_edges": 9140,
-      "full_nodes": 2902,
-      "index_edges": 2240,
-      "index_nodes": 895,
-      "toolkit_fragment_preserved": true
-    }
-  },
-  "note": "Source frontiers that later releases must contain. Last scoped release updates only its declared paths; protected historical products were not regenerated or relabeled current.",
+  "generator_commit": "c00c8a1675a8497d22830dc7a1145cd7e5b9e967",
+  "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
   "schema": "plectis_site_deploy_provenance_v1",
   "sources": {
     "plectis": {
