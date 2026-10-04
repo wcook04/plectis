@@ -510,6 +510,13 @@
       return paragraph && math.getBoundingClientRect().width > paragraph.clientWidth + 2;
     });
     wide.forEach(function (item) { item.flow.setAttribute('data-math-overflow', 'true'); });
+    // A display wider than the prose measure takes the empty column beside
+    // it (the bleed in maths.css) before it is allowed to scroll. Measure it
+    // at the prose measure first, so a wider window can hand the room back.
+    displayItems.forEach(function (equation) { equation.removeAttribute('data-math-wide'); });
+    displayItems.filter(function (equation) {
+      return equation.scrollWidth > equation.clientWidth + 2;
+    }).forEach(function (equation) { equation.setAttribute('data-math-wide', 'true'); });
     // Read all scroll geometry before changing tabindex or accessibility
     // attributes: those writes must not invalidate layout between reads.
     var scrollItems = displayItems.concat(inlineItems.map(function (item) { return item.flow; }));

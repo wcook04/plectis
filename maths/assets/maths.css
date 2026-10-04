@@ -86,15 +86,35 @@
 }
 .maths-layout .btn__format { font-family: var(--font-sans); font-weight: 650; letter-spacing: 0.02em; }
 /* The paper head, précis, notes and manuscript share one measure, so the
-   right edge of the reading column does not move as the page begins. STIX
-   sets wide: 42.5rem ran 71 characters a line in the body and 81 in the
-   notes (measured 3 Oct 2026); 34.5rem holds the body near 65. */
-.maths-layout { --paper-measure: 34.5rem; }
+   right edge of the reading column does not move as the page begins. The
+   measure is set in the manuscript's own type size, and that size grows with
+   the screen: 18px up to a 1280 laptop, 19px on a 13-inch MacBook Air, 20.5px
+   on a 1080p monitor, 21px beyond. 38em of STIX holds a body line near 80
+   characters at every size, so a wider screen gets a larger page instead of
+   the same strip in a wider gutter. The fixed 34.5rem at 18px it replaces
+   left a laptop's main column a third empty and sent one display formula in
+   eleven into a scroll box (measured over all 19 papers, 4 Oct 2026). */
+.maths-layout {
+  --paper-font: clamp(1.125rem, 0.90625rem + 0.3125vw, 1.3125rem);
+  --paper-measure: calc(var(--paper-font) * 38);
+}
+/* A manuscript page takes a wider frame than the docs' 1320px cap: the cap
+   held the main column to 800px on every laptop and monitor. The grid gap
+   already separates the text from the sidebars, so the wrap drops its own
+   24px gutters there instead of doubling them. */
+.docs-layout.maths-layout:has(.paper-stage) { width: min(1560px, calc(100% - 40px)); }
+@media (min-width: 769px) {
+  .maths-layout:has(.paper-stage) .docs-main { --gutter: 0px; }
+}
 @media (min-width: 1281px) {
   .maths-layout:has(.docs-toc) { grid-template-columns: 220px minmax(0, 1fr) 220px; }
   .maths-layout .docs-toc { grid-column: 3; grid-row: 1; }
 }
 @media (max-width: 1280px) { .maths-layout .docs-toc { display: none; } }
+/* With the margin contents hidden, its empty 208px track went too. */
+@media (min-width: 1081px) and (max-width: 1280px) {
+  .maths-layout { grid-template-columns: 244px minmax(0, 1fr); }
+}
 .maths-layout .docs-sidebar {
   top: var(--topbar-h);
   height: calc(100dvh - var(--topbar-h));
@@ -1046,7 +1066,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 0;
   color: var(--ink-soft);
   font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-size: calc(var(--paper-font, 1.125rem) * 0.98);
   line-height: 1.6;
   text-wrap: pretty;
 }
@@ -1103,7 +1123,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage {
   max-width: var(--paper-measure, 34.5rem);
   font-family: var(--font-serif);
-  font-size: 1.125rem;
+  font-size: var(--paper-font, 1.125rem);
   line-height: 1.66;
   color: var(--ink);
   text-rendering: optimizeLegibility;
@@ -1286,6 +1306,43 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .math-display { overflow: visible; }
 .paper-stage span.math.display { scrollbar-width: thin; padding-block: .35em; overscroll-behavior-x: contain; }
 .paper-stage .math.display mjx-container[display="true"] { margin: 0; }
+/*
+  The bleed: the width between the prose's right edge and the end of the
+  main column (.wrap inside .docs-main, the size container). A display the
+  prose measure cannot hold is marked data-math-wide by maths.js and runs on
+  into the bleed, start-aligned at the prose's left edge the way TeX sets an
+  overfull display; a display that fits stays centred on the prose. A wide
+  inline formula promoted to its own line and a wide table take the same
+  room. Only an expression wider than the whole column scrolls. Phones have
+  no bleed: the prose already fills the screen.
+*/
+.maths-layout .paper-stage {
+  --paper-bleed: max(0px, min(var(--max, 1080px), 100cqi - var(--gutter, 24px) * 2) - var(--paper-measure));
+}
+@media (max-width: 768px) { .maths-layout .paper-stage { --paper-bleed: 0px; } }
+.paper-stage span.math.display[data-math-wide],
+.paper-stage .math-inline-flow[data-math-overflow] {
+  margin-right: calc(-1 * var(--paper-bleed, 0px));
+  max-width: calc(100% + var(--paper-bleed, 0px));
+}
+.paper-stage span.math.display[data-math-wide],
+.paper-stage span.math.display[data-math-wide] mjx-container[display="true"] { text-align: left; }
+/* Every block under a heading lays out lazily (content-visibility, below),
+   and that contains its paint: a formula reaching into the bleed was cut off
+   at the block's edge without a scroll bar. The block that holds one reaches
+   into the bleed too and hands the width back as padding, so its prose keeps
+   the measure. */
+.paper-stage section > :has(span.math.display[data-math-wide], .math-inline-flow[data-math-overflow]) {
+  margin-right: calc(-1 * var(--paper-bleed, 0px));
+  padding-right: var(--paper-bleed, 0px);
+  max-width: calc(100% + var(--paper-bleed, 0px));
+}
+/* A formula that still scrolls says so with a quiet bar in the rule ink. */
+.paper-stage span.math.display,
+.paper-stage .math-inline-flow[data-math-overflow],
+.paper-stage table {
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
+}
 /* Equation numbers sit in the margin ink, lining figures, never bold. */
 .paper-stage mjx-labels { color: var(--muted); font-variant-numeric: lining-nums; }
 .paper-stage a.math-ref { font-variant-numeric: lining-nums; }
@@ -1447,7 +1504,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 1.2em 0 1.4em;
   display: block;
   width: max-content;
-  max-width: 100%;
+  max-width: calc(100% + var(--paper-bleed, 0px));
   overflow-x: auto;
   font-size: 0.94em;
   line-height: 1.45;
@@ -2565,7 +2622,7 @@ body.has-viewback:has(.maths-layout) .viewback {
    the paragraph retains its normal measure and baseline. */
 .paper-stage .math-inline-flow[data-math-overflow] {
   display: block;
-  max-width: 100%;
+  max-width: calc(100% + var(--paper-bleed, 0px));
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
