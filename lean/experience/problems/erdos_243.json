@@ -293,7 +293,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "a10bacf890d3c0fa",
+      "renderer_fingerprint": "1d7bde0fc530e17f",
       "source_sha256": "668fd53715f3e8ff43baef623d97f9097b1f6cff769d1883df56caf062baee24",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -482,7 +482,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "a10bacf890d3c0fa",
+        "renderer_fingerprint": "1d7bde0fc530e17f",
         "source_sha256": "668fd53715f3e8ff43baef623d97f9097b1f6cff769d1883df56caf062baee24",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -671,7 +671,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "a10bacf890d3c0fa",
+        "renderer_fingerprint": "1d7bde0fc530e17f",
         "source_sha256": "dfdaab021caf097d09d4d599976937724641ac405372dea1c1f3ecb89d430f0e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -723,7 +723,7 @@
         {
           "level": 3,
           "anchor": "the-square-condition-forces-m12",
-          "label": "The square condition forces m=12m=12"
+          "label": "The square condition forces m=12"
         },
         {
           "level": 3,
@@ -833,7 +833,7 @@
         {
           "level": 5,
           "anchor": "a-comparison-with-mathcal-b-free-integers.",
-          "label": "A comparison with ℬ\\mathcal B-free integers."
+          "label": "A comparison with \\mathcal B-free integers."
         },
         {
           "level": 5,

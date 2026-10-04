@@ -316,7 +316,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "a10bacf890d3c0fa",
+      "renderer_fingerprint": "1d7bde0fc530e17f",
       "source_sha256": "27e9d8d4bb19a993ec43d42af699d770135e4f3b405776ba7b2e7ea8144f0d59",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -475,7 +475,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "a10bacf890d3c0fa",
+        "renderer_fingerprint": "1d7bde0fc530e17f",
         "source_sha256": "27e9d8d4bb19a993ec43d42af699d770135e4f3b405776ba7b2e7ea8144f0d59",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -634,7 +634,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "a10bacf890d3c0fa",
+        "renderer_fingerprint": "1d7bde0fc530e17f",
         "source_sha256": "f143752969361bfbbcf56556cbfa9d8bf0d0dee10e9a3abe522c609ee4f23a55",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -820,7 +820,7 @@
         {
           "level": 5,
           "anchor": "long269:res:lead-block-exclusion",
-          "label": "A denominator bound from 128128 consecutive blocks."
+          "label": "A denominator bound from 128 consecutive blocks."
         },
         {
           "level": 5,

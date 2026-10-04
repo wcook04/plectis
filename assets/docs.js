@@ -492,7 +492,7 @@
     withAutoScroll(scroller, function () { setScrollContainerTop(scroller, y); });
   }
 
-  function scheduleAlignment(target, frames) {
+  function scheduleAlignment(target, frames, readerCancellable) {
     if (typeof window.requestAnimationFrame !== 'function') {
       alignTarget(target);
       return;
@@ -507,14 +507,15 @@
     var remaining = deferredCard ? Math.max(frames, 12) : frames;
     var stopped = false;
     var interrupts = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
-    function stop() {
+    function stop(event) {
+      if (readerCancellable && event && !event.isTrusted) return;
       if (stopped) return;
       stopped = true;
-      if (deferredCard) interrupts.forEach(function (name) {
+      if (deferredCard || readerCancellable) interrupts.forEach(function (name) {
         window.removeEventListener(name, stop, true);
       });
     }
-    if (deferredCard) interrupts.forEach(function (name) {
+    if (deferredCard || readerCancellable) interrupts.forEach(function (name) {
       window.addEventListener(name, stop, { passive: true, capture: true });
     });
     var tick = function () {
@@ -632,7 +633,13 @@
         revealFilteredTarget(target);
       }
       openAncestorDetails(target);
-      if (!restoring) scheduleAlignment(target);
+      var paperArrival = initial && target.closest && target.closest('.paper-stage');
+      var interrupted = paperArrival && document.documentElement.getAttribute(
+        'data-plectis-paper-arrival-interrupted'
+      ) === window.location.pathname + window.location.search + window.location.hash;
+      // Saved/native restoration still owns the arrival. Only a real earlier
+      // paper gesture suppresses this initial correction; later links remain live.
+      if (!restoring && !interrupted) scheduleAlignment(target, 3, !!paperArrival);
     }
     window.addEventListener('hashchange', function (event) {
       // popstate already reapplied the saved filter. Let the browser restore its
@@ -745,6 +752,7 @@
     }
     function snapshot() {
       var view = {
+        viewStateVersion: 2,
         url: location.pathname + location.search + location.hash,
         path: location.pathname,
         title: pageTitle(),
@@ -769,8 +777,8 @@
     window.addEventListener('pagehide', function () {
       if (suppress) { suppress = false; return; }
       var stack = readStack(), leaving = snapshot(), top = stack[stack.length - 1];
-      if (top && top.path === leaving.path) {
-        stack[stack.length - 1] = leaving; // same path again -> refresh in place, don't stack dupes
+      if (top && top.url === leaving.url) {
+        stack[stack.length - 1] = leaving; // exact URL again -> refresh in place, don't stack dupes
       } else {
         stack.push(leaving);
         if (stack.length > MAX_DEPTH) stack = stack.slice(stack.length - MAX_DEPTH);
@@ -780,11 +788,11 @@
 
     // Reconcile the trail with where we landed, using HOW we got here:
     //   - back_forward / an explicit history traversal (browser Back/Forward, or a
-    //     back-forward-cache restore): the visitor moved backward, so the landed
-    //     page sits behind the trail's head -- recover its exact saved view when
-    //     needed, then truncate that visit and the page pagehide just pushed.
+    //     back-forward-cache restore): match the nearest exact saved URL when
+    //     present and truncate that visit plus later hops. An unmatched modern
+    //     arrival can be Forward to another query; retain its trail.
     //   - navigate / reload / unknown (a forward click, INCLUDING a click to a page
-    //     seen earlier): keep the trail; only strip a self-push of THIS page from
+    //     seen earlier): keep the trail; only strip a self-push of THIS exact URL from
     //     the top (how reload and a re-click of the current page record themselves).
     //     Never strip an earlier occurrence, so a forward click to a previously
     //     visited page stays a reversible forward hop -- the core "whenever you
@@ -793,11 +801,11 @@
       var stack = readStack(), here = location.pathname, i;
       if (traversal || navType() === 'back_forward') {
         var match = -1;
+        var url = location.pathname + location.search + location.hash;
+        for (i = stack.length - 1; i >= 0; i--) {
+          if (stack[i].path === here && stack[i].url === url) { match = i; break; }
+        }
         if (!traversal) {
-          var url = location.pathname + location.search + location.hash;
-          for (i = stack.length - 1; i >= 0; i--) {
-            if (stack[i].path === here && stack[i].url === url) { match = i; break; }
-          }
           // A reconstructed history entry has no cached disclosure/focus state.
           // Rescue its most recent exact view before truncation; an explicit
           // return already owns its pending restore.
@@ -807,15 +815,21 @@
           }
         }
         if (match === -1) {
+          // Old rows support a unique pathname fallback. A modern exact-URL
+          // row, or several visits to this path, cannot identify this arrival.
+          var candidates = [];
           for (i = 0; i < stack.length; i++) {
-            if (stack[i].path === here) { match = i; break; }
+            if (stack[i].path === here) candidates.push(i);
           }
+          if (candidates.length === 1 && !Object.prototype.hasOwnProperty.call(
+              stack[candidates[0]], 'viewStateVersion')) match = candidates[0];
         }
         if (match !== -1) write(KEY_STACK, stack.slice(0, match));
         return;
       }
       var changed = false;
-      while (stack.length && stack[stack.length - 1].path === here) { stack.pop(); changed = true; }
+      var currentUrl = location.pathname + location.search + location.hash;
+      while (stack.length && stack[stack.length - 1].url === currentUrl) { stack.pop(); changed = true; }
       if (changed) write(KEY_STACK, stack);
     }
 
@@ -874,7 +888,10 @@
         }
         (pending.open || []).forEach(function (id) {
           var el = document.getElementById(id);
-          if (el && el.tagName === 'DETAILS') el.open = true;
+          if (el && el.tagName === 'DETAILS') {
+            el.open = true;
+            hydrateDeferredDetails(el);
+          }
         });
         var focusEl = findFocus(pending.focus);
         if (focusEl && typeof focusEl.focus === 'function') {
@@ -905,7 +922,12 @@
 
       var trail = readStack();
       var prev = trail.length ? trail[trail.length - 1] : null;
-      if (!prev || !prev.path || prev.path === location.pathname) return;
+      if (!prev || !prev.path) return;
+      var previousUrl;
+      try { previousUrl = new URL(prev.url, location.href); } catch (e) { return; }
+      // Fragment-only return stays in this document; startup restore will not run.
+      if (previousUrl.origin === location.origin && previousUrl.pathname === location.pathname &&
+          previousUrl.search === location.search) return;
 
       var btn = document.createElement('button');
       btn.type = 'button';

@@ -658,3 +658,138 @@
   registerAll();
   document.addEventListener('plectis:term-help-ready', registerAll, {once: true});
 })();
+
+/* A fresh manuscript fragment can be readable before optional docs controls.
+   Limit geometric settling, but retain reader interruption until docs takes
+   over: a slow off-screen font must not make the later initial scroll win. */
+(function earlyPaperArrival() {
+  'use strict';
+  var started = false;
+  function start() {
+    if (started) return;
+    started = true;
+    var hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    var id;
+    try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var stage = document.querySelector('.paper-stage');
+    var header = document.querySelector('.docs-topbar');
+    var target = document.getElementById(id);
+    if (!stage || !header || !target || !stage.contains(target) ||
+        !header.getBoundingClientRect || !target.getBoundingClientRect) return;
+    var root = document.documentElement;
+    var url = window.location.pathname + window.location.search + hash;
+    try {
+      var navigation = window.performance && window.performance.getEntriesByType
+        ? window.performance.getEntriesByType('navigation')[0] : null;
+      // A history arrival owns native/saved scroll, even without a snapshot.
+      if (navigation && (navigation.type === 'back_forward' || navigation.type === 'reload')) return;
+      if (!navigation && window.performance && window.performance.navigation &&
+          (window.performance.navigation.type === 2 || window.performance.navigation.type === 1)) return;
+      var raw = window.sessionStorage && window.sessionStorage.getItem('mc:viewstate:restore');
+      var pending = raw ? JSON.parse(raw) : null;
+      if (pending && pending.path === window.location.pathname) return;
+    } catch (e) {
+      // Inaccessible storage is the ordinary no-snapshot path. A corrupt
+      // snapshot likewise remains for its existing owner to interpret.
+    }
+    var MARK = 'data-plectis-paper-arrival-interrupted';
+    var handoff = root.getAttribute('data-plectis-docs-runtime');
+    if (handoff === 'ready' || handoff === 'failed') return;
+    var settling = true, listening = true, queued = false, remaining = 0;
+    var layoutObserver = null, headerObserver = null, handoffObserver = null;
+    var headerHeight = 0;
+    var events = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+    var now = function () { return window.performance && window.performance.now ? window.performance.now() : Date.now(); };
+    var deadline = now() + 2400;
+    function sameArrival() {
+      return window.location.pathname + window.location.search + window.location.hash === url;
+    }
+    function endSettling() {
+      settling = false;
+      if (layoutObserver) layoutObserver.disconnect();
+      window.removeEventListener('load', afterLoad);
+      window.clearTimeout(timer);
+    }
+    function finish() {
+      if (!listening) return;
+      listening = false;
+      endSettling();
+      events.forEach(function (name) { window.removeEventListener(name, interrupt, true); });
+      window.removeEventListener('hashchange', finish);
+      window.removeEventListener('pagehide', finish);
+      if (handoffObserver) handoffObserver.disconnect();
+      if (headerObserver) headerObserver.disconnect();
+      root.removeAttribute(MARK);
+    }
+    function interrupt(event) {
+      if (!event.isTrusted || !listening || !sameArrival()) return;
+      var state = root.getAttribute('data-plectis-docs-runtime');
+      if (state === 'ready' || state === 'failed') { finish(); return; }
+      root.setAttribute(MARK, url);
+      endSettling();
+    }
+    function publishHeader(height) {
+      if (height > 0 && height !== headerHeight) {
+        headerHeight = height;
+        root.style.setProperty('--topbar-h', height + 'px');
+        document.body.style.setProperty('--topbar-h', height + 'px');
+      }
+    }
+    function tick() {
+      queued = false;
+      if (!settling || !sameArrival()) return;
+      if (now() >= deadline) { endSettling(); return; }
+      var height = Math.ceil(header.getBoundingClientRect().height);
+      var top = target.getBoundingClientRect().top;
+      if (height > 0) {
+        publishHeader(height);
+        if (Math.abs(top - height - 8) > 1) {
+          var previous = root.style.scrollBehavior;
+          root.style.scrollBehavior = 'auto';
+          try { window.scrollTo(0, (window.pageYOffset || 0) + top - height - 8); }
+          finally { root.style.scrollBehavior = previous; }
+        }
+      }
+      remaining -= 1;
+      if (remaining > 0) queue(remaining);
+    }
+    function queue(frames) {
+      if (!settling || !sameArrival()) return;
+      remaining = Math.max(remaining, frames || 2);
+      if (!queued) {
+        queued = true;
+        if (window.requestAnimationFrame) window.requestAnimationFrame(tick);
+        else tick();
+      }
+    }
+    function afterLoad() { queue(3); }
+    events.forEach(function (name) { window.addEventListener(name, interrupt, { passive: true, capture: true }); });
+    window.addEventListener('hashchange', finish);
+    window.addEventListener('pagehide', finish);
+    if (window.ResizeObserver) {
+      layoutObserver = new ResizeObserver(function () { queue(2); });
+      layoutObserver.observe(target);
+      // Header metrics remain accurate after the scroll-settling deadline or
+      // a reader gesture. This observer measures one node and never scrolls.
+      headerObserver = new ResizeObserver(function () {
+        publishHeader(Math.ceil(header.getBoundingClientRect().height));
+        queue(2);
+      });
+      headerObserver.observe(header);
+    }
+    if (window.MutationObserver) {
+      handoffObserver = new MutationObserver(function () {
+        var state = root.getAttribute('data-plectis-docs-runtime');
+        if (state === 'ready' || state === 'failed') finish();
+      });
+      handoffObserver.observe(root, { attributes: true, attributeFilter: ['data-plectis-docs-runtime'] });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { queue(3); });
+    window.addEventListener('load', afterLoad, { once: true });
+    var timer = window.setTimeout(endSettling, 2400);
+    queue(3);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
+})();

@@ -106,7 +106,7 @@
 
   /* docs.js normally snapshots on pagehide. If an ordinary link is activated
      before it has loaded, seed the same bounded stack without delaying native
-     navigation. Once ready, docs.js replaces this same-path row rather than
+     navigation. Once ready, docs.js replaces this exact-URL row rather than
      adding a duplicate. */
   function primeNavigationTrail(anchor) {
     if (!anchor || state === 'ready') return;
@@ -114,7 +114,7 @@
     var target;
     try { target = new URL(raw, window.location.href); } catch (e) { return; }
     if (target.origin !== window.location.origin ||
-        target.pathname === window.location.pathname) return;
+        (target.pathname === window.location.pathname && target.search === window.location.search)) return;
 
     try {
       var key = 'mc:viewstate:stack';
@@ -138,6 +138,7 @@
       var details = doc.querySelectorAll('details[open][id]');
       for (var i = 0; i < details.length; i += 1) open.push(details[i].id);
       var row = {
+        viewStateVersion: 2,
         url: window.location.pathname + window.location.search + window.location.hash,
         path: window.location.pathname,
         title: heading ? cleanText(heading.textContent) : cleanText(doc.title) || 'previous view',
@@ -150,7 +151,7 @@
       var search = doc.querySelector('canvas.universe-canvas--page') &&
         doc.querySelector('input#universe-find[type="search"][data-universe-search]');
       if (search) row.universeQuery = search.value;
-      if (stack.length && stack[stack.length - 1] && stack[stack.length - 1].path === row.path) {
+      if (stack.length && stack[stack.length - 1] && stack[stack.length - 1].url === row.url) {
         stack[stack.length - 1] = row;
       } else {
         stack.push(row);
