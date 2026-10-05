@@ -142,24 +142,30 @@
 
   /* Geometry, in CSS pixels. u runs 0..1 across the width, H is the band.
      The plait swells towards the middle of the page and thins at the edges,
-     where the mask fades it out, and its axis undulates gently. */
+     where the mask fades it out, and its axis undulates gently.
+     5 October 2026: a quieter rhythm. The weave divides the introduction from
+     the maps, so it reads as two coherent cables first and as thread second:
+     about six crossings across a laptop window instead of nine, fewer and
+     slower-turning threads in each rope, and a shallower drift of the axis.
+     The band is a little shorter, so the cables take a larger share of it;
+     a longer period with a flatter rope read as ribbon, not cable. */
   function geometry(W, H) {
     var narrow = W < 760;
     var swell = function (u) { return Math.sin(Math.PI * Math.max(0, Math.min(1, u))); };
     return {
       W: W,
       H: H,
-      period: Math.max(240, Math.min(400, W * 0.235)),
-      ropeTwist: Math.max(54, Math.min(84, W * 0.05)),
-      strands: narrow ? 10 : 13,
+      period: Math.max(300, Math.min(540, W * 0.3)),
+      ropeTwist: Math.max(58, Math.min(92, W * 0.056)),
+      strands: narrow ? 9 : 11,
       centre: function (u) {
-        return H * (0.5 + 0.075 * Math.sin(Math.PI * 2 * (0.82 * u + 0.08)));
+        return H * (0.5 + 0.055 * Math.sin(Math.PI * 2 * (0.7 * u + 0.08)));
       },
       sep: function (u) {
-        return H * (0.13 + 0.07 * swell(u));
+        return H * (0.145 + 0.075 * swell(u));
       },
       rope: function (u) {
-        return H * (0.05 + 0.03 * swell(u));
+        return H * (0.058 + 0.032 * swell(u));
       }
     };
   }
@@ -294,7 +300,7 @@
      thread rather than as a diagram. */
   function drawFibres(c, g, pal, scale) {
     var rand = rng(2604);
-    var count = g.W < 760 ? 4 : 8;
+    var count = g.W < 760 ? 3 : 5;
     for (var i = 0; i < count; i += 1) {
       var k = i % 2;
       var xStart = g.W * (0.08 + 0.84 * rand());

@@ -6,12 +6,17 @@
    also in the HTML index on the universe page, so nothing is canvas-only.
    All colour comes from CSS custom properties, re-read on theme change.
 
-   Interaction model (universe page): hover previews an object in the side
-   inspector and lights its connections; click pins the full card there and
-   dims everything the object does not touch; Esc or an empty click unpins.
-   A pinned object is addressable as #o=<id>, so views can be shared. The
-   landing teaser keeps a single caption line instead — no inspector, no
-   cursor-chasing tooltip anywhere.
+   Interaction model (universe page, a full-window explorer since 5 October
+   2026): the panel on the left reads the map in three levels, the eight
+   problems at rest, a chosen problem (its question, short paper and
+   results), a chosen result (its statement, its checks, its ways out).
+   Hover previews an object in a layer over the panel, leaving the panel
+   itself untouched, and lights its connections; click pins the card and
+   dims everything the object does not touch; Esc or an empty click goes
+   back a level. A pinned object is addressable as #o=<id>, so views can be
+   shared. The landing teaser keeps a single caption line instead (its
+   column, universe-companion.js, reads beside it); no cursor-chasing
+   tooltip anywhere.
 
    Two things the picture encodes beyond position. A checked claim's glyph
    is its status from the record: a filled disc is proved, formalised or a
@@ -284,16 +289,26 @@
        13px. The map's own page, a large field the reader zooms, keeps its
        smaller set. One table, so every label, plate and room the label
        manager reserves is measured in the face it is drawn in. */
-    var TYPE = pageMode ? {
+    /* The full-window explorer (5 October 2026) draws its ring as large as
+       the window allows, about the teaser's size or more, and is read from
+       the same distance, so its words are set between the two: band
+       titles 14px, a name plate 13.5px, the results' numbers 11.5px. */
+    var inExplorer = pageMode && !!(canvas.closest && canvas.closest('[data-explorer]'));
+    var TYPE = inExplorer ? {
+      title: 14, count: 12.5, rowGap: 15, arcPad: 8,
+      anchor: 14.5, small: 13, sub: 12, subGap: 14, below: 16.5,
+      plate: 13.5, lead: 16.5, ascent: 18, descent: 8, oneLine: 340, twoAt: 180, keepOne: 250,
+      callout: 11.5, number: 11
+    } : pageMode ? {
       title: 12, count: 11, rowGap: 13, arcPad: 7,
       anchor: 13, small: 12, sub: 11, subGap: 13, below: 15,
       plate: 12, lead: 14.5, ascent: 16, descent: 7, oneLine: 300, twoAt: 160, keepOne: 220,
-      callout: 10
+      callout: 10, number: 9
     } : {
       title: 16, count: 14, rowGap: 17, arcPad: 9,
       anchor: 15, small: 14, sub: 13, subGap: 15, below: 17,
       plate: 15, lead: 18, ascent: 20, descent: 9, oneLine: 375, twoAt: 200, keepOne: 275,
-      callout: 13
+      callout: 13, number: 9
     };
     function face(weight, size, italic) {
       return (italic ? 'italic ' : '') + weight + ' ' + size + 'px ' + SERIF;
@@ -311,6 +326,15 @@
     var searchIn = document.querySelector('[data-universe-search]');
     var loadFullBtn = document.querySelector('[data-universe-load-full]');
     var canCopy = !!(navigator.clipboard && window.isSecureContext);
+    /* The map's own page is a full-window explorer (5 October 2026): one
+       reading panel on the left whose body scrolls (data-universe-scroll),
+       a layer over that body for what the pointer is on
+       (data-universe-preview), and the drawing in the rest of the window
+       with its controls and key laid over its corners. The shared frame
+       (assets/explorer.js) asks for a fit, a zoom and a refit by event. */
+    var explorerRoot = pageMode && canvas.closest ? canvas.closest('[data-explorer]') : null;
+    var scrollBox = pageMode ? document.querySelector('[data-universe-scroll]') : null;
+    var previewBox = pageMode ? document.querySelector('[data-universe-preview]') : null;
 
     var nodes = [];
     var edges = [];
@@ -416,7 +440,8 @@
                   edgeHot: cssColor(styles, '--u-edge-hot', 'rgba(60,90,160,0.5)'),
                   halo: cssColor(styles, '--u-halo', 'rgba(226,168,62,0.35)'),
                   rim: cssColor(styles, '--u-rim', 'rgba(0,0,0,0.3)'),
-                  ground: cssColor(styles, '--surface', '#fffdf7'),
+                  // The explorer's drawing lies on the page's own flat ground.
+                  ground: (explorerRoot && cssColor(styles, '--page', '')) || cssColor(styles, '--surface', '#fffdf7'),
                   ink: cssColor(styles, '--ink', '#211318'),
                   faint: cssColor(styles, '--faint', '#786359'),
                   muted: cssColor(styles, '--muted', '#6b5f58') };
@@ -567,6 +592,23 @@
             tx = EDGE_CLEAR + band.left + k * R + ((w - 2 * EDGE_CLEAR) - (2 * k * R + band.left + band.right)) / 2;
             ty = EDGE_CLEAR + band.top + k * R + ((h - EDGE_CLEAR - foot) - (2 * k * R + band.top + band.bottom)) / 2;
           }
+        } else if (outer && explorerRoot) {
+          /* The explorer fits the ring with its words: the scale and the
+             two lines of each band's title beyond it, all the way round,
+             PAGE_EDGE clear of the drawing's edge and clear of the controls
+             and the key over its corners. The ring is a circle, so the
+             corners keep the controls and the key; the circle is as large
+             as the nearest of them and the stage's short side allow. */
+          var reach = pageWordsReach();
+          var cx = w / 2, cy = h / 2;
+          var limit = Math.min(w, h) / 2 - PAGE_EDGE;
+          chromeBoxes().forEach(function (box) { limit = Math.min(limit, distanceToBox(cx, cy, box) - 10); });
+          var kr = (limit - reach) / (outer + 6);
+          if (kr > 0) {
+            k = Math.min(k, kr);
+            tx = cx;
+            ty = cy;
+          }
         } else if (outer && room > 40) {
           k = Math.min(k, room / (outer + 6));
         }
@@ -578,6 +620,38 @@
       view.k = k;
       view.tx = tx !== null ? tx : w / 2 - k * (minX + maxX) / 2;
       view.ty = ty !== null ? ty : h / 2 - k * (minY + maxY) / 2;
+    }
+
+    // How far the explorer's words reach past the ring's outer plate: the
+    // scale's ticks, then the band titles' two lines (bandLabelLayout sets
+    // the first at the tick ends plus seven pixels), with room for their
+    // letters' height and the halo round them.
+    var PAGE_EDGE = 16;
+    function pageWordsReach() {
+      return SCALE_GAP + SCALE_MARK + 7 + TYPE.rowGap + TYPE.title * 0.6 + 6;
+    }
+    /* The controls and the key laid over the explorer's drawing, as boxes in
+       the canvas's own pixels (each line of the key on its own, since the
+       key's box spans the stage while its words keep to the corner). The
+       fit keeps the ring clear of them and a name plate steps round them.
+       Measured once per size of the stage. */
+    var chromeCache = null;
+    function chromeBoxes() {
+      if (!explorerRoot || typeof canvas.getBoundingClientRect !== 'function' || !stage.querySelectorAll) return [];
+      if (chromeCache) return chromeCache;
+      var base = canvas.getBoundingClientRect(), out = [];
+      var els = Array.prototype.slice.call(stage.querySelectorAll('.explorer__tools, .explorer__legend > *'));
+      els.forEach(function (el) {
+        var r = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+        if (!r || !(r.width > 0) || !(r.height > 0)) return;
+        out.push({ x0: r.left - base.left, x1: r.right - base.left, y0: r.top - base.top, y1: r.bottom - base.top });
+      });
+      chromeCache = out;
+      return out;
+    }
+    function distanceToBox(x, y, b) {
+      var dx = Math.max(b.x0 - x, 0, x - b.x1), dy = Math.max(b.y0 - y, 0, y - b.y1);
+      return Math.sqrt(dx * dx + dy * dy);
     }
 
     // How far below the canvas the card's caption row (the key and the
@@ -1483,15 +1557,25 @@
     function plateEase(ms) {
       return 1 - Math.pow(1 - Math.min(1, Math.max(0, ms) / PLATE_IN), 2);
     }
-    function frameOf(indices, maxK) {
+    function frameOf(indices, maxK, sector) {
       var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      indices.forEach(function (i) {
-        var n = nodes[i];
-        if (n.x < minX) minX = n.x;
-        if (n.x > maxX) maxX = n.x;
-        if (n.y < minY) minY = n.y;
-        if (n.y > maxY) maxY = n.y;
-      });
+      var take = function (x, y) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      };
+      indices.forEach(function (i) { take(nodes[i].x, nodes[i].y); });
+      /* In the explorer a framed sector keeps its band's title in view: the
+         title's two lines stand beyond the band, by their own reach in
+         pixels, so the frame takes in the place they stand at the closest
+         scale it allows (at a wider one they stand nearer, in the pad). */
+      var band = inExplorer && sector ? bands.filter(function (b) { return b.sector === sector; })[0] : null;
+      var outer = band ? bandRadii(band)[1] : 0;
+      if (band && isFinite(outer) && outer > 0) {
+        var mid = (band.lo + band.hi) / 2, reachR = outer + 6 + pageWordsReach() / maxK;
+        take(reachR * Math.cos(mid), reachR * Math.sin(mid));
+      }
       var w = canvas.clientWidth, h = canvas.clientHeight, pad = 56;
       var k = Math.min((w - pad * 2) / Math.max(1, maxX - minX), (h - pad * 2) / Math.max(1, maxY - minY));
       k = Math.max(fittedScale, Math.min(maxK, k));
@@ -1522,13 +1606,13 @@
             members.push(j);
           }
         }
-        cameraTo(frameOf(members, 3), false, DRILL_BEAT);
+        cameraTo(frameOf(members, 3, n.sector), false, DRILL_BEAT);
         return;
       }
       // A paper frames its own results, the run its card walks.
       if (n.kind === 'paper') {
         var run = (paperSequence[String(n.id).replace(/^paper:/, '')] || []).filter(function (j) { return visible(nodes[j]); });
-        if (run.length) { cameraTo(frameOf(run.concat([i]), 3), false, DRILL_BEAT); return; }
+        if (run.length) { cameraTo(frameOf(run.concat([i]), 3, nodes[run[0]].sector), false, DRILL_BEAT); return; }
       }
       // A result is shown close enough to read its neighbours' numbers.
       var k = n.kind === 'paper_statement' ? Math.max(view.k, 3.2) : (view.k < 1.1 ? 1.6 : view.k);
@@ -2034,7 +2118,7 @@
        reads as the paper's own sequence. */
     function drawStatementNumbers(focus, near, searching, w, h) {
       if (view.k < 3 || lensOff.paper_statement) return;
-      ctx.font = '600 9px ' + SERIF;
+      ctx.font = face(600, TYPE.number);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
       ctx.lineWidth = 3;
@@ -2049,7 +2133,7 @@
         if (x < -10 || y < -10 || x > w + 10 || y > h + 10) continue;
         var ly = y - n.r * rs - 4;
         var half = ctx.measureText(n.num).width / 2 + 1;
-        var box = { x0: x - half, x1: x + half, y0: ly - 8, y1: ly + 2, owner: i };
+        var box = { x0: x - half, x1: x + half, y0: ly - TYPE.number + 1, y1: ly + 2, owner: i };
         if (labelCollides(box)) continue;
         labelBoxes.push(box);
         ctx.strokeStyle = palette.ground;
@@ -2372,6 +2456,19 @@
           var toR = bandOuter ? bandOuter + 58 : cr * 2.35;
           var x = Math.max(left, Math.min(right, dx * toR * view.k + view.tx));
           var y = Math.max(top, Math.min(bottom, dy * toR * view.k + view.ty + 8));
+          if (pageMode) {
+            // On the page the words stand wholly outside the ring and its
+            // scale: a line set level beside a ring at an angle reached
+            // back over the results with its near end (it did, at 1280 by
+            // 690). It moves out along its own direction until its box
+            // clears the scale's ticks.
+            var clearR = (bandOuter + 6) * view.k + SCALE_GAP + SCALE_MARK + 6;
+            for (var out_t = Math.max(clearR, toR * view.k), it = 0; it < 80; it++, out_t += 4) {
+              x = Math.max(left, Math.min(right, dx * out_t + view.tx));
+              y = Math.max(top, Math.min(bottom, dy * out_t + view.ty + 8));
+              if (distanceToBox(view.tx, view.ty, { x0: x - half, x1: x + half, y0: y - rise, y1: y + rise }) >= clearR) break;
+            }
+          }
           // The band titles are already placed. Pushed off its own edge by
           // the zoom controls, the name steps up or down until it clears them.
           var step = 2 * rise, shifts = [0, step, -step, 2 * step, -2 * step, 3 * step, -3 * step];
@@ -2554,6 +2651,11 @@
           out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + TYPE.subGap + 5, weight: 2, whole: true });
         }
       }
+      // The explorer's controls and key, over the drawing's corners: a
+      // plate never lies under them.
+      chromeBoxes().forEach(function (b) {
+        out.push({ x0: b.x0 - 6, x1: b.x1 + 6, y0: b.y0 - 6, y1: b.y1 + 6, weight: 8 });
+      });
       if (!pageMode) {
         out.push({ x0: 0, x1: 30, y0: 0, y1: 30, weight: 4 });
         out.push({ x0: w - 30, x1: w, y0: 0, y1: 30, weight: 4 });
@@ -2833,7 +2935,14 @@
         motionFrame = window.requestAnimationFrame(advanceMotion);
       }
     }
+    // The explorer knows whether the reader has moved off the fitted view:
+    // its key steps aside then, since a closer view brings marks under it.
+    var exploredShown = false;
     function draw() {
+      if (explorerRoot && exploredShown !== !viewIsFitted) {
+        exploredShown = !viewIsFitted;
+        explorerRoot.classList.toggle('is-explored', exploredShown);
+      }
       // Out of view, or in a hidden tab, a paint waits and is made once the
       // canvas is back.
       if (!onScreen || document.hidden) { paintPending = true; return; }
@@ -2891,6 +3000,8 @@
       plateBoxes = [];
       platePlaced = {};
       gatherLabelObstacles(rs, w, h);
+      // No label is set under the explorer's controls or its key.
+      chromeBoxes().forEach(function (b) { labelBoxes.push({ x0: b.x0 - 4, x1: b.x1 + 4, y0: b.y0 - 4, y1: b.y1 + 4 }); });
       var titleLayout = bandLabelLayout(focus, w, h);
       var reticles = reticleTargets(rs, w, h);
       plateKeepOut = [];
@@ -3672,16 +3783,20 @@
       var keys = Object.keys(counts).sort(function (a, b) { return statusOrder(a) - statusOrder(b); });
       var rows = '';
       for (var j = 0; j < keys.length; j++) {
-        rows += '<li>' + glyphHtml(STATUS_TIER[keys[j]]) + '<span>' + escapeHtml(keys[j]) +
+        rows += '<li>' + glyphHtml(STATUS_TIER[keys[j]]) + '<span>' + escapeHtml(capitalFirst(keys[j])) +
           '</span><b>' + counts[keys[j]] + '</b></li>';
       }
       return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
     }
 
-    /* The rail at rest reads the map for a newcomer: what a dot is, the
-       evidence across all results in one bar, and the eight problems as rows
-       a keyboard can reach, each with its own gauge. The object inventory
-       folds away below. */
+    /* The panel reads the map in three levels (5 October 2026). At rest it
+       orients: the counts said in words, the evidence across every result
+       in one bar, and the eight problems as landmarks, each a row the
+       keyboard reaches, with its own count and gauge. A problem chosen reads
+       its question, its short paper (the précis whole, never cut) and its
+       results in the order its papers state them. A result chosen reads its
+       statement in the paper's words, how far it is checked, and the ways
+       out; the problem shrinks to one line above it. Nothing folds. */
     function gaugeHtml(counts, label) {
       var total = 0, key;
       for (key in counts) total += counts[key];
@@ -3696,84 +3811,106 @@
       return '<span class="universe-gauge" role="img" aria-label="' + escapeHtml((label ? label + ': ' : '') + words.join(', ')) + '">' + segs + '</span>';
     }
 
+    // The map's own count of what it holds, said as a sentence.
+    function summaryHtml() {
+      var s = statementMeta && statementMeta.summary;
+      if (!s || !s.statements) return '';
+      var papers = {}, paperCount = 0, problems = 0;
+      nodes.forEach(function (n) {
+        if (n.kind === 'problem') problems++;
+        if (n.kind === 'paper_statement' && n.paperId && !papers[n.paperId]) { papers[n.paperId] = true; paperCount++; }
+      });
+      return '<p class="universe-summary">' + fmtCount(s.statements) + ' results from ' + countWords(paperCount) +
+        ' papers on ' + countWords(problems) + ' problems. Lean states ' + fmtCount(s.lean_exact) +
+        ' of them exactly, in ' + fmtCount(s.lean_declarations) + ' declarations, and Comparator has replayed ' +
+        fmtCount((s.comparator || {}).compared || 0) + '.</p>';
+    }
+    var COUNT_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+      'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+    function countWords(n) { return n >= 0 && n < COUNT_WORDS.length ? COUNT_WORDS[n] : fmtCount(n); }
+
+    // A problem's results by evidence, among those the filters show.
+    function sectorTally(pid) {
+      var t = { total: 0, replayed: 0, lean: 0, modulo: 0, none: 0 };
+      nodes.forEach(function (n) {
+        if (n.kind !== 'paper_statement' || n.sector !== pid || !visible(n)) return;
+        t.total++;
+        if (t[n.tier] !== undefined) t[n.tier]++;
+      });
+      return t;
+    }
+    // "174 of its 186 results are replayed by Comparator; 6 more are exact
+    // in Lean with the replay queued; …"
+    function tallySentence(t) {
+      if (!t.total) return 'None of its results is shown with these filters.';
+      var parts = [(t.replayed === t.total ? (t.total === 1 ? 'Its one result is' : 'All ' + t.total + ' of its results are') :
+        t.replayed + ' of its ' + t.total + ' results ' + (t.replayed === 1 ? 'is' : 'are')) + ' replayed by Comparator'];
+      if (t.lean) parts.push(t.lean + ' more ' + (t.lean === 1 ? 'is' : 'are') + ' exact in Lean with the replay queued');
+      if (t.modulo) parts.push(t.modulo + ' ' + (t.modulo === 1 ? 'is' : 'are') + ' stated in Lean under named inputs');
+      if (t.none) parts.push(t.none + ' ' + (t.none === 1 ? 'has' : 'have') + ' no Lean statement yet');
+      return parts.join('; ') + '.';
+    }
+
     function overviewHtml() {
       var counts = {};
+      var shown = 0;
       for (var i = 0; i < nodes.length; i++) {
         if (!visible(nodes[i])) continue;
         counts[nodes[i].kind] = (counts[nodes[i].kind] || 0) + 1;
+        shown++;
       }
-      var rows = '';
-      var shown = 0;
-      for (var j = 0; j < KIND_ORDER.length; j++) {
-        var kind = KIND_ORDER[j];
-        if (!counts[kind]) continue;
-        shown += counts[kind];
-        rows += '<li>' + dotHtml(kind) + '<span>' + escapeHtml(KIND_PLURAL[kind] || kind) +
-          '</span><b>' + counts[kind] + '</b></li>';
-      }
-      var status = statusCensusHtml(null);
+      var parts = [summaryHtml()];
       var evidence = evidenceCensusHtml(null);
-      var parts = [];
       if (evidence.total) {
         var totals = {};
         for (var q = 0; q < nodes.length; q++) {
           if (nodes[q].kind === 'paper_statement' && visible(nodes[q])) totals[nodes[q].tier] = (totals[nodes[q].tier] || 0) + 1;
         }
-        // The placard above already gives the totals; the rail names how to
-        // read the field.
-        parts.push('<h2 class="universe-inspector__title">Reading the map</h2>');
-        var sides = {short: 0, long: 0};
-        nodes.forEach(function (n) {
-          if (n.kind === 'paper_statement' && visible(n) && sides[n.side] != null) sides[n.side]++;
-        });
-        parts.push('<div class="universe-paper-coverage" aria-label="Visible paper statements">' +
-          '<span><b>' + sides.short + '</b>in short papers</span><span><b>' + sides.long + '</b>in long papers</span></div>');
-        var problemCount = 0;
-        for (var pc = 0; pc < nodes.length; pc++) if (nodes[pc].kind === 'problem' && visible(nodes[pc])) problemCount++;
-        parts.push('<p class="universe-inspector__body">From the centre out, one ring for each layer:</p>');
-        parts.push('<ol class="universe-rings">' +
-          '<li>' + dotHtml('universe') + '<span>the Lean universe, with Comparator and Palomar</span></li>' +
-          '<li>' + dotHtml('problem') + '<span>' + problemCount + ' problems, each between its two papers</span></li>' +
-          '<li>' + dotHtml('public_claim') + '<span>the claims in each problem’s record</span></li>' +
-          '<li>' + dotHtml('paper_statement') + '<span>paper statements: short paper first, then long paper</span></li>' +
-          '</ol>');
-        parts.push('<p class="universe-inspector__body">Comparator’s colour marks a recorded replay of the Lean declarations. A hollow diamond marks an ordinary proof recorded in the paper. ' +
-          'Round the outside, a scale has one evenly spaced tick for each result, each paper’s in the order the paper ' +
-          'states them, so the length of a run is its paper’s count. ' +
-          'Select a problem to frame its sector, then a paper to frame its results, then a result to read its Lean and its replay; ' +
-          '<kbd>Esc</kbd> or a click on empty ground goes back the same way.</p>');
-        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'Visible paper statements') + '</div>');
-        parts.push(evidence.html);
+        parts.push('<div class="universe-overview__gauge">' + gaugeHtml(totals, 'Results shown') + '</div>');
       } else {
-        parts.push('<p class="universe-inspector__kind">The universe</p>');
-        parts.push('<h2 class="universe-inspector__title">' + shown + ' objects in view</h2>');
-        parts.push('<p class="universe-inspector__body">No paper statements match these filters. Change the paper or verification selection to see more.</p>');
+        parts.push('<p class="universe-inspector__body">No paper results match these filters; ' + fmtCount(shown) +
+          ' other objects are shown. Change the paper or verification selection below to see more.</p>');
       }
       if (bands.length) {
+        var problemCount = 0;
         var problemRows = bands.map(function (b) {
           var at = problemIndex[b.sector];
           if (at === undefined) return '';
-          var total = 0, visibleEvidence = {};
-          nodes.forEach(function (n) {
-            if (n.kind !== 'paper_statement' || n.sector !== b.sector || !visible(n)) return;
-            total++;
-            visibleEvidence[n.tier] = (visibleEvidence[n.tier] || 0) + 1;
-          });
+          problemCount++;
+          var t = sectorTally(b.sector), visibleEvidence = {};
+          EVIDENCE_ORDER.forEach(function (key) { if (t[key]) visibleEvidence[key] = t[key]; });
+          var p = nodes[at];
           return '<li><button type="button" class="universe-problem" data-universe-go="' + at + '">' +
-            '<span class="universe-problem__name">' + escapeHtml(b.title || nodes[at].shortLabel) + '</span>' +
-            '<span class="universe-problem__count">' + (visibleEvidence.replayed || 0) + ' of ' + total + ' replayed</span>' +
-            gaugeHtml(visibleEvidence, b.title) + '</button></li>';
+            '<span class="universe-problem__num">' + escapeHtml(p.shortLabel) + '</span>' +
+            '<span class="universe-problem__name">' + escapeHtml(p.label) + '</span>' +
+            '<span class="universe-problem__count">' + (t.total ? t.replayed + ' of ' + t.total + (t.total === 1 ? ' result' : ' results') + ' replayed' : 'No results shown') + '</span>' +
+            gaugeHtml(visibleEvidence, p.shortLabel) + '</button></li>';
         }).join('');
-        parts.push('<h3 class="universe-inspector__sub">Problems in this view</h3><ul class="universe-problems">' + problemRows + '</ul>');
+        parts.push('<h2 class="universe-section__title">The ' + countWords(problemCount) + ' problems</h2>' +
+          '<ol class="universe-problems">' + problemRows + '</ol>' +
+          '<p class="universe-inspector__hint">Choose a problem, here or on the map, to read its question, its short paper and its results. ' +
+          'Drag to move the map and scroll to zoom; press <kbd>/</kbd> to find a theorem, and <kbd>Esc</kbd> to go back.</p>');
       }
+      if (evidence.total) {
+        parts.push('<h2 class="universe-section__title">Reading the map</h2>');
+        parts.push('<ol class="universe-rings">' +
+          '<li>' + dotHtml('universe') + '<span>At the centre, the Lean universe, with Comparator and Palomar.</span></li>' +
+          '<li>' + dotHtml('problem') + '<span>On one orbit, the problems, each between its two papers.</span></li>' +
+          '<li>' + dotHtml('public_claim') + '<span>Just outside, the claims in each problem’s record.</span></li>' +
+          '<li>' + dotHtml('paper_statement') + '<span>Outermost, every result its papers state, short paper first, in the order each paper states them.</span></li>' +
+          '</ol>');
+        parts.push('<p class="universe-inspector__body">A result’s mark says how far it is checked: filled in Comparator’s colour when Comparator has replayed it, ' +
+          'with a pip when Lean states it exactly and the replay is queued, ringed when Lean states it under named inputs, and faint when no Lean statement is recorded. ' +
+          'Round the outside, a scale has one evenly spaced tick for each result, so the length of a run is its paper’s count.</p>');
+        captions.forEach(function (c) {
+          parts.push('<p class="universe-inspector__note">The fan inside the ring is ' + escapeHtml(c.sub || '') + ', ' + escapeHtml(c.text) + '.</p>');
+        });
+        parts.push('<h3 class="universe-inspector__sub">Paper results by evidence</h3>' + evidence.html);
+      }
+      var status = statusCensusHtml(null);
       if (status.total) {
-        parts.push('<details class="universe-connections"><summary>Headline claims by status <b>' + status.total + '</b></summary>' + status.html + '</details>');
+        parts.push('<h3 class="universe-inspector__sub">Claims in the records, by status</h3>' + status.html);
       }
-      parts.push('<details class="universe-connections"><summary>Everything in view <b>' + shown + '</b></summary>' +
-        '<ul class="universe-inspector__census">' + rows + '</ul>' +
-        captions.map(function (c) {
-          return '<p class="universe-inspector__note">The fan inside the ring is ' + escapeHtml(c.sub || '') + ', ' + escapeHtml(c.text) + '.</p>';
-        }).join('') + '</details>');
       var s = statementMeta && statementMeta.summary;
       if (s) {
         parts.push('<p class="universe-inspector__note">' + fmtCount(s.lean_declarations) +
@@ -3781,7 +3918,121 @@
           (statementMeta.ledger ? '<a href="' + escapeHtml(statementMeta.ledger) + '" data-link-kind="exogenous" rel="external noopener" target="_blank">coverage ledger</a>' : 'coverage ledger') +
           '.</p>');
       }
-      parts.push('<p class="universe-inspector__hint">Press <kbd>/</kbd> to find a theorem or a Lean name; with a result selected, <kbd>←</kbd> and <kbd>→</kbd> walk its paper.</p>');
+      return parts.join('');
+    }
+
+    /* ---- A problem's card ------------------------------------------- */
+    /* The problem's question and its short paper come from the landing's
+       companion data (universe-companion.json: the question and précis set
+       with their mathematics), fetched once, the first time a problem is
+       read; until it arrives the card reads the map's own plain question. */
+    var problemInfo = null, problemInfoState = 'idle';
+    function loadProblemInfo() {
+      if (problemInfoState !== 'idle' || !companionSpec || !companionSpec.data || typeof fetch !== 'function') return;
+      problemInfoState = 'loading';
+      fetch(route(companionSpec.data)).then(function (r) {
+        if (r.ok === false) throw new Error('Problem descriptions unavailable');
+        return r.json();
+      }).then(function (payload) {
+        if (!payload || !payload.problems) throw new Error('Problem descriptions missing');
+        problemInfo = payload.problems;
+        problemInfoState = 'ready';
+        refreshInspector();
+        if (previewAt >= 0) refreshPreview(true);
+      }).catch(function () { problemInfoState = 'failed'; });
+    }
+    function problemInfoOf(n) {
+      if (!problemInfo) { loadProblemInfo(); return null; }
+      return n.sector ? problemInfo[n.sector] || null : null;
+    }
+    function itemRowHtml(at) {
+      var m = nodes[at], lab = splitLabel(m.label);
+      var mark = m.proof_status === 'ordinary_proof' && m.tier === 'none' ? 'ordinary_proof' : m.tier;
+      return '<li><button type="button" class="universe-item" data-universe-go="' + at + '"' +
+        ' aria-label="' + escapeHtml(m.label + ', ' + (EVIDENCE_TEXT[m.tier] || 'paper result')) + '">' +
+        glyphHtml(mark) + '<span class="universe-item__num">' + escapeHtml(lab.number) + '</span>' +
+        (lab.name ? '<span class="universe-item__name">' + escapeHtml(capitalFirst(lab.name)) + '</span>' : '') +
+        '</button></li>';
+    }
+    function problemPapers(n) {
+      var pids = Object.keys(paperSequence).filter(function (pid) {
+        var first = nodes[paperSequence[pid][0]];
+        return !!first && first.sector === n.sector;
+      });
+      pids.sort(function (p, q) {
+        return (SIDE_ORDER[nodes[paperSequence[p][0]].side] || 0) - (SIDE_ORDER[nodes[paperSequence[q][0]].side] || 0) ||
+          (p < q ? -1 : p > q ? 1 : 0);
+      });
+      return pids;
+    }
+    function problemCardHtml(i, pinned) {
+      var n = nodes[i];
+      var info = problemInfoOf(n);
+      var head = '<p class="universe-inspector__kind universe-kicker">Erdős problem ' + escapeHtml(n.shortLabel) + '</p>';
+      if (pinned) head = cardHeadHtml(head);
+      var parts = [head, '<h2 class="universe-inspector__title universe-inspector__title--problem">' + escapeHtml(n.label) + '</h2>'];
+      if (n.status && n.status !== 'open') {
+        parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--status">' + escapeHtml(capitalFirst(n.status)) + '</span></p>');
+      }
+      // Until the set question arrives (a moment, once) the line waits
+      // empty rather than flash the plain text's markup.
+      var plainQuestion = !companionSpec || problemInfoState === 'failed';
+      var question = info && info.question_html ? info.question_html : plainQuestion ? escapeHtml(n.question || '') : '';
+      if (question) parts.push('<p class="universe-question">' + question + '</p>');
+      if (info && info.note_html) parts.push('<p class="universe-inspector__note">' + info.note_html + '</p>');
+      var t = sectorTally(n.sector), counts = {};
+      EVIDENCE_ORDER.forEach(function (key) { if (t[key]) counts[key] = t[key]; });
+      parts.push('<p class="universe-tally">' + escapeHtml(tallySentence(t)) + '</p>');
+      if (t.total) parts.push('<div class="universe-overview__gauge">' + gaugeHtml(counts, n.shortLabel) + '</div>');
+      var papers = info && info.papers || [];
+      var short = papers.filter(function (p) { return p.label === 'Short paper'; })[0] || papers[0];
+      var long = papers.filter(function (p) { return p !== short && p.page; })[0];
+      if (short) {
+        var go = [];
+        if (short.page) {
+          // universe-open--primary is the hook the site's navigation
+          // warming (docs.js) reads; a chosen problem's next read is its
+          // short paper.
+          go.push('<a class="universe-go universe-go--primary' + (pinned ? ' universe-open--primary' : '') + '" href="' +
+            escapeHtml(route(short.page)) + '">Read the short paper</a>');
+        }
+        if (short.pdf) {
+          go.push(extLink(short.pdf, 'PDF' + (short.pages ? ', ' + short.pages + '&nbsp;pages' : ''), 'universe-go'));
+        }
+        if (long && long.page) go.push('<a class="universe-go" href="' + escapeHtml(route(long.page)) + '">The long record</a>');
+        if (n.page) go.push('<a class="universe-go" href="' + escapeHtml(route(n.page)) + '">The problem’s page</a>');
+        parts.push('<section class="universe-paper" aria-label="The short paper">' +
+          '<p class="universe-label">The short paper</p>' +
+          '<p class="universe-paper__title">' + (short.page ? '<a href="' + escapeHtml(route(short.page)) + '">' + short.title_html + '</a>' : short.title_html) + '</p>' +
+          (short.precis_html ? '<p class="universe-precis">' + short.precis_html + '</p>' : '') +
+          (go.length ? '<p class="universe-quote__go">' + go.join('') + '</p>' : '') + '</section>');
+      } else if (n.page) {
+        parts.push('<p class="universe-quote__go"><a class="universe-go universe-go--primary" href="' + escapeHtml(route(n.page)) + '">The problem’s page</a></p>');
+      }
+      if (!pinned) {
+        parts.push('<p class="universe-inspector__hint">Click to choose it: its sector is framed and its results are listed here.</p>');
+        return parts.join('');
+      }
+      // Its results, paper by paper, in the order each paper states them.
+      var lists = problemPapers(n).map(function (pid) {
+        var run = paperSequence[pid].filter(function (at) { return visible(nodes[at]); });
+        if (!run.length) return '';
+        var first = nodes[run[0]];
+        var paper = papers.filter(function (p) { return p.id === pid; })[0];
+        return '<p class="universe-list__from">' + capitalFirst(first.side === 'long' ? 'the long record' : roleName(first)) +
+          (paper ? ', <cite>' + paper.title_html + '</cite>' : first.paperTitle ? ', <cite>' + escapeHtml(first.paperTitle) + '</cite>' : '') +
+          ' <span class="universe-list__count">' + run.length + (run.length === 1 ? ' result' : ' results') + '</span></p>' +
+          '<ol class="universe-list">' + run.map(itemRowHtml).join('') + '</ol>';
+      }).join('');
+      if (lists) {
+        parts.push('<h3 class="universe-inspector__sub">Its results</h3>' +
+          '<p class="universe-inspector__hint universe-inspector__hint--lead">Point at one to find it on the map; choose it to read it.</p>' + lists);
+      }
+      parts.push(sectorSummaryHtml(i, true));
+      if (canCopy) {
+        parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy a link to this</button>');
+      }
+      parts.push(stepBackHtml());
       return parts.join('');
     }
 
@@ -3795,16 +4046,17 @@
         return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
       });
       // Said in words: "Replayed by Comparator", "Stated in The Binary
-      // Totient Series". A short group reads as one line; a long one folds
-      // under its count.
+      // Totient Series". Every group lists all it names, each name whole;
+      // a long group says its count under its phrase. Nothing folds.
       var groups = {}, order = [];
       for (var j = 0; j < rows.length; j++) {
         var row = rows[j];
         var m = nodes[row.to];
         var key = row.rel + ':' + row.out + ':' + m.kind;
         if (!groups[key]) { groups[key] = { kind: m.kind, phrase: relPhrase(row.rel, row.out), rel: row.rel, out: row.out, items: [] }; order.push(key); }
-        groups[key].items.push({ to: row.to, html: '<button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
-          dotHtml(m.kind) + '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 68)) + '</span></button>' });
+        groups[key].items.push({ to: row.to, html: m.kind === 'paper_statement' ? itemRowHtml(row.to) :
+          '<li><button type="button" class="universe-goto" data-universe-go="' + row.to + '">' +
+          dotHtml(m.kind) + '<span class="universe-goto__label">' + escapeHtml(m.label) + '</span></button></li>' });
       }
       var html = '';
       for (var g = 0; g < order.length; g++) {
@@ -3822,30 +4074,27 @@
         }
         var items = group.items.map(function (item) { return item.html; }).join('');
         var many = (KIND_PLURAL[group.kind] || group.kind).toLowerCase();
-        html += group.items.length <= 3
-          ? '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) + '</span>' +
-            items + '</li>'
-          : '<li class="universe-link"><details class="universe-link__fold"><summary><span class="universe-link__how">' +
-            escapeHtml(group.phrase) + '</span> ' + group.items.length + ' ' + escapeHtml(many) + '</summary>' +
-            items + '</details></li>';
+        html += '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) +
+          (group.items.length > 3 ? ' <span class="universe-link__count">' + group.items.length + ' ' + escapeHtml(many) + '</span>' : '') +
+          '</span><ul class="universe-list' + (group.kind === 'paper_statement' ? '' : ' universe-list--goto') + '">' + items + '</ul></li>';
       }
       return { html: html ? '<ul class="universe-links">' + html + '</ul>' : '', total: rows.length };
     }
 
     /* What sits with a problem, by status, with the shared fan named. */
-    function sectorSummaryHtml(i) {
+    function sectorSummaryHtml(i, withoutResults) {
       var n = nodes[i];
       if (n.kind !== 'problem' || !n.sector) return '';
       var pid = n.sector;
       var own = statusCensusHtml(function (m) { return m.sector === pid; });
       var results = evidenceCensusHtml(function (m) { return m.sector === pid; });
       var parts = [];
-      if (results.total) {
+      if (results.total && !withoutResults) {
         parts.push('<h3 class="universe-inspector__sub">Paper results (' + results.total + ')</h3>');
         parts.push(results.html);
       }
       if (own.total) {
-        parts.push('<h3 class="universe-inspector__sub">Claims placed here (' + own.total + ')</h3>');
+        parts.push('<h3 class="universe-inspector__sub">Claims in its record (' + own.total + ')</h3>');
         parts.push(own.html);
       }
       var shared = {};
@@ -3967,7 +4216,7 @@
       for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
         var key = EVIDENCE_ORDER[j];
         if (!counts[key]) continue;
-        rows += '<li>' + glyphHtml(key) + '<span>' + escapeHtml(EVIDENCE_TEXT[key]) +
+        rows += '<li>' + glyphHtml(key) + '<span>' + escapeHtml(capitalFirst(EVIDENCE_TEXT[key])) +
           '</span><b>' + counts[key] + '</b></li>';
       }
       return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
@@ -4140,11 +4389,13 @@
     }
     // The quote arrives after the card: draw it again if it is still on show.
     function refreshResultCard(pid) {
+      // The page sets its words again only where they changed: the card and
+      // the preview each compare what they would show.
+      if (pageMode) { refreshInspector(); if (previewAt >= 0) refreshPreview(true); return; }
       var at = selected >= 0 ? selected : hover;
       if (at < 0 || !nodes[at] || nodes[at].kind !== 'paper_statement') return;
       var shown = [at].concat((nodes[at].twins || []).map(function (t) { return t.at; }));
       if (!shown.some(function (k) { return nodes[k].paperId === pid; })) return;
-      if (pageMode) { refreshInspector(); return; }
       // On the landing the column's card quotes the result once its words
       // arrive: the same pin or hover, sent again with them.
       if (companionApi) {
@@ -4261,10 +4512,14 @@
           (sigs[d.name] ? '<pre class="universe-lean__code"><code>' + escapeHtml(sigs[d.name]) + '</code></pre>' : '') +
           '</li>';
       });
-      return '<details class="universe-lean" data-keep="lean"><summary>Show the Lean' +
-        (decls.length > 1 ? ' (' + decls.length + ' theorems)' : '') + '</summary>' +
-        (ns ? '<p class="universe-lean__where">Each sits in the namespace <code>' + escapeHtml(ns.slice(0, -1)) + '</code>; the names open the source on GitHub.</p>' : '') +
-        '<ol class="universe-lean__list">' + items.join('') + '</ol></details>';
+      // Under its own heading after the checks, never folded: the code is
+      // the evidence an expert reads (5 October 2026).
+      return '<section class="universe-lean" aria-label="Its Lean statements"><h3 class="universe-inspector__sub">' +
+        (decls.length > 1 ? 'Its ' + decls.length + ' Lean theorems' : 'Its Lean theorem') + '</h3>' +
+        (ns ? '<p class="universe-lean__where">' + (decls.length > 1 ? 'Each sits' : 'It sits') + ' in the namespace <code>' +
+          escapeHtml(ns.slice(0, -1)) + '</code>; ' + (decls.length > 1 ? 'a name opens its' : 'the name opens its') + ' line on GitHub.</p>' :
+          '<p class="universe-lean__where">' + (decls.length > 1 ? 'A name opens its' : 'The name opens its') + ' line on GitHub.</p>') +
+        '<ol class="universe-lean__list">' + items.join('') + '</ol></section>';
     }
 
     function checkHtml(state, station, sentence, more) {
@@ -4285,6 +4540,8 @@
       var lean = n.lean_status || 'none';
       var count = decls.length > 1 ? ', in ' + decls.length + ' theorems' : '';
       var leanMore = '';
+      // The named inputs and the Lean code follow the three stations.
+      var after = '';
       if (pinned) {
         if (more && more.relation_note) {
           var typeset = more.html_mathml && more.html_mathml.relation_note;
@@ -4296,13 +4553,15 @@
         }
         var inputs = more && (more.named_inputs || []).length ? more.named_inputs : null;
         if (inputs) {
-          leanMore += '<details class="universe-lean" data-keep="inputs"><summary>Show the named inputs (' + inputs.length + ')</summary>' +
+          after += '<section class="universe-lean" aria-label="The named inputs"><h3 class="universe-inspector__sub">' +
+            (inputs.length > 1 ? 'The ' + inputs.length + ' named inputs' : 'The named input') + '</h3>' +
+            '<p class="universe-lean__where">What Lean takes as given here; ' + (inputs.length > 1 ? 'a name opens its' : 'the name opens its') + ' source on GitHub.</p>' +
             '<ol class="universe-lean__list">' + inputs.map(function (input) {
               return '<li>' + extLink(input.href, '<code>' + nameHtml(input.name) + '</code>', 'universe-lean__name') +
                 (input.text ? '<pre class="universe-lean__code"><code>' + escapeHtml(input.text) + '</code></pre>' : '') + '</li>';
-            }).join('') + '</ol></details>';
+            }).join('') + '</ol></section>';
         }
-        leanMore += leanListHtml(n, more);
+        after += leanListHtml(n, more);
       }
       if (lean === 'exact') {
         rows.push(checkHtml('done', 'Lean', 'It states this result exactly' + count + '.', leanMore));
@@ -4372,7 +4631,7 @@
       if (pinned && !detail && href && !detailFailed[href]) {
         html += '<p class="universe-inspector__hint">Loading the Lean statements and Comparator files…</p>';
       }
-      return html;
+      return html + after;
     }
 
     // The claims and results that rest on the same Lean theorems; a click
@@ -4398,7 +4657,7 @@
         rows.map(function (at) {
           var m = nodes[at];
           return '<li><button type="button" class="universe-goto" data-universe-go="' + at + '">' + dotHtml(m.kind) +
-            '<span class="universe-goto__label">' + escapeHtml(clip(m.label, 90)) + '</span>' +
+            '<span class="universe-goto__label">' + escapeHtml(m.label) + '</span>' +
             '<span class="universe-goto__rel">' + escapeHtml(KIND_LABEL[m.kind] || m.kind) + '</span></button></li>';
         }).join('') + '</ul>';
     }
@@ -4439,15 +4698,17 @@
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) + 'Paper result</p>';
       if (pinned) head = cardHeadHtml(head);
       var problem = n.sector && problemIndex[n.sector] !== undefined;
-      var parts = [head,
+      // Once a result is chosen its problem shrinks to one line above it,
+      // the way back up to the problem's own card.
+      var parts = [problem ? contextLineHtml(n.sector) : '', head,
         '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
         '<p class="universe-result__where">' + (lab.name ? '<b>' + escapeHtml(lab.number) + '</b> in ' : 'In ') +
-          roleName(n) + (problem ? ' on ' + problemChipHtml(n.sector) : '') + '</p>'];
+          roleName(n) + '</p>'];
       parts.push(proofHtml(n));
       if ((n.twins || []).length) parts.push('<p class="universe-inspector__note">Shared Lean support in both papers · compare the statements below.</p>');
       if (n.tier) {
         parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' +
-          glyphHtml(n.tier) + escapeHtml(EVIDENCE_TEXT[n.tier] || n.tier) + '</span></p>');
+          glyphHtml(n.tier) + escapeHtml(capitalFirst(EVIDENCE_TEXT[n.tier] || n.tier)) + '</span></p>');
       }
       var seq = paperSequence[n.paperId];
       if (pinned && seq && seq.length > 1 && n.seq != null) {
@@ -4516,6 +4777,15 @@
       return '<p class="universe-inspector__hint">Press <kbd>Esc</kbd> or click empty ground to ' + where + '.</p>';
     }
 
+    // A result's problem, said in one line over its card: its number (a
+    // button back to the problem's card) and its title.
+    function contextLineHtml(pid) {
+      var at = problemIndex[pid];
+      if (at === undefined) return '';
+      return '<p class="universe-context"><button type="button" class="universe-context__go" data-universe-go="' + at + '">' +
+        'Erdős ' + escapeHtml(nodes[at].shortLabel) + '</button><span class="universe-context__title">' +
+        escapeHtml(nodes[at].label) + '</span></p>';
+    }
     // A card's first line names the kind of thing, in plain words.
     function kindLine(n) {
       if (n.id === 'integration:comparator') return 'Replay checker';
@@ -4526,6 +4796,7 @@
     function cardHtml(i, pinned) {
       var n = nodes[i];
       if (n.kind === 'paper_statement') return resultCardHtml(i, pinned);
+      if (n.kind === 'problem' && n.sector) return problemCardHtml(i, pinned);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
         escapeHtml(kindLine(n)) + '</p>';
       if (pinned) head = cardHeadHtml(head);
@@ -4533,7 +4804,7 @@
         '<h2 class="universe-inspector__title">' + nameHtml(n.label) + '</h2>'];
       var chips = '';
       if (n.status) {
-        chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';
+        chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(capitalFirst(n.status)) + '</span>';
       }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
@@ -4574,11 +4845,9 @@
       return parts.join('');
     }
 
-    // A disclosure the reader opened (the Lean code, the named inputs) stays
-    // open while the card is drawn again: when its files arrive, and from one
-    // result to the next.
-    var keptOpen = {};
-    var panel = pageMode && stage.closest ? stage.closest('.universe-panel') : null;
+    // The explorer (or the old page's panel) carries the level being read,
+    // so the panel's overview-only sections step aside under a card.
+    var panel = pageMode ? (explorerRoot || (stage.closest ? stage.closest('.universe-panel') : null)) : null;
     // Detail and quoted words arrive independently of the reader's actions.
     // Keep an active link's exact occurrence when those files rebuild its card.
     // Intentional pin, step and quote-tab changes retain their own focus rules.
@@ -4605,32 +4874,94 @@
       }
     }
 
+    /* A displayed formula wider than the panel's measure is set a little
+       smaller to fit it (to three quarters of its size at most); one wider
+       still scrolls sideways in its own line, never cut. */
+    function fitDisplays(root) {
+      if (!root || !root.querySelectorAll) return;
+      Array.prototype.forEach.call(root.querySelectorAll('.math-display'), function (el) {
+        el.style.fontSize = '';
+        var room = el.clientWidth, need = el.scrollWidth;
+        if (room > 0 && need > room + 1) el.style.fontSize = Math.max(0.75, Math.floor(room / need * 100) / 100) + 'em';
+      });
+    }
+    function levelOf(i) {
+      if (i < 0 || !nodes[i]) return 'overview';
+      return nodes[i].kind === 'problem' ? 'problem' : nodes[i].kind === 'paper_statement' ? 'result' : 'object';
+    }
+    /* The panel's body scrolls. A new card opens at its top; going back to
+       the overview returns to where the reader had scrolled it. */
+    var shownAt = -1, overviewScroll = 0, lastInspectorHtml = null;
     function renderInspector() {
       if (!inspector) return;
-      // A pinned card takes the column; the placard keeps its title and search.
-      if (panel) panel.classList.toggle('is-reading', selected >= 0);
-      if (inspector.querySelectorAll) {
-        Array.prototype.forEach.call(inspector.querySelectorAll('details[data-keep]'), function (d) {
-          keptOpen[d.getAttribute('data-keep')] = d.open;
-        });
+      var level = levelOf(selected);
+      if (panel) {
+        panel.classList.toggle('is-reading', selected >= 0);
+        if (panel.setAttribute) panel.setAttribute('data-universe-level', level);
       }
-      // A pinned card stays put: the pointer crossing other dots on its way
-      // to the rail names them on the field and leaves the card alone.
-      if (hover >= 0 && hover !== selected && selected < 0) {
+      if (!previewBox && hover >= 0 && hover !== selected && selected < 0) {
+        // The old placard page (no preview layer): a hover previews in the
+        // rail. A pinned card stays put: the pointer crossing other dots on
+        // its way to the rail names them on the field and leaves it alone.
+        lastInspectorHtml = null;
         inspector.innerHTML = cardHtml(hover, false);
         inspector.classList.add('is-preview');
-      } else if (selected >= 0) {
-        inspector.innerHTML = cardHtml(selected, true);
-        inspector.classList.remove('is-preview');
-      } else {
-        inspector.innerHTML = overviewHtml();
-        inspector.classList.remove('is-preview');
+        return;
       }
-      if (inspector.querySelectorAll) {
-        Array.prototype.forEach.call(inspector.querySelectorAll('details[data-keep]'), function (d) {
-          if (keptOpen[d.getAttribute('data-keep')]) d.open = true;
-        });
+      var html = selected >= 0 ? cardHtml(selected, true) : overviewHtml();
+      inspector.classList.remove('is-preview');
+      // The same words are never set again: a refresh that changes nothing
+      // keeps the reader's place, focus and selection of text.
+      if (html !== lastInspectorHtml) {
+        inspector.innerHTML = html;
+        lastInspectorHtml = html;
+        fitDisplays(inspector);
       }
+      if (scrollBox && selected !== shownAt) {
+        if (shownAt < 0) overviewScroll = scrollBox.scrollTop;
+        scrollBox.scrollTop = selected < 0 ? overviewScroll : 0;
+      }
+      shownAt = selected;
+      refreshPreview();
+    }
+
+    /* What the pointer is on, previewed in a layer over the panel's body
+       (5 October 2026). The panel underneath is never redrawn for a hover,
+       so its place and its scroll stay exactly where the reader left them,
+       and letting go shows it again unchanged. A preview shows at rest, and
+       over a chosen problem or paper (the levels a reader chooses from), a
+       moment after the pointer settles so crossing the map to the panel
+       never flickers; a chosen result is being read and stays put. Hover
+       from the panel's own rows only lights the map. */
+    var hoverFromMap = false, previewAt = -1, previewTimer = 0, PREVIEW_DWELL = 140;
+    function previewTarget() {
+      if (!hoverFromMap || hover < 0 || hover === selected) return -1;
+      if (selected >= 0 && nodes[selected].kind !== 'problem' && nodes[selected].kind !== 'paper') return -1;
+      return hover;
+    }
+    function showPreview(i) {
+      previewAt = i;
+      if (i < 0) {
+        previewBox.hidden = true;
+        previewBox.innerHTML = '';
+        if (panel) panel.classList.remove('is-previewing');
+        return;
+      }
+      previewBox.innerHTML = cardHtml(i, false);
+      if (scrollBox) previewBox.style.top = scrollBox.offsetTop + 'px';
+      previewBox.hidden = false;
+      fitDisplays(previewBox);
+      if (panel) panel.classList.add('is-previewing');
+    }
+    function refreshPreview(force) {
+      if (!previewBox) return;
+      var want = previewTarget();
+      if (want === previewAt && !force) return;
+      clearTimeout(previewTimer);
+      if (want < 0 || previewAt >= 0 || selected < 0) { showPreview(want); return; }
+      previewTimer = setTimeout(function () {
+        if (previewTarget() === want) showPreview(want);
+      }, PREVIEW_DWELL);
     }
 
     function updateHash() {
@@ -4799,7 +5130,19 @@
     function resolvePending() {
       if (!pendingId) return;
       if (byId[pendingId] !== undefined) {
-        pin(byId[pendingId], true);
+        var at = byId[pendingId], n = nodes[at];
+        // An address for a result (the landing's "In the map", a shared
+        // link) opens in the explorer as if the reader had come down to it:
+        // its problem's sector framed, so it is seen among its paper's
+        // results, and Back goes up to the problem, then the whole map.
+        if (inExplorer && n.kind === 'paper_statement' && n.sector && problemIndex[n.sector] !== undefined) {
+          var up = problemIndex[n.sector];
+          trail = [{ at: up, before: viewNow() }, { at: at, before: null }];
+          pin(at, false, true);
+          centerOn(up);
+          return;
+        }
+        pin(at, true);
         return;
       }
       // A shared link to a full-corpus object must open its card on first visit.
@@ -4940,6 +5283,7 @@
     function pinInTeaser(i) {
       selected = i;
       if (i >= 0) pulsedSelection = i;
+      syncExpandLinks();
       warmPaper(i);
       draw();
       if (companionApi) {
@@ -4947,6 +5291,19 @@
         // Let go under the pointer, the card reads what the pointer is on.
         if (i < 0 && hover >= 0) announce(hover);
       }
+    }
+
+    /* The landing's way into the full map (the atlas bar's "Expand map",
+       data-universe-expand, and the card's own link where it has one) keeps
+       the teaser's selection: expanding opens the explorer on the result
+       the reader kept, or on the whole map when nothing is kept. */
+    function syncExpandLinks() {
+      if (pageMode || !document.querySelectorAll) return;
+      var href = route('universe.html' + (selected >= 0 && nodes[selected] ?
+        '#o=' + encodeURIComponent(nodes[selected].id) : ''));
+      Array.prototype.forEach.call(document.querySelectorAll('a[data-universe-expand], .home-universe__open'), function (a) {
+        if (a.getAttribute('href') !== href) a.setAttribute('href', href);
+      });
     }
 
     function companionTallies() {
@@ -5004,7 +5361,7 @@
           return true;
         },
         // The column lets a pin go (Escape, leaving the band, another problem).
-        release: function () { if (selected >= 0) { selected = -1; letGoNow = true; draw(); } },
+        release: function () { if (selected >= 0) { selected = -1; letGoNow = true; syncExpandLinks(); draw(); } },
         // The column's own data has arrived: a plate it now reads in full
         // gives only the paper's number, so the plates are set again.
         redraw: function () { pinnedPlate = null; draw(); }
@@ -5045,10 +5402,12 @@
       });
     }
 
+    var companionSpec = null;
     function ingest(data) {
       var keepId = selected >= 0 && nodes[selected] ? nodes[selected].id : null;
       var keepView = nodes.length > 0;
       if (data.statements) statementMeta = data.statements;
+      if (data.companion) companionSpec = data.companion;
       if (data.bands) bands = data.bands;
       if (data.excerpts) {
         excerptRoutes = {};
@@ -5242,6 +5601,8 @@
         !document.hidden && 'IntersectionObserver' in window;
       if (opening || teaserOpening) { reveal = 0; revealMs = 0; }
       ingest(data);
+      // The problems' questions and short papers, for the panel's cards.
+      if (pageMode && companionSpec) loadProblemInfo();
       if (opening) startReveal();
       if (teaserOpening) {
         // On the first screen the drawing opens at once. Since the map moved
@@ -5249,10 +5610,17 @@
         // or less shows there, and a reader who had not scrolled met an empty
         // frame. Reached by scrolling, it still waits until a third shows,
         // so the rings arrive where the reader is looking.
+        // At first look "on the first screen" includes a drawing that
+        // starts just under its fold: at 1280 by 690 the card's frame showed
+        // while its canvas, a few pixels lower, waited closed and the reader
+        // met an empty frame (5 October 2026). Within a screen of the
+        // viewport it opens at once.
         var firstLook = true;
         var seen = new IntersectionObserver(function (entries) {
           var e = entries[entries.length - 1];
-          if (e.isIntersecting && (firstLook || e.intersectionRatio >= 0.35)) {
+          var box = e.boundingClientRect, port = e.rootBounds;
+          var near = firstLook && box && port && box.top < port.bottom + port.height && box.bottom > port.top;
+          if ((e.isIntersecting && (firstLook || e.intersectionRatio >= 0.35)) || near) {
             seen.disconnect();
             startReveal();
           }
@@ -5282,7 +5650,10 @@
         pinnedPlate = null;
         // The teaser is fitted to its words, which were measured in the
         // fallback face too.
-        if (!pageMode && nodes.length && viewIsFitted) fit();
+        // So is the explorer, whose key over the drawing's corner is set in
+        // the page's own face.
+        chromeCache = null;
+        if ((!pageMode || inExplorer) && nodes.length && viewIsFitted) fit();
         if (nodes.length) draw();
       }, function () {});
     }
@@ -5292,15 +5663,21 @@
     var panning = false;
     var moved = false;
 
+    // On the page a hover previews in its layer over the panel; without
+    // that layer (the old placard page) the rail itself previews.
+    function hoverChanged() {
+      if (previewBox) refreshPreview(); else renderInspector();
+    }
     canvas.addEventListener('pointermove', function (event) {
       if (panning) return;
       var rect = canvas.getBoundingClientRect();
       var i = nodeAt(event.clientX - rect.left, event.clientY - rect.top);
-      if (i !== hover) {
+      if (i !== hover || !hoverFromMap) {
         hover = i;
+        hoverFromMap = true;
         canvas.classList.toggle('is-over', i >= 0);
         draw();
-        if (pageMode) renderInspector(); else { showCaption(i); announce(i); }
+        if (pageMode) hoverChanged(); else { showCaption(i); announce(i); }
       }
     });
     canvas.addEventListener('pointerleave', function () {
@@ -5308,7 +5685,7 @@
       hover = -1;
       canvas.classList.remove('is-over');
       draw();
-      if (pageMode) renderInspector(); else { showCaption(-1); announce(-1); }
+      if (pageMode) hoverChanged(); else { showCaption(-1); announce(-1); }
     });
     canvas.addEventListener('click', function (event) {
       if (moved) return;
@@ -5332,7 +5709,9 @@
         if (!last || last.at !== selected || !holds(last.at, i)) trail = [];
         trail.push({ at: i, before: frames ? viewNow() : null });
         pin(i, frames, true);
-        revealCard();
+        // On a phone the explorer shows the panel for what was chosen.
+        if (explorerRoot) explorerRoot.dispatchEvent(new CustomEvent('explorer:selected', { bubbles: true, detail: { id: nodes[i].id } }));
+        else revealCard();
         return;
       }
       // Beside the column a dot pins, and empty ground lets a pin go. A
@@ -5456,6 +5835,13 @@
           event.preventDefault();
           searchIn.focus();
           searchIn.select();
+          return;
+        }
+        // The keyboard's own zoom, as on a map: + and - step, 0 fits.
+        if (!typing && explorerRoot && !event.metaKey && !event.ctrlKey && !event.altKey) {
+          if (event.key === '+' || event.key === '=') { event.preventDefault(); zoomBy(1.5); }
+          else if (event.key === '-' || event.key === '_') { event.preventDefault(); zoomBy(1 / 1.5); }
+          else if (event.key === '0') { event.preventDefault(); fitAnimated(); }
         }
       });
 
@@ -5467,6 +5853,26 @@
             mode === 'in' ? 1.45 : 1 / 1.45);
         });
       });
+      /* The explorer's own controls (assets/explorer.js): Fit shows the
+         whole map, the zoom steps ease about the centre, and a change in
+         the stage's size (the window, full screen, the phone's Map view)
+         fits again if the view was fitted, or keeps the same centre. */
+      if (explorerRoot) {
+        explorerRoot.addEventListener('explorer:fit', function () { fitAnimated(); });
+        explorerRoot.addEventListener('explorer:zoom', function (event) {
+          zoomBy(event.detail && event.detail.direction < 0 ? 1 / 1.5 : 1.5);
+        });
+        explorerRoot.addEventListener('explorer:resize', function () {
+          chromeCache = null;
+          if (nodes.length && followBox()) draw();
+        });
+      }
+    }
+    function zoomBy(factor) {
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      var k = Math.min(9, Math.max(Math.min(0.3, fittedScale / 2), view.k * factor));
+      var f = k / view.k;
+      cameraTo({ k: k, tx: w / 2 - (w / 2 - view.tx) * f, ty: h / 2 - (h / 2 - view.ty) * f }, false);
     }
 
     function zoomAt(mx, my, factor) {
@@ -5488,7 +5894,20 @@
         var go = event.target.closest ? event.target.closest('[data-universe-go]') : null;
         if (go) {
           var i = parseInt(go.getAttribute('data-universe-go'), 10);
-          if (!isNaN(i) && nodes[i]) pin(i, true);
+          if (isNaN(i) || !nodes[i]) return;
+          var last = trail.length ? trail[trail.length - 1] : null;
+          // Up to the level the reader came down from: the way back.
+          if (last && last.at === selected && trail.length > 1 && trail[trail.length - 2].at === i) { stepBack(); return; }
+          // Down into what the card holds (a problem's result, a paper's):
+          // the trail goes on, and the view moves only to keep it in sight.
+          if (last && last.at === selected && holds(selected, i)) {
+            var frames = nodes[i].kind === 'problem' || nodes[i].kind === 'paper';
+            trail.push({ at: i, before: frames ? viewNow() : null });
+            pin(i, frames, true);
+            if (!frames) keepInView(i, trail[trail.length - 1]);
+            return;
+          }
+          pin(i, true);
           return;
         }
         // A quote's reference to another result on the map selects it there;
@@ -5533,6 +5952,35 @@
             copy.textContent = 'Copy failed; use the address bar';
           });
         }
+      });
+    }
+
+    /* A row in the panel (a problem, a result, a connection) under the
+       pointer or in keyboard focus lights its place on the map: the field
+       focuses it and its name plate shows, as a hover on the map does, and
+       the panel itself is left exactly as it is. */
+    function lightFromPanel(event) {
+      var go = event.target && event.target.closest ? event.target.closest('[data-universe-go]') : null;
+      var i = go ? parseInt(go.getAttribute('data-universe-go'), 10) : -1;
+      if (isNaN(i) || !nodes[i] || !visible(nodes[i])) i = -1;
+      if (i < 0 && (hoverFromMap || hover < 0)) return;
+      if (i === hover && !hoverFromMap) return;
+      hoverFromMap = false;
+      hover = i;
+      draw();
+      refreshPreview();
+    }
+    function unlightFromPanel() {
+      if (hoverFromMap || hover < 0) return;
+      hover = -1;
+      draw();
+    }
+    if (scrollBox && explorerRoot) {
+      scrollBox.addEventListener('pointerover', lightFromPanel);
+      scrollBox.addEventListener('pointerleave', unlightFromPanel);
+      scrollBox.addEventListener('focusin', lightFromPanel);
+      scrollBox.addEventListener('focusout', function (event) {
+        if (!event.relatedTarget || !scrollBox.contains(event.relatedTarget)) unlightFromPanel();
       });
     }
 
@@ -5878,6 +6326,7 @@
     function followBox() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (w === viewWidth && h === viewHeight) return false;
+      chromeCache = null;
       if (viewIsFitted) fit();
       else {
         // Keep the same object under the centre when rotating a phone or

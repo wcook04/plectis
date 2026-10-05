@@ -278,10 +278,11 @@ test('a narrow Universe selection keeps anchors without lighting the containment
   assert.match(map.inspector.innerHTML, /How it connects/);
   assert.equal((map.inspector.innerHTML.match(/data-universe-go=/g) || []).length, 98, 'every adjacency remains reachable in the inspector');
   assert.match(map.inspector.innerHTML, /Fan module 95/, 'the last containment entry is not truncated');
-  const moduleGroup = [...map.inspector.innerHTML.matchAll(/<details([^>]*)><summary>(.*?)<\/summary>/g)]
-    .find(([, , title]) => /\d+ lean modules$/.test(title));
-  assert.ok(moduleGroup, 'module adjacency is grouped behind a disclosure');
-  assert.doesNotMatch(moduleGroup[1], /\bopen\b/, 'the dense module group starts collapsed');
+  // 5 October 2026: nothing in the panel folds; a dense group says its
+  // count under its phrase and lists every member, the panel scrolling.
+  assert.match(map.inspector.innerHTML, /<span class="universe-link__count">\d+ lean modules<\/span>/,
+    'module adjacency says its count under its phrase');
+  assert.doesNotMatch(map.inspector.innerHTML, /<details|<summary/, 'no disclosure in the panel');
   const hot = map.hotSegments();
   assert.equal(hot.length, 2, 'only the two overview anchors are highlighted, not 96 module spokes');
   assert.equal(map.drawnSegments().length, 2);
@@ -589,12 +590,15 @@ async function mountTeaser({withCompanionHost = true} = {}) {
     dispatchEvent: event => { announced.push(event); return true; },
   });
   const appended = [];
+  // The landing's way into the full map: the atlas bar's Expand map link.
+  const expand = element({href: 'maths/universe.html', 'data-universe-expand': ''});
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     head: {appendChild: node => { appended.push(node); if (node.onload) node.onload(); }},
     createElement: () => element(),
     querySelector: () => null,
-    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
+    querySelectorAll: s => s === '[data-universe-stage]' ? [stage] :
+      s === 'a[data-universe-expand], .home-universe__open' ? [expand] : [],
   });
   const location = {pathname: '/', search: '', hash: '', href: '/'};
   const window = Object.assign(element(), {
@@ -629,7 +633,7 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   await new Promise(resolve => setImmediate(resolve));
   // The statement is the rightmost disc drawn.
   const dot = arcs.reduce((best, a) => (best && best.x >= a.x ? best : a), null);
-  return {canvas, location, announced, appended, dot};
+  return {canvas, location, announced, appended, dot, expand};
 }
 
 // The lit threads a paint drew (1.25px), each as its run of pieces.
@@ -798,6 +802,37 @@ test('beside the column a click pins the result instead of leaving the page', as
   assert.equal(teaser.location.href, 'maths/papers/p257.html#thm:a', 'a second click on the pinned dot opens it');
 });
 
+test('the landing’s Expand map keeps the teaser’s kept result, and the whole map when nothing is kept', async () => {
+  // 5 October 2026: the atlas bar's persistent link opens the explorer; it
+  // carries the result the reader kept on the teaser, as its deep link.
+  const teaser = await mountTeaser();
+  assert.equal(teaser.expand.getAttribute('href'), 'maths/universe.html');
+  teaser.canvas.fire('pointermove', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(teaser.expand.getAttribute('href'), 'maths/universe.html#o=statement%3Ap257%23thm%3Aa');
+  teaser.canvas.fire('click', {clientX: 2, clientY: 2});
+  assert.equal(teaser.expand.getAttribute('href'), 'maths/universe.html', 'letting the pin go returns the whole map');
+});
+
+test('nothing the map reads is cut short: no clamp, no cut quote, a box that scrolls instead', () => {
+  // 5 October 2026 (Type B design review, endorsed by Will): selecting #68 on
+  // the landing showed its short paper's précis stopping mid-line above empty
+  // space (a three-line clamp under an overflow-hidden card), and the map's
+  // hover preview clamped its body at six lines.
+  const strip = text => text.replace(/\/\*[\s\S]*?\*\//g, '');
+  const companionCss = strip(readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.css', import.meta.url), 'utf8'));
+  const mathsCss = strip(readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/maths.css', import.meta.url), 'utf8'));
+  const companionJs = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.js', import.meta.url), 'utf8');
+  for (const [name, css] of [['universe-companion.css', companionCss], ['maths.css', mathsCss]]) {
+    assert.doesNotMatch(css, /line-clamp/, `${name} clamps no text`);
+  }
+  assert.match(companionCss, /\.uc \{[^}]*overflow-y: auto/, 'the companion scrolls inside its own box');
+  assert.doesNotMatch(companionCss, /\.uc__focus \{[^}]*overflow: hidden/, 'the card slot never crops its card');
+  assert.doesNotMatch(companionCss, /\.uc__quote \{[^}]*max-height/, 'a result is quoted whole');
+  assert.doesNotMatch(companionJs, /The statement continues in the paper|function fitQuote/, 'no quote is trimmed');
+  assert.doesNotMatch(mathsCss, /is-preview[^{]*\{[^}]*(?:max-height|mask-image)/, 'a preview is never faded off');
+});
+
 test('a pinned result keeps the column when the pointer leaves; a click elsewhere lets it go', () => {
   const companion = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.js', import.meta.url), 'utf8');
   const off = companion.slice(companion.indexOf('function pointerOff()'));
@@ -933,7 +968,10 @@ test('motion (2026-10-04): teasers open once in view, reduced motion is live, DP
   // A teaser waits closed and plays the map's opening once, when the canvas
   // is first well in view; a reveal that cannot animate opens at once.
   assert.match(source, /var teaserOpening = !pageMode && !reduceMotion/);
-  assert.match(source, /new IntersectionObserver\(function \(entries\) \{[\s\S]{0,200}?seen\.disconnect\(\);\s*startReveal\(\);/);
+  assert.match(source, /new IntersectionObserver\(function \(entries\) \{[\s\S]{0,500}?seen\.disconnect\(\);\s*startReveal\(\);/);
+  // At first look a drawing just under the fold counts as on the first
+  // screen (5 October 2026: at 1280 by 690 the card's frame showed empty).
+  assert.match(source, /var near = firstLook && box && port && box\.top < port\.bottom \+ port\.height/);
   assert.match(source, /function startReveal\(\) \{\s*if \(reduceMotion \|\| !window\.requestAnimationFrame \|\| document\.hidden\) \{\s*if \(reveal < 1\) \{ reveal = 1; draw\(\); \}/);
   // Turning reduced motion on part-way stops the motion and draws the still map.
   assert.match(source, /function followReduceMotion\(\) \{\s*reduceMotion = !!\(reduceQuery && reduceQuery\.matches\);/);
@@ -1251,6 +1289,9 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
     strokes: () => strokes, fills: () => fills, images: () => images, inspector, centre, place, view, at, results, cursor, ticks,
     api: () => captured.api,
     intersect(on, ratio = on ? 1 : 0) { for (const o of observers) if (!o.gone) o.callback([{isIntersecting: on, intersectionRatio: ratio, target: o.target}]); },
+    // The opening's first callback for a drawing out of view, with where it
+    // stands (the paint observer, 120px wider, still has it on screen).
+    firstLook(box, port) { for (const o of observers) if (!o.gone && o.options && o.options.threshold) o.callback([{isIntersecting: false, intersectionRatio: 0, target: o.target, boundingClientRect: box, rootBounds: port}]); },
     atlas(view, previous) { document.fire('plectis:atlas', {detail: {view, previous, phase: 'start', instant: false}}); },
     key(key) { document.fire('keydown', {key, target: {tagName: 'BODY'}}); },
   };
@@ -1438,6 +1479,38 @@ test('going back retraces the drill: result, paper, problem, whole field, each w
   assert.ok(Math.abs(map.view().k - fitted) < 1e-9, 'and Esc with nothing pinned returns to the whole field');
 });
 
+test('the panel reads a problem, its results in paper order, then a result under one line naming its problem', async () => {
+  // 5 October 2026 (the explorer): a chosen problem reads its question and
+  // its results, short paper first, each paper in its own order; a result
+  // chosen from that list goes a level down, its problem shrinking to one
+  // line above it, and going back returns to the problem. Nothing folds.
+  const map = await mountStructure({page: true, withInspector: true});
+  map.advanceTo(map.now() + 2000);
+  const p = map.at('problem:p1');
+  map.canvas.fire('click', {clientX: p.x, clientY: p.y, detail: 1});
+  map.advanceTo(map.now() + 2000);
+  const html = map.inspector.innerHTML;
+  assert.match(html, /Erdős problem #1/);
+  assert.match(html, /<h2 class="universe-inspector__title universe-inspector__title--problem">First problem<\/h2>/);
+  assert.match(html, /All 6 of its results are replayed by Comparator\./, 'the count is said in words');
+  const rows = [...html.matchAll(/class="universe-item" data-universe-go="(\d+)"[\s\S]*?universe-item__num">([^<]*)<\/span><span class="universe-item__name">([^<]*)</g)];
+  assert.deepEqual(rows.map(m => m[3]), ['Result 1 of a-short', 'Result 2 of a-short',
+    'Result 1 of a-long', 'Result 2 of a-long', 'Result 3 of a-long', 'Result 4 of a-long'],
+    'the short paper first, then the long record, each in the order it states them');
+  assert.doesNotMatch(html, /<details|<summary/, 'no disclosure in the panel');
+  const chosen = rows[3][1];
+  map.inspector.fire('click', {target: {closest: s => s === '[data-universe-go]' ? {getAttribute: () => chosen} : null}});
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '#o=statement%3Aa-long%23r2');
+  assert.match(map.inspector.innerHTML,
+    /^<p class="universe-context"><button type="button" class="universe-context__go" data-universe-go="\d+">Erdős #1<\/button><span class="universe-context__title">First problem<\/span><\/p>/,
+    'the problem shrinks to one line over the result');
+  assert.match(map.inspector.innerHTML, /click empty ground to go back to #1\./);
+  map.key('Escape');
+  map.advanceTo(map.now() + 2000);
+  assert.equal(map.location.hash, '#o=problem%3Ap1', 'back up to the problem it was chosen from');
+});
+
 test('leaving the mathematics view lets go of the hover, the pin and the column’s card', async () => {
   const map = await mountStructure({companion: true});
   map.intersect(true);
@@ -1528,6 +1601,19 @@ test('a teaser partly on the first screen opens at once; reached by scrolling it
   below.intersect(true, 0.4);
   below.advanceTo(below.now() + 2000);
   assert.ok(below.results().every(a => a.alpha > 0.99), 'a third in view opens it');
+});
+
+test('at first look a teaser just under the fold opens at once; further down it still waits', async () => {
+  // 5 October 2026: at 1280 by 690 the card's frame was on the first screen
+  // while its canvas, a few pixels lower, waited closed: an empty frame.
+  const near = await mountStructure();
+  near.firstLook({top: 700, bottom: 1200}, {top: 0, bottom: 690, height: 690});
+  near.advanceTo(near.now() + 2000);
+  assert.ok(near.results().every(a => a.alpha > 0.99), 'within a screen of the fold it opens and ends whole');
+  const far = await mountStructure();
+  far.firstLook({top: 1600, bottom: 2100}, {top: 0, bottom: 690, height: 690});
+  far.advanceTo(far.now() + 1000);
+  assert.ok(far.results().every(a => a.alpha < 0.01), 'further down it waits closed for the reader');
 });
 
 test('the teaser’s own caption says what the pointer is on in a plain sentence, and nothing once it leaves', async () => {
@@ -1768,7 +1854,7 @@ test('publication scope and verification compose without inventing statement equ
   assert.equal(map.count.textContent, '3 of 7 shown');
   assert.equal(map.scope.short.getAttribute('aria-pressed'), 'true');
   assert.equal(map.scope.long.getAttribute('aria-pressed'), 'false');
-  assert.match(map.inspector.innerHTML, /1 of 2 replayed/);
+  assert.match(map.inspector.innerHTML, /1 of 2 results replayed/);
   map.overlap.checked = true; map.overlap.fire('change');
   assert.equal(map.count.textContent, '2 of 7 shown');
   map.scope.all.fire('click');
@@ -1778,14 +1864,14 @@ test('publication scope and verification compose without inventing statement equ
   map.overlap.checked = false; map.overlap.fire('change');
   map.checking.value = 'ordinary_proof'; map.checking.fire('change');
   assert.equal(map.count.textContent, '2 of 7 shown', 'missing Lean alone is not an ordinary proof');
-  assert.match(map.inspector.innerHTML, /0 of 1 replayed/);
+  assert.match(map.inspector.innerHTML, /0 of 1 result replayed/);
   map.scope.short.fire('click');
-  assert.match(map.inspector.innerHTML, /No paper statements match these filters/);
+  assert.match(map.inspector.innerHTML, /No paper results match these filters/);
   map.scope.all.fire('click');
   map.search.value = 'ordinary proof'; map.search.fire('input'); map.search.fire('keydown', {key: 'Enter'});
   assert.match(map.inspector.innerHTML, /Ordinary proof in the paper/);
   assert.match(map.inspector.innerHTML, /independent human review not recorded/);
-  assert.match(map.inspector.innerHTML, /no Lean statement/);
+  assert.match(map.inspector.innerHTML, /No Lean statement/);
   map.search.value = ''; map.search.fire('input');
   map.checking.value = 'replayed'; map.checking.fire('change');
   assert.equal(map.count.textContent, '4 of 7 shown');

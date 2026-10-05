@@ -110,6 +110,25 @@ override native `math` elements with CSS `display: block` or `inline-block`.
 Change the excerpt schema version when this conversion changes, so existing
 map data cannot continue serving cached broken excerpts.
 
+### AI downloads
+
+The primary AI handoff is a JSON attachment for a tour of the website and both
+public repositories. Say JSON at the download link, explain the upload step,
+and distinguish the full packet (website prose and source text), source brief
+(source text with website links), and overview digest (no full manuscripts).
+Never describe JSON as inherently more trustworthy than repository source.
+
+The opening and closing orientation must match the mathematics-led front door.
+Earlier software stays labelled as earlier software; its original records remain
+available as historical source, not a description of the current programme.
+`read_me_first.contents` measures what the full packet actually embeds and names
+what remains linked. All inventory pointers and tour stops must resolve during
+the build. The standalone brief must use its own paths, including its source
+receipts, rather than inherit directions into absent full-packet sections.
+Freshness is established by source commits and build-time receipts, never by
+the deterministic `generated_at` sentinel. Refresh with the public-site builder;
+never patch the emitted JSON or JavaScript wrappers by hand.
+
 ### Front door (October 2026)
 
 The landing has one subject, the mathematics. In order: the introduction and
@@ -225,6 +244,33 @@ the band is a strip that scrolls and snaps. The earlier software keeps its
 quiet row at the foot of the page: the band's second drawing is one switch
 away and never the default.
 
+The maps' entry points and their explorers (5 October 2026; a Type B design
+review with Will's go-ahead: "Explore the mathematics" landed on an
+intermediate page, the full-map buttons sat at the foot of the cards and
+vanished in a selected state, and both full maps ran below the window).
+- "Explore the mathematics" opens `maths/universe.html` itself; the header's
+  Mathematics route keeps the overview (`maths/index.html`).
+- The band opens with one control row: the three counts on the left; the
+  switch and "Expand map" on the right. The row never changes with the
+  selection below it, and the drawings' scripts keep the expand link's href on
+  the current selection (`data-universe-expand`, `data-system-expand`), so
+  expanding keeps what the reader chose. The system's link sits between
+  `mc:landing-depth` markers, like its slide. Neither card carries a second
+  "Open the … map" button.
+- Both full maps are one explorer (`html.is-explorer`, `main.explorer`, the
+  "Map explorers" block in `assets/style.css`, wired by `assets/explorer.js`):
+  the site header, one reading panel on the left (its title, the
+  Mathematics | System switch between the two maps, then overview → group →
+  item, read to the end and scrolled inside the panel, never clamped), and
+  the drawing in the rest of the window with Fit, zoom and Full screen in its
+  top right and its key in its bottom left. The whole drawing fits the window
+  on arrival at laptop and monitor sizes; below 900px the explorer is one
+  column with a Map | Details switch.
+- The earlier software row and the footer name the system map.
+- The plait is a divider, not a band of its own: about six crossings across a
+  laptop window, eleven threads a rope, a band of 70-100px (`assets/art.js`
+  `geometry`). Its drawing style and inks are Will's and stay.
+
 The system map and its doctrine (4 and 5 October 2026). Will asked for the
 system drawing to show "how the doctrine manifests", then rejected the first
 version as "a bunch of arbitrary lines", "unreadable" and "some family tree,
@@ -255,9 +301,16 @@ it, with the enforcing ones framed; one breadcrumb and Escape step back, and
 the left column is the readable index of whatever is lit. A code connection
 links to its file, never to a line, because the published repository can lag
 the source the evidence was read from. `docs/system-map.html` is the same
-drawing at full height with every component named round the rim, reached
-from the landing's "Open the system map"; `#map=<node id>` deep links select
-and are written on selection. The old `docs/architecture.html` stays for its
+drawing as a full-window map explorer, the sibling of `maths/universe.html`:
+the site header, one reading panel on the left (the families and the doctrine
+at rest, then a family's, a component's or a rule's whole reading, its trail
+the one way back) and the drawing fitted whole to the rest of the window.
+Names come by levels of detail rather than all round the rim: the families at
+rest, a family's own components on its closer look, a name and its relations
+lit under the pointer or the keyboard, and, on a deliberate zoom, every name
+that stands whole in view. It is reached from the landing's "Expand map",
+whose link the drawing keeps on its current choice; `#map=<node id>` deep
+links select and are written on selection. The old `docs/architecture.html` stays for its
 existing links.
 
 Drilling in and opening (5 October 2026). Will: selecting should work "like
@@ -1245,3 +1298,11 @@ not enough for release signoff.
 
 For served-effect proof, serve `sites/microcosm/` locally and check route
 status, console errors, headers, mobile drawer behavior, and internal links.
+
+The motivation section (5 October 2026) names the risk that AI-produced proofs
+can accumulate faster than people can digest them. Automation may help prepare
+readable explanations, literature context and connections, and reviewed feedback
+may improve the writing instructions used across later papers. These are aims,
+not evidence of human understanding. Preserve the early-2025 origin, formal
+checking as necessary but insufficient, September references, difficulty getting
+expert direction, proof-of-concept qualification and recorded paper rewrites.

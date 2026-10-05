@@ -114,19 +114,6 @@
         esc(num ? num.textContent : pid) + '</a>';
     }).join('');
 
-    // The quote is fitted again whenever its slot changes size: as the
-    // question and the précis fold away the slot grows over a quarter of a
-    // second, and the quote follows it a frame at a time.
-    var fitFrame = 0;
-    var slotWatch = typeof ResizeObserver === 'function' && window.requestAnimationFrame ? new ResizeObserver(function () {
-      if (fitFrame) return;
-      fitFrame = window.requestAnimationFrame(function () {
-        fitFrame = 0;
-        var quote = el.focus.querySelector('[data-line="quote"]');
-        if (quote) fitQuote(quote);
-      });
-    }) : null;
-    if (slotWatch) slotWatch.observe(el.focus);
 
     /* A row's title carries glossary marks that open a definition on hover.
        Where the companion can open, the row is about to lie under it, so the
@@ -290,42 +277,6 @@
                lines: { hint: 'Point at a dot on the map to read that result here; click it to keep it.' } };
     }
 
-    // A long quote is cut at its last whole paragraph or display that fits,
-    // never through a formula. A single block still taller than the room
-    // stops at its last whole line, and only that line fades (the cut used
-    // to fall through the middle of a line of formulae). Either way a quiet
-    // line under the quote says the statement goes on in the paper. The fit
-    // always starts from the whole quote, so a card given more room (the
-    // question folding away) shows more of it.
-    function fitQuote(quote) {
-      var whole = state.card.lines.quote;
-      var after = quote.nextElementSibling;
-      if (after && after.classList.contains('uc__quote-more')) after.parentNode.removeChild(after);
-      if (quote.hidden || !whole) return;
-      if (quote.__trimmed) { quote.innerHTML = whole; quote.__trimmed = false; }
-      quote.classList.remove('is-cut');
-      if (quote.style) quote.style.maxHeight = '';
-      var over = function () { return quote.scrollHeight > quote.clientHeight + 2; };
-      if (!over()) return;
-      var more = document.createElement('p');
-      more.className = 'uc__quote-more';
-      more.textContent = 'The statement continues in the paper.';
-      quote.parentNode.insertBefore(more, quote.nextSibling);
-      while (over() && quote.children.length > 1) {
-        quote.removeChild(quote.lastElementChild);
-        quote.__trimmed = true;
-      }
-      if (!over() || !document.createRange) return;
-      var room = quote.clientHeight, top = quote.getBoundingClientRect().top, best = 0;
-      var range = document.createRange();
-      range.selectNodeContents(quote);
-      Array.prototype.forEach.call(range.getClientRects(), function (r) {
-        var bottom = r.bottom - top;
-        if (r.height > 0 && bottom <= room + 0.5 && bottom > best) best = bottom;
-      });
-      if (best > 0 && quote.style) quote.style.maxHeight = Math.ceil(best) + 'px';
-      quote.classList.add('is-cut');
-    }
 
     function drawCard(card, quiet) {
       var whole = card.shape !== state.card.shape;
@@ -353,14 +304,10 @@
         var words = function (text) { return String(text || '').replace(/<[^>]*>/g, ''); };
         if (html && words(html) !== words(was)) moved.push(node);
       });
-      // A long quote is cut and fades; a short one shows whole, with no fade
-      // over its last line. Measured once every line is set (the buttons
-      // below take their room first), and again after the frame's layout.
-      var quote = el.focus.querySelector('[data-line="quote"]');
-      if (quote) {
-        fitQuote(quote);
-        if (window.requestAnimationFrame) window.requestAnimationFrame(function () { fitQuote(quote); });
-      }
+      // A quote shows whole, however long: where it needs more room than
+      // the column has, the column scrolls inside its own box (5 October
+      // 2026; the cut at the last line that fitted stopped a statement
+      // mid-thought above empty space).
       var mark = el.focus.querySelector('.uc-mark');
       var newEvidence = !!mark && card.tier !== state.card.tier;
       if (newEvidence) {
@@ -408,7 +355,6 @@
       var slot = el.focus.cloneNode(false);
       el.focus.parentNode.replaceChild(slot, el.focus);
       el.focus = slot;
-      if (slotWatch) { slotWatch.disconnect(); slotWatch.observe(slot); }
       state.focusKey = undefined;
       state.card = { shape: null, tier: null, lines: {} };
       Array.prototype.forEach.call(el.sw.querySelectorAll('.uc__chip'), function (chip) {

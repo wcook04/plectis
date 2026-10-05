@@ -51,6 +51,16 @@
    The column beside the map is the readable index of whatever is lit. The
    trail above the map, Escape and Back step out again.
 
+   On its own page (docs/system-map.html, 5 October 2026) the map is an
+   explorer, the mathematics map's sibling: the drawing fitted whole to its
+   stage, and every word in the reading panel beside it. Names come by
+   levels of detail: at rest the families round the outside; chosen, a
+   family's own components along its arc; pointed at, a component's name
+   on a plate and its relations lit; zoomed (the frame's controls, the
+   wheel, a pinch), every name that stands whole in view, and a drag moves
+   the zoomed map. The landing's Expand link is kept on the drawing's
+   choice, so the explorer opens on what the reader was looking at.
+
    Everything drawn comes from docs/architecture-graph-scene.json and
    docs/doctrine-manifest.json. Every number is a count from that data. */
 (function () {
@@ -1635,6 +1645,15 @@
     named: { out: 'Listed as related', inc: 'Listed as related', key: 'Listed as related' },
     other: { out: 'Connects to', inc: 'Connected from', key: 'Other connections' }
   };
+  // The same relations as the explorer's panel reads them, each a heading
+  // over the components at its other end.
+  var RELATION_WORDS = {
+    runs: { out: 'Runs', inc: 'Run by' },
+    reads: { out: 'Reads the saved results of', inc: 'Its saved results are read by' },
+    checks: { out: 'Checks the copied files of', inc: 'Its copied files are checked by' },
+    named: { both: 'Listed as related' },
+    other: { out: 'Connects to', inc: 'Connected from' }
+  };
   // Where in the code a connection comes from: the first file its evidence
   // names, and the lines it names there.
   function evidenceOf(e) {
@@ -2063,6 +2082,13 @@
     // page's address, so a view can be shared and the browser's Back
     // retraces it.
     var pageMode = !!(stage.closest && stage.closest('[data-system-page]'));
+    // There it is a map explorer (5 October 2026), the sibling of the
+    // mathematics map: the drawing fills the stage, fitted to it whole, and
+    // the reading panel beside it is the only place words go. The frame
+    // (assets/explorer.js) asks for a fit or a zoom and says when the stage
+    // changes size; the map draws, fits and selects.
+    var explorerEl = pageMode && stage.closest ? stage.closest('[data-explorer]') : null;
+    var explorer = !!explorerEl;
     var base = holder.getAttribute('data-system-base') || '';
     var src = holder.getAttribute('data-system-src');
     var doctrineSrc = holder.getAttribute('data-system-doctrine') ||
@@ -2075,6 +2101,9 @@
     // which every camera is reckoned from; camNow: the camera map is drawn
     // for (null is the whole system).
     var model = null, D = null, ring = null, map = null, baseMap = null, camNow = null;
+    // The explorer's own zoom: undefined while the camera follows the choice,
+    // null for the whole map (Fit), a camera where the reader zoomed or moved.
+    var userCam;
     // Ids for the paths and masks a drawing defines: two drawings stand in
     // the page while the camera moves, so they count on from one another.
     var arcN = 0, revealN = 0;
@@ -2132,8 +2161,18 @@
     tip.setAttribute('aria-hidden', 'true');
     var live = h('p', 'sm-live');
     live.setAttribute('aria-live', 'polite');
-    root.appendChild(head);
-    root.appendChild(caption);
+    // In the explorer the trail stands in the panel's head, the one way back,
+    // and the view's sentence opens its page in the panel; the stage holds
+    // the drawing, its controls and its key, and nothing else.
+    if (explorer) {
+      var panelHead = explorerEl.querySelector('.explorer__head');
+      crumbs.className = 'sm-crumbs sm-trail';
+      if (panelHead) panelHead.appendChild(crumbs);
+      if (root.classList) root.classList.add('sm--explorer');
+    } else {
+      root.appendChild(head);
+      root.appendChild(caption);
+    }
     root.appendChild(area);
     root.appendChild(tip);
     root.appendChild(live);
@@ -2160,9 +2199,15 @@
       if (sameAt(prev, next)) { if (how.keyed) focusKey(keyOf(at)); return; }
       if (!how.noTrail) { trail.push(prev); if (trail.length > 60) trail.shift(); }
       at = copyAt(next);
+      // A new choice frames itself: a zoom the reader made is let go.
+      userCam = undefined;
       if (pageMode && !how.fromAddress) writeAddress(!!how.replace);
       render(how);
       if (at.level !== 'system') warm(keyOf(at));
+      // The explorer's frame brings the reading forward on a phone.
+      if (explorer && !how.fromAddress && at.level !== 'system' && explorerEl.dispatchEvent && typeof CustomEvent === 'function') {
+        try { explorerEl.dispatchEvent(new CustomEvent('explorer:selected', { bubbles: true, detail: { level: at.level } })); } catch (e) {}
+      }
     }
     function goSystem(how) { navigate(copyAt(SYSTEM), how); }
     function goFamily(fi, how) { navigate({ level: 'family', fam: fi, comp: -1, rule: null }, how); }
@@ -2441,13 +2486,13 @@
        keep their own sizes, and the move between two views carries both
        drawings along one path, the view left fading as the view arrived at
        comes in. Under reduced motion, or from the keyboard, the view simply
-       changes. On the map's own page every name is already round the rim,
-       and the camera stays where it is. */
+       changes. In the explorer the same closer looks frame each choice in
+       its stage, and the reader's own zoom stands until the next choice. */
     var KMAX = 2.4;
     function camOf(k, cx, cy, names, nameSize) {
       names = names === undefined ? -1 : names;
       if (!(k > 1.06) && names < 0) return null;
-      return { k: k, cx: cx, cy: cy, names: names, nameSize: nameSize || 15, R0: baseMap.R0, size: baseMap.size, width: baseMap.width };
+      return { k: k, cx: cx, cy: cy, names: names, nameSize: nameSize || 15, R0: baseMap.R0, size: baseMap.size, width: baseMap.width, crowded: !!baseMap.crowded };
     }
     // The zooms to try, from the closest wanted down to the least allowed.
     function zooms(top, least) {
@@ -2471,6 +2516,12 @@
     // the rim), the arc and the names together centred in the drawing. The
     // closest such look whose names all fit is taken, at 15px and failing
     // that 14px; where none fits, no closer look.
+    // The room a closer look may fill: the drawing less its edge band, and
+    // in the explorer less the bands its controls and its key stand in.
+    function roomBox(pad) {
+      var B = baseMap;
+      return { x0: pad, x1: B.width - pad, y0: pad + (explorer ? frameInset.top : 0), y1: B.size - pad - (explorer ? frameInset.bottom : 0) };
+    }
     function famCamera(fi) {
       var B = baseMap, F = model.families[fi];
       if (!F || !F.members.length || !(B.pitch > 0)) return null;
@@ -2493,8 +2544,9 @@
         var tries = zooms(top, least);
         for (var t = 0; t < tries.length; t++) {
           var b = frame(names, tries[t]);
-          if (b.x1 - b.x0 <= W - 2 * pad && b.y1 - b.y0 <= H - 2 * pad) {
-            return camOf(tries[t], W / 2 - (b.x0 + b.x1) / 2, H / 2 - (b.y0 + b.y1) / 2, fi, fs);
+          var room = roomBox(pad);
+          if (b.x1 - b.x0 <= room.x1 - room.x0 && b.y1 - b.y0 <= room.y1 - room.y0) {
+            return camOf(tries[t], (room.x0 + room.x1) / 2 - (b.x0 + b.x1) / 2, (room.y0 + room.y1) / 2 - (b.y0 + b.y1) / 2, fi, fs);
           }
         }
       }
@@ -2531,8 +2583,9 @@
       var tries = zooms(KMAX, 1.12);
       for (var t = 0; t < tries.length; t++) {
         var b = frame(tries[t]);
-        if (b.x1 - b.x0 <= W - 2 * margin && b.y1 - b.y0 <= H - 2 * margin) {
-          return camOf(tries[t], W / 2 - (b.x0 + b.x1) / 2, H / 2 - (b.y0 + b.y1) / 2, -1);
+        var room = roomBox(margin);
+        if (b.x1 - b.x0 <= room.x1 - room.x0 && b.y1 - b.y0 <= room.y1 - room.y0) {
+          return camOf(tries[t], (room.x0 + room.x1) / 2 - (b.x0 + b.x1) / 2, (room.y0 + room.y1) / 2 - (b.y0 + b.y1) / 2, -1);
         }
       }
       return null;
@@ -2544,7 +2597,10 @@
       return camOf(clamp(Math.min(B.width, B.size) * 0.46 / B.coreOuter, 1, 2.2), B.cx, B.cy, -1);
     }
     function cameraFor(a) {
-      if (pageMode || !baseMap || !model || !a) return null;
+      if (!baseMap || !model || !a) return null;
+      // In the explorer the reader's own zoom stands until the next choice.
+      if (explorer && userCam !== undefined) return userCam;
+      if (pageMode && !explorer) return null;
       if (a.level === 'family') return famCamera(a.fam);
       if (a.level === 'component') return litCamera(a);
       if (a.level === 'doctrine') return D ? coreCamera() : null;
@@ -2553,6 +2609,189 @@
     function sameCamera(a, b) {
       if (!a || !b) return !a && !b;
       return a.names === b.names && a.width === b.width && Math.abs(a.k / b.k - 1) < 0.03 && Math.abs(a.cx - b.cx) < 4 && Math.abs(a.cy - b.cy) < 4;
+    }
+
+    /* ---- The explorer's zoom ---- */
+    /* A deliberate zoom (the + and - controls, the wheel or a pinch) and a
+       drag that moves a zoomed map. Close enough, every component is named
+       along its radius where the names stand clear of one another; the
+       family's names and its run keep their places, so nothing jumps. While
+       the hand is moving the drawing is carried by a transform; when it
+       rests, it is drawn again for the new camera, so marks, lines and words
+       keep their own sizes. Hover never moves the map. */
+    var KMAX_PAGE = 4.2, ZOOM_STEP = 1.6;
+    // The camera the drawing now shows (a gesture's while one is moving).
+    var gesture = null;
+    function viewCam() { return gesture ? gesture.cam : camOr(camNow); }
+    // A camera looking at the whole map from k times closer, the point P of
+    // the drawing (in its own pixels) held where it is.
+    function zoomedCam(from, k, P) {
+      var B = baseMap;
+      k = clamp(k, 1, KMAX_PAGE);
+      if (k <= 1.02) return null;
+      var s = k / from.k, cx = P[0] - s * (P[0] - from.cx), cy = P[1] - s * (P[1] - from.cy);
+      return clampCam({ k: k, cx: cx, cy: cy });
+    }
+    // The ring's centre kept near enough that the map never leaves the
+    // stage; zooming out draws it back to its resting place.
+    function clampCam(c) {
+      var B = baseMap, room = (c.k - 1) * B.R0 * 1.15;
+      return camOf(c.k, clamp(c.cx, B.cx - room, B.cx + room), clamp(c.cy, B.cy - room, B.cy + room), 'all', 15);
+    }
+    // The transform that shows a drawing made for camera L as camera Z.
+    function carryTo(L, Z) {
+      var sc = Z.k / L.k;
+      return 'translate(' + fx(Z.cx - sc * L.cx) + 'px, ' + fx(Z.cy - sc * L.cy) + 'px) scale(' + (Math.round(sc * 1e4) / 1e4) + ')';
+    }
+    function setView(cam, how) {
+      if (!model || !baseMap) return;
+      settleGesture(false);
+      userCam = cam;
+      if (!sameCamera(cam, camNow)) shoot(cam, how || {});
+      syncZoomed();
+    }
+    // The point of the drawing a button zoom holds still: the thing chosen,
+    // where it stands, or the middle of the view.
+    function zoomAnchor(dir) {
+      var B = baseMap, V = viewCam();
+      if (dir > 0 && map && at.level === 'component' && B.comp[at.comp]) {
+        var C = B.comp[at.comp];
+        return [V.cx + V.k * (C.x - B.cx), V.cy + V.k * (C.y - B.cy)];
+      }
+      if (dir > 0 && map && at.level === 'family' && B.sectors[at.fam]) {
+        var m = B.sectors[at.fam].mid, r = B.R0;
+        return [V.cx + V.k * r * Math.cos(m), V.cy + V.k * r * Math.sin(m)];
+      }
+      return [B.cx, B.cy];
+    }
+    function zoomBy(dir, how) {
+      if (!model || !baseMap) return;
+      var V = viewCam(), k = V.k * Math.pow(ZOOM_STEP, dir);
+      setView(zoomedCam(V, k, zoomAnchor(dir)), how);
+    }
+    // A gesture in progress: the drawing on screen carried to the camera the
+    // hand asks for; drawn again for it a moment after the hand rests.
+    var gestureTimer = 0;
+    function moveGesture(cam) {
+      if (!map) return;
+      if (!gesture) {
+        settleMove();
+        gesture = { layer: camOr(camNow), cam: camOr(camNow) };
+        if (map.el.classList) map.el.classList.add('is-moving');
+        hideTip();
+      }
+      gesture.cam = cam || camOr(null);
+      if (map.el.style) map.el.style.transform = carryTo(gesture.layer, gesture.cam);
+      syncZoomed();
+    }
+    function settleGesture(draw) {
+      if (gestureTimer) { clearTimeout(gestureTimer); gestureTimer = 0; }
+      var g = gesture;
+      if (!g) return;
+      gesture = null;
+      var cam = g.cam && g.cam.k > 1.02 ? clampCam(g.cam) : null;
+      if (draw === false) {
+        if (map && map.el.style) map.el.style.transform = '';
+        if (map && map.el.classList) map.el.classList.remove('is-moving');
+        return;
+      }
+      userCam = cam;
+      var old = map;
+      if (!sameCamera(cam, camNow)) shoot(cam, { instant: true });
+      if (old && old.el.style) old.el.style.transform = '';
+      if (old && old.el.classList) old.el.classList.remove('is-moving');
+      syncZoomed();
+    }
+    function restGesture() {
+      if (gestureTimer) clearTimeout(gestureTimer);
+      gestureTimer = setTimeout(function () { gestureTimer = 0; settleGesture(true); }, 170);
+    }
+    function syncZoomed() {
+      if (!explorer || !area.classList) return;
+      var V = viewCam();
+      area.classList.toggle('is-zoomed', V.k > 1.02);
+    }
+    function wireExplorer() {
+      if (!explorer || wireExplorer.done) return;
+      wireExplorer.done = true;
+      explorerEl.addEventListener('explorer:fit', function () { if (model) setView(null, {}); });
+      explorerEl.addEventListener('explorer:zoom', function (e) { zoomBy(e && e.detail && e.detail.direction < 0 ? -1 : 1, {}); });
+      explorerEl.addEventListener('explorer:resize', function () { requestRefresh(); });
+      // The wheel, or a pinch on a trackpad, zooms about the pointer.
+      area.addEventListener('wheel', function (e) {
+        if (!model || !baseMap || !area.getBoundingClientRect) return;
+        if (e.preventDefault) e.preventDefault();
+        var r = area.getBoundingClientRect(), P = [e.clientX - r.left, e.clientY - r.top];
+        var dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
+        var V = viewCam(), k = clamp(V.k * Math.exp(-dy * (e.ctrlKey ? 0.01 : 0.0022)), 1, KMAX_PAGE);
+        moveGesture(k > 1.02 ? zoomedCam(V, k, P) : null);
+        restGesture();
+      }, { passive: false });
+      // A drag moves a zoomed map; two fingers pinch it. A press that moves
+      // is no click: it never chooses or steps back.
+      var pointers = Object.create(null), drag = null, moved = false;
+      function pts() { return Object.keys(pointers).map(function (id) { return pointers[id]; }); }
+      area.addEventListener('pointerdown', function (e) {
+        if (!model || !baseMap || (e.button && e.button !== 0)) return;
+        var r = area.getBoundingClientRect();
+        pointers[e.pointerId] = [e.clientX - r.left, e.clientY - r.top];
+        var list = pts();
+        drag = { start: list.map(function (p) { return p.slice(); }), cam: viewCam(), n: list.length, r: r };
+        moved = false;
+      });
+      area.addEventListener('pointermove', function (e) {
+        if (!drag || !pointers[e.pointerId]) return;
+        var r = drag.r;
+        pointers[e.pointerId] = [e.clientX - r.left, e.clientY - r.top];
+        var list = pts();
+        if (list.length !== drag.n) { drag = { start: list.map(function (p) { return p.slice(); }), cam: viewCam(), n: list.length, r: r }; return; }
+        if (list.length >= 2) {
+          var d0 = Math.hypot(drag.start[0][0] - drag.start[1][0], drag.start[0][1] - drag.start[1][1]);
+          var d1 = Math.hypot(list[0][0] - list[1][0], list[0][1] - list[1][1]);
+          var mid0 = [(drag.start[0][0] + drag.start[1][0]) / 2, (drag.start[0][1] + drag.start[1][1]) / 2];
+          var mid1 = [(list[0][0] + list[1][0]) / 2, (list[0][1] + list[1][1]) / 2];
+          if (!(d0 > 4)) return;
+          var k = clamp(drag.cam.k * d1 / d0, 1, KMAX_PAGE), z = k > 1.02 ? zoomedCam(drag.cam, k, mid0) : null;
+          if (z) z = clampCam({ k: z.k, cx: z.cx + mid1[0] - mid0[0], cy: z.cy + mid1[1] - mid0[1] });
+          moved = true;
+          moveGesture(z);
+          return;
+        }
+        var dx = list[0][0] - drag.start[0][0], dy = list[0][1] - drag.start[0][1];
+        if (!moved && Math.abs(dx) + Math.abs(dy) < 5) return;
+        moved = true;
+        // The whole map is already in view: only a closer look moves.
+        if (!(drag.cam.k > 1.02)) return;
+        if (area.setPointerCapture && !drag.captured) { drag.captured = true; try { area.setPointerCapture(e.pointerId); } catch (err) {} }
+        if (area.classList) area.classList.add('is-dragging');
+        moveGesture(clampCam({ k: drag.cam.k, cx: drag.cam.cx + dx, cy: drag.cam.cy + dy }));
+      });
+      function lift(e) {
+        if (!pointers[e.pointerId]) return;
+        delete pointers[e.pointerId];
+        if (pts().length) { var r = drag ? drag.r : area.getBoundingClientRect(), list = pts(); drag = { start: list.map(function (p) { return p.slice(); }), cam: viewCam(), n: list.length, r: r }; return; }
+        drag = null;
+        if (gesture) settleGesture(true);
+        if (area.classList) area.classList.remove('is-dragging');
+      }
+      area.addEventListener('pointerup', lift);
+      area.addEventListener('pointercancel', lift);
+      // The click that ends a drag is swallowed before it reaches the map.
+      area.addEventListener('click', function (e) {
+        if (!moved) return;
+        moved = false;
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+      }, true);
+      // + and - zoom, 0 fits, from anywhere on the stage.
+      stage.addEventListener('keydown', function (e) {
+        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+        if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomBy(1, { keyed: true }); }
+        else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomBy(-1, { keyed: true }); }
+        else if (e.key === '0') { e.preventDefault(); setView(null, { keyed: true }); }
+      });
     }
     /* The move. Each drawing is laid out for its own camera; while the
        camera travels from one to the other (its scale geometrically, the
@@ -2660,12 +2899,26 @@
       measureFloor();
       column.refit();
       announce();
+      syncExpand();
+      syncZoomed();
       if (how.keyed) focusKey(how.focusTo || keyOf(at) || null);
+    }
+    /* The landing's way into the full map (the atlas bar's "Expand map",
+       a[data-system-expand]) follows the drawing's choice, so a reader looking
+       at a component arrives at the explorer with it still chosen. */
+    function syncExpand() {
+      if (pageMode || !model || !document.querySelectorAll) return;
+      var href = base + 'system-map.html' + hashOf(at);
+      Array.prototype.forEach.call(document.querySelectorAll('a[data-system-expand]'), function (a) {
+        if (a.getAttribute('href') !== href) a.setAttribute('href', href);
+      });
     }
     // The map is laid out again for a new size; the view stays as it was.
     function relayout() {
       if (!model) return;
       settleMove();
+      // A new stage is fitted afresh; a zoom made for the old one is let go.
+      if (explorer) { settleGesture(false); userCam = undefined; }
       hoverKey = null;
       hideTip();
       renderKey();
@@ -2683,17 +2936,27 @@
     function renderHead() {
       clear(crumbList);
       var path = ancestors(at).concat([copyAt(at)]);
+      // The explorer's trail is the panel's compact context line: the levels
+      // above what is chosen, each a way back to it (what is chosen is the
+      // title of the page under it). At rest the panel's own title and
+      // sentence stand instead.
+      if (explorer) {
+        path = ancestors(at);
+        var headEl = explorerEl.querySelector('.explorer__head');
+        if (headEl && headEl.classList) headEl.classList.toggle('is-collapsed', at.level !== 'system');
+        crumbs.hidden = !path.length;
+      }
       path.forEach(function (a, k) {
         var li = h('li', 'sm-crumbs__item');
-        var label = a.level === 'system' ? 'System' : a.level === 'doctrine' ? 'The doctrine' : capital(nameOf(a));
-        if (k === path.length - 1) {
+        var label = a.level === 'system' ? (explorer ? 'The system map' : 'System') : a.level === 'doctrine' ? 'The doctrine' : capital(nameOf(a));
+        if (!explorer && k === path.length - 1) {
           var here = h('span', 'sm-crumbs__here', label);
           here.setAttribute('aria-current', 'location');
           li.appendChild(here);
         } else {
           var b = button('sm-crumbs__go', label);
           b.addEventListener('click', function (e) {
-            navigate(a, { keyed: keyedClick(e), back: true, focusTo: keyOf(path[k + 1]) });
+            navigate(a, { keyed: keyedClick(e), back: true, focusTo: keyOf(path[k + 1] || copyAt(at)) });
           });
           li.appendChild(b);
         }
@@ -2754,34 +3017,39 @@
       return model.codeBase && model.links.some(function (l) { return !!l.ev; }) ?
         'Each is derived from the code; Code opens the file that makes it.' : 'Each connection is derived from the code.';
     }
-    function captionText() {
+    // The view's sentence, as what it is about and what the map shows of it.
+    function captionParts() {
       var n = model.comps.length;
       if (at.level === 'family') {
         var F = model.families[at.fam];
-        return F.title + ': its ' + countWords(F.members.length, 'component', 'components') + ' and their ' + linkNoun(2) + ', inside the family and out to the others.';
+        return [F.title, 'its ' + countWords(F.members.length, 'component', 'components') + ' and their ' + linkNoun(2) + ', inside the family and out to the others.'];
       }
       if (at.level === 'component') {
         var c = model.comps[at.comp];
         var rules = D ? ', azure lines to the rules its paper module cites.' : '.';
-        if (!c.out.length && !c.inc.length) return c.label + (onlyNamed() ? ': its record lists no related components' : ': no code connections to other components') +
-          (D ? '; azure lines to the rules its paper module cites.' : '.');
-        if (onlyNamed()) return c.label + ': red lines to the components listed as related' + rules;
-        return c.label + ': red lines for its code connections' + rules;
+        if (!c.out.length && !c.inc.length) return [c.label, (onlyNamed() ? 'its record lists no related components' : 'no code connections to other components') +
+          (D ? '; azure lines to the rules its paper module cites.' : '.')];
+        if (onlyNamed()) return [c.label, 'red lines to the components listed as related' + rules];
+        return [c.label, 'red lines for its code connections' + rules];
       }
       if (at.level === 'doctrine') {
-        return 'The doctrine: ' + countWords(D.axioms.length, 'axiom', 'axioms') + ' on a ring. A rule tied to one axiom sits just outside it; a rule tied to several stands between them.';
+        return ['The doctrine', countWords(D.axioms.length, 'axiom', 'axioms') + ' on a ring. A rule tied to one axiom sits just outside it; a rule tied to several stands between them.'];
       }
       if (at.level === 'rule') {
         var r = D.rules[at.rule];
-        if (r.kind === 'failure') return r.title + ': lit with the axioms it threatens and the components ' + (D.enforcedBy === 'tests' ?
-          'where a test shows it enforced' + (r.partly.length ? ' or checks part of it' : '') + '.' : 'its card names as enforcing it.');
+        if (r.kind === 'failure') return [r.title, 'lit with the axioms it threatens and the components ' + (D.enforcedBy === 'tests' ?
+          'where a test shows it enforced' + (r.partly.length ? ' or checks part of it' : '') + '.' : 'its card names as enforcing it.')];
         var into = r.kind === 'axiom' ? 'the principles and failure modes tied to it' : 'the axioms it rests on';
-        return r.title + ': lit with ' + into + ', and azure lines out to the components whose paper modules cite it.';
+        return [r.title, 'lit with ' + into + ', and azure lines out to the components whose paper modules cite it.'];
       }
       var none = unconnected();
-      return n + ' components round the rim in ' + numberWord(model.families.length) + ' families' +
+      return [null, n + ' components round the rim in ' + numberWord(model.families.length) + ' families' +
         (none ? ', ' + none + ' of them with no code connection,' : '') +
-        (D ? (none ? ' and' : ',') + ' the doctrine at the centre' : '') + '. Select any of them to light what it touches.';
+        (D ? (none ? ' and' : ',') + ' the doctrine at the centre' : '') + '. Select any of them to light what it touches.'];
+    }
+    function captionText() {
+      var p = captionParts();
+      return p[0] ? p[0] + ': ' + p[1] : p[1];
     }
     function announce() {
       var text;
@@ -2847,6 +3115,18 @@
           if (r.partly.length) items.push({ reticle: 'part', text: 'Partly checked here' });
         }
       }
+      // The explorer's key on the stage is this one row; every other mark is
+      // named in the panel, under how the map is drawn, so the stage never
+      // grows rows of legend over the drawing. Its lines and its marks are
+      // two groups, so where the row must break it breaks between them.
+      if (explorer) {
+        var lines = h('span', 'sm-key__group'), marks = h('span', 'sm-key__group');
+        items.forEach(function (it) { (it.line ? lines : marks).appendChild(keyItem(it)); });
+        [lines, marks].forEach(function (g) { if (g.firstChild) row.appendChild(g); });
+        keyBox.appendChild(row);
+        renderPanelKey();
+        return;
+      }
       items.forEach(function (it) { row.appendChild(keyItem(it)); });
       var more = button('sm-key__more sm-note', 'Key');
       more.setAttribute('aria-expanded', keyOpen ? 'true' : 'false');
@@ -2875,6 +3155,34 @@
       // About these lines: where the red ones come from, and how many
       // components have none.
       if (model.links.length) keyBox.appendChild(h('p', 'sm-key__about sm-note', aboutLines()));
+    }
+    var panelKeyState = null;
+    function renderPanelKey() {
+      var about = explorerEl && explorerEl.querySelector ? explorerEl.querySelector('.system-explorer__about') : null;
+      var want = (D ? 'd' : '-') + (baseMap && baseMap.sheaves ? baseMap.sheaves.length : 0);
+      if (!about || !model || want === panelKeyState) return;
+      panelKeyState = want;
+      var old = about.querySelector('.sm-key--panel');
+      if (old && old.parentNode) old.parentNode.removeChild(old);
+      var box = h('div', 'sm-key sm-key--panel');
+      var list = h('div', 'sm-key__row sm-key__row--list');
+      var all = model.classes.map(function (cls) { return { glyph: cls, text: CLASS_WORDS[cls] }; });
+      model.kinds.forEach(function (k) { all.push({ line: 'k-' + k, text: LINK_WORDS[k].key }); });
+      if (baseMap && baseMap.sheaves && baseMap.sheaves.length) all.push({ sheaf: true, text: 'One component’s lines to several in one family travel as one ribbon' });
+      if (D) {
+        var full = D.comp.some(function (info) { return info.enforces.length > 0; }), part = D.comp.some(function (info) { return info.partly.length > 0; });
+        all.push({ line: 'azure', text: 'Cited by its paper module' });
+        all.push({ doctrine: 'axiom', text: 'Axiom' }, { doctrine: 'principle', text: 'Principle' }, { doctrine: 'failure', text: 'Failure mode' });
+        all.push({ line: 'span', text: 'Rests on' }, { line: 'threat', text: 'Threatens' });
+        all.push({ bar: true, text: 'One step for each rule its paper module cites' });
+        if (full) all.push({ cap: 'full', text: byTests() ? 'A test shows a rule enforced here' : 'A rule’s card says it is enforced here' });
+        if (part) all.push({ cap: 'part', text: 'A test checks part of a rule here' });
+        all.push({ weave: true, text: 'Where a red line and an azure line cross, one passes over the other' });
+      }
+      all.forEach(function (it) { list.appendChild(keyItem(it)); });
+      box.appendChild(list);
+      if (model.links.length) box.appendChild(h('p', 'sm-key__about', aboutLines()));
+      about.appendChild(box);
     }
 
     /* ---- The map ---- */
@@ -2949,33 +3257,54 @@
     function framedBand() {
       try { return !!(window.matchMedia && window.matchMedia('(min-width: 961px)').matches); } catch (e) { return false; }
     }
-    /* On the map's own page every component is named round the rim when the
-       room allows: the largest of 16, 15 or 14px whose circle fits the window
-       (and failing that, its width), the names set along their radii, the
-       sector names outside them. */
-    function namedPlan(width, depth) {
-      if (!pageMode) return null;
-      var widest = 0, head = 0;
-      model.comps.forEach(function (c) { widest = Math.max(widest, textWidth(c.label, 'sm-rimname')); });
-      // A family's own name stands along the radius in the gap before its
-      // run, as a header to the names that follow.
-      model.families.forEach(function (F) {
-        head = Math.max(head, textWidth(F.title, 'sm-sector__name') + 10 + textWidth(countLine(F), 'sm-sector__count'));
-      });
-      var top = area.getBoundingClientRect ? area.getBoundingClientRect().top + (window.pageYOffset || 0) : 250;
-      var avail = (window.innerHeight || 900) - Math.max(0, top) - 72;
-      var plans = [16, 15, 14].map(function (fs) {
-        var k = fs / 16, pitch = fs + 2, slot = 20;
-        var arc = model.comps.length * pitch + ring.order.length * (slot + 2 * pitch);
-        var rName = Math.max(arc / TAU, 240 + depth + 6);
-        var outer = rName + Math.max(widest * k, head) + 6;
-        return { fs: fs, pitch: pitch, slot: slot, rName: rName, R: rName - depth - 6, outer: outer,
-                 size: Math.ceil(2 * outer), widest: widest * k };
-      });
-      for (var i = 0; i < plans.length; i++) if (plans[i].size <= width && plans[i].size <= avail) return plans[i];
-      for (var j = plans.length - 1; j >= 0; j--) if (plans[j].size <= width) return plans[j];
-      return null;
+    /* The explorer fits the whole circle, its family names round the outside
+       included, to the stage it has, with a modest margin. The controls in
+       the stage's top right and the key in its bottom left stand over the
+       drawing: where either would touch the circle, its band is kept clear
+       and the circle takes the rest. Where the circle cannot stand whole
+       (a very small stage), it keeps a least size and the reader zooms. */
+    var avoidRects = [];
+    function explorerFit(depth, bare) {
+      var box = area.getBoundingClientRect ? area.getBoundingClientRect() : null;
+      var W = Math.max(280, box && box.width || 0) || 760, H = Math.max(280, box && box.height || 0) || 640;
+      // bare: no room is kept for the family names round the outside.
+      var reach = bare ? depth + 10 : depth + 13 + 18 + 12, gut = clamp(Math.round(Math.min(W, H) * 0.03), 14, 34);
+      function rel(el) {
+        if (!el || !el.getBoundingClientRect || !box) return null;
+        var r = el.getBoundingClientRect();
+        if (!(r.width > 0 && r.height > 0)) return null;
+        return { x0: r.left - box.left, x1: r.right - box.left, y0: r.top - box.top, y1: r.bottom - box.top };
+      }
+      // The key's own words, not its row's full width.
+      var keyR = null;
+      if (keyBox && keyBox.querySelectorAll) {
+        Array.prototype.forEach.call(keyBox.querySelectorAll('.sm-key__item, .sm-key__more'), function (n) {
+          var q = rel(n);
+          if (!q) return;
+          keyR = keyR ? { x0: Math.min(keyR.x0, q.x0), x1: Math.max(keyR.x1, q.x1), y0: Math.min(keyR.y0, q.y0), y1: Math.max(keyR.y1, q.y1) } : q;
+        });
+      }
+      var toolsR = rel(explorerEl.querySelector('.explorer__tools'));
+      function place(top, bottom) {
+        var h = H - top - bottom, r = Math.min(W - 2 * gut, h - 2 * gut) / 2 - reach;
+        return { R: r, cx: W / 2, cy: top + h / 2, outer: r + reach };
+      }
+      function touches(q, p) {
+        if (!q) return false;
+        var nx = clamp(p.cx, q.x0, q.x1), ny = clamp(p.cy, q.y0, q.y1);
+        return Math.sqrt((nx - p.cx) * (nx - p.cx) + (ny - p.cy) * (ny - p.cy)) < p.outer + 6;
+      }
+      var top = 0, bottom = 0, p = place(0, 0);
+      for (var pass = 0; pass < 2; pass++) {
+        if (touches(toolsR, p)) top = Math.max(top, toolsR.y1 + 2 - gut * 0.5);
+        if (touches(keyR, p)) bottom = Math.max(bottom, H - keyR.y0 + 2 - gut * 0.5);
+        p = place(top, bottom);
+      }
+      avoidRects = [toolsR, keyR].filter(Boolean);
+      frameInset = { top: toolsR ? Math.max(0, toolsR.y1 + 4) : 0, bottom: keyR ? Math.max(0, H - keyR.y0 + 4) : 0 };
+      return { width: W, height: H, R: Math.max(96, p.R), cx: p.cx, cy: p.cy };
     }
+    var frameInset = { top: 0, bottom: 0 };
     /* The drawing's radii, as fractions of R (the radius the marks sit on):
        the doctrine's necklace (the axioms, and the rules tied to several of
        them) and the satellites just outside it; the lanes the fibres swoop
@@ -3006,19 +3335,39 @@
        type as it zooms. */
     function buildMap(cam) {
       var el = h('div', 'sm-body sm-body--ring');
-      var width = cam ? cam.width : Math.max(320, (area.getBoundingClientRect ? area.getBoundingClientRect().width : 0) || 760);
       var order = ring.order, nF = order.length, nComp = model.comps.length;
       var depth = rimDepth();
-      var named = cam ? null : namedPlan(width, depth);
+      // The explorer's drawing is its stage, the circle fitted inside it.
+      var fit = !cam && explorer ? explorerFit(depth) : null;
+      var width = cam ? cam.width : fit ? fit.width : Math.max(320, (area.getBoundingClientRect ? area.getBoundingClientRect().width : 0) || 760);
       // R0: the ring as the whole system draws it; R: as this camera sees it.
-      var R0 = cam ? cam.R0 : named ? named.R : landingRadius(width, depth), R = cam ? R0 * cam.k : R0;
+      var R0 = cam ? cam.R0 : fit ? fit.R : landingRadius(width, depth), R = cam ? R0 * cam.k : R0;
+      /* Crowded: a circle too small for every family's name to stand round
+         it at its sector (a phone). The sectors then follow their runs alone
+         and a family is named round the outside only where its name fits
+         its own arc and the drawing; the explorer gives the ring the room
+         the names would have taken. The panel names every family. */
+      var crowded = cam ? !!cam.crowded : false;
+      if (!cam) {
+        var widest = model.families.map(function (F) {
+          return Math.max(textWidth(F.title, 'sm-sector__name'), textWidth(countLine(F), 'sm-sector__count'));
+        });
+        var needs = function (r0) {
+          var n = nF * 16 / r0;
+          order.forEach(function (fi) { n += Math.max(model.families[fi].members.length * 7 / r0, (widest[fi] + 26) / (r0 + depth + 13)); });
+          return n;
+        };
+        crowded = needs(R0) > TAU;
+        if (crowded && fit) { fit = explorerFit(depth, true); R0 = R = fit.R; }
+      }
       var labelR1 = R + depth + 13, labelR2 = labelR1 + 18, labelR10 = R0 + depth + 13;
-      var size = cam ? cam.size : named ? named.size : Math.ceil(2 * (labelR10 + 18 + 12));
-      var cx = cam ? cam.cx : width / 2, cy = cam ? cam.cy : size / 2;
+      var size = cam ? cam.size : fit ? fit.height : Math.ceil(2 * (labelR10 + 18 + 12));
+      var cx = cam ? cam.cx : fit ? fit.cx : width / 2, cy = cam ? cam.cy : fit ? fit.cy : size / 2;
+      size = Math.round(size);
       // Lines grow more slowly than the ring, so a large drawing stays fine;
       // a closer look keeps the whole drawing's weights.
       var s = R0 / 320, rs = Math.sqrt(s), ws = Math.pow(s, 0.6);
-      var svg = sv('svg', { 'class': 'sm-ring' + (named ? ' is-named' : '') + (cam ? ' is-camera' : '') + (!revealed && motionOK() ? ' awaits-reveal' : ''), width: fx(width), height: size,
+      var svg = sv('svg', { 'class': 'sm-ring' + (cam ? ' is-camera' : '') + (!revealed && motionOK() ? ' awaits-reveal' : ''), width: fx(width), height: size,
         viewBox: '0 0 ' + fx(width) + ' ' + size, role: 'group',
         'aria-label': 'The system: ' + nComp + ' components round the rim in ' + numberWord(nF) + ' families' + (D ? ', the doctrine at the centre' : '') });
       var AZ_W = fx(Math.max(1, rs)), SPAN_W = fx(Math.max(0.9, 0.9 * rs));
@@ -3046,17 +3395,13 @@
 
       /* ---- The rim ---- */
       /* One spacing for every component round the ring; a sector is as wide
-         as its run and its name need; whatever is left is shared out so the
-         circle closes. With every name round the rim the spacing is the
-         names' own. */
+         as its run and its name need (crowded, its run alone); whatever is
+         left is shared out so the circle closes. */
       var labelW = model.families.map(function (F) {
         return Math.max(textWidth(F.title, 'sm-sector__name'), textWidth(countLine(F), 'sm-sector__count'));
       });
-      // With every name round the rim, a family's name stands in the gap
-      // before its run, so the gap is a slot and a spacing either side of it,
-      // and a sector needs no more room than its run.
-      var gapA = named ? (named.slot + 2 * named.pitch) / named.rName : 16 / R0;
-      function floorOf(fi) { return named ? 0 : (labelW[fi] + 26) / labelR10; }
+      var gapA = 16 / R0;
+      function floorOf(fi) { return crowded ? 0 : (labelW[fi] + 26) / labelR10; }
       function needAt(p) {
         var total = nF * gapA;
         order.forEach(function (fi) {
@@ -3064,13 +3409,9 @@
         });
         return total;
       }
-      var pitch;
-      if (named) pitch = named.pitch / named.rName;
-      else {
-        var lo = 7 / R0, hi = 22 / R0;
-        for (var it = 0; it < 30; it++) { var mid = (lo + hi) / 2; if (needAt(mid) <= TAU) lo = mid; else hi = mid; }
-        pitch = lo;
-      }
+      var lo = 7 / R0, hi = 22 / R0;
+      for (var it = 0; it < 30; it++) { var mid = (lo + hi) / 2; if (needAt(mid) <= TAU) lo = mid; else hi = mid; }
+      var pitch = lo;
       var pitchPx = pitch * R, spare = Math.max(0, TAU - needAt(pitch)) / nF;
       // Every mark at least ten pixels, so its cut survives a reader's zoom.
       var markSize = clamp(pitch * R0 - 2, 10, 11.5);
@@ -3088,7 +3429,6 @@
         });
         a0 += span + gapA;
       });
-      var rName = named ? named.rName : 0;
 
       /* ---- The core: the doctrine as a necklace ---- */
       /* The twelve axioms stand on a ring with the rules tied to several of
@@ -3571,10 +3911,11 @@
       // component's bar: one step for each rule its paper module cites; a
       // crossbar caps it where a rule is enforced there, an open one where a
       // narrower part of a rule is checked.
-      var tickEls = Object.create(null);
+      var tickEls = Object.create(null), scaleEls = [];
       order.forEach(function (fi) {
         var S = sectors[fi], F = model.families[fi];
         var g = sv('g', { 'class': 'sm-scale__sector', 'data-fam': F.key });
+        scaleEls[fi] = g;
         var e0 = S.runFrom - pitch * 0.18, e1 = S.runTo + pitch * 0.18;
         g.appendChild(sv('path', { 'class': 'sm-tick sm-tick--base', d: 'M' + pt(polar(cx, cy, R + 9, e0)) +
           'A' + fx(R + 9) + ' ' + fx(R + 9) + ' 0 ' + (e1 - e0 > Math.PI ? 1 : 0) + ' 1 ' + pt(polar(cx, cy, R + 9, e1)) }));
@@ -3650,6 +3991,58 @@
         pop.appendChild(mk);
         return pop;
       }
+      // The explorer's zoom names the components once their names stand
+      // clear of one another round the rim (one name's height and a pixel
+      // between neighbours), each only where it stands whole in view: never
+      // cut by the stage's edge, never under its controls or its key.
+      var namesClear = !!cam && cam.names === 'all' && pitchPx >= (cam.nameSize || 15) + 1;
+      var namedComp = Object.create(null);
+      function nameStands(C, label) {
+        return spanStands(C.a, R + depth + 8, textWidth(label, 'sm-rimname sm-rimname--' + (cam.nameSize || 15)));
+      }
+      function nameStandsIn(C, label) {
+        var w = textWidth(label, 'sm-rimname sm-rimname--' + (cam.nameSize || 15)), r1 = R - markSize / 2 - 7;
+        return r1 - w >= coreOuter + 16 && spanStands(C.a, r1 - w, w);
+      }
+      /* One way for a family's names: the members whose marks are in view
+         are named outward when every one of them stands so, else inward
+         when every one does; failing both, the way most of them stand
+         (three in five at least) names those, a name that cannot stand that
+         way reading the other way where it can, and otherwise none is named
+         until a closer look has room for them. */
+      var nameWay = Object.create(null);
+      if (namesClear) order.forEach(function (fi) {
+        var seen = model.families[fi].members.filter(function (ci) {
+          var C = comp[ci];
+          return C && C.x > 12 && C.x < width - 12 && C.y > 12 && C.y < size - 12;
+        });
+        if (!seen.length) return;
+        var outs = seen.filter(function (ci) { return nameStands(comp[ci], model.comps[ci].label); });
+        var ins = outs.length === seen.length ? [] : seen.filter(function (ci) { return nameStandsIn(comp[ci], model.comps[ci].label); });
+        var pick = outs.length === seen.length ? [outs, 'out'] : ins.length === seen.length ? [ins, 'in'] :
+          outs.length >= ins.length && outs.length >= 0.6 * seen.length ? [outs, 'out'] : ins.length >= 0.6 * seen.length ? [ins, 'in'] : null;
+        if (!pick) return;
+        pick[0].forEach(function (ci) { nameWay[ci] = pick[1]; });
+        seen.forEach(function (ci) {
+          if (nameWay[ci]) return;
+          var C = comp[ci], label = model.comps[ci].label;
+          if (pick[1] === 'out' ? nameStandsIn(C, label) : nameStands(C, label)) nameWay[ci] = pick[1] === 'out' ? 'in' : 'out';
+        });
+      });
+      // Whether a word set along the radius at angle a, from r0 for w pixels,
+      // stands whole in view.
+      function spanStands(a, r0, w) {
+        var edge = 20;
+        for (var f = 0; f <= 1.0001; f += 0.25) {
+          var p = polar(cx, cy, r0 + w * f, a);
+          if (p[0] < edge || p[0] > width - edge || p[1] < edge || p[1] > size - edge) return false;
+          for (var q = 0; q < avoidRects.length; q++) {
+            var A = avoidRects[q];
+            if (p[0] > A.x0 - 8 && p[0] < A.x1 + 8 && p[1] > A.y0 - 10 && p[1] < A.y1 + 10) return false;
+          }
+        }
+        return true;
+      }
       model.comps.forEach(function (c, ci) {
         if (!comp[ci]) return;
         var C = comp[ci];
@@ -3658,25 +4051,24 @@
         g.__ci = ci;
         g.appendChild(glyph(GLYPHS[c.cls] || GLYPHS.none, markSize));
         g.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(markSize / 2 + 3.5) }));
-        if (named) {
-          var deg = C.a * 180 / Math.PI, right = Math.cos(C.a) >= 0, off = rName - R;
-          var t = sv('text', { 'class': 'sm-rimname sm-rimname--' + named.fs + ' sm-note', 'dominant-baseline': 'central',
-            'text-anchor': right ? 'start' : 'end',
-            transform: 'rotate(' + fx(right ? deg : deg + 180) + ') translate(' + fx(right ? off : -off) + ' 0)' });
-          t.textContent = c.label;
-          g.appendChild(t);
-        } else if (cam && cam.names === c.fam) {
-          // A family looked at closely names each of its components along
-          // its radius, just outside the rim's furniture.
-          var dg = C.a * 180 / Math.PI, rt = Math.cos(C.a) >= 0, out = depth + 8, nsz = 'sm-rimname--' + (cam.nameSize || 15);
+        // A family looked at closely names each of its components along its
+        // radius, just outside the rim's furniture; so does the explorer's
+        // zoom, every name that stands whole in view, and where a name would
+        // run out of view it reads inward from the mark instead, over the
+        // lines, on a halo of the ground, never into the doctrine.
+        var way = !cam ? null : cam.names === c.fam ? 'out' : cam.names === 'all' ? nameWay[ci] || null : null;
+        if (way) {
+          var dg = C.a * 180 / Math.PI, rt = Math.cos(C.a) >= 0, nsz = 'sm-rimname--' + (cam.nameSize || 15);
+          var out = way === 'out' ? depth + 8 : -(markSize / 2 + 7);
           var nw = textWidth(c.label, 'sm-rimname ' + nsz);
-          var tn = sv('text', { 'class': 'sm-rimname ' + nsz + ' sm-rimname--cam sm-note', 'dominant-baseline': 'central',
-            'text-anchor': rt ? 'start' : 'end',
+          namedComp[ci] = true;
+          var tn = sv('text', { 'class': 'sm-rimname ' + nsz + ' sm-rimname--cam' + (way === 'in' ? ' sm-rimname--in' : '') + ' sm-note',
+            'dominant-baseline': 'central', 'text-anchor': rt === (way === 'out') ? 'start' : 'end',
             transform: 'rotate(' + fx(rt ? dg : dg + 180) + ') translate(' + fx(rt ? out : -out) + ' 0)' });
           tn.textContent = c.label;
           g.appendChild(tn);
           for (var along = 0; along <= nw; along += 8) {
-            var np = polar(cx, cy, R + out + along, C.a);
+            var np = polar(cx, cy, R + out + (way === 'out' ? along : -along), C.a);
             nameBoxes.push({ x0: np[0] - 8, x1: np[0] + 8, y0: np[1] - 9, y1: np[1] + 9 });
           }
         }
@@ -3706,7 +4098,8 @@
         ct.textContent = 'Doctrine';
         var cpop = sv('g', { 'class': 'sm-pop' });
         // Under a camera the centre's name is set only where it stands whole.
-        if (!cam || (labelBox && labelBox.x0 >= 18 && labelBox.x1 <= width - 18 && labelBox.y0 >= 18 && labelBox.y1 <= size - 18)) cpop.appendChild(ct);
+        if (!cam || (labelBox && labelBox.x0 >= 18 && labelBox.x1 <= width - 18 && labelBox.y0 >= 18 && labelBox.y1 <= size - 18 &&
+            !avoidRects.some(function (A) { return labelBox.x0 < A.x1 + 6 && labelBox.x1 > A.x0 - 6 && labelBox.y0 < A.y1 + 6 && labelBox.y1 > A.y0 - 6; }))) cpop.appendChild(ct);
         cg.appendChild(cpop);
         cg.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(Math.max(14, centreClear - 4)) }));
         cg.addEventListener('click', function (e) { press(e, 'doctrine', function (how) { goDoctrine(null, how); }); });
@@ -3716,15 +4109,14 @@
 
       /* ---- The sector names, set along the outside of the ring ---- */
       var labelBoxes = [];   // per family: sample boxes along both rows, for the plates to keep clear of
-      // With every name round the rim, a family's name stands along the
-      // radius in the gap before its run, its count after it, reading outward
-      // like the names it heads.
-      if (named) order.forEach(function (fi) {
-        var S = sectors[fi], F = model.families[fi], a = S.lo - gapA / 2;
+      // A family's name set along the radius at angle a from radius r, its
+      // count after it, reading outward like the components' names it heads.
+      function head(fi, a, r) {
+        var F = model.families[fi];
         var right = Math.cos(a) >= 0, deg = a * 180 / Math.PI;
         var g = sv('g', { 'class': 'sm-node sm-node--fam sm-node--head', 'data-sm-key': 'fam:' + F.key, role: 'button', tabindex: '0',
           'aria-label': F.title + ': ' + countLine(F) + '. Select to light the family.',
-          transform: 'translate(' + pt(polar(cx, cy, rName, a)) + ') rotate(' + fx(right ? deg : deg + 180) + ')' });
+          transform: 'translate(' + pt(polar(cx, cy, r, a)) + ') rotate(' + fx(right ? deg : deg + 180) + ')' });
         var tw = textWidth(F.title, 'sm-sector__name'), cw = textWidth(countLine(F), 'sm-sector__count');
         var x0 = right ? 0 : -(tw + 10 + cw);
         g.appendChild(sv('rect', { 'class': 'sm-hit', x: fx(x0 - 4), y: -12, width: fx(tw + cw + 18), height: 24 }));
@@ -3740,16 +4132,12 @@
         gLabels.appendChild(g);
         nodes['fam:' + F.key] = g;
         labelBoxes[fi] = { g: g, boxes: [] };
-      });
-      else order.forEach(function (fi, k) {
+      }
+      // Where a family's two rows of words will stand, before any is set.
+      function labelGeom(fi) {
         var S = sectors[fi], F = model.families[fi], lower = readsDownward(S.mid);
         var rows = lower ? [[F.title, 'sm-sector__name', labelR1], [countLine(F), 'sm-sector__count', labelR2]] :
           [[countLine(F), 'sm-sector__count', labelR1], [F.title, 'sm-sector__name', labelR2]];
-        // Where each word will stand, before any is set: under a camera a
-        // family's name is set only where it stands whole on the drawing
-        // and clear of the names a closer look gives a family's components,
-        // never cut by the drawing's edge; the family looked at is named by
-        // the trail and by its components' own names.
         var samples = [], widths = [];
         rows.forEach(function (row) {
           var w = textWidth(row[0], row[1]), half = (w / 2 + 4) / row[2];
@@ -3759,10 +4147,29 @@
             samples.push({ x0: p[0] - 8, x1: p[0] + 8, y0: p[1] - 9, y1: p[1] + 9 });
           }
         });
-        if (cam && (cam.names === fi || samples.some(function (q) {
-          return q.x0 < 18 || q.x1 > width - 18 || q.y0 < 18 || q.y1 > size - 18 ||
-            nameBoxes.some(function (b) { return q.x0 < b.x1 && q.x1 > b.x0 && q.y0 < b.y1 && q.y1 > b.y0; });
-        }))) return;
+        // Crowded, a name stands only within its own family's arc.
+        var ownArc = !crowded || rows.every(function (row, j) { return (widths[j] / 2 + 6) / row[2] <= (S.hi - S.lo + gapA) / 2; });
+        return { lower: lower, rows: rows, widths: widths, samples: samples, ownArc: ownArc };
+      }
+      function standsWhole(q) {
+        return !(q.x0 < 18 || q.x1 > width - 18 || q.y0 < 18 || q.y1 > size - 18 ||
+          nameBoxes.some(function (b) { return q.x0 < b.x1 && q.x1 > b.x0 && q.y0 < b.y1 && q.y1 > b.y0; }) ||
+          avoidRects.some(function (b) { return q.x0 < b.x1 && q.x1 > b.x0 && q.y0 < b.y1 && q.y1 > b.y0; }));
+      }
+      // Crowded, the families are named round the outside all together or
+      // not at all (a lone name would look chosen); the panel names them.
+      var crowdNamed = !crowded || cam || order.every(function (fi) {
+        var L = labelGeom(fi);
+        return L.ownArc && L.samples.every(standsWhole);
+      });
+      order.forEach(function (fi, k) {
+        var S = sectors[fi], F = model.families[fi];
+        // Under a camera a family's name is set only where it stands whole
+        // on the drawing and clear of the names a closer look gives a
+        // family's components, never cut by the drawing's edge; the family
+        // looked at is named by the trail and by its components' own names.
+        var L = labelGeom(fi), lower = L.lower, rows = L.rows, widths = L.widths, samples = L.samples;
+        if (!crowdNamed || !L.ownArc || ((cam || crowded) && ((cam && cam.names === fi) || !samples.every(standsWhole)))) return;
         var g = sv('g', { 'class': 'sm-node sm-node--fam', 'data-sm-key': 'fam:' + F.key, role: 'button', tabindex: '0',
           'aria-label': F.title + ': ' + countLine(F) + '. Select to light the family.' });
         var spanHit = Math.max(S.hi - S.lo, (labelW[fi] + 26) / labelR1);
@@ -3784,6 +4191,20 @@
         gLabels.appendChild(g);
         nodes['fam:' + F.key] = g;
         labelBoxes[fi] = { g: g, boxes: samples };
+      });
+      // Close enough for the components' names, a family whose name round
+      // the outside gave way to them is named the same way they are: along
+      // the radius in the gap before its run, where it stands whole.
+      if (cam && (cam.names === 'all' || typeof cam.names === 'number')) order.forEach(function (fi, k) {
+        if (labelBoxes[fi]) return;
+        var F = model.families[fi];
+        if (!F.members.some(function (ci) { return namedComp[ci]; })) return;
+        var S = sectors[fi], P = sectors[order[(k - 1 + nF) % nF]];
+        var gapAng = norm(S.runFrom - P.runTo), a = S.runFrom - Math.min(gapAng / 2, (pitch * 1.6));
+        if (gapAng * R < 22) return;
+        var w = textWidth(F.title, 'sm-sector__name') + 10 + textWidth(countLine(F), 'sm-sector__count');
+        if (!spanStands(a, R + depth + 8, w)) return;
+        head(fi, a, R + depth + 8);
       });
       // An empty click steps back a level; the second click of a double
       // click that lands on empty ground (the mark may have moved under it)
@@ -3994,6 +4415,8 @@
         });
         if (nodes.doctrine) nodes.doctrine.classList.toggle('is-self', s.level === 'doctrine');
         Object.keys(tickEls).forEach(function (ci) { tickEls[ci].classList.toggle('is-lit', !!L.comps[ci]); });
+        // A family chosen keeps its identity on the rim: its scale in its ink.
+        scaleEls.forEach(function (g, fi) { if (g) g.classList.toggle('is-self', s.level === 'family' && s.fam === fi); });
         Object.keys(spanEls).forEach(function (k) { spanEls[k].el.classList.toggle('is-lit', !!L.spans[k]); });
         var moving = !how.instant && !how.keyed && motionOK();
         // The azure lines, each from the end its light starts at.
@@ -4114,8 +4537,8 @@
          (the thing chosen first), each where it covers least: never over
          another plate or leader, a mark or the ring, never off the drawing.
          A sector's name under a plate steps aside while it shows. A name
-         that finds no room is listed in the column all the same. On the
-         map's own page every name is already round the rim. */
+         that finds no room is listed in the column all the same; a name a
+         zoom has already set round the rim needs no plate. */
       var PLATE_MAX = 14, PLATE_LEAD = 20, GO_W = 22;
       // The ways a name can be set on a plate: on one line, or on two or
       // three lines broken where they come out most nearly equal (a narrow
@@ -4150,7 +4573,7 @@
       }
       function plates(list, moving, arrive, later) {
         Object.keys(labelBoxes).forEach(function (fi) { labelBoxes[fi].g.classList.remove('is-covered'); });
-        if (named || !list.length) return;
+        if (!list.length) return;
         var placed = [], covered = Object.create(null), shown = 0;
         // Under a camera a plate keeps clear of the band where the view fades.
         var edgeIn = cam ? 20 : 4;
@@ -4169,7 +4592,8 @@
           return fams;
         }
         list.forEach(function (ci, rank) {
-          if (shown >= PLATE_MAX || !comp[ci]) return;
+          // A component already named round the rim needs no plate.
+          if (shown >= PLATE_MAX || !comp[ci] || namedComp[ci]) return;
           var C = comp[ci], c = model.comps[ci], self = rank === 0 && at.level === 'component';
           var r0 = R + 16 + C.bar + (C.enf ? 5 : 2);
           var best = null;
@@ -4196,6 +4620,8 @@
                   var box = { x0: x0, x1: x0 + w, y0: y0, y1: y0 + hgt };
                   if (box.x0 < edgeIn || box.x1 > width - edgeIn || box.y0 < edgeIn || box.y1 > size - edgeIn) return;
                   if (!outside(box)) return;
+                  // Never under the explorer's controls or its key.
+                  for (var av = 0; av < avoidRects.length; av++) if (hits(box, avoidRects[av], 6)) return;
                   var ey = clamp(e[1], box.y0 + 4, box.y1 - 4), ex = side > 0 ? box.x0 : box.x1;
                   var legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], ex, ey]];
                   if (Math.abs(cos) < 0.42 && v === 0) legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], e[0], Math.sin(C.a) < 0 ? box.y1 : box.y0]];
@@ -4256,7 +4682,11 @@
       function preview(key) {
         clear(previewG);
         Object.keys(nodes).forEach(function (k) { nodes[k].classList.toggle('is-hover', k === key); });
-        if (!key || at.level !== 'system') return;
+        // Inside a family, a component pointed at shows its own relations
+        // over the family's, which step back while it is pointed at.
+        var peek = !!key && at.level === 'family' && key.indexOf('comp:') === 0;
+        svg.classList.toggle('is-peeking', peek);
+        if (!key || (at.level !== 'system' && !peek)) return;
         var s = null;
         if (key.indexOf('comp:') === 0) { var ci = nodes[key] ? nodes[key].__ci : -1; if (ci >= 0) s = { level: 'component', comp: ci, fam: model.comps[ci].fam }; }
         else if (key.indexOf('rule:') === 0) s = { level: 'rule', rule: key.slice(5) };
@@ -4365,10 +4795,10 @@
       }
 
       return {
-        el: el, svg: svg, R: R, cx: cx, cy: cy, pitch: pitchPx, sectors: sectors, named: named ? named.fs : 0,
+        el: el, svg: svg, R: R, cx: cx, cy: cy, pitch: pitchPx, sectors: sectors,
         // What a camera is reckoned from: the whole system's ring and box,
         // and what any view would light.
-        R0: R0, depth: depth, width: width, size: size, coreOuter: core ? coreOuter : 0, lightOf: lightOf, cam: cam || null,
+        R0: R0, depth: depth, width: width, size: size, coreOuter: core ? coreOuter : 0, lightOf: lightOf, cam: cam || null, crowded: crowded,
         core: core ? { order: core.order.slice(), ring: fx(hubR), outer: fx(coreOuter), pinned: !!core.stats.orderPinned,
                        bridges: Object.keys(rule).filter(function (id) { return rule[id].role === 'bridge'; }).length,
                        glyphGap: fx(coreGap), lineGap: fx(core.stats.lineGlyphGap), nearest: fx(core.stats.nearestToCentre),
@@ -4456,14 +4886,42 @@
         Array.prototype.forEach.call(map.svg.querySelectorAll('.sm-plate__box'), function (r) {
           if (r.getBoundingClientRect) { var q = r.getBoundingClientRect(); keep.push({ left: q.left - 4, right: q.right + 4, top: q.top - 4, bottom: q.bottom + 4 }); }
         });
+        // Nor over a word the drawing already sets: a family's name, a
+        // component's, the centre's.
+        Array.prototype.forEach.call(map.svg.querySelectorAll('.sm-sector__name, .sm-sector__count, .sm-rimname, .sm-centre__label'), function (r) {
+          if (!r.getBoundingClientRect || (r.closest && r.closest('.is-covered'))) return;
+          var q = r.getBoundingClientRect();
+          if (q.width > 0) keep.push({ left: q.left - 3, right: q.right + 3, top: q.top - 3, bottom: q.bottom + 3 });
+        });
       }
+      // Nor under the explorer's controls or its key.
+      if (explorer && area.getBoundingClientRect) {
+        var ar = area.getBoundingClientRect();
+        avoidRects.forEach(function (A) { keep.push({ left: ar.left + A.x0 - 4, right: ar.left + A.x1 + 4, top: ar.top + A.y0 - 4, bottom: ar.top + A.y1 + 4 }); });
+      }
+      // Failing those, in toward the centre, where only lines run.
+      if (map && dx * dx + dy * dy > 1) {
+        var dl = Math.sqrt(dx * dx + dy * dy), ux = -dx / dl, uy = -dy / dl;
+        [1, 1.6, 2.3].forEach(function (f, j) {
+          var d = (Math.abs(ux) * w / 2 + Math.abs(uy) * hgt / 2 + 14) * f;
+          spots['in' + j] = [ax + ux * d - w / 2, ay + uy * d - hgt / 2];
+          order.push('in' + j);
+        });
+      }
+      // The first place clear of all of these; failing any, the one that
+      // covers least, and never the mark itself.
+      var least = null;
       for (var i = 0; i < order.length && !pick; i++) {
         var p = spots[order[i]];
-        var px = clamp(p[0], x0, Math.max(x0, x1 - w)), py = clamp(p[1], y0, Math.max(y0, y1 - hgt));
-        var hits = keep.some(function (q) { return px < q.right && px + w > q.left && py < q.bottom && py + hgt > q.top; });
-        if (!hits) pick = [px, py];
+        var px = clamp(p[0], x0, Math.max(x0, x1 - w)), py = clamp(p[1], y0, Math.max(y0, y1 - hgt)), cover = 0;
+        keep.forEach(function (q, k) {
+          var ox = Math.min(px + w, q.right) - Math.max(px, q.left), oy = Math.min(py + hgt, q.bottom) - Math.max(py, q.top);
+          if (ox > 0 && oy > 0) cover += k === 0 ? 1e9 : ox * oy;
+        });
+        if (!cover) pick = [px, py];
+        else if (!least || cover < least.cover) least = { cover: cover, at: [px, py] };
       }
-      if (!pick) pick = [clamp(ax - w / 2, x0, Math.max(x0, x1 - w)), clamp(b.top - gap - hgt, y0, Math.max(y0, y1 - hgt))];
+      if (!pick) pick = least ? least.at : [clamp(ax - w / 2, x0, Math.max(x0, x1 - w)), clamp(b.top - gap - hgt, y0, Math.max(y0, y1 - hgt))];
       if (tip.style) { tip.style.left = fx(pick[0] - rr.left) + 'px'; tip.style.top = fx(pick[1] - rr.top) + 'px'; }
     }
     function hideTip() {
@@ -4480,8 +4938,15 @@
        shows eight and the rest on request; a long page scrolls in place and
        says so; the links at its foot stay in view. */
     var column = makeColumn();
+    /* In the explorer the column is the panel's body: the overview the page
+       carries (the families, how the map is drawn), then a family's page or
+       a component's or a rule's in its place once one is chosen, read
+       straight down to its end. Nothing is held back behind "show all", no
+       description is shortened, and the body scrolls; the ways to the
+       component's own pages close each page. */
     function makeColumn() {
-      var host = section && section.querySelector ? section.querySelector('.home-split__text') : null;
+      var host = explorer ? explorerEl.querySelector('[data-system-panel]') :
+        section && section.querySelector ? section.querySelector('.home-split__text') : null;
       var noop = { sync: function () {}, lit: function () {}, state: function () { return null; }, ready: function () {}, rows: function () {}, refit: function () {} };
       if (!host || !host.appendChild) return noop;
       if (host.classList) host.classList.add('sc-host');
@@ -4588,16 +5053,19 @@
       }
       function list(label, items, capKey, count, two) {
         var wrap = h('div', 'sc__block');
-        var headEl = h('p', 'sc__label');
-        headEl.appendChild(h('span', null, label));
-        headEl.appendChild(h('span', 'sc__label-n', ' · ' + (count === undefined ? items.length : count)));
-        wrap.appendChild(headEl);
+        // A list under a section's own title needs no label of its own.
+        if (label !== null) {
+          var headEl = h('p', 'sc__label');
+          headEl.appendChild(h('span', null, label));
+          headEl.appendChild(h('span', 'sc__label-n', ' · ' + (count === undefined ? items.length : count)));
+          wrap.appendChild(headEl);
+        }
         var ul = h('ul', 'sc__list' + (two && items.length > 1 ? ' sc__list--two' : ''));
         var cap = capKey && caps[capKey] !== undefined ? caps[capKey] : 8;
-        var open = !capKey || opened[capKey] || items.length <= cap + 1, showN = open ? items.length : cap;
+        var open = explorer || !capKey || opened[capKey] || items.length <= cap + 1, showN = open ? items.length : cap;
         items.slice(0, showN).forEach(function (li) { ul.appendChild(li); });
         if (capKey && opened[capKey] && items.length > cap) wrap.setAttribute('data-opened', '1');
-        if (capKey && !opened[capKey]) {
+        if (capKey && !opened[capKey] && !explorer) {
           wrap.setAttribute('data-shown', String(showN));
           wrap.setAttribute('data-total', String(items.length));
           wrap.setAttribute('data-rows', String(two && items.length > 1 ? Math.ceil(showN / 2) : showN));
@@ -4622,11 +5090,22 @@
         return wrap;
       }
       function page(kind) { return h('div', 'sc__page sc__page--' + kind); }
+      // The page's lists: in the column, a box of their own that scrolls; in
+      // the explorer, the panel's body scrolls them with the rest.
       function scroller(node) {
-        var sc = h('div', 'sc__scroll');
-        sc.setAttribute('tabindex', '0');
+        var sc = h('div', explorer ? 'sc__flow' : 'sc__scroll');
+        if (!explorer) sc.setAttribute('tabindex', '0');
         node.appendChild(sc);
         return sc;
+      }
+      // A page's title: the explorer's panel has the page's one h1 above it.
+      function titleOf(text) { return h(explorer ? 'h2' : 'h3', 'sc__title', text); }
+      // What the map shows for this view, in one plain sentence (in the
+      // explorer, where the stage carries no caption).
+      function onMap(headEl) {
+        if (!explorer) return;
+        var said = captionParts()[1];
+        if (said) headEl.appendChild(line('sc__onmap', 'On the map: ' + said));
       }
       function compItem(x, note) {
         var n = model.comps[x];
@@ -4672,8 +5151,9 @@
         var node = page('fam');
         var headEl = h('div', 'sc__head');
         headEl.appendChild(line('sc__kicker', 'Family · ' + countWords(F.members.length, 'component', 'components')));
-        headEl.appendChild(h('h3', 'sc__title', F.title));
+        headEl.appendChild(titleOf(F.title));
         if (F.summary) headEl.appendChild(line('sc__lede', F.summary));
+        onMap(headEl);
         var to = 0, from = 0, partners = [];
         model.pairs.forEach(function (p) {
           if (p.a !== fi && p.b !== fi) return;
@@ -4704,7 +5184,91 @@
         return node;
       }
 
+      /* A component in the explorer, read in order: what it is (its whole
+         description), how it is backed, what the map shows of it, then its
+         code connections, each relation under its own verb with the other
+         end named, then the rules its paper module cites (a different
+         relation in a different ink, never mixed into the first list), then
+         the ways to its own pages. */
+      function compReading(ci) {
+        var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
+        var node = page('comp');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker', F.title));
+        headEl.appendChild(titleOf(c.label));
+        if (c.line) headEl.appendChild(line('sc__lede', c.line));
+        var what = trimProse(c.what, 1e6);
+        if (what && what !== c.line) headEl.appendChild(line('sc__body', what));
+        if (c.cls || c.basis) {
+          var meta = line('sc__meta sc__meta--mark', '');
+          if (c.cls) {
+            var gm = h('span', 'sc__mk');
+            gm.setAttribute('aria-hidden', 'true');
+            gm.innerHTML = glyphSvg(c.cls);
+            meta.appendChild(gm);
+          }
+          meta.appendChild(h('span', null, ((c.cls ? CLASS_WORDS[c.cls] + '.' : '') + (c.basis ? ' Evidence: ' + lowerFirst(c.basis) + '.' : '')).trim()));
+          headEl.appendChild(meta);
+        }
+        onMap(headEl);
+        node.appendChild(headEl);
+        var sc = scroller(node);
+        // Code connections, by what the code does, from this component's side.
+        var code = h('section', 'sc__section sc__section--code');
+        var total = 0, groups = [];
+        LINK_ORDER.forEach(function (kind) {
+          // A listed relation has no direction worth reading: one list.
+          (kind === 'named' ? ['both'] : ['out', 'inc']).forEach(function (dir) {
+            var ends = uniq(model.links.filter(function (l) { return l.kind === kind && (dir === 'both' ? l[0] === ci || l[1] === ci : l[dir === 'out' ? 0 : 1] === ci); })
+              .map(function (l) { return l[0] === ci ? l[1] : l[0]; }));
+            if (!ends.length) return;
+            total += ends.length;
+            groups.push({ kind: kind, dir: dir, ends: ends });
+          });
+        });
+        code.appendChild(h('h3', 'sc__section-title', capital(onlyNamed() ? 'listed relations' : 'code connections') + (total ? ' · ' + total : '')));
+        groups.forEach(function (g) {
+          var words = RELATION_WORDS[g.kind][g.dir];
+          // The other end's family is said where it is not this one's.
+          code.appendChild(list(words, byFamily(g.ends).map(function (x) {
+            return codeItem(ci, x, model.comps[x].fam === c.fam ? null : model.families[model.comps[x].fam].title);
+          }), null));
+        });
+        if (!c.out.length && !c.inc.length) code.appendChild(line('sc__note', onlyNamed() ? 'Its record lists no related components.' :
+          'No code connections. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it.'));
+        else code.appendChild(line('sc__note', linkNote()));
+        sc.appendChild(code);
+        // The rules, in the doctrine's ink.
+        if (info) {
+          var enf = function (id) { return info.enforces.indexOf(id) >= 0 ? 'Enforced here' : info.partly.indexOf(id) >= 0 ? 'Partly checked here' : null; };
+          var cited = ordered(info.gov, D.principles).concat(ordered(info.abide, D.axioms));
+          var rules = h('section', 'sc__section sc__section--rules');
+          var source = lowerFirst(info.source || 'paper module');
+          rules.appendChild(h('h3', 'sc__section-title', 'Rules its ' + source + ' cites' + (cited.length ? ' · ' + cited.length : '')));
+          if (cited.length) rules.appendChild(list(null, cited.map(function (id) { return ruleItem(id, enf(id)); }), null));
+          else rules.appendChild(line('sc__note', 'Its ' + source + ' cites no rule.'));
+          [['enforces', 'Also enforced here'], ['partly', 'Also partly checked here']].forEach(function (pair) {
+            var extra = info[pair[0]].filter(function (id) {
+              var r = D.rules[id];
+              return r.kind === 'failure' || (r.kind === 'principle' && info.gov.indexOf(id) < 0) || (r.kind === 'axiom' && info.abide.indexOf(id) < 0);
+            });
+            if (extra.length) rules.appendChild(list(pair[1], ordered(extra, D.axioms.concat(D.principles, D.failures)).map(function (id) {
+              return ruleItem(id, KIND_WORDS[D.rules[id].kind]);
+            }), null));
+          });
+          rules.appendChild(line('sc__note', byTests() ? 'A rule is marked enforced here only where a test shows it.' : 'Where a rule is enforced is what its doctrine card names.'));
+          sc.appendChild(rules);
+        }
+        var act = actions([
+          c.page ? goLink(c.page, 'Component page', true) : null,
+          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
+          c.source ? goLink(c.source, /^https:\/\/github\.com\//i.test(c.source) ? 'Source on GitHub' : 'Source', false) : null
+        ]);
+        if (act) node.appendChild(act);
+        return node;
+      }
       function compPage(ci) {
+        if (explorer) return compReading(ci);
         var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
         var node = page('comp');
         var headEl = h('div', 'sc__head');
@@ -4778,7 +5342,7 @@
         var node = page('doctrine');
         var headEl = h('div', 'sc__head');
         headEl.appendChild(line('sc__kicker sc__kicker--doctrine', 'At the centre'));
-        headEl.appendChild(h('h3', 'sc__title', 'The doctrine'));
+        headEl.appendChild(titleOf('The doctrine'));
         headEl.appendChild(line('sc__lede', 'The rules the system is built on. A principle rests on axioms and a failure mode threatens them. ' +
           'Tied to one axiom, it sits just outside it; tied to several, it stands on the ring between them. ' +
           (D.enforcedBy === 'tests' ? 'A rule is marked enforced in a component only where a test shows it.' :
@@ -4796,8 +5360,9 @@
         var node = page('rule');
         var headEl = h('div', 'sc__head');
         headEl.appendChild(line('sc__kicker sc__kicker--doctrine', KIND_WORDS[r.kind]));
-        headEl.appendChild(h('h3', 'sc__title', r.title));
+        headEl.appendChild(titleOf(r.title));
         if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
+        onMap(headEl);
         node.appendChild(headEl);
         var sc = scroller(node);
         if (r.kind === 'principle') {
@@ -4914,24 +5479,15 @@
         panel.removeAttribute('aria-hidden');
         if (panel.classList) panel.classList.add('is-open');
         if (host.classList) host.classList.add('sc-host--open');
-        node = tighten(node);
-        fitScroll(node);
+        // The explorer's page is read whole from its top; the column's is
+        // fitted to the column.
+        if (explorer) host.scrollTop = 0;
+        else { node = tighten(node); fitScroll(node); }
         // The card comes in as the column's own words step out (90ms), so
         // the two never stand over each other and the column is never empty.
         if (motionOK() && !how.instant && node.animate) {
           try { node.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 220, delay: 60, easing: EASE, fill: 'backwards' }); } catch (e) {}
         }
-        // Replacing a long phone column can leave its new title behind the
-        // sticky header after the browser preserves the old scroll position.
-        if (pageMode && window.requestAnimationFrame) window.requestAnimationFrame(function () {
-          if (!shown || shown.node !== node || !document.querySelector || !window.scrollBy) return;
-          var bar = document.querySelector('.docs-topbar');
-          var title = node.querySelector('.sc__title');
-          if (!bar || !title) return;
-          var edge = Math.max(0, bar.getBoundingClientRect().bottom) + 12;
-          var top = title.getBoundingClientRect().top;
-          if (top < edge) window.scrollBy({ top: top - edge, behavior: 'instant' });
-        });
       }
       function close() {
         var old = shown && shown.node;
@@ -4941,6 +5497,7 @@
         if (panel.classList) panel.classList.remove('is-open');
         if (host.classList) host.classList.remove('sc-host--open');
         if (old && old.parentNode) old.parentNode.removeChild(old);
+        if (explorer && old) host.scrollTop = 0;
       }
       // A page fits its column: a long list shows its first eight names (as
       // few as four when the column is short) with the rest on request, and
@@ -5103,7 +5660,7 @@
     // The card keeps the whole system's height as its least, so a view
     // never makes the band jump shorter.
     function measureFloor() {
-      if (at.level !== 'system' || !stage.style || !stage.getBoundingClientRect) return;
+      if (explorer || at.level !== 'system' || !stage.style || !stage.getBoundingClientRect) return;
       if (stage.classList && stage.classList.contains('is-parked')) return;
       if (stage.style.removeProperty) stage.style.removeProperty('--sm-floor');
       var hgt = stage.getBoundingClientRect().height;
@@ -5175,7 +5732,7 @@
           caption: caption.textContent,
           crumbs: Array.prototype.map.call(crumbList.children || [], function (li) { return li.textContent; }),
           back: backBtn.hidden ? null : backBtn.getAttribute('aria-label'),
-          ring: map ? { radius: map.R, pitch: map.pitch, named: map.named, core: map.core, frame: map.frame, sheaves: map.sheaves,
+          ring: map ? { radius: map.R, pitch: map.pitch, crowded: !!map.crowded, core: map.core, frame: map.frame, sheaves: map.sheaves,
                         order: ring.order.map(function (fi) { return model.families[fi].id; }) } : null,
           counts: { families: model.families.length, components: model.comps.length, links: model.links.length,
                     bands: model.pairs.length, dropped: model.dropped, kinds: model.kinds.slice() },
@@ -5184,7 +5741,7 @@
           weave: map ? map.weave() : null,
           // How close the camera stands (null: the whole system), and the
           // family it names round the rim, if any.
-          camera: camNow ? { k: fx(camNow.k), names: camNow.names >= 0 ? model.families[camNow.names].id : null } : null,
+          camera: camNow ? { k: fx(camNow.k), names: camNow.names === 'all' ? 'all' : camNow.names >= 0 ? model.families[camNow.names].id : null } : null,
           labels: labels, wires: wires, hover: hoverKey, column: column.state(), trail: trail.length
         };
       }
@@ -5208,6 +5765,7 @@
       column.rows();
       render({ instant: true });
       watchSize();
+      wireExplorer();
       if (pageMode) {
         arriveAt();
         if (window.addEventListener) {
@@ -5253,26 +5811,34 @@
     }
 
     /* ---- Housekeeping ---- */
-    var frame = 0, lastWidth = 0, lastRow = 0;
+    var frame = 0, lastWidth = 0, lastRow = 0, lastHeight = 0;
     // Laid out again for a new width, or, beside its column, for a new
-    // height of the mathematics slide the card matches.
+    // height of the mathematics slide the card matches; the explorer's
+    // stage, for a new width or height.
+    function areaHeight() { return explorer && area.getBoundingClientRect ? area.getBoundingClientRect().height : 0; }
     function refresh() {
       if (!model || !map) return;
-      var w = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0, row = mathsRow();
-      if ((w && Math.abs(w - lastWidth) > 1) || Math.abs(row - lastRow) > 2) { lastWidth = w; lastRow = row; relayout(); }
+      var w = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0, row = mathsRow(), hh = areaHeight();
+      if ((w && Math.abs(w - lastWidth) > 1) || Math.abs(row - lastRow) > 2 || (hh && Math.abs(hh - lastHeight) > 1)) {
+        lastWidth = w; lastRow = row; lastHeight = hh; relayout();
+      }
       measureFloor();
       column.refit();
     }
+    function requestRefresh() {
+      var raf = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 16); };
+      if (frame) return;
+      frame = raf(function () { frame = 0; refresh(); });
+    }
     function watchSize() {
       lastWidth = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0;
+      lastHeight = areaHeight();
       lastRow = mathsRow();
       // The mathematics slide reflows as the window changes; the card follows.
       var mathsSplit = slide && slide.parentNode && slide.parentNode.querySelector ? slide.parentNode.querySelector('[data-atlas-slide="mathematics"] .home-split') : null;
-      if (mathsSplit && 'ResizeObserver' in window) new window.ResizeObserver(function () { later(); }).observe(mathsSplit);
-      var raf = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 16); };
-      function later() { if (frame) return; frame = raf(function () { frame = 0; refresh(); }); }
-      if ('ResizeObserver' in window) new window.ResizeObserver(later).observe(area);
-      if (window.addEventListener) window.addEventListener('resize', later);
+      if (mathsSplit && 'ResizeObserver' in window) new window.ResizeObserver(function () { requestRefresh(); }).observe(mathsSplit);
+      if ('ResizeObserver' in window) new window.ResizeObserver(requestRefresh).observe(area);
+      if (window.addEventListener) window.addEventListener('resize', requestRefresh);
       if (document.fonts && document.fonts.ready && document.fonts.ready.then) document.fonts.ready.then(function () { if (model) relayout(); }, function () {});
     }
     function followReduce() { reduceMotion = !!(reduceQuery && reduceQuery.matches); }

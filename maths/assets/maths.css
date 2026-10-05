@@ -295,17 +295,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   .maths-route-grid { grid-template-columns: 1fr; }
 }
 
-/* ---- Universe panel ----------------------------------------------------- */
-.universe-panel {
-  border: 1px solid var(--rule-strong);
-  border-radius: var(--r-lg);
-  background: var(--surface);
-  overflow: hidden;
-}
-/* The field paints its own ground: the page body carries a gradient, and a
-   transparent canvas over it would leave every ring's paper fill a
-   different colour from what sits behind it. */
-.universe-panel__stage { position: relative; background: var(--surface); }
 .universe-canvas {
   display: block;
   width: 100%;
@@ -419,60 +408,12 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   color: var(--link-ext);
 }
 .universe-step__btn { white-space: nowrap; }
-@media (max-width: 720px) {
-  .universe-figures { gap: var(--space-1) var(--space-4); }
-  .universe-figures dd { font-size: 1.3rem; }
-  .universe-figures dt { font-size: var(--fs-micro); }
-  .universe-toolbar .universe-count { display: none; }
-  .universe-head__lede { font-size: var(--fs-body); }
-}
 /* Inside the map's rail, a link that leaves the site keeps its arrow but
    takes the ink colour: amber there would read as Comparator's orange. */
 .universe-inspector a[data-link-kind="exogenous"],
-.universe-panel__side a[data-link-kind="exogenous"] { color: var(--ink); text-decoration-color: var(--rule-strong); }
+.universe-preview a[data-link-kind="exogenous"] { color: var(--ink); text-decoration-color: var(--rule-strong); }
 .universe-canvas--page.is-panning { cursor: grabbing; }
 .universe-canvas.is-over { cursor: pointer; }
-
-/* The universe page pairs the field with its placard column: the head and
-   the search on top, the reading rail filling the rest of the field's
-   height and scrolling inside it; the panel never chases the cursor. On
-   narrow screens the head comes first, then the map, then the rail. */
-.universe-page { --universe-h: clamp(480px, calc(100svh - 170px), 1600px); }
-/* On a wide screen the map takes the room it is given. Only its page lifts
-   the reading layout's width caps (1680px for the layout, the site measure
-   for the wrap), so on a monitor the field spans the window beside the
-   navigation and grows to the window's height; every other page keeps its
-   reading width. */
-.docs-layout--wide:has(.universe-page) { width: calc(100% - 48px); }
-.wrap.universe-page { width: calc(100% - var(--gutter) * 2); }
-.universe-panel__body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  grid-template-rows: auto minmax(0, 1fr);
-  grid-template-areas: "stage side" "stage rail";
-  height: var(--universe-h);
-}
-@media (min-width: 1800px) {
-  .universe-panel__body { grid-template-columns: minmax(0, 1fr) 380px; }
-}
-.universe-panel__stage { grid-area: stage; }
-.universe-panel__side {
-  grid-area: side;
-  padding: var(--space-4) var(--space-4) var(--space-3);
-  border-left: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-}
-.universe-panel__body > .universe-inspector { grid-area: rail; min-height: 0; }
-@media (max-width: 1080px) {
-  .universe-page { --universe-h: clamp(380px, 70svh, 640px); }
-  .universe-panel__body {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
-    grid-template-areas: "side" "stage" "rail";
-    height: auto;
-  }
-  .universe-panel__side { border-left: 0; }
-}
 
 /* The landing teaser announces the hovered object in one quiet line pinned
    to the frame instead of a box over the pointer. */
@@ -491,64 +432,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 }
 .universe-caption.is-shown { visibility: visible; }
 
-/* Zoom cluster in the field's corner. */
-.universe-zoom {
-  position: absolute;
-  right: var(--space-3);
-  bottom: var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  z-index: 3;
-}
-.universe-zoom__btn + .universe-zoom__btn { margin-top: -1px; }
-.universe-zoom__btn:not(:first-child) { border-top-left-radius: 0; border-top-right-radius: 0; }
-.universe-zoom__btn:not(:last-child) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-.universe-zoom__btn:focus-visible { position: relative; z-index: 1; }
-.universe-zoom__btn {
-  font: inherit;
-  font-size: 1.05rem;
-  line-height: 1;
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--rule-control);
-  border-radius: var(--r-sm);
-  cursor: pointer;
-  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
-}
-.universe-zoom__btn:hover { color: var(--ink); border-color: var(--accent); }
-.universe-panel__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--rule);
-  background: var(--surface-sunk);
-}
-.universe-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--fs-small);
-  color: var(--muted);
-}
-.universe-legend .dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 0.4em;
-  vertical-align: baseline;
-  transform: translateY(0.5px);
-}
 .dot--problem {
   background: radial-gradient(circle, var(--u-problem) 0 24%, transparent 27%);
   box-shadow: inset 0 0 0 1.5px var(--u-problem);
@@ -673,13 +556,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 .universe-quote__via,
 .universe-quote__more { margin: 0.4rem 0 0; color: var(--faint); font-size: var(--fs-micro); line-height: var(--lh-snug); }
 .universe-quote__go { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.55rem 0 0; }
-/* A hovered result previews its words, cut at a dozen lines and faded. */
-.universe-inspector.is-preview .universe-quote__text {
-  max-height: 13em;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
-  mask-image: linear-gradient(to bottom, #000 72%, transparent);
-}
 .universe-go {
   display: inline-flex;
   align-items: center;
@@ -715,7 +591,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   text-underline-offset: 0.15em;
 }
 .universe-sector__go:hover { color: var(--accent); text-decoration-color: currentColor; }
-.universe-hint kbd,
 .universe-inspector kbd {
   font: inherit;
   font-size: var(--fs-micro);
@@ -724,7 +599,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   border-radius: var(--r-sm);
   background: var(--surface);
 }
-.universe-panel__cta { margin-left: auto; }
 .universe-rule {
   margin: var(--space-3) 0 0;
   color: var(--faint);
@@ -733,8 +607,6 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
 }
 
 /* No-JS and reduced capability: the canvas is an enhancement. */
-html:not(.scripting) .universe-panel__stage { display: none; }
-html:not(.scripting) .universe-panel__body { display: none; }
 html:not(.scripting) .universe-nojs { display: block; }
 .universe-nojs { display: none; padding: var(--space-4); color: var(--muted); }
 
@@ -1622,50 +1494,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .doc-source-line code { font-size: var(--fs-small); }
 
 /* ---- Universe page ------------------------------------------------------- */
-/* The map is the artwork and the right-hand column its placard: the title,
-   the four figures and the search head that column, the reading rail runs
-   under them, and the field takes the panel's full height beside them, so a
-   laptop's first screen holds the whole map. How the map is drawn waits
-   below for the reader who asks. */
-.universe-head { margin: 0 0 var(--space-3); }
-.universe-head h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 2.2vw, 1.95rem);
-  line-height: 1.12;
-  margin: 0 0 var(--space-2);
-  text-wrap: balance;
-}
-.universe-head__lede {
-  margin: 0 0 var(--space-3);
-  font-size: var(--fs-small);
-  line-height: var(--lh-body);
-  color: var(--ink-soft);
-  text-wrap: pretty;
-}
-.universe-figures {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: end;
-  gap: var(--space-2) var(--space-4);
-  margin: 0;
-}
-.universe-panel__side .universe-figures dt { font-size: var(--fs-micro); white-space: nowrap; }
-.universe-figures__item { display: flex; flex-direction: column-reverse; }
-.universe-figures dt { color: var(--muted); font-size: var(--fs-small); }
-.universe-figures dd {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  line-height: 1.1;
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--ink);
-}
-.universe-toolbar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin: 0;
-}
 /* Publication location and verification are independent filters. Neutral
    controls preserve the map's evidence colours; text also carries each axis. */
 .universe-filters { display: grid; gap: 0.65rem; }
@@ -1685,26 +1513,10 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-checking select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .universe-proof-key { display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; font-size: var(--fs-micro); color: var(--ink-soft); }
 .universe-proof-key > span { display: inline-flex; align-items: center; gap: 0.4rem; }
-.universe-panel.is-reading .universe-filters { display: none; }
 .universe-paper-coverage { display: flex; gap: 0.5rem; margin: 0.4rem 0 0.75rem; color: var(--ink-soft); font-size: var(--fs-small); }
 .universe-paper-coverage span { flex: 1; border-top: 1px solid var(--rule); padding-top: 0.35rem; }
 .universe-paper-coverage b { display: block; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 400; }
 
-.universe-toolbar__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-/* With a card pinned the placard steps back to its title and the search, so
-   the card (the paper's words first) fills the column's first screen; the
-   figures return when the card closes. */
-.universe-panel.is-reading .universe-head__lede,
-.universe-panel.is-reading .universe-figures,
-.universe-panel.is-reading .universe-toolbar__row { display: none; }
-.universe-panel.is-reading .universe-head { margin-bottom: var(--space-2); }
-.universe-panel.is-reading .universe-head h1 { font-size: 1.3rem; margin-bottom: 0; }
 .universe-find { position: relative; }
 .universe-find .universe-search { width: 100%; min-width: 0; }
 /* The first matches open under the field; the map lights the rest. */
@@ -1819,8 +1631,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-step__ticks { fill: none; stroke: var(--faint); stroke-width: 1; }
 .universe-step__knock { stroke: var(--surface-sunk); stroke-width: 4; }
 .universe-step__cursor { stroke: var(--ink); stroke-width: 2; }
-.universe-toolbar .universe-count { margin-left: 0; font-variant-numeric: tabular-nums; }
-.universe-toolbar .universe-panel__cta { margin-left: 0; }
 /* The legend is the filter: each key switches its kind or glyph on and off. */
 .universe-keys {
   display: grid;
@@ -1863,14 +1673,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-key__btn[aria-pressed="true"] { color: var(--ink); }
 @media (max-width: 720px) {
   .universe-key__label { flex-basis: 100%; }
-  .universe-toolbar .universe-panel__cta { margin-left: 0; }
-}
-.universe-hint {
-  margin: var(--space-3) 0 0;
-  max-width: 62ch;
-  color: var(--muted);
-  font-size: var(--fs-small);
-  text-wrap: pretty;
 }
 .universe-about { max-width: 62ch; margin: var(--space-7) 0 var(--space-5); }
 .universe-about h2 { font-size: var(--fs-h3); margin: 0 0 var(--space-3); }
@@ -1878,25 +1680,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-about .universe-about__snapshot,
 .universe-about .doc-source-line,
 .universe-about .universe-rule { color: var(--muted); font-size: var(--fs-small); }
-.universe-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
-  align-items: center;
-  padding: var(--space-3) 0;
-}
-.universe-controls__group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1) var(--space-2);
-  align-items: center;
-}
-.universe-controls__label {
-  font-size: var(--fs-micro);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--faint);
-}
 .lens-btn {
   font: inherit;
   font-size: var(--fs-small);
@@ -1927,27 +1710,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .universe-count { color: var(--faint); font-size: var(--fs-micro); margin-left: auto; font-variant-numeric: tabular-nums; }
 
-/* The inspector rail: overview at rest, preview on hover, full card when
-   pinned. It scrolls inside the panel frame; the map never moves for it. */
-.universe-inspector {
-  border-left: 1px solid var(--rule);
-  background: var(--surface);
-  padding: var(--space-4) var(--space-4) var(--space-5);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-@media (max-width: 1080px) {
-  .universe-inspector {
-    border-left: 0;
-    border-top: 1px solid var(--rule);
-    max-height: 320px;
-    scroll-margin-top: calc(var(--topbar-h) + 8px);
-  }
-  /* Under the map (a phone, a narrow window) a pinned card reads at its
-     full length in the page, rather than in a box that scrolls inside it;
-     a tap on a dot brings it into view. */
-  .universe-panel.is-reading .universe-inspector { max-height: none; overflow-y: visible; }
-}
 .universe-inspector__head {
   display: flex;
   align-items: baseline;
@@ -1992,32 +1754,11 @@ html:not(.scripting) .universe-nojs { display: block; }
    formula may break at its operators, never out of the column. */
 .universe-inspector math { font-size: 1.06em; color: var(--ink-soft); overflow-wrap: normal; }
 .universe-inspector__note math, .universe-inspector__boundary math { max-width: 100%; }
-.universe-inspector.is-preview .universe-inspector__body {
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 .universe-inspector__hint {
   margin: var(--space-3) 0 0;
   color: var(--faint);
   font-size: var(--fs-small);
   line-height: var(--lh-body);
-}
-.universe-connections {
-  border-top: 1px solid var(--rule);
-  margin-top: var(--space-2);
-  font-size: var(--fs-small);
-}
-.universe-connections summary {
-  cursor: pointer;
-  padding: var(--space-2) 0;
-  color: var(--ink-soft);
-}
-.universe-connections summary b { font-variant-numeric: tabular-nums; }
-.universe-connections summary:focus-visible {
-  outline: 2px solid var(--u-edge-hot);
-  outline-offset: 3px;
 }
 .universe-inspector__links {
   display: flex;
@@ -2101,34 +1842,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-check__entry { color: var(--faint); font-size: var(--fs-micro); margin: 0 0.1rem 0 0.2rem; font-variant-numeric: tabular-nums; }
 .universe-check__entry:first-child { margin-left: 0; }
 .universe-check__record { margin: 0 0 var(--space-3); }
-/* The Lean code, one step down: a disclosure the reader opens, the shared
-   namespace said once, each theorem's name opening its line on GitHub and
-   its statement set as code. */
-.universe-lean { margin-top: 0.45rem; }
-.universe-lean summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  min-height: 24px;
-  list-style: none;
-  cursor: pointer;
-  color: var(--muted);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-.universe-lean summary::-webkit-details-marker { display: none; }
-.universe-lean summary::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid currentColor;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  transition: transform var(--motion-fast) var(--ease);
-}
-.universe-lean[open] summary::before { transform: rotate(90deg); }
-.universe-lean summary:hover { color: var(--ink); }
-.universe-lean summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); }
 .universe-lean__where { margin: 0.3rem 0 0.45rem; color: var(--faint); font-size: var(--fs-micro); line-height: var(--lh-snug); }
 .universe-lean__list { list-style: none; margin: 0.35rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
 .universe-lean__list li { min-width: 0; }
@@ -2191,9 +1904,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-link__how { display: block; color: var(--faint); font-size: var(--fs-micro); margin-bottom: 0.1rem; }
 .universe-link .universe-goto { border-top: 0; padding: 0.18rem 0.1rem; color: var(--ink-soft); }
 .universe-link .universe-goto:hover { color: var(--accent); }
-.universe-link__fold summary { cursor: pointer; color: var(--ink-soft); padding: 0.1rem 0; }
-.universe-link__fold summary .universe-link__how { display: inline; font-size: inherit; color: var(--muted); }
-.universe-link__fold summary:focus-visible { outline: 2px solid var(--u-edge-hot); outline-offset: 3px; }
 .universe-goto__more {
   color: var(--faint);
   font-size: var(--fs-small);
@@ -2215,18 +1925,7 @@ html:not(.scripting) .universe-nojs { display: block; }
 .universe-inspector__clear:hover,
 .universe-inspector__copy:hover { color: var(--ink); border-color: var(--accent); }
 .universe-inspector__copy { margin-top: var(--space-3); }
-.universe-hint { color: var(--muted); font-size: var(--fs-small); margin: var(--space-3) 0 0; max-width: 62ch; }
 
-.universe-index { margin: var(--space-7) 0; }
-.universe-index details { border-top: 1px solid var(--rule); }
-.universe-index details:last-child { border-bottom: 1px solid var(--rule); }
-.universe-index summary {
-  cursor: pointer;
-  padding: var(--space-3) var(--space-2);
-  font-weight: 600;
-  color: var(--ink-soft);
-}
-.universe-index summary:hover { color: var(--accent); }
 .universe-index ul {
   list-style: none;
   margin: 0;
@@ -2384,7 +2083,6 @@ html:not(.scripting) .universe-nojs { display: block; }
 
 /* ---- Print ---------------------------------------------------------------- */
 @media print {
-  .universe-panel__stage, .universe-controls, .universe-inspector, .universe-hint { display: none !important; }
   .paper-head__routes, .maths-receipt { display: none !important; }
   .paper-stage { max-width: none; }
 }
@@ -2638,7 +2336,6 @@ body.has-viewback:has(.maths-layout) .viewback {
 
 /* Touch controls keep a comfortable target without changing manuscript type. */
 @media (max-width: 768px), (pointer: coarse) {
-  .universe-zoom__btn { width: 44px; height: 44px; }
   .lens-btn { min-height: 44px; }
   .universe-search, .source-filter input[type=search] {
     font-size: 1rem;
@@ -2801,3 +2498,286 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
 
 .universe-evidence-key { display: inline-flex; align-items: center; gap: 0.35em; padding: 0.3rem 0.5rem; color: var(--muted); font-size: var(--fs-small); }
 .universe-evidence-key .glyph { flex: none; margin: 0; }
+
+/* ---- The universe explorer (5 October 2026) ----------------------------------
+   maths/universe.html is one full-window explorer: the shared frame
+   (style.css "Map explorers", assets/explorer.js) holds a reading panel on
+   the left and the drawing in the rest of the window. These rules set the
+   map's own panel: the search under the title, then three levels of
+   reading, each a well-set page. At rest the eight problems are its
+   landmarks; a chosen problem reads its question, its short paper whole
+   and its results; a chosen result reads its statement, how far it is
+   checked and the ways out, under one line naming its problem. Nothing is
+   clamped or folded: the panel's body scrolls instead. */
+.universe-explorer .explorer__stage > canvas.universe-canvas {
+  background: var(--page); touch-action: none; cursor: grab;
+}
+.universe-explorer .explorer__stage > canvas.universe-canvas.is-over { cursor: pointer; }
+.universe-explorer .explorer__stage > canvas.universe-canvas.is-panning { cursor: grabbing; }
+.universe-explorer .universe-find { margin-top: 0.9rem; }
+.universe-explorer .universe-search {
+  min-height: 40px; padding: 0.45rem 0.85rem;
+  font-size: 0.95rem; background: color-mix(in srgb, var(--surface) 70%, var(--page));
+  border-color: var(--rule-control);
+}
+.universe-explorer .universe-results { z-index: 30; max-height: min(60vh, 28rem); }
+/* While a card is read the head keeps its way back, its title and the
+   search; the lede returns with the overview. */
+.universe-explorer.is-reading .explorer__lede { display: none; }
+.universe-explorer.is-reading .universe-rest { display: none; }
+
+.universe-explorer .universe-inspector,
+.universe-preview { max-width: 62ch; }
+.universe-summary {
+  margin: 0.15rem 0 0.8rem; max-width: 52ch;
+  font-size: 1rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
+}
+.universe-section__title {
+  margin: 2rem 0 0.65rem;
+  font-family: var(--font-serif); font-weight: 500; font-size: 1.22rem; line-height: 1.2;
+  letter-spacing: -0.003em; color: var(--ink);
+}
+.universe-explorer .universe-overview__gauge { margin: 0 0 0.4rem; }
+.universe-explorer .universe-overview__gauge .universe-gauge { height: 8px; border-radius: 4px; max-width: 30rem; }
+
+/* The problems, as landmarks: number, title, its count in words, its bar. */
+.universe-explorer .universe-problems { margin: 0 0 0.7rem; border-top: 1px solid var(--home-line-strong); }
+.universe-explorer .universe-problem {
+  grid-template-columns: 3.7rem minmax(0, 1fr);
+  grid-template-areas: "num name" "num count" "num gauge";
+  gap: 0.12rem 0.4rem; align-items: baseline;
+  min-height: 44px; padding: 0.62rem 0.5rem 0.68rem 0.3rem;
+  border-top: 1px solid var(--home-line);
+}
+.universe-explorer .universe-problem__num {
+  grid-area: num; font-family: var(--font-serif); font-size: 1.04rem; line-height: 1.3;
+  color: var(--home-ember); font-variant-numeric: lining-nums tabular-nums;
+}
+.universe-explorer .universe-problem__name {
+  grid-area: name; white-space: normal; overflow: visible;
+  font-family: var(--font-serif); font-size: 1.06rem; line-height: 1.3; color: var(--ink); text-wrap: pretty;
+}
+.universe-explorer .universe-problem__count { grid-area: count; font-size: var(--fs-small); color: var(--muted); }
+.universe-explorer .universe-problem .universe-gauge { grid-area: gauge; align-self: center; height: 4px; margin-top: 0.3rem; max-width: 15rem; }
+.universe-explorer .universe-problem:hover { background: color-mix(in srgb, var(--home-ember) 7%, transparent); }
+.universe-explorer .universe-problem:hover .universe-problem__name { color: var(--ink); }
+
+/* The panel's prose reads at body size; its asides a step smaller. */
+.universe-explorer .universe-inspector__body,
+.universe-preview .universe-inspector__body { font-size: var(--fs-body); }
+.universe-explorer .universe-inspector__note,
+.universe-explorer .universe-inspector__boundary,
+.universe-explorer .universe-inspector__hint,
+.universe-explorer .universe-inspector__evidence,
+.universe-explorer .universe-check__text,
+.universe-explorer .universe-check__more,
+.universe-explorer .universe-inspector__census li,
+.universe-explorer .universe-rings li { font-size: var(--fs-meta); }
+.universe-explorer .universe-inspector__hint { color: var(--muted); }
+.universe-inspector__hint--lead { margin: 0 0 0.4rem; }
+.universe-explorer .universe-inspector__sub {
+  margin: 1.6rem 0 0.45rem; font-size: var(--fs-meta); font-weight: 600; color: var(--ink);
+}
+.universe-explorer .universe-rings { margin: 0 0 0.8rem; }
+.universe-explorer .universe-inspector kbd { font-size: var(--fs-small); }
+
+/* A card's head: what it is, and the way back. */
+.universe-explorer .universe-inspector__head { align-items: center; margin: 0 0 0.35rem; }
+.universe-explorer .universe-inspector__head .universe-inspector__kind { margin: 0; }
+.universe-explorer .universe-inspector__kind { font-size: var(--fs-meta); }
+.universe-explorer .universe-inspector__clear { min-height: 30px; padding: 0.2rem 0.85rem; font-size: var(--fs-meta); }
+.universe-explorer .universe-inspector__title,
+.universe-preview .universe-inspector__title {
+  margin: 0 0 0.55rem; font-size: 1.42rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: -0.005em; text-wrap: balance;
+}
+.universe-inspector__kind.universe-kicker,
+.universe-explorer .universe-inspector__kind.universe-kicker {
+  font-family: var(--font-serif); font-size: 1.06rem; color: var(--home-ember);
+  font-variant-numeric: lining-nums;
+}
+.universe-explorer .universe-inspector__title--problem,
+.universe-preview .universe-inspector__title--problem {
+  font-size: clamp(1.6rem, 1.2rem + 0.75vw, 1.95rem); line-height: 1.1; letter-spacing: -0.012em; margin-bottom: 0.8rem;
+}
+.universe-chip--status { color: var(--home-ember); border-color: color-mix(in srgb, var(--home-ember) 45%, transparent); background: none; }
+.universe-question {
+  margin: 0 0 0.85rem; max-width: 54ch;
+  font-size: 1.05rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
+}
+.universe-tally { margin: 0 0 0.45rem; max-width: 56ch; font-size: var(--fs-meta); line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+.universe-paper { margin: 1.15rem 0 0; padding-top: 0.95rem; border-top: 1px solid var(--home-line-strong); }
+.universe-label { margin: 0 0 0.25rem; font-size: var(--fs-small); font-weight: 600; color: var(--faint); }
+.universe-paper__title { margin: 0; font-family: var(--font-serif); font-size: 1.14rem; line-height: 1.35; color: var(--ink); text-wrap: pretty; }
+.universe-paper__title a { color: inherit; text-decoration: none; }
+.universe-paper__title a:hover { color: var(--home-ember); text-decoration: none; }
+.universe-precis { margin: 0.45rem 0 0; max-width: 58ch; font-size: var(--fs-body); line-height: 1.62; color: var(--ink-soft); text-wrap: pretty; }
+.universe-precis .math, .universe-question .math { white-space: normal; }
+.universe-explorer .universe-go { min-height: 30px; font-size: var(--fs-small); }
+.universe-explorer .universe-quote__go .universe-go--primary,
+.universe-preview .universe-quote__go .universe-go--primary {
+  border-color: var(--home-ember); background: color-mix(in srgb, var(--home-ember) 10%, transparent);
+}
+
+/* A problem's results, paper by paper, in the order each states them. */
+.universe-list__from {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.6rem;
+  margin: 1rem 0 0.35rem; font-size: var(--fs-small); color: var(--muted);
+}
+.universe-list__from cite { font-style: normal; color: var(--ink-soft); }
+.universe-list__count { margin-left: auto; color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.universe-list { list-style: none; margin: 0 0 0.5rem; padding: 0; border-top: 1px solid var(--home-line); }
+.universe-item {
+  display: grid; grid-template-columns: 0.75rem auto minmax(0, 1fr); align-items: baseline; gap: 0.2rem 0.55rem;
+  width: 100%; min-height: 32px; padding: 0.4rem 0.35rem 0.42rem 0.2rem;
+  font: inherit; font-size: var(--fs-meta); line-height: 1.42; text-align: left;
+  color: var(--ink-soft); background: none; border: 0; border-bottom: 1px solid var(--home-line); border-radius: 0;
+  cursor: pointer;
+}
+.universe-item:hover { color: var(--ink); background: color-mix(in srgb, var(--home-ember) 7%, transparent); }
+.universe-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.universe-item .glyph { margin: 0; transform: translateY(1px); }
+.universe-item__num { color: var(--ink); font-weight: 600; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+.universe-item__name { min-width: 0; overflow-wrap: break-word; }
+.universe-item__num:last-child { grid-column: 2 / -1; }
+.universe-list--goto { border-top: 0; }
+.universe-list--goto .universe-goto { border-top: 0; border-bottom: 1px solid var(--home-line); }
+.universe-link__count { margin-left: 0.35rem; color: var(--faint); }
+.universe-explorer .universe-link__how { font-size: var(--fs-small); color: var(--muted); }
+
+/* A chosen result's problem, said in one line over its card. */
+.universe-context {
+  display: flex; align-items: baseline; gap: 0.15rem 0.65rem; flex-wrap: wrap;
+  margin: 0 0 0.85rem; padding: 0 0 0.7rem; border-bottom: 1px solid var(--home-line);
+  font-size: var(--fs-meta); line-height: 1.4; color: var(--muted);
+}
+.universe-context__go {
+  flex: none; min-height: 24px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-family: var(--font-serif); font-size: 1rem; color: var(--home-ember);
+  text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--home-ember) 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+.universe-context__go:hover { text-decoration-color: currentColor; }
+.universe-context__go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-xs); }
+.universe-context__title { min-width: 0; text-wrap: pretty; }
+.universe-explorer .universe-result__where { margin: 0 0 0.75rem; font-size: var(--fs-meta); }
+.universe-explorer .universe-quote__text { font-size: 1rem; line-height: 1.6; }
+
+/* The Lean statements, after the checks, each name a way to its line. */
+.universe-lean { margin: 0.2rem 0 0; }
+.universe-explorer .universe-lean__where { font-size: var(--fs-small); color: var(--muted); }
+.universe-explorer .universe-lean__name { font-size: var(--fs-small); }
+.universe-explorer .universe-lean__code { font-size: 0.8rem; max-height: 22rem; }
+
+/* What the pointer is on, over the panel's body: the panel below it is left
+   exactly as it was. It is the page's own ground, flat, and never takes a
+   click (the pointer is on the map). */
+.universe-preview {
+  position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; top: 0;
+  overflow: hidden; pointer-events: none;
+  padding: 16px var(--explorer-pad) 40px;
+  background: var(--page);
+}
+.universe-preview[hidden] { display: none; }
+.universe-preview .universe-inspector__hint { color: var(--muted); font-size: var(--fs-meta); }
+
+/* Under the overview: the controls, how the map is drawn, every object as
+   a list. */
+.universe-rest > section {
+  max-width: 62ch; margin: 0; padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid var(--home-line-strong);
+}
+.universe-rest { margin-top: 1.6rem; }
+.universe-rest .universe-section__title { margin-top: 0; }
+.universe-show .universe-filters { gap: 0.9rem; }
+.universe-show .universe-filter__label { font-size: var(--fs-meta); }
+.universe-show .universe-scope__choices button,
+.universe-show .universe-checking select { min-height: 36px; font-size: var(--fs-meta); }
+.universe-show .universe-overlap { font-size: var(--fs-meta); }
+.universe-show .universe-filter__help { font-size: var(--fs-small); }
+.universe-show .universe-keys { display: grid; gap: 0.7rem; margin: 1.1rem 0 0.4rem; padding: 0; border: 0; background: none; }
+.universe-show .universe-key__label { flex: 0 0 100%; margin: 0 0 0.1rem; font-size: var(--fs-meta); color: var(--ink-soft); }
+.universe-show .universe-key__btn { min-height: 30px; font-size: var(--fs-meta); }
+.universe-show .universe-count { margin: 0.5rem 0 0.9rem; font-size: var(--fs-small); color: var(--muted); }
+.universe-full { display: grid; justify-items: start; gap: 0.45rem; margin: 0 0 0.5rem; }
+.universe-full__note { margin: 0; max-width: 52ch; font-size: var(--fs-small); line-height: 1.5; color: var(--muted); }
+.universe-explorer .universe-about { max-width: 62ch; margin: 0; }
+.universe-explorer .universe-about p { font-size: var(--fs-body); }
+.universe-explorer .universe-index { margin: 0; }
+.universe-index h3 { margin: 1.1rem 0 0.35rem; font-size: var(--fs-meta); font-weight: 600; color: var(--ink); }
+.universe-index .note { margin: 0 0 0.35rem; font-size: var(--fs-small); line-height: 1.5; color: var(--muted); }
+.universe-explorer .universe-index ul { columns: 1; margin: 0 0 0.4rem; padding: 0; }
+.universe-explorer .universe-index li { padding: 0.14rem 0; font-size: var(--fs-meta); line-height: 1.45; }
+
+/* The key on the drawing: the marks a result wears, in its bottom-left
+   corner, one per line, so the ring keeps its room. It never takes the
+   pointer from the map. */
+.universe-explorer .explorer__legend.universe-marks {
+  right: auto; flex-direction: column; align-items: flex-start; gap: 0.1rem;
+}
+.universe-explorer .explorer__legend.universe-marks > * { pointer-events: none; }
+.universe-marks .universe-evidence-key { padding: 0.1rem 0; gap: 0.55rem; font-size: var(--fs-meta); color: var(--muted); }
+.universe-marks .glyph { width: 11px; height: 11px; }
+
+/* Definition links in the panel read as plain prose, as on the reading pages. */
+.universe-explorer a.narrative-ref--term,
+.universe-explorer a.narrative-ref--term.is-term-first,
+.universe-explorer a.narrative-ref--term.is-term-again { color: inherit; text-decoration-line: none; }
+.universe-explorer a.narrative-ref--term:hover,
+.universe-explorer a.narrative-ref--term:focus-visible {
+  text-decoration-line: underline; text-decoration-style: dotted; text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent); text-underline-offset: 0.2em;
+}
+
+/* Without scripts the drawing cannot be made: the stage says so, and the
+   panel's lists carry every object. */
+.universe-explorer .universe-nojs {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  max-width: 40ch; margin: 0; padding: 0; text-align: center;
+}
+html:not(.scripting) .universe-explorer .explorer__stage > canvas,
+html:not(.scripting) .universe-explorer .explorer__tools,
+html:not(.scripting) .universe-explorer .universe-show { display: none; }
+
+@media (max-width: 899px) {
+  .universe-explorer .universe-find { margin-top: 0.7rem; }
+  .universe-explorer .explorer__legend.universe-marks { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .universe-explorer .universe-problem, .universe-item { transition: none; }
+}
+
+/* The panel is a little wider than the shared frame's: a result's
+   displayed formulae and its Lean statements need the measure, and the
+   ring, which fills the stage's height on every laptop and monitor, gives
+   up nothing for it. */
+.universe-explorer { --explorer-panel: clamp(360px, 31vw, 560px); }
+/* A closer view brings marks into the corners, so the key steps aside
+   while the reader explores and returns with Fit. */
+.universe-explorer .explorer__legend.universe-marks {
+  transition: opacity 200ms var(--ease-out, ease-out), visibility 0s linear 0s;
+}
+.universe-explorer.is-explored .explorer__legend.universe-marks {
+  opacity: 0; visibility: hidden;
+  transition: opacity 160ms var(--ease-out, ease-out), visibility 0s linear 160ms;
+}
+.universe-explorer .dot, .universe-preview .dot {
+  display: inline-block; flex: none; width: 9px; height: 9px; border-radius: 50%;
+}
+.universe-explorer .universe-inspector__kind .dot,
+.universe-preview .universe-inspector__kind .dot { display: none; }
+.universe-lean__code code { background: none; padding: 0; border-radius: 0; color: inherit; font-size: inherit; }
+.universe-explorer .universe-quote__text .math-display,
+.universe-preview .universe-quote__text .math-display { scrollbar-width: thin; }
+/* Over a closer view the marks pass under the controls; the controls stand
+   on the page's own flat ground, so no mark shows through a button. */
+.universe-explorer .explorer-tool { background: var(--page); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.universe-explorer .explorer__zoom { background: var(--page); }
+/* A formula still wider than the measure keeps a visible track under it. */
+.universe-explorer .universe-quote__text .math-display { scrollbar-color: var(--rule-strong) transparent; }
+/* A match's name is read whole: it wraps under itself rather than ending
+   in an ellipsis. */
+.universe-explorer .universe-result { align-items: start; }
+.universe-explorer .universe-result__label { white-space: normal; overflow: visible; text-overflow: clip; text-wrap: pretty; }
+.universe-explorer .universe-result .glyph, .universe-explorer .universe-result .dot { margin-top: 0.35em; }
+.universe-explorer .universe-index code { overflow-wrap: normal; word-break: normal; }

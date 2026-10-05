@@ -1,10 +1,10 @@
 # Plectis
 
-> A public claim-testing layer over an AI-built system: each component names what it runs or replays, the evidence class behind it, the receipt/source handles to inspect, and the authority ceiling where the claim stops. Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product.
+> Mathematical research with Lean proofs, papers, failed approaches and open questions. Start with a problem and its short paper, then follow the source and recorded checks. The earlier software is a separate public record. For that software: Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product.
 
 Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
 
-## First local command
+## Earlier software: first local command
 
 - Source checkout: `PYTHONPATH=src python3 -m microcosm_core hello --reader agent .`
 - Installed checkout: `plectis hello --reader agent <project>`

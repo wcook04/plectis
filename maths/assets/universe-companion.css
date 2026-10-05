@@ -28,11 +28,14 @@
    a focus outline are never cut at its edge (they were, on the left and top
    edges, until 5 October 2026); its padding keeps the words where the
    column's are. The rings inside the card are drawn inward (inset), since
-   the card's slot clips at the column's own edge. */
+   the card's slot clips at the column's own edge. Nothing in it is cut
+   short (5 October 2026): a précis, a claim's statement and a result's own
+   words show whole, and where they need more room than the column has the
+   panel scrolls inside its own box. */
 .uc {
   position: absolute; inset: -12px; z-index: 1; padding: 12px;
-  display: grid; grid-template-rows: auto auto minmax(0, 1fr);
-  overflow: hidden;
+  display: grid; grid-template-rows: auto auto auto; align-content: start;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
   opacity: 0; visibility: hidden;
   transition: opacity 160ms var(--ease-exit, cubic-bezier(0.3, 0, 1, 1)), visibility 0s linear 160ms;
 }
@@ -80,7 +83,7 @@
 }
 
 .uc__paper, .uc__focus { border-top: 1px solid var(--home-line); padding-top: 0.8rem; }
-.uc__focus { margin-top: 0.95rem; overflow: hidden; min-height: 0; }
+.uc__focus { margin-top: 0.95rem; }
 .uc__label { margin: 0 0 0.25rem; font-size: 0.78rem; font-weight: 600; color: var(--faint); }
 .uc__paper-title {
   display: inline; font-family: var(--font-serif); font-size: 1.08rem; line-height: 1.35;
@@ -89,8 +92,7 @@
 a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc__precis, .uc__note {
   margin: 0.3rem 0 0.4rem; max-width: 52ch;
-  font-size: 0.88rem; line-height: 1.55; color: var(--ink-soft);
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+  font-size: 0.88rem; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty;
 }
 .uc__note math { font-size: 1.04em; }
 .uc__focus-title {
@@ -99,20 +101,11 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 }
 .uc__focus-meta { margin: 0.25rem 0 0; max-width: 54ch; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
 /* A result's own words, quoted from its paper (the map's excerpt files):
-   the paper's serif and its maths, a rule down the side, cut at about seven
-   lines. A statement longer than its room ends on a whole line (the
-   script measures the lines and stops at the last that fits), and only that
-   last line fades: a cut through the middle of a line of formulae read as
-   the card being cropped. */
+   the paper's serif and its maths, a rule down the side, whole. */
 .uc__quote {
-  margin: 0.45rem 0 0.1rem; padding: 0 0 0 0.75rem; max-width: 52ch; max-height: 10.6em;
+  margin: 0.45rem 0 0.1rem; padding: 0 0 0 0.75rem; max-width: 52ch;
   border-left: 2px solid var(--home-line);
   font-family: var(--font-serif); font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft);
-  overflow: hidden;
-}
-.uc__quote.is-cut {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.45em), transparent);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 1.45em), transparent);
 }
 /* While a result is in the card, the problem's question and its short
    paper's précis step out of its way (the title, the tally and the paper's
@@ -129,23 +122,17 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc.has-result .uc__fold > * { padding-top: 0; padding-bottom: 0; }
 .uc__quote p { margin: 0 0 0.35em; }
 .uc__quote p:last-child { margin-bottom: 0; }
-.uc__quote .math-display { margin: 0.3em 0; overflow: hidden; }
+.uc__quote .math-display { margin: 0.3em 0; overflow-x: auto; overflow-y: hidden; }
 .uc__quote math { font-size: 1.03em; color: var(--ink-soft); }
 .uc__quote a { color: inherit; text-decoration-color: var(--home-line); }
-/* Where a long statement is cut, a quiet line under it says so; the buttons
-   below go on to the paper. */
-.uc__quote-more { flex: none; margin: 0.2rem 0 0; padding-left: calc(0.75rem + 2px); font-family: var(--font-sans); font-style: normal; font-size: 0.8rem; color: var(--faint); }
 .uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
 .uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
 .uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }
 
 /* The card's ways out are buttons: quiet rings, the paper's in ember. A
-   pinned card's rule turns ember too, so the reader sees what is held. The
-   card is a column in which the buttons always keep their room: on a short
-   screen the quote and the note give way first. */
+   pinned card's rule turns ember too, so the reader sees what is held. */
 .uc__focus { display: flex; flex-direction: column; }
 .uc__focus > * { flex: none; }
-.uc__focus > .uc__note, .uc__focus > .uc__quote { flex: 0 1 auto; min-height: 0; overflow: hidden; }
 .uc__focus .uc__links { gap: 0.4rem 0.45rem; margin: 0.5rem 0 0.35rem; }
 .uc__go {
   min-height: 26px; padding: 0.05rem 0.75rem; border-radius: var(--r-pill, 999px);

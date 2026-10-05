@@ -244,7 +244,8 @@ function makeDom() {
         }
         // The drawing's area is as wide as the test asks.
         if (doc.areaWidth && classes.has('sm-area')) {
-          return { left: 0, top: 120, width: doc.areaWidth, height: 900, right: doc.areaWidth, bottom: 1020, x: 0, y: 120 };
+          const hh = doc.areaHeight || 900;
+          return { left: 0, top: 120, width: doc.areaWidth, height: hh, right: doc.areaWidth, bottom: 120 + hh, x: 0, y: 120 };
         }
         const left = 40 + (n % 11) * 7, top = n * 9, width = 180, height = 22;
         return { left, top, width, height, right: left + width, bottom: top + height, x: left, y: top };
@@ -257,22 +258,53 @@ function makeDom() {
 }
 
 /* ---- Mounting -------------------------------------------------------------- */
-// `page`: the drawing on its own page (docs/system-map.html), with an address.
+// `page`: the drawing on its own page with an address, in the column layout
+// it had before the explorer. `explorer`: docs/system-map.html as the builder
+// emits it since 5 October 2026 (a [data-explorer] main holding the panel and
+// the stage, the frame's controls in the stage's top right, its key in the
+// bottom left). `expand`: the landing's ways into the full map.
 async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '', page = false, column = true, inert = false,
-                       areaWidth = 0, innerHeight = 900, headerBottom = 0, columnTitleTop = null } = {}) {
+                       areaWidth = 820, areaHeight = 900, innerHeight = 900, headerBottom = 0, columnTitleTop = null,
+                       explorer = false } = {}) {
   if (doctrine === undefined) doctrine = doctrineFor(scene);
+  if (explorer) page = true;
   const dom = makeDom();
   dom.areaWidth = areaWidth;
+  dom.areaHeight = areaHeight;
   dom.columnTitleTop = columnTitleTop;
   const { node } = dom;
-  const section = node('section');
-  section.setAttribute('data-atlas-slide', 'system');
+  const section = node(explorer ? 'main' : 'section');
+  const dispatched = [];
+  if (explorer) {
+    section.className = 'explorer system-explorer';
+    section.setAttribute('data-explorer', 'system');
+    section.dispatchEvent = ev => { dispatched.push(ev.type); section.fire(ev.type, { detail: ev.detail }); return true; };
+  } else section.setAttribute('data-atlas-slide', 'system');
   if (page) section.setAttribute('data-system-page', '');
   section.inert = inert;
-  const host = section.appendChild(node('div'));
-  host.className = 'home-split__text';
-  host.appendChild(node('h2'));
-  const list = host.appendChild(node('ol'));
+  let host, about = null, headEl = null;
+  if (explorer) {
+    const panelEl = section.appendChild(node('aside'));
+    panelEl.className = 'explorer__panel';
+    headEl = panelEl.appendChild(node('div'));
+    headEl.className = 'explorer__head';
+    const title = headEl.appendChild(node('h1'));
+    title.className = 'explorer__title';
+    title.textContent = 'The system map';
+    host = panelEl.appendChild(node('div'));
+    host.className = 'explorer__body';
+    host.setAttribute('data-system-panel', '');
+  } else {
+    host = section.appendChild(node('div'));
+    host.className = 'home-split__text';
+    host.appendChild(node('h2'));
+  }
+  const listParent = explorer ? host.appendChild(node('section')) : host;
+  if (explorer) {
+    about = host.appendChild(node('section'));
+    about.className = 'system-explorer__section system-explorer__about';
+  }
+  const list = listParent.appendChild(node('ol'));
   list.className = 'home-families';
   const areas = scene.scene.nodes.filter(n => n.kind === 'area');
   const rows = areas.map(a => {
@@ -287,8 +319,8 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
     return li;
   });
   if (!column) section.removeChild(host);
-  const stage = section.appendChild(node('figure'));
-  stage.className = 'home-split__figure home-system';
+  const stage = section.appendChild(node(explorer ? 'section' : 'figure'));
+  stage.className = explorer ? 'explorer__stage' : 'home-split__figure home-system';
   stage.setAttribute('data-system-stage', '');
   stage._rect = { left: 600, top: 0, width: 800, height: 640, right: 1400, bottom: 640 };
   const holder = stage.appendChild(node('div'));
@@ -298,9 +330,26 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
   holder.setAttribute('data-system-base', page ? '' : 'docs/');
   const fallback = holder.appendChild(node('p'));
   fallback.className = 'sm-fallback';
-  const cap = stage.appendChild(node('figcaption'));
-  const keySlot = cap.appendChild(node('span'));
+  let keySlot;
+  if (explorer) {
+    // The frame's controls in the stage's top right (the drawing's area
+    // stands at left 0, top 120 in the fake layout).
+    const tools = stage.appendChild(node('div'));
+    tools.className = 'explorer__tools';
+    tools._rect = { left: areaWidth - 254, right: areaWidth - 14, top: 134, bottom: 170, width: 240, height: 36 };
+    const legend = stage.appendChild(node('div'));
+    legend.className = 'explorer__legend';
+    keySlot = legend.appendChild(node('span'));
+  } else {
+    const cap = stage.appendChild(node('figcaption'));
+    keySlot = cap.appendChild(node('span'));
+  }
   keySlot.className = 'sm-keyslot';
+  // The landing's way into the full map, kept on the drawing's choice.
+  const expandLinks = [node('a')];
+  expandLinks[0].className = 'home-atlas__expand';
+  expandLinks[0].setAttribute('data-system-expand', '');
+  expandLinks[0].setAttribute('href', 'docs/system-map.html');
 
   const docListeners = {};
   const document = Object.assign(dom, {
@@ -309,7 +358,7 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
     createElement: tag => node(tag),
     createElementNS: (ns, tag) => node(tag),
     createTextNode: text => ({ textContent: String(text), children: [], parentNode: null }),
-    querySelectorAll: s => (s === '[data-system-stage]' ? [stage] : []),
+    querySelectorAll: s => (s === '[data-system-stage]' ? [stage] : /data-system-expand/.test(s) && !page ? expandLinks : []),
     querySelector: s => s === '.docs-topbar' && headerBottom ? { getBoundingClientRect: () => ({ bottom: headerBottom }) } : null,
     addEventListener(type, fn) { (docListeners[type] ||= []).push(fn); },
     fire(type, e = {}) {
@@ -346,6 +395,7 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
       return { ok: true, json: async () => scene };
     },
     setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
+    CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } },
   });
   for (let k = 0; k < 8; k++) await new Promise(r => setImmediate(r));
   const map = window.PlectisSystemMap;
@@ -357,6 +407,7 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
   const click = el => el.fire('click', { detail: 1 });
   const key = k => document.fire('keydown', { key: k });
   return { map, window, document, section, host, stage, holder, root, rows, list, keySlot, requests, history,
+           about, headEl, expandLinks, dispatched,
            scrolls, flushFrames() { frames.splice(0).forEach(fn => fn()); },
            animations: dom.animations, panel, textOf, wires, press, click, key, core: window.PlectisSystemMapCore };
 }
@@ -547,9 +598,16 @@ test('a family lights its members and every link that touches it, each line from
   routes.forEach(w => assert.equal(c.fam[w.getAttribute('data-from').slice(5)], fam, 'each lit line runs from the family out'));
   const members = compNodes(scene).filter(n => c.fam[n.id] === fam);
   assert.equal(page.root.querySelectorAll('.sm-node--comp.is-member').length, members.length);
-  assert.ok(page.root.querySelector('.sm-node--fam[data-sm-key="fam:' + fam + '"]').classList.contains('is-self'), 'its own name is lit');
+  // Its own name is lit where it stands; a closer look names the family by
+  // its components instead, and lights its scale on the rim.
+  const own = page.root.querySelector('.sm-node--fam[data-sm-key="fam:' + fam + '"]');
+  if (own) assert.ok(own.classList.contains('is-self'), 'its own name is lit');
+  else assert.ok(page.root.querySelector('.sm-scale__sector.is-self[data-fam="' + fam + '"]'), 'its scale is lit');
+  assert.equal(page.root.querySelectorAll('.sm-scale__sector.is-self').length, 1, 'one family’s scale is lit');
   const partners = new Set(touching.map(e => c.fam[e.source] === fam ? c.fam[e.target] : c.fam[e.source]).filter(f => f !== fam));
-  assert.equal(page.root.querySelectorAll('.sm-node--fam.is-lit').length, partners.size, 'the families it links with are lit');
+  const named = page.root.querySelectorAll('.sm-node--fam').filter(n => partners.has(n.getAttribute('data-sm-key').slice(4)));
+  assert.ok(named.every(n => n.classList.contains('is-lit')), 'the families it links with are lit where they are named');
+  assert.equal(page.root.querySelectorAll('.sm-node--fam.is-lit').length, named.length, 'and no other');
   assert.equal(page.panel().querySelector('.sc__title').textContent, s.crumbs[1]);
   assert.match(page.textOf(page.panel()), new RegExp('Its components · ' + members.length));
   assert.match(s.caption, /: its \w+ components and their listed relations, inside the family and out to the others\.$/);
@@ -768,41 +826,31 @@ test('every word a reader sees is plain, and none claims a component’s code ch
 });
 
 /* ---- Addresses, keys, motion ------------------------------------------------------ */
-test('a new page selection clears the sticky header without moving an already visible title', async () => {
-  const page = await mount({ page: true, headerBottom: 109.25, columnTitleTop: 59.48 });
-  page.map.select(busiest(liveScene()));
-  page.flushFrames();
-  assert.equal(page.scrolls.length, 1);
-  assert.equal(page.scrolls[0].top, 59.48 - 121.25);
-  assert.equal(page.document.columnTitleTop, 121.25);
-  page.map.select('doctrine:P-3');
-  page.flushFrames();
-  assert.equal(page.scrolls.length, 1, 'the visible new title stays where it is');
-  const desktop = await mount({ page: true, headerBottom: 60, columnTitleTop: 240 });
-  desktop.map.select(busiest(liveScene()));desktop.flushFrames();
-  assert.equal(desktop.scrolls.length, 0);
-});
-
-test('title recovery follows deep links and ignores replaced selections and landing columns', async () => {
+test('each page in the explorer is read from its top, and neither it nor the landing moves the window', async () => {
   const id = busiest(liveScene());
-  const page = await mount({ page: true, hash: '#map=' + encodeURIComponent(id),
-    headerBottom: 109.25, columnTitleTop: 59.48 });
+  const page = await mount({ explorer: true, hash: '#map=' + encodeURIComponent(id), headerBottom: 109.25, columnTitleTop: 59.48 });
+  page.host.scrollTop = 640;
   page.map.select('doctrine:P-3');
-  page.flushFrames();
-  assert.equal(page.scrolls.length, 1, 'only the currently selected column corrects its position');
-  page.document.columnTitleTop = 50;
-  page.key('Escape');page.flushFrames();
+  assert.equal(page.host.scrollTop, 0, 'a new choice opens its page at the top of the panel');
+  page.host.scrollTop = 300;
+  page.key('Escape');
   assert.equal(page.map.snapshot().view, 'doctrine');
-  assert.equal(page.document.columnTitleTop, 121.25);
+  assert.equal(page.host.scrollTop, 0);
+  page.host.scrollTop = 300;
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'system');
+  assert.equal(page.host.scrollTop, 0, 'and the overview too');
+  page.flushFrames();
+  assert.equal(page.scrolls.length, 0, 'the window never scrolls: the panel does');
   const landing = await mount({ headerBottom: 109.25, columnTitleTop: 59.48 });
-  landing.map.select(id);landing.flushFrames();
+  landing.map.select(id); landing.flushFrames();
   assert.equal(landing.scrolls.length, 0);
 });
 
 test('on its own page the map follows #map= addresses and writes each view back', async () => {
   const scene = liveScene(), doctrine = doctrineFor(scene);
   const id = busiest(scene);
-  let page = await mount({ scene, doctrine, page: true, hash: '#map=' + encodeURIComponent(id) });
+  let page = await mount({ scene, doctrine, explorer: true, hash: '#map=' + encodeURIComponent(id) });
   assert.equal(page.map.snapshot().component, id);
   assert.equal(page.map.snapshot().back, null, 'an arrival leaves nothing behind it');
   page.map.select('area:formal_math_and_proof');
@@ -811,7 +859,7 @@ test('on its own page the map follows #map= addresses and writes each view back'
   assert.deepEqual(page.history[page.history.length - 1], ['push', '#map=' + encodeURIComponent('doctrine:P-3')]);
   for (const [hash, want] of [['#map=family%3Aformal_math_and_proof', 'family'], ['#map=area%3Aentry_and_reveal', 'family'],
                               ['#map=doctrine', 'doctrine'], ['#map=doctrine%3AP-3', 'rule'], ['#map=' + encodeURIComponent(id), 'component']]) {
-    page = await mount({ scene, doctrine, page: true, hash });
+    page = await mount({ scene, doctrine, explorer: true, hash });
     assert.equal(page.map.snapshot().view, want, hash);
   }
 });
@@ -1006,18 +1054,178 @@ test('on the landing a choice names its linked components on plates, no two of t
     assert.ok(x >= 0 && x <= vb[2] && y >= 0 && y <= vb[3], 'a leader stays on the drawing')));
 });
 
-test('on its own page with room, every component is named round the rim and each family heads its run', async () => {
+test('names come by levels of detail: none round the rim at rest, a family’s own on its closer look, a plate never twice', async () => {
+  // Will (5 October 2026, through the design review): the permanent fringe
+  // of every name round the rim gives way to levels of detail.
   const scene = liveScene();
-  const page = await mount({ scene, page: true, areaWidth: 1900, innerHeight: 1500 });
-  const s = page.map.snapshot();
-  assert.ok(s.ring.named >= 14, 'names at fourteen pixels or more');
-  const names = page.root.querySelectorAll('.sm-rimname');
-  assert.equal(names.length, s.counts.components);
+  const page = await mount({ scene, explorer: true, areaWidth: 1900, areaHeight: 950 });
+  assert.equal(page.root.querySelectorAll('.sm-rimname').length, 0, 'at rest, the families are the landmarks');
   const labelOf = n => { const d = scene.scene.inspectors[n.inspector_ref || 'inspector:' + n.id] || {}; return d.public_label || d.title || n.label; };
-  assert.deepEqual(names.map(n => n.textContent).sort(), compNodes(scene).map(labelOf).sort());
-  assert.equal(page.root.querySelectorAll('.sm-node--head').length, s.counts.families);
+  const fam = 'formal_math_and_proof';
+  page.map.select('area:' + fam);
+  const cam = page.map.snapshot().camera;
+  const members = compNodes(scene).filter(n => n.parent_cluster_id === 'cluster:' + fam);
+  if (cam) {
+    assert.equal(cam.names, 'area:' + fam);
+    assert.deepEqual(page.root.querySelectorAll('.sm-rimname--cam').map(n => n.textContent).sort(), members.map(labelOf).sort(),
+      'its closer look names its own components and no other');
+  }
+  // A zoom names what stands whole; a component it names gets no plate.
   page.map.select(busiest(scene));
-  assert.equal(page.root.querySelectorAll('.sm-plate').length, 0, 'the names are already round the rim');
+  page.section.fire('explorer:zoom', { detail: { direction: 1 } });
+  assert.equal(page.map.snapshot().camera.names, 'all');
+  page.root.querySelectorAll('.sm-plate').forEach(p => {
+    const key = p.getAttribute('data-sm-plate');
+    assert.equal(page.root.querySelector('.sm-node--comp[data-sm-key="' + key + '"] .sm-rimname'), null, 'a plate for ' + key + ' and its name both');
+  });
+});
+
+/* ---- The explorer (docs/system-map.html, 5 October 2026) ---------------------- */
+const codeOf = scene => scene.scene.edges.filter(e => CODE_RELATIONS.includes(e.relation));
+function mostConnected(scene) {
+  const tally = {};
+  codeOf(scene).forEach(e => { tally[e.source] = (tally[e.source] || 0) + 1; tally[e.target] = (tally[e.target] || 0) + 1; });
+  return Object.entries(tally).sort((x, y) => y[1] - x[1] || (x[0] < y[0] ? -1 : 1))[0][0];
+}
+test('the explorer fits the whole circle to its stage, names only the families at rest, and keeps its words in the panel', async () => {
+  const scene = typedScene();
+  for (const [w, hh] of [[922, 630], [1037, 730], [1400, 893], [2040, 1253]]) {
+    const page = await mount({ scene, explorer: true, areaWidth: w, areaHeight: hh });
+    const s = page.map.snapshot(), f = s.ring.frame;
+    // The ring, its scale and the family names round it (about 75px past
+    // the marks) stand inside the stage with a margin; the circle fills it.
+    const reach = +f.R + 70, half = Math.min(w, hh) / 2;
+    assert.ok(+f.cx - reach >= 0 && +f.cx + reach <= w && +f.cy - reach >= 0 && +f.cy + reach <= hh, `the whole circle stands in ${w}x${hh}`);
+    assert.ok(+f.R > half - 140, `and fills it at ${w}x${hh}`);
+    const nx = Math.min(Math.max(+f.cx, w - 254), w - 14), ny = Math.min(Math.max(+f.cy, 14), 50);
+    assert.ok(Math.hypot(nx - f.cx, ny - f.cy) >= +f.R + 60, 'clear of the controls in the top right');
+    assert.equal(s.camera, null);
+    assert.equal(page.root.querySelectorAll('.sm-rimname').length, 0, 'no component named round the rim at rest');
+    assert.equal(page.root.querySelectorAll('.sm-node--fam').length, s.counts.families, 'every family named round the outside');
+    assert.equal(page.root.querySelector('.sm-caption'), null, 'the stage carries no sentence');
+    assert.equal(page.root.querySelector('.sm-back'), null, 'and no way back of its own');
+    const trail = page.headEl.querySelector('.sm-trail');
+    assert.ok(trail && trail.hidden, 'the trail waits in the panel head');
+    assert.equal(page.keySlot.querySelector('.sm-key__more'), null, 'the stage key is one row');
+    assert.ok(page.about.querySelector('.sm-key--panel .sm-key__about'), 'every mark is named in the panel');
+    assert.ok(page.host.querySelector('.sc-doctrine__go'), 'the way into the doctrine stands under the families');
+  }
+  // A phone's stage is too small for the names round the outside: the ring
+  // takes their room, and the families are named all together or not at all.
+  const phone = await mount({ scene, explorer: true, areaWidth: 390, areaHeight: 600 });
+  const ps = phone.map.snapshot();
+  assert.equal(ps.ring.crowded, true);
+  assert.ok([0, ps.counts.families].includes(phone.root.querySelectorAll('.sm-node--fam').length), 'never a lone family name');
+  assert.ok(+ps.ring.frame.R > 390 / 2 - 80, 'the ring takes the room the names would have taken');
+});
+
+test('a choice in the explorer reads in the panel: the trail, the whole description, each relation under its verb, the rules apart, the ways out last', async () => {
+  const scene = typedScene();
+  const page = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730 });
+  const id = mostConnected(scene);
+  page.map.select(id);
+  assert.equal(page.map.snapshot().view, 'component');
+  assert.ok(page.headEl.classList.contains('is-collapsed'), 'the introduction gives way to the trail');
+  const trail = page.headEl.querySelector('.sm-trail');
+  assert.equal(trail.hidden, false);
+  const fam = scene.scene.nodes.find(n => n.id === id).parent_cluster_id.replace('cluster:', '');
+  const famTitle = page.map.snapshot().labels.length >= 0 && page.rows.find(r => r.getAttribute('data-system-family') === 'area:' + fam);
+  assert.deepEqual(trail.querySelectorAll('.sm-crumbs__go').map(b => b.textContent).slice(0, 1), ['The system map']);
+  assert.equal(trail.querySelectorAll('.sm-crumbs__go').length, 2, 'the levels above, each a way back');
+  assert.ok(famTitle);
+  const pg = page.panel();
+  assert.equal(pg.querySelector('.sc__title').tagName, 'H2');
+  assert.equal(pg.querySelector('.sc__all'), null, 'nothing waits behind "show all"');
+  const d = scene.scene.inspectors['inspector:' + id] || {};
+  const whole = page.core.trimProse(d.what_it_does, 1e6);
+  if (whole && whole !== d.summary_line) assert.equal(pg.querySelector('.sc__body').textContent, whole, 'the whole description, every plain sentence');
+  assert.match(page.textOf(pg.querySelector('.sc__onmap')), /^On the map: red lines for its code connections/);
+  // Code connections first, each under the verb that names it from this
+  // component's side, every other end named once per verb; then the rules.
+  const code = pg.querySelector('.sc__section--code'), rules = pg.querySelector('.sc__section--rules');
+  assert.ok(code && rules);
+  const flow = pg.querySelector('.sc__flow');
+  assert.ok(flow.children.indexOf(code) < flow.children.indexOf(rules));
+  const edges = codeOf(scene).filter(e => e.source === id || e.target === id);
+  const verbs = { runs: ['Runs', 'Run by'], reads_results_of: ['Reads the saved results of', 'Its saved results are read by'],
+                  checks_copies_of: ['Checks the copied files of', 'Its copied files are checked by'] };
+  const labels = code.querySelectorAll('.sc__label').map(l => l.children[0].textContent);
+  const want = [];
+  Object.entries(verbs).forEach(([rel, [out, inc]]) => {
+    if (edges.some(e => e.relation === rel && e.source === id)) want.push(out);
+    if (edges.some(e => e.relation === rel && e.target === id)) want.push(inc);
+  });
+  assert.deepEqual(labels, want);
+  const ends = new Set(edges.map(e => e.relation + (e.source === id ? '>' + e.target : '<' + e.source)));
+  assert.equal(code.querySelectorAll('.sc__li').length, ends.size, 'one row for each relation');
+  assert.equal(code.querySelectorAll('.sc__item--rule').length, 0, 'no rule among the code connections');
+  assert.equal(rules.querySelectorAll('.sc__item').filter(b => !b.classList.contains('sc__item--rule')).length, 0, 'no component among the rules');
+  assert.match(page.textOf(rules.querySelector('.sc__section-title')), /^Rules its paper module cites · \d+$/);
+  // The ways to its own pages close the page.
+  const last = pg.children[pg.children.length - 1];
+  assert.ok(last.classList.contains('sc__actions'));
+  assert.match(page.textOf(last), /Component page/);
+});
+
+test('the explorer zooms and fits when its frame asks; a closer look names the components that stand whole; a new choice frames itself', async () => {
+  const scene = typedScene();
+  const page = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730, reduce: true });
+  page.map.select('area:formal_math_and_proof');
+  page.section.fire('explorer:fit', { detail: {} });
+  assert.equal(page.map.snapshot().camera, null, 'Fit shows the whole map');
+  assert.equal(page.map.snapshot().view, 'family', 'and keeps the choice');
+  page.section.fire('explorer:zoom', { detail: { direction: 1 } });
+  const one = page.map.snapshot().camera;
+  assert.ok(one && one.k > 1.5 && one.names === 'all');
+  page.section.fire('explorer:zoom', { detail: { direction: 1 } });
+  const two = page.map.snapshot().camera;
+  assert.ok(two.k > one.k * 1.5);
+  const names = page.root.querySelectorAll('.sm-rimname--cam');
+  assert.ok(names.length > 0, 'close enough, components are named');
+  // Each name stands whole inside the drawing.
+  const vb = page.root.querySelector('svg.sm-ring').getAttribute('viewBox').split(' ').map(Number);
+  assert.ok(vb[2] === 1037 && vb[3] === 730);
+  page.section.fire('explorer:zoom', { detail: { direction: -1 } });
+  page.section.fire('explorer:zoom', { detail: { direction: -1 } });
+  page.section.fire('explorer:zoom', { detail: { direction: -1 } });
+  assert.equal(page.map.snapshot().camera, null, 'zooming out comes back to the whole map, never past it');
+  page.section.fire('explorer:zoom', { detail: { direction: 1 } });
+  page.map.select(mostConnected(scene));
+  const cam = page.map.snapshot().camera;
+  assert.ok(!cam || cam.names !== 'all', 'a new choice lets the zoom go and frames itself');
+});
+
+test('a choice tells the explorer frame, an arrival does not; the trail and Escape step back up', async () => {
+  const scene = typedScene(), id = mostConnected(scene);
+  const page = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730, hash: '#map=' + encodeURIComponent(id) });
+  assert.equal(page.map.snapshot().component, id);
+  assert.ok(!page.dispatched.includes('explorer:selected'), 'arriving at an address brings nothing forward');
+  page.map.select('area:formal_math_and_proof');
+  assert.ok(page.dispatched.includes('explorer:selected'));
+  page.map.select(id);
+  page.press(page.headEl.querySelector('.sm-trail').querySelectorAll('.sm-crumbs__go')[1]);
+  assert.equal(page.map.snapshot().view, 'family');
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'system');
+  assert.ok(!page.headEl.classList.contains('is-collapsed'));
+  assert.ok(page.headEl.querySelector('.sm-trail').hidden);
+});
+
+test('the landing keeps its ways into the full map on the drawing’s choice', async () => {
+  const scene = typedScene(), id = mostConnected(scene);
+  const page = await mount({ scene });
+  const href = () => page.expandLinks[0].getAttribute('href');
+  assert.equal(href(), 'docs/system-map.html');
+  page.map.select(id);
+  assert.equal(href(), 'docs/system-map.html#map=' + encodeURIComponent(id));
+  page.map.select('area:formal_math_and_proof');
+  assert.equal(href(), 'docs/system-map.html#map=' + encodeURIComponent('family:formal_math_and_proof'));
+  page.map.select('doctrine:P-3');
+  assert.equal(href(), 'docs/system-map.html#map=' + encodeURIComponent('doctrine:P-3'));
+  page.key('Escape');
+  assert.equal(href(), 'docs/system-map.html#map=doctrine', 'stepping back follows too');
+  page.map.select(null);
+  assert.equal(href(), 'docs/system-map.html');
 });
 
 test('the source keeps its promises: no canvas, no ticking timers, no inline styles, no watch words, no em dashes', () => {
