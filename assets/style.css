@@ -1006,8 +1006,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .site-header {
   container: page-chrome / inline-size;
   position: sticky; top: 0; z-index: 30;
-  background: color-mix(in srgb, var(--page) 88%, transparent);
-  backdrop-filter: saturate(1.1) blur(8px);
+  background: var(--page);
   border-bottom: 1px solid var(--rule);
 }
 .site-header__inner {
@@ -1431,8 +1430,7 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 .docs-topbar {
   container: page-chrome / inline-size;
   position: sticky; top: 0; z-index: 40;
-  background: color-mix(in srgb, var(--page) 90%, transparent);
-  backdrop-filter: saturate(1.1) blur(8px);
+  background: var(--page);
   border-bottom: 1px solid var(--rule);
 }
 .docs-topbar__inner {
@@ -5056,24 +5054,6 @@ p.muted a:not(.narrative-ref):focus-visible {
 }
 
 
-@supports (animation-timeline: scroll()) {
-  .site-header, .docs-topbar {
-    border-bottom-color: transparent;
-    animation: mc-chrome-lift linear both;
-    animation-timeline: scroll();
-    animation-range: 0 160px;
-  }
-  @keyframes mc-chrome-lift {
-    from {
-      border-bottom-color: transparent;
-      box-shadow: 0 12px 28px -20px rgba(var(--ink-rgb), 0);
-    }
-    to {
-      border-bottom-color: var(--rule);
-      box-shadow: 0 12px 28px -20px rgba(var(--ink-rgb), 0.45);
-    }
-  }
-}
 
 
 @media (prefers-reduced-motion: reduce) {
@@ -5701,27 +5681,8 @@ body::before { content: none; }
 
 
 .home .wrap { width: min(var(--home-max), calc(100% - 40px)); }
-.home .site-header { background: transparent; backdrop-filter: none; }
+.home .site-header { background: var(--page); border-bottom-color: var(--home-line); }
 .home .site-header__inner { width: min(1320px, calc(100% - 40px)); min-height: 58px; }
-@supports (animation-timeline: scroll()) {
-  .home .site-header {
-    animation: home-chrome-lift linear both;
-    animation-timeline: scroll();
-    animation-range: 0 220px;
-  }
-  @keyframes home-chrome-lift {
-    from {
-      background-color: transparent;
-      border-bottom-color: transparent;
-      backdrop-filter: blur(0px);
-    }
-    to {
-      background-color: color-mix(in srgb, var(--page) 95%, transparent);
-      border-bottom-color: var(--home-line);
-      backdrop-filter: saturate(1.15) blur(14px);
-    }
-  }
-}
 
 
 .plait {

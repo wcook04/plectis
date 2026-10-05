@@ -535,7 +535,8 @@ test('landing enhancement work stays off the critical input path', () => {
   assert.match(ART_SOURCE, /navigator\.connection\.saveData/);
   assert.match(ART_SOURCE, /doc\.visibilityState !== 'hidden'/);
   assert.match(ART_SOURCE, /Math\.min\(window\.devicePixelRatio \|\| 1, 2\)/);
-  assert.match(SOURCE, /links\.length > 80\) return/);
+  // The >80-heading budget is exercised by docs_scroll_regression: it skips
+  // scrollspy geometry while retaining the tall rail's native page movement.
   assert.match(SOURCE, /if \(\/\\\/glossary\\\.html\$\/\.test\(window\.location\.pathname/);
 });
 

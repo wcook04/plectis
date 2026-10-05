@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:f95b4e2183061ac51e4b6a2ed31ace7b33bc858b5376b02c932e38496d271d2a",
+    "payload_sha256_excluding_identity": "sha256:f31f84e452a64402e149cb8fa38ff3ae08c5d070c64ab14cb2ee2c51c14928ad",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "1f6db6369d870c955f058c1bebf3953a"
@@ -69671,7 +69671,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:7c5117c73518612e4b88bf11b39870b49fd8f6513d865acabc089ae2a5a8230c",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:5493a3b53dd64f29607a4ee7b79588a51030cafda59810cd991f12acf97869b1"
+      "sites/microcosm/index.html": "sha256:f1b826d12330fadbeacf9333751ed7987f3b9faa9943357fb84ab37f6d42a4eb"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",

@@ -1344,88 +1344,134 @@
     window.addEventListener('pagehide', save);
   })();
 
-  // --- On-this-page scrollspy ------------------------------------------------
+  // --- On-this-page location and rail ---------------------------------------
+  // Scroll only changes the reading line and the tall rail's position. Cache
+  // layout on real changes, and share one frame so rail writes follow all
+  // geometry reads. Boundary checks catch late reflow, including sections
+  // whose content-visibility placeholder has just become real content.
   (function scrollspy() {
     var toc = document.querySelector('.docs-toc');
     if (!toc) return;
     var links = Array.prototype.slice.call(document.querySelectorAll('.docs-toc a[href^="#"]'));
-    if (!links.length || links.length > 80) return;
     var header = document.querySelector('.docs-topbar, .site-header');
-    var sections = links.map(function (link) {
+    var sections = links.length > 80 ? [] : links.map(function (link) {
       var id;
       try { id = decodeURIComponent(link.getAttribute('href').slice(1)); }
       catch (e) { return null; }
       var heading = document.getElementById(id);
-      return heading ? { link: link, heading: heading } : null;
+      return heading ? { link: link, heading: heading, top: 0, visible: false } : null;
     }).filter(Boolean);
-    var highlighted = null, ticking = false;
-    function highlight() {
-      ticking = false;
-      if (!toc.getClientRects().length) return;
-      // Keep the preceding section active while its prose is being read.
-      // Heading-only intersection loses the location between distant headings.
-      var readingLine = (header ? header.getBoundingClientRect().bottom : 0) + 24;
-      var pageHeight = document.documentElement.scrollHeight;
-      var atEnd = pageHeight > window.innerHeight &&
-        (window.pageYOffset || 0) + window.innerHeight >= pageHeight - 2;
-      var current = null;
+    var highlighted = null, ticking = false, dirty = true;
+    var shown = false, headerHeight = 58, railHeight = 0, pageHeight = 0, viewportHeight = 0;
+    var lastTop = null, GAP = 24;
+
+    function scrollTop() { return window.pageYOffset || window.scrollY || 0; }
+    function measureSection(section, y) {
+      var visible = !!section.heading.getClientRects().length;
+      var top = visible ? section.heading.getBoundingClientRect().top + y : section.top;
+      var changed = visible !== section.visible || (visible && Math.abs(top - section.top) > 1);
+      section.visible = visible;
+      section.top = top;
+      return changed;
+    }
+    function measure(y) {
+      dirty = false;
+      shown = !!toc.getClientRects().length;
+      if (!shown) return;
+      headerHeight = header ? Math.ceil(header.getBoundingClientRect().height) : 58;
+      railHeight = toc.offsetHeight;
+      pageHeight = document.documentElement.scrollHeight;
+      viewportHeight = window.innerHeight;
+      sections.forEach(function (section) { measureSection(section, y); });
+    }
+    function currentIndex(line, atEnd) {
+      var current = -1;
       for (var i = 0; i < sections.length; i++) {
-        if (!sections[i].heading.getClientRects().length) continue;
-        if (atEnd || sections[i].heading.getBoundingClientRect().top <= readingLine) current = sections[i].link;
+        if (!sections[i].visible) continue;
+        if (atEnd || sections[i].top <= line) current = i;
         else break;
       }
-      if (current === highlighted) return;
-      if (highlighted) {
-        highlighted.classList.remove('is-current');
-        highlighted.removeAttribute('aria-current');
+      return current;
+    }
+    function frame() {
+      ticking = false;
+      var y = scrollTop();
+      // A disclosure or stylesheet can hide the rail without a resize event.
+      // Its one visibility check must precede every cached heading read.
+      if (!toc.getClientRects().length) { shown = false; return; }
+      if (!shown || window.innerHeight !== viewportHeight) dirty = true;
+      var measured = dirty;
+      if (dirty) measure(y);
+      if (!shown) return;
+      // The page can grow below the headings without moving either boundary.
+      // One document-height read keeps end-of-page selection and the rail exact.
+      pageHeight = document.documentElement.scrollHeight;
+      var line = y + headerHeight + 24;
+      var atEnd = pageHeight > viewportHeight && y + viewportHeight >= pageHeight - 2;
+      var current = currentIndex(line, atEnd);
+      // Read only the two headings straddling the reading line on ordinary
+      // scroll frames. If either moved, rebuild before choosing the location.
+      if (!measured && sections.length) {
+        var changed = current >= 0 && measureSection(sections[current], y);
+        var next = current + 1;
+        while (next < sections.length && !sections[next].visible) next++;
+        if (next < sections.length) changed = measureSection(sections[next], y) || changed;
+        if (changed) {
+          measure(y);
+          line = y + headerHeight + 24;
+          atEnd = pageHeight > viewportHeight && y + viewportHeight >= pageHeight - 2;
+          current = currentIndex(line, atEnd);
+        }
       }
-      highlighted = current;
-      if (current) {
-        current.classList.add('is-current');
-        current.setAttribute('aria-current', 'location');
+      var active = current >= 0 ? sections[current].link : null;
+      var top = headerHeight;
+      if (railHeight > viewportHeight - headerHeight - GAP) {
+        var minTop = viewportHeight - railHeight - GAP;
+        var overflow = pageHeight - viewportHeight;
+        var progress = overflow > 0 ? Math.min(1, Math.max(0, y / overflow)) : 0;
+        top -= (top - minTop) * progress;
       }
+      // All reads finish before either location classes or sticky top writes.
+      if (active !== highlighted) {
+        if (highlighted) {
+          highlighted.classList.remove('is-current');
+          highlighted.removeAttribute('aria-current');
+        }
+        highlighted = active;
+        if (active) {
+          active.classList.add('is-current');
+          active.setAttribute('aria-current', 'location');
+        }
+      }
+      var value = top + 'px';
+      if (value !== lastTop) { toc.style.top = value; lastTop = value; }
     }
     function schedule() {
       if (ticking) return;
       ticking = true;
-      window.requestAnimationFrame(highlight);
+      window.requestAnimationFrame(frame);
     }
+    function invalidate() { dirty = true; schedule(); }
     window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule, { passive: true });
-    window.addEventListener('load', schedule, { once: true });
-    document.addEventListener('toggle', schedule, true);
-    if (window.ResizeObserver) new ResizeObserver(schedule).observe(document.body);
-    highlight();
-  })();
-
-  // --- On-this-page rides the page scroll (no second scrollbar) -------------
-  // When the rail is taller than the viewport, a fixed sticky `top` strands its
-  // lower entries off-screen. Rather than give the rail its own scrollbar, drive
-  // its sticky `top` from page-scroll progress: pinned below the header at the
-  // top of the page, sliding up in proportion as you scroll so lower entries
-  // come into view, bottom-aligned when you reach the end. One scrollbar (page),
-  // and the rail always shows the region near where you are reading.
-  (function tocRidesPage() {
-    var toc = document.querySelector('.docs-toc');
-    if (!toc) return;
-    var header = document.querySelector('.docs-topbar, .site-header');
-    var GAP = 24, ticking = false;
-    function place() {
-      ticking = false;
-      var HEADER = header ? Math.ceil(header.getBoundingClientRect().height) : 58;
-      var vh = window.innerHeight;
-      var h = toc.offsetHeight;
-      if (h <= vh - HEADER - GAP) { toc.style.top = HEADER + 'px'; return; }
-      var maxTop = HEADER;             // page top: rail pinned below the header
-      var minTop = vh - h - GAP;       // page end: rail bottom-aligned (negative)
-      var pageOverflow = document.documentElement.scrollHeight - vh;
-      var p = pageOverflow > 0 ? Math.min(1, Math.max(0, window.scrollY / pageOverflow)) : 0;
-      toc.style.top = (maxTop - (maxTop - minTop) * p) + 'px';
+    window.addEventListener('resize', invalidate, { passive: true });
+    window.addEventListener('load', invalidate, { once: true });
+    document.addEventListener('toggle', invalidate, true);
+    document.addEventListener('contentvisibilityautostatechange', invalidate, true);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(invalidate);
+    if (window.ResizeObserver) {
+      var observer = new ResizeObserver(invalidate);
+      var observed = [];
+      function observe(node) {
+        if (!node || observed.indexOf(node) >= 0) return;
+        observed.push(node);
+        observer.observe(node);
+      }
+      observe(document.body); observe(toc); observe(header);
+      sections.forEach(function (section) {
+        observe(section.heading.closest ? section.heading.closest('section, details') : section.heading.parentElement);
+      });
     }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    place();
+    frame();
   })();
 
   // --- Evidence-spine wash (landing) ----------------------------------------

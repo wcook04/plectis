@@ -96,6 +96,16 @@ Focused regression owners are `test_microcosm_architecture_graph.py`,
 `sites/microcosm/tests/universe_runtime_regression.test.mjs`. Regenerate through
 the existing site builders; never patch the emitted graph or layout JSON.
 
+Map result excerpts render the paper's assistive MathML natively. Convert
+MathJax's numbered `mlabeledtr` rows to MathML Core `mtr` rows in the excerpt
+builder, retaining the equation label and every formula cell. Unsupported
+rows can stack individual symbols vertically even when the paper renders
+correctly. Check numbered displays in the actual narrow result card as well
+as at desktop widths; overflow belongs inside the equation wrapper. Never
+override native `math` elements with CSS `display: block` or `inline-block`.
+Change the excerpt schema version when this conversion changes, so existing
+map data cannot continue serving cached broken excerpts.
+
 ### Front door (October 2026)
 
 The landing has one subject, the mathematics. In order: the introduction and
