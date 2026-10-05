@@ -791,7 +791,7 @@
       landingDeparture = null;
       if (!event.isTrusted || event.defaultPrevented || event.button !== 0 ||
           event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-      var link = event.target.closest && event.target.closest('.uc__problem a[href]');
+      var link = event.target.closest && event.target.closest('.uc__problem a[href], .uc__focus a[href]');
       if (!link || link.hasAttribute('download') ||
           (link.target && link.target.toLowerCase() !== '_self') ||
           (document.querySelector('base[target]') && !link.target)) return;
@@ -799,13 +799,15 @@
       var chip = panel && panel.querySelector('.uc__chip[aria-current="true"][data-problem]');
       var problem = chip && chip.getAttribute('data-problem'), row = landingRow(problem);
       if (!row || !host || !host.contains(row) || panel.inert) return;
+      var selection = link.closest('.uc__focus') ? panel.getAttribute('data-uc-selection') : null;
+      if (link.closest('.uc__focus') && !selection) return;
       var destination;
       try { destination = new URL(link.href, location.href); } catch (e) { return; }
-      // Only the problem's ordinary HTML paper links, never a PDF/new tab or
+      // Only the companion's ordinary HTML links, never a PDF/new tab or
       // fragment within this document; href and browser navigation stay native.
       if (destination.origin !== location.origin || !/\.html$/.test(destination.pathname) ||
           (destination.pathname === location.pathname && destination.search === location.search)) return;
-      landingDeparture = { problem: problem, origin: exactUrl(), destination: destination.href,
+      landingDeparture = { problem: problem, selection: selection, origin: exactUrl(), destination: destination.href,
         link: link, href: link.getAttribute('href'), focus: focusAnchor(link), event: event };
     }, true);
 
@@ -832,6 +834,7 @@
           (!departure.link.target || departure.link.target.toLowerCase() === '_self') &&
           !(document.querySelector('base[target]') && !departure.link.target) && landingRow(departure.problem)) {
         view.landingProblem = departure.problem;
+        if (departure.selection) view.landingSelection = departure.selection;
         view.focus = departure.focus;
       }
       return view;
@@ -943,8 +946,8 @@
     }
 
     // The landing's optional companion owns its data and markup. Give it only
-    // the validated problem identity, then focus the exact rebuilt link once.
-    function restoreLandingProblem(problem, anchor) {
+    // the problem and optional result identities, then focus the rebuilt link.
+    function restoreLandingProblem(problem, anchor, selection) {
       if (typeof problem !== 'string') return false;
       var row = landingRow(problem), host = row && row.closest('.home-split__text');
       if (!host || !anchor || !window.MutationObserver) return;
@@ -963,6 +966,7 @@
       // Reject a newer focused control BEFORE publishing or invoking show.
       if (!allowed()) return;
       var request = { problem: problem, allowed: allowed }, observer;
+      if (typeof selection === 'string' && selection) request.selection = selection;
       function cancelInput(event) { if (event.isTrusted) cancel(); }
       function cancel() {
         if (observer) observer.disconnect();
@@ -982,6 +986,7 @@
         var panel = host.querySelector('.uc.is-open');
         var chip = panel && panel.querySelector('.uc__chip[aria-current="true"]');
         if (!chip || chip.getAttribute('data-problem') !== problem || panel.inert) return;
+        if (request.selection && panel.getAttribute('data-uc-selection') !== request.selection) return;
         if (!anchor) { cancel(); return; }
         // No global first-href fallback may focus an unrelated or inert card.
         var target = null;
@@ -1040,7 +1045,7 @@
         // if the reader has acted, layout changed or the panel is unavailable.
         var landingRestore = typeof pending.landingProblem === 'string';
         if (landingRestore && pending.url === exactUrl()) {
-          restoreLandingProblem(pending.landingProblem, pending.focus);
+          restoreLandingProblem(pending.landingProblem, pending.focus, pending.landingSelection);
         }
         var focusEl = landingRestore ? null : findFocus(pending.focus);
         if (focusEl && typeof focusEl.focus === 'function') {

@@ -7026,7 +7026,20 @@ html.vt-theme .theme-toggle__ico {
 .home-result-slide__problem { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.2rem; margin: 0 0 0.45rem; font-size: 0.95rem; font-weight: 600; color: var(--home-ember); }
 .home-result-slide__status { color: var(--muted); font-weight: 400; }
 .home-result-slide__headline { margin: 0 0 0.8rem; max-width: 40ch; font-family: var(--font-serif); font-weight: 500; font-size: clamp(1.45rem, 2.1vw, 1.9rem); line-height: 1.2; color: var(--ink); text-wrap: pretty; }
-.home-result-slide__statement { margin: 0; max-width: 70ch; font-family: var(--font-serif); font-size: clamp(1.08rem, 1.4vw, 1.2rem); line-height: 1.58; color: var(--ink); }
+.home-result-slide__statement { margin: 0; max-width: 68ch; font-family: var(--font-serif); font-size: clamp(1.08rem, 1.4vw, 1.2rem); line-height: 1.58; color: var(--ink); }
+
+.home-results .math[data-math-rendered] { font-feature-settings: normal; white-space: normal; }
+.home-results .math.inline[data-math-compact],
+.home-results .math.inline[data-math-compact] mjx-math,
+.home-results .math.inline[data-math-compact] mjx-break { white-space: nowrap; }
+.home-results .math mjx-container { overflow-wrap: normal; }
+.home-results .math.display {
+  display: block; max-width: 100%; margin: 0.8em 0; padding-block: 0.25em;
+  overflow-x: auto; overflow-y: hidden; scrollbar-width: thin;
+  text-align: left; overscroll-behavior-x: contain;
+}
+.home-results .math.display mjx-container[display="true"] { margin: 0; text-align: left; }
+.home-results .math.display mjx-container[display="true"] mjx-math { white-space: nowrap; }
 .home-result-slide__why { margin: 0.85rem 0 0; max-width: 76ch; font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
 .home-result-slide__why strong, .home-result-slide__open strong { font-weight: 600; color: var(--ink-soft); }
 .home-result-slide__open { margin: 0.65rem 0 0; max-width: 78ch; font-size: 0.95rem; line-height: 1.5; color: var(--muted); }

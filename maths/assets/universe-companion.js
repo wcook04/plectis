@@ -376,6 +376,8 @@
       if (key === state.focusKey) return;
       state.focusKey = key;
       state.focus = s;
+      if (s && s.id) root.setAttribute('data-uc-selection', s.id);
+      else root.removeAttribute('data-uc-selection');
       drawCard(cardOf(s), quiet);
     }
 
@@ -440,6 +442,7 @@
       state.problem = null;
       state.focusKey = undefined;
       state.focus = null;
+      root.removeAttribute('data-uc-selection');
       clearTimeout(timers.linger);
       api.light(null);
       host.classList.remove('uc-host--open');
@@ -472,6 +475,10 @@
       return a.width > 0 && a.right <= b.left + 2;
     }
 
+    // The map consumes a click only where this optional panel can be shown.
+    // Share the same live layout predicate used by show and syncLayout.
+    api.sideBySide = sideBySide;
+
     function show(pid, s) {
       if (!data || !data.problems || !data.problems[pid] || !rows[pid] || !sideBySide()) return;
       clearTimeout(timers.leave);
@@ -497,8 +504,17 @@
       if (!request || request.applied || typeof request.allowed !== 'function' ||
           !request.allowed() || !data || !data.problems || !rows[request.problem] ||
           !data.problems[request.problem] || !sideBySide() || state.open) return;
+      var previousKeyboard = state.keyboard;
       state.keyboard = true;
-      show(request.problem, null);
+      if (request.selection) {
+        // Resolve the saved identity through the current map, which owns both
+        // the pin and the excerpt. Never replay saved HTML or a stale quote.
+        if (typeof api.restoreSelection !== 'function' ||
+            !api.restoreSelection(request.selection, request.problem)) {
+          state.keyboard = previousKeyboard;
+          return;
+        }
+      } else show(request.problem, null);
       if (!state.open || state.problem !== request.problem) return;
       request.applied = true;
       api.light(request.problem);

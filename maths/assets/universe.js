@@ -4099,6 +4099,13 @@
       companionApi = {
         stage: stage, host: host, route: route, reduceMotion: reduceMotion,
         dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem,
+        restoreSelection: function (id, sector) {
+          var i = typeof id === 'string' && Object.prototype.hasOwnProperty.call(byId, id) ? byId[id] : -1;
+          var n = typeof i === 'number' && i >= 0 ? nodes[i] : null;
+          if (!n || n.sector !== sector || !visible(n) || selected >= 0) return false;
+          pinInTeaser(i);
+          return true;
+        },
         // The column lets a pin go (Escape, leaving the band, another problem).
         release: function () { if (selected >= 0) { selected = -1; draw(); } }
       };
@@ -4401,7 +4408,7 @@
       // Beside the column the drawing never leaves the page: a dot pins, and
       // empty ground lets a pin go. A near miss used to fall through to the
       // full map, throwing the reader off the landing.
-      if (companionApi) {
+      if (companionApi && typeof companionApi.sideBySide === 'function' && companionApi.sideBySide()) {
         if (i >= 0 || selected >= 0) pinInTeaser(i >= 0 && i !== selected ? i : -1);
         return;
       }

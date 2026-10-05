@@ -111,6 +111,18 @@ or delayed transition. Do not add a dropdown here (Will, 4 October). Each result
 continues to open the section. Inactive results are hidden and inert, and carousel keys
 must never remove focus from an evidence link or hijack native input keys.
 
+Every formula in this band, including titles and proof ideas, uses exact TeX
+spans compiled by the existing `plectis_math_renderer` during the public-site
+build. The resulting CommonHTML and assistive MathML are already in the page;
+there is no browser typesetting pass, external maths service, or first-click
+delay. The retained `data-tex` is the editable formula source on subsequent
+builds. Keep short expressions inline and give substantial fractions, sums,
+and the main conclusion a separate, left-aligned line. Check every slide at
+phone width; long expressions may scroll within their own line, never widen
+the page. Use the paper reader’s local STIX2 fonts so text and maths match.
+Do not regress to hand-built subscript/superscript prose or hide the statements
+in disclosures.
+
 Eligibility is an exact intersection: a Lean-checked theorem and an accepted
 Comparator check covering that proposition. A prepared interface, a green
 programme-level check, or a paper proof alone cannot qualify. The proof link
@@ -983,6 +995,24 @@ the published edition. Review the local PDF, generated reading page and source
 together; keep any remaining publication or mirror update explicitly pending.
 This option cannot commit, push or deploy, and does not change the public-main
 byte-parity requirement for publication.
+
+The committed site tree is a projection seed, not a complete source-current
+generation. In a fresh isolated checkout, install the locked renderer dependencies
+in `tools/meta/dissemination/math_renderer` with `npm ci --ignore-scripts`.
+Ignored dependencies and caches do not travel with Git; missing dependencies
+remain build errors.
+
+Prepare the full reader projection through the existing deploy owner's order:
+resolve admitted public source snapshots, parity-sync registered papers and Lean
+inputs, build the Lean experience, then build the maths pages. Use the same
+isolated site root and source identities throughout. `publish_site` owns this
+order and `refresh_reader_packets` passes its resolved roots to the reader builder.
+The standalone reader builder does not replace these prerequisites. Do not
+hand-edit manifests or borrow newer generated pages to fill missing routes.
+
+Focused CSS/JavaScript tests use their existing bounded fixtures without repeating
+the full build for each test. They do not replace the reader floor below or the
+normal publication's source, parity, assembled-link and live verification guards.
 
 Before landing site changes, run:
 

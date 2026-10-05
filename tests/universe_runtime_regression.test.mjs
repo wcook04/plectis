@@ -578,7 +578,7 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   const appended = [];
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
-    head: {appendChild: node => { appended.push(node); }},
+    head: {appendChild: node => { appended.push(node); if (node.onload) node.onload(); }},
     createElement: () => element(),
     querySelector: () => null,
     querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
@@ -586,6 +586,8 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   const location = {pathname: '/', search: '', hash: '', href: '/'};
   const window = Object.assign(element(), {
     location, devicePixelRatio: 1, isSecureContext: false,
+    // Model a loaded desktop companion: production attach publishes its live layout predicate.
+    PlectisUniverseCompanion: {attach(api) { api.sideBySide = () => true; }},
     matchMedia: () => ({matches: true}),
     CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } },
   });
@@ -1005,7 +1007,7 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   const inspector = withInspector ? element() : null;
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
-    head: {appendChild: node => { appended.push(node); }},
+    head: {appendChild: node => { appended.push(node); if (node.onload) node.onload(); }},
     createElement: () => element(),
     querySelector: s => (s.indexOf('Content-Security-Policy') !== -1 ? meta : s === '[data-universe-inspector]' ? inspector : null),
     querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
@@ -1022,6 +1024,8 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   const CustomEvent = class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } };
   const window = Object.assign(element(), {
     location, devicePixelRatio: 1, isSecureContext: false,
+    // Model a loaded desktop companion: production attach publishes its live layout predicate.
+    PlectisUniverseCompanion: {attach(api) { api.sideBySide = () => true; }},
     history: {replaceState(_a, _b, url) { location.hash = new URL(url, 'http://test').hash; }},
     matchMedia: query => ({matches: /reduce/.test(query) ? reduceMotion : true}),
     requestAnimationFrame: fn => { rafCalls++; frames.set(nextFrame, fn); return nextFrame++; },
