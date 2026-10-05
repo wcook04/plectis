@@ -445,15 +445,15 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
    reading width. */
 .docs-layout--wide:has(.universe-page) { width: calc(100% - 48px); }
 .wrap.universe-page { width: calc(100% - var(--gutter) * 2); }
-@media (min-width: 1800px) {
-  .universe-panel__body { grid-template-columns: minmax(0, 1fr) 380px; }
-}
 .universe-panel__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
   grid-template-rows: auto minmax(0, 1fr);
   grid-template-areas: "stage side" "stage rail";
   height: var(--universe-h);
+}
+@media (min-width: 1800px) {
+  .universe-panel__body { grid-template-columns: minmax(0, 1fr) 380px; }
 }
 .universe-panel__stage { grid-area: stage; }
 .universe-panel__side {

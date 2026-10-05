@@ -43,6 +43,10 @@ readers find and understand that work; private working state is outside its scop
   the latest papers; historical editions remain labelled as history.
 - Source-derived strings are HTML-escaped; raw HTML from source markdown is not
   executed.
+- Every complete HTML page sets `format-detection` to `telephone=no` in its
+  head. Mathematical numbers and identifiers must stay text on iOS Safari;
+  intentional phone links use an explicit `tel:` URL. Keep this in the page
+  builders as well as the curated landing.
 - The committed site has no runtime backend, no cookies, no analytics, no
   forms, no external data fetches, and no browser path into private state.
 - Deployment headers must keep `connect-src 'none'` until a concrete public
@@ -114,6 +118,11 @@ papers, as three reading pairs; the films; why the project exists and how to tak
 one line for the earlier software. Every route is visible without opening
 anything. Only the transcripts fold.
 
+At phone widths, keep the menu, brand, search and theme controls together,
+with the five page destinations on the next row. The existing labelled search
+icon replaces the wider text button. Let the destinations wrap when text is
+enlarged; never clip a route to preserve a fixed header height.
+
 The strongest-results band uses one reading column: result, precise statement,
 proof idea, surviving boundary, then three adjacent evidence links. Quiet previous/next arrows and a count navigate the twelve; touch swipes remain, and
 no-JavaScript readers get the complete horizontal strip. There is no autoplay
@@ -152,7 +161,7 @@ subsum-set measure. These are twelve distinct mechanisms, not a quota per
 problem. The selected `data-comparator-interface` names are bound to passing
 replay 35935225572 at Lean commit `cc7e541cf2081c6fef5a5e377d52e365e33b01eb`;
 the linked receipts are pinned in `plectis-erdos` at
-`ac4d19c579390b2b4f7733f56b434be637c4556a`. Each linked Solution-file digest
+`436f55ebdafa67e4af0fff79f621c13f2ded12bf`. Each linked Solution-file digest
 matches its receipt. Comparator checks propositions and kernel acceptance;
 it does not provide human peer review or certify novelty. Later unpublished
 strengthenings do not inherit this status automatically. In particular, use
@@ -187,25 +196,40 @@ the band is a strip that scrolls and snaps. The earlier software keeps its
 quiet row at the foot of the page: the band's second drawing is one switch
 away and never the default.
 
-The system map and its doctrine (4 October 2026). Will asked for the system
-drawing to show "how the doctrine manifests", with "red" components and
-"blue" doctrine, each component opening its own interior up to the axioms,
-the reading text in the left column, and no wasted space. The machinery is
-drawn in the palette's red and the doctrine in its azure, by reference
-(`--s-ember: var(--home-ember)`, `--s-doctrine: var(--home-ice)`,
-`--s-ground: var(--surface)`), the two cables of the Plectis mark. The
-doctrine links come from `docs/doctrine-manifest.json`, which
-`microcosm_doctrine_manifest.py` projects from the object map's "abides by"
-and "governed by" relations; the drawing shows only links the record holds.
-Selecting a component fills the drawing with its interior (the principles
-that govern it, the axioms they rest on, the failures that guard them,
-routed and lit upward once); the doctrine lens shows each axiom's reach
-across every component; the left column is a live page for the family,
-component or rule in focus. `docs/system-map.html` is the same drawing at
-full height beside its column (no preamble), reached from the landing's
-"Open the system map" and from every card's "Full map"; `#map=<node id>`
-deep links select and are written on selection. The old
-`docs/architecture.html` stays for its existing links.
+The system map and its doctrine (4 and 5 October 2026). Will asked for the
+system drawing to show "how the doctrine manifests", then rejected the first
+version as "a bunch of arbitrary lines", "unreadable" and "some family tree,
+which doesn't even make sense", asked for "the circular thing" that "works
+well for the maps", and asked for it to be "not even like a fake thing ...
+actually true and real ... in the repo itself". The drawing
+(`assets/system-map.js`: HTML over one SVG layer, real text at body size) is
+the sibling of the universe map. The doctrine sits at the centre: the twelve
+axioms are hubs in a pinned order, each principle or failure mode that rests
+on one axiom is its satellite, and those spanning several are short bridges
+between neighbouring hubs. The 88 components ring the rim in their seven
+families. The machinery is drawn in the palette's red and the doctrine in its
+azure, by reference (`--s-ember: var(--home-ember)`,
+`--s-doctrine: var(--home-ice)`, `--s-ground: var(--surface)`), and each ink
+has one meaning. Red lines are only relations derived from the code:
+`microcosm-substrate/scripts/derive_code_wiring.py` writes
+`core/organ_code_wiring.json` (runs, reads saved results of, checks the copied
+files of, each with its file and lines), and the architecture scene draws
+those alone; the atlas's declared `wires_to` lists are navigation metadata and
+are never drawn. Azure lines are the rules a component's paper module cites,
+named as citations. "Enforced in" and "Partly checked in" come from
+`core/doctrine_enforcement.json`, which `derive_doctrine_enforcement.py`
+derives from tests marked `enforces(rule, component, scope)`; the doctrine
+manifest and the doctrine cards read the same lists. Selecting a component
+lights inward to its rules and across to its code connections; selecting an
+axiom, principle or failure mode lights outward to the components that cite
+it, with the enforcing ones framed; one breadcrumb and Escape step back, and
+the left column is the readable index of whatever is lit. A code connection
+links to its file, never to a line, because the published repository can lag
+the source the evidence was read from. `docs/system-map.html` is the same
+drawing at full height with every component named round the rim, reached
+from the landing's "Open the system map"; `#map=<node id>` deep links select
+and are written on selection. The old `docs/architecture.html` stays for its
+existing links.
 
 The papers band (4 October 2026). Will: the short paper is "the main focus
 and attraction", its companion sits beside it, small, and the band had "too
@@ -756,6 +780,25 @@ the ledger, the evidence or the rendered papers come from different editions.
   and the #257 papers' script A as an italic A). The printed head moves to
   the card's title only when the paper prints exactly the result's label.
   The files belong to the reading-room deploy scope.
+- Quote bundles above 256 KB also publish batches of at most 16 results in
+  source-line order. Their HTML rows are copied exactly from the complete
+  bundle, which remains the fallback. The map loads only the requested batch,
+  caches neighboring results together and merges late responses without
+  changing the selection. Batch routes carry content hashes and identify the
+  complete source edition; narrow releases reuse only identical retained
+  files. There is no eager fetch of the remaining batches. On the measured
+  #249 and #257 corpus, traversing every batch uses about 18% more compressed
+  data and adds requests at batch boundaries; this buys a smaller first quote
+  request while repeated visits to loaded results stay immediate.
+- A pinned map result fetches the Lean statements and Comparator files for
+  its paper from `maths/assets/statement-details/<paper>.json`, cached after
+  the first request. These are exact subsets of the complete statement API,
+  with unchanged replay metadata and a rebased source reference; the map data
+  names their routes with content hashes. The complete API remains the
+  fallback for older data, invalid routes or failed requests. A late response
+  must preserve the newer selection. Narrow landing and navigation releases
+  reuse only byte-identical retained files; otherwise they retain the complete
+  API fallback. Initial map load and hover do not request these details.
 - With a card pinned the placard steps back to its title and the search
   (the lede, the figures, the count and the load button return when it
   closes), so at laptop height the paper's words, not the figures, fill the
@@ -856,6 +899,18 @@ reading pages; only the universe map keeps the wide workbench layout.
 - The audit's measure counts prose characters only: it averages character
   width over a paragraph's text with its formulas removed, because
   MathJax's hidden MathML copy made 75-character proof lines read as 95.
+- A map result in a large paper may open its existing section as a small
+  reading page. The builder cuts the complete typeset section from the same
+  full paper; equations, numbering, fonts and source receipt stay intact.
+  The page says it is a section, scopes copy and download to that section,
+  and links back to the current position in the full paper. References to
+  material outside the section open the full paper at their original anchor.
+  Existing full-paper URLs, contents, search, print and export remain available.
+  Both map data tiers and their cache tokens must name the same section route.
+  Only papers of at least 1 MB qualify, and the selected section must be at
+  most 750 KB and less than half the full page. Otherwise keep the full-paper
+  route. A navigation-only release may reuse a section page only when its
+  retained bytes match; it cannot publish a link to an absent reader.
 - A known audit warning that stays: headline length on long manuscript
   titles (three balanced lines).
 
@@ -1012,6 +1067,21 @@ in `tools/meta/dissemination/math_renderer` with `npm ci --ignore-scripts`.
 Ignored dependencies and caches do not travel with Git; missing dependencies
 remain build errors.
 
+A sparse release checkout must also include the tracked
+`state/lean_corpus/lean_corpus_facts.json` input. It supplies the landing's
+projected Lean counts and is separate from the builder's substrate source list.
+Check this input before starting the full release; omitting all of `state/`
+leaves the landing's fact spans unresolved and correctly stops publication.
+
+An isolated checkout also loses the usual sibling Git object references.
+When a suitable local repository exists, pass it through
+`AIW_PAPER_CHECKOUT_<REPOSITORY>` (for example,
+`AIW_PAPER_CHECKOUT_PLECTIS_ERDOS`) to avoid fetching its complete history again.
+Verify the repository's public origin and that it is not shallow first. This
+existing environment layer supplies Git objects only: the resolver still clones
+fresh public `main` into a clean detached snapshot. Do not substitute a literal
+`--checkout` override for this optimisation; that has a different source boundary.
+
 Prepare the full reader projection through the existing deploy owner's order:
 resolve admitted public source snapshots, parity-sync registered papers and Lean
 inputs, build the Lean experience, then build the maths pages. Use the same
@@ -1035,7 +1105,9 @@ Before public release, verify the deployed host response envelope, not only the
 committed static files:
 
 ```bash
-./repo-python tools/meta/dissemination/verify_microcosm_public_site_host.py --base-url https://<public-domain> --require-hsts
+./repo-python tools/meta/dissemination/verify_microcosm_public_site_host.py \
+  --base-url https://<public-domain> --require-hsts \
+  --expected-release-mode canonical_plectis_site
 ```
 
 Use `--require-hsts-preload` only after the final domain and all covered

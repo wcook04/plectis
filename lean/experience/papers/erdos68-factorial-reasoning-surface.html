@@ -6,7 +6,7 @@
     <p class="lean-paper__reference-note">Native MathML copy. For the TeX-rendered copy with linked references, read the <a href="erdos68-factorial-reasoning-surface.mathjax.html">exact-TeX version</a>.</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/68/erdos68-factorial-reasoning-surface.tex">
-<div class="problem">
+<div class="problem" id="long68:res:problem">
 <p><strong>Problem 0.1</strong> (Erdős #68). <em> Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">S=\sum_{n\ge2}(n!-1)^{-1}</annotation></semantics></math>
 irrational?</em></p>
@@ -204,7 +204,7 @@ and
 \label{long68:eq:channel-congruence}
  V_{d}(c)\equiv M(c)\pmod{d!-1}.
 \end{equation}</annotation></semantics></math></p>
-<div class="theorem">
+<div class="theorem" id="long68:res:normalform">
 <p><strong>Theorem 1.1</strong> (divisibility of the difference). <em> For
 every finite integer support and every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
@@ -247,7 +247,7 @@ vector, before imposing cancellation.</p>
 indices lie where one floor exponent is constant, the corresponding
 weighted sum is proportional to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:bandbreakpoint">
 <p><strong>Theorem 1.2</strong> (constant values of the floor in the
 weights). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
@@ -556,7 +556,7 @@ completing the induction. The finite gcd divides the entire tail, and
 inclusion of the finite interval gives the reverse divisibility.
 Finally,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H\le D(2D-1)&lt;2D^2</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:moment-ideal">
 <p><strong>Theorem 1.3</strong> (the set of attainable values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>).
 <em> Fix
@@ -623,7 +623,7 @@ formula records the integer offset and shows why changing the vector at
 that value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 cannot alter nonintegrality.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:residual-transparency">
 <p><strong>Theorem 1.4</strong> (how the coefficient choices change the
 remainder). <em> For the vector in
 <code>[long68:eq:low-channel-basis]</code>,
@@ -1205,7 +1205,7 @@ extra size assumption on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is not a consequence of cancelling the weighted sums.</p>
 <p></p>
-<div class="theorem">
+<div class="theorem" id="long68:res:channel-radius">
 <p><strong>Theorem 1.5</strong> (a lower bound for the support parameter).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>,</mo><mi>M</mi><mo>,</mo><mi>R</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">t,M,R\in\mathbb{N}</annotation></semantics></math>
@@ -1293,7 +1293,7 @@ cubically. It is a bound on the actual support only when
 denotes its largest index and the stated size condition holds there; it
 does not prove irrationality.</p>
 <p>Theorem 3.4 raises the asymptotic constant in the same estimate.</p>
-<div class="corollary">
+<div class="corollary" id="long68:res:radius-constant">
 <p><strong>Corollary 1.6</strong> (the asymptotic lower bound). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(t),R(t)</annotation></semantics></math>
 satisfy
@@ -1370,7 +1370,7 @@ Corollary 1.6 instead follows from Theorem 3.4.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>p</mi></msub><annotation encoding="application/x-tex">T_p</annotation></semantics></math>
 already changes only one weighted sum; there are no proper divisors to
 eliminate.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:translator">
 <p><strong>Theorem 1.7</strong> (changing just one weighted sum). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>
 be prime and let
@@ -1666,7 +1666,7 @@ failure of that test need not remove the prime completely. The formula
 is standard, whereas the two factorial partial-sum examples below and
 the later tail comparison concern this particular series.</p>
 <p></p>
-<div class="theorem">
+<div class="theorem" id="long68:res:prime-pole">
 <p><strong>Theorem 2.1</strong> (maximal prime-power survival). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\ge2</annotation></semantics></math>,
 let
@@ -1867,7 +1867,7 @@ This means it divides none of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">d_2,\ldots,d_{m-1}</annotation></semantics></math>;
 it may still divide a later denominator, so uniqueness at its first
 occurrence gives no uniqueness in every larger block.</p>
-<div class="proposition">
+<div class="proposition" id="long68:res:wilson-cofinality">
 <p><strong>Proposition 2.2</strong> (cofinal first prime occurrences).
 <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>
@@ -1950,7 +1950,7 @@ gives the constant
 Throughout this section,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>N</mi></msub><annotation encoding="application/x-tex">L_N</annotation></semantics></math>
 is the common denominator before reduction of the partial sum.</p>
-<div class="lemma">
+<div class="lemma" id="long68:res:product-lcm">
 <p><strong>Lemma 3.1</strong> (product, least common multiple, pairwise
 gcd). <em> For positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">x_1,\ldots,x_k</annotation></semantics></math>,
@@ -1993,7 +1993,7 @@ class="citation" data-cites="erdos-stewart1976"><a href="#ref-18">[18]</a></span
 background. We now state only the subtraction needed for the lcm
 argument, rather than importing the prime-factor estimates of those
 papers.</p>
-<div class="lemma">
+<div class="lemma" id="long68:res:gap-gcd">
 <p><strong>Lemma 3.2</strong> (factorial-gap gcd). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">2\le i&lt;j</annotation></semantics></math>,
 the integer
@@ -2019,7 +2019,7 @@ integers at most
 so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>≤</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><msup><mi>j</mi><mrow><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup></mrow><annotation encoding="application/x-tex">g\le j!/i!-1&lt;j^{j-i}</annotation></semantics></math>. ◻</p>
 </div>
-<div class="lemma">
+<div class="lemma" id="long68:res:segment">
 <p><strong>Lemma 3.3</strong> (segment inequality). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\le k\le N-1</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mi>N</mi><mo>−</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>≤</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
@@ -2042,7 +2042,7 @@ Since
  =\sum_{h=1}^{k-1}h(k-h)=\binom{k+1}{3},</annotation></semantics></math>
 taking logarithms gives <code>[long68:eq:segment]</code>. ◻</p>
 </div>
-<div class="theorem">
+<div class="theorem" id="long68:res:lcm-growth">
 <p><strong>Theorem 3.4</strong> (common-denominator growth). <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub></mrow><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
  \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math></em></p>
@@ -2387,7 +2387,7 @@ least integer above a scaled partial sum under a rationality assumption.
 The carry-defect expansion in gives a separate, direct application of
 factorial-series rationality criteria.</p>
 <p> </p>
-<div class="theorem">
+<div class="theorem" id="long68:res:carry-equivalence">
 <p><strong>Theorem 4.1</strong> (an exact criterion from successive
 partial sums). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
@@ -2560,7 +2560,7 @@ irrationality direction for nonterminating factorial expansions whose
 digits are not eventually maximal <span class="citation"
 data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>.</p>
 <p></p>
-<div class="proposition">
+<div class="proposition" id="long68:res:companion-orbit">
 <p><strong>Proposition 4.2</strong> (rationality and factorial residues).
 <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>C</mi><mo stretchy="false" form="postfix">⌋</mo><mo>≡</mo><mi>−</mi><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for all sufficiently large </mtext><mspace width="0.333em"></mspace></mrow><mi>m</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">S\in\mathbb{Q}
@@ -2687,7 +2687,7 @@ must lie outside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><msub><mi>E</mi><mi>m</mi></msub><mi>/</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,E_m/m)</annotation></semantics></math>
 at arbitrarily large indices. This interval has width less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><msup><mi>m</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2/m^2</annotation></semantics></math>.</p>
-<div class="proposition">
+<div class="proposition" id="long68:res:lower-escape">
 <p><strong>Proposition 4.3</strong> (lower-interval criterion). <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo>∀</mo><mi>B</mi><mspace width="0.222em"></mspace><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mi>B</mi><mo>:</mo><mspace width="0.222em"></mspace><msub><mi>E</mi><mi>m</mi></msub><mo>≤</mo><mi>m</mi><msub><mi>θ</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:lower-escape}
@@ -2866,7 +2866,7 @@ identity converge absolutely. The familiar case
 is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e-2</annotation></semantics></math>;
 this example will make the residue condition explicit.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:shift-family">
 <p><strong>Theorem 4.4</strong> (a criterion for the shifts
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge-1</annotation></semantics></math>).
 <em> For every integer
@@ -3051,7 +3051,7 @@ comparison at arbitrarily large
 so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>p</mi></msub><annotation encoding="application/x-tex">F_p</annotation></semantics></math>
 can absorb any fixed rational denominator.</p>
-<div class="theorem">
+<div class="theorem" id="long68:res:global-residue">
 <p><strong>Theorem 5.1</strong> (a sufficient tail inequality). <em>
 Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>

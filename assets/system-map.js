@@ -1,156 +1,1576 @@
 /* Plectis: the system map.
-   The earlier software toolkit's components, drawn as a precision schematic
-   in which every part shows how it connects to every other.
 
-   The shared path runs across the middle as the datum line, its steps as
-   stations in their declared order. The families are plates above and below
-   it, each standing on the line's side of the drawing and as deep as its own
-   components need, so a small family is a small plate. Every component is a
-   mark on one lattice that runs through the whole drawing: marks on its
-   points, wiring in the gutters between them, plate edges a fixed tolerance
-   inside the lattice lines. A mark's cut is set by its evidence class.
+   The earlier software drawn as one circle, the sibling of the mathematics
+   slide's universe map, so a reader learns one map and reads both. Its own
+   character is the weave: Plectis is Latin for "you weave", and here the
+   machinery and its rules are drawn as two inks interlocked.
 
-   The declared links between two families travel together as one cable. It
-   leaves each plate through a connector on the edge facing the shared path,
-   with one pin for every link it carries, and runs to the other plate in a
-   lane beside the line; lanes are evenly spaced, and a cable that crosses
-   the line passes under it, clear of the station names. A cable is a count
-   of declarations, nothing more: pointing at a component draws its own
-   links out of their cables, from its mark through its pin to every
-   component it names or is named by, with a dot at the naming end and a bar
-   at the named end.
+     Rim      The 88 components as marks on a graduated scale, one tick each,
+              in seven family sectors bracketed and named outside the ring
+              (the family, then its count). A mark's cut says how the
+              component is backed. Outside each tick a fine azure bar steps
+              once for every rule the component's paper module cites; a
+              crossbar caps it where a rule is shown enforced there, an open
+              one where a narrower part of a rule is checked.
+     Fibres   The connections between components, each a tapered filled
+              outline: out of a mark along its radius, gathered at its
+              family's hub, along a swoop to the other family's hub and out
+              again, bundled with every connection between the same two
+              families; inside a family, a short U just within the rim. Thin
+              where it leaves, fuller in the bundle, so direction reads
+              without arrowheads. Each kind of connection has its texture.
+     Centre   The doctrine as a necklace round its name: the twelve axioms
+              on a ring with the rules tied to several of them standing
+              between them, and each rule tied to one axiom its satellite
+              just outside. Every rests-on and threatens line is a short
+              curve that leaves and lands along the radius.
 
-   Three levels, each a step down, and every one fills the drawing. At rest
-   the drawing reads as the families round the shared path. A family
-   selected opens: its plate expands into a sheet that names every
-   component, its links inside the family drawn as nested brackets, and
-   beside it stand the axioms its components abide by, each with the share
-   of the family that does. A component selected opens into its interior:
-   the component at the base, the principles that govern it above, the
-   axioms they rest on at the top, the failures that guard them on the
-   axioms' edges, all joined by the wiring the doctrine declares. Escape, a
-   click on empty ground, or the trail along the top steps back the way the
-   reader came.
+   Two inks with one meaning each: red is a connection between components,
+   azure is a rule. Selecting is the same gesture from either end. A
+   component lights inward (the rules its paper module cites, and the axioms
+   those principles rest on) and outward along its connections, each named
+   on a plate; a rule lights outward to every component whose paper module
+   cites it, the components where it is shown enforced framed by a reticle.
+   A rule line never travels round the core: near ones bend in like rays,
+   far ones go straight across it, never behind its name. Where a lit red
+   line and an azure one cross, one passes over the other, as in a plait.
+   Each lit line appears once from the end its light starts at; reduced
+   motion shows it at once.
 
-   The column beside the drawing is its reading surface: the families with
-   their components marked as the drawing marks them, then, on selection,
-   the component's page, a rule's page or the family's, laid over the column
-   and arriving on the drawing's beat. The lens turns the drawing to the
-   doctrine: the twelve axioms listed in the column, each pointed at lighting
-   the components that abide by it where they stand.
+   What the data says, and so what is drawn: a red line is a connection read
+   from the code, one of three kinds (a component runs another, reads the
+   results another saved, or checks the files copied from another), each in
+   its own texture; an older scene's red lines are the relations a
+   component's own record lists, and say so. An azure line is a citation by
+   a component's paper module. "Enforced in" is where a test shows a rule
+   holding (until that manifest exists, what the rule's card names). No line
+   ever stands for anything else.
 
-   Everything drawn comes from docs/architecture-graph-scene.json, the scene
-   the architecture map reads, and docs/doctrine-manifest.json, the rules
-   each component keeps as the public doctrine records and paper-module
-   capsules declare them. Family membership is navigation grouping. A
-   declared link is the source's own declaration, not proof that one
-   component calls another, nor of causation, maturity or correctness; a rule
-   a component keeps is its paper module's declaration, not proof that the
-   component enforces it. The two inks are the Plectis mark's: the machinery
-   in ember, the doctrine in ultramarine; words and the shared path are ink.
-   Every number drawn is a count from the data.
+   Every word is real text, set at the page's body size or larger (notes at
+   seven eighths of it), on one SVG drawing laid out for the space it has.
+   The column beside the map is the readable index of whatever is lit. The
+   trail above the map, Escape and Back step out again.
 
-   Motion has a cause or is the figure's one opening. As soon as the scene is
-   read the drawing shows its blueprint: the line and the plates' outlines,
-   the lattice points faint. When it first comes into view and is still, the
-   blueprint is built out once, in about a second and a quarter: the line
-   draws, the plates seat onto their outlines in two short beats, the marks
-   set, the connectors and cables route in along their lanes, and the names
-   come up. A plate opens into its sheet from its own rectangle and closes
-   back into it. An interior opens as one pass of light, from the component
-   up its wiring to each principle and on to the axioms, each name arriving
-   as its light does, and folds back the same way. Under the pointer a
-   component's links trace out once, in their declared direction, and a
-   rule's reach lights in reading order; then everything settles. Nothing
-   moves while the reader is idle. A keyboard
-   step, an instant arrival and reduced motion land in the final state at
-   once. The canvas paints on demand, caps the device pixel ratio at 2, and
-   runs no motion off screen or in a hidden tab. */
+   Everything drawn comes from docs/architecture-graph-scene.json and
+   docs/doctrine-manifest.json. Every number is a count from that data. */
 (function () {
   'use strict';
 
-  var SERIF = '"Plectis Serif", "Plectis Math", "Plectis Serif Fallback", "Iowan Old Style", Georgia, serif';
-  var TAU = Math.PI * 2;
+  var SVGNS = 'http://www.w3.org/2000/svg';
 
-  /* ---- Curves ------------------------------------------------------- */
-  /* The site's two curves, solved exactly: an arrival settles hard,
-     cubic-bezier(0.16, 1, 0.3, 1); a move eases in and out,
-     (0.65, 0, 0.35, 1). No bounce, no overshoot. */
-  function cubicBezier(x1, y1, x2, y2) {
-    var cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
-    var cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
-    function sx(t) { return ((ax * t + bx) * t + cx) * t; }
-    function sy(t) { return ((ay * t + by) * t + cy) * t; }
-    function dx(t) { return (3 * ax * t + 2 * bx) * t + cx; }
-    return function (x) {
-      if (!(x > 0)) return 0;
-      if (x >= 1) return 1;
-      var t = x, i;
-      for (i = 0; i < 8; i++) {
-        var err = sx(t) - x, d = dx(t);
-        if (Math.abs(err) < 1e-6) return sy(t);
-        if (Math.abs(d) < 1e-6) break;
-        t -= err / d;
-        if (t < 0 || t > 1) break;
+  /* ---- The loom ------------------------------------------------------------ */
+  /* The map's own primitives: the weave (over and under wherever a red line
+     and an azure one cross), the fibres (connections bundled through their
+     families' hubs, drawn as tapered filled outlines) and the doctrine's
+     necklace. Plain functions with no page: points are [x, y] in the
+     drawing's pixels, polar points [angle, radius]. */
+  var Loom = (function () {
+    'use strict';
+
+    /* ---- Small helpers ------------------------------------------------------ */
+    var TAU = Math.PI * 2;
+    function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+    function norm(a) { a %= TAU; return a < 0 ? a + TAU : a; }
+    // The signed shorter turn from angle a to angle b.
+    function turn(a, b) { var d = norm(b - a); return d > Math.PI ? d - TAU : d; }
+    function circMean(angles, weights) {
+      var x = 0, y = 0;
+      for (var i = 0; i < angles.length; i++) {
+        var w = weights ? weights[i] : 1;
+        x += w * Math.cos(angles[i]);
+        y += w * Math.sin(angles[i]);
       }
-      var lo = 0, hi = 1;
-      t = x;
-      for (i = 0; i < 32; i++) {
-        var v = sx(t);
-        if (Math.abs(v - x) < 1e-6) break;
-        if (v < x) lo = t; else hi = t;
-        t = (lo + hi) / 2;
+      return Math.sqrt(x * x + y * y) < 1e-9 ? (angles.length ? angles[0] : 0) : Math.atan2(y, x);
+    }
+    function smooth01(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
+    function nf(v) { return String(Math.round(v * 100) / 100); }
+    function now() { return typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now(); }
+    // A small deterministic generator (mulberry32), so every order is the
+    // same picture on every visit.
+    function rng(seed) {
+      var s = seed >>> 0;
+      return function () {
+        s = (s + 0x6D2B79F5) >>> 0;
+        var t = s;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    function polarXY(cx, cy, list) {
+      var out = new Array(list.length);
+      for (var i = 0; i < list.length; i++) {
+        out[i] = [cx + list[i][1] * Math.cos(list[i][0]), cy + list[i][1] * Math.sin(list[i][0])];
       }
-      return sy(t);
+      return out;
+    }
+
+    /* ---- Paths ---------------------------------------------------------------- */
+
+    /* toPolyline(d, tol) -> [[[x, y], ...], ...]
+       SVG path data (every command, absolute or relative) flattened to one
+       polyline per subpath; curves and arcs are sampled so a chord strays no
+       more than about `tol` pixels (default 0.5) from the curve. Use it to hand
+       the weave paths that were built as `d` strings. */
+    function toPolyline(d, tol) {
+      tol = tol || 0.5;
+      var NUM = /[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/y;
+      var i = 0, n = d.length, out = [], cur = null;
+      var x = 0, y = 0, sx = 0, sy = 0, lcx = 0, lcy = 0, lqx = 0, lqy = 0, last = '';
+      function ws() { while (i < n && (d.charCodeAt(i) <= 32 || d[i] === ',')) i++; }
+      function num() { ws(); NUM.lastIndex = i; var m = NUM.exec(d); if (!m) throw new Error('path data: number expected at ' + i); i = NUM.lastIndex; return +m[0]; }
+      function flag() { ws(); var c = d[i++]; if (c !== '0' && c !== '1') throw new Error('path data: flag expected at ' + (i - 1)); return c === '1' ? 1 : 0; }
+      function more() { ws(); return i < n && /[-+.\d]/.test(d[i]); }
+      function steps(len) { return clamp(Math.ceil(Math.sqrt(len / tol) * 0.9), 2, 120); }
+      function lineTo(px, py) { cur.push([px, py]); x = px; y = py; }
+      function cubic(x1, y1, x2, y2, x3, y3) {
+        var len = Math.hypot(x1 - x, y1 - y) + Math.hypot(x2 - x1, y2 - y1) + Math.hypot(x3 - x2, y3 - y2);
+        var k = steps(len), x0 = x, y0 = y;
+        for (var j = 1; j <= k; j++) {
+          var t = j / k, u = 1 - t;
+          cur.push([u * u * u * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3,
+                    u * u * u * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3]);
+        }
+        x = x3; y = y3;
+      }
+      function quad(x1, y1, x2, y2) {
+        var len = Math.hypot(x1 - x, y1 - y) + Math.hypot(x2 - x1, y2 - y1);
+        var k = steps(len), x0 = x, y0 = y;
+        for (var j = 1; j <= k; j++) {
+          var t = j / k, u = 1 - t;
+          cur.push([u * u * x0 + 2 * u * t * x1 + t * t * x2, u * u * y0 + 2 * u * t * y1 + t * t * y2]);
+        }
+        x = x2; y = y2;
+      }
+      function arc(rx, ry, phi, fa, fs, x2, y2) {
+        // Endpoint to centre parameterisation (SVG 1.1, appendix F.6).
+        if (!rx || !ry) { lineTo(x2, y2); return; }
+        rx = Math.abs(rx); ry = Math.abs(ry);
+        var cp = Math.cos(phi * Math.PI / 180), sp = Math.sin(phi * Math.PI / 180);
+        var dx = (x - x2) / 2, dy = (y - y2) / 2;
+        var x1p = cp * dx + sp * dy, y1p = -sp * dx + cp * dy;
+        var lam = x1p * x1p / (rx * rx) + y1p * y1p / (ry * ry);
+        if (lam > 1) { rx *= Math.sqrt(lam); ry *= Math.sqrt(lam); }
+        var num2 = rx * rx * ry * ry - rx * rx * y1p * y1p - ry * ry * x1p * x1p;
+        var den = rx * rx * y1p * y1p + ry * ry * x1p * x1p;
+        var co = (fa === fs ? -1 : 1) * Math.sqrt(Math.max(0, num2 / (den || 1)));
+        var cxp = co * rx * y1p / ry, cyp = -co * ry * x1p / rx;
+        var ccx = cp * cxp - sp * cyp + (x + x2) / 2, ccy = sp * cxp + cp * cyp + (y + y2) / 2;
+        var t1 = Math.atan2((y1p - cyp) / ry, (x1p - cxp) / rx);
+        var t2 = Math.atan2((-y1p - cyp) / ry, (-x1p - cxp) / rx);
+        var dt = t2 - t1;
+        if (fs && dt < 0) dt += TAU;
+        if (!fs && dt > 0) dt -= TAU;
+        var k = steps(Math.abs(dt) * Math.max(rx, ry));
+        for (var j = 1; j <= k; j++) {
+          var t = t1 + dt * j / k, ex = rx * Math.cos(t), ey = ry * Math.sin(t);
+          cur.push([ccx + cp * ex - sp * ey, ccy + sp * ex + cp * ey]);
+        }
+        x = x2; y = y2;
+      }
+      while (true) {
+        ws();
+        if (i >= n) break;
+        var c = d[i];
+        if (/[MmLlHhVvCcSsQqTtAaZz]/.test(c)) i++;
+        else if (last && last !== 'Z' && last !== 'z') c = last === 'M' ? 'L' : last === 'm' ? 'l' : last;
+        else throw new Error('path data: command expected at ' + i);
+        var rel = c === c.toLowerCase(), ox = rel ? x : 0, oy = rel ? y : 0, C = c.toUpperCase();
+        if (C === 'M') {
+          x = num() + ox; y = num() + oy; sx = x; sy = y;
+          cur = [[x, y]]; out.push(cur);
+        } else if (C === 'Z') {
+          if (cur && (x !== sx || y !== sy)) lineTo(sx, sy);
+          x = sx; y = sy;
+        } else {
+          if (!cur) { cur = [[x, y]]; out.push(cur); }
+          if (C === 'L') lineTo(num() + ox, num() + oy);
+          else if (C === 'H') lineTo(num() + ox, y);
+          else if (C === 'V') lineTo(x, num() + oy);
+          else if (C === 'C') {
+            var a1 = num() + ox, b1 = num() + oy, a2 = num() + ox, b2 = num() + oy, a3 = num() + ox, b3 = num() + oy;
+            lcx = a2; lcy = b2; cubic(a1, b1, a2, b2, a3, b3);
+          } else if (C === 'S') {
+            var r1 = /[CS]/i.test(last) ? 2 * x - lcx : x, s1 = /[CS]/i.test(last) ? 2 * y - lcy : y;
+            var a4 = num() + ox, b4 = num() + oy, a5 = num() + ox, b5 = num() + oy;
+            lcx = a4; lcy = b4; cubic(r1, s1, a4, b4, a5, b5);
+          } else if (C === 'Q') {
+            var q1 = num() + ox, w1 = num() + oy, q2 = num() + ox, w2 = num() + oy;
+            lqx = q1; lqy = w1; quad(q1, w1, q2, w2);
+          } else if (C === 'T') {
+            var q3 = /[QT]/i.test(last) ? 2 * x - lqx : x, w3 = /[QT]/i.test(last) ? 2 * y - lqy : y;
+            lqx = q3; lqy = w3; quad(q3, w3, num() + ox, num() + oy);
+          } else if (C === 'A') {
+            var rx = num(), ry = num(), ph = num(), fa = flag(), fs = flag();
+            arc(rx, ry, ph, fa, fs, num() + ox, num() + oy);
+          }
+        }
+        last = c;
+        // Implicit repeats of the same command.
+        while (C !== 'Z' && more()) {
+          rel = c === c.toLowerCase(); ox = rel ? x : 0; oy = rel ? y : 0;
+          if (C === 'M' || C === 'L') lineTo(num() + ox, num() + oy);
+          else if (C === 'H') lineTo(num() + ox, y);
+          else if (C === 'V') lineTo(x, num() + oy);
+          else if (C === 'C') { var e1 = num() + ox, f1 = num() + oy, e2 = num() + ox, f2 = num() + oy; lcx = e2; lcy = f2; cubic(e1, f1, e2, f2, num() + ox, num() + oy); }
+          else if (C === 'S') { var g1 = 2 * x - lcx, h1 = 2 * y - lcy, e3 = num() + ox, f3 = num() + oy; lcx = e3; lcy = f3; cubic(g1, h1, e3, f3, num() + ox, num() + oy); }
+          else if (C === 'Q') { var e4 = num() + ox, f4 = num() + oy; lqx = e4; lqy = f4; quad(e4, f4, num() + ox, num() + oy); }
+          else if (C === 'T') { var g2 = 2 * x - lqx, h2 = 2 * y - lqy; lqx = g2; lqy = h2; quad(g2, h2, num() + ox, num() + oy); }
+          else if (C === 'A') { var rx2 = num(), ry2 = num(), ph2 = num(), fa2 = flag(), fs2 = flag(); arc(rx2, ry2, ph2, fa2, fs2, num() + ox, num() + oy); }
+          if (C === 'M') c = rel ? 'l' : 'L';
+        }
+      }
+      return out.filter(function (p) { return p.length > 1; });
+    }
+
+    // Cumulative length along a polyline.
+    function measure(pts) {
+      var c = new Float64Array(pts.length);
+      for (var i = 1; i < pts.length; i++) c[i] = c[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+      return c;
+    }
+
+    /* resample(pts, step) -> { p: [[x, y], ...], len, step }
+       The polyline at even spacing (the last point exact), the spacing as
+       near `step` as divides the length. */
+    function resample(pts, step) {
+      var cum = measure(pts), len = cum[cum.length - 1];
+      var k = Math.max(1, Math.round(len / step)), h = len / k, out = [pts[0].slice()], j = 1;
+      for (var i = 1; i < k; i++) {
+        var s = i * h;
+        while (j < pts.length - 1 && cum[j] < s) j++;
+        var seg = cum[j] - cum[j - 1], t = seg > 0 ? (s - cum[j - 1]) / seg : 0;
+        out.push([pts[j - 1][0] + (pts[j][0] - pts[j - 1][0]) * t, pts[j - 1][1] + (pts[j][1] - pts[j - 1][1]) * t]);
+      }
+      out.push(pts[pts.length - 1].slice());
+      return { p: out, len: len, step: h };
+    }
+
+    /* pointAt(pts, s) -> { x, y, tx, ty }: the point at arc length s and the
+       unit direction of travel there. */
+    function pointAt(pts, s, cum) {
+      cum = cum || measure(pts);
+      var n = pts.length, lo = 1, hi = n - 1;
+      s = clamp(s, 0, cum[n - 1]);
+      while (lo < hi) { var mid = (lo + hi) >> 1; if (cum[mid] < s) lo = mid + 1; else hi = mid; }
+      var a = pts[lo - 1], b = pts[lo], seg = cum[lo] - cum[lo - 1] || 1, t = (s - cum[lo - 1]) / seg;
+      return { x: a[0] + (b[0] - a[0]) * t, y: a[1] + (b[1] - a[1]) * t, tx: (b[0] - a[0]) / seg, ty: (b[1] - a[1]) / seg };
+    }
+
+    /* lineD(pts) -> path data for a polyline, straight segments. */
+    function lineD(pts) {
+      if (!pts.length) return '';
+      var d = 'M' + nf(pts[0][0]) + ' ' + nf(pts[0][1]);
+      for (var i = 1; i < pts.length; i++) d += 'L' + nf(pts[i][0]) + ' ' + nf(pts[i][1]);
+      return d;
+    }
+
+    /* ---- Curves in polar form -------------------------------------------------- */
+    /* Every line inside the ring is shaped in polar coordinates, then set on the
+       page: a curve whose control points keep their angle at an end leaves and
+       lands along the radius, and a curve whose control radii all stay above r
+       never comes nearer the centre than r. */
+
+    // A cubic Bézier in polar form, sampled about every `px` pixels.
+    function polarBezier(c0, c1, c2, c3, px, out, skipFirst) {
+      out = out || [];
+      var rm = (c0[1] + c3[1]) / 2;
+      var span = Math.abs(c1[0] - c0[0]) * c0[1] + Math.abs(c2[0] - c1[0]) * rm + Math.abs(c3[0] - c2[0]) * c3[1] +
+        Math.abs(c1[1] - c0[1]) + Math.abs(c2[1] - c1[1]) + Math.abs(c3[1] - c2[1]);
+      var k = clamp(Math.ceil(span / (px || 3)), 3, 160);
+      for (var j = skipFirst ? 1 : 0; j <= k; j++) {
+        var t = j / k, u = 1 - t, b0 = u * u * u, b1 = 3 * u * u * t, b2 = 3 * u * t * t, b3 = t * t * t;
+        out.push([b0 * c0[0] + b1 * c1[0] + b2 * c2[0] + b3 * c3[0], b0 * c0[1] + b1 * c1[1] + b2 * c2[1] + b3 * c3[1]]);
+      }
+      return out;
+    }
+
+    /* polarSpline(ctrl, beta, px) -> polar points
+       A clamped uniform cubic B-spline through polar control points (angles
+       unwrapped), straightened by `beta` as in Holten's hierarchical edge
+       bundling: each inner control point is drawn toward the even run between
+       the two ends by (1 - beta). In polar form that run is the arc at the
+       ends' radius, so a weaker bundle rides nearer the rim. beta 1 keeps the
+       control polygon; 0 is the plain arc. */
+    function polarSpline(ctrl, beta, px) {
+      var n = ctrl.length - 1, P = new Array(n + 1);
+      for (var i = 0; i <= n; i++) {
+        var c = ctrl[i];
+        if (i === 0 || i === n || !(beta < 1)) { P[i] = c; continue; }
+        var t = i / n;
+        P[i] = [beta * c[0] + (1 - beta) * (ctrl[0][0] + t * (ctrl[n][0] - ctrl[0][0])),
+                beta * c[1] + (1 - beta) * (ctrl[0][1] + t * (ctrl[n][1] - ctrl[0][1]))];
+      }
+      var Q = [P[0], P[0]].concat(P, [P[n], P[n]]), out = [];
+      for (var s = 0; s + 3 < Q.length; s++) {
+        var p0 = Q[s], p1 = Q[s + 1], p2 = Q[s + 2], p3 = Q[s + 3];
+        var span = Math.abs(p2[0] - p1[0]) * (p1[1] + p2[1]) / 2 + Math.abs(p2[1] - p1[1]);
+        var k = clamp(Math.ceil(span / (px || 3)), 1, 80);
+        for (var j = s === 0 ? 0 : 1; j <= k; j++) {
+          var u = j / k, u2 = u * u, u3 = u2 * u, v = 1 - u;
+          var b0 = v * v * v / 6, b1 = (3 * u3 - 6 * u2 + 4) / 6, b2 = (-3 * u3 + 3 * u2 + 3 * u + 1) / 6, b3 = u3 / 6;
+          out.push([b0 * p0[0] + b1 * p1[0] + b2 * p2[0] + b3 * p3[0], b0 * p0[1] + b1 * p1[1] + b2 * p2[1] + b3 * p3[1]]);
+        }
+      }
+      return out;
+    }
+
+    /* ---- Fibre routes ---------------------------------------------------------- */
+
+    /* bundle(spec) -> [{ pts, polar, local, pair, lane }] in the order of spec.links
+       Radial hierarchical edge bundling for a ring of components in families.
+       spec = {
+         cx, cy          the ring's centre
+         R               the radius the component marks sit on
+         at              each component's angle
+         group           each component's family index
+         hub             each family's hub angle (its sector's middle)
+         links           [[from, to], ...] component indices
+         rimR            where a route leaves its mark              (R - 9)
+         hubR            the family hubs' ring                       (0.79 R)
+         lanes           [deepest, shallowest] travel radii          ([0.57 R, 0.73 R])
+         beta            Holten's bundling strength                  (0.85)
+         leave           how far a route runs radially first         (0.05 R)
+         shape           'swoop' (default) or 'lanes' (see below)
+         swoopGain       depth of a swoop per radian travelled, px   ((hubR - lanes[0]) / pi)
+         fibrePitch      gap between fibres of one pair, px          (0.9)
+         localGain       depth of a family's own arc per radian, x R (0.2)
+         localDepth      [shallowest, deepest] family arc, px        ([7, 0.17 R])
+         px              sampling step, px                           (3)
+       }
+       A link between families runs from its mark straight in, through its
+       family's hub, the shorter way round to the other family's hub, and out
+       to the far mark, never through the centre: every control point stays
+       at or outside lanes[0], and the spline is drawn in polar form, so it
+       cannot come nearer. 'swoop' dips from hub to hub, deepest at the middle
+       and the deeper the further it travels, like nested arcs of an arc
+       diagram: pairs leaving a hub the same way share their first stretch
+       and then part, which is what makes a bundle read as a rope. 'lanes'
+       gives each family pair its own concentric lane instead (the shortest
+       stretches shallowest), for a ruled look. The fibres of one pair lie
+       side by side, the one reaching widest the deepest, so they do not
+       cross one another. A link inside one family is a U just inside the rim
+       whose depth grows with the angle it spans; a pair of links both ways
+       between two components draws as two, the second a little deeper.
+       `pair` (the family-pair index, -1 for a link inside one family) is the
+       natural bundle key for the weave. */
+    function bundle(spec) {
+      var R = spec.R, cx = spec.cx, cy = spec.cy;
+      var rimR = spec.rimR || R - 9, hubR = spec.hubR || 0.79 * R;
+      var lanes = spec.lanes || [0.57 * R, 0.73 * R], beta = spec.beta == null ? 0.85 : spec.beta;
+      var leave = spec.leave || 0.05 * R, pitch = spec.fibrePitch == null ? 0.9 : spec.fibrePitch;
+      var gain = spec.localGain == null ? 0.2 : spec.localGain, ldep = spec.localDepth || [7, 0.17 * R];
+      var px = spec.px || 3, shape = spec.shape || 'swoop';
+      var swoop = spec.swoopGain == null ? (hubR - lanes[0]) / Math.PI : spec.swoopGain;
+      var at = spec.at, group = spec.group, hub = spec.hub, links = spec.links;
+      // The pairs of families with links between them, each travelling the
+      // shorter way between its hubs.
+      var pairAt = Object.create(null), pairs = [];
+      links.forEach(function (l, k) {
+        var ga = group[l[0]], gb = group[l[1]];
+        if (ga === gb) return;
+        var lo = Math.min(ga, gb), hi = Math.max(ga, gb), key = lo + '-' + hi;
+        if (pairAt[key] === undefined) {
+          var t = turn(hub[lo], hub[hi]);
+          pairAt[key] = pairs.length;
+          pairs.push({ lo: lo, hi: hi, travel: t, s: t >= 0 ? norm(hub[lo]) : norm(hub[hi]), len: Math.abs(t), members: [] });
+        }
+        pairs[pairAt[key]].members.push(k);
+      });
+      // Lanes: the shortest stretches shallowest; a pair takes the shallowest
+      // lane no overlapping shorter pair holds.
+      function within(a, p) { var d = norm(a - p.s); return d <= p.len + 1e-6; }
+      function overlaps(p, q) { return within(p.s, q) || within(q.s, p) || within(p.s + p.len, q) || within(q.s + q.len, p); }
+      var byLen = pairs.slice().sort(function (p, q) { return p.len - q.len || p.lo - q.lo || p.hi - q.hi; });
+      byLen.forEach(function (p, i) {
+        var used = Object.create(null);
+        for (var j = 0; j < i; j++) if (overlaps(p, byLen[j])) used[byLen[j].lane] = true;
+        var lane = 0;
+        while (used[lane]) lane++;
+        p.lane = lane;
+      });
+      var nLanes = 1 + pairs.reduce(function (m, p) { return Math.max(m, p.lane); }, 0);
+      var laneGap = nLanes > 1 ? Math.min(14, (lanes[1] - lanes[0]) / (nLanes - 1)) : 0;
+      pairs.forEach(function (p) { p.r = lanes[1] - p.lane * laneGap; });
+      // Fibres side by side in their band: the one reaching widest deepest.
+      var offset = Object.create(null);
+      pairs.forEach(function (p) {
+        var reach = p.members.map(function (k) {
+          var l = links[k], from = group[l[0]] === p.lo ? l[0] : l[1], to = from === l[0] ? l[1] : l[0];
+          var dir = p.travel >= 0 ? 1 : -1;
+          // How far outside the hubs the two ends sit, along the travel.
+          var w = -dir * turn(hub[p.lo], at[from]) + dir * turn(hub[p.hi], at[to]);
+          return { k: k, w: w };
+        }).sort(function (x, y) { return y.w - x.w || x.k - y.k; });
+        var m = reach.length;
+        reach.forEach(function (x, j) { offset[x.k] = (j - (m - 1) / 2) * pitch; });
+      });
+      return links.map(function (l, k) {
+        var a = l[0], b = l[1], ga = group[a], gb = group[b];
+        if (ga === gb) {
+          var sw = turn(at[a], at[b]);
+          // Both directions of a pair of links stay visible: the second a
+          // little deeper.
+          var twin = 0;
+          for (var j = 0; j < k; j++) if (links[j][0] === b && links[j][1] === a) twin = 1;
+          var h = clamp(gain * Math.abs(sw) * R, ldep[0], ldep[1]) + twin * 2.2;
+          var e = 4 / 3 * h;
+          var pol = polarBezier([at[a], rimR], [at[a], rimR - e], [at[a] + sw, rimR - e], [at[a] + sw, rimR], px);
+          return { pts: polarXY(cx, cy, pol), polar: pol, local: true, pair: -1, lane: -1 };
+        }
+        var p = pairs[pairAt[Math.min(ga, gb) + '-' + Math.max(ga, gb)]];
+        var dir = ga === p.lo ? (p.travel >= 0 ? 1 : -1) : (p.travel >= 0 ? -1 : 1);
+        var hA = hub[ga], travel = ga === p.lo ? p.travel : -p.travel;
+        var A0 = hA + turn(hA, at[a]), hB = hA + travel, B1 = hB + turn(hub[gb], at[b]);
+        var ctrl = [[A0, rimR], [A0, rimR - leave], [hA, hubR]];
+        if (shape === 'lanes') {
+          // Concentric lanes: the pair's own ring, entered and left near the hubs.
+          var rl = p.r + offset[k];
+          var lead = Math.min(0.09, Math.abs(travel) * 0.18) * dir;
+          var span = travel - 2 * lead, steps = Math.max(1, Math.ceil(Math.abs(span) / 0.32));
+          for (var s = 0; s <= steps; s++) ctrl.push([hA + lead + span * s / steps, rl]);
+        } else {
+          // A swoop: down from the hub and back up to the other, deepest at
+          // the middle and deeper the further it travels, like nested arcs of
+          // an arc diagram; pairs that leave a hub the same way share their
+          // first stretch, then part.
+          var depth = Math.min(hubR - lanes[0], swoop * Math.abs(travel)) + offset[k];
+          [0.2, 0.4, 0.5, 0.6, 0.8].forEach(function (t) {
+            ctrl.push([hA + travel * t, hubR - depth * Math.sin(Math.PI * t)]);
+          });
+        }
+        ctrl.push([hB, hubR], [B1, rimR - leave], [B1, rimR]);
+        var pol2 = polarSpline(ctrl, beta, px);
+        return { pts: polarXY(cx, cy, pol2), polar: pol2, local: false, pair: pairs.indexOf(p), lane: p.lane };
+      });
+    }
+
+    /* taper(profile) -> function (s, len) -> width in px
+       profile = {
+         start   width where the fibre leaves its component   (0.3)
+         body    width in the bundle                          (1.3)
+         end     width where it reaches the far component     (0.65)
+         rise    px over which it grows from start to body    (34)
+         fall    px over which it narrows to its end          (26)
+         swell   extra fraction of body at the middle         (0.18)
+       }
+       Thin where it leaves, fuller in the bundle, parting at the far end; the
+       two ends differ, so the drawing carries direction without arrowheads. */
+    function taper(p) {
+      p = p || {};
+      var w0 = p.start == null ? 0.3 : p.start, wb = p.body == null ? 1.3 : p.body, w1 = p.end == null ? 0.65 : p.end;
+      var rise = p.rise || 34, fall = p.fall || 26, swell = p.swell == null ? 0.18 : p.swell;
+      return function (s, len) {
+        var r = Math.min(rise, 0.42 * len), f = Math.min(fall, 0.4 * len);
+        var w = wb + (w0 - wb) * (1 - smooth01(s / r)) + (w1 - wb) * (1 - smooth01((len - s) / f));
+        var t = len > 0 ? s / len : 0, bump = Math.sin(Math.PI * t);
+        return Math.max(0.08, w + wb * swell * bump * bump);
+      };
+    }
+
+    /* fibreStroke(pts, opts) -> path data: the route as filled outlines
+       pts     the route's centre line (a polyline)
+       opts = {
+         width     a number, or function (s, len) -> px (see taper)
+         cuts      the gaps from weave(), for this route   ([])
+         step      sampling step along the route, px        (2.2)
+         minPiece  shortest piece kept between two gaps, px (2.4)
+       }
+       Fill it, never stroke it. Each gap from the weave is cut parallel to the
+       line passing over, at a constant clearance from it, so the ends of the
+       line beneath are clean and the gap reads as the same width at every
+       angle. Pieces left shorter than minPiece are dropped rather than drawn
+       as specks. */
+    function fibreStroke(pts, opts) {
+      opts = opts || {};
+      if (!pts || pts.length < 2) return '';
+      var rs = resample(pts, opts.step || 2.2), P = rs.p, n = P.length, len = rs.len, h = rs.step;
+      var wf = typeof opts.width === 'function' ? opts.width : (function (c) { return function () { return c; }; })(opts.width || 1);
+      var Lx = new Float64Array(n), Ly = new Float64Array(n), Rx = new Float64Array(n), Ry = new Float64Array(n);
+      for (var i = 0; i < n; i++) {
+        var a = P[Math.max(0, i - 1)], b = P[Math.min(n - 1, i + 1)];
+        var tx = b[0] - a[0], ty = b[1] - a[1], tl = Math.hypot(tx, ty) || 1;
+        var nx = -ty / tl, ny = tx / tl, w = wf(i * h, len) / 2;
+        Lx[i] = P[i][0] + nx * w; Ly[i] = P[i][1] + ny * w;
+        Rx[i] = P[i][0] - nx * w; Ry[i] = P[i][1] - ny * w;
+      }
+      var gaps = edgeGaps(opts.cuts || [], P, h, Lx, Ly, Rx, Ry, wf, len);
+      var minPiece = (opts.minPiece == null ? 2.4 : opts.minPiece) / h;
+      // The pieces between the gaps, on both edges at once.
+      var pieces = [], fromL = 0, fromR = 0;
+      gaps.forEach(function (g) {
+        pieces.push([fromL, g.inL, fromR, g.inR]);
+        fromL = g.outL; fromR = g.outR;
+      });
+      pieces.push([fromL, n - 1, fromR, n - 1]);
+      var d = '';
+      pieces.forEach(function (pc) {
+        if (pc[1] - pc[0] < minPiece || pc[3] - pc[2] < minPiece) return;
+        d += 'M' + edgeRun(Lx, Ly, pc[0], pc[1], false) + 'L' + edgeRun(Rx, Ry, pc[2], pc[3], true) + 'Z';
+      });
+      return d;
+    }
+    // The points of one edge between two fractional sample indices, as
+    // "x y L x y ..." (reversed if asked).
+    function edgeRun(X, Y, from, to, reverse) {
+      var list = [];
+      function at(f) { var i = Math.min(X.length - 2, Math.floor(f)), t = f - i; return nf(X[i] + (X[i + 1] - X[i]) * t) + ' ' + nf(Y[i] + (Y[i + 1] - Y[i]) * t); }
+      list.push(at(from));
+      for (var i = Math.floor(from) + 1; i < to; i++) list.push(nf(X[i]) + ' ' + nf(Y[i]));
+      list.push(at(Math.min(to, X.length - 1)));
+      if (reverse) list.reverse();
+      return list.join('L');
+    }
+    // Where each edge of an outline enters and leaves the clear band either
+    // side of the line passing over, merged where two gaps meet.
+    function edgeGaps(cuts, P, h, Lx, Ly, Rx, Ry, wf, len) {
+      var n = P.length, out = [];
+      cuts.slice().sort(function (p, q) { return p.s - q.s; }).forEach(function (c) {
+        var ic = c.s / h, wu = wf(c.s, len);
+        var sin = Math.max(0.2, c.sin || 1), reach = (c.h + wu) / sin + 3 * h;
+        var lo = Math.max(0, Math.floor(ic - reach / h)), hi = Math.min(n - 1, Math.ceil(ic + reach / h));
+        var gl = band(Lx, Ly, c, lo, hi, ic), gr = band(Rx, Ry, c, lo, hi, ic);
+        if (!gl || !gr) {
+          // The edge never meets the over line near here (a very short or
+          // very wide piece): cut square instead.
+          var half = (c.h + wu / 2 * Math.abs(c.cos || 0)) / sin / h;
+          gl = gr = [Math.max(0, ic - half), Math.min(n - 1, ic + half)];
+        }
+        out.push({ inL: gl[0], outL: gl[1], inR: gr[0], outR: gr[1] });
+      });
+      // Merge overlapping gaps.
+      var merged = [];
+      out.forEach(function (g) {
+        var m = merged[merged.length - 1];
+        if (m && (g.inL <= m.outL || g.inR <= m.outR)) {
+          m.outL = Math.max(m.outL, g.outL); m.outR = Math.max(m.outR, g.outR);
+          m.inL = Math.min(m.inL, g.inL); m.inR = Math.min(m.inR, g.inR);
+        } else merged.push(g);
+      });
+      return merged;
+    }
+    // On one edge, the stretch around sample ic whose signed distance from the
+    // over line is under the clearance.
+    function band(X, Y, c, lo, hi, ic) {
+      function dist(i) { return (X[i] - c.x) * c.nx + (Y[i] - c.y) * c.ny; }
+      // The sign change nearest the crossing.
+      var best = -1, bd = Infinity;
+      for (var i = lo; i < hi; i++) {
+        var d0 = dist(i), d1 = dist(i + 1);
+        if ((d0 <= 0 && d1 >= 0) || (d0 >= 0 && d1 <= 0)) { var dd = Math.abs(i + 0.5 - ic); if (dd < bd) { bd = dd; best = i; } }
+      }
+      if (best < 0) return null;
+      var H = c.h, k = best, entry, exit;
+      while (k >= lo && Math.abs(dist(k)) < H) k--;
+      if (k < lo) entry = lo;
+      else { var a = dist(k), b = dist(k + 1), tgt = a > 0 ? H : -H; entry = k + (a - tgt) / ((a - b) || 1); }
+      k = best + 1;
+      while (k <= hi && Math.abs(dist(k)) < H) k++;
+      if (k > hi) exit = hi;
+      else { var a2 = dist(k - 1), b2 = dist(k), tgt2 = b2 > 0 ? H : -H; exit = k - 1 + (a2 - tgt2) / ((a2 - b2) || 1); }
+      return [clamp(entry, 0, X.length - 1), clamp(exit, 0, X.length - 1)];
+    }
+
+    /* strokeGaps(pts, cuts, width) -> path data for a plain stroked line with
+       the weave's gaps (cut square, so use stroke-linecap: butt). For a line
+       drawn with stroke rather than fibreStroke. */
+    function strokeGaps(pts, cuts, width) {
+      var cum = measure(pts), len = cum[cum.length - 1], iv = [];
+      (cuts || []).forEach(function (c) {
+        var sin = Math.max(0.2, c.sin || 1), g = (c.h + (width || 1) / 2 * Math.abs(c.cos || 0)) / sin;
+        iv.push([c.s - g, c.s + g]);
+      });
+      iv.sort(function (p, q) { return p[0] - q[0]; });
+      var keep = [], from = 0;
+      iv.forEach(function (g) { if (g[0] > from) keep.push([from, g[0]]); from = Math.max(from, g[1]); });
+      if (from < len) keep.push([from, len]);
+      var d = '';
+      keep.forEach(function (k) {
+        if (k[1] - k[0] < 1.5) return;
+        var run = [], a = pointAt(pts, k[0], cum);
+        run.push([a.x, a.y]);
+        for (var i = 0; i < pts.length; i++) if (cum[i] > k[0] && cum[i] < k[1]) run.push(pts[i]);
+        var b = pointAt(pts, k[1], cum);
+        run.push([b.x, b.y]);
+        d += lineD(run);
+      });
+      return d;
+    }
+
+    /* ---- The weave ------------------------------------------------------------ */
+
+    /* weave(strands, opts) -> { cuts, crossings, stats }
+       strands  [{ pts, ink, rank, width, bundle }]: pts a polyline; ink 'red'
+                or 'azure' (any two names); rank a number, higher for what is
+                lit; width a number or function (s, len) -> px (a taper);
+                bundle an optional key shared by strands that travel together
+                (a rope of fibres of one family pair, a fan of rule lines
+                leaving one end), so they weave as one.
+       opts = {
+         rankTolerance  ranks this close weave as equals                  (0)
+         clearance      clear space either side of the line passing over (1.1)
+         minAngle       crossings shallower than this many degrees are not
+                        woven; the line drawn later simply covers        (16)
+         endGuard       no gap within this many px of a line's ends      (9)
+         merge          two meetings of one pair this close (px along the
+                        line) are one crossing                           (1.2)
+         ropeGap        crossings of the same two bundles this close (px)
+                        are one crossing of the bundles                  (4)
+         ropeMin        strands a lesser bundle needs to count as a rope (3)
+         ropeWidth      and how tight it must be, px along each thread   (6)
+         dive           whether a lit thread dives under ropes      (true)
+         cell           grid cell for the spatial index, px              (28)
+       }
+       Finds every crossing between strands of different inks with a uniform
+       grid of segments (each segment tested only against segments sharing a
+       cell, each pair once), then decides over and under, bundle by bundle.
+       Crossings between the same two bundles that lie together are a single
+       unit, so a rope passes a ribbon whole. Units between equals alternate
+       along every bundle, as in a plait: each bundle takes a phase, chosen
+       breadth first from the most important and then improved by flips, so
+       its k-th unit passes over when k + phase is even and both sides of a
+       unit agree; where a cycle of crossings makes that impossible, the more
+       important bundle keeps its rhythm. Across ranks, the lit thread passes
+       over single strands (never broken by a stray fibre) and meets tight
+       ropes alternately, over one and under the next. Returns, for each
+       strand, the cuts it takes where it passes under ({ s, x, y, nx, ny, h,
+       sin, cos, over }, sorted by s; hand them to fibreStroke or strokeGaps),
+       and, for inspection, every crossing and every unit (its two bundle keys,
+       strand counts, ranks, place along each bundle and who passed over).
+       Run it again whenever the lit set, and so the ranks or widths, changes. */
+    function weave(strands, opts) {
+      opts = opts || {};
+      var t0 = now();
+      var tolR = opts.rankTolerance || 0, clear = opts.clearance == null ? 1.1 : opts.clearance;
+      var minSin = Math.sin((opts.minAngle == null ? 16 : opts.minAngle) * Math.PI / 180);
+      var guard = opts.endGuard == null ? 9 : opts.endGuard, cell = opts.cell || 28;
+      var S = strands.map(function (st, i) {
+        var cum = measure(st.pts);
+        var wv = st.width, wfn = typeof wv === 'function' ? wv : (function (c) { return function () { return c; }; })(wv || 1);
+        return { i: i, pts: st.pts, cum: cum, len: cum[cum.length - 1], ink: st.ink, rank: st.rank || 0, w: wfn, xs: [] };
+      });
+      var inks = [];
+      S.forEach(function (s) { if (inks.indexOf(s.ink) < 0) inks.push(s.ink); });
+      var crossings = [], segCount = 0;
+      S.forEach(function (s) { segCount += s.pts.length - 1; });
+      if (inks.length === 2) {
+        // Index the ink with fewer segments; query with the other.
+        var count = [0, 0];
+        S.forEach(function (s) { count[inks.indexOf(s.ink)] += s.pts.length - 1; });
+        var ix = count[0] <= count[1] ? inks[0] : inks[1];
+        var grid = new Map(), segS = [], segK = [];
+        S.forEach(function (s) {
+          if (s.ink !== ix) return;
+          for (var k = 0; k < s.pts.length - 1; k++) {
+            var a = s.pts[k], b = s.pts[k + 1], id = segS.length;
+            segS.push(s.i); segK.push(k);
+            var x0 = Math.floor(Math.min(a[0], b[0]) / cell), x1 = Math.floor(Math.max(a[0], b[0]) / cell);
+            var y0 = Math.floor(Math.min(a[1], b[1]) / cell), y1 = Math.floor(Math.max(a[1], b[1]) / cell);
+            for (var gx = x0; gx <= x1; gx++) for (var gy = y0; gy <= y1; gy++) {
+              var key = gx * 100003 + gy, bucket = grid.get(key);
+              if (bucket) bucket.push(id); else grid.set(key, [id]);
+            }
+          }
+        });
+        var stamp = new Int32Array(segS.length).fill(-1), q = 0;
+        S.forEach(function (s) {
+          if (s.ink === ix) return;
+          for (var k = 0; k < s.pts.length - 1; k++, q++) {
+            var a = s.pts[k], b = s.pts[k + 1];
+            var x0 = Math.floor(Math.min(a[0], b[0]) / cell), x1 = Math.floor(Math.max(a[0], b[0]) / cell);
+            var y0 = Math.floor(Math.min(a[1], b[1]) / cell), y1 = Math.floor(Math.max(a[1], b[1]) / cell);
+            for (var gx = x0; gx <= x1; gx++) for (var gy = y0; gy <= y1; gy++) {
+              var bucket = grid.get(gx * 100003 + gy);
+              if (!bucket) continue;
+              for (var m = 0; m < bucket.length; m++) {
+                var id = bucket[m];
+                if (stamp[id] === q) continue;
+                stamp[id] = q;
+                var o = S[segS[id]], kk = segK[id], c = o.pts[kk], e = o.pts[kk + 1];
+                var rx = b[0] - a[0], ry = b[1] - a[1], sx = e[0] - c[0], sy = e[1] - c[1];
+                var den = rx * sy - ry * sx;
+                if (Math.abs(den) < 1e-12) continue;
+                var qx = c[0] - a[0], qy = c[1] - a[1];
+                var t = (qx * sy - qy * sx) / den, u = (qx * ry - qy * rx) / den;
+                if (t < 0 || t >= 1 || u < 0 || u >= 1) continue;
+                var la = Math.hypot(rx, ry), lb = Math.hypot(sx, sy);
+                var sa = s.cum[k] + t * la, sb = o.cum[kk] + u * lb;
+                if (sa < guard || sa > s.len - guard || sb < guard || sb > o.len - guard) continue;
+                var sinv = Math.abs(den) / (la * lb), cosv = (rx * sx + ry * sy) / (la * lb);
+                crossings.push({ a: s.i, b: o.i, sa: sa, sb: sb, x: a[0] + rx * t, y: a[1] + ry * t,
+                                 ta: [rx / la, ry / la], tb: [sx / lb, sy / lb], sin: sinv, cos: cosv });
+              }
+            }
+          }
+        });
+      }
+      // One crossing per place: where two lines meet twice within `merge` px
+      // (a sharp turn at a vertex), the eye sees one crossing, so the weave
+      // makes one.
+      var merge = opts.merge == null ? 1.2 : opts.merge;
+      crossings.sort(function (p, q) { return p.a - q.a || p.b - q.b || p.sa - q.sa; });
+      crossings = crossings.filter(function (c, k) {
+        var p = crossings[k - 1];
+        return !(p && p.a === c.a && p.b === c.b && Math.abs(p.sa - c.sa) < merge);
+      });
+      // Units. A strand's bundle is its own key unless it names one (a rope of
+      // fibres sharing a family pair, a ribbon of rule lines sharing an end);
+      // the woven crossings between one bundle of each ink that lie within
+      // ropeGap px of one another are a single crossing of the two bundles.
+      var ropeMin = opts.ropeMin == null ? 3 : opts.ropeMin, ropeGap = opts.ropeGap == null ? 4 : opts.ropeGap;
+      var keyOf = S.map(function (s, i) { var b = strands[i].bundle; return s.ink + (b != null ? ':' + b : '#' + i); });
+      var byPair = new Map();
+      crossings.forEach(function (c) {
+        c.woven = c.sin >= minSin;
+        if (!c.woven) { c.over = -1; return; }
+        var ka = keyOf[c.a], kb = keyOf[c.b], key = ka + '|' + kb;
+        var list = byPair.get(key);
+        if (list) list.push(c); else byPair.set(key, [c]);
+      });
+      var units = [];
+      byPair.forEach(function (list) {
+        var n = list.length, parent = new Int32Array(n);
+        for (var i = 0; i < n; i++) parent[i] = i;
+        function root(i) { while (parent[i] !== i) { parent[i] = parent[parent[i]]; i = parent[i]; } return i; }
+        if (n > 1) {
+          for (var i2 = 0; i2 < n; i2++) for (var j2 = i2 + 1; j2 < n; j2++) {
+            if (Math.abs(list[i2].x - list[j2].x) <= ropeGap && Math.abs(list[i2].y - list[j2].y) <= ropeGap &&
+                Math.hypot(list[i2].x - list[j2].x, list[i2].y - list[j2].y) <= ropeGap) parent[root(i2)] = root(j2);
+          }
+        }
+        var groups = Object.create(null);
+        for (var k = 0; k < n; k++) { var r = root(k); (groups[r] = groups[r] || []).push(list[k]); }
+        Object.keys(groups).forEach(function (r) {
+          var cs = groups[r], A = Object.create(null), B = Object.create(null), na = 0, nb = 0, ra = -Infinity, rb = -Infinity, ta = 0, tb = 0;
+          cs.forEach(function (c) {
+            if (!A[c.a]) { A[c.a] = 1; na++; ra = Math.max(ra, S[c.a].rank); }
+            if (!B[c.b]) { B[c.b] = 1; nb++; rb = Math.max(rb, S[c.b].rank); }
+            ta += c.sa / (S[c.a].len || 1); tb += c.sb / (S[c.b].len || 1);
+          });
+          units.push({ cs: cs, ka: keyOf[cs[0].a], kb: keyOf[cs[0].b], na: na, nb: nb, ra: ra, rb: rb, ta: ta / cs.length, tb: tb / cs.length });
+        });
+      });
+      // Which units alternate: two bundles of equal standing always do; a more
+      // important bundle passes over a single strand of a lesser one, and
+      // meets a lesser rope (ropeMin strands or more) alternately.
+      // A lesser bundle counts as a rope only where it is tight: along each
+      // strand of the greater one, its crossings fall within ropeWidth px.
+      var ropeWidth = opts.ropeWidth == null ? 6 : opts.ropeWidth;
+      function tight(u, hiA) {
+        var range = Object.create(null);
+        u.cs.forEach(function (c) {
+          var h = hiA ? c.a : c.b, at = hiA ? c.sa : c.sb, r = range[h];
+          if (!r) range[h] = [at, at]; else { r[0] = Math.min(r[0], at); r[1] = Math.max(r[1], at); }
+        });
+        for (var h in range) if (range[h][1] - range[h][0] > ropeWidth) return false;
+        return true;
+      }
+      units.forEach(function (u) {
+        if (Math.abs(u.ra - u.rb) <= tolR) u.alt = true;
+        else {
+          var hiA = u.ra > u.rb;
+          u.alt = (hiA ? u.nb : u.na) >= ropeMin && tight(u, hiA);
+          if (!u.alt) u.over = hiA ? 'a' : 'b';
+        }
+      });
+      // Each bundle's alternating units, numbered along it.
+      var nodes = new Map();
+      function node(key) { var nd = nodes.get(key); if (!nd) { nd = { key: key, units: [], rank: -Infinity, len: 0, phase: -1 }; nodes.set(key, nd); } return nd; }
+      S.forEach(function (s, i) { var nd = node(keyOf[i]); nd.rank = Math.max(nd.rank, s.rank); nd.len += s.len; });
+      units.forEach(function (u) { if (u.alt) { node(u.ka).units.push(u); node(u.kb).units.push(u); } });
+      nodes.forEach(function (nd) {
+        nd.units.sort(function (p, q) { return (p.ka === nd.key ? p.ta : p.tb) - (q.ka === nd.key ? q.ta : q.tb); });
+        nd.units.forEach(function (u, k) { if (u.ka === nd.key) u.ia = k; else u.ib = k; });
+      });
+      var order = Array.from(nodes.values()).sort(function (p, q) { return q.rank - p.rank || q.len - p.len || (p.key < q.key ? -1 : 1); });
+      order.forEach(function (nd, k) { nd.importance = k; });
+      // Phases, breadth first from the most important bundle, so both
+      // bundles at a unit agree on who passes over.
+      order.forEach(function (rootNd) {
+        if (rootNd.phase >= 0 || !rootNd.units.length) return;
+        rootNd.phase = 0;
+        var queue = [rootNd];
+        for (var qi = 0; qi < queue.length; qi++) {
+          var p = queue[qi];
+          p.units.forEach(function (u) {
+            var other = nodes.get(u.ka === p.key ? u.kb : u.ka);
+            if (other.phase < 0) { other.phase = p.phase ^ 1 ^ ((u.ia + u.ib) & 1); queue.push(other); }
+          });
+        }
+      });
+      function bad(u) { return ((u.ia + nodes.get(u.ka).phase) & 1) === ((u.ib + nodes.get(u.kb).phase) & 1); }
+      for (var pass = 0; pass < 12; pass++) {
+        var flipped = false;
+        order.forEach(function (nd) {
+          if (nd.phase < 0) return;
+          var before = 0, after = 0;
+          nd.units.forEach(function (u) { if (bad(u)) before++; });
+          nd.phase ^= 1;
+          nd.units.forEach(function (u) { if (bad(u)) after++; });
+          if (after < before) flipped = true; else nd.phase ^= 1;
+        });
+        if (!flipped) break;
+      }
+      var cuts = S.map(function () { return []; }), conflicts = 0, woven = 0, alternating = 0, ropes = 0;
+      units.forEach(function (u) {
+        woven += u.cs.length;
+        if (u.alt && Math.abs(u.ra - u.rb) > tolR) ropes++;
+        var side = u.over;
+        if (u.alt) {
+          alternating++;
+          var NA = nodes.get(u.ka), NB = nodes.get(u.kb);
+          var oa = ((u.ia + NA.phase) & 1) === 0, ob = ((u.ib + NB.phase) & 1) === 0;
+          if (oa !== ob) side = oa ? 'a' : 'b';
+          else {
+            conflicts++;
+            var prefA = NA.importance < NB.importance;
+            side = prefA ? (oa ? 'a' : 'b') : (ob ? 'b' : 'a');
+          }
+        }
+        u.cs.forEach(function (c) {
+          var over = side === 'a' ? c.a : c.b, under = over === c.a ? c.b : c.a, O = S[over];
+          var so = over === c.a ? c.sa : c.sb, su = under === c.a ? c.sa : c.sb, tov = over === c.a ? c.ta : c.tb;
+          c.over = over;
+          cuts[under].push({ s: su, x: c.x, y: c.y, nx: -tov[1], ny: tov[0], h: O.w(so, O.len) / 2 + clear,
+                             sin: c.sin, cos: c.cos, over: over });
+        });
+      });
+      cuts.forEach(function (list) { list.sort(function (p, q) { return p.s - q.s; }); });
+      return {
+        cuts: cuts, crossings: crossings, units: units,
+        stats: { strands: S.length, segments: segCount, crossings: crossings.length, woven: woven, units: units.length,
+                 alternating: alternating, conflicts: conflicts, ropes: ropes, ms: now() - t0 }
+      };
+    }
+
+    /* ---- Rule lines: fine, straight, radial ------------------------------------ */
+
+    /* polarRun(way, corner, px) -> polar points
+       A line through polar waypoints [[angle, radius], ...] whose every run is
+       either radial (two waypoints at one angle) or a true arc (two at one
+       radius), each corner rounded with radius `corner` px (less where a run
+       is short). Set it on the page with polarXY. The grammar of every rule
+       line: straight runs and arcs, as drawn with a ruling pen and compass. */
+    function polarRun(way, corner, px) {
+      px = px || 3;
+      corner = corner == null ? 6 : corner;
+      var pts = [];
+      way.forEach(function (w) { var p = pts[pts.length - 1]; if (!p || Math.abs(p[0] - w[0]) > 1e-9 || Math.abs(p[1] - w[1]) > 1e-9) pts.push(w); });
+      var out = [pts[0].slice()];
+      function radial(p, q) { return Math.abs(q[0] - p[0]) < 1e-9; }
+      function concentric(p, q) { return Math.abs(q[1] - p[1]) < 1e-9; }
+      function len(p, q) { return radial(p, q) ? Math.abs(q[1] - p[1]) : concentric(p, q) ? Math.abs(q[0] - p[0]) * p[1] : Math.hypot(Math.abs(q[0] - p[0]) * (p[1] + q[1]) / 2, q[1] - p[1]); }
+      function toward(p, q, d) {
+        var L = len(p, q) || 1, t = Math.min(1, d / L);
+        return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
+      }
+      function run(p, q) {
+        var k = Math.max(1, Math.ceil(len(p, q) / px));
+        for (var j = 1; j <= k; j++) out.push([p[0] + (q[0] - p[0]) * j / k, p[1] + (q[1] - p[1]) * j / k]);
+      }
+      var cur = pts[0];
+      for (var i = 1; i < pts.length; i++) {
+        var c = pts[i];
+        if (i === pts.length - 1) { run(cur, c); break; }
+        var nx = pts[i + 1], k = Math.min(corner, len(cur, c), len(c, nx) / 2);
+        if (k < 0.3) { run(cur, c); cur = c; continue; }
+        var A = toward(c, cur, k), B = toward(c, nx, k);
+        run(cur, A);
+        var XY = polarXY(0, 0, [A, c, B]);
+        for (var s = 1; s <= 7; s++) {
+          var u = s / 7, v = 1 - u;
+          var x = v * v * XY[0][0] + 2 * v * u * XY[1][0] + u * u * XY[2][0];
+          var y = v * v * XY[0][1] + 2 * v * u * XY[1][1] + u * u * XY[2][1];
+          out.push([c[0] + turn(c[0], Math.atan2(y, x)), Math.hypot(x, y)]);
+        }
+        cur = B;
+      }
+      return out;
+    }
+
+    /* ruleFan(spec) -> [{ pts, target, radius }] (one polyline per target, in order)
+       Azure lines that share one end: from a component on the rim in to the
+       rules its page cites, or from a rule out to the components citing it.
+       spec = {
+         cx, cy
+         from     { a, r }: the shared end (angle, radius)
+         to       [{ a, r, port, hook }]: each other end. The line runs in on
+                  angle `port` (default a) to radius r; `hook`, if given, is
+                  the short curve (page points) from there onto a glyph that
+                  could not be reached straight down its radius (see
+                  clearPort)
+         ring     [near, far]: the band the lines travel round, near on the
+                  shared end's side
+         pitch    gap between lines travelling side by side, px     (1.7);
+                  0 lays every line going one way on a single spine at
+                  `near`, from which each peels off at its own angle like
+                  a tooth of a comb (the map's choice: calm and fine)
+         spread   gap between lines leaving the shared end, px      (1.5);
+                  0 makes them leave as one trunk
+         gather   px over which lines leaving a glyph fan out from one point
+                  (0: they leave already side by side, as from a rim mark)
+         corner   radius of the rounded corners, px                 (7)
+       }
+       Each line runs radially from the shared end to its own radius in the
+       band, round the band as a concentric arc, then radially to its far end:
+       straight runs and true arcs (polarRun), never a free curve. The longer
+       a line's trip round the ring, the nearer the shared end it turns, and
+       the lines leave side by side in the order they turn off, so no two
+       lines of one fan cross. */
+    function ruleFan(spec) {
+      var cx = spec.cx, cy = spec.cy, F = spec.from, T = spec.to;
+      var near = spec.ring[0], far = spec.ring[1], sgn = far >= near ? 1 : -1;
+      var pitch = spec.pitch == null ? 1.7 : spec.pitch, spread = spec.spread == null ? 1.5 : spec.spread;
+      var corner = spec.corner == null ? 7 : spec.corner, gather = spec.gather || 0, px = spec.px || 3;
+      var items = T.map(function (t, i) {
+        var port = t.port == null ? t.a : t.port;
+        return { i: i, t: t, sweep: turn(F.a, port) };
+      });
+      var eps = 0.003;
+      var ccw = items.filter(function (x) { return x.sweep < -eps; }).sort(function (p, q) { return p.sweep - q.sweep || p.i - q.i; });
+      var cw = items.filter(function (x) { return x.sweep > eps; }).sort(function (p, q) { return q.sweep - p.sweep || p.i - q.i; });
+      var straight = items.filter(function (x) { return Math.abs(x.sweep) <= eps; });
+      var room = Math.abs(far - near);
+      [ccw, cw].forEach(function (g) {
+        var p = g.length > 1 ? Math.min(pitch, room / (g.length - 1)) : 0;
+        g.forEach(function (x, k) { x.rr = near + sgn * k * p; });
+      });
+      straight.forEach(function (x) { x.rr = near; });
+      var ribbon = ccw.concat(straight, cw.slice().reverse()), m = ribbon.length;
+      ribbon.forEach(function (x, j) { x.off = (j - (m - 1) / 2) * spread; });
+      var out = new Array(T.length);
+      items.forEach(function (x) {
+        var a0 = F.a + x.off / Math.max(F.r, 1), port = F.a + x.sweep, rr = x.rr, tr = x.t.r;
+        var dirR = rr >= F.r ? 1 : -1, pol = [], way;
+        var g = gather ? Math.min(gather, Math.abs(rr - F.r) * 0.6) : 0;
+        if (g > 0) {
+          polarBezier([F.a, F.r], [F.a, F.r + dirR * g * 0.55], [a0, F.r + dirR * g * 0.45], [a0, F.r + dirR * g], 2, pol);
+          way = [[a0, F.r + dirR * g]];
+        } else way = [[a0, F.r]];
+        if (Math.abs(x.sweep) <= eps) {
+          // Straight in: an S onto the end's own angle if the ribbon set it aside.
+          var last = way[0];
+          polarBezier(last, [last[0], (last[1] + tr) / 2], [port, (last[1] + tr) / 2], [port, tr], px, pol, pol.length > 0);
+        } else {
+          way.push([a0, rr], [port, rr], [port, tr]);
+          var run = polarRun(way, corner, px);
+          pol = pol.concat(pol.length ? run.slice(1) : run);
+        }
+        var pts = polarXY(cx, cy, pol);
+        if (x.t.hook) pts = pts.concat(x.t.hook.slice(1));
+        out[x.i] = { pts: pts, target: x.i, radius: rr };
+      });
+      return out;
+    }
+
+    /* clearPort(glyphs, id, rFrom, opts) -> { port, r, hook }
+       How a rule line should arrive at glyph `id` from radius rFrom: straight
+       down the glyph's own radius when that run is clear of every other
+       glyph; else down the nearest clear radius beside it (`port`) to radius
+       `r`, then along `hook`, a short curve (page points) onto the glyph.
+       glyphs = { id: { a, r, size } }; opts = { cx, cy, clearance (3),
+       stepDeg (1.5), maxDeg (14) } */
+    function clearPort(glyphs, id, rFrom, opts) {
+      opts = opts || {};
+      var G = glyphs[id], clear = opts.clearance == null ? 3 : opts.clearance;
+      var step = (opts.stepDeg || 1.5) * Math.PI / 180, most = (opts.maxDeg || 14) * Math.PI / 180;
+      var sideOut = rFrom > G.r ? 1 : -1, edge = G.r + sideOut * (G.size / 2 + 2);
+      function clearRun(a, r0, r1) {
+        var lo = Math.min(r0, r1), hi = Math.max(r0, r1);
+        for (var k in glyphs) {
+          if (k === id) continue;
+          var O = glyphs[k];
+          if (O.r < lo - O.size || O.r > hi + O.size) continue;
+          var rr = clamp(O.r, lo, hi);
+          var dx = rr * Math.cos(a) - O.r * Math.cos(O.a), dy = rr * Math.sin(a) - O.r * Math.sin(O.a);
+          if (Math.hypot(dx, dy) < O.size / 2 + clear) return false;
+        }
+        return true;
+      }
+      if (clearRun(G.a, rFrom, edge)) return { port: G.a, r: edge, hook: null };
+      var stop = G.r + sideOut * (G.size + 7);
+      for (var d = step; d <= most + 1e-9; d += step) {
+        var cands = [G.a + d, G.a - d];
+        for (var c = 0; c < 2; c++) {
+          if (!clearRun(cands[c], rFrom, stop)) continue;
+          var pol = polarBezier([cands[c], stop], [cands[c], G.r + (stop - G.r) * 0.45], [G.a, G.r + (stop - G.r) * 0.75], [G.a, edge], 2);
+          return { port: cands[c], r: stop, hook: polarXY(opts.cx || 0, opts.cy || 0, pol) };
+        }
+      }
+      return { port: G.a, r: edge, hook: null };
+    }
+
+    /* trimEnds(pts, r0, r1) -> pts with everything within r0 px (straight-line
+       distance) of the first point and within r1 px of the last removed, so a
+       line stops short of the glyphs it joins. */
+    function trimEnds(pts, r0, r1) {
+      var a = pts[0], b = pts[pts.length - 1];
+      function inside(p) { return Math.hypot(p[0] - a[0], p[1] - a[1]) < r0 || Math.hypot(p[0] - b[0], p[1] - b[1]) < r1; }
+      var out = [];
+      for (var i = 0; i < pts.length; i++) {
+        var inI = inside(pts[i]);
+        if (i > 0 && inside(pts[i - 1]) !== inI) {
+          var p = pts[i - 1], q = pts[i], lo = 0, hi = 1, inP = !inI;
+          for (var k = 0; k < 24; k++) {
+            var mid = (lo + hi) / 2, x = [p[0] + (q[0] - p[0]) * mid, p[1] + (q[1] - p[1]) * mid];
+            if (inside(x) === inP) lo = mid; else hi = mid;
+          }
+          var t = (lo + hi) / 2;
+          out.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]);
+        }
+        if (!inI) out.push(pts[i]);
+      }
+      return out.length > 1 ? out : pts;
+    }
+
+    /* ---- The doctrine core ----------------------------------------------------- */
+
+    // For each set of places on a ring of n (a bit mask), the shortest arc
+    // holding them all: the place it starts at and how many steps it runs.
+    function coverTable(n) {
+      var size = 1 << n, st = new Int8Array(size), ln = new Int8Array(size);
+      for (var m = 1; m < size; m++) {
+        var bits = [];
+        for (var p = 0; p < n; p++) if (m & (1 << p)) bits.push(p);
+        if (bits.length === 1) { st[m] = bits[0]; ln[m] = 0; continue; }
+        var bestGap = -1, start = 0;
+        for (var k = 0; k < bits.length; k++) {
+          var a = bits[k], b = bits[(k + 1) % bits.length], gap = (b - a + n) % n || n;
+          if (gap > bestGap) { bestGap = gap; start = b; }
+        }
+        st[m] = start; ln[m] = n - bestGap;
+      }
+      return { start: st, len: ln };
+    }
+    // The places strictly inside an arc, as a mask, for every start and length.
+    function interiorTable(n) {
+      var t = new Int32Array(n * (n + 1));
+      for (var s = 0; s < n; s++) for (var l = 0; l <= n; l++) {
+        var m = 0;
+        for (var k = 1; k < l; k++) m |= 1 << ((s + k) % n);
+        t[s * (n + 1) + l] = m;
+      }
+      return t;
+    }
+    /* The cost of an order: the bridges' spans, plus a weight per crossing,
+       plus a little for long spans. Two bridges cross when their spans partly
+       overlap, or when one holds the other and reaches a hub strictly inside
+       it (its riser to that hub must pass the inner one's lane). */
+    function makeCost(n, groups, opts) {
+      var table = coverTable(n), inner = interiorTable(n), n1 = n + 1;
+      var crossW = opts.crossWeight == null ? 2 : opts.crossWeight, sqW = opts.squareWeight == null ? 0.05 : opts.squareWeight;
+      var G = groups.length, mask = new Int32Array(G), S = new Int32Array(G), L = new Int32Array(G);
+      return function cost(pos, detail) {
+        var length = 0, sq = 0, x = 0, g, i, j, k;
+        for (g = 0; g < G; g++) {
+          var m = 0, grp = groups[g];
+          for (k = 0; k < grp.length; k++) m |= 1 << pos[grp[k]];
+          mask[g] = m; S[g] = table.start[m]; L[g] = table.len[m];
+          length += L[g]; sq += L[g] * L[g];
+        }
+        for (i = 0; i < G; i++) {
+          var si = S[i], li = L[i];
+          for (j = i + 1; j < G; j++) {
+            var sj = S[j], lj = L[j];
+            var ds = (sj - si + n) % n, de = (sj + lj - si + 2 * n) % n;
+            var inS = ds > 0 && ds < li, inE = de > 0 && de < li, outS = ds > li, outE = de > li;
+            if ((inS && outE) || (inE && outS)) { x++; continue; }
+            var jInI = ds + lj <= li, iInJ = ((si - sj + n) % n) + li <= lj;
+            if ((jInI && (mask[i] & inner[sj * n1 + lj])) || (iInJ && (mask[j] & inner[si * n1 + li]))) x++;
+          }
+        }
+        var c = length + crossW * x + sqW * sq;
+        return detail ? { cost: c, length: length, crossings: x, covers: Array.prototype.slice.call(L) } : c;
+      };
+    }
+    /* hubCost(order, groups, opts) -> { cost, length, crossings, covers }
+       The cost hubOrder minimises, for any given order (to compare a pinned
+       order with a fresh one, or to test). opts as for hubOrder. */
+    function hubCost(order, groups, opts) {
+      var n = order.length, idx = Object.create(null), pos = new Int32Array(n);
+      order.forEach(function (h, i) { idx[h] = i; pos[i] = i; });
+      var G = groups.map(function (g) { return g.map(function (h) { return idx[h]; }).filter(function (i) { return i !== undefined; }); })
+        .filter(function (g) { return g.length > 1; });
+      return makeCost(n, G, opts || {})(pos, true);
+    }
+    // An order's name up to turning and mirroring, to tell orders apart.
+    function orderKey(o) {
+      var n = o.length, at = o.indexOf(0), a = [], b = [];
+      for (var k = 0; k < n; k++) { a.push(o[(at + k) % n]); b.push(o[(at - k + n) % n]); }
+      var x = a.join(','), y = b.join(',');
+      return x < y ? x : y;
+    }
+
+    /* hubOrder(hubs, groups, opts) -> { order, cost, length, crossings, covers, candidates, ms }
+       hubs    the hub ids (the axioms)
+       groups  for each rule tied to two or more hubs, the ids it is tied to
+       opts = {
+         seed (7)  restarts (6)  steps (2500)
+         crossWeight   cost of a crossing between two bridges, in hub steps  (2)
+         squareWeight  cost of each span squared, so long ones stay few     (0.05)
+         keep          how many of the best distinct orders to return        (6)
+       }
+       The circular order of the hubs that keeps the bridges short and
+       uncrossed. A bridge's span is the fewest hub steps of an arc holding
+       all its hubs. Simulated annealing over swaps, reversals and moves from
+       seeded starts, then exhaustive local swaps and reversals until none
+       improves. `candidates` holds the best distinct orders (up to turning
+       and mirroring), best first, for a layout to choose among. */
+    function hubOrder(hubs, groups, opts) {
+      opts = opts || {};
+      var t0 = now(), n = hubs.length, idx = Object.create(null);
+      hubs.forEach(function (h, i) { idx[h] = i; });
+      var G = groups.map(function (g) { return g.map(function (h) { return idx[h]; }).filter(function (i) { return i !== undefined; }); })
+        .filter(function (g) { return g.length > 1; });
+      var cost = makeCost(n, G, opts), rand = rng(opts.seed == null ? 7 : opts.seed);
+      var restarts = opts.restarts || 6, steps = opts.steps || 2500, keepN = opts.keep || 6;
+      var pos = new Int32Array(n);
+      function costOf(order) { for (var k = 0; k < n; k++) pos[order[k]] = k; return cost(pos); }
+      var pool = Object.create(null);
+      function remember(o, c) {
+        var key = orderKey(o);
+        if (!pool[key] || pool[key].c > c) pool[key] = { c: c, o: o.slice() };
+      }
+      function polish(o, c) {
+        var improved = true;
+        while (improved) {
+          improved = false;
+          for (var a = 0; a < n; a++) for (var b = a + 1; b < n; b++) {
+            var sw = o.slice(), t = sw[a]; sw[a] = sw[b]; sw[b] = t;
+            var cs = costOf(sw);
+            if (cs < c - 1e-9) { o = sw; c = cs; improved = true; continue; }
+            var rv = o.slice(0, a).concat(o.slice(a, b + 1).reverse(), o.slice(b + 1)), cr = costOf(rv);
+            if (cr < c - 1e-9) { o = rv; c = cr; improved = true; }
+          }
+        }
+        return { o: o, c: c };
+      }
+      for (var rs = 0; rs < restarts; rs++) {
+        var o = hubs.map(function (h, i) { return i; });
+        for (var k = n - 1; k > 0; k--) { var j = Math.floor(rand() * (k + 1)), t = o[k]; o[k] = o[j]; o[j] = t; }
+        var c = costOf(o), best = { o: o.slice(), c: c };
+        for (var st = 0; st < steps; st++) {
+          var temp = 3 * Math.pow(0.003, st / steps);
+          var a = Math.floor(rand() * n), b = Math.floor(rand() * n), r = rand(), o2 = o.slice();
+          if (a === b) b = (a + 1) % n;
+          if (r < 0.4) { var tt = o2[a]; o2[a] = o2[b]; o2[b] = tt; }
+          else if (r < 0.75) { var lo = Math.min(a, b), hi = Math.max(a, b); while (lo < hi) { var t2 = o2[lo]; o2[lo] = o2[hi]; o2[hi] = t2; lo++; hi--; } }
+          else { var it = o2.splice(a, 1)[0]; o2.splice(b, 0, it); }
+          var c2 = costOf(o2);
+          if (c2 <= c || rand() < Math.exp((c - c2) / temp)) { o = o2; c = c2; }
+          if (c < best.c - 1e-9) best = { o: o.slice(), c: c };
+        }
+        var p = polish(best.o, best.c);
+        remember(p.o, p.c);
+      }
+      var cands = Object.keys(pool).map(function (k) { return pool[k]; }).sort(function (p, q) { return p.c - q.c; }).slice(0, keepN);
+      var top = cands[0];
+      for (var q = 0; q < n; q++) pos[top.o[q]] = q;
+      var det = cost(pos, true);
+      return {
+        order: top.o.map(function (i) { return hubs[i]; }), cost: det.cost, length: det.length, crossings: det.crossings, covers: det.covers,
+        candidates: cands.map(function (x) { return { order: x.o.map(function (i) { return hubs[i]; }), cost: x.c }; }), ms: now() - t0
+      };
+    }
+
+    /* bridgePlan(n, bridges, cap) -> { bridges, chords, crossings, depth, total }
+       The inside of the hub ring as a circular arc diagram. Hubs stand at
+       places 0..n-1; each bridge glyph stands in a gap between two hubs
+       inside its own span (at most `cap` to a gap); each of its lines is a
+       chord from the glyph to one of its hubs, drawn as a U whose depth is
+       the chord's lane (0 the shallowest). A chord held inside another rides
+       shallower, so chords cross only where their ends interleave round the
+       ring; the gaps are chosen (from each bridge's median hub, then by
+       single moves until none helps) to make those crossings as few and the
+       chords as short as they can be. Chords that do not overlap may share a
+       lane; the two halves of one bridge may meet under its own glyph.
+       Runs on flat typed arrays: the layout tries a few hundred plans. */
+    function bridgePlan(n, bridges, cap) {
+      var table = coverTable(n), EPS = 1e-6;
+      var B = bridges.map(function (places, i) {
+        var m = 0;
+        places.forEach(function (p) { m |= 1 << p; });
+        var s = table.start[m], L = table.len[m];
+        var offs = places.map(function (p) { return (p - s + n) % n; }).sort(function (a, b) { return a - b; });
+        var mid = offs.length % 2 ? offs[(offs.length - 1) / 2] : (offs[offs.length / 2 - 1] + offs[offs.length / 2]) / 2;
+        var mean = offs.reduce(function (t, o) { return t + o; }, 0) / offs.length;
+        return { i: i, places: places, s: s, L: L, offs: offs, mid: mid, mean: mean, gap: 0, frac: 0.5 };
+      });
+      var count = new Int32Array(n);
+      B.slice().sort(function (x, y) { return x.L - y.L || x.i - y.i; }).forEach(function (x) {
+        var opts = [];
+        for (var j = 0; j < x.L; j++) opts.push(j);
+        opts.sort(function (p, q) { return Math.abs(p + 0.5 - x.mid) - Math.abs(q + 0.5 - x.mid) || p - q; });
+        var free = opts.filter(function (j) { return count[(x.s + j) % n] < cap; });
+        x.gap = free.length ? free[0] : opts[0];
+        count[(x.s + x.gap) % n]++;
+      });
+      var NC = 0;
+      B.forEach(function (b) { NC += b.offs.length; });
+      var cB = new Int32Array(NC), cHub = new Float64Array(NC), cGly = new Float64Array(NC), cA = new Float64Array(NC);
+      var cLen = new Float64Array(NC), cDepth = new Int32Array(NC), ord = new Int32Array(NC);
+      var sP = new Float64Array(2 * NC), sD = new Int32Array(2 * NC), gapList = [];
+      for (var g0 = 0; g0 < n; g0++) gapList.push([]);
+      function mod(v) { v %= n; return v < 0 ? v + n : v; }
+      function same(p, q) { var d = Math.abs(mod(p - q)); return d < EPS || n - d < EPS; }
+      function setFracs() {
+        // Within a gap, the glyph whose hubs lie further clockwise sits clockwise.
+        for (var g = 0; g < n; g++) gapList[g].length = 0;
+        for (var i = 0; i < B.length; i++) gapList[(B[i].s + B[i].gap) % n].push(B[i]);
+        for (var g2 = 0; g2 < n; g2++) {
+          var list = gapList[g2];
+          if (list.length === 1) { list[0].frac = 0.5; continue; }
+          list.sort(function (x, y) { return (x.mean - x.gap) - (y.mean - y.gap) || x.i - y.i; });
+          for (var k = 0; k < list.length; k++) list[k].frac = 0.32 + 0.36 * k / (list.length - 1);
+        }
+      }
+      function plan() {
+        setFracs();
+        var k = 0, i, j;
+        for (var bi = 0; bi < B.length; bi++) {
+          var b = B[bi], u = b.gap + b.frac;
+          for (j = 0; j < b.offs.length; j++, k++) {
+            var o = b.offs[j], lo = o < u ? o : u, hi = o < u ? u : o;
+            cB[k] = bi; cHub[k] = (b.s + o) % n; cGly[k] = (b.s + u) % n; cA[k] = (b.s + lo) % n; cLen[k] = hi - lo; ord[k] = k;
+          }
+        }
+        // Shortest chords first (insertion sort: a few dozen chords).
+        for (i = 1; i < NC; i++) {
+          var v = ord[i], lv = cLen[v], q = i - 1;
+          while (q >= 0 && (cLen[ord[q]] > lv || (cLen[ord[q]] === lv && ord[q] > v))) { ord[q + 1] = ord[q]; q--; }
+          ord[q + 1] = v;
+        }
+        // Depths: below everything a chord holds, clear of what it overlaps.
+        for (var idx = 0; idx < NC; idx++) {
+          var c = ord[idx], floor = 0, used = 0;
+          for (j = 0; j < idx; j++) {
+            var e = ord[j], d0 = mod(cA[e] - cA[c]), d1 = mod(cA[c] - cA[e]), dc = d0 > n - EPS ? 0 : d0;
+            if (dc + cLen[e] <= cLen[c] + EPS && !(same(cA[c], cA[e]) && Math.abs(cLen[c] - cLen[e]) < EPS)) floor = Math.max(floor, cDepth[e] + 1);
+            var touch = Math.abs(d0 - cLen[c]) < EPS || Math.abs(d1 - cLen[e]) < EPS;
+            var over = touch ? cB[c] !== cB[e] : (d0 < cLen[c] - EPS || d1 < cLen[e] - EPS);
+            if (over && cDepth[e] < 30) used |= 1 << cDepth[e];
+          }
+          var d = floor;
+          while (d < 30 && (used & (1 << d))) d++;
+          cDepth[c] = d;
+        }
+        // Stalks: each hub's and glyph's riser reaches its deepest chord.
+        var ns = 0;
+        for (i = 0; i < NC; i++) {
+          for (var w = 0; w < 2; w++) {
+            var p = w ? cGly[i] : cHub[i], found = -1;
+            for (var t = 0; t < ns; t++) if (same(sP[t], p)) { found = t; break; }
+            if (found < 0) { sP[ns] = p; sD[ns] = cDepth[i]; ns++; } else if (cDepth[i] > sD[found]) sD[found] = cDepth[i];
+          }
+        }
+        // A chord crosses every stalk strictly inside it that reaches deeper.
+        var x = 0, depth = 0, length = 0;
+        for (i = 0; i < NC; i++) {
+          if (cDepth[i] > depth) depth = cDepth[i];
+          length += cLen[i];
+          for (var s2 = 0; s2 < ns; s2++) {
+            if (sD[s2] <= cDepth[i] || same(sP[s2], cHub[i]) || same(sP[s2], cGly[i])) continue;
+            var dd = mod(sP[s2] - cA[i]);
+            if (dd > EPS && dd < cLen[i] - EPS) x++;
+          }
+        }
+        var off = 0;
+        for (i = 0; i < B.length; i++) off += Math.abs(B[i].gap + 0.5 - B[i].mid);
+        return { crossings: x, depth: depth, total: 1000 * x + 25 * depth + 6 * length + 2 * off };
+      }
+      var cur = plan();
+      for (var pass = 0; pass < 30; pass++) {
+        var better = false;
+        for (var bi2 = 0; bi2 < B.length; bi2++) {
+          var bb = B[bi2], g1 = bb.gap, best = cur.total, bg = g1;
+          count[(bb.s + g1) % n]--;
+          for (var j2 = 0; j2 < bb.L; j2++) {
+            if (j2 === g1 || count[(bb.s + j2) % n] >= cap) continue;
+            bb.gap = j2;
+            var sc = plan();
+            if (sc.total < best - 1e-9) { best = sc.total; bg = j2; }
+          }
+          bb.gap = bg;
+          count[(bb.s + bb.gap) % n]++;
+          if (bg !== g1) { cur = plan(); better = true; }
+        }
+        if (!better) break;
+      }
+      cur = plan();
+      var chords = [];
+      for (var z = 0; z < NC; z++) chords.push({ b: cB[z], hub: cHub[z], glyph: cGly[z], a: cA[z], len: cLen[z], depth: cDepth[z] });
+      return { bridges: B, chords: chords, crossings: cur.crossings, depth: cur.depth, total: cur.total };
+    }
+
+    /* coreLayout(spec) -> { order, glyphs, lines, plan, stats, ... }
+       spec = {
+         cx, cy
+         axioms      [id, ...]
+         rules       [{ id, kind: 'principle' | 'failure', on: [axiom ids] }]
+         rLabel      radius kept clear for the centre's name
+         rHub        the necklace: the axioms, and the bridges between them
+         rSat        the satellites' ring, outside the necklace
+         size        { axiom, principle, failure } glyph sizes, px   (13, 10, 10)
+         lanePitch   px between chord depths                          (4.2)
+         satOffset   px either side of a hub's radius, at rSat        (9.5)
+         gapCap      bridge glyphs one gap between hubs may hold      (2)
+         gapEmpty    share of the ring an empty gap takes, against one
+                     more share per glyph standing in a gap           (1.3)
+         evenHubs    true to space the hubs evenly instead            (false)
+         chordShape  'arc' (a U, default) or 'lane' (ruled: down, round, up)
+         corner      corner radius of ruled lines, px                 (4)
+         start       angle of the first hub                           (-pi/2)
+         align       optional { id: { a, w } }: turn, and if it helps mirror,
+                     the core so each rule sits near the angle given (the
+                     mean angle of the components citing it, weighted)
+         order       a pinned hub order: used while it names exactly these
+                     axioms; else hubOrder decides and the layout takes
+                     whichever of its best orders draws with fewest crossings
+         hubOpts     options for hubOrder
+         checks      true to also count the crossings actually drawn, pair
+                     by pair (about 100 ms; for tests and audits)
+       }
+       A rule resting on (or guarding) one axiom is that hub's satellite on
+       rSat: principles on the anticlockwise side of the hub's radius,
+       failure modes on the clockwise side, so a rule line can always come
+       straight down to the hub between them. A rule tied to several axioms
+       is a bridge: its glyph stands on the necklace in a gap between two of
+       its own hubs (bridgePlan chooses which), and each of its lines is a U
+       that leaves the glyph along its radius, sags to the depth its nesting
+       needs and rises into the hub along the hub's radius. The necklace is
+       paced by what stands on it, so the thirty glyphs on it fall at an even
+       step and the twelve hubs never beat out a dial. Every control radius
+       of every line lies between the glyph and its lane, so no line comes
+       nearer the centre than the deepest lane, which stays outside rLabel;
+       no chord crosses the centre. stats reports the smallest gap between
+       two glyphs, the nearest a line comes to a glyph it does not join, the
+       nearest any line comes to the centre and the crossings drawn. */
+    function coreLayout(spec) {
+      var t0 = now(), cx = spec.cx, cy = spec.cy, A = spec.axioms, n = A.length;
+      var size = spec.size || { axiom: 13, principle: 10, failure: 10 };
+      var rH = spec.rHub, rS = spec.rSat, rLabel = spec.rLabel || 0;
+      var pitch = spec.lanePitch || 4.2, corner = spec.corner == null ? 4 : spec.corner;
+      var satOff = spec.satOffset || 9.5, cap = spec.gapCap || 2;
+      var rules = spec.rules, bridges = rules.filter(function (r) { return r.on.length > 1; });
+      // A pinned order is used only while it names exactly today's axioms;
+      // otherwise the doctrine has changed and the order is chosen afresh.
+      var pinned = Array.isArray(spec.order) && spec.order.length === n &&
+        spec.order.slice().sort().join('|') === A.slice().sort().join('|');
+      var hubs = pinned ? { order: spec.order.slice(), candidates: [{ order: spec.order.slice() }], ms: 0, pinned: true } :
+        hubOrder(A, bridges.map(function (r) { return r.on; }), spec.hubOpts);
+      // Of the best orders, the one whose bridges draw with fewest crossings.
+      var chosen = null;
+      hubs.candidates.forEach(function (cand) {
+        var p = Object.create(null);
+        cand.order.forEach(function (id, k) { p[id] = k; });
+        var plan = bridgePlan(n, bridges.map(function (r) { return r.on.map(function (h) { return p[h]; }); }), cap);
+        if (!chosen || plan.total < chosen.plan.total - 1e-9) chosen = { order: cand.order, pos: p, plan: plan };
+      });
+      var order = chosen.order, hubPos = chosen.pos, plan = chosen.plan, slot = TAU / n;
+      // The gaps between hubs share the ring by what they hold: an empty gap
+      // `gapEmpty` units, one more for each bridge glyph standing in it, so
+      // all the glyphs on the ring sit at an even pace and the twelve hubs
+      // never fall into the even beat of a dial.
+      var occupancy = new Float64Array(n), gapEmpty = spec.gapEmpty == null ? 1.3 : spec.gapEmpty;
+      plan.bridges.forEach(function (b) { occupancy[(b.s + b.gap) % n] += 1; });
+      var widths = [], cum = [0], total = 0;
+      for (var gi = 0; gi < n; gi++) { widths.push(spec.evenHubs ? 1 : gapEmpty + occupancy[gi]); total += widths[gi]; }
+      for (var gj = 0; gj < n; gj++) cum.push(cum[gj] + widths[gj] * n / total);
+      var start = spec.start == null ? -Math.PI / 2 : spec.start, flip = 1;
+      if (spec.align) {
+        var bestC = Infinity;
+        [1, -1].forEach(function (fl) {
+          for (var deg = 0; deg < 360; deg += 1) {
+            var st = deg * Math.PI / 180, c = 0;
+            order.forEach(function (id, k) { var w = spec.align[id]; if (w && w.w) c += w.w * Math.abs(turn(st + fl * cum[k] * slot, w.a)); });
+            if (c < bestC - 1e-9) { bestC = c; start = st; flip = fl; }
+          }
+        });
+      }
+      // Angle of a place on the hub ring (places may be fractional and run past n).
+      function at(p) {
+        var turns = Math.floor(p / n), q = p - turns * n, k = Math.min(n - 1, Math.floor(q)), f = q - k;
+        return start + flip * (turns * n + cum[k] + f * (cum[k + 1] - cum[k])) * slot;
+      }
+      var glyphs = Object.create(null);
+      order.forEach(function (id, k) { glyphs[id] = { id: id, kind: 'axiom', role: 'hub', a: norm(at(k)), r: rH, size: size.axiom, on: [], place: k }; });
+      var perHub = Object.create(null);
+      rules.forEach(function (r) {
+        if (r.on.length !== 1 || !glyphs[r.on[0]]) return;
+        (perHub[r.on[0]] = perHub[r.on[0]] || { principle: [], failure: [] })[r.kind].push(r);
+      });
+      Object.keys(perHub).forEach(function (h) {
+        ['principle', 'failure'].forEach(function (kind) {
+          var side = (kind === 'principle' ? -1 : 1) * flip;
+          perHub[h][kind].forEach(function (r, j) {
+            var off = (satOff + j * (size[kind] + 6)) / rS;
+            glyphs[r.id] = { id: r.id, kind: kind, role: 'satellite', a: norm(glyphs[h].a + side * off), r: rS, size: size[kind], on: r.on.slice(), hub: h };
+          });
+        });
+      });
+      var laneTop = rH - size.axiom / 2 - 6, deepest = laneTop - plan.depth * pitch;
+      if (deepest < rLabel + 3 && plan.depth > 0) pitch = (laneTop - rLabel - 3) / plan.depth;
+      function laneR(l) { return laneTop - l * pitch; }
+      var chordDepth = Object.create(null), bridgeAt = Object.create(null);
+      plan.chords.forEach(function (c) { chordDepth[c.b + ':' + c.hub] = c.depth; });
+      plan.bridges.forEach(function (b, i) {
+        var r = bridges[i];
+        bridgeAt[r.id] = i;
+        glyphs[r.id] = { id: r.id, kind: r.kind, role: 'bridge', a: norm(at(b.s + b.gap + b.frac)), r: rH, size: size[r.kind],
+                         on: r.on.slice(), span: b.L, from: b.s, place: b.s + b.gap + b.frac };
+      });
+      // Lines.
+      var lines = [];
+      rules.forEach(function (r) {
+        var g = glyphs[r.id];
+        if (!g) return;
+        r.on.forEach(function (h) {
+          var H = glyphs[h];
+          if (!H) return;
+          var way, pol;
+          if (g.role === 'satellite') {
+            // One smooth S: up the hub's radius, over, and down onto the
+            // satellite along its own.
+            var r0 = rH + H.size / 2 + 2, r1 = rS - g.size / 2 - 2, aH = g.a + turn(g.a, H.a), k = (r1 - r0) * 0.55;
+            pol = polarBezier([aH, r0], [aH, r0 + k], [g.a, r1 - k], [g.a, r1], 1.5);
+          } else {
+            // Unwrapped along the bridge's own span, so the lane runs the
+            // right way round.
+            var ph = g.from + ((hubPos[h] - g.from + n) % n), lr = laneR(chordDepth[bridgeAt[r.id] + ':' + hubPos[h]]);
+            var ag = at(g.place), ah = at(ph), rg = rH - g.size / 2 - 2, rh = rH - H.size / 2 - 2;
+            if (spec.chordShape === 'lane') {
+              // Ruled: down, round the lane, up.
+              pol = polarRun([[ag, rg], [ag, lr], [ah, lr], [ah, rh]], corner, 2);
+            } else {
+              // A U: down from the glyph along its radius, sagging to the
+              // chord's depth at its middle, up into the hub along the hub's.
+              pol = polarBezier([ag, rg], [ag, rg - 4 / 3 * (rg - lr)], [ah, rh - 4 / 3 * (rh - lr)], [ah, rh], 2);
+            }
+          }
+          lines.push({ from: r.id, to: h, kind: r.kind, role: g.role, polar: pol, pts: polarXY(cx, cy, pol),
+                       depth: g.role === 'bridge' ? chordDepth[bridgeAt[r.id] + ':' + hubPos[h]] : -1 });
+        });
+      });
+      Object.keys(glyphs).forEach(function (id) { var q = glyphs[id]; q.x = cx + q.r * Math.cos(q.a); q.y = cy + q.r * Math.sin(q.a); });
+      // Checks, for the record.
+      var ids = Object.keys(glyphs), minGap = Infinity, lineGap = Infinity, minR = Infinity, drawn = 0;
+      for (var i = 0; i < ids.length; i++) for (var j = i + 1; j < ids.length; j++) {
+        var p = glyphs[ids[i]], q = glyphs[ids[j]];
+        minGap = Math.min(minGap, Math.hypot(p.x - q.x, p.y - q.y) - (p.size + q.size) / 2);
+      }
+      lines.forEach(function (ln) {
+        ln.polar.forEach(function (pp) { minR = Math.min(minR, pp[1]); });
+        ids.forEach(function (id) {
+          if (id === ln.from || id === ln.to) return;
+          var g = glyphs[id];
+          ln.pts.forEach(function (pt) { lineGap = Math.min(lineGap, Math.hypot(pt[0] - g.x, pt[1] - g.y) - g.size / 2); });
+        });
+      });
+      // Counting the crossings actually drawn tests every pair of lines
+      // against each other: a check for tests and audits (spec.checks), not
+      // something a page needs to pay for at load.
+      if (spec.checks) {
+        for (var a1 = 0; a1 < lines.length; a1++) for (var b1 = a1 + 1; b1 < lines.length; b1++) {
+          var L1 = lines[a1], L2 = lines[b1];
+          if (L1.from === L2.from || L1.to === L2.to) continue;
+          if (polyCross(L1.pts, L2.pts)) drawn++;
+        }
+      } else drawn = null;
+      return {
+        order: order, start: start, flip: flip, glyphs: glyphs, lines: lines, laneTop: laneTop, pitch: pitch, hubs: hubs, plan: plan,
+        stats: { glyphGap: minGap, lineGlyphGap: lineGap, nearestToCentre: minR, labelR: rLabel, planCrossings: plan.crossings,
+                 lanes: plan.depth + 1, crossingsDrawn: drawn, orderPinned: !!hubs.pinned, hubOrderMs: hubs.ms, ms: now() - t0 }
+      };
+    }
+    // Whether two polylines cross anywhere (proper crossings only).
+    function polyCross(P, Q) {
+      for (var i = 0; i < P.length - 1; i++) {
+        var a = P[i], b = P[i + 1];
+        for (var j = 0; j < Q.length - 1; j++) {
+          var c = Q[j], e = Q[j + 1];
+          var rx = b[0] - a[0], ry = b[1] - a[1], sx = e[0] - c[0], sy = e[1] - c[1], den = rx * sy - ry * sx;
+          if (Math.abs(den) < 1e-12) continue;
+          var qx = c[0] - a[0], qy = c[1] - a[1], t = (qx * sy - qy * sx) / den, u = (qx * ry - qy * rx) / den;
+          if (t > 1e-6 && t < 1 - 1e-6 && u > 1e-6 && u < 1 - 1e-6) return true;
+        }
+      }
+      return false;
+    }
+
+    return {
+      // paths
+      toPolyline: toPolyline, measure: measure, resample: resample, pointAt: pointAt, lineD: lineD, trimEnds: trimEnds,
+      // polar curves
+      polarXY: polarXY, polarBezier: polarBezier, polarSpline: polarSpline, polarRun: polarRun,
+      // fibres
+      bundle: bundle, taper: taper, fibreStroke: fibreStroke, strokeGaps: strokeGaps,
+      // the weave
+      weave: weave,
+      // rule lines
+      ruleFan: ruleFan, clearPort: clearPort,
+      // the core
+      hubOrder: hubOrder, hubCost: hubCost, bridgePlan: bridgePlan, coreLayout: coreLayout, coverTable: coverTable,
+      // helpers the map may share
+      turn: turn, norm: norm, circMean: circMean, rng: rng
     };
-  }
-  var DETENT = cubicBezier(0.16, 1, 0.3, 1);
-  var MOVE = cubicBezier(0.65, 0, 0.35, 1);
-  /* Two short beats, each settling hard: most of the way, a breath, home. */
-  function beats(t) {
-    if (t <= 0) return 0;
-    if (t >= 1) return 1;
-    if (t < 0.56) return 0.78 * DETENT(t / 0.56);
-    if (t < 0.64) return 0.78;
-    return 0.78 + 0.22 * DETENT((t - 0.64) / 0.36);
-  }
+  })();
 
-  function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-  function unit(t) { return t <= 0 ? 0 : t >= 1 ? 1 : t; }
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  /* ---- Words --------------------------------------------------------- */
   function isObj(v) { return !!v && typeof v === 'object' && !Array.isArray(v); }
   function str(v) { return typeof v === 'string' && v.trim() ? v.trim() : null; }
-  function lowerFirst(text) { return text ? text.charAt(0).toLowerCase() + text.slice(1) : text; }
+  function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
   function plural(n, one, many) { return n === 1 ? one : many; }
-  function total(list) { var t = 0; for (var i = 0; i < list.length; i++) t += list[i]; return t; }
-
-  /* ---- Colour -------------------------------------------------------- */
-  function parseColor(c) {
-    c = String(c || '').trim();
-    var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c);
-    if (m) {
-      var h = m[1].length === 3 ? m[1].replace(/(.)/g, '$1$1') : m[1];
-      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16), 1];
-    }
-    m = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)(?:\s*[,/]\s*([\d.]+)(%?))?\s*\)$/i.exec(c);
-    if (m) {
-      var a = m[4] == null ? 1 : (m[5] ? parseFloat(m[4]) / 100 : +m[4]);
-      return [+m[1], +m[2], +m[3], a];
-    }
-    return null;
+  var SMALL = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
+    'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+  function numberWord(n) { return n >= 0 && n < SMALL.length ? SMALL[n] : String(n); }
+  function countWords(n, one, many) { return numberWord(n) + ' ' + plural(n, one, many); }
+  function countFigure(n, one, many) { return (n ? String(n) : 'no') + ' ' + plural(n, one, many); }
+  function capital(t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; }
+  function lowerFirst(t) { return t ? t.charAt(0).toLowerCase() + t.slice(1) : t; }
+  function andList(items) {
+    if (items.length < 2) return items.join('');
+    return items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1];
   }
-  function rgba(rgb, a) {
-    return 'rgba(' + Math.round(rgb[0]) + ',' + Math.round(rgb[1]) + ',' + Math.round(rgb[2]) + ',' +
-      (Math.round(clamp(a, 0, 1) * 1000) / 1000) + ')';
+  function byText(a, b) { return a < b ? -1 : a > b ? 1 : 0; }
+  function humanize(key) {
+    var t = String(key).replace(/^[a-z]+:/, '').replace(/[_-]+/g, ' ');
+    return t.charAt(0).toUpperCase() + t.slice(1);
   }
-  function luminance(rgb) {
-    return rgb ? (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255 : 1;
+  function uniq(list) {
+    var seen = Object.create(null);
+    return list.filter(function (x) { if (seen[x]) return false; seen[x] = true; return true; });
   }
 
-  /* ---- Evidence ------------------------------------------------------ */
-  /* Five classes, named in plain words, each with its own mark, so colour is
-     never the only signal. Ember marks the two that run real tools; the
-     other three are ink. */
+  /* Authored prose runs long and now and then carries a file name or a dash;
+     the column shows its opening sentences, up to a readable length, and
+     stops before the first sentence that is not plain words. */
+  var UNPLAIN = /—|–|\b[a-z0-9]+_[a-z0-9_]+\b|\b(?:AX|AP|P)-\d+\b/;
+  function sentencesOf(text) {
+    var out = [], re = /[.!?]["”’)]?\s+(?=[A-Z“"(])/g, from = 0, m;
+    while ((m = re.exec(text))) {
+      var end = m.index + m[0].replace(/\s+$/, '').length;
+      out.push(text.slice(from, end).trim());
+      from = m.index + m[0].length;
+    }
+    if (from < text.length) out.push(text.slice(from).trim());
+    return out.filter(Boolean);
+  }
+  function trimProse(text, most) {
+    var list = sentencesOf(String(text || '').replace(/\s+/g, ' ').trim()), kept = [], len = 0;
+    for (var i = 0; i < list.length; i++) {
+      var s = list[i];
+      if (UNPLAIN.test(s)) break;
+      if (kept.length && len + s.length + 1 > most) break;
+      if (!kept.length && s.length > most * 1.4) break;
+      kept.push(s);
+      len += s.length + 1;
+    }
+    return kept.length ? kept.join(' ') : null;
+  }
+
+  /* ---- Evidence -------------------------------------------------------- */
+  /* Five ways a component is backed, each named in plain words and cut as
+     its own mark, so the ink is never the only signal. */
   var CLASS_ORDER = ['tool', 'bounded', 'import', 'contract', 'computes'];
   var CLASS_OF = {
     external_subprocess_witness: 'tool',
@@ -166,7 +1586,6 @@
     contract: 'Checks a contract',
     computes: 'Computes from its sources'
   };
-  var EMBER = { tool: true, bounded: true };
   function classOf(ev) {
     if (!isObj(ev)) return null;
     if (CLASS_OF[ev.class_id]) return CLASS_OF[ev.class_id];
@@ -176,23 +1595,60 @@
     if (rank >= 4) return 'contract';
     return rank > 0 ? 'computes' : null;
   }
+  // One 12-unit glyph per class: a disc, a half disc, a square, a ringed
+  // dot, a ring.
+  var GLYPHS = {
+    tool: '<circle cx="6" cy="6" r="4.7"/>',
+    bounded: '<circle cx="6" cy="6" r="4.1" fill="none" stroke-width="1.5"/><path d="M6 1.9a4.1 4.1 0 0 1 0 8.2z"/>',
+    import: '<rect x="1.8" y="1.8" width="8.4" height="8.4" rx="1.1"/>',
+    contract: '<circle cx="6" cy="6" r="4.1" fill="none" stroke-width="1.5"/><circle cx="6" cy="6" r="1.8"/>',
+    computes: '<circle cx="6" cy="6" r="4.1" fill="none" stroke-width="1.5"/>',
+    none: '<circle cx="6" cy="6" r="2.2"/>'
+  };
+  function glyphSvg(cls) {
+    return '<svg class="sm-glyph" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" ' +
+      'fill="currentColor" stroke="currentColor" stroke-width="0">' + (GLYPHS[cls] || GLYPHS.none) + '</svg>';
+  }
 
-  /* ---- Scene --------------------------------------------------------- */
+  /* ---- The scene ------------------------------------------------------- */
   /* Reads the published scene into the few things the drawing needs. Bad
-     rows (duplicate ids, edges to unknown nodes, repeated edges) are dropped
-     and the rest is kept; the landing never throws on a stale or partial
-     scene. A scene built before the per-object details existed still lays
-     out: its marks carry no class, its legend lists only the links, and its
-     buttons go to the architecture map, whose #map= addresses are part of
-     the data contract. */
+     rows (duplicate ids, edges to unknown nodes, repeated links) are dropped
+     and the rest is kept; a scene built before the per-component details
+     existed still draws, with its names and families from the nodes. */
   function routeWith(base, docsHref, siteHref) {
     var d = str(docsHref);
     if (d) return /^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(d) ? d : base + d;
     return str(siteHref);
   }
-  function humanize(key) {
-    var t = String(key).replace(/_/g, ' ');
-    return t.charAt(0).toUpperCase() + t.slice(1);
+  function webUrl(v) { var u = str(v); return u && /^https?:\/\//i.test(u) ? u : null; }
+  /* The kinds of link between two components, from the relation's name: a
+     component runs another, reads the results another saved, or checks the
+     files copied from another (read from the code); an older scene has only
+     the relations a component's own record lists, with no direction worth
+     reading. */
+  var LINK_KIND = { runs: 'runs', reads_results_of: 'reads', checks_copies_of: 'checks', declared_dependency_untyped: 'named' };
+  var LINK_ORDER = ['runs', 'reads', 'checks', 'named', 'other'];
+  var LINK_WORDS = {
+    runs: { out: 'Runs', inc: 'Run by', key: 'Runs' },
+    reads: { out: 'Reads results of', inc: 'Results read by', key: 'Reads saved results of' },
+    checks: { out: 'Checks copies of', inc: 'Copies checked by', key: 'Checks the copied files of' },
+    named: { out: 'Listed as related', inc: 'Listed as related', key: 'Listed as related' },
+    other: { out: 'Connects to', inc: 'Connected from', key: 'Other connections' }
+  };
+  // Where in the code a connection comes from: the first file its evidence
+  // names, and the lines it names there.
+  function evidenceOf(e) {
+    var list = Array.isArray(e.evidence) ? e.evidence : isObj(e.evidence) ? [e.evidence] : [];
+    var path = null, lo = Infinity, hi = -Infinity;
+    list.forEach(function (ev) {
+      if (!isObj(ev) || !str(ev.path)) return;
+      if (!path) path = str(ev.path);
+      if (str(ev.path) !== path) return;
+      (Array.isArray(ev.lines) ? ev.lines : []).forEach(function (n) {
+        if (typeof n === 'number' && n > 0) { lo = Math.min(lo, n); hi = Math.max(hi, n); }
+      });
+    });
+    return path ? { path: path, from: isFinite(lo) ? lo : 0, to: isFinite(hi) ? hi : 0 } : null;
   }
   function readScene(json, base) {
     var scene = isObj(json) && isObj(json.scene) ? json.scene : json;
@@ -203,5163 +1659,3095 @@
     (Array.isArray(scene.clusters) ? scene.clusters : []).forEach(function (c) {
       if (isObj(c) && str(c.id)) clusterLabel[c.id] = str(c.label);
     });
-    var seen = Object.create(null);
-    var areaNodes = [], compNodes = [], stepNodes = [];
-    scene.nodes.forEach(function (n, at) {
+    var seen = Object.create(null), areaNodes = [], compNodes = [];
+    scene.nodes.forEach(function (n) {
       if (!isObj(n)) return;
       var id = str(n.id);
       if (!id || seen[id]) return;
-      seen[id] = { node: n, at: at };
+      seen[id] = true;
       if (n.kind === 'area') areaNodes.push(n);
       else if (n.kind === 'wired_component' || n.kind === 'component') compNodes.push(n);
-      else if (n.kind === 'spine_step') stepNodes.push(n);
     });
     function detailOf(n) {
-      var body = details[str(n.inspector_ref) || 'inspector:' + n.id];
-      return isObj(body) ? body : null;
+      var d = details[str(n.inspector_ref) || 'inspector:' + n.id];
+      return isObj(d) ? d : null;
     }
     function routesOf(n, d) {
       if (d && isObj(d.routes)) return d.routes;
       return isObj(nodeRoutes[n.id]) ? nodeRoutes[n.id] : {};
     }
-    function mapRoute(id, r) {
-      // The full-screen system map (docs/system-map.html) is the map now; it
-      // reads the same #map= ids the old architecture page used.
-      return base + 'system-map.html#map=' + encodeURIComponent(id);
-    }
+    function mapHref(address) { return base + 'system-map.html#map=' + encodeURIComponent(address); }
 
     var families = [], famAt = Object.create(null);
+    function addFamily(key, n, d, r) {
+      famAt[key] = families.length;
+      families.push({
+        id: 'area:' + key, key: key,
+        title: str(d && d.title) || str(n && n.label) || clusterLabel['cluster:' + key] || humanize(key),
+        summary: str(d && d.summary) || str(n && n.summary),
+        page: r ? routeWith(base, r.primary_reader_href, r.site_primary_reader_href) : null,
+        mapHref: mapHref('family:' + key),
+        members: [], inside: 0
+      });
+    }
     areaNodes.forEach(function (n) {
       var key = n.id.replace(/^area:/, '');
       if (famAt[key] !== undefined) return;
-      var d = detailOf(n), r = routesOf(n, d);
-      famAt[key] = families.length;
-      families.push({
-        id: n.id, key: key,
-        title: str(d && d.title) || str(n.label) || humanize(key),
-        summary: str(d && d.summary) || str(n.summary),
-        page: routeWith(base, r.primary_reader_href, r.site_primary_reader_href),
-        mapHref: mapRoute(n.id, r),
-        members: []
-      });
+      var d = detailOf(n);
+      addFamily(key, n, d, routesOf(n, d));
     });
 
-    var comps = [], compAt = Object.create(null);
+    var comps = [], compAt = Object.create(null), codeBase = null;
     compNodes.forEach(function (n) {
       var d = detailOf(n);
       var key = str(d && d.family_id) || (str(n.parent_cluster_id) || '').replace(/^cluster:/, '');
       if (!key) return;
-      if (famAt[key] === undefined) {
-        famAt[key] = families.length;
-        families.push({ id: 'area:' + key, key: key,
-          title: clusterLabel['cluster:' + key] || humanize(key), summary: null, page: null,
-          mapHref: base + 'system-map.html#map=' + encodeURIComponent('area:' + key), members: [] });
-      }
+      if (famAt[key] === undefined) addFamily(key, null, null, null);
       var ev = d && isObj(d.evidence) ? d.evidence : null;
-      var r = routesOf(n, d);
+      var r = routesOf(n, d), source = null;
+      (d && Array.isArray(d.source_links) ? d.source_links : []).forEach(function (l) {
+        if (!source && isObj(l) && /^source$/i.test(str(l.label) || '')) source = webUrl(l.url);
+      });
+      // The repository the sources are published in, for links to a line.
+      var cb = source && /^(https:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/[^\/]+\/)/.exec(source);
+      if (cb && !codeBase) codeBase = cb[1];
       compAt[n.id] = comps.length;
       comps.push({
         id: n.id,
-        label: str(d && d.public_label) || str(d && d.title) || str(n.label) || n.id,
-        fam: famAt[key],
-        cls: classOf(ev),
-        basis: str(ev && ev.basis),
-        line: str(d && d.summary_line),
+        label: str(d && d.public_label) || str(d && d.title) || str(n.label) || humanize(n.id),
+        fam: famAt[key], cls: classOf(ev), basis: str(ev && ev.basis),
+        line: str(d && d.summary_line), what: str(d && d.what_it_does),
         page: routeWith(base, r.component_detail_href, r.site_component_detail_href),
         reader: routeWith(base, r.primary_reader_href, r.site_primary_reader_href),
-        mapHref: mapRoute(n.id, r),
+        source: source, mapHref: mapHref(n.id),
         out: [], inc: []
       });
     });
 
-    var links = [], linkSeen = Object.create(null), edgeSeen = Object.create(null);
-    var spineNext = Object.create(null), spinePrev = Object.create(null), bindCount = 0;
-    var dropped = 0;
+    var links = [], linkSeen = Object.create(null), verdicts = Object.create(null), dropped = 0;
+    var kindsSeen = Object.create(null);
     (Array.isArray(scene.edges) ? scene.edges : []).forEach(function (e) {
       if (!isObj(e)) { dropped++; return; }
-      var eid = str(e.id);
-      if (eid) {
-        if (edgeSeen[eid]) { dropped++; return; }
-        edgeSeen[eid] = true;
-      }
-      var s = str(e.source), t = str(e.target);
-      if (!s || !t || !seen[s] || !seen[t]) { dropped++; return; }
-      var rel = e.relation || e.kind;
-      if (rel === 'declared_dependency_untyped') {
-        var a = compAt[s], b = compAt[t];
-        if (a === undefined || b === undefined || a === b) { dropped++; return; }
-        if (linkSeen[a + '>' + b]) { dropped++; return; }
-        linkSeen[a + '>' + b] = true;
-        links.push([a, b]);
-        comps[a].out.push(b);
-        comps[b].inc.push(a);
-      } else if (rel === 'spine_sequence') {
-        if (!spineNext[s]) spineNext[s] = t;
-        spinePrev[t] = true;
-      } else if (rel === 'binds_to_shared_path') {
-        bindCount++;
-      }
+      var a = compAt[str(e.source)], b = compAt[str(e.target)];
+      // A relation between other things (the spine's steps, the areas) is
+      // not a link between components.
+      if (a === undefined && b === undefined) return;
+      var kind = LINK_KIND[str(e.relation) || str(e.kind) || ''] || 'other';
+      if (a === undefined || b === undefined || a === b || linkSeen[a + '>' + b + '>' + kind]) { dropped++; return; }
+      linkSeen[a + '>' + b + '>' + kind] = true;
+      if (str(e.verdict)) verdicts[a + '>' + b] = str(e.verdict);
+      var l = [a, b];
+      l.kind = kind;
+      l.ev = evidenceOf(e);
+      links.push(l);
+      if (comps[a].out.indexOf(b) < 0) comps[a].out.push(b);
+      if (comps[b].inc.indexOf(a) < 0) comps[b].inc.push(a);
+      kindsSeen[kind] = true;
     });
 
-    // The shared path's steps in their declared order: follow the sequence
-    // from its one head; a broken chain falls back to the steps' own order.
-    var stepOf = Object.create(null);
-    stepNodes.forEach(function (n) { stepOf[n.id] = n; });
-    var ordered = [];
-    var heads = stepNodes.filter(function (n) { return !spinePrev[n.id]; });
-    if (heads.length === 1) {
-      var used = Object.create(null), at = heads[0];
-      while (at && !used[at.id]) { used[at.id] = true; ordered.push(at); at = stepOf[spineNext[at.id]]; }
-    }
-    if (ordered.length !== stepNodes.length) {
-      ordered = stepNodes.slice().sort(function (a, b) {
-        var oa = a.metrics && isFinite(a.metrics.order) ? +a.metrics.order : 1e9;
-        var ob = b.metrics && isFinite(b.metrics.order) ? +b.metrics.order : 1e9;
-        return oa - ob || seen[a.id].at - seen[b.id].at;
-      });
-    }
-    var steps = ordered.map(function (n, i) {
-      var d = detailOf(n), r = routesOf(n, d);
-      return { id: n.id, title: str(d && d.title) || str(n.label) || humanize(n.id), order: i + 1, mapHref: mapRoute(n.id, r) };
-    });
-
-    // A family is drawn only when it has components; indices are remapped.
+    // A family is drawn only when it has components.
     var keep = families.map(function () { return false; });
     comps.forEach(function (c) { keep[c.fam] = true; });
     var remap = [], kept = [];
     families.forEach(function (f, i) { if (keep[i]) { remap[i] = kept.length; kept.push(f); } });
     families = kept;
     comps.forEach(function (c, i) { c.fam = remap[c.fam]; families[c.fam].members.push(i); });
-    families.forEach(function (f) { f.within = 0; f.cross = 0; });
-    // The links between two families travel together as one cable.
-    var cables = [], cableAt = Object.create(null);
-    links.forEach(function (l, li) {
-      var fa = comps[l[0]].fam, fb = comps[l[1]].fam;
-      if (fa === fb) { families[fa].within++; return; }
-      families[fa].cross++; families[fb].cross++;
-      var lo = Math.min(fa, fb), hi = Math.max(fa, fb), key = lo + '-' + hi;
-      if (cableAt[key] === undefined) { cableAt[key] = cables.length; cables.push({ fa: lo, fb: hi, links: [] }); }
-      cables[cableAt[key]].links.push(li);
-    });
-    // Components are set by evidence class (the legend's order), then by how
-    // many components they name or are named by, then by name.
+    // A family's members read by how they are backed, then by name.
     families.forEach(function (f) {
       f.members.sort(function (a, b) {
         var ca = comps[a].cls ? CLASS_ORDER.indexOf(comps[a].cls) : 9;
         var cb = comps[b].cls ? CLASS_ORDER.indexOf(comps[b].cls) : 9;
-        var da = comps[a].out.length + comps[a].inc.length, db = comps[b].out.length + comps[b].inc.length;
-        return ca - cb || db - da || (comps[a].label < comps[b].label ? -1 : comps[a].label > comps[b].label ? 1 : a - b);
+        return ca - cb || byText(comps[a].label, comps[b].label) || a - b;
       });
-      f.members.forEach(function (ci, slot) { comps[ci].slot = slot; });
     });
-
-    var legend = [];
-    CLASS_ORDER.forEach(function (cls) {
-      var count = comps.filter(function (c) { return c.cls === cls; }).length;
-      if (count) legend.push({ cls: cls, count: count, label: CLASS_WORDS[cls] });
+    // The links between two families, both directions summed and each kept.
+    var pairAt = Object.create(null), pairs = [];
+    links.forEach(function (l) {
+      var fa = comps[l[0]].fam, fb = comps[l[1]].fam;
+      if (fa === fb) { families[fa].inside++; return; }
+      var lo = Math.min(fa, fb), hi = Math.max(fa, fb), key = lo + '-' + hi;
+      if (pairAt[key] === undefined) { pairAt[key] = pairs.length; pairs.push({ a: lo, b: hi, n: 0, ab: 0, ba: 0 }); }
+      var p = pairs[pairAt[key]];
+      p.n++;
+      if (fa === lo) p.ab++; else p.ba++;
     });
-    if (links.length) legend.push({ cls: 'link', count: links.length, label: 'Declared link' });
-
-    return {
-      families: families, comps: comps, links: links, cables: cables, steps: steps, legend: legend,
-      bindCount: bindCount, dropped: dropped,
-      stale: !Object.keys(details).length
-    };
+    var classes = CLASS_ORDER.filter(function (cls) { return comps.some(function (c) { return c.cls === cls; }); });
+    return { families: families, comps: comps, links: links, pairs: pairs, classes: classes, verdicts: verdicts, codeBase: codeBase,
+             kinds: LINK_ORDER.filter(function (k) { return kindsSeen[k]; }),
+             dropped: dropped, stale: !Object.keys(details).length };
   }
 
-  /* ---- Doctrine ------------------------------------------------------ */
-  /* docs/doctrine-manifest.json (microcosm_doctrine_manifest.py) says which
-     rules each component keeps: the axioms its paper module abides by and
-     the principles it is governed by, each principle's axioms, each axiom's
-     guards. Read once into indices on the scene's components; a row naming
-     an unknown rule or component is dropped, never guessed at. */
-  var KIND_WORDS = { axiom: 'Axiom', principle: 'Principle', guard: 'Anti-principle' };
-  var KIND_PLURAL = { axiom: 'axioms', principle: 'principles', guard: 'anti-principles' };
-  function ruleNumber(id) { var m = /-(\d+)$/.exec(id); return m ? +m[1] : 0; }
+  /* ---- The doctrine ------------------------------------------------------ */
+  /* docs/doctrine-manifest.json: twelve axioms, twenty principles, seventeen
+     failure modes; which axioms each principle rests on; which axioms each
+     failure mode threatens; where each rule is enforced (where a test shows
+     the whole rule, where a test checks a narrower part of it, and what its
+     card names that no test shows yet; an older manifest has only what the
+     card names); and, for every component, the principles and the axioms its
+     paper module cites. Rows naming an unknown rule or component are
+     dropped, never guessed at. */
+  var KIND_WORDS = { axiom: 'Axiom', principle: 'Principle', failure: 'Failure mode' };
   function readDoctrine(json, model, base) {
-    if (!isObj(json) || !Array.isArray(json.axioms) || !Array.isArray(json.components) || !model) return null;
-    var rules = Object.create(null), lists = { axiom: [], principle: [], guard: [] };
-    function idList(v) { return Array.isArray(v) ? v.filter(function (x) { return typeof x === 'string'; }) : []; }
-    [['axioms', 'axiom'], ['principles', 'principle'], ['anti_principles', 'guard']].forEach(function (pair) {
+    if (!isObj(json) || !Array.isArray(json.axioms) || !Array.isArray(json.principles) || !model) return null;
+    var rules = Object.create(null), lists = { axiom: [], principle: [], failure: [] }, tested = false;
+    // A relation is an id, or (once checked against the code) an object
+    // holding its id and a verdict; the verdict is kept beside the relation.
+    var verdicts = Object.create(null);
+    function ids(v, owner, rel) {
+      if (!Array.isArray(v)) return [];
+      return v.map(function (x) {
+        if (typeof x === 'string') return x;
+        if (isObj(x) && str(x.id)) {
+          if (owner && str(x.verdict)) verdicts[rel + ':' + owner + '>' + str(x.id)] = str(x.verdict);
+          return str(x.id);
+        }
+        return null;
+      }).filter(Boolean);
+    }
+    [['axioms', 'axiom'], ['principles', 'principle'], ['anti_principles', 'failure']].forEach(function (pair) {
       (Array.isArray(json[pair[0]]) ? json[pair[0]] : []).forEach(function (r) {
         if (!isObj(r) || !str(r.id) || !str(r.title) || rules[r.id]) return;
-        var rule = { id: r.id, kind: pair[1], title: str(r.title), plain: str(r.plain),
-          doctrine: routeWith(base, r.doctrine), context: routeWith(base, r.context),
-          grounds: idList(r.grounds), restsOn: idList(r.rests_on), guardedBy: idList(r.guarded_by),
-          guards: idList(r.guards), negates: idList(r.negates), enforcedIds: idList(r.enforced_in),
-          enforced: [], reach: [], at: lists[pair[1]].length };
-        rules[r.id] = rule;
-        lists[pair[1]].push(rule);
+        rules[r.id] = {
+          id: r.id, kind: pair[1], title: str(r.title), plain: str(r.plain),
+          doctrine: str(r.doctrine) ? routeWith(base, r.doctrine) : null,
+          restsOn: ids(r.rests_on, r.id, 'rests_on'), guards: ids(r.guards, r.id, 'guards'), negates: ids(r.negates, r.id, 'negates'),
+          enforcedIds: ids(r.enforced_in, r.id, 'enforced_in'), partlyIds: ids(r.partly_enforced_in, r.id, 'partly_enforced_in'),
+          cardIds: ids(r.named_in_card, r.id, 'named_in_card'), enforced: [], partly: [], namedOnly: [],
+          grounds: [], threatenedBy: [], brokenBy: [], cited: 0
+        };
+        if (Array.isArray(r.partly_enforced_in) || Array.isArray(r.named_in_card)) tested = true;
+        lists[pair[1]].push(r.id);
       });
     });
     function known(kind) { return function (id) { return !!rules[id] && rules[id].kind === kind; }; }
-    function byNumber(a, b) { return ruleNumber(a) - ruleNumber(b); }
+    // One relation each way, derived from one side so the two always agree:
+    // a principle rests on axioms; a failure mode threatens axioms and breaks
+    // principles.
     Object.keys(rules).forEach(function (id) {
       var r = rules[id];
-      r.grounds = r.grounds.filter(known('principle'));
-      r.restsOn = r.restsOn.filter(known('axiom'));
-      r.guardedBy = r.guardedBy.filter(known('guard'));
-      r.guards = r.guards.filter(known('axiom'));
-      r.negates = r.negates.filter(known('principle'));
+      r.restsOn = uniq(r.restsOn.filter(known('axiom')));
+      r.guards = uniq(r.guards.filter(known('axiom')));
+      r.negates = uniq(r.negates.filter(known('principle')));
+    });
+    lists.principle.forEach(function (p) { rules[p].restsOn.forEach(function (a) { rules[a].grounds.push(p); }); });
+    lists.failure.forEach(function (f) {
+      rules[f].guards.forEach(function (a) { rules[a].threatenedBy.push(f); });
+      rules[f].negates.forEach(function (p) { rules[p].brokenBy.push(f); });
     });
     var compAt = Object.create(null);
     model.comps.forEach(function (c, i) { compAt[c.id] = i; });
+    function compsOf(list) { return uniq(list.map(function (cid) { return compAt[cid]; }).filter(function (i) { return i !== undefined; })); }
     Object.keys(rules).forEach(function (id) {
       var r = rules[id];
-      r.enforced = r.enforcedIds.map(function (cid) { return compAt[cid]; }).filter(function (i) { return i !== undefined; });
+      r.enforced = compsOf(r.enforcedIds);
+      r.partly = compsOf(r.partlyIds).filter(function (i) { return r.enforced.indexOf(i) < 0; });
+      r.namedOnly = tested ? compsOf(r.cardIds).filter(function (i) { return r.enforced.indexOf(i) < 0 && r.partly.indexOf(i) < 0; }) : [];
     });
-    var comp = model.comps.map(function () { return null; });
-    json.components.forEach(function (row) {
+    var comp = model.comps.map(function () { return { gov: [], abide: [], enforces: [], partly: [], source: null, missing: true }; });
+    (Array.isArray(json.components) ? json.components : []).forEach(function (row) {
       if (!isObj(row)) return;
       var i = compAt[row.id];
-      if (i === undefined || comp[i]) return;
-      comp[i] = { gov: idList(row.governed_by).filter(known('principle')).sort(byNumber),
-                  abide: idList(row.abides_by).filter(known('axiom')).sort(byNumber) };
+      if (i === undefined || !comp[i].missing) return;
+      comp[i] = { gov: uniq(ids(row.governed_by, row.id, 'governed_by').filter(known('principle'))),
+                  abide: uniq(ids(row.abides_by, row.id, 'abides_by').filter(known('axiom'))), enforces: [], partly: [],
+                  source: str(row.citation_source), missing: false };
     });
-    comp.forEach(function (info, i) {
-      if (!info) { comp[i] = info = { gov: [], abide: [] }; info.missing = true; }
-      // The axioms drawn above a component: those its principles rest on, and
-      // those its module abides by that no principle reaches ("direct").
-      var via = [];
-      info.gov.forEach(function (p) { rules[p].restsOn.forEach(function (a) { if (via.indexOf(a) < 0) via.push(a); }); });
-      info.via = via.sort(byNumber);
-      info.direct = info.abide.filter(function (a) { return via.indexOf(a) < 0; });
-      info.viaOnly = via.filter(function (a) { return info.abide.indexOf(a) < 0; });
-      info.shown = via.concat(info.direct).sort(byNumber);
-      var guards = [];
-      info.shown.forEach(function (a) { rules[a].guardedBy.forEach(function (g) { if (guards.indexOf(g) < 0) guards.push(g); }); });
-      info.guards = guards.sort(byNumber);
-      info.abide.forEach(function (a) { rules[a].reach.push(i); });
-      info.gov.forEach(function (p) { rules[p].reach.push(i); });
+    Object.keys(rules).forEach(function (id) {
+      rules[id].enforced.forEach(function (ci) { comp[ci].enforces.push(id); });
+      rules[id].partly.forEach(function (ci) { comp[ci].partly.push(id); });
     });
-    // An anti-principle reaches the components its doctrine card says it is
-    // enforced in; it is never inferred from the axioms it guards.
-    lists.guard.forEach(function (r) { r.reach = r.enforced.slice(); });
-    return { rules: rules, axioms: lists.axiom, principles: lists.principle, guards: lists.guard, comp: comp };
+    comp.forEach(function (info) {
+      info.gov.forEach(function (p) { rules[p].cited++; });
+      info.abide.forEach(function (a) { rules[a].cited++; });
+    });
+    var order = doctrineOrder(rules, lists);
+    return { rules: rules, principles: order.principles, axioms: order.axioms, failures: order.failures, comp: comp, verdicts: verdicts,
+             enforcedBy: tested ? 'tests' : 'card' };
   }
 
-  /* Words cut into lines of nearly equal width, as few as fit; null when
-     the words cannot fit in maxLines. A line never ends on an ampersand or
-     starts with a slash. */
-  function wrapBalanced(text, maxW, font, measure, maxLines) {
-    var words = String(text || '').split(/\s+/).filter(Boolean);
-    if (!words.length) return [''];
-    var cache = Object.create(null);
-    function wd(a, b) {
-      var key = a + ':' + b;
-      if (cache[key] === undefined) cache[key] = measure(words.slice(a, b).join(' '), font);
-      return cache[key];
-    }
-    function ok(a, b) { return words[b - 1] !== '&' && words[a] !== '/' && words[a].charAt(0) !== '/'; }
-    for (var n = 1; n <= Math.min(maxLines, words.length); n++) {
-      var best = null;
-      (function rec(start, left, cuts, widest) {
-        if (best && widest >= best.w) return;
-        if (left === 1) {
-          if (!ok(start, words.length)) return;
-          var wl = Math.max(widest, wd(start, words.length));
-          if (!best || wl < best.w) best = { w: wl, cuts: cuts.concat([words.length]) };
-          return;
-        }
-        for (var e = start + 1; e <= words.length - left + 1; e++) {
-          if (!ok(start, e)) continue;
-          rec(e, left - 1, cuts.concat([e]), Math.max(widest, wd(start, e)));
-        }
-      })(0, n, [], 0);
-      if (best && best.w <= maxW + 0.01) {
-        var lines = [], at = 0;
-        best.cuts.forEach(function (end) { lines.push(words.slice(at, end).join(' ')); at = end; });
-        return lines;
+  /* ---- Orders ------------------------------------------------------------- */
+  function positions(list) {
+    var p = Object.create(null);
+    list.forEach(function (id, i) { p[id] = i; });
+    return p;
+  }
+  // Crossings between two ordered columns: two lines cross when their ends
+  // come in opposite orders.
+  function crossCount(edges, pl, pr) {
+    var c = 0;
+    for (var i = 0; i < edges.length; i++) {
+      for (var j = i + 1; j < edges.length; j++) {
+        var a = pl[edges[i][0]] - pl[edges[j][0]], b = pr[edges[i][1]] - pr[edges[j][1]];
+        if (a * b < 0) c++;
       }
     }
-    return null;
+    return c;
+  }
+  function slant(edges, pl, pr, nl, nr) {
+    var s = 0;
+    edges.forEach(function (e) { s += Math.abs(pl[e[0]] / Math.max(1, nl - 1) - pr[e[1]] / Math.max(1, nr - 1)); });
+    return s;
+  }
+  function bary(list, other, nbrs) {
+    var po = positions(other), at = positions(list);
+    function mean(id) {
+      var xs = nbrs(id).map(function (x) { return po[x]; }).filter(function (x) { return x !== undefined; });
+      if (!xs.length) return at[id] * Math.max(1, other.length - 1) / Math.max(1, list.length - 1);
+      return xs.reduce(function (s, x) { return s + x; }, 0) / xs.length;
+    }
+    var m = Object.create(null);
+    list.forEach(function (id) { m[id] = mean(id); });
+    return list.slice().sort(function (a, b) { return m[a] - m[b] || at[a] - at[b]; });
+  }
+  // Each item in turn tries every place in its column and keeps the best.
+  function sift(list, cost) {
+    var best = cost(list);
+    for (var pass = 0; pass < 4; pass++) {
+      var improved = false;
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i], rest = list.slice(0, i).concat(list.slice(i + 1)), at = i, low = best;
+        for (var k = 0; k <= rest.length; k++) {
+          if (k === i) continue;
+          var c = cost(rest.slice(0, k).concat([item], rest.slice(k)));
+          if (c < low - 1e-9) { low = c; at = k; }
+        }
+        if (at !== i) { list = rest.slice(0, at).concat([item], rest.slice(at)); best = low; improved = true; }
+      }
+      if (!improved) break;
+    }
+    return list;
+  }
+  /* The doctrine's rows in one fixed order: the principles and axioms set
+     so the lines between them cross as little as they can (barycentres,
+     then each row tries every place), the failure modes against the axioms
+     the same way. The order is the map's and never changes with a view. */
+  function doctrineOrder(rules, lists) {
+    var P = lists.principle.slice(), A = lists.axiom.slice(), F = lists.failure.slice();
+    var rest = [], guard = [];
+    P.forEach(function (p) { rules[p].restsOn.forEach(function (a) { rest.push([p, a]); }); });
+    F.forEach(function (f) { rules[f].guards.forEach(function (a) { guard.push([a, f]); }); });
+    function cost(pl, al) {
+      var pp = positions(pl), pa = positions(al);
+      return crossCount(rest, pp, pa) + 0.01 * slant(rest, pp, pa, pl.length, al.length);
+    }
+    var best = { c: cost(P, A), P: P.slice(), A: A.slice() };
+    for (var it = 0; it < 12; it++) {
+      P = bary(P, A, function (p) { return rules[p].restsOn; });
+      A = bary(A, P, function (a) { return rules[a].grounds; });
+      var c = cost(P, A);
+      if (c < best.c - 1e-9) best = { c: c, P: P.slice(), A: A.slice() };
+    }
+    P = best.P; A = best.A;
+    P = sift(P, function (l) { return cost(l, A); });
+    A = sift(A, function (l) { return cost(P, l); });
+    F = bary(F, A, function (f) { return rules[f].guards; });
+    F = sift(F, function (l) {
+      var pa = positions(A), pf = positions(l);
+      return crossCount(guard, pa, pf) + 0.01 * slant(guard, pa, pf, A.length, l.length);
+    });
+    return { principles: P, axioms: A, failures: F };
   }
 
-  /* ---- Routed paths -------------------------------------------------- */
-  // Drops repeated points and points in the middle of a straight run.
-  function simplify(pts) {
-    var out = [];
-    pts.forEach(function (q) {
-      var last = out[out.length - 1];
-      if (last && Math.abs(last[0] - q[0]) < 0.01 && Math.abs(last[1] - q[1]) < 0.01) return;
-      out.push([q[0], q[1]]);
-      while (out.length >= 3) {
-        var a = out[out.length - 3], b = out[out.length - 2], c = out[out.length - 1];
-        var cross = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]);
-        if (Math.abs(cross) > 0.01) break;
-        out.splice(out.length - 2, 1);
-      }
-    });
-    return out;
-  }
-  /* An orthogonal polyline as lines and quarter arcs, every bend the same
-     radius (smaller only where a run is too short to hold it), each piece
-     with its length, so a route can be drawn part of the way. */
-  function roundedPath(pts, rb) {
-    var prims = [], length = 0, n = pts.length, cur;
-    function line(a, b) {
-      var len = Math.hypot(b[0] - a[0], b[1] - a[1]);
-      if (len < 0.01) return;
-      prims.push({ arc: false, from: a, to: b, len: len });
-      length += len;
-    }
-    if (n < 2) return { prims: prims, length: 0, points: pts };
-    cur = pts[0];
-    for (var i = 1; i < n; i++) {
-      var p0 = pts[i - 1], p1 = pts[i];
-      if (i === n - 1) { line(cur, p1); break; }
-      var p2 = pts[i + 1];
-      var inLen = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]), outLen = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
-      var din = [(p1[0] - p0[0]) / inLen, (p1[1] - p0[1]) / inLen];
-      var dout = [(p2[0] - p1[0]) / outLen, (p2[1] - p1[1]) / outLen];
-      var r = Math.min(rb, inLen * (i === 1 ? 1 : 0.5), outLen * (i + 1 === n - 1 ? 1 : 0.5));
-      var t1 = [p1[0] - din[0] * r, p1[1] - din[1] * r];
-      var t2 = [p1[0] + dout[0] * r, p1[1] + dout[1] * r];
-      line(cur, t1);
-      var cross = din[0] * dout[1] - din[1] * dout[0];
-      if (r > 0.05 && Math.abs(cross) > 0.5) {
-        var ccx = t1[0] + dout[0] * r, ccy = t1[1] + dout[1] * r, len = r * Math.PI / 2;
-        prims.push({ arc: true, cx: ccx, cy: ccy, r: r, a0: Math.atan2(t1[1] - ccy, t1[0] - ccx),
-                     sweep: cross > 0 ? Math.PI / 2 : -Math.PI / 2, from: t1, to: t2, len: len });
-        length += len;
-        cur = t2;
-      } else {
-        line(t1, p1);
-        cur = p1;
-      }
-    }
-    return { prims: prims, length: length, points: pts };
-  }
-  // Adds a route to the current path, from `from` pixels along it for
-  // `upto` pixels (the whole route when both are left out).
-  function tracePath(ctx, path, upto, from) {
-    var start = from || 0, end = upto == null ? Infinity : start + upto, at = 0, started = false;
-    for (var i = 0; i < path.prims.length && at < end; i++) {
-      var q = path.prims[i], a0 = at, a1 = at + q.len;
-      at = a1;
-      if (a1 <= start) continue;
-      var f0 = Math.max(0, (start - a0) / q.len), f1 = Math.min(1, (end - a0) / q.len);
-      if (f1 <= f0) continue;
-      if (q.arc) {
-        var s0 = q.a0 + q.sweep * f0, s1 = q.a0 + q.sweep * f1;
-        if (!started) { ctx.moveTo(q.cx + q.r * Math.cos(s0), q.cy + q.r * Math.sin(s0)); started = true; }
-        ctx.arc(q.cx, q.cy, q.r, s0, s1, q.sweep < 0);
-      } else {
-        var x0 = q.from[0] + (q.to[0] - q.from[0]) * f0, y0 = q.from[1] + (q.to[1] - q.from[1]) * f0;
-        if (!started) { ctx.moveTo(x0, y0); started = true; }
-        ctx.lineTo(q.from[0] + (q.to[0] - q.from[0]) * f1, q.from[1] + (q.to[1] - q.from[1]) * f1);
-      }
+  /* ---- The ring's order --------------------------------------------------- */
+  function permutations(n, visit) {
+    var a = [], c = [], i = 0, k;
+    for (k = 0; k < n; k++) { a.push(k); c.push(0); }
+    visit(a.slice());
+    while (i < n) {
+      if (c[i] < i) {
+        var j = i % 2 === 0 ? 0 : c[i], t = a[j];
+        a[j] = a[i]; a[i] = t;
+        visit(a.slice());
+        c[i]++;
+        i = 0;
+      } else { c[i] = 0; i++; }
     }
   }
-  // A rectangle with its four corners cut at 45 degrees.
-  function chamfered(x0, y0, x1, y1, k) {
-    k = Math.max(0, Math.min(k, (x1 - x0) / 2, (y1 - y0) / 2));
-    return [[x0 + k, y0], [x1 - k, y0], [x1, y0 + k], [x1, y1 - k], [x1 - k, y1], [x0 + k, y1], [x0, y1 - k], [x0, y0 + k]];
+  // On a circle of n places, an arc runs clockwise from s for len places.
+  // Two bands cross where their arcs interleave: one end of one falls
+  // strictly inside the other and its other end outside. Bands that share a
+  // family meet there and are ordered so they do not cross.
+  function slotsCross(x, y, n) {
+    var ex = [x.s, (x.s + x.len) % n], ey = [y.s, (y.s + y.len) % n];
+    if (ex[0] === ey[0] || ex[0] === ey[1] || ex[1] === ey[0] || ex[1] === ey[1]) return false;
+    function inside(p) { var d = (p - x.s + n) % n; return d > 0 && d < x.len; }
+    return inside(ey[0]) !== inside(ey[1]);
   }
-  // Greedy interval packing: shortest spans first, each into the first lane
-  // free along its whole span (with a margin), so a span inside another
-  // always sits nearer the plates and the two never cross.
-  function packLanes(items, margin) {
-    var lanes = [];
-    items.slice().sort(function (a, b) {
-      return (a.hi - a.lo) - (b.hi - b.lo) || a.lo - b.lo || (a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
-    }).forEach(function (it) {
-      for (var k = 0; ; k++) {
-        if (!lanes[k]) lanes[k] = [];
-        var clash = lanes[k].some(function (iv) { return it.lo < iv[1] + margin && it.hi > iv[0] - margin; });
-        if (!clash) { lanes[k].push([it.lo, it.hi]); it.lane = k; break; }
-      }
-    });
-    return lanes.length;
-  }
-
-  /* ---- Layout -------------------------------------------------------- */
-  /* Decided entirely by the scene and the canvas box, so the drawing is the
-     same on every visit. It is laid out in a landscape frame and transposed
-     when the box is taller than wide, so a phone gets a vertical line with
-     the plates either side. Families keep the scene's order: the first half
-     along the top row, the rest along the bottom, as the landing's family
-     list reads. */
-  function layoutSchematic(model, w, h, measure, dpr, opts) {
-    opts = opts || {};
-    var geo = { w: w, h: h, ok: false };
-    dpr = dpr || 1;
-    // The device-pixel grid: lengths in whole device pixels and line centres
-    // on the middle of a device pixel, so a one-pixel hairline lands on one
-    // pixel row or column and never smears across two.
-    function whole(v) { return Math.round(v * dpr) / dpr; }
-    function half(v) { return (Math.floor(v * dpr) + 0.5) / dpr; }
-    var nFam = model.families.length, nStep = model.steps.length;
-    if (!(w >= 160 && h >= 120) || !nFam) return geo;
-    var portrait = h > w * 1.04;
-    var s = clamp(Math.min(w / 677, h / 569), 0.5, 1.7), rs = Math.sqrt(s);
-
-    /* Type: one size for each kind of word. */
-    var fEng = clamp(11.4 * rs, 9.2, 13.6), fStep = clamp(10.4 * rs, 8.6, 12.2), fLeg = clamp(10.2 * rs, 8.6, 11.8);
-    var fontEng = '500 ' + fEng.toFixed(2) + 'px ' + SERIF;
-    var fontCount = '400 ' + fEng.toFixed(2) + 'px ' + SERIF;
-    var fontLeg = '400 ' + fLeg.toFixed(2) + 'px ' + SERIF;
-    var lineEng = whole(fEng * 1.28), lineLeg = whole(fLeg * 1.85);
-    var asc = 0.74, desc = 0.26;
-
-    /* Lengths, all set from the box. */
-    var m = whole(clamp(14 * s, 8, 20));
-    var padX = whole(clamp(9 * s, 6, 13)), padY = whole(clamp(7 * s, 5, 11));
-    var g = 2 * whole(clamp(4 * s, 2.5, 6));               // between neighbouring plates
-    var gm = whole(clamp(5 * s, 3.5, 7));                  // the edge channel inside a plate
-    var cham = clamp(5 * s, 3.5, 7);
-    var rb = clamp(3.2 * s, 2.2, 4.6);                     // every bend of every route
-    var laneGap = whole(clamp(4 * s, 3, 6)), laneMargin = whole(clamp(9 * s, 6, 12));
-    var depthStep = clamp(2.4 * s, 1.8, 3.2);              // a plate's side, drawn as an offset band
-    var pinL = whole(depthStep + clamp(2 * s, 1.5, 3)), pinQ = Math.max(1 / dpr, whole(clamp(1.5 * s, 0.75, 2.5)));
-    var railH = 2 * whole(clamp(1.75 * s, 1.25, 2.4)), tickL = whole(clamp(4 * s, 3, 6)), gapL = whole(clamp(4 * s, 3, 6));
-    var capGap = clamp(1.6 * s, 1.2, 2.4);
-    var sepC = whole(clamp(7 * s, 5, 9));                  // between neighbouring connectors on an edge
-    var clearN = whole(clamp(5 * s, 4, 7));                // a crossing keeps this far from a name or a tick
-    var mr = clamp(4.4 * Math.pow(s, 0.6), 3, 6.4);        // a component mark's radius
-
-    /* The key along the foot: the five classes with their counts, then the
-       declared link, in a grid whose columns line up, in as few rows as fit. */
-    var legend = null;
-    if (!opts.noLegend && model.legend.length) {
-      var items = model.legend.map(function (it) {
-        var lw = measure(it.label, fontLeg), cw = measure(String(it.count), fontLeg);
-        var glyph = it.cls === 'link' ? whole(clamp(17 * s, 13, 23)) : whole(2 * mr + 2);
-        var gi = whole(clamp(6 * s, 4, 8)), gc = whole(clamp(4.5 * s, 3, 6));
-        return { cls: it.cls, label: it.label, count: it.count, lw: lw, cw: cw, glyph: glyph, gi: gi, gc: gc,
-                 w: glyph + gi + lw + gc + cw };
-      });
-      var legGap = whole(clamp(22 * s, 12, 30)), roomL = w - 2 * m, nL = items.length;
-      var tries = [nL, Math.ceil(nL / 2), Math.ceil(nL / 3), 1].filter(function (v, i, a) { return a.indexOf(v) === i; });
-      for (var ti = 0; ti < tries.length && !legend; ti++) {
-        var cols = tries[ti], rowsL = Math.ceil(nL / cols), colW = [];
-        for (var c = 0; c < cols; c++) {
-          colW[c] = 0;
-          for (var r = 0; r < rowsL; r++) { var it = items[r * cols + c]; if (it) colW[c] = Math.max(colW[c], it.w); }
-        }
-        var lwid = total(colW) + legGap * (cols - 1);
-        if (lwid <= roomL || cols === 1) legend = { items: items, cols: cols, rows: rowsL, colW: colW, width: lwid, gap: legGap };
-      }
+  /* The families round the ring, the first at the top: every order of the
+     rest is tried (six families make 720) and the one whose bands cross least
+     and run shortest wins; among equals the one nearest the published order,
+     so the list beside the map reads round it in the same order. */
+  function familyRing(model) {
+    var n = model.families.length, pairs = model.pairs, best = null;
+    var ids = model.families.map(function (f, i) { return i; });
+    if (n < 3) return { order: ids, crossings: 0 };
+    function moved(order) {
+      var d = 0;
+      for (var i = 0; i < order.length; i++) for (var j = i + 1; j < order.length; j++) if (order[i] > order[j]) d++;
+      return d;
     }
-    var legendH = legend ? legend.rows * lineLeg + whole(padY * 1.2) : 0;
-
-    var X0 = m, Y0 = m, X1 = w - m, Y1 = h - m - legendH;
-    var VW = portrait ? Y1 - Y0 : X1 - X0, VH = portrait ? X1 - X0 : Y1 - Y0;
-    if (VW < 80 || VH < 80) return opts.noLegend ? geo : layoutSchematic(model, w, h, measure, dpr, { noLegend: true });
-    function T(vx, vy) { return portrait ? [X0 + vy, Y0 + vx] : [X0 + vx, Y0 + vy]; }
-
-    /* The stations' names, alternating sides of the line so neighbours never
-       crowd: set smaller where two on one side would meet, and given up
-       below a floor (a station then names itself when pointed at). */
-    var fontStep = 'italic 400 ' + fStep.toFixed(2) + 'px ' + SERIF;
-    var stepLabels = model.steps.map(function (st, i) {
-      return { text: st.title, tw: measure(st.title, fontStep), side: i % 2 === 0 ? -1 : 1 };
-    });
-    var stepNames = nStep > 0;
-    var widestStep = stepLabels.reduce(function (t, l) { return Math.max(t, l.tw); }, 0);
-    if (!portrait && nStep > 2) {
-      var roomS = 2 * (VW - widestStep) / (nStep - 1) - 10;
-      if (widestStep > roomS) {
-        var shrink = roomS / widestStep;
-        if (shrink < 0.78) stepNames = false;
-        else {
-          fStep *= shrink;
-          fontStep = 'italic 400 ' + fStep.toFixed(2) + 'px ' + SERIF;
-          stepLabels.forEach(function (l) { l.tw = measure(l.text, fontStep); });
-          widestStep = stepLabels.reduce(function (t, l) { return Math.max(t, l.tw); }, 0);
-        }
-      }
+    function score(order) {
+      var slot = [];
+      order.forEach(function (f, i) { slot[f] = i; });
+      var arcs = pairs.map(function (p) {
+        var a = slot[p.a], b = slot[p.b], d = (b - a + n) % n;
+        return d <= n - d ? { s: a, len: d } : { s: b, len: n - d };
+      });
+      var length = 0, crossings = 0;
+      arcs.forEach(function (x, i) {
+        length += pairs[i].n * x.len;
+        for (var j = i + 1; j < arcs.length; j++) if (slotsCross(x, arcs[j], n)) crossings++;
+      });
+      return { order: order, crossings: crossings, length: length, key: crossings * 1e6 + length * 100 + moved(order) };
     }
-    if (portrait && 2 * widestStep > 0.2 * VH) stepNames = false;
-    var lineStep = whole(fStep * 1.2);
-    var labDepth = stepNames ? (portrait ? widestStep : lineStep) : 0;
-    var halfBand = whole(railH / 2 + tickL + (stepNames ? gapL + labDepth : 2));
-
-    /* A family's name: on one line where its plate allows, else in two
-       balanced lines that never end on an ampersand; its count at the far
-       end of the line nearest the plate's outer edge. */
-    var engr = model.families.map(function (f) {
-      var count = String(f.members.length), cw = measure(count, fontCount), gapC = whole(clamp(10 * s, 6, 14));
-      var words = f.title.split(/\s+/), two = null;
-      for (var cut = 1; cut < words.length; cut++) {
-        if (words[cut - 1] === '&') continue;
-        var a = words.slice(0, cut).join(' '), b = words.slice(cut).join(' ');
-        var wid = Math.max(measure(a, fontEng), measure(b, fontEng));
-        if (!two || wid < two.w - 0.5) two = { lines: [a, b], w: wid };
-      }
-      return { count: count, cw: cw, gapC: gapC, oneW: measure(f.title, fontEng), two: two };
+    permutations(n - 1, function (rest) {
+      var s = score([0].concat(rest.map(function (k) { return k + 1; })));
+      if (!best || s.key < best.key) best = s;
     });
-    function nameW(fi, lines) { var e = engr[fi]; return (lines === 1 || !e.two ? e.oneW : e.two.w) + e.gapC + e.cw; }
-    function nameLines(fi, lines) { return lines === 1 || !engr[fi].two ? [model.families[fi].title] : engr[fi].two.lines; }
-
-    var topN = Math.ceil(nFam / 2), famRows = [[], []];
-    model.families.forEach(function (f, i) { famRows[i < topN ? 0 : 1].push(i); });
-
-    /* One row of plates at pitch p on a lattice of N columns. Every plate
-       takes whole columns; the choice weighs, in order: fewer rows of marks,
-       names on one line, few empty places, and an even rhythm of gaps. On a
-       phone the name takes whole columns at the head of its plate. */
-    function bandCols(fi, lines, p) {
-      return Math.ceil((padY * 1.2 + fEng + (lines - 1) * lineEng + padY) / p - 1e-6);
-    }
-    // The edge a plate needs for its terminals (one per cable, a pin pitch
-    // per link) and its tie, with a gap between each and room at the corners.
-    var edgeNeed = model.families.map(function (f, fi) {
-      var need = sepC + 2 * (cham + 3);
-      model.cables.forEach(function (cb) {
-        if (cb.fa === fi || cb.fb === fi) need += (cb.links.length - 1) * pinQ + sepC;
-      });
-      return need;
-    });
-    function allocate(row, N, p) {
-      var k = row.length;
-      var n = row.map(function (fi) { return model.families[fi].members.length; });
-      // The column counts worth trying for each plate: those that change its
-      // rows or its name's lines.
-      var options = row.map(function (fi, j) {
-        var opts2 = [];
-        var edge = Math.max(1, Math.ceil((edgeNeed[fi] + g) / p - 1e-6));
-        if (portrait) {
-          var tb = bandCols(fi, 2, p);
-          for (var mc = 1; mc <= n[j]; mc++) {
-            if (Math.ceil(n[j] / mc) !== Math.ceil(n[j] / (mc + 1)) || mc === n[j]) {
-              opts2.push({ cols: Math.max(tb + mc, edge), marks: mc, lines: 2, band: tb });
-            }
-          }
-          return opts2;
-        }
-        var two = Math.max(1, edge, Math.ceil((nameW(fi, 2) + 2 * padX + g) / p - 1e-6));
-        var one = Math.max(1, Math.ceil((nameW(fi, 1) + 2 * padX + g) / p - 1e-6));
-        var set = [two, one];
-        for (var rr = 1; rr <= n[j]; rr++) set.push(Math.ceil(n[j] / rr));
-        set.filter(function (v, i, a) { return v >= two && v <= N && a.indexOf(v) === i; }).sort(function (a, b) { return a - b; })
-          .forEach(function (cols) { opts2.push({ cols: cols, marks: Math.min(cols, n[j]), lines: cols >= one ? 1 : 2, band: 0 }); });
-        return opts2;
-      });
-      if (options.some(function (o) { return !o.length; })) return null;
-      var best = null, pick = [];
-      (function walk(j, used) {
-        if (j === k) {
-          var left = N - used, rows = pick.map(function (o, i) { return Math.ceil(n[i] / o.marks); });
-          var deep = Math.max.apply(null, rows);
-          var empty = 0, twoLines = 0;
-          pick.forEach(function (o, i) { empty += rows[i] * o.marks - n[i] + (o.cols - o.band - o.marks) * rows[i] * 0.6; if (o.lines === 2) twoLines++; });
-          var gaps = k - 1, per = gaps ? Math.floor(left / gaps) : 0, rem = left - per * gaps;
-          var cost = deep * 3 + twoLines * 0.6 + empty * 0.35 + (rem ? 0.6 + 0.3 * rem : 0) + per * gaps * 0.12;
-          if (!best || cost < best.cost - 1e-9) best = { cost: cost, pick: pick.slice(), rows: rows, per: per, rem: rem };
-          return;
-        }
-        options[j].forEach(function (o) {
-          if (used + o.cols + (k - j - 1) > N) return;
-          pick[j] = o;
-          walk(j + 1, used + o.cols);
-        });
-      })(0, 0);
-      return best;
-    }
-
-    /* Where a crossing may pass the line: clear of every station's name and
-       tick by a few pixels, and of the crossings already placed: by a few
-       pixels in the corridor, by both terminals and a gap on a plate edge
-       the two share. */
-    function freeAt(x, me, placed, stations) {
-      for (var i = 0; i < stations.length; i++) {
-        if (Math.abs(x - stations[i]) < clearN + 1.5) return false;
-        if (stepNames) {
-          var hw = (portrait ? lineStep : stepLabels[i].tw) / 2 + clearN;
-          if (Math.abs(x - stations[i]) < hw) return false;
-        }
-      }
-      for (var k = 0; k < placed.length; k++) {
-        var o = placed[k], shares = (!!me.top && o.top === me.top) || (!!me.bot && o.bot === me.bot);
-        var need = shares ? (o.w + me.w) / 2 + sepC : clearN + 1;
-        if (Math.abs(x - o.x) < need) return false;
-      }
-      return true;
-    }
-    // The free stretches of [lo, hi] once the forbidden ones are taken out.
-    function freeStretches(lo, hi, bad) {
-      bad.sort(function (a, b) { return a[0] - b[0]; });
-      var out = [], cur = lo;
-      for (var i = 0; i < bad.length && cur < hi; i++) {
-        if (bad[i][1] <= cur) continue;
-        if (bad[i][0] > cur) out.push([cur, Math.min(bad[i][0], hi)]);
-        cur = Math.max(cur, bad[i][1]);
-      }
-      if (cur < hi) out.push([cur, hi]);
-      return out;
-    }
-    // The place nearest the target that is free, on the device-pixel grid.
-    function nearestFree(target, lo, hi, me, placed, stations) {
-      if (lo > hi) return null;
-      var bad = [], e = 1 / dpr;
-      stations.forEach(function (sx, i) {
-        var hw = clearN + 1.5;
-        if (stepNames) hw = Math.max(hw, (portrait ? lineStep : stepLabels[i].tw) / 2 + clearN);
-        bad.push([sx - hw, sx + hw]);
-      });
-      placed.forEach(function (o) {
-        var shares = (!!me.top && o.top === me.top) || (!!me.bot && o.bot === me.bot);
-        var need = shares ? (o.w + me.w) / 2 + sepC : clearN + 1;
-        bad.push([o.x - need, o.x + need]);
-      });
-      var best = null;
-      freeStretches(lo, hi, bad).forEach(function (iv) {
-        if (iv[1] - iv[0] < 2 * e) return;
-        var x = half(clamp(target, iv[0] + e, iv[1] - e));
-        if (!freeAt(x, me, placed, stations)) return;
-        if (best === null || Math.abs(x - target) < Math.abs(best - target)) best = x;
-      });
-      return best;
-    }
-
-    /* Everything that depends on the pitch: the plates, the stations, the
-       connectors, the cables and their lanes, and the height they need. */
-    function trial(p) {
-      var N = Math.floor((VW + g) / p);
-      if (N < 1) return null;
-      var extent = N * p - g, lx0 = (VW - extent) / 2;
-      function colX(c) { return half(lx0 - g / 2 + (c + 0.5) * p); }
-      var plates = [], rowPlates = [[], []], cost = 0;
-      for (var ri = 0; ri < 2; ri++) {
-        var row = famRows[ri];
-        if (!row.length) continue;
-        var al = allocate(row, N, p);
-        if (!al) return null;
-        cost += al.cost;
-        var at = Math.floor(al.rem / 2);
-        row.forEach(function (fi, j) {
-          var o = al.pick[j];
-          var b = { fam: fi, row: ri, side: ri === 0 ? 1 : -1, index: plates.length, c0: at, cols: o.cols, band: o.band,
-                    markCols: o.marks, rows: al.rows[j], lines: nameLines(fi, o.lines) };
-          b.vx0 = colX(at) - p / 2 + g / 2;
-          b.vx1 = colX(at + o.cols - 1) + p / 2 - g / 2;
-          at += o.cols + al.per;
-          var titleBlock = fEng + (b.lines.length - 1) * lineEng;
-          b.depth = portrait ?
-            Math.max(gm + p / 2 + (b.rows - 1) * p + mr + padY * 1.4, nameW(fi, 2) + 2 * padX + 2) :
-            gm + p / 2 + (b.rows - 1) * p + mr + padY + titleBlock + padY * 1.15;
-          b.depth = whole(b.depth);
-          plates.push(b);
-          rowPlates[ri].push(b);
-        });
-        // On a phone the plates either side of the line make two clean
-        // columns: every plate in a row is as deep as the deepest.
-        if (portrait) {
-          var deepest = rowPlates[ri].reduce(function (t, b) { return Math.max(t, b.depth); }, 0);
-          rowPlates[ri].forEach(function (b) { b.depth = deepest; });
-        }
-      }
-      var railX0 = half(lx0), railX1 = half(lx0 + extent);
-      var first = stepNames && nStep ? (portrait ? lineStep : stepLabels[0].tw) : 0;
-      var last = stepNames && nStep ? (portrait ? lineStep : stepLabels[nStep - 1].tw) : 0;
-      var sx0 = railX0 + Math.max(padX * 1.5, first / 2 + 3), sx1 = railX1 - Math.max(padX * 1.5, last / 2 + 3);
-      var stations = model.steps.map(function (st, i) { return half(nStep > 1 ? sx0 + (sx1 - sx0) * i / (nStep - 1) : (railX0 + railX1) / 2); });
-
-      // Connector room on a plate's line-side edge.
-      function edgeLo(b, wd) { return b.vx0 + cham + 3 + wd / 2; }
-      function edgeHi(b, wd) { return b.vx1 - cham - 3 - wd / 2; }
-      var plateOf = []; plates.forEach(function (b) { plateOf[b.fam] = b; });
-      var crossed = [], penalty = 0;
-      var cables = model.cables.map(function (cb, k) {
-        var A = plateOf[cb.fa], B = plateOf[cb.fb], n = cb.links.length;
-        return { k: k, A: A, B: B, count: n, w: (n - 1) * pinQ, same: A.row === B.row };
-      });
-      // Cables across the line first, the busiest first: straight down where
-      // the two plates overlap, else a single jog in one corridor.
-      cables.filter(function (c) { return !c.same; }).sort(function (a, b) { return b.count - a.count || a.k - b.k; }).forEach(function (c) {
-        var top = c.A.row === 0 ? c.A : c.B, bot = top === c.A ? c.B : c.A;
-        c.top = top; c.bot = bot;
-        var me = { top: top, bot: bot, w: c.w };
-        var lo = Math.max(edgeLo(top, c.w), edgeLo(bot, c.w)), hi = Math.min(edgeHi(top, c.w), edgeHi(bot, c.w));
-        var x = lo <= hi ? nearestFree((lo + hi) / 2, lo, hi, me, crossed, stations) : null;
-        if (x !== null) { c.mode = 'straight'; c.x = x; c.xTop = x; c.xBot = x; }
-        else {
-          // The jog runs in the corridor of the plate the crossing misses;
-          // only that plate's edge holds the crossing.
-          var tc = (top.vx0 + top.vx1) / 2, bc = (bot.vx0 + bot.vx1) / 2;
-          var meB = { top: null, bot: bot, w: c.w }, meT = { top: top, bot: null, w: c.w };
-          var xb = nearestFree(clamp(tc, edgeLo(bot, c.w), edgeHi(bot, c.w)), edgeLo(bot, c.w), edgeHi(bot, c.w), meB, crossed, stations);
-          var xt = nearestFree(clamp(bc, edgeLo(top, c.w), edgeHi(top, c.w)), edgeLo(top, c.w), edgeHi(top, c.w), meT, crossed, stations);
-          if (xb !== null && (xt === null || Math.abs(xb - tc) <= Math.abs(xt - bc))) { c.mode = 'jogTop'; c.x = xb; c.xBot = xb; c.xTop = null; me = meB; }
-          else if (xt !== null) { c.mode = 'jogBot'; c.x = xt; c.xTop = xt; c.xBot = null; me = meT; }
-          else { c.mode = 'jogTop'; c.x = half(clamp(tc, edgeLo(bot, c.w), edgeHi(bot, c.w))); c.xBot = c.x; c.xTop = null; me = meB; penalty += 24; }
-        }
-        me.x = c.x;
-        crossed.push(me);
-      });
-      // Each plate's edge holds its terminals and its tie to the line. The
-      // crossings hold their places. The tie goes near the plate's middle,
-      // on the lattice where it can be, clear of the names on its side, of
-      // every crossing, and of the ties from the other side (two ties in
-      // line would read as one line through), and only where every other
-      // terminal still finds a place: each terminal then takes the free
-      // place nearest the side of the plate it leads to, widest first,
-      // keeping a gap to each neighbour. A rule that has to give way (last
-      // first, only where an edge has no other choice) makes this pitch the
-      // worse choice.
-      var tieXs = [];
-      plates.forEach(function (b) {
-        var fixed = [], free = [];
-        function put(c, x) { if (c.A === b) c.xa = half(x); else c.xb = half(x); }
-        cables.forEach(function (c) {
-          if (c.A !== b && c.B !== b) return;
-          var other = c.A === b ? c.B : c.A;
-          if (!c.same) {
-            var mine = b === c.top ? c.xTop : c.xBot;
-            if (mine !== null && mine !== undefined) {
-              fixed.push([mine - c.w / 2 - sepC / 2, mine + c.w / 2 + sepC / 2]);
-              put(c, mine);
-              return;
-            }
-            free.push({ c: c, want: clamp(c.x, edgeLo(b, c.w), edgeHi(b, c.w)) });
-          } else {
-            free.push({ c: c, want: other.vx0 > b.vx0 ? edgeHi(b, c.w) : edgeLo(b, c.w) });
-          }
-        });
-        free.sort(function (u, v) { return v.c.w - u.c.w || u.want - v.want || u.c.k - v.c.k; });
-        // Places the free terminals around what is taken; null if one has no
-        // place.
-        function pack(taken0) {
-          var taken = taken0.slice(), at = [];
-          for (var f = 0; f < free.length; f++) {
-            var it = free[f], hw = it.c.w / 2 + sepC / 2, lo = edgeLo(b, it.c.w), hi = Math.max(lo, edgeHi(b, it.c.w));
-            var cands = [it.want], best = null;
-            taken.forEach(function (iv) { cands.push(iv[0] - hw - 0.01, iv[1] + hw + 0.01); });
-            cands.forEach(function (x) {
-              x = clamp(x, lo, hi);
-              for (var t = 0; t < taken.length; t++) if (x - hw < taken[t][1] && x + hw > taken[t][0]) return;
-              if (best === null || Math.abs(x - it.want) < Math.abs(best - it.want)) best = x;
-            });
-            if (best === null) return null;
-            taken.push([best - hw, best + hw]);
-            at.push(best);
-          }
-          return at;
-        }
-        var mid = (b.vx0 + b.vx1) / 2, lo = b.vx0 + cham + 4, hi = b.vx1 - cham - 4, e = 1 / dpr;
-        var lattice = [];
-        for (var cc = b.c0; cc < b.c0 + b.cols; cc++) lattice.push(half(colX(cc) + p / 2), half(colX(cc)));
-        // The places a tie may take at a level of strictness: on the
-        // lattice first (a gutter or a column), nearest the middle, then the
-        // free places nearest the middle, then a few more along each free
-        // stretch.
-        function candidates(strict) {
-          var bad = fixed.map(function (iv) { return [iv[0] - sepC / 2, iv[1] + sepC / 2]; });
-          if (strict >= 0) {
-            stations.forEach(function (sx, st) {
-              bad.push([sx - clearN * 2, sx + clearN * 2]);
-              if (strict > 0 && stepNames && stepLabels[st].side === -b.side) {
-                var hw = (portrait ? lineStep : stepLabels[st].tw) / 2 + clearN;
-                bad.push([sx - hw, sx + hw]);
-              }
-            });
-            crossed.forEach(function (o) { if (o.top !== b && o.bot !== b) bad.push([o.x - clearN * 2, o.x + clearN * 2]); });
-            if (strict > 1) tieXs.forEach(function (o) { if (o.row !== b.row) bad.push([o.x - p * 0.75, o.x + p * 0.75]); });
-          }
-          var free = freeStretches(lo, hi, bad).filter(function (iv) { return iv[1] - iv[0] >= 2 * e; });
-          function inside(x) { return free.some(function (iv) { return x > iv[0] && x < iv[1]; }); }
-          var out = lattice.filter(inside).sort(function (u, v) { return Math.abs(u - mid) - Math.abs(v - mid) || u - v; });
-          var more = [];
-          free.forEach(function (iv) {
-            var near = half(clamp(mid, iv[0] + e, iv[1] - e));
-            more.push(near);
-            for (var x = iv[0] + e; x <= iv[1] - e; x += Math.max(4, (iv[1] - iv[0]) / 8)) more.push(half(x));
-          });
-          more.sort(function (u, v) { return Math.abs(u - mid) - Math.abs(v - mid) || u - v; });
-          return out.concat(more.filter(inside));
-        }
-        var tie = null, placedAt = null;
-        for (var strict = 2; strict >= -1 && tie === null; strict--) {
-          var cand = candidates(strict);
-          for (var i = 0; i < cand.length; i++) {
-            var res = pack(fixed.concat([[cand[i] - sepC / 2, cand[i] + sepC / 2]]));
-            if (!res) continue;
-            tie = cand[i];
-            placedAt = res;
-            penalty += strict === 2 ? 0 : strict === 1 ? 1 : strict === 0 ? 12 : 24;
-            break;
-          }
-        }
-        if (tie === null) {
-          // No place holds everything: the tie keeps the middle and the
-          // terminals take what is left.
-          tie = lattice.length ? lattice.slice().sort(function (u, v) { return Math.abs(u - mid) - Math.abs(v - mid); })[0] : half(mid);
-          placedAt = pack(fixed) || free.map(function (it) { return clamp(it.want, edgeLo(b, it.c.w), Math.max(edgeLo(b, it.c.w), edgeHi(b, it.c.w))); });
-          penalty += 30;
-        }
-        free.forEach(function (it, k) { put(it.c, placedAt[k]); });
-        b.bindX = tie;
-        tieXs.push({ x: tie, row: b.row });
-      });
-      // Lanes: cables within a row run beside the plates, nested; the jogs of
-      // cables across the line run beside it.
-      var laneItems = [[[], []], [[], []]];   // [row][0 beside the plates, 1 beside the line]
-      cables.forEach(function (c) {
-        if (c.same) {
-          c.lo = Math.min(c.xa, c.xb); c.hi = Math.max(c.xa, c.xb); c.key = 's' + c.k;
-          laneItems[c.A.row][0].push(c);
-        } else if (c.mode !== 'straight') {
-          var xt = c.top === c.A ? c.xa : c.xb, xbt = c.bot === c.A ? c.xa : c.xb;
-          c.lo = Math.min(xt, xbt); c.hi = Math.max(xt, xbt); c.key = 'c' + c.k;
-          laneItems[c.mode === 'jogTop' ? 0 : 1][1].push(c);
-        }
-      });
-      var laneCount = [0, 1].map(function (ri) {
-        return [packLanes(laneItems[ri][0], 3), packLanes(laneItems[ri][1], 3)];
-      });
-      function corridor(ri) {
-        var a = laneCount[ri][0], b = laneCount[ri][1];
-        var hgt = 2 * laneMargin + Math.max(0, a - 1) * laneGap + Math.max(0, b - 1) * laneGap + (a && b ? laneGap * 2 : 0);
-        return whole(Math.max(hgt, laneMargin * 2 + pinL));
-      }
-      var dTop = rowPlates[0].reduce(function (t, b) { return Math.max(t, b.depth); }, 0);
-      var dBot = rowPlates[1].reduce(function (t, b) { return Math.max(t, b.depth); }, 0);
-      var cTop = corridor(0), cBot = rowPlates[1].length ? corridor(1) : 0;
-      return { p: p, N: N, cost: cost + penalty, colX: colX, plates: plates, rowPlates: rowPlates, cables: cables, stations: stations,
-               railX0: railX0, railX1: railX1, laneCount: laneCount, dTop: dTop, dBot: dBot, cTop: cTop, cBot: cBot,
-               need: dTop + cTop + 2 * halfBand + cBot + dBot };
-    }
-
-    // The pitch: every one that fits is weighed by how well its rows set
-    // (fewer rows, names on one line, few empty places, an even rhythm)
-    // against its size, in even numbers of device pixels so half a pitch is
-    // whole too.
-    var pMax = clamp(40 * s, 18, 58), pMin = Math.max(2 * mr + 7, 14), fit = null, p, tried = {}, weighed = [];
-    for (p = pMax; p >= pMin; p -= 0.5) {
-      var even = Math.max(2 / dpr, Math.floor(p * dpr / 2) * 2 / dpr);
-      if (tried[even]) continue;
-      tried[even] = true;
-      var tr = trial(even);
-      if (!tr) continue;
-      tr.score = tr.cost - 0.75 * even;
-      weighed.push({ p: even, cost: Math.round(tr.cost * 100) / 100, score: Math.round(tr.score * 100) / 100, fits: tr.need <= VH });
-      if (tr.need > VH) continue;
-      if (!fit || tr.score < fit.score - 1e-9) fit = tr;
-    }
-    geo.weighed = weighed;
-    if (!fit) {
-      if (legend) return layoutSchematic(model, w, h, measure, dpr, { noLegend: true });
-      while (mr > 2.4 && !fit) {
-        mr -= 0.25;
-        var tr2 = trial(Math.max(2 / dpr, Math.floor((2 * mr + 6) * dpr / 2) * 2 / dpr));
-        if (tr2) fit = tr2;
-      }
-      if (!fit) return geo;
-      geo.cramped = true;
-    }
-    p = fit.p;
-    var plates = fit.plates, colX = fit.colX;
-
-    // Spare height opens the corridors (up to half of it), then centres the
-    // drawing.
-    var slack = Math.max(0, VH - fit.need);
-    var open = Math.min(slack * 0.5, 2 * whole(clamp(22 * s, 10, 30)));
-    var top0 = (slack - open) / 2;
-    var inTop = half(top0 + fit.dTop);
-    var cy = half(inTop + fit.cTop + open / 2 + halfBand);
-    var inBot = half(cy + halfBand + fit.cBot + open / 2);
-    var spineTop = cy - halfBand, spineBot = cy + halfBand;
-
-    plates.forEach(function (b) {
-      if (b.side > 0) { b.vyIn = inTop; b.vyOut = inTop - b.depth; } else { b.vyIn = inBot; b.vyOut = inBot + b.depth; }
-      b.hdr = b.vyIn + b.side * pinL;
-      b.edgeY = b.vyIn - b.side * gm;
-    });
-
-    /* The lattice places: rows from the line outward, left to right. */
-    var slots = [];
-    plates.forEach(function (b) {
-      model.families[b.fam].members.forEach(function (ci, k) {
-        var row = Math.floor(k / b.markCols), col = k % b.markCols;
-        var vx = colX(b.c0 + b.band + col);
-        var vy = half(b.vyIn - b.side * (gm + p / 2 + row * p));
-        slots[ci] = { plate: b.index, row: row, col: col, vx: vx, vy: vy, gutter: vy + b.side * p / 2 };
-      });
-    });
-
-    /* Lanes and cables. */
-    function laneY(c) {
-      var ri = c.same ? c.A.row : (c.mode === 'jogTop' ? 0 : 1), k = c.lane;
-      var nearPlates = c.same;
-      if (ri === 0) return half(nearPlates ? inTop + laneMargin + k * laneGap : spineTop - laneMargin - k * laneGap);
-      return half(nearPlates ? inBot - laneMargin - k * laneGap : spineBot + laneMargin + k * laneGap);
-    }
-    var cableGeo = fit.cables.map(function (c) {
-      var A = c.A, B = c.B, pts;
-      if (c.same) {
-        var ly = laneY(c);
-        pts = [[c.xa, A.hdr], [c.xa, ly], [c.xb, ly], [c.xb, B.hdr]];
-      } else if (c.mode === 'straight' && Math.abs(c.xa - c.xb) < 0.01) {
-        pts = [[c.xa, A.hdr], [c.xb, B.hdr]];
-      } else {
-        // The jog: along the lane in one corridor, then straight across the
-        // line at the crossing. (A straight cable whose connectors could not
-        // both hold the crossing jogs beside the line.)
-        var ly2 = c.mode === 'straight' ? half(spineTop - laneMargin) : laneY(c);
-        pts = [[c.xa, A.hdr], [c.xa, ly2], [c.xb, ly2], [c.xb, B.hdr]];
-      }
-      return { k: c.k, A: A, B: B, count: c.count, w: c.w, xa: c.xa, xb: c.xb, pts: simplify(pts),
-               mode: c.mode, lane: c.lane, crossX: c.same ? null : c.x };
-    });
-    // Every link of a cable has a pin at each end, set left to right by the
-    // place of the component it serves, so the wiring inside never crosses
-    // itself needlessly.
-    var pinOf = [];
-    cableGeo.forEach(function (cg, k) {
-      var cb = model.cables[cg.k];
-      [cg.A, cg.B].forEach(function (b, end) {
-        var xc = end === 0 ? cg.xa : cg.xb;
-        var order = cb.links.map(function (li) {
-          var l = model.links[li], ci = model.comps[l[0]].fam === b.fam ? l[0] : l[1];
-          return { li: li, x: slots[ci].vx, row: slots[ci].row, ci: ci };
-        }).sort(function (u, v) { return u.x - v.x || u.row - v.row || u.li - v.li; });
-        order.forEach(function (o, i) {
-          var px = half(xc - cg.w / 2 + i * pinQ);
-          (pinOf[o.li] = pinOf[o.li] || {})[b.fam] = { x: px, cable: k, end: end };
-        });
-      });
-    });
-
-    /* A component's way to its pin: down its own gutter toward the line,
-       along a column gutter to the edge channel, along the channel to the
-       pin, out through the edge, and along the connector's bar to the
-       cable. */
-    function toPin(ci, pin, xc) {
-      var sl = slots[ci], b = plates[sl.plate], sd = b.side;
-      var pts = [[sl.vx, sl.vy + sd * (mr + capGap)], [sl.vx, sl.gutter]];
-      if (Math.abs(sl.gutter - b.edgeY) > 0.5) {
-        var gx = pin.x >= sl.vx ? sl.vx + p / 2 : sl.vx - p / 2;
-        if (gx > b.vx1 - 1) gx = sl.vx - p / 2;
-        if (gx < b.vx0 + 1) gx = sl.vx + p / 2;
-        pts.push([gx, sl.gutter], [gx, b.edgeY]);
-      }
-      pts.push([pin.x, b.edgeY], [pin.x, b.hdr], [xc, b.hdr]);
-      return pts;
-    }
-    var routes = model.links.map(function (l, li) {
-      var A = slots[l[0]], B = slots[l[1]], PA = plates[A.plate], PB = plates[B.plate], pts;
-      if (A.plate === B.plate) {
-        pts = [[A.vx, A.vy + PA.side * (mr + capGap)], [A.vx, A.gutter]];
-        if (A.row !== B.row) {
-          var xv = B.vx > A.vx ? B.vx - p / 2 : B.vx < A.vx ? B.vx + p / 2 : A.vx + p / 2;
-          if (xv > PA.vx1 - 1 || xv < PA.vx0 + 1) xv = A.vx + (xv > A.vx ? -p / 2 : p / 2);
-          pts.push([xv, A.gutter], [xv, B.gutter]);
-        }
-        pts.push([B.vx, B.gutter], [B.vx, B.vy + PB.side * (mr + capGap)]);
-      } else {
-        var pa = pinOf[li][PA.fam], pb = pinOf[li][PB.fam], cg = cableGeo[pa.cable];
-        var mid = pa.end === 0 ? cg.pts : cg.pts.slice().reverse();
-        var xca = pa.end === 0 ? cg.xa : cg.xb, xcb = pb.end === 0 ? cg.xa : cg.xb;
-        pts = toPin(l[0], pa, xca).concat(mid).concat(toPin(l[1], pb, xcb).reverse());
-      }
-      var path = roundedPath(simplify(pts).map(function (q) { return T(q[0], q[1]); }), rb);
-      path.a = l[0]; path.b = l[1];
-      return path;
-    });
-
-    /* Geometry in canvas space. */
-    var marks = model.comps.map(function (c, i) {
-      var q = T(slots[i].vx, slots[i].vy);
-      return { x: q[0], y: q[1], plate: slots[i].plate };
-    });
-    var plateGeo = plates.map(function (b) {
-      var x0 = half(b.vx0), x1 = half(b.vx1), y0 = half(Math.min(b.vyIn, b.vyOut)), y1 = half(Math.max(b.vyIn, b.vyOut));
-      var c0 = T(x0, y0), c1 = T(x1, y1);
-      var rect = { x0: Math.min(c0[0], c1[0]), y0: Math.min(c0[1], c1[1]), x1: Math.max(c0[0], c1[0]), y1: Math.max(c0[1], c1[1]) };
-      var from = T(b.bindX, b.vyIn), to = T(b.bindX, b.side > 0 ? cy - railH / 2 : cy + railH / 2);
-      return { fam: b.fam, row: b.row, side: b.side, order: b.index, rect: rect, lines: b.lines,
-               bind: { from: from, to: to }, rows: b.rows, cols: b.cols };
-    });
-    var cablesOut = cableGeo.map(function (cg) {
-      var path = roundedPath(cg.pts.map(function (q) { return T(q[0], q[1]); }), rb);
-      function conn(b, xc) {
-        // The terminal: a bar one pin pitch long for every link the cable
-        // carries, just clear of the plate's edge.
-        var hw = Math.max(1.5, cg.w / 2 + 0.75);
-        return { pins: cg.count, bar: [T(xc - hw, b.hdr), T(xc + hw, b.hdr)], at: T(xc, b.hdr), fam: b.fam };
-      }
-      return { fa: cg.A.fam, fb: cg.B.fam, count: cg.count, path: path, ends: [conn(cg.A, cg.xa), conn(cg.B, cg.xb)],
-               crosses: !!cg.crossX || cg.crossX === 0 };
-    });
-    var railA = T(fit.railX0, cy - railH / 2), railB = T(fit.railX1, cy + railH / 2);
-    var rail = { x0: Math.min(railA[0], railB[0]), y0: Math.min(railA[1], railB[1]),
-                 x1: Math.max(railA[0], railB[0]), y1: Math.max(railA[1], railB[1]) };
-    var stationGeo = fit.stations.map(function (vx, i) {
-      var q = T(vx, cy);
-      return { x: q[0], y: q[1], side: stepLabels[i] ? stepLabels[i].side : 1 };
-    });
-
-    /* Words: a family's name along its plate's outer edge (on a phone, at
-       its head) with the count at the far end; step names beside their
-       ticks; the key along the foot. */
-    var labels = [];
-    plateGeo.forEach(function (gp, gi) {
-      var b = plates[gi], e = engr[b.fam];
-      var x0 = gp.rect.x0 + padX, x1 = gp.rect.x1 - padX, lines = gp.lines, baseY, countLine;
-      if (portrait || b.side > 0) { baseY = gp.rect.y0 + padY * 1.2 + fEng * asc; countLine = 0; }
-      else { baseY = gp.rect.y1 - padY * 1.15 - fEng * desc - (lines.length - 1) * lineEng; countLine = lines.length - 1; }
-      baseY = whole(baseY);
-      var yc = baseY + countLine * lineEng;
-      lines.forEach(function (text, li) {
-        // Each line fits the room it has (beside the count on its line);
-        // where a plate is too narrow the name is shortened, never overlapped.
-        var room = x1 - x0 - (li === countLine ? e.cw + e.gapC : 0);
-        text = fitWith(text, Math.max(12, room), fontEng, measure);
-        var y = baseY + li * lineEng, tw = measure(text, fontEng);
-        if (tw > room + 0.5 || text.length < 4) return;
-        labels.push({ kind: 'family', fam: b.fam, text: text, font: fontEng, x: x0, y: y, align: 'left',
-                      box: { x0: x0 - 2, x1: x0 + tw + 2, y0: y - fEng * asc - 1, y1: y + fEng * desc + 1 } });
-      });
-      labels.push({ kind: 'count', fam: b.fam, text: e.count, font: fontCount, x: x1, y: yc, align: 'right',
-                    box: { x0: x1 - e.cw - 2, x1: x1 + 2, y0: yc - fEng * asc - 1, y1: yc + fEng * desc + 1 } });
-    });
-    if (stepNames) {
-      stationGeo.forEach(function (st, i) {
-        var l = stepLabels[i], x, y, align, off = railH / 2 + tickL + gapL;
-        if (!portrait) {
-          x = st.x; align = 'center';
-          y = whole(l.side < 0 ? st.y - off - fStep * desc : st.y + off + fStep * asc);
-        } else {
-          y = whole(st.y + fStep * 0.32);
-          if (l.side < 0) { x = st.x - off; align = 'right'; } else { x = st.x + off; align = 'left'; }
-        }
-        var bx0 = align === 'center' ? x - l.tw / 2 : align === 'right' ? x - l.tw : x;
-        labels.push({ kind: 'step', step: i, text: l.text, font: fontStep, x: x, y: y, align: align,
-                      box: { x0: bx0 - 1, x1: bx0 + l.tw + 1, y0: y - fStep * asc - 1, y1: y + fStep * desc + 1 } });
-      });
-    }
-    // The key: its columns aligned, its left edge on the drawing's.
-    var legendGeo = [], drawLeft = Infinity, drawRight = -Infinity;
-    plateGeo.forEach(function (gp) { drawLeft = Math.min(drawLeft, gp.rect.x0); drawRight = Math.max(drawRight, gp.rect.x1); });
-    drawLeft = Math.min(drawLeft, rail.x0); drawRight = Math.max(drawRight, rail.x1);
-    if (legend) {
-      var lx = clamp(drawLeft, m * 0.5, Math.max(m * 0.5, w - m * 0.5 - legend.width));
-      legend.items.forEach(function (it, i) {
-        var r = Math.floor(i / legend.cols), c = i % legend.cols, x = lx;
-        for (var k = 0; k < c; k++) x += legend.colW[k] + legend.gap;
-        var y = whole(h - m * 0.75 - (legend.rows - 1 - r) * lineLeg - fLeg * desc);
-        var tx = x + it.glyph + it.gi, cx2 = tx + it.lw + it.gc;
-        legendGeo.push({ cls: it.cls, x: x, y: y - fLeg * 0.33, w: it.glyph });
-        labels.push({ kind: 'legend', cls: it.cls, text: it.label, font: fontLeg, x: tx, y: y, align: 'left',
-                      box: { x0: x - 1, x1: tx + it.lw + 1, y0: y - fLeg * asc - 1, y1: y + fLeg * desc + 1 } });
-        labels.push({ kind: 'legend-count', cls: it.cls, text: String(it.count), font: fontLeg, x: cx2, y: y, align: 'left',
-                      box: { x0: cx2 - 1, x1: cx2 + it.cw + 1, y0: y - fLeg * asc - 1, y1: y + fLeg * desc + 1 } });
-      });
-    }
-
-    geo.ok = true;
-    geo.dpr = dpr;
-    geo.half = half;
-    geo.whole = whole;
-    geo.portrait = portrait;
-    geo.scale = s;
-    geo.m = m;
-    geo.padX = padX;
-    geo.padY = padY;
-    geo.marks = marks;
-    geo.mr = mr;
-    geo.pitch = p;
-    geo.rb = rb;
-    geo.capGap = capGap;
-    geo.cham = cham;
-    geo.plates = plateGeo;
-    geo.routes = routes;
-    geo.cables = cablesOut;
-    geo.rail = rail;
-    geo.stations = stationGeo;
-    geo.stepNames = stepNames;
-    geo.tickL = tickL;
-    geo.railH = railH;
-    geo.labelReach = railH / 2 + tickL + gapL;
-    geo.labels = labels;
-    geo.legend = legendGeo;
-    geo.fieldH = Y1 + m * 0.5;
-    geo.left = drawLeft;
-    geo.right = drawRight;
-    geo.explode = clamp(14 * s, 8, 18);
-    geo.lanes = [fit.laneCount[0][0] + fit.laneCount[0][1], fit.laneCount[1][0] + fit.laneCount[1][1]];
-    geo.depthStep = depthStep;
-    geo.fontEng = fontEng;
-    geo.fontCount = fontCount;
-    geo.fEng = fEng;
-    geo.lineEng = lineEng;
-    geo.panels = {};
-    geo.fonts = { plate: '500 ' + clamp(12 * rs, 10.5, 14).toFixed(2) + 'px ' + SERIF,
-                  plateSub: 'italic 400 ' + clamp(10.5 * rs, 9, 12).toFixed(2) + 'px ' + SERIF,
-                  plateSize: clamp(12 * rs, 10.5, 14), plateSubSize: clamp(10.5 * rs, 9, 12),
-                  name: '400 ' + clamp(10.8 * rs, 9.5, 12.5).toFixed(2) + 'px ' + SERIF,
-                  nameSize: clamp(10.8 * rs, 9.5, 12.5) };
-    return geo;
+    return best;
   }
 
-  /* A family's sheet: its plate opened forward. Every component is a row,
-     its mark and its name in reading order; the family's links inside it
-     are brackets to the left of the marks, nested by span with the shortest
-     nearest, each turned with the same bend radius as the cables. Wide
-     canvases keep a column on the right for the card. */
-  function layoutSheet(model, geo, f, measure) {
-    var fam = model.families[f], n = fam.members.length, s = geo.scale;
-    var wide = geo.w >= 520;
-    var x0 = geo.half(geo.m), x1 = geo.w - geo.m;
-    var head = geo.lineEng + geo.padY * 2.2;
-    var avail = geo.fieldH - 2 * geo.m - head - geo.padY;
-    var rowH = clamp(avail / Math.max(1, n), 11, 30);
-    var inside = [];
-    model.links.forEach(function (l) {
-      if (model.comps[l[0]].fam !== f || model.comps[l[1]].fam !== f) return;
-      var ra = model.comps[l[0]].slot, rb2 = model.comps[l[1]].slot;
-      inside.push({ a: l[0], b: l[1], ra: ra, rb: rb2, lo: Math.min(ra, rb2), hi: Math.max(ra, rb2),
-                    key: l[0] + '>' + l[1], lane: 0 });
-    });
-    var nLanes = packLanes(inside, 0.2);
-    var laneGap = Math.max(1 / geo.dpr, Math.round(clamp(2.3 * s, 1.8, 3) * geo.dpr) / geo.dpr);
-    var markX = geo.half(x0 + geo.padX + nLanes * laneGap + geo.mr + clamp(8 * s, 6, 10));
-    var nameX = markX + geo.mr + clamp(8 * s, 6, 10);
-    // Names never stand taller than their rows.
-    var nameSize = Math.min(geo.fonts.nameSize, rowH * 0.78);
-    var nameFont = '400 ' + nameSize.toFixed(2) + 'px ' + SERIF;
-    var crumbText = '‹ All families', sepText = ' / ';
-    var crumbW = measure(crumbText, geo.fontCount), sepW = measure(sepText, geo.fontCount);
-    if (wide) {
-      // As wide as the longest name needs, between 42% and 60% of the canvas;
-      // the rest is the card's.
-      var longest = fam.members.reduce(function (t, ci) { return Math.max(t, measure(model.comps[ci].label, nameFont)); }, 0);
-      longest = Math.max(longest, crumbW + sepW + measure(fam.title, geo.fontEng) + 24 - (nameX - x0));
-      x1 = geo.half(clamp(nameX + longest + geo.padX + 2, geo.w * 0.42, geo.w * 0.6));
-    }
-    var y0 = geo.half(geo.m), top = y0 + head;
-    var rows = fam.members.map(function (ci, i) {
-      var y = geo.half(top + (i + 0.5) * rowH);
-      var maxW = x1 - geo.padX - nameX;
-      var text = fitWith(model.comps[ci].label, maxW, nameFont, measure);
-      return { comp: ci, y: y, x: markX, nameX: nameX, text: text, full: text === model.comps[ci].label,
-               box: { x0: x0, x1: x1, y0: y - rowH / 2, y1: y + rowH / 2 } };
-    });
-    var stub = geo.mr + geo.capGap;
-    var brackets = inside.map(function (it) {
-      var lx = markX - stub - clamp(5 * s, 4, 7) - it.lane * laneGap;
-      var ya = rows[it.ra].y, yb = rows[it.rb].y;
-      var path = roundedPath([[markX - stub, ya], [lx, ya], [lx, yb], [markX - stub, yb]], geo.rb);
-      path.a = it.a; path.b = it.b;
-      return path;
-    });
-    var countText = String(n), cw = measure(countText, geo.fontCount);
-    var y1 = geo.half(top + n * rowH + geo.padY);
-    var ty = geo.whole(y0 + geo.padY * 1.3 + geo.fEng * 0.74);
-    // The header is the trail: "‹ All families /" (a way back to the whole
-    // drawing) and the family's name.
-    var crumb = { text: crumbText, sep: sepText, x: x0 + geo.padX, w: crumbW + sepW, textW: crumbW,
-                  box: { x0: x0 + geo.padX - 6, x1: x0 + geo.padX + crumbW + 4, y0: ty - geo.fEng - 6, y1: ty + geo.fEng * 0.5 + 6 } };
-    return {
-      fam: f, rect: { x0: x0, y0: y0, x1: x1, y1: y1 }, rows: rows, brackets: brackets, rowH: rowH,
-      nameFont: nameFont, nameSize: nameSize, crumb: crumb, head: head,
-      title: fitWith(fam.title, x1 - x0 - 2 * geo.padX - cw - 12 - crumb.w, geo.fontEng, measure),
-      titleY: ty, count: countText,
-      card: wide ? { x0: geo.half(x1 + clamp(12 * s, 8, 16)), x1: geo.w - geo.m * 0.6 } : null
-    };
+  /* ---- Geometry ------------------------------------------------------------ */
+  /* The few helpers the drawing shares. Its lines are made by the loom
+     above: polar curves that leave and land along the radius, the fibres'
+     bundles and tapers, the doctrine's necklace and the weave. */
+  var TAU = Math.PI * 2;
+  function fx(v) { return Math.round(v * 100) / 100; }
+  function norm(a) { a %= TAU; return a < 0 ? a + TAU : a; }
+  function polar(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+  function pt(p) { return fx(p[0]) + ' ' + fx(p[1]); }
+  function circMean(angles, weights) {
+    var x = 0, y = 0;
+    angles.forEach(function (a, i) { var w = weights ? weights[i] : 1; x += w * Math.cos(a); y += w * Math.sin(a); });
+    if (Math.sqrt(x * x + y * y) < 1e-6) return angles.length ? angles[0] : 0;
+    return Math.atan2(y, x);
   }
-  /* A family's sheet stands beside the axioms its components abide by, so
-     the family fills the drawing: one row to each axiom, in the doctrine's
-     order, its bar the share of the family's components that abide by it
-     and its count beside. Laid out in the column a wide sheet leaves free. */
-  function layoutProfile(model, D, f, sheet, geo, measure) {
-    if (!sheet || !sheet.card || !D || !D.axioms.length) return null;
-    var fam = model.families[f], n = fam.members.length, s = geo.scale;
-    var x0 = geo.half(sheet.card.x0 + geo.padX * 0.6), x1 = geo.half(sheet.card.x1 - geo.padX * 0.6);
-    var top = sheet.rect.y0 + sheet.head, bottom = sheet.rect.y1 - geo.padY * 0.5;
-    var rowH = (bottom - top) / D.axioms.length;
-    var size = Math.min(geo.fonts.nameSize, rowH * 0.4), font = '400 ' + size.toFixed(2) + 'px ' + SERIF;
-    var lineH = geo.whole(size * 1.18), mr = clamp(3.1 * s, 2.6, 3.8);
-    var markX = geo.half(x0 + mr + 1), nameX = geo.half(markX + mr + clamp(7 * s, 5, 9));
-    var countW = measure('20', geo.fontCount) + 2, barW = geo.whole(clamp(46 * s, 32, 64));
-    var barX1 = geo.half(x1 - countW - clamp(8 * s, 6, 10)), barX0 = geo.half(barX1 - barW);
-    var nameW = barX0 - clamp(10 * s, 8, 12) - nameX;
-    var kept = 0;
-    var rows = D.axioms.map(function (r, i) {
-      var k = 0;
-      r.reach.forEach(function (ci) { if (model.comps[ci].fam === f) k++; });
-      if (k) kept++;
-      var y = geo.half(top + (i + 0.5) * rowH);
-      var lines = (rowH >= 2 * lineH + 2 ? wrapBalanced(r.title, nameW, font, measure, 2) : null) ||
-        [fitWith(r.title, nameW, font, measure)];
-      return { id: r.id, k: k, n: n, y: y, lines: lines, box: { x0: x0 - 4, x1: x1, y0: y - rowH / 2, y1: y + rowH / 2 } };
-    });
-    var head = 'The axioms they abide by';
-    return { fam: f, x0: x0, x1: x1, top: top, rows: rows, font: font, size: size, lineH: lineH, mr: mr,
-             markX: markX, nameX: nameX, barX0: barX0, barX1: barX1, countX: x1, kept: kept,
-             head: fitWith(head, x1 - x0 - measure(kept + ' of ' + rows.length, geo.fontCount) - 12, geo.fontCount, measure),
-             headY: sheet.titleY, trunkX: geo.half((sheet.rect.x1 + x0) / 2), sheetX1: sheet.rect.x1 };
+  // The signed shorter turn from a to b.
+  function turn(a, b) { var d = norm(b - a); return d > Math.PI ? d - TAU : d; }
+  // An arc of a circle about the centre, for text set along it: clockwise
+  // on the upper half, anticlockwise on the lower, so no word is upside down.
+  function arcFor(cx, cy, r, mid, span, lower) {
+    var a0 = lower ? mid + span / 2 : mid - span / 2, a1 = lower ? mid - span / 2 : mid + span / 2;
+    return 'M' + pt(polar(cx, cy, r, a0)) + 'A' + fx(r) + ' ' + fx(r) + ' 0 ' + (span > Math.PI ? 1 : 0) + ' ' + (lower ? 0 : 1) + ' ' + pt(polar(cx, cy, r, a1));
+  }
+  /* Which way a sector's name reads round the ring: over the top clockwise,
+     under the bottom anticlockwise; near either side both run bottom to top,
+     as on the mathematics slide, so the two sides never read in opposite
+     directions, while the letters lean at most 15 degrees past upright. */
+  function readsDownward(mid) {
+    var deg = Math.atan2(Math.sin(mid), Math.cos(mid)) * 180 / Math.PI;
+    if (deg >= -15 && deg <= 40) return true;
+    if (deg >= 165 || deg <= -140) return false;
+    return deg > 0;
+  }
+  var DOCTRINE_GLYPHS = {
+    axiom: '<circle cx="6" cy="6" r="4.6" fill="none" stroke-width="1.5"/><circle cx="6" cy="6" r="1.9"/>',
+    principle: '<path d="M6 1.3L10.7 6L6 10.7L1.3 6Z" fill="none" stroke-width="1.6"/>',
+    failure: '<path d="M2.4 2.4L9.6 9.6M9.6 2.4L2.4 9.6" fill="none" stroke-width="1.8" stroke-linecap="round"/>'
+  };
+  function doctrineSvg(kind) {
+    return '<svg class="sm-glyph" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false" ' +
+      'fill="currentColor" stroke="currentColor" stroke-width="0">' + DOCTRINE_GLYPHS[kind] + '</svg>';
   }
 
-  /* ---- The interior --------------------------------------------------
-     A selected component opens into the doctrine it keeps, one mechanism
-     filling the drawing: the component at the base, the principles that
-     govern it in a rank above, the axioms those principles rest on at the
-     top, and on each axiom the failures that guard it. A rank is one row of
-     plates, or two set like bricks, so every trace climbs straight through
-     the gap between two plates of the other row. Between ranks the traces
-     run in lanes, one lane to each axiom, so the traces that reach the same
-     axiom merge before they arrive; a dot marks every join, and a line that
-     crosses without a dot does not connect. Only declared relations are
-     drawn: a principle's axioms are those it is grounded in, and an axiom
-     the component's own module abides by that none of its principles
-     reaches climbs past the principles at the side. */
-  function layoutInterior(model, D, ci, geo, measure) {
-    var info = D && D.comp[ci];
-    if (!geo || !geo.ok || !info || !info.gov.length && !info.shown.length) return null;
-    for (var fs = 1; fs > 0.76; fs -= 0.04) {
-      var fit = interiorTrial(model, D, ci, geo, measure, fs, false);
-      if (fit) return fit;
-    }
-    return interiorTrial(model, D, ci, geo, measure, 0.78, true);
-  }
-  function interiorTrial(model, D, ci, geo, measure, fs, force) {
-    var info = D.comp[ci], c = model.comps[ci], R = D.rules;
-    var w = geo.w, h = geo.h, s = geo.scale, whole = geo.whole, half = geo.half;
-    var rs = Math.sqrt(s) * fs;
-    var fName = clamp(10.9 * rs, 8.4, 12.8), lineH = whole(fName * 1.26);
-    var fontP = '400 ' + fName.toFixed(2) + 'px ' + SERIF, fontA = '500 ' + fName.toFixed(2) + 'px ' + SERIF;
-    var fComp = clamp(12.8 * rs, 10.2, 15), lineC = whole(fComp * 1.24), fontC = '500 ' + fComp.toFixed(2) + 'px ' + SERIF;
-    var fLeg = clamp(10.2 * Math.sqrt(s), 8.6, 11.8), fontLeg = '400 ' + fLeg.toFixed(2) + 'px ' + SERIF;
-    var m = geo.m, padX = whole(clamp(8 * s, 6, 10)), padY = whole(clamp(6 * s, 4.5, 8) * fs);
-    var g = 2 * whole(clamp(6.5 * s, 5, 8.5)), rowGap = whole(clamp(15 * s, 12, 19));
-    var laneGap = whole(clamp(8 * s, 6, 10)), chPad = whole(clamp(10 * s, 8, 13));
-    var guardR = clamp(2.9 * s, 2.4, 3.6), guardSp = whole(clamp(9.5 * s, 8, 12));
-    var pinR = clamp(3.4 * s, 2.8, 4.4), rb = Math.min(geo.rb, 5);
-    var sideW = info.direct.length ? whole(clamp(20 * s, 15, 24)) : 0;
-    var crumbH = whole(geo.lineEng + geo.padY * 1.6), keyH = whole(fLeg * 2.1);
-    var X0 = m + sideW, W = w - 2 * m - 2 * sideW;
-    var minPW = clamp(86 * s, 72, 112) * Math.min(1, fs + 0.1), maxPW = Math.min(W * 0.46, clamp(250 * s, 190, 320));
-
-    /* A rank's plates: as few rows as fit (one, or two set like bricks), as
-       few lines to a name as fit, every plate one width. */
-    function rank(ids, font, room) {
-      var n = ids.length, best = null;
-      if (!n) return null;
-      room = room || W;
-      var names = ids.map(function (id) { return R[id].title; });
-      for (var rows = 1; rows <= 2; rows++) {
-        if (rows === 2 && n < 3) break;
-        var kLo = rows === 1 ? n : Math.ceil((n + 1) / 2), kHi = rows === 1 ? n : n - 1;
-        for (var k = kLo; k <= kHi; k++) {
-          var pw = Math.min(maxPW, (room - (k - 1) * g) / k);
-          if (pw < minPW && !(force && rows === 2 && k === kLo)) continue;
-          // A name takes as few lines as it can, four at most: a crowded
-          // rank grows taller before any name is cut.
-          var wraps = names.map(function (t) { return wrapBalanced(t, pw - 2 * padX, font, measure, 4); });
-          if (wraps.some(function (x) { return !x; })) {
-            if (!force) continue;
-            wraps = names.map(function (t) {
-              return wrapBalanced(t, pw - 2 * padX, font, measure, 4) || [fitWith(t, pw - 2 * padX, font, measure)];
-            });
-          }
-          var L = 1;
-          wraps.forEach(function (x) { L = Math.max(L, x.length); });
-          var cost = rows * 2.6 + L + (L >= 3 ? 1.4 : 0) + (L >= 4 ? 3 : 0) - pw / 400;
-          if (!best || cost < best.cost - 1e-9) best = { n: n, rows: rows, k: k, pw: whole(pw), L: L, cost: cost, wraps: wraps };
-        }
-      }
-      if (!best) return null;
-      best.ph = whole(best.L * lineH + 2 * padY);
-      best.h = best.rows * best.ph + (best.rows - 1) * rowGap;
-      best.byId = Object.create(null);
-      ids.forEach(function (id, i) { best.byId[id] = best.wraps[i]; });
-      return best;
-    }
-    // A rank's places, left to right: a full row of k and, set like bricks
-    // over its gaps, the rest (so each plate's centre stands over a gap).
-    function slots(rk, dx) {
-      var out = [], span = rk.k * rk.pw + (rk.k - 1) * g, x0 = X0 + (W - span) / 2 + (dx || 0);
-      for (var i = 0; i < rk.k; i++) out.push({ row: 0, x: half(x0 + i * (rk.pw + g)) });
-      var extra = rk.n - rk.k, j0 = Math.floor((rk.k - 1 - extra) / 2);
-      for (var t = 0; t < extra; t++) out.push({ row: 1, x: half(x0 + (j0 + t + 1) * (rk.pw + g) - g / 2 - rk.pw / 2) });
-      out.sort(function (a, b) { return a.x - b.x; });
-      out.span = span;
-      out.x0 = x0;
-      return out;
-    }
-
-    var P = info.gov.slice(), A = info.shown.slice();
-    var rP = rank(P, fontP), rA = rank(A, fontA);
-    if (!rP || !rA) return null;
-    /* Where a rank has room (three plates to a row or fewer), each plate
-       carries its rule in plain terms under its name, so a sparse interior
-       is read, not stretched. All of a rank's plates or none, and never a
-       sentence cut short. */
-    var fPlain = fName * 0.93, plainLH = whole(fPlain * 1.36), fontPlain = 'italic 400 ' + fPlain.toFixed(2) + 'px ' + SERIF;
-    var nameGap = whole(5 * s);
-    function detail(rk, ids, maxLines) {
-      if (!rk || rk.k > 3) return null;
-      var wraps = Object.create(null), most = 0;
-      for (var i = 0; i < ids.length; i++) {
-        var text = R[ids[i]].plain;
-        if (!text) return null;
-        var lines = wrapGreedy(text, rk.pw - 2 * padX, fontPlain, measure);
-        if (lines.length > maxLines) return null;
-        wraps[ids[i]] = lines;
-        most = Math.max(most, lines.length);
-      }
-      return { byId: wraps, L: most, ph: whole(rk.L * lineH + nameGap + most * plainLH + 2 * padY + 2) };
-    }
-    function withDetail(rk, dt) {
-      if (!dt) return;
-      rk.plain = dt.byId;
-      rk.plainL = dt.L;
-      rk.ph = dt.ph;
-      rk.h = rk.rows * rk.ph + (rk.rows - 1) * rowGap;
-    }
-    var dP = detail(rP, P, 7), dA = detail(rA, A, 7);
-    // Each rank in the order of where its partners stand, so the traces
-    // between the two cross as little as they can.
-    var xOf = Object.create(null);
-    function seat(ids, sl, rk) { ids.forEach(function (id, i) { xOf[id] = sl[i].x + rk.pw / 2; }); }
-    function mean(list) { return list.length ? total(list) / list.length : X0 + W / 2; }
-    function partnersOfA(a) { return P.filter(function (p) { return R[p].restsOn.indexOf(a) >= 0; }).map(function (p) { return xOf[p]; }); }
-    function partnersOfP(p) { return R[p].restsOn.filter(function (a) { return A.indexOf(a) >= 0; }).map(function (a) { return xOf[a]; }); }
-    var sP = slots(rP, 0), sA = slots(rA, 0);
-    seat(P, sP, rP);
-    for (var pass = 0; pass < 3; pass++) {
-      A.sort(function (a, b) { return mean(partnersOfA(a)) - mean(partnersOfA(b)) || ruleNumber(a) - ruleNumber(b); });
-      seat(A, sA, rA);
-      P.sort(function (a, b) { return mean(partnersOfP(a)) - mean(partnersOfP(b)) || ruleNumber(a) - ruleNumber(b); });
-      seat(P, sP, rP);
-    }
-    // No axiom's pin may stand in line with a principle's stub (a straight
-    // line through the channel would read as one wire). Where the two ranks
-    // share a pitch, they step apart: half each in opposite directions where
-    // both have room, so the mechanism stays centred; a rank that fills the
-    // width stays put, and the axioms narrow and step instead.
-    var dxP = 0, dxA = 0;
-    function inside(rk, dx) { var sl = slots(rk, dx); return sl.x0 >= X0 - 0.5 && sl.x0 + sl.span <= X0 + W + 0.5; }
-    function clash(pdx, adx) {
-      if (!inside(rP, pdx) || !inside(rA, adx)) return true;
-      var ps = slots(rP, pdx).map(function (st) { return st.x + rP.pw / 2; });
-      return slots(rA, adx).some(function (st) {
-        var px = st.x + rA.pw / 2;
-        return ps.some(function (sx) { return Math.abs(sx - px) < 6; });
-      });
-    }
-    function settle(pairs) {
-      return pairs.some(function (pr) { if (!clash(pr[0], pr[1])) { dxP = pr[0]; dxA = pr[1]; return true; } return false; });
-    }
-    function apart(qq) {
-      return [[-qq / 4, qq / 4], [qq / 4, -qq / 4], [-qq / 2, qq / 2], [qq / 2, -qq / 2], [0, qq / 2], [0, -qq / 2], [0, qq], [0, -qq]];
-    }
-    var q = (rA.pw + g) / 2;
-    if (!settle([[0, 0]].concat(apart(q)))) {
-      var narrower = rank(A, fontA, W - (rA.pw + g) / 2);
-      if (narrower && narrower.pw < rA.pw - 0.5) {
-        var wide = rA;
-        rA = narrower;
-        q = (rA.pw + g) / 2;
-        if (!settle([[0, 0]].concat(apart(q)))) { rA = wide; dxP = 0; dxA = 0; }
-      }
-    }
-    sP = slots(rP, dxP);
-    seat(P, sP, rP);
-    sA = slots(rA, dxA);
-    seat(A, sA, rA);
-    var stubX = Object.create(null);
-    P.forEach(function (p, i) { stubX[p] = half(sP[i].x + rP.pw / 2); });
-    var Cx = half(w / 2);
-    var pinX = Object.create(null);
-    A.forEach(function (a, i) { pinX[a] = half(sA[i].x + rA.pw / 2); });
-
-    /* Nets in the channel between the ranks: one to each axiom, from the
-       principles that rest on it (and, for an axiom no principle reaches,
-       from the side). */
-    var sideX = sideW ? { L: half(m + sideW / 2), R: half(w - m - sideW / 2) } : null;
-    var nets = A.map(function (a) {
-      var from = P.filter(function (p) { return R[p].restsOn.indexOf(a) >= 0; });
-      var xs = from.map(function (p) { return stubX[p]; });
-      var side = info.direct.indexOf(a) >= 0 ? (pinX[a] < w / 2 ? 'L' : 'R') : null;
-      if (side) xs.push(sideX[side]);
-      xs.push(pinX[a]);
-      return { a: a, from: from, side: side, lo: Math.min.apply(null, xs), hi: Math.max.apply(null, xs), key: a, lane: 0 };
-    });
-    var laneCount = packLanes(nets, whole(7 * s));
-
-    /* Heights, from the trail at the top to the key at the foot. Spare
-       height opens the two channels (the traces grow; the plates keep their
-       size), then centres the mechanism. */
-    var gTop = whole(guardR * 2 + 6 * s);
-    var chPA = 2 * chPad + Math.max(0, laneCount - 1) * laneGap, chCP = 2 * chPad;
-    var phC = whole(lineC + 2 * padY);
-    var yTop = m + crumbH, yBot = h - m - keyH, avail = yBot - yTop;
-    function rankH(rk, dt) { return dt ? rk.rows * dt.ph + (rk.rows - 1) * rowGap : rk.h; }
-    // The plain words go where they fit: in both ranks, else the axioms',
-    // else the principles', else neither.
-    var fixed = gTop + chPA + chCP + phC, choice = null;
-    [[dA, dP], [dA, null], [null, dP]].some(function (pair) {
-      if (!pair[0] && !pair[1]) return false;
-      if (fixed + rankH(rA, pair[0]) + rankH(rP, pair[1]) + 24 * s > avail) return false;
-      choice = pair;
-      return true;
-    });
-    choice = choice || [null, null];
-    withDetail(rA, choice[0]);
-    withDetail(rP, choice[1]);
-    // With the rules in plain words, the component carries its one line too.
-    var compLines = [];
-    if ((choice[0] || choice[1]) && c.line) {
-      var room2 = Math.min(w - 2 * m, 460 * s) - 2 * padX;
-      var cl = wrapGreedy(c.line, room2, fontPlain, measure);
-      if (cl.length <= 2 && fixed + rA.h + rP.h + nameGap + cl.length * plainLH <= avail) {
-        compLines = cl;
-        phC = whole(lineC + nameGap + cl.length * plainLH + 2 * padY);
-      }
-    }
-    var need = gTop + rA.h + chPA + rP.h + chCP + phC;
-    if (need > avail && !force) return null;
-    var slack = Math.max(0, avail - need);
-    // The channels take some of the spare height (the wiring breathes); the
-    // rest centres the mechanism, so a sparse one is not stretched thin.
-    var growPA = Math.min(slack * 0.34, clamp(84 * s, 50, 110)), growCP = Math.min(slack * 0.24, clamp(60 * s, 36, 80));
-    var y = half(yTop + (slack - growPA - growCP) / 2 + gTop);
-    // Axioms: the full row stands on the channel, the bricked row above it.
-    var aRowTop = rA.rows === 2 ? [y + rA.ph + rowGap, y] : [y];
-    var paTop = half(y + rA.h), paBot = half(paTop + chPA + growPA);
-    // Principles: the full row hangs under the channel, the bricked row below.
-    var pRowTop = rP.rows === 2 ? [paBot, paBot + rP.ph + rowGap] : [paBot];
-    var cpTop = half(paBot + rP.h), cpBot = half(cpTop + chCP + growCP);
-    var busY = half((cpTop + cpBot) / 2), compTop = cpBot;
-
-    var plates = [], plateOf = Object.create(null);
-    function addPlate(id, kind, slot, rk, rowTops, font) {
-      var y0 = half(rowTops[slot.row]);
-      var pl = { id: id, kind: kind, row: slot.row, font: font, lines: rk.byId[id], plain: rk.plain ? rk.plain[id] : null,
-                 rect: { x0: slot.x, y0: y0, x1: half(slot.x + rk.pw), y1: half(y0 + rk.ph) } };
-      plates.push(pl);
-      plateOf[id] = pl;
-    }
-    A.forEach(function (a, i) { addPlate(a, 'axiom', sA[i], rA, aRowTop, fontA); });
-    P.forEach(function (p, i) { addPlate(p, 'principle', sP[i], rP, pRowTop, fontP); });
-    var compRoom = Math.min(w - 2 * m, 440 * s) - 2 * padX - 2 * geo.mr - whole(8 * s);
-    var compLine = measure(c.label, fontC) <= compRoom ? c.label : fitWith(c.label, compRoom, fontC, measure);
-    var plainW = 0;
-    compLines.forEach(function (ln) { plainW = Math.max(plainW, measure(ln, fontPlain)); });
-    var cw = whole(Math.max(measure(compLine, fontC) + 2 * geo.mr + whole(8 * s), plainW) + 2 * padX);
-    var compPlate = { id: c.id, kind: 'component', lines: [compLine], font: fontC, plain: compLines.length ? compLines : null,
-                      rect: { x0: half(Cx - cw / 2), y0: compTop, x1: half(Cx + cw / 2), y1: half(compTop + phC) },
-                      markX: half(Cx - cw / 2 + padX + geo.mr) };
-
-    /* The wiring: straight runs, each lit from its first end; a corner where
-       a run turns; a dot where a run joins another without turning. */
-    var runs = [];
-    function vRun(x, ya, yb, kind, owner) {
-      var r = { x0: x, y0: ya, x1: x, y1: yb, kind: kind, owner: owner, off: 0, full: Math.abs(yb - ya), vert: true };
-      r.len = r.full;
-      runs.push(r);
-      return r;
-    }
-    function hRun(yv, xa, xb, kind, owner) {
-      var r = { x0: Math.min(xa, xb), y0: yv, x1: Math.max(xa, xb), y1: yv, kind: kind, owner: owner, vert: false, members: [] };
-      r.len = r.x1 - r.x0;
-      runs.push(r);
-      return r;
-    }
-    var riser = vRun(Cx, compTop, busY, 'riser', c.id);
-    var taps = P.map(function (p) { return { p: p, run: vRun(stubX[p], busY, plateOf[p].rect.y1, 'tap', p) }; });
-    var sides = [];
-    if (sideX) {
-      ['L', 'R'].forEach(function (sd) {
-        var mine = nets.filter(function (n) { return n.side === sd; });
-        if (mine.length) sides.push({ side: sd, x: sideX[sd], nets: mine });
-      });
-    }
-    var busXs = [Cx].concat(taps.map(function (tp) { return tp.run.x0; }), sides.map(function (sd) { return sd.x; }));
-    var bus = hRun(busY, Math.min.apply(null, busXs), Math.max.apply(null, busXs), 'bus', null);
-    bus.members.push({ x: Cx, run: riser, below: true, stops: true, source: true });
-    taps.forEach(function (tp) { bus.members.push({ x: tp.run.x0, run: tp.run, below: false, stops: true }); });
-    var laneSpan = Math.max(0, laneCount - 1) * laneGap, laneMid = (paTop + paBot) / 2;
-    nets.forEach(function (n) { n.y = half(laneMid + laneSpan / 2 - n.lane * laneGap); });
-    var stubs = P.map(function (p) {
-      var mine = nets.filter(function (n) { return n.from.indexOf(p) >= 0; });
-      var topY = Math.min.apply(null, mine.map(function (n) { return n.y; }));
-      return { p: p, nets: mine, run: mine.length ? vRun(stubX[p], plateOf[p].rect.y0, topY, 'stub', p) : null };
-    });
-    sides.forEach(function (sd) {
-      sd.run = vRun(sd.x, busY, Math.min.apply(null, sd.nets.map(function (n) { return n.y; })), 'side', null);
-      bus.members.push({ x: sd.x, run: sd.run, below: false, stops: true });
-    });
-    var lanes = nets.map(function (n) {
-      var lane = hRun(n.y, n.lo, n.hi, 'lane', n.a);
-      var rise = vRun(pinX[n.a], n.y, plateOf[n.a].rect.y1, 'rise', n.a);
-      stubs.forEach(function (st) {
-        if (st.run && n.from.indexOf(st.p) >= 0) lane.members.push({ x: st.run.x0, run: st.run, below: true, stops: Math.abs(st.run.y1 - n.y) < 0.5, source: true });
-      });
-      sides.forEach(function (sd) {
-        if (n.side === sd.side) lane.members.push({ x: sd.x, run: sd.run, below: true, stops: Math.abs(sd.run.y1 - n.y) < 0.5, source: true });
-      });
-      lane.members.push({ x: pinX[n.a], run: rise, below: false, stops: true });
-      return { a: n.a, net: n, lane: lane, rise: rise };
-    });
-
-    /* Joins. A member at a run's end whose wire stops there, alone at that
-       place, turns the corner on the bend radius; every other join is a dot.
-       A wire that crosses a run it does not join has no dot. */
-    var corners = [], dots = [];
-    [bus].concat(lanes.map(function (ln) { return ln.lane; })).forEach(function (hr) {
-      hr.members.forEach(function (mb) {
-        var alone = hr.members.filter(function (o) { return Math.abs(o.x - mb.x) < 0.5; }).length === 1;
-        var atEnd = Math.abs(mb.x - hr.x0) < 0.5 ? 1 : Math.abs(mb.x - hr.x1) < 0.5 ? -1 : 0;
-        if (atEnd && alone && mb.stops && hr.len > 2 * rb) {
-          corners.push({ x: mb.x, y: hr.y0, h: atEnd, v: mb.below ? 1 : -1, hr: hr, mb: mb, r: rb });
-        } else {
-          dots.push({ x: mb.x, y: hr.y0, hr: hr, mb: mb });
-        }
-      });
-    });
-    corners.forEach(function (k) {
-      var vr = k.mb.run;
-      if (Math.abs(vr.y1 - k.y) < 0.5) { vr.y1 += vr.y0 < vr.y1 ? -k.r : k.r; }
-      else if (Math.abs(vr.y0 - k.y) < 0.5) { vr.y0 += vr.y1 < vr.y0 ? -k.r : k.r; vr.off = k.r; }
-      vr.len = Math.abs(vr.y1 - vr.y0);
-      if (k.h > 0) k.hr.x0 += k.r; else k.hr.x1 -= k.r;
-      k.hr.len = k.hr.x1 - k.hr.x0;
-    });
-
-    /* The guards: on each axiom's top edge, a mark for every failure that
-       guards it, in the doctrine's order. */
-    var guardMarks = [];
-    A.forEach(function (a) {
-      var pl = plateOf[a], gs = R[a].guardedBy, n = gs.length;
-      var cx = (pl.rect.x0 + pl.rect.x1) / 2;
-      var sp = Math.min(guardSp, (pl.rect.x1 - pl.rect.x0 - 2 * geo.cham - 8) / Math.max(1, n - 1));
-      gs.forEach(function (gid, i) {
-        guardMarks.push({ id: gid, axiom: a, x: half(cx + (i - (n - 1) / 2) * sp), y: half(pl.rect.y0 - guardR - 2.5), r: guardR });
-      });
-    });
-
-    /* The opening's timetable, in milliseconds from the selection: the
-       component settles at the base, light climbs to the principles, on to
-       the axioms, and the guards settle. A plate lights as its light
-       arrives; corners and dots light as the light passes them. */
-    var T = { arrive: 300, w1: 300, D1: 260, beat: 70, D2: 280 };
-    var far1 = riser.full;
-    taps.forEach(function (tp) { far1 = Math.max(far1, riser.full + Math.abs(tp.run.x0 - Cx) + tp.run.full); });
-    sides.forEach(function (sd) { far1 = Math.max(far1, riser.full + Math.abs(sd.x - Cx) + sd.run.full); });
-    var v1 = Math.max(0.35, far1 / T.D1);
-    riser.t0 = T.w1; riser.v = v1;
-    bus.entries = [{ x: Cx, t: T.w1 + riser.full / v1 }];
-    bus.v = v1;
-    var lit = Object.create(null);
-    taps.forEach(function (tp) {
-      tp.run.t0 = bus.entries[0].t + Math.abs(tp.run.x0 - Cx) / v1;
-      tp.run.v = v1;
-      lit[tp.p] = tp.run.t0 + tp.run.full / v1;
-    });
-    sides.forEach(function (sd) { sd.run.t0 = bus.entries[0].t + Math.abs(sd.x - Cx) / v1; sd.run.v = v1; });
-    T.w2 = T.w1 + T.D1 + T.beat;
-    function wave2(v2) {
-      var arrive = Object.create(null);
-      stubs.forEach(function (st) { if (st.run) { st.run.t0 = T.w2; st.run.v = v2; } });
-      lanes.forEach(function (ln) {
-        var L = ln.lane;
-        L.entries = [];
-        L.members.forEach(function (mb) {
-          if (!mb.source) return;
-          var vr = mb.run;
-          L.entries.push({ x: mb.x, t: vr.t0 + Math.abs(vr.y0 + (vr.y0 < vr.y1 ? -vr.off : vr.off) - L.y0) / vr.v });
-        });
-        L.v = v2;
-        var tr = Infinity;
-        L.entries.forEach(function (e) { tr = Math.min(tr, e.t + Math.abs(ln.rise.x0 - e.x) / v2); });
-        ln.rise.t0 = tr;
-        ln.rise.v = v2;
-        arrive[ln.a] = tr + ln.rise.full / v2;
-      });
-      return arrive;
-    }
-    var first = wave2(1), slowest = 0;
-    A.forEach(function (a) { slowest = Math.max(slowest, first[a] - T.w2); });
-    var arr = wave2(Math.max(0.3, slowest / T.D2));
-    A.forEach(function (a) { lit[a] = arr[a]; });
-    var lastA = 0;
-    A.forEach(function (a) { lastA = Math.max(lastA, lit[a]); });
-    // When a corner or a dot lights: as the light passes it.
-    function passes(hr, x) {
-      var t = Infinity;
-      (hr.entries || []).forEach(function (e) { t = Math.min(t, e.t + Math.abs(x - e.x) / hr.v); });
-      return t;
-    }
-    corners.concat(dots).forEach(function (k) {
-      var vr = k.mb.run;
-      k.t = k.mb.source ? vr.t0 + vr.full / vr.v : passes(k.hr, k.x);
-      if (!k.mb.source) k.t = Math.min(k.t, vr.t0);
-    });
-    T.guards = lastA + 40;
-    guardMarks.sort(function (u, v) { return u.x - v.x || u.y - v.y; });
-    guardMarks.forEach(function (gm, i) { gm.t0 = T.guards + Math.min(i * 14, 180); });
-    T.end = Math.max(lastA + 200, guardMarks.length ? guardMarks[guardMarks.length - 1].t0 + 170 : 0);
-
-    /* The key along the foot. */
-    var keyItems = [{ kind: 'principle', label: 'Principle that governs it' }, { kind: 'axiom', label: 'Axiom it rests on' }];
-    if (guardMarks.length) keyItems.push({ kind: 'guard', label: 'Failure an axiom guards against' });
-    var kx = m, ky = whole(h - m - fLeg * 0.4), kGap = whole(clamp(22 * s, 12, 30)), glyph = whole(clamp(12 * s, 10, 15));
-    var key = keyItems.map(function (it) {
-      var tw = measure(it.label, fontLeg), tx = kx + glyph + whole(5 * s);
-      var item = { kind: it.kind, label: it.label, gx: kx + glyph / 2, gy: ky - fLeg * 0.32, tx: tx, y: ky, tw: tw,
-                   box: { x0: kx - 1, x1: tx + tw + 1, y0: ky - fLeg * 0.8, y1: ky + fLeg * 0.3 } };
-      kx = item.box.x1 + kGap;
-      return item;
-    });
-    while (key.length && key[key.length - 1].box.x1 > w - m) key.pop();
-
-    return {
-      comp: ci, fs: fs, forced: !!force, plates: plates, plateOf: plateOf, compPlate: compPlate, runs: runs, dots: dots, corners: corners,
-      riser: riser, bus: bus, taps: taps, stubs: stubs, sides: sides, lanes: lanes, guardMarks: guardMarks, lit: lit, T: T,
-      pinR: pinR, padX: padX, padY: padY, lineH: lineH, lineC: lineC, key: key, fontLeg: fontLeg, sizeLeg: fLeg,
-      fontPlain: fontPlain, plainLH: plainLH, sizePlain: fPlain, nameGap: nameGap,
-      busY: busY, paTop: paTop, paBot: paBot, stubX: stubX, pinX: pinX, laneCount: laneCount, A: A, P: P
-    };
-  }
-
-  // Words filled into lines no wider than maxW, in reading order.
-  function wrapGreedy(text, maxW, font, measure) {
-    var words = String(text || '').split(/\s+/).filter(Boolean), lines = [], cur = '';
-    words.forEach(function (w) {
-      var next = cur ? cur + ' ' + w : w;
-      if (!cur || measure(next, font) <= maxW) cur = next;
-      else { lines.push(cur); cur = w; }
-    });
-    if (cur) lines.push(cur);
-    return lines;
-  }
-  function fitWith(text, maxW, font, measure) {
-    if (measure(text, font) <= maxW) return text;
-    var cut = text;
-    while (cut.length > 4 && measure(cut + '…', font) > maxW) cut = cut.slice(0, -1);
-    return cut.replace(/\s+$/, '') + '…';
-  }
-
-  /* ---- Geometry helpers ---------------------------------------------- */
-  function pointInRect(x, y, r) { return x >= r.x0 && x <= r.x1 && y >= r.y0 && y <= r.y1; }
-  function boxesMeet(a, b, grace) {
-    grace = grace || 0;
-    return a.x0 < b.x1 - grace && a.x1 > b.x0 + grace && a.y0 < b.y1 - grace && a.y1 > b.y0 + grace;
-  }
-
-  /* ---- Mount --------------------------------------------------------- */
+  /* ---- Mount --------------------------------------------------------------- */
+  var mounted = 0;
   function mount(stage) {
-    var canvas = stage.querySelector('canvas.system-canvas') || stage.querySelector('canvas');
-    if (!canvas || !canvas.getContext || stage.getAttribute('data-system-ready')) return null;
+    var holder = stage.querySelector('[data-system-src]');
+    if (!holder || stage.getAttribute('data-system-ready')) return null;
     stage.setAttribute('data-system-ready', '1');
-    var ctx = canvas.getContext('2d');
-    if (!ctx) return null;
+    mounted++;
     var section = stage.closest ? stage.closest('section') : null;
-    var band = stage.closest ? stage.closest('[data-atlas]') : null;
-    // On its own page (docs/system-map.html) the drawing fills a workbench:
-    // it opens when first in view, with no slider to wait for, and its
-    // selection is the page's address (#map=<node id>), so it can be shared.
+    var slide = stage.closest ? stage.closest('[data-atlas-slide]') : null;
+    // On its own page (docs/system-map.html) the map's selection is the
+    // page's address, so a view can be shared and the browser's Back
+    // retraces it.
     var pageMode = !!(stage.closest && stage.closest('[data-system-page]'));
-    var caption = stage.querySelector('.system-caption');
-    var base = canvas.getAttribute('data-system-base') || '';
-    var src = canvas.getAttribute('data-system-src');
+    var base = holder.getAttribute('data-system-base') || '';
+    var src = holder.getAttribute('data-system-src');
+    var doctrineSrc = holder.getAttribute('data-system-doctrine') ||
+      (src ? src.replace(/[^\/]*(?:[?#].*)?$/, 'doctrine-manifest.json') : null);
 
-    var model = null, geo = null, palette = {};
-    var cssW = 0, cssH = 0, layoutDpr = 1;
-
-    /* ---- State ------------------------------------------------------- */
-    var hover = null;        // what the pointer is on: {kind: 'comp'|'family'|'step'|'crumb', i}
-    var pin = null;          // the selection: {fam, comp} (comp -1 at the family level)
-    var preview = -1;        // a family opened from the landing's list
-    var rowHover = -1;       // the family row under the pointer, before its preview opens
-    var keyComp = -1;        // a component reached with the arrow keys from a family row
-    var listHover = -1;      // a component pointed at in the card's lists
-    var rows = [], rowTimer = null, dwellTimer = null;
-    var expanded = Object.create(null);   // the card lists opened in full, by component and side
-    var D = null;            // the rules each component keeps (docs/doctrine-manifest.json)
-    var rulePin = null;      // a rule held: its path in the interior, its page in the column
-    var ruleHover = null;    // a rule pointed at, in the drawing or the column: {id, from}
-    var classHover = null;   // an evidence class pointed at in a family's page
-    /* The lens: the drawing read by its families (the machinery) or by its
-       doctrine. Turned to the doctrine, the machinery recedes (plates and
-       cables quiet, every mark grey) and a rule in focus lights its
-       components where they stand, in reading order, each plate counting
-       those it holds. Turning back restores the machinery exactly. */
-    var lens = 'machinery', lensMix = 0, LENS_MS = 420;
-    var readOrder = [], REACH_STEP = 5, REACH_MS = 0;
-    function setLens(name, instant) {
-      name = name === 'doctrine' && D ? 'doctrine' : 'machinery';
-      if (name === lens) return;
-      lens = name;
-      var to = lens === 'doctrine' ? 1 : 0;
-      if (instant || !canAnimate()) { lensMix = to; motion.lens = null; }
-      else motion.lens = { start: null, from: lensMix, to: to, dur: LENS_MS * Math.abs(to - lensMix) + 1 };
-      if (lens === 'machinery') { ruleHover = null; if (rulePin && !(pin && pin.comp >= 0)) rulePin = null; }
-      wake();
-      syncCompanion(instant);
-      syncRowMarks();
-      draw();
-    }
-
-    /* ---- Palette ----------------------------------------------------- */
-    /* Every colour is a custom property (--s-*) read here and again on each
-       theme change. Until the stylesheet defines them, the map derives the
-       same values from the site's --ink, --surface and ember. */
-    function readPalette() {
-      var st = window.getComputedStyle ? window.getComputedStyle(document.documentElement) : null;
-      function tok(name, fallback) {
-        var v = st && st.getPropertyValue ? st.getPropertyValue(name) : '';
-        v = v && String(v).trim();
-        return v || fallback;
-      }
-      var ground = tok('--s-ground', tok('--surface', '#fffdf7'));
-      var dark = luminance(parseColor(ground)) < 0.35;
-      var ink = tok('--s-ink', tok('--ink', dark ? '#f2e6d4' : '#211318'));
-      var inkRgb = parseColor(ink) || (dark ? [242, 230, 212, 1] : [33, 19, 24, 1]);
-      function inkA(name, light, night) { return tok(name, rgba(inkRgb, dark ? night : light)); }
-      // The two inks of the Plectis mark: the machinery in its red, the
-      // doctrine in its azure (the stylesheet names them by reference to the
-      // site's palette). Words and the shared path stay ink.
-      var ember = tok('--s-ember', tok('--home-ember', dark ? '#fd7464' : '#bc3425'));
-      var emberRgb = parseColor(ember) || (dark ? [253, 116, 100, 1] : [188, 52, 37, 1]);
-      var blue = tok('--s-doctrine', tok('--home-ice', dark ? '#7bc8f6' : '#0068a8'));
-      var blueRgb = parseColor(blue) || (dark ? [123, 200, 246, 1] : [0, 104, 168, 1]);
-      function emA(name, light, night) { return tok(name, rgba(emberRgb, dark ? night : light)); }
-      function blA(light, night) { return rgba(blueRgb, dark ? night : light); }
-      palette = {
-        ink: ink, ground: ground, dark: dark, ember: ember, blue: blue,
-        face: emA('--s-face', 0.04, 0.06),
-        side: emA('--s-side', 0.085, 0.12),
-        edge: emA('--s-edge', 0.46, 0.5),
-        bind: emA('--s-bind', 0.42, 0.45),
-        trace: emA('--s-trace', 0.16, 0.18),
-        cable: emA('--s-cable', 0.34, 0.36),
-        pin: emA('--s-pin', 0.56, 0.6),
-        hot: emA('--s-hot', 0.92, 0.95),
-        dFace: blA(0.055, 0.085),
-        dSide: blA(0.12, 0.17),
-        dEdge: blA(0.66, 0.78),
-        dTrace: blA(0.6, 0.66),
-        dHot: blA(1, 1),
-        dGhost: blA(0.22, 0.28),
-        dFaint: blA(0.32, 0.36),
-        chrome: inkA('--s-chrome', 0.34, 0.36),
-        rail: inkA('--s-rail', 0.5, 0.48),
-        railEdge: inkA('--s-rail-edge', 0.62, 0.6),
-        ghost: inkA('--s-ghost', 0.26, 0.28),
-        traceHot: inkA('--s-trace-hot', 0.86, 0.9),
-        text: inkA('--s-text', 0.74, 0.76),
-        faint: inkA('--s-faint', 0.52, 0.54),
-        grey: inkA('--s-grey', 0.22, 0.26)
-      };
-    }
-
-    function measureWith(font) {
-      return function (text, f) {
-        ctx.font = f || font;
-        var mt = ctx.measureText(String(text));
-        return mt && isFinite(mt.width) ? mt.width : String(text).length * 6;
-      };
-    }
-    var measure = measureWith('11px ' + SERIF);
-    function relayout() {
-      cssW = canvas.clientWidth || 0;
-      cssH = canvas.clientHeight || 0;
-      layoutDpr = Math.min(window.devicePixelRatio || 1, 2);
-      geo = model ? layoutSchematic(model, cssW, cssH, measure, layoutDpr) : null;
-      // Reading order: plate by plate as the drawing reads, each plate's
-      // components in its own order.
-      if (geo && geo.ok) {
-        var seq = model.comps.map(function (c, i) { return i; }).sort(function (a, b) {
-          return geo.plates[geo.marks[a].plate].order - geo.plates[geo.marks[b].plate].order || model.comps[a].slot - model.comps[b].slot;
-        });
-        readOrder = [];
-        seq.forEach(function (ci, k) { readOrder[ci] = k; });
-        REACH_MS = seq.length * REACH_STEP + 160;
-      }
-      // The caption below the drawing starts on the drawing's left edge.
-      if (geo && geo.ok && stage.style && stage.style.setProperty) {
-        stage.style.setProperty('--system-inset', Math.round(clamp(geo.left, 8, 28)) + 'px');
-      }
-    }
-    function sheetOf(f) {
-      if (!geo || !geo.ok || f < 0) return null;
-      if (!geo.panels[f]) geo.panels[f] = layoutSheet(model, geo, f, measure);
-      return geo.panels[f];
-    }
-
-    /* ---- Motion ------------------------------------------------------ */
-    /* One display frame serves every moving part; it is requested only while
-       one of them is moving and never at rest. */
     var reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     var reduceMotion = !!(reduceQuery && reduceQuery.matches);
-    var fineQuery = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
-    var frame = 0;
-    var motion = { open: null, focus: null, reticle: null, trace: null, sheet: null, swap: null, inner: null, lens: null, reach: null };
-    function canAnimate() {
-      return !reduceMotion && !!window.requestAnimationFrame && !document.hidden && onScreen;
-    }
-    function moving() {
-      return !!(motion.open || motion.focus || motion.reticle || motion.trace || motion.sheet || motion.swap || motion.inner ||
-                motion.lens || motion.reach);
-    }
-    function wake() {
-      if (!frame && moving() && window.requestAnimationFrame) frame = window.requestAnimationFrame(tick);
-    }
-    function tick(now) {
-      frame = 0;
-      if (!canAnimate()) { settleAll(); paint(); return; }
-      advance(now);
-      paint();
-      // paint() may itself have woken a frame (a new focus fade); never two.
-      if (moving() && !frame) frame = window.requestAnimationFrame(tick);
-    }
-    function settleAll() {
-      if (motion.open) { motion.open = null; openState = 'done'; }
-      if (motion.focus) { focusMix = motion.focus.to; if (motion.focus.to === 0) focusHeld = null; motion.focus = null; }
-      if (motion.sheet) { sheetMix = motion.sheet.to; motion.sheet = null; if (sheetMix === 0) sheetFam = -1; }
-      if (motion.swap) { motion.swap = null; swapFrom = -1; }
-      motion.reticle = null;
-      motion.trace = null;
-      if (motion.lens) { lensMix = motion.lens.to; motion.lens = null; }
-      motion.reach = null;
-      settleInner();
-    }
-    function advance(now) {
-      var mo;
-      if ((mo = motion.open)) {
-        if (mo.start === null) mo.start = now;
-        openMs = now - mo.start;
-        if (openMs >= OPEN_END) { motion.open = null; openState = 'done'; openMs = OPEN_END; }
-      }
-      if ((mo = motion.focus)) {
-        if (mo.start === null) mo.start = now;
-        var tf = unit((now - mo.start - mo.delay) / mo.dur);
-        focusMix = mo.from + (mo.to - mo.from) * (1 - (1 - tf) * (1 - tf));
-        if (tf >= 1) { motion.focus = null; if (mo.to === 0) focusHeld = null; }
-      }
-      if ((mo = motion.reticle)) {
-        if (mo.start === null) mo.start = now;
-        mo.ms = now - mo.start;
-        if (mo.ms >= RETICLE_MS) motion.reticle = null;
-      }
-      if ((mo = motion.trace)) {
-        if (mo.start === null) mo.start = now;
-        mo.ms = now - mo.start;
-        if (mo.ms >= TRACE_MS) motion.trace = null;
-      }
-      if ((mo = motion.sheet)) {
-        if (mo.start === null) mo.start = now;
-        var ts = unit((now - mo.start) / mo.dur);
-        sheetMix = mo.from + (mo.to - mo.from) * ts;
-        if (ts >= 1) { motion.sheet = null; if (mo.to === 0) sheetFam = -1; }
-      }
-      if ((mo = motion.swap)) {
-        if (mo.start === null) mo.start = now;
-        swapMix = unit((now - mo.start) / SWAP_MS);
-        if (swapMix >= 1) { motion.swap = null; swapFrom = -1; }
-      }
-      if ((mo = motion.lens)) {
-        if (mo.start === null) mo.start = now;
-        var tl = unit((now - mo.start) / mo.dur);
-        lensMix = mo.from + (mo.to - mo.from) * MOVE(tl);
-        if (tl >= 1) { lensMix = mo.to; motion.lens = null; }
-      }
-      if ((mo = motion.reach)) {
-        if (mo.start === null) mo.start = now;
-        mo.ms = now - mo.start;
-        if (mo.ms >= REACH_MS) motion.reach = null;
-      }
-      advanceInner(now);
-    }
 
-    /* The opening, in milliseconds from its first frame, built over the
-       blueprint: the line draws, the plates seat onto their outlines, the
-       marks set, the ties and connectors come out, the cables route in
-       along their lanes, and the names come up. */
-    var OPEN_SPINE = [0, 420];
-    var OPEN_PLATE = [90, 55, 470];          // start, per plate in reading order, duration
-    var OPEN_MARK = [250, 55, 7, 230];       // start, per plate, per component, duration
-    var OPEN_BIND = [520, 30, 260];
-    var OPEN_CONN = [600, 30, 200];
-    var OPEN_WORDS = [560, 360];
-    var OPEN_CABLE = [700, 260, 360];        // start, spread across the cables, duration
-    var OPEN_END = OPEN_CABLE[0] + OPEN_CABLE[1] + OPEN_CABLE[2];
-    var openState = 'idle', openMs = 0, opened = false;
-    function phase(start, dur) {
-      if (openState !== 'running') return 1;
-      return unit((openMs - start) / dur);
-    }
-    function startOpening() {
-      if (opened || !geo || !geo.ok) return;
-      opened = true;
-      if (!canAnimate()) { openState = 'done'; paint(); return; }
-      openState = 'running';
-      openMs = 0;
-      motion.open = { start: null };
-      wake();
-    }
-    // A drawing that arrives without a move (a keyboard step, an address
-    // that names it, reduced motion) is shown finished at once.
-    function finishOpening() {
-      if (opened && openState !== 'running') return;
-      opened = true;
-      motion.open = null;
-      openState = 'done';
-      paint();
-    }
+    var model = null, D = null, ring = null, map = null;
+    // Where the reader is: a level and what is chosen there.
+    //   system | family (fam) | component (comp) | doctrine | rule (rule)
+    var at = { level: 'system', fam: -1, comp: -1, rule: null };
+    var trail = [];
+    var hoverKey = null, pending = null, revealed = false, onScreen = true, doctrineState = 'pending', forceReveal = false;
 
-    /* A sheet opens over 420ms (the plate expands from its own rectangle,
-       every mark travelling to its row) and closes over 340ms by the same
-       path; one family's sheet gives way to another's by a 180ms cross-fade.
-       A keyboard step, reduced motion or a hidden tab change at once. */
-    var SHEET_OPEN = 420, SHEET_CLOSE = 340, SWAP_MS = 180, sheetPresence = 1;
-    var sheetFam = -1, sheetMix = 0, swapFrom = -1, swapMix = 1;
-    function shownFamily() {
-      if (preview >= 0) return preview;
-      if (!pin) return -1;
-      if (pin.comp >= 0 && pin.via !== 'sheet' && interiorWanted() >= 0) return -1;
-      return pin.fam;
+    /* ---- Elements ---- */
+    function h(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
     }
-    function syncSheet(instant) {
-      var want = shownFamily(), quick = instant || !canAnimate();
-      if (want >= 0) {
-        if (sheetFam < 0 || sheetMix <= 0) {
-          sheetFam = want;
-          if (quick) { sheetMix = 1; motion.sheet = null; }
-          else { motion.sheet = { start: null, from: sheetMix, to: 1, dur: SHEET_OPEN * (1 - sheetMix) + 1 }; }
-        } else if (want !== sheetFam) {
-          if (quick || sheetMix < 0.5) { sheetFam = want; swapFrom = -1; motion.swap = null; }
-          else { swapFrom = sheetFam; sheetFam = want; swapMix = 0; motion.swap = { start: null }; }
-          if (sheetMix < 1) {
-            if (quick) { sheetMix = 1; motion.sheet = null; }
-            else motion.sheet = { start: null, from: sheetMix, to: 1, dur: SHEET_OPEN * (1 - sheetMix) + 1 };
-          }
-        } else if (sheetMix < 1 && (!motion.sheet || motion.sheet.to !== 1)) {
-          if (quick) { sheetMix = 1; motion.sheet = null; }
-          else motion.sheet = { start: null, from: sheetMix, to: 1, dur: SHEET_OPEN * (1 - sheetMix) + 1 };
-        }
-      } else if (sheetFam >= 0 && (!motion.sheet || motion.sheet.to !== 0)) {
-        if (quick) { sheetMix = 0; sheetFam = -1; motion.sheet = null; }
-        else motion.sheet = { start: null, from: sheetMix, to: 0, dur: SHEET_CLOSE * sheetMix + 1 };
-      }
-      wake();
+    function sv(tag, attrs) {
+      var n = document.createElementNS ? document.createElementNS(SVGNS, tag) : document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach(function (k) { if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]); });
+      return n;
     }
-
-    /* Focus fades in over a sixth of a second and lets go after a short
-       hold, as on the universe map, so a pointer sweeping across the marks
-       never strobes the drawing. A component's links trace out once per new
-       focus, all together, in their declared direction. */
-    var FOCUS_IN = 180, FOCUS_HOLD = 140, FOCUS_OUT = 220, RETICLE_MS = 140, TRACE_MS = 420;
-    var focusMix = 0, focusWas = null, focusHeld = null, snapFocus = false;
-    function sameFocus(a, b) { return a === b || (!!a && !!b && a.kind === b.kind && a.i === b.i); }
-    function fadeFocus(to, dur, delay) {
-      if (!canAnimate()) { focusMix = to; motion.focus = null; if (to === 0) focusHeld = null; return; }
-      motion.focus = { start: null, from: focusMix, to: to, dur: Math.max(1, dur), delay: delay };
-      wake();
+    function button(cls, text) {
+      var b = h('button', cls, text);
+      b.setAttribute('type', 'button');
+      return b;
     }
-    // What is lit: in a sheet, the component pointed at, stepped to or
-    // selected; on the overview, whatever the pointer or the list is on.
-    function currentFocus() {
-      // In an interior only its rules take the focus (the overview rests).
-      if (inner) return hover && hover.kind === 'rule' ? hover : null;
-      // A rule named in the column lights its reach where the drawing stands,
-      // and a rule held keeps it lit.
-      var colRule = ruleHover && ruleHover.from === 'column' && D && D.rules[ruleHover.id] ? { kind: 'rule', i: ruleHover.id } : null;
-      var heldRule = rulePin && D && D.rules[rulePin] ? { kind: 'rule', i: rulePin } : null;
-      if (sheetFam >= 0 && sheetMix > 0) {
-        if (listHover >= 0) return { kind: 'comp', i: listHover };
-        if (hover && (hover.kind === 'comp' || hover.kind === 'rule')) return hover;
-        if (colRule) return colRule;
-        if (classHover) return { kind: 'class', i: classHover };
-        if (keyComp >= 0) return { kind: 'comp', i: keyComp };
-        if (pin && pin.comp >= 0 && pin.fam === sheetFam) return { kind: 'comp', i: pin.comp };
-        return heldRule;
-      }
-      if (colRule) return colRule;
-      if (hover && hover.kind !== 'crumb') return hover;
-      if (heldRule && keyComp < 0 && rowHover < 0) return heldRule;
-      if (keyComp >= 0) return { kind: 'comp', i: keyComp };
-      if (rowHover >= 0) return { kind: 'family', i: rowHover };
-      return null;
-    }
-    function trackFocus() {
-      var f = currentFocus(), snap = snapFocus || !canAnimate();
-      snapFocus = false;
-      if (sameFocus(f, focusWas)) return f || focusHeld;
-      if (snap) {
-        // A keyboard step: the new focus is simply there.
-        motion.focus = null;
-        focusMix = f ? 1 : 0;
-        focusHeld = null;
-      } else if (f && !focusWas) {
-        focusHeld = null;
-        fadeFocus(1, FOCUS_IN * (1 - focusMix), 0);
-      } else if (!f && focusWas) {
-        focusHeld = focusWas;
-        fadeFocus(0, FOCUS_OUT, FOCUS_HOLD);
-      }
-      motion.reticle = !snap && f && (f.kind === 'comp' || f.kind === 'step' || f.kind === 'rule') ? { start: null, ms: 0 } : null;
-      motion.trace = !snap && f && (f.kind === 'comp' || f.kind === 'rule') ? { start: null, ms: 0 } : null;
-      // A rule's reach lights in reading order, once per new rule.
-      motion.reach = !snap && f && f.kind === 'rule' && !inner && REACH_MS ? { start: null, ms: 0 } : null;
-      wake();
-      focusWas = f;
-      return f || focusHeld;
-    }
-    function dimmed(base) { return 1 - (1 - base) * focusMix; }
-
-    /* ---- Visibility -------------------------------------------------- */
-    /* The opening starts once the drawing is well in view and still. While
-       the landing's slider is carrying the system slide in (a start event
-       for it without its end), it waits for the end, or 1.2 seconds; a
-       slide that arrives at once is shown finished. Until then the drawing
-       is its blueprint, painted once, even off screen, so the slide arrives
-       carrying it. */
-    var onScreen = !('IntersectionObserver' in window);
-    var dirty = true, sliding = false, slideTimer = null, visibleEnough = onScreen;
-    if ('IntersectionObserver' in window) {
-      var io = new window.IntersectionObserver(function (entries) {
-        for (var i = 0; i < entries.length; i++) {
-          var e = entries[i];
-          onScreen = !!e.isIntersecting && e.intersectionRatio > 0;
-          visibleEnough = onScreen && e.intersectionRatio >= 0.5;
-        }
-        if (!onScreen) { settleAll(); return; }
-        if (dirty) paint();
-        maybeOpen();
-      }, { threshold: [0, 0.5, 0.75] });
-      io.observe(canvas);
-    }
-    function maybeOpen() {
-      if (opened || !geo || !geo.ok || !visibleEnough || sliding) return;
-      startOpening();
-    }
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { settleAll(); return; }
-      if (dirty) paint();
-    });
-    function slideMoving() {
-      if (!band || !band.querySelectorAll) return false;
-      var shown = band.querySelectorAll('[data-atlas-slide].is-shown');
-      return !!shown && shown.length > 1;
-    }
-    document.addEventListener('plectis:atlas', function (event) {
-      var d = event && event.detail || {};
-      if (d.phase === 'start' && d.previous === 'system' && d.view !== 'system') {
-        // Leaving: nothing stays lit while the drawing slides out.
-        hover = null; rowHover = -1; keyComp = -1; listHover = -1; ruleHover = null; classHover = null;
-        if (canvas.classList) canvas.classList.remove('is-over');
-        settleAll();
-        paint();
-        return;
-      }
-      if (d.view !== 'system') return;
-      if (d.instant) {
-        sliding = false;
-        if (slideTimer) { clearTimeout(slideTimer); slideTimer = null; }
-        if (model) finishOpening(); else arrivedAtOnce = true;
-        return;
-      }
-      if (d.phase === 'start') {
-        sliding = true;
-        if (slideTimer) clearTimeout(slideTimer);
-        slideTimer = setTimeout(function () { sliding = false; slideTimer = null; maybeOpen(); }, 1200);
-      } else if (d.phase === 'end') {
-        sliding = false;
-        if (slideTimer) { clearTimeout(slideTimer); slideTimer = null; }
-        maybeOpen();
-      }
-    });
-    var arrivedAtOnce = !!(window.location && (/^#system$/.test(window.location.hash || '') ||
-      (pageMode && /^#map=./.test(window.location.hash || ''))));
-    if (slideMoving()) {
-      // The script arrived while the slide was already moving.
-      sliding = true;
-      slideTimer = setTimeout(function () { sliding = false; slideTimer = null; maybeOpen(); }, 1200);
-    }
-
-    /* ---- Paint ------------------------------------------------------- */
-    var hair = 0.5, placed = [];
-    // Line widths in CSS pixels, never finer than one device pixel.
-    function lw(px) { return Math.max(px, hair); }
-    function paint() {
-      if (document.hidden) { dirty = true; return; }
-      dirty = false;
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = canvas.clientWidth || 0, h = canvas.clientHeight || 0;
-      if (w !== cssW || h !== cssH || dpr !== layoutDpr) relayout();
-      var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
-      if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, w, h);
-      hair = 1 / dpr;
-      placed = [];
-      if (!geo || !geo.ok || openState === 'idle') return;
-      if (openState === 'waiting') { drawBlueprint(1); announce(null); return; }
-      var focus = trackFocus();
-      var lit = litOf(focus);
-      var sheet = sheetFam >= 0 && sheetMix > 0 ? sheetOf(sheetFam) : null;
-      // How present the overview is: under an open sheet, and under an
-      // interior as it opens over everything.
-      var bh = behind();
-      var back = (sheet ? 1 - MOVE(unit(sheetMix * 1.15)) : 1) * bh;
-      if (openState === 'running') drawBlueprint(1);
-      var plate = back > 0.01 && !inner ? placePlate(focus, sheet) : null;
-      if (back > 0.01) {
-        // Turned to the doctrine, the wiring between families steps back.
-        var wired = back * (1 - 0.86 * lensMix);
-        drawBindings(lit, wired);
-        drawCables(lit, wired);
-        drawRail(lit, back * (1 - 0.55 * lensMix));
-        drawPlates(lit, back, sheet);
-        drawConnectors(lit, wired);
-        drawLitRoutes(lit, back, sheet);
-        drawMarks(lit, back, sheet);
-        if (!sheet) drawCaps(lit, geo.routes, 1);
-        drawWords(lit, back, sheet, plate);
-      }
-      drawLegend(lit, bh);
-      if (sheet && bh > 0.01) drawSheet(sheet, lit, swapFrom >= 0 && motion.swap ? sheetOf(swapFrom) : null, bh);
-      if (!inner) drawFocus(focus, lit, sheet, plate);
-      if (innerOld) drawInterior(innerOld.ix, innerOld.t, 1 - unit(innerOld.fade / SWAP_FADE), null);
-      if (inner) {
-        drawInterior(inner.ix, inner.t, 1, inner.from);
-        drawInnerCrumb(inner.ix, DETENT(unit((inner.t - 120) / 320)));
-        drawInnerFocus(inner.ix);
-      }
-      // Words and rows follow the live focus; only the drawing's dimming
-      // holds a moment after the pointer lets go.
-      announce(focusWas);
-      syncRows(focusWas);
-    }
-    function draw() { paint(); }
-
-    function polyPath(poly, dx, dy) {
-      dx = dx || 0; dy = dy || 0;
-      ctx.beginPath();
-      for (var i = 0; i < poly.length; i++) {
-        if (i) ctx.lineTo(poly[i][0] + dx, poly[i][1] + dy); else ctx.moveTo(poly[i][0] + dx, poly[i][1] + dy);
-      }
-      ctx.closePath();
-    }
-    // A plate face with its side: the side shows as an exact offset band
-    // along two edges, never a blur.
-    function slab(poly, depth, face, side) {
-      ctx.beginPath();
-      poly.forEach(function (q, i) { if (i) ctx.lineTo(q[0] + depth, q[1] + depth); else ctx.moveTo(q[0] + depth, q[1] + depth); });
-      ctx.closePath();
-      poly.forEach(function (q, i) { if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); });
-      ctx.closePath();
-      ctx.fillStyle = side;
-      ctx.fill('evenodd');
-      polyPath(poly);
-      ctx.fillStyle = face;
-      ctx.fill();
-    }
-
-    // What the focus lights: a component, the components it names and those
-    // naming it; a family, its components; a step, its station.
-    function litOf(focus) {
-      var lit = { focus: focus, comps: null, fam: -1, step: -1 };
-      if (!focus || !model) return lit;
-      if (focus.kind === 'comp') {
-        var c = model.comps[focus.i];
-        lit.comps = Object.create(null);
-        lit.comps[focus.i] = 'self';
-        c.out.forEach(function (j) { lit.comps[j] = lit.comps[j] || 'near'; });
-        c.inc.forEach(function (j) { lit.comps[j] = lit.comps[j] || 'near'; });
-        lit.fam = c.fam;
-      } else if (focus.kind === 'family') {
-        lit.fam = focus.i;
-        lit.comps = Object.create(null);
-        model.families[focus.i].members.forEach(function (j) { lit.comps[j] = 'member'; });
-      } else if (focus.kind === 'step') {
-        lit.step = focus.i;
-      } else if (focus.kind === 'rule' && D && D.rules[focus.i]) {
-        // A rule: every component that keeps it, across the families.
-        lit.rule = focus.i;
-        lit.comps = Object.create(null);
-        D.rules[focus.i].reach.forEach(function (j) { lit.comps[j] = 'keeps'; });
-      } else if (focus.kind === 'class') {
-        // An evidence class: the components checked that way.
-        lit.comps = Object.create(null);
-        model.comps.forEach(function (c, j) { if (c.cls === focus.i) lit.comps[j] = 'class'; });
-      }
-      return lit;
-    }
-
-    /* The blueprint: the line and the plates' outlines as construction
-       lines, the lattice points faint, no words. It is the whole drawing
-       before the opening and fades out under it as the parts arrive. */
-    function drawBlueprint(alpha) {
-      var r = geo.rail;
-      ctx.lineWidth = hair;
-      ctx.strokeStyle = palette.ghost;
-      // The line's construction line stays only ahead of the line drawing
-      // over it.
-      var tr = openState === 'running' ? DETENT(phase(OPEN_SPINE[0], OPEN_SPINE[1])) : 0;
-      ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      if (tr < 1) {
-        if (!geo.portrait) { ctx.moveTo(r.x0 + (r.x1 - r.x0) * tr, (r.y0 + r.y1) / 2); ctx.lineTo(r.x1, (r.y0 + r.y1) / 2); }
-        else { ctx.moveTo((r.x0 + r.x1) / 2, r.y0 + (r.y1 - r.y0) * tr); ctx.lineTo((r.x0 + r.x1) / 2, r.y1); }
-        ctx.stroke();
-      }
-      // Its stations, as short construction ticks.
-      if (tr < 1) {
-        ctx.beginPath();
-        geo.stations.forEach(function (st) {
-          var at = geo.portrait ? (st.y - r.y0) / (r.y1 - r.y0) : (st.x - r.x0) / (r.x1 - r.x0);
-          if (at < tr) return;
-          var reach = geo.railH / 2 + geo.tickL * 0.6;
-          if (!geo.portrait) { ctx.moveTo(st.x, st.y - reach); ctx.lineTo(st.x, st.y + reach); }
-          else { ctx.moveTo(st.x - reach, st.y); ctx.lineTo(st.x + reach, st.y); }
-        });
-        ctx.stroke();
-      }
-      if (ctx.setLineDash) ctx.setLineDash([3, 3]);
-      ctx.lineJoin = 'miter';
-      geo.plates.forEach(function (gp) {
-        var t = openState === 'running' ? unit(phase(OPEN_PLATE[0] + OPEN_PLATE[1] * gp.order, OPEN_PLATE[2]) * 1.6) : 0;
-        if (t >= 1) return;
-        ctx.globalAlpha = alpha * (1 - t);
-        polyPath(chamfered(gp.rect.x0, gp.rect.y0, gp.rect.x1, gp.rect.y1, geo.cham));
-        ctx.stroke();
+    function clear(n) { while (n && n.firstChild) n.removeChild(n.firstChild); }
+    function keyed(scope, key) {
+      if (!scope || !scope.querySelectorAll) return [];
+      return Array.prototype.filter.call(scope.querySelectorAll('[data-sm-key]'), function (n) {
+        return n.getAttribute('data-sm-key') === key;
       });
-      if (ctx.setLineDash) ctx.setLineDash([]);
-      ctx.fillStyle = palette.ghost;
-      model.comps.forEach(function (c, i) {
-        var mk = geo.marks[i], g2 = geo.plates[mk.plate];
-        var t = openState === 'running' ? phase(OPEN_MARK[0] + OPEN_MARK[1] * g2.order + OPEN_MARK[2] * c.slot, OPEN_MARK[3]) : 0;
-        if (t >= 1) return;
-        ctx.globalAlpha = alpha * (1 - t) * 1.6;
-        ctx.beginPath();
-        ctx.arc(mk.x, mk.y, Math.max(0.9, geo.mr * 0.22), 0, TAU);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
     }
 
-    // During the opening a plate stands off from its outline and seats in
-    // two beats; its components and words go with it.
-    function plateOffset(g2) {
-      if (openState !== 'running') return [0, 0];
-      var t = beats(phase(OPEN_PLATE[0] + OPEN_PLATE[1] * g2.order, OPEN_PLATE[2]));
-      var d = -(1 - t) * geo.explode * g2.side;
-      return geo.portrait ? [d, 0] : [0, d];
-    }
-    function plateAlpha(g2) { return DETENT(phase(OPEN_PLATE[0] + OPEN_PLATE[1] * g2.order, OPEN_PLATE[2] * 0.55)); }
+    var root = h('div', 'sm');
+    root.setAttribute('role', 'group');
+    root.setAttribute('aria-label', 'System map');
+    var head = h('div', 'sm-head');
+    var crumbs = h('nav', 'sm-crumbs');
+    crumbs.setAttribute('aria-label', 'Where you are in the map');
+    var crumbList = h('ol', 'sm-crumbs__list');
+    crumbs.appendChild(crumbList);
+    var backBtn = button('sm-back');
+    backBtn.hidden = true;
+    head.appendChild(crumbs);
+    head.appendChild(backBtn);
+    var caption = h('p', 'sm-caption');
+    var area = h('div', 'sm-area');
+    var tip = h('div', 'sm-tip');
+    tip.hidden = true;
+    tip.setAttribute('aria-hidden', 'true');
+    var live = h('p', 'sm-live');
+    live.setAttribute('aria-live', 'polite');
+    root.appendChild(head);
+    root.appendChild(caption);
+    root.appendChild(area);
+    root.appendChild(tip);
+    root.appendChild(live);
+    var keySlot = stage.querySelector('.sm-keyslot');
+    var keyBox = h('div', 'sm-key');
 
-    // The cables and lit routes pass under the line: nothing they draw
-    // enters the line's own band.
-    function clipOutLine() {
-      var r = geo.rail, k = 1.5;
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(0, 0, geo.w, geo.h);
-      ctx.rect(r.x0 - 0.5, r.y0 - k, r.x1 - r.x0 + 1, r.y1 - r.y0 + 2 * k);
-      ctx.clip('evenodd');
+    /* ---- Navigation ---- */
+    var SYSTEM = { level: 'system', fam: -1, comp: -1, rule: null };
+    var DOCTRINE = { level: 'doctrine', fam: -1, comp: -1, rule: null };
+    function copyAt(a) { return { level: a.level, fam: a.fam, comp: a.comp, rule: a.rule }; }
+    function sameAt(a, b) { return a.level === b.level && a.fam === b.fam && a.comp === b.comp && a.rule === b.rule; }
+    // The levels above a view, nearest last: the trail along the top.
+    function ancestors(a) {
+      if (a.level === 'family' || a.level === 'doctrine') return [copyAt(SYSTEM)];
+      if (a.level === 'component') return [copyAt(SYSTEM), { level: 'family', fam: a.fam, comp: -1, rule: null }];
+      if (a.level === 'rule') return [copyAt(SYSTEM), copyAt(DOCTRINE)];
+      return [];
     }
-
-    function drawRail(lit, back) {
-      var r = geo.rail, t = DETENT(phase(OPEN_SPINE[0], OPEN_SPINE[1]));
-      if (t <= 0) return;
-      var horizontal = !geo.portrait;
-      var len = horizontal ? r.x1 - r.x0 : r.y1 - r.y0;
-      var x1 = horizontal ? r.x0 + len * t : r.x1, y1 = horizontal ? r.y1 : r.y0 + len * t;
-      ctx.globalAlpha = back;
-      // The line itself: two hairlines with a faint band between, closed by
-      // a stop at each end.
-      ctx.fillStyle = palette.side;
-      ctx.fillRect(r.x0, r.y0, x1 - r.x0, y1 - r.y0);
-      ctx.strokeStyle = palette.rail;
-      ctx.lineWidth = hair;
-      ctx.beginPath();
-      if (horizontal) {
-        ctx.moveTo(r.x0, r.y0); ctx.lineTo(x1, r.y0);
-        ctx.moveTo(r.x0, r.y1); ctx.lineTo(x1, r.y1);
-      } else {
-        ctx.moveTo(r.x0, r.y0); ctx.lineTo(r.x0, y1);
-        ctx.moveTo(r.x1, r.y0); ctx.lineTo(r.x1, y1);
-      }
-      ctx.stroke();
-      var stop = geo.railH / 2 + geo.tickL * 0.75;
-      ctx.lineWidth = lw(1);
-      ctx.strokeStyle = palette.railEdge;
-      ctx.beginPath();
-      if (horizontal) {
-        var my = (r.y0 + r.y1) / 2;
-        ctx.moveTo(r.x0, my - stop); ctx.lineTo(r.x0, my + stop);
-        if (t >= 1) { ctx.moveTo(r.x1, my - stop); ctx.lineTo(r.x1, my + stop); }
-      } else {
-        var mx = (r.x0 + r.x1) / 2;
-        ctx.moveTo(mx - stop, r.y0); ctx.lineTo(mx + stop, r.y0);
-        if (t >= 1) { ctx.moveTo(mx - stop, r.y1); ctx.lineTo(mx + stop, r.y1); }
-      }
-      ctx.stroke();
-      // Station ticks: across the line, and on toward the step's name.
-      geo.stations.forEach(function (st, i) {
-        var at = horizontal ? (st.x - r.x0) / len : (st.y - r.y0) / len;
-        var a = openState === 'running' ? DETENT(unit((openMs - OPEN_SPINE[1] * at) / 160)) : 1;
-        if (a <= 0) return;
-        var on = lit.step === i;
-        var reach = geo.railH / 2 + geo.tickL;
-        ctx.globalAlpha = a * back * (lit.comps ? dimmed(0.6) : 1);
-        ctx.strokeStyle = on ? palette.traceHot : palette.railEdge;
-        ctx.lineWidth = on ? lw(1.1) : lw(0.75);
-        ctx.beginPath();
-        if (horizontal) {
-          ctx.moveTo(st.x, st.y - reach * (st.side < 0 ? 1 : 0.5));
-          ctx.lineTo(st.x, st.y + reach * (st.side > 0 ? 1 : 0.5));
-        } else {
-          ctx.moveTo(st.x - reach * (st.side < 0 ? 1 : 0.5), st.y);
-          ctx.lineTo(st.x + reach * (st.side > 0 ? 1 : 0.5), st.y);
-        }
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
+    function navigate(next, how) {
+      how = how || {};
+      if (!model) return;
+      if ((next.level === 'doctrine' || next.level === 'rule') && !D) return;
+      var prev = copyAt(at);
+      if (sameAt(prev, next)) { if (how.keyed) focusKey(keyOf(at)); return; }
+      if (!how.noTrail) { trail.push(prev); if (trail.length > 60) trail.shift(); }
+      at = copyAt(next);
+      if (pageMode && !how.fromAddress) writeAddress(!!how.replace);
+      render(how);
     }
-
-    // Each family's tie to the shared path: a dashed line from the plate's
-    // edge to the line, ending in a joint on it.
-    function drawBindings(lit, back) {
-      geo.plates.forEach(function (gp) {
-        var t = DETENT(phase(OPEN_BIND[0] + OPEN_BIND[1] * gp.order, OPEN_BIND[2]));
-        if (t <= 0) return;
-        var b = gp.bind, on = lit.fam === gp.fam && lit.focus && lit.focus.kind === 'family';
-        var x = b.from[0] + (b.to[0] - b.from[0]) * t, y = b.from[1] + (b.to[1] - b.from[1]) * t;
-        ctx.globalAlpha = back * (lit.comps && lit.fam !== gp.fam ? dimmed(0.45) : 1);
-        ctx.strokeStyle = on ? palette.hot : palette.bind;
-        ctx.lineWidth = lw(on ? 0.9 : 0.6);
-        if (ctx.setLineDash) ctx.setLineDash([2, 2.5]);
-        ctx.beginPath();
-        ctx.moveTo(b.from[0], b.from[1]);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        if (ctx.setLineDash) ctx.setLineDash([]);
-        if (t >= 1) {
-          ctx.fillStyle = on ? palette.hot : palette.pin;
-          ctx.beginPath();
-          ctx.arc(b.to[0], b.to[1], clamp(1.5 * geo.scale, 1.2, 2.2), 0, TAU);
-          ctx.fill();
-        }
-      });
-      ctx.globalAlpha = 1;
+    function goSystem(how) { navigate(copyAt(SYSTEM), how); }
+    function goFamily(fi, how) { navigate({ level: 'family', fam: fi, comp: -1, rule: null }, how); }
+    function goComponent(ci, how) { navigate({ level: 'component', fam: model.comps[ci].fam, comp: ci, rule: null }, how); }
+    function goDoctrine(rule, how) {
+      if (!D) return;
+      navigate(rule && D.rules[rule] ? { level: 'rule', fam: -1, comp: -1, rule: rule } : copyAt(DOCTRINE), how);
     }
-
-    /* The cables: one hairline each, at rest a quiet texture. They route in
-       during the opening from both of their connectors toward the middle. */
-    function cableLit(cb, lit) {
-      if (!lit.focus) return 0;
-      if (lit.focus.kind === 'family') return cb.fa === lit.fam || cb.fb === lit.fam ? 1 : 0;
-      return 0;
-    }
-    function drawCables(lit, back) {
-      var list = geo.cables, n = list.length;
-      if (!n) return;
-      clipOutLine();
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = hair;
-      var quiet = lit.focus && lit.focus.kind !== 'step' ? dimmed(0.4) : 1;
-      list.forEach(function (cb, i) {
-        var t = MOVE(phase(OPEN_CABLE[0] + OPEN_CABLE[1] * (i / Math.max(1, n - 1)), OPEN_CABLE[2]));
-        if (t <= 0) return;
-        var on = cableLit(cb, lit);
-        ctx.globalAlpha = back * (on ? Math.max(quiet, focusMix) : quiet);
-        ctx.strokeStyle = on ? palette.hot : palette.cable;
-        ctx.lineWidth = on ? lw(0.85) : hair;
-        ctx.beginPath();
-        if (t >= 1) tracePath(ctx, cb.path);
-        else {
-          var L = cb.path.length, part = L * t / 2;
-          tracePath(ctx, cb.path, part, 0);
-          tracePath(ctx, cb.path, part, L - part);
-        }
-        ctx.stroke();
-      });
-      ctx.restore();
-      ctx.globalAlpha = 1;
-    }
-    // A connector: a terminal bar as long as the links its cable carries
-    // (a pin pitch each), drawn out from its middle in the opening.
-    function drawConnectors(lit, back) {
-      ctx.lineCap = 'butt';
-      geo.cables.forEach(function (cb) {
-        var on = cableLit(cb, lit);
-        cb.ends.forEach(function (end) {
-          var gp = plateOf(end.fam), t = DETENT(phase(OPEN_CONN[0] + OPEN_CONN[1] * gp.order, OPEN_CONN[2]));
-          if (t <= 0) return;
-          var o = plateOffset(gp), a = end.bar[0], b = end.bar[1], mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
-          ctx.globalAlpha = back * (lit.focus && lit.focus.kind !== 'step' && !on ? dimmed(0.45) : 1);
-          ctx.strokeStyle = on ? palette.hot : palette.pin;
-          ctx.lineWidth = lw(1.5);
-          ctx.beginPath();
-          ctx.moveTo(mx + (a[0] - mx) * t + o[0], my + (a[1] - my) * t + o[1]);
-          ctx.lineTo(mx + (b[0] - mx) * t + o[0], my + (b[1] - my) * t + o[1]);
-          ctx.stroke();
-        });
-      });
-      ctx.globalAlpha = 1;
-    }
-
-    function plateRectNow(gp, sheet) {
-      var r = gp.rect, o = plateOffset(gp);
-      if (!sheet || sheet.fam !== gp.fam) return { x0: r.x0 + o[0], y0: r.y0 + o[1], x1: r.x1 + o[0], y1: r.y1 + o[1] };
-      var t = MOVE(sheetMix), R = sheet.rect;
-      return { x0: lerp(r.x0, R.x0, t), y0: lerp(r.y0, R.y0, t), x1: lerp(r.x1, R.x1, t), y1: lerp(r.y1, R.y1, t) };
-    }
-    function drawPlates(lit, back, sheet) {
-      ctx.lineJoin = 'miter';
-      geo.plates.forEach(function (gp) {
-        if (sheet && sheet.fam === gp.fam) return;   // drawn forward, with the sheet
-        var a = plateAlpha(gp);
-        if (a <= 0) return;
-        var R = plateRectNow(gp, null), poly = chamfered(R.x0, R.y0, R.x1, R.y1, geo.cham);
-        var forward = lit.fam === gp.fam && lit.focus && lit.focus.kind === 'family';
-        // A rule in focus: the plates holding its components keep their
-        // edge, in the doctrine's ink; the rest recede with the machinery.
-        var holds = lit.rule ? reachIn(lit, gp.fam) : 0;
-        var fade = lit.rule ? (holds ? 1 : dimmed(0.5)) : lit.comps && lit.fam !== gp.fam ? dimmed(0.55) : 1;
-        ctx.globalAlpha = a * back * (1 - 0.45 * lensMix);
-        slab(poly, geo.depthStep * (forward ? 1.6 : 1), palette.face, palette.side);
-        ctx.globalAlpha = a * back * fade * (holds ? 1 : 1 - 0.35 * lensMix);
-        ctx.lineWidth = forward || holds ? lw(1) : hair;
-        ctx.strokeStyle = forward ? palette.hot : holds ? palette.dEdge : palette.edge;
-        polyPath(poly);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-    }
-    // How many of a family's components the rule in focus reaches.
-    function reachIn(lit, fam) {
-      var k = 0;
-      model.families[fam].members.forEach(function (j) { if (lit.comps[j]) k++; });
-      return k;
-    }
-
-    // The routes in focus, drawn out of their cables: a component's links
-    // out (heavier) and in, traced together in their declared direction; a
-    // family's links inside it.
-    function drawLitRoutes(lit, back, sheet) {
-      var f = lit.focus;
-      if (sheet || !f || f.kind === 'step' || openState !== 'done') return;
-      clipOutLine();
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'round';
-      drawLit(geo.routes, f, back);
-      ctx.restore();
-    }
-    function drawLit(routes, f, alpha) {
-      var mt = motion.trace, grow = mt ? DETENT(unit(mt.ms / TRACE_MS)) : 1;
-      var groups = f.kind === 'comp' ?
-        [[function (r) { return r.a === f.i; }, lw(1.1), grow, 1], [function (r) { return r.b === f.i; }, lw(0.8), grow, 1]] :
-        [[function (r) { return model.comps[r.a].fam === f.i && model.comps[r.b].fam === f.i; }, hair, 1, 0.42]];
-      groups.forEach(function (gp) {
-        ctx.beginPath();
-        var any = false;
-        routes.forEach(function (r) { if (gp[0](r)) { tracePath(ctx, r, r.length * gp[2]); any = true; } });
-        if (!any) return;
-        ctx.globalAlpha = Math.max(0.25, focusMix) * gp[3] * alpha;
-        ctx.lineWidth = gp[1];
-        ctx.strokeStyle = palette.hot;
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-    }
-    // End caps on the routes in focus: a dot where a link leaves the
-    // component that names the other, a bar where it reaches the one named.
-    function drawCaps(lit, routes, alpha) {
-      var f = lit.focus;
-      if (!f || f.kind !== 'comp' || openState !== 'done') return;
-      var mt = motion.trace, a = mt ? DETENT(unit((mt.ms - TRACE_MS * 0.7) / (TRACE_MS * 0.3))) : 1;
-      if (a <= 0) return;
-      var bar = clamp(3.2 * geo.scale, 2.5, 4.4);
-      ctx.globalAlpha = a * Math.max(0.25, focusMix) * alpha;
-      ctx.fillStyle = palette.hot;
-      ctx.strokeStyle = palette.hot;
-      ctx.lineWidth = lw(1.1);
-      routes.forEach(function (r) {
-        if (r.a !== f.i && r.b !== f.i) return;
-        var pts = r.points, s0 = pts[0], e0 = pts[pts.length - 1], e1 = pts[pts.length - 2];
-        ctx.beginPath();
-        ctx.arc(s0[0], s0[1], 1.45, 0, TAU);
-        ctx.fill();
-        var ux = e0[0] - e1[0], uy = e0[1] - e1[1], ul = Math.hypot(ux, uy) || 1;
-        ctx.beginPath();
-        ctx.moveTo(e0[0] - uy / ul * bar, e0[1] + ux / ul * bar);
-        ctx.lineTo(e0[0] + uy / ul * bar, e0[1] - ux / ul * bar);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-    }
-
-    function markShape(x, y, r, cls, color, alpha) {
-      if (alpha <= 0.002) return;
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = color;
-      ctx.strokeStyle = color;
-      if (cls === 'tool') {
-        ctx.beginPath();
-        ctx.arc(x, y, r * 0.72, 0, TAU);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x, y, r + 0.9, 0, TAU);
-        ctx.lineWidth = lw(0.75);
-        ctx.stroke();
-      } else if (cls === 'bounded') {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, TAU);
-        ctx.arc(x, y, r * 0.42, 0, TAU, true);
-        ctx.fill('evenodd');
-      } else if (cls === 'import') {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, TAU);
-        ctx.fill();
-      } else if (cls === 'contract') {
-        ctx.beginPath();
-        ctx.arc(x, y, r * 0.4, 0, TAU);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x, y, r - 0.55, 0, TAU);
-        ctx.lineWidth = 1.1;
-        ctx.stroke();
-      } else if (cls === 'computes') {
-        ctx.beginPath();
-        ctx.arc(x, y, r - 0.6, 0, TAU);
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      } else {
-        ctx.beginPath();
-        ctx.arc(x, y, r * 0.5, 0, TAU);
-        ctx.fill();
-      }
-    }
-    function colorOf() { return palette.ember; }
-    // Where a component's mark stands now: on its plate, on its way into the
-    // sheet, or in its row of the sheet.
-    function markAt(i, sheet) {
-      var mk = geo.marks[i], g2 = geo.plates[mk.plate], o = plateOffset(g2);
-      if (sheet && sheet.fam === model.comps[i].fam) {
-        var row = sheet.rows[model.comps[i].slot], t = MOVE(travelOf(sheet, model.comps[i].slot));
-        return [lerp(mk.x + o[0], row.x, t), lerp(mk.y + o[1], row.y, t)];
-      }
-      return [mk.x + o[0], mk.y + o[1]];
-    }
-    /* In a sheet the marks leave their plate one after another, in reading
-       order, each on a straight run to its row; closing runs the same
-       schedule backward, so the last to arrive is the first to leave. */
-    var TRAVEL = 0.46;
-    function departOf(sheet, slot) {
-      var n = sheet.rows.length;
-      return 0.06 + 0.42 * (n > 1 ? slot / (n - 1) : 0);
-    }
-    function travelOf(sheet, slot) { return unit((sheetMix - departOf(sheet, slot)) / TRAVEL); }
-    function drawMarks(lit, back, sheet) {
-      var mr = geo.mr;
-      model.comps.forEach(function (c, i) {
-        var mk = geo.marks[i];
-        if (!mk) return;
-        if (sheet && sheet.fam === c.fam) return;   // drawn with the sheet
-        if (inner && inner.comp === i) return;      // travelling to the interior's base
-        var g2 = geo.plates[mk.plate];
-        var t = phase(OPEN_MARK[0] + OPEN_MARK[1] * g2.order + OPEN_MARK[2] * c.slot, OPEN_MARK[3]);
-        if (t <= 0) return;
-        var e = DETENT(t), r = mr * (0.25 + 0.75 * e), at = markAt(i, null);
-        var on = sheet ? false : (!lit.comps || lit.comps[i]);
-        var mix = sheet ? 1 : focusMix;
-        // Out of focus a mark greys: its own colour fades as the grey comes
-        // up, so ember never turns into a muddy tint of itself. In the
-        // doctrine view every mark waits in grey until a rule lights it, and
-        // a rule's components light in reading order, a few at a time.
-        var colour = on ? (lit.comps ? 1 : 1 - lensMix) : (1 - mix) * (1 - lensMix);
-        if (on && lit.rule && motion.reach) colour *= unit((motion.reach.ms - readOrder[i] * REACH_STEP) / 140);
-        if (colour > 0.002) markShape(at[0], at[1], r, c.cls, colorOf(c), e * colour * back);
-        if (colour < 0.998) markShape(at[0], at[1], r, c.cls, palette.grey, e * (1 - colour) * back);
-      });
-      ctx.globalAlpha = 1;
-    }
-
-    /* ---- Words and the label manager ---------------------------------- */
-    // Boxes are placed in priority order; a word whose box would meet one
-    // already placed gives way rather than collide.
-    function claim(box) {
-      for (var i = 0; i < placed.length; i++) if (boxesMeet(box, placed[i], 0.5)) return false;
-      placed.push(box);
+    // Escape and the nearest crumb: one level up.
+    function up(how) {
+      var above = ancestors(at);
+      if (!above.length) return false;
+      how = how || {};
+      how.back = true;
+      how.focusTo = keyOf(at);
+      navigate(above[above.length - 1], how);
       return true;
     }
-    function drawWords(lit, back, sheet, plate) {
-      var a = DETENT(phase(OPEN_WORDS[0], OPEN_WORDS[1]));
-      if (a <= 0) return;
-      ctx.textBaseline = 'alphabetic';
-      if (plate) claim(plate.box);
-      var cover = sheet ? [sheetRectNow(sheet)] : [];
-      if (sheet && sheet.card && sheetMix > 0.5) cover.push({ x0: sheet.card.x0, x1: geo.w, y0: 0, y1: geo.h });
-      // Step names first, then the plates' names and counts.
-      var order = geo.labels.filter(function (l) { return l.kind === 'step'; })
-        .concat(geo.labels.filter(function (l) { return l.kind === 'family' || l.kind === 'count'; }));
-      order.forEach(function (l) {
-        var alpha = a * back, color = palette.text, o = [0, 0];
-        if (l.kind === 'family' || l.kind === 'count') {
-          var g2 = plateOf(l.fam);
-          if (g2) o = plateOffset(g2);
-          if (sheet && sheet.fam === l.fam) return;   // the sheet carries its own title
-          var holds = lit.rule ? reachIn(lit, l.fam) : -1;
-          if (lit.rule) { if (!holds) alpha *= dimmed(0.45); }
-          else if (lit.comps && lit.fam !== l.fam) alpha *= dimmed(0.45);
-          if (lit.fam === l.fam || holds > 0) color = palette.ink;
-          if (l.kind === 'count') color = lit.fam === l.fam ? palette.text : palette.faint;
-          // A rule in focus: each plate counts the components it reaches.
-          if (l.kind === 'count' && holds >= 0) {
-            ctx.font = l.font;
-            ctx.textAlign = 'right';
-            ctx.fillStyle = holds ? palette.blue : palette.faint;
-            ctx.globalAlpha = alpha;
-            ctx.fillText(String(holds), l.x + o[0], l.y + o[1]);
-            claim({ x0: l.box.x0 + o[0], x1: l.box.x1 + o[0], y0: l.box.y0 + o[1], y1: l.box.y1 + o[1] });
-            return;
-          }
-        } else if (l.kind === 'step') {
-          if (lit.step === l.step) color = palette.ink;
-          else if (lit.comps && !sheet) alpha *= dimmed(0.6);
-        }
-        var box = { x0: l.box.x0 + o[0], x1: l.box.x1 + o[0], y0: l.box.y0 + o[1], y1: l.box.y1 + o[1] };
-        for (var c = 0; c < cover.length; c++) if (boxesMeet(box, cover[c], 0)) return;
-        if (!claim(box)) return;
-        ctx.font = l.font;
-        ctx.textAlign = l.align;
-        ctx.fillStyle = color;
-        ctx.globalAlpha = alpha;
-        ctx.fillText(l.text, l.x + o[0], l.y + o[1]);
-      });
-      ctx.textAlign = 'left';
-      ctx.globalAlpha = 1;
+    // Back: the view the reader came from, when the trail does not already
+    // lead there.
+    function backTarget() {
+      var last = trail[trail.length - 1];
+      if (!last) return null;
+      var above = ancestors(at);
+      for (var i = 0; i < above.length; i++) if (sameAt(above[i], last)) return null;
+      return last;
     }
-    // The key stays at every level: the sheet's marks read by it too.
-    function drawLegend(lit, presence) {
-      var a = DETENT(phase(OPEN_WORDS[0], OPEN_WORDS[1])) * (presence === undefined ? 1 : presence);
-      if (a <= 0.01) return;
-      // A class named in the column stands out in the key; the rest wait.
-      var cf = lit && lit.focus && lit.focus.kind === 'class' ? lit.focus.i : null;
-      var keyA = function (cls) { return a * (!cf || cls === cf ? 1 : dimmed(0.35)); };
-      ctx.textBaseline = 'alphabetic';
-      geo.labels.forEach(function (l) {
-        if (l.kind !== 'legend' && l.kind !== 'legend-count') return;
-        if (!claim(l.box)) return;
-        ctx.font = l.font;
-        ctx.textAlign = 'left';
-        ctx.fillStyle = cf && l.cls === cf ? palette.ink : l.kind === 'legend' ? palette.text : palette.faint;
-        ctx.globalAlpha = keyA(l.cls);
-        ctx.fillText(l.text, l.x, l.y);
-      });
-      geo.legend.forEach(function (g2) {
-        var ka = keyA(g2.cls);
-        if (g2.cls === 'link') {
-          // A short route with its two caps: how a declared link reads.
-          var y = g2.y, x0 = g2.x + 1.5, x1 = g2.x + g2.w - 1.5, bar = clamp(3.2 * geo.scale, 2.5, 4.4);
-          ctx.globalAlpha = ka;
-          ctx.strokeStyle = palette.ember;
-          ctx.fillStyle = palette.ember;
-          ctx.lineWidth = lw(0.85);
-          ctx.beginPath();
-          ctx.moveTo(x0, y);
-          ctx.lineTo(x1, y);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.arc(x0, y, 1.45, 0, TAU);
-          ctx.fill();
-          ctx.lineWidth = lw(1.1);
-          ctx.beginPath();
-          ctx.moveTo(x1, y - bar);
-          ctx.lineTo(x1, y + bar);
-          ctx.stroke();
-        } else {
-          markShape(g2.x + geo.mr + 1, g2.y, geo.mr, g2.cls, palette.ember, ka);
-        }
-      });
-      ctx.globalAlpha = 1;
+    function back(how) {
+      var target = backTarget();
+      if (!target) return false;
+      how = how || {};
+      how.back = true;
+      if (pageMode && addressed && window.history && window.history.back) { window.history.back(); return true; }
+      trail.pop();
+      how.noTrail = true;
+      navigate(target, how);
+      return true;
     }
-    function plateOf(fam) {
-      for (var i = 0; i < geo.plates.length; i++) if (geo.plates[i].fam === fam) return geo.plates[i];
+    function keyOf(a) {
+      if (a.level === 'component') return 'comp:' + model.comps[a.comp].id;
+      if (a.level === 'family') return 'fam:' + model.families[a.fam].key;
+      if (a.level === 'rule') return 'rule:' + a.rule;
+      if (a.level === 'doctrine') return 'doctrine';
       return null;
     }
-
-    /* ---- The sheet --------------------------------------------------- */
-    function sheetRectNow(sheet) {
-      return plateRectNow(plateOf(sheet.fam), sheet);
-    }
-    function drawSheet(sheet, lit, from, presence) {
-      var t = MOVE(sheetMix), R = sheetRectNow(sheet), pres = presence === undefined ? 1 : presence;
-      sheetPresence = pres;
-      var poly = chamfered(R.x0, R.y0, R.x1, R.y1, geo.cham);
-      // The plate comes forward: an opaque face a step above the receding
-      // drawing, its side deeper than any plate at rest.
-      ctx.globalAlpha = pres;
-      polyPath(poly);
-      ctx.fillStyle = palette.ground;
-      ctx.fill();
-      slab(poly, geo.depthStep * (1 + 0.6 * t), palette.face, palette.side);
-      ctx.lineJoin = 'miter';
-      ctx.lineWidth = lw(0.9);
-      ctx.strokeStyle = palette.edge;
-      polyPath(poly);
-      ctx.stroke();
-      // Its contents come up as it opens, row by row from the top; a family
-      // giving way fades out.
-      if (from && from !== sheet) {
-        drawSheetBody(from, lit, (1 - swapMix) * pres, 1, true);
-        drawProfile(from, lit, (1 - swapMix) * pres, true);
-      }
-      drawSheetBody(sheet, lit, (from ? swapMix : 1) * pres, t, false);
-      drawProfile(sheet, lit, (from ? swapMix : 1) * pres, false);
-    }
-    /* The axioms beside an open family: drawn where the column reads the
-       drawing (else the card stands there). A component pointed at in the
-       sheet lights the axioms it abides by and draws its traces to them; an
-       axiom pointed at lights its components in the sheet the same way. */
-    function profileOf(sheet) {
-      if (!sheet || !D || !sheet.card || !(companion && companion.beside())) return null;
-      if (!geo.profiles) geo.profiles = {};
-      if (geo.profiles[sheet.fam] === undefined) geo.profiles[sheet.fam] = layoutProfile(model, D, sheet.fam, sheet, geo, measure);
-      return geo.profiles[sheet.fam];
-    }
-    function drawProfile(sheet, lit, alpha, leaving) {
-      var pf = profileOf(sheet);
-      if (!pf) return;
-      var settle = (leaving ? 1 : unit((sheetMix - 0.5) / 0.5)) * alpha;
-      if (settle <= 0.003) return;
-      var f = lit.focus;
-      var focusComp = f && f.kind === 'comp' && model.comps[f.i] && model.comps[f.i].fam === sheet.fam ? f.i : -1;
-      var focusRule = f && f.kind === 'rule' && D.rules[f.i] && D.rules[f.i].kind === 'axiom' ? f.i :
-        (!f && rulePin && D.rules[rulePin] && D.rules[rulePin].kind === 'axiom' ? rulePin : null);
-      var litAx = focusComp >= 0 ? D.comp[focusComp].abide : focusRule ? [focusRule] : null;
-      var mt = motion.trace, grow = mt ? DETENT(unit(mt.ms / TRACE_MS)) : 1;
-      ctx.textBaseline = 'alphabetic';
-      ctx.globalAlpha = settle;
-      ctx.font = geo.fontCount;
-      ctx.fillStyle = palette.faint;
-      ctx.textAlign = 'left';
-      ctx.fillText(pf.head, pf.x0, pf.headY);
-      ctx.textAlign = 'right';
-      ctx.fillText(pf.kept + ' of ' + pf.rows.length, pf.x1, pf.headY);
-      ctx.textAlign = 'left';
-      ctx.fillStyle = palette.dEdge;
-      ctx.globalAlpha = settle * 0.55;
-      ctx.fillRect(pf.x0, geo.half(sheet.rect.y0 + sheet.head - geo.padY * 0.6), pf.x1 - pf.x0, hair);
-      // The traces between the sheet and the axioms, one trunk in the gap.
-      if (litAx && !leaving) {
-        var sheetRows = sheet.rows.filter(function (row) {
-          return focusComp >= 0 ? row.comp === focusComp : D.rules[focusRule].reach.indexOf(row.comp) >= 0;
-        });
-        var axRows = pf.rows.filter(function (r) { return litAx.indexOf(r.id) >= 0; });
-        if (sheetRows.length && axRows.length) {
-          ctx.globalAlpha = settle * Math.max(0.25, focusMix);
-          ctx.strokeStyle = palette.dHot;
-          ctx.lineWidth = lw(0.9);
-          ctx.lineCap = 'butt';
-          ctx.lineJoin = 'round';
-          ctx.beginPath();
-          sheetRows.forEach(function (sr) {
-            axRows.forEach(function (ar) {
-              var path = roundedPath(simplify([[pf.sheetX1 - 1, sr.y], [pf.trunkX, sr.y], [pf.trunkX, ar.y], [pf.markX - pf.mr - 3, ar.y]]), geo.rb);
-              tracePath(ctx, path, path.length * grow);
-            });
-          });
-          ctx.stroke();
-          ctx.fillStyle = palette.dHot;
-          ctx.beginPath();
-          sheetRows.forEach(function (sr) { ctx.moveTo(pf.sheetX1 + 0.5, sr.y); ctx.arc(pf.sheetX1 - 1, sr.y, 1.5, 0, TAU); });
-          ctx.fill();
-        }
-      }
-      pf.rows.forEach(function (r, i) {
-        var reveal = leaving ? 1 : unit((sheetMix - 0.55 - i * 0.025) / 0.3);
-        if (reveal <= 0) return;
-        var on = !litAx || litAx.indexOf(r.id) >= 0, held = r.id === rulePin;
-        var a = settle * reveal * (on ? 1 : dimmed(0.3));
-        ctx.globalAlpha = a;
-        ctx.beginPath();
-        diamond(pf.markX, r.y, pf.mr);
-        if (r.k) { ctx.fillStyle = palette.blue; ctx.fill(); }
-        else { ctx.strokeStyle = palette.dFaint; ctx.lineWidth = lw(0.9); ctx.stroke(); }
-        ctx.font = pf.font;
-        ctx.fillStyle = litAx && on || held ? palette.ink : r.k ? palette.text : palette.faint;
-        var lh = pf.lineH, y0 = r.y - (r.lines.length - 1) * lh / 2 + pf.size * 0.34;
-        r.lines.forEach(function (ln, k) { ctx.fillText(ln, pf.nameX, y0 + k * lh); });
-        // The bar: the family's components on a hairline, those abiding filled.
-        var bw = pf.barX1 - pf.barX0;
-        ctx.fillStyle = palette.dGhost;
-        ctx.fillRect(pf.barX0, geo.half(r.y) - hair / 2, bw, hair);
-        if (r.k) {
-          ctx.fillStyle = palette.ember;
-          ctx.fillRect(pf.barX0, geo.whole(r.y - 1.5), Math.max(1.5, bw * r.k / r.n * (leaving ? 1 : DETENT(reveal))), 3);
-        }
-        ctx.font = geo.fontCount;
-        ctx.textAlign = 'right';
-        ctx.fillStyle = litAx && on ? palette.ink : palette.faint;
-        ctx.fillText(String(r.k), pf.countX, r.y + geo.fEng * 0.34);
-        ctx.textAlign = 'left';
-        placed.push({ x0: pf.nameX, x1: pf.countX, y0: r.y - (r.lines.length * lh) / 2, y1: r.y + (r.lines.length * lh) / 2 });
-        if (held) {
-          ctx.globalAlpha = settle;
-          ctx.strokeStyle = palette.dHot;
-          ctx.lineWidth = lw(1);
-          ctx.beginPath();
-          diamond(pf.markX, r.y, pf.mr + 2.5);
-          ctx.stroke();
-        }
-      });
-      ctx.globalAlpha = 1;
-    }
-    // A row's name comes up as its mark arrives.
-    function rowReveal(sheet, i) {
-      return unit((travelOf(sheet, i) - 0.62) / 0.38);
-    }
-    function drawSheetBody(sheet, lit, alpha, travel, leaving) {
-      var f = lit.focus, focusComp = f && f.kind === 'comp' && model.comps[f.i].fam === sheet.fam ? f.i : -1;
-      // A rule in focus (an axiom beside the sheet, a rule named in the
-      // column) lights the components that keep it; a class named in the
-      // column, those checked that way.
-      var ruleLit = !!(f && (f.kind === 'rule' || f.kind === 'class') && lit.comps);
-      var settle = leaving ? 1 : unit((sheetMix - 0.55) / 0.45);
-      // The family's links inside it: the brackets, one stroke at rest, the
-      // focused component's own traced out over them.
-      if (alpha * settle > 0.002) {
-        ctx.lineCap = 'butt';
-        ctx.lineJoin = 'round';
-        ctx.beginPath();
-        sheet.brackets.forEach(function (r) { tracePath(ctx, r, r.length * (leaving ? 1 : MOVE(settle))); });
-        ctx.globalAlpha = alpha * settle * (focusComp >= 0 || ruleLit ? dimmed(0.35) : 1);
-        ctx.lineWidth = hair;
-        ctx.strokeStyle = palette.trace;
-        ctx.stroke();
-        if (focusComp >= 0 && !leaving) {
-          drawLit(sheet.brackets, { kind: 'comp', i: focusComp }, alpha * settle);
-          drawCaps({ focus: { kind: 'comp', i: focusComp } }, sheet.brackets, alpha * settle);
-        }
-      }
-      // The trail along the top, the count at the far end.
-      var head = alpha * unit((sheetMix - 0.35) / 0.4);
-      if (leaving) head = alpha;
-      if (alpha <= 0.003) return;
-      ctx.textBaseline = 'alphabetic';
-      ctx.globalAlpha = head;
-      ctx.textAlign = 'left';
-      ctx.font = geo.fontCount;
-      var crumbOn = hover && hover.kind === 'crumb';
-      ctx.fillStyle = crumbOn ? palette.ink : palette.faint;
-      ctx.fillText(sheet.crumb.text, sheet.crumb.x, sheet.titleY);
-      if (crumbOn) {
-        ctx.fillRect(sheet.crumb.x, sheet.titleY + 2, sheet.crumb.textW, hair);
-      }
-      ctx.fillStyle = palette.faint;
-      ctx.fillText(sheet.crumb.sep, sheet.crumb.x + sheet.crumb.textW, sheet.titleY);
-      ctx.font = geo.fontEng;
-      ctx.fillStyle = palette.ink;
-      ctx.fillText(sheet.title, sheet.crumb.x + sheet.crumb.w, sheet.titleY);
-      ctx.textAlign = 'right';
-      ctx.font = geo.fontCount;
-      ctx.fillStyle = palette.faint;
-      ctx.fillText(sheet.count, sheet.rect.x1 - geo.padX, sheet.titleY);
-      ctx.textAlign = 'left';
-      // A hairline under the trail, the width of the sheet.
-      ctx.fillStyle = palette.edge;
-      ctx.globalAlpha = head * 0.6;
-      ctx.fillRect(sheet.rect.x0 + geo.padX, geo.half(sheet.rect.y0 + sheet.head - geo.padY * 0.6), sheet.rect.x1 - sheet.rect.x0 - 2 * geo.padX, hair);
-      // Rows: the mark travels from its plate; the name comes up beside it.
-      var lc = lit.comps;
-      sheet.rows.forEach(function (row, i) {
-        var c = model.comps[row.comp];
-        var on = ruleLit ? !!lc[row.comp] : focusComp < 0 || (lc && lc[row.comp]);
-        var at = leaving ? [row.x, row.y] : markAt(row.comp, sheet);
-        var markAlpha = leaving ? alpha : sheetPresence;
-        if (inner && inner.comp === row.comp) markAlpha = 0;
-        if (on) markShape(at[0], at[1], geo.mr, c.cls, colorOf(c), markAlpha);
-        else {
-          markShape(at[0], at[1], geo.mr, c.cls, colorOf(c), markAlpha * (1 - focusMix));
-          markShape(at[0], at[1], geo.mr, c.cls, palette.grey, markAlpha * focusMix);
-        }
-        var reveal = leaving ? 1 : rowReveal(sheet, i);
-        if (reveal <= 0) return;
-        ctx.font = sheet.nameFont;
-        ctx.fillStyle = row.comp === focusComp || (ruleLit && on) ? palette.ink : palette.text;
-        ctx.globalAlpha = alpha * reveal * (on ? 1 : dimmed(0.4));
-        ctx.fillText(row.text, row.nameX + (1 - reveal) * 6, row.y + sheet.nameSize * 0.34);
-        placed.push({ x0: row.nameX, x1: row.nameX + measure(row.text, sheet.nameFont), y0: row.y - sheet.nameSize * 0.7, y1: row.y + sheet.nameSize * 0.36 });
-      });
-      ctx.globalAlpha = 1;
+    function nameOf(a) {
+      if (a.level === 'rule') return D.rules[a.rule].title;
+      if (a.level === 'doctrine') return 'the doctrine';
+      if (a.level === 'component') return model.comps[a.comp].label;
+      if (a.level === 'family') return model.families[a.fam].title;
+      return 'the whole system';
     }
 
-    /* ---- Focus marks ------------------------------------------------- */
-    // The reticle: four corner ticks that close in on the focus from a third
-    // larger, over 140ms, once per change of focus.
-    function drawReticle(x, y, q) {
-      var mo = motion.reticle, t = mo ? DETENT(unit(mo.ms / RETICLE_MS)) : 1;
-      var qq = q * (1.35 - 0.35 * t), arm = Math.max(3, q * 0.5);
-      ctx.globalAlpha = t;
-      ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = lw(1);
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'miter';
-      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (d) {
-        var cx = x + d[0] * qq, cy = y + d[1] * qq;
-        ctx.beginPath();
-        ctx.moveTo(cx - d[0] * arm, cy);
-        ctx.lineTo(cx, cy);
-        ctx.lineTo(cx, cy - d[1] * arm);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
+    /* ---- The address (own page only) ---- */
+    var addressed = false;
+    function hashOf(a) {
+      if (a.level === 'rule') return '#map=' + encodeURIComponent('doctrine:' + a.rule);
+      if (a.level === 'doctrine') return '#map=doctrine';
+      if (a.level === 'component') return '#map=' + encodeURIComponent(model.comps[a.comp].id);
+      if (a.level === 'family') return '#map=' + encodeURIComponent('family:' + model.families[a.fam].key);
+      return '';
     }
-    function focusAnchor(f, sheet) {
-      if (!f || !geo) return null;
-      if (f.kind === 'comp') {
-        if (sheet && model.comps[f.i].fam !== sheet.fam) return null;
-        var at = markAt(f.i, sheet);
-        return { x: at[0], y: at[1], q: geo.mr + clamp(4.5 * geo.scale, 3.5, 6) };
-      }
-      if (f.kind === 'step' && !sheet) {
-        var st = geo.stations[f.i];
-        return st ? { x: st.x, y: st.y, q: geo.railH / 2 + geo.tickL + 2 } : null;
-      }
-      return null;
-    }
-    /* A name plate for the thing in focus on the overview (in a sheet the
-       names are already written). A component's plate sits in the gutter
-       between two rows of marks, where no mark can be, on the side away
-       from its own links; a station's sits beside the line. Any word it
-       would cover gives way while the reader points. */
-    function placePlate(focus, sheet) {
-      if (!focus || !geo || sheet) return null;
-      var an = focusAnchor(focus, null);
-      if (!an) return null;
-      var title, sub = null;
-      if (focus.kind === 'comp') title = model.comps[focus.i].label;
-      else if (focus.kind === 'step') {
-        title = model.steps[focus.i].title;
-        sub = 'Step ' + (focus.i + 1) + ' of ' + model.steps.length + ' on the shared path';
-      } else return null;
-      var F = geo.fonts, pad = clamp(7 * geo.scale, 5, 9);
-      var tw = measure(title, F.plate), sw = sub ? measure(sub, F.plateSub) : 0;
-      var pw = Math.min(geo.w - 16, Math.max(tw, sw) + 2 * pad);
-      var ph = F.plateSize * 1.25 + (sub ? F.plateSubSize * 1.3 : 0) + pad * 1.1;
-      var lead = clamp(9 * geo.scale, 6, 12), run = clamp(8 * geo.scale, 5, 11);
-      var cands = [];
-      if (focus.kind === 'comp') {
-        // In the gutter bands either side of the mark's row: away from the
-        // line first (the component's own links leave toward it). Where the
-        // lattice is too fine to hold a plate between two rows, there is no
-        // plate: the reticle marks the component and the caption names it.
-        var gp = geo.plates[geo.marks[focus.i].plate], away = geo.portrait ? -1 : -gp.side, p2 = geo.pitch;
-        var maxH = p2 - 2 * geo.mr - 3;
-        if (ph > maxH) { pad = Math.max(2, pad - (ph - maxH) / 1.1); ph = F.plateSize * 1.25 + pad * 1.1; }
-        if (ph > maxH + 0.01) return null;
-        [away, -away].forEach(function (dy, k) {
-          var cyB = an.y + dy * p2 / 2;
-          [1, -1].forEach(function (dx, j) {
-            var kx = an.x + dx * (an.q + lead);
-            var x0 = dx > 0 ? kx + run : kx - run - pw;
-            cands.push({ box: { x0: x0, x1: x0 + pw, y0: cyB - ph / 2, y1: cyB + ph / 2 }, d: [dx, dy],
-                         sx: an.x + dx * an.q, sy: an.y + dy * an.q, kx: kx, ky: cyB, pref: k * 0.4 + j * 0.1 });
-          });
-        });
-      } else {
-        // A station already carries its name beside the line; a plate is
-        // drawn only where the names gave way, clear of the line on either
-        // side, its leader running straight from the tick.
-        if (geo.stepNames) return null;
-        var reach = geo.railH / 2 + geo.tickL + 6;
-        [-1, 1].forEach(function (sd, k) {
-          var box;
-          if (!geo.portrait) {
-            var y0 = sd < 0 ? an.y - reach - ph : an.y + reach;
-            box = { x0: an.x - pw / 2, x1: an.x + pw / 2, y0: y0, y1: y0 + ph };
-            cands.push({ box: box, d: [1, sd], sx: an.x, sy: an.y + sd * (geo.railH / 2 + geo.tickL), kx: an.x,
-                         ky: sd < 0 ? box.y1 : box.y0, pref: k * 0.1, straight: true });
-          } else {
-            var x0 = sd < 0 ? an.x - reach - pw : an.x + reach;
-            box = { x0: x0, x1: x0 + pw, y0: an.y - ph / 2, y1: an.y + ph / 2 };
-            cands.push({ box: box, d: [sd, 1], sx: an.x + sd * (geo.railH / 2 + geo.tickL), sy: an.y,
-                         kx: sd < 0 ? box.x1 : box.x0, ky: an.y, pref: k * 0.1, straight: true });
-          }
-        });
-      }
-      // The focus's own routes, as straight runs, so the plate can keep off
-      // them where it has the choice.
-      var runs = [];
-      if (focus.kind === 'comp') {
-        geo.routes.forEach(function (r) {
-          if (r.a !== focus.i && r.b !== focus.i) return;
-          for (var k = 1; k < r.points.length; k++) runs.push([r.points[k - 1], r.points[k]]);
-        });
-      }
-      function crosses(box, run) {
-        var a = run[0], b = run[1];
-        var x0 = Math.min(a[0], b[0]), x1 = Math.max(a[0], b[0]), y0 = Math.min(a[1], b[1]), y1 = Math.max(a[1], b[1]);
-        return x1 >= box.x0 - 1 && x0 <= box.x1 + 1 && y1 >= box.y0 - 1 && y0 <= box.y1 + 1;
-      }
-      var best = null;
-      cands.forEach(function (c) {
-        var box = c.box, score = c.pref;
-        if (box.x0 < 4 || box.x1 > geo.w - 4 || box.y0 < 4 || box.y1 > geo.fieldH - 2) score += 100;
-        geo.labels.forEach(function (l) { if (boxesMeet(box, l.box, 1)) score += /legend/.test(l.kind) ? 60 : 4; });
-        geo.marks.forEach(function (mk, i) {
-          if (i === (focus.kind === 'comp' ? focus.i : -1)) return;
-          if (mk.x + geo.mr > box.x0 - 2 && mk.x - geo.mr < box.x1 + 2 && mk.y + geo.mr > box.y0 - 1 && mk.y - geo.mr < box.y1 + 1) score += 40;
-        });
-        runs.forEach(function (run) { if (crosses(box, run)) score += 1.5; });
-        // A station's plate stays in the corridor, off the plates.
-        if (focus.kind === 'step') geo.plates.forEach(function (g3) { if (boxesMeet(box, g3.rect, 0)) score += 30; });
-        if (!best || score < best.score) best = { score: score, c: c };
-      });
-      // A plate is never put over a mark or off the drawing.
-      if (focus.kind === 'comp' && best.score >= 40) return null;
-      var b2 = best.c, bx = b2.box;
-      if (bx.x0 < 4) { bx.x1 += 4 - bx.x0; bx.x0 = 4; }
-      if (bx.x1 > geo.w - 4) { bx.x0 -= bx.x1 - geo.w + 4; bx.x1 = geo.w - 4; }
-      if (bx.y0 < 4) { bx.y1 += 4 - bx.y0; bx.y0 = 4; }
-      return { box: bx, title: title, sub: sub, best: b2, pad: pad, anchor: an, ph: ph };
-    }
-    function drawFocus(focus, lit, sheet, plate) {
-      if (!focus) return;
-      var an = focusAnchor(focus, sheet);
-      if (an) drawReticle(an.x, an.y, an.q);
-      if (!plate) return;
-      var b = plate.best, F = geo.fonts, t = motion.reticle ? DETENT(unit(motion.reticle.ms / RETICLE_MS)) : 1;
-      ctx.globalAlpha = t;
-      // The leader: a hairline elbow from the reticle's corner to the plate
-      // (straight out from a station's tick).
-      ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = lw(0.7);
-      ctx.beginPath();
-      ctx.moveTo(b.sx, b.sy);
-      if (b.straight) ctx.lineTo(b.kx, b.ky);
-      else {
-        ctx.lineTo(b.sx, b.ky);
-        ctx.lineTo(b.d[0] > 0 ? plate.box.x0 : plate.box.x1, b.ky);
-      }
-      ctx.stroke();
-      var poly = chamfered(plate.box.x0, plate.box.y0, plate.box.x1, plate.box.y1, 2.5);
-      polyPath(poly);
-      ctx.fillStyle = palette.ground;
-      ctx.fill();
-      ctx.lineWidth = lw(0.75);
-      ctx.strokeStyle = palette.chrome;
-      ctx.stroke();
-      ctx.fillStyle = palette.ink;
-      ctx.font = F.plate;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'alphabetic';
-      var ty = plate.sub ? plate.box.y0 + plate.pad * 0.55 + F.plateSize * 0.98 :
-        (plate.box.y0 + plate.box.y1) / 2 + F.plateSize * 0.34;
-      ctx.fillText(fitWith(plate.title, plate.box.x1 - plate.box.x0 - 2 * plate.pad, F.plate, measure), plate.box.x0 + plate.pad, ty);
-      if (plate.sub) {
-        ctx.font = F.plateSub;
-        ctx.fillStyle = palette.faint;
-        ctx.fillText(plate.sub, plate.box.x0 + plate.pad, ty + F.plateSubSize * 1.3);
-      }
-      ctx.globalAlpha = 1;
-    }
-
-    /* ---- The interior -------------------------------------------------- */
-    /* A component selected where the drawing has the room opens into its
-       interior (layoutInterior): the overview recedes, the component's mark
-       travels to the base, and the light climbs the wiring rank by rank,
-       each plate lit and named as the light arrives. Stepping back runs the
-       same timetable backward into the overview, a little faster. Every
-       state is a function of one clock, so the reverse is exact. */
-    var inner = null;        // {comp, ix, t, dir, from: [x, y]}
-    var innerOld = null;     // an interior giving way to another: {ix, t, fade}
-    var BACK_RATE = 1.45, SWAP_FADE = 160, SEAT = 180;
-    // The interior needs room, and a column beside it to read it: a stacked
-    // layout keeps the card in the drawing instead.
-    function interiorOK() {
-      return !!(geo && geo.ok && D && !geo.portrait && geo.w >= 440 && geo.h >= 360 && (!companion || companion.beside()));
-    }
-    function interiorWanted() {
-      if (!pin || pin.comp < 0 || !interiorOK()) return -1;
-      return D.comp[pin.comp] && (D.comp[pin.comp].gov.length || D.comp[pin.comp].shown.length) ? pin.comp : -1;
-    }
-    function innerAt(ci) {
-      if (!geo || !geo.ok || !D) return null;
-      if (!geo.interiors) geo.interiors = {};
-      if (!geo.interiors[ci]) geo.interiors[ci] = layoutInterior(model, D, ci, geo, measure);
-      return geo.interiors[ci];
-    }
-    // Where the selected component's mark starts its travel to the base:
-    // its row in an open sheet, else its place on the overview.
-    function markHome(ci) {
-      var sheet = sheetFam >= 0 && sheetMix > 0 ? sheetOf(sheetFam) : null;
-      return markAt(ci, sheet && sheet.fam === model.comps[ci].fam ? sheet : null);
-    }
-    function syncInterior(instant) {
-      var want = interiorWanted(), quick = instant || !canAnimate();
-      if (want >= 0) {
-        var ix = innerAt(want);
-        if (!ix) return;
-        if (inner && inner.comp !== want && inner.t > 0) {
-          // Another component while one is open: the old interior gives way
-          // and the new one builds from the moment its component is home.
-          innerOld = quick ? null : { ix: inner.ix, t: inner.t, fade: 0 };
-          inner = { comp: want, ix: ix, t: quick ? ix.T.end : ix.T.w1 - 120, dir: 1, from: null };
-        } else if (!inner) {
-          inner = { comp: want, ix: ix, t: quick ? ix.T.end : 0, dir: 1, from: markHome(want) };
-        } else {
-          inner.ix = ix;
-          inner.dir = 1;
-          if (quick) inner.t = ix.T.end;
-        }
-      } else if (inner) {
-        inner.dir = -1;
-        if (quick) { inner = null; innerOld = null; }
-      }
-      motion.inner = inner && (inner.dir > 0 ? inner.t < inner.ix.T.end : inner.t > 0) || innerOld ? { last: null } : null;
-      wake();
-    }
-    function advanceInner(now) {
-      var mo = motion.inner;
-      if (!mo) return;
-      var dt = mo.last === null ? 16 : Math.min(64, now - mo.last);
-      mo.last = now;
-      if (innerOld) {
-        innerOld.fade += dt;
-        if (innerOld.fade >= SWAP_FADE) innerOld = null;
-      }
-      if (inner) {
-        inner.t += dt * (inner.dir > 0 ? 1 : -BACK_RATE);
-        if (inner.dir > 0 && inner.t >= inner.ix.T.end) inner.t = inner.ix.T.end;
-        if (inner.dir < 0 && inner.t <= 0) inner = null;
-      }
-      var busy = innerOld || (inner && (inner.dir > 0 ? inner.t < inner.ix.T.end : true));
-      if (!busy) motion.inner = null;
-    }
-    function settleInner() {
-      innerOld = null;
-      if (inner) { if (inner.dir > 0) inner.t = inner.ix.T.end; else inner = null; }
-      motion.inner = null;
-    }
-    // How present the overview is while an interior opens or closes over it.
-    function behind() {
-      if (!inner) return 1;
-      return 1 - MOVE(unit(inner.t / 240));
-    }
-    function innerSettled() { return !!inner && inner.dir > 0 && inner.t >= inner.ix.T.end - 0.5; }
-
-    /* What a rule in focus lights in the interior: its path down to the
-       component, and for a principle the axioms it rests on too. */
-    function pathOf(ix, id) {
-      var on = { runs: [], plates: Object.create(null), guards: Object.create(null), id: id };
-      var rule = D && D.rules[id];
-      if (!rule) return on;
-      function add(run, a, b) { if (run) on.runs.push({ run: run, a: a, b: b }); }
-      function tapOf(p) { for (var i = 0; i < ix.taps.length; i++) if (ix.taps[i].p === p) return ix.taps[i]; return null; }
-      function stubOf(p) { for (var i = 0; i < ix.stubs.length; i++) if (ix.stubs[i].p === p) return ix.stubs[i]; return null; }
-      function laneOf(a) { for (var i = 0; i < ix.lanes.length; i++) if (ix.lanes[i].a === a) return ix.lanes[i]; return null; }
-      function down(p) {
-        var tp = tapOf(p);
-        if (!tp) return;
-        add(tp.run);
-        add(ix.bus, Math.min(tp.run.x0, ix.riser.x0), Math.max(tp.run.x0, ix.riser.x0));
-        add(ix.riser);
-        on.plates[p] = true;
-      }
-      function climb(p, a) {
-        var st = stubOf(p), ln = laneOf(a);
-        if (!st || !st.run || !ln) return;
-        add(st.run, Math.min(st.run.y0, ln.lane.y0), Math.max(st.run.y0, ln.lane.y0));
-        add(ln.lane, Math.min(st.run.x0, ln.rise.x0), Math.max(st.run.x0, ln.rise.x0));
-        add(ln.rise);
-        on.plates[a] = true;
-      }
-      if (rule.kind === 'principle') {
-        down(id);
-        rule.restsOn.forEach(function (a) { climb(id, a); });
-      } else if (rule.kind === 'axiom') {
-        var ln = laneOf(id);
-        if (ln) {
-          on.plates[id] = true;
-          add(ln.rise);
-          ln.net.from.forEach(function (p) { climb(p, id); down(p); });
-          if (ln.net.side) {
-            ix.sides.forEach(function (sd) {
-              if (sd.side !== ln.net.side) return;
-              add(sd.run, Math.min(sd.run.y0, ln.lane.y0), Math.max(sd.run.y0, ln.lane.y0));
-              add(ln.lane, Math.min(sd.x, ln.rise.x0), Math.max(sd.x, ln.rise.x0));
-              add(ix.bus, Math.min(sd.x, ix.riser.x0), Math.max(sd.x, ix.riser.x0));
-              add(ix.riser);
-            });
-          }
-        }
-        ix.guardMarks.forEach(function (gm) { if (gm.axiom === id) on.guards[gm.id + '@' + gm.axiom] = true; });
-      } else {
-        ix.guardMarks.forEach(function (gm) { if (gm.id === id) { on.guards[gm.id + '@' + gm.axiom] = true; on.plates[gm.axiom] = true; } });
-      }
-      on.comp = rule.kind !== 'guard';
-      return on;
-    }
-    function onPath(on, run, along) {
-      for (var i = 0; i < on.runs.length; i++) {
-        var e = on.runs[i];
-        if (e.run !== run) continue;
-        if (e.a === undefined) return true;
-        if (along >= e.a - 0.6 && along <= e.b + 0.6) return true;
-      }
-      return false;
-    }
-    function cornerPath(k) {
-      ctx.moveTo(k.x, k.y + k.v * k.r);
-      if (ctx.arcTo) ctx.arcTo(k.x, k.y, k.x + k.h * k.r, k.y, k.r);
-      else ctx.lineTo(k.x + k.h * k.r, k.y);
-    }
-    function diamond(x, y, r) {
-      ctx.moveTo(x, y - r); ctx.lineTo(x + r, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r, y); ctx.closePath();
-    }
-    // A plate's outline drawn from its pin (the middle of its lower edge)
-    // round both sides toward the top, as far as t allows.
-    function outlineFrom(rect, frac) {
-      var poly = chamfered(rect.x0, rect.y0, rect.x1, rect.y1, geo.cham);
-      var mid = [(rect.x0 + rect.x1) / 2, rect.y1];
-      // The polygon from the pin clockwise: insert the pin on the lower edge.
-      var ring = [mid];
-      // chamfered() order: top-left, top-right, right-top, right-bottom,
-      // bottom-right, bottom-left, left-bottom, left-top.
-      var cw = [poly[5], poly[6], poly[7], poly[0], poly[1], poly[2], poly[3], poly[4], mid];
-      ring = ring.concat(cw);
-      var lens = [], L = 0;
-      for (var i = 1; i < ring.length; i++) { var d = Math.hypot(ring[i][0] - ring[i - 1][0], ring[i][1] - ring[i - 1][1]); lens.push(d); L += d; }
-      if (frac >= 1) { polyPath(poly); return; }
-      var reach = frac * L / 2;
-      // Clockwise half from the pin.
-      function walk(seq, segLens) {
-        var left = reach;
-        ctx.moveTo(seq[0][0], seq[0][1]);
-        for (var j = 1; j < seq.length && left > 0; j++) {
-          var d2 = segLens[j - 1], f = Math.min(1, left / d2);
-          ctx.lineTo(seq[j - 1][0] + (seq[j][0] - seq[j - 1][0]) * f, seq[j - 1][1] + (seq[j][1] - seq[j - 1][1]) * f);
-          left -= d2;
-        }
-      }
-      walk(ring, lens);
-      var back = ring.slice().reverse(), backLens = lens.slice().reverse();
-      walk(back, backLens);
-    }
-
-    function drawInterior(ix, t, alpha, from) {
-      var T = ix.T, done = t >= T.end - 0.5, forward = !!inner && inner.ix === ix && inner.dir > 0;
-      var hid = done && inner && inner.ix === ix ? (ruleHover && D.rules[ruleHover.id] ? ruleHover.id : rulePin) : null;
-      var on = hid ? pathOf(ix, hid) : null;
-      var dimRest = on ? 0.32 : 1;
-      ctx.save();
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'round';
-      // The blueprint: wiring and outlines, dashed and faint, until the light
-      // has built them.
-      var ghostA = alpha * DETENT(unit((t - 40) / 260)) * (done ? 0 : 1);
-      if (ghostA > 0.003) {
-        ctx.strokeStyle = palette.dGhost;
-        ctx.lineWidth = hair;
-        if (ctx.setLineDash) ctx.setLineDash([2.5, 2.5]);
-        ctx.globalAlpha = ghostA;
-        ctx.beginPath();
-        ix.runs.forEach(function (r) { if (r.len > 0.5) { ctx.moveTo(r.x0, r.y0); ctx.lineTo(r.x1, r.y1); } });
-        ix.corners.forEach(cornerPath);
-        ctx.stroke();
-        ix.plates.forEach(function (pl) {
-          var seated = unit((t - ix.lit[pl.id]) / SEAT);
-          if (seated >= 1) return;
-          ctx.globalAlpha = ghostA * (1 - seated);
-          ctx.beginPath();
-          polyPath(chamfered(pl.rect.x0, pl.rect.y0, pl.rect.x1, pl.rect.y1, geo.cham));
-          ctx.stroke();
-        });
-        if (ctx.setLineDash) ctx.setLineDash([]);
-      }
-      // The wiring, as far as the light has reached.
-      var beads = [];
-      function strokeLit(hot) {
-        ctx.beginPath();
-        ix.runs.forEach(function (r) {
-          if (r.len <= 0.05) return;
-          var parts;
-          if (r.vert) {
-            var L = done ? r.len : clamp((t - r.t0) * r.v - r.off, 0, r.len);
-            if (L <= 0) return;
-            var dir = r.y1 > r.y0 ? 1 : -1, ya = r.y0, yb = r.y0 + dir * L;
-            parts = split(on, r, Math.min(ya, yb), Math.max(ya, yb));
-            (hot ? parts.hot : parts.cold).forEach(function (iv) { ctx.moveTo(r.x0, iv[0]); ctx.lineTo(r.x0, iv[1]); });
-            if (!hot && forward && !done && L < r.len - 0.5) beads.push([r.x0, yb]);
-          } else {
-            var ivs = done ? [[r.x0, r.x1]] : litIntervals(r, t);
-            ivs.forEach(function (iv) {
-              if (iv[1] - iv[0] <= 0.05) return;
-              parts = split(on, r, iv[0], iv[1]);
-              (hot ? parts.hot : parts.cold).forEach(function (q) { ctx.moveTo(q[0], r.y0); ctx.lineTo(q[1], r.y0); });
-              if (!hot && forward && !done) {
-                if (iv[0] > r.x0 + 0.5) beads.push([iv[0], r.y0]);
-                if (iv[1] < r.x1 - 0.5) beads.push([iv[1], r.y0]);
-              }
-            });
-          }
-        });
-        ix.corners.forEach(function (k) {
-          if (!done && t < k.t) return;
-          var inOn = !!on && onPath(on, k.mb.run, k.mb.run.vert ? k.y + k.v * k.r * 0.5 : k.x) && onPath(on, k.hr, k.x + k.h * k.r * 0.5);
-          if (inOn === hot) cornerPath(k);
-        });
-        ctx.stroke();
-      }
-      ctx.globalAlpha = alpha * dimRest;
-      ctx.strokeStyle = palette.dTrace;
-      ctx.lineWidth = lw(0.85);
-      strokeLit(false);
-      if (on) {
-        ctx.globalAlpha = alpha;
-        ctx.strokeStyle = palette.dHot;
-        ctx.lineWidth = lw(1.2);
-        strokeLit(true);
-      }
-      // Joins, as the light passes them.
-      ix.dots.forEach(function (k) {
-        if (!done && t < k.t) return;
-        var hotDot = on && onPath(on, k.hr, k.x) && onPath(on, k.mb.run, k.mb.run.vert ? (k.mb.below ? k.y + 2 : k.y - 2) : k.x);
-        ctx.globalAlpha = alpha * (hotDot ? 1 : dimRest);
-        ctx.fillStyle = hotDot ? palette.dHot : palette.dTrace;
-        ctx.beginPath();
-        ctx.arc(k.x, k.y, clamp(1.45 * geo.scale, 1.2, 2), 0, TAU);
-        ctx.fill();
-      });
-      // The light's leading edge: a bead on every wire still filling.
-      if (beads.length) {
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = palette.dHot;
-        ctx.beginPath();
-        beads.forEach(function (b) { ctx.moveTo(b[0] + 1.7, b[1]); ctx.arc(b[0], b[1], 1.7, 0, TAU); });
-        ctx.fill();
-      }
-      // The component at the base: its mark travels home, its plate seats
-      // round it, its name comes up.
-      var cp = ix.compPlate, c = model.comps[ix.comp];
-      var cy = cp.plain ? cp.rect.y0 + ix.padY + ix.lineC / 2 : (cp.rect.y0 + cp.rect.y1) / 2;
-      var travel = MOVE(unit(t / T.arrive));
-      var start = from || [cp.markX, cy];
-      var mx = lerp(start[0], cp.markX, travel), my = lerp(start[1], cy, travel);
-      var seatC = DETENT(unit((t - (T.arrive - 120)) / 200));
-      if (seatC > 0) {
-        var polyC = chamfered(cp.rect.x0, cp.rect.y0, cp.rect.x1, cp.rect.y1, geo.cham);
-        ctx.globalAlpha = alpha * seatC;
-        slab(polyC, geo.depthStep, palette.face, palette.side);
-        ctx.lineWidth = lw(0.9);
-        ctx.strokeStyle = on && on.comp ? palette.hot : palette.edge;
-        ctx.beginPath();
-        outlineFrom(cp.rect, seatC);
-        ctx.stroke();
-        var nameC = unit((t - (T.arrive - 60)) / 200);
-        if (nameC > 0) {
-          ctx.globalAlpha = alpha * DETENT(nameC);
-          ctx.font = cp.font;
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'alphabetic';
-          ctx.fillStyle = palette.ink;
-          ctx.fillText(cp.lines[0], cp.markX + geo.mr + geo.whole(8 * geo.scale), cy + ix.lineC * 0.3 + (1 - DETENT(nameC)) * 3);
-          placed.push({ x0: cp.markX + geo.mr + 4, x1: cp.rect.x1 - ix.padX + 1, y0: cy - ix.lineC * 0.55, y1: cy + ix.lineC * 0.45 });
-          if (cp.plain) {
-            ctx.font = ix.fontPlain;
-            ctx.fillStyle = palette.faint;
-            var cpy = cy + ix.lineC * 0.5 + ix.nameGap + ix.plainLH * 0.78;
-            cp.plain.forEach(function (ln, i) { ctx.fillText(ln, cp.rect.x0 + ix.padX, cpy + i * ix.plainLH); });
-            placed.push({ x0: cp.rect.x0 + ix.padX, x1: cp.rect.x1 - ix.padX, y0: cy + ix.lineC * 0.5, y1: cp.rect.y1 - ix.padY / 2 });
-          }
-        }
-        // The component's pin, where the light leaves.
-        if (t >= T.w1) {
-          ctx.globalAlpha = alpha;
-          ctx.fillStyle = palette.ember;
-          ctx.beginPath();
-          ctx.arc(ix.riser.x0, cp.rect.y0, clamp(1.7 * geo.scale, 1.4, 2.3), 0, TAU);
-          ctx.fill();
-        }
-      }
-      markShape(mx, my, geo.mr, c.cls, palette.ember, alpha);
-      // The rules' plates, each lit and named as its light arrives.
-      ix.plates.forEach(function (pl) {
-        var lt = ix.lit[pl.id], seated = done ? 1 : DETENT(unit((t - lt) / SEAT));
-        if (seated <= 0) return;
-        var r = pl.rect, poly = chamfered(r.x0, r.y0, r.x1, r.y1, geo.cham);
-        var hot = !!(on && on.plates[pl.id]), held = pl.id === rulePin;
-        var fade = on && !hot ? dimRest + 0.18 : 1;
-        ctx.globalAlpha = alpha * seated * fade;
-        slab(poly, geo.depthStep * 0.7, palette.dFace, palette.dSide);
-        ctx.lineWidth = hot || held ? lw(1.1) : lw(pl.kind === 'axiom' ? 0.9 : 0.75);
-        ctx.strokeStyle = hot || held ? palette.dHot : palette.dEdge;
-        ctx.globalAlpha = alpha * fade;
-        ctx.beginPath();
-        outlineFrom(r, seated);
-        ctx.stroke();
-        // Its pin: an axiom's filled, a principle's open.
-        var px = pl.kind === 'axiom' ? ix.pinX[pl.id] : ix.stubX[pl.id], pr = ix.pinR;
-        ctx.beginPath();
-        diamond(px, r.y1, pr);
-        if (pl.kind === 'axiom') { ctx.fillStyle = hot || held ? palette.dHot : palette.blue; ctx.fill(); }
-        else {
-          ctx.fillStyle = palette.ground;
-          ctx.fill();
-          ctx.lineWidth = lw(1);
-          ctx.strokeStyle = hot || held ? palette.dHot : palette.blue;
-          ctx.stroke();
-        }
-        if (pl.kind === 'principle' && (done || t >= T.w2)) {
-          ctx.fillStyle = hot ? palette.dHot : palette.blue;
-          ctx.beginPath();
-          ctx.arc(px, r.y0, clamp(1.6 * geo.scale, 1.3, 2.2), 0, TAU);
-          ctx.fill();
-        }
-        // The name, as the light arrives.
-        var nm = done ? 1 : DETENT(unit((t - lt - 50) / 170));
-        if (nm <= 0) return;
-        ctx.font = pl.font;
-        ctx.textBaseline = 'alphabetic';
-        ctx.fillStyle = hot || held ? palette.ink : palette.text;
-        ctx.globalAlpha = alpha * nm * fade;
-        var lh = ix.lineH, n = pl.lines.length;
-        if (pl.plain) {
-          // A plate with room reads like a card: its name, then the rule in
-          // plain terms, set from its left edge.
-          var tx = r.x0 + ix.padX, ty = r.y0 + ix.padY + lh * 0.8 + (1 - nm) * 3;
-          ctx.textAlign = 'left';
-          pl.lines.forEach(function (line, i) { ctx.fillText(line, tx, ty + i * lh); });
-          var nm2 = done ? 1 : DETENT(unit((t - lt - 120) / 220));
-          ctx.font = ix.fontPlain;
-          ctx.fillStyle = hot || held ? palette.text : palette.faint;
-          ctx.globalAlpha = alpha * nm2 * fade;
-          var py = ty + (n - 1) * lh + ix.nameGap + ix.plainLH * 0.98;
-          pl.plain.forEach(function (line, i) { ctx.fillText(line, tx, py + i * ix.plainLH); });
-        } else {
-          var cx = (r.x0 + r.x1) / 2, y0 = (r.y0 + r.y1) / 2 - (n - 1) * lh / 2 + lh * 0.32 + (1 - nm) * 3;
-          ctx.textAlign = 'center';
-          pl.lines.forEach(function (line, i) { ctx.fillText(line, cx, y0 + i * lh); });
-        }
-        placed.push({ x0: r.x0 + 1, x1: r.x1 - 1, y0: r.y0 + 1, y1: r.y1 - 1 });
-      });
-      ctx.textAlign = 'left';
-      // The guards settle on their axioms' top edges.
-      ix.guardMarks.forEach(function (gm) {
-        var st = done ? 1 : DETENT(unit((t - gm.t0) / 160));
-        if (st <= 0) return;
-        var hot = !!(on && on.guards[gm.id + '@' + gm.axiom]) || (ruleHover && ruleHover.id === gm.id) || rulePin === gm.id;
-        var y = gm.y - (1 - st) * 6;
-        ctx.globalAlpha = alpha * st * (on && !hot ? dimRest + 0.2 : 1);
-        ctx.strokeStyle = hot ? palette.dHot : palette.blue;
-        ctx.lineWidth = lw(hot ? 1.1 : 0.85);
-        ctx.fillStyle = palette.ground;
-        ctx.beginPath();
-        diamond(gm.x, y, gm.r);
-        ctx.fill();
-        ctx.stroke();
-        // The stroke through it: a failure, not a rule.
-        ctx.beginPath();
-        ctx.moveTo(gm.x - gm.r * 0.62, y + gm.r * 0.62);
-        ctx.lineTo(gm.x + gm.r * 0.62, y - gm.r * 0.62);
-        ctx.stroke();
-      });
-      // The key along the foot.
-      var keyA = alpha * DETENT(unit((t - 120) / 320));
-      if (keyA > 0.003) {
-        ctx.font = ix.fontLeg;
-        ix.key.forEach(function (it) {
-          ctx.globalAlpha = keyA;
-          ctx.strokeStyle = palette.blue;
-          ctx.fillStyle = it.kind === 'axiom' ? palette.blue : palette.ground;
-          ctx.lineWidth = lw(it.kind === 'axiom' ? 1 : 0.9);
-          var r2 = ix.pinR;
-          ctx.beginPath();
-          diamond(it.gx, it.gy, r2);
-          ctx.fill();
-          if (it.kind !== 'axiom') ctx.stroke();
-          if (it.kind === 'guard') {
-            ctx.beginPath();
-            ctx.moveTo(it.gx - r2 * 0.62, it.gy + r2 * 0.62);
-            ctx.lineTo(it.gx + r2 * 0.62, it.gy - r2 * 0.62);
-            ctx.stroke();
-          }
-          ctx.fillStyle = palette.text;
-          ctx.textAlign = 'left';
-          ctx.fillText(it.label, it.tx, it.y);
-          placed.push(it.box);
-        });
-      }
-      ctx.restore();
-      ctx.globalAlpha = 1;
-    }
-    // A lit stretch [a, b] along a run, cut into what the focus lights and
-    // the rest.
-    function split(on, run, a, b) {
-      if (!on) return { hot: [], cold: [[a, b]] };
-      var spans = [];
-      on.runs.forEach(function (e) {
-        if (e.run !== run) return;
-        spans.push(e.a === undefined ? [a, b] : [Math.max(a, e.a), Math.min(b, e.b)]);
-      });
-      spans = spans.filter(function (sp) { return sp[1] > sp[0]; }).sort(function (u, v) { return u[0] - v[0]; });
-      var hot = [], cold = [], at = a;
-      spans.forEach(function (sp) {
-        if (sp[0] > at) cold.push([at, sp[0]]);
-        var last = hot[hot.length - 1];
-        if (last && sp[0] <= last[1]) last[1] = Math.max(last[1], sp[1]); else hot.push(sp.slice());
-        at = Math.max(at, sp[1]);
-      });
-      if (at < b) cold.push([at, b]);
-      return { hot: hot, cold: cold };
-    }
-    function litIntervals(hr, t) {
-      var out = [];
-      (hr.entries || []).forEach(function (e) {
-        if (t <= e.t) return;
-        var d = (t - e.t) * hr.v;
-        var a = Math.max(hr.x0, e.x - d), b = Math.min(hr.x1, e.x + d);
-        if (b > a) out.push([a, b]);
-      });
-      out.sort(function (a, b) { return a[0] - b[0]; });
-      var merged = [];
-      out.forEach(function (iv) {
-        var last = merged[merged.length - 1];
-        if (last && iv[0] <= last[1] + 0.01) last[1] = Math.max(last[1], iv[1]);
-        else merged.push(iv.slice());
-      });
-      return merged;
-    }
-    // The way back, along the top of the interior: where Escape leads.
-    function innerCrumb(ix) {
-      var text = '‹ ' + backWords();
-      var tw = measure(text, geo.fontCount), x = geo.m, y = geo.whole(geo.m + geo.fEng * 0.9);
-      return { text: text, x: x, y: y, w: tw, box: { x0: x - 6, x1: x + tw + 6, y0: y - geo.fEng - 6, y1: y + geo.fEng * 0.45 + 6 } };
-    }
-    function drawInnerCrumb(ix, alpha) {
-      var cr = innerCrumb(ix), on = hover && hover.kind === 'icrumb';
-      ctx.globalAlpha = alpha;
-      ctx.font = geo.fontCount;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'alphabetic';
-      ctx.fillStyle = on ? palette.ink : palette.faint;
-      ctx.fillText(cr.text, cr.x, cr.y);
-      if (on) ctx.fillRect(cr.x, cr.y + 2, cr.w, hair);
-      placed.push({ x0: cr.x, x1: cr.x + cr.w, y0: cr.y - geo.fEng * 0.8, y1: cr.y + 2 });
-      ctx.globalAlpha = 1;
-    }
-    // The focus in an interior: four corner ticks close in round the plate
-    // under the pointer; a guard, which carries no name of its own on the
-    // drawing, names itself on a small plate above its mark.
-    function drawInnerFocus(ix) {
-      if (!hover || hover.kind !== 'rule' || !innerSettled()) return;
-      var mo = motion.reticle, t = mo ? DETENT(unit(mo.ms / RETICLE_MS)) : 1;
-      if (hover.guard) {
-        var gm = null;
-        ix.guardMarks.forEach(function (g) { if (g.id === hover.i && g.axiom === hover.axiom) gm = g; });
-        if (!gm || !D.rules[gm.id]) return;
-        drawReticle(gm.x, gm.y, gm.r + 4);
-        var plate = placeGuardPlate(ix, gm);
-        ctx.globalAlpha = t;
-        ctx.strokeStyle = palette.ink;
-        ctx.lineWidth = lw(0.7);
-        ctx.beginPath();
-        ctx.moveTo(gm.x, gm.y - gm.r - 4);
-        ctx.lineTo(gm.x, plate.box.y1);
-        ctx.stroke();
-        ctx.beginPath();
-        polyPath(chamfered(plate.box.x0, plate.box.y0, plate.box.x1, plate.box.y1, 2.5));
-        ctx.fillStyle = palette.ground;
-        ctx.fill();
-        ctx.lineWidth = lw(0.75);
-        ctx.strokeStyle = palette.chrome;
-        ctx.stroke();
-        ctx.font = geo.fonts.plate;
-        ctx.fillStyle = palette.ink;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'alphabetic';
-        ctx.fillText(plate.title, plate.box.x0 + plate.pad, (plate.box.y0 + plate.box.y1) / 2 + geo.fonts.plateSize * 0.34);
-        placed.push(plate.box);
-        ctx.globalAlpha = 1;
-        return;
-      }
-      var pl = ix.plateOf[hover.i];
-      if (!pl) return;
-      var r = pl.rect, cx = (r.x0 + r.x1) / 2, cy = (r.y0 + r.y1) / 2;
-      var k = 1.12 - 0.12 * t, hw = (r.x1 - r.x0) / 2 + 4, hh = (r.y1 - r.y0) / 2 + 4, arm = Math.max(4, Math.min(8, hh * 0.6));
-      ctx.globalAlpha = t;
-      ctx.strokeStyle = palette.ink;
-      ctx.lineWidth = lw(1);
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'miter';
-      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (d) {
-        var x = cx + d[0] * hw * k, y = cy + d[1] * hh * k;
-        ctx.beginPath();
-        ctx.moveTo(x - d[0] * arm, y);
-        ctx.lineTo(x, y);
-        ctx.lineTo(x, y - d[1] * arm);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-    }
-    function placeGuardPlate(ix, gm) {
-      var title = D.rules[gm.id].title, F = geo.fonts, pad = clamp(7 * geo.scale, 5, 9);
-      var pw = measure(title, F.plate) + 2 * pad, ph = F.plateSize * 1.25 + pad * 1.1, gap = gm.r + 9;
-      var cands = [
-        { x0: gm.x - pw / 2, y0: gm.y - gap - ph },
-        { x0: gm.x - pw + 10, y0: gm.y - gap - ph },
-        { x0: gm.x - 10, y0: gm.y - gap - ph }
-      ];
-      var best = null;
-      cands.forEach(function (c0, i) {
-        var box = { x0: clamp(c0.x0, 4, geo.w - 4 - pw), y0: Math.max(4, c0.y0) };
-        box.x1 = box.x0 + pw;
-        box.y1 = box.y0 + ph;
-        var score = i * 0.2;
-        ix.plates.forEach(function (pl) {
-          var ox = Math.max(0, Math.min(box.x1, pl.rect.x1) - Math.max(box.x0, pl.rect.x0));
-          var oy = Math.max(0, Math.min(box.y1, pl.rect.y1) - Math.max(box.y0, pl.rect.y0));
-          score += ox * oy * 0.05;
-        });
-        if (!best || score < best.score) best = { score: score, box: box };
-      });
-      return { box: best.box, title: title, pad: pad };
-    }
-    function hitInterior(x, y) {
-      var ix = inner && inner.ix;
-      if (!ix || !innerSettled()) return null;
-      var cr = innerCrumb(ix);
-      if (pointInRect(x, y, cr.box)) return { kind: 'icrumb' };
-      var best = null, bestD = 11;
-      ix.guardMarks.forEach(function (gm) {
-        var d = Math.hypot(gm.x - x, gm.y - y);
-        if (d < bestD) { bestD = d; best = gm; }
-      });
-      if (best) return { kind: 'rule', i: best.id, axiom: best.axiom, guard: true };
-      for (var i = 0; i < ix.plates.length; i++) {
-        var r = ix.plates[i].rect;
-        if (x >= r.x0 - 2 && x <= r.x1 + 2 && y >= r.y0 - 2 && y <= r.y1 + 2) return { kind: 'rule', i: ix.plates[i].id };
-      }
-      if (pointInRect(x, y, ix.compPlate.rect)) return { kind: 'icomp' };
-      return { kind: 'void' };
-    }
-
-    /* ---- Words for the reader ---------------------------------------- */
-    // "Verifier Lab Kernel (Formal math & proof) checks a contract."
-    function whoWords(c, withFamily) {
-      var who = c.label + (withFamily ? ' (' + model.families[c.fam].title + ')' : '');
-      return c.cls ? who + ' ' + lowerFirst(CLASS_WORDS[c.cls]) + '.' : who + '.';
-    }
-    // "It names 10 components and 18 name it."
-    function namesWords(c) {
-      var o = c.out.length, n = c.inc.length;
-      if (!o && !n) return 'It names no other component, and none names it.';
-      var a = o ? 'It names ' + o + ' ' + plural(o, 'component', 'components') : 'It names no other component';
-      var b = n ? (n === 1 ? 'one names it' : n + ' name it') : 'none names it';
-      return a + (o ? ' and ' : ', and ') + b + '.';
-    }
-    function familyWords(f) {
-      var n = f.members.length;
-      return n + ' ' + plural(n, 'component', 'components') + ', with ' + f.within + ' ' +
-        plural(f.within, 'link', 'links') + ' among them and ' + f.cross + ' to other families.';
-    }
-    function stepWords(i) {
-      var n = model.steps.length, nf = model.families.length;
-      var who = model.bindCount >= nf ? 'every family uses' : model.bindCount + ' of the ' + nf + ' families use';
-      return model.steps[i].title + ': step ' + (i + 1) + ' of ' + n + ' on the shared path ' + who + '.';
-    }
-    /* The caption says where the reader is, as a trail ("All families /
-       Formal math & proof / Verifier Lab Kernel"), then what is pointed at,
-       in a plain sentence. */
-    var spoken = '';
-    function trail(parts) { return parts.join(' / '); }
-    var NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
-                        'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
-    function numberWord(n) { return n < NUMBER_WORDS.length ? NUMBER_WORDS[n] : String(n); }
-    function countWords(n, one, many) { return numberWord(n) + ' ' + (n === 1 ? one : many); }
-    // "ten of the twelve axioms", "all twelve axioms", "none of the twelve axioms".
-    function shareWords(k, total, noun) {
-      if (k >= total) return 'all ' + numberWord(total) + ' ' + noun;
-      return (k ? numberWord(k) : 'none') + ' of the ' + numberWord(total) + ' ' + noun;
-    }
-    function capital(text) { return text ? text.charAt(0).toUpperCase() + text.slice(1) : text; }
-    function andList(names) {
-      if (names.length < 2) return names.join('');
-      return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
-    }
-    // "Verifier Lab Kernel: six principles govern it, resting on six axioms."
-    function interiorWords(ci) {
-      var c = model.comps[ci], info = D.comp[ci];
-      var text = c.label + ': ' + countWords(info.gov.length, 'principle governs', 'principles govern') + ' it';
-      if (info.via.length) text += ', resting on ' + countWords(info.via.length, 'axiom', 'axioms');
-      text += '.';
-      if (info.direct.length) text += ' Its paper module also abides by ' + andList(info.direct.map(function (a) { return D.rules[a].title; })) + '.';
-      return text;
-    }
-    // What a rule in the interior is to the component.
-    function ruleInComp(rule, ci) {
-      var info = D.comp[ci];
-      if (rule.kind === 'principle') {
-        return rule.title + ': a principle that governs it, resting on ' +
-          andList(rule.restsOn.map(function (a) { return D.rules[a].title; })) + '.';
-      }
-      if (rule.kind === 'axiom') {
-        var via = (info.gov || []).filter(function (p) { return D.rules[p].restsOn.indexOf(rule.id) >= 0; });
-        var how = via.length ? 'an axiom its ' + plural(via.length, 'principle rests', 'principles rest') + ' on' :
-          'an axiom its paper module abides by';
-        return rule.title + ': ' + how + '. ' + capital(countWords(rule.guardedBy.length, 'failure', 'failures')) + ' guard it.';
-      }
-      var shown = rule.guards.filter(function (a) { return info.shown.indexOf(a) >= 0; });
-      return rule.title + ': a failure that ' + andList(shown.map(function (a) { return D.rules[a].title; })) +
-        (shown.length === 1 ? ' guards' : ' guard') + ' against.';
-    }
-    // "Derivation before assertion: 46 of the 88 components abide by it, in
-    // all seven families."
-    function reachWords(rule) {
-      var n = rule.reach.length, fams = 0;
-      model.families.forEach(function (f, fi) { if (rule.reach.some(function (ci) { return model.comps[ci].fam === fi; })) fams++; });
-      if (rule.kind === 'guard') {
-        return rule.title + ': a failure the doctrine guards against, enforced in ' + countWords(n, 'component', 'components') + '.';
-      }
-      var verb = rule.kind === 'axiom' ? 'abide by it' : 'are governed by it';
-      return rule.title + ': ' + n + ' of the ' + model.comps.length + ' components ' + verb + ', in ' +
-        (fams === model.families.length ? 'all ' : '') + countWords(fams, 'family', 'families') + '.';
-    }
-    function announce(focus) {
-      if (!caption || !model) return;
-      var text, fam = shownFamily();
-      if (!inner && D && fam < 0 && ((focus && focus.kind === 'rule' && D.rules[focus.i]) || (lens === 'doctrine' && !focus))) {
-        var fr = focus && focus.kind === 'rule' ? D.rules[focus.i] : rulePin && D.rules[rulePin];
-        text = fr ? reachWords(fr) : 'The doctrine: ' + countWords(D.axioms.length, 'axiom', 'axioms') +
-          ' the components keep. Point at one beside the drawing to see where they stand.';
-        text = text.replace(/\s+/g, ' ').trim();
-        if (text !== spoken) { spoken = text; caption.textContent = text; }
-        return;
-      }
-      if (inner && D && inner.dir > 0) {
-        var rid = ruleHover && D.rules[ruleHover.id] ? ruleHover.id : rulePin;
-        text = rid && D.rules[rid] ? ruleInComp(D.rules[rid], inner.comp) : interiorWords(inner.comp);
-        text = text.replace(/\s+/g, ' ').trim();
-        if (text !== spoken) { spoken = text; caption.textContent = text; }
-        return;
-      }
-      if (fam >= 0 && sheetMix > 0) {
-        var F = model.families[fam];
-        var c = pin && pin.fam === fam && pin.comp >= 0 && preview < 0 ? model.comps[pin.comp] : null;
-        var hc = focus && focus.kind === 'comp' && (!c || focus.i !== pin.comp) ? model.comps[focus.i] : null;
-        if (hc) text = whoWords(hc, false) + ' ' + namesWords(hc);
-        else if (c) text = trail(['All families', F.title, c.label]) + '.';
-        else text = trail(['All families', F.title]) + '. Select a component to see what it does.';
-      } else if (focus && focus.kind === 'comp') {
-        var cc = model.comps[focus.i];
-        text = whoWords(cc, true) + ' ' + namesWords(cc);
-      } else if (focus && focus.kind === 'family') {
-        var ff = model.families[focus.i];
-        text = ff.title + ': ' + ff.members.length + ' ' + plural(ff.members.length, 'component', 'components') + '. Select it to see their names.';
-      } else if (focus && focus.kind === 'step') {
-        text = stepWords(focus.i);
-      } else {
-        text = 'All families. Select one to see its components.';
-      }
-      text = text.replace(/\s+/g, ' ').trim();
-      if (text !== spoken) { spoken = text; caption.textContent = text; }
-    }
-
-    /* ---- Family rows ------------------------------------------------- */
-    /* The landing's list of families works the drawing: pointing at a row
-       lights its plate at once and, after a short dwell, opens its sheet
-       (the next row then opens at once); a row in keyboard focus opens its
-       sheet straight away, and the arrow keys walk its components, Enter
-       selecting the one reached. The rows stay links to the family pages. */
-    function syncRows(focus) {
-      var fam = shownFamily();
-      if (fam < 0 && focus && model) fam = focus.kind === 'family' ? focus.i : focus.kind === 'comp' ? model.comps[focus.i].fam : -1;
-      rows.forEach(function (row) {
-        if (row.el.classList) row.el.classList.toggle('is-current', fam >= 0 && row.fam === fam);
-      });
-    }
-    function wireRows() {
-      if (!section || !section.querySelectorAll || !model) return;
-      var famById = Object.create(null);
-      model.families.forEach(function (f, i) { famById[f.id] = i; });
-      Array.prototype.forEach.call(section.querySelectorAll('.home-family[data-system-family]'), function (el) {
-        var fam = famById[el.getAttribute('data-system-family')];
-        if (fam === undefined) return;
-        rows.push({ el: el, fam: fam });
-        liveRow(el, fam);
-        function enter(now) {
-          if (rowTimer) { clearTimeout(rowTimer); rowTimer = null; }
-          if (dwellTimer) { clearTimeout(dwellTimer); dwellTimer = null; }
-          rowHover = fam;
-          if (now) snapFocus = true;
-          if (now || preview >= 0) openPreview(fam, now);
-          else dwellTimer = setTimeout(function () { dwellTimer = null; if (rowHover === fam) openPreview(fam, false); }, 520);
-          draw();
-        }
-        function leave() {
-          if (dwellTimer) { clearTimeout(dwellTimer); dwellTimer = null; }
-          if (rowTimer) clearTimeout(rowTimer);
-          rowTimer = setTimeout(function () {
-            rowTimer = null; rowHover = -1; keyComp = -1;
-            if (preview >= 0) { preview = -1; syncSheet(false); renderCard(); }
-            draw();
-          }, 250);
-        }
-        el.addEventListener('pointerenter', function (e) {
-          if ((e && e.pointerType === 'touch') || (fineQuery && !fineQuery.matches)) return;
-          enter(false);
-        });
-        el.addEventListener('pointerleave', function (e) {
-          if ((e && e.pointerType === 'touch') || (fineQuery && !fineQuery.matches)) return;
-          leave();
-        });
-        el.addEventListener('focusin', function () { enter(true); });
-        el.addEventListener('focusout', leave);
-        el.addEventListener('keydown', function (e) {
-          var list = model.families[fam].members, at = keyComp >= 0 ? list.indexOf(keyComp) : -1;
-          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { at = Math.min(list.length - 1, at + 1); }
-          else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { at = at < 0 ? 0 : Math.max(0, at - 1); }
-          else if (e.key === 'Enter' && keyComp >= 0) {
-            // Enter selects the component reached; the selection takes over
-            // from the arrow keys, so Escape then steps back a level.
-            e.preventDefault();
-            var chosen = keyComp;
-            keyComp = -1; preview = -1;
-            pinTo({ fam: fam, comp: chosen }, true);
-            return;
-          }
-          else if (e.key === 'Escape' && keyComp >= 0) { keyComp = -1; snapFocus = true; draw(); e.stopPropagation(); return; }
-          else return;
-          e.preventDefault();
-          keyComp = list[at];
-          snapFocus = true;
-          draw();
-        });
-      });
-    }
-    /* Each family row carries its components as the drawing marks them, in
-       the plate's order, one mark each, cut by evidence class: the row's
-       readout is the plate in small, and its length is its count. */
-    function markSvg(cls, x, y, r) {
-      var a = ' cx="' + x.toFixed(2) + '" cy="' + y + '"';
-      if (cls === 'tool') return '<circle' + a + ' r="' + (r * 0.68).toFixed(2) + '" fill="currentColor"/><circle' + a + ' r="' + (r + 0.55).toFixed(2) + '" fill="none" stroke="currentColor" stroke-width="0.8"/>';
-      if (cls === 'bounded') return '<circle' + a + ' r="' + (r * 0.71).toFixed(2) + '" fill="none" stroke="currentColor" stroke-width="' + (r * 0.58).toFixed(2) + '"/>';
-      if (cls === 'import') return '<circle' + a + ' r="' + r.toFixed(2) + '" fill="currentColor"/>';
-      if (cls === 'contract') return '<circle' + a + ' r="' + (r * 0.4).toFixed(2) + '" fill="currentColor"/><circle' + a + ' r="' + (r - 0.5).toFixed(2) + '" fill="none" stroke="currentColor" stroke-width="1"/>';
-      if (cls === 'computes') return '<circle' + a + ' r="' + (r - 0.55).toFixed(2) + '" fill="none" stroke="currentColor" stroke-width="1.1"/>';
-      return '<circle' + a + ' r="' + (r * 0.5).toFixed(2) + '" fill="currentColor"/>';
-    }
-    function liveRow(li, fam) {
-      var link = li.querySelector ? li.querySelector('a') : null;
-      if (!link || !link.insertBefore || (link.querySelector && link.querySelector('.home-family__marks'))) return;
-      var f = model.families[fam], step = 8, r = 2.75, w = f.members.length * step + 2;
-      var marks = f.members.map(function (ci, k) {
-        return '<g data-ci="' + ci + '">' + markSvg(model.comps[ci].cls, 1 + step / 2 + k * step, 5, r) + '</g>';
-      }).join('');
-      var span = el('span', 'home-family__marks');
-      span.setAttribute('aria-hidden', 'true');
-      span.innerHTML = '<svg viewBox="0 0 ' + w + ' 10" width="' + w + '" height="10" focusable="false">' + marks + '</svg>';
-      var count = link.querySelector('.home-family__count');
-      link.insertBefore(span, count || null);
-      if (li.classList) li.classList.add('has-marks');
-    }
-    // A rule in focus shows its reach in the rows' readouts too.
-    function syncRowMarks() {
-      var rid = ruleHover && D && D.rules[ruleHover.id] ? ruleHover.id : null;
-      var reach = rid ? D.rules[rid].reach : null;
-      rows.forEach(function (row) {
-        var svg = row.el.querySelector ? row.el.querySelector('.home-family__marks') : null;
-        if (!svg || !svg.querySelectorAll) return;
-        if (row.el.classList) row.el.classList.toggle('is-reading', !!reach);
-        Array.prototype.forEach.call(svg.querySelectorAll('g[data-ci]'), function (g) {
-          var on = !!reach && reach.indexOf(+g.getAttribute('data-ci')) >= 0;
-          if (g.classList) g.classList.toggle('is-lit', on);
-        });
-      });
-    }
-    function openPreview(fam, now) {
-      if (pin && pin.fam === fam) { preview = -1; syncSheet(now); renderCard(now); return; }
-      preview = fam;
-      syncSheet(now);
-      renderCard(now);
-    }
-
-    /* ---- The card ---------------------------------------------------- */
-    /* Beside an open sheet, a card in the column the sheet leaves free (on a
-       narrow screen, the whole drawing): the family and its summary, or the
-       selected component with what it does, what backs it, the components it
-       names and those naming it (point at one to light it, select it to go
-       there), and its pages. A family's card comes out from behind the
-       sheet's edge; a component's opens out of its row; stepping back
-       returns each the way it came. */
-    var card = null, cardShows = null, cardToken = 0;
-    // After a keyboard step the card that replaces the one in focus takes the
-    // focus, so the reader's place is never lost to the page.
-    var focusCard = false;
-    function el(tag, cls, text) {
-      var node = document.createElement(tag);
-      if (cls) node.className = cls;
-      if (text != null) node.textContent = text;
-      return node;
-    }
-    function go(href, text, primary) {
-      var a = el('a', 'system-card__go' + (primary ? ' system-card__go--primary' : ''), text);
-      a.setAttribute('href', href);
-      return a;
-    }
-    function actions(links) {
-      var row = el('p', 'system-card__actions');
-      links.forEach(function (a) { row.appendChild(a); });
-      card.appendChild(row);
-    }
-    function peerList(label, ids, key) {
-      var p = el('p', 'system-card__peers');
-      p.appendChild(el('span', 'system-card__peers-label', label + ' '));
-      var full = !!expanded[key], shown = full || ids.length <= 5 ? ids : ids.slice(0, 4);
-      shown.forEach(function (ci, k) {
-        // A name in the sentence, inline so its comma stays with it, that
-        // answers like a button: point at it to light it, select it to go.
-        var b = el('span', 'system-card__peer', model.comps[ci].label);
-        b.setAttribute('role', 'button');
-        b.setAttribute('tabindex', '0');
-        var choose = function (instant) {
-          listHover = -1;
-          if (instant) focusCard = true;
-          pinTo({ fam: model.comps[ci].fam, comp: ci }, !!instant);
-        };
-        b.addEventListener('pointerenter', function () { listHover = ci; draw(); });
-        b.addEventListener('pointerleave', function () { if (listHover === ci) { listHover = -1; draw(); } });
-        b.addEventListener('focus', function () { listHover = ci; draw(); });
-        b.addEventListener('blur', function () { if (listHover === ci) { listHover = -1; draw(); } });
-        b.addEventListener('click', function () { choose(false); });
-        b.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(true); }
-        });
-        p.appendChild(b);
-        var lastShown = k === shown.length - 1, more = shown.length < ids.length;
-        if (!lastShown) p.appendChild(document.createTextNode(k === shown.length - 2 && !more ? ' and ' : ', '));
-      });
-      if (shown.length < ids.length) {
-        // The rest of the list, one press away.
-        p.appendChild(document.createTextNode(' and '));
-        var more = el('button', 'system-card__more', (ids.length - shown.length) + ' more');
-        more.setAttribute('type', 'button');
-        more.setAttribute('aria-label', 'Show all ' + ids.length);
-        more.addEventListener('click', function () {
-          expanded[key] = true;
-          renderCard(true);
-          // Focus moves to the first name the press revealed.
-          var list = card && card.querySelector ? card.querySelector('[data-peers="' + key + '"]') : null;
-          var names = list && list.querySelectorAll ? list.querySelectorAll('.system-card__peer') : [];
-          if (names[4] && names[4].focus) names[4].focus();
-        });
-        p.appendChild(more);
-      }
-      p.appendChild(document.createTextNode('.'));
-      p.setAttribute('data-peers', key);
-      return p;
-    }
-    function ruleLinks(label, ids) {
-      var p = el('p', 'system-card__peers system-card__rules');
-      p.appendChild(el('span', 'system-card__peers-label', label + ' '));
-      ids.forEach(function (id, k) {
-        var r = D.rules[id], item = el('span', 'system-card__rule-item');
-        item.appendChild(go(r.doctrine, r.title, false));
-        item.lastChild.className = 'system-card__rule';
-        item.appendChild(document.createTextNode(k === ids.length - 1 ? '.' : k === ids.length - 2 ? '' : ','));
-        p.appendChild(item);
-        if (k < ids.length - 1) p.appendChild(document.createTextNode(k === ids.length - 2 ? ' and ' : ' '));
-      });
-      return p;
-    }
-    function cardKind() {
-      var fam = shownFamily();
-      if (fam < 0) return null;
-      var c0 = pin && preview < 0 && pin.fam === fam && pin.comp >= 0;
-      return c0 ? 'comp:' + pin.comp : 'fam:' + fam;
-    }
-    function renderCard(instant) {
-      if (!document.createElement || !stage.appendChild || !model) return;
-      var fam = shownFamily(), kind = cardKind(), was = cardShows;
-      // The interior fills the drawing and the column reads it, so no card
-      // stands over it; nor over a sheet the column is already reading.
-      if (fam < 0 || interiorWanted() >= 0 || (companion && companion.beside())) { hideCard(instant, was); return; }
-      var narrow = !(sheetOf(fam) || {}).card;
-      var isComp = kind && kind.indexOf('comp:') === 0;
-      // A narrow screen has no room beside the sheet: the family's sheet
-      // stands alone, and a component's card takes the whole drawing (its
-      // first line leads back), so nothing is ever half covered.
-      if (narrow && !isComp) { hideCard(true, was); return; }
-      if (!card) {
-        card = el('div', 'system-card');
-        card.setAttribute('role', 'group');
-        card.setAttribute('tabindex', '-1');
-        card.hidden = true;
-        stage.appendChild(card);
-      }
-      var token = ++cardToken;
-      var rebuild = function () {
-        if (token !== cardToken) return;
-        fill(fam);
-        card.hidden = false;
-        placeCard();
-        cardShows = kind;
-        if (focusCard) {
-          focusCard = false;
-          if (card.focus) { try { card.focus({ preventScroll: true }); } catch (e) { card.focus(); } }
-        }
-      };
-      var swapping = was && kind && was.indexOf('fam:') === 0 && kind.indexOf('fam:') === 0;
-      if (swapping) {
-        // One family's card gives way to another's in place, as their sheets
-        // cross-fade.
-        rebuild();
-        return;
-      }
-      if (was && was !== kind && !card.hidden && !instant && canAnimate() && card.animate) {
-        // The card that was showing goes back the way it came, then the new
-        // one arrives.
-        var out = cardMotion(was, false);
-        if (out) {
-          var anim = card.animate(out.frames, { duration: 150, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' });
-          anim.onfinish = function () {
-            if (token !== cardToken) return;
-            rebuild();
-            try { anim.cancel(); } catch (e) {}
-            arrive(kind, 0);
-          };
-          return;
-        }
-      }
-      var fresh = !was || card.hidden;
-      rebuild();
-      if (was !== kind && !instant) arrive(kind, fresh && kind.indexOf('fam:') === 0 ? SHEET_OPEN * 0.55 : 0);
-    }
-    // How the card moves for what it shows: a family's card wipes out from
-    // the sheet's edge; a component's opens out of its row's line.
-    function cardMotion(kind, coming) {
-      if (!card || !geo || !geo.ok || !kind) return null;
-      var fam = shownFamily(), sheet = sheetOf(fam);
-      if (!sheet || !sheet.card) return null;
-      var full = 'inset(0px 0px 0px 0px)', from;
-      if (kind.indexOf('comp:') === 0) {
-        var ci = +kind.slice(5), row = model.comps[ci] ? sheet.rows[model.comps[ci].slot] : null;
-        var hgt = card.offsetHeight || 200, top = parseFloat(card.style.top) || 0;
-        var y = row ? clamp(row.y - top, 0, hgt) : 0;
-        from = 'inset(' + Math.round(y) + 'px 0px ' + Math.round(Math.max(0, hgt - y - 1)) + 'px 0px)';
-      } else {
-        from = 'inset(0px 100% 0px 0px)';
-      }
-      var shift = kind.indexOf('fam:') === 0 ? 'translateX(-10px)' : 'translateX(-6px)';
-      var a = { clipPath: from, opacity: 0.4, transform: shift }, b = { clipPath: full, opacity: 1, transform: 'none' };
-      return { frames: coming ? [a, b] : [b, a] };
-    }
-    function arrive(kind, delay) {
-      if (!card || !card.animate || !canAnimate()) return;
-      var mo = cardMotion(kind, true);
-      if (!mo) return;
+    function writeAddress(replace) {
+      var hist = window.history, loc = window.location;
+      if (!hist || !loc || !hist.replaceState) return;
+      var want = hashOf(at);
+      if ((loc.hash || '') === want) return;
+      var url = want || (loc.pathname || '') + (loc.search || '');
       try {
-        card.animate(mo.frames, { duration: kind.indexOf('fam:') === 0 ? 260 : 300, delay: delay || 0,
-                                  easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards' });
+        if (replace || !hist.pushState) hist.replaceState(hist.state || null, '', url);
+        else { hist.pushState(null, '', url); addressed = true; }
       } catch (e) {}
     }
-    function hideCard(instant, was) {
-      if (!card || card.hidden) { cardShows = null; return; }
-      var token = ++cardToken;
-      cardShows = null;
-      if (!instant && was && canAnimate() && card.animate) {
-        var mo = cardMotion(was, false);
-        if (mo) {
-          var anim = card.animate(mo.frames, { duration: 160, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' });
-          anim.onfinish = function () {
-            if (token !== cardToken) return;
-            card.hidden = true;
-            try { anim.cancel(); } catch (e) {}
-          };
-          return;
-        }
+    function parseAddress(hash) {
+      var m = /^#map=([^&]*)/.exec(hash || '');
+      if (!m) return null;
+      var id;
+      try { id = decodeURIComponent(m[1]); } catch (e) { return null; }
+      if (!id || id === 'system') return copyAt(SYSTEM);
+      if (id === 'doctrine' || id.indexOf('doctrine:') === 0) {
+        var rid = id.slice(9);
+        return { level: rid ? 'rule' : 'doctrine', fam: -1, comp: -1, rule: rid || null, needsDoctrine: true };
       }
-      card.hidden = true;
-    }
-    function fill(fam) {
-      while (card.firstChild) card.removeChild(card.firstChild);
-      var F = model.families[fam], title, links = [];
-      var c = pin && preview < 0 && pin.fam === fam && pin.comp >= 0 ? model.comps[pin.comp] : null;
-      if (c) {
-        title = c.label;
-        var back = el('button', 'system-card__back');
-        back.setAttribute('type', 'button');
-        back.appendChild(el('span', 'system-card__back-mark', '‹'));
-        back.lastChild.setAttribute('aria-hidden', 'true');
-        back.appendChild(document.createTextNode(' ' + F.title));
-        back.setAttribute('aria-label', 'Back to ' + F.title);
-        // A press from the keyboard (a click with no pointer detail) lands at once.
-        back.addEventListener('click', function (e) {
-          var keyed = !!e && e.detail === 0;
-          if (keyed) focusCard = true;
-          pinTo({ fam: fam, comp: -1 }, keyed);
-        });
-        var trailP = el('p', 'system-card__trail');
-        trailP.appendChild(back);
-        card.appendChild(trailP);
-        card.appendChild(el('p', 'system-card__title', title));
-        var meta = ((c.cls ? CLASS_WORDS[c.cls] + '.' : '') + (c.basis ? ' Evidence: ' + lowerFirst(c.basis) + '.' : '')).trim();
-        if (meta) card.appendChild(el('p', 'system-card__meta', meta));
-        if (c.line) card.appendChild(el('p', 'system-card__line', c.line));
-        // The ways out come before the lists, so they stay in view on a
-        // short screen; the lists may run on below them.
-        // Two ways out: the component's own page (which leads on to its paper
-        // module), or the paper module where there is no page; and the full
-        // architecture map, opened on this component.
-        if (c.page) links.push(go(c.page, 'Component page', true));
-        else if (c.reader) links.push(go(c.reader, 'Paper module', true));
-        links.push(go(c.mapHref, 'Full map', !c.page && !c.reader));
-        actions(links);
-        var ci = pin.comp;
-        // Where no column stands beside the drawing, the card names the
-        // rules the component keeps, each a way into the doctrine.
-        var kept = D && D.comp[ci];
-        if (kept && kept.gov.length) card.appendChild(ruleLinks('Governed by', kept.gov));
-        if (kept && kept.shown.length) card.appendChild(ruleLinks('Resting on', kept.shown));
-        if (c.out.length) card.appendChild(peerList('It names', c.out, ci + '-out'));
-        if (c.inc.length) card.appendChild(peerList('Named by', c.inc, ci + '-in'));
-        if (!c.out.length && !c.inc.length) card.appendChild(el('p', 'system-card__meta', 'It names no other component, and none names it.'));
-        else card.appendChild(el('p', 'system-card__note', 'A declared link is not proof that one calls the other.'));
-        links = null;
-      } else {
-        title = F.title;
-        card.appendChild(el('p', 'system-card__title', title));
-        card.appendChild(el('p', 'system-card__meta', familyWords(F)));
-        if (F.summary) card.appendChild(el('p', 'system-card__line', F.summary));
-        card.appendChild(el('p', 'system-card__note', 'Select a component to see what it does and what it names.'));
-        if (F.page) links.push(go(F.page, 'Family page', true));
-        links.push(go(F.mapHref, 'Full map', !F.page));
-      }
-      card.setAttribute('aria-label', title);
-      if (links) actions(links);
-    }
-    function placeCard() {
-      if (!card || card.hidden || !geo || !geo.ok || !card.style) return;
-      var fam = shownFamily(), sheet = sheetOf(fam);
-      if (!sheet) return;
-      if (sheet.card) {
-        if (card.classList) card.classList.remove('system-card--full');
-        card.style.height = '';
-        // The card stops where the drawing does, above the key.
-        card.style.left = Math.round(sheet.card.x0) + 'px';
-        card.style.top = Math.round(sheet.rect.y0) + 'px';
-        card.style.width = Math.round(sheet.card.x1 - sheet.card.x0) + 'px';
-        card.style.maxHeight = Math.round(geo.fieldH - sheet.rect.y0 - geo.m * 0.4) + 'px';
-        return;
-      }
-      // Narrow: the component's card is the whole view, edge to edge.
-      if (card.classList) card.classList.add('system-card--full');
-      card.style.left = '0px';
-      card.style.top = '0px';
-      card.style.width = Math.round(geo.w) + 'px';
-      card.style.maxHeight = 'none';
-      card.style.height = Math.round(geo.h) + 'px';
-    }
-
-    /* ---- Pointer ----------------------------------------------------- */
-    function hitTest(x, y) {
-      if (!geo || !geo.ok || openState !== 'done') return null;
-      if (inner) return hitInterior(x, y);
-      var sheet = sheetFam >= 0 && sheetMix >= 1 ? sheetOf(sheetFam) : null;
-      if (sheet) {
-        var pf = profileOf(sheet);
-        if (pf) {
-          for (var pr = 0; pr < pf.rows.length; pr++) {
-            if (pointInRect(x, y, pf.rows[pr].box)) return { kind: 'rule', i: pf.rows[pr].id, profile: true };
-          }
-        }
-        if (!pointInRect(x, y, sheet.rect)) return { kind: 'outside' };
-        if (pointInRect(x, y, sheet.crumb.box)) return { kind: 'crumb' };
-        for (var r = 0; r < sheet.rows.length; r++) {
-          var row = sheet.rows[r];
-          if (y >= row.box.y0 && y < row.box.y1 && x >= row.box.x0 && x <= row.box.x1) return { kind: 'comp', i: row.comp };
-        }
-        return { kind: 'sheet' };
-      }
-      if (sheetFam >= 0) return null;
-      // Every mark answers within at least 12px of its centre (a 24px target).
-      var best = -1, bestD = Infinity, reachM = Math.max(12, Math.min(16, geo.pitch * 0.5));
-      geo.marks.forEach(function (mk, i) {
-        var d = Math.hypot(mk.x - x, mk.y - y);
-        if (d < reachM && d < bestD) { best = i; bestD = d; }
-      });
-      if (best >= 0) return { kind: 'comp', i: best };
-      for (var l = 0; l < geo.labels.length; l++) {
-        var lb = geo.labels[l];
-        if (lb.kind === 'step' && x >= lb.box.x0 - 3 && x <= lb.box.x1 + 3 && y >= lb.box.y0 - 3 && y <= lb.box.y1 + 3) return { kind: 'step', i: lb.step };
-      }
-      var reachS = geo.labelReach + 4;
-      for (var s = 0; s < geo.stations.length; s++) {
-        var st = geo.stations[s];
-        var along = geo.portrait ? Math.abs(y - st.y) : Math.abs(x - st.x);
-        var across = geo.portrait ? Math.abs(x - st.x) : Math.abs(y - st.y);
-        if (along <= 12 && across <= reachS) return { kind: 'step', i: s };
-      }
-      for (var b = 0; b < geo.plates.length; b++) {
-        if (pointInRect(x, y, geo.plates[b].rect)) return { kind: 'family', i: geo.plates[b].fam };
+      var fam = /^(?:family|area):(.+)$/.exec(id);
+      if (fam) { var f = familyIndex(fam[1]); return f >= 0 ? { level: 'family', fam: f, comp: -1, rule: null } : null; }
+      for (var c = 0; c < model.comps.length; c++) {
+        if (model.comps[c].id === id) return { level: 'component', fam: model.comps[c].fam, comp: c, rule: null };
       }
       return null;
     }
-    function local(event) {
-      var rect = canvas.getBoundingClientRect ? canvas.getBoundingClientRect() : { left: 0, top: 0 };
-      return [event.clientX - rect.left, event.clientY - rect.top];
+    function settleAddress(want) {
+      if (want.level === 'rule' && !D.rules[want.rule]) return copyAt(DOCTRINE);
+      return { level: want.level, fam: want.fam, comp: want.comp, rule: want.rule };
     }
-    function hoverable(hit) { return !!hit && hit.kind !== 'outside' && hit.kind !== 'sheet' && hit.kind !== 'void'; }
-    // A rule the pointer is on in the drawing lights its path; one named in
-    // the column does the same (see the companion).
-    function setRuleHover(id, from) {
-      var was = ruleHover ? ruleHover.id : null;
-      if (id) ruleHover = { id: id, from: from };
-      else if (ruleHover && ruleHover.from === from) ruleHover = null;
-      if ((ruleHover ? ruleHover.id : null) !== was) { draw(); syncCompanion(); syncRowMarks(); }
+    // The address the page arrived with is where the reader starts: it
+    // leaves nothing behind it to go back to.
+    function arriveAt() {
+      if (!model) return;
+      var want = parseAddress((window.location && window.location.hash) || '');
+      if (!want) return;
+      if (want.needsDoctrine && !D) { pending = pending || {}; pending.arrival = true; return; }
+      navigate(settleAddress(want), { fromAddress: true, noTrail: true, instant: true });
     }
-    // A class pointed at in a family's page lights the components checked
-    // that way in the sheet, and its entry in the key.
-    function setClassHover(cls) {
-      if (cls === classHover) return;
-      classHover = cls;
-      draw();
-      syncCompanion();
-    }
-    canvas.addEventListener('pointermove', function (event) {
-      if (event.pointerType === 'touch' || (fineQuery && !fineQuery.matches)) return;
-      var q = local(event), hit = hitTest(q[0], q[1]);
-      var h = hoverable(hit) ? hit : null;
-      if (canvas.classList) canvas.classList.toggle('is-over', h ? true : !!(hit && (hit.kind === 'outside' || (hit.kind === 'void' && inner))));
-      if (!sameFocus(h, hover)) {
-        hover = h;
-        setRuleHover(h && h.kind === 'rule' ? h.i : null, 'drawing');
-        if (companion) companion.pointed(h && h.kind === 'comp' ? h.i : -1);
-        draw();
-      }
-    });
-    canvas.addEventListener('pointerleave', function () {
-      if (canvas.classList) canvas.classList.remove('is-over');
-      if (!hover) return;
-      hover = null;
-      setRuleHover(null, 'drawing');
-      draw();
-    });
-    canvas.addEventListener('click', function (event) {
-      if (openState === 'running') settleAll();
-      var q = local(event), hit = hitTest(q[0], q[1]);
-      if (inner) {
-        // While the interior builds or folds, a click lands it at once.
-        if (!innerSettled()) { if (inner.dir > 0) { settleInner(); draw(); } return; }
-        if (hit && hit.kind === 'rule') {
-          if (event.detail >= 2 && D.rules[hit.i]) { window.location.href = D.rules[hit.i].doctrine; return; }
-          holdRule(hit.i === rulePin ? null : hit.i, false);
-          return;
-        }
-        if (hit && hit.kind === 'icomp') { if (rulePin) holdRule(null, false); return; }
-        stepBack(false);
-        return;
-      }
-      // A second click opens the page of what the first selected, even while
-      // its sheet is still opening.
-      if (event.detail >= 2) {
-        if (hit && hit.kind === 'rule' && D && D.rules[hit.i]) { window.location.href = D.rules[hit.i].doctrine; return; }
-        var c2 = hit && hit.kind === 'comp' ? hit.i : (!hit && pin && pin.comp >= 0 ? pin.comp : -1);
-        var f2 = hit && hit.kind === 'family' ? hit.i : (!hit && pin && pin.comp < 0 ? pin.fam : -1);
-        var target = c2 >= 0 ? model.comps[c2].page || model.comps[c2].mapHref :
-          f2 >= 0 ? model.families[f2].page || model.families[f2].mapHref : null;
-        if (target) { window.location.href = target; return; }
-      }
-      // While a sheet opens or closes nothing on the canvas answers.
-      if (!hit && sheetFam >= 0 && sheetMix < 1) return;
-      if (!hit || hit.kind === 'outside') { stepBack(); return; }
-      if (hit.kind === 'crumb') { preview = -1; pinTo(null, false); return; }
-      if (hit.kind === 'comp') {
-        var inSheet = sheetFam >= 0 && sheetMix >= 1;
-        pinTo({ fam: model.comps[hit.i].fam, comp: hit.i, via: inSheet ? 'sheet' : 'overview' }, false);
-        return;
-      }
-      if (hit.kind === 'family') { pinTo({ fam: hit.i, comp: -1 }, false); return; }
-      if (hit.kind === 'rule') { holdRule(hit.i === rulePin ? null : hit.i, false); return; }
-    });
-    // Escape is a keyboard step, so it lands at once.
-    document.addEventListener('keydown', function (event) {
-      if (event.key !== 'Escape' || (!pin && preview < 0 && !rulePin)) return;
-      stepBack(true);
-    });
-    // One level up, retracing the way the reader came: a held rule lets go;
-    // a component's interior folds back into its family's sheet (or the
-    // whole drawing, if that is where it was chosen); a family closes.
-    function stepBack(instant) {
-      if (rulePin) { holdRule(null, !!instant); return; }
-      if (preview >= 0) { preview = -1; syncSheet(!!instant); renderCard(!!instant); draw(); return; }
-      if (!pin) return;
-      if (pin.comp >= 0 && (pin.via === 'sheet' || interiorWanted() < 0)) pinTo({ fam: pin.fam, comp: -1 }, !!instant);
-      else pinTo(null, !!instant);
-    }
-    // Where stepping back leads, in words, for the trail along the top.
-    function backWords() {
-      if (pin && pin.comp >= 0 && (pin.via === 'sheet' || interiorWanted() < 0)) return model.families[pin.fam].title;
-      return 'All families';
-    }
-    function pinTo(target, instant) {
-      var was = pin && pin.comp >= 0 ? pin.comp : -1;
-      pin = target;
-      if (pin && pin.comp >= 0 && !pin.via) pin.via = sheetFam >= 0 && sheetMix > 0 ? 'sheet' : 'overview';
-      if ((pin && pin.comp >= 0 ? pin.comp : -1) !== was) { rulePin = null; ruleHover = null; }
-      listHover = -1;
-      if (!fineQuery || !fineQuery.matches) hover = null;
-      if (inner || (pin && pin.comp >= 0)) hover = null;
-      if (instant) snapFocus = true;
-      syncSheet(instant);
-      syncInterior(instant);
-      renderCard(instant);
-      syncCompanion(instant);
-      draw();
-      if (pageMode) writeAddress();
-    }
-    /* The page's address follows the selection (#map=<node id>, the old
-       architecture map's scheme, which the scene's routes still use), set
-       with replaceState so stepping through the drawing fills no history. */
-    function addressTarget() {
-      var m = /^#map=(.+)$/.exec((window.location && window.location.hash) || '');
-      if (!m) return null;
-      try { return decodeURIComponent(m[1]); } catch (e) { return null; }
-    }
-    function writeAddress() {
-      var h = window.history;
-      if (!model || !h || !h.replaceState || !window.location) return;
-      var id = pin ? (pin.comp >= 0 ? model.comps[pin.comp].id : model.families[pin.fam].id) : null;
-      var want = id ? '#map=' + encodeURIComponent(id) : '';
-      if ((window.location.hash || '') === want) return;
-      try { h.replaceState(h.state || null, '', want || (window.location.pathname || '') + (window.location.search || '')); } catch (e) {}
-    }
-    // An address naming a family or a component selects it at once.
     function followAddress() {
-      var id = addressTarget(), t = id ? lookup(id) : null;
-      if (!t) return;
-      if (pin && pin.fam === t.fam && pin.comp === t.comp) return;
-      if (t.comp >= 0) t.via = 'overview';
-      preview = -1;
-      pinTo(t, true);
-    }
-    // A rule held: its path stays lit in the interior and its page stands
-    // in the column; null lets it go.
-    function holdRule(id, instant) {
-      rulePin = id && D && D.rules[id] ? id : null;
-      if (instant) snapFocus = true;
-      syncCompanion(instant);
-      draw();
+      if (!model) return;
+      var want = parseAddress((window.location && window.location.hash) || '');
+      if (!want) {
+        if (window.location && window.location.hash) return;
+        want = copyAt(SYSTEM);
+      }
+      if (want.needsDoctrine && !D) { pending = pending || {}; pending.address = true; return; }
+      want = settleAddress(want);
+      var last = trail[trail.length - 1];
+      if (last && sameAt(last, want)) { trail.pop(); navigate(want, { fromAddress: true, noTrail: true, back: true }); }
+      else navigate(want, { fromAddress: true });
     }
 
-    /* ---- The column ---------------------------------------------------- */
-    /* The column beside the drawing is its reading surface. At rest it is
-       the band's heading, one sentence and the seven families, each row
-       carrying its components as the drawing marks them. Selecting a
-       component turns the column into that component's page (its name, its
-       family and evidence, what it does, the rules it keeps, its neighbours,
-       its pages); selecting a rule, into the rule's page (its reading in
-       plain terms, its relations, where it lives); a family's sheet, into
-       the family's page. It lies over the column, so nothing in the page
-       moves in layout, and only opacity and transform animate. It turns on
-       the drawing's beat: the rules a component keeps arrive in the column
-       as the light reaches them on the map. Back, Escape and empty ground
-       step back along the same trail as the drawing. It works only where
-       the column stands beside the drawing; a stacked layout keeps the card
-       in the drawing. */
-    var companion = null;
-    function companionReads() { return !!(companion && companion.reads()); }
-    function syncCompanion(instant) { if (companion) companion.sync(!!instant); }
-    var EASE_ARRIVE = 'cubic-bezier(0.2, 0.75, 0.25, 1)', EASE_LEAVE = 'cubic-bezier(0.4, 0, 0.7, 0.2)';
-    function makeCompanion() {
-      var host = section && section.querySelector ? section.querySelector('.home-split__text') : null;
-      if (!host || !document.createElement || !host.appendChild) return null;
-      var root = el('div', 'sc');
-      root.setAttribute('role', 'region');
-      root.setAttribute('aria-label', 'What the drawing shows');
-      root.setAttribute('data-term-auto', 'off');
-      root.setAttribute('aria-hidden', 'true');
-      root.inert = true;
-      if (host.classList) host.classList.add('sc-host');
-      host.appendChild(root);
-      var shown = null;          // the page standing: {key, kind, depth, node}
-      var previewComp = -1;      // a component pointed at long enough to read
-      var dwell = null, leave = null, overPanel = false, overFigure = false;
-      var motionOK = function () { return !reduceMotion && !!root.animate; };
-      // A page that arrives under a resting pointer lights nothing until the
-      // pointer moves: what lights is what the reader points at, never what
-      // happened to land under the pointer.
-      var lastPointer = null, still = null;
-      if (document.addEventListener) {
-        document.addEventListener('pointermove', function (e) { lastPointer = [e.clientX, e.clientY]; }, { passive: true });
-        document.addEventListener('pointerdown', function (e) { lastPointer = [e.clientX, e.clientY]; }, { passive: true });
+    /* ---- Pointing ---- */
+    // What the pointer or the keyboard is on, lit lightly over the view.
+    function setHover(key, anchor) {
+      if (key === hoverKey) { if (anchor) showTipFor(key, anchor); return; }
+      hoverKey = key;
+      if (map) map.preview(key);
+      column.lit(key);
+      if (key && anchor) showTipFor(key, anchor);
+      else if (!key) hideTip();
+    }
+    function hoverable(el, key, anchor) {
+      el.addEventListener('pointerenter', function (e) {
+        if (e && e.pointerType === 'touch') return;
+        setHover(key, anchor || el);
+      });
+      el.addEventListener('pointerleave', function (e) {
+        if (e && e.pointerType === 'touch') return;
+        if (hoverKey === key) setHover(null);
+      });
+      el.addEventListener('focus', function () { setHover(key, anchor || el); });
+      el.addEventListener('blur', function () { if (hoverKey === key) setHover(null); });
+    }
+    function keyedClick(e) { return !!e && e.detail === 0; }
+    function focusKey(key) {
+      var el = null;
+      if (key && map) el = map.nodeOf(key);
+      if (!el && key) {
+        var hits = keyed(root, key);
+        for (var i = 0; i < hits.length; i++) if (hits[i].getAttribute('tabindex') !== null || hits[i].tagName === 'BUTTON') { el = hits[i]; break; }
       }
-      function pointing(e) {
-        if (!still) return true;
-        if (e && Math.abs(e.clientX - still[0]) + Math.abs(e.clientY - still[1]) < 4) return false;
-        still = null;
-        return true;
+      if (!el && map) el = map.firstNode();
+      if (el) {
+        if (map) map.rove(el);
+        if (el.focus) { try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); } }
       }
+    }
 
-      function beside() {
-        if (!host.getBoundingClientRect || !stage.getBoundingClientRect) return false;
-        var a = host.getBoundingClientRect(), b = stage.getBoundingClientRect();
-        return a.width > 0 && b.width > 0 && (a.right <= b.left + 2 || b.right <= a.left + 2);
-      }
-      function depthOf(kind) { return kind === 'rule' ? 3 : kind === 'comp' ? 2 : 1; }
-      function wanted() {
-        if (!model || !beside()) return null;
-        if (rulePin && D && D.rules[rulePin]) return { kind: 'rule', id: rulePin, key: 'rule:' + rulePin };
-        if (pin && pin.comp >= 0) return { kind: 'comp', i: pin.comp, held: true, key: 'comp:' + pin.comp };
-        if (previewComp >= 0) return { kind: 'comp', i: previewComp, held: false, key: 'comp:' + previewComp };
-        // A family the reader selected; a family only pointed at (its row,
-        // its plate) is read in the drawing while the rows stay in view.
-        var fam = pin && pin.comp < 0 ? pin.fam : -1;
-        if (fam >= 0) return { kind: 'fam', i: fam, key: 'fam:' + fam };
-        if (lens === 'doctrine' && D) return { kind: 'doctrine', key: 'doctrine' };
-        return null;
-      }
+    /* ---- Motion ---- */
+    var EASE = 'cubic-bezier(0.22, 0.7, 0.18, 1)';
+    function motionOK() { return !reduceMotion && !!root.animate && !document.hidden; }
 
-      /* ---- Building a page ---- */
-      function line(cls, text) { return el('p', cls, text); }
-      function backButton(words) {
-        var p = el('p', 'sc__back');
-        var b = el('button', 'sc__back-btn');
-        b.setAttribute('type', 'button');
-        b.appendChild(el('span', 'sc__back-mark', '‹'));
-        b.lastChild.setAttribute('aria-hidden', 'true');
-        b.appendChild(document.createTextNode(' ' + words));
-        b.setAttribute('aria-label', 'Back to ' + words);
-        b.addEventListener('click', function (e) {
-          var keyed = !!e && e.detail === 0;
-          if (keyed) focusCard = true;
-          // A component only being read under the pointer is let go; a
-          // selection steps back along its trail.
-          if (previewComp >= 0 && !(pin && pin.comp >= 0)) { previewComp = -1; sync(keyed); return; }
-          stepBack(keyed);
+    /* ---- Rendering ---- */
+    // The card's height less its drawing's, once laid out: what the circle
+    // leaves room for on the landing, so the card fits the window.
+    var chromeH = 0, refitting = false;
+    function fitHeight() {
+      if (pageMode || refitting || !map || !stage.getBoundingClientRect || !map.svg.getBoundingClientRect) return;
+      if (stage.classList && stage.classList.contains('is-parked')) return;
+      if (stage.style && stage.style.removeProperty) stage.style.removeProperty('--sm-floor');
+      var c = stage.getBoundingClientRect().height - map.svg.getBoundingClientRect().height;
+      if (!(c > 0) || Math.abs(c - chromeH) < 3) return;
+      chromeH = c;
+      refitting = true;
+      relayout();
+      refitting = false;
+    }
+    function render(how) {
+      how = how || {};
+      if (!model) return;
+      hideTip();
+      renderHead();
+      caption.textContent = captionText();
+      renderKey();
+      if (!map) { map = buildMap(); clear(area); area.appendChild(map.el); }
+      root.setAttribute('data-view', at.level);
+      map.select(at, how);
+      if (at.level === 'system') fitHeight();
+      column.sync(how);
+      measureFloor();
+      column.refit();
+      announce();
+      if (how.keyed) focusKey(how.focusTo || keyOf(at) || null);
+    }
+    // The map is laid out again for a new size; the view stays as it was.
+    function relayout() {
+      if (!model) return;
+      hoverKey = null;
+      hideTip();
+      renderKey();
+      map = buildMap();
+      clear(area);
+      area.appendChild(map.el);
+      map.select(at, { instant: true });
+      // A new layout at the top level fits the card to the window again.
+      if (at.level === 'system') fitHeight();
+      measureFloor();
+      column.refit();
+    }
+    function renderHead() {
+      clear(crumbList);
+      var path = ancestors(at).concat([copyAt(at)]);
+      path.forEach(function (a, k) {
+        var li = h('li', 'sm-crumbs__item');
+        var label = a.level === 'system' ? 'System' : a.level === 'doctrine' ? 'The doctrine' : capital(nameOf(a));
+        if (k === path.length - 1) {
+          var here = h('span', 'sm-crumbs__here', label);
+          here.setAttribute('aria-current', 'location');
+          li.appendChild(here);
+        } else {
+          var b = button('sm-crumbs__go', label);
+          b.addEventListener('click', function (e) {
+            navigate(a, { keyed: keyedClick(e), back: true, focusTo: keyOf(path[k + 1]) });
+          });
+          li.appendChild(b);
+        }
+        crumbList.appendChild(li);
+      });
+      var target = backTarget();
+      backBtn.hidden = !target;
+      if (target) {
+        var words = 'Back to ' + nameOf(target);
+        backBtn.textContent = '';
+        var mark = h('span', 'sm-back__mark', '‹');
+        mark.setAttribute('aria-hidden', 'true');
+        backBtn.appendChild(mark);
+        backBtn.appendChild(document.createTextNode(' ' + words));
+        backBtn.setAttribute('aria-label', words);
+        backBtn.removeAttribute('title');
+        if (backBtn.getBoundingClientRect && crumbs.getBoundingClientRect) {
+          var bb = backBtn.getBoundingClientRect(), cb = crumbs.getBoundingClientRect();
+          if (bb.height > 0 && cb.height > 0 && bb.top > cb.top + cb.height / 2) {
+            backBtn.lastChild.textContent = ' Back';
+            backBtn.setAttribute('title', words);
+          }
+        }
+      }
+    }
+    backBtn.addEventListener('click', function (e) { back({ keyed: keyedClick(e) }); });
+
+    function onlyNamed() { return !!model && model.kinds.length > 0 && model.kinds.every(function (k) { return k === 'named'; }); }
+    function linkNoun(n) { return onlyNamed() ? plural(n, 'listed relation', 'listed relations') : plural(n, 'code connection', 'code connections'); }
+    // How many components have no code connection at all (none is claimed
+    // for a scene of listed relations).
+    function unconnected() {
+      if (!model || onlyNamed() || !model.links.length) return 0;
+      return model.comps.filter(function (c) { return !c.out.length && !c.inc.length; }).length;
+    }
+    // The file a connection comes from, on the repository the components'
+    // sources are published in. No line anchor: the published repository can
+    // lag the source the evidence lines were read from, and a wrong line is
+    // worse than a whole file.
+    function codeHref(a, b) {
+      if (!model || !model.codeBase) return null;
+      for (var i = 0; i < model.links.length; i++) {
+        var l = model.links[i];
+        if (!l.ev || !((l[0] === a && l[1] === b) || (l[0] === b && l[1] === a))) continue;
+        return model.codeBase + l.ev.path.split('/').map(encodeURIComponent).join('/');
+      }
+      return null;
+    }
+    // What the red lines are, for the key.
+    function aboutLines() {
+      if (onlyNamed()) return 'Red lines are the relations each component’s own record lists, not read from the code.';
+      var none = unconnected();
+      return 'Red lines are derived from the code: each one rests on the place in the code where one component runs another, ' +
+        'reads its saved results or checks its copied files.' + (none ? ' ' + none + ' of the ' + model.comps.length + ' components have none.' : '');
+    }
+    function linkNote() {
+      if (onlyNamed()) return 'Listed in a component’s own record, not read from the code.';
+      return model.codeBase && model.links.some(function (l) { return !!l.ev; }) ?
+        'Each is derived from the code; Code opens the file that makes it.' : 'Each connection is derived from the code.';
+    }
+    function captionText() {
+      var n = model.comps.length;
+      if (at.level === 'family') {
+        var F = model.families[at.fam];
+        return F.title + ': its ' + countWords(F.members.length, 'component', 'components') + ' and their ' + linkNoun(2) + ', inside the family and out to the others.';
+      }
+      if (at.level === 'component') {
+        var c = model.comps[at.comp];
+        var rules = D ? ', azure lines to the rules its paper module cites.' : '.';
+        if (!c.out.length && !c.inc.length) return c.label + (onlyNamed() ? ': its record lists no related components' : ': no code connections to other components') +
+          (D ? '; azure lines to the rules its paper module cites.' : '.');
+        if (onlyNamed()) return c.label + ': red lines to the components listed as related' + rules;
+        return c.label + ': red lines for its code connections' + rules;
+      }
+      if (at.level === 'doctrine') {
+        return 'The doctrine: ' + countWords(D.axioms.length, 'axiom', 'axioms') + ' on a ring. A rule tied to one axiom sits just outside it; a rule tied to several stands between them.';
+      }
+      if (at.level === 'rule') {
+        var r = D.rules[at.rule];
+        if (r.kind === 'failure') return r.title + ': lit with the axioms it threatens and the components ' + (D.enforcedBy === 'tests' ?
+          'where a test shows it enforced' + (r.partly.length ? ' or checks part of it' : '') + '.' : 'its card names as enforcing it.');
+        var into = r.kind === 'axiom' ? 'the principles and failure modes tied to it' : 'the axioms it rests on';
+        return r.title + ': lit with ' + into + ', and azure lines out to the components whose paper modules cite it.';
+      }
+      var none = unconnected();
+      return n + ' components round the rim in ' + numberWord(model.families.length) + ' families' +
+        (none ? ', ' + none + ' of them with no code connection,' : '') +
+        (D ? (none ? ' and' : ',') + ' the doctrine at the centre' : '') + '. Select any of them to light what it touches.';
+    }
+    function announce() {
+      var text;
+      if (at.level === 'rule') text = KIND_WORDS[D.rules[at.rule].kind] + ': ' + D.rules[at.rule].title + '.';
+      else if (at.level === 'doctrine') text = 'The doctrine.';
+      else if (at.level === 'family') text = model.families[at.fam].title + ': ' + countWords(model.families[at.fam].members.length, 'component', 'components') + '.';
+      else if (at.level === 'component') {
+        var c = model.comps[at.comp];
+        var touching = model.links.filter(function (l) { return l[0] === at.comp || l[1] === at.comp; }).length;
+        text = c.label + ': ' + countFigure(touching, linkNoun(1), linkNoun(2)) + '.';
+      } else text = 'The whole system.';
+      live.textContent = text;
+    }
+
+    /* ---- The key ---- */
+    /* One row in plain words: each kind of connection the data holds in its
+       own texture, the rule lines and the three kinds of rule; in a rule's
+       own view, its marks of enforcement too. The marks round the rim, the
+       doctrine's own lines and the weave wait behind a small disclosure at
+       its end, so the drawing never ends in rows of legend; every mark the
+       map draws is named in one or the other. */
+    var keyOpen = false;
+    function keyItem(it) {
+      var span = h('span', 'sm-key__item');
+      var mark = h('span', 'sm-key__mark');
+      mark.setAttribute('aria-hidden', 'true');
+      if (it.glyph) { mark.className = 'sm-key__mark sm-key__mark--comp'; mark.innerHTML = glyphSvg(it.glyph); }
+      else if (it.doctrine) { mark.className = 'sm-key__mark sm-key__mark--rule'; mark.innerHTML = doctrineSvg(it.doctrine); }
+      else if (it.line) mark.className = 'sm-key__line sm-key__line--' + it.line;
+      else if (it.reticle) mark.className = 'sm-key__reticle' + (it.reticle === 'part' ? ' sm-key__reticle--part' : '');
+      else if (it.bar) mark.className = 'sm-key__bar';
+      else if (it.cap) mark.className = 'sm-key__cap' + (it.cap === 'part' ? ' sm-key__cap--part' : '');
+      else if (it.weave) mark.className = 'sm-key__weave';
+      else if (it.sheaf) {
+        // A ribbon that parts into three fibres.
+        mark.className = 'sm-key__mark sm-key__mark--sheaf';
+        mark.innerHTML = '<svg viewBox="0 0 26 12" width="26" height="12" aria-hidden="true" focusable="false"><path fill="currentColor" ' +
+          'd="M0 6C5 5.2 9 3.6 14 3.6L26 1.2V2.2L15.5 4.7L26 5.5V6.5L15.5 7.3L26 9.8V10.8L14 8.4C9 8.4 5 6.8 0 6Z"/></svg>';
+      }
+      span.appendChild(mark);
+      span.appendChild(h('span', 'sm-note', it.text));
+      return span;
+    }
+    // Where a rule is said to be enforced: by a test (the manifest that
+    // derives it from passing tests), or, until that manifest exists, by
+    // each rule's doctrine card.
+    function byTests() { return !!D && D.enforcedBy === 'tests'; }
+    function renderKey() {
+      clear(keyBox);
+      var row = h('div', 'sm-key__row');
+      // What the view draws: each kind of connection the data holds, in its
+      // own texture (a rule's view draws none, and names its frames instead);
+      // the rule lines; the three kinds of rule.
+      var ruleView = !!D && (at.level === 'rule' || at.level === 'doctrine');
+      var items = ruleView ? [] : model.kinds.map(function (k) { return { line: 'k-' + k, text: LINK_WORDS[k].key }; });
+      if (D) {
+        if (at.level !== 'doctrine') items.push({ line: 'azure', text: 'Cited by its paper module' });
+        items.push({ doctrine: 'axiom', text: 'Axiom' }, { doctrine: 'principle', text: 'Principle' }, { doctrine: 'failure', text: 'Failure mode' });
+        if (at.level === 'doctrine') items.push({ line: 'span', text: 'Rests on' }, { line: 'threat', text: 'Threatens' });
+        if (at.level === 'rule') {
+          var r = D.rules[at.rule];
+          if (r.enforced.length) items.push({ reticle: 'full', text: byTests() ? 'Enforced here' : 'Enforced here, by its card' });
+          if (r.partly.length) items.push({ reticle: 'part', text: 'Partly checked here' });
+        }
+      }
+      items.forEach(function (it) { row.appendChild(keyItem(it)); });
+      var more = button('sm-key__more sm-note', 'Key');
+      more.setAttribute('aria-expanded', keyOpen ? 'true' : 'false');
+      more.setAttribute('aria-label', 'Key: every mark in the map');
+      more.addEventListener('click', function (e) {
+        keyOpen = !keyOpen;
+        renderKey();
+        if (keyedClick(e)) { var again = keyBox.querySelector && keyBox.querySelector('.sm-key__more'); if (again && again.focus) again.focus(); }
+      });
+      row.appendChild(more);
+      keyBox.appendChild(row);
+      if (!keyOpen) return;
+      var rest = h('div', 'sm-key__row sm-key__row--more');
+      model.classes.forEach(function (cls) { rest.appendChild(keyItem({ glyph: cls, text: CLASS_WORDS[cls] })); });
+      if (map && map.sheaves && map.sheaves.length) rest.appendChild(keyItem({ sheaf: true, text: 'One component’s lines to several in one family travel as one ribbon' }));
+      if (D) {
+        var full = D.comp.some(function (info) { return info.enforces.length > 0; }), part = D.comp.some(function (info) { return info.partly.length > 0; });
+        rest.appendChild(keyItem({ bar: true, text: 'One step for each rule its paper module cites' }));
+        if (full) rest.appendChild(keyItem({ cap: 'full', text: byTests() ? 'A test shows a rule enforced here' : 'A rule’s card says it is enforced here' }));
+        if (part) rest.appendChild(keyItem({ cap: 'part', text: 'A test checks part of a rule here' }));
+        rest.appendChild(keyItem({ line: 'span', text: 'Rests on' }));
+        rest.appendChild(keyItem({ line: 'threat', text: 'Threatens' }));
+        rest.appendChild(keyItem({ weave: true, text: 'Where a red line and an azure line cross, one passes over the other' }));
+      }
+      keyBox.appendChild(rest);
+      // About these lines: where the red ones come from, and how many
+      // components have none.
+      if (model.links.length) keyBox.appendChild(h('p', 'sm-key__about sm-note', aboutLines()));
+    }
+
+    /* ---- The map ---- */
+    function familyIndex(key) {
+      for (var i = 0; i < model.families.length; i++) if (model.families[i].key === key) return i;
+      return -1;
+    }
+    // Words are measured in a drawing that stays in the page, out of sight.
+    var measurer = null;
+    function textWidth(text, cls) {
+      if (!measurer) {
+        var box = sv('svg', { 'class': 'sm-measure', width: 1, height: 1, 'aria-hidden': 'true', focusable: 'false' });
+        root.appendChild(box);
+        measurer = sv('g');
+        box.appendChild(measurer);
+      }
+      var t = sv('text', { 'class': cls });
+      t.textContent = text;
+      measurer.appendChild(t);
+      var w = t.getComputedTextLength ? t.getComputedTextLength() : 0;
+      measurer.removeChild(t);
+      return w > 0 ? w : String(text).length * (/sector__name|plate|centre/.test(cls) ? 8.6 : 7.4);
+    }
+    function countLine(F) { return countFigure(F.members.length, 'component', 'components'); }
+    // How many rules a component's paper module cites, and how strongly a
+    // rule is shown to hold there: enforced, or a narrower part of it checked.
+    function citesOf(ci) { var info = D && D.comp[ci]; return info && !info.missing ? info.gov.length + info.abide.length : 0; }
+    function enforcement(ci) {
+      var info = D && D.comp[ci];
+      if (!info) return null;
+      return info.enforces.length ? 'full' : info.partly.length ? 'part' : null;
+    }
+    // A rule's share of a component's bar, in pixels.
+    var BAR_PX = 0.8;
+    // How far the rim's furniture reaches past the marks: the scale (its
+    // base 9px out, a tick to 13px), then the bar of the rules the paper
+    // module cites, then the mark of a rule enforced there.
+    function rimDepth() {
+      var most = 0;
+      if (D) model.comps.forEach(function (c, i) { most = Math.max(most, citesOf(i)); });
+      return 16 + most * BAR_PX + (D ? 6 : 0);
+    }
+    // How big the circle is on the landing: as wide as the drawing allows
+    // and no taller than the window leaves room for, within bounds.
+    function landingRadius(width, depth) {
+      var vh = window.innerHeight || 900, room = depth + 13 + 18 + 12;
+      // The bar under the map (its key, and the way to the full map) takes
+      // what its key needs; a second row of key comes out of the circle.
+      var bar = keySlot && keySlot.parentNode && keySlot.parentNode.getBoundingClientRect ? keySlot.parentNode.getBoundingClientRect().height : 0;
+      var byWidth = width / 2 - room;
+      // Everything in the card but the drawing, as measured once it has been
+      // laid out (until then, an estimate): the window's height less the bar
+      // along its top is what the card may take.
+      var chrome = chromeH > 0 ? chromeH : 135 + Math.max(0, bar - 56);
+      var byHeight = (vh - 75 - chrome) / 2 - room;
+      return clamp(Math.min(byWidth, Math.max(byHeight, 180)), 140, 430);
+    }
+    /* On the map's own page every component is named round the rim when the
+       room allows: the largest of 16, 15 or 14px whose circle fits the window
+       (and failing that, its width), the names set along their radii, the
+       sector names outside them. */
+    function namedPlan(width, depth) {
+      if (!pageMode) return null;
+      var widest = 0, head = 0;
+      model.comps.forEach(function (c) { widest = Math.max(widest, textWidth(c.label, 'sm-rimname')); });
+      // A family's own name stands along the radius in the gap before its
+      // run, as a header to the names that follow.
+      model.families.forEach(function (F) {
+        head = Math.max(head, textWidth(F.title, 'sm-sector__name') + 10 + textWidth(countLine(F), 'sm-sector__count'));
+      });
+      var top = area.getBoundingClientRect ? area.getBoundingClientRect().top + (window.pageYOffset || 0) : 250;
+      var avail = (window.innerHeight || 900) - Math.max(0, top) - 72;
+      var plans = [16, 15, 14].map(function (fs) {
+        var k = fs / 16, pitch = fs + 2, slot = 20;
+        var arc = model.comps.length * pitch + ring.order.length * (slot + 2 * pitch);
+        var rName = Math.max(arc / TAU, 240 + depth + 6);
+        var outer = rName + Math.max(widest * k, head) + 6;
+        return { fs: fs, pitch: pitch, slot: slot, rName: rName, R: rName - depth - 6, outer: outer,
+                 size: Math.ceil(2 * outer), widest: widest * k };
+      });
+      for (var i = 0; i < plans.length; i++) if (plans[i].size <= width && plans[i].size <= avail) return plans[i];
+      for (var j = plans.length - 1; j >= 0; j--) if (plans[j].size <= width) return plans[j];
+      return null;
+    }
+    /* The drawing's radii, as fractions of R (the radius the marks sit on):
+       the doctrine's necklace (the axioms, and the rules tied to several of
+       them) and the satellites just outside it; the lanes the fibres swoop
+       through on their way between two families, and the families' hubs
+       they gather at; how deep a link inside one family dips below the rim;
+       how far a fibre runs straight in from its mark. */
+    var RING = { hub: 0.4, sat: 0.495, lanes: [0.612, 0.78], famHub: 0.815, localDepth: 0.14, leave: 0.045 };
+    /* The order of the axioms round the necklace with the fewest crossings
+       among the rules that join several of them (22 crossings in 9 depths,
+       the best of forty searches over the drawing itself). It is used while
+       it names exactly these axioms; a changed doctrine is ordered afresh. */
+    var HUB_ORDER = ['AX-12', 'AX-5', 'AX-8', 'AX-6', 'AX-10', 'AX-4', 'AX-11', 'AX-9', 'AX-3', 'AX-2', 'AX-7', 'AX-1'];
+    // Code connections are few enough to draw at rest; hundreds of listed
+    // relations are left to the choices that light them.
+    var REST_MOST = 90;
+    // Each kind of connection in its own weight (and texture, below).
+    var KIND_WIDTH = { runs: 1, reads: 0.86, checks: 1.3, named: 0.8, other: 0.9 };
+    // A rule line comes in round the outside of the core this far at most
+    // (a seventh of the way round); a rule further round is reached across
+    // the core.
+    var NEAR = 50 * Math.PI / 180;
+
+    function buildMap() {
+      var el = h('div', 'sm-body sm-body--ring');
+      var width = Math.max(320, (area.getBoundingClientRect ? area.getBoundingClientRect().width : 0) || 760);
+      var order = ring.order, nF = order.length, nComp = model.comps.length;
+      var depth = rimDepth();
+      var named = namedPlan(width, depth);
+      var R = named ? named.R : landingRadius(width, depth);
+      var labelR1 = R + depth + 13, labelR2 = labelR1 + 18;
+      var size = named ? named.size : Math.ceil(2 * (labelR2 + 12));
+      var cx = width / 2, cy = size / 2;
+      // Lines grow more slowly than the ring, so a large drawing stays fine.
+      var s = R / 320, rs = Math.sqrt(s), ws = Math.pow(s, 0.6);
+      var svg = sv('svg', { 'class': 'sm-ring' + (named ? ' is-named' : '') + (!revealed && motionOK() ? ' awaits-reveal' : ''), width: fx(width), height: size,
+        viewBox: '0 0 ' + fx(width) + ' ' + size, role: 'group',
+        'aria-label': 'The system: ' + nComp + ' components round the rim in ' + numberWord(nF) + ' families' + (D ? ', the doctrine at the centre' : '') });
+      var AZ_W = fx(Math.max(1, rs)), SPAN_W = fx(Math.max(0.9, 0.9 * rs));
+      if (svg.style && svg.style.setProperty) {
+        svg.style.setProperty('--sm-az', AZ_W + 'px');
+        svg.style.setProperty('--sm-span', SPAN_W + 'px');
+      }
+      el.appendChild(svg);
+      // Layers, back to front.
+      var defs = sv('defs');
+      var gScale = sv('g', { 'class': 'sm-scale', 'aria-hidden': 'true' });
+      var gRest = sv('g', { 'class': 'sm-rest', 'aria-hidden': 'true' });
+      var gNeck = sv('g', { 'class': 'sm-neck', 'aria-hidden': 'true' });
+      var gSpans = sv('g', { 'class': 'sm-spans', 'aria-hidden': 'true' });
+      var gLight = sv('g', { 'class': 'sm-light', 'aria-hidden': 'true' });
+      var gLitRed = sv('g', { 'class': 'sm-light__red' }), gLitAz = sv('g', { 'class': 'sm-light__azure' });
+      gLight.appendChild(gLitRed);
+      gLight.appendChild(gLitAz);
+      var gCore = sv('g', { 'class': 'sm-core' });
+      var gRim = sv('g', { 'class': 'sm-rim' });
+      var gLabels = sv('g', { 'class': 'sm-sectors' });
+      var gPlates = sv('g', { 'class': 'sm-plates', 'aria-hidden': 'true' });
+      var gMarks = sv('g', { 'class': 'sm-reticles', 'aria-hidden': 'true' });
+      [defs, gScale, gRest, gNeck, gSpans, gLight, gCore, gRim, gLabels, gPlates, gMarks].forEach(function (g) { svg.appendChild(g); });
+
+      /* ---- The rim ---- */
+      /* One spacing for every component round the ring; a sector is as wide
+         as its run and its name need; whatever is left is shared out so the
+         circle closes. With every name round the rim the spacing is the
+         names' own. */
+      var labelW = model.families.map(function (F) {
+        return Math.max(textWidth(F.title, 'sm-sector__name'), textWidth(countLine(F), 'sm-sector__count'));
+      });
+      // With every name round the rim, a family's name stands in the gap
+      // before its run, so the gap is a slot and a spacing either side of it,
+      // and a sector needs no more room than its run.
+      var gapA = named ? (named.slot + 2 * named.pitch) / named.rName : 16 / R;
+      function floorOf(fi) { return named ? 0 : (labelW[fi] + 26) / labelR1; }
+      function needAt(p) {
+        var total = nF * gapA;
+        order.forEach(function (fi) {
+          total += Math.max(model.families[fi].members.length * p, floorOf(fi));
         });
-        p.appendChild(b);
-        return p;
+        return total;
       }
+      var pitch;
+      if (named) pitch = named.pitch / named.rName;
+      else {
+        var lo = 7 / R, hi = 22 / R;
+        for (var it = 0; it < 30; it++) { var mid = (lo + hi) / 2; if (needAt(mid) <= TAU) lo = mid; else hi = mid; }
+        pitch = lo;
+      }
+      var pitchPx = pitch * R, spare = Math.max(0, TAU - needAt(pitch)) / nF;
+      // Every mark at least ten pixels, so its cut survives a reader's zoom.
+      var markSize = clamp(pitchPx - 2, 10, 11.5);
+      var sectors = [], comp = [];
+      var firstSpan = Math.max(model.families[order[0]].members.length * pitch, floorOf(order[0])) + spare;
+      var a0 = -Math.PI / 2 - firstSpan / 2;
+      order.forEach(function (fi) {
+        var F = model.families[fi];
+        var span = Math.max(F.members.length * pitch, floorOf(fi)) + spare;
+        var midA = a0 + span / 2, runFrom = midA - F.members.length * pitch / 2;
+        sectors[fi] = { fam: fi, lo: a0, hi: a0 + span, mid: midA, runFrom: runFrom, runTo: runFrom + F.members.length * pitch };
+        F.members.forEach(function (ci, k) {
+          var a = runFrom + (k + 0.5) * pitch, p = polar(cx, cy, R, a);
+          comp[ci] = { a: a, x: p[0], y: p[1], bar: citesOf(ci) * BAR_PX, enf: enforcement(ci) };
+        });
+        a0 += span + gapA;
+      });
+      var rName = named ? named.rName : 0;
+
+      /* ---- The core: the doctrine as a necklace ---- */
+      /* The twelve axioms stand on a ring with the rules tied to several of
+         them between them, each in a gap between two of its own axioms; a
+         rule tied to one axiom is its satellite just outside, principles on
+         one side of the axiom's radius and failure modes on the other. Each
+         rests-on or threatens line is a short curve that leaves and lands
+         along the radius; none comes near the centre's name. The whole is
+         turned toward the components whose paper modules cite each axiom. */
+      var core = null, rule = Object.create(null), coreOuter = 0.3 * R, centreClear = 40, labelBox = null, hubR = RING.hub * R, coreGap = Infinity;
+      if (D && D.axioms.length >= 3) {
+        var align = Object.create(null);
+        D.axioms.forEach(function (aid) {
+          // An axiom wants to stand where the lines to it and to the rules
+          // beside it come from.
+          var x = 0, y = 0;
+          D.comp.forEach(function (info, ci) {
+            if (!comp[ci]) return;
+            var w = info.abide.indexOf(aid) >= 0 ? 1 : 0;
+            info.gov.forEach(function (pid) { var on = D.rules[pid].restsOn; if (on.indexOf(aid) >= 0) w += 1 / on.length; });
+            x += w * Math.cos(comp[ci].a);
+            y += w * Math.sin(comp[ci].a);
+          });
+          if (x || y) align[aid] = { a: Math.atan2(y, x), w: Math.sqrt(x * x + y * y) };
+        });
+        var labelWide = textWidth('Doctrine', 'sm-centre__label');
+        centreClear = labelWide / 2 + 12;
+        // Every glyph at least ten pixels, so its shape survives a reader's zoom.
+        var gsz = { axiom: Math.max(11, 12.5 * rs), principle: Math.max(10, 10 * rs), failure: Math.max(10, 9.5 * rs) };
+        var spec = {
+          cx: cx, cy: cy, axioms: D.axioms,
+          rules: D.principles.map(function (id) { return { id: id, kind: 'principle', on: D.rules[id].restsOn }; })
+            .concat(D.failures.map(function (id) { return { id: id, kind: 'failure', on: D.rules[id].guards }; })),
+          rLabel: Math.max(centreClear, 0.135 * R), rHub: RING.hub * R, rSat: RING.sat * R, size: gsz,
+          lanePitch: 3.4 * s, satOffset: Math.max(10 * rs, gsz.principle / 2 + 3.5), corner: 3.2 * s, align: align, order: HUB_ORDER
+        };
+        core = Loom.coreLayout(spec);
+        // Glyphs that would touch: an order chosen afresh for this doctrine,
+        // then a wider necklace, a step at a time (a small drawing, or a
+        // doctrine the pinned order was not searched for).
+        if (core.stats.glyphGap < 2) {
+          var fresh = Loom.coreLayout(Object.assign({}, spec, { order: null }));
+          if (fresh.stats.glyphGap > core.stats.glyphGap) { core = fresh; spec.order = null; }
+        }
+        if (core.stats.glyphGap < 2) {
+          // Hubs set evenly round the ring leave the most room between them
+          // for satellites.
+          var even = Loom.coreLayout(Object.assign({}, spec, { evenHubs: true }));
+          if (even.stats.glyphGap > core.stats.glyphGap) { core = even; spec.evenHubs = true; }
+        }
+        for (var widen = 0; core.stats.glyphGap < 2 && widen < 6; widen++) {
+          spec.rHub += 0.012 * R;
+          spec.rSat += 0.012 * R;
+          core = Loom.coreLayout(spec);
+        }
+        hubR = spec.rHub;
+        // Two satellites of neighbouring axioms that would still touch: the
+        // second crosses to the other side of its own axiom, after the
+        // satellites already there, and its line is drawn again.
+        var sats = Object.keys(core.glyphs).filter(function (id) { return core.glyphs[id].role === 'satellite'; });
+        sats.forEach(function (idB) {
+          var B = core.glyphs[idB];
+          var clash = sats.some(function (idA) {
+            var A = core.glyphs[idA];
+            return idA !== idB && A.hub !== B.hub && Math.sqrt((A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y)) - (A.size + B.size) / 2 < 2;
+          });
+          if (!clash) return;
+          var H = core.glyphs[B.hub], side = turn(H.a, B.a) > 0 ? -1 : 1, far = 0;
+          sats.forEach(function (id) {
+            var O = core.glyphs[id];
+            if (O.hub === B.hub && id !== idB && (turn(H.a, O.a) > 0 ? 1 : -1) === side) far = Math.max(far, Math.abs(turn(H.a, O.a)) * O.r + O.size / 2);
+          });
+          var off = Math.max(spec.satOffset, far + 6 + B.size / 2) / B.r;
+          B.a = norm(H.a + side * off);
+          B.x = cx + B.r * Math.cos(B.a);
+          B.y = cy + B.r * Math.sin(B.a);
+          core.lines.forEach(function (ln) {
+            if (ln.from !== idB) return;
+            var r0 = H.r + H.size / 2 + 2, r1 = B.r - B.size / 2 - 2, aH = B.a + turn(B.a, H.a), k = (r1 - r0) * 0.55;
+            ln.polar = Loom.polarBezier([aH, r0], [aH, r0 + k], [B.a, r1 - k], [B.a, r1], 1.5);
+            ln.pts = Loom.polarXY(cx, cy, ln.polar);
+          });
+        });
+        var gids = Object.keys(core.glyphs);
+        for (var gi = 0; gi < gids.length; gi++) for (var gj = gi + 1; gj < gids.length; gj++) {
+          var P = core.glyphs[gids[gi]], Q = core.glyphs[gids[gj]];
+          coreGap = Math.min(coreGap, Math.sqrt((P.x - Q.x) * (P.x - Q.x) + (P.y - Q.y) * (P.y - Q.y)) - (P.size + Q.size) / 2);
+        }
+        Object.keys(core.glyphs).forEach(function (id) {
+          var g = core.glyphs[id];
+          rule[id] = { a: g.a, r: g.r, x: g.x, y: g.y, kind: g.kind, role: g.role, size: g.size, half: g.size / 2, hub: g.hub || null };
+        });
+        coreOuter = 0;
+        Object.keys(rule).forEach(function (id) { coreOuter = Math.max(coreOuter, rule[id].r + rule[id].half); });
+        coreOuter += 3;
+        labelBox = { x0: cx - labelWide / 2 - 8, x1: cx + labelWide / 2 + 8, y0: cy - 13, y1: cy + 13 };
+      }
+
+      /* ---- Fibres: the links between components ---- */
+      /* Out of a mark along its radius, in to its family's hub, along a swoop
+         to the other family's hub (deeper the further it travels, never into
+         the doctrine) and out to the far mark, bundled with every link
+         between the same two families (hierarchical edge bundling, drawn in
+         polar form). Inside one family a link is a short U just within the
+         rim. Each is a filled outline that tapers: thin where it leaves its
+         component, fuller in the bundle, parting at the far end, so the
+         drawing carries direction without arrowheads. */
+      var hubs = [];
+      order.forEach(function (fi) { hubs[fi] = sectors[fi].mid; });
+      var rimR = R - markSize / 2 - 3, famHubR = RING.famHub * R;
+      /* Sheaves. Where one component has two or more links of one kind to
+         the components of another family (one component reads the saved
+         results of forty others), they travel as one ribbon, as wide as the
+         links it carries allow, from its mark through the bundle to that
+         family's hub, and part there into one short fibre to each, nested
+         so the farthest runs deepest and none crosses another. A link
+         belongs to the larger sheaf at either of its ends. */
+      var SHEAF_MIN = 2;
+      var sheaves = [], sheafOf = model.links.map(function () { return -1; });
+      (function () {
+        var groups = Object.create(null), list = [];
+        model.links.forEach(function (l, k) {
+          if (!comp[l[0]] || !comp[l[1]]) return;
+          var fa = model.comps[l[0]].fam, fb = model.comps[l[1]].fam;
+          if (fa === fb) return;
+          [['out', l[0], fb], ['in', l[1], fa]].forEach(function (g) {
+            var key = g[0] + '|' + g[1] + '|' + l.kind + '|' + g[2];
+            if (!groups[key]) { groups[key] = { role: g[0], h: g[1], kind: l.kind, fam: g[2], links: [] }; list.push(groups[key]); }
+            groups[key].links.push(k);
+          });
+        });
+        list.sort(function (p, q) { return q.links.length - p.links.length || p.h - q.h || p.fam - q.fam || (p.role < q.role ? -1 : p.role > q.role ? 1 : 0); });
+        list.forEach(function (g) {
+          var free = g.links.filter(function (k) { return sheafOf[k] < 0; });
+          if (free.length < SHEAF_MIN) return;
+          free.forEach(function (k) { sheafOf[k] = sheaves.length; });
+          sheaves.push({ role: g.role, h: g.h, kind: g.kind, fam: g.fam, links: free });
+        });
+      })();
+      // One bundle for the links drawn alone and for each sheaf's ribbon,
+      // the ribbon's far end a point at its family's hub.
+      var bAt = model.comps.map(function (c, ci) { return comp[ci] ? comp[ci].a : 0; });
+      var bGroup = model.comps.map(function (c) { return c.fam; });
+      var bLinks = [], bOf = [];
+      model.links.forEach(function (l, k) { bOf[k] = sheafOf[k] < 0 ? bLinks.push(l) - 1 : -1; });
+      sheaves.forEach(function (S) {
+        bAt.push(hubs[S.fam]);
+        bGroup.push(S.fam);
+        S.b = bLinks.push([S.h, bAt.length - 1]) - 1;
+      });
+      var bRoutes = bLinks.length ? Loom.bundle({
+        cx: cx, cy: cy, R: R, at: bAt, group: bGroup, hub: hubs, links: bLinks,
+        rimR: rimR, hubR: famHubR, lanes: [RING.lanes[0] * R, RING.lanes[1] * R], beta: 0.85,
+        leave: RING.leave * R, fibrePitch: 0.4 * s, localGain: 0.22, localDepth: [7 * s, RING.localDepth * R], px: 2.5, shape: 'swoop'
+      }) : [];
+      // A ribbon parts where its last run out to the rim crosses the hubs'
+      // ring; each fibre from there leaves along the ribbon, travels at its
+      // own depth (the farthest deepest) and meets its mark along the radius.
+      sheaves.forEach(function (S) {
+        var rt = bRoutes[S.b], pol = rt.polar, cut = rt.pts.length - 1, mid = Math.floor(cut / 2);
+        while (cut > mid && pol[cut - 1][1] > famHubR) cut--;
+        S.pts = rt.pts.slice(0, cut + 1);
+        S.pair = rt.pair;
+        var aE = pol[cut][0], rE = pol[cut][1], room = Math.max(4, rimR - rE);
+        S.end = { a: aE, r: rE };
+        S.twig = Object.create(null);
+        [-1, 1].forEach(function (side) {
+          var mine = S.links.filter(function (k) {
+            var m = S.role === 'out' ? model.links[k][1] : model.links[k][0];
+            return (turn(aE, comp[m].a) >= 0 ? 1 : -1) === side;
+          }).sort(function (p, q) {
+            var mp = S.role === 'out' ? model.links[p][1] : model.links[p][0], mq = S.role === 'out' ? model.links[q][1] : model.links[q][0];
+            return Math.abs(turn(aE, comp[mp].a)) - Math.abs(turn(aE, comp[mq].a)) || p - q;
+          });
+          mine.forEach(function (k, j) {
+            var m = S.role === 'out' ? model.links[k][1] : model.links[k][0], am = aE + turn(aE, comp[m].a);
+            var depth = rE + room * (0.86 - 0.62 * (mine.length > 1 ? j / (mine.length - 1) : 0));
+            var tp = Loom.polarBezier([aE, rE], [aE, depth], [am, depth], [am, rimR], 2.5);
+            S.twig[k] = Loom.polarXY(cx, cy, tp);
+          });
+        });
+      });
+      // Each link's whole route, end to end in its own direction: through
+      // its sheaf's ribbon and its own fibre where it has one.
+      var routes = model.links.map(function (l, k) {
+        if (sheafOf[k] < 0) return bRoutes[bOf[k]];
+        var S = sheaves[sheafOf[k]], whole = S.pts.concat(S.twig[k].slice(1));
+        return { pts: S.role === 'out' ? whole : whole.slice().reverse(), local: false, pair: S.pair, lane: -1 };
+      });
+      var TAPER = {
+        rest: Loom.taper({ start: 0.22 * ws, body: 0.95 * ws, end: 0.5 * ws, rise: 30 * s, fall: 22 * s, swell: 0.22 }),
+        lit: Loom.taper({ start: 0.45 * ws, body: 1.85 * ws, end: 1.0 * ws, rise: 36 * s, fall: 26 * s, swell: 0.18 })
+      };
+      function widthOf(k, lit) {
+        var base = lit ? TAPER.lit : TAPER.rest, f = KIND_WIDTH[model.links[k].kind] || 1;
+        return f === 1 ? base : function (at, len) { return base(at, len) * f; };
+      }
+      /* What the fibre layer draws: a link's own fibre, a sheaf's ribbon or
+         one of its parting fibres. A ribbon carrying n links is the square
+         root of n fibres wide: it leaves its mark thin, is fullest in the
+         bundle and is still broad where it parts; a parting fibre leaves the
+         ribbon broad and meets its mark as a fibre does. */
+      var items = [];
+      model.links.forEach(function (l, k) {
+        if (sheafOf[k] >= 0) return;
+        items.push({ id: items.length, part: 'link', pts: routes[k].pts, kind: l.kind, local: !!routes[k].local, pair: routes[k].pair, links: [k], sheaf: -1 });
+      });
+      sheaves.forEach(function (S, si) {
+        S.item = items.length;
+        items.push({ id: items.length, part: 'trunk', pts: S.pts, kind: S.kind, local: false, pair: S.pair, links: S.links.slice(), sheaf: si });
+        S.twigItem = Object.create(null);
+        S.links.forEach(function (k) {
+          S.twigItem[k] = items.length;
+          items.push({ id: items.length, part: 'twig', pts: S.twig[k], kind: S.kind, local: false, pair: S.pair, links: [k], sheaf: si });
+        });
+      });
+      var TRUNK = {
+        out: Loom.taper({ start: 0.3, body: 1, end: 0.9, rise: 30 * s, fall: 8 * s, swell: 0.12 }),
+        'in': Loom.taper({ start: 0.55, body: 1, end: 0.9, rise: 22 * s, fall: 8 * s, swell: 0.12 }),
+        twigOut: Loom.taper({ start: 0.7, body: 0.72, end: 0.5, rise: 6 * s, fall: 14 * s, swell: 0 }),
+        twigIn: Loom.taper({ start: 0.7, body: 0.72, end: 0.3, rise: 6 * s, fall: 14 * s, swell: 0 })
+      };
+      // n: how many links the ribbon carries in this drawing.
+      function itemWidth(it, lit, n) {
+        if (it.part === 'link') return widthOf(it.links[0], lit);
+        var S = sheaves[it.sheaf], f = (KIND_WIDTH[it.kind] || 1) * (lit ? 1.85 : 0.95) * ws;
+        if (it.part === 'trunk') {
+          var g = Math.sqrt(Math.max(1, n || S.links.length)), tw = TRUNK[S.role];
+          return function (at, len) { return tw(at, len) * f * g; };
+        }
+        var tt = S.role === 'out' ? TRUNK.twigOut : TRUNK.twigIn;
+        return function (at, len) { return tt(at, len) * f; };
+      }
+      // A kind's texture, as cuts across its fibre: reading saved results is
+      // dashed, checking copied files dotted, running another solid. Each
+      // drawn piece carries its own whole pattern, so a ribbon reads as one.
+      var texture = Object.create(null);
+      // grow: how much longer the marks are (a ribbon's grow with its width,
+      // so it reads as one long-dashed band, never a row of bricks); from:
+      // how far the pattern starts along the piece (a parting fibre is whole
+      // where it leaves its ribbon with the others).
+      function textureOf(key, kind, pts, grow, from) {
+        if (kind !== 'reads' && kind !== 'checks') return [];
+        if (texture[key]) return texture[key];
+        var cum = Loom.measure(pts), len = cum[cum.length - 1];
+        grow = grow || 1; from = from || 0;
+        var mark = (kind === 'reads' ? Math.max(5, 6.5 * ws) : Math.max(1.7, 2 * ws)) * grow;
+        var gap = (kind === 'reads' ? Math.max(2.8, 3.4 * ws) : Math.max(2.6, 3 * ws)) * Math.sqrt(grow);
+        var run = len - from, period = mark + gap, n = Math.max(0, Math.floor((run - mark) / period)), lead = from + (run - n * period - mark) / 2, out = [];
+        // Whole marks from end to end, the pattern centred so both ends are ink.
+        for (var i = 0; i < n; i++) {
+          var at = lead + mark + i * period + gap / 2, p = Loom.pointAt(pts, at, cum);
+          out.push({ s: at, x: p.x, y: p.y, nx: p.tx, ny: p.ty, h: gap / 2, sin: 1, cos: 0, over: -1 });
+        }
+        return (texture[key] = out);
+      }
+      function strokeOf(pts, kind, width, tex, cuts) {
+        var all = tex;
+        if (cuts && cuts.length) all = all.concat(cuts);
+        return Loom.fibreStroke(pts, { width: width, cuts: all, step: 2, minPiece: kind === 'checks' ? 0.6 : 2.2 });
+      }
+      // A link drawn whole (lit alone): its full route.
+      function fibreD(k, lit, cuts) {
+        var pts = routes[k].pts, kind = model.links[k].kind;
+        return strokeOf(pts, kind, widthOf(k, lit), textureOf('k' + k, kind, pts), cuts);
+      }
+      // A ribbon carries its kind's texture; its parting fibres are fine and
+      // whole, so where they fan out to their marks they read as one brush.
+      function itemTexture(it) {
+        if (it.part === 'trunk') return textureOf('i' + it.id, it.kind, it.pts, Math.max(1, 0.85 * Math.sqrt(it.links.length)));
+        return it.part === 'twig' ? [] : textureOf('i' + it.id, it.kind, it.pts);
+      }
+      function itemD(it, lit, cuts, n) { return strokeOf(it.pts, it.kind, itemWidth(it, lit, n), itemTexture(it), cuts); }
+      /* At rest every code connection is drawn, quietly: where code actually
+         runs code. A scene of hundreds of listed relations shows them only
+         where a choice lights them. */
+      var restEls = [], restCut = [], restDrawn = routes.length > 0 && model.links.length <= REST_MOST;
+      if (restDrawn) items.forEach(function (it) {
+        var attrs = { 'class': 'sm-fibre sm-fibre--' + (it.kind || 'named') + (it.local ? ' is-local' : '') + (it.part !== 'link' ? ' is-' + it.part : ''),
+                      d: itemD(it, false, null) };
+        if (it.part === 'trunk') {
+          attrs['data-from'] = 'comp:' + model.comps[sheaves[it.sheaf].h].id;
+          attrs['data-to'] = 'fam:' + model.families[sheaves[it.sheaf].fam].key;
+          attrs['data-n'] = String(it.links.length);
+        }
+        var p = sv('path', attrs);
+        gRest.appendChild(p);
+        restEls[it.id] = p;
+      });
+      // What a set of lit links draws: a sheaf with two or more of them its
+      // ribbon (as wide as those) and their parting fibres; a lone link its
+      // whole route. Each piece knows the end its light starts from.
+      function litDraws(xs) {
+        var out = [], by = Object.create(null), order2 = [];
+        xs.forEach(function (x) {
+          var si = sheafOf[x.k];
+          if (si < 0) { out.push({ t: 'link', x: x }); return; }
+          if (!by[si]) { by[si] = []; order2.push(si); }
+          by[si].push(x);
+        });
+        order2.forEach(function (si) {
+          var g = by[si], S = sheaves[si];
+          if (g.length < 2) { out.push({ t: 'link', x: g[0] }); return; }
+          var fromHub = g[0].a === S.h;
+          out.push({ t: 'trunk', si: si, xs: g, it: items[S.item], n: g.length, reverse: !fromHub });
+          g.forEach(function (x) { out.push({ t: 'twig', si: si, x: x, it: items[S.twigItem[x.k]], reverse: !fromHub, after: fromHub }); });
+        });
+        return out;
+      }
+      // One lit piece as a path. A link's own fibre and a parting fibre are
+      // wires (one for each lit link, from the end its light starts at); a
+      // ribbon is drawn under them as the stretch they share.
+      function litPath(dr, cuts, cls, wire) {
+        if (dr.t === 'trunk') {
+          var S = sheaves[dr.si], hubKey = 'comp:' + model.comps[S.h].id, famKey = 'fam:' + model.families[S.fam].key;
+          return sv('path', { 'class': cls + ' sm-route--' + S.kind + ' is-trunk', d: itemD(dr.it, true, cuts, dr.n),
+            'data-from': dr.reverse ? famKey : hubKey, 'data-to': dr.reverse ? hubKey : famKey, 'data-n': String(dr.n) });
+        }
+        var x = dr.x, kind = x.l.kind || 'named';
+        return sv('path', { 'class': cls + (wire ? ' sm-wire' : '') + ' sm-route--' + kind + (dr.t === 'twig' ? ' is-twig' : routes[x.k].local ? ' is-local' : ''),
+          d: dr.t === 'twig' ? itemD(dr.it, true, cuts) : fibreD(x.k, true, cuts),
+          'data-from': 'comp:' + model.comps[x.a].id, 'data-to': 'comp:' + model.comps[x.b].id });
+      }
+      // How lit pieces draw in: a lone link from its own end; a ribbon and
+      // its parting fibres in turn, from the end the light starts at.
+      function revealItems(draws) {
+        var wRed = 2 * 1.85 * ws * 1.3 * 1.2 + 3;
+        return draws.map(function (dr) {
+          if (dr.t === 'link') return { pts: routes[dr.x.k].pts, reverse: dr.x.a !== model.links[dr.x.k][0], w: wRed };
+          if (dr.t === 'trunk') return { pts: dr.it.pts, reverse: dr.reverse, w: wRed * Math.sqrt(dr.n), delay: dr.reverse ? 260 : 0, dur: 460 };
+          return { pts: dr.it.pts, reverse: dr.reverse, w: wRed, delay: dr.after ? 380 : 0, dur: 340 };
+        });
+      }
+
+      /* ---- Rule lines ---- */
+      /* A rule a paper module cites is a fine azure line from the component's mark
+         to the rule. To a rule within a seventh of the way round it bends in
+         like a ray and lands along the rule's own radius, which the core
+         keeps clear; to a rule further round it runs straight in and bends
+         across the core, never behind the centre's name, and meets the rule
+         from inside, turned off the rule's own lines. No line travels round
+         the core. A glyph it passes stands over it, on its halo. */
+      var rMark = R - markSize / 2 - 2;
+      var rGate = coreOuter + Math.max(5, 7 * rs);
+      var rayCache = Object.create(null);
+      function dist(p, q) { return Math.sqrt((p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1])); }
+      // How many glyphs of the core, other than the given one, a run of
+      // points (no more than two pixels apart) passes over.
+      function glyphHits(pts, skip, pad) {
+        var n = 0;
+        Object.keys(rule).forEach(function (id) {
+          if (id === skip) return;
+          var q = rule[id], room = q.half + pad, rr = room * room;
+          for (var i = 0; i < pts.length; i++) {
+            var dx = pts[i][0] - q.x, dy = pts[i][1] - q.y;
+            if (dx * dx + dy * dy < rr) { n++; return; }
+          }
+        });
+        return n;
+      }
+      function inLabel(pts) {
+        if (!labelBox) return false;
+        for (var i = 0; i < pts.length; i++) {
+          if (pts[i][0] > labelBox.x0 && pts[i][0] < labelBox.x1 && pts[i][1] > labelBox.y0 && pts[i][1] < labelBox.y1) return true;
+        }
+        return false;
+      }
+      function cubic(p0, p1, p2, p3) {
+        var len = dist(p0, p1) + dist(p1, p2) + dist(p2, p3), n = clamp(Math.ceil(len / 2), 4, 600), out = [];
+        for (var i = 0; i <= n; i++) {
+          var t = i / n, u = 1 - t, b0 = u * u * u, b1 = 3 * u * u * t, b2 = 3 * u * t * t, b3 = t * t * t;
+          out.push([b0 * p0[0] + b1 * p1[0] + b2 * p2[0] + b3 * p3[0], b0 * p0[1] + b1 * p1[1] + b2 * p2[1] + b3 * p3[1]]);
+        }
+        return out;
+      }
+      function radialRun(a, r0, r1) {
+        var n = Math.max(1, Math.ceil(Math.abs(r1 - r0) / 2)), out = [];
+        for (var i = 0; i <= n; i++) out.push(polar(cx, cy, r0 + (r1 - r0) * i / n, a));
+        return out;
+      }
+      // A run of points cut where it comes within r of the point g.
+      function trimTo(pts, g, r) {
+        for (var i = pts.length - 1; i > 0; i--) {
+          if (dist(pts[i - 1], g) >= r) {
+            var a = pts[i - 1], b = pts[i], da = dist(a, g), db = dist(b, g), t = da === db ? 0 : (da - r) / (da - db);
+            return pts.slice(0, i).concat([[a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]]);
+          }
+        }
+        return pts;
+      }
+      // How much a run turns along its length, in radians.
+      function turning(pts) {
+        var t = 0, h0 = null;
+        for (var i = 1; i < pts.length; i++) {
+          var dx = pts[i][0] - pts[i - 1][0], dy = pts[i][1] - pts[i - 1][1];
+          if (dx * dx + dy * dy < 0.01) continue;
+          var h1 = Math.atan2(dy, dx);
+          if (h0 !== null) t += Math.abs(turn(h0, h1));
+          h0 = h1;
+        }
+        return t;
+      }
+      function nearRay(C, id) {
+        var P = Loom.clearPort(core.glyphs, id, rGate, { cx: cx, cy: cy, clearance: 2.5 });
+        var port = C.a + turn(C.a, P.port), rEnd = Math.max(rGate, P.r), k = rMark - rEnd;
+        var pol = Loom.polarBezier([C.a, rMark], [C.a, rMark - 0.36 * k], [port, rEnd + 0.36 * k], [port, rEnd], 2);
+        var pts = Loom.polarXY(cx, cy, pol);
+        if (P.r < rEnd) pts = pts.concat(radialRun(port, rEnd, P.r).slice(1));
+        return P.hook ? pts.concat(P.hook.slice(1)) : pts;
+      }
+      // A far ray: in from the mark along its radius, bending across the
+      // core to meet the rule from inside, turned off the rule's own radius
+      // (where its own lines run). Of a few ways in, the one that clears the
+      // centre's name, passes fewest glyphs and bends least; failing a clear
+      // way, it passes beside the name.
+      function farRay(C, id) {
+        var q = rule[id], G = [q.x, q.y];
+        var P0 = polar(cx, cy, rMark, C.a), t0 = [-Math.cos(C.a), -Math.sin(C.a)], L = dist(P0, G);
+        var ux = cx - q.x, uy = cy - q.y, ul = Math.sqrt(ux * ux + uy * uy) || 1;
+        ux /= ul; uy /= ul;
+        var best = null;
+        function consider(run, extra) {
+          run = trimTo(run, G, q.half + 2);
+          var cost = (inLabel(run) ? 1e6 : 0) + glyphHits(run, id, 1.5) * 120 + turning(run) * 40 + polyLen(run) * 0.04 + (extra || 0);
+          if (!best || cost < best.cost) best = { cost: cost, pts: run };
+        }
+        [-72, -54, -36, 36, 54, 72].forEach(function (deg) {
+          var an = deg * Math.PI / 180, c = Math.cos(an), sn = Math.sin(an);
+          var d = [ux * c - uy * sn, ux * sn + uy * c];
+          [0.3, 0.44].forEach(function (k1) {
+            [0.28, 0.42].forEach(function (k2) {
+              consider(cubic(P0, [P0[0] + t0[0] * k1 * L, P0[1] + t0[1] * k1 * L], [G[0] + d[0] * k2 * L, G[1] + d[1] * k2 * L], G));
+            });
+          });
+        });
+        if (best.cost >= 1e6 && labelBox) {
+          // Straight across the centre: by way of a point beside its name.
+          var bw = (labelBox.x1 - labelBox.x0) / 2 + 10, bh = (labelBox.y1 - labelBox.y0) / 2 + 10;
+          [[cx - bw, cy], [cx + bw, cy], [cx, cy - bh], [cx, cy + bh]].forEach(function (V) {
+            var dv = [G[0] - P0[0], G[1] - P0[1]], dl = Math.sqrt(dv[0] * dv[0] + dv[1] * dv[1]) || 1, k = 0.22 * L;
+            dv = [dv[0] / dl, dv[1] / dl];
+            var a1 = cubic(P0, [P0[0] + t0[0] * 0.3 * L, P0[1] + t0[1] * 0.3 * L], [V[0] - dv[0] * k, V[1] - dv[1] * k], V);
+            var a2 = cubic(V, [V[0] + dv[0] * k, V[1] + dv[1] * k], [G[0] + (ux * 0.8 - uy * 0.6) * 0.2 * L, G[1] + (uy * 0.8 + ux * 0.6) * 0.2 * L], G);
+            consider(a1.concat(a2.slice(1)), 200);
+          });
+        }
+        return best.pts;
+      }
+      // From a component's mark to a rule; a rule's lines out to the rim are
+      // the same lines, read from the other end.
+      function ray(ci, id) {
+        var key = ci + '|' + id;
+        if (!rayCache[key]) rayCache[key] = Math.abs(turn(comp[ci].a, rule[id].a)) <= NEAR ? nearRay(comp[ci], id) : farRay(comp[ci], id);
+        return rayCache[key];
+      }
+
+      /* ---- Every line the map draws is made here ---- */
+      var route = {
+        link: function (k) { return routes[k] ? routes[k].pts : []; },
+        fibre: fibreD,
+        ray: ray,
+        span: function (key) { return spanEls[key] ? spanEls[key].pts : []; },
+        d: function (pts) { return Loom.lineD(pts); }
+      };
+
+      /* ---- The scale round the rim ---- */
+      // Per sector: a hairline base just outside the marks, one fine tick for
+      // each component, the two ends turned up as a bracket. Outside it, each
+      // component's bar: one step for each rule its paper module cites; a
+      // crossbar caps it where a rule is enforced there, an open one where a
+      // narrower part of a rule is checked.
+      var tickEls = Object.create(null), sectorScale = [];
+      order.forEach(function (fi) {
+        var S = sectors[fi], F = model.families[fi];
+        var g = sv('g', { 'class': 'sm-scale__sector', 'data-fam': F.key });
+        var e0 = S.runFrom - pitch * 0.18, e1 = S.runTo + pitch * 0.18;
+        g.appendChild(sv('path', { 'class': 'sm-tick sm-tick--base', d: 'M' + pt(polar(cx, cy, R + 9, e0)) +
+          'A' + fx(R + 9) + ' ' + fx(R + 9) + ' 0 ' + (e1 - e0 > Math.PI ? 1 : 0) + ' 1 ' + pt(polar(cx, cy, R + 9, e1)) }));
+        [e0, e1].forEach(function (a) {
+          g.appendChild(sv('path', { 'class': 'sm-tick sm-tick--end', d: 'M' + pt(polar(cx, cy, R + 5, a)) + 'L' + pt(polar(cx, cy, R + 16, a)) }));
+        });
+        F.members.forEach(function (ci) {
+          var C = comp[ci], c = model.comps[ci];
+          var tk = sv('path', { 'class': 'sm-tick', 'data-sm-tick': c.id, d: 'M' + pt(polar(cx, cy, R + 9, C.a)) + 'L' + pt(polar(cx, cy, R + 13, C.a)) });
+          g.appendChild(tk);
+          tickEls[ci] = tk;
+          if (C.bar > 0) {
+            g.appendChild(sv('path', { 'class': 'sm-bar', d: 'M' + pt(polar(cx, cy, R + 16, C.a)) + 'L' + pt(polar(cx, cy, R + 16 + C.bar, C.a)) }));
+          }
+          if (C.enf) {
+            var rr = R + 16 + C.bar + 2.2, half = 2.7 / rr, gap = 0.95 / rr;
+            g.appendChild(sv('path', { 'class': 'sm-cap' + (C.enf === 'part' ? ' sm-cap--part' : ''), d: C.enf === 'full' ?
+              'M' + pt(polar(cx, cy, rr, C.a - half)) + 'L' + pt(polar(cx, cy, rr, C.a + half)) :
+              'M' + pt(polar(cx, cy, rr, C.a - half)) + 'L' + pt(polar(cx, cy, rr, C.a - gap)) + 'M' + pt(polar(cx, cy, rr, C.a + gap)) + 'L' + pt(polar(cx, cy, rr, C.a + half)) }));
+          }
+        });
+        gScale.appendChild(g);
+        sectorScale[fi] = g;
+      });
+
+      /* ---- The doctrine's own relations ---- */
+      // The necklace's orbit, a guide in the ground's own line tone, as the
+      // mathematics slide draws the orbit of its problems.
+      var neck = null, spanEls = Object.create(null);
+      if (core) {
+        neck = sv('circle', { 'class': 'sm-necklace', cx: fx(cx), cy: fx(cy), r: fx(hubR) });
+        gNeck.appendChild(neck);
+        core.lines.forEach(function (ln) {
+          var key = ln.from + '>' + ln.to;
+          var p = sv('path', { 'class': 'sm-span sm-span--' + (ln.kind === 'failure' ? 'threat' : 'rest') + (ln.role === 'bridge' ? ' is-chord' : '') + ' sm-wire',
+            d: Loom.lineD(ln.pts), 'data-from': 'rule:' + ln.from, 'data-to': 'rule:' + ln.to });
+          gSpans.appendChild(p);
+          spanEls[key] = { el: p, pts: ln.pts, item: ln.from, axiom: ln.to };
+        });
+      }
+
+      /* ---- Nodes: focusable, named, each with a target the size of its place ---- */
+      var nodes = Object.create(null);
+      function node(key, x, y, cls, label, hitR, haloR) {
+        var g = sv('g', { 'class': 'sm-node ' + cls, 'data-sm-key': key, transform: 'translate(' + fx(x) + ' ' + fx(y) + ')',
+          role: 'button', tabindex: '-1', 'aria-label': label });
+        g.appendChild(sv('circle', { 'class': 'sm-hit', r: fx(hitR) }));
+        if (haloR) g.appendChild(sv('circle', { 'class': 'sm-halo', r: fx(haloR) }));
+        nodes[key] = g;
+        return g;
+      }
+      function glyph(markup, z, extra) {
+        var pop = sv('g', { 'class': 'sm-pop' });
+        var mk = sv('g', { 'class': 'sm-mark' + (extra ? ' ' + extra : ''), transform: 'translate(' + fx(-z / 2) + ' ' + fx(-z / 2) + ') scale(' + fx(z / 12) + ')',
+          fill: 'currentColor', stroke: 'currentColor', 'stroke-width': 0 });
+        mk.innerHTML = markup;
+        pop.appendChild(mk);
+        return pop;
+      }
+      // A rule's glyph drawn at its own size: an axiom a ringed dot, a
+      // principle a diamond, a failure mode a cross.
+      function ruleGlyph(kind, z) {
+        var pop = sv('g', { 'class': 'sm-pop' }), mk = sv('g', { 'class': 'sm-mark' });
+        if (kind === 'axiom') {
+          mk.appendChild(sv('circle', { 'class': 'sm-g sm-g--ring', r: fx(z / 2 - 0.8) }));
+          mk.appendChild(sv('circle', { 'class': 'sm-g sm-g--dot', r: fx(Math.max(1.7, z * 0.17)) }));
+        } else if (kind === 'principle') {
+          var q = z / 2 - 0.5;
+          mk.appendChild(sv('path', { 'class': 'sm-g sm-g--diamond', d: 'M0 ' + fx(-q) + 'L' + fx(q) + ' 0L0 ' + fx(q) + 'L' + fx(-q) + ' 0Z' }));
+        } else {
+          var e = z * 0.37;
+          mk.appendChild(sv('path', { 'class': 'sm-g sm-g--cross', d: 'M' + fx(-e) + ' ' + fx(-e) + 'L' + fx(e) + ' ' + fx(e) + 'M' + fx(e) + ' ' + fx(-e) + 'L' + fx(-e) + ' ' + fx(e) }));
+        }
+        pop.appendChild(mk);
+        return pop;
+      }
+      model.comps.forEach(function (c, ci) {
+        if (!comp[ci]) return;
+        var C = comp[ci];
+        var g = node('comp:' + c.id, C.x, C.y, 'sm-node--comp', c.label + ', ' + model.families[c.fam].title +
+          (c.cls ? '; ' + lowerFirst(CLASS_WORDS[c.cls]) : '') + '. Select to light its links and rules.', Math.max(6, pitchPx / 2), markSize / 2 + 1.6);
+        g.__ci = ci;
+        g.appendChild(glyph(GLYPHS[c.cls] || GLYPHS.none, markSize));
+        g.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(markSize / 2 + 3.5) }));
+        if (named) {
+          var deg = C.a * 180 / Math.PI, right = Math.cos(C.a) >= 0, off = rName - R;
+          var t = sv('text', { 'class': 'sm-rimname sm-rimname--' + named.fs + ' sm-note', 'dominant-baseline': 'central',
+            'text-anchor': right ? 'start' : 'end',
+            transform: 'rotate(' + fx(right ? deg : deg + 180) + ') translate(' + fx(right ? off : -off) + ' 0)' });
+          t.textContent = c.label;
+          g.appendChild(t);
+        }
+        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goComponent(ci, { keyed: keyedClick(e) }); });
+        hoverable(g, 'comp:' + c.id, g);
+        gRim.appendChild(g);
+      });
+      if (D && core) {
+        Object.keys(rule).forEach(function (id) {
+          var r = D.rules[id], q = rule[id];
+          var g = node('rule:' + id, q.x, q.y, 'sm-node--rule sm-node--' + q.kind + ' sm-node--' + (q.role === 'satellite' ? 'sat' : q.role),
+            KIND_WORDS[q.kind] + ': ' + r.title + '. Select to light where it reaches.', Math.max(7.5, q.half + 2.5), q.half + 2.2);
+          g.appendChild(ruleGlyph(q.kind, q.size));
+          g.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(q.half + 3.5) }));
+          g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goDoctrine(id, { keyed: keyedClick(e) }); });
+          hoverable(g, 'rule:' + id, g);
+          gCore.appendChild(g);
+        });
+      }
+      if (D) {
+        // The centre: the doctrine's name, which opens it.
+        var cg = node('doctrine', cx, cy, 'sm-node--centre', 'The doctrine: ' + countWords(D.axioms.length, 'axiom', 'axioms') + ', ' +
+          countWords(D.principles.length, 'principle', 'principles') + ' and ' + countWords(D.failures.length, 'failure mode', 'failure modes') +
+          '. Select to light them all.', Math.max(14, centreClear - 4));
+        cg.setAttribute('tabindex', '0');
+        var ct = sv('text', { 'class': 'sm-centre__label sm-label', x: 0, y: 0, 'text-anchor': 'middle', 'dominant-baseline': 'central' });
+        ct.textContent = 'Doctrine';
+        var cpop = sv('g', { 'class': 'sm-pop' });
+        cpop.appendChild(ct);
+        cg.appendChild(cpop);
+        cg.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(Math.max(14, centreClear - 4)) }));
+        cg.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goDoctrine(null, { keyed: keyedClick(e) }); });
+        hoverable(cg, 'doctrine', cg);
+        gCore.appendChild(cg);
+      }
+
+      /* ---- The sector names, set along the outside of the ring ---- */
+      var labelBoxes = [];   // per family: sample boxes along both rows, for the plates to keep clear of
+      // With every name round the rim, a family's name stands along the
+      // radius in the gap before its run, its count after it, reading outward
+      // like the names it heads.
+      if (named) order.forEach(function (fi) {
+        var S = sectors[fi], F = model.families[fi], a = S.lo - gapA / 2;
+        var right = Math.cos(a) >= 0, deg = a * 180 / Math.PI;
+        var g = sv('g', { 'class': 'sm-node sm-node--fam sm-node--head', 'data-sm-key': 'fam:' + F.key, role: 'button', tabindex: '0',
+          'aria-label': F.title + ': ' + countLine(F) + '. Select to light the family.',
+          transform: 'translate(' + pt(polar(cx, cy, rName, a)) + ') rotate(' + fx(right ? deg : deg + 180) + ')' });
+        var tw = textWidth(F.title, 'sm-sector__name'), cw = textWidth(countLine(F), 'sm-sector__count');
+        var x0 = right ? 0 : -(tw + 10 + cw);
+        g.appendChild(sv('rect', { 'class': 'sm-hit', x: fx(x0 - 4), y: -12, width: fx(tw + cw + 18), height: 24 }));
+        var t1 = sv('text', { 'class': 'sm-sector__name sm-label', x: fx(right ? 0 : -(cw + 10)), y: 0, 'text-anchor': right ? 'start' : 'end', 'dominant-baseline': 'central' });
+        t1.textContent = F.title;
+        var t2 = sv('text', { 'class': 'sm-sector__count sm-note', x: fx(right ? tw + 10 : 0), y: 0, 'text-anchor': right ? 'start' : 'end', 'dominant-baseline': 'central' });
+        t2.textContent = countLine(F);
+        g.appendChild(t1);
+        g.appendChild(t2);
+        g.appendChild(sv('rect', { 'class': 'sm-focus-box', x: fx(x0 - 5), y: -13, width: fx(tw + cw + 20), height: 26, rx: 4 }));
+        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goFamily(fi, { keyed: keyedClick(e) }); });
+        hoverable(g, 'fam:' + F.key, g);
+        gLabels.appendChild(g);
+        nodes['fam:' + F.key] = g;
+        labelBoxes[fi] = { g: g, boxes: [] };
+      });
+      else order.forEach(function (fi, k) {
+        var S = sectors[fi], F = model.families[fi], lower = readsDownward(S.mid);
+        var rows = lower ? [[F.title, 'sm-sector__name', labelR1], [countLine(F), 'sm-sector__count', labelR2]] :
+          [[countLine(F), 'sm-sector__count', labelR1], [F.title, 'sm-sector__name', labelR2]];
+        var g = sv('g', { 'class': 'sm-node sm-node--fam', 'data-sm-key': 'fam:' + F.key, role: 'button', tabindex: '0',
+          'aria-label': F.title + ': ' + countLine(F) + '. Select to light the family.' });
+        var spanHit = Math.max(S.hi - S.lo, (labelW[fi] + 26) / labelR1);
+        g.appendChild(sv('path', { 'class': 'sm-hit sm-hit--band', d: arcFor(cx, cy, (labelR1 + labelR2) / 2, S.mid, spanHit, lower), 'stroke-width': 40 }));
+        var samples = [];
+        rows.forEach(function (row, j) {
+          var id = 'sm-arc-' + mounted + '-' + k + '-' + j, w = textWidth(row[0], row[1]);
+          var span = Math.min(TAU * 0.45, (w + 60) / row[2]);
+          defs.appendChild(sv('path', { id: id, d: arcFor(cx, cy, row[2], S.mid, span, lower) }));
+          var t = sv('text', { 'class': row[1] + (row[1] === 'sm-sector__name' ? ' sm-label' : ' sm-note'), 'dominant-baseline': 'central' });
+          var tp = sv('textPath', { href: '#' + id, startOffset: '50%', 'text-anchor': 'middle' });
+          if (tp.setAttributeNS) tp.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#' + id);
+          tp.textContent = row[0];
+          t.appendChild(tp);
+          g.appendChild(t);
+          var half = (w / 2 + 4) / row[2];
+          for (var a = S.mid - half; a <= S.mid + half + 1e-9; a += 7 / row[2]) {
+            var p = polar(cx, cy, row[2], a);
+            samples.push({ x0: p[0] - 8, x1: p[0] + 8, y0: p[1] - 9, y1: p[1] + 9 });
+          }
+        });
+        g.appendChild(sv('path', { 'class': 'sm-focus-band', d: arcFor(cx, cy, (labelR1 + labelR2) / 2, S.mid, spanHit, lower), 'stroke-width': 42 }));
+        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goFamily(fi, { keyed: keyedClick(e) }); });
+        hoverable(g, 'fam:' + F.key, g);
+        gLabels.appendChild(g);
+        nodes['fam:' + F.key] = g;
+        labelBoxes[fi] = { g: g, boxes: samples };
+      });
+      // An empty click steps back a level.
+      svg.addEventListener('click', function () { if (at.level !== 'system') up({}); });
+
+      /* ---- Light ---- */
+      /* What a view lights, each relation with the direction its light runs:
+         from a component inward to the rules its paper module cites and on to
+         the axioms they rest on, and out along its connections; from a rule
+         outward through its relations to every component whose paper module
+         cites it, and to the components where it is shown enforced (framed)
+         or a narrower part of it checked (an open frame). */
+      function lightOf(s) {
+        var L = { comps: Object.create(null), rules: Object.create(null), links: [], cites: [], spans: Object.create(null),
+                  reticles: [], open: [], plates: [], families: Object.create(null), rim: false, core: false };
+        if (!s || s.level === 'system') return L;
+        if (s.level === 'family') {
+          L.rim = true; L.core = !!D;
+          L.families[s.fam] = 'self';
+          model.families[s.fam].members.forEach(function (ci) { L.comps[ci] = 'member'; });
+          model.links.forEach(function (l, k) {
+            var fa = model.comps[l[0]].fam, fb = model.comps[l[1]].fam;
+            if (fa !== s.fam && fb !== s.fam) return;
+            var from = fa === s.fam ? l[0] : l[1], to = from === l[0] ? l[1] : l[0];
+            L.links.push({ a: from, b: to, l: l, k: k });
+            if (!L.comps[to]) { L.comps[to] = 'link'; L.families[model.comps[to].fam] = L.families[model.comps[to].fam] || 'link'; }
+          });
+          return L;
+        }
+        if (s.level === 'component') {
+          var ci = s.comp, c = model.comps[ci];
+          L.rim = true; L.core = !!D;
+          L.comps[ci] = 'self';
+          L.families[c.fam] = 'self';
+          L.reticles.push('comp:' + c.id);
+          L.plates.push(ci);
+          var seen = Object.create(null);
+          model.links.forEach(function (l, k) {
+            if (l[0] !== ci && l[1] !== ci) return;
+            var other = l[0] === ci ? l[1] : l[0];
+            L.links.push({ a: ci, b: other, l: l, k: k });
+            L.comps[other] = 'link';
+            seen[other] = true;
+          });
+          // Names: the components in other families first, then its own, nearest first.
+          Object.keys(seen).map(Number).sort(function (p, q) {
+            var fp = model.comps[p].fam === c.fam ? 1 : 0, fq = model.comps[q].fam === c.fam ? 1 : 0;
+            return fp - fq || Math.abs(turn(comp[ci].a, comp[p].a)) - Math.abs(turn(comp[ci].a, comp[q].a));
+          }).forEach(function (x) { L.plates.push(x); });
+          if (D) {
+            var info = D.comp[ci], reached = Object.create(null);
+            info.gov.forEach(function (pid) {
+              if (!rule[pid]) return;
+              L.rules[pid] = 'lit';
+              L.cites.push({ ci: ci, id: pid, out: false });
+              D.rules[pid].restsOn.forEach(function (aid) {
+                if (!rule[aid]) return;
+                L.rules[aid] = L.rules[aid] || 'lit';
+                reached[aid] = true;
+                L.spans[pid + '>' + aid] = { from: pid, stage: 1 };
+              });
+            });
+            info.abide.forEach(function (aid) {
+              if (reached[aid] || !rule[aid]) return;
+              L.rules[aid] = 'lit';
+              L.cites.push({ ci: ci, id: aid, out: false });
+            });
+          }
+          return L;
+        }
+        if (!D) return L;
+        if (s.level === 'doctrine') {
+          L.rim = true;
+          Object.keys(rule).forEach(function (id) { L.rules[id] = 'lit'; });
+          Object.keys(spanEls).forEach(function (k) { L.spans[k] = { from: spanEls[k].axiom, stage: 0 }; });
+          return L;
+        }
+        var r = D.rules[s.rule];
+        L.rim = true; L.core = true;
+        L.rules[s.rule] = 'self';
+        L.reticles.push('rule:' + s.rule);
+        Object.keys(spanEls).forEach(function (k) {
+          var sp = spanEls[k];
+          if (sp.item !== s.rule && sp.axiom !== s.rule) return;
+          L.spans[k] = { from: s.rule, stage: 0 };
+          var other = sp.item === s.rule ? sp.axiom : sp.item;
+          L.rules[other] = L.rules[other] || 'lit';
+        });
+        if (!rule[s.rule]) return L;
+        D.comp.forEach(function (info, ci) {
+          var cites = r.kind === 'principle' ? info.gov.indexOf(s.rule) >= 0 : r.kind === 'axiom' ? info.abide.indexOf(s.rule) >= 0 : false;
+          if (cites && comp[ci]) { L.comps[ci] = 'cite'; L.cites.push({ ci: ci, id: s.rule, out: true }); }
+        });
+        r.enforced.forEach(function (ci) {
+          if (!comp[ci]) return;
+          if (!L.comps[ci]) L.cites.push({ ci: ci, id: s.rule, out: true });
+          L.comps[ci] = 'enforce';
+          L.reticles.push('comp:' + model.comps[ci].id);
+          L.plates.push(ci);
+        });
+        r.partly.forEach(function (ci) {
+          if (!comp[ci] || L.comps[ci] === 'enforce') return;
+          if (!L.comps[ci]) L.cites.push({ ci: ci, id: s.rule, out: true });
+          L.comps[ci] = 'partly';
+          L.open.push('comp:' + model.comps[ci].id);
+          L.plates.push(ci);
+        });
+        return L;
+      }
+
+      /* ---- Motion ---- */
+      /* A lit line appears from the end its light starts at, once, in about
+         seven tenths of a second. The fibres are filled shapes, so they show
+         through a mask whose stroke runs along their centre lines; a mask is
+         removed the moment its lines are whole. Reduced motion shows them at
+         once. */
+      var reveals = [], revealN = 0;
+      function polyLen(pts) { var n = 0; for (var i = 1; i < pts.length; i++) n += dist(pts[i - 1], pts[i]); return n; }
+      function revealAlong(group, items, delay, dur) {
+        if (!items.length || !motionOK() || !group.setAttribute) return;
+        var id = 'sm-reveal-' + mounted + '-' + (++revealN);
+        var mask = sv('mask', { id: id, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: fx(width), height: size });
+        var rec = { group: group, mask: mask, anims: [], left: items.length };
+        defs.appendChild(mask);
+        group.setAttribute('mask', 'url(#' + id + ')');
+        reveals.push(rec);
+        items.forEach(function (it) {
+          var pts = it.reverse ? it.pts.slice().reverse() : it.pts, len = polyLen(pts) + 4;
+          var p = sv('path', { d: Loom.lineD(pts), fill: 'none', stroke: '#fff', 'stroke-width': fx(it.w), 'stroke-linecap': 'round',
+            'stroke-linejoin': 'round', 'stroke-dasharray': fx(len) + ' ' + fx(len), 'stroke-dashoffset': fx(len) });
+          mask.appendChild(p);
+          var an = null;
+          try {
+            an = p.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: it.dur || dur, delay: delay + (it.delay || 0), easing: EASE, fill: 'forwards' });
+          } catch (e) { an = null; }
+          if (an) { rec.anims.push(an); an.onfinish = function () { if (--rec.left <= 0) unmask(rec); }; }
+          else if (--rec.left <= 0) unmask(rec);
+        });
+      }
+      function unmask(rec) {
+        if (rec.group.getAttribute && rec.group.getAttribute('mask') === 'url(#' + rec.mask.getAttribute('id') + ')') rec.group.removeAttribute('mask');
+        if (rec.mask.parentNode) rec.mask.parentNode.removeChild(rec.mask);
+        var i = reveals.indexOf(rec);
+        if (i >= 0) reveals.splice(i, 1);
+      }
+      function stopReveals(group) {
+        reveals.slice().forEach(function (rec) {
+          if (group && rec.group !== group) return;
+          rec.anims.forEach(function (an) { try { an.cancel(); } catch (e) {} });
+          unmask(rec);
+        });
+      }
+      // A stroked line (a span of the doctrine) draws in from its start.
+      function drawIn(p, delay, dur) {
+        if (!motionOK() || !p.getTotalLength || !p.animate) return;
+        var len = p.getTotalLength();
+        if (!(len > 1)) return;
+        try {
+          p.animate([{ strokeDasharray: len + ' ' + len, strokeDashoffset: len }, { strokeDasharray: len + ' ' + len, strokeDashoffset: 0 }],
+            { duration: dur, delay: delay, easing: EASE, fill: 'backwards' });
+        } catch (e) {}
+      }
+      function fadeIn(elx, delay, dur) {
+        if (!motionOK() || !elx.animate) return;
+        try { elx.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dur, delay: delay || 0, easing: EASE, fill: 'backwards' }); } catch (e) {}
+      }
+
+      /* ---- The weave ---- */
+      /* Wherever a lit red line and an azure one cross, one passes over and
+         the line beneath is cut by a clean gap parallel to it, alternating
+         along each line as in a plait; a lit line always passes over a stray
+         fibre. Woven again for every choice, since what is lit changes. */
+      // The clearance is wide enough that a crossing reads as over and under
+      // from a reader's distance (judged at two thirds size on a large
+      // screen), and no wider, so no line looks broken.
+      var WEAVE = { rankTolerance: 0, clearance: Math.max(2.6, 3.2 * rs), minAngle: 16, endGuard: 10 * s, cell: 28,
+                    ropeMin: 4, ropeGap: 4 * s, ropeWidth: 10 * s };
+      var woven = null;
+
+      /* ---- Choosing ---- */
+      var lit = lightOf(null), litPaths = [];
+      function select(s, how) {
+        how = how || {};
+        var L = lightOf(s);
+        stopReveals();
+        clear(gLitRed);
+        clear(gLitAz);
+        clear(gMarks);
+        clear(gPlates);
+        litPaths = [];
+        svg.classList.toggle('is-selecting', s.level !== 'system');
+        svg.classList.toggle('is-doctrine', s.level === 'doctrine');
+        svg.classList.toggle('is-rule', s.level === 'rule');
+        svg.classList.toggle('dims-rim', !!L.rim);
+        svg.classList.toggle('dims-core', !!L.core);
+        Object.keys(nodes).forEach(function (key) {
+          var n = nodes[key], state = null;
+          if (key.indexOf('comp:') === 0) state = L.comps[n.__ci] || null;
+          else if (key.indexOf('rule:') === 0) state = L.rules[key.slice(5)] || null;
+          else if (key.indexOf('fam:') === 0) state = L.families[familyIndex(key.slice(4))] || null;
+          ['is-self', 'is-lit', 'is-member', 'is-link', 'is-cite', 'is-enforce', 'is-partly'].forEach(function (c) { n.classList.remove(c); });
+          if (state === 'self') n.classList.add('is-self');
+          else if (state) { n.classList.add('is-lit'); n.classList.add('is-' + state); }
+        });
+        if (nodes.doctrine) nodes.doctrine.classList.toggle('is-self', s.level === 'doctrine');
+        Object.keys(tickEls).forEach(function (ci) { tickEls[ci].classList.toggle('is-lit', !!L.comps[ci]); });
+        Object.keys(spanEls).forEach(function (k) { spanEls[k].el.classList.toggle('is-lit', !!L.spans[k]); });
+        var moving = !how.instant && !how.keyed && motionOK();
+        // The azure lines, each from the end its light starts at.
+        var az = L.cites.map(function (x) {
+          var pts = ray(x.ci, x.id);
+          return { x: x, pts: x.out ? pts.slice().reverse() : pts };
+        });
+        // The weave: every lit line, and the fibres at rest beneath them.
+        var litK = Object.create(null), strands = [], refs = [], draws = litDraws(L.links);
+        L.links.forEach(function (x) { litK[x.k] = true; });
+        draws.forEach(function (dr) {
+          var pts = dr.t === 'link' ? routes[dr.x.k].pts : dr.it.pts, pair = dr.t === 'link' ? routes[dr.x.k].pair : dr.it.pair;
+          var w = dr.t === 'link' ? widthOf(dr.x.k, true) : itemWidth(dr.it, true, dr.n);
+          strands.push({ pts: pts, ink: 'red', rank: 1, width: w, bundle: pair >= 0 ? 'pair' + pair : null });
+          refs.push({ t: 'lit', dr: dr });
+        });
+        // A piece at rest is lit when every link it carries is.
+        var litItem = function (it) { return it.links.every(function (k) { return !!litK[k]; }); };
+        if (restDrawn && az.length) items.forEach(function (it) {
+          if (litItem(it)) return;
+          strands.push({ pts: it.pts, ink: 'red', rank: 0, width: itemWidth(it, false), bundle: it.pair >= 0 ? 'pair' + it.pair : null });
+          refs.push({ t: 'rest', it: it });
+        });
+        az.forEach(function (a) {
+          strands.push({ pts: a.pts, ink: 'azure', rank: 1, width: +AZ_W, bundle: s.level === 'component' ? 'fan' : null });
+          refs.push({ t: 'az', a: a });
+        });
+        woven = az.length && strands.length > az.length ? Loom.weave(strands, WEAVE) : null;
+        var cutRest = Object.create(null);
+        refs.forEach(function (ref, i) {
+          var cuts = woven ? woven.cuts[i] : null;
+          if (ref.t === 'rest') {
+            if (cuts && cuts.length) { restEls[ref.it.id].setAttribute('d', itemD(ref.it, false, cuts)); cutRest[ref.it.id] = true; }
+          } else if (ref.t === 'lit') {
+            var p = litPath(ref.dr, cuts, 'sm-route', true);
+            gLitRed.appendChild(p);
+            litPaths.push({ el: p, pts: ref.dr.t === 'link' ? routes[ref.dr.x.k].pts : ref.dr.it.pts, ink: 'red' });
+          } else {
+            var a = ref.a;
+            var q = sv('path', { 'class': 'sm-rline sm-wire', d: cuts && cuts.length ? Loom.strokeGaps(a.pts, cuts, +AZ_W) : Loom.lineD(a.pts),
+              'data-from': a.x.out ? 'rule:' + a.x.id : 'comp:' + model.comps[a.x.ci].id, 'data-to': a.x.out ? 'comp:' + model.comps[a.x.ci].id : 'rule:' + a.x.id });
+            gLitAz.appendChild(q);
+            litPaths.push({ el: q, pts: a.pts, ink: 'azure' });
+          }
+        });
+        // Fibres at rest: those cut last time and not this time are whole
+        // again, and a piece whose every link is lit steps under its light.
+        restEls.forEach(function (p, id) {
+          if (!p) return;
+          if (restCut[id] && !cutRest[id]) p.setAttribute('d', itemD(items[id], false, null));
+          restCut[id] = !!cutRest[id];
+          p.classList.toggle('is-under', litItem(items[id]));
+        });
+        if (moving) {
+          revealAlong(gLitRed, revealItems(draws), 40, 720);
+          revealAlong(gLitAz, az.map(function (a) { return { pts: a.pts, w: +AZ_W + 4 }; }), 60, 760);
+          Object.keys(L.spans).forEach(function (k) {
+            var sp = spanEls[k], sl = L.spans[k];
+            if (sp) drawIn(sp.el, sl.stage ? 520 : 40, 460);
+          });
+        }
+        // Frames round neighbouring marks share the room between them.
+        var framed = L.reticles.concat(L.open).filter(function (key) { return key.indexOf('comp:') === 0 && nodes[key]; })
+          .map(function (key) { return comp[nodes[key].__ci]; });
+        var nearest = function (c) {
+          var best = Infinity;
+          framed.forEach(function (o) { if (o !== c) best = Math.min(best, Math.hypot(o.x - c.x, o.y - c.y)); });
+          return best;
+        };
+        L.reticles.forEach(function (key, i) { reticle(key, moving, i === 0 ? 'self' : 'full', nearest); });
+        L.open.forEach(function (key) { reticle(key, moving, 'part', nearest); });
+        lit = L;
+        plates(L.plates, moving);
+      }
+
+      /* A reticle: four corner ticks round the object chosen, a target lock,
+         in hairline. Round a component where a rule is shown enforced it is
+         the rule's ink; where a narrower part of the rule is checked, an
+         open frame of two corners. On the rim a frame stands along the
+         mark's radius, and where the next framed mark is close it narrows to
+         its share of the room between them (never wider than square), so
+         no two frames touch. It eases in from a third wider. */
+      function reticle(key, moving, kind, nearest) {
+        var n = nodes[key];
+        if (!n) return;
+        var x, y, e, ew, turnBy = 0, onRim = key.indexOf('comp:') === 0;
+        if (onRim) {
+          var c = comp[n.__ci];
+          x = c.x; y = c.y; e = markSize / 2 + 6.5;
+          ew = Math.max(2.5, Math.min(e, (nearest ? nearest(c) : Infinity) / 2 - 1.25));
+          turnBy = c.a * 180 / Math.PI - 90;
+        } else { var q = rule[key.slice(5)]; if (!q) return; x = q.x; y = q.y; e = ew = q.half + 6.5; }
+        var arm = Math.max(3, Math.min(6, e * 0.32)), armW = Math.min(arm, Math.max(1.5, ew * 0.45)), d = '';
+        var corners = kind === 'part' ? [[-1, -1], [1, 1]] : [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+        corners.forEach(function (k) {
+          var px = k[0] * ew, py = k[1] * e;
+          d += 'M' + fx(px - k[0] * armW) + ' ' + fx(py) + 'H' + fx(px) + 'V' + fx(py - k[1] * arm);
+        });
+        var g = sv('g', { transform: onRim ? 'translate(' + fx(x) + ' ' + fx(y) + ') rotate(' + fx(turnBy) + ')' :
+          'translate(' + fx(Math.round(x) + 0.5) + ' ' + fx(Math.round(y) + 0.5) + ')' });
+        var p = sv('path', { 'class': 'sm-reticle' + (kind === 'self' ? '' : ' sm-reticle--' + kind) + (onRim ? ' sm-reticle--rim' : ''), d: d });
+        g.appendChild(p);
+        gMarks.appendChild(g);
+        if (moving && motionOK() && p.animate) {
+          try { p.animate([{ transform: 'scale(1.35)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }], { duration: 160, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' }); } catch (e) {}
+        }
+      }
+
+      /* ---- Name plates ---- */
+      /* Horizontal, at the body size, outside the rim, each on a hairline
+         leader from the end of its component's furniture. Placed in order
+         (the thing chosen first), each where it covers least: never over
+         another plate or leader, a mark or the ring, never off the drawing.
+         A sector's name under a plate steps aside while it shows. A name
+         that finds no room is listed in the column all the same. On the
+         map's own page every name is already round the rim. */
+      var PLATE_MAX = 14, PLATE_LEAD = 20;
+      // The ways a name can be set on a plate: on one line, or on two or
+      // three lines broken where they come out most nearly equal (a narrow
+      // room at the sides of the ring takes them). Never cut.
+      function plateShapes(text) {
+        var one = textWidth(text, 'sm-plate__text');
+        var out = [{ lines: [text], w: one + 16, h: 26, cost: 0 }];
+        var words = text.split(' ');
+        if (words.length > 1) {
+          var best2 = null;
+          for (var k = 1; k < words.length; k++) {
+            var a = words.slice(0, k).join(' '), b = words.slice(k).join(' ');
+            var wide = Math.max(textWidth(a, 'sm-plate__text'), textWidth(b, 'sm-plate__text'));
+            if (!best2 || wide < best2.wide) best2 = { lines: [a, b], wide: wide };
+          }
+          if (best2.wide < one - 24) out.push({ lines: best2.lines, w: best2.wide + 16, h: 26 + PLATE_LEAD, cost: 22 });
+        }
+        if (words.length > 2) {
+          var best3 = null;
+          for (var i = 1; i < words.length - 1; i++) {
+            for (var j = i + 1; j < words.length; j++) {
+              var l3 = [words.slice(0, i).join(' '), words.slice(i, j).join(' '), words.slice(j).join(' ')];
+              var w3 = Math.max(textWidth(l3[0], 'sm-plate__text'), textWidth(l3[1], 'sm-plate__text'), textWidth(l3[2], 'sm-plate__text'));
+              if (!best3 || w3 < best3.wide) best3 = { lines: l3, wide: w3 };
+            }
+          }
+          if (best3.wide < out[out.length - 1].w - 16 - 14) out.push({ lines: best3.lines, w: best3.wide + 16, h: 26 + 2 * PLATE_LEAD, cost: 60 });
+        }
+        return out;
+      }
+      function plates(list, moving) {
+        Object.keys(labelBoxes).forEach(function (fi) { labelBoxes[fi].g.classList.remove('is-covered'); });
+        if (named || !list.length) return;
+        var placed = [], covered = Object.create(null), shown = 0;
+        var furn = R + depth;
+        function hits(a, b, pad) { return a.x0 - pad < b.x1 && a.x1 + pad > b.x0 && a.y0 - pad < b.y1 && a.y1 + pad > b.y0; }
+        function segBox(x0, y0, x1, y1) { return { x0: Math.min(x0, x1) - 1.5, x1: Math.max(x0, x1) + 1.5, y0: Math.min(y0, y1) - 1.5, y1: Math.max(y0, y1) + 1.5 }; }
+        function outside(b) {
+          var nx = clamp(cx, b.x0, b.x1), ny = clamp(cy, b.y0, b.y1);
+          return Math.sqrt((nx - cx) * (nx - cx) + (ny - cy) * (ny - cy)) >= furn + 3;
+        }
+        function labelsUnder(boxes) {
+          var fams = [];
+          Object.keys(labelBoxes).forEach(function (fi) {
+            if (labelBoxes[fi].boxes.some(function (q) { return boxes.some(function (b) { return hits(b, q, 0); }); })) fams.push(fi);
+          });
+          return fams;
+        }
+        list.forEach(function (ci, rank) {
+          if (shown >= PLATE_MAX || !comp[ci]) return;
+          var C = comp[ci], c = model.comps[ci], self = rank === 0 && at.level === 'component';
+          var r0 = R + 16 + C.bar + (C.enf ? 5 : 2);
+          var best = null;
+          plateShapes(c.label).forEach(function (shape) {
+            var w = shape.w, hgt = shape.h;
+            [0, 10, 22, 36, 52, 70, 90].forEach(function (lift) {
+              var rl = Math.max(furn + 6, r0 + 4) + lift;
+              var e = polar(cx, cy, rl, C.a), s0 = polar(cx, cy, r0, C.a);
+              // The leader's bend stays on the drawing too, never out under
+              // the key or the caption.
+              if (e[0] < 4 || e[0] > width - 4 || e[1] < 4 || e[1] > size - 4) return;
+              var cos = Math.cos(C.a), sides = Math.abs(cos) < 0.42 ? [cos >= 0 ? 1 : -1, cos >= 0 ? -1 : 1] : [cos >= 0 ? 1 : -1];
+              sides.forEach(function (side, si) {
+                [0, -1, 1, -2, 2].forEach(function (v) {
+                  var x0 = side > 0 ? e[0] + 5 : e[0] - 5 - w, y0 = e[1] - hgt / 2 + v * (hgt / 2 + 3);
+                  if (Math.abs(cos) < 0.42 && v === 0) {
+                    // Over the top or under the bottom: hung above or below the leader's end.
+                    y0 = Math.sin(C.a) < 0 ? e[1] - hgt - 2 : e[1] + 2;
+                    x0 = side > 0 ? e[0] - 10 : e[0] + 10 - w;
+                  }
+                  var box = { x0: x0, x1: x0 + w, y0: y0, y1: y0 + hgt };
+                  if (box.x0 < 4 || box.x1 > width - 4 || box.y0 < 4 || box.y1 > size - 4) return;
+                  if (!outside(box)) return;
+                  var ey = clamp(e[1], box.y0 + 4, box.y1 - 4), ex = side > 0 ? box.x0 : box.x1;
+                  var legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], ex, ey]];
+                  if (Math.abs(cos) < 0.42 && v === 0) legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], e[0], Math.sin(C.a) < 0 ? box.y1 : box.y0]];
+                  var legBoxes = legs.map(function (L4) { return segBox(L4[0], L4[1], L4[2], L4[3]); });
+                  for (var q = 0; q < placed.length; q++) {
+                    if (hits(box, placed[q].box, 5)) return;
+                    for (var m = 0; m < placed[q].legs.length; m++) if (hits(box, placed[q].legs[m], 3)) return;
+                    for (var m2 = 0; m2 < legBoxes.length; m2++) if (hits(legBoxes[m2], placed[q].box, 2)) return;
+                  }
+                  var cov = labelsUnder([box].concat(legBoxes));
+                  var cost = lift + (si ? 24 : 0) + Math.abs(v) * 6 + cov.length * 260 + shape.cost +
+                    cov.filter(function (fi) { return !covered[fi]; }).length * 140;
+                  if (!best || cost < best.cost) best = { cost: cost, box: box, legs: legs, legBoxes: legBoxes, cov: cov, side: side, shape: shape };
+                });
+              });
+            });
+          });
+          if (!best) return;
+          if (self && best.cov.length && best.cost > 2000) return;
+          placed.push({ box: best.box, legs: best.legBoxes });
+          best.cov.forEach(function (fi) { covered[fi] = true; });
+          shown++;
+          // In a rule's view a name is framed as its mark is: the rule's ink
+          // where a test shows the rule enforced, lighter and open where a
+          // test checks a part of it.
+          var how = at.level === 'rule' && lit && lit.comps ? lit.comps[ci] : null;
+          var g = sv('g', { 'class': 'sm-plate' + (self ? ' sm-plate--self' : '') + (how === 'enforce' ? ' sm-plate--full' : how === 'partly' ? ' sm-plate--part' : ''),
+            'data-sm-plate': 'comp:' + c.id });
+          var dl = '';
+          best.legs.forEach(function (L4) { dl += 'M' + fx(L4[0]) + ' ' + fx(L4[1]) + 'L' + fx(L4[2]) + ' ' + fx(L4[3]); });
+          g.appendChild(sv('path', { 'class': 'sm-leader sm-wire', d: dl, 'data-from': 'comp:' + c.id, 'data-to': null }));
+          var b = best.box, sh = best.shape;
+          g.appendChild(sv('rect', { 'class': 'sm-plate__box', x: fx(Math.round(b.x0) + 0.5), y: fx(Math.round(b.y0) + 0.5), width: Math.round(sh.w), height: sh.h, rx: 3 }));
+          sh.lines.forEach(function (lineText, li) {
+            var t = sv('text', { 'class': 'sm-plate__text sm-label', x: fx(b.x0 + sh.w / 2), y: fx(b.y0 + 13 + li * PLATE_LEAD), 'text-anchor': 'middle', 'dominant-baseline': 'central' });
+            t.textContent = lineText;
+            g.appendChild(t);
+          });
+          gPlates.appendChild(g);
+          if (moving && motionOK() && g.animate) {
+            try { g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, delay: 120 + rank * 30, easing: EASE, fill: 'backwards' }); } catch (e) {}
+          }
+        });
+        Object.keys(covered).forEach(function (fi) { labelBoxes[fi].g.classList.add('is-covered'); });
+        lit.plated = shown;
+      }
+
+      /* ---- Pointing: the node named and lit, its own lines shown lightly ---- */
+      var previewG = sv('g', { 'class': 'sm-preview', 'aria-hidden': 'true' });
+      svg.insertBefore(previewG, gCore);
+      function preview(key) {
+        clear(previewG);
+        Object.keys(nodes).forEach(function (k) { nodes[k].classList.toggle('is-hover', k === key); });
+        if (!key || at.level !== 'system') return;
+        var s = null;
+        if (key.indexOf('comp:') === 0) { var ci = nodes[key] ? nodes[key].__ci : -1; if (ci >= 0) s = { level: 'component', comp: ci, fam: model.comps[ci].fam }; }
+        else if (key.indexOf('rule:') === 0) s = { level: 'rule', rule: key.slice(5) };
+        else if (key.indexOf('fam:') === 0) s = { level: 'family', fam: familyIndex(key.slice(4)) };
+        if (!s || (s.level === 'family' && s.fam < 0)) return;
+        var L = lightOf(s);
+        litDraws(L.links).forEach(function (dr) { previewG.appendChild(litPath(dr, null, 'sm-route is-preview', false)); });
+        L.cites.forEach(function (x) { previewG.appendChild(sv('path', { 'class': 'sm-rline is-preview', d: Loom.lineD(ray(x.ci, x.id)) })); });
+      }
+
+      /* ---- The first sight: the map assembles once ---- */
+      /* The scale sweeps round from the top, sector by sector, the marks
+         arriving along it; the doctrine blooms from the centre out (its name,
+         the necklace, the axioms, their satellites, the rules between them
+         and their lines); the sector names settle; the fibres at rest run out
+         along their own lines last, each from the component it leaves. About
+         a second and a quarter, once. */
+      function assemble() {
+        if (!motionOK()) return;
+        function anim(elx, frames, delay, dur) {
+          if (!elx || !elx.animate) return;
+          try { elx.animate(frames, { duration: dur, delay: delay, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', fill: 'backwards' }); } catch (e) {}
+        }
+        var POP = [{ opacity: 0, transform: 'scale(0.35)' }, { opacity: 1, transform: 'scale(1)' }];
+        order.forEach(function (fi, k) {
+          var S = sectors[fi];
+          var frac = norm(S.mid + Math.PI / 2) / TAU;
+          anim(sectorScale[fi], [{ opacity: 0 }, { opacity: 1 }], frac * 420, 360);
+          model.families[fi].members.forEach(function (ci) {
+            var f2 = norm(comp[ci].a + Math.PI / 2) / TAU;
+            var n = nodes['comp:' + model.comps[ci].id];
+            anim(n && n.querySelector ? n.querySelector('.sm-pop') : null, POP, 60 + f2 * 480, 300);
+          });
+          anim(labelBoxes[fi] && labelBoxes[fi].g, [{ opacity: 0 }, { opacity: 1 }], 620 + k * 30, 380);
+        });
+        if (D && core) {
+          anim(nodes.doctrine && nodes.doctrine.querySelector('.sm-pop'), [{ opacity: 0 }, { opacity: 1 }], 0, 360);
+          anim(neck, [{ opacity: 0 }, { opacity: 1 }], 80, 420);
+          Object.keys(rule).forEach(function (id) {
+            var q = rule[id], n = nodes['rule:' + id];
+            var delay = q.role === 'hub' ? 160 : q.role === 'satellite' ? 300 : 380;
+            anim(n && n.querySelector ? n.querySelector('.sm-pop') : null, POP, delay + norm(q.a + Math.PI / 2) / TAU * 160, 320);
+          });
+          Object.keys(spanEls).forEach(function (k) { drawIn(spanEls[k].el, 420, 460); });
+        }
+        if (restDrawn) {
+          // A ribbon runs out before its parting fibres when its component
+          // acts on the others, after them when they act on it.
+          var w0 = 2 * 0.95 * ws * 1.3 * 1.25 + 3;
+          revealAlong(gRest, items.map(function (it) {
+            if (it.part === 'link') return { pts: it.pts, w: w0, delay: norm(comp[model.links[it.links[0]][0]].a + Math.PI / 2) / TAU * 200 };
+            var S = sheaves[it.sheaf], at0 = norm(comp[S.h].a + Math.PI / 2) / TAU * 200, out = S.role === 'out';
+            if (it.part === 'trunk') return { pts: it.pts, w: w0 * Math.sqrt(it.links.length), reverse: !out, delay: at0 + (out ? 0 : 260), dur: 420 };
+            return { pts: it.pts, w: w0, reverse: !out, delay: at0 + (out ? 340 : 0), dur: 340 };
+          }), 560, 680);
+        }
+      }
+
+      /* ---- Keys: round a ring and between rings ---- */
+      function angleOf(key) {
+        if (key.indexOf('comp:') === 0) return comp[nodes[key].__ci].a;
+        if (key.indexOf('rule:') === 0) return rule[key.slice(5)].a;
+        if (key.indexOf('fam:') === 0) return sectors[familyIndex(key.slice(4))].mid;
+        return -Math.PI / 2;
+      }
+      var rims = model.comps.map(function (c, i) { return i; }).filter(function (i) { return !!comp[i]; })
+        .sort(function (p, q) { return norm(comp[p].a + Math.PI / 2) - norm(comp[q].a + Math.PI / 2); })
+        .map(function (ci) { return 'comp:' + model.comps[ci].id; });
+      var famKeys = order.map(function (fi) { return 'fam:' + model.families[fi].key; });
+      // The doctrine's rings for the keys: the satellites outside, the
+      // necklace (axioms and the rules between them).
+      function ringKeys(test) {
+        return Object.keys(rule).filter(function (id) { return test(rule[id]); })
+          .sort(function (p, q) { return norm(rule[p].a + Math.PI / 2) - norm(rule[q].a + Math.PI / 2); })
+          .map(function (id) { return 'rule:' + id; });
+      }
+      var rings = {
+        outer: ringKeys(function (q) { return q.role === 'satellite'; }),
+        neck: ringKeys(function (q) { return q.role !== 'satellite'; }),
+        inner: []
+      };
+      function ringOf(id) { return rule[id].role === 'satellite' ? 'outer' : 'neck'; }
+      function nearest(keys, a) {
+        var best = null, bd = Infinity;
+        keys.forEach(function (k) { var d = Math.abs(turn(angleOf(k), a)); if (d < bd) { bd = d; best = k; } });
+        return best;
+      }
+      function step(keys, key, dir) {
+        var i = keys.indexOf(key);
+        return keys[(i + dir + keys.length) % keys.length];
+      }
+      svg.addEventListener('keydown', function (e) {
+        var n = e.target && e.target.closest ? e.target.closest('.sm-node') : null;
+        if (!n) return;
+        var key = n.getAttribute('data-sm-key'), next = null, kind = key.split(':')[0];
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(key, true); return; }
+        var right = e.key === 'ArrowRight', left = e.key === 'ArrowLeft', upKey = e.key === 'ArrowUp', down = e.key === 'ArrowDown';
+        if (!right && !left && !upKey && !down) return;
+        e.preventDefault();
+        var a = angleOf(key);
+        var outerRing = rings.outer.length ? rings.outer : rings.neck;
+        if (kind === 'comp') next = right ? step(rims, key, 1) : left ? step(rims, key, -1) : upKey ? 'fam:' + model.families[model.comps[n.__ci].fam].key : (D && core ? nearest(outerRing, a) : null);
+        else if (kind === 'fam') next = right ? step(famKeys, key, 1) : left ? step(famKeys, key, -1) : down ? 'comp:' + model.comps[model.families[familyIndex(key.slice(4))].members[0]].id : null;
+        else if (kind === 'doctrine') next = upKey && core ? nearest(rings.neck, -Math.PI / 2) : null;
+        else if (kind === 'rule') {
+          var rk = ringOf(key.slice(5)), list = rings[rk];
+          var inward = { outer: 'neck', neck: null }[rk];
+          var outward = { neck: rings.outer.length ? 'outer' : null, outer: null }[rk];
+          next = right ? step(list, key, 1) : left ? step(list, key, -1) :
+            upKey ? (outward ? nearest(rings[outward], a) : nearest(rims, a)) : (inward ? nearest(rings[inward], a) : 'doctrine');
+        }
+        if (next && nodes[next]) { rove(nodes[next]); nodes[next].focus(); }
+      });
+      function activate(key, keyedIt) {
+        var how = { keyed: !!keyedIt };
+        if (key === 'doctrine') goDoctrine(null, how);
+        else if (key.indexOf('fam:') === 0) goFamily(familyIndex(key.slice(4)), how);
+        else if (key.indexOf('comp:') === 0) goComponent(nodes[key].__ci, how);
+        else if (key.indexOf('rule:') === 0) goDoctrine(key.slice(5), how);
+      }
+      // One rim or core node at a time takes the Tab key: the one last
+      // reached; the family names and the centre always do.
+      var roving = null;
+      function rove(n) {
+        if (roving && roving !== n && roving.getAttribute('data-sm-key').indexOf('fam:') !== 0 && roving.getAttribute('data-sm-key') !== 'doctrine') roving.setAttribute('tabindex', '-1');
+        n.setAttribute('tabindex', '0');
+        roving = n;
+      }
+
+      return {
+        el: el, svg: svg, R: R, cx: cx, cy: cy, pitch: pitchPx, sectors: sectors, named: named ? named.fs : 0,
+        core: core ? { order: core.order.slice(), ring: fx(hubR), outer: fx(coreOuter), pinned: !!core.stats.orderPinned,
+                       bridges: Object.keys(rule).filter(function (id) { return rule[id].role === 'bridge'; }).length,
+                       glyphGap: fx(coreGap), lineGap: fx(core.stats.lineGlyphGap), nearest: fx(core.stats.nearestToCentre),
+                       smallest: fx(Object.keys(rule).reduce(function (m, id) { return Math.min(m, rule[id].size); }, Infinity)) } : null,
+        // Where the drawing stands, for tests and audits: its centre, the ring,
+        // the radius rule lines come into the core from, the centre's name.
+        frame: { cx: fx(cx), cy: fx(cy), R: fx(R), gate: fx(rGate), near: fx(NEAR * 180 / Math.PI),
+                 label: labelBox ? { x0: fx(labelBox.x0), x1: fx(labelBox.x1), y0: fx(labelBox.y0), y1: fx(labelBox.y1) } : null },
+        select: select, preview: preview, rove: rove, assemble: assemble, route: route,
+        weave: function () { return woven ? woven.stats : null; },
+        // The ribbons: which component, which way, of what kind, to which
+        // family, carrying how many links.
+        sheaves: sheaves.map(function (S) {
+          return { from: 'comp:' + model.comps[S.h].id, role: S.role, kind: S.kind, family: model.families[S.fam].key, links: S.links.length };
+        }),
+        litPaths: function () { return litPaths; },
+        nodeOf: function (key) { return nodes[key] || null; },
+        firstNode: function () { return nodes[famKeys[0]] || null; },
+        anchorOf: function (key) { return nodes[key] || null; },
+        lit: function () { return lit; },
+        nodes: nodes, comp: comp, rule: rule
+      };
+    }
+
+    /* ---- The tip: a name where the pointer or the keyboard is ---- */
+    function tipText(key) {
+      if (key === 'doctrine') return { title: 'The doctrine', sub: D ? countWords(D.axioms.length, 'axiom', 'axioms') + ', ' + countWords(D.principles.length, 'principle', 'principles') + ' and ' + countWords(D.failures.length, 'failure mode', 'failure modes') : null };
+      if (key.indexOf('comp:') === 0) {
+        for (var i = 0; i < model.comps.length; i++) if ('comp:' + model.comps[i].id === key) {
+          var c = model.comps[i];
+          return { title: c.label, sub: model.families[c.fam].title + (c.cls ? ' · ' + lowerFirst(CLASS_WORDS[c.cls]) : '') };
+        }
+      }
+      if (key.indexOf('rule:') === 0 && D && D.rules[key.slice(5)]) {
+        var r = D.rules[key.slice(5)];
+        return { title: r.title, sub: KIND_WORDS[r.kind] + (r.plain ? '. ' + r.plain : '') };
+      }
+      if (key.indexOf('fam:') === 0) {
+        var F = model.families[familyIndex(key.slice(4))];
+        return F ? { title: F.title, sub: countLine(F) + (F.inside ? ', ' + countFigure(F.inside, linkNoun(1), linkNoun(2)) + ' among them' : '') } : null;
+      }
+      return null;
+    }
+    function showTipFor(key, anchor) {
+      var t = tipText(key);
+      if (!t || !anchor || !anchor.getBoundingClientRect || !root.getBoundingClientRect) return;
+      clear(tip);
+      tip.appendChild(h('span', 'sm-tip__title', t.title));
+      if (t.sub) tip.appendChild(h('span', 'sm-tip__sub', t.sub));
+      tip.hidden = false;
+      var rr = root.getBoundingClientRect(), b = anchor.getBoundingClientRect();
+      var w = tip.offsetWidth || 0, hgt = tip.offsetHeight || 0;
+      var x = clamp(b.left - rr.left + b.width / 2 - w / 2, 6, Math.max(6, rr.width - w - 6));
+      var y = b.top - rr.top - hgt - 10;
+      if (y < 6) y = b.bottom - rr.top + 10;
+      if (tip.style) { tip.style.left = fx(x) + 'px'; tip.style.top = fx(y) + 'px'; }
+    }
+    function hideTip() { tip.hidden = true; }
+
+    /* ---- The column beside the map ---- */
+    /* At the top level the column is the band's heading, its sentence, the
+       families (the page's own list, which works without this script) and a
+       way into the doctrine. Below it, a panel laid over the column is the
+       readable index of whatever the map lights: one name to a line, each a
+       way to that thing, each lighting its mark where it stands. A long list
+       shows eight and the rest on request; a long page scrolls in place and
+       says so; the links at its foot stay in view. */
+    var column = makeColumn();
+    function makeColumn() {
+      var host = section && section.querySelector ? section.querySelector('.home-split__text') : null;
+      var noop = { sync: function () {}, lit: function () {}, state: function () { return null; }, ready: function () {}, rows: function () {}, refit: function () {} };
+      if (!host || !host.appendChild) return noop;
+      if (host.classList) host.classList.add('sc-host');
+      var familyList = host.querySelector ? host.querySelector('.home-families') : null;
+      var panel = h('div', 'sc');
+      panel.setAttribute('aria-hidden', 'true');
+      panel.inert = true;
+      host.appendChild(panel);
+      var shown = null, opened = Object.create(null), doctrineRow = null, caps = Object.create(null), lean = false, bare = false, fold = false;
+
+      // The family list follows the ring's order, each row lighting its
+      // sector and opening it; a modified click still opens the family page.
+      function wireRows() {
+        if (!familyList || !familyList.querySelectorAll || !ring) return;
+        var byId = Object.create(null);
+        Array.prototype.forEach.call(familyList.querySelectorAll('.home-family[data-system-family]'), function (li) {
+          byId[li.getAttribute('data-system-family')] = li;
+        });
+        ring.order.forEach(function (fi) {
+          var F = model.families[fi], li = byId[F.id];
+          if (!li) return;
+          familyList.appendChild(li);
+          var link = li.querySelector ? li.querySelector('a') : null;
+          li.setAttribute('data-sm-key', 'fam:' + F.key);
+          li.addEventListener('pointerenter', function (e) { if (!(e && e.pointerType === 'touch') && at.level === 'system') setHover('fam:' + F.key, map && map.anchorOf('fam:' + F.key)); });
+          li.addEventListener('pointerleave', function () { if (hoverKey === 'fam:' + F.key) setHover(null); });
+          if (link) {
+            link.addEventListener('focus', function () { if (at.level === 'system') setHover('fam:' + F.key, map && map.anchorOf('fam:' + F.key)); });
+            link.addEventListener('blur', function () { if (hoverKey === 'fam:' + F.key) setHover(null); });
+            link.addEventListener('click', function (e) {
+              if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0)) return;
+              if (e && e.preventDefault) e.preventDefault();
+              goFamily(fi, { keyed: keyedClick(e) });
+            });
+          }
+        });
+        if (familyList.classList) familyList.classList.add('is-live');
+      }
+      // The way into the doctrine, under the families.
+      function wireDoctrineRow() {
+        if (!familyList || doctrineRow || !D) return;
+        doctrineRow = h('p', 'sc-doctrine');
+        var b = button('sc-doctrine__go');
+        b.setAttribute('data-sm-key', 'doctrine');
+        b.appendChild(h('span', 'sc-doctrine__name', 'The doctrine at the centre'));
+        b.appendChild(h('span', 'sc-doctrine__count', D.axioms.length + ' axioms, ' + D.principles.length + ' principles, ' + D.failures.length + ' failure modes'));
+        b.addEventListener('click', function (e) { goDoctrine(null, { keyed: keyedClick(e) }); });
+        b.addEventListener('pointerenter', function () { if (at.level === 'system') setHover('doctrine', map && map.anchorOf('doctrine')); });
+        b.addEventListener('pointerleave', function () { if (hoverKey === 'doctrine') setHover(null); });
+        doctrineRow.appendChild(b);
+        if (familyList.parentNode) familyList.parentNode.insertBefore(doctrineRow, familyList.nextSibling || null);
+      }
+
+      function line(cls, text) { return h('p', cls, text); }
       function goLink(href, text, primary) {
-        var a = el('a', 'sc__go' + (primary ? ' sc__go--primary' : ''), text);
+        var a = h('a', 'sc__go' + (primary ? ' sc__go--primary' : ''), text);
         a.setAttribute('href', href);
+        if (/^https?:/i.test(href)) a.setAttribute('rel', 'noopener');
         return a;
       }
-      function actionsRow(links) {
-        var p = el('p', 'sc__actions');
+      function actions(links) {
+        var p = h('p', 'sc__actions');
         links.forEach(function (a) { if (a) p.appendChild(a); });
-        return p;
+        return p.firstChild ? p : null;
       }
-      // A rule named in the column answers the drawing: pointed at, it
-      // lights its node and path in an interior (its reach on the overview);
-      // pressed, it turns the column to the rule's own page.
-      // It is a span working as a button, so that where the page closes up
-      // its name can run on across lines like text; the mark keeps to the
-      // first word (a line never ends on a mark).
-      function ruleButton(id, extra) {
-        var r = D.rules[id];
-        var b = el('span', 'sc__rule sc__rule--' + r.kind);
-        b.setAttribute('role', 'button');
-        b.setAttribute('tabindex', '0');
-        b.setAttribute('data-rule', id);
-        var name = el('span', 'sc__rule-name'), lead = el('span', 'sc__lead');
-        var mark = el('span', 'sc__mark sc__mark--' + r.kind), cut = r.title.indexOf(' ');
-        mark.setAttribute('aria-hidden', 'true');
-        lead.appendChild(mark);
-        lead.appendChild(document.createTextNode(cut > 0 ? r.title.slice(0, cut) : r.title));
-        name.appendChild(lead);
-        if (cut > 0) name.appendChild(document.createTextNode(r.title.slice(cut)));
-        b.appendChild(name);
-        if (extra) b.appendChild(el('span', 'sc__rule-note', extra));
-        function press(keyed) {
-          setRuleHover(null, 'column');
-          travelFrom = name;
-          if (keyed) focusCard = true;
-          holdRule(id, keyed);
+      // One name to a line: pressed, it goes there; pointed at, its mark on
+      // the map lights and says its name.
+      function item(key, text, note, onPress, opts) {
+        opts = opts || {};
+        var li = h('li', 'sc__li');
+        var b = button('sc__item' + (opts.cls ? ' ' + opts.cls : ''));
+        b.setAttribute('data-sm-key', key);
+        if (opts.glyph !== undefined || opts.rule) {
+          var mk = h('span', 'sc__mk' + (opts.rule ? ' sc__mk--rule' : ''));
+          mk.setAttribute('aria-hidden', 'true');
+          mk.innerHTML = opts.rule ? doctrineSvg(opts.rule) : glyphSvg(opts.glyph);
+          b.appendChild(mk);
         }
-        b.addEventListener('pointerenter', function (e) { if (pointing(e)) setRuleHover(id, 'column'); });
-        b.addEventListener('pointermove', function (e) { if (!(ruleHover && ruleHover.id === id) && pointing(e)) setRuleHover(id, 'column'); });
-        b.addEventListener('pointerleave', function () { setRuleHover(null, 'column'); });
-        b.addEventListener('focus', function () { setRuleHover(id, 'column'); });
-        b.addEventListener('blur', function () { setRuleHover(null, 'column'); });
-        b.addEventListener('click', function (e) { press(!!e && e.detail === 0); });
-        b.addEventListener('keydown', function (e) {
-          if (e.key !== 'Enter' && e.key !== ' ') return;
-          e.preventDefault();
-          press(true);
-        });
-        return b;
+        var body = h('span', 'sc__item-text');
+        body.appendChild(h('span', 'sc__item-name', text));
+        if (note) body.appendChild(h('span', 'sc__item-note', note));
+        b.appendChild(body);
+        b.addEventListener('click', function (e) { onPress(e); });
+        b.addEventListener('pointerenter', function () { pulse(key); });
+        b.addEventListener('pointerleave', function () { unpulse(key); });
+        b.addEventListener('focus', function () { pulse(key); });
+        b.addEventListener('blur', function () { unpulse(key); });
+        li.appendChild(b);
+        return li;
       }
-      function ruleList(label, ids, kind, notes) {
-        var wrap = el('div', 'sc__rank sc__rank--' + kind);
-        wrap.appendChild(line('sc__label', label));
-        var ul = el('ul', 'sc__rules');
-        ids.forEach(function (id) {
-          var li = el('li', 'sc__rule-row');
-          li.setAttribute('data-rule', id);
-          li.appendChild(ruleButton(id, notes && notes[id]));
-          ul.appendChild(li);
-        });
-        if (ids.length > 5 && ul.classList) ul.classList.add('sc__rules--two');
+      function pulse(key) {
+        var n = map && map.nodeOf(key);
+        if (!n) return;
+        n.classList.add('is-pulse');
+        showTipFor(key, n);
+      }
+      function unpulse(key) {
+        var n = map && map.nodeOf(key);
+        if (n) n.classList.remove('is-pulse');
+        hideTip();
+      }
+      function list(label, items, capKey, count, two) {
+        var wrap = h('div', 'sc__block');
+        var headEl = h('p', 'sc__label');
+        headEl.appendChild(h('span', null, label));
+        headEl.appendChild(h('span', 'sc__label-n', ' · ' + (count === undefined ? items.length : count)));
+        wrap.appendChild(headEl);
+        var ul = h('ul', 'sc__list' + (two && items.length > 1 ? ' sc__list--two' : ''));
+        var cap = capKey && caps[capKey] !== undefined ? caps[capKey] : 8;
+        var open = !capKey || opened[capKey] || items.length <= cap + 1, showN = open ? items.length : cap;
+        items.slice(0, showN).forEach(function (li) { ul.appendChild(li); });
+        if (capKey && opened[capKey] && items.length > cap) wrap.setAttribute('data-opened', '1');
+        if (capKey && !opened[capKey]) {
+          wrap.setAttribute('data-shown', String(showN));
+          wrap.setAttribute('data-total', String(items.length));
+          wrap.setAttribute('data-rows', String(two && items.length > 1 ? Math.ceil(showN / 2) : showN));
+          // The rules a component's paper module cites give way last.
+          wrap.setAttribute('data-trim', /^cites:/.test(capKey) ? '2' : '1');
+        }
         wrap.appendChild(ul);
+        if (!open) {
+          var more = button('sc__all', 'Show all ' + items.length);
+          more.addEventListener('click', function (e) {
+            opened[capKey] = true;
+            var keyedIt = keyedClick(e);
+            rebuild();
+            if (keyedIt && shown && shown.node.querySelector) {
+              var again = shown.node.querySelector('[data-cap="' + capKey + '"] .sc__li:nth-child(' + ((caps[capKey] !== undefined ? caps[capKey] : 8) + 1) + ') .sc__item');
+              if (again && again.focus) again.focus();
+            }
+          });
+          wrap.appendChild(more);
+        }
+        wrap.setAttribute('data-cap', capKey || '');
         return wrap;
       }
-      function compButton(ci) {
-        var b = el('button', 'sc__peer', model.comps[ci].label);
-        b.setAttribute('type', 'button');
-        b.addEventListener('pointerenter', function () { listHover = ci; draw(); });
-        b.addEventListener('pointerleave', function () { if (listHover === ci) { listHover = -1; draw(); } });
-        b.addEventListener('click', function (e) {
-          listHover = -1;
-          pinTo({ fam: model.comps[ci].fam, comp: ci, via: 'overview' }, !!e && e.detail === 0);
-        });
-        return b;
+      function page(kind) { return h('div', 'sc__page sc__page--' + kind); }
+      function scroller(node) {
+        var sc = h('div', 'sc__scroll');
+        sc.setAttribute('tabindex', '0');
+        node.appendChild(sc);
+        return sc;
       }
-      // A list in a sentence; past `most` names it ends "and 4 more".
-      function inlineList(label, items, render, most) {
-        var p = el('p', 'sc__inline');
-        p.appendChild(el('span', 'sc__inline-label', label));
-        p.appendChild(document.createTextNode(' '));
-        var shown = most && items.length > most ? items.slice(0, most - 1) : items, rest = items.length - shown.length;
-        // Each name keeps its comma (or the full stop) on its own line.
-        shown.forEach(function (it, k) {
-          var item = el('span', 'sc__item');
-          item.appendChild(render(it));
-          var last = k === shown.length - 1;
-          item.appendChild(document.createTextNode(last ? (rest ? '' : '.') : (k === shown.length - 2 && !rest ? '' : ',')));
-          p.appendChild(item);
-          if (!last) p.appendChild(document.createTextNode(k === shown.length - 2 && !rest ? ' and ' : ' '));
+      function compItem(x, note) {
+        var n = model.comps[x];
+        return item('comp:' + n.id, n.label, note === undefined ? (bare ? null : model.families[n.fam].title) : note,
+          function (e) { goComponent(x, { keyed: keyedClick(e) }); }, { glyph: n.cls });
+      }
+      // A code connection: the other component, the ways the code joins
+      // them, and a link to the line of code that does it.
+      function codeItem(ci, x, note) {
+        var li = compItem(x, note), href = codeHref(ci, x);
+        if (!href) return li;
+        if (li.classList) li.classList.add('sc__li--code');
+        var a = h('a', 'sc__code', 'Code');
+        a.setAttribute('href', href);
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+        a.setAttribute('aria-label', 'The code file joining ' + model.comps[ci].label + ' and ' + model.comps[x].label);
+        li.appendChild(a);
+        return li;
+      }
+      // Rule names short enough to stand two to a row in the column.
+      function shortNames(ids) {
+        var wide = host && host.getBoundingClientRect ? host.getBoundingClientRect().width : 0;
+        return wide >= 400 && ids.every(function (id) { return D.rules[id].title.length <= Math.floor(wide / 16.5); });
+      }
+      function ruleItem(id, note) {
+        return item('rule:' + id, D.rules[id].title, note || null, function (e) { goDoctrine(id, { keyed: keyedClick(e) }); },
+          { cls: 'sc__item--rule', rule: D.rules[id].kind });
+      }
+      function ordered(ids, order) {
+        var p = positions(order);
+        return ids.slice().sort(function (a, b) { return p[a] - p[b]; });
+      }
+      function byFamily(ids) {
+        var pos = positions(ring.order);
+        return ids.slice().sort(function (a, b) {
+          return pos[model.comps[a].fam] - pos[model.comps[b].fam] || byText(model.comps[a].label, model.comps[b].label);
         });
-        if (rest) p.appendChild(document.createTextNode(' and ' + rest + ' more.'));
-        return p;
+      }
+
+      function famPage(fi) {
+        var F = model.families[fi];
+        var node = page('fam');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker', 'Family · ' + countWords(F.members.length, 'component', 'components')));
+        headEl.appendChild(h('h3', 'sc__title', F.title));
+        if (F.summary) headEl.appendChild(line('sc__lede', F.summary));
+        var to = 0, from = 0, partners = [];
+        model.pairs.forEach(function (p) {
+          if (p.a !== fi && p.b !== fi) return;
+          var other = p.a === fi ? p.b : p.a, out = p.a === fi ? p.ab : p.ba, inn = p.a === fi ? p.ba : p.ab;
+          to += out; from += inn;
+          partners.push({ fam: other, out: out, inn: inn, n: p.n });
+        });
+        headEl.appendChild(line('sc__meta', capital(countFigure(F.inside, linkNoun(1), linkNoun(2))) + ' among its components; ' +
+          countFigure(to, linkNoun(1), linkNoun(2)) + ' to other families and ' + countFigure(from, linkNoun(1), linkNoun(2)) + ' from them.' +
+          (function () {
+            if (!unconnected()) return '';
+            var none = F.members.filter(function (ci) { return !model.comps[ci].out.length && !model.comps[ci].inc.length; }).length;
+            return none === F.members.length ? ' None of its components has one.' : none ? ' ' + none + ' of its ' + F.members.length + ' components have none.' : '';
+          })()));
+        node.appendChild(headEl);
+        var sc = scroller(node);
+        sc.appendChild(list('Its components', F.members.map(function (ci) { return compItem(ci, null); }), 'fam:' + fi));
+        partners.sort(function (p, q) { return q.n - p.n; });
+        if (partners.length) {
+          sc.appendChild(list(capital(linkNoun(2)) + ' with other families', partners.map(function (p) {
+            var G = model.families[p.fam];
+            return item('fam:' + G.key, G.title, p.out + ' to, ' + p.inn + ' from', function (e) { goFamily(p.fam, { keyed: keyedClick(e) }); });
+          }), null));
+        }
+        sc.appendChild(line('sc__note', linkNote()));
+        var act = actions([F.page ? goLink(F.page, 'Family page', true) : null]);
+        if (act) node.appendChild(act);
+        return node;
       }
 
       function compPage(ci) {
-        var c = model.comps[ci], F = model.families[c.fam], info = D && D.comp[ci];
-        var node = el('div', 'sc__page sc__page--comp');
-        node.appendChild(backButton(backTo({ kind: 'comp', i: ci })));
-        node.appendChild(line('sc__kicker', F.title));
-        var title = line('sc__title', c.label);
-        title.setAttribute('role', 'heading');
-        title.setAttribute('aria-level', '3');
-        node.appendChild(title);
-        var meta = ((c.cls ? CLASS_WORDS[c.cls] + '.' : '') + (c.basis ? ' Evidence: ' + lowerFirst(c.basis) + '.' : '')).trim();
-        if (meta) node.appendChild(line('sc__meta', meta));
-        if (c.line) node.appendChild(line('sc__line', c.line));
-        if (info && (info.gov.length || info.shown.length)) {
-          var ranks = el('div', 'sc__ranks');
-          if (info.gov.length) {
-            ranks.appendChild(ruleList('Governed by ' + countWords(info.gov.length, 'principle', 'principles'), info.gov, 'principle'));
+        var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
+        var node = page('comp');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker', F.title));
+        headEl.appendChild(h('h3', 'sc__title', c.label));
+        if (c.line) headEl.appendChild(line('sc__lede', c.line));
+        var what = trimProse(c.what, 170);
+        if (what && what !== c.line && !lean) headEl.appendChild(line('sc__body', what));
+        if (c.cls || c.basis) {
+          var meta = line('sc__meta sc__meta--mark', '');
+          if (c.cls) {
+            var gm = h('span', 'sc__mk');
+            gm.setAttribute('aria-hidden', 'true');
+            gm.innerHTML = glyphSvg(c.cls);
+            meta.appendChild(gm);
           }
-          if (info.shown.length) {
-            var notes = Object.create(null);
-            info.direct.forEach(function (a) { notes[a] = 'its paper module abides by it'; });
-            var label = info.direct.length && !info.via.length ? 'Abides by ' : 'Resting on ';
-            ranks.appendChild(ruleList(label + countWords(info.shown.length, 'axiom', 'axioms'), info.shown, 'axiom', notes));
-          }
-          // The guards are marks on the axioms in the drawing, and each
-          // axiom's page names its own; here they are counted.
-          if (info.guards.length) {
-            ranks.appendChild(line('sc__guard-count', capital(countWords(info.guards.length, 'failure guards', 'failures guard')) +
-              ' those axioms: the marks above them in the drawing.'));
-          }
-          node.appendChild(ranks);
+          meta.appendChild(h('span', null, ((c.cls ? CLASS_WORDS[c.cls] + '.' : '') + (c.basis ? ' Evidence: ' + lowerFirst(c.basis) + '.' : '')).trim()));
+          headEl.appendChild(meta);
         }
-        if (c.out.length || c.inc.length) {
-          var peers = el('div', 'sc__peers');
-          if (c.out.length) peers.appendChild(inlineList('It names', c.out, compButton, 3));
-          if (c.inc.length) peers.appendChild(inlineList('Named by', c.inc, compButton, 3));
-          node.appendChild(peers);
+        node.appendChild(headEl);
+        var sc = scroller(node);
+        if (info) {
+          var enf = function (id) { return info.enforces.indexOf(id) >= 0 ? 'Enforced here' : info.partly.indexOf(id) >= 0 ? 'Partly checked here' : null; };
+          var noted = function (ids) { return ids.some(function (id) { return !!enf(id); }); };
+          // The principles and the axioms its paper module cites, in one list,
+          // each with its own glyph.
+          var cited = ordered(info.gov, D.principles).concat(ordered(info.abide, D.axioms));
+          if (cited.length) sc.appendChild(list('Its ' + lowerFirst(info.source || 'paper module') + ' cites', cited.map(function (id) { return ruleItem(id, enf(id)); }),
+            'cites:' + ci, undefined, !noted(cited) && shortNames(cited)));
+          // Rules shown holding here that its paper module does not cite (the
+          // failure modes it guards against, for the most part).
+          [['enforces', 'Enforced here'], ['partly', 'Partly checked here']].forEach(function (pair) {
+            var extra = info[pair[0]].filter(function (id) {
+              var r = D.rules[id];
+              return r.kind === 'failure' || (r.kind === 'principle' && info.gov.indexOf(id) < 0) || (r.kind === 'axiom' && info.abide.indexOf(id) < 0);
+            });
+            if (extra.length) sc.appendChild(list(pair[1], ordered(extra, D.axioms.concat(D.principles, D.failures)).map(function (id) {
+              return ruleItem(id, KIND_WORDS[D.rules[id].kind]);
+            }), pair[0] + ':' + ci));
+          });
         }
-        node.appendChild(actionsRow([
+        // The relations a record lists have no direction worth reading: one
+        // list. Code connections are one list too, each component named once
+        // with the ways the code connects them, from this component's side.
+        var named = uniq(model.links.filter(function (l) { return l.kind === 'named' && (l[0] === ci || l[1] === ci); }).map(function (l) { return l[0] === ci ? l[1] : l[0]; }));
+        if (named.length) sc.appendChild(list(LINK_WORDS.named.out, byFamily(named).map(function (x) { return compItem(x); }), 'named:' + ci));
+        var ways = Object.create(null), others = [];
+        LINK_ORDER.forEach(function (kind) {
+          if (kind === 'named') return;
+          model.links.forEach(function (l) {
+            if (l.kind !== kind || (l[0] !== ci && l[1] !== ci)) return;
+            var other = l[0] === ci ? l[1] : l[0], word = l[0] === ci ? LINK_WORDS[kind].out : LINK_WORDS[kind].inc;
+            if (!ways[other]) { ways[other] = []; others.push(other); }
+            if (ways[other].indexOf(word) < 0) ways[other].push(word);
+          });
+        });
+        if (others.length) sc.appendChild(list('Code connections', byFamily(others).map(function (x) { return codeItem(ci, x, ways[x].join(' · ')); }), 'code:' + ci));
+        if (!c.out.length && !c.inc.length) sc.appendChild(line('sc__note', onlyNamed() ? 'Its record lists no related components.' :
+          'No code connections. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it.'));
+        else sc.appendChild(line('sc__note', linkNote()));
+        var act = actions([
           c.page ? goLink(c.page, 'Component page', true) : null,
           c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
-          pageMode ? null : goLink(c.mapHref, 'Full map', false)
-        ]));
+          c.source ? goLink(c.source, 'Source', false) : null
+        ]);
+        if (act) node.appendChild(act);
+        return node;
+      }
+
+      function doctrinePage() {
+        var node = page('doctrine');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker sc__kicker--doctrine', 'At the centre'));
+        headEl.appendChild(h('h3', 'sc__title', 'The doctrine'));
+        headEl.appendChild(line('sc__lede', 'The rules the system is built on. A principle rests on axioms and a failure mode threatens them. ' +
+          'Tied to one axiom, it sits just outside it; tied to several, it stands on the ring between them. ' +
+          (D.enforcedBy === 'tests' ? 'A rule is marked enforced in a component only where a test shows it.' :
+            'Each rule’s doctrine card names the components where it is enforced.')));
+        node.appendChild(headEl);
+        var sc = scroller(node);
+        sc.appendChild(list('Axioms', ordered(D.axioms, D.axioms).map(function (id) { return ruleItem(id); }), 'all:axioms', undefined, shortNames(D.axioms)));
+        sc.appendChild(list('Principles', ordered(D.principles, D.principles).map(function (id) { return ruleItem(id); }), 'all:principles'));
+        sc.appendChild(list('Failure modes', ordered(D.failures, D.failures).map(function (id) { return ruleItem(id); }), 'all:failures', undefined, shortNames(D.failures)));
         return node;
       }
 
       function rulePage(id) {
         var r = D.rules[id];
-        var node = el('div', 'sc__page sc__page--rule');
-        node.appendChild(backButton(backTo({ kind: 'rule', id: id })));
-        node.appendChild(line('sc__kicker sc__kicker--doctrine', KIND_WORDS[r.kind]));
-        var title = line('sc__title', r.title);
-        title.setAttribute('role', 'heading');
-        title.setAttribute('aria-level', '3');
-        node.appendChild(title);
-        if (r.plain) node.appendChild(line('sc__plain', r.plain));
-        var rel = el('div', 'sc__ranks');
-        if (r.kind === 'axiom') {
-          if (r.grounds.length) rel.appendChild(ruleList('In practice', r.grounds, 'principle'));
-          if (r.guardedBy.length) rel.appendChild(inlineList('Guarded against', r.guardedBy, function (g) { return ruleButton(g); }));
-        } else if (r.kind === 'principle') {
-          if (r.restsOn.length) rel.appendChild(ruleList('Rests on', r.restsOn, 'axiom'));
-          if (r.guardedBy.length) rel.appendChild(inlineList('Guarded against', r.guardedBy, function (g) { return ruleButton(g); }));
+        var node = page('rule');
+        var headEl = h('div', 'sc__head');
+        headEl.appendChild(line('sc__kicker sc__kicker--doctrine', KIND_WORDS[r.kind]));
+        headEl.appendChild(h('h3', 'sc__title', r.title));
+        if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
+        node.appendChild(headEl);
+        var sc = scroller(node);
+        if (r.kind === 'principle') {
+          if (r.restsOn.length) sc.appendChild(list('Rests on', ordered(r.restsOn, D.axioms).map(function (x) { return ruleItem(x); }), null));
+          if (r.brokenBy.length) sc.appendChild(list('Failure modes that threaten it', ordered(r.brokenBy, D.failures).map(function (x) { return ruleItem(x); }), 'thr:' + id, undefined, shortNames(r.brokenBy)));
+        } else if (r.kind === 'axiom') {
+          if (r.grounds.length) sc.appendChild(list('Principles that rest on it', ordered(r.grounds, D.principles).map(function (x) { return ruleItem(x); }), 'gr:' + id));
+          if (r.threatenedBy.length) sc.appendChild(list('Failure modes that threaten it', ordered(r.threatenedBy, D.failures).map(function (x) { return ruleItem(x); }), 'thr:' + id, undefined, shortNames(r.threatenedBy)));
         } else {
-          if (r.guards.length) rel.appendChild(ruleList('Guards', r.guards, 'axiom'));
-          if (r.negates.length) rel.appendChild(inlineList('The failure of', r.negates, function (p) { return ruleButton(p); }));
+          if (r.guards.length) sc.appendChild(list('Threatens these axioms', ordered(r.guards, D.axioms).map(function (x) { return ruleItem(x); }), null, undefined, shortNames(r.guards)));
+          if (r.negates.length) sc.appendChild(list('Threatens these principles', ordered(r.negates, D.principles).map(function (x) { return ruleItem(x); }), 'neg:' + id));
         }
-        node.appendChild(rel);
-        node.appendChild(reachBlock(r));
-        node.appendChild(actionsRow([
-          r.doctrine ? goLink(r.doctrine, 'Read it in the doctrine', true) : null,
-          r.context ? goLink(r.context, 'See it among the rules', false) : null
-        ]));
+        if (r.enforced.length) sc.appendChild(list('Enforced in', byFamily(r.enforced).map(function (x) { return compItem(x); }), 'enf:' + id));
+        if (r.partly.length) sc.appendChild(list('Partly checked in', byFamily(r.partly).map(function (x) { return compItem(x); }), 'part:' + id));
+        // What the card names that no test shows yet: listed quietly, here
+        // only, and never drawn in the map.
+        if (r.namedOnly.length) {
+          var quiet = list('Named in its doctrine card, not yet demonstrated by a test', byFamily(r.namedOnly).map(function (x) { return compItem(x); }), 'card:' + id);
+          if (quiet.classList) quiet.classList.add('sc__block--quiet');
+          sc.appendChild(quiet);
+        }
+        if (r.kind !== 'failure') {
+          var citing = [];
+          D.comp.forEach(function (info, ci) {
+            if ((r.kind === 'principle' ? info.gov : info.abide).indexOf(id) >= 0) citing.push(ci);
+          });
+          var wrap = h('div', 'sc__block');
+          wrap.appendChild(line('sc__label', !citing.length ? 'No paper module cites it' : citing.length === 1 ? 'Cited by one component’s paper module' :
+            'Cited by the paper modules of ' + citing.length + ' of ' + model.comps.length + ' components'));
+          // While none is open the families run on, each name whole on its
+          // line; opened, they stand one to a row with the components beneath.
+          // In a column too short for them they wait behind one button.
+          var anyOpen = ring.order.some(function (fi) { return !!opened['cite:' + id + ':' + fi]; });
+          var foldKey = 'fams:' + id, folded = fold && citing.length > 0 && !anyOpen && !opened[foldKey];
+          if (folded) {
+            var unfold = button('sc__all', 'Show by family');
+            unfold.addEventListener('click', function (e) { opened[foldKey] = true; rebuild(keyedClick(e) ? foldKey : null); });
+            wrap.appendChild(unfold);
+          }
+          var groups = h('ul', 'sc__list' + (anyOpen ? '' : ' sc__list--flow'));
+          ring.order.forEach(function (fi) {
+            var mine = citing.filter(function (ci) { return model.comps[ci].fam === fi; });
+            if (!mine.length) return;
+            var li = h('li', 'sc__li sc__group');
+            var key = 'cite:' + id + ':' + fi, isOpen = !!opened[key];
+            var g = button('sc__item sc__group-btn');
+            g.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            g.setAttribute('data-sm-key', 'fam:' + model.families[fi].key);
+            var txt = h('span', 'sc__item-text');
+            txt.appendChild(h('span', 'sc__item-name', model.families[fi].title));
+            txt.appendChild(h('span', 'sc__item-note', String(mine.length)));
+            g.appendChild(txt);
+            g.addEventListener('click', function (e) { opened[key] = !opened[key]; rebuild(keyedClick(e) ? key : null); });
+            li.appendChild(g);
+            if (isOpen) {
+              var inner = h('ul', 'sc__list sc__list--inner');
+              mine.sort(function (p, q) { return byText(model.comps[p].label, model.comps[q].label); })
+                .forEach(function (ci) { inner.appendChild(compItem(ci, null)); });
+              li.appendChild(inner);
+            }
+            groups.appendChild(li);
+          });
+          if (!folded) wrap.appendChild(groups);
+          sc.appendChild(wrap);
+        }
+        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
+        if (act) node.appendChild(act);
         return node;
-      }
-      // Where a rule lives: how many components keep it, and in which
-      // families, each row a count and a bar as long as its share.
-      function reachBlock(r) {
-        var wrap = el('div', 'sc__reach');
-        var n = r.reach.length, total = model.comps.length;
-        if (r.kind === 'guard') {
-          if (r.enforced.length) wrap.appendChild(inlineList('Enforced in', r.enforced, compButton));
-          return wrap;
-        }
-        var verb = r.kind === 'axiom' ? 'abide by it' : 'are governed by it';
-        var famsWith = model.families.filter(function (f, fi) { return r.reach.some(function (ci) { return model.comps[ci].fam === fi; }); }).length;
-        wrap.appendChild(line('sc__label', (n === 1 ? 'One component ' + (r.kind === 'axiom' ? 'abides by it' : 'is governed by it') :
-          capital(countWords(n, 'component', 'components')) + ' of the ' + total + ' ' + verb) +
-          (n ? ', in ' + (famsWith === model.families.length ? 'all ' : '') + countWords(famsWith, 'family', 'families') + '.' : '.')));
-        if (!n) return wrap;
-        var ol = el('ol', 'sc__lives');
-        model.families.forEach(function (f, fi) {
-          var k = r.reach.filter(function (ci) { return model.comps[ci].fam === fi; }).length;
-          if (!k) return;
-          var li = el('li', 'sc__live');
-          li.appendChild(el('span', 'sc__live-name', f.title));
-          var bar = el('span', 'sc__live-bar');
-          bar.setAttribute('aria-hidden', 'true');
-          var fill = el('span', 'sc__live-fill');
-          if (fill.style) fill.style.width = Math.round(100 * k / f.members.length) + '%';
-          bar.appendChild(fill);
-          li.appendChild(bar);
-          li.appendChild(el('span', 'sc__live-count', k + ' of ' + f.members.length));
-          li.addEventListener('pointerenter', function (e) { if (pointing(e)) { rowHover = fi; draw(); } });
-          li.addEventListener('pointermove', function (e) { if (rowHover !== fi && pointing(e)) { rowHover = fi; draw(); } });
-          li.addEventListener('pointerleave', function () { if (rowHover === fi) { rowHover = -1; draw(); } });
-          ol.appendChild(li);
-        });
-        wrap.appendChild(ol);
-        return wrap;
-      }
-      /* The lens switch stands with the index it switches: above the
-         families at rest, at the head of the doctrine's page. */
-      var focusLens = null;
-      function lensSwitch() {
-        var bar = el('div', 'sc-lens');
-        bar.setAttribute('role', 'tablist');
-        bar.setAttribute('aria-label', 'Read the drawing by');
-        [['machinery', 'Families'], ['doctrine', 'Doctrine']].forEach(function (pair) {
-          var b = el('button', 'sc-lens__tab', pair[1]);
-          b.setAttribute('type', 'button');
-          b.setAttribute('role', 'tab');
-          b.setAttribute('data-lens', pair[0]);
-          b.setAttribute('aria-selected', lens === pair[0] ? 'true' : 'false');
-          b.setAttribute('tabindex', lens === pair[0] ? '0' : '-1');
-          b.addEventListener('click', function (e) {
-            var keyed = !!e && e.detail === 0;
-            if (keyed) focusLens = pair[0];
-            setLens(pair[0], keyed);
-          });
-          b.addEventListener('keydown', function (e) {
-            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-            e.preventDefault();
-            focusLens = lens === 'doctrine' ? 'machinery' : 'doctrine';
-            setLens(focusLens, true);
-          });
-          bar.appendChild(b);
-        });
-        return bar;
-      }
-      // At rest it holds its place from the start (so nothing moves when
-      // the rules arrive) and shows once they have.
-      var restSwitch = lensSwitch();
-      var familyList = host.querySelector ? host.querySelector('.home-families') : null;
-      if (familyList && host.insertBefore) host.insertBefore(restSwitch, familyList);
-      else restSwitch = null;
-      function syncSwitches() {
-        [restSwitch, shown && shown.node].forEach(function (scope) {
-          if (!scope || !scope.querySelectorAll) return;
-          Array.prototype.forEach.call(scope.querySelectorAll('.sc-lens__tab'), function (b) {
-            var on = b.getAttribute('data-lens') === lens;
-            b.setAttribute('aria-selected', on ? 'true' : 'false');
-            b.setAttribute('tabindex', on ? '0' : '-1');
-          });
-        });
-        if (restSwitch && restSwitch.classList) restSwitch.classList.toggle('is-ready', !!D);
-        if (focusLens) {
-          var scope = lens === 'doctrine' && shown ? shown.node : restSwitch;
-          var tab = scope && scope.querySelector ? scope.querySelector('.sc-lens__tab[data-lens="' + focusLens + '"]') : null;
-          focusLens = null;
-          if (tab && tab.focus) { try { tab.focus({ preventScroll: true }); } catch (e) { tab.focus(); } }
-        }
-      }
-      // Each axiom's reach across the 88 components, in the drawing's
-      // reading order, one tick to a component (tall where it abides by the
-      // axiom), a small gap between families.
-      function fingerprint(rule) {
-        var seq = model.comps.map(function (c, i) { return i; }).sort(function (a, b) { return readOrder[a] - readOrder[b]; });
-        var x = 0.6, parts = [], last = -1;
-        seq.forEach(function (ci) {
-          var f = model.comps[ci].fam;
-          if (last >= 0 && f !== last) x += 3.2;
-          last = f;
-          var on = rule.reach.indexOf(ci) >= 0;
-          parts.push('<rect x="' + x.toFixed(2) + '" y="' + (on ? 0 : 3.5) + '" width="1.2" height="' + (on ? 10 : 3) +
-                     '" class="' + (on ? 'is-on' : 'is-off') + '"/>');
-          x += 2.15;
-        });
-        var w = Math.ceil(x);
-        return '<svg viewBox="0 0 ' + w + ' 10" width="' + w + '" height="10" focusable="false">' + parts.join('') + '</svg>';
-      }
-      function doctrinePage() {
-        var node = el('div', 'sc__page sc__page--doctrine');
-        node.appendChild(lensSwitch());
-        node.appendChild(line('sc__kicker sc__kicker--doctrine', 'The doctrine'));
-        var title = line('sc__title', capital(countWords(D.axioms.length, 'axiom', 'axioms')));
-        title.setAttribute('role', 'heading');
-        title.setAttribute('aria-level', '3');
-        node.appendChild(title);
-        node.appendChild(line('sc__line', 'The rules the components keep. Each row marks the components that abide by it, ' +
-          'family by family; point at one to see them in the drawing, select it to read it.'));
-        var ol = el('ol', 'sc__axioms');
-        D.axioms.forEach(function (r) {
-          var li = el('li', 'sc__axiom-row');
-          li.setAttribute('data-rule', r.id);
-          var b = el('button', 'sc__rule sc__axiom');
-          b.setAttribute('type', 'button');
-          b.setAttribute('data-rule', r.id);
-          b.appendChild(el('span', 'sc__mark sc__mark--axiom'));
-          b.firstChild.setAttribute('aria-hidden', 'true');
-          b.appendChild(el('span', 'sc__rule-name', r.title));
-          var fp = el('span', 'sc__fp');
-          fp.setAttribute('aria-hidden', 'true');
-          fp.innerHTML = fingerprint(r);
-          b.appendChild(fp);
-          b.appendChild(el('span', 'sc__axiom-count', String(r.reach.length)));
-          b.setAttribute('aria-label', r.title + ': ' + countWords(r.reach.length, 'component abides', 'components abide') + ' by it');
-          b.addEventListener('pointerenter', function (e) { if (pointing(e)) setRuleHover(r.id, 'column'); });
-          b.addEventListener('pointermove', function (e) { if (!(ruleHover && ruleHover.id === r.id) && pointing(e)) setRuleHover(r.id, 'column'); });
-          b.addEventListener('pointerleave', function () { setRuleHover(null, 'column'); });
-          b.addEventListener('focus', function () { setRuleHover(r.id, 'column'); });
-          b.addEventListener('blur', function () { setRuleHover(null, 'column'); });
-          b.addEventListener('click', function (e) {
-            setRuleHover(null, 'column');
-            travelFrom = b.querySelector ? b.querySelector('.sc__rule-name') : null;
-            if (e && e.detail === 0) focusCard = true;
-            holdRule(r.id, !!e && e.detail === 0);
-          });
-          li.appendChild(b);
-          ol.appendChild(li);
-        });
-        node.appendChild(ol);
-        return node;
-      }
-      function famPage(fi) {
-        var F = model.families[fi];
-        var node = el('div', 'sc__page sc__page--fam');
-        node.appendChild(backButton('All families'));
-        node.appendChild(line('sc__kicker', capital(countWords(F.members.length, 'component', 'components'))));
-        var title = line('sc__title', F.title);
-        title.setAttribute('role', 'heading');
-        title.setAttribute('aria-level', '3');
-        node.appendChild(title);
-        if (F.summary) node.appendChild(line('sc__line', F.summary));
-        node.appendChild(line('sc__meta', capital(countWords(F.within, 'declared link', 'declared links')) + ' among them and ' +
-          F.cross + ' to other families. A declared link is not proof that one calls the other.'));
-        var ranks = el('div', 'sc__ranks');
-        ranks.appendChild(classBlock(fi));
-        if (D) {
-          var inFam = function (r) { return r.reach.some(function (ci) { return model.comps[ci].fam === fi; }); };
-          var ax = D.axioms.filter(inFam).length, pr = D.principles.filter(inFam).length;
-          var keeps = el('div', 'sc__rank');
-          keeps.appendChild(line('sc__label', 'The rules they keep'));
-          keeps.appendChild(line('sc__note', 'They abide by ' + shareWords(ax, D.axioms.length, 'axioms') +
-            ', set beside them in the drawing, and are governed by ' + shareWords(pr, D.principles.length, 'principles') + '.'));
-          keeps.appendChild(line('sc__note sc__note--how', 'Point at a component to read it; select it to see the rules it keeps.'));
-          ranks.appendChild(keeps);
-        }
-        node.appendChild(ranks);
-        node.appendChild(actionsRow([F.page ? goLink(F.page, 'Family page', true) : null,
-          pageMode ? null : goLink(F.mapHref, 'Full map', !F.page)]));
-        return node;
-      }
-      // How a family's components are checked: a row to each evidence class,
-      // its mark as the drawing draws it, a bar as long as its share.
-      // Pointed at, a row lights those components in the sheet.
-      function classBlock(fi) {
-        var F = model.families[fi], n = F.members.length;
-        var wrap = el('div', 'sc__rank sc__rank--class');
-        wrap.appendChild(line('sc__label', 'How they are checked'));
-        var ol = el('ol', 'sc__lives');
-        CLASS_ORDER.forEach(function (cls) {
-          var k = F.members.filter(function (ci) { return model.comps[ci].cls === cls; }).length;
-          if (!k) return;
-          var li = el('li', 'sc__live sc__live--class');
-          li.setAttribute('data-class', cls);
-          var name = el('span', 'sc__live-name');
-          var mk = el('span', 'sc__cls-mark');
-          mk.setAttribute('aria-hidden', 'true');
-          mk.innerHTML = '<svg viewBox="0 0 12 12" width="12" height="12" focusable="false">' + markSvg(cls, 6, 6, 4.2) + '</svg>';
-          name.appendChild(mk);
-          name.appendChild(document.createTextNode(CLASS_WORDS[cls]));
-          li.appendChild(name);
-          var bar = el('span', 'sc__live-bar');
-          bar.setAttribute('aria-hidden', 'true');
-          var fill = el('span', 'sc__live-fill');
-          if (fill.style) fill.style.width = Math.round(100 * k / n) + '%';
-          bar.appendChild(fill);
-          li.appendChild(bar);
-          li.appendChild(el('span', 'sc__live-count', k + ' of ' + n));
-          li.addEventListener('pointerenter', function (e) { if (pointing(e)) setClassHover(cls); });
-          li.addEventListener('pointermove', function (e) { if (classHover !== cls && pointing(e)) setClassHover(cls); });
-          li.addEventListener('pointerleave', function () { if (classHover === cls) setClassHover(null); });
-          ol.appendChild(li);
-        });
-        wrap.appendChild(ol);
-        return wrap;
       }
 
-      /* ---- Motion ---- */
-      var travelFrom = null;
-      // A title set in its place starts where its source stands, at the
-      // source's size, and travels home.
-      function travel(target, source, back) {
-        if (!motionOK() || !source || !source.getBoundingClientRect || !target.getBoundingClientRect) return null;
-        var a = source.getBoundingClientRect(), b = target.getBoundingClientRect();
-        if (!a.width || !b.width) return null;
-        var fs = window.getComputedStyle ? parseFloat(window.getComputedStyle(source).fontSize) / parseFloat(window.getComputedStyle(target).fontSize) : 1;
-        var away = { transform: 'translate(' + (a.left - b.left) + 'px,' + (a.top - b.top) + 'px) scale(' + (fs || 1) + ')', opacity: 0.35 };
-        var home = { transform: 'none', opacity: 1 };
-        return target.animate(back ? [home, away] : [away, home], { duration: back ? 260 : 320, easing: back ? EASE_LEAVE : EASE_ARRIVE });
-      }
-      // The slots come up behind the title, a little apart.
-      function rise(nodes, delay, gap) {
-        if (!motionOK()) return;
-        nodes.forEach(function (node, at) {
-          node.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 220, delay: delay + at * (gap === undefined ? 40 : gap), easing: EASE_ARRIVE, fill: 'backwards' });
-        });
-      }
-      // A component's rules arrive on the map's beat: each row when the
-      // light reaches its plate in the interior that is opening now.
-      function onTheBeat(node, ci) {
-        if (!motionOK() || !inner || inner.comp !== ci || inner.dir < 0) return false;
-        var ix = inner.ix, now = inner.t;
-        if (now >= ix.T.end - 1) return false;
-        Array.prototype.forEach.call(node.querySelectorAll('.sc__rule-row'), function (li) {
-          var id = li.getAttribute('data-rule'), at = ix.lit[id];
-          if (at === undefined) return;
-          li.animate([{ opacity: 0, transform: 'translateX(-6px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 220, delay: Math.max(0, at - now + 30), easing: EASE_ARRIVE, fill: 'backwards' });
-        });
-        Array.prototype.forEach.call(node.querySelectorAll('.sc__label, .sc__inline'), function (p) {
-          var rank = p.closest ? p.closest('.sc__rank--axiom') : null;
-          var at = rank ? ix.T.w2 : p.classList && p.classList.contains('sc__inline') ? ix.T.guards : ix.T.w1;
-          p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: Math.max(0, at - now), easing: EASE_ARRIVE, fill: 'backwards' });
-        });
-        return true;
-      }
-      function slotsOf(node) {
-        return Array.prototype.filter.call(node.children || [], function (ch) {
-          return !(ch.classList && (ch.classList.contains('sc__title') || ch.classList.contains('sc__ranks')));
-        });
-      }
-      function open(next, node) {
-        root.inert = false;
-        root.removeAttribute('aria-hidden');
-        if (root.classList) root.classList.add('is-open');
-        if (host.classList) host.classList.add('sc-host--open');
-        if (stage.classList) stage.classList.add('sc-reading');
-        var title = node.querySelector ? node.querySelector('.sc__title') : null;
-        var src = next.kind === 'fam' ? rowName(next.i) : null;
-        if (title && !travel(title, src) && motionOK()) {
-          title.animate([{ opacity: 0, transform: 'translateX(14px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: EASE_ARRIVE });
-        }
-        rise(slotsOf(node), 220);
-        var ranks = node.querySelector ? node.querySelector('.sc__ranks') : null;
-        if (ranks && !(next.kind === 'comp' && onTheBeat(ranks, next.i))) rise([ranks], 300);
-      }
-      function rowName(fi) {
-        for (var i = 0; i < rows.length; i++) if (rows[i].fam === fi) return rows[i].el.querySelector ? rows[i].el.querySelector('.home-family__name') : null;
+      function wantKey() {
+        if (!model) return null;
+        if (at.level === 'rule') return D ? 'rule:' + at.rule : null;
+        if (at.level === 'doctrine') return D ? 'doctrine' : null;
+        if (at.level === 'family') return 'fam:' + at.fam;
+        if (at.level === 'component') return 'comp:' + at.comp + ':' + (D ? 1 : 0);
         return null;
       }
-      function replace(next, node, from) {
+      function build() {
+        return at.level === 'rule' ? rulePage(at.rule) : at.level === 'doctrine' ? doctrinePage() :
+          at.level === 'family' ? famPage(at.fam) : compPage(at.comp);
+      }
+      // A page built again in place (a list opened), its scroll kept.
+      function rebuild(focusGroup) {
+        if (!shown) return;
+        var sc = shown.node.querySelector ? shown.node.querySelector('.sc__scroll') : null, top = sc ? sc.scrollTop : 0;
+        var node = build();
+        panel.replaceChild ? panel.replaceChild(node, shown.node) : (panel.removeChild(shown.node), panel.appendChild(node));
+        shown.node = node;
+        fitScroll(node);
+        var sc2 = node.querySelector ? node.querySelector('.sc__scroll') : null;
+        if (sc2) sc2.scrollTop = top;
+        if (focusGroup && node.querySelectorAll) {
+          var g = Array.prototype.filter.call(node.querySelectorAll('.sc__group-btn'), function (b) { return b.getAttribute('aria-expanded') !== null; });
+          if (g[0] && g[0].focus) g[0].focus();
+        }
+      }
+      function sync(how) {
+        how = how || {};
+        wireDoctrineRow();
+        var key = wantKey();
+        if (!key) { close(); return; }
+        if (shown && shown.key === key) return;
+        caps = Object.create(null);
+        lean = false;
+        bare = false;
+        fold = false;
+        var node = build();
         var old = shown && shown.node;
-        if (old && old.parentNode) {
-          if (motionOK() && old.animate) {
-            var gone = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, easing: EASE_LEAVE, fill: 'forwards' });
-            if (old.classList) old.classList.add('sc__page--leaving');
-            gone.onfinish = function () { if (old.parentNode) old.parentNode.removeChild(old); };
-          } else old.parentNode.removeChild(old);
+        if (old && old.parentNode) old.parentNode.removeChild(old);
+        panel.appendChild(node);
+        shown = { key: key, node: node };
+        panel.inert = false;
+        panel.removeAttribute('aria-hidden');
+        if (panel.classList) panel.classList.add('is-open');
+        if (host.classList) host.classList.add('sc-host--open');
+        node = tighten(node);
+        fitScroll(node);
+        if (motionOK() && !how.instant && node.animate) {
+          try { node.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: EASE }); } catch (e) {}
         }
-        root.appendChild(node);
-        var title = node.querySelector ? node.querySelector('.sc__title') : null;
-        var deeper = !shown || depthOf(next.kind) > shown.depth, sibling = shown && depthOf(next.kind) === shown.depth;
-        if (!motionOK()) return;
-        if (sibling) {
-          node.animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 160, easing: EASE_ARRIVE });
-          var rk = node.querySelector ? node.querySelector('.sc__ranks') : null;
-          if (rk && next.kind === 'comp') onTheBeat(rk, next.i);
-          return;
-        }
-        if (title && !(deeper && from && travel(title, from))) {
-          title.animate([{ opacity: 0, transform: 'translateX(' + (deeper ? 14 : -14) + 'px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 280, easing: EASE_ARRIVE });
-        }
-        rise(slotsOf(node), 160, 30);
-        var ranks = node.querySelector ? node.querySelector('.sc__ranks') : null;
-        if (ranks && !(next.kind === 'comp' && onTheBeat(ranks, next.i))) rise([ranks], 220);
+        // Replacing a long phone column can leave its new title behind the
+        // sticky header after the browser preserves the old scroll position.
+        if (pageMode && window.requestAnimationFrame) window.requestAnimationFrame(function () {
+          if (!shown || shown.node !== node || !document.querySelector || !window.scrollBy) return;
+          var bar = document.querySelector('.docs-topbar');
+          var title = node.querySelector('.sc__title');
+          if (!bar || !title) return;
+          var edge = Math.max(0, bar.getBoundingClientRect().bottom) + 12;
+          var top = title.getBoundingClientRect().top;
+          if (top < edge) window.scrollBy({ top: top - edge, behavior: 'instant' });
+        });
       }
       function close() {
-        var old = shown && shown.node, kind = shown && shown.kind, fi = shown && shown.i;
+        var old = shown && shown.node;
         shown = null;
-        root.inert = true;
-        root.setAttribute('aria-hidden', 'true');
+        panel.inert = true;
+        panel.setAttribute('aria-hidden', 'true');
+        if (panel.classList) panel.classList.remove('is-open');
         if (host.classList) host.classList.remove('sc-host--open');
-        if (stage.classList) stage.classList.remove('sc-reading');
-        if (root.classList) root.classList.remove('is-open');
-        if (!old) return;
-        var title = old.querySelector ? old.querySelector('.sc__title') : null;
-        if (kind === 'fam' && title) travel(title, rowName(fi), true);
-        var finish = function () { if (old.parentNode) old.parentNode.removeChild(old); };
-        if (motionOK() && old.animate) {
-          var a = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: EASE_LEAVE, fill: 'forwards' });
-          a.onfinish = finish;
-        } else finish();
+        if (old && old.parentNode) old.parentNode.removeChild(old);
       }
-      function backTo(next) {
-        var top = lens === 'doctrine' ? 'The doctrine' : 'All families';
-        if (next.kind === 'fam') return top;
-        if (next.kind === 'rule') {
-          if (pin && pin.comp >= 0) return model.comps[pin.comp].label;
-          return pin ? model.families[pin.fam].title : top;
+      // A page fits its column: a long list shows its first eight names (as
+      // few as four when the column is short) with the rest on request, and
+      // short rule names stand two to a row. Only a list the reader opens in
+      // full makes the page scroll, in whole rows.
+      function overflows(node) {
+        var sc = node.querySelector ? node.querySelector('.sc__scroll') : null;
+        return !!sc && sc.scrollHeight > sc.clientHeight + 1;
+      }
+      // While a page is taller than its column, it gives up what matters
+      // least first, and is built again each time: the longer description;
+      // each component's family beside its name; rows from the list taking
+      // the most (the rules a paper module cites last, none below two or
+      // four names); a rule's citing families, behind one button; and last,
+      // lists down to one or two names, then to their labels and the way to
+      // show them all. A list the reader has opened in full stays open.
+      function tighten(node) {
+        // The fewest names a list keeps: first; then in a very short column;
+        // and last, none (its label and the way to show them all).
+        var FLOORS = [{ 1: 2, 2: 4 }, { 1: 1, 2: 2 }, { 1: 0, 2: 1 }];
+        // A list gives up two names at a time, down to its floor, and only
+        // while it can still close (a list of n shows n - 2 names at most).
+        function pickFrom(floor) {
+          var pick = null, pickNext = 0;
+          Array.prototype.forEach.call(node.querySelectorAll('[data-shown]'), function (w) {
+            var t = +w.getAttribute('data-trim'), s = +w.getAttribute('data-shown');
+            var next = Math.max(floor[t], s - 2);
+            if (s <= floor[t] || +w.getAttribute('data-total') <= next + 1) return;
+            var pt = pick ? +pick.getAttribute('data-trim') : 9;
+            if (!pick || t < pt || (t === pt && +w.getAttribute('data-rows') > +pick.getAttribute('data-rows'))) { pick = w; pickNext = next; }
+          });
+          return pick ? { w: pick, next: pickNext } : null;
         }
-        return pin && pin.comp === next.i && pin.via === 'sheet' ? model.families[model.comps[next.i].fam].title : top;
-      }
-      // Measured as it is placed (reading a height lays the page out): a page
-      // longer than its column closes up in steps (its lists run on as text,
-      // then its neighbours give way, then its notes, then the line under
-      // its name); only then is a block cut short, fading at its foot.
-      var CLOSE_UP = ['sc__page--dense', 'sc__page--bare', 'sc__page--quiet', 'sc__page--denser'];
-      function blocks(node) {
-        return node.querySelectorAll ? Array.prototype.slice.call(node.querySelectorAll('.sc__ranks, .sc__peers, .sc__axioms')) : [];
-      }
-      function cut(b) { return b.scrollHeight > b.clientHeight + 2; }
-      function fit(node) {
-        if (!node.classList) return;
-        CLOSE_UP.forEach(function (c) { node.classList.remove(c); });
-        for (var k = 0; k < CLOSE_UP.length && blocks(node).some(cut); k++) node.classList.add(CLOSE_UP[k]);
-        blocks(node).forEach(function (b) { if (b.classList) b.classList.toggle('is-cut', cut(b)); });
-      }
-      function sync(instant) {
-        var next = wanted();
-        if (!next) { if (shown) close(); travelFrom = null; classHover = null; return; }
-        if (shown && shown.key === next.key) {
-          // The same page; only its way back may have changed (a component
-          // read under the pointer, then selected).
-          var bb = shown.node.querySelector ? shown.node.querySelector('.sc__back-btn') : null, words = backTo(next);
-          if (bb && bb.lastChild && bb.lastChild.textContent !== ' ' + words) {
-            bb.lastChild.textContent = ' ' + words;
-            bb.setAttribute('aria-label', 'Back to ' + words);
+        for (var round = 0; round < 32 && overflows(node); round++) {
+          if (!node.querySelectorAll || node.querySelector('[data-opened]')) break;
+          if (!lean && node.querySelector('.sc__body')) {
+            lean = true;
+          } else if (!bare && node.querySelector('.sc__item-note')) {
+            // A component's family beside its name goes next: the map and
+            // its tip say where each one stands.
+            bare = true;
+          } else {
+            // With every list at its first floor, a rule's citing families
+            // fold behind one button before any list goes lower.
+            var got = pickFrom(FLOORS[0]);
+            if (got) caps[got.w.getAttribute('data-cap')] = got.next;
+            else if (!fold && node.querySelector('.sc__list--flow')) fold = true;
+            else if ((got = pickFrom(FLOORS[1]) || pickFrom(FLOORS[2]))) caps[got.w.getAttribute('data-cap')] = got.next;
+            else break;
           }
-          travelFrom = null;
-          return;
+          var next = build();
+          if (node.parentNode) node.parentNode.replaceChild(next, node);
+          node = next;
+          if (shown) shown.node = node;
         }
-        // A class lit from the page going away lets go with it.
-        classHover = null;
-        still = lastPointer ? lastPointer.slice() : null;
-        var node = next.kind === 'rule' ? rulePage(next.id) : next.kind === 'comp' ? compPage(next.i) :
-          next.kind === 'doctrine' ? doctrinePage() : famPage(next.i);
-        var wasOpen = !!shown;
-        var from = travelFrom;
-        travelFrom = null;
-        if (!wasOpen) {
-          root.appendChild(node);
-          shown = { key: next.key, kind: next.kind, depth: depthOf(next.kind), i: next.i, node: node };
-          if (!instant) open(next, node);
-          else {
-            root.inert = false;
-            root.removeAttribute('aria-hidden');
-            if (root.classList) root.classList.add('is-open');
-            if (host.classList) host.classList.add('sc-host--open');
-            if (stage.classList) stage.classList.add('sc-reading');
-          }
-        } else {
-          replace(next, node, instant ? null : from);
-          shown = { key: next.key, kind: next.kind, depth: depthOf(next.kind), i: next.i, node: node };
-        }
-        fit(node);
-        // After a keyboard step the page's way back takes the focus, so the
-        // reader's place is never lost to the page.
-        if (instant && focusCard) {
-          focusCard = false;
-          var back = node.querySelector ? node.querySelector('.sc__back-btn') : null;
-          if (back && back.focus) { try { back.focus({ preventScroll: true }); } catch (e) { back.focus(); } }
-        }
+        return node;
       }
-      // The light on a rule named in the column follows the drawing's focus.
-      function syncLit() {
-        if (!shown || !shown.node || !shown.node.querySelectorAll) return;
-        var id = ruleHover ? ruleHover.id : null;
-        Array.prototype.forEach.call(shown.node.querySelectorAll('.sc__rule'), function (b) {
-          var rid = b.getAttribute('data-rule');
-          if (b.classList) {
-            b.classList.toggle('is-lit', !!id && rid === id);
-            b.classList.toggle('is-held', !!rulePin && rid === rulePin);
-          }
-        });
-        Array.prototype.forEach.call(shown.node.querySelectorAll('.sc__live--class'), function (li) {
-          if (li.classList) li.classList.toggle('is-lit', !!classHover && li.getAttribute('data-class') === classHover);
+      function fitScroll(node) {
+        var sc = node.querySelector ? node.querySelector('.sc__scroll') : null;
+        if (!sc) return;
+        // Taller than its room, the list shows whole rows: its height is cut
+        // back to the foot of the last row that fits, and the rest scrolls.
+        function snap() {
+          if (!sc.style || !sc.getBoundingClientRect || !sc.querySelectorAll) return;
+          sc.style.maxHeight = '';
+          if (!(sc.scrollHeight > sc.clientHeight + 1)) return;
+          var top = sc.getBoundingClientRect().top - sc.scrollTop, room = sc.clientHeight, fit = 0;
+          Array.prototype.forEach.call(sc.querySelectorAll('.sc__item, .sc__label, .sc__note, .sc__all'), function (row) {
+            var b = row.getBoundingClientRect(), foot = b.bottom - top;
+            if (b.height > 0 && foot <= room - 6 && foot > fit) fit = foot;
+          });
+          if (fit > 40) sc.style.maxHeight = Math.ceil(fit + 8) + 'px';
+        }
+        snap();
+        function update() {
+          if (sc.classList) sc.classList.toggle('has-overflow', sc.scrollHeight > sc.clientHeight + 1);
+        }
+        sc.addEventListener('scroll', update, { passive: true });
+        update();
+        node.__update = function () { snap(); update(); };
+      }
+      function lit(key) {
+        [familyList, shown && shown.node, doctrineRow].forEach(function (scope) {
+          if (!scope || !scope.querySelectorAll) return;
+          Array.prototype.forEach.call(scope.querySelectorAll('[data-sm-key]'), function (n) {
+            if (n.classList) n.classList.toggle('is-lit', !!key && n.getAttribute('data-sm-key') === key);
+          });
+          if (scope.getAttribute && scope.getAttribute('data-sm-key') && scope.classList) scope.classList.toggle('is-lit', scope.getAttribute('data-sm-key') === key);
         });
       }
-
-      /* ---- When ---- */
-      // A component under the pointer (when nothing is selected) is read in
-      // the column after a short dwell; pointing elsewhere in the drawing
-      // moves the reading at once; leaving both the drawing and the column
-      // sets the column back.
-      function pointed(ci) {
-        if (pin && pin.comp >= 0) return;
-        if (dwell) { clearTimeout(dwell); dwell = null; }
-        if (ci < 0) {
-          if (previewComp >= 0 && !overPanel) leave = leave || setTimeout(function () { leave = null; previewComp = -1; sync(false); }, 900);
-          return;
-        }
-        if (leave) { clearTimeout(leave); leave = null; }
-        if (previewComp >= 0) { previewComp = ci; sync(false); return; }
-        dwell = setTimeout(function () { dwell = null; previewComp = ci; sync(false); }, 280);
-      }
-      function pointerOff() {
-        if (dwell) { clearTimeout(dwell); dwell = null; }
-        if (leave) clearTimeout(leave);
-        leave = setTimeout(function () {
-          leave = null;
-          if (overPanel || overFigure) return;
-          if (previewComp >= 0) { previewComp = -1; sync(false); }
-        }, 260);
-      }
-      root.addEventListener('pointerenter', function () { overPanel = true; if (leave) { clearTimeout(leave); leave = null; } });
-      root.addEventListener('pointerleave', function () { overPanel = false; pointerOff(); });
-      stage.addEventListener('pointerenter', function () { overFigure = true; if (leave) { clearTimeout(leave); leave = null; } });
-      stage.addEventListener('pointerleave', function () { overFigure = false; pointerOff(); });
-      // A page standing through a resize is fitted to its column again.
-      function syncLayout() {
-        if (!shown) return;
-        if (!beside()) close();
-        else fit(shown.node);
-      }
-      if (window.addEventListener) window.addEventListener('resize', syncLayout);
       return {
-        beside: beside,
-        reads: function () { return !!wanted(); },
-        sync: function (instant) { sync(instant); syncLit(); syncSwitches(); },
-        pointed: pointed,
-        // The rules arrived after a page was built without them.
-        ready: function () { if (shown) { shown.key = 'stale'; sync(true); syncLit(); } },
+        sync: sync, lit: lit, rows: wireRows,
+        refit: function () { if (shown && shown.node && shown.node.__update) shown.node.__update(); },
+        ready: function () { wireDoctrineRow(); if (shown) { shown.key = 'stale'; sync({ instant: true }); } },
         state: function () {
           if (!shown) return null;
-          var title = shown.node.querySelector ? shown.node.querySelector('.sc__title') : null;
-          return { kind: shown.kind, key: shown.key, title: title ? title.textContent : null, node: shown.node };
+          var t = shown.node.querySelector ? shown.node.querySelector('.sc__title') : null;
+          return { key: shown.key, title: t ? t.textContent : null };
         }
       };
     }
-    /* ---- Data -------------------------------------------------------- */
+
+    /* ---- Keys and the band ---- */
+    function active() {
+      if (slide && (slide.inert || (slide.getAttribute && slide.getAttribute('aria-hidden') === 'true'))) return false;
+      return onScreen;
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || e.defaultPrevented || !model || !active()) return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      hideTip();
+      if (up({ keyed: true })) { if (e.preventDefault) e.preventDefault(); }
+    });
+    // The map band's two slides share one height. While the system slide is
+    // away its card is parked (folded to nothing), so a tall view never
+    // leaves the mathematics slide standing in empty space.
+    function park(on) {
+      if (!slide || pageMode || !stage.classList) return;
+      stage.classList.toggle('is-parked', !!on);
+    }
+    if (slide && (slide.inert || (slide.getAttribute && slide.getAttribute('aria-hidden') === 'true'))) park(true);
+    document.addEventListener('plectis:atlas', function (event) {
+      var d = event && event.detail || {};
+      if (d.phase === 'start' && d.previous === 'system' && d.view !== 'system') { setHover(null); hideTip(); }
+      if (d.view === 'system' && d.phase === 'start') park(false);
+      if (d.view !== 'system' && d.phase === 'end') park(true);
+      if (d.view === 'system' && d.phase === 'end') { park(false); refresh(); reveal(); }
+    });
+    if ('IntersectionObserver' in window) {
+      onScreen = false;
+      var io = new window.IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          onScreen = !!e.isIntersecting;
+          if (e.isIntersecting && e.intersectionRatio >= 0.35) reveal();
+        });
+      }, { threshold: [0, 0.35, 0.6] });
+      io.observe(stage);
+    }
+    // The first time the map is seen it assembles, once, with the doctrine
+    // in place (or without it, when the doctrine is slow or cannot be had).
+    function reveal() {
+      if (revealed || !map) return;
+      if (!motionOK() || at.level !== 'system') { settleReveal(); return; }
+      if (slide && (slide.inert || (slide.getAttribute && slide.getAttribute('aria-hidden') === 'true'))) return;
+      if (doctrineSrc && doctrineState === 'pending' && !forceReveal) return;
+      revealed = true;
+      if (map.svg.classList) map.svg.classList.remove('awaits-reveal');
+      map.assemble();
+    }
+    // Without the opening (reduced motion, or a view chosen before it), the
+    // map simply shows.
+    function settleReveal() {
+      revealed = true;
+      if (map && map.svg.classList) map.svg.classList.remove('awaits-reveal');
+    }
+    // The card keeps the whole system's height as its least, so a view
+    // never makes the band jump shorter.
+    function measureFloor() {
+      if (at.level !== 'system' || !stage.style || !stage.getBoundingClientRect) return;
+      if (stage.classList && stage.classList.contains('is-parked')) return;
+      if (stage.style.removeProperty) stage.style.removeProperty('--sm-floor');
+      var hgt = stage.getBoundingClientRect().height;
+      if (hgt > 0 && stage.style.setProperty) stage.style.setProperty('--sm-floor', Math.ceil(hgt) + 'px');
+    }
+
+    /* ---- The public face ---- */
     function lookup(id) {
       if (!model || !id) return null;
-      for (var i = 0; i < model.comps.length; i++) if (model.comps[i].id === id) return { fam: model.comps[i].fam, comp: i };
-      for (var f = 0; f < model.families.length; f++) if (model.families[f].id === id) return { fam: f, comp: -1 };
+      var fam = /^(?:area|family):(.+)$/.exec(id);
+      if (fam) { var f = familyIndex(fam[1]); return f >= 0 ? { fam: f } : null; }
+      for (var i = 0; i < model.comps.length; i++) if (model.comps[i].id === id) return { comp: i };
       return null;
     }
-    var pending = null;
+    function boxOf(el) {
+      var r = el.getBoundingClientRect();
+      return { x: fx(r.left), y: fx(r.top), w: fx(r.width), h: fx(r.height) };
+    }
     var api = {
-      // Lights a family in place, as pointing at its row does (null clears).
+      // Lights a family where it stands, as pointing at its name does (null clears).
       focusFamily: function (id) {
         if (!model) { pending = pending || {}; pending.family = id; return; }
         var t = id ? lookup(id) : null;
-        rowHover = t && t.comp < 0 ? t.fam : -1;
-        draw();
+        var key = t && t.fam !== undefined ? 'fam:' + model.families[t.fam].key : null;
+        setHover(key, key && map ? map.anchorOf(key) : null);
       },
-      // Opens a family's sheet or selects a component (null: the overview).
-      select: function (id) {
+      // Selects a family ('area:<key>' or 'family:<key>'), a component
+      // ('component:<id>'), the doctrine ('doctrine' or 'doctrine:<rule>'),
+      // or the whole system (null).
+      select: function (id, opts) {
         if (!model) { pending = pending || {}; pending.select = id; return; }
-        preview = -1;
-        var target = id ? lookup(id) : null;
-        if (target && target.comp >= 0) target.via = sheetFam >= 0 && sheetMix > 0 && sheetFam === target.fam ? 'sheet' : 'overview';
-        pinTo(target, false);
+        opts = opts || {};
+        if (id === 'doctrine' || (typeof id === 'string' && id.indexOf('doctrine:') === 0)) {
+          if (!D) { pending = pending || {}; pending.select = id; return; }
+          goDoctrine(id.slice(9) || null, { instant: !!opts.instant });
+          return;
+        }
+        var t = id ? lookup(id) : null;
+        if (!t) { goSystem({ instant: !!opts.instant }); return; }
+        if (t.fam !== undefined) goFamily(t.fam, { instant: !!opts.instant });
+        else goComponent(t.comp, { instant: !!opts.instant });
       },
-      // Holds a rule (an axiom, principle or anti-principle id; null lets go).
-      selectRule: function (id) {
-        if (!model) { pending = pending || {}; pending.rule = id; return; }
-        holdRule(id || null, false);
-      },
-      // Turns the drawing to 'doctrine' or back to 'machinery'.
-      lens: function (name) { if (model) setLens(name, false); },
-      // Read-only: the drawing's geometry and state, for tests and audits.
+      // Selects a rule (an axiom, principle or failure mode id).
+      selectRule: function (id) { api.select(id ? 'doctrine:' + id : 'doctrine'); },
+      lens: function (name) { if (model) { if (name === 'doctrine') goDoctrine(null); else goSystem(); } },
+      up: function () { return up({}); },
+      back: function () { return back({}); },
+      // Read-only: where the reader is, what is lit, and the box of every
+      // word and the ends of every line, for tests and audits.
       snapshot: function () {
-        if (!model || !geo || !geo.ok) return { ready: false, open: openState };
+        if (!model) return { ready: false };
+        var labels = [], wires = [];
+        if (root.querySelectorAll) {
+          Array.prototype.forEach.call(root.querySelectorAll('.sm-label, .sm-note'), function (n) {
+            if (n.closest && n.closest('[hidden]')) return;
+            var keyEl = n.closest ? n.closest('[data-sm-key]') : null;
+            labels.push({ text: n.textContent, kind: n.classList && n.classList.contains('sm-label') ? 'label' : 'note',
+                          key: keyEl ? keyEl.getAttribute('data-sm-key') : null, box: boxOf(n) });
+          });
+          Array.prototype.forEach.call(root.querySelectorAll('.sm-wire'), function (p) {
+            wires.push({ from: p.getAttribute('data-from'), to: p.getAttribute('data-to'),
+                         kind: (p.getAttribute('class') || '').split(' ')[0], lit: !!(p.classList && p.classList.contains('is-lit')) });
+          });
+        }
+        var L = map ? map.lit() : null;
         return {
-          ready: true, stale: model.stale, portrait: geo.portrait, width: geo.w, height: geo.h, open: openState,
-          dropped: model.dropped, pitch: geo.pitch, markRadius: geo.mr, lanes: geo.lanes.slice(),
-          weighed: (geo.weighed || []).slice(),
-          level: pin && pin.comp >= 0 && preview < 0 ? 'component' : shownFamily() >= 0 ? 'family' : 'overview',
-          moving: moving(),
-          doctrine: D ? { axioms: D.axioms.length, principles: D.principles.length, antiPrinciples: D.guards.length } : null,
-          rulePinned: rulePin, ruleHover: ruleHover ? ruleHover.id : null, lens: lens, lensMix: lensMix,
-          column: companion && companion.state() ? (function (st) { return { kind: st.kind, key: st.key, title: st.title }; })(companion.state()) : null,
-          profile: sheetFam >= 0 && sheetMix > 0 ? (function (pf) {
-            return pf ? { kept: pf.kept, rows: pf.rows.map(function (r) { return { id: r.id, k: r.k, n: r.n, lines: r.lines.slice(), box: r.box }; }) } : null;
-          })(profileOf(sheetOf(sheetFam))) : null,
-          interior: inner ? (function (ix) {
-            return { component: model.comps[ix.comp].id, t: inner.t, end: ix.T.end, settled: innerSettled(), closing: inner.dir < 0,
-                     typeScale: ix.fs, forced: ix.forced,
-                     timetable: { arrive: ix.T.arrive, principles: ix.T.w1, axioms: ix.T.w2, guards: ix.T.guards, end: ix.T.end },
-                     plates: ix.plates.map(function (pl) {
-                       return { id: pl.id, kind: pl.kind, title: D.rules[pl.id].title, lines: pl.lines.slice(), lit: ix.lit[pl.id],
-                                rect: { x0: pl.rect.x0, y0: pl.rect.y0, x1: pl.rect.x1, y1: pl.rect.y1 } };
-                     }),
-                     base: { lines: ix.compPlate.lines.slice(), rect: ix.compPlate.rect },
-                     guards: ix.guardMarks.map(function (gm) { return { id: gm.id, axiom: gm.axiom, x: gm.x, y: gm.y, r: gm.r }; }),
-                     runs: ix.runs.map(function (r) { return { kind: r.kind, x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1 }; }),
-                     joins: ix.dots.length, corners: ix.corners.length, lanes: ix.laneCount,
-                     key: ix.key.map(function (k) { return { label: k.label, box: k.box }; }) };
-          })(inner.ix) : null,
-          components: model.comps.map(function (c, i) {
-            return { id: c.id, label: c.label, family: model.families[c.fam].id, cls: c.cls,
-                     x: geo.marks[i].x, y: geo.marks[i].y };
-          }),
-          plates: geo.plates.map(function (g2) {
-            return { id: model.families[g2.fam].id, title: model.families[g2.fam].title,
-                     count: model.families[g2.fam].members.length, row: g2.row, rows: g2.rows, cols: g2.cols,
-                     rect: { x0: g2.rect.x0, y0: g2.rect.y0, x1: g2.rect.x1, y1: g2.rect.y1 } };
-          }),
-          stations: geo.stations.map(function (st, i) { return { id: model.steps[i].id, title: model.steps[i].title, x: st.x, y: st.y }; }),
-          rail: { x0: geo.rail.x0, y0: geo.rail.y0, x1: geo.rail.x1, y1: geo.rail.y1 },
-          ties: geo.plates.map(function (g2) { return { row: g2.row, from: g2.bind.from.slice(), to: g2.bind.to.slice() }; }),
-          cables: geo.cables.map(function (cb) {
-            return { from: model.families[cb.fa].id, to: model.families[cb.fb].id, count: cb.count, crosses: cb.crosses,
-                     points: cb.path.points.map(function (q) { return [q[0], q[1]]; }),
-                     pins: cb.ends.map(function (e) { return e.pins; }),
-                     terminals: cb.ends.map(function (e) {
-                       return { family: model.families[e.fam].id, a: e.bar[0].slice(), b: e.bar[1].slice() };
-                     }) };
-          }),
-          links: geo.routes.map(function (r) {
-            return { source: model.comps[r.a].id, target: model.comps[r.b].id, length: r.length,
-                     points: r.points.map(function (q) { return [q[0], q[1]]; }) };
-          }),
-          labels: geo.labels.map(function (l) { return { kind: l.kind, text: l.text, box: l.box }; }),
-          drawn: placed.map(function (b) { return { x0: b.x0, y0: b.y0, x1: b.x1, y1: b.y1 }; }),
-          focus: currentFocus(), hover: hover, pinned: pin, preview: preview >= 0 ? model.families[preview].id : null,
-          sheet: sheetFam >= 0 && sheetMix > 0 ? (function (sh) {
-            return { family: model.families[sh.fam].id, rect: sh.rect, card: sh.card, mix: sheetMix,
-                     rows: sh.rows.map(function (r) { return { id: model.comps[r.comp].id, text: r.text, y: r.y, box: r.box }; }),
-                     brackets: sh.brackets.length };
-          })(sheetOf(sheetFam)) : null
+          ready: true, stale: model.stale, doctrine: !!D, view: at.level,
+          family: at.fam >= 0 ? model.families[at.fam].id : null, component: at.comp >= 0 ? model.comps[at.comp].id : null, rule: at.rule,
+          caption: caption.textContent,
+          crumbs: Array.prototype.map.call(crumbList.children || [], function (li) { return li.textContent; }),
+          back: backBtn.hidden ? null : backBtn.getAttribute('aria-label'),
+          ring: map ? { radius: map.R, pitch: map.pitch, named: map.named, core: map.core, frame: map.frame, sheaves: map.sheaves,
+                        order: ring.order.map(function (fi) { return model.families[fi].id; }) } : null,
+          counts: { families: model.families.length, components: model.comps.length, links: model.links.length,
+                    bands: model.pairs.length, dropped: model.dropped, kinds: model.kinds.slice() },
+          lit: L ? { comps: Object.keys(L.comps).length, rules: Object.keys(L.rules).length, routes: L.links.length, lines: L.cites.length,
+                     spans: Object.keys(L.spans).length, reticles: L.reticles.slice(), open: L.open.slice(), plates: L.plated || 0 } : null,
+          weave: map ? map.weave() : null,
+          labels: labels, wires: wires, hover: hoverKey, column: column.state(), trail: trail.length
         };
       }
     };
     window.PlectisSystemMap = api;
 
-    readPalette();
+    /* ---- Data ---- */
     if (!src || typeof fetch !== 'function') return api;
-    // The scene is asked for at once, so it is usually read before the slide
-    // arrives; the blueprint is painted as soon as it is.
     fetch(src, { cache: 'no-cache' }).then(function (res) {
       if (res && res.ok === false) throw new Error('scene ' + res.status);
       return res.json();
@@ -5367,94 +4755,85 @@
       model = readScene(json, base);
       json = null;
       if (!model || !model.comps.length) throw new Error('empty scene');
-      relayout();
-      wireRows();
-      companion = makeCompanion();
-      // A reader who cannot have motion, or a drawing that arrived without a
-      // move, gets the finished drawing at once; otherwise it is a blueprint
-      // until it is first in view and still.
-      if (reduceMotion || !window.requestAnimationFrame || document.hidden || arrivedAtOnce) { opened = true; openState = 'done'; }
-      else openState = 'waiting';
-      paint();
-      maybeOpen();
-      loadDoctrine();
+      ring = familyRing(model);
+      clear(holder);
+      holder.appendChild(root);
+      if (keySlot) { clear(keySlot); keySlot.appendChild(keyBox); } else root.appendChild(keyBox);
+      if (stage.classList) stage.classList.add('is-ready');
+      column.rows();
+      render({ instant: true });
+      watchSize();
       if (pageMode) {
-        followAddress();
-        if (window.addEventListener) window.addEventListener('hashchange', followAddress);
+        arriveAt();
+        if (window.addEventListener) {
+          window.addEventListener('popstate', followAddress);
+          window.addEventListener('hashchange', followAddress);
+        }
       }
       if (pending) {
         if (pending.family !== undefined) api.focusFamily(pending.family);
-        if (pending.select !== undefined) api.select(pending.select);
-        pending.select = undefined;
-        pending.family = undefined;
+        if (pending.select !== undefined && !/^doctrine/.test(pending.select || '')) api.select(pending.select);
       }
+      loadDoctrine();
+      reveal();
+      // A doctrine slow to arrive does not hold the map back for long.
+      setTimeout(function () { forceReveal = true; reveal(); }, 2600);
     }).catch(function () {
       if (stage.classList) stage.classList.add('is-unavailable');
     });
-    // The rules each component keeps arrive second, a few tens of kilobytes;
-    // until they do the drawing is the machinery alone.
     function loadDoctrine() {
-      var dsrc = canvas.getAttribute('data-system-doctrine') || src.replace(/[^\/]*(?:[?#].*)?$/, 'doctrine-manifest.json');
-      fetch(dsrc, { cache: 'no-cache' }).then(function (res) {
+      if (!doctrineSrc) return;
+      fetch(doctrineSrc, { cache: 'no-cache' }).then(function (res) {
         if (res && res.ok === false) throw new Error('doctrine ' + res.status);
         return res.json();
       }).then(function (json) {
         D = readDoctrine(json, model, base);
-        if (!D) return;
-        if (geo) geo.interiors = {};
-        if (companion) companion.ready();
-        if (pin && pin.comp >= 0) { syncSheet(true); syncInterior(true); renderCard(true); }
-        syncCompanion(true);
-        if (pending && pending.rule !== undefined) { holdRule(pending.rule, false); pending = null; }
-        draw();
-      }).catch(function () {});
+        doctrineState = D ? 'ok' : 'failed';
+        if (!D) { reveal(); return; }
+        // The doctrine takes the centre: the map is laid out again with it.
+        relayout();
+        renderHead();
+        caption.textContent = captionText();
+        renderKey();
+        column.ready();
+        if (pageMode && pending && pending.arrival) { pending.arrival = false; arriveAt(); }
+        else if (pageMode && pending && pending.address) { pending.address = false; followAddress(); }
+        else if (pending && pending.select !== undefined && /^doctrine/.test(pending.select || '')) {
+          var s = pending.select;
+          pending.select = undefined;
+          api.select(s);
+        }
+        reveal();
+      }).catch(function () { doctrineState = 'failed'; reveal(); });
     }
 
-    /* ---- Housekeeping ------------------------------------------------ */
-    function refit() {
-      if (!model) return;
-      relayout();
-      // An open interior is laid out again for the new box, where it stands.
-      if (inner) {
-        var ix = innerAt(inner.comp);
-        if (ix && interiorOK()) { inner.ix = ix; inner.t = Math.min(inner.t, ix.T.end); }
-        else { inner = null; motion.inner = null; }
-        innerOld = null;
-      }
-      paint();
-      placeCard();
+    /* ---- Housekeeping ---- */
+    var frame = 0, lastWidth = 0;
+    function refresh() {
+      if (!model || !map) return;
+      var w = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0;
+      if (w && Math.abs(w - lastWidth) > 1) { lastWidth = w; relayout(); }
+      measureFloor();
+      column.refit();
     }
-    if ('ResizeObserver' in window) {
-      new window.ResizeObserver(function () {
-        if ((canvas.clientWidth || 0) !== cssW || (canvas.clientHeight || 0) !== cssH) refit();
-      }).observe(canvas);
-    } else {
-      window.addEventListener('resize', refit);
+    function watchSize() {
+      lastWidth = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0;
+      var raf = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 16); };
+      function later() { if (frame) return; frame = raf(function () { frame = 0; refresh(); }); }
+      if ('ResizeObserver' in window) new window.ResizeObserver(later).observe(area);
+      if (window.addEventListener) window.addEventListener('resize', later);
+      if (document.fonts && document.fonts.ready && document.fonts.ready.then) document.fonts.ready.then(function () { if (model) relayout(); }, function () {});
     }
-    function retheme() { readPalette(); paint(); }
-    document.addEventListener('plectis:theme', retheme);
-    var schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-    if (schemeQuery && typeof schemeQuery.addEventListener === 'function') schemeQuery.addEventListener('change', retheme);
-    // Reduced motion is followed live: turning it on mid-way finishes every
-    // motion at once and draws the still structure.
-    function followReduce() {
-      reduceMotion = !!(reduceQuery && reduceQuery.matches);
-      if (!reduceMotion) return;
-      settleAll();
-      if (!opened) { opened = true; openState = 'done'; }
-      paint();
-    }
+    function followReduce() { reduceMotion = !!(reduceQuery && reduceQuery.matches); }
     if (reduceQuery && typeof reduceQuery.addEventListener === 'function') reduceQuery.addEventListener('change', followReduce);
-    // A canvas neither waits for a web font nor redraws when one arrives.
-    if (document.fonts && document.fonts.load) {
-      Promise.all([
-        document.fonts.load('500 11px "Plectis Serif"'),
-        document.fonts.load('400 11px "Plectis Serif"'),
-        document.fonts.load('italic 400 11px "Plectis Serif"')
-      ]).then(function () { if (model) refit(); }, function () {});
-    }
     return api;
   }
+
+  // The parts that need no page, for the tests that check them directly.
+  window.PlectisSystemMapCore = {
+    readScene: readScene, readDoctrine: readDoctrine, familyRing: familyRing, Loom: Loom,
+    trimProse: trimProse, classOf: classOf, CLASS_WORDS: CLASS_WORDS
+  };
 
   function boot() {
     var stages = document.querySelectorAll('[data-system-stage]');

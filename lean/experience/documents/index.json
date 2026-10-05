@@ -17,7 +17,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -25,7 +25,7 @@
         "source_sha256": "cf54162d113a453831bb54003f14cf01cbf4c170c1f52b1c0db3aa995d45686b",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -111,7 +111,8 @@
           "anchor": "citation-and-licence",
           "label": "Citation and licence"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -126,7 +127,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -134,7 +135,7 @@
         "source_sha256": "f3ba7f71cfdf586710c63e1f5286e53221d805f05af620492b365d975c6bce4c",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -190,7 +191,8 @@
           "anchor": "contributing",
           "label": "Contributing"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -205,7 +207,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -213,7 +215,7 @@
         "source_sha256": "531f0b1ee68ba6311dc08440541364bc623d3d604f9d621dcceb0716ebf3a812",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -264,7 +266,8 @@
           "anchor": "build-and-update",
           "label": "Build and update"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -279,7 +282,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -287,7 +290,7 @@
         "source_sha256": "266d05fccf645f9a7ffb2110364fbbc5cf6a60fb0e6841369ec8420d01023794",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -338,7 +341,8 @@
           "anchor": "improving-these-guides",
           "label": "Improving these guides"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -353,7 +357,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -361,7 +365,7 @@
         "source_sha256": "45d46df84010206304316771c8dbd46dc139a769ec712a58e60a005fa6815635",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -537,7 +541,14 @@
           "anchor": "what-remains-open",
           "label": "What remains open"
         }
-      ]
+      ],
+      "source_heading_translations": {
+        "xq249-lcm-diagonal-supply--diagonal-supply": "xq249-lcm-diagonal-supply-diagonal-supply",
+        "xq249-pivot-decorrelation--pivot-decorrelation": "xq249-pivot-decorrelation-pivot-decorrelation",
+        "xq249-adjacent-phase-separation--adjacent-phases": "xq249-adjacent-phase-separation-adjacent-phases",
+        "xq257-second-channel-separation--second-channel": "xq257-second-channel-separation-second-channel",
+        "xq257-middle-producer-tail-escape--middle-producer": "xq257-middle-producer-tail-escape-middle-producer"
+      }
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -552,7 +563,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -560,7 +571,7 @@
         "source_sha256": "4517cccdb94275a3da9c483447b8e04c0dfa40c95e0ceb44cf1bd81eda9187da",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -656,7 +667,14 @@
           "anchor": "generated-finite-certificates",
           "label": "Generated finite certificates"
         }
-      ]
+      ],
+      "source_heading_translations": {
+        "1041--source-current-frontier": "source-current-frontier",
+        "257--erdősborwein-families": "erdősborwein-families",
+        "249--totient-denominator-exclusions": "totient-denominator-exclusions",
+        "249--certificate-reductions": "certificate-reductions",
+        "249--diagonal-pincer-frontier": "diagonal-pincer-frontier"
+      }
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -671,7 +689,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -679,7 +697,7 @@
         "source_sha256": "ce6071fcdb6e488636c202d256f6b40e8d6810438bd5942cc3fb796b49ccc053",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -710,7 +728,8 @@
           "anchor": "relation-in-this-repository",
           "label": "Relation in this repository"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -725,7 +744,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIOR_ART.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -733,7 +752,7 @@
         "source_sha256": "da3391cb4b3ebd0308569046774412c88593a2e444ddf32a67aac3af8b64fd33",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -814,7 +833,15 @@
           "anchor": "audit-rule-for-new-sources",
           "label": "Audit rule for new sources"
         }
-      ]
+      ],
+      "source_heading_translations": {
+        "68": "section",
+        "243": "section-1",
+        "251": "section-2",
+        "269": "section-3",
+        "1041": "section-4",
+        "1049": "section-5"
+      }
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -829,7 +856,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/METHODOLOGY.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -837,7 +864,7 @@
         "source_sha256": "ffe69c6bad5f8e2662b7b0055535c74f735fce4fe4f5b057d79ab265eadec03f",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -983,7 +1010,15 @@
           "anchor": "authority-and-machine-identifiers",
           "label": "Authority and machine identifiers"
         }
-      ]
+      ],
+      "source_heading_translations": {
+        "1-a-formal-result-is-the-exact-proposition-lean-checked": "a-formal-result-is-the-exact-proposition-lean-checked",
+        "2-formal-validity-and-mathematical-faithfulness-are-separate-questions": "formal-validity-and-mathematical-faithfulness-are-separate-questions",
+        "3-a-public-claim-crosses-representations-only-through-proved-transport": "a-public-claim-crosses-representations-only-through-proved-transport",
+        "4-a-reduction-keeps-the-remaining-hypothesis-visible": "a-reduction-keeps-the-remaining-hypothesis-visible",
+        "5-finite-verification-does-not-change-quantifiers": "finite-verification-does-not-change-quantifiers",
+        "6-a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation": "a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation"
+      }
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -998,7 +1033,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SCOPE.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1006,7 +1041,7 @@
         "source_sha256": "a49cfdf72b96920f35dcb3f05304988706f75a62589185d5ebd8db98b68b0659",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1032,7 +1067,8 @@
           "anchor": "machine-identifiers",
           "label": "Machine identifiers"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1047,7 +1083,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1055,7 +1091,7 @@
         "source_sha256": "47184e48546e05683695d30d72cdfa02fefba99a65cc8fc83913a6cfba36d8e1",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1151,7 +1187,8 @@
           "anchor": "verification-contract-and-replay",
           "label": "Verification contract and replay"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1166,7 +1203,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1174,7 +1211,7 @@
         "source_sha256": "316d19c4714c8366d96f029acef7159bfd46dc52354acdd8b57cf87bb68aa294",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1215,7 +1252,8 @@
           "anchor": "proof-handle",
           "label": "Proof handle"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1230,7 +1268,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1238,7 +1276,7 @@
         "source_sha256": "9cfff690ac9439ffb1a6e75c48892e835b426d325ae9d69e9b715f58963f4a9c",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1250,8 +1288,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "2f1bf67792bad8f78a11406fcc1eb77e448d254076a09a8a9856565905fbf2a7",
-        "html_exact_tex_sha256": "74dd4a0f42b3480ff32de69c0158c51bd90575ac6bed3bebe1ade644498b020d"
+        "html_mathml_sha256": "7c49941c32dbe6c36ae52f428896293ade1be6d5acc9f449c1611e4f5807091d",
+        "html_exact_tex_sha256": "9a1cfcdd23d7c70dfb302c75b0c0301e51a07003adddb50202419f64cb4dad8a"
       },
       "sections": [
         {
@@ -1309,7 +1347,8 @@
           "anchor": "where-to-start",
           "label": "Where to start"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1324,7 +1363,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1332,7 +1371,7 @@
         "source_sha256": "d9bc78d21dcbe5c57b088d82edb321aa090dea33074d3d00f23d0feb267c8d6c",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1383,7 +1422,8 @@
           "anchor": "what-this-does-not-establish",
           "label": "What this does not establish"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1398,7 +1438,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1406,7 +1446,7 @@
         "source_sha256": "3b7ba9ec389c832d2883a8cbfd32df7dccd78196103665930bffa9e138bcf263",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1532,7 +1572,18 @@
           "anchor": "package-shape",
           "label": "Package shape"
         }
-      ]
+      ],
+      "source_heading_translations": {
+        "wave-17--gapfareyboundlean": "wave-17-gapfareybound.lean",
+        "wave-18--mersennelambertladderlean": "wave-18-mersennelambertladder.lean",
+        "wave-19--geometriccoprimalitylean": "wave-19-geometriccoprimality.lean",
+        "wave-20--gcdmomentcalculuslean": "wave-20-gcdmomentcalculus.lean",
+        "wave-21--totienttailperiodkillerlean": "wave-21-totienttailperiodkiller.lean",
+        "wave-22--carrysurvivorextinctionlean": "wave-22-carrysurvivorextinction.lean",
+        "wave-23--lcmdiagonalreductionlean": "wave-23-lcmdiagonalreduction.lean",
+        "wave-24--lcmconeflatnesslean": "wave-24-lcmconeflatness.lean",
+        "wave-25--lcmconenonflatlean": "wave-25-lcmconenonflat.lean"
+      }
     },
     {
       "schema": "plectis_lean_human_document_v1",
@@ -1547,7 +1598,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
       },
       "render_contract": {
-        "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+        "navigation_fingerprint": "ac9a2c44c6c546189842b9086c8dfed63dc132893d8bb812a80903ff08f48f31",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -1555,7 +1606,7 @@
         "source_sha256": "1534ad9156fa5c42e8cce3f130ffae7c81f0e5fb09f909b3b941cb6ec5bbf325",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "publication_state": "published_source",
@@ -1651,7 +1702,8 @@
           "anchor": "query-one-handle",
           "label": "Query one handle"
         }
-      ]
+      ],
+      "source_heading_translations": {}
     }
   ]
 }

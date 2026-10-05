@@ -23,7 +23,7 @@ therefore equals
 Erdős Problem #243 asks whether every rational reciprocal sum with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∼</mo><msubsup><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">a_n\sim a_{n-1}^2</annotation></semantics></math>
 must eventually have this form:</p>
-<div class="problem">
+<div class="problem" id="long243:res:problem">
 <p><strong>Problem 1.1</strong> (Erdős #243). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>a</mi><mn>2</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">1\le a_1&lt;a_2&lt;\cdots</annotation></semantics></math>
 be a sequence of integers with
@@ -121,7 +121,7 @@ so the bounded-increase criterion later in the paper does not apply. The
 eventual Sylvester recurrence gives deviation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(1/a_n)</annotation></semantics></math>
 and is also excluded by this rate.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:cubicrate">
 <p><strong>Theorem 2.1</strong> (cubic-rate irrationality). <em> If
 strictly increasing positive integers satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mi>/</mi><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}=1+3/n+o(n^{-3})</annotation></semantics></math>,
@@ -131,7 +131,7 @@ is irrational.</em></p>
 </div>
 <p>The same extraction argument rules out nonintegral regular rates
 above one. These require no number-field calculation.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:nonintegralrate">
 <p><strong>Theorem 2.2</strong> (nonintegral regular-rate irrationality).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;1</annotation></semantics></math>
@@ -166,7 +166,7 @@ Thus its reciprocal sum is irrational. Lemma 2.11 will turn the rate
 assumption into an eventual rising-factorial cubic for the integer tail
 numerator. We first prove the arithmetic obstruction that rules out this
 cubic using only the exact integer recurrences.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:cubicexclusion">
 <p><strong>Theorem 2.3</strong> (rising-factorial cubic exclusion). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><msub><mi mathvariant="double-struck">ℤ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{Z}_{&gt;0}</annotation></semantics></math>
@@ -280,7 +280,7 @@ mean repeated forward differences. This operator is distinct from the
 later indexed quantity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Δ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Delta_n</annotation></semantics></math>,
 the Sylvester defect.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:periodicobstruction">
 <p><strong>Lemma 2.4</strong> (periodic obstruction principle). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">h,L</annotation></semantics></math>
 be positive integers and let
@@ -319,7 +319,7 @@ and suppose for contradiction that
  \qquad S=\{n:C_n\ne P(n)\},
  \qquad \underline d(S)=0 .</annotation></semantics></math> We retain
 this assumption through Section 2.4.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:gcdshape">
 <p><strong>Lemma 2.5</strong> (gcd stabilisation and the reduced
 polynomial). <em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G_n=\gcd(C_n,D_n)</annotation></semantics></math>.
@@ -455,7 +455,7 @@ gives
 This contradiction leaves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>±</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">c=\pm1</annotation></semantics></math>. ◻</p>
 </div>
-<div class="lemma">
+<div class="lemma" id="long243:res:reduciblecase">
 <p><strong>Lemma 2.6</strong> (coprimality and irreducibility). <em> On
 the primitive tail,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(a_n,v_n)=1</annotation></semantics></math>,
@@ -536,7 +536,7 @@ and change the sign of the square root. Chebotarev supplies a prime with
 exactly that behaviour, contradicting the finite-field condition. The
 following lemma isolates this passage; in the cubic application we take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>T</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H(T)=T^2-1</annotation></semantics></math>.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:squarespec">
 <p><strong>Lemma 2.7</strong> (square specialisation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">f\in\mathbb{Q}[T]</annotation></semantics></math>
 be irreducible with root
@@ -673,7 +673,7 @@ which the two simple poles forbid.</p>
 many primes. Testing finitely many primes supplies no such condition.
 The zeta-function argument is the one used in the linked formal
 proof.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:transportsquare">
 <p><strong>Proposition 2.8</strong> (the square forced by the numerator
 recurrence). <em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo>=</mo><mi>m</mi><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\kappa=m/6</annotation></semantics></math>
@@ -778,7 +778,7 @@ at every root of every good reduction, and Lemma 2.7 applies with
 <section id="the-square-condition-forces-m12" class="level3">
 <h3>The square condition forces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">m=12</annotation></semantics></math></h3>
-<div class="lemma">
+<div class="lemma" id="long243:res:scaletwelve">
 <p><strong>Lemma 2.9</strong> (classification of the scales). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 be a positive integer, let
@@ -950,7 +950,7 @@ denominator update, so it tests four consecutive numerators instead.</p>
 </section>
 <section id="long243:sec:modseven" class="level3">
 <h3>The two remaining cubics fail modulo seven</h3>
-<div class="lemma">
+<div class="lemma" id="long243:res:modseven">
 <p><strong>Lemma 2.10</strong> (two incompatible four-term residue
 patterns). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mrow><mn>12</mn><mo>,</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">Q_{12,1}</annotation></semantics></math>,
@@ -1132,7 +1132,7 @@ integer sequence is therefore a small integer and must vanish. Its
 eventual polynomial growth also forces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
 to be integral.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:extraction">
 <p><strong>Lemma 2.11</strong> (integer extraction at a regular rate).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;1</annotation></semantics></math>
@@ -1276,7 +1276,7 @@ while the unrounded ratio has error
 These two scalar examples prevent the proposed weakening of Lemma 2.11.
 Neither is asserted to satisfy the exact reciprocal-tail
 recurrences.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:tailratio">
 <p><strong>Lemma 2.12</strong> (comparison of the numerator and
 denominator ratios). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
@@ -1835,7 +1835,7 @@ At a negative error we write
 For an isolated step we use
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,D,C\in\mathbb{Z}</annotation></semantics></math>
 without subscripts.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:update">
 <p><strong>Proposition 4.1</strong> (update law). <em> For all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,D,C\in\mathbb{Z}</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>C</mi><mo>−</mo><mi>D</mi><mo>=</mo><mi>C</mi><mo>−</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>C</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">aC-D=C-\bigl(D-(a-1)C\bigr).</annotation></semantics></math>
@@ -1856,7 +1856,7 @@ and stays unchanged when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n=0</annotation></semantics></math>.
 This is why bounds on the negative error become bounds on upward
 increments.</p>
-<div class="example">
+<div class="example" id="long243:ex:sylvester">
 <p><strong>Example 4.2</strong> (the Sylvester sequence). <em> Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>43</mn><mo>,</mo><mn>1807</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">a_n=2,3,7,43,1807,\ldots</annotation></semantics></math>
 with
@@ -2045,7 +2045,7 @@ already gives a sequence of the type in Problem 1.1 after deletion of a
 finite prefix. No separate tail-limit estimate is needed for such an
 orbit; without the relative-error assumption, that estimate remains a
 condition of the general telescoping argument.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:scale">
 <p><strong>Proposition 4.3</strong> (scaling the numerator and
 denominator). <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>,</mo><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">s,a,D,C\in\mathbb{Z}</annotation></semantics></math>,
@@ -2076,7 +2076,7 @@ us cancel
 and recover the recurrence. Under the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>,
 it will also make a single zero propagate to the next index.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:defect">
 <p><strong>Theorem 5.1</strong> (defect identity). <em> For all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><msup><mi>a</mi><mo>′</mo></msup><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,a&#39;,D,C\in\mathbb{Z}</annotation></semantics></math>,
 <span class="math display" data-term-auto="off">$$\begin{aligned}
@@ -2092,7 +2092,7 @@ it will also make a single zero propagate to the next index.</p>
 </div>
 <p>No sign or growth hypothesis is needed for the identity itself. Such
 hypotheses enter only in its consequences below.</p>
-<div class="example">
+<div class="example" id="long243:ex:defect">
 <p><strong>Example 5.2</strong> (one defect and the error it creates).
 <em> Continue Example 4.2 but replace
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>3</mn></msub><mo>=</mo><mn>43</mn></mrow><annotation encoding="application/x-tex">a_3=43</annotation></semantics></math>
@@ -2122,7 +2122,7 @@ at the next, increasing the numerator from
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="long243:res:step">
 <p><strong>Theorem 5.3</strong> (two vanishing errors force the step).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><msup><mi>a</mi><mo>′</mo></msup><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,a&#39;,D,C\in\mathbb{Z}</annotation></semantics></math>
@@ -2160,7 +2160,7 @@ multipliers
 then the exact hypotheses are
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><msub><mi>u</mi><mn>1</mn></msub><mo>+</mo><mi>v</mi><mo>=</mo><mi>a</mi><mi>u</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>h</mi><msub><mi>v</mi><mn>1</mn></msub><mo>=</mo><mi>a</mi><mi>v</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>h</mi><mn>1</mn></msub><msub><mi>u</mi><mn>2</mn></msub><mo>+</mo><msub><mi>v</mi><mn>1</mn></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><msub><mi>u</mi><mn>1</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">hu_1+v=au,\qquad hv_1=av,\qquad
  h_1u_2+v_1=a_1u_1.</annotation></semantics></math></p>
-<div class="theorem">
+<div class="theorem" id="long243:res:secondorder">
 <p><strong>Theorem 5.4</strong> (eliminating the denominator from two
 steps). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>u</mi><mo>,</mo><msub><mi>u</mi><mn>1</mn></msub><mo>,</mo><msub><mi>u</mi><mn>2</mn></msub><mo>,</mo><mi>v</mi><mo>,</mo><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><mi>h</mi><mo>,</mo><msub><mi>h</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">a,a_1,u,u_1,u_2,v,v_1,h,h_1</annotation></semantics></math>
@@ -2196,7 +2196,7 @@ for the denominator before the first step, and
 for the two multipliers. Then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>2</mn></msub><mo>+</mo><msup><mi>a</mi><mn>2</mn></msup><mi>p</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>p</mi><mn>1</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">p_2+a^2p=(a+a_1)p_1.</annotation></semantics></math>
 The resulting square identity is as follows.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:curvature">
 <p><strong>Theorem 5.5</strong> (a square identity without cancellation).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>p</mi><mo>,</mo><msub><mi>p</mi><mn>1</mn></msub><mo>,</mo><msub><mi>p</mi><mn>2</mn></msub><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">a,a_1,p,p_1,p_2,q</annotation></semantics></math>
@@ -2270,7 +2270,7 @@ cancellation or a sign estimate for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><msub><mi>p</mi><mn>2</mn></msub><mo>−</mo><msubsup><mi>p</mi><mn>1</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">pp_2-p_1^2</annotation></semantics></math>.
 No such information is deduced here for an arbitrary rational
 near-quadratic tail.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:oldmodulussaturation">
 <p><strong>Lemma 5.6</strong> (saturation modulo an old denominator).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\ge2</annotation></semantics></math>.
@@ -2308,7 +2308,7 @@ Useful further restrictions must therefore retain information discarded
 here: for example multiplier size, changing moduli, or primes outside
 the old denominator. The square restriction used in the cubic proof
 concerns precisely a prime at which a middle numerator vanishes.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:eventual">
 <p><strong>Theorem 5.7</strong> (sequence form). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,D,C:\mathbb{N}\to\mathbb{Z}</annotation></semantics></math>
 satisfy
@@ -2335,7 +2335,7 @@ to vanish eventually.</p>
 <p>The same identity shows that a zero error persists whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>
 at the subsequent indices.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:absorb">
 <p><strong>Theorem 5.8</strong> (zero is absorbing). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -2496,7 +2496,7 @@ jump. For the divergence direction, unboundedness of
 suffices; no limit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">U_n\to\infty</annotation></semantics></math>
 is assumed.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:arithmeticrecord">
 <p><strong>Theorem 6.1</strong> (boundedness and a weighted sum over new
 maxima). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>,</mo><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_n,L_n,U_n</annotation></semantics></math>
@@ -2635,7 +2635,7 @@ excluded records with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho_n\ge2</annotation></semantics></math>.
 For reciprocal tails we also have vanishing relative error. This forces
 the numerator to be unbounded whenever Sylvester behaviour fails.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:weightedrecord">
 <p><strong>Theorem 6.2</strong> (a convergent weighted sum over new
 maxima). <em> Assume the growth and rationality hypotheses of
 Problem 1.1, and let
@@ -2972,7 +2972,7 @@ transfer that bound directly to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mo>=</mo><msub><mi>G</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>n</mi></msub><mo>−</mo><msub><mi>p</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><annotation encoding="application/x-tex">(-E_n)_+=G_n(q_n-p_n)_+</annotation></semantics></math>
 would also require control of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>n</mi></msub><annotation encoding="application/x-tex">G_n</annotation></semantics></math>.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:valuationtransition">
 <p><strong>Lemma 7.1</strong> (the denominator valuation transition).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">u,v,a</annotation></semantics></math>
@@ -3060,7 +3060,7 @@ valuation of the reduced denominator rises from
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
 This is a finite exact step, not an infinite counterexample.</p>
-<div class="corollary">
+<div class="corollary" id="long243:res:powerpersistence">
 <p><strong>Corollary 7.2</strong> (persistence of a prime power). <em>
 Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>k</mi></msup><mo>∣</mo><msub><mi>v</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">p^k\mid v_s</annotation></semantics></math>.
@@ -3089,7 +3089,7 @@ below.</p>
 </section>
 <section id="growth-of-the-running-maximum" class="level3">
 <h3>Growth of the running maximum</h3>
-<div class="theorem">
+<div class="theorem" id="long243:res:recorddichotomy">
 <p><strong>Theorem 7.3</strong> (increments of the running maximum). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Theta=\limsup_n(H_{n+1}-H_n)/\ell(H_n)</annotation></semantics></math>
@@ -3132,7 +3132,7 @@ size
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><msub><mi>C</mi><mi>n</mi></msub></msqrt><annotation encoding="application/x-tex">\sqrt{C_n}</annotation></semantics></math>
 has relative size tending to zero but violates the condition. These are
 comparisons of bounds, not constructions of reciprocal tails.</p>
-<div class="corollary">
+<div class="corollary" id="long243:res:loglogboundary">
 <p><strong>Corollary 7.4</strong> (the double-logarithmic bound). <em> If
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">limsup</mi><mi>n</mi></munder><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><mrow><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>≤</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\limsup_n\frac{(-E_n)_+}{\ell(C_n)}\le1,</annotation></semantics></math>
 then the sequence is eventually Sylvester. Every counterexample
@@ -3474,7 +3474,7 @@ since
 <section id="bounds-that-allow-for-cancellation-and-earlier-decreases"
 class="level3">
 <h3>Bounds that allow for cancellation and earlier decreases</h3>
-<div class="theorem">
+<div class="theorem" id="long243:res:recordamplified">
 <p><strong>Theorem 7.5</strong> (bounds allowing for previous decreases).
 <em> Under the standing hypotheses, the following are equivalent:
 eventual Sylvester behaviour;
@@ -3485,7 +3485,7 @@ Each of those two limits superior is
 or
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math>.</em></p>
 </div>
-<div class="corollary">
+<div class="corollary" id="long243:res:criticalrate">
 <p><strong>Corollary 7.6</strong> (the critical rate). <em> Under the
 standing hypotheses and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\delta_n=O(1/n)</annotation></semantics></math>,
@@ -3668,7 +3668,7 @@ critical-rate hypothesis, the preceding corollary supplies the required
 control. The eventual Sylvester recurrence makes the expression
 eventually zero. We do not derive it for every rational tail satisfying
 the growth hypothesis.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:oddpowersupply">
 <p><strong>Lemma 7.7</strong> (large odd prime powers in the reduced
 denominator). <em> Under the standing hypotheses, for every fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A&gt;0</annotation></semantics></math>
@@ -3735,7 +3735,7 @@ An offending exact prime-power factor is the required
 <p>The argument compares the logarithm of the odd denominator part with
 the logarithm of a factorial bound. It needs neither the prime number
 theorem nor a lower density of new primes, and makes no such claim.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:unitrecord">
 <p><strong>Theorem 7.8</strong> (unit record increments). <em> Under the
 standing hypotheses, if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>R</mi><mi>n</mi></msub><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R_{n+1}-R_n\le1</annotation></semantics></math>
@@ -3840,7 +3840,7 @@ transfer from actual jumps to increments of the running maximum.</p>
 <section id="counting-jumps-before-a-prime-power-can-be-lost"
 class="level3">
 <h3>Counting jumps before a prime power can be lost</h3>
-<div class="theorem">
+<div class="theorem" id="long243:res:epochenergy">
 <p><strong>Theorem 7.9</strong> (counting crossings before a prime power
 is lost). <em> Let the orbit satisfy the reduced recurrences of this
 section, with
@@ -3947,7 +3947,7 @@ non-Sylvester rational tail contributes a fixed positive amount on
 arbitrarily late finite intervals. Thus convergence is a genuine
 additional requirement, not a restatement of the pointwise limit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|E_n|/C_n\to0</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:energycriterion">
 <p><strong>Theorem 7.10</strong> (two convergence criteria for large
 record jumps). <em> Under the standing hypotheses, the sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℰ</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>≥</mo><mn>3</mn></mrow></msub><msubsup><mi>u</mi><mi>n</mi><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>n</mi></msub><mo>−</mo><mn>2</mn><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><msubsup><mi>u</mi><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal E=\sum_{n\ \mathrm{record}}\bigl(\mathbf 1_{d_n\ge3}u_n^{-1/2}
@@ -4031,7 +4031,7 @@ Lemma 7.7 supplies such prime powers.</p>
 <section id="bounds-on-the-error-and-on-the-original-sequence"
 class="level3">
 <h3>Bounds on the error and on the original sequence</h3>
-<div class="theorem">
+<div class="theorem" id="long243:res:slownegative">
 <p><strong>Theorem 7.11</strong> (slow negative part). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy <code>[long243:eq:recurrences]</code> with
@@ -4125,7 +4125,7 @@ in the ratio produces increments of order
 The theorem allows a finite positive upper limit where the classical
 product criterion requires a nonpositive one; neither bound is derived
 from the original problem alone.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:strausbounded">
 <p><strong>Theorem 7.12</strong> (bounded or slowly growing increments of
 the product ratio). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>a</mi><mn>2</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">a_1&lt;a_2&lt;\cdots</annotation></semantics></math>
@@ -4240,7 +4240,7 @@ exactly the expression in the short note’s LCM corollary.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_n+qQ_n=o(1)</annotation></semantics></math>
 has its classical predecessor in Koizumi’s proof of Corollary 4(1) <span
 class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>.</p>
-<div class="corollary">
+<div class="corollary" id="long243:res:onethreshold">
 <p><strong>Corollary 7.13</strong> (the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
 threshold). <em> Let
@@ -4381,7 +4381,7 @@ have the opposite sign to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>:
 the next identity displays the correction, including its sign under the
 eventual Sylvester recurrence.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:classicalhalfspace">
 <p><strong>Proposition 7.14</strong> (comparison of the two signs). <em>
 The factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">M_n=D_n/L_n</annotation></semantics></math>
@@ -4513,7 +4513,7 @@ elementary interval count in that setting. It tests what can follow from
 avoiding whole multiples alone. Unlike the reciprocal-tail argument, it
 imposes all the moduli from the outset and has no denominator recurrence
 or cancellation factors.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:coprimalitycap">
 <p><strong>Proposition 7.15</strong> (an elementary interval bound). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>&lt;</mo><msub><mi>m</mi><mn>1</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">m_0&lt;m_1&lt;\cdots</annotation></semantics></math>
@@ -4660,7 +4660,7 @@ makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>
 nonincreasing, and a decreasing sequence of natural numbers must
 stabilise.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:descent">
 <p><strong>Theorem 8.1</strong> (descent). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>,</mo><mi>E</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">C,E:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -4724,7 +4724,7 @@ this is a closed system in
 We shall prove that it has no infinite natural-number solution with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_n\ge2</annotation></semantics></math>,
 after examining a finite example.</p>
-<div class="example">
+<div class="example" id="long243:ex:shape">
 <p><strong>Example 9.1</strong> (a nonintegral second step). <em> Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>c</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=c=1</annotation></semantics></math>,
 so that
@@ -4763,7 +4763,7 @@ successful updates, hence
 multiplier values including
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>0</mn></msub><annotation encoding="application/x-tex">a_0</annotation></semantics></math>.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="long243:res:constant">
 <p><strong>Theorem 9.2</strong> (no constant negative magnitude). <em>
 For any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>,</mo><mi>c</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">m,c\in\mathbb{N}</annotation></semantics></math>
@@ -4991,7 +4991,7 @@ repeated prime can therefore be divided out of the entire system. This
 explains the induction on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 in the proof.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:periodic">
 <p><strong>Theorem 10.1</strong> (no periodic negative magnitude). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>e</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,D,C,e:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -5132,7 +5132,7 @@ positive magnitudes without an independent smallness assumption. The
 numbered theorem retains the pointwise bound used by its checked
 phase-by-phase proof. The later bounded-negative theorem also excludes
 this case.</p>
-<div class="remark">
+<div class="remark" id="long243:rem:eventual-error-bound">
 <p><strong>Remark</strong>. <em> For the tail numerators of <span
 class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, the absolute error
 satisfies
@@ -5184,7 +5184,7 @@ already suffice.</em></p>
 fixed period. It produces a block of consecutive forbidden values. An
 unbounded numerator with bounded upward steps must enter that block when
 it first crosses its lower end.</p>
-<div class="lemma">
+<div class="lemma" id="long243:res:crt">
 <p><strong>Lemma 11.1</strong> (shifted blocks of consecutive multiples).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>m</mi><mrow><mi>B</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">m_0,\ldots,m_{B-1}</annotation></semantics></math>
@@ -5231,7 +5231,7 @@ differences by greatest common divisors that the generalised theorem
 requires <span class="citation" data-cites="vandoornlitang2026"><a href="#ref-11">[11]</a></span>.
 The first-crossing argument below needs only the pairwise coprime
 case.</p>
-<div class="example">
+<div class="example" id="long243:ex:crt">
 <p><strong>Example 11.2</strong> (a block of three consecutive multiples).
 <em> Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">B=3</annotation></semantics></math>
@@ -5276,7 +5276,7 @@ and every member of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{3,4,5\}</annotation></semantics></math>
 is divisible by one of the three moduli.</em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="long243:res:barrier">
 <p><strong>Theorem 11.3</strong> (bounded increases and coprimality to
 earlier moduli). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">u:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -5358,7 +5358,7 @@ explains the condition
 to lowest terms and require that no further common factor be cancelled.
 In that case the reduced numerators and denominators still satisfy the
 original recurrences. The relevant coprimality is as follows.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:reduced">
 <p><strong>Proposition 11.4</strong> (persistent coprimality). <em>
 Suppose that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(u_n,v_n)=1</annotation></semantics></math>
@@ -5416,7 +5416,7 @@ exclusion under bounded upward increments</a>, together with its
 eventual form, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/be89e72217ec9c5f05aa5ec7b915c1ebf0816fdd/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1066">version
 with an eventual increment bound</a>.</p>
-<div class="example">
+<div class="example" id="long243:ex:reduced">
 <p><strong>Example 11.5</strong> (coprimality in Sylvester’s sequence).
 <em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u_n=1</annotation></semantics></math>
@@ -5444,7 +5444,7 @@ divides every later gcd, and at a negative index it also divides the
 nonzero magnitude. Thus a bound at arbitrarily late negative indices
 bounds the entire gcd sequence. The next proposition justifies dividing
 by its eventual value.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:gcdstab">
 <p><strong>Proposition 11.6</strong> (the tail gcd stabilises). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,D,C:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -5515,7 +5515,7 @@ satisfying <code>[long243:eq:recurrences]</code> with
 put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi mathvariant="normal">Γ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mi>N</mi><mo>:</mo><msub><mi>G</mi><mi>j</mi></msub><mo>&lt;</mo><msub><mi>G</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">G_n=\gcd(C_n,D_n),\qquad
  \Gamma(N)=\#\{0\le j&lt;N:G_j&lt;G_{j+1}\}.</annotation></semantics></math></p>
-<div class="proposition">
+<div class="proposition" id="long243:res:gcdsparse">
 <p><strong>Proposition 11.7</strong> (vanishing relative error makes
 strict gcd changes sparse). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -5596,7 +5596,7 @@ For positive integer solutions of <code>[long243:eq:recurrences]</code>
 with vanishing relative error, both criteria are equivalent to eventual
 zero error. Neither extra estimate has been derived from the
 unrestricted hypotheses.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:bounded">
 <p><strong>Theorem 12.1</strong> (bounded negative part). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -5655,7 +5655,7 @@ and
 Their coprimality properties from Proposition 11.4 now contradict
 Theorem 11.3. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="long243:res:cor">
 <p><strong>Corollary 12.2</strong>. <em> Under the hypotheses of
 Theorem 12.1, the multipliers satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^{2}-a_n+1</annotation></semantics></math>
@@ -5703,7 +5703,7 @@ and
 have relative increases tending to zero but divergent sums. The eventual
 Sylvester recurrence gives an eventually constant numerator, so it
 satisfies the summability condition.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:mass">
 <p><strong>Theorem 13.1</strong> (finite sum of relative increases). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">C_n\in\mathbb{N}_{&gt;0}</annotation></semantics></math>
@@ -5792,7 +5792,7 @@ supply the same positive integer update after a finite restart.
 Theorem 13.1 therefore applies if the relative-increase sum converges.
 This is the sole additional hypothesis, asked for in Problem 14.5; the
 cited construction does not establish it.</p>
-<div class="example">
+<div class="example" id="long243:ex:mass">
 <p><strong>Example 13.2</strong> (the product bound at a geometric rate).
 <em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>0</mn></msub><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">C_0=100</annotation></semantics></math>
@@ -5839,7 +5839,7 @@ estimates which would exclude it. The constant and periodic arguments
 concern all-negative tails. They leave open a periodic pattern seen only
 along the negative indices of a mixed-sign sequence. The unrestricted
 problem remains unresolved here.</p>
-<div class="proposition">
+<div class="proposition" id="long243:res:frontier">
 <p><strong>Proposition 14.1</strong> (necessary conditions on a
 counterexample). <em> For the integer tail attached to any
 counterexample to Problem 1.1,
@@ -5872,7 +5872,7 @@ the exact recurrences. With those recurrences, positivity and vanishing
 relative error, Section 4 supplies the reciprocal-series realisation.
 The following exact-orbit question is therefore equivalent to the
 original problem.</p>
-<div class="problem">
+<div class="problem" id="long243:res:excursions">
 <p><strong>Problem 14.2</strong> (unbounded negative errors with divergent
 relative sum). <em> Exclude, or construct, natural-number sequences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a,D,C)</annotation></semantics></math>
@@ -5901,7 +5901,7 @@ increasing, and the infinitely many negative errors rule out a Sylvester
 tail. It is therefore a counterexample to Problem #243. Finite
 admissible prefixes alone do not provide such a construction.</em></p>
 </div>
-<div class="remark">
+<div class="remark" id="long243:rem:recurrence-without-relative-bound">
 <p><strong>Remark</strong>. <em> The recurrences alone admit unbounded
 negative errors for which
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n(-E_n)_+/C_n</annotation></semantics></math>
@@ -6131,7 +6131,7 @@ nor does it supply a lower bound for the least common multiple of the
 chosen moduli. Those are the missing inputs needed to
 turn <code>[long243:eq:repair-entropy]</code> into a global
 contradiction.</p>
-<div class="problem">
+<div class="problem" id="long243:res:lcmheight">
 <p><strong>Problem 14.3</strong> (growth of repeated denominator factors).
 <em> For every rational-tail orbit satisfying the hypotheses but not the
 conclusion of Problem 1.1, must
@@ -6168,7 +6168,7 @@ estimate</a> and vanishing relative error make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|E_n|</annotation></semantics></math>
 subexponential in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</p>
-<div class="problem">
+<div class="problem" id="long243:res:prefixgcd">
 <p><strong>Problem 14.4</strong> (common factors of the prefix and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n-1</annotation></semantics></math>).
 <em> In every rational-tail orbit satisfying the hypotheses but not the
@@ -6194,7 +6194,7 @@ prefix.</p>
 </section>
 <section id="the-direct-analytic-question" class="level3">
 <h3>The direct analytic question</h3>
-<div class="problem">
+<div class="problem" id="long243:res:masshyp">
 <p><strong>Problem 14.5</strong> (summability from rationality). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_n)</annotation></semantics></math>
 satisfy the hypotheses of Problem 1.1, and let
@@ -6222,7 +6222,7 @@ numerator exceeds its previous maximum. It subtracts
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 from each upward jump, takes the positive part and weights it by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(U_n)</annotation></semantics></math>.</p>
-<div class="remark">
+<div class="remark" id="long243:rem:relative-error-boundary">
 <p><strong>Remark</strong>. <em> One further question is not left open
 here, since it is answered in <span class="citation"
 data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>: whether vanishing relative error
@@ -6256,7 +6256,7 @@ conditional.</em></p>
 </section>
 <section id="unbounded-upward-increments" class="level3">
 <h3>Unbounded upward increments</h3>
-<div class="proposition">
+<div class="proposition" id="long243:res:variablerise">
 <p><strong>Proposition 14.6</strong> (small increases when the prime
 moduli are sparse). <em> There exist strictly increasing primes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_i</annotation></semantics></math>
@@ -6316,7 +6316,7 @@ For a finite prefix, the corresponding product is exactly the proportion
 of admissible residue classes by the Chinese remainder theorem. This
 explains the constant in the statement before the limiting argument is
 made.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:gapconstant">
 <p><strong>Theorem 14.7</strong> (largest gaps between integers avoiding
 given multiples). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>&lt;</mo><msub><mi>m</mi><mn>1</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">m_0&lt;m_1&lt;\cdots</annotation></semantics></math>
@@ -6701,7 +6701,7 @@ Computing a pseudo-greedy orbit through residues modulo a shrinking
 product modulus is Koizumi’s method <span class="citation"
 data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>; for the forced numerator that product
 is a factorial.</p>
-<div class="theorem">
+<div class="theorem" id="long243:res:residue">
 <p><strong>Theorem B.1</strong> (factorial residue reduction). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 be a nonnegative integer and let

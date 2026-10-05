@@ -266,7 +266,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 35,
-      "renderer_fingerprint": "f4a483d215eb8e2b",
+      "renderer_fingerprint": "065862ae86e3b045",
       "source_sha256": "b3af4159e690e4ddf0769bdf9354e12ed6f24d1d025355ffae0886a9fc0732df",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -290,7 +290,7 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "15ff4394ae597a22495dde09ad764d7b1f96f66f864f3ef09bbeebd8acfdf8f8",
+      "html_mathml_sha256": "c110a984f2adfb073692ce47e7207f6c48918874a48a8cb9740aeb759b3199fe",
       "html_exact_tex_sha256": "4092d52af5571ac69117375b22b40a8118c2648011c182969be1377a700ca166"
     },
     "sections": [
@@ -439,7 +439,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_sha256": "b3af4159e690e4ddf0769bdf9354e12ed6f24d1d025355ffae0886a9fc0732df",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -463,7 +463,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "15ff4394ae597a22495dde09ad764d7b1f96f66f864f3ef09bbeebd8acfdf8f8",
+        "html_mathml_sha256": "c110a984f2adfb073692ce47e7207f6c48918874a48a8cb9740aeb759b3199fe",
         "html_exact_tex_sha256": "4092d52af5571ac69117375b22b40a8118c2648011c182969be1377a700ca166"
       },
       "sections": [
@@ -612,7 +612,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 35,
-        "renderer_fingerprint": "f4a483d215eb8e2b",
+        "renderer_fingerprint": "065862ae86e3b045",
         "source_sha256": "72d8a70b0fa558fde03ab31c4a6ab46f127739e368c4efa2f4a034f505f49920",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -667,7 +667,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "e5c9e9707e1c31b3983806249c565041e062a3e0fc79a92f619cb59f6304eb45",
+        "html_mathml_sha256": "41c6a4b4ef09f3c80eeb176a6627d7d264bc890fa9421e416f89c9e23e292b7c",
         "html_exact_tex_sha256": "6d9f94c6ab220cdb3e43562cb32a1d9fd2d3b4283fb9c5f9e55ca1f715a81a95"
       },
       "sections": [

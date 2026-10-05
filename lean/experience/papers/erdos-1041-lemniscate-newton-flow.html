@@ -23,7 +23,7 @@ disc could always be connected by a short curve in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Ω</mi><mi>f</mi></msub><annotation encoding="application/x-tex">\Omega_f</annotation></semantics></math>.
 Their question is listed as Problem 1041 in Bloom’s catalogue <span
 class="citation" data-cites="bloom"><a href="#ref-1">[1]</a></span>.</p>
-<div class="problem">
+<div class="problem" id="res:problem">
 <p><strong>Problem 1.1</strong> (Erdős #1041). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(z)=\prod_{i=1}^{n}(z-z_i)</annotation></semantics></math>
 be monic with
@@ -43,7 +43,7 @@ close-pair chord or radial segments through the centre of a smallest
 enclosing disc. In degree seven the answer is negative. The example was
 constructed by the erdosproblems.com contributor <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>.</p>
-<div class="theorem">
+<div class="theorem" id="res:ani-degree-seven-counterexample">
 <p><strong>Theorem 1.2</strong> (<code>ani</code>’s degree-seven example).
 <em> The monic polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -157,7 +157,7 @@ images found near
 must account for <em>every</em> inverse image in the chosen component.
 Otherwise a local estimate would leave a possible connection elsewhere
 in the component.</p>
-<div class="lemma">
+<div class="lemma" id="lem:two-sheet-bottleneck">
 <p><strong>Lemma 2.1</strong>. <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 be a polynomial and
@@ -493,7 +493,7 @@ lets us eliminate its contribution before taking absolute values. Only
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mi>ζ</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">-\zeta^n</annotation></semantics></math>
 remain, both of modulus less than one.</p>
-<div class="theorem">
+<div class="theorem" id="res:trinomial-all-degree">
 <p><strong>Theorem 3.1</strong> (all-degree monic trinomials). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1\le m&lt;n</annotation></semantics></math>
 and
@@ -559,7 +559,7 @@ need not be controlled by the root locations. The theorem controls
 segments ending at zeros; it makes no assertion that the whole
 lemniscate is star-shaped. The next polynomial shows where the
 partial-sum argument can fail after a further term is added.</p>
-<div class="proposition">
+<div class="proposition" id="res:sextic-spoke">
 <p><strong>Proposition 3.2</strong> (failure of a prescribed radial
 segment). <em> There exist
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r\in(0,1)</annotation></semantics></math>
@@ -610,7 +610,7 @@ is sufficiently large, this contradicts Pólya’s area bound.</p>
 <p>The companion gives the ordinary analytic argument and its rational
 comparison. They yield the following unformalised criterion, with no
 restriction on the locations of the zeros.</p>
-<div class="remark">
+<div class="remark" id="res:low-critical-thirteen-twentyfifths">
 <p><strong>Remark 4.1</strong> (unformalised small-critical-value
 assertion). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -625,7 +625,7 @@ then two distinct roots are joined inside
 by a rectifiable curve of length strictly less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</em></p>
 </div>
-<div class="remark">
+<div class="remark" id="res:scaled-low-critical">
 <p><strong>Remark 4.2</strong> (scaling of the preceding assertion). <em>
 Every squarefree monic polynomial of degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
@@ -881,7 +881,7 @@ and radius
 therefore satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>&gt;</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mn>0</mn></msub><mo>,</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S&gt;\max(w_0,1-w_0)</annotation></semantics></math>.
 These are the parameters in the following statement.</p>
-<div class="remark">
+<div class="remark" id="res:critical-value-separation">
 <p><strong>Remark 5.1</strong> (unformalised isolated-value assertion).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -930,7 +930,7 @@ Thus the disc with centre
 and radius
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>
 satisfies the separation hypothesis.</p>
-<div class="remark">
+<div class="remark" id="res:critical-value-thresholds">
 <p><strong>Remark 5.2</strong> (conditional numerical thresholds). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>

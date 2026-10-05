@@ -1,14 +1,22 @@
-// The landing's system map (assets/system-map.js), run in a vm against the
-// published architecture scene with a fake canvas, frame clock and observers.
+// The system map (assets/system-map.js, the circle, 2026-10-04): run in a vm
+// against the published architecture scene and a doctrine projection, with a
+// small fake DOM whose boxes are laid out deterministically, so every view's
+// words, lines and addresses can be checked without a browser. The geometry
+// at real sizes (no overlaps, no clipping, type sizes) is audited in Chrome by
+// the capture scripts; these tests pin the data, the relations drawn (and only
+// those), the words, the levels, the addresses and the keyboard.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 const source = readFileSync(new URL('../assets/system-map.js', import.meta.url), 'utf8');
-const sceneFile = JSON.parse(readFileSync(new URL('../docs/architecture-graph-scene.json', import.meta.url), 'utf8'));
+// SYSTEM_MAP_SCENE and SYSTEM_MAP_DOCTRINE name other data files to run the
+// same tests against (a regenerated scene or manifest, before it is published).
+const SCENE_PATH = process.env.SYSTEM_MAP_SCENE || new URL('../docs/architecture-graph-scene.json', import.meta.url);
+const DOCTRINE_PATH = process.env.SYSTEM_MAP_DOCTRINE || new URL('../docs/doctrine-manifest.json', import.meta.url);
+const sceneFile = JSON.parse(readFileSync(SCENE_PATH, 'utf8'));
 const clone = value => JSON.parse(JSON.stringify(value));
-// Values from the vm's own realm compare by their JSON.
 const plain = value => JSON.parse(JSON.stringify(value));
 
 const CLASSES = [
@@ -20,8 +28,33 @@ const CLASSES = [
 ];
 
 // The scene as the deploy publishes it, with per-object details. A checkout
-// whose scene predates the details gets them synthesised, deterministically.
-function liveScene() {
+// whose scene predates the details gets them synthesised, deterministically,
+// including the prose the column trims (one sentence carries a file name, as
+// some published ones do, and must never be shown).
+const CODE_RELATIONS = ['runs', 'reads_results_of', 'checks_copies_of'];
+const codeEdges = json => json.scene.edges.filter(e => CODE_RELATIONS.includes(e.relation));
+// Most tests pin the older shape of scene, whose links are the relations a
+// component's own record lists (still drawn, without direction). A scene
+// derived from the code has none, so for those tests they are made up from
+// its components, deterministically, in place of its code connections: each
+// component lists a few others, the first a dozen, the last none.
+function withListedRelations(json) {
+  const scene = json.scene;
+  if (declared(json).length) return json;
+  const ids = compNodes(json).map(n => n.id), n = ids.length - 1, seen = new Set(), made = [];
+  const add = (a, b) => {
+    if (a === b || a === ids[n] || b === ids[n] || seen.has(a + '>' + b)) return;
+    seen.add(a + '>' + b);
+    made.push({ id: 'edge:declared:' + made.length, source: a, target: b, relation: 'declared_dependency_untyped', kind: 'declared_dependency_untyped' });
+  };
+  ids.slice(0, n).forEach((a, i) => { add(a, ids[(i * 7 + 3) % n]); if (i % 2 === 0) add(a, ids[(i * 13 + 5) % n]); });
+  for (let j = 1; j <= 12; j++) add(ids[0], ids[(j * 5) % n]);
+  scene.edges = scene.edges.filter(e => !CODE_RELATIONS.includes(e.relation)).concat(made);
+  delete json.edge_semantics;
+  return json;
+}
+function liveScene() { return withListedRelations(detailedScene()); }
+function detailedScene() {
   const json = clone(sceneFile);
   const scene = json.scene;
   if (scene.inspectors && Object.keys(scene.inspectors).length) return json;
@@ -35,15 +68,18 @@ function liveScene() {
       scene.inspectors[ref] = {
         title: n.label, public_label: n.label, family_id: n.parent_cluster_id.replace('cluster:', ''),
         summary_line: `What ${n.label} does, in one sentence.`,
+        what_it_does: `It reads its inputs and checks them. It writes one record per check. It loads helper_module.py before it runs. It stops there.`,
+        links_note: `composition root naming some_component_id and another_one`,
         evidence: { class_id, kind, rank, runs_real_tools: runs, basis },
+        source_links: [{ label: 'Design note', url: `https://example.org/${slug}.md` }, { label: 'Source', url: `https://example.org/${slug}.py` }],
         routes: { component_detail_href: `component-${slug}.html`, primary_reader_href: `paper-module-${slug}.html`,
                   map_href: `architecture.html#map=${encodeURIComponent(n.id)}` },
       };
     } else if (n.kind === 'area') {
-      scene.inspectors[ref] = { title: n.label, summary: n.summary,
+      scene.inspectors[ref] = { title: n.label, summary: `What the ${n.label} family is for, in plain words.`,
         routes: { primary_reader_href: n.resolver_ref.replace(/^docs\//, ''), map_href: `architecture.html#map=${encodeURIComponent(n.id)}` } };
     } else {
-      scene.inspectors[ref] = { title: n.label, routes: { map_href: `architecture.html#map=${encodeURIComponent(n.id)}` } };
+      scene.inspectors[ref] = { title: n.label, routes: {} };
     }
   });
   return json;
@@ -57,11 +93,13 @@ function staleScene() {
   return json;
 }
 const declared = json => json.scene.edges.filter(e => (e.relation || e.kind) === 'declared_dependency_untyped');
+const compNodes = json => json.scene.nodes.filter(n => /component$/.test(n.kind));
+const famOf = json => Object.fromEntries(compNodes(json).map(n => [n.id, n.parent_cluster_id.replace('cluster:', '')]));
 
 // The doctrine projection (docs/doctrine-manifest.json, written by
-// microcosm_doctrine_manifest.py): the public titles, and relations dealt
-// out deterministically so the fixture reaches the drawing's extremes (up
-// to eleven principles and eight axioms on one component).
+// microcosm_doctrine_manifest.py at deploy): the public titles, and relations
+// dealt out deterministically so a component cites some principles, some
+// axioms its principles do not rest on, and enforces rules it does not cite.
 const AXIOMS = ['Derivation before assertion', 'Kernelized verification', 'Authority by derivation, not possession',
   'Content-addressed determinism', 'Fail-closed monotone lattice', 'Open-world epistemics', 'Typed partiality and refusal',
   'Provenance propagation and non-interference', 'Compensable transactional effects',
@@ -74,187 +112,232 @@ const PRINCIPLES = ['Recompute, do not echo', 'Lower claim strength to checker s
   'Make doctrine executable before authoritative', 'Apply the same floor to meta artifacts', 'Carry basis and provenance together',
   'Keep projections below source authority', 'Bind authority to transaction scope', 'Anchor graph mutations to unique source rows',
   'Require fan-in before activation', 'Classify residual pressure before wiring', 'Bind result records before record authority'];
-const GUARDS = ['Fixture-label echo', 'Producer trust', 'Rank-as-product-score', 'Cache-across-drift', 'Unknown-unknown exhaustiveness',
+const FAILURES = ['Fixture-label echo', 'Producer trust', 'Rank-as-product-score', 'Cache-across-drift', 'Unknown-unknown exhaustiveness',
   'Inadmissible number emission', 'Public/private membrane breach', 'Blind irreversible mutation', 'Frozen live fact',
   'Prose-as-executable-authority', 'Meta-artifact exemption', 'Synthetic system substitution',
   'Generated-result record source inversion', 'Public-authority inflation', 'Mechanism theater', 'Receiver inflation',
   'Projection-as-source'];
 function doctrineFor(json) {
-  const comps = json.scene.nodes.filter(n => /component$/.test(n.kind)).map(n => n.id);
-  const rule = (prefix, kind, i, title) => ({
+  const comps = compNodes(json).map(n => n.id);
+  const rule = (prefix, i, title) => ({
     id: `${prefix}-${i + 1}`, title, plain: `What ${title.toLowerCase()} asks, in plain words.`,
     doctrine: `doctrine.html#dcard-${prefix.toLowerCase()}-${i + 1}`,
-    context: `rules-and-ideas.html#lattice-${kind}-${prefix.toLowerCase()}-${i + 1}`,
     enforced_in: [comps[(i * 7) % comps.length], comps[(i * 7 + 3) % comps.length]],
   });
-  const axioms = AXIOMS.map((t, i) => ({ ...rule('AX', 'axiom', i, t), grounds: [], guarded_by: [] }));
-  // As in the doctrine, neighbouring principles share their axioms.
-  const principles = PRINCIPLES.map((t, i) => ({ ...rule('P', 'principle', i, t), guarded_by: [],
+  const axioms = AXIOMS.map((t, i) => ({ ...rule('AX', i, t), grounds: [], guarded_by: [] }));
+  const principles = PRINCIPLES.map((t, i) => ({ ...rule('P', i, t), guarded_by: [],
     rests_on: [...new Set([`AX-${Math.floor(i * 0.6) + 1}`, ...(i % 4 === 0 ? [`AX-${((Math.floor(i * 0.6) + 3) % 12) + 1}`] : [])])] }));
-  const guards = GUARDS.map((t, i) => ({ ...rule('AP', 'anti-principle', i, t),
+  const failures = FAILURES.map((t, i) => ({ ...rule('AP', i, t),
     guards: [...new Set([`AX-${(i % 12) + 1}`, ...(i % 2 ? [`AX-${((i + 7) % 12) + 1}`] : [])])],
     negates: [`P-${(i % 20) + 1}`] }));
   principles.forEach(p => p.rests_on.forEach(a => axioms[+a.slice(3) - 1].grounds.push(p.id)));
-  guards.forEach(g => g.guards.forEach(a => axioms[+a.slice(3) - 1].guarded_by.push(g.id)));
-  guards.forEach(g => g.negates.forEach(p => principles[+p.slice(2) - 1].guarded_by.push(g.id)));
-  // A component cites a run of related principles (up to eleven), abides by
-  // some of the axioms they rest on, and now and then by one they do not.
+  failures.forEach(g => g.guards.forEach(a => axioms[+a.slice(3) - 1].guarded_by.push(g.id)));
+  failures.forEach(g => g.negates.forEach(p => principles[+p.slice(2) - 1].guarded_by.push(g.id)));
   const components = comps.map((id, i) => {
-    const governed = Array.from({ length: 1 + (i % 11) }, (_, k) => `P-${((i * 3 + k) % 20) + 1}`);
+    const governed = Array.from({ length: 1 + (i % 9) }, (_, k) => `P-${((i * 3 + k) % 20) + 1}`);
     const via = [...new Set(governed.flatMap(p => principles[+p.slice(2) - 1].rests_on))];
-    const extra = i % 9 === 0 ? [AXIOMS.map((_, a) => `AX-${a + 1}`).find(a => !via.includes(a))] : [];
-    return { id, governed_by: [...new Set(governed)], abides_by: [...new Set([...via.slice(0, 1 + (i % 4)), ...extra])] };
+    const extra = i % 5 === 0 ? [AXIOMS.map((_, a) => `AX-${a + 1}`).find(a => !via.includes(a))] : [];
+    return { id, governed_by: [...new Set(governed)], abides_by: [...new Set([...via.slice(0, 1 + (i % 3)), ...extra])] };
   });
   return { schema: 'plectis_system_doctrine_v1', receipt: [{ components: comps.length }],
-           axioms, principles, anti_principles: guards, components };
+           axioms, principles, anti_principles: failures, components };
 }
 const RULE_ID = /\b(?:AX|AP|P)-\d+\b/;
+const UNPLAIN = /—|\b[a-z0-9]+_[a-z0-9_]+\b|\b(?:AX|AP|P)-\d+\b|links_note|governed_by|abides_by|enforced_in|rests_on/;
 
-// A small fake DOM: class lists that agree with className, parents, and
-// selectors of the forms the map uses (tag, .class, [attr], [attr="v"],
-// combined, comma-separated).
+/* ---- A small DOM --------------------------------------------------------- */
+// Elements with class lists that agree with className, attributes (hidden
+// reflected), parents and siblings, listeners, and selectors of the forms
+// the map uses: tag, .class, [attr], [attr="v"], compounds, lists and the
+// descendant combinator. Boxes are laid out deterministically from creation
+// order so every measured line has two distinct ends.
+function matchesOne(el, sel) {
+  const m = /^([a-z0-9]*)((?:\.[\w-]+)*)((?:\[[\w-]+(?:="[^"]*")?\])*)$/i.exec(sel.trim());
+  if (!m || !el || !el.classList) return false;
+  if (m[1] && el.tagName !== m[1].toUpperCase()) return false;
+  if ((m[2] || '').split('.').filter(Boolean).some(c => !el.classList.contains(c))) return false;
+  for (const [, a, v] of (m[3] || '').matchAll(/\[([\w-]+)(?:="([^"]*)")?\]/g)) {
+    const got = el.getAttribute(a);
+    if (got === null || (v !== undefined && got !== v)) return false;
+  }
+  return true;
+}
 function matches(el, selector) {
   return selector.split(',').some(sel => {
-    const m = /^([a-z0-9]*)((?:\.[\w-]+)*)((?:\[[\w-]+(?:="[^"]*")?\])*)$/i.exec(sel.trim());
-    if (!m || !el.classList) return false;
-    if (m[1] && el.tagName !== m[1].toUpperCase()) return false;
-    if ((m[2] || '').split('.').filter(Boolean).some(c => !el.classList.contains(c))) return false;
-    for (const [, a, v] of (m[3] || '').matchAll(/\[([\w-]+)(?:="([^"]*)")?\]/g)) {
-      const got = el.getAttribute(a);
-      if (got === null || (v !== undefined && got !== v)) return false;
+    const parts = sel.trim().split(/\s+/);
+    if (!matchesOne(el, parts[parts.length - 1])) return false;
+    let at = el.parentNode;
+    for (let k = parts.length - 2; k >= 0; k--) {
+      while (at && !matchesOne(at, parts[k])) at = at.parentNode;
+      if (!at) return false;
+      at = at.parentNode;
     }
     return true;
   });
 }
-function node(tag = 'div') {
-  const events = {};
-  const classes = new Set();
-  const attrs = {};
-  const el = {
-    tagName: tag.toUpperCase(), children: [], hidden: false, style: {}, offsetWidth: 260, offsetHeight: 180,
-    _text: '', parentNode: null, scrollHeight: 0, clientHeight: 0,
-    get className() { return [...classes].join(' '); },
-    set className(v) { classes.clear(); String(v).split(/\s+/).filter(Boolean).forEach(c => classes.add(c)); },
-    get textContent() { return this._text + this.children.map(c => c.textContent).join(''); },
-    set textContent(v) { this._text = String(v); this.children = []; },
-    get firstChild() { return this.children[0] || null; },
-    get lastChild() { return this.children[this.children.length - 1] || null; },
-    appendChild(c) { if (c.parentNode && c.parentNode.removeChild) c.parentNode.removeChild(c); this.children.push(c); c.parentNode = this; return c; },
-    insertBefore(c, ref) {
-      const at = ref ? this.children.indexOf(ref) : -1;
-      if (at < 0) return this.appendChild(c);
-      this.children.splice(at, 0, c); c.parentNode = this; return c;
-    },
-    removeChild(c) { this.children = this.children.filter(x => x !== c); c.parentNode = null; return c; },
-    getAttribute: n => (n in attrs ? attrs[n] : null),
-    setAttribute(n, v) { attrs[n] = String(v); },
-    removeAttribute(n) { delete attrs[n]; },
-    hasAttribute: n => n in attrs,
-    classList: { contains: n => classes.has(n), add: n => classes.add(n), remove: n => classes.delete(n),
-      toggle(n, on) { if (on === undefined ? !classes.has(n) : on) classes.add(n); else classes.delete(n); } },
-    addEventListener(n, fn) { (events[n] ||= []).push(fn); },
-    fire(n, e = {}) { for (const fn of events[n] || []) fn({ preventDefault() {}, stopPropagation() {}, ...e }); },
-    all(predicate) { const out = []; const walk = n => { if (predicate(n)) out.push(n); (n.children || []).forEach(walk); }; this.children.forEach(walk); return out; },
-    querySelectorAll(sel) { return this.all(n => matches(n, sel)); },
-    querySelector(sel) { return this.querySelectorAll(sel)[0] || null; },
-    closest(sel) { let n = this; while (n) { if (matches(n, sel)) return n; n = n.parentNode; } return null; },
-    // Web Animations: a finished animation reports at once.
-    animate() { const a = { cancel() {} }; Object.defineProperty(a, 'onfinish', { set(fn) { if (fn) fn(); } }); return a; },
-    getBoundingClientRect() { return this._rect || { left: 0, top: 0, right: 0, bottom: 0, width: 0, height: 0 }; },
-  };
-  return el;
+function makeDom() {
+  let seq = 0;
+  const animations = [];
+  const doc = {};
+  function node(tag = 'div') {
+    const events = {};
+    const classes = new Set();
+    const attrs = {};
+    const style = { setProperty(k, v) { this[k] = String(v); }, removeProperty(k) { delete this[k]; } };
+    const n = seq++;
+    const el = {
+      tagName: tag.toUpperCase(), children: [], style, parentNode: null, _text: '', inert: false, disabled: false,
+      scrollHeight: 0, clientHeight: 0, scrollTop: 0, offsetWidth: 120, offsetHeight: 24, seq: n,
+      get hidden() { return 'hidden' in attrs; },
+      set hidden(v) { if (v) attrs.hidden = ''; else delete attrs.hidden; },
+      get className() { return [...classes].join(' '); },
+      set className(v) { classes.clear(); String(v).split(/\s+/).filter(Boolean).forEach(c => classes.add(c)); },
+      get textContent() { return this._text + this.children.map(c => c.textContent).join(''); },
+      set textContent(v) { this._text = String(v); this.children.forEach(c => { c.parentNode = null; }); this.children = []; },
+      set innerHTML(v) { this._html = String(v); },
+      get innerHTML() { return this._html || ''; },
+      get firstChild() { return this.children[0] || null; },
+      get lastChild() { return this.children[this.children.length - 1] || null; },
+      get nextSibling() { if (!this.parentNode) return null; const s = this.parentNode.children; return s[s.indexOf(this) + 1] || null; },
+      appendChild(c) { if (c.parentNode) c.parentNode.removeChild(c); this.children.push(c); c.parentNode = this; return c; },
+      insertBefore(c, ref) {
+        if (c.parentNode) c.parentNode.removeChild(c);
+        const at = ref ? this.children.indexOf(ref) : -1;
+        if (at < 0) { this.children.push(c); } else { this.children.splice(at, 0, c); }
+        c.parentNode = this;
+        return c;
+      },
+      removeChild(c) { this.children = this.children.filter(x => x !== c); c.parentNode = null; return c; },
+      getAttribute: a => (a === 'class' ? (classes.size ? [...classes].join(' ') : null) : a in attrs ? attrs[a] : null),
+      setAttribute(a, v) { if (a === 'class') this.className = v; else attrs[a] = String(v); },
+      removeAttribute(a) { if (a === 'class') classes.clear(); else delete attrs[a]; },
+      hasAttribute: a => a in attrs,
+      classList: {
+        contains: c => classes.has(c), add: c => classes.add(c), remove: c => classes.delete(c),
+        toggle(c, on) { if (on === undefined ? !classes.has(c) : on) classes.add(c); else classes.delete(c); return classes.has(c); },
+      },
+      addEventListener(type, fn) { (events[type] ||= []).push(fn); },
+      fire(type, e = {}) {
+        let stopped = false, prevented = false;
+        const ev = { type, target: el, detail: 1, pointerType: 'mouse', preventDefault() { prevented = true; ev.defaultPrevented = true; },
+                     stopPropagation() { stopped = true; }, defaultPrevented: false, ...e };
+        for (const fn of events[type] || []) fn(ev);
+        // clicks and keys bubble
+        if (!stopped && (type === 'click' || type === 'keydown') && el.parentNode && el.parentNode.fire && !e.noBubble) {
+          el.parentNode.fire(type, { ...e, target: ev.target, _bubbled: true });
+        }
+        return { prevented, ev };
+      },
+      all(predicate) { const out = []; const walk = x => { if (x.classList && predicate(x)) out.push(x); (x.children || []).forEach(walk); }; this.children.forEach(walk); return out; },
+      querySelectorAll(sel) { return this.all(x => matches(x, sel)); },
+      querySelector(sel) { return this.querySelectorAll(sel)[0] || null; },
+      closest(sel) { let x = this; while (x) { if (x.classList && matches(x, sel)) return x; x = x.parentNode; } return null; },
+      contains(x) { while (x) { if (x === this) return true; x = x.parentNode; } return false; },
+      focus() { doc.activeElement = this; },
+      scrollBy() {},
+      animate(frames, opts) { animations.push({ el: this, frames, opts }); const a = { cancel() {} }; return a; },
+      getBoundingClientRect() {
+        if (this._rect) return this._rect;
+        if (doc.columnTitleTop != null && classes.has('sc__title')) {
+          const top = doc.columnTitleTop;
+          return { top, bottom: top + 28, left: 0, right: 327, width: 327, height: 28 };
+        }
+        // The drawing's area is as wide as the test asks.
+        if (doc.areaWidth && classes.has('sm-area')) {
+          return { left: 0, top: 120, width: doc.areaWidth, height: 900, right: doc.areaWidth, bottom: 1020, x: 0, y: 120 };
+        }
+        const left = 40 + (n % 11) * 7, top = n * 9, width = 180, height = 22;
+        return { left, top, width, height, right: left + width, bottom: top + height, x: left, y: top };
+      },
+    };
+    return el;
+  }
+  Object.assign(doc, { node, animations });
+  return doc;
 }
-const textOf = n => (n ? n.textContent : '');
 
-// `doctrine: null` serves no projection (the drawing is the machinery
-// alone); `column: true` stands the landing's text column beside the
-// drawing, so the column companion reads it.
-async function mount({ scene = liveScene(), width = 677, height = 569, reduce = false, io = false, fine = true,
-                       settle = true, hash = '', doctrine, column = false, em = 0.52, overflow = 0, ownPage = false } = {}) {
+/* ---- Mounting -------------------------------------------------------------- */
+// `page`: the drawing on its own page (docs/system-map.html), with an address.
+async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '', page = false, column = true, inert = false,
+                       areaWidth = 0, innerHeight = 900, headerBottom = 0, columnTitleTop = null } = {}) {
   if (doctrine === undefined) doctrine = doctrineFor(scene);
-  let clears = 0, texts = [], font = '11px serif';
-  const calls = {};
-  // Text is measured as `em` of the font size a character (0.52 is wide; the
-  // site's serif sets about 0.46).
-  const ctx = new Proxy({
-    clearRect() { clears++; texts = []; for (const k of Object.keys(calls)) delete calls[k]; },
-    fillText(text, x, y) { texts.push({ text: String(text), x, y }); },
-    measureText(text) { const px = parseFloat((/([\d.]+)px/.exec(font) || [0, 11])[1]); return { width: String(text).length * px * em }; },
-  }, {
-    get: (t, k) => (k === 'font' ? font : k in t ? t[k] : () => { calls[k] = (calls[k] || 0) + 1; }),
-    set: (t, k, v) => { if (k === 'font') font = v; else t[k] = v; return true; },
-  });
-  const canvas = Object.assign(node('canvas'), { clientWidth: width, clientHeight: height, width: 0, height: 0,
-    getContext: () => ctx, getBoundingClientRect: () => ({ left: 0, top: 0, width, height }) });
-  canvas.setAttribute('data-system-src', 'docs/architecture-graph-scene.json');
-  canvas.setAttribute('data-system-base', ownPage ? '' : 'docs/');
-  canvas.classList.add('system-canvas');
-  canvas.setAttribute('data-system-doctrine', 'docs/doctrine-manifest.json');
-  const caption = node('p');
-  const familyIds = scene.scene.nodes.filter(n => n.kind === 'area').map(n => n.id);
-  const rows = familyIds.map(id => {
-    const li = node('li');
-    li.classList.add('home-family');
-    li.setAttribute('data-system-family', id);
-    const a = li.appendChild(node('a'));
-    a.appendChild(node('span')).classList.add('home-family__name');
-    a.appendChild(node('span')).classList.add('home-family__count');
+  const dom = makeDom();
+  dom.areaWidth = areaWidth;
+  dom.columnTitleTop = columnTitleTop;
+  const { node } = dom;
+  const section = node('section');
+  section.setAttribute('data-atlas-slide', 'system');
+  if (page) section.setAttribute('data-system-page', '');
+  section.inert = inert;
+  const host = section.appendChild(node('div'));
+  host.className = 'home-split__text';
+  host.appendChild(node('h2'));
+  const list = host.appendChild(node('ol'));
+  list.className = 'home-families';
+  const areas = scene.scene.nodes.filter(n => n.kind === 'area');
+  const rows = areas.map(a => {
+    const li = list.appendChild(node('li'));
+    li.className = 'home-family';
+    li.setAttribute('data-system-family', a.id);
+    const link = li.appendChild(node('a'));
+    link.setAttribute('href', `docs/${a.id}.html`);
+    const name = link.appendChild(node('span'));
+    name.className = 'home-family__name';
+    name.textContent = a.label;
     return li;
   });
-  const host = node('div');
-  host.classList.add('home-split__text');
-  host._rect = { left: 0, top: 0, right: 520, bottom: height, width: 520, height };
-  const list = host.appendChild(node('ol'));
-  list.classList.add('home-families');
-  rows.forEach(li => list.appendChild(li));
-  const section = Object.assign(node('section'), {
-    querySelectorAll: s => (s.includes('home-family') ? rows : []),
-    querySelector: s => (column && s === '.home-split__text' ? host : null),
-  });
-  const stage = Object.assign(node('figure'), {
-    querySelector: s => (s.includes('canvas') ? canvas : s === '.system-caption' ? caption : null),
-    // `ownPage`: the drawing on its own page (docs/system-map.html), no slider.
-    closest: s => (s === 'section' || (ownPage && s === '[data-system-page]') ? section : null),
-  });
-  stage._rect = { left: 600, top: 0, right: 600 + width, bottom: height, width, height };
-  const document = Object.assign(node('document'), {
-    readyState: 'complete', hidden: false, documentElement: node('html'),
+  if (!column) section.removeChild(host);
+  const stage = section.appendChild(node('figure'));
+  stage.className = 'home-split__figure home-system';
+  stage.setAttribute('data-system-stage', '');
+  stage._rect = { left: 600, top: 0, width: 800, height: 640, right: 1400, bottom: 640 };
+  const holder = stage.appendChild(node('div'));
+  holder.className = 'sm-mount';
+  holder.setAttribute('data-system-src', page ? 'architecture-graph-scene.json' : 'docs/architecture-graph-scene.json');
+  holder.setAttribute('data-system-doctrine', page ? 'doctrine-manifest.json' : 'docs/doctrine-manifest.json');
+  holder.setAttribute('data-system-base', page ? '' : 'docs/');
+  const fallback = holder.appendChild(node('p'));
+  fallback.className = 'sm-fallback';
+  const cap = stage.appendChild(node('figcaption'));
+  const keySlot = cap.appendChild(node('span'));
+  keySlot.className = 'sm-keyslot';
+
+  const docListeners = {};
+  const document = Object.assign(dom, {
+    readyState: 'complete', hidden: false, activeElement: null,
+    documentElement: node('html'),
+    createElement: tag => node(tag),
+    createElementNS: (ns, tag) => node(tag),
+    createTextNode: text => ({ textContent: String(text), children: [], parentNode: null }),
     querySelectorAll: s => (s === '[data-system-stage]' ? [stage] : []),
-    createElement: tag => {
-      const n = node(tag);
-      // `overflow`: each block of a column page measures that many pixels
-      // longer than its column, 40 fewer for each step its page has closed up.
-      if (overflow) {
-        Object.defineProperty(n, 'clientHeight', { get: () => 100 });
-        Object.defineProperty(n, 'scrollHeight', { get() {
-          if (!['sc__ranks', 'sc__peers', 'sc__axioms'].some(c => n.classList.contains(c))) return 100;
-          const pg = n.closest('.sc__page');
-          const steps = pg ? ['sc__page--dense', 'sc__page--bare', 'sc__page--quiet', 'sc__page--denser'].filter(c => pg.classList.contains(c)).length : 0;
-          return 100 + Math.max(0, overflow - 40 * steps);
-        } });
-      }
-      return n;
+    querySelector: s => s === '.docs-topbar' && headerBottom ? { getBoundingClientRect: () => ({ bottom: headerBottom }) } : null,
+    addEventListener(type, fn) { (docListeners[type] ||= []).push(fn); },
+    fire(type, e = {}) {
+      let prevented = false;
+      const ev = { type, target: e.target || null, defaultPrevented: false, preventDefault() { prevented = true; this.defaultPrevented = true; }, ...e };
+      for (const fn of docListeners[type] || []) fn(ev);
+      return prevented;
     },
-    createTextNode: text => ({ textContent: String(text), children: [] }),
   });
-  const frames = new Map();
-  let nextFrame = 1, now = 0;
-  const observers = [];
-  const window = Object.assign(node('window'), {
-    devicePixelRatio: 2, location: { href: '/', hash, pathname: '/docs/system-map.html', search: '' },
-    history: { state: null, writes: [], replaceState(st, t, url) { this.writes.push(url); window.location.hash = url.startsWith('#') ? url : ''; } },
-    matchMedia: q => ({ matches: /reduce/.test(q) ? reduce : /hover/.test(q) ? fine : false, addEventListener() {} }),
-    requestAnimationFrame: fn => { frames.set(nextFrame, fn); return nextFrame++; },
-    cancelAnimationFrame: id => frames.delete(id),
-  });
-  if (io) {
-    window.IntersectionObserver = class { constructor(cb) { this.cb = cb; observers.push(this); } observe() {} disconnect() {} };
-  }
+  const history = [], frames = [], scrolls = [];
+  const window = {
+    location: { hash, pathname: page ? '/docs/system-map.html' : '/', search: '' },
+    history: {
+      state: null,
+      pushState(st, t, url) { history.push(['push', url]); window.location.hash = url.startsWith('#') ? url : ''; },
+      replaceState(st, t, url) { history.push(['replace', url]); window.location.hash = url.startsWith('#') ? url : ''; },
+      back() { history.push(['back']); },
+    },
+    innerHeight, pageYOffset: 0,
+    requestAnimationFrame(fn) { frames.push(fn); return frames.length; },
+    scrollBy(opts) { scrolls.push(opts); dom.columnTitleTop -= opts.top; },
+    matchMedia: q => ({ matches: /reduce/.test(q) ? reduce : /hover/.test(q), addEventListener() {} }),
+    getComputedStyle: () => ({ fontSize: '16px', getPropertyValue: () => '' }),
+    addEventListener() {},
+  };
   const requests = [];
-  const timers = [];
   vm.runInNewContext(source, {
     window, document, Promise, Math, JSON, Object, Array, Date, Number, String, isFinite,
-    getComputedStyle: () => ({ getPropertyValue: () => '' }),
     fetch: async (url, opts) => {
       requests.push({ url, opts });
       if (/doctrine-manifest\.json/.test(url)) {
@@ -262,942 +345,904 @@ async function mount({ scene = liveScene(), width = 677, height = 569, reduce = 
       }
       return { ok: true, json: async () => scene };
     },
-    setTimeout: (fn, ms) => { timers.push({ fn, ms }); return timers.length; }, clearTimeout() {},
+    setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
   });
-  for (let k = 0; k < 6; k++) await new Promise(r => setImmediate(r));
-  const advance = ms => {
-    const end = now + ms;
-    while (now < end) {
-      now += 16;
-      const due = [...frames.entries()];
-      frames.clear();
-      for (const [, fn] of due) fn(now);
-    }
-  };
-  const fireIO = ratio => observers.forEach(o => o.cb([{ isIntersecting: ratio > 0, intersectionRatio: ratio }]));
-  const runTimers = () => { for (const t of timers.splice(0)) t.fn(); };
-  const card = () => stage.children.find(c => c.className && c.className.includes('system-card')) || null;
-  // Unless a test follows the opening, it is played out before the test
-  // begins (the vm has no observer, so the drawing counts as in view).
-  if (settle && !io) advance(2500);
-  const select = id => { window.PlectisSystemMap.select(id); advance(1800); };
-  const page = () => host.querySelector('.sc__page:not(.sc__page--leaving)') ||
-    host.all(n => n.classList && n.classList.contains('sc__page') && !n.classList.contains('sc__page--leaving'))[0] || null;
-  return { map: window.PlectisSystemMap, window, document, canvas, caption, rows, section, stage, frames, advance, fireIO,
-           runTimers, requests, card, select, host, page, doctrine,
-           clears: () => clears, texts: () => texts, calls: () => ({ ...calls }), now: () => now };
+  for (let k = 0; k < 8; k++) await new Promise(r => setImmediate(r));
+  const map = window.PlectisSystemMap;
+  const root = holder.querySelector('.sm');
+  const panel = () => host.querySelector('.sc__page');
+  const textOf = scope => (scope ? scope.textContent : '');
+  const wires = () => (root ? root.querySelectorAll('.sm-wire') : []);
+  const press = el => el.fire('click', { detail: 0 });
+  const click = el => el.fire('click', { detail: 1 });
+  const key = k => document.fire('keydown', { key: k });
+  return { map, window, document, section, host, stage, holder, root, rows, list, keySlot, requests, history,
+           scrolls, flushFrames() { frames.splice(0).forEach(fn => fn()); },
+           animations: dom.animations, panel, textOf, wires, press, click, key, core: window.PlectisSystemMapCore };
 }
-
-function insideRect(c, r, pad) {
-  return c.x - pad > r.x0 && c.x + pad < r.x1 && c.y - pad > r.y0 && c.y + pad < r.y1;
-}
-function boxesMeet(a, b) { return a.x0 < b.x1 - 0.5 && a.x1 > b.x0 + 0.5 && a.y0 < b.y1 - 0.5 && a.y1 > b.y0 + 0.5; }
-// An orthogonal run [[x0, y0], [x1, y1]] against a box, with a margin.
-function runMeets(a, b, box, pad = 0) {
-  const x0 = Math.min(a[0], b[0]), x1 = Math.max(a[0], b[0]), y0 = Math.min(a[1], b[1]), y1 = Math.max(a[1], b[1]);
-  return x1 > box.x0 - pad && x0 < box.x1 + pad && y1 > box.y0 - pad && y0 < box.y1 + pad;
-}
-const famOf = scene => {
-  const map = {};
-  scene.scene.nodes.forEach(n => { if (/component$/.test(n.kind)) map[n.id] = 'area:' + n.parent_cluster_id.replace('cluster:', ''); });
-  return map;
+const counts = scene => {
+  const fam = famOf(scene), links = declared(scene).filter(e => fam[e.source] && fam[e.target] && e.source !== e.target);
+  const seen = new Set(), uniq = links.filter(e => { const k = e.source + '>' + e.target; if (seen.has(k)) return false; seen.add(k); return true; });
+  const pairs = new Set(uniq.filter(e => fam[e.source] !== fam[e.target]).map(e => [fam[e.source], fam[e.target]].sort().join('|')));
+  return { links: uniq, pairs, fam };
 };
+const visibleText = scope => scope.all(n => !n.closest('[hidden]')).map(n => n._text).filter(Boolean).join(' \n ');
 
-test('the layout is deterministic and sets every component inside its family plate, none overlapping', async () => {
-  const a = (await mount()).map.snapshot();
-  const b = (await mount()).map.snapshot();
-  assert.ok(a.ready);
-  assert.deepEqual(plain(a.components), plain(b.components), 'the same scene and box give the same drawing');
-  assert.deepEqual(plain(a.links), plain(b.links), 'and the same routes');
-  assert.deepEqual(plain(a.cables), plain(b.cables), 'and the same cables');
-  assert.equal(a.components.length, sceneFile.scene.nodes.filter(n => /component$/.test(n.kind)).length);
-  for (const c of a.components) {
-    const plate = a.plates.find(p => p.id === c.family);
-    assert.ok(plate, `${c.id} has its family plate`);
-    assert.ok(insideRect(c, plate.rect, a.markRadius + 1), `${c.id} sits inside ${plate.title}`);
-  }
-  for (let i = 0; i < a.components.length; i++) {
-    for (let k = i + 1; k < a.components.length; k++) {
-      const d = Math.hypot(a.components[i].x - a.components[k].x, a.components[i].y - a.components[k].y);
-      assert.ok(d >= 2 * a.markRadius + 2, `${a.components[i].id} and ${a.components[k].id} do not overlap`);
-    }
-  }
-  for (let i = 0; i < a.plates.length; i++) {
-    for (let k = i + 1; k < a.plates.length; k++) assert.ok(!boxesMeet(a.plates[i].rect, a.plates[k].rect), 'plates never overlap');
-  }
-  // Reading order: the first half of the families along the top row.
-  const order = sceneFile.scene.nodes.filter(n => n.kind === 'area').map(n => n.id);
-  assert.deepEqual(plain(a.plates.map(p => p.id)), order, 'plates keep the scene order');
-  assert.ok(a.plates.slice(0, Math.ceil(order.length / 2)).every(p => p.row === 0));
+/* ---- Helpers over the fixtures ---------------------------------------------- */
+const keyOf = el => el.getAttribute('data-sm-key');
+const keys = list => list.map(keyOf);
+const ruleKey = el => (el.getAttribute('data-sm-key') || '').slice(5);
+function busiest(scene) {
+  const c = counts(scene), tally = {};
+  c.links.forEach(e => { tally[e.source] = (tally[e.source] || 0) + 1; tally[e.target] = (tally[e.target] || 0) + 1; });
+  return Object.entries(tally).sort((x, y) => y[1] - x[1] || (x[0] < y[0] ? -1 : 1))[0][0];
+}
+function isolated(scene) {
+  const c = counts(scene), touched = new Set(c.links.flatMap(e => [e.source, e.target]));
+  return compNodes(scene).map(n => n.id).find(id => !touched.has(id)) || null;
+}
+// The doctrine's relations, as the drawing must have them: rests-on and
+// threatens, one span each.
+function spansOf(doctrine) {
+  return [...doctrine.principles.flatMap(p => p.rests_on.map(a => p.id + '>' + a)),
+          ...doctrine.anti_principles.flatMap(f => f.guards.map(a => f.id + '>' + a))].sort();
+}
+const spanKey = w => w.getAttribute('data-from').slice(5) + '>' + w.getAttribute('data-to').slice(5);
+/* ---- The data and its orders ------------------------------------------------ */
+test('the scene is read into families, components and links, every link kept once', async () => {
+  const page = await mount();
+  const s = page.map.snapshot();
+  const scene = liveScene(), c = counts(scene);
+  assert.equal(s.ready, true);
+  assert.equal(s.counts.components, compNodes(scene).length);
+  assert.equal(s.counts.families, new Set(Object.values(c.fam)).size);
+  assert.equal(s.counts.links, c.links.length);
+  assert.equal(s.counts.bands, c.pairs.size, 'every pair of families with a link between them is counted once');
+  assert.equal(s.ring.order.length, s.counts.families);
 });
 
-test('every mark stands on one lattice that runs through the whole drawing, and a plate is as deep as its marks need', async () => {
-  for (const [width, height] of [[677, 569], [630, 526], [900, 790]]) {
-    const snap = (await mount({ width, height })).map.snapshot();
-    const p = snap.pitch, x0 = Math.min(...snap.components.map(c => c.x));
-    for (const c of snap.components) {
-      const k = (c.x - x0) / p;
-      assert.ok(Math.abs(k - Math.round(k)) < 1e-6, `${c.id} is on a lattice column at ${width}x${height}`);
-    }
-    for (const row of [0, 1]) {
-      const ys = snap.components.filter(c => snap.plates.find(pl => pl.id === c.family).row === row).map(c => c.y);
-      const y0 = Math.min(...ys);
-      for (const y of ys) {
-        const k = (y - y0) / p;
-        assert.ok(Math.abs(k - Math.round(k)) < 1e-6, `rows of marks are a pitch apart at ${width}x${height}`);
-      }
-    }
-    // A plate stands on the line's side of the drawing, so the edges facing
-    // the line share one row; its depth is its own (no empty rows of marks).
-    for (const plate of snap.plates) {
-      const marks = snap.components.filter(c => c.family === plate.id);
-      const rows = new Set(marks.map(c => Math.round(c.y * 100))).size;
-      assert.equal(rows, plate.rows, `${plate.title} holds exactly its rows of marks`);
-    }
-    for (const row of [0, 1]) {
-      const edges = snap.plates.filter(pl => pl.row === row).map(pl => (row === 0 ? pl.rect.y1 : pl.rect.y0));
-      assert.ok(edges.every(e => Math.abs(e - edges[0]) < 0.01), 'the plates of a row stand on one line');
-    }
-  }
+test('the families go round the ring in the order whose links between them cross least', async () => {
+  const { core } = await mount();
+  const model = core.readScene(liveScene(), 'docs/');
+  const a = core.familyRing(model), b = core.familyRing(model);
+  assert.deepEqual(plain(a.order), plain(b.order), 'deterministic');
+  const n = model.families.length;
+  assert.equal(a.order[0], 0, 'the first published family stands at the top');
+  assert.deepEqual(plain(a.order).slice().sort((x, y) => x - y), [...Array(n).keys()]);
+  // Two families' links cross another two's when their arcs interleave.
+  const crossings = order => {
+    const slot = []; order.forEach((f, i) => { slot[f] = i; });
+    const arcs = model.pairs.map(p => { const x = slot[p.a], y = slot[p.b], d = (y - x + n) % n; return d <= n - d ? [x, d] : [y, n - d]; });
+    let c = 0;
+    arcs.forEach((p, i) => arcs.forEach((q, j) => {
+      if (j <= i) return;
+      const ends = [p[0], (p[0] + p[1]) % n], other = [q[0], (q[0] + q[1]) % n];
+      if (ends.some(e => other.includes(e))) return;
+      const inside = v => { const d = (v - p[0] + n) % n; return d > 0 && d < p[1]; };
+      if (inside(other[0]) !== inside(other[1])) c++;
+    }));
+    return c;
+  };
+  assert.equal(crossings(plain(a.order)), a.crossings);
+  // Every other order with the first family first crosses at least as much.
+  const rest = [...Array(n - 1).keys()].map(k => k + 1);
+  const perms = list => (list.length < 2 ? [list] : list.flatMap((x, i) => perms([...list.slice(0, i), ...list.slice(i + 1)]).map(p => [x, ...p])));
+  perms(rest).forEach(p => assert.ok(crossings([0, ...p]) >= a.crossings));
 });
 
-test('every declared link resolves to two placed components along an orthogonal route', async () => {
+test('the doctrine reads in, each relation derived from one side so the two always agree', async () => {
+  const { core } = await mount();
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const model = core.readScene(scene, 'docs/');
+  const D = core.readDoctrine(doctrine, model, 'docs/');
+  assert.equal(D.axioms.length, 12);
+  assert.equal(D.principles.length, 20);
+  assert.equal(D.failures.length, 17);
+  D.axioms.forEach(a => D.rules[a].grounds.forEach(p => assert.ok(D.rules[p].restsOn.includes(a))));
+  D.axioms.forEach(a => D.rules[a].threatenedBy.forEach(f => assert.ok(D.rules[f].guards.includes(a))));
+  D.principles.forEach(p => D.rules[p].restsOn.forEach(a => assert.ok(D.rules[a].grounds.includes(p))));
+});
+
+test('a relation may carry a verdict once checked against the code, and the verdict is kept beside it', async () => {
+  const { core } = await mount();
   const scene = liveScene();
-  const snap = (await mount({ scene })).map.snapshot();
-  const links = declared(scene);
-  assert.equal(snap.links.length, links.length, 'all declared links are drawn');
-  const at = Object.fromEntries(snap.components.map(c => [c.id, c]));
-  links.forEach((e, i) => {
-    const l = snap.links[i];
-    assert.equal(l.source, e.source);
-    assert.equal(l.target, e.target);
-    assert.ok(at[l.source] && at[l.target], 'both ends are placed');
-    const s = l.points[0], end = l.points.at(-1);
-    assert.ok(Math.hypot(s[0] - at[l.source].x, s[1] - at[l.source].y) <= snap.markRadius + 4, 'the route leaves its source');
-    assert.ok(Math.hypot(end[0] - at[l.target].x, end[1] - at[l.target].y) <= snap.markRadius + 4, 'and reaches its target');
-    for (let k = 1; k < l.points.length; k++) {
-      const [x0, y0] = l.points[k - 1], [x1, y1] = l.points[k];
-      assert.ok(Math.abs(x0 - x1) < 0.01 || Math.abs(y0 - y1) < 0.01, 'every run is horizontal or vertical');
-    }
+  const edge = declared(scene)[0];
+  edge.verdict = 'verified';
+  const model = core.readScene(scene, 'docs/');
+  const a = model.comps.findIndex(c => c.id === edge.source), b = model.comps.findIndex(c => c.id === edge.target);
+  assert.equal(model.verdicts[a + '>' + b], 'verified');
+  const doctrine = doctrineFor(scene);
+  doctrine.components[0].governed_by = [{ id: 'P-2', verdict: 'declared only' }];
+  const D = core.readDoctrine(doctrine, model, 'docs/');
+  const ci = model.comps.findIndex(c => c.id === doctrine.components[0].id);
+  assert.deepEqual(plain(D.comp[ci].gov), ['P-2']);
+  assert.equal(D.verdicts['governed_by:' + doctrine.components[0].id + '>P-2'], 'declared only');
+});
+
+test('authored prose is trimmed to its opening sentences and stops before a file name or a dash', async () => {
+  const { core } = await mount();
+  assert.equal(core.trimProse('It reads its inputs. It loads helper_module.py first. It stops.', 400), 'It reads its inputs.');
+  assert.equal(core.trimProse('One — two. Three.', 400), null);
+  assert.equal(core.trimProse('A short one. A second one that is still short. A third.', 30), 'A short one.');
+});
+
+/* ---- The system ------------------------------------------------------------- */
+test('the system: every component on the rim, the families named round it, the doctrine as a necklace at the centre', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine });
+  const s = page.map.snapshot();
+  assert.equal(s.view, 'system');
+  assert.deepEqual(plain(s.crumbs), ['System']);
+  assert.match(s.caption, /^\d+ components round the rim in seven families, the doctrine at the centre\. Select any of them to light what it touches\.$/);
+  const r = page.root;
+  assert.equal(r.querySelectorAll('.sm-node--comp').length, s.counts.components);
+  assert.equal(r.querySelectorAll('.sm-node--fam').length, s.counts.families);
+  assert.equal(r.querySelectorAll('.sm-node--rule').length, 12 + 20 + 17);
+  assert.equal(r.querySelectorAll('.sm-node--hub').length, 12);
+  const single = [...doctrine.principles.filter(p => p.rests_on.length === 1), ...doctrine.anti_principles.filter(f => f.guards.length === 1)];
+  assert.equal(r.querySelectorAll('.sm-node--sat').length, single.length);
+  assert.equal(r.querySelectorAll('.sm-node--bridge').length, 37 - single.length);
+  // The doctrine's own relations, each its own line, and nothing else at rest.
+  assert.deepEqual(r.querySelectorAll('.sm-span').map(spanKey).sort(), spansOf(doctrine));
+  assert.equal(r.querySelectorAll('.sm-route').length + r.querySelectorAll('.sm-rline').length, 0, 'nothing is lit at rest');
+  assert.equal(r.querySelectorAll('.sm-lane').length, 0, 'no rings of routes round the core');
+  assert.equal(r.querySelectorAll('.sm-necklace').length, 1, 'one faint orbit under the necklace');
+  // The rim: a tick for each component, a bar where its page cites rules,
+  // a crossbar where a rule's card names it.
+  assert.equal(r.querySelectorAll('.sm-tick').filter(t => t.getAttribute('data-sm-tick')).length, s.counts.components);
+  const citing = doctrine.components.filter(c => c.governed_by.length + c.abides_by.length > 0).length;
+  assert.equal(r.querySelectorAll('.sm-bar').length, citing);
+  const named = new Set([...doctrine.axioms, ...doctrine.principles, ...doctrine.anti_principles].flatMap(x => x.enforced_in));
+  assert.equal(r.querySelectorAll('.sm-cap').length, named.size);
+  assert.doesNotMatch(visibleText(r), UNPLAIN);
+});
+
+test('the key is one row in plain words, and every other mark is named behind its disclosure', async () => {
+  const page = await mount();
+  const rows = () => page.keySlot.querySelectorAll('.sm-key__row');
+  assert.equal(rows().length, 1);
+  const text = page.textOf(page.keySlot);
+  ['Listed as related', 'Cited by its paper module', 'Axiom', 'Principle', 'Failure mode'].forEach(w => assert.match(text, new RegExp(w)));
+  assert.doesNotMatch(text, /Named links|Rules cited|works with/);
+  const more = page.keySlot.querySelector('.sm-key__more');
+  assert.equal(more.getAttribute('aria-expanded'), 'false');
+  page.press(more);
+  assert.equal(rows().length, 2);
+  const all = page.textOf(page.keySlot);
+  ['Runs a real tool', 'One step for each rule its paper module cites', 'A rule’s card says it is enforced here', 'Rests on', 'Threatens',
+   'Where a red line and an azure line cross, one passes over the other']
+    .forEach(w => assert.match(all, new RegExp(w)));
+  assert.equal(page.keySlot.querySelector('.sm-key__more').getAttribute('aria-expanded'), 'true');
+});
+
+test('the column’s families follow the ring’s order and work the drawing; a plain click opens the family', async () => {
+  const page = await mount();
+  const s = page.map.snapshot();
+  const order = page.list.querySelectorAll('.home-family').map(li => li.getAttribute('data-system-family'));
+  assert.deepEqual(order, plain(s.ring.order));
+  const first = page.list.querySelector('.home-family');
+  first.fire('pointerenter');
+  assert.equal(page.map.snapshot().hover, 'fam:' + s.ring.order[0].slice(5));
+  first.fire('pointerleave');
+  const link = first.querySelector('a');
+  assert.equal(link.fire('click', { metaKey: true, noBubble: true }).prevented, false, 'a modified click keeps the family page');
+  assert.equal(page.map.snapshot().view, 'system');
+  assert.equal(link.fire('click', { noBubble: true }).prevented, true);
+  assert.equal(page.map.snapshot().view, 'family');
+});
+
+/* ---- A family ----------------------------------------------------------------- */
+test('a family lights its members and every link that touches it, each line from the family outward', async () => {
+  const scene = liveScene(), c = counts(scene);
+  const page = await mount({ scene });
+  const fam = 'formal_math_and_proof';
+  page.map.select('area:' + fam);
+  const s = page.map.snapshot();
+  assert.equal(s.view, 'family');
+  assert.deepEqual(plain(s.crumbs).slice(0, 1), ['System']);
+  const touching = c.links.filter(e => c.fam[e.source] === fam || c.fam[e.target] === fam);
+  assert.equal(s.lit.routes, touching.length);
+  const routes = page.root.querySelectorAll('.sm-route.sm-wire');
+  assert.equal(routes.length, touching.length);
+  routes.forEach(w => assert.equal(c.fam[w.getAttribute('data-from').slice(5)], fam, 'each lit line runs from the family out'));
+  const members = compNodes(scene).filter(n => c.fam[n.id] === fam);
+  assert.equal(page.root.querySelectorAll('.sm-node--comp.is-member').length, members.length);
+  assert.ok(page.root.querySelector('.sm-node--fam[data-sm-key="fam:' + fam + '"]').classList.contains('is-self'), 'its own name is lit');
+  const partners = new Set(touching.map(e => c.fam[e.source] === fam ? c.fam[e.target] : c.fam[e.source]).filter(f => f !== fam));
+  assert.equal(page.root.querySelectorAll('.sm-node--fam.is-lit').length, partners.size, 'the families it links with are lit');
+  assert.equal(page.panel().querySelector('.sc__title').textContent, s.crumbs[1]);
+  assert.match(page.textOf(page.panel()), new RegExp('Its components · ' + members.length));
+  assert.match(s.caption, /: its \w+ components and their listed relations, inside the family and out to the others\.$/);
+  page.root.querySelectorAll('.sm-route').forEach(w => assert.match(w.getAttribute('d'), /Z/, 'a fibre is a filled outline'));
+});
+
+/* ---- A component -------------------------------------------------------------- */
+test('a component lights its links, the rules its paper module cites and the axioms they rest on, and never a line to an axiom a principle already reaches', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene), c = counts(scene);
+  const P = Object.fromEntries(doctrine.principles.map(p => [p.id, p]));
+  const row = doctrine.components.find(r => {
+    const reached = new Set(r.governed_by.flatMap(p => P[p].rests_on));
+    return r.abides_by.some(a => !reached.has(a)) && c.links.some(e => e.source === r.id || e.target === r.id);
   });
+  const page = await mount({ scene, doctrine });
+  page.map.select(row.id);
+  const s = page.map.snapshot();
+  assert.equal(s.view, 'component');
+  assert.equal(s.crumbs.length, 3);
+  const reached = new Set(row.governed_by.flatMap(p => P[p].rests_on));
+  const direct = row.abides_by.filter(a => !reached.has(a));
+  const lines = page.root.querySelectorAll('.sm-rline');
+  lines.forEach(w => assert.equal(w.getAttribute('data-from'), 'comp:' + row.id));
+  assert.deepEqual(lines.map(w => w.getAttribute('data-to').slice(5)).sort(), [...new Set([...row.governed_by, ...direct])].sort());
+  lines.forEach(w => assert.ok(!reached.has(w.getAttribute('data-to').slice(5)) || /^P-/.test(w.getAttribute('data-to').slice(5)),
+    'no line from a component to an axiom one of its principles rests on'));
+  // The principles' own relations to their axioms are what light the axioms.
+  const lit = page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort();
+  assert.deepEqual(lit, [...new Set(row.governed_by.flatMap(p => P[p].rests_on.map(a => p + '>' + a)))].sort());
+  // Its links, each a line from it.
+  const touching = c.links.filter(e => e.source === row.id || e.target === row.id);
+  const routes = page.root.querySelectorAll('.sm-route.sm-wire');
+  assert.equal(routes.length, touching.length);
+  routes.forEach(w => assert.equal(w.getAttribute('data-from'), 'comp:' + row.id));
+  assert.deepEqual(plain(s.lit.reticles), ['comp:' + row.id]);
+  const col = page.textOf(page.panel());
+  assert.match(col, new RegExp('Its paper module cites · ' + new Set([...row.governed_by, ...row.abides_by]).size));
+  assert.doesNotMatch(col, /Follows these principles|Cites these axioms|governed|abides/);
+  // The published scene's links are the relations a component's record
+  // lists: one list, no direction, and the column says they are not read from
+  // the code.
+  const others = new Set(touching.map(e => (e.source === row.id ? e.target : e.source)));
+  assert.match(col, new RegExp('Listed as related · ' + others.size));
+  assert.doesNotMatch(col, /Names · |Named by · /);
+  assert.match(col, /Listed in a component’s own record, not read from the code\./);
+  assert.match(s.caption, /: red lines to the components listed as related, azure lines to the rules its paper module cites\.$/);
 });
 
-test('the links between two families travel as one cable whose terminals count them', async () => {
+/* ---- Code connections --------------------------------------------------------- */
+// The regenerated scene: a few dozen typed code connections in place of the
+// hundreds of named links, the same shape otherwise.
+function typedScene() {
+  const json = liveScene();
+  const kinds = ['runs', 'reads_results_of', 'checks_copies_of'];
+  let k = 0;
+  json.scene.edges = json.scene.edges.filter(e => {
+    if ((e.relation || e.kind) !== 'declared_dependency_untyped') return true;
+    if (k >= 36) return false;
+    e.relation = kinds[k++ % 3];
+    e.id = 'edge:wire:' + e.source.split(':').pop() + ':' + e.target.split(':').pop();
+    e.evidence = { path: 'src/example.py', lines: [1, 9] };
+    return true;
+  });
+  return json;
+}
+test('typed code connections: each kind in its own texture, named in plain words from either end, all shown quietly at rest', async () => {
+  const scene = typedScene(), c = counts(liveScene());
+  const page = await mount({ scene });
+  const s = page.map.snapshot();
+  assert.deepEqual(plain(s.counts.kinds), ['runs', 'reads', 'checks']);
+  assert.equal(s.counts.links, 36);
+  const key = page.textOf(page.keySlot);
+  ['Runs', 'Reads saved results of', 'Checks the copied files of'].forEach(w => assert.match(key, new RegExp(w)));
+  assert.doesNotMatch(key, /Named links/);
+  // Few enough to show them all at rest, each in its kind's texture.
+  // One fibre for each link (a ribbon's parting fibres among them); the
+  // ribbons are drawn besides.
+  const own = sel => page.root.querySelectorAll(sel).filter(f => !f.classList.contains('is-trunk'));
+  assert.equal(own('.sm-fibre').length, 36);
+  ['runs', 'reads', 'checks'].forEach(kind => assert.equal(own('.sm-fibre--' + kind).length, 12));
+  assert.equal(page.root.querySelectorAll('.sm-fibre.is-trunk').length, s.ring.sheaves.length);
+  // A component's column names each kind from its side.
+  const edges = scene.scene.edges.filter(e => ['runs', 'reads_results_of', 'checks_copies_of'].includes(e.relation));
+  const tally = {}; edges.forEach(e => { tally[e.source] = (tally[e.source] || 0) + 1; tally[e.target] = (tally[e.target] || 0) + 1; });
+  const id = Object.entries(tally).sort((x, y) => y[1] - x[1] || (x[0] < y[0] ? -1 : 1))[0][0];
+  page.map.select(id);
+  // One list, each component named once with the ways the code connects
+  // them, in the plain words from this component's side.
+  const others = new Set(edges.filter(e => e.source === id || e.target === id).map(e => (e.source === id ? e.target : e.source)));
+  const block = () => page.panel().querySelectorAll('.sc__block').find(b => /Code connections/.test(page.textOf(b)));
+  assert.match(page.textOf(block()), new RegExp('Code connections · ' + others.size));
+  if (block().querySelector('.sc__all')) page.press(block().querySelector('.sc__all'));
+  const col = page.textOf(page.panel());
+  const words = { runs: ['Runs', 'Run by'], reads_results_of: ['Reads results of', 'Results read by'], checks_copies_of: ['Checks copies of', 'Copies checked by'] };
+  Object.entries(words).forEach(([rel, [out, inc]]) => {
+    if (edges.some(e => e.relation === rel && e.source === id)) assert.match(col, new RegExp(out));
+    if (edges.some(e => e.relation === rel && e.target === id)) assert.match(col, new RegExp(inc));
+  });
+  assert.equal(block().querySelectorAll('.sc__li').length, others.size);
+  assert.match(col, page.panel().querySelector('.sc__code') ? /Each is derived from the code; Code opens the file that makes it\./ :
+    /Each connection is derived from the code\./);
+  assert.doesNotMatch(col + page.map.snapshot().caption, /works with|Listed as related/);
+  assert.match(page.map.snapshot().caption, /: red lines for its code connections, azure lines to the rules its paper module cites\.$/);
+  page.root.querySelectorAll('.sm-route').forEach(w => assert.match(w.getAttribute('class'), /sm-route--(?:runs|reads|checks)/));
+  // Its lit lines are woven with the rule lines and the pieces at rest that
+  // are not lit (a ribbon is one strand, its parting fibres one each).
+  const lit = page.map.snapshot();
+  const resting = page.root.querySelectorAll('.sm-fibre').filter(f => !f.classList.contains('is-under')).length;
+  assert.equal(lit.weave.strands, resting + page.root.querySelectorAll('.sm-route').length + lit.lit.lines, 'every fibre and every rule line goes into the weave');
+  // A component with none says so plainly.
+  const none = compNodes(scene).map(n => n.id).find(x => !tally[x]);
+  page.map.select(none);
+  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
+  assert.match(page.map.snapshot().caption, /: no code connections to other components; azure lines to the rules its paper module cites\.$/);
+  assert.ok(c.links.length > 90, 'the published scene of named links is too many to show at rest');
+});
+
+test('choosing a linked component in the column opens it, and Back returns', async () => {
   const scene = liveScene();
-  const snap = (await mount({ scene })).map.snapshot();
-  const fam = famOf(scene);
-  const between = {};
-  for (const e of declared(scene)) {
-    const a = fam[e.source], b = fam[e.target];
-    if (a === b) continue;
-    const key = [a, b].sort().join('|');
-    between[key] = (between[key] || 0) + 1;
-  }
-  assert.equal(snap.cables.length, Object.keys(between).length, 'one cable for every pair of families with links');
-  for (const cb of snap.cables) {
-    const key = [cb.from, cb.to].sort().join('|');
-    assert.equal(cb.count, between[key], `the cable ${key} carries every link between the two`);
-    assert.deepEqual(plain(cb.pins), [cb.count, cb.count], 'each terminal has a pin for every link');
-    for (let k = 1; k < cb.points.length; k++) {
-      const [x0, y0] = cb.points[k - 1], [x1, y1] = cb.points[k];
-      assert.ok(Math.abs(x0 - x1) < 0.01 || Math.abs(y0 - y1) < 0.01, 'cables run orthogonally');
-    }
-  }
-  // Lanes are evenly spaced: every horizontal run in a corridor sits a whole
-  // number of lane pitches from its neighbours.
-  const ys = [...new Set(snap.cables.flatMap(cb => cb.points.slice(1, -1).map(q => Math.round(q[1] * 100) / 100)))].sort((a, b) => a - b);
-  assert.ok(ys.length >= 2, 'there are lanes');
+  const page = await mount({ scene });
+  const id = busiest(scene);
+  page.map.select(id);
+  const next = page.panel().querySelectorAll('.sc__item').find(b => (keyOf(b) || '').startsWith('comp:') && keyOf(b) !== 'comp:' + id);
+  page.click(next);
+  const s = page.map.snapshot();
+  assert.equal('comp:' + s.component, keyOf(next));
+  assert.match(s.back, /^Back to /);
+  page.press(page.root.querySelector('.sm-back'));
+  assert.equal(page.map.snapshot().component, id);
 });
 
-test('terminals and ties on a plate edge never touch, at five sizes', async () => {
-  for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
-    const snap = (await mount({ width, height })).map.snapshot();
-    const byPlate = {};
-    for (const cb of snap.cables) {
-      for (const t of cb.terminals) (byPlate[t.family] ||= []).push(t);
-    }
-    snap.plates.forEach((plate, i) => {
-      const along = snap.portrait ? 1 : 0;
-      const spans = (byPlate[plate.id] || []).map(t => [Math.min(t.a[along], t.b[along]), Math.max(t.a[along], t.b[along])]);
-      const tie = snap.ties[i].from[along];
-      spans.sort((a, b) => a[0] - b[0]);
-      for (let k = 1; k < spans.length; k++) {
-        assert.ok(spans[k][0] > spans[k - 1][1] + 1, `two terminals on ${plate.title} touch at ${width}x${height}`);
-      }
-      for (const s of spans) assert.ok(tie < s[0] - 1 || tie > s[1] + 1, `the tie of ${plate.title} runs into a terminal at ${width}x${height}`);
-    });
+test('a component with no links says so, in the caption and the column', async () => {
+  const scene = liveScene(), id = isolated(scene);
+  if (!id) return;
+  const page = await mount({ scene });
+  page.map.select(id);
+  // The published scene's relations are the ones a record lists, so a
+  // component with none says that, in those terms.
+  assert.match(page.map.snapshot().caption, /: its record lists no related components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.textOf(page.panel()), /Its record lists no related components\./);
+  assert.equal(page.root.querySelectorAll('.sm-route').length, 0);
+});
+
+/* ---- The doctrine -------------------------------------------------------------- */
+test('the doctrine view lights every rule and every span, and sends no line to the rim', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine });
+  page.map.select('doctrine');
+  const s = page.map.snapshot();
+  assert.equal(s.view, 'doctrine');
+  assert.deepEqual(plain(s.crumbs), ['System', 'The doctrine']);
+  assert.equal(page.root.querySelectorAll('.sm-span.is-lit').length, spansOf(doctrine).length);
+  assert.equal(page.root.querySelectorAll('.sm-rline').length, 0);
+  assert.match(s.caption, /^The doctrine: twelve axioms on a ring\. A rule tied to one axiom sits just outside it; a rule tied to several stands between them\.$/);
+  const col = page.textOf(page.panel());
+  assert.match(col, /Each rule’s doctrine card names the components where it is enforced\./);
+});
+
+test('a principle lights its axioms and a line out to every component whose paper module cites it; its card names where it is enforced', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine });
+  page.map.select('doctrine:P-3');
+  const s = page.map.snapshot();
+  assert.equal(s.view, 'rule');
+  assert.deepEqual(plain(s.crumbs), ['System', 'The doctrine', PRINCIPLES[2]]);
+  const p = doctrine.principles[2];
+  const citing = doctrine.components.filter(r => r.governed_by.includes('P-3')).map(r => r.id);
+  const enforced = p.enforced_in;
+  const lines = page.root.querySelectorAll('.sm-rline');
+  lines.forEach(w => assert.equal(w.getAttribute('data-from'), 'rule:P-3', 'the light runs outward from the rule'));
+  assert.deepEqual(lines.map(w => w.getAttribute('data-to').slice(5)).sort(), [...new Set([...citing, ...enforced])].sort());
+  assert.deepEqual(page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort(), p.rests_on.map(a => 'P-3>' + a).sort());
+  assert.deepEqual(plain(s.lit.reticles).sort(), ['rule:P-3', ...enforced.map(id => 'comp:' + id)].sort());
+  const col = page.textOf(page.panel());
+  assert.match(col, /What concentrate trust in small checkers asks, in plain words\./);
+  assert.match(col, /Rests on/);
+  assert.match(col, /Enforced in/);
+  assert.match(col, new RegExp('Cited by the paper modules of ' + citing.length + ' of ' + compNodes(scene).length + ' components'));
+  const card = page.panel().querySelectorAll('a').find(a => /Read its doctrine card/.test(a.textContent));
+  assert.equal(card.getAttribute('href'), 'docs/doctrine.html#dcard-p-3');
+  assert.doesNotMatch(col, RULE_ID);
+  assert.match(page.textOf(page.keySlot), /Enforced here, by its card/);
+});
+
+test('an axiom lights everything tied to it; a failure mode lights its axioms and only the components its card names', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine });
+  page.map.select('doctrine:AX-5');
+  const tied = spansOf(doctrine).filter(k => k.endsWith('>AX-5'));
+  assert.deepEqual(page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort(), tied);
+  const citing = doctrine.components.filter(r => r.abides_by.includes('AX-5')).map(r => r.id);
+  const lines = page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5));
+  citing.forEach(id => assert.ok(lines.includes(id)));
+  page.map.select('doctrine:AP-4');
+  const f = doctrine.anti_principles[3];
+  assert.deepEqual(page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort(), f.guards.map(a => 'AP-4>' + a).sort());
+  assert.deepEqual(page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5)).sort(), f.enforced_in.slice().sort());
+  assert.match(page.map.snapshot().caption, /: lit with the axioms it threatens and the components its card names as enforcing it\.$/);
+});
+
+/* ---- Words ---------------------------------------------------------------------- */
+test('every word a reader sees is plain, and none claims a component’s code checks a rule', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine });
+  const views = [null, 'area:formal_math_and_proof', 'area:entry_and_reveal', busiest(scene), isolated(scene), 'doctrine', 'doctrine:AX-5', 'doctrine:P-15', 'doctrine:AP-4'];
+  for (const v of views) {
+    page.map.select(v);
+    const text = visibleText(page.root) + ' \n ' + visibleText(page.host) + ' \n ' + page.textOf(page.keySlot);
+    assert.doesNotMatch(text, UNPLAIN, `view ${v}`);
+    assert.doesNotMatch(text, /composition root naming/, 'the engineer’s note is never shown');
+    assert.doesNotMatch(text, /helper_module/, 'a sentence with a file name is cut from the column');
+    assert.doesNotMatch(text, /code checks/i, 'no claim that a component’s code checks a rule');
+    assert.doesNotMatch(text, /Point at a component/, 'no filler box');
+    assert.doesNotMatch(text, /works with\b|work together/, 'a link never claims two components work together');
   }
 });
 
-test('nothing drawn crosses a word: cables, ties and routes keep clear of every name, at five sizes', async () => {
-  for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
-    const snap = (await mount({ width, height })).map.snapshot();
-    const words = snap.labels.filter(l => l.kind !== 'legend' && l.kind !== 'legend-count');
-    for (const cb of snap.cables) {
-      for (let k = 1; k < cb.points.length; k++) {
-        for (const w of words) {
-          assert.ok(!runMeets(cb.points[k - 1], cb.points[k], w.box, 0.5), `a cable crosses "${w.text}" at ${width}x${height}`);
-        }
-      }
-    }
-    for (const t of snap.ties) {
-      for (const w of words) assert.ok(!runMeets(t.from, t.to, w.box, 0.5), `a tie crosses "${w.text}" at ${width}x${height}`);
-    }
-    for (const l of snap.links) {
-      for (let k = 1; k < l.points.length; k++) {
-        for (const w of words) {
-          assert.ok(!runMeets(l.points[k - 1], l.points[k], w.box, 0), `a route from ${l.source} crosses "${w.text}" at ${width}x${height}`);
-        }
-      }
-    }
+/* ---- Addresses, keys, motion ------------------------------------------------------ */
+test('a new page selection clears the sticky header without moving an already visible title', async () => {
+  const page = await mount({ page: true, headerBottom: 109.25, columnTitleTop: 59.48 });
+  page.map.select(busiest(liveScene()));
+  page.flushFrames();
+  assert.equal(page.scrolls.length, 1);
+  assert.equal(page.scrolls[0].top, 59.48 - 121.25);
+  assert.equal(page.document.columnTitleTop, 121.25);
+  page.map.select('doctrine:P-3');
+  page.flushFrames();
+  assert.equal(page.scrolls.length, 1, 'the visible new title stays where it is');
+  const desktop = await mount({ page: true, headerBottom: 60, columnTitleTop: 240 });
+  desktop.map.select(busiest(liveScene()));desktop.flushFrames();
+  assert.equal(desktop.scrolls.length, 0);
+});
+
+test('title recovery follows deep links and ignores replaced selections and landing columns', async () => {
+  const id = busiest(liveScene());
+  const page = await mount({ page: true, hash: '#map=' + encodeURIComponent(id),
+    headerBottom: 109.25, columnTitleTop: 59.48 });
+  page.map.select('doctrine:P-3');
+  page.flushFrames();
+  assert.equal(page.scrolls.length, 1, 'only the currently selected column corrects its position');
+  page.document.columnTitleTop = 50;
+  page.key('Escape');page.flushFrames();
+  assert.equal(page.map.snapshot().view, 'doctrine');
+  assert.equal(page.document.columnTitleTop, 121.25);
+  const landing = await mount({ headerBottom: 109.25, columnTitleTop: 59.48 });
+  landing.map.select(id);landing.flushFrames();
+  assert.equal(landing.scrolls.length, 0);
+});
+
+test('on its own page the map follows #map= addresses and writes each view back', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const id = busiest(scene);
+  let page = await mount({ scene, doctrine, page: true, hash: '#map=' + encodeURIComponent(id) });
+  assert.equal(page.map.snapshot().component, id);
+  assert.equal(page.map.snapshot().back, null, 'an arrival leaves nothing behind it');
+  page.map.select('area:formal_math_and_proof');
+  assert.deepEqual(page.history[page.history.length - 1], ['push', '#map=' + encodeURIComponent('family:formal_math_and_proof')]);
+  page.map.select('doctrine:P-3');
+  assert.deepEqual(page.history[page.history.length - 1], ['push', '#map=' + encodeURIComponent('doctrine:P-3')]);
+  for (const [hash, want] of [['#map=family%3Aformal_math_and_proof', 'family'], ['#map=area%3Aentry_and_reveal', 'family'],
+                              ['#map=doctrine', 'doctrine'], ['#map=doctrine%3AP-3', 'rule'], ['#map=' + encodeURIComponent(id), 'component']]) {
+    page = await mount({ scene, doctrine, page: true, hash });
+    assert.equal(page.map.snapshot().view, want, hash);
   }
+});
+
+test('Escape and the trail step back up a level; Back retraces a jump across the map', async () => {
+  const scene = liveScene();
+  const page = await mount({ scene });
+  page.map.select(busiest(scene));
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'family');
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'system');
+  assert.equal(page.key('Escape'), false, 'at the top Escape is left for others');
+  page.map.select('doctrine:P-3');
+  page.press(page.root.querySelectorAll('.sm-crumbs__go')[1]);
+  assert.equal(page.map.snapshot().view, 'doctrine');
+});
+
+test('the keyboard: Enter on a family name opens it, Escape returns the focus to it, and the arrows walk round the rim', async () => {
+  const page = await mount();
+  const fam = page.root.querySelector('.sm-node--fam');
+  fam.fire('keydown', { key: 'Enter', target: fam });
+  assert.equal(page.map.snapshot().view, 'family');
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'system');
+  assert.equal(keyOf(page.document.activeElement), keyOf(fam));
+  const comps = page.root.querySelectorAll('.sm-node--comp');
+  const first = comps[0];
+  first.fire('keydown', { key: 'ArrowRight', target: first });
+  const now = page.document.activeElement;
+  assert.ok(now && now.classList.contains('sm-node--comp') && now !== first, 'the next component round the rim takes the focus');
+  assert.equal(now.getAttribute('tabindex'), '0');
+  now.fire('keydown', { key: 'ArrowUp', target: now });
+  assert.ok(page.document.activeElement.classList.contains('sm-node--fam'), 'up from a component is its family');
+});
+
+test('Escape is ignored while the system slide is out of view', async () => {
+  const page = await mount({ inert: true });
+  page.map.select('area:formal_math_and_proof');
+  page.key('Escape');
+  assert.equal(page.map.snapshot().view, 'family');
+});
+
+test('reduced motion lands every change at once; otherwise the map assembles once and every motion is short', async () => {
+  const scene = liveScene();
+  const still = await mount({ scene, reduce: true });
+  still.map.select('area:formal_math_and_proof');
+  still.map.select(busiest(scene));
+  still.map.select('doctrine:P-3');
+  assert.equal(still.animations.length, 0);
+  const moving = await mount({ scene });
+  const opening = moving.animations.length;
+  assert.ok(opening > 50, 'the first sight assembles the map');
+  moving.map.select(busiest(scene));
+  assert.ok(moving.animations.length > opening, 'a choice moves');
+  moving.animations.forEach(a => assert.ok(a.opts.duration <= 900 && (a.opts.delay || 0) <= 1300, 'each motion is short'));
+  const pops = () => moving.animations.filter(a => JSON.stringify(a.frames).includes('scale(0.35)')).length, popped = pops();
+  assert.ok(popped > 50, 'the marks arrive');
+  moving.map.select(null);
+  moving.map.select('area:formal_math_and_proof');
+  assert.equal(pops(), popped, 'the opening plays once');
+});
+
+test('the scene and the doctrine are each fetched once, and the API answers before they arrive', async () => {
+  const page = await mount();
+  assert.equal(page.requests.filter(r => /architecture-graph-scene/.test(r.url)).length, 1);
+  assert.equal(page.requests.filter(r => /doctrine-manifest/.test(r.url)).length, 1);
+  assert.equal(page.requests[0].opts.cache, 'no-cache');
+  assert.equal(page.map.snapshot().doctrine, true);
+});
+
+test('without the doctrine the components still work, and the doctrine waits for it', async () => {
+  const scene = liveScene();
+  const page = await mount({ scene, doctrine: null });
+  page.map.select(busiest(scene));
+  const s = page.map.snapshot();
+  assert.equal(s.doctrine, false);
+  assert.equal(s.view, 'component');
+  assert.equal(page.root.querySelectorAll('.sm-node--rule').length, 0);
+  assert.equal(page.root.querySelectorAll('.sm-rline').length, 0);
+  page.map.select('doctrine');
+  assert.equal(page.map.snapshot().view, 'component', 'no doctrine view without the doctrine');
+});
+
+test('a stale scene without details still draws its families and components', async () => {
+  const page = await mount({ scene: staleScene(), doctrine: null });
+  const s = page.map.snapshot();
+  assert.equal(s.ready, true);
+  assert.equal(page.root.querySelectorAll('.sm-node--fam').length, s.counts.families);
+  assert.equal(page.root.querySelectorAll('.sm-node--comp').length, s.counts.components);
 });
 
 test('bad rows are dropped and the rest is drawn', async () => {
   const scene = liveScene();
-  const edges = scene.scene.edges;
-  edges.push({ ...edges[0] });                                                       // a repeated edge id
-  edges.push({ id: 'edge:dangling', relation: 'declared_dependency_untyped', source: 'component:nowhere', target: edges[0].target });
-  scene.scene.nodes.push({ ...scene.scene.nodes.find(n => n.kind === 'wired_component') }); // a duplicate node
-  const snap = (await mount({ scene })).map.snapshot();
-  assert.ok(snap.ready);
-  assert.equal(snap.dropped, 2, 'the repeated and the dangling edge are dropped');
-  assert.equal(snap.links.length, declared(liveScene()).length);
+  scene.scene.nodes.push(clone(scene.scene.nodes[0]));
+  scene.scene.edges.push({ id: 'x', source: 'component:nope', target: compNodes(scene)[0].id, relation: 'declared_dependency_untyped' });
+  scene.scene.edges.push(clone(declared(scene)[0]));
+  scene.scene.edges.push('not an edge');
+  const page = await mount({ scene, doctrine: null });
+  const s = page.map.snapshot();
+  assert.equal(s.ready, true);
+  assert.ok(s.counts.dropped >= 3);
+  assert.equal(s.counts.links, counts(liveScene()).links.length);
 });
 
-test('a stale scene without details still lays out, labels and routes to the architecture map', async () => {
-  const m = await mount({ scene: staleScene(), doctrine: null });
-  const snap = m.map.snapshot();
-  assert.ok(snap.ready && snap.stale);
-  assert.ok(snap.components.every(c => c.cls === null), 'no evidence class is invented');
-  const drawn = m.texts().map(t => t.text);
-  for (const area of sceneFile.scene.nodes.filter(n => n.kind === 'area')) {
-    assert.ok(drawn.some(t => area.label.replace(/\s+/g, ' ').includes(t.replace(/…$/, '')) && t.length > 3), `${area.label} is named`);
-  }
-  for (const step of sceneFile.scene.nodes.filter(n => n.kind === 'spine_step')) {
-    assert.ok(drawn.includes(step.label), `the step ${step.label} is named`);
-  }
-  assert.ok(drawn.includes('Declared link'), 'the key keeps the links');
-  assert.ok(!drawn.some(t => /Runs a real tool|Checks a contract/.test(t)), 'and lists no class it cannot know');
-  const comp = snap.components[0];
-  m.select(comp.id);
-  const hrefs = m.card().all(n => n.tagName === 'A').map(a => a.getAttribute('href'));
-  assert.deepEqual(hrefs, [`docs/system-map.html#map=${encodeURIComponent(comp.id)}`], 'the one route is the contract #map= address');
+/* ---- Names ------------------------------------------------------------------------ */
+test('on the landing a choice names its linked components on plates, no two of them overlapping', async () => {
+  const scene = liveScene();
+  const page = await mount({ scene, areaWidth: 820 });
+  page.map.select(busiest(scene));
+  const plates = page.root.querySelectorAll('.sm-plate');
+  assert.ok(plates.length > 0);
+  assert.equal(page.map.snapshot().lit.plates, plates.length);
+  const boxes = plates.map(g => { const r = g.querySelector('rect'); return [+r.getAttribute('x'), +r.getAttribute('y'), +r.getAttribute('width'), +r.getAttribute('height')]; });
+  boxes.forEach((a, i) => boxes.forEach((b, j) => {
+    if (j <= i) return;
+    const apart = a[0] + a[2] <= b[0] || b[0] + b[2] <= a[0] || a[1] + a[3] <= b[1] || b[1] + b[3] <= a[1];
+    assert.ok(apart, 'two plates overlap');
+  }));
+  plates.forEach(g => assert.ok(page.root.querySelector('.sm-node--comp[data-sm-key="' + g.getAttribute('data-sm-plate') + '"]').classList.contains('is-lit') ||
+    page.root.querySelector('.sm-node--comp[data-sm-key="' + g.getAttribute('data-sm-plate') + '"]').classList.contains('is-self')));
+  const vb = page.root.querySelector('svg.sm-ring').getAttribute('viewBox').split(' ').map(Number);
+  plates.forEach(g => pointsOf(g.querySelector('.sm-leader').getAttribute('d')).forEach(([x, y]) =>
+    assert.ok(x >= 0 && x <= vb[2] && y >= 0 && y <= vb[3], 'a leader stays on the drawing')));
 });
 
-test('before it opens the drawing is its blueprint: painted once, without words, with no frame running', async () => {
-  const m = await mount({ io: true });
-  assert.equal(m.map.snapshot().open, 'waiting');
-  assert.equal(m.frames.size, 0, 'nothing runs while the drawing is off screen');
-  assert.ok(m.clears() >= 1, 'the blueprint is painted although the drawing is not in view yet');
-  assert.ok((m.calls().stroke || 0) > 0 && (m.calls().arc || 0) > 0, 'its outlines and lattice points are drawn');
-  assert.equal(m.texts().length, 0, 'and no word');
-  const clears = m.clears();
-  m.advance(2000);
-  assert.equal(m.clears(), clears, 'it does not repaint on its own');
+test('on its own page with room, every component is named round the rim and each family heads its run', async () => {
+  const scene = liveScene();
+  const page = await mount({ scene, page: true, areaWidth: 1900, innerHeight: 1500 });
+  const s = page.map.snapshot();
+  assert.ok(s.ring.named >= 14, 'names at fourteen pixels or more');
+  const names = page.root.querySelectorAll('.sm-rimname');
+  assert.equal(names.length, s.counts.components);
+  const labelOf = n => { const d = scene.scene.inspectors[n.inspector_ref || 'inspector:' + n.id] || {}; return d.public_label || d.title || n.label; };
+  assert.deepEqual(names.map(n => n.textContent).sort(), compNodes(scene).map(labelOf).sort());
+  assert.equal(page.root.querySelectorAll('.sm-node--head').length, s.counts.families);
+  page.map.select(busiest(scene));
+  assert.equal(page.root.querySelectorAll('.sm-plate').length, 0, 'the names are already round the rim');
 });
 
-test('the opening waits for the drawing to be in view, plays once, and requests no frame after it settles', async () => {
-  const m = await mount({ io: true });
-  assert.equal(m.map.snapshot().open, 'waiting');
-  m.fireIO(0.3);
-  assert.equal(m.map.snapshot().open, 'waiting', 'a sliver in view does not start it');
-  m.fireIO(0.8);
-  assert.equal(m.map.snapshot().open, 'running');
-  m.advance(600);
-  assert.ok(m.frames.size > 0, 'mid-way it is still moving');
-  m.advance(1400);
-  assert.equal(m.map.snapshot().open, 'done');
-  assert.equal(m.frames.size, 0, 'no frame is requested once it has settled');
-  const clears = m.clears();
-  m.advance(3000);
-  assert.equal(m.clears(), clears, 'and nothing repaints while the reader is idle');
-  m.fireIO(0);
-  m.fireIO(0.9);
-  assert.equal(m.map.snapshot().open, 'done', 'it never replays');
-  assert.equal(m.frames.size, 0);
-});
-
-test('the opening lasts between one and one and a half seconds', async () => {
-  const m = await mount({ io: true });
-  m.fireIO(0.9);
-  let elapsed = 0;
-  while (m.map.snapshot().open === 'running' && elapsed < 5000) { m.advance(16); elapsed += 16; }
-  assert.ok(elapsed >= 1000 && elapsed <= 1500, `the opening took ${elapsed}ms`);
-});
-
-test('while the slider carries the system slide in, the opening waits for the slide to settle', async () => {
-  const m = await mount({ io: true });
-  const send = detail => m.document.fire('plectis:atlas', { detail });
-  send({ view: 'system', previous: 'mathematics', phase: 'start', instant: false });
-  m.fireIO(0.9);
-  assert.equal(m.map.snapshot().open, 'waiting', 'visible part-way through the move is not enough');
-  assert.equal(m.frames.size, 0);
-  send({ view: 'system', previous: 'mathematics', phase: 'end', instant: false });
-  assert.equal(m.map.snapshot().open, 'running', 'the end of the move starts it');
-  m.advance(2000);
-  assert.equal(m.frames.size, 0);
-  // Moving away drops any hover at once.
-  m.canvas.fire('pointermove', { clientX: m.map.snapshot().components[0].x, clientY: m.map.snapshot().components[0].y, pointerType: 'mouse' });
-  assert.ok(m.map.snapshot().hover, 'the pointer lights a component');
-  send({ view: 'mathematics', previous: 'system', phase: 'start', instant: false });
-  assert.equal(m.map.snapshot().hover, null, 'leaving the slide lets it go');
-});
-
-test('a slide that arrives at once (a keyboard step, an address naming it) shows the finished drawing', async () => {
-  const m = await mount({ io: true });
-  m.document.fire('plectis:atlas', { detail: { view: 'system', previous: 'mathematics', phase: 'start', instant: true } });
-  m.fireIO(1);
-  assert.equal(m.map.snapshot().open, 'done', 'no opening for an instant arrival');
-  assert.equal(m.frames.size, 0, 'and no frame');
-  const byAddress = await mount({ io: true, hash: '#system' });
-  assert.equal(byAddress.map.snapshot().open, 'done', 'an address that names the drawing lands on it finished');
-  byAddress.fireIO(1);
-  assert.equal(byAddress.frames.size, 0);
-});
-
-test('reduced motion paints the finished drawing with no frame scheduled, at every level', async () => {
-  const m = await mount({ io: true, reduce: true });
-  assert.equal(m.map.snapshot().open, 'done', 'the drawing is final before it is seen');
-  m.fireIO(1);
-  assert.ok(m.texts().some(t => t.text === 'Declared link'), 'the finished drawing is painted');
-  assert.equal(m.frames.size, 0);
-  m.map.select('area:formal_math_and_proof');
-  assert.equal(m.map.snapshot().level, 'family');
-  assert.equal(m.map.snapshot().sheet.mix, 1, 'the family opens at once');
-  m.map.select(m.map.snapshot().sheet.rows[0].id);
-  assert.equal(m.map.snapshot().level, 'component');
-  assert.equal(m.frames.size, 0, 'no frame at any step');
-  m.document.fire('keydown', { key: 'Escape' });
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().level, 'overview');
-  assert.equal(m.map.snapshot().sheet, null, 'and closes at once');
-  assert.equal(m.frames.size, 0);
-});
-
-test('every transition lands in its final state and then stops', async () => {
-  const m = await mount({ doctrine: null });
-  const formal = 'area:formal_math_and_proof';
-  m.map.select(formal);
-  m.advance(200);
-  const mid = m.map.snapshot().sheet;
-  assert.ok(mid && mid.mix > 0 && mid.mix < 1, 'mid-way the plate is opening');
-  m.advance(600);
-  assert.equal(m.map.snapshot().sheet.mix, 1, 'the sheet arrives fully open');
-  assert.equal(m.frames.size, 0, 'and nothing runs after');
-  const row = m.map.snapshot().sheet.rows[3];
-  m.map.select(row.id);
-  m.advance(800);
-  assert.equal(m.map.snapshot().level, 'component');
-  assert.equal(m.frames.size, 0);
-  // Escape is a keyboard step: it lands at once.
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().level, 'family');
-  assert.equal(m.frames.size, 0, 'a keyboard step needs no frame');
-  // A click on empty ground steps back by the same path the plate opened.
-  m.canvas.fire('click', { clientX: 676, clientY: 568, detail: 1 });
-  m.advance(200);
-  assert.ok(m.map.snapshot().sheet && m.map.snapshot().sheet.mix < 1, 'closing runs back through the same states');
-  m.advance(600);
-  assert.equal(m.map.snapshot().sheet, null, 'the sheet closes fully into its plate');
-  assert.equal(m.frames.size, 0);
-  // A pointer on a component traces its links once, then everything rests.
-  const c = m.map.snapshot().components[10];
-  m.canvas.fire('pointermove', { clientX: c.x, clientY: c.y, pointerType: 'mouse' });
-  assert.ok(m.frames.size > 0, 'the trace runs');
-  m.advance(800);
-  assert.equal(m.frames.size, 0, 'and stops');
-  const clears = m.clears();
-  m.advance(2000);
-  assert.equal(m.clears(), clears, 'no repaint while the pointer rests');
-});
-
-test('the keyboard walks every level and every step lands at once', async () => {
-  const m = await mount({ doctrine: null });
-  const row = m.rows[2];                      // Formal math & proof
-  row.fire('focusin');
-  assert.equal(m.map.snapshot().level, 'family', 'a family row in focus opens its sheet');
-  assert.equal(m.map.snapshot().sheet.mix, 1, 'at once');
-  assert.equal(m.frames.size, 0);
-  row.fire('keydown', { key: 'ArrowDown' });
-  row.fire('keydown', { key: 'ArrowDown' });
-  assert.equal(m.map.snapshot().focus.kind, 'comp', 'the arrow keys walk the components');
-  assert.equal(m.frames.size, 0, 'and light each one at once');
-  row.fire('keydown', { key: 'Enter' });
-  assert.equal(m.map.snapshot().level, 'component', 'Enter selects the one reached');
-  assert.ok(m.card() && !m.card().hidden);
-  assert.equal(m.frames.size, 0);
-  m.document.fire('keydown', { key: 'Escape' });
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().level, 'overview', 'Escape steps all the way back');
-  assert.equal(m.frames.size, 0);
-});
-
-test('a theme change repaints exactly once and starts nothing', async () => {
-  const m = await mount();
-  const before = m.clears();
-  m.document.fire('plectis:theme', { detail: { theme: 'dark' } });
-  assert.equal(m.clears(), before + 1, 'one repaint');
-  assert.equal(m.frames.size, 0, 'and no animation');
-});
-
-test('the three levels: a family opens with every name, a component gets its card, Escape steps back', async () => {
-  const m = await mount({ doctrine: null });
-  const formal = 'area:formal_math_and_proof';
-  m.select(formal);
-  let snap = m.map.snapshot();
-  assert.equal(snap.level, 'family');
-  const members = snap.components.filter(c => c.family === formal);
-  assert.equal(snap.sheet.rows.length, members.length, 'the sheet names every component of the family');
-  assert.deepEqual(new Set(snap.sheet.rows.map(r => r.id)), new Set(members.map(c => c.id)));
-  assert.match(m.caption.textContent, /All families \/ Formal math & proof/, 'the caption says where the reader is');
-  assert.ok(m.texts().some(t => /All families/.test(t.text)), 'the sheet leads back to all families');
-  const target = snap.sheet.rows.find(r => r.id === 'component:verifier_lab_kernel') || snap.sheet.rows[0];
-  m.select(target.id);
-  snap = m.map.snapshot();
-  assert.equal(snap.level, 'component');
-  const card = m.card();
-  assert.ok(card && !card.hidden, 'the component has a card');
-  const words = card.textContent;
-  assert.match(words, /Names?|names/, 'the card says what it names in words');
-  assert.match(words, /A declared link is not proof that one calls the other\./, 'and keeps the honesty boundary');
-  assert.deepEqual(card.all(n => n.tagName === 'A').map(a => a.textContent), ['Component page', 'Full map']);
-  const back = card.all(n => n.tagName === 'BUTTON' && /system-card__back/.test(n.className))[0];
-  assert.ok(back, 'the card leads back to its family');
-  m.document.fire('keydown', { key: 'Escape' });
-  m.advance(800);
-  assert.equal(m.map.snapshot().level, 'family', 'Escape steps back to the family');
-  m.document.fire('keydown', { key: 'Escape' });
-  m.advance(800);
-  assert.equal(m.map.snapshot().level, 'overview', 'and then to the whole drawing');
-  assert.ok(m.card().hidden, 'the card goes with it');
-});
-
-test('a long list in the card opens in full in place', async () => {
-  const m = await mount({ doctrine: null });
-  const busiest = m.map.snapshot().components.map(c => c.id)
-    .map(id => ({ id, n: declared(liveScene()).filter(e => e.source === id).length }))
-    .sort((a, b) => b.n - a.n)[0];
-  m.select(busiest.id);
-  const card = m.card();
-  const more = card.all(n => n.tagName === 'BUTTON' && /system-card__more/.test(n.className));
-  assert.ok(more.length >= 1, 'a list longer than five ends in a button for the rest');
-  const shown = card.all(n => /system-card__peer/.test(n.className)).length;
-  more[0].fire('click');
-  const after = m.card().all(n => /system-card__peer/.test(n.className)).length;
-  assert.ok(after > shown, 'pressing it lists every name');
-  assert.doesNotMatch(m.card().all(n => /system-card__peers/.test(n.className))[0].textContent, /more\./, 'with nothing left over');
-});
-
-test('every word a reader sees is plain: no ids, field names or schema words', async () => {
-  const m = await mount({ doctrine: null });
-  const seen = [];
-  const collect = () => { seen.push(m.caption.textContent, ...m.texts().map(t => t.text)); const c = m.card(); if (c && !c.hidden) seen.push(c.textContent); };
-  collect();
-  for (const id of ['area:import_projection_and_drift', 'component:macro_projection_import_protocol', 'component:verifier_lab_kernel']) {
-    m.select(id);
-    collect();
-  }
-  const snap = m.map.snapshot();
-  m.select(null);
-  m.canvas.fire('pointermove', { clientX: snap.components[5].x, clientY: snap.components[5].y, pointerType: 'mouse' });
-  m.advance(600);
-  collect();
-  const st = snap.stations[3];
-  m.canvas.fire('pointermove', { clientX: st.x, clientY: st.y, pointerType: 'mouse' });
-  m.advance(600);
-  collect();
-  const text = seen.join(' \n ');
-  assert.doesNotMatch(text, /\b(?:component|area|primitive|cluster|inspector):/, 'no ids');
-  assert.doesNotMatch(text, /declared_dependency_untyped|class_id|runs_real_tools|wired_component|spine_step|_/,
-    'no field or class names');
-  assert.doesNotMatch(text, /—|·/, 'no em dashes or middle dots');
-});
-
-test('words never overlap one another, the marks, or the name plate, at laptop, monitor and phone sizes', async () => {
-  for (const [width, height] of [[630, 526], [677, 569], [900, 790], [335, 379], [430, 560]]) {
-    const m = await mount({ width, height });
-    const check = label => {
-      const drawn = m.map.snapshot().drawn;
-      for (let i = 0; i < drawn.length; i++) {
-        for (let k = i + 1; k < drawn.length; k++) assert.ok(!boxesMeet(drawn[i], drawn[k]), `${label} at ${width}x${height}: words ${i} and ${k}`);
-      }
-    };
-    check('rest');
-    const snap = m.map.snapshot();
-    for (const c of snap.components) {
-      for (const l of snap.labels) {
-        const r = snap.markRadius;
-        assert.ok(!(c.x + r > l.box.x0 && c.x - r < l.box.x1 && c.y + r > l.box.y0 && c.y - r < l.box.y1),
-          `${l.text} stays off ${c.id} at ${width}x${height}`);
-      }
-    }
-    // Pointing at the busiest components puts up a name plate; it covers
-    // neither a word nor a mark.
-    for (const id of ['component:verifier_lab_kernel', 'component:macro_projection_import_protocol']) {
-      const c = snap.components.find(x => x.id === id);
-      if (!c) continue;
-      m.canvas.fire('pointermove', { clientX: c.x, clientY: c.y, pointerType: 'mouse' });
-      m.advance(600);
-      check('hover ' + id);
-      const plate = m.map.snapshot().drawn[0];
-      for (const o of snap.components) {
-        if (o.id === id) continue;
-        const r = snap.markRadius;
-        assert.ok(!(o.x + r > plate.x0 && o.x - r < plate.x1 && o.y + r > plate.y0 && o.y - r < plate.y1),
-          `the name plate for ${id} stays off ${o.id} at ${width}x${height}`);
-      }
-      m.canvas.fire('pointerleave', {});
-      m.advance(600);
-    }
-    m.select('area:formal_math_and_proof');
-    const sheet = m.map.snapshot().sheet;
-    assert.ok(sheet.rect.y1 <= height + 0.5, `the sheet fits the box at ${width}x${height}`);
-    for (let i = 1; i < sheet.rows.length; i++) assert.ok(sheet.rows[i].box.y0 >= sheet.rows[i - 1].box.y1 - 0.5, 'rows never overlap');
-    if (sheet.card) assert.ok(sheet.card.x0 >= sheet.rect.x1, 'the card stands beside the sheet, never over it');
-  }
-});
-
-test('the scene is fetched once, revalidated, and the public API answers before and after it arrives', async () => {
-  const m = await mount();
-  assert.equal(m.requests.length, 2, 'the scene, then the rules each component keeps');
-  assert.equal(m.requests[0].url, 'docs/architecture-graph-scene.json');
-  assert.equal(m.requests[0].opts.cache, 'no-cache');
-  assert.equal(m.requests[1].url, 'docs/doctrine-manifest.json', 'the doctrine comes second, from the canvas attribute');
-  assert.equal(m.requests[1].opts.cache, 'no-cache');
-  assert.deepEqual(plain(m.map.snapshot().doctrine), { axioms: 12, principles: 20, antiPrinciples: 17 });
-  const without = await mount({ doctrine: null });
-  assert.equal(without.map.snapshot().doctrine, null, 'a missing projection leaves the machinery drawn alone');
-  assert.ok(without.map.snapshot().ready);
-  assert.equal(typeof m.map.focusFamily, 'function');
-  assert.equal(typeof m.map.select, 'function');
-  m.map.focusFamily('area:research_and_science_replays');
-  assert.deepEqual(plain(m.map.snapshot().focus), { kind: 'family', i: 4 });
-  assert.ok(m.rows[4].classList.contains('is-current'), 'the family row is marked current');
-  m.map.focusFamily(null);
-  assert.ok(!m.rows[4].classList.contains('is-current'));
-});
-
-/* ---- The doctrine: the interior, the column, the family's axioms ---- */
-
-// The canvas at 1280x690, 1440x790 and 1920x953, and a 1024px window's.
-const INNER_SIZES = [[630, 526], [677, 569], [900, 790], [506, 411]];
-const overlap = (a, b, pad = 0) => a.x0 < b.x1 - pad && a.x1 > b.x0 + pad && a.y0 < b.y1 - pad && a.y1 > b.y0 + pad;
-// A run passes through a plate's inside (its ends may touch the edges, at the pins).
-function crossesInside(r, rect) {
-  const inner = { x0: rect.x0 + 1.5, x1: rect.x1 - 1.5, y0: rect.y0 + 1.5, y1: rect.y1 - 1.5 };
-  const box = { x0: Math.min(r.x0, r.x1), x1: Math.max(r.x0, r.x1), y0: Math.min(r.y0, r.y1), y1: Math.max(r.y0, r.y1) };
-  return box.x1 >= inner.x0 && box.x0 <= inner.x1 && box.y1 >= inner.y0 && box.y0 <= inner.y1;
-}
-function busiestOf(doc) {
-  return [...doc.components].sort((a, b) => b.governed_by.length - a.governed_by.length || b.abides_by.length - a.abides_by.length)[0];
-}
-function axiomsShown(doc, row) {
-  const via = row.governed_by.flatMap(p => doc.principles.find(x => x.id === p).rests_on);
-  return new Set([...via, ...row.abides_by]);
-}
-const centre = r => [(r.x0 + r.x1) / 2, (r.y0 + r.y1) / 2];
-
-test('a selected component opens into its interior: the base, its principles above, their axioms on top, at four sizes', async () => {
-  for (const [width, height] of INNER_SIZES) {
-    const m = await mount({ width, height, em: 0.46 });
-    const doc = m.doctrine;
-    for (const row of [busiestOf(doc), doc.components[0], doc.components[4]]) {
-      m.select(row.id);
-      const s = m.map.snapshot(), it = s.interior;
-      assert.equal(s.level, 'component');
-      assert.ok(it && it.settled, `${row.id} opens and settles at ${width}x${height}`);
-      const P = it.plates.filter(p => p.kind === 'principle'), A = it.plates.filter(p => p.kind === 'axiom');
-      assert.deepEqual(new Set(P.map(p => p.id)), new Set(row.governed_by), 'its principles are the ones it is governed by');
-      assert.deepEqual(new Set(A.map(p => p.id)), axiomsShown(doc, row), 'its axioms: those its principles rest on, and those it abides by');
-      assert.ok(Math.max(...A.map(p => p.rect.y1)) < Math.min(...P.map(p => p.rect.y0)), 'the axioms stand above the principles');
-      assert.ok(Math.max(...P.map(p => p.rect.y1)) < it.base.rect.y0, 'the principles stand above the component');
-      const all = it.plates.map(p => p.rect).concat([it.base.rect]);
-      for (const r of all) assert.ok(r.x0 >= 0 && r.y0 >= 0 && r.x1 <= width && r.y1 <= height, `a plate leaves the drawing at ${width}x${height}`);
-      for (let i = 0; i < all.length; i++) {
-        for (let k = i + 1; k < all.length; k++) assert.ok(!overlap(all[i], all[k], 0.5), `plates ${i} and ${k} overlap at ${width}x${height}`);
-      }
-      // At the laptop and monitor sizes every name stands whole, in at most
-      // four lines; only a crowded interior in a small window may cut one.
-      for (const p of it.plates) {
-        assert.ok(p.lines.length >= 1 && p.lines.length <= 4, `${p.title} takes four lines at most`);
-        if (width >= 600 || !it.forced) assert.equal(p.lines.join(' '), p.title, `${p.title} is named whole at ${width}x${height}`);
-      }
-      // Every guard declared on a shown axiom sits on its top edge.
-      for (const a of A) {
-        const marks = it.guards.filter(g => g.axiom === a.id);
-        assert.equal(marks.length, doc.axioms.find(x => x.id === a.id).guarded_by.length, `the guards of ${a.title}`);
-        for (const g of marks) assert.ok(g.y < a.rect.y0 && g.x > a.rect.x0 && g.x < a.rect.x1, 'a guard stands on its axiom');
-      }
-      // The wiring is orthogonal and never runs through a plate.
-      for (const r of it.runs) {
-        assert.ok(Math.abs(r.x0 - r.x1) < 0.01 || Math.abs(r.y0 - r.y1) < 0.01, 'every run is straight');
-        for (const rect of all) assert.ok(!crossesInside(r, rect), `a ${r.kind} run crosses a plate at ${width}x${height}`);
-      }
-      assert.equal(it.runs.filter(r => r.kind === 'tap').length, row.governed_by.length, 'one tap to each principle');
-      assert.equal(it.runs.filter(r => r.kind === 'rise').length, A.length, 'one wire up into each axiom');
-      // Words never meet.
-      const drawn = s.drawn;
-      for (let i = 0; i < drawn.length; i++) {
-        for (let k = i + 1; k < drawn.length; k++) assert.ok(!overlap(drawn[i], drawn[k], 0.5), `words ${i} and ${k} at ${width}x${height}`);
-      }
-      m.document.fire('keydown', { key: 'Escape' });
-      assert.equal(m.map.snapshot().interior, null, 'Escape folds it at once');
-    }
-  }
-});
-
-test('the interior lights rank by rank in about a second, then stops; stepping back runs the same way home', async () => {
-  const m = await mount();
-  const row = busiestOf(m.doctrine);
-  m.map.select(row.id);
-  m.advance(16);
-  let s = m.map.snapshot();
-  assert.ok(s.interior && !s.interior.settled && s.moving, 'it is opening');
-  const lastP = Math.max(...s.interior.plates.filter(p => p.kind === 'principle').map(p => p.lit));
-  const firstA = Math.min(...s.interior.plates.filter(p => p.kind === 'axiom').map(p => p.lit));
-  assert.ok(lastP < firstA, 'every principle lights before the first axiom');
-  let elapsed = 16;
-  while (m.map.snapshot().moving && elapsed < 5000) { m.advance(16); elapsed += 16; }
-  assert.ok(elapsed >= 900 && elapsed <= 1500, `the interior took ${elapsed}ms`);
-  assert.equal(m.frames.size, 0, 'nothing runs once it has settled');
-  const clears = m.clears();
-  m.advance(2000);
-  assert.equal(m.clears(), clears, 'and nothing repaints while the reader is idle');
-  // A click on empty ground folds it back the way it came.
-  m.canvas.fire('click', { clientX: 677 - 3, clientY: 569 * 0.5, detail: 1 });
-  m.advance(160);
-  s = m.map.snapshot();
-  assert.ok(s.interior && s.interior.closing && s.interior.t < s.interior.end, 'it folds through the same states');
-  m.advance(1600);
-  s = m.map.snapshot();
-  assert.equal(s.interior, null);
-  assert.equal(s.level, 'overview');
-  assert.equal(m.frames.size, 0);
-});
-
-test('reduced motion: the interior stands at once and folds at once, with no frame', async () => {
-  const m = await mount({ reduce: true });
-  m.map.select(busiestOf(m.doctrine).id);
-  assert.ok(m.map.snapshot().interior.settled, 'final at once');
-  assert.equal(m.frames.size, 0);
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().interior, null);
-  assert.equal(m.frames.size, 0);
-});
-
-test('a rule pointed at in the interior lights its path; selected, it is held; Escape lets go of the rule, then the component', async () => {
-  const m = await mount();
-  const row = busiestOf(m.doctrine);
-  m.select(row.id);
-  const it = m.map.snapshot().interior;
-  const axiom = it.plates.find(p => p.kind === 'axiom');
-  const [x, y] = centre(axiom.rect);
-  m.canvas.fire('pointermove', { clientX: x, clientY: y, pointerType: 'mouse' });
-  m.advance(400);
-  assert.equal(m.map.snapshot().ruleHover, axiom.id, 'the axiom under the pointer is in focus');
-  assert.match(m.caption.textContent, new RegExp(axiom.title.replace(/[/]/g, '\\/')), 'the caption names it in words');
-  m.canvas.fire('click', { clientX: x, clientY: y, detail: 1 });
-  assert.equal(m.map.snapshot().rulePinned, axiom.id, 'a click holds it');
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().rulePinned, null, 'Escape lets the rule go first');
-  assert.equal(m.map.snapshot().level, 'component');
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().level, 'overview');
-});
-
-test('the column reads the drawing: the component, then a rule, each a page; back and Escape retrace the trail', async () => {
-  const m = await mount({ column: true });
-  const doc = m.doctrine, row = busiestOf(doc);
-  const label = m.map.snapshot().components.find(c => c.id === row.id).label;
-  m.select(row.id);
-  let s = m.map.snapshot();
-  assert.equal(s.column.kind, 'comp');
-  assert.equal(s.column.title, label, 'the column carries the component name');
-  assert.ok(m.card() === null || m.card().hidden, 'and no card stands in the drawing');
-  const page = m.page();
-  const named = page.querySelectorAll('.sc__rule').map(b => b.getAttribute('data-rule'));
-  assert.deepEqual(new Set(named), new Set([...row.governed_by, ...axiomsShown(doc, row)]), 'it names exactly the rules the interior draws');
-  const principle = page.querySelectorAll('.sc__rule').find(b => b.getAttribute('data-rule') === row.governed_by[0]);
-  principle.fire('pointerenter');
-  assert.equal(m.map.snapshot().ruleHover, row.governed_by[0], 'pointing at a rule in the column lights it in the drawing');
-  principle.fire('pointerleave');
-  principle.fire('click', { detail: 1 });
-  s = m.map.snapshot();
-  assert.equal(s.rulePinned, row.governed_by[0]);
-  assert.equal(s.column.kind, 'rule', 'the column turns to the rule');
-  const rule = doc.principles.find(p => p.id === row.governed_by[0]);
-  assert.equal(s.column.title, rule.title);
-  const links = Object.fromEntries(m.page().querySelectorAll('a').map(a => [a.textContent, a.getAttribute('href')]));
-  assert.equal(links['Read it in the doctrine'], 'docs/' + rule.doctrine, 'the doctrine card, at its published anchor');
-  assert.equal(links['See it among the rules'], 'docs/' + rule.context);
-  m.page().querySelector('.sc__back-btn').fire('click', { detail: 1 });
-  s = m.map.snapshot();
-  assert.equal(s.column.kind, 'comp', 'back returns to the component');
-  assert.equal(s.rulePinned, null);
-  const keyed = m.page().querySelectorAll('.sc__rule').find(b => b.getAttribute('data-rule') === row.governed_by[0]);
-  assert.deepEqual([keyed.getAttribute('role'), keyed.getAttribute('tabindex')], ['button', '0'], 'each rule named is a button the keyboard reaches');
-  keyed.fire('keydown', { key: 'Enter' });
-  assert.equal(m.map.snapshot().rulePinned, row.governed_by[0], 'Enter turns the column to the rule');
-  m.page().querySelector('.sc__back-btn').fire('click', { detail: 0 });
-  assert.equal(m.map.snapshot().column.kind, 'comp');
-  m.document.fire('keydown', { key: 'Escape' });
-  m.advance(1600);
-  s = m.map.snapshot();
-  assert.equal(s.level, 'overview');
-  assert.equal(s.column, null, 'and the column is the families again');
-  assert.ok(!m.host.classList.contains('sc-host--open'));
-});
-
-test('on its own page the drawing opens when in view, follows #map= and writes the selection back', async () => {
-  const doc = doctrineFor(liveScene()), row = busiestOf(doc), comp = row.id;
-  const m = await mount({ ownPage: true, io: true, column: true });
-  assert.equal(m.map.snapshot().open, 'waiting', 'a blueprint until it is in view');
-  m.fireIO(1);
-  m.advance(32);
-  assert.equal(m.map.snapshot().open, 'running', 'in view it opens: there is no slider to wait for');
-  m.advance(2500);
-  assert.equal(m.map.snapshot().open, 'done');
-  assert.equal(m.frames.size, 0, 'and stops');
-  m.select(comp);
-  assert.equal(m.window.location.hash, '#map=' + encodeURIComponent(comp), 'a selection is the address');
-  const links = m.page().querySelectorAll('a').map(a => [a.textContent, a.getAttribute('href')]);
-  assert.ok(!links.some(([t]) => t === 'Full map'), 'the page is the map, so it does not link to one');
-  assert.ok(links.length && links.every(([, h]) => !h.startsWith('docs/')), 'routes are docs-relative on a docs page');
-  m.map.selectRule(row.governed_by[0]);
-  const rule = doc.principles.find(p => p.id === row.governed_by[0]);
-  assert.equal(m.page().querySelectorAll('a').find(a => a.textContent === 'Read it in the doctrine').getAttribute('href'), rule.doctrine);
-  m.document.fire('keydown', { key: 'Escape' });
-  m.document.fire('keydown', { key: 'Escape' });
-  m.advance(1600);
-  assert.equal(m.map.snapshot().level, 'overview');
-  assert.equal(m.window.location.hash, '', 'stepping back to the whole drawing clears it');
-  const linked = await mount({ ownPage: true, column: true, settle: false, hash: '#map=' + encodeURIComponent(comp) });
-  let s = linked.map.snapshot();
-  assert.equal(s.open, 'done', 'an address lands on the finished drawing');
-  assert.equal(s.level, 'component');
-  assert.equal(s.pinned.comp >= 0 && s.components[s.pinned.comp].id, comp, 'with the component it names selected');
-  linked.window.location.hash = '#map=' + encodeURIComponent('area:formal_math_and_proof');
-  linked.window.fire('hashchange');
-  linked.advance(1600);
-  s = linked.map.snapshot();
-  assert.equal(s.level, 'family', 'a new address selects again');
-  assert.equal(s.sheet.family, 'area:formal_math_and_proof');
-  const landing = await mount({ column: true, hash: '#map=' + encodeURIComponent(comp) });
-  assert.equal(landing.map.snapshot().level, 'overview', 'on the landing an address is not the drawing\'s');
-  landing.select(comp);
-  assert.deepEqual(landing.window.history.writes, [], 'and a selection there writes none');
-});
-
-test('a page longer than its column closes up in steps, and only then is anything cut', async () => {
-  const id = busiestOf(doctrineFor(liveScene())).id;
-  const steps = p => ['sc__page--dense', 'sc__page--bare', 'sc__page--quiet', 'sc__page--denser'].filter(c => p.classList.contains(c));
-  const roomy = await mount({ column: true });
-  roomy.select(id);
-  assert.deepEqual(steps(roomy.page()), [], 'a page that fits stands as it is');
-  const close = await mount({ column: true, overflow: 60 });
-  close.select(id);
-  assert.deepEqual(steps(close.page()), ['sc__page--dense', 'sc__page--bare'], 'lists run on, then the neighbours give way');
-  assert.ok(!close.page().querySelector('.sc__ranks').classList.contains('is-cut'), 'and nothing is cut');
-  const long = await mount({ column: true, overflow: 500 });
-  long.select(id);
-  assert.deepEqual(steps(long.page()), ['sc__page--dense', 'sc__page--bare', 'sc__page--quiet', 'sc__page--denser']);
-  assert.ok(long.page().querySelector('.sc__ranks').classList.contains('is-cut'), 'only then is a block cut, fading at its foot');
-  const lensed = await mount({ column: true, overflow: 60 });
-  lensed.map.lens('doctrine');
-  lensed.advance(600);
-  assert.equal(lensed.map.snapshot().column.kind, 'doctrine');
-  assert.deepEqual(steps(lensed.page()), ['sc__page--dense', 'sc__page--bare'], 'the doctrine page closes up the same way');
-});
-
-test('each family row carries its components as the drawing marks them', async () => {
-  const m = await mount({ column: true });
-  const snap = m.map.snapshot();
-  for (const li of m.rows) {
-    const marks = li.querySelector('.home-family__marks');
-    const fam = li.getAttribute('data-system-family');
-    assert.ok(marks, `${fam} has its marks`);
-    assert.equal(marks.getAttribute('aria-hidden'), 'true', 'they repeat the count, so they are hidden from readers');
-    assert.equal((marks.innerHTML.match(/<g data-ci=/g) || []).length, snap.components.filter(c => c.family === fam).length,
-      'one mark to each component');
-    assert.ok(li.classList.contains('has-marks'));
-  }
-});
-
-test('a family fills the drawing: its sheet beside the axioms its components abide by', async () => {
-  const m = await mount({ column: true });
-  const doc = m.doctrine, fam = 'area:formal_math_and_proof';
-  m.select(fam);
-  const s = m.map.snapshot();
-  assert.equal(s.level, 'family');
-  assert.equal(s.column.kind, 'fam', 'the column reads the family');
-  assert.ok(m.card() === null || m.card().hidden, 'no card beside the sheet: the axioms stand there');
-  assert.equal(s.profile.rows.length, 12, 'one row to each axiom');
-  const members = s.components.filter(c => c.family === fam).map(c => c.id);
-  for (const r of s.profile.rows) {
-    const k = doc.components.filter(c => members.includes(c.id) && c.abides_by.includes(r.id)).length;
-    assert.equal(r.k, k, `the count beside ${r.id} is the family's components that abide by it`);
-    assert.equal(r.n, members.length);
-    assert.ok(r.box.x0 >= s.sheet.rect.x1, 'the axioms stand beside the sheet, never over it');
-    assert.ok(r.box.x1 <= s.width + 0.5);
-  }
-  // The column counts how they are checked, class by class; a class pointed
-  // at lights the components checked that way, then lets go.
-  const byClass = {};
-  s.components.filter(c => c.family === fam).forEach(c => { byClass[c.cls] = (byClass[c.cls] || 0) + 1; });
-  const classes = m.page().querySelectorAll('.sc__live--class');
-  assert.deepEqual(classes.map(li => li.getAttribute('data-class')).sort(), Object.keys(byClass).sort(), 'a row to each class the family holds');
-  for (const li of classes) {
-    assert.equal(li.querySelector('.sc__live-count').textContent, `${byClass[li.getAttribute('data-class')]} of ${members.length}`);
-  }
-  classes[0].fire('pointerenter');
-  const lit = m.map.snapshot().focus;
-  assert.deepEqual([lit.kind, lit.i], ['class', classes[0].getAttribute('data-class')], 'a class pointed at is the focus');
-  assert.ok(classes[0].classList.contains('is-lit'));
-  classes[0].fire('pointerleave');
-  assert.equal(m.map.snapshot().focus, null, 'and lets go');
-  assert.ok(!classes[0].classList.contains('is-lit'));
-  const kept = s.profile.rows.filter(r => r.k > 0).length;
-  assert.match(m.page().textContent, new RegExp(`They abide by ${kept === 12 ? 'all twelve' : '\\w+ of the twelve'} axioms`),
-    'the rules they keep, in words');
-  const row = s.profile.rows.find(r => r.k > 0);
-  const [x, y] = centre(row.box);
-  m.canvas.fire('pointermove', { clientX: x, clientY: y, pointerType: 'mouse' });
-  m.advance(400);
-  const focus = m.map.snapshot().focus;
-  assert.deepEqual([focus.kind, focus.i], ['rule', row.id], 'pointing at an axiom puts it in focus');
-  m.canvas.fire('click', { clientX: x, clientY: y, detail: 1 });
-  assert.equal(m.map.snapshot().rulePinned, row.id);
-  assert.equal(m.map.snapshot().column.kind, 'rule', 'selecting it turns the column to the axiom');
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().column.kind, 'fam', 'Escape returns to the family');
-});
-
-test('in the drawing and the column every word is plain: no rule ids, field names or schema words', async () => {
-  const m = await mount({ column: true });
-  const doc = m.doctrine, row = busiestOf(doc);
-  const seen = [];
-  const collect = () => { seen.push(m.caption.textContent, ...m.texts().map(t => t.text)); const p = m.page(); if (p) seen.push(p.textContent); };
-  m.select(row.id);
-  collect();
-  const it = m.map.snapshot().interior;
-  for (const p of it.plates.slice(0, 3)) {
-    const [x, y] = centre(p.rect);
-    m.canvas.fire('pointermove', { clientX: x, clientY: y, pointerType: 'mouse' });
-    m.advance(300);
-    collect();
-  }
-  const g = it.guards[0];
-  m.canvas.fire('pointermove', { clientX: g.x, clientY: g.y, pointerType: 'mouse' });
-  m.advance(300);
-  collect();
-  m.map.selectRule(row.governed_by[0]);
-  collect();
-  m.map.selectRule(doc.anti_principles[0].id);
-  collect();
-  m.map.select('area:import_projection_and_drift');
-  m.advance(900);
-  collect();
-  const text = seen.join(' \n ');
-  assert.doesNotMatch(text, RULE_ID, 'no rule ids on their own');
-  assert.doesNotMatch(text, /\b(?:component|area|primitive|cluster|inspector):/, 'no node ids');
-  assert.doesNotMatch(text, /_|governed_by|abides_by|guarded_by|rests_on|anti_principle/, 'no field names');
-  assert.doesNotMatch(text, /—|·/, 'no em dashes or middle dots');
-});
-
-test('the doctrine lens: one switch turns the drawing, lands in its final state and stops; turning back restores it', async () => {
-  const m = await mount({ column: true });
-  const doc = m.doctrine;
-  const rest = m.host.querySelector('.sc-lens');
-  assert.ok(rest && rest.classList.contains('is-ready'), 'the switch stands with the families once the rules arrive');
-  const tab = rest.querySelectorAll('.sc-lens__tab').find(b => b.getAttribute('data-lens') === 'doctrine');
-  tab.fire('click', { detail: 1 });
-  m.advance(200);
-  let s = m.map.snapshot();
-  assert.equal(s.lens, 'doctrine');
-  assert.ok(s.lensMix > 0 && s.lensMix < 1, 'mid-way the machinery is receding');
-  m.advance(600);
-  s = m.map.snapshot();
-  assert.equal(s.lensMix, 1, 'it arrives at the doctrine');
-  assert.equal(m.frames.size, 0, 'and nothing runs after');
-  assert.equal(s.column.kind, 'doctrine', 'the column lists the axioms');
-  const rows = m.page().querySelectorAll('.sc__axiom');
-  assert.equal(rows.length, 12);
-  // Each row's count and fingerprint say how many components abide by it.
-  for (const b of rows) {
-    const id = b.getAttribute('data-rule');
-    const k = doc.components.filter(c => c.abides_by.includes(id)).length;
-    assert.equal(b.querySelector('.sc__axiom-count').textContent, String(k), `${id} counts its components`);
-    const fp = b.querySelector('.sc__fp').innerHTML;
-    assert.equal((fp.match(/class="is-on"/g) || []).length, k, 'one tall tick to each component that abides by it');
-    assert.equal((fp.match(/<rect /g) || []).length, s.components.length, 'and one tick to every component');
-  }
-  // Pointing at a row lights its reach in place, then the drawing rests.
-  rows[0].fire('pointerenter');
-  m.advance(16);
-  assert.ok(m.frames.size > 0, 'the reach lights in reading order');
-  m.advance(900);
-  s = m.map.snapshot();
-  assert.deepEqual([s.focus.kind, s.focus.i], ['rule', rows[0].getAttribute('data-rule')]);
-  assert.equal(m.frames.size, 0, 'once lit, nothing moves');
-  const clears = m.clears();
-  m.advance(2000);
-  assert.equal(m.clears(), clears, 'and nothing repaints while the reader is idle');
-  // Selecting it holds the reach and turns the column to the axiom.
-  rows[0].fire('click', { detail: 1 });
-  rows[0].fire('pointerleave');
-  s = m.map.snapshot();
-  assert.equal(s.column.kind, 'rule');
-  assert.deepEqual([s.focus.kind, s.focus.i], ['rule', rows[0].getAttribute('data-rule')], 'the held rule stays lit');
-  m.document.fire('keydown', { key: 'Escape' });
-  assert.equal(m.map.snapshot().column.kind, 'doctrine', 'Escape returns to the axioms');
-  // Turning back restores the machinery exactly, and the families.
-  m.page().querySelectorAll('.sc-lens__tab').find(b => b.getAttribute('data-lens') === 'machinery').fire('click', { detail: 1 });
-  m.advance(800);
-  s = m.map.snapshot();
-  assert.equal(s.lens, 'machinery');
-  assert.equal(s.lensMix, 0);
-  assert.equal(s.column, null, 'the column is the families again');
-  assert.equal(m.frames.size, 0);
-});
-
-test('the lens under reduced motion and from the keyboard turns at once', async () => {
-  const m = await mount({ column: true, reduce: true });
-  m.map.lens('doctrine');
-  assert.equal(m.map.snapshot().lensMix, 1);
-  assert.equal(m.frames.size, 0);
-  const keyed = await mount({ column: true });
-  const tab = keyed.host.querySelector('.sc-lens').querySelectorAll('.sc-lens__tab').find(b => b.getAttribute('data-lens') === 'doctrine');
-  tab.fire('click', { detail: 0 });
-  assert.equal(keyed.map.snapshot().lensMix, 1, 'a keyboard press lands at once');
-  assert.equal(keyed.frames.size, 0);
-});
-
-test('every doctrine view says its counts in plain words and draws no word over another, at four sizes', async () => {
-  for (const [width, height] of INNER_SIZES) {
-    const m = await mount({ width, height, column: true });
-    m.map.lens('doctrine');
-    m.advance(800);
-    const seen = [];
-    for (const b of m.page().querySelectorAll('.sc__axiom').slice(0, 4)) {
-      b.fire('pointerenter');
-      m.advance(900);
-      const s = m.map.snapshot();
-      for (let i = 0; i < s.drawn.length; i++) {
-        for (let k = i + 1; k < s.drawn.length; k++) assert.ok(!overlap(s.drawn[i], s.drawn[k], 0.5), `words meet at ${width}x${height}`);
-      }
-      seen.push(m.caption.textContent, ...m.texts().map(t => t.text), m.page().textContent);
-      b.fire('pointerleave');
-    }
-    const text = seen.join(' \n ');
-    assert.doesNotMatch(text, RULE_ID);
-    assert.doesNotMatch(text, /_|—|·/);
-  }
-});
-
-test('motion is bounded: the renderer never loops, caps the pixel ratio and reads no time when idle', () => {
-  assert.match(source, /var dpr = Math\.min\(window\.devicePixelRatio \|\| 1, 2\);/, 'the backing store is capped at twice the CSS size');
+test('the source keeps its promises: no canvas, no ticking timers, no inline styles, no watch words, no em dashes', () => {
+  assert.doesNotMatch(source, /getContext\(|<canvas/, 'every word is real text');
   assert.doesNotMatch(source, /setInterval/, 'nothing ticks on a timer');
-  assert.match(source, /if \(moving\(\) && !frame\) frame = window\.requestAnimationFrame\(tick\);/, 'a frame is asked for only while something moves');
-  assert.doesNotMatch(source, /\b(?:gear|escapement|bezel|caseback|chronograph|watch)\b/i, 'no watch words in the code or its comments');
+  assert.doesNotMatch(source, /setAttribute\(\s*'style'/, 'the site’s policy forbids inline styles');
+  assert.doesNotMatch(source, /\b(?:gear|escapement|bezel|caseback|chronograph|jewel)\b/i, 'no watch words in the code or its comments');
+  // The strings it writes, read from the code without its comments and
+  // without the one pattern that exists to catch a dash in authored prose.
+  const code = source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '').replace(/var UNPLAIN = [^\n]*\n/, '');
+  const strings = code.match(/'(?:[^'\\\n]|\\.)*'/g) || [];
+  assert.ok(strings.length > 200);
+  strings.forEach(s => assert.doesNotMatch(s, /—|\\u2014/, s));
+  assert.doesNotMatch(source, /links_note/, 'the engineer’s note is never read');
+  assert.doesNotMatch(source, /whose code checks it|Point at a component|works with\b/);
+});
+
+/* ---- The necklace, the rays, the fibres, the weave ----------------------------- */
+const PINNED = ['AX-12', 'AX-5', 'AX-8', 'AX-6', 'AX-10', 'AX-4', 'AX-11', 'AX-9', 'AX-3', 'AX-2', 'AX-7', 'AX-1'];
+// The published doctrine manifest, when the checkout has one.
+function publishedDoctrine() {
+  try { return JSON.parse(readFileSync(DOCTRINE_PATH, 'utf8')); } catch (e) { return null; }
+}
+test('the doctrine is a necklace in the pinned order: no glyph under ten pixels, none touching another, nothing near the centre', async () => {
+  const scene = liveScene(), published = publishedDoctrine();
+  if (published) {
+    // The published doctrine, at the smallest landing size, in the order searched offline for it.
+    const real = await mount({ scene, doctrine: published, areaWidth: 820 });
+    const r = real.map.snapshot().ring.core;
+    assert.deepEqual(plain(r.order), PINNED);
+    assert.equal(r.pinned, true);
+    assert.ok(r.glyphGap > 0, 'no two glyphs touch: ' + r.glyphGap);
+    assert.ok(r.smallest >= 10);
+  }
+  // A doctrine tied differently (the fixture) still lays out with nothing touching.
+  const doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, areaWidth: 820 });
+  const k = page.map.snapshot().ring.core;
+  assert.ok(k.smallest >= 10, 'every glyph at least ten pixels');
+  assert.ok(k.glyphGap > 0, 'no two glyphs touch: ' + k.glyphGap);
+  const f = page.map.snapshot().ring.frame;
+  assert.ok(k.nearest > (f.label.x1 - f.label.x0) / 2 - 8, 'the doctrine’s own lines keep clear of its name');
+  // A rule tied to one axiom is that axiom's satellite; one tied to several stands on the necklace.
+  doctrine.principles.concat(doctrine.anti_principles).forEach(r => {
+    const on = r.rests_on || r.guards, n = page.root.querySelector('.sm-node--rule[data-sm-key="rule:' + r.id + '"]');
+    assert.ok(n.classList.contains(on.length === 1 ? 'sm-node--sat' : 'sm-node--bridge'), r.id);
+  });
+  // A changed doctrine is ordered afresh, not forced into an order that no longer names it.
+  const fewer = doctrineFor(scene);
+  fewer.axioms = fewer.axioms.slice(0, 11);
+  const ids = new Set(fewer.axioms.map(a => a.id));
+  fewer.principles.forEach(p => { p.rests_on = p.rests_on.filter(a => ids.has(a)); if (!p.rests_on.length) p.rests_on = ['AX-1']; });
+  fewer.anti_principles.forEach(g => { g.guards = g.guards.filter(a => ids.has(a)); if (!g.guards.length) g.guards = ['AX-1']; });
+  const other = await mount({ scene, doctrine: fewer, areaWidth: 820 });
+  assert.equal(other.map.snapshot().ring.core.pinned, false);
+  assert.equal(other.map.snapshot().ring.core.order.length, 11);
+});
+
+// The points of a drawn line, from its path data (straight runs, sampled finely).
+const pointsOf = d => [...d.matchAll(/[ML]\s*(-?[\d.]+)[ ,](-?[\d.]+)/g)].map(m => [+m[1], +m[2]]);
+test('a rule line never travels round the core and never passes behind the centre’s name', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, areaWidth: 820 });
+  const views = [busiest(scene), isolated(scene), compNodes(scene)[40].id, 'doctrine:P-3', 'doctrine:AX-5', 'doctrine:P-15'].filter(Boolean);
+  let rays = 0, most = 0;
+  for (const v of views) {
+    page.map.select(v);
+    const f = page.map.snapshot().ring.frame;
+    page.root.querySelectorAll('.sm-rline').forEach(w => {
+      const pts = pointsOf(w.getAttribute('d'));
+      rays++;
+      pts.forEach(([x, y]) => assert.ok(!(x > f.label.x0 && x < f.label.x1 && y > f.label.y0 && y < f.label.y1), 'behind the name: ' + v));
+      // Round the outside of the core, a line travels a quarter of the way at most.
+      let travel = 0;
+      for (let i = 1; i < pts.length; i++) {
+        const [a, b] = [pts[i - 1], pts[i]];
+        if (Math.hypot(a[0] - f.cx, a[1] - f.cy) < f.gate || Math.hypot(b[0] - f.cx, b[1] - f.cy) < f.gate) continue;
+        let d = Math.atan2(b[1] - f.cy, b[0] - f.cx) - Math.atan2(a[1] - f.cy, a[0] - f.cx);
+        d = Math.atan2(Math.sin(d), Math.cos(d));
+        travel += Math.abs(d);
+      }
+      most = Math.max(most, travel * 180 / Math.PI);
+    });
+  }
+  assert.ok(rays > 30);
+  assert.ok(most < 90, 'the furthest a rule line travels round the core: ' + most.toFixed(1) + ' degrees');
+});
+
+test('fibres are tapered filled outlines, each kind its own texture, and the weave cuts the line beneath', async () => {
+  const scene = typedScene();
+  const page = await mount({ scene, areaWidth: 820 });
+  const subpaths = el => (el.getAttribute('d').match(/M/g) || []).length;
+  const mean = kind => { const els = page.root.querySelectorAll('.sm-fibre--' + kind); return els.reduce((t, e) => t + subpaths(e), 0) / els.length; };
+  page.root.querySelectorAll('.sm-fibre').forEach(el => assert.match(el.getAttribute('d'), /Z/));
+  assert.ok(mean('reads') > mean('runs') + 2, 'reading saved results is dashed');
+  assert.ok(mean('checks') > mean('reads'), 'checking copied files is dotted');
+  // A rule's lines cross the fibres at rest; where they do, the fibre beneath
+  // is cut (counted on the solid fibres, whose only gaps are the weave's).
+  const solid = () => page.root.querySelectorAll('.sm-fibre--runs').reduce((t, e) => t + subpaths(e), 0);
+  const before = solid();
+  page.map.select('doctrine:P-2');
+  const s = page.map.snapshot();
+  assert.ok(s.weave && s.weave.crossings > 0, 'the rule’s lines cross the fibres');
+  assert.ok(solid() > before, 'a lit line passes over a stray fibre, which takes a gap');
+  page.map.select(null);
+  assert.equal(solid(), before, 'back at rest every fibre is whole');
+});
+
+/* ---- Enforcement shown by tests --------------------------------------------------- */
+test('enforcement from tests: a strong frame where a test shows the rule, an open one where it checks a part, the card’s other names listed only', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene), comps = compNodes(scene).map(n => n.id);
+  [...doctrine.axioms, ...doctrine.principles, ...doctrine.anti_principles].forEach(r => {
+    r.named_in_card = r.enforced_in.slice(); r.enforced_in = []; r.partly_enforced_in = [];
+  });
+  const p = doctrine.principles[2], [full, part, card] = [comps[5], comps[9], comps[13]];
+  p.enforced_in = [full]; p.partly_enforced_in = [part]; p.named_in_card = [full, part, card];
+  const page = await mount({ scene, doctrine });
+  assert.equal(page.root.querySelectorAll('.sm-cap').filter(c => !c.classList.contains('sm-cap--part')).length, 1, 'one strong mark on the rim');
+  assert.equal(page.root.querySelectorAll('.sm-cap--part').length, 1, 'one open mark of the same family');
+  page.map.select('doctrine:P-3');
+  const s = page.map.snapshot();
+  assert.deepEqual(plain(s.lit.reticles).sort(), ['comp:' + full, 'rule:P-3'].sort());
+  assert.deepEqual(plain(s.lit.open), ['comp:' + part]);
+  const citing = doctrine.components.filter(r => r.governed_by.includes('P-3')).map(r => r.id);
+  const lines = page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5));
+  assert.deepEqual(lines.sort(), [...new Set([...citing, full, part])].sort(), 'a name only on the card is never drawn');
+  const col = page.textOf(page.panel());
+  assert.match(col, /Enforced in · 1/);
+  assert.match(col, /Partly checked in · 1/);
+  assert.match(col, /Named in its doctrine card, not yet demonstrated by a test · 1/);
+  const key = page.textOf(page.keySlot);
+  assert.match(key, /Enforced here/);
+  assert.match(key, /Partly checked here/);
+  assert.doesNotMatch(key, /by its card/);
+  page.map.select(card);
+  assert.doesNotMatch(page.textOf(page.panel()), /Enforced here|Partly checked here|Named in its doctrine card/, 'the card’s name is listed only with the rule');
+  page.map.select('doctrine');
+  assert.match(page.textOf(page.panel()), /A rule is marked enforced in a component only where a test shows it\./);
+});
+
+/* ---- The column fits ----------------------------------------------------------------- */
+test('the column shows the first eight of a long list with the rest on request, and never says more below', async () => {
+  const scene = liveScene();
+  const page = await mount({ scene });
+  const id = busiest(scene);
+  page.map.select(id);
+  const block = page.panel().querySelectorAll('.sc__block').find(b => /Listed as related/.test(page.textOf(b)));
+  const total = +/Listed as related · (\d+)/.exec(page.textOf(block))[1];
+  assert.ok(total > 9);
+  assert.equal(block.querySelectorAll('.sc__li').length, 8);
+  const all = block.querySelector('.sc__all');
+  assert.match(all.textContent, new RegExp('Show all ' + total));
+  page.press(all);
+  const open = page.panel().querySelectorAll('.sc__block').find(b => /Listed as related/.test(page.textOf(b)));
+  assert.equal(open.querySelectorAll('.sc__li').length, total);
+  assert.doesNotMatch(page.textOf(page.host), /More below/);
+  assert.equal(page.host.querySelectorAll('.sc__more').length, 0);
+  // A rule's citing families run on while none is open; one opened, they stand one to a row.
+  const doc = await mount({ scene, doctrine: doctrineFor(scene) });
+  const cited = doctrineFor(scene).principles.find(p => doctrineFor(scene).components.some(r => r.governed_by.includes(p.id)));
+  doc.map.select('doctrine:' + cited.id);
+  const groupsOf = () => doc.panel().querySelector('.sc__group-btn').parentNode.parentNode;
+  assert.ok(groupsOf().classList.contains('sc__list--flow'), 'the families run on');
+  doc.press(doc.panel().querySelector('.sc__group-btn'));
+  assert.ok(!groupsOf().classList.contains('sc__list--flow'), 'one opened, one to a row');
+  assert.ok(doc.panel().querySelectorAll('.sc__list--inner .sc__li').length > 0, 'its components beneath it');
+});
+
+/* ---- Frames side by side ------------------------------------------------------------ */
+test('frames round neighbouring marks never touch, and a framed name is framed as its mark is', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene), fam = famOf(scene);
+  [...doctrine.axioms, ...doctrine.principles, ...doctrine.anti_principles].forEach(r => {
+    r.named_in_card = r.enforced_in.slice(); r.enforced_in = []; r.partly_enforced_in = [];
+  });
+  // A whole small family side by side: three shown enforcing a rule, two checking part of it.
+  const sizes = {};
+  Object.values(fam).forEach(f => { sizes[f] = (sizes[f] || 0) + 1; });
+  const small = Object.keys(sizes).filter(f => sizes[f] >= 5).sort((a, b) => sizes[a] - sizes[b])[0];
+  const members = compNodes(scene).map(n => n.id).filter(id => fam[id] === small).slice(0, 5);
+  const p = doctrine.principles[2];
+  p.enforced_in = members.slice(0, 3); p.partly_enforced_in = members.slice(3);
+  const page = await mount({ scene, doctrine, areaWidth: 820 });
+  page.map.select('doctrine:' + p.id);
+  const frames = page.root.querySelectorAll('.sm-reticle--rim').map(path => {
+    const t = /translate\((-?[\d.]+) (-?[\d.]+)\)/.exec(path.parentNode.getAttribute('transform'));
+    const xs = [...path.getAttribute('d').matchAll(/[MH]\s*(-?[\d.]+)/g)].map(m => Math.abs(+m[1]));
+    return { x: +t[1], y: +t[2], half: Math.max(...xs) };
+  });
+  assert.equal(frames.length, 5);
+  let closest = Infinity;
+  frames.forEach((a, i) => frames.forEach((b, j) => {
+    if (j <= i) return;
+    const d = Math.hypot(a.x - b.x, a.y - b.y);
+    closest = Math.min(closest, d);
+    assert.ok(d >= a.half + b.half + 1, 'two frames touch: ' + d.toFixed(1) + ' apart');
+  }));
+  assert.ok(closest < 23, 'the case is a crowded one');
+  const framed = cls => page.root.querySelectorAll('.sm-plate.' + cls).map(g => g.getAttribute('data-sm-plate').slice(5));
+  framed('sm-plate--full').forEach(id => assert.ok(p.enforced_in.includes(id)));
+  framed('sm-plate--part').forEach(id => assert.ok(p.partly_enforced_in.includes(id)));
+  assert.ok(framed('sm-plate--full').length + framed('sm-plate--part').length > 0, 'a named plate carries its frame');
+});
+
+/* ---- The scene derived from the code ------------------------------------------- */
+// The checkout's own scene when it is derived from the code; otherwise the
+// typed fixture with one component reading the saved results of twenty-one
+// others across three families, as the regenerated scene has one.
+function codeScene() {
+  const json = detailedScene();
+  if (codeEdges(json).length) return json;
+  const typed = typedScene(), fam = famOf(typed), ids = compNodes(typed).map(n => n.id), hub = ids[0];
+  const others = [...new Set(ids.map(id => fam[id]))].filter(f => f !== fam[hub]).slice(0, 3);
+  others.forEach(f => ids.filter(id => fam[id] === f).slice(0, 7).forEach(id => {
+    if (typed.scene.edges.some(e => e.source === hub && e.target === id)) return;
+    typed.scene.edges.push({ id: 'edge:wire:hub:' + id, source: hub, target: id, relation: 'reads_results_of',
+      evidence: [{ path: 'src/hub_reader.py', lines: [40, 42], role: 'opens_file' }] });
+  }));
+  typed.edge_semantics = { explicit_wire_relation: 'derived_from_code' };
+  const ins = typed.scene.inspectors['inspector:' + hub];
+  if (ins) ins.source_links = [{ label: 'Source', url: 'https://github.com/example/repository/blob/main/src/hub_reader.py' }];
+  return typed;
+}
+// The component with the most code connections of one kind, from its side.
+function widestFan(scene) {
+  const tally = {};
+  codeEdges(scene).forEach(e => { const k = e.source + '|' + e.relation; tally[k] = (tally[k] || 0) + 1; });
+  const [hub, relation] = Object.entries(tally).sort((x, y) => y[1] - x[1] || (x[0] < y[0] ? -1 : 1))[0][0].split('|');
+  return { hub, relation, edges: codeEdges(scene).filter(e => e.source === hub && e.relation === relation) };
+}
+test('one component reaching many in other families gathers them, family by family, into a few ribbons that part at each family', async () => {
+  const scene = codeScene(), fam = famOf(scene), fan = widestFan(scene);
+  const page = await mount({ scene, areaWidth: 820 });
+  const s = page.map.snapshot(), per = {};
+  fan.edges.forEach(e => { if (fam[e.target] !== fam[fan.hub]) per[fam[e.target]] = (per[fam[e.target]] || 0) + 1; });
+  const wanted = Object.entries(per).filter(([, n]) => n >= 2);
+  assert.ok(wanted.length >= 2 && wanted.some(([, n]) => n >= 5), 'the fan is a wide one');
+  const ribbons = plain(s.ring.sheaves).filter(r => r.from === 'comp:' + fan.hub && r.role === 'out');
+  // Into each family it reaches five times or more, one ribbon carries them
+  // all; it has no ribbon anywhere it reaches once.
+  wanted.filter(([, n]) => n >= 5).forEach(([f, n]) => assert.deepEqual(ribbons.filter(r => r.family === f).map(r => r.links), [n], f));
+  ribbons.forEach(r => assert.ok(r.links >= 2 && r.links <= per[r.family]));
+  assert.ok(ribbons.length <= wanted.length, 'a few ribbons, not a hair for each link');
+  // At rest each ribbon is one shape, and each link its own parting fibre.
+  const trunks = page.root.querySelectorAll('.sm-fibre.is-trunk').filter(t => t.getAttribute('data-from') === 'comp:' + fan.hub);
+  assert.equal(trunks.length, ribbons.length);
+  trunks.forEach(t => assert.match(t.getAttribute('d'), /Z/));
+  // Chosen, it lights each ribbon once and one wire for each of its links.
+  page.map.select(fan.hub);
+  const touching = codeEdges(scene).filter(e => e.source === fan.hub || e.target === fan.hub);
+  assert.equal(page.root.querySelectorAll('.sm-route.sm-wire').length, new Set(touching.map(e => e.source + '>' + e.target + '>' + e.relation)).size);
+  assert.ok(page.root.querySelectorAll('.sm-route.is-trunk').length >= ribbons.length);
+  // One of the far components chosen alone lights its own whole route, the
+  // ribbon it shares staying at rest beneath.
+  const far = fan.edges.find(e => (per[fam[e.target]] || 0) >= 2).target;
+  page.map.select(far);
+  assert.equal(page.root.querySelectorAll('.sm-route.is-trunk').filter(t => t.getAttribute('data-from') === 'comp:' + fan.hub).length, 0);
+  assert.ok(page.root.querySelectorAll('.sm-fibre.is-trunk').some(t => t.getAttribute('data-from') === 'comp:' + fan.hub && !t.classList.contains('is-under')));
+});
+test('the key says where the red lines come from and how many components have none; the caption and the families say so too', async () => {
+  const scene = codeScene(), edges = codeEdges(scene), comps = compNodes(scene), fam = famOf(scene);
+  const page = await mount({ scene, doctrine: doctrineFor(scene) });
+  const none = comps.filter(n => !edges.some(e => e.source === n.id || e.target === n.id));
+  assert.ok(none.length > 0);
+  assert.match(page.map.snapshot().caption, new RegExp('^' + comps.length + ' components round the rim in seven families, ' + none.length +
+    ' of them with no code connection, and the doctrine at the centre\\. Select any of them to light what it touches\\.$'));
+  page.press(page.keySlot.querySelector('.sm-key__more'));
+  const key = page.textOf(page.keySlot);
+  assert.match(key, /Red lines are derived from the code: each one rests on the place in the code where one component runs another, reads its saved results or checks its copied files\./);
+  assert.match(key, new RegExp(none.length + ' of the ' + comps.length + ' components have none\\.'));
+  assert.match(key, /One component’s lines to several in one family travel as one ribbon/);
+  // A family with some components and none of their code connected says how many.
+  const f = Object.values(fam).find(k => none.some(n => fam[n.id] === k) && comps.some(n => fam[n.id] === k && !none.includes(n)));
+  page.map.select('area:' + f);
+  const count = none.filter(n => fam[n.id] === f).length, of = comps.filter(n => fam[n.id] === f).length;
+  assert.match(page.textOf(page.panel()), new RegExp(count + ' of its ' + of + ' components have none\\.'));
+});
+test('a component with no code connection says so plainly; each code connection links to the line of code that makes it', async () => {
+  const scene = codeScene(), edges = codeEdges(scene);
+  const page = await mount({ scene, doctrine: doctrineFor(scene) });
+  const lone = compNodes(scene).map(n => n.id).find(id => !edges.some(e => e.source === id || e.target === id));
+  page.map.select(lone);
+  assert.match(page.map.snapshot().caption, /: no code connections to other components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
+  const fan = widestFan(scene);
+  page.map.select(fan.hub);
+  const links = page.panel().querySelectorAll('.sc__code');
+  assert.ok(links.length > 0, 'a link to the code beside each connection');
+  links.forEach(a => {
+    assert.equal(a.textContent, 'Code');
+    // A whole-file link, never a line anchor: the published repository can lag
+    // the source the evidence lines were read from.
+    assert.match(a.getAttribute('href'), /^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\/[^/]+\/[^#]+\.py$/);
+    assert.match(a.getAttribute('aria-label'), /^The code file joining /);
+  });
+  assert.match(page.textOf(page.panel()), /Each is derived from the code; Code opens the file that makes it\./);
 });

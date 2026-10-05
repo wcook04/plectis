@@ -35,7 +35,7 @@ They also define formal series, since the
 summand has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">(m+1)t</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="res:sharp-fixed-base">
 <p><strong>Theorem 1.1</strong> (the size of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">V_N^*</annotation></semantics></math>
 at a fixed base). <em> Fix
@@ -188,7 +188,7 @@ weights
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">s\in\mathbb R</annotation></semantics></math>,
 satisfy both conditions.</p>
-<div class="theorem">
+<div class="theorem" id="thm:geometric-moments">
 <p><strong>Theorem 2.1</strong> (geometric moment determinants). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>q</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;q&lt;1</annotation></semantics></math>
 and
@@ -460,7 +460,7 @@ at unit arguments, written as sums of Gaussian multinomial polynomials
 they count compositions, and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>k</mi></msub><mo>:=</mo><msubsup><mi>R</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><msubsup><mi>R</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow></munder><msub><mi>c</mi><mi>k</mi></msub><mo>=</mo><msub><mi>C</mi><mi>N</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">c_k:=R_k^{(2)}(0)R_k^{(3)}(0)=\frac{(k+1)^2(k+2)}2,
  \qquad \prod_{k&lt;N}c_k=C_N.</annotation></semantics></math></p>
-<div class="proposition">
+<div class="proposition" id="prop:weight-factorisation">
 <p><strong>Proposition 3.1</strong> (the positive moment weights). <em>
 For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>,
@@ -766,7 +766,7 @@ factor of
 More generally, every nonempty partition has positive displacement
 exponent. Thus a single tuple determines the first formal term, although
 all partitions were needed for the fixed-base constant.</p>
-<div class="theorem">
+<div class="theorem" id="res:zudilin-sharp-qorder">
 <p><strong>Theorem 3.2</strong> (the first nonzero term of the Hankel
 determinant). <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>,
@@ -921,7 +921,7 @@ are positive reciprocal constants. The notation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mu_\mathrm{irr}(\xi)</annotation></semantics></math>
 instead denotes the irrationality exponent of a value. The estimates
 below give a sufficient cutoff; its optimality is unknown.</p>
-<div class="theorem">
+<div class="theorem" id="res:rational-base-threshold">
 <p><strong>Theorem 4.1</strong> (rational-base region for Zudilin’s
 forms). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a&gt;b\ge1</annotation></semantics></math>
@@ -1313,7 +1313,7 @@ every nonzero value would have absolute value at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>s</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|s|</annotation></semantics></math>,
 a contradiction. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="res:thirtyone-four">
 <p><strong>Corollary 4.2</strong>. <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mn>31</mn><mi>/</mi><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F\bigl((31/4)^r\bigr)</annotation></semantics></math>
 is irrational for every integer
@@ -1338,7 +1338,7 @@ common positive integer power preserves both the logarithmic ratio and
 coprimality, so the same criterion applies for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ge1</annotation></semantics></math>. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="cor:rational-base-measure">
 <p><strong>Corollary 4.3</strong> (an irrationality measure uniform over
 powers). <em> For coprime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a&gt;b\ge1</annotation></semantics></math>

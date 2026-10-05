@@ -65,7 +65,7 @@ multiple of a basis element; these expressions give a test for every
 linear identity at that level. The level-zero family contains only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
 and has dimension one.</p>
-<div class="theorem">
+<div class="theorem" id="thm:kkernelrank">
 <p><strong>Theorem 1.1</strong> (A basis through each finite level). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
@@ -448,7 +448,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mn>2</mn><mo>,</mo><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>E</mi><mrow><mn>1</mn><mo>,</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E_{2,2}-E_{1,1}</annotation></semantics></math>.
 The following corollary expresses the same calculation at arbitrary base
 and level.</p>
-<div class="corollary">
+<div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 3.1</strong> (Integral coordinates and all integral
 relations). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
@@ -564,7 +564,7 @@ blocks then force a nonzero tail whose absolute value is smaller than
 the spacing of that set. In the first sum below, residues are
 represented by their least nonnegative values. These coefficients need
 not be binary digits.</p>
-<div class="theorem">
+<div class="theorem" id="res:residueseries">
 <p><strong>Theorem 4.1</strong> (Series of totient residues). <em> For
 every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
@@ -597,7 +597,7 @@ following coefficient pattern is the basis of the proof:
  \underbrace{0,\ldots,0}_{L\text{ terms}}.</annotation></semantics></math>
 The coefficients outside these blocks may have either sign. Their
 uniform bound is what makes the following argument possible.</p>
-<div class="lemma">
+<div class="lemma" id="lem:bounded-pulse">
 <p><strong>Lemma 4.2</strong> (An isolated nonzero coefficient between
 long zero blocks). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a_n\in\mathbb{Z}</annotation></semantics></math>
@@ -739,7 +739,7 @@ and
 <h2>Further consequences for the sections</h2>
 <p>The finite-level theorem also describes the full dyadic kernel. The
 notation below specialises the base to two.</p>
-<div class="corollary">
+<div class="corollary" id="res:basis">
 <p><strong>Corollary A.1</strong> (Dyadic basis). <em> The family
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>φ</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mi>j</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>r</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\{\varphi_{0,0},\varphi_{1,0}\}
  \cup\{\varphi_{j,r}:j\ge1,\ 0&lt;r&lt;2^j,\ r\text{ odd}\},
@@ -760,7 +760,7 @@ is nonzero, since
 </div>
 <p>The affine argument also permits periodic coefficients by restriction
 to their common residue classes.</p>
-<div class="corollary">
+<div class="corollary" id="cor:periodic-freezing">
 <p><strong>Corollary A.2</strong> (Periodic coefficients). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>L</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">L_1,\ldots,L_s</annotation></semantics></math>
 be pairwise nonproportional affine forms with integer coefficients and
@@ -971,7 +971,7 @@ so it excludes denominators dividing
 <p>We write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(h,N,L)</annotation></semantics></math>
 for <code>[eq:r3-certificate]</code>.</p>
-<div class="theorem">
+<div class="theorem" id="res:fulldepth">
 <p><strong>Theorem B.1</strong> (Propagation of one nonintegral tail
 difference). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\ge1</annotation></semantics></math>
@@ -1018,7 +1018,7 @@ is a positive multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(v)</annotation></semantics></math>.
 Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>H</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>H</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>H</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">B_{H,c}=\sum_{j=0}^{H-1}\varphi(c+1+j)2^{H-1-j}</annotation></semantics></math>.</p>
-<div class="equivform">
+<div class="equivform" id="res:canonicalmersenne">
 <p><strong>Equivalent formulation B.2</strong> (A residue test modulo a
 divisor of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>H</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^H-1</annotation></semantics></math>).
@@ -1124,7 +1124,7 @@ data-cites="eldar2026oeis"><a href="#ref-8">[8]</a></span>, and by Steve Fan on 
 Consider the rational quotients
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≤</mo><mi>Y</mi></mrow></munder><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>e</mi><mo>+</mo><mn>2</mn></mrow></msup><msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><munder><mo>∑</mo><mrow><mi>d</mi><mo>≤</mo><mi>Y</mi></mrow></munder><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>e</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">Q(e,Y)=\frac{\bigl(\sum_{d\le Y}\mu(d)/(2^d-1)^{e+2}\bigr)^2}
       {\sum_{d\le Y}\mu(d)/(2^d-1)^{2e+2}}.</annotation></semantics></math></p>
-<div class="theorem">
+<div class="theorem" id="res:rankonefloor">
 <p><strong>Theorem B.3</strong> (A lower bound for the rank-one
 quotients). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
@@ -1268,7 +1268,7 @@ independence has been assumed. The conclusion concerns the real part; it
 does not give a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>21</mn><mi>X</mi><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">21X/25</annotation></semantics></math>
 bound for the absolute value of the full sum.</p>
-<div class="problem">
+<div class="problem" id="prob:firstharmonic">
 <p><strong>Problem C.1</strong> (Four estimates for the first-harmonic
 sum). <em> For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,

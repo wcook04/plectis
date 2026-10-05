@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
   <title>The system map &middot; Plectis docs</title>
-  <meta name="description" content="The Plectis components drawn as one system: their families, the path they share, the links they declare and the rules they follow.">
+  <meta name="description" content="The Plectis components drawn as one circle: their families round the rim, the connections between them, and the doctrine their paper modules cite at the centre.">
   <link rel="canonical" href="https://wcook04.github.io/plectis/docs/system-map.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Plectis">
   <meta property="og:title" content="The system map">
-  <meta property="og:description" content="The Plectis components drawn as one system: their families, the path they share, the links they declare and the rules they follow.">
+  <meta property="og:description" content="The Plectis components drawn as one circle: their families round the rim, the connections between them, and the doctrine their paper modules cite at the centre.">
   <meta property="og:url" content="https://wcook04.github.io/plectis/docs/system-map.html">
   <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta property="og:image:width" content="1792">
@@ -17,7 +18,7 @@
   <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The system map">
-  <meta name="twitter:description" content="The Plectis components drawn as one system: their families, the path they share, the links they declare and the rules they follow.">
+  <meta name="twitter:description" content="The Plectis components drawn as one circle: their families round the rim, the connections between them, and the doctrine their paper modules cite at the centre.">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
@@ -27,7 +28,7 @@
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/style.css?v=f14026ae95f0">
+  <link rel="stylesheet" href="../assets/style.css?v=bec218228073">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=ba62dcae01a8"></script></template>
   <script defer src="../assets/docs-loader.js?v=9e9419f91c31"></script>
@@ -139,7 +140,7 @@
           <div class="system-page__split">
             <div class="home-split__text system-page__text">
               <h1 id="system-page-title">The system map</h1>
-              <p class="system-page__lede">Every <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">component</a> of the earlier <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a> in its family, on the path they share. Point at one to see its links; select one to read it.</p>
+              <p class="system-page__lede">The earlier <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a>’s <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> round one circle in their families, with the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-doctrine" data-term="doctrine" data-term-auto="1">doctrine</a> their <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">paper modules</a> cite at its centre. Select a family, a <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">component</a> or a rule to light what it touches.</p>
 
           <ol class="home-families" data-family-row-count="7" aria-label="The seven families">
             <li class="home-family" data-system-family="area:entry_and_reveal"><a href="area-entry.html"><span class="home-family__name"><span data-term-preview-only data-term="entry" data-term-auto="1">Entry</span> &amp; <span data-term-preview-only data-term="orientation" data-term-auto="1">orientation</span></span><span class="home-family__count">2</span></a></li>
@@ -153,11 +154,13 @@
 
             </div>
             <figure class="home-split__figure home-system home-system--page" data-system-stage data-term-auto="off">
-              <canvas class="system-canvas" data-system-src="architecture-graph-scene.json" data-system-base="" aria-label="Drawing of the earlier software: its families of components set around the path they share, with the links each component’s source declares. The family list beside it gives the same families as text."></canvas>
-              <figcaption class="home-system__caption"><p class="system-caption" aria-live="polite"></p></figcaption>
+              <div class="sm-mount" data-system-src="architecture-graph-scene.json" data-system-doctrine="doctrine-manifest.json" data-system-base="">
+                <p class="sm-fallback">The map of the system draws here when its script runs. The list beside it gives the same families as text.</p>
+              </div>
+              <figcaption class="home-system__caption"><span class="sm-keyslot"></span></figcaption>
             </figure>
           </div>
-          <script src="../assets/system-map.js?v=f513d17dec3f" defer></script>
+          <script src="../assets/system-map.js?v=eac6c524da58" defer></script>
         </section>
       <nav class="docs-pager" aria-label="Page navigation" data-term-auto="off">
         <a class="docs-pager__link docs-pager__link--prev" href="architecture.html"><span class="docs-pager__dir">Previous</span><span class="docs-pager__title">How it fits together</span></a>

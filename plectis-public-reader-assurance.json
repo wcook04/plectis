@@ -64,8 +64,8 @@
     "component_count": 88,
     "component_run_decision_index": {
       "decision_counts": {
-        "targeted_contract_probe_if_route_disputed": 68,
-        "targeted_live_probe_if_behavior_disputed": 20
+        "targeted_contract_probe_if_route_disputed": 82,
+        "targeted_live_probe_if_behavior_disputed": 6
       },
       "decision_policy_registry": {
         "do_not_run_from_current_public_artifact": {
@@ -130,13 +130,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "entry_and_reveal",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -295,13 +295,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "architecture_and_navigation",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -310,13 +310,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "architecture_and_navigation",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -595,13 +595,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "formal_math_and_proof",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -639,14 +639,14 @@
           "component_id": "bounded_autonomy_campaign_packet",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "External tool run",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "evidence_kind": "Verified source import",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
-          "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
+          "rank": 5,
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -655,13 +655,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -699,11 +699,11 @@
           "component_id": "batch7_secondary_runtime_capsule",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Verified source import",
+          "evidence_kind": "Bounded runtime computation",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
-          "rank": 5,
+          "rank": 4,
           "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
           "runs_real_tools_now": false
@@ -880,13 +880,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -895,13 +895,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -910,13 +910,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "agent_reliability_and_safety",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -924,14 +924,14 @@
           "component_id": "finance_forecast_evaluation_spine",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "External tool run",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "evidence_kind": "Bounded runtime computation",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "research_and_science_replays",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -969,7 +969,7 @@
           "component_id": "mechanistic_interpretability_circuit_attribution_replay",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Contract validator",
+          "evidence_kind": "Bounded runtime computation",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "research_and_science_replays",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
@@ -984,7 +984,7 @@
           "component_id": "spatial_world_model_counterfactual_simulation_replay",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Contract validator",
+          "evidence_kind": "Bounded runtime computation",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "research_and_science_replays",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
@@ -1045,13 +1045,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "research_and_science_replays",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -1119,11 +1119,11 @@
           "component_id": "batch7_macro_engines_capsule",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Verified source import",
+          "evidence_kind": "Bounded runtime computation",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "import_projection_and_drift",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
-          "rank": 5,
+          "rank": 4,
           "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
           "runs_real_tools_now": false
@@ -1134,11 +1134,11 @@
           "component_id": "batch7_oracle_sibling_capsule",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Verified source import",
+          "evidence_kind": "Bounded runtime computation",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "import_projection_and_drift",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
-          "rank": 5,
+          "rank": 4,
           "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
           "runs_real_tools_now": false
@@ -1299,11 +1299,11 @@
           "component_id": "batch8_compliance_pipeline_capsule",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "Computed projection",
+          "evidence_kind": "Verified source import",
           "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "import_projection_and_drift",
           "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
-          "rank": 3,
+          "rank": 5,
           "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
           "runs_real_tools_now": false
@@ -1344,14 +1344,14 @@
           "component_id": "generated_projection_drift_runtime",
           "default_action": "read_digest_only",
           "default_runtime_required": false,
-          "evidence_kind": "External tool run",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "evidence_kind": "Bounded runtime computation",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "import_projection_and_drift",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -1360,13 +1360,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "work_landing_and_continuity",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         },
         {
           "command_pointer": "component_digest[id].command",
@@ -1420,13 +1420,13 @@
           "default_action": "read_digest_only",
           "default_runtime_required": false,
           "evidence_kind": "Bounded runtime computation",
-          "expected_cost_class": "one_component_external_or_runtime_probe",
+          "expected_cost_class": "single_contract_validator_or_projection_check",
           "family_id": "work_landing_and_continuity",
-          "policy_ref": "decision_policy_registry.targeted_live_probe_if_behavior_disputed",
+          "policy_ref": "decision_policy_registry.targeted_contract_probe_if_route_disputed",
           "rank": 4,
-          "run_decision": "targeted_live_probe_if_behavior_disputed",
+          "run_decision": "targeted_contract_probe_if_route_disputed",
           "runnable_from_current_public_artifact": true,
-          "runs_real_tools_now": true
+          "runs_real_tools_now": false
         }
       ],
       "schema": "plectis_cold_reader_component_run_decision_index_v0",
@@ -1554,7 +1554,7 @@
       "the relevant component has no claim ceiling or source link"
     ],
     "runnable_from_current_public_artifact_count": 88,
-    "runs_real_tools_now_count": 20,
+    "runs_real_tools_now_count": 6,
     "schema": "plectis_cold_reader_verification_budget_v0",
     "starter_component_ids": [
       "cold_reader_route_map",
@@ -1613,7 +1613,7 @@
         "claim_kind": "econometric_forecast_evaluation_fixture",
         "component_id": "finance_forecast_evaluation_spine",
         "data_boundary": "synthetic public forecast-evaluation fixtures and copied public finance modules only",
-        "evidence_mode": "External tool run",
+        "evidence_mode": "Bounded runtime computation",
         "first_paper_module_route": "docs/paper-module-finance-forecast-evaluation-spine.html",
         "first_public_route": "docs/component-finance-forecast-evaluation-spine.html",
         "label": "Finance Forecast Evaluation Spine",
@@ -2268,5 +2268,5 @@
     "status": "pass"
   },
   "schema": "plectis_public_reader_assurance_dossier_v0",
-  "source_fingerprint": "1f6db6369d870c955f058c1bebf3953a"
+  "source_fingerprint": "7df1d17a5ca1da4df9f569b2ccb2a18b"
 }

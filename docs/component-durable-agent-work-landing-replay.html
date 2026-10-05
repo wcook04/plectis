@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
   <title>Durable Agent Work Landing Replay &middot; Plectis docs</title>
   <meta name="description" content="Audits recorded work-claims so each cites files, validates before commit, and proves HEAD moved.">
   <link rel="canonical" href="https://wcook04.github.io/plectis/docs/component-durable-agent-work-landing-replay.html">
@@ -27,7 +28,7 @@
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/style.css?v=f14026ae95f0">
+  <link rel="stylesheet" href="../assets/style.css?v=bec218228073">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=ba62dcae01a8"></script></template>
   <script defer src="../assets/docs-loader.js?v=9e9419f91c31"></script>
@@ -156,12 +157,12 @@
         <h2 id="run">Run</h2>
         <div class="comp-card__run">
 <span class="comp-card__klabel comp-card__klabel--run">Command</span>
-          <pre class="comp-card__cmd"><code>plectis durable-agent-work-landing-replay run-work-landing-bundle</code></pre>
+          <pre class="comp-card__cmd"><code>plectis durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay</code></pre>
         </div>
 
         <h2 id="evidence"><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a></h2>
         <p class="comp-card__evidence"><span class="comp-card__klabel">Class</span><span class="comp-chip">Contract validator</span><span class="comp-chip">evidence 5/5</span><span class="comp-chip">Import validation</span></p>
-          <p class="comp-card__links"><span class="comp-card__klabel">Links to</span> <a href="component-agent-closeout-faithfulness-audit.html"><span data-term-preview-only data-term="agent" data-term-auto="1">Agent</span> Completion Faithfulness <span data-term-preview-only data-term="audit" data-term-auto="1">Audit</span></a>, <a href="component-macro-projection-import-protocol.html"><span data-term-preview-only data-term="source" data-term-auto="1">Source</span> <span data-term-preview-only data-term="projection" data-term-auto="1">Projection</span> Import <span data-term-preview-only data-term="protocol" data-term-auto="1">Protocol</span></a></p>
+          <p class="comp-card__links"><span class="comp-card__klabel">Related components</span> <a href="component-agent-closeout-faithfulness-audit.html"><span data-term-preview-only data-term="agent" data-term-auto="1">Agent</span> Completion Faithfulness <span data-term-preview-only data-term="audit" data-term-auto="1">Audit</span></a>, <a href="component-macro-projection-import-protocol.html"><span data-term-preview-only data-term="source" data-term-auto="1">Source</span> <span data-term-preview-only data-term="projection" data-term-auto="1">Projection</span> Import <span data-term-preview-only data-term="protocol" data-term-auto="1">Protocol</span></a></p>
           <p class="comp-card__tags-row"><span class="tag">workflow-engineering</span><span class="tag">continuity</span></p>
 
         <h2 id="source"><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a></h2>

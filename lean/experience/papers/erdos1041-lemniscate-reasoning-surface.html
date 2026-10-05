@@ -26,7 +26,7 @@ used in the segment arguments denotes the same open set. We write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>t</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">K_t(f)=\{|f|\le t\}</annotation></semantics></math>
 for a closed sublevel. Erdős, Herzog and Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-4">[4]</a></span> asked:</p>
-<div class="problem">
+<div class="problem" id="res:problem">
 <p><strong>Problem 1.1</strong> (Erdős #1041). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(z)=\prod_{i=1}^{n}(z-z_i)</annotation></semantics></math>
 be monic of degree
@@ -63,7 +63,7 @@ radial segments through the centre of a smallest enclosing disc. The
 degree-seven construction of <a
 href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>
 has a different geometry.</p>
-<div class="theorem">
+<div class="theorem" id="res:ani-degree-seven-counterexample-long">
 <p><strong>Theorem 1.2</strong> (<code>ani</code>’s counterexample). <em>
 The monic polynomial in <code>[eq:ani-f-long]</code> has seven distinct
 roots in the open unit disc. Every connected subset of its strict unit
@@ -137,7 +137,7 @@ The radius
 records where that quadratic comparison is valid. Degree two will turn
 the local preimage estimate into a statement about the whole
 component.</p>
-<div class="lemma">
+<div class="lemma" id="lem:two-sheet-bottleneck-long">
 <p><strong>Lemma 2.1</strong> (a bottleneck estimate). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 be a polynomial and
@@ -831,7 +831,7 @@ coefficient. Along the segment from the origin to that zero, the
 remaining expression is a nonnegative linear combination of two values
 of modulus less than one. The sum of the coefficients is at most one,
 which gives the required containment.</p>
-<div class="theorem">
+<div class="theorem" id="res:trinomial-all-degree">
 <p><strong>Theorem 3.1</strong> (trinomial root connections). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n,m</annotation></semantics></math>
 be integers with
@@ -923,7 +923,7 @@ these two values may coincide. This is exactly the estimate above. With
 two intermediate coefficients, the assumption that all zeros lie in the
 unit disc need not bound every partial sum by one. The next example
 shows that a prescribed radial segment can then escape.</p>
-<div class="example">
+<div class="example" id="ex:sextic-spoke">
 <p><strong>Example 3.2</strong> (an escaping root spoke). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;r&lt;1</annotation></semantics></math>
 satisfy
@@ -977,7 +977,7 @@ computation at its end does not formalise the reduction. We retain the
 resulting criterion as an unformalised remark. Throughout this section
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><munder><mi mathvariant="normal">min</mi><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow></munder><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">\mu=\min_{f&#39;(c)=0}|f(c)|</annotation></semantics></math>
 is the least critical-value modulus.</p>
-<div class="remark">
+<div class="remark" id="res:low-critical-thirteen-twentyfifths">
 <p><strong>Remark 4.1</strong> (unformalised small-critical-value
 criterion). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -1019,7 +1019,7 @@ and all its roots satisfy
 The connection is required to stay in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f(z)|&lt;1</annotation></semantics></math>;
 the example places no restriction on its distance from the origin.</p>
-<div class="remark">
+<div class="remark" id="res:low-critical-scale-free">
 <p><strong>Remark 4.2</strong> (unformalised scale-free consequence). <em>
 Every squarefree monic
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -1250,7 +1250,7 @@ configurations test only the consecutive-pair constraints; they need not
 satisfy separation for nonconsecutive pairs or arise from a polynomial
 component. To use the missing pairwise information, we impose the
 packing bound on every circle centred at the origin.</p>
-<div class="lemma">
+<div class="lemma" id="res:circle-slice-packing">
 <p><strong>Lemma 4.3</strong> (circle-slice packing). <em>
 Under <code>[eq:lc-separation]</code>, for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r&gt;0</annotation></semantics></math>,
@@ -1287,7 +1287,7 @@ intersections of the balls with this circle are disjoint, so their
 angular measures sum to at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math>. ◻</p>
 </div>
-<div class="remark">
+<div class="remark" id="res:dual-arity-floor">
 <p><strong>Remark 4.4</strong> (unformalised application of a bound for
 the number of roots). <em> Fix radii
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>r</mi><mi>p</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r_1,\ldots,r_p&gt;0</annotation></semantics></math>
@@ -1809,7 +1809,7 @@ on the all-degree constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>
 is the better statement. These threshold arguments do not settle the
 unrestricted existence of a short curve joining two roots.</p>
-<div class="remark">
+<div class="remark" id="res:scaled-low-critical-path">
 <p><strong>Remark 4.5</strong> (unformalised scaled path bound). <em>
 Every squarefree monic polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -1870,7 +1870,7 @@ degree-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semant
 polynomial put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>t</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>:</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>μ</mi><mo>=</mo><munder><mi mathvariant="normal">min</mi><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow></munder><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>ρ</mi><mo>=</mo><msup><mi>μ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">K_t=\{z:|f(z)|\le t\},\qquad
  \mu=\min_{f&#39;(c)=0}|f(c)|,\qquad \rho=\mu^{1/n}.</annotation></semantics></math></p>
-<div class="remark">
+<div class="remark" id="res:constant-factor-path">
 <p><strong>Remark 5.1</strong> (unformalised path bound at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi></mrow><annotation encoding="application/x-tex">2\mu</annotation></semantics></math>).
 <em> For every monic polynomial
@@ -2121,7 +2121,7 @@ unformalised
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>
 criterion already covers these three ranges without the additional lower
 bound on the number of roots.</p>
-<div class="remark">
+<div class="remark" id="res:constant-factor-arity">
 <p><strong>Remark 5.2</strong> (unformalised root-count refinement). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -2219,7 +2219,7 @@ When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 has a repeated zero and the constant path already gives the conclusion;
 there is no capacity ratio to evaluate.</p>
-<div class="remark">
+<div class="remark" id="res:constant-factor-capacity">
 <p><strong>Remark 5.3</strong> (unformalised capacity refinement). <em>
 Keep the hypotheses of Remark 5.2 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">0&lt;\mu\le1/2</annotation></semantics></math>,
@@ -2345,7 +2345,7 @@ stronger hypothesis than the existence of one unramified component: the
 level must lie below every critical-value modulus of the polynomial. A
 construction without that global condition cannot by itself answer the
 question.</p>
-<div class="problem">
+<div class="problem" id="prob:conjecture-p">
 <p><strong>Problem 5.4</strong> (perimeter below the smallest
 critical-value modulus). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -2482,7 +2482,7 @@ bounds the loop length divided by
 by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msqrt><mn>2</mn></msqrt><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\pi/2)(1+\sqrt2)</annotation></semantics></math>,
 as used below.</p>
-<div class="proposition">
+<div class="proposition" id="res:one-root-gamma-false">
 <p><strong>Proposition 5.5</strong> (a counterexample to the proposed
 one-root perimeter bound). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>8</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">p(z)=z^8-(3/2)z</annotation></semantics></math>
@@ -2574,7 +2574,7 @@ point and joins each root to that point at a cost of at most half its
 component’s perimeter. It does not give the constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 of the historical question.</p>
-<div class="remark">
+<div class="remark" id="res:conjecture-p-consumer">
 <p><strong>Remark 5.6</strong> (unformalised consequence of a perimeter
 bound). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -2807,7 +2807,7 @@ normalising at a critical point of least value modulus. The root-disc
 hypothesis makes that modulus less than one, and two radial segments in
 the normalised coordinates give a path shorter than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="res:degree-three">
 <p><strong>Theorem 6.1</strong> (the cubic case). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></msubsup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(z)=\prod_{j=1}^{3}(z-z_j)</annotation></semantics></math>
 with
@@ -3056,7 +3056,7 @@ but excludes the other critical value. Radius
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 is allowed as well: the other critical value then lies on the boundary.
 The proof must therefore allow a nonregular outer level.</p>
-<div class="remark">
+<div class="remark" id="res:critical-value-separation">
 <p><strong>Remark 7.1</strong> (unformalised isolated-value criterion).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
@@ -3391,7 +3391,7 @@ Substitution into (7) proves (5), and (6) makes its right side strictly
 less than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>. ◻</p>
 </div>
-<div class="remark">
+<div class="remark" id="res:critical-value-thresholds">
 <p><strong>Remark 7.2</strong> (unformalised numerical consequences).
 <em> Inequality <code>[eq:disk-family-coefficient]</code> holds for
 every
@@ -3610,7 +3610,7 @@ supplies no curve joining two roots.</p>
 polynomial. We first give a cubic satisfying neither of them. A second
 cubic shows why the root count at the first merger cannot determine
 capacity at a later level.</p>
-<div class="proposition">
+<div class="proposition" id="res:sep-or-false">
 <p><strong>Proposition 8.1</strong> (failure of two critical-value
 criteria to cover all polynomials). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>3</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">f(z)=z^3+(3/100)z-3/4</annotation></semantics></math>.
@@ -3648,7 +3648,7 @@ hypothesis fails. ◻</p>
 contain more roots at a later level. Thus its first root count alone
 does not give a capacity saving at level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi></mrow><annotation encoding="application/x-tex">2\mu</annotation></semantics></math>.</p>
-<div class="proposition">
+<div class="proposition" id="res:arity-not-capacity">
 <p><strong>Proposition 8.2</strong> (root count does not force a capacity
 gap). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>3</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>400</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>32</mn></mrow><annotation encoding="application/x-tex">g(z)=z^3-(3/400)z-3/32</annotation></semantics></math>.
@@ -3709,7 +3709,7 @@ of the polynomial under study, while subtraction lowers the degree. This
 is the comparison needed for the alternation argument. Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mfrac><mi>π</mi><mrow><mn>2</mn><mi>n</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><msubsup><mi>r</mi><mi>n</mi><mi>n</mi></msubsup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">r_n=\cos\frac{\pi}{2n},
  \qquad C_n=\frac{1}{2^{n-1}r_n^n}.</annotation></semantics></math></p>
-<div class="theorem">
+<div class="theorem" id="prop:sharp-collinear-chebyshev-comparator">
 <p><strong>Theorem 9.1</strong> (Chebyshev comparison). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">m\ge0</annotation></semantics></math>,
 let
@@ -3734,7 +3734,7 @@ translations, satisfy the collinearity hypothesis. Three noncollinear
 roots already fall outside it. The gain is an explicit sharp bound for
 the modulus along one adjacent-root segment, not a bound obtained by
 assuming that segment is contained.</p>
-<div class="theorem">
+<div class="theorem" id="thm:sharp-collinear-diameter">
 <p><strong>Theorem 9.2</strong> (a sharp bound for collinear roots). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -3833,7 +3833,7 @@ and every adjacent gap contains a scaled Chebyshev extremum where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>q</mi><mo>*</mo></msub><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|q_*|=C_n</annotation></semantics></math>.
 No smaller universal constant can work. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="cor:collinear-erdos-1041">
 <p><strong>Corollary 9.3</strong> (collinear Erdős case). <em> If the
 zero occurrences of a monic polynomial of degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
@@ -3971,7 +3971,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mn>2</mn></msubsup><mo>≤</mo><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i^2\le s_i</annotation></semantics></math>,
 put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo>=</mo><msubsup><mi>s</mi><mi>i</mi><mn>4</mn></msubsup><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>i</mi></msub><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>r</mi><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">E_i=s_i^4(s_i+r^2+2rx_i).</annotation></semantics></math></p>
-<div class="theorem">
+<div class="theorem" id="prop:primitive-quintic-two-tail-energy-selector">
 <p><strong>Theorem 9.4</strong> (a consequence of three moment
 identities). <em> Suppose
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mn>4</mn></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mi>−</mi><mi>r</mi><mo>,</mo><mspace width="2.0em"></mspace><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mn>4</mn></munderover><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msubsup><mi>x</mi><mi>i</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>s</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>r</mi><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mn>4</mn></munderover><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msubsup><mi>x</mi><mi>i</mi><mn>3</mn></msubsup><mo>−</mo><mn>3</mn><msub><mi>s</mi><mi>i</mi></msub><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><msup><mi>r</mi><mn>3</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{i=0}^4x_i=-r,\qquad
@@ -3996,7 +3996,7 @@ is included, but a general quintic with all coefficients nonzero is not.
 The root-location assumption alone does not imply the three moment
 identities. Those identities are precisely what lets the finite
 inequality find two radial segments.</p>
-<div class="theorem">
+<div class="theorem" id="thm:primitive-quintic-two-tail">
 <p><strong>Theorem 9.5</strong> (a quintic with two missing
 coefficients). <em> Let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>5</mn></msup><mo>+</mo><mi>a</mi><msup><mi>z</mi><mn>4</mn></msup><mo>+</mo><mi>b</mi><mi>z</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">p(z)=z^5+az^4+bz+c</annotation></semantics></math>
@@ -4182,7 +4182,7 @@ A generic polynomial of degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>q</mi></mrow><annotation encoding="application/x-tex">3q</annotation></semantics></math>
 has no such fibre structure. The first theorem supplies the segment to
 be lifted.</p>
-<div class="theorem">
+<div class="theorem" id="lem:cubic-safe-root-spoke">
 <p><strong>Theorem 9.6</strong> (a contained radial segment for a cubic).
 <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>,</mo><mi>s</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">r,s,v\in\mathbb C</annotation></semantics></math>
@@ -4192,7 +4192,7 @@ satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>u</mi><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>u</mi><mo>−</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>u</mi><mo>−</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mn>1</mn><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\left|(tu-r)(tu-s)(tu-v)\right|\le1
  \qquad(0\le t\le1).</annotation></semantics></math></em></p>
 </div>
-<div class="theorem">
+<div class="theorem" id="thm:translated-cubic-quotient-fibres">
 <p><strong>Theorem 9.7</strong> (a cubic composed with a power map). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q\ge2</annotation></semantics></math>,
@@ -4561,7 +4561,7 @@ without changing lengths or moduli. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n=2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mo>*</mo></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r_*=1</annotation></semantics></math>
 and only the outer-diameter case occurs.</p>
-<div class="theorem">
+<div class="theorem" id="res:complementary-binomial-chords">
 <p><strong>Theorem 10.1</strong> (complementary binomial chords). <em> Two
 adjacent zeros of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mi>n</mi></msup><mo>−</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">z^n-a</annotation></semantics></math>
@@ -5316,7 +5316,7 @@ data-cites="revision2026"><a href="#ref-26">[26]</a></span> reports a reduction 
 configurations, without solving the resulting angular optimisation. That
 unavailable addendum is not a proof dependency of the critical-value
 theorem below.</p>
-<div class="theorem">
+<div class="theorem" id="res:critical-value-budget">
 <p><strong>Theorem 10.2</strong> (a mean bound for critical values). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -5354,7 +5354,7 @@ form is
  \qquad |c_j|\le1.</annotation></semantics></math> The following
 pointwise bound explains why these finite inequalities control critical
 values in every degree.</p>
-<div class="lemma">
+<div class="lemma" id="res:reflected-critical-value">
 <p><strong>Lemma 10.3</strong> (reflected-derivative bound). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 is monic of degree
@@ -5494,7 +5494,7 @@ class="level5">
 <div id="weighted-poisson-proof">
 
 </div>
-<div class="theorem">
+<div class="theorem" id="res:fp-weighted-all-degree">
 <p><strong>Theorem 10.4</strong> (a weighted inequality for points in a
 disc). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>c</mi><mi>m</mi></msub><mo>∈</mo><mover><mi mathvariant="double-struck">𝔻</mi><mo accent="true">¯</mo></mover></mrow><annotation encoding="application/x-tex">c_1,\ldots,c_m\in\overline{\mathbb D}</annotation></semantics></math>
@@ -6008,7 +6008,7 @@ five</h3>
 nearest root distances. We begin with this formal geometric statement,
 then distinguish distance from containment in the degree-five
 argument.</p>
-<div class="theorem">
+<div class="theorem" id="res:critical-proximity">
 <p><strong>Theorem 10.5</strong> (a geometric-mean bound for distances to
 a critical point). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
@@ -6057,7 +6057,7 @@ class="level5">
 <div id="two-nearest-root-distance">
 
 </div>
-<div class="corollary">
+<div class="corollary" id="res:two-nearest-roots">
 <p><strong>Corollary 10.6</strong> (two nearest roots). <em> If the roots
 lie in the open unit disc and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
@@ -6135,7 +6135,7 @@ that separate containment estimate under a bound on
 </section>
 <section id="two-failures-of-straight-segments." class="level5">
 <h5>Two failures of straight segments.</h5>
-<div class="proposition">
+<div class="proposition" id="res:straight-no-go">
 <p><strong>Proposition 10.7</strong> (two counterexamples to straight-path
 assertions). <em> There is a monic quintic with all roots in the open
 unit disc and a non-root critical point
@@ -6853,7 +6853,7 @@ The integral is then much smaller than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">k^{-1}\log(1/r)</annotation></semantics></math>.
 The following change of variables proves that no fixed positive multiple
 of this logarithmic contribution is a uniform lower bound.</p>
-<div class="theorem">
+<div class="theorem" id="res:orlicz-currency">
 <p><strong>Theorem 10.8</strong> (the relation between two merger-scale
 integrals). <em> Define
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>x</mi></msubsup><mfrac><mrow><mi>d</mi><mi>t</mi></mrow><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">coth</mi><mo>&#8289;</mo></mrow><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>≥</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Phi(x)=\int_0^x\frac{dt}{\log(\coth t)}\qquad(x\ge0).</annotation></semantics></math>
@@ -6958,7 +6958,7 @@ be an interval on which these assumptions hold; put
 Kozen and Stefánsson record the following identity as a lemma of Shub,
 Tischler and Williams <span class="citation"
 data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>.</p>
-<div class="theorem">
+<div class="theorem" id="res:value">
 <p><strong>Theorem 11.1</strong> (value equation). <em> For a polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 and a differentiable curve
@@ -6997,7 +6997,7 @@ positive ray; a zero value has no argument and remains zero. Thus
 is preserved for later times in that trajectory’s existing interval. No
 global existence or description of a whole ray preimage follows from
 this scalar equation.</p>
-<div class="corollary">
+<div class="corollary" id="res:ray">
 <p><strong>Corollary 11.2</strong> (ray separation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a&lt;b</annotation></semantics></math>
 and let the value trajectory
@@ -7079,7 +7079,7 @@ data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>; the singular 
 evaluated at the endpoints.</p>
 <p>A common translation of distinct values can separate their arguments.
 The next calculation describes the translations to avoid.</p>
-<div class="theorem">
+<div class="theorem" id="res:locus">
 <p><strong>Theorem 12.1</strong> (ray-collision locus). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≠</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a\ne b</annotation></semantics></math>
 be complex. Every common translation
@@ -7352,7 +7352,7 @@ tree.</p>
 <div id="inverse-sheet-component">
 
 </div>
-<div class="remark">
+<div class="remark" id="res:attachment-aware-reeb">
 <p><strong>Remark 13.1</strong> (unformalised decomposition into inverse
 sheets). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
@@ -7649,7 +7649,7 @@ contained curve assembled from those pieces.</p>
 class="level3 unnumbered">
 <h3 class="unnumbered">1. Local saddle geometry and the refuted tree
 estimate</h3>
-<div class="problem">
+<div class="problem" id="prob:saddle1041">
 <p><strong>Problem 15.1</strong> (corrected local saddle assembly). <em>
 The printed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
@@ -7706,7 +7706,7 @@ In particular,
 wherever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
 is defined.</p>
-<div class="problem">
+<div class="problem" id="prob:reeb1041">
 <p><strong>Problem 15.2</strong> (finite strip decomposition after ray
 cuts). <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>,
@@ -7806,7 +7806,7 @@ for any embedded tree that contains all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 roots: Problem 15.1 records that no later gluing argument can retain
 that estimate.</p>
-<div class="problem">
+<div class="problem" id="prob:metric1041">
 <p><strong>Problem 15.3</strong> (strip gluing after the printed
 coefficient). <em> Assuming Problem 15.2, do one of the following, for
 every
@@ -7985,7 +7985,7 @@ coefficient
 Without a choice of replacement inequality, the requirement
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>g</mi></msub><mo>&gt;</mo><mi>q</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">q_g&gt;q/2</annotation></semantics></math>
 has no defined geometric content.</p>
-<div class="problem">
+<div class="problem" id="prob:perturb1041">
 <p><strong>Problem 15.4</strong> (two-stage generic perturbation with
 slack). <em> For fixed root discs, compact collar
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
@@ -8071,7 +8071,7 @@ Thus it extends as a hyperbolic saddle there. A finite critical endpoint
 in Newton time is not a finite arrival at an equilibrium of the smooth
 field. These two parametrisations must be distinguished in a statement
 about a Morse–Smale flow.</p>
-<div class="problem">
+<div class="problem" id="prob:globalflow1041">
 <p><strong>Problem 15.5</strong> (relative global Newton-flow theorem).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>

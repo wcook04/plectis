@@ -118,6 +118,27 @@
   }
 })();
 
+/* A section reader's full-paper link follows its current exact result.
+   Without scripts the same link still opens the enclosing source section. */
+(function () {
+  'use strict';
+  var links = document.querySelectorAll('[data-paper-full]');
+  var stage = document.querySelector('.paper-stage[data-paper-section]');
+  if (!links.length || !stage) return;
+  var original = links[0].getAttribute('href');
+  function update() {
+    var id;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (e) { id = ''; }
+    var target = id && document.getElementById(id);
+    links.forEach(function (link) {
+      link.setAttribute('href', target && stage.contains(target)
+        ? original.split('#')[0] + window.location.hash : original);
+    });
+  }
+  window.addEventListener('hashchange', update);
+  update();
+})();
+
 /* A link to a folded section opens it. The header's "Papers" link lands on
    the overview's paper list, which is folded by default; the shared runtime
    opens a targeted fold when it loads, and this covers the same-page click

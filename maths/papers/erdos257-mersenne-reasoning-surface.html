@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
   <title>Reciprocal Mersenne Subseries · Plectis maths</title>
   <meta name="description" content="A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set…">
   <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos257-mersenne-reasoning-surface.html">
@@ -27,11 +28,11 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=f14026ae95f0">
-  <link rel="stylesheet" href="../assets/maths.css?v=6147d81090b7">
+  <link rel="stylesheet" href="../../assets/style.css?v=bec218228073">
+  <link rel="stylesheet" href="../assets/maths.css?v=4e282b2cd1cc">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=ba62dcae01a8"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
-  <script defer src="../assets/maths.js?v=9cb8db126414"></script>
+  <script defer src="../assets/maths.js?v=2481459dc144"></script>
   <meta name="author" content="Will Cook">
   <meta name="citation_title" content="Reciprocal Mersenne Subseries">
   <meta name="citation_author" content="Will Cook">
@@ -1774,7 +1775,7 @@ x\ge0\ \text{ and }\ r_n(x)\le R_n\ \text{for every }n\ge0.\]" data-math-rendere
 <p><em> For
 every <span class="math inline" data-term-auto="off" data-tex="\(x\in[0,E]\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D465">𝑥</mjx-c></mjx-mi><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2208">∈</mjx-c></mjx-mo><mjx-mo space="4" class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c5B">[</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c30">0</mjx-c></mjx-mn><mjx-mo><mjx-c class="mjx-c2C">,</mjx-c></mjx-mo><mjx-mi space="2"><mjx-c class="mjx-c1D438">𝐸</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c5D">]</mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mi>E</mi><mo stretchy="false">]</mo></math></mjx-assistive-mml></mjx-container></span>, nonmembership is
 equivalent to a finite strict gap between the two next-prefix intervals;
-see Observation <a class="math-ref" href="#obs:general-target-gap">obs:general-target-gap</a>.</em></p>
+see Observation <a class="math-ref" href="#obs:general-target-gap">9.44</a>.</em></p>
 </div>
 <p>Two boundary degeneracies are excluded at every rank,
 unconditionally: <span class="math inline" data-term-auto="off" data-tex="\(r_{k-1}(1/2)\ne
@@ -9494,7 +9495,7 @@ consistent with this linear upper bound and with <span
 class="math inline" data-term-auto="off" data-tex="\(u(n)/2^n\to0\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D462">𝑢</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-mo><mjx-c class="mjx-c2F">/</mjx-c></mjx-mo><mjx-msup><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-mi size="s"><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-break size="4"> </mjx-break><mjx-mo><mjx-c class="mjx-c2192">→</mjx-c></mjx-mo><mjx-mn space="4"><mjx-c class="mjx-c30">0</mjx-c></mjx-mn></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>u</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>/</mo><msup><mn>2</mn><mi>n</mi></msup><mo accent="false" stretchy="false">→</mo><mn>0</mn></math></mjx-assistive-mml></mjx-container></span>. A contradiction would
 require an incompatible upper estimate at the same chosen indices.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:general-target-gap">
 <p><em>Observation 9.44</em> (A finite-gap criterion for every target in
 the convex hull). <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCutLocator.lean#L623"><code>half_mem_mersenneAchievementSet_or_exists_fatal_gap</code></a>,

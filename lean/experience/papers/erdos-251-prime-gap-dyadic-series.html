@@ -89,7 +89,7 @@ is uniform on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X)</annotation></semantics></math>.
 Blocks are unnormalised and counted with multiplicity. We use
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi mathvariant="normal">T</mi><mi mathvariant="normal">V</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo>,</mo><mi>ν</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">sup</mi><mo>&#8289;</mo></mrow><mi>B</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>ν</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">d_\mathrm{TV}(\mu,\nu)=\sup_B|\mu(B)-\nu(B)|</annotation></semantics></math>.</p>
-<div class="proposition">
+<div class="proposition" id="res:sparserationalisation">
 <p><strong>Proposition 1.1</strong> (sparse changes preserving
 congruences). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -562,7 +562,7 @@ href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#prime-bound">Appe
 of the companion</a> derives this bound, including the prime-power
 estimate. This supplies the convergence hypothesis needed to apply
 Proposition 1.1 to the prime gaps.</p>
-<div class="corollary">
+<div class="corollary" id="res:jointcountermodel">
 <p><strong>Corollary 3.1</strong> (a rational sum with the stated
 prime-gap statistics). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn><mo>,</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mn>3</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">p_0=2,p_1=3,\ldots</annotation></semantics></math>
@@ -700,7 +700,7 @@ To use a recurrence for these sums, we must retain the endpoint in
 finite summation by parts and then show that it vanishes. The polynomial
 bound from Section 3 supplies this limit and convergence of both
 series.</p>
-<div class="theorem">
+<div class="theorem" id="res:infinite">
 <p><strong>Theorem 4.1</strong> (prime-to-gap identity). <em> The actual
 prime and gap series satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>=</mo><mn>2</mn><mo>+</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\Pi=2+G</annotation></semantics></math>.
@@ -736,7 +736,7 @@ gives
 </div>
 <p>Tao noted this reduction in the problem’s forum discussion <span
 class="citation" data-cites="erdosproblems251thread"><a href="#ref-15">[15]</a></span>.</p>
-<div class="corollary">
+<div class="corollary" id="res:irr-equivalence">
 <p><strong>Corollary 4.2</strong> (exact irrationality reformulation).
 <em> The prime-value dyadic series is irrational if and only if the
 prime-gap dyadic series is. Both series converge by the polynomial bound
@@ -751,7 +751,7 @@ preserves rationality and irrationality. ◻</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">C2^N</annotation></semantics></math>
 to any solution gives another solution. We distinguish the actual tails
 by the vanishing condition in the next lemma.</p>
-<div class="lemma">
+<div class="lemma" id="res:true-tail">
 <p><strong>Lemma 4.3</strong> (the boundary condition for the tail
 recurrence). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{j\ge1}|a_j|2^{-j}&lt;\infty</annotation></semantics></math>
@@ -797,7 +797,7 @@ an integer and forces rationality when
 Conversely, doubling a rational number eventually gives periodic
 fractional parts. The next theorem records the denominator calculation
 and the exact quantifiers.</p>
-<div class="theorem">
+<div class="theorem" id="res:escape-irrational">
 <p><strong>Theorem 4.4</strong> (exact rationality classification). <em>
 For a real integer-coefficient recurrence, the following are equivalent:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>0</mn></msub><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">U_0\in\mathbb{Q}</annotation></semantics></math>;
@@ -890,7 +890,7 @@ is even. Two differences of absolute value less than one can both be
 integral only if they vanish, in which case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta_N=0</annotation></semantics></math>.
 More precisely, we have the following result.</p>
-<div class="proposition">
+<div class="proposition" id="res:signedwindow">
 <p><strong>Proposition 5.1</strong> (two consecutive differences of
 absolute value less than one). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>,</mo><msup><mi>D</mi><mo>′</mo></msup><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">D,D&#39;\in\mathbb{R}</annotation></semantics></math>,
@@ -940,7 +940,7 @@ give
 respectively. The zero triple
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msup><mi>D</mi><mo>′</mo></msup><mo>=</mo><mi>δ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">D=D&#39;=\delta=0</annotation></semantics></math>
 shows why the mismatch is required.</p>
-<div class="problem">
+<div class="problem" id="prob:smallpair">
 <p><strong>Problem 5.2</strong> (two small tail differences at arbitrarily
 large indices). <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
@@ -998,7 +998,7 @@ with dyadic weights gives
 and hence
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1250</mn><mspace width="0.167em"></mspace><msup><mn>2</mn><mrow><mi>−</mi><mi>L</mi></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">R_{h,N,L}(M)=1250\,2^{-L}
              \bigl(P(N+h+L+2)+P(N+L+2)\bigr).</annotation></semantics></math></p>
-<div class="proposition">
+<div class="proposition" id="res:truncation">
 <p><strong>Proposition 5.3</strong> (finite separation criterion). <em> If
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>
@@ -1021,7 +1021,7 @@ is irrational.</em></p>
 Thus each fixed positive shift is nonintegral at arbitrarily large
 indices, and Theorem 4.4 applies. ◻</p>
 </div>
-<div class="remark">
+<div class="remark" id="res:complete-truncation">
 <p><strong>Remark</strong> (what arbitrary truncation does not gain).
 <em> Whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>D</mi><mo>−</mo><msub><mi>S</mi><mi>L</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msub><mi>R</mi><mi>L</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|D-S_L|\le R_L\to0</annotation></semantics></math>,
@@ -1149,7 +1149,7 @@ href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#counterexamples">
 Section 8</a> gives further examples, including a bounded nonperiodic
 sequence in Appendix D. None of these examples constructs consecutive
 primes.</p>
-<div class="proposition">
+<div class="proposition" id="res:gap-nonperiodic">
 <p><strong>Proposition 6.1</strong> (prime gaps do not become periodic).
 <em> For every positive
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,

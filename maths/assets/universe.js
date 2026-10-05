@@ -286,17 +286,22 @@
       return false;
     }
     var bands = [];
-    /* A statement card's Lean statements and Comparator checks arrive on
-       first opening, from the experience API; the teaser never asks. */
+    /* A pinned card loads only its paper's Lean statements and Comparator
+       checks. The complete API is a fallback for older data or a failed shard. */
     var detailUrl = canvas.getAttribute('data-universe-detail');
-    var detail = null;
-    var detailLoading = false;
-    /* A result's card quotes its paper. Each paper's excerpts (the printed
-       environment, its maths as MathML) come in one small file, fetched the
-       first time the pointer or a pin reaches one of its results. */
+    var detailRoutes = {};
+    var details = {};
+    var detailLoading = {};
+    var detailFailed = {};
+    /* A result's card quotes its printed environment as MathML. A hover or
+       pin loads one paper file, or one bounded batch for a large paper. */
     var excerptRoutes = {};
+    var excerptBatchRoutes = {};
+    var excerptBatchIds = {};
     var excerpts = {};
     var excerptLoading = {};
+    var excerptLoaded = {};
+    var excerptFailed = {};
     // Which place a pinned result's quote shows when two papers state it.
     var quoteAt = -1;
     /* The data's routes (papers/…, problems/…) are relative to maths/. The
@@ -3186,16 +3191,33 @@
       return out;
     }
 
-    function loadDetail() {
-      if (!detailUrl || detail || detailLoading) return;
-      detailLoading = true;
-      fetch(detailUrl).then(function (r) { return r.json(); }).then(function (payload) {
-        detail = payload;
-        detailLoading = false;
+    function detailHref(n) {
+      if (detailUrl && details[detailUrl]) return detailUrl;
+      var relative = detailRoutes[n.paperId];
+      var expected = 'assets/statement-details/' + n.paperId + '.json';
+      var href = relative && /^[a-z0-9-]+$/.test(n.paperId) &&
+        relative.split('?')[0] === expected ? route(relative) : null;
+      return href && !detailFailed[href] ? href : detailUrl;
+    }
+
+    function loadDetail(n) {
+      var href = detailHref(n);
+      if (!href || details[href] || detailLoading[href] || detailFailed[href]) return;
+      detailLoading[href] = true;
+      fetch(href).then(function (r) {
+        if (r.ok === false) throw new Error('Statement details unavailable');
+        return r.json();
+      }).then(function (payload) {
+        if (!payload || !payload.statements || (payload.paper && payload.paper !== n.paperId)) {
+          throw new Error('Statement details belong to another paper');
+        }
+        details[href] = payload;
+        delete detailLoading[href];
         if (selected >= 0 || hover >= 0) refreshInspector();
       }).catch(function () {
-        detailLoading = false;
-        detailUrl = null;
+        delete detailLoading[href];
+        detailFailed[href] = true;
+        loadDetail(n);
         if (selected >= 0) refreshInspector();
       });
     }
@@ -3283,21 +3305,36 @@
       return m ? { number: m[1], name: m[2] } : { number: text, name: '' };
     }
 
-    function loadExcerpts(pid) {
-      var href = excerptRoutes[pid];
-      if (!href || excerpts[pid] || excerptLoading[pid]) return;
-      excerptLoading[pid] = true;
-      fetch(route(href)).then(function (r) { return r.json(); }).then(function (payload) {
+    function loadExcerpts(pid, href) {
+      if (!href || excerptLoaded[href] || excerptFailed[href] || excerptLoading[href]) return;
+      excerptLoading[href] = true;
+      fetch(route(href)).then(function (r) {
+        if (r.ok === false) throw new Error('Paper quote unavailable');
+        return r.json();
+      }).then(function (payload) {
+        var expected = excerptBatchIds[href];
+        if (!payload || !Array.isArray(payload.excerpts) || (payload.paper && payload.paper !== pid) ||
+            (expected && (payload.paper !== pid || payload.source !== excerptRoutes[pid].split('/').pop() ||
+              payload.excerpts.length !== Object.keys(expected).length))) {
+          throw new Error('Paper quotes belong to another edition');
+        }
         var table = {};
-        (payload.excerpts || []).forEach(function (row) {
+        payload.excerpts.forEach(function (row) {
+          if (!Array.isArray(row) || typeof row[0] !== 'string' || row[0].indexOf('statement:' + pid + '#') !== 0 ||
+              typeof row[1] !== 'string' || typeof row[2] !== 'string' || table[row[0]] || (expected && !expected[row[0]])) {
+            throw new Error('Paper quote set is incomplete');
+          }
           table[row[0]] = { name: row[1] || '', body: row[2] || '' };
         });
-        excerpts[pid] = table;
-        excerptLoading[pid] = false;
+        // A late batch must never discard quotes loaded by a newer selection.
+        var cached = excerpts[pid] || (excerpts[pid] = {});
+        Object.keys(table).forEach(function (id) { cached[id] = table[id]; });
+        excerptLoaded[href] = true;
+        delete excerptLoading[href];
         refreshResultCard(pid);
       }).catch(function () {
-        excerpts[pid] = {};
-        excerptLoading[pid] = false;
+        excerptFailed[href] = true;
+        delete excerptLoading[href];
         refreshResultCard(pid);
       });
     }
@@ -3319,10 +3356,16 @@
     // while the file is on its way.
     function excerptOf(i) {
       var m = nodes[i];
-      if (!excerptRoutes[m.paperId]) return null;
+      var full = excerptRoutes[m.paperId];
+      if (!full) return null;
       var table = excerpts[m.paperId];
-      if (!table) { loadExcerpts(m.paperId); return undefined; }
-      return table[m.id] || null;
+      if (table && table[m.id]) return table[m.id];
+      if (excerptLoaded[full]) return null;
+      var href = excerptLoading[full] ? full : excerptBatchRoutes[m.id] || full;
+      if (excerptLoaded[href] || excerptFailed[href]) href = full;
+      if (excerptFailed[href]) return null;
+      loadExcerpts(m.paperId, href);
+      return undefined;
     }
 
     // Related statement locations, the short paper first. Shared formal support is not equivalence.
@@ -3432,8 +3475,10 @@
     }
 
     function checksHtml(n, pinned) {
+      var href = detailHref(n);
+      var detail = pinned && details[href];
       var more = pinned && detail && detail.statements ? detail.statements[n.id] || null : null;
-      if (pinned && !detail && detailUrl) loadDetail();
+      if (pinned && !detail) loadDetail(n);
       var decls = n.decls || [];
       var rows = [];
       // Lean: how its statement stands to the printed one.
@@ -3524,7 +3569,7 @@
       if (more && more.record) {
         html += '<p class="universe-check__record">' + extLink(more.record, 'The evidence record for this result', 'universe-go universe-go--small') + '</p>';
       }
-      if (pinned && !detail && detailUrl) {
+      if (pinned && !detail && href && !detailFailed[href]) {
         html += '<p class="universe-inspector__hint">Loading the Lean statements and Comparator files…</p>';
       }
       return html;
@@ -4153,6 +4198,24 @@
       if (data.excerpts) {
         excerptRoutes = {};
         data.excerpts.forEach(function (pair) { excerptRoutes[pair[0]] = pair[1]; });
+      }
+      if (Array.isArray(data.excerpt_batches)) {
+        excerptBatchRoutes = {}; excerptBatchIds = {};
+        data.excerpt_batches.forEach(function (batch) {
+          if (!Array.isArray(batch)) return;
+          var pid = batch[0], href = batch[1], ids = batch[2];
+          if (typeof pid !== 'string' || !/^[a-z0-9-]+$/.test(pid) || typeof href !== 'string' ||
+              href.indexOf('assets/excerpts/' + pid + '--batch-') !== 0 ||
+              !/^assets\/excerpts\/[a-z0-9-]+--batch-[a-f0-9]{12}\.json$/.test(href) || !Array.isArray(ids) || !ids.length ||
+              !ids.every(function (id) { return typeof id === 'string' && id.indexOf('statement:' + pid + '#') === 0; })) return;
+          var expected = {};
+          ids.forEach(function (id) { expected[id] = true; excerptBatchRoutes[id] = href; });
+          excerptBatchIds[href] = expected;
+        });
+      }
+      if (data.details) {
+        detailRoutes = {};
+        data.details.forEach(function (pair) { detailRoutes[pair[0]] = pair[1]; });
       }
       nodes = data.nodes.map(function (n) {
         var row = {

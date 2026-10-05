@@ -19,7 +19,7 @@ index is
 Erdős and Graham asked whether every rational reciprocal sum with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∼</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">a_{n+1}\sim a_n^2</annotation></semantics></math>
 arises in this way.</p>
-<div class="problem">
+<div class="problem" id="res:problem">
 <p><strong>Problem 1.1</strong> (Erdős Problem 243). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>a</mi><mn>2</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">1\le a_1&lt;a_2&lt;\cdots</annotation></semantics></math>
 be a sequence of integers with
@@ -37,7 +37,7 @@ catalogue <span class="citation" data-cites="erdosproblems"><a href="#ref-11">[1
 prove the following irrationality result for a restricted class of
 sequences with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∼</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">a_{n+1}\sim a_n^2</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="res:cubicrate">
 <p><strong>Theorem 1.2</strong> (cubic-rate irrationality). <em> A
 strictly increasing sequence of positive integers with
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mfrac><mn>3</mn><mi>n</mi></mfrac><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}=1+\frac3n+o(n^{-3})</annotation></semantics></math>
@@ -311,7 +311,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">v_n=D_n/g</annotation></semantics></math>.
 The recurrences persist after this division. The following observation
 describes the resulting coprimality conditions.</p>
-<div class="proposition">
+<div class="proposition" id="res:reduced">
 <p><strong>Proposition 3.1</strong> (persistent coprimality). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>,</mo><msub><mi>u</mi><mi>n</mi></msub><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_n,u_n,v_n</annotation></semantics></math>
 be integer sequences with
@@ -734,7 +734,7 @@ The next theorem forces constancy from bounded upward steps and a
 vanishing relative error. The latter limit already follows from
 quadratic growth; the bound on upward steps is an additional hypothesis.
 No polynomial expansion is assumed.</p>
-<div class="theorem">
+<div class="theorem" id="res:bounded">
 <p><strong>Theorem 4.1</strong> (bounded negative part). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -776,7 +776,7 @@ The arguments below use the recurrences <code>[eq:recurrences]</code>.
 We state positivity and the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>
 where they are needed.</p>
-<div class="proposition">
+<div class="proposition" id="res:update"><span class="tex-label" id="res:defect" hidden></span>
 <p><strong>Proposition 4.2</strong> (error identities). <em> For integer
 sequences satisfying <code>[eq:recurrences]</code>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>E</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><msub><mi>E</mi><mi>n</mi></msub><mo>−</mo><msub><mi>E</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">C_{n+1}=C_n-E_n,\qquad
@@ -805,7 +805,7 @@ a stronger bound than we need.</p>
 Proposition 1(2) uses descent when their gaps are eventually nonnegative
 <span class="citation" data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>. The following
 form separates what the two arguments require.</p>
-<div class="theorem">
+<div class="theorem" id="res:absorb"><span class="tex-label" id="res:descent" hidden></span>
 <p><strong>Theorem 4.3</strong> (absorption and descent). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -844,7 +844,7 @@ makes the positive integer sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>
 eventually nonincreasing, hence constant. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="res:step"><span class="tex-label" id="res:eventual" hidden></span>
 <p><strong>Corollary 4.4</strong> (two zero errors). <em> For integer
 sequences satisfying <code>[eq:recurrences]</code>, if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n=E_{n+1}=0</annotation></semantics></math>
@@ -882,7 +882,7 @@ recurrence.</p>
 </section>
 <section id="sec:barrier" class="level3">
 <h3>A stable gcd and a forbidden block</h3>
-<div class="proposition">
+<div class="proposition" id="res:gcdstab">
 <p><strong>Proposition 4.5</strong> (gcd stabilisation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>C</mi><mo>,</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">a,C,D:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
@@ -932,7 +932,7 @@ not help. For a general step bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
 the Chinese remainder theorem supplies a forbidden block of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p>
-<div class="lemma">
+<div class="lemma" id="res:crt">
 <p><strong>Lemma 4.6</strong> (consecutive multiples). <em> For pairwise
 coprime integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>m</mi><mrow><mi>B</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m_0,\ldots,m_{B-1}\ge2</annotation></semantics></math>
@@ -950,7 +950,7 @@ by the Chinese remainder theorem and add multiples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mi>i</mi></msub><msub><mi>m</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\prod_i m_i</annotation></semantics></math>
 to exceed the prescribed bound. ◻</p>
 </div>
-<div class="theorem">
+<div class="theorem" id="res:barrier">
 <p><strong>Theorem 4.7</strong> (Chinese remainder theorem and first
 crossing). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">u:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -1017,7 +1017,7 @@ By Proposition 3.1, the multipliers
 are pairwise coprime and each is coprime to every later numerator. They
 supply the moduli prohibited by Theorem 4.7, a contradiction. ◻</p>
 </div>
-<div class="corollary">
+<div class="corollary" id="res:cor">
 <p><strong>Corollary 4.8</strong>. <em> Under Theorem 4.1, the
 multipliers satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^2-a_n+1</annotation></semantics></math>
@@ -1041,7 +1041,7 @@ Thus the following hypothesis bounds upward increments of
 It allows
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>n</mi></msub><annotation encoding="application/x-tex">t_n</annotation></semantics></math>
 itself to be unbounded and allows decreases.</p>
-<div class="corollary">
+<div class="corollary" id="res:originalbounded">
 <p><strong>Corollary 4.9</strong> (bounded increments of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P_n/a_n</annotation></semantics></math>).
 <em> Let
@@ -1099,7 +1099,7 @@ and the increments tend to zero.</p>
 <p>The inclusive rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
 gives another useful sufficient condition.</p>
-<div class="corollary">
+<div class="corollary" id="res:inclusiveone">
 <p><strong>Corollary 4.10</strong> (an inclusive one-sided
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
 bound). <em> Let
@@ -1192,7 +1192,7 @@ allow
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">C_n=(n+1)^2</annotation></semantics></math>,
 both of which grow without bound.</p>
-<div class="theorem">
+<div class="theorem" id="res:massscalar"><span class="tex-label" id="res:mass" hidden></span>
 <p><strong>Theorem 5.1</strong> (a convergent sum of relative increases).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>
@@ -1343,7 +1343,7 @@ the actual jump is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_n=U_{n+1}-U_n=-V_n&gt;0</annotation></semantics></math>.
 This identity is not asserted at a contracting step with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho_n\ge2</annotation></semantics></math>.</p>
-<div class="theorem">
+<div class="theorem" id="res:weightedrecord">
 <p><strong>Theorem 6.1</strong> (a convergent weighted sum over new
 maxima). <em> Assume the growth and rationality hypotheses of
 Problem 1.1. Let
@@ -1571,7 +1571,7 @@ Substituting
 loses the recovery from earlier decreases, which the crossing estimate
 uses. Nor would termwise convergence of the summands to zero establish
 finiteness.</p>
-<div class="corollary">
+<div class="corollary" id="res:lcmbounded">
 <p><strong>Corollary 6.2</strong> (a bound using the least common
 multiple). <em> Assume the hypotheses of Problem 1.1. Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})</annotation></semantics></math>
@@ -1652,7 +1652,7 @@ an input to the crossing theorem.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Further questions</h2>
-<div class="proposition">
+<div class="proposition" id="res:frontier">
 <p><strong>Proposition 7.1</strong> (necessary profile). <em> The integer
 tail of a sequence satisfying Problem 1.1’s hypotheses but not its
 conclusion has
@@ -1702,7 +1702,7 @@ The lemma supplies a weight once
 <code>[eq:remaining-record-budget]</code> holds. Establishing that
 estimate would contradict the first-crossing lower bound and exclude
 every non-Sylvester rational tail.</p>
-<div class="lemma">
+<div class="lemma" id="res:weights">
 <p><strong>Lemma 7.2</strong> (weights and linear density). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>j</mi></msub><annotation encoding="application/x-tex">u_j</annotation></semantics></math>
 be positive integers, let
@@ -1805,7 +1805,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}/a_n^2\to1</annotation></semantics></math>.
 All these hypotheses concern the infinite sequences; a scalar example or
 a finite initial segment satisfies only some of them.</p>
-<div class="problem">
+<div class="problem" id="res:lcmheight">
 <p><strong>Problem 7.3</strong> (growth of repeated denominator factors).
 <em> For every rational-tail orbit satisfying the hypotheses but not the
 conclusion of Problem 1.1, must
@@ -1862,7 +1862,7 @@ checks divisibility only; it does not impose the positivity conditions
 required of an infinite reciprocal-tail sequence. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L75">formal
 exact-division condition</a> requires exact division at each step.</p>
-<div class="example">
+<div class="example" id="ex:shape">
 <p><strong>Example A.1</strong> (a nonintegral second step). <em>
 Starting from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a_0=3</annotation></semantics></math>,
@@ -1888,7 +1888,7 @@ Computing a pseudo-greedy orbit through residues modulo a shrinking
 product modulus is Koizumi’s method <span class="citation"
 data-cites="koizumi2025"><a href="#ref-10">[10]</a></span>; for the forced numerator that product
 is a factorial.</p>
-<div class="theorem">
+<div class="theorem" id="res:residue">
 <p><strong>Theorem A.2</strong> (factorial residue reduction). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 be a nonnegative integer and let

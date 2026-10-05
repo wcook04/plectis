@@ -282,7 +282,7 @@ Thus we can allow increasingly many odd cofactors as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 grows while keeping the weighted sum finite. The theorem extends this
 observation to a finite set of primes.</p>
-<div class="thm">
+<div class="thm" id="thm:257-weighted">
 <p><strong>Theorem 1.1</strong> (A weighted summability criterion). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -785,7 +785,7 @@ every integer base. We also allow the empty prime set, with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h(a)=1</annotation></semantics></math>;
 it gives a divergent weighted sum because the constructed support has
 divergent reciprocal sum.</p>
-<div class="prop">
+<div class="prop" id="prop:257-finite-witness-rule">
 <p><strong>Proposition 1.2</strong> (realising finite monotone witness
 rules). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
@@ -1122,7 +1122,7 @@ in the averaging bound remains part of the cover cost, so small
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
 alone does not make that cost small. The theorem permits a different
 fractional power for each finite set.</p>
-<div class="thm">
+<div class="thm" id="thm:257-variable-fractional-cover">
 <p><strong>Theorem 1.3</strong> (A summable family of divisor majorants).
 <em> For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>,
@@ -1288,7 +1288,7 @@ the explicit modulus dependence
 in <code>[eq:257-mixed-finite-kernel]</code> lets the cover estimate use
 that same distribution. We add the two nonnegative errors there and
 choose an index only afterwards.</p>
-<div class="thm">
+<div class="thm" id="thm:257-mixed-supports">
 <p><strong>Theorem 1.4</strong> (mixed weighted and cover supports). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>,</mo><mi>V</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E,V\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>.
@@ -1583,14 +1583,14 @@ the sum always converges, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_n = O(2^{-n})</annotation></semantics></math>.
 Erdős’s Problem #257 asks a single universally quantified question about
 this family.</p>
-<div class="defn">
+<div class="defn" id="defn:U">
 <p><strong>Definition 1.5</strong> (Universal #257, written (U)). Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_A = \sum_{n \in A} 1/(2^n-1)</annotation></semantics></math>
 irrational for <em>every</em> infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb N_{&gt;0}</annotation></semantics></math>?
 <strong>OPEN.</strong></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:H">
 <p><strong>Definition 1.6</strong> (The half-value question, written (H)).
 Let the <em>Mersenne achievement set</em> be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒜</mi><mo>:=</mo><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><mi>y</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi><mo>:</mo><mo>∃</mo><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>∉</mo><mi>A</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>y</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>x</mi><mi>n</mi></msub><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{A} := \{\, y \in \mathbb{R} : \exists A \subseteq \mathbb{N},\ 0 \notin A,\ y = \sum_{n \in A} x_n \,\}</annotation></semantics></math>
@@ -1931,7 +1931,7 @@ the two-point digit spaces gives compactness. These facts have distinct
 uses below: uniqueness recovers a represented target by the greedy rule,
 while closedness turns a convergent sequence of finite subseries into a
 represented value.</p>
-<div class="thm">
+<div class="thm" id="thm:geometry">
 <p><strong>Theorem 1.8</strong> (Achievement-set geometry). <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
 is compact, closed, perfect, totally disconnected and nowhere dense, and
@@ -1946,7 +1946,7 @@ The positive-index digit coding onto
 is injective: each achievable real has <em>exactly one</em>
 support.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:supported-dichotomy">
 <p><strong>Theorem 1.9</strong> (Support-restricted refinement). <em> Use
 zero-based indices in this statement: coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">j\in\mathbb{N}</annotation></semantics></math>
@@ -2073,7 +2073,7 @@ href="https://arxiv.org/abs/2601.20743">Kaneko–Suzuki–Tachiya</a>
 their relation to the divisor-incidence coefficients of these subseries
 is recorded after Theorem 1.1.</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival">
 <p><strong>Theorem 1.11</strong> (Membership equals greedy survival; the
 fatal-gap dichotomy). <em> For a real target
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x\ge0</annotation></semantics></math>,
@@ -2093,8 +2093,7 @@ Then
 For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>E</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">x\in[0,E]</annotation></semantics></math>,
 nonmembership is equivalent to a finite strict gap between the two
-next-prefix intervals; see
-Observation <code>[obs:general-target-gap]</code>.</em></p>
+next-prefix intervals; see Observation 9.44.</em></p>
 </div>
 <p>Two boundary degeneracies are excluded at every rank,
 unconditionally:
@@ -2246,7 +2245,7 @@ without giving an obstruction to every possible method.</p>
 the quantifiers required by the different estimates. The counterexamples
 identify a failed hypothesis or a missing uniformity, while the
 equivalences retain the full difficulty of their target statements.</p>
-<div class="obs">
+<div class="obs" id="obs:no-ensemble">
 <p><em>Observation 2.1</em> (Uniqueness within the fixed-target coding).
 Each Mersenne weight exceeds the sum of all subsequent weights.
 Consequently the digit coding is injective (Theorem 1.8): a represented
@@ -2307,7 +2306,7 @@ certificate (2.7) do not follow from injectivity alone.</p>
 </section>
 <section id="bar:canon" class="level5">
 <h5>Uniqueness of the specified greedy words</h5>
-<div class="prop">
+<div class="prop" id="prop:canon">
 <p><strong>Proposition 2.2</strong> (Uniqueness under the stated finite
 conditions). <em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mrow><mi mathvariant="normal">g</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G=\mathrm{greedyMersenneSupport}(1/2)</annotation></semantics></math>,
@@ -2450,7 +2449,7 @@ a fixed support from finite approximants whose supports may vary; their
 quantifier patterns alone would not justify these equivalences. No claim
 is made that every conceivable sufficient condition is equivalent to the
 goal.</p>
-<div class="lem">
+<div class="lem" id="lem:collapse-mech">
 <p><strong>Lemma 2.4</strong> (Carry and residual value). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb{N}</annotation></semantics></math>
 with
@@ -2467,7 +2466,7 @@ Then
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">T</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></msub><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>r</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm T(m)=\sum_{r\ge1}c_A(m+r)2^{-r}</annotation></semantics></math>.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:collapse">
 <p><strong>Proposition 2.5</strong> (A cofinal carry bound). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">ihc</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>C</mi><msqrt><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msqrt><mo>+</mo><msup><mi>C</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">|\operatorname{ihc}(A,N)|\le C\sqrt{N+1}+C&#39;</annotation></semantics></math>
 for arbitrarily large
@@ -2524,7 +2523,7 @@ this equality is equivalent to
 by <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L1458"><code>mem_mersenneAchievementSet_iff_greedy_survival</code></a>. ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:sqrt-witness">
 <p><strong>Lemma 2.6</strong> (The terminal bound at square depths). <em>
 Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x_A = 1/2</annotation></semantics></math>
@@ -2560,7 +2559,7 @@ leaves the carry at that depth unchanged, by <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCarryReachability.lean#L49"><code>integerHalfCarry_inter_Iic_eq_of_succ_le</code></a>.
 An achieving half-support excludes rank one because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">w_1=1&gt;1/2</annotation></semantics></math>.</p>
-<div class="prop">
+<div class="prop" id="prop:collapsed-list">
 <p><strong>Proposition 2.7</strong> (Six equivalent membership
 conditions). <em> Each of the following is logically <em>equivalent</em>
 to
@@ -2649,7 +2648,7 @@ hypotheses; none excludes every method at the stated scale.</p>
 following three statements concern abstract recurrence models. Their
 conclusions apply to the Mersenne problem only within the specified
 models; they do not use its full divisor-count constraints.</p>
-<div class="prop">
+<div class="prop" id="prop:local-void">
 <p><strong>Proposition 2.8</strong> (Limits of the specified local
 summaries). <em> (i) After
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
@@ -2710,7 +2709,7 @@ restriction at a specified index, but it is already encoded in the known
 forcing term. It supplies no additional run-length estimate by
 itself.</p>
 <p><strong>Class (b): global averages and Diophantine data.</strong></p>
-<div class="prop">
+<div class="prop" id="prop:exponent-gap">
 <p><strong>Proposition 2.9</strong> (A bound for the reduced
 denominator). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
@@ -2773,7 +2772,7 @@ is used in a subsequent deduction.</p>
 </section>
 <section id="bar:asym" class="level5">
 <h5>What finite certificates decide</h5>
-<div class="thm">
+<div class="thm" id="thm:one-sided">
 <p><strong>Theorem 2.11</strong> (One-sidedness). <em> Non-membership of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
 in
@@ -2841,7 +2840,7 @@ should not be reported as a single verification depth.</p>
 </section>
 <section id="bar:measure" class="level5">
 <h5>Why measure and category do not decide a rational target</h5>
-<div class="rem">
+<div class="rem" id="prop:soft">
 <p><em>Remark 2.12</em> (Achievement-set geometry does not decide
 rational-target membership). The achievement set has positive measure
 and is nowhere dense (Theorem 1.8). Neither fact alone decides
@@ -2870,7 +2869,7 @@ of its ambient interval.</p>
 </section>
 <section id="bar:box" class="level5">
 <h5>Hypotheses of the CRT block-certificate argument</h5>
-<div class="obs">
+<div class="obs" id="obs:box">
 <p><em>Observation 2.13</em> (Two inputs to the CRT certificate argument).
 The CRT block-certificate arguments considered here require both
 compatible divisibility prescriptions and a tail estimate strong enough
@@ -3362,7 +3361,7 @@ rational number is represented. A positive answer would disprove the
 universal assertion; a negative answer would settle only that target.
 The later analysis also treats
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>21</mn></mrow><annotation encoding="application/x-tex">1/21</annotation></semantics></math>.</p>
-<div class="defn">
+<div class="defn" id="defn:half-question">
 <p><strong>Definition 5.2</strong> (The distinguished half-value
 question). Define the <em>Mersenne achievement set</em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒜</mi><mo>:=</mo><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><mi>y</mi><mo>∈</mo><mi mathvariant="double-struck">ℝ</mi><mo>:</mo><mo>∃</mo><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>∉</mo><mi>A</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>y</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>x</mi><mi>n</mi></msub><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{A} := \{\,y \in \mathbb{R} : \exists A \subseteq \mathbb{N},\ 0 \notin A,\ y =
@@ -3373,7 +3372,7 @@ realizable as a subset sum of the positive-index Mersenne weights
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2 \in \mathcal{A}</annotation></semantics></math>?</strong>
 This is <strong>OPEN</strong>.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:half-controls-universal">
 <p><em>Observation 5.3</em> (Why the half-value question controls
 universal #257). Any finite subset sum of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{x_n\}</annotation></semantics></math>
@@ -3412,7 +3411,7 @@ assertion.</p>
 <h5>What is proved</h5>
 <section id="full-support-irrationality-for-every-base" class="level6">
 <h6>Full-support irrationality, for every base</h6>
-<div class="thm">
+<div class="thm" id="thm:full-support">
 <p><strong>Theorem 5.4</strong> (Full-support irrationality,
 unconditional, every base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b \ge 2</annotation></semantics></math>).
@@ -3449,7 +3448,7 @@ The purely periodic, eventually periodic, residue-class and odd supports
 follow from the periodic theorem of Luca and Tachiya <span
 class="citation" data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>; these cases also
 have Lean proofs (margin):</p>
-<div class="thm">
+<div class="thm" id="thm:purely-periodic-support">
 <p><strong>Theorem 5.5</strong> (Purely periodic support). <em> For
 integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -3470,7 +3469,7 @@ is irrational. <strong>Hypotheses:</strong>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>-periodic,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>a</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>a</mi><mo>∈</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\exists a &gt; 0,\ a \in A</annotation></semantics></math>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:eventually-periodic-support">
 <p><strong>Theorem 5.6</strong> (Eventually periodic support). <em> For
 integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -3502,7 +3501,7 @@ from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 infinite.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:residue-class-support">
 <p><strong>Theorem 5.7</strong> (Residue-class support). <em> For
 integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
@@ -3513,7 +3512,7 @@ the series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mi>n</mi><mo>≡</mo><mi>c</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1,\ n\equiv c\pmod m}(b^n-1)^{-1}</annotation></semantics></math>
 is irrational.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:odd-support">
 <p><strong>Theorem 5.8</strong> (Odd support). <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
 the series
@@ -3535,7 +3534,7 @@ therefore decide neither alternative for
 <section id="topology-and-measure-of-the-achievement-set"
 class="level6">
 <h6>Topology and measure of the achievement set</h6>
-<div class="thm">
+<div class="thm" id="thm:topology">
 <p><strong>Theorem 5.9</strong> (Achievement-set topology and measure).
 <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
@@ -3574,7 +3573,7 @@ Other weight sequences require their own tail asymptotic.<br />
 every “limit of achieved points is achieved” argument used downstream,
 including the seam-limit route of Part 2).</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival-record">
 <p><strong>Theorem 5.10</strong> (Membership equals greedy survival at
 every level). <em> For a real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>,
@@ -3607,7 +3606,7 @@ by positive summands; the half-target discussion starts at exponent two.
 (The reciprocal formula is undefined only at exponent zero.) The greedy
 rule is deterministic. Strict tail domination makes it recover the
 support of any represented target (Theorem 5.10):</p>
-<div class="defn">
+<div class="defn" id="defn:greedy-orbit">
 <p><strong>Definition 5.11</strong> (The half-value greedy orbit). Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>k</mi></msub><mo>=</mo><msub><mi>r</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\rho_k=r_{k-1}(1/2)</annotation></semantics></math>
 be the residual entering rank
@@ -3664,7 +3663,7 @@ survival.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2 \in \mathcal{A}</annotation></semantics></math>
 iff no rank of this orbit is ever fatal. Two boundary degeneracies are
 excluded unconditionally and independently of any open hypothesis:</p>
-<div class="rem">
+<div class="rem" id="rem:no-ties">
 <p><em>Remark 5.12</em> (No-ties: both greedy-orbit boundaries are
 strict). (a)
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>k</mi></msub><mo>≠</mo><msub><mi>x</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\rho_k \ne x_k</annotation></semantics></math>
@@ -3749,7 +3748,7 @@ divisors at least two. This is an identity for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M\ge2</annotation></semantics></math>,
 not merely a checked finite recurrence.</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:master-identity">
 <p><strong>Theorem 5.14</strong> (Decomposition of the integer remainder).
 <em> For every quotient row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n \ge 6</annotation></semantics></math>,
@@ -3796,7 +3795,7 @@ alone need not control their cancellation.</em></p>
 <section id="a-real-valued-form-of-the-quotient-identity"
 class="level5">
 <h5>A real-valued form of the quotient identity</h5>
-<div class="thm">
+<div class="thm" id="thm:real-form">
 <p><strong>Theorem 5.15</strong> (Real (non-integer) form of the quotient
 identity). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>d</mi></msub><mo>:=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_d := 1/(2^d-1)</annotation></semantics></math>
@@ -3852,7 +3851,7 @@ side.</em></p>
 </section>
 <section id="dynamics" class="level5">
 <h5>Dynamics</h5>
-<div class="thm">
+<div class="thm" id="thm:dynamics">
 <p><strong>Theorem 5.16</strong> (Exact recurrences for the three
 branches). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n\ge5</annotation></semantics></math>.
@@ -3985,7 +3984,7 @@ provide test cases for the formulas above. The low-row remainders at
 are exact integer values. Each larger certified range has a <a
 href="https://github.com/wcook04/plectis-erdos/tree/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257">published
 program and saved run</a>.</p>
-<div class="obs">
+<div class="obs" id="obs:anchors-low">
 <p><em>Observation 5.17</em> (Exact low-row values). At row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>14</mn></mrow><annotation encoding="application/x-tex">n=14</annotation></semantics></math>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>14</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>392</mn></mrow><annotation encoding="application/x-tex">\mathrm{rem}(14) = 392</annotation></semantics></math>,
@@ -4018,7 +4017,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Δ</mi><mn>32</mn></msub><annotation encoding="application/x-tex">\Delta_{32}</annotation></semantics></math>
 are exact integer computations with the greedy rule of Section 5.4.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:anchors-depth">
 <p><em>Observation 5.18</em> (Depths of the reported computations). The
 quotient identity (Theorem 5.14) is verified at rows
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">6 \le n \le 200</annotation></semantics></math>
@@ -4041,7 +4040,7 @@ inequality failing at exactly one reset row
 namely
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">r=7</annotation></semantics></math>).</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:anchors-coords">
 <p><em>Observation 5.19</em> (Four computations side by side). Four
 related computations are reported, with different targets or integer
 representations, at the following ranges: truncation rung
@@ -4116,7 +4115,7 @@ Theorem 5.16, with the row added as a subscript. The labels
 mean precisely its three arithmetic cases. Finally,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>F</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(k,J)=F_k(J)</annotation></semantics></math>
 denotes the expression in Theorem 6.13.</p>
-<div class="thm">
+<div class="thm" id="thm:fatal-absorbing">
 <p><strong>Theorem 6.1</strong> (Infinitely many greedy skips force
 membership). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x\ge0</annotation></semantics></math>.
@@ -4147,7 +4146,7 @@ at every rank; since
 the greedy sum equals
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>. ◻</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:seam-limit">
 <p><strong>Theorem 6.2</strong> (The quotient remainders converge to the
 greedy deficit). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
@@ -4217,7 +4216,7 @@ which is also equivalent to a zero limit along any one sequence
 </div>
 <p>Convergence itself is automatic; proving that its limit is zero is
 exactly the unresolved membership question.</p>
-<div class="thm">
+<div class="thm" id="thm:two-channel-cap">
 <p><strong>Theorem 6.3</strong> (Two-channel and dyadic cap sufficiency).
 <em> Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n\ge0</annotation></semantics></math>
@@ -4234,7 +4233,7 @@ restrictive, than the second. Both are sufficient tests on the specified
 greedy orbit. The result does not assert that either bound holds at all
 its skipped ranks.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:second-channel">
 <p><strong>Theorem 6.4</strong> (Second-channel phase separation
 sufficiency). <em> Define
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><msup><mn>4</mn><mi>n</mi></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>2</mn><msub><mi>r</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_n=4^n\bigl(2r_n(1/2)-2^{-n}\bigr)</annotation></semantics></math>.
@@ -4259,7 +4258,7 @@ implies the displayed inequality when
 but no such avoidance theorem for the whole orbit is proved
 here.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:straddle-closed-set">
 <p><strong>Theorem 6.5</strong> (Straddle-prefix closed-set criterion).
 <em> Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d\ge0</annotation></semantics></math>
@@ -4279,7 +4278,7 @@ supplies such finite supports. Thus this condition is an exact
 finite-approximation formulation of membership, not a criterion already
 known to hold for an unresolved target.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:largest-skip-late">
 <p><strong>Theorem 6.6</strong> (Keeping the largest skipped rank beyond
 two thirds). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>s</mi></msub><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D_s\subseteq\{2,\ldots,s-1\}</annotation></semantics></math>
@@ -4304,7 +4303,7 @@ supplies omitted ranks tending to infinity. It is an unproved condition
 on every later row; the verified base case alone does not establish
 it.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:middle-producer-escape">
 <p><strong>Theorem 6.7</strong> (Two sufficient bounds at middle
 transitions). <em> Suppose that at every middle transition with row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">s\ge13</annotation></semantics></math>,
@@ -4325,7 +4324,7 @@ This explains the implication between the two hypotheses. The
 implication from the first bound to membership is proved in Lean; no
 ordinary proof is printed here. Neither all-row hypothesis is
 established by the finite computations.</p>
-<div class="thm">
+<div class="thm" id="thm:middle-allright-defect">
 <p><strong>Theorem 6.8</strong> (The tail inequality at a final middle
 transition). <em> Suppose row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">D\ge13</annotation></semantics></math>
@@ -4344,7 +4343,7 @@ corresponding sufficient hypothesis with the value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">-3</annotation></semantics></math>
 excepted.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:two-sided-dyadic">
 <p><strong>Theorem 6.9</strong> (A conditional two-sided dyadic bound).
 <em> Assume the following two conditions for every row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>:
@@ -4401,7 +4400,7 @@ by the second assumption. ◻</p>
 <p>This conclusion is a disjunction. It does not by itself give an upper
 bound for the remainder on rows where only the overshoot is small, and
 therefore is not by itself a membership criterion.</p>
-<div class="thm">
+<div class="thm" id="thm:upper-reset-band">
 <p><strong>Theorem 6.10</strong> (Upper-reset dyadic-band escape, checked
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>≤</mo><mi>d</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">13\le d\le30</annotation></semantics></math>).
@@ -4430,7 +4429,7 @@ and
 This finite verification does not supply the hypothesis for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">d\ge13</annotation></semantics></math>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mobius-centred-nonneg">
 <p><strong>Theorem 6.11</strong> (Möbius-centred carry nonnegativity below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>).
 <em> If
@@ -4454,7 +4453,7 @@ statement is about the divisor counts
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>A</mi></msub><annotation encoding="application/x-tex">c_A</annotation></semantics></math>,
 not a new irrationality criterion.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:sqrt-bound-route">
 <p><strong>Theorem 6.12</strong> (A square-root bound on the greedy
 carry). <em> For the greedy support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><msub><mi>G</mi><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">G=G_{1/2}</annotation></semantics></math>,
@@ -4473,7 +4472,7 @@ which cannot satisfy a square-root bound. This is distinct from the
 reset-deviation hypothesis of Theorem 6.10; no equivalence between the
 two hypotheses is asserted.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:frozen-margin">
 <p><strong>Theorem 6.13</strong> (Equivalent sign and vanishing
 conditions). <em> For the prefix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mi>G</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D=G\cap\{1,\ldots,k\}</annotation></semantics></math>
@@ -4511,7 +4510,7 @@ them; no converse or strict separation is established here. These
 hypotheses must hold at every indicated skipped rank, not merely through
 a finite computed range.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:full-support-catalogue">
 <p><strong>Theorem 6.14</strong> (Erdős–Borwein full-support
 irrationality, unconditional). <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
@@ -4523,7 +4522,7 @@ data-cites="erdos1948"><a href="#ref-1">[1]</a></span>; at base
 the sum is the Erdős–Borwein constant. The result concerns full support,
 not all its infinite subsets.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:pairwise-coprime">
 <p><strong>Theorem 6.15</strong> (Pairwise-coprime support irrationality,
 Erdős 1968). <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4533,7 +4532,7 @@ with summable reciprocals,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{a\in A} 1/(b^a-1)</annotation></semantics></math>
 is irrational.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:weighted-coeff-engine">
 <p><strong>Theorem 6.16</strong> (Irrationality from divisible coefficient
 blocks). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4599,7 +4598,7 @@ Their existence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>φ</mi></mrow><annotation encoding="application/x-tex">c=\varphi</annotation></semantics></math>
 is not proved here. This is a limitation of this particular sufficient
 criterion, not a comparison of every approach to Problem 249.</p>
-<div class="thm">
+<div class="thm" id="thm:lcm-gap-engine">
 <p><strong>Theorem 6.17</strong> (Irrationality from a gap beyond the
 preceding least common multiple). <em> For an integer base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4617,7 +4616,7 @@ remain
 Applying the argument to another denominator sequence would require its
 own divisibility and tail estimates.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:factorial-twopow-support">
 <p><strong>Theorem 6.18</strong> (Factorial-support and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math>-support
 instances). <em> For every integer
@@ -4640,7 +4639,7 @@ so the gap is
 Both tend to infinity. The conclusion concerns these two supports, not
 every infinite support.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:multiples-support">
 <p><strong>Theorem 6.19</strong> (Multiples-support irrationality via
 dilation). <em> For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4658,7 +4657,7 @@ data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>. The periodic, even
 residue-class and odd-support statements below follow from their
 theorem; their Lean proofs are separate and use the certificate method
 described here.</p>
-<div class="thm">
+<div class="thm" id="thm:periodic-support">
 <p><strong>Theorem 6.20</strong> (Periodic-support irrationality). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4684,7 +4683,7 @@ separate formal proof. At
 the only nonempty periodic support is full support; residue classes and
 unions of residue classes give the other immediate examples.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:eventually-periodic">
 <p><strong>Theorem 6.21</strong> (Eventually-periodic support
 irrationality). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4697,7 +4696,7 @@ from some threshold
 onward has irrational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:residue-odd">
 <p><strong>Theorem 6.22</strong> (Residue-class and odd-support
 irrationality). <em> For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>,
@@ -4721,7 +4720,7 @@ data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>, so the terminating
 occurs only for the zero weight. The theorem records the dichotomy
 reached by the certificate method, together with its one-sided
 closures.</p>
-<div class="thm">
+<div class="thm" id="thm:signed-periodic">
 <p><strong>Theorem 6.23</strong> (A formal dichotomy for signed periodic
 weights). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -4770,7 +4769,7 @@ The Lean source calls
 the Möbius numerator;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(r)</annotation></semantics></math>
 is a finite rational sum, not the full-support Lambert series.</p>
-<div class="thm">
+<div class="thm" id="thm:mersenne-channel-survival">
 <p><strong>Theorem 6.24</strong> (Denominators of finite Mersenne sums).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge1</annotation></semantics></math>
@@ -4802,7 +4801,7 @@ are pairwise coprime, since
 for distinct primes. The assertion concerns this finite signed sum; it
 does not replace the approximation hypotheses in Theorem 6.14.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mersenne-channel-growth">
 <p><strong>Theorem 6.25</strong> (Exponential growth of the reduced
 denominators). <em> For an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t\ge5</annotation></semantics></math>,
@@ -4866,7 +4865,7 @@ that identity supplies an approximation-error estimate.</p>
 </section>
 <section id="exact-identities-and-reductions" class="level5">
 <h5>Exact identities and reductions</h5>
-<div class="obs">
+<div class="obs" id="obs:half-regression">
 <p><em>Observation 6.26</em> (A finite half-value approximation and the
 first correction tail). The finite prefix has value
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>−</mo><msub><mi>X</mi><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>16002</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac12-X_{\{2,3,6,7\}}(2)=\frac1{16002}.</annotation></semantics></math>
@@ -4891,7 +4890,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCutLocator.lean#L670"><code>mersenneCorrectionTail_one_le</code></a></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:period-four-obstruction">
 <p><em>Observation 6.27</em> (Period-4 sign weight vanishes on a residue
 class). Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w(n)</annotation></semantics></math>
@@ -4922,7 +4921,7 @@ theorem <span class="citation" data-cites="lucatachiya2017"><a href="#ref-3">[3
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L14226"><code>intWeightedCoeff_periodFourSignWeight_eq_zero_of_mod_four_eq_three</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mobius-lambert-identity">
 <p><strong>Theorem 6.28</strong> (The Lambert-series identity for the
 Möbius function). <em> The absolutely convergent signed series satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{d\ge1}\frac{\mu(d)}{2^d-1}=\frac12.</annotation></semantics></math>
@@ -4946,7 +4945,7 @@ not indicators of a support; the identity therefore does not represent
 as a subseries with all coefficients in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{0,1\}</annotation></semantics></math>.</em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:negative-mobius-overshoot">
 <p><strong>Corollary 6.29</strong> (Negative-Möbius Boolean support
 overshoots
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>).
@@ -4965,7 +4964,7 @@ This rules out the particular candidate
 It does not rule out other infinite supports representing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:skip-block-non-invariant">
 <p><em>Observation 6.30</em> (Dyadic safety need not survive a take). For
 a residual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>D</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p/(2D)</annotation></semantics></math>,
@@ -5023,7 +5022,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DyadicPrefixCompression.lean#L647"><code>lcmSaturated_safeBracket_not_inductive_fixture</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:half-skip-dichotomy">
 <p><strong>Theorem 6.31</strong> (The half-skip dichotomy via
 Erdős–Borwein irrationality). <em> The half target satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>∈</mo><mi mathvariant="script">𝒜</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>∖</mo><mi>G</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is infinite</mtext></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac12\in\mathcal A\quad\Longleftrightarrow\quad
@@ -5042,7 +5041,7 @@ later exponent is selected. Infinitely many skips exclude that failure.
 The equivalence does not establish that infinitely many skips actually
 occur.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:nine-way-hub">
 <p><strong>Theorem 6.32</strong> (Equivalent descriptions of
 half-membership). <em> Each of the following is equivalent to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2\in\mathcal A</annotation></semantics></math>:</em></p>
@@ -5079,7 +5078,7 @@ of a sequence of rows. Item (5) requires the omitted ranks themselves to
 tend to infinity, not merely their containing rows. The cited
 identification with the real greedy support supplies (6)–(7). These
 equivalences do not prove that any of the conditions holds.</p>
-<div class="lem">
+<div class="lem" id="lem:eventually-right-impossible">
 <p><strong>Lemma 6.33</strong> (The values on either side of an eventual
 right continuation). <em> If the seam eventually always extends “true”
 (right branch) from some row
@@ -5097,7 +5096,7 @@ This does not rule out an eventually-right integer orbit; it describes
 the two values in that case. The inequalities are used in
 Theorem 6.44.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:mersenne-tail-weight">
 <p><strong>Lemma 6.34</strong> (Each Mersenne weight exceeds its remaining
 tail). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
@@ -5131,7 +5130,7 @@ and the remaining tail is positive. A general strict-tail argument
 therefore cannot be transferred to that sequence without a different
 hypothesis or proof.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival-catalogue">
 <p><strong>Theorem 6.35</strong> (Greedy survival and membership). <em>
 With the greedy remainder
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r_n(x)</annotation></semantics></math>
@@ -5151,7 +5150,7 @@ every inequality. The argument applies to positive summable weights
 satisfying that separation hypothesis; it is not a consequence of
 summability alone.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:rank-step-trichotomy">
 <p><strong>Lemma 6.36</strong> (The two next-prefix intervals and their
 gap). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d\ge0</annotation></semantics></math>
@@ -5179,7 +5178,7 @@ Lemma 6.38 also excludes the interval endpoints, so all relevant
 comparisons are strict. Endpoint exclusion is not what makes the two
 child intervals disjoint; the strict-tail inequality does that.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:fatal-gap-exclusion">
 <p><strong>Lemma 6.37</strong> (A greedy gap excludes every
 representation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d\ge0</annotation></semantics></math>
@@ -5208,7 +5207,7 @@ none of those prefixes can represent
 either. Thus a certified strict gap excludes every representation, not
 just one proposed continuation.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:half-endpoint-kills">
 <p><strong>Lemma 6.38</strong> (No finite Mersenne sum equals one half).
 <em> For every finite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">u\subseteq\mathbb N_{&gt;0}</annotation></semantics></math>,
@@ -5223,7 +5222,7 @@ is the irrational full Mersenne sum minus a finite rational sum. These
 observations exclude equality at the finite-prefix and complete-tail
 endpoints of Lemma 6.36.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:straddle-agrees-greedy">
 <p><strong>Lemma 6.39</strong> (Straddle words are canonical: they agree
 with the greedy prefix). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">u\subseteq\{1,\ldots,d\}</annotation></semantics></math>
@@ -5255,7 +5254,7 @@ Both cases contradict the displayed interval. Thus there is at most one
 such word at each depth; the lemma does not assert its existence at
 every depth.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:last-skip-iff-fatal">
 <p><strong>Theorem 6.40</strong> (Last-skip iff local fatality: a
 pointwise criterion). <em> Keep
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
@@ -5280,7 +5279,7 @@ omitted by the greedy rule. This is an equivalence on that fixed orbit;
 it does not establish the inequality at its unboundedly many possible
 omitted ranks.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:seam-upper-or-middle">
 <p><strong>Lemma 6.41</strong> (Seam upper-or-middle classification). <em>
 At a row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>,
@@ -5300,7 +5299,7 @@ on
 it does. This is an exact classification, not a conjecture inferred from
 observed branch labels.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:largest-false-rank-algebra">
 <p><strong>Lemma 6.42</strong> (The exact gap at the largest omitted
 rank). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>d</mi><mo>&lt;</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">2\le d&lt;s</annotation></semantics></math>
@@ -5371,7 +5370,7 @@ Both the factor
 on the right and the restriction
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>s</mi><mo>&lt;</mo><mn>3</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">2s&lt;3d</annotation></semantics></math>
 are essential to this formula.</p>
-<div class="thm">
+<div class="thm" id="thm:critical-dyadic-band">
 <p><strong>Theorem 6.43</strong> (Reduction to the nearest dyadic
 boundary). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">d,E</annotation></semantics></math>
@@ -5413,7 +5412,7 @@ hypothesis.</em></p>
 </div>
 <p></p>
 <div class="minipage">
-<div class="thm">
+<div class="thm" id="thm:final-middle-cell">
 <p><strong>Theorem 6.44</strong> (Excluding minus three at a final middle
 transition). <em> Suppose that row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">D\ge13</annotation></semantics></math>
@@ -5456,7 +5455,7 @@ giving
 a contradiction. The stronger conclusion
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>D</mi></msub><mo>≥</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">C_D\ge-2</annotation></semantics></math>
 is proved in Theorem 10.6.</p>
-<div class="lem">
+<div class="lem" id="lem:skipped-endpoint-trichotomy">
 <p><strong>Lemma 6.45</strong> (The signed position of a skipped greedy
 prefix). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>
@@ -5482,7 +5481,7 @@ with the different coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>s</mi></msub><mo>=</mo><mn>4</mn><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msubsup><mi>p</mi><mi>s</mi><mo>−</mo></msubsup><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">C_s=4\mathrm{rem}(s)-p_s^- -4</annotation></semantics></math>
 used in the final-middle argument.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:reverse-carry-word">
 <p><strong>Lemma 6.46</strong> (Spacing of reverse-carry words). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">i=1,2</annotation></semantics></math>,
 let integer sequences
@@ -5516,7 +5515,7 @@ difference gives the odd factor, and each subsequent agreement doubles
 it. An application must supply the stated agreements and terminal
 bounds.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:linear-channel-nogo">
 <p><strong>Lemma 6.47</strong> (Linear functionals factoring through one
 value). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
@@ -5543,7 +5542,7 @@ order at least two therefore vanishes. This excludes determinant
 arguments formed from these particular functionals, not determinant
 methods with additional independent information.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:two-thirds-band">
 <p><strong>Theorem 6.48</strong> (Two-thirds band: exact localisation of
 post-take skip-unsafety). <em> Write a positive residual as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">1/R</annotation></semantics></math>.
@@ -5598,7 +5597,7 @@ test. The odd-coprime data
 give an unsafe single-skip example; no conclusion that the half-greedy
 orbit avoids such data follows from the band calculation.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:sharp-fatal-gap">
 <p><strong>Theorem 6.49</strong> (A weaker sufficient test against the
 remaining tail). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>,</mo><mi>u</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">k,u,L</annotation></semantics></math>
@@ -5647,7 +5646,7 @@ when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
 is odd.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:gap-mass-summability">
 <p><strong>Lemma 6.50</strong> (Summability of one gap length per level).
 <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
@@ -5668,7 +5667,7 @@ given after Theorem 6.118. Neither estimate decides membership of a
 specified point such as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:half-divisor-unit-drop">
 <p><strong>Lemma 6.51</strong> (The effect of adding one divisor). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>
@@ -5689,7 +5688,7 @@ This follows directly from the definition of a divisor count. Its use in
 another coefficient sequence requires proving that sequence has the same
 support-incidence description.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tempered-orbit-rigidity">
 <p><strong>Theorem 6.52</strong> (Uniqueness of an integer recurrence with
 a vanishing scaled limit). <em> For any nonnegative-integer coefficient
 sequence
@@ -5725,7 +5724,7 @@ for Problem 249 both satisfy
 The telescoping argument is given again, with an example, in
 Theorem 6.105.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tail-transfer">
 <p><strong>Lemma 6.53</strong> (Changing finitely many support elements).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
@@ -5741,7 +5740,7 @@ is irrational too: the two sums differ by a finite sum of rational
 numbers. This observation supplies the finite modifications in
 Theorem 6.21.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:dyadic-excess-reformulation">
 <p><strong>Lemma 6.54</strong> (An integer test for the interval between
 the dyadic and Mersenne weights). <em> For positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">p,L</annotation></semantics></math>
@@ -5760,7 +5759,7 @@ The first test concerns the dyadic bound, not the greedy selection
 threshold itself. The second identifies precisely the interval in which
 a Mersenne weight is skipped but the dyadic safety test fails.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:denominator-sandwich">
 <p><strong>Lemma 6.55</strong> (The odd denominator survives dyadic
 subtraction). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">r/D</annotation></semantics></math>
@@ -5787,7 +5786,7 @@ Reduction can therefore remove only powers of
 from the displayed denominator. No property of Mersenne weights is
 used.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:denominator-survival">
 <p><strong>Lemma 6.56</strong> (A guaranteed divisor of a reduced
 denominator). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a\in\mathbb Z</annotation></semantics></math>,
@@ -5833,7 +5832,7 @@ while the reduced denominator is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>.
 The lemma feeds Theorem 6.24 directly.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:mixed-prime-power-layer">
 <p><strong>Lemma 6.57</strong> (Commuting prime-power differences). <em>
 For a function
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>:</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>→</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">g:\mathbb N_{&gt;0}\to\mathbb Z</annotation></semantics></math>,
@@ -5899,7 +5898,7 @@ so the mixed difference is
 This coefficient identity alone does not transfer rationality through
 the subsequence operation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>↦</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g(n)\mapsto g(pn)</annotation></semantics></math>.</p>
-<div class="defn">
+<div class="defn" id="defn:achievement-set">
 <p><strong>Definition 6.58</strong> (The Mersenne achievement set and the
 support-series object). For a support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>≥</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb N_{\ge1}</annotation></semantics></math>,
@@ -5928,7 +5927,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8856"><code>supportCoeff</code></a></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:achievement-set-topology">
 <p><strong>Proposition 6.59</strong> (Achievement-set topology: compact,
 closed, perfect, measure exactly one). <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\ensuremath{\mathcal A}</annotation></semantics></math>
@@ -5953,7 +5952,7 @@ is what powers every “limit of a sequence of achieved points is
 achieved” argument in this catalogue (e.g. Theorem 6.2,
 Theorem 6.5).</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:master-dichotomy">
 <p><strong>Theorem 6.60</strong> (Nonmembership of one half and a finite
 fatal gap). <em> The value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
@@ -5978,7 +5977,7 @@ reduction uses
 not compactness alone. The totient weights fail this hypothesis, as the
 example after Lemma 6.34 shows.</em></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:perturbed-family">
 <p><strong>Definition 6.61</strong> (Separated integer values and bounded
 perturbations). Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
@@ -6024,7 +6023,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderIntegerGreedy.lean#L1320"><code>AdjacentCut</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:perturbed-family-maximality">
 <p><strong>Theorem 6.62</strong> (Perturbed-family maximality and the
 three-branch recurrence). <em> Use the family and adjacent pair of
 Definition 6.61, and assume in addition that
@@ -6148,7 +6147,7 @@ proof.</p>
 <section id="finite-quotients-and-their-remainders"
 class="level6 unnumbered">
 <h6 class="unnumbered">Finite quotients and their remainders</h6>
-<div class="defn">
+<div class="defn" id="record:257bm-d1">
 <p><strong>Definition 6.63</strong> (An exact finite quotient sum). For
 an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
@@ -6170,7 +6169,7 @@ immaterial to existence at unbounded depths.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCofinalExactRows.lean#L31"><code>ExactLocalMersenneHalfRow</code></a></p>
 </div>
-<div class="defn">
+<div class="defn" id="record:257bm-d2">
 <p><strong>Definition 6.64</strong> (Floor quotients and the signed
 endpoint expression).
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><msup><mn>2</mn><mi>M</mi></msup><mrow><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>∈</mo><mi>D</mi></mrow></munder><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\ensuremath{q}(M,d) := \left\lfloor \frac{2^M}{2^d-1} \right\rfloor,\qquad
@@ -6188,7 +6187,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusLocalRepair.lean#L123"><code>localRepairInteger</code></a></p>
 </div>
-<div class="defn">
+<div class="defn" id="record:257bm-d3">
 <p><strong>Definition 6.65</strong> (The remaining binary suffix).
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><msup><mn>2</mn><mrow><mi>M</mi><mo>−</mo><mi>k</mi></mrow></msup><mo>−</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>≥</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\ensuremath{S}(D,k,M)
  :=\max\{2^{M-k}-\ensuremath{Q}(D,M)-1,0\}
@@ -6208,7 +6207,7 @@ to zero, a case not used in these capacity estimates.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusLocalRepair.lean#L102"><code>localBinarySuffix</code></a></p>
 </div>
-<div class="defn">
+<div class="defn" id="record:257bm-d4">
 <p><strong>Definition 6.66</strong> (Exact quotient sums at unbounded
 depths). The cofinal exact-row condition says that for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -6231,7 +6230,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <section id="two-implications-yielding-half-membership"
 class="level6 unnumbered">
 <h6 class="unnumbered">Two implications yielding half-membership</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c1">
 <p><strong>Theorem 6.67</strong> (Compactness from exact finite sums).
 <em> Suppose the cofinal exact-row condition in Definition 6.66 holds.
 Then
@@ -6255,7 +6254,7 @@ the representing support is therefore infinite. The proof does not
 require the chosen rows to be nested. The unproved input is their
 existence at unbounded depths.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c2">
 <p><strong>Theorem 6.68</strong> (Infinitely many greedy skips suffice).
 <em> Suppose that the greedy remainder for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
@@ -6279,7 +6278,7 @@ equivalent to half-membership and remains unproved here.</em></p>
 <section id="compatible-finite-approximations"
 class="level6 unnumbered">
 <h6 class="unnumbered">Compatible finite approximations</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c3">
 <p><strong>Theorem 6.69</strong> (A compatible family of finite
 supports). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>n</mi><mo>,</mo><mi>d</mi></mrow></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">b_{n,d}\in\{0,1\}</annotation></semantics></math>
@@ -6322,7 +6321,7 @@ is not proved.</p>
 </section>
 <section id="a-quotient-bound-at-a-crossing" class="level6 unnumbered">
 <h6 class="unnumbered">A quotient bound at a crossing</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c4">
 <p><strong>Theorem 6.70</strong> (A sufficient quotient bound at a
 crossing). <em> Consider the following condition on finite sets
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
@@ -6342,7 +6341,7 @@ infinite support of value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
 The universal crossing condition itself is unproved.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c5">
 <p><strong>Theorem 6.71</strong> (Induction from the depth-six example).
 <em> An already-formalised induction from the endpoint-six seed
 (Definition 6.97) consumes Theorem 6.70 at every step: each protected
@@ -6361,7 +6360,7 @@ branch never fires twice from the seed arithmetic, so the supply is
 needed at essentially every step. Its conclusion is the cofinal
 exact-row condition of Definition 6.66.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c6">
 <p><strong>Theorem 6.72</strong> (The quotient condition on greedy
 prefixes). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>c</mi></msub><mo>=</mo><mi>G</mi><mo>∩</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D_c=G\cap\{2,\ldots,c-1\}</annotation></semantics></math>.
@@ -6376,7 +6375,7 @@ prefixes. The finite uniqueness results justify that restriction where
 the cited induction uses it; they do not prove the displayed
 inequality.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c6a">
 <p><strong>Theorem 6.73</strong> (Two consecutive skips). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">c\ge6</annotation></semantics></math>
 and the real half-greedy rule skips both
@@ -6426,7 +6425,7 @@ so its next-step identity is
 Integrality gives the required strict bound at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M+1</annotation></semantics></math>. ◻</p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c6b">
 <p><strong>Theorem 6.74</strong> (A later skip after a selected block).
 <em> Suppose the real half-greedy rule skips rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
@@ -6460,7 +6459,7 @@ skip frequency alone gives no such pointwise gap bound.</em></p>
 <section id="filling-the-remaining-binary-positions"
 class="level6 unnumbered">
 <h6 class="unnumbered">Filling the remaining binary positions</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c7">
 <p><strong>Theorem 6.75</strong> (Filling the remaining binary
 positions). <em> For any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>
@@ -6484,7 +6483,7 @@ hypothesis used in Theorem 6.70 is one way to seek that input, not an
 additional premise of this filling result. No strict comparison between
 the corresponding cofinal existence statements is asserted.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c8">
 <p><strong>Theorem 6.76</strong> (An exact sum at depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2c-2</annotation></semantics></math>).
 <em> Under the hypotheses of Theorem 6.75, there is a set
@@ -6495,7 +6494,7 @@ This conclusion forgets the additional support-extension information in
 that theorem. It is the form used when only the existence of an exact
 row is needed.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-c9">
 <p><strong>Proposition 6.77</strong> (Quotients in the upper half of the
 index range). <em> For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
@@ -6516,7 +6515,7 @@ to
 which explains both the capacity bound and the choice of terminal
 depth.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c10">
 <p><strong>Theorem 6.78</strong> (A finite sum from a skipped prefix).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>
@@ -6559,7 +6558,7 @@ this first-crossing form.</p>
 <section id="reducing-the-dyadic-boundary-checks"
 class="level6 unnumbered">
 <h6 class="unnumbered">Reducing the dyadic-boundary checks</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c11">
 <p><strong>Theorem 6.79</strong> (Testing one nearest dyadic boundary).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">d,E</annotation></semantics></math>
@@ -6610,7 +6609,7 @@ so equality at the allowed edge satisfies every band condition.</p>
 The equivalence replaces all its local band tests by one test. The
 arithmetic inequality at every required reset remains an unproved
 hypothesis of the membership implication.</p>
-<div class="prop">
+<div class="prop" id="record:257bm-c12">
 <p><strong>Proposition 6.80</strong> (An upper bound for the reset
 expression). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">d\ge5</annotation></semantics></math>
@@ -6633,7 +6632,7 @@ class="level6 unnumbered">
 <h6 class="unnumbered">Nonnegativity of the omitted-tail margin</h6>
 <p>The next three statements compare the conditions of Theorem 6.13. The
 first two are equivalent; the third is sufficient for them.</p>
-<div class="defn">
+<div class="defn" id="record:257bm-c13">
 <p><strong>Definition 6.81</strong> (A nonnegativity condition at skipped
 ranks).
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">skipped rank </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mo>≥</mo><mn>3</mn><mo>,</mo><mspace width="1.0em"></mspace><mn>0</mn><mo>≤</mo><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\forall\ \text{skipped rank } n\ge3,\quad 0 \le \ensuremath{F}(n-1,n).</annotation></semantics></math>
@@ -6645,7 +6644,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFullShellSeamBridge.lean#L633"><code>half_mem_mersenneAchievementSet_of_skippedFullShellNonnegative</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c14">
 <p><strong>Theorem 6.82</strong> (An equivalent vanishing condition).
 <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" class="ta-c"><mo>∀</mo><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">skipped rank </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mo>≥</mo><mn>3</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> whose actual word equals the seam-greedy word</mtext></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mtext mathvariant="normal">the integer remainder at </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is zero</mtext></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{gathered}
@@ -6663,7 +6662,7 @@ margin at every skip is equivalent to vanishing of the remainder at
 every aligned skip. The equivalence is proved; neither condition is
 established for all required ranks.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-c15">
 <p><strong>Theorem 6.83</strong> (A sufficient lower bound for the
 integer remainder). <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">skipped rank </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mo>≥</mo><mn>3</mn><mo>,</mo><mspace width="1.0em"></mspace><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\forall\ \text{skipped rank }n\ge3,\quad B(2n) &lt; \mathrm{rem}(n),</annotation></semantics></math>
@@ -6678,7 +6677,7 @@ strict separation of the conditions.</em></p>
 <section id="square-root-bounds-for-half-carries"
 class="level6 unnumbered">
 <h6 class="unnumbered">Square-root bounds for half-carries</h6>
-<div class="thm">
+<div class="thm" id="record:257rig-c16">
 <p><strong>Theorem 6.84</strong> (A square-root carry bound implies
 half-membership). <em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
@@ -6699,7 +6698,7 @@ bound remains open. This is a different hypothesis from the dyadic-band
 condition and the largest-skip condition; logical independence is not
 asserted.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257rig-c17">
 <p><strong>Theorem 6.85</strong> (Terminal bounds at unbounded depths).
 <em> Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>
@@ -6737,7 +6736,7 @@ their finite data must not be confused with a strict logical weakening
 of the membership problem.</em></p>
 </div>
 <p>The hypothesis is not established.</p>
-<div class="thm">
+<div class="thm" id="record:257rig-c18">
 <p><strong>Theorem 6.86</strong> (Cofinal returns of the greedy carry).
 <em> Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>
@@ -6763,7 +6762,7 @@ contribution. The hypothesis is not established.</em></p>
 <section id="a-margin-at-an-unspecified-later-horizon"
 class="level6 unnumbered">
 <h6 class="unnumbered">A margin at an unspecified later horizon</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c19">
 <p><strong>Theorem 6.87</strong> (An eventual nonnegative margin
 suffices). <em> Fix a positive depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
@@ -6810,7 +6809,7 @@ horizon is a separate arithmetic obligation.</em></p>
 class="level6 unnumbered">
 <h6 class="unnumbered">Equivalent conditions for infinitely many greedy
 skips</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-c20">
 <p><strong>Theorem 6.88</strong> (Half-membership and infinitely many
 skips). <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>∈</mo><mi mathvariant="script">𝒜</mi><mspace width="0.278em"></mspace><mo>⇔</mo><mspace width="0.278em"></mspace><mrow><mtext mathvariant="normal">the set of ranks skipped by the greedy rule for </mtext><mspace width="0.333em"></mspace></mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is infinite</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\tfrac12\in\ensuremath{\mathcal A} \;\Longleftrightarrow\; \text{the set of ranks skipped by the greedy rule for }\tfrac12\text{ is infinite}.</annotation></semantics></math>
@@ -6830,7 +6829,7 @@ criteria. Each statement retains its own hypotheses; a bound for one
 branch is not an invariant of the entire recurrence.</p>
 <section id="one-step-quotient-identities" class="level6 unnumbered">
 <h6 class="unnumbered">One-step quotient identities</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i1a">
 <p><strong>Theorem 6.89</strong> (The next floor quotient). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
 and
@@ -6852,7 +6851,7 @@ unchanged except when both values are zero. Summing over a fixed finite
 support gives the corresponding update with added term
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c_D(M+1)</annotation></semantics></math>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i1b">
 <p><strong>Theorem 6.90</strong> (The next quotient sum). <em> For a
 fixed finite set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mi>…</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D\subseteq\{2,3,\ldots\}</annotation></semantics></math>
@@ -6870,7 +6869,7 @@ is also essential for the displayed correction term, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>2</mn><mi>M</mi></msup></mrow><annotation encoding="application/x-tex">q(M,1)=2^M</annotation></semantics></math>
 doubles without an added unit.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i1c">
 <p><strong>Theorem 6.91</strong> (The signed endpoint recurrence). <em>
 The signed next-step expression is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>c</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(D,k,n)=2S(D,k,n-1)+1-c_D(n)</annotation></semantics></math>.
@@ -6889,7 +6888,7 @@ quantities.</em></p>
 <section id="bounds-for-the-remaining-binary-positions"
 class="level6 unnumbered">
 <h6 class="unnumbered">Bounds for the remaining binary positions</h6>
-<div class="defn">
+<div class="defn" id="record:257bm-i-cap">
 <p><strong>Definition 6.92</strong> (The sharper binary bound). Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D\subseteq\{2,\ldots,c-1\}</annotation></semantics></math>,
@@ -6905,7 +6904,7 @@ omitted, as explained below.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkippedCoreCriticalCapacity.lean#L22"><code>localBinarySuffix_two_mul_sub_two_lt_criticalCapacity_iff</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i5">
 <p><strong>Theorem 6.93</strong> (Equivalent forms of the sharper bound).
 <em> Under the hypotheses of Definition 6.92:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>,</mo><mn>1</mn><mo>,</mo><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>c</mi><mo>−</mo><mn>2</mn></mrow></msup><mspace width="0.278em"></mspace><mo>⇔</mo><mspace width="0.278em"></mspace><msup><mn>2</mn><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn></mrow></msup><mo>≤</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="0.222em"></mspace><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\ensuremath{S}(D,1,2c-2) &lt; 2^{c-2} \;\Longleftrightarrow\; 2^{(2c-2)-1} \le \ensuremath{Q}(D\cup\{c\},\ 2c-2).</annotation></semantics></math>
@@ -6981,7 +6980,7 @@ whose quotients are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
-<div class="thm">
+<div class="thm" id="record:257bm-i6">
 <p><strong>Theorem 6.94</strong> (An unconditional bound with one extra
 bit). <em> Unconditionally, for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>
@@ -7016,7 +7015,7 @@ hypotheses.</em></p>
 </section>
 <section id="doubling-the-endpoint" class="level6 unnumbered">
 <h6 class="unnumbered">Doubling the endpoint</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i7">
 <p><strong>Theorem 6.95</strong> (The binary bound after doubling). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n\ge6</annotation></semantics></math>
@@ -7090,7 +7089,7 @@ has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>E</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>=</mo><mn>13955</mn><mi>/</mi><mn>32756094</mn><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X_E(2)-1/2=13955/32756094&gt;0</annotation></semantics></math>.
 Thus the extension is exact at its integer target, but need not remain
 below half in real value.</p>
-<div class="prop">
+<div class="prop" id="record:257bm-i-rank2">
 <p><strong>Proposition 6.96</strong> (Every exact sum contains exponent
 two). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>
@@ -7109,7 +7108,7 @@ quotient sums.</em></p>
 </section>
 <section id="the-depth-six-example" class="level6 unnumbered">
 <h6 class="unnumbered">The depth-six example</h6>
-<div class="defn">
+<div class="defn" id="record:257bm-i-seed">
 <p><strong>Definition 6.97</strong> (An exact sum at depth six). The set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,6\}</annotation></semantics></math>
 satisfies
@@ -7134,7 +7133,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <section id="approximation-error-and-finite-denominators"
 class="level6 unnumbered">
 <h6 class="unnumbered">Approximation error and finite denominators</h6>
-<div class="prop">
+<div class="prop" id="record:257bm-i9">
 <p><strong>Proposition 6.98</strong> (Error in the finite subseries
 value). <em> An exact row at endpoint
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -7148,7 +7147,7 @@ consumed by Theorem 6.67 to turn a sequence of exact rows tending to
 depth infinity into a sequence of values tending to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-i10">
 <p><strong>Proposition 6.99</strong> (No finite support has value one
 half). <em> A finite sum of reciprocals of odd integers has odd
 denominator in lowest terms, so it cannot equal
@@ -7163,7 +7162,7 @@ must be infinite, as used in Theorem 6.67.</em></p>
 <section id="uniqueness-for-gap-dominated-finite-weights"
 class="level6 unnumbered">
 <h6 class="unnumbered">Uniqueness for gap-dominated finite weights</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i11a">
 <p><strong>Theorem 6.100</strong> (Small remainder forces the greedy
 word). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g\ge1</annotation></semantics></math>
@@ -7205,7 +7204,7 @@ and capacity
 its remainder is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-i11b">
 <p><strong>Proposition 6.101</strong> (Gap domination of the integer
 weights). <em> For integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>d</mi><mo>≤</mo><mi>R</mi><mo>≤</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1\le d\le R\le M</annotation></semantics></math>,
@@ -7228,7 +7227,7 @@ it is
 The inequality is unconditional; it does not assert that the greedy
 remainder is smaller than the gap.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-i11c">
 <p><strong>Proposition 6.102</strong> (Uniqueness of the finite greedy
 representation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">1\le M</annotation></semantics></math>,
@@ -7258,7 +7257,7 @@ subtraction.</em></p>
 <section id="a-geometric-form-of-the-quotient-condition"
 class="level6 unnumbered">
 <h6 class="unnumbered">A geometric form of the quotient condition</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i12">
 <p><strong>Theorem 6.103</strong> (A division-free form of the binary
 bound). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M\ge0</annotation></semantics></math>
@@ -7292,7 +7291,7 @@ and allows unbounded integer values. We first bound the coefficient
 tail, then recover the series value by telescoping. For support series,
 Möbius inversion imposes an additional condition on the
 coefficients.</p>
-<div class="thm">
+<div class="thm" id="record:257bm-i2">
 <p><strong>Theorem 6.104</strong> (An upper bound for a binary coefficient
 tail). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">c:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -7315,7 +7314,7 @@ and in particular
 as required in Theorem 6.105. The coefficient bound also holds for
 Euler’s totient function.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i-t7">
 <p><strong>Theorem 6.105</strong> (Rationality through an integer
 recurrence). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">c:\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
@@ -7376,7 +7375,7 @@ for odd
 satisfies the recurrence. The criterion therefore includes finite
 supports; it does not provide the infinite support needed to contradict
 Problem 257.</p>
-<div class="thm">
+<div class="thm" id="record:257bm-i-mob">
 <p><strong>Theorem 6.106</strong> (Möbius inversion of the divisor
 counts). <em> For a set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}</annotation></semantics></math>
@@ -7398,7 +7397,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
 The identity does not depend on a base.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i-bridge">
 <p><strong>Theorem 6.107</strong> (The support series as a coefficient
 series). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>,
@@ -7418,7 +7417,7 @@ class="level6 unnumbered">
 value</h6>
 <p>The next results impose separate restrictions on rational-valued
 supports. The related strict-gap result is Proposition 6.99.</p>
-<div class="thm">
+<div class="thm" id="record:257rig-i2">
 <p><strong>Theorem 6.108</strong> (A restriction on dyadic rational
 values). <em> If an infinite support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>
@@ -7442,7 +7441,7 @@ support with a convergent reciprocal sum, not just those whose sum is at
 most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257rig-i3">
 <p><strong>Theorem 6.109</strong> (Unboundedness of a positive shifted
 recurrence). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>
@@ -7470,7 +7469,7 @@ whose condition is
 not boundedness. An unbounded sequence can still satisfy that
 limit.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257rig-i4a">
 <p><strong>Theorem 6.110</strong> (Bounds for intervals with zero divisor
 counts). <em> Suppose that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>c</mi></msup><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(2)=p/(2^cv)</annotation></semantics></math>
@@ -7506,7 +7505,7 @@ The zero-run conclusion therefore imposes no additional restriction on a
 fixed nonempty support, regardless of the tail estimates used in the
 linked proof.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257rig-i4b">
 <p><strong>Proposition 6.111</strong> (A subpower bound for divisor
 counts). <em> For positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">n,k</annotation></semantics></math>,
@@ -7522,7 +7521,7 @@ independent of the support problem. The elementary zero-run bound above
 already follows from a single positive support element, without this
 estimate or a recurrence.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257rig-i5">
 <p><strong>Proposition 6.112</strong> (Two distinct prime-power
 differences commute). <em> Lemma 6.57 gives the four-term expansion and
 its divisor-count interpretation. Commutation is elementary for
@@ -7541,7 +7540,7 @@ alone.</em></p>
 <section id="the-first-crossing-of-the-half-value"
 class="level6 unnumbered">
 <h6 class="unnumbered">The first crossing of the half-value</h6>
-<div class="defn">
+<div class="defn" id="record:257bm-i-cross">
 <p><strong>Definition 6.113</strong> (The first crossing rank). For a
 finite set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>,
@@ -7553,7 +7552,7 @@ inclusive ordered prefix is already above one half.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusExactRowCrossing.lean#L24"><code>localMersenneCrossingRanks</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i-cross2">
 <p><strong>Theorem 6.114</strong> (Existence of a first crossing). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mi>…</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E\subseteq\{2,3,\ldots\}</annotation></semantics></math>
@@ -7580,7 +7579,7 @@ and strictness are specific to these weights.</em></p>
 <section id="centred-carries-at-skipped-ranks"
 class="level6 unnumbered">
 <h6 class="unnumbered">Centred carries at skipped ranks</h6>
-<div class="thm">
+<div class="thm" id="record:257hg-i6">
 <p><strong>Theorem 6.115</strong> (Nonnegative centred carries below the
 half-value). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>∉</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">1\notin A</annotation></semantics></math>
@@ -7603,7 +7602,7 @@ and integrality step, would only give
 The argument supplies the lower bound used with the conditional upper
 bound in Theorem 6.84.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257hg-i7">
 <p><strong>Theorem 6.116</strong> (Three possibilities at a skipped
 endpoint). <em> For a rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>
@@ -7635,7 +7634,7 @@ the coordinates and the hypotheses are different.</em></p>
 <section id="gap-lengths-and-the-measure-of-their-union"
 class="level6 unnumbered">
 <h6 class="unnumbered">Gap lengths and the measure of their union</h6>
-<div class="defn">
+<div class="defn" id="record:257hg-i1">
 <p><strong>Definition 6.117</strong> (The gap after a Mersenne weight).
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
@@ -7653,7 +7652,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GreedyAchievementSet.lean#L2346"><code>mersenneGap_pos</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257hg-i2">
 <p><strong>Theorem 6.118</strong> (The unweighted sum of remaining gap
 lengths). <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>,
@@ -7689,7 +7688,7 @@ still gives no answer about a prescribed point.</p>
 <section id="a-sufficient-test-for-a-safe-skip"
 class="level6 unnumbered">
 <h6 class="unnumbered">A sufficient test for a safe skip</h6>
-<div class="defn">
+<div class="defn" id="record:257hg-i3">
 <p><strong>Definition 6.119</strong> (Three geometric terms in the tail
 lower bound). For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\ge1</annotation></semantics></math>
@@ -7706,7 +7705,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyFatalGap.lean#L216"><code>mersenneTailLB3_lt_mersenneTail</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257hg-i4">
 <p><strong>Theorem 6.120</strong> (A sufficient inequality for a safe
 skip). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>,</mo><mi>u</mi><mo>,</mo><mi>L</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k,u,L\ge1</annotation></semantics></math>
@@ -7756,7 +7755,7 @@ and
 None of these comparisons asserts that the half-greedy orbit satisfies
 the sufficient inequality at every skipped rank.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257hg-i5">
 <p><strong>Proposition 6.121</strong> (Two unconditional safety cases).
 <em> Under the positive-integer and skipped-step hypotheses of
 Theorem 6.120,
@@ -7780,7 +7779,7 @@ survival.</em></p>
 <section id="two-sided-bounds-near-dyadic-endpoints"
 class="level6 unnumbered">
 <h6 class="unnumbered">Two-sided bounds near dyadic endpoints</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i13">
 <p><strong>Theorem 6.122</strong> (Two-sided dyadic bounds). <em> Under
 the local hypothesis excluding the specified three middle cells and
 imposing the right-pulse bound, induction (base case at row 5 verified
@@ -7797,7 +7796,7 @@ Proposition 6.80 obtains that bound directly from the upper-reset
 identity. Applying the inductive argument to another recurrence would
 require its own transition and separation estimates.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-i14">
 <p><strong>Proposition 6.123</strong> (A finite band check for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>≤</mo><mi>d</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">13\le d\le30</annotation></semantics></math>).
 <em> For every actual upper-reset index
@@ -7826,7 +7825,7 @@ statement.</em></p>
 class="level6 unnumbered">
 <h6 class="unnumbered">General identities for perturbed greedy
 recurrences</h6>
-<div class="thm">
+<div class="thm" id="record:257bm-i15">
 <p><strong>Theorem 6.124</strong> (A general perturbed greedy recurrence).
 <em> Let the old integer values be separated by at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g\ge1</annotation></semantics></math>,
@@ -7855,7 +7854,7 @@ stated two-stage rule, one also needs a separation argument;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>g</mi><mo>−</mo><mi>B</mi><mo>≥</mo><mn>2</mn><mi>g</mi><mo>+</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4g-B\ge2g+4</annotation></semantics></math>
 suffices, as shown after that theorem.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-i16">
 <p><strong>Theorem 6.125</strong> (Spacing of compatible reverse-carry
 words). <em> Consider two integer carry recurrences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn><msub><mi>u</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>u</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b_i(m)+2u_i(m)=a_i(m)+u_i(m+1)</annotation></semantics></math>,
@@ -7884,7 +7883,7 @@ Lemma 6.46 states the exact identity and proves it by subtraction. The
 linked formal statements encode these agreements; they do not supply
 terminal bounds for an unrelated digit system.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-i17">
 <p><strong>Proposition 6.126</strong> (Changing one support bit at a
 doubled rank). <em> Let two supports agree except that the second
 includes
@@ -7914,7 +7913,7 @@ countermodel to an abstract transition rule shows that the rule needs an
 additional hypothesis; it does not disprove a more structured arithmetic
 argument. Each entry states the information retained by its model and
 the conclusion that this information fails to imply.</p>
-<div class="thm">
+<div class="thm" id="record:257bm-k1">
 <p><strong>Theorem 6.127</strong> (A bounded model of the
 doubling-or-return alternative). <em> The dichotomy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∨</mo><mo>∃</mo><mi>c</mi><mo>,</mo><mspace width="0.167em"></mspace><mn>4</mn><mo>≤</mo><mi>c</mi><mo>≤</mo><mi>n</mi><mo>∧</mo><mrow><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{ExactLocalMersenneHalfRow}(2n{-}1) \vee \exists c,\,4\le c\le n\wedge
@@ -7941,7 +7940,7 @@ only the seed and this transition rule. It therefore tests those
 premises, not additional arithmetic information that a more structured
 induction may use.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-k-dich">
 <p><strong>Theorem 6.128</strong> (Doubling or returning to an earlier
 depth). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n\ge6</annotation></semantics></math>,
@@ -7976,7 +7975,7 @@ dichotomy but strict endpoint progress in the recycle branch, or a proof
 the below-half branch recurs ; re-deriving this disjunction without an
 additional progress argument would not establish cofinality.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="record:257bm-k2">
 <p><strong>Proposition 6.129</strong> (A sufficient fractional-mass bound
 need not hold). <em> Take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D=\{2,3\}</annotation></semantics></math>
@@ -7999,7 +7998,7 @@ fractional-mass estimates. Theorem 6.133 identifies the support at a
 critical crossing with a real greedy prefix, but does not prove the
 missing bound on those prefixes.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257bm-k3">
 <p><em>Observation 6.130</em> (A doubled finite sum can exceed one half).
 Theorem 6.95’s doubling extension is not preserved iteratively:
 below-halfness is not preserved under one application of doubling, and
@@ -8028,7 +8027,7 @@ everything.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusExactRowDoubling.lean#L185"><code>exists_exactRowStrictUpperExtension_two_mul_sub_one_of_exact_below</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-k4">
 <p><strong>Theorem 6.131</strong> (The returning endpoint need not be
 larger). <em> Theorem 6.78 is unconditional, but its witness is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>c</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\exists c\le n</annotation></semantics></math>,
@@ -8056,7 +8055,7 @@ hence
 strict-upper (sharp capacity) fill of Theorem 6.75 rather than this
 general recycling theorem.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257bm-k5">
 <p><em>Observation 6.132</em> (The skip condition is equivalent to
 membership). The positivity conjunct of Theorem 6.68’s hypothesis,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;\ensuremath{r}(1/2,c{-}1)</annotation></semantics></math>,
@@ -8076,7 +8075,7 @@ finite supports need not be greedy prefixes.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean#L138"><code>localMersennePrefixValue_halfGreedy_lt_half</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257rig-k6">
 <p><strong>Theorem 6.133</strong> (Uniqueness at a critical crossing).
 <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">c\ge4</annotation></semantics></math>,
@@ -8098,7 +8097,7 @@ This reduces that hypothesis to a statement about the actual greedy
 sequence. It does not rule out proving a new bound for that
 sequence.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257rig-k7">
 <p><em>Observation 6.134</em> (Different requirements on finite
 witnesses). Theorem 6.85 (the cofinal terminal-strip condition)
 tolerates any support inside the
@@ -8128,7 +8127,7 @@ does not order the two existence hypotheses.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TerminalOnlyCofinal.lean#L34"><code>HalfCarryCofinalTerminalOnlyStrip</code></a></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257hg-k8">
 <p><em>Observation 6.135</em> (An unsafe example in the two-thirds
 interval). Write a greedy residual as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo>=</mo><mn>1</mn><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">\mathrm{rem}=1/R</annotation></semantics></math>;
@@ -8162,7 +8161,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231"><code>seven_le_of_intBand_odd</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257bm-k9">
 <p><strong>Theorem 6.136</strong> (Vanishing of the specified
 linear-channel determinant). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
@@ -8186,7 +8185,7 @@ applies at every matrix size. It does not cover additional functionals
 that fail to vanish on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ker</mi><mo>&#8289;</mo></mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">\ker e</annotation></semantics></math>.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257bm-k10">
 <p><em>Observation 6.137</em> (The additive error in the binary bound).
 Theorem 6.94’s
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">2^{c-1}</annotation></semantics></math>
@@ -8207,7 +8206,7 @@ inequality.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkippedCoreExactRow.lean#L123"><code>localBinarySuffix_two_mul_sub_two_lt_upperHalfCapacity</code></a></p>
 </div>
-<div class="obs">
+<div class="obs" id="record:257bm-k11">
 <p><em>Observation 6.138</em> (Odd denominators of finite sums). For
 finite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">D\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>,
@@ -8223,7 +8222,7 @@ Proposition 6.129 and Proposition 6.99.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/DyadicPrefixCompression.lean#L1513"><code>finiteErdosSum_den_odd</code></a></p>
 </div>
-<div class="thm">
+<div class="thm" id="record:257hg-k12">
 <p><strong>Theorem 6.139</strong> (Excluding the cell with value minus
 three). <em> At a middle row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">D\ge13</annotation></semantics></math>
@@ -8254,7 +8253,7 @@ reset-band condition used above. They also distinguish the signed middle
 coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>s</mi></msub><mo>=</mo><mn>4</mn><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msubsup><mi>p</mi><mi>s</mi><mo>−</mo></msubsup><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">C_s=4\,\mathrm{rem}(s)-p_s^- -4</annotation></semantics></math>
 from the nonnegative label in the next estimate.</p>
-<div class="prop">
+<div class="prop" id="prop:unsafe-middle-range-exactly-three">
 <p><strong>Proposition 6.140</strong> (The unsafe middle range is exactly
 three integers). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>,
@@ -8431,7 +8430,7 @@ therefore have consecutive binary values
 The following statements explain how these particular families supply
 finite approximations; they do not construct them at arbitrary
 depths.</p>
-<div class="prop">
+<div class="prop" id="prop:finite-approximations-without-compatibility">
 <p><strong>Proposition 6.142</strong>. <em> Every shared-prefix family
 just defined at depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -8625,7 +8624,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 via a Cantor-space no-isolated-point argument on the coding space itself
 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean#L120"><code>preperfect_supportedMersenneDigitSet</code></a>).</p>
-<div class="prop">
+<div class="prop" id="prop:exact-lebesgue-measure-dichotomy">
 <p><strong>Proposition 6.146</strong> (Exact Lebesgue-measure dichotomy).
 <em> Either
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><msup><mi>F</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">J=F^c</annotation></semantics></math>
@@ -9268,7 +9267,7 @@ that are resets,
 </tbody>
 </table>
 </div>
-<div class="rem">
+<div class="rem" id="rem:promotion-audit">
 <p><em>Remark 7.1</em> (Finite checks and quantified conclusions). An
 earlier review examined eighteen possible implications from recorded
 results to the required unbounded-witness conditions. It found no such
@@ -9393,7 +9392,7 @@ run</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257/notes/reset-crossing-unification-2026-07-24.md">working
 note</a>, section 8).</p></li>
 </ul>
-<div class="prop">
+<div class="prop" id="prop:one-orbit">
 <p><strong>Proposition 8.1</strong> (Stability of each fixed greedy
 prefix). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>j</mi></msub><mo>→</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">t_j\to1/2</annotation></semantics></math>
@@ -9431,7 +9430,7 @@ through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
 proves the claim. ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:no-ties">
 <p><strong>Lemma 8.2</strong> (No-ties lemma). <em> At every rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 of the full greedy orbit for target
@@ -9544,7 +9543,7 @@ rechecks the finite instances
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>≤</mo><mi>J</mi><mo>≤</mo><mn>22</mn></mrow><annotation encoding="application/x-tex">3\le J\le22</annotation></semantics></math>;
 neither the arguments nor that computation are presented as a Lean
 verification.</p>
-<div class="lem">
+<div class="lem" id="lem:tr-forced-greedy">
 <p><strong>Lemma 8.4</strong> (Forced greedy). <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J\ge2</annotation></semantics></math>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>w</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>&gt;</mo><msubsup><mi>T</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">w_n^{(J)}&gt;T_{n+1}^{(J)}</annotation></semantics></math>
@@ -9571,7 +9570,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
 are always takes.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tr-parity">
 <p><strong>Lemma 8.5</strong> (Parity forces infinite support). <em> For
 every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J\ge2</annotation></semantics></math>,
@@ -9592,7 +9591,7 @@ summand is odd and every earlier summand is even, whereas the target
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>J</mi><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">2^{Jm-1}</annotation></semantics></math>
 is even. This parity contradiction excludes finite support. ◻</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tr-witness-exclusion">
 <p><strong>Theorem 8.6</strong> (Witness exclusion). <em> Define the
 misalignment mass
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>J</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munderover><mo>∑</mo><mrow><mi>q</mi><mo>=</mo><mn>2</mn></mrow><mi>J</mi></munderover><mfrac><msup><mn>2</mn><mrow><mi>M</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>q</mi></mrow></msup><mrow><msup><mn>2</mn><mi>q</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\mu_J(M):=\sum_{q=2}^{J}\frac{2^{M\operatorname{mod} q}}{2^q-1}.</annotation></semantics></math>
@@ -9643,7 +9642,7 @@ is an integer strictly between zero and one, a contradiction. The same
 calculation also applies when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J=2</annotation></semantics></math>. ◻</p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:tr-half-lcm">
 <p><strong>Corollary 8.7</strong> (Half-LCM horizon). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J\ge2</annotation></semantics></math>
 and
@@ -9694,7 +9693,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>
 are takes, as already noted. ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tr-mod12">
 <p><strong>Lemma 8.8</strong> (Mod-12 filter,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>≥</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">J\ge7</annotation></semantics></math>).
 <em> For
@@ -9732,7 +9731,7 @@ terms give at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>3</mn><mo>+</mo><mn>2</mn><mi>/</mi><mn>7</mn><mo>+</mo><mn>1</mn><mi>/</mi><mn>15</mn><mo>+</mo><mn>4</mn><mi>/</mi><mn>63</mn><mo>=</mo><mn>236</mn><mi>/</mi><mn>315</mn><mo>&gt;</mo><mn>11</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">1/3+2/7+1/15+4/63=236/315&gt;11/15</annotation></semantics></math>.
 Each case contradicts the assumed upper bound. ◻</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tr-finite-decision">
 <p><strong>Theorem 8.9</strong> (Finite decision procedure). <em> Call
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>4</mn><mo>,</mo><msub><mi>L</mi><mi>J</mi></msub><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">n\in[4,L_J/2]</annotation></semantics></math>
 <strong>bad</strong> if no
@@ -9945,7 +9944,7 @@ run. Applying this argument after a reset requires the post-reset index
 and the <em>deficit-side</em> condition; it does not prove the absolute
 reset bound on both signs.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:affine-excess-recurrence">
 <p><em>Observation 9.5</em> (The affine excess recurrence). <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L3320"><code>affineRightExcess_exactIterate</code></a>,
 <a
@@ -11482,7 +11481,7 @@ Unboundedness is consistent with this linear upper bound and with
 A contradiction would require an incompatible upper estimate at the same
 chosen indices.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:general-target-gap">
 <p><em>Observation 9.44</em> (A finite-gap criterion for every target in
 the convex hull). <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCutLocator.lean#L623"><code>half_mem_mersenneAchievementSet_or_exists_fatal_gap</code></a>,
@@ -11605,7 +11604,7 @@ what its hypotheses would imply. The facts behind entry C, the survival
 equivalence of Theorem 5.10 and the one-sided certificates, are proved
 in Lean. None of the three establishes an unproved orbit hypothesis or
 decides #257.</p>
-<div class="thm">
+<div class="thm" id="thm:lower-bound-every-reset">
 <p><strong>Theorem 9.46</strong> (A: a sufficient lower bound at every
 reset). <em> Assume that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>r</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><msup><mn>2</mn><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|\mathrm{rem}(r+1)-2^{r+1}|&gt;2^{(r+5)/2}</annotation></semantics></math>
@@ -11629,7 +11628,7 @@ then gives half-membership. The hypothesis concerns every actual reset
 beyond the threshold; neither a long finite check nor an asserted
 run-length asymptotic supplies it.</em></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:dangerous-reset-chain-scope">
 <p><em>Remark 9.47</em> (B: rigidity of dangerous resets). For a
 dangerous reset preceded by a sufficiently long pure right run,
 Observation 12.9 confines the deviation at the preceding reset to at
@@ -11645,7 +11644,7 @@ not been shown to produce such a chain. No probability model is supplied
 and the pinned values are not excluded. This is an ordinary argument
 under the stated long-run hypotheses.</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:one-sided-finite-decision-boundary">
 <p><strong>Theorem 9.48</strong> (C: the one-sided finite decision
 boundary). <em> The equivalence of Theorem 5.10 separates two logically
 different kinds of evidence. A fatal greedy gap found at a finite rank
@@ -11788,7 +11787,7 @@ necessary condition for every possible proof.</p>
 <section id="four-tested-approaches-to-the-reset-estimate"
 class="level5">
 <h5>Four tested approaches to the reset estimate</h5>
-<div class="obs">
+<div class="obs" id="obs:prime-doubling">
 <p><em>Observation 10.1</em> (Prime steps can occur within a bounded
 drift window). <strong>Route as conceived.</strong> The universal
 recursion
@@ -11837,7 +11836,7 @@ universal run-length bound and no statistical conclusion about prime
 indices. It also does not exclude a proof that combines prime counts
 with quantitative information about the intervening divisor counts.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:parity-squares">
 <p><em>Observation 10.2</em> (Parity and perfect squares in the
 recurrence). <strong>Route as conceived.</strong>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(M)</annotation></semantics></math>
@@ -11873,7 +11872,7 @@ pattern. The missing implication is from this residue information to a
 quantitative bound on run lengths. No such implication is proved by the
 parity calculation alone.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:irrationality-measure">
 <p><em>Observation 10.3</em> (What the denominator estimate does not
 give). One proposed separation argument would prevent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>d</mi><mo>∈</mo><msub><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">p</mi></mrow><mi>n</mi></msub></mrow></msub><msub><mi>x</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{d\in\mathrm{Skip}_n}x_d</annotation></semantics></math>
@@ -11933,7 +11932,7 @@ which gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mo>′</mo></msup><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">e&#39;=-1</annotation></semantics></math>.
 The next proposition uses the same centred-remainder construction when
 more unit bits and a valuation are prescribed.</p>
-<div class="prop">
+<div class="prop" id="prop:2adic-nogo">
 <p><strong>Proposition 10.4</strong> (Centred completion of
 fixed-precision 2-adic data). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u\ge1</annotation></semantics></math>
@@ -12023,7 +12022,7 @@ Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>s</mi></msub><annotation encoding="application/x-tex">C_s</annotation></semantics></math>
 must not be identified with the next row’s centred remainder. <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L4374"><code>Erdos249257.SeamTwoSidedDyadicCellEscape</code></a></p>
-<div class="prop">
+<div class="prop" id="prop:upper-unconditional">
 <p><strong>Proposition 10.5</strong> (The upper (carries) successor needs
 no exceptional-cell exclusion). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">s\ge5</annotation></semantics></math>
@@ -12044,7 +12043,7 @@ exceptional-value exclusion for the next-row two-sided invariant. This
 conclusion concerns that induction step, not the absence of upper
 transitions on the orbit.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:cd-neg3-impossible">
 <p><strong>Theorem 10.6</strong>
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>D</mi></msub><mo>=</mo><mi>−</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">C_D=-3</annotation></semantics></math>
 is impossible at the final middle transition,
@@ -12114,7 +12113,7 @@ in the latter. <strong>Object or representation:</strong> about the
 consequence of the all-right-tail assumption via the fatal-gap orbit,
 not a coordinate artifact.</em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:cd-remaining">
 <p><strong>Corollary 10.7</strong> (Only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>D</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><mn>2</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">C_D\in\{-2,-1\}</annotation></semantics></math>
 remain among the exceptional dyadic cells). <em> At a final middle row
@@ -12134,7 +12133,7 @@ the exclusion of all three values still needs proof without an
 all-right-tail assumption, together with the separate right-branch
 inequality.</em></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:tail-dominance-open">
 <p><em>Remark 10.8</em> (A sufficient tail inequality and its source).
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>D</mi></msub><annotation encoding="application/x-tex">U_D</annotation></semantics></math>
@@ -12209,7 +12208,7 @@ No converse between these sufficient conditions is claimed.</p>
 estimates for integer carries. Their hypotheses matter: a countermodel
 for one summary is not a prohibition on every proof that uses carries or
 on every other input.</p>
-<div class="prop">
+<div class="prop" id="prop:finite-state-nogo">
 <p><strong>Proposition 10.9</strong> (A finite-state restriction for the
 stated pulse family). <em> For a “balanced pulse” family at location
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m\ge2</annotation></semantics></math>
@@ -12257,7 +12256,7 @@ or
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>
 directly.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:mobius-nogo">
 <p><strong>Proposition 10.10</strong> (Möbius-support countermodel: the
 natural negative-sign candidate overshoots). <em> The signed Lambert
 identity
@@ -12289,7 +12288,7 @@ coordinate artifact. Margin
 is the concrete number any repair attempt (adding/removing finitely many
 elements) must close or exceed.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:finite-boolSupport-and-onesided">
 <p><strong>Proposition 10.11</strong> (Finite computation and
 half-membership). <em> No finite positive-index Boolean support has
 value exactly
@@ -12322,7 +12321,7 @@ its absence in a bounded search does not prove membership or
 rationality. The same distinction must be checked separately for any
 other certificate family.</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:carry-survivor-extinction">
 <p><strong>Proposition 10.12</strong> (Period exclusion for the totient
 series). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">\sum_n\varphi(n)/2^n</annotation></semantics></math>,
@@ -12377,7 +12376,7 @@ argument.</em></p>
 </section>
 <section id="the-scalar-localisation-height-obstruction" class="level5">
 <h5>The scalar-localisation height obstruction</h5>
-<div class="lem">
+<div class="lem" id="lem:scalar-localization">
 <p><strong>Lemma 10.13</strong> (Denominator complement survives scaling).
 <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>:</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">x:\mathbb Q</annotation></semantics></math>,
@@ -12427,7 +12426,7 @@ denominator bookkeeping for
 with zero problem-specific content; the upstream primitive is the
 domain-neutral extraction this lemma builds on.</em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:mersenne-height">
 <p><strong>Corollary 10.14</strong> (Mersenne specialisation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 be a positive rational number and let
@@ -12460,7 +12459,7 @@ assumptions.</em></p>
 <section id="the-final-skip-band-formula-and-what-it-does-not-show"
 class="level5">
 <h5>The final-skip band formula, and what it does not show</h5>
-<div class="defn">
+<div class="defn" id="defn:band-escape">
 <p><strong>Definition 10.15</strong> (Upper-reset dyadic band escape). At
 each upper-reset row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">d\ge13</annotation></semantics></math>,
@@ -12489,7 +12488,7 @@ gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2\in\mathcal A</annotation></semantics></math>
 outright.</p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:critical-band-index">
 <p><strong>Proposition 10.16</strong> (Quantifier collapse: one critical
 index suffices, not
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d{+}1</annotation></semantics></math>).
@@ -12522,7 +12521,7 @@ hypothesis. Zero Mersenne/seam content in the core lemma ; pure
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>,</mo><mi>E</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d,E,j)</annotation></semantics></math>
 arithmetic over powers of 2.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="cert:band-through-31">
 <p><em>Observation 10.17</em> (A verified finite range of reset indices).
 The linked certificate proves the condition in Definition 10.15 for each
 reset index
@@ -12540,7 +12539,7 @@ but the last reset index covered by this theorem is
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78"><code>Erdos249257.seamUpperResetDyadicBandEscape_through_thirty</code></a>.</p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:band-caveat">
 <p><em>Remark 10.18</em> (What this does <em>not</em> show).
 Definition 10.15 is a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi><mo>≥</mo><mn>13</mn></mrow><annotation encoding="application/x-tex">\forall d\ge13</annotation></semantics></math>
@@ -12597,7 +12596,7 @@ The finite weighted divisor sum below records the same calculation for
 any starting index and length. Its role in particular universal-support
 criteria is discussed separately; it is not a proved common necessary
 obstruction for the two problems.</p>
-<div class="defn">
+<div class="defn" id="defn:theta">
 <p><strong>Definition 11.1</strong> (The short-window divisor phase). For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M\ge 1</annotation></semantics></math>
 and
@@ -12713,7 +12712,7 @@ class="level6 unnumbered">
 <p>Expanding each divisor count separates its residue conditions. This
 is a finite counting identity. It does not prescribe whether an eventual
 proof should be analytic, combinatorial, or use another method.</p>
-<div class="lem">
+<div class="lem" id="lem:odometer">
 <p><strong>Lemma 11.2</strong> (Divisor-residue form of the short-window
 phase). <em> For all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>,</mo><mi>L</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M,L\ge 1</annotation></semantics></math>,
@@ -13394,7 +13393,7 @@ changing the constant in the original statements.</p>
 <section id="the-carry-bound-at-perfect-square-depths"
 class="level6 unnumbered">
 <h6 class="unnumbered">The carry bound at perfect-square depths</h6>
-<div class="lem">
+<div class="lem" id="lem:sqwitness">
 <p><strong>Lemma 11.3</strong> (The terminal bound at square depths).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}</annotation></semantics></math>
@@ -13573,7 +13572,7 @@ inversion nor CRT alone provides both inputs.</p>
 divisor-dense support refutes it. This also corrects an earlier claim
 that universal #257 reduces with no loss to the existence of
 certificates for every infinite support.</p>
-<div class="prop">
+<div class="prop" id="prop:squarefree">
 <p><strong>Proposition 11.4</strong> (Squarefree support: a limit of the
 certificate method, not an open value). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>n</mi><mo>≥</mo><mn>2</mn><mo>:</mo><mi>n</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is squarefree</mtext></mrow><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{n\ge2:n\text{ is squarefree}\}</annotation></semantics></math>.
@@ -13867,7 +13866,7 @@ in place of
 They express the same unresolved assertion in different terms. The
 proofs of equivalence identify the content still to be established; they
 do not compare the difficulty of possible proofs.</p>
-<div class="prop">
+<div class="prop" id="prop:cpgs-equiv">
 <p><strong>Proposition 12.3</strong> (Infinitely many positive skips are
 equivalent to half-membership). <em> Define
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">C</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">S</mi></mrow><mspace width="0.222em"></mspace><mo>:=</mo><mspace width="0.222em"></mspace><mo>∀</mo><mi>N</mi><mo>,</mo><mspace width="0.222em"></mspace><mo>∃</mo><mi>c</mi><mo>≥</mo><mi>N</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>c</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">skipped by the rational half-greedy
@@ -13887,7 +13886,7 @@ so
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusSkipRowCofinal.lean#L84"><code>cofinalExactLocalMersenneHalfRows_of_positiveHalfGreedySkips</code></a>
 therefore gives an equivalent formulation, not a proof of
 membership.</p>
-<div class="prop">
+<div class="prop" id="prop:strip-equiv">
 <p><strong>Proposition 12.4</strong> (Terminal carry bounds are
 equivalent to half-membership). <em> Consider finite sets
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D\subseteq\{2,\ldots,M\}</annotation></semantics></math>
@@ -14166,7 +14165,7 @@ remains unproved. Even after both signs are known, a separate lower
 bound for their magnitudes is required for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">Q</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">C</mi></mrow><annotation encoding="application/x-tex">\mathrm{SQRTESC}</annotation></semantics></math>.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:dangerous-reset-rigidity">
 <p><em>Observation 12.9</em> (Rigidity of dangerous resets). If reset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
 is <em>dangerous</em>
@@ -14613,7 +14612,7 @@ whereas
 also permits splitting the support, varying the fractional exponents and
 allocating positive weights. The comparison below allows all of those
 choices.</p>
-<div class="thm">
+<div class="thm" id="thm:257-logarithmic-counterexample">
 <p><strong>Theorem 13.1</strong> (arithmetic logarithmic counterexample).
 <em> For every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">H\ge2</annotation></semantics></math>
@@ -14844,7 +14843,7 @@ contradicts it. ◻</p>
 <section id="the-arithmetic-lower-bound-for-every-fractional-cover"
 class="level5">
 <h5>The arithmetic lower bound for every fractional cover</h5>
-<div class="cor">
+<div class="cor" id="cor:257-logarithmic-separation">
 <p><strong>Corollary 13.2</strong> (finite-functional separation). <em>
 For every finite nonempty
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
@@ -14928,7 +14927,7 @@ tend to infinity. ◻</p>
 <section id="what-survives-without-arithmetic-restriction"
 class="level5">
 <h5>What survives without arithmetic restriction</h5>
-<div class="prop">
+<div class="prop" id="prop:257-logarithmic-initial-interval">
 <p><strong>Proposition 13.3</strong> (ordinary initial intervals). <em>
 For every finite nonempty
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,

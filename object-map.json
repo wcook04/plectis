@@ -998,7 +998,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:public_reveal_walkthrough",
@@ -2043,7 +2043,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:navigation_fitness_benchmark",
@@ -2138,7 +2138,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:annex_knowledge_routing",
@@ -3943,7 +3943,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:finite_erdos_denominator_certificate_strike",
@@ -4224,13 +4224,13 @@
         "scope_limit": "self-proposal campaign packet only; no self-repair or unsupervised source-file changes"
       },
       "evidence": {
-        "basis": "Real runtime result",
-        "class_id": "external_subprocess_witness",
-        "kind": "External tool run",
-        "rank": 4,
-        "runs_real_tools": true
+        "basis": "Copied source body",
+        "class_id": "verified_macro_body_import",
+        "kind": "Verified source import",
+        "rank": 5,
+        "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#verified-source-import",
       "id": "evidence_profile:component:bounded_autonomy_campaign_packet",
       "label": "Bounded Autonomy Campaign Packet",
       "machine_join": {
@@ -4323,7 +4323,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:provider_context_recipe_budget_policy",
@@ -4604,13 +4604,13 @@
         "scope_limit": "verified source body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, whole-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim"
       },
       "evidence": {
-        "basis": "Copied source body",
-        "class_id": "verified_macro_body_import",
-        "kind": "Verified source import",
-        "rank": 5,
+        "basis": "Real runtime result",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
+        "rank": 4,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:batch7_secondary_runtime_capsule",
       "label": "Secondary Runtime Source Bundle",
       "machine_join": {
@@ -5748,7 +5748,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:bridge_campaign_dag_validation",
@@ -5843,7 +5843,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:metabolism_queue_reconciliation",
@@ -5938,7 +5938,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:egress_self_compliance_audit",
@@ -6030,12 +6030,12 @@
       },
       "evidence": {
         "basis": "Real runtime result",
-        "class_id": "external_subprocess_witness",
-        "kind": "External tool run",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:finance_forecast_evaluation_spine",
       "label": "Finance Forecast Evaluation Spine",
       "machine_join": {
@@ -6315,12 +6315,12 @@
       },
       "evidence": {
         "basis": "Real runtime result",
-        "class_id": "semantic_validator",
-        "kind": "Contract validator",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
         "rank": 4,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#contract-validator",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:mechanistic_interpretability_circuit_attribution_replay",
       "label": "Toy-Transformer Attribution Replay",
       "machine_join": {
@@ -6410,12 +6410,12 @@
       },
       "evidence": {
         "basis": "Real runtime result",
-        "class_id": "semantic_validator",
-        "kind": "Contract validator",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
         "rank": 4,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#contract-validator",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:spatial_world_model_counterfactual_simulation_replay",
       "label": "Gridworld Counterfactual State Replay",
       "machine_join": {
@@ -6793,7 +6793,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:derived_fact_provider_runtime",
@@ -7264,13 +7264,13 @@
         "scope_limit": "It validates only a public source-open bundle and bounded exercises; it is not live source authority, whole-system equivalence, semantic truth, investment-related actions, complete sandbox proof, selected-test sufficiency proof, public sharing, or launch-scope decision."
       },
       "evidence": {
-        "basis": "Copied source body",
-        "class_id": "verified_macro_body_import",
-        "kind": "Verified source import",
-        "rank": 5,
+        "basis": "Real runtime result",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
+        "rank": 4,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:batch7_macro_engines_capsule",
       "label": "Trace, Code-Map & Scheduling Engines Bundle",
       "machine_join": {
@@ -7359,13 +7359,13 @@
         "scope_limit": "It validates only Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke private orchestration engine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations."
       },
       "evidence": {
-        "basis": "Copied source body",
-        "class_id": "verified_macro_body_import",
-        "kind": "Verified source import",
-        "rank": 5,
+        "basis": "Real runtime result",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
+        "rank": 4,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:batch7_oracle_sibling_capsule",
       "label": "Oracle Sibling Source Bundle",
       "machine_join": {
@@ -8404,13 +8404,13 @@
         "scope_limit": "validates declared public Set 8 compliance pipeline bundle contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, non-public data equivalence, or whole-system correctness"
       },
       "evidence": {
-        "basis": "Source-faithful refactor",
-        "class_id": "algorithmic_projection",
-        "kind": "Computed projection",
-        "rank": 3,
+        "basis": "Copied source body",
+        "class_id": "verified_macro_body_import",
+        "kind": "Verified source import",
+        "rank": 5,
         "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#computed-projection",
+      "evidence_ref": "evidence.html#verified-source-import",
       "id": "evidence_profile:component:batch8_compliance_pipeline_capsule",
       "label": "Compliance Pipeline Bundle",
       "machine_join": {
@@ -8690,12 +8690,12 @@
       },
       "evidence": {
         "basis": "Real runtime result",
-        "class_id": "external_subprocess_witness",
-        "kind": "External tool run",
+        "class_id": "bounded_runtime_computation",
+        "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:generated_projection_drift_runtime",
       "label": "Generated Projection Drift Runtime",
       "machine_join": {
@@ -8788,7 +8788,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:mission_transaction_work_spine",
@@ -9168,7 +9168,7 @@
         "class_id": "bounded_runtime_computation",
         "kind": "Bounded runtime computation",
         "rank": 4,
-        "runs_real_tools": true
+        "runs_real_tools": false
       },
       "evidence_ref": "evidence.html#bounded-runtime-computation",
       "id": "evidence_profile:component:semantic_singleflight_dedup_runtime",
@@ -14596,10 +14596,10 @@
       },
       "evidence": {},
       "evidence_ref": null,
-      "id": "evidence_profile:evidence_class:contract-validator",
-      "label": "Contract validator",
+      "id": "evidence_profile:evidence_class:bounded-runtime-computation",
+      "label": "Bounded runtime computation",
       "machine_join": {
-        "object_detail_ref": "evidence_class:contract-validator",
+        "object_detail_ref": "evidence_class:bounded-runtime-computation",
         "profile_ref_field": "object_detail.authority.evidence_profile_ref",
         "route_contract_ref": "object_map.objects[].route_contract"
       },
@@ -14609,9 +14609,9 @@
         "object_detail.authority.anti_claims",
         "object_detail.omissions"
       ],
-      "object_id": "evidence_class:contract-validator",
+      "object_id": "evidence_class:bounded-runtime-computation",
       "object_kind": "evidence_class",
-      "route": "evidence.html#contract-validator",
+      "route": "evidence.html#bounded-runtime-computation",
       "schema": "microcosm_public_evidence_boundary_profile_v1",
       "source_authority": "derived_public_projection",
       "source_links": [],
@@ -14629,10 +14629,10 @@
       },
       "evidence": {},
       "evidence_ref": null,
-      "id": "evidence_profile:evidence_class:bounded-runtime-computation",
-      "label": "Bounded runtime computation",
+      "id": "evidence_profile:evidence_class:contract-validator",
+      "label": "Contract validator",
       "machine_join": {
-        "object_detail_ref": "evidence_class:bounded-runtime-computation",
+        "object_detail_ref": "evidence_class:contract-validator",
         "profile_ref_field": "object_detail.authority.evidence_profile_ref",
         "route_contract_ref": "object_map.objects[].route_contract"
       },
@@ -14642,9 +14642,9 @@
         "object_detail.authority.anti_claims",
         "object_detail.omissions"
       ],
-      "object_id": "evidence_class:bounded-runtime-computation",
+      "object_id": "evidence_class:contract-validator",
       "object_kind": "evidence_class",
-      "route": "evidence.html#bounded-runtime-computation",
+      "route": "evidence.html#contract-validator",
       "schema": "microcosm_public_evidence_boundary_profile_v1",
       "source_authority": "derived_public_projection",
       "source_links": [],
@@ -31729,7 +31729,7 @@
       ]
     }
   ],
-  "fingerprint": "1f6db6369d870c955f058c1bebf3953a",
+  "fingerprint": "7df1d17a5ca1da4df9f569b2ccb2a18b",
   "kind_counts": {
     "anti_principle": 17,
     "area": 7,
@@ -33718,7 +33718,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:public_reveal_walkthrough",
@@ -36645,7 +36645,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:navigation_fitness_benchmark",
@@ -36920,7 +36920,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:annex_knowledge_routing",
@@ -42409,7 +42409,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:finite_erdos_denominator_certificate_strike",
@@ -43174,11 +43174,11 @@
         "anti_claims": [],
         "does_not_prove": "self-proposal campaign packet only; no self-repair or unsupervised source-file changes",
         "evidence": {
-          "basis": "Real runtime result",
-          "class_id": "external_subprocess_witness",
-          "kind": "External tool run",
-          "rank": 4,
-          "runs_real_tools": true
+          "basis": "Copied source body",
+          "class_id": "verified_macro_body_import",
+          "kind": "Verified source import",
+          "rank": 5,
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:bounded_autonomy_campaign_packet",
@@ -43226,7 +43226,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:bounded_autonomy_campaign_packet",
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#verified-source-import",
       "graph_node_id": "component:bounded_autonomy_campaign_packet",
       "id": "component:bounded_autonomy_campaign_packet",
       "kind": "component",
@@ -43397,7 +43397,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:provider_context_recipe_budget_policy",
@@ -44126,10 +44126,10 @@
         "anti_claims": [],
         "does_not_prove": "verified source body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, whole-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
         "evidence": {
-          "basis": "Copied source body",
-          "class_id": "verified_macro_body_import",
-          "kind": "Verified source import",
-          "rank": 5,
+          "basis": "Real runtime result",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
+          "rank": 4,
           "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
@@ -44178,7 +44178,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:batch7_secondary_runtime_capsule",
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:batch7_secondary_runtime_capsule",
       "id": "component:batch7_secondary_runtime_capsule",
       "kind": "component",
@@ -47185,7 +47185,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:bridge_campaign_dag_validation",
@@ -47460,7 +47460,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:metabolism_queue_reconciliation",
@@ -47735,7 +47735,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:egress_self_compliance_audit",
@@ -48007,10 +48007,10 @@
         "does_not_prove": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
         "evidence": {
           "basis": "Real runtime result",
-          "class_id": "external_subprocess_witness",
-          "kind": "External tool run",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:finance_forecast_evaluation_spine",
@@ -48058,7 +48058,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:finance_forecast_evaluation_spine",
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:finance_forecast_evaluation_spine",
       "id": "component:finance_forecast_evaluation_spine",
       "kind": "component",
@@ -48742,8 +48742,8 @@
         "does_not_prove": "It validates only the declared public circuit-attribution runtime-result record contract. It excludes model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, external model access, benchmark claims, or public sharing/launch.",
         "evidence": {
           "basis": "Real runtime result",
-          "class_id": "semantic_validator",
-          "kind": "Contract validator",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
           "rank": 4,
           "runs_real_tools": false
         },
@@ -48793,7 +48793,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:mechanistic_interpretability_circuit_attribution_replay",
-      "evidence_ref": "evidence.html#contract-validator",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:mechanistic_interpretability_circuit_attribution_replay",
       "id": "component:mechanistic_interpretability_circuit_attribution_replay",
       "kind": "component",
@@ -48961,8 +48961,8 @@
         "does_not_prove": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
         "evidence": {
           "basis": "Real runtime result",
-          "class_id": "semantic_validator",
-          "kind": "Contract validator",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
           "rank": 4,
           "runs_real_tools": false
         },
@@ -49012,7 +49012,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:spatial_world_model_counterfactual_simulation_replay",
-      "evidence_ref": "evidence.html#contract-validator",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:spatial_world_model_counterfactual_simulation_replay",
       "id": "component:spatial_world_model_counterfactual_simulation_replay",
       "kind": "component",
@@ -50008,7 +50008,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:derived_fact_provider_runtime",
@@ -51718,10 +51718,10 @@
         "anti_claims": [],
         "does_not_prove": "It validates only a public source-open bundle and bounded exercises; it is not live source authority, whole-system equivalence, semantic truth, investment-related actions, complete sandbox proof, selected-test sufficiency proof, public sharing, or launch-scope decision.",
         "evidence": {
-          "basis": "Copied source body",
-          "class_id": "verified_macro_body_import",
-          "kind": "Verified source import",
-          "rank": 5,
+          "basis": "Real runtime result",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
+          "rank": 4,
           "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
@@ -51770,7 +51770,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:batch7_macro_engines_capsule",
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:batch7_macro_engines_capsule",
       "id": "component:batch7_macro_engines_capsule",
       "kind": "component",
@@ -51993,10 +51993,10 @@
         "anti_claims": [],
         "does_not_prove": "It validates only Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke private orchestration engine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.",
         "evidence": {
-          "basis": "Copied source body",
-          "class_id": "verified_macro_body_import",
-          "kind": "Verified source import",
-          "rank": 5,
+          "basis": "Real runtime result",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
+          "rank": 4,
           "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
@@ -52045,7 +52045,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:batch7_oracle_sibling_capsule",
-      "evidence_ref": "evidence.html#verified-source-import",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:batch7_oracle_sibling_capsule",
       "id": "component:batch7_oracle_sibling_capsule",
       "kind": "component",
@@ -54612,10 +54612,10 @@
         "anti_claims": [],
         "does_not_prove": "validates declared public Set 8 compliance pipeline bundle contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, non-public data equivalence, or whole-system correctness",
         "evidence": {
-          "basis": "Source-faithful refactor",
-          "class_id": "algorithmic_projection",
-          "kind": "Computed projection",
-          "rank": 3,
+          "basis": "Copied source body",
+          "class_id": "verified_macro_body_import",
+          "kind": "Verified source import",
+          "rank": 5,
           "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
@@ -54664,7 +54664,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:batch8_compliance_pipeline_capsule",
-      "evidence_ref": "evidence.html#computed-projection",
+      "evidence_ref": "evidence.html#verified-source-import",
       "graph_node_id": "component:batch8_compliance_pipeline_capsule",
       "id": "component:batch8_compliance_pipeline_capsule",
       "kind": "component",
@@ -55364,10 +55364,10 @@
         "does_not_prove": "The bundle demonstrates owner-routed generated projection drift detection over declared artifacts, source authorities, clean-result record fingerprints, and no-write check return codes. It is not semantic drift proof, not full source registry validation, not repair authority, and not launch-scope decision.",
         "evidence": {
           "basis": "Real runtime result",
-          "class_id": "external_subprocess_witness",
-          "kind": "External tool run",
+          "class_id": "bounded_runtime_computation",
+          "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:generated_projection_drift_runtime",
@@ -55415,7 +55415,7 @@
         ]
       },
       "evidence_profile_ref": "evidence_profile:component:generated_projection_drift_runtime",
-      "evidence_ref": "evidence.html#external-tool-run",
+      "evidence_ref": "evidence.html#bounded-runtime-computation",
       "graph_node_id": "component:generated_projection_drift_runtime",
       "id": "component:generated_projection_drift_runtime",
       "kind": "component",
@@ -55642,7 +55642,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:mission_transaction_work_spine",
@@ -56038,7 +56038,7 @@
       "canonical_id": "durable_agent_work_landing_replay",
       "command_linked": true,
       "content": {
-        "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
+        "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay",
         "component_detail_href": "component-durable-agent-work-landing-replay.html",
         "links_note": "binds only to the shared kernel + evidence/authority spine (secret_exclusion_scan, result records, schemas). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the component's hosted mechanism(s); they name structural sibling navigation only, not live run, launch-scope decision, or proof of runtime integration.",
         "map_primary_click_policy": "prefer_primary_reader_href",
@@ -56198,8 +56198,8 @@
       "canonical_id": "durable_agent_work_landing_replay",
       "command_linked": true,
       "content": {
-        "statement": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
-        "summary": "plectis durable-agent-work-landing-replay run-work-landing-bundle"
+        "statement": "plectis durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay",
+        "summary": "plectis durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay"
       },
       "detail_schema": "microcosm_public_object_detail_v1",
       "display_priority": {
@@ -56796,7 +56796,7 @@
           "class_id": "bounded_runtime_computation",
           "kind": "Bounded runtime computation",
           "rank": 4,
-          "runs_real_tools": true
+          "runs_real_tools": false
         },
         "evidence_boundary": "component_evidence_rank_scope_limit_and_source_links",
         "evidence_profile_ref": "evidence_profile:component:semantic_singleflight_dedup_runtime",
@@ -101811,7 +101811,7 @@
       "canonical_id": "computed-projection",
       "command_linked": false,
       "content": {
-        "member_count": 27,
+        "member_count": 26,
         "statement": "A deterministic projection verified by recomputing it from source rather than by a live run; negative cases are policy checks, not real-world validation. Rank 3: the code computes the result, but failure coverage is partial.",
         "summary": "A deterministic projection verified by recomputing it from source rather than by a live run; negative cases are policy checks, not real-world validation. Rank 3: the code computes the result, but failure coverage is partial."
       },
@@ -101885,7 +101885,7 @@
       "canonical_id": "verified-source-import",
       "command_linked": false,
       "content": {
-        "member_count": 21,
+        "member_count": 20,
         "statement": "A public source body is copied and validated against its origin byte for byte; the check fails on a missing target, a placeholder digest, an unverified body, or a launch or whole-system equivalence overclaim. Rank 5: a fully independent provenance verdict.",
         "summary": "A public source body is copied and validated against its origin byte for byte; the check fails on a missing target, a placeholder digest, an unverified body, or a launch or whole-system equivalence overclaim. Rank 5: a fully independent provenance verdict."
       },
@@ -101953,87 +101953,13 @@
         "does_not_prove": null,
         "evidence": null,
         "evidence_boundary": "component_evidence_class_grouping_only",
-        "evidence_profile_ref": "evidence_profile:evidence_class:contract-validator",
-        "status": "active"
-      },
-      "canonical_id": "contract-validator",
-      "command_linked": false,
-      "content": {
-        "member_count": 20,
-        "statement": "The harness derives the verdict over the component's whole declared public contract and can fail with no answer supplied by the fixture. Rank 5: the most independent check on this slice.",
-        "summary": "The harness derives the verdict over the component's whole declared public contract and can fail with no answer supplied by the fixture. Rank 5: the most independent check on this slice."
-      },
-      "detail_schema": "microcosm_public_object_detail_v1",
-      "display_priority": {
-        "evidence_slots": [
-          "evidence_boundary",
-          "does_not_prove",
-          "source"
-        ],
-        "machine_slots": [
-          "id",
-          "canonical_id",
-          "kind",
-          "route_contract",
-          "omissions"
-        ],
-        "primary_slots": [
-          "label",
-          "summary",
-          "statement"
-        ],
-        "relationship_slots": [
-          "relations.links_by_relation"
-        ]
-      },
-      "evidence_profile_ref": "evidence_profile:evidence_class:contract-validator",
-      "evidence_ref": null,
-      "graph_node_id": null,
-      "id": "evidence_class:contract-validator",
-      "kind": "evidence_class",
-      "label": "Contract validator",
-      "omissions": {
-        "omission_reason": null,
-        "omitted_fields": []
-      },
-      "relations": {
-        "links_by_relation": {},
-        "raw": [],
-        "relation_count": 0
-      },
-      "route": "evidence.html#contract-validator",
-      "route_contract": {
-        "fragment": "contract-validator",
-        "href": "evidence.html#contract-validator",
-        "open_behavior": "fragment_scroll",
-        "page": "evidence.html",
-        "runtime_owner": "assets/docs.js::openTargetDetails",
-        "target_element_id": "contract-validator",
-        "target_is_openable": false,
-        "target_must_exist": true
-      },
-      "searchable": true,
-      "source": {
-        "source_authority": "derived_public_projection",
-        "source_links": [],
-        "source_refs": []
-      },
-      "source_linked": false,
-      "status": "projected"
-    },
-    {
-      "authority": {
-        "anti_claims": [],
-        "does_not_prove": null,
-        "evidence": null,
-        "evidence_boundary": "component_evidence_class_grouping_only",
         "evidence_profile_ref": "evidence_profile:evidence_class:bounded-runtime-computation",
         "status": "active"
       },
       "canonical_id": "bounded-runtime-computation",
       "command_linked": false,
       "content": {
-        "member_count": 11,
+        "member_count": 18,
         "statement": "Real in-process computation runs over public inputs with predicted-versus-actual checks and negative cases, scoped to a declared toy runtime. Rank 4: genuine computation, capped at the bounds of that toy scope.",
         "summary": "Real in-process computation runs over public inputs with predicted-versus-actual checks and negative cases, scoped to a declared toy runtime. Rank 4: genuine computation, capped at the bounds of that toy scope."
       },
@@ -102101,13 +102027,87 @@
         "does_not_prove": null,
         "evidence": null,
         "evidence_boundary": "component_evidence_class_grouping_only",
+        "evidence_profile_ref": "evidence_profile:evidence_class:contract-validator",
+        "status": "active"
+      },
+      "canonical_id": "contract-validator",
+      "command_linked": false,
+      "content": {
+        "member_count": 18,
+        "statement": "The harness derives the verdict over the component's whole declared public contract and can fail with no answer supplied by the fixture. Rank 5: the most independent check on this slice.",
+        "summary": "The harness derives the verdict over the component's whole declared public contract and can fail with no answer supplied by the fixture. Rank 5: the most independent check on this slice."
+      },
+      "detail_schema": "microcosm_public_object_detail_v1",
+      "display_priority": {
+        "evidence_slots": [
+          "evidence_boundary",
+          "does_not_prove",
+          "source"
+        ],
+        "machine_slots": [
+          "id",
+          "canonical_id",
+          "kind",
+          "route_contract",
+          "omissions"
+        ],
+        "primary_slots": [
+          "label",
+          "summary",
+          "statement"
+        ],
+        "relationship_slots": [
+          "relations.links_by_relation"
+        ]
+      },
+      "evidence_profile_ref": "evidence_profile:evidence_class:contract-validator",
+      "evidence_ref": null,
+      "graph_node_id": null,
+      "id": "evidence_class:contract-validator",
+      "kind": "evidence_class",
+      "label": "Contract validator",
+      "omissions": {
+        "omission_reason": null,
+        "omitted_fields": []
+      },
+      "relations": {
+        "links_by_relation": {},
+        "raw": [],
+        "relation_count": 0
+      },
+      "route": "evidence.html#contract-validator",
+      "route_contract": {
+        "fragment": "contract-validator",
+        "href": "evidence.html#contract-validator",
+        "open_behavior": "fragment_scroll",
+        "page": "evidence.html",
+        "runtime_owner": "assets/docs.js::openTargetDetails",
+        "target_element_id": "contract-validator",
+        "target_is_openable": false,
+        "target_must_exist": true
+      },
+      "searchable": true,
+      "source": {
+        "source_authority": "derived_public_projection",
+        "source_links": [],
+        "source_refs": []
+      },
+      "source_linked": false,
+      "status": "projected"
+    },
+    {
+      "authority": {
+        "anti_claims": [],
+        "does_not_prove": null,
+        "evidence": null,
+        "evidence_boundary": "component_evidence_class_grouping_only",
         "evidence_profile_ref": "evidence_profile:evidence_class:external-tool-run",
         "status": "active"
       },
       "canonical_id": "external-tool-run",
       "command_linked": false,
       "content": {
-        "member_count": 9,
+        "member_count": 6,
         "statement": "A real external tool, such as Lean or Lake, is run and its return code plus output checks are witnessed over a deliberately small scope. Rank 4: genuine execution, capped because the witness is bounded, not a general proof.",
         "summary": "A real external tool, such as Lean or Lake, is run and its return code plus output checks are witnessed over a deliberately small scope. Rank 4: genuine execution, capped because the witness is bounded, not a general proof."
       },
