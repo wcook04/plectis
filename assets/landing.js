@@ -594,11 +594,29 @@
     // Rows in the bottom strip, judged against the chip's column from live
     // boxes: a row that slid in from the right edge settles elsewhere.
     var inStrip = [];
+    // And either drawing's card wherever it stands in the window's lower
+    // right corner, where the chip lives: the chip never sits over a card's
+    // frame (it stood inside the mathematics card at 1280 and across the
+    // system card's edge at 1440, critique of 5 October 2026).
+    var inCorner = [];
     var updateTuck = function () {
       var limit = (window.innerWidth || 0) - 96;
-      var tuck = inStrip.some(function (row) { return row.getBoundingClientRect().right > limit; });
+      var tuck = inStrip.some(function (row) { return row.getBoundingClientRect().right > limit; }) ||
+        inCorner.some(function (card) {
+          var r = card.getBoundingClientRect();
+          return r.width > 0 && r.right > limit && r.left < (window.innerWidth || 0) && r.bottom > (window.innerHeight || 0) - 90;
+        });
       hint.classList.toggle('is-tucked', tuck);
     };
+    var cornerWatch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var at = inCorner.indexOf(entry.target);
+        if (entry.isIntersecting && at < 0) inCorner.push(entry.target);
+        if (!entry.isIntersecting && at >= 0) inCorner.splice(at, 1);
+      });
+      updateTuck();
+    }, { rootMargin: '-86% 0px 0px -88%' });
+    Array.prototype.forEach.call(document.querySelectorAll('.home-universe, .home-system'), function (card) { cornerWatch.observe(card); });
     var tuckWatch = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var at = inStrip.indexOf(entry.target);
@@ -663,35 +681,44 @@
      reader starts reading (the first real scroll) or uses a term, so it
      never sits over a button or a figure for the rest of the page. Touch:
      it starts folded so the small screen stays clear. */
-  /* On a short laptop screen the open chip would sit on the plait's band (at
-     1280x800 it covered the band's right third, and the contract keeps the
-     drawing clear of text), so there it starts folded to its mark, which
-     still opens it. Landing only: the docs pages have no band, so docs.js's
-     copy needs no twin of this check. */
-  var band = document.querySelector('[data-plait-band]');
-  function overBand() {
-    if (!band || !band.getBoundingClientRect) return false;
+  /* The open chip never stands on a drawing. On a short laptop screen it sat
+     on the plait's band (at 1280x800 it covered the band's right third, and
+     the contract keeps the drawing clear of text), and with the mathematics
+     map on the first screen it covered the map's right edge at 1512 and at
+     1920 (critique of 5 October 2026). Where it would, it starts folded to
+     its mark, which still opens it, and a short first scroll that brings a
+     drawing under it folds it too. A drawing in the slide the switch has
+     put away is hidden and does not count. Landing only: the docs pages
+     have no band or maps, so docs.js's copy needs no twin of this check. */
+  var drawings = document.querySelectorAll('[data-plait-band], .home-universe, .home-system');
+  function overDrawing() {
     var chipBox = hint.getBoundingClientRect();
-    var bandBox = band.getBoundingClientRect();
-    return chipBox.top < bandBox.bottom && chipBox.bottom > bandBox.top &&
-      chipBox.left < bandBox.right && chipBox.right > bandBox.left;
+    return Array.prototype.some.call(drawings, function (drawing) {
+      var box = drawing.getBoundingClientRect();
+      return box.width > 0 && chipBox.top < box.bottom && chipBox.bottom > box.top &&
+        chipBox.left < box.right && chipBox.right > box.left &&
+        window.getComputedStyle(drawing).visibility !== 'hidden';
+    });
   }
   // The band settles once the web fonts arrive, so look again then and at
   // load; a chip the reader has already folded or opened is left alone.
-  function foldIfOverBand() {
+  function foldIfOverDrawing() {
     if (gone || hint.classList.contains('is-compact') || hint.classList.contains('is-open')) return;
-    if (overBand()) setCompact(true);
+    if (overDrawing()) setCompact(true);
   }
   if (touch) {
     setCompact(true);
   } else {
-    foldIfOverBand();
-    try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(foldIfOverBand); } catch (e) {}
-    window.addEventListener('load', foldIfOverBand, { once: true });
+    foldIfOverDrawing();
+    try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(foldIfOverDrawing); } catch (e) {}
+    window.addEventListener('load', foldIfOverDrawing, { once: true });
   }
   if (!touch) {
     var folded = false;
-    var onScroll = function () { if ((window.scrollY || 0) > 240) foldOnce(); };
+    var onScroll = function () {
+      if ((window.scrollY || 0) > 240) foldOnce();
+      else foldIfOverDrawing();
+    };
     var onTerm = function (ev) {
       var t = ev.target;
       if (t && t.closest && t.closest('a.narrative-ref--term, [data-term-preview-only]')) foldOnce();
@@ -705,6 +732,27 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('pointerover', onTerm, true);
+  }
+
+  /* On a phone every place the folded mark could stand is on the reading
+     column: a critique of 5 October 2026 found it over the problem list,
+     the videos and the essay. So once reading starts (the same first real
+     scroll that folds the open chip on a wider screen) the mark steps
+     aside, and it stands again when the reader is back at the top of the
+     page; the header keeps the way to the glossary. Keep in step with
+     docs.js. */
+  var narrow = null;
+  try { narrow = window.matchMedia ? window.matchMedia('(max-width: 620px)') : null; } catch (e) {}
+  if (narrow) {
+    var stepAside = function () {
+      var aside = narrow.matches && (window.scrollY || 0) > 240;
+      if (aside && hint.classList.contains('is-open')) setCompact(true);
+      hint.classList.toggle('is-aside', aside);
+    };
+    stepAside();
+    window.addEventListener('scroll', stepAside, { passive: true });
+    if (narrow.addEventListener) narrow.addEventListener('change', stepAside);
+    else if (narrow.addListener) narrow.addListener(stepAside);
   }
 })();
 
@@ -771,6 +819,56 @@
   if (!fromHash()) show(0, false);
 })();
 
+/* Credit ledger frame (2026-10-05). The entries stand side by side in Will's
+   fixed frame ("it stays in that frame and then you can scroll through them,
+   but the frame stays the same"), showing whole entries, two at a time on a
+   wide screen. The arrows page by what the frame shows and the count names the
+   entries in view; the frame itself stays focusable, so arrow keys, a
+   trackpad or a swipe scroll it natively. Without this script the frame keeps
+   its thin scrollbar and the arrows stay hidden. */
+(function () {
+  var frame = document.getElementById('credit-list');
+  var controls = document.querySelector('[data-credit-controls]');
+  if (!frame || !controls || !frame.querySelectorAll) return;
+  var items = Array.prototype.slice.call(frame.querySelectorAll('.home-credit-entry'));
+  var prev = controls.querySelector('[data-credit-prev]');
+  var next = controls.querySelector('[data-credit-next]');
+  var count = controls.querySelector('[data-credit-count]');
+  if (items.length < 2 || !prev || !next || !count) return;
+  controls.hidden = false;
+  frame.classList.add('is-live');
+
+  function update() {
+    var box = frame.getBoundingClientRect();
+    var first = -1, last = -1;
+    items.forEach(function (item, i) {
+      var r = item.getBoundingClientRect();
+      if (r.left >= box.left - 4 && r.right <= box.right + 4) {
+        if (first < 0) first = i;
+        last = i;
+      }
+    });
+    if (first < 0) return;
+    count.textContent = (first === last ? String(first + 1) : (first + 1) + '–' + (last + 1)) + ' of ' + items.length;
+    prev.disabled = first === 0;
+    next.disabled = last === items.length - 1;
+  }
+  function page(direction) {
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    frame.scrollBy({ left: direction * frame.clientWidth, behavior: still ? 'auto' : 'smooth' });
+  }
+  prev.addEventListener('click', function () { page(-1); });
+  next.addEventListener('click', function () { page(1); });
+  var pending = 0;
+  function soon() {
+    if (pending) return;
+    pending = window.requestAnimationFrame(function () { pending = 0; update(); });
+  }
+  frame.addEventListener('scroll', soon, { passive: true });
+  window.addEventListener('resize', soon);
+  update();
+})();
+
 /* The map band (2026-10-04). Will asked for an arrow that "scrolls that
    horizontal slice, from left to right, all the way wall to wall ... bounded
    of where the map is", and a switch between "system versus maths" that
@@ -780,8 +878,9 @@
    drawing).
 
    - A click on the switch or an edge arrow moves the whole slice in one eased
-     move (--ease-move over 720ms: a camera move across a full window, inside
-     the budget for a data graphic). Each drawing travels a little further
+     move (620ms on --atlas-ease, which leaves at once and settles slowly: a
+     camera move across a full window, inside the budget for a data graphic).
+     Each drawing travels a little further
      than its text, so the slice reads as two layers, and the switch's thumb
      slides with it.
    - Arrow keys on the switch, reduced motion and links into the band land at
@@ -809,7 +908,11 @@
   var tabs = Array.prototype.slice.call(band.querySelectorAll('[data-atlas-go]'));
   var prev = band.querySelector('[data-atlas-prev]');
   var next = band.querySelector('[data-atlas-next]');
-  var MOVE_MS = 720;
+  // 620ms on a curve that leaves at once (cubic-bezier(0.45, 0, 0.2, 1)): the
+  // symmetric ease it replaced held the slice within 26px for the first tenth
+  // of a second, so the click felt ignored (critique, 5 October 2026).
+  var MOVE_MS = 620;
+  var MOVE_EASE = 'cubic-bezier(0.45, 0, 0.2, 1)';
   var LEAN_PX = 26;
   var reduced = false;
   try { reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) {}
@@ -863,7 +966,7 @@
      place (no fill, so nothing keeps a transform or a layer afterwards). */
   function parallax(from, to, dir) {
     if (reduced || !Element.prototype.animate) return;
-    var timing = { duration: MOVE_MS, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' };
+    var timing = { duration: MOVE_MS, easing: MOVE_EASE };
     var out = slides[from].querySelector('.home-split__figure');
     var inn = slides[to].querySelector('.home-split__figure');
     try {
@@ -891,6 +994,9 @@
     window.clearTimeout(settleTimer);
     track.style.transitionDuration = '';
     band.classList.toggle('is-instant', instant);
+    // While the slice moves the edge arrows step out, so neither stands over
+    // the text of a slide passing beneath it.
+    band.classList.toggle('is-moving', !instant);
     slides.forEach(function (slide, i) {
       slide.classList.add('is-shown');
       setPresence(slide, i === index);
@@ -909,6 +1015,7 @@
     var settle = function () {
       if (mine !== token) return;
       band.classList.remove('is-instant');
+      band.classList.remove('is-moving');
       slides.forEach(function (slide, i) { slide.classList.toggle('is-shown', i === index); });
       emit('plectis:atlas', { view: views[index], previous: views[from], phase: 'end', instant: instant });
     };

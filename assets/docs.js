@@ -5785,6 +5785,27 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       document.addEventListener('pointerover', onTerm, true);
     }
+
+    /* On a phone every place the folded mark could stand is on the reading
+       column: a critique of 5 October 2026 found it over the landing's
+       problem list, videos and essay, and a docs page is reading column
+       from edge to edge. So once reading starts (the same first real scroll
+       that folds the open chip on a wider screen) the mark steps aside, and
+       it stands again when the reader is back at the top of the page; the
+       header keeps the way to the glossary. Keep in step with landing.js. */
+    var narrow = null;
+    try { narrow = window.matchMedia ? window.matchMedia('(max-width: 620px)') : null; } catch (e) {}
+    if (narrow) {
+      var stepAside = function () {
+        var aside = narrow.matches && (window.scrollY || 0) > 240;
+        if (aside && hint.classList.contains('is-open')) setCompact(true);
+        hint.classList.toggle('is-aside', aside);
+      };
+      stepAside();
+      window.addEventListener('scroll', stepAside, { passive: true });
+      if (narrow.addEventListener) narrow.addEventListener('change', stepAside);
+      else if (narrow.addListener) narrow.addListener(stepAside);
+    }
   })();
 
 })();

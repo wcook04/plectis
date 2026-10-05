@@ -24,7 +24,13 @@
   var DWELL = 140;      // a row must hold the pointer this long before the column turns
   var LEAVE = 260;      // after the pointer leaves the column and the drawing, before the list returns
   var LINGER = 900;     // after the pointer leaves a dot for empty ground, before the list returns
-  var EASE = 'cubic-bezier(0.2, 0.75, 0.25, 1)';
+  // The list and the panel never show at once. Opening, the list steps out
+  // in OUT and only then does the problem's title travel up from its row;
+  // closing, the panel fades out in AWAY and only then does the list come
+  // back (universe-companion.css holds both beats; the drawing lets its
+  // dimming go on AWAY too). Arrivals ease out hard.
+  var OUT = 90, AWAY = 160;
+  var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
   var CLAIM_TIER = {
     'proved here': 'proved', 'formalised here': 'proved', 'verified finite instance': 'proved',
@@ -108,6 +114,20 @@
         esc(num ? num.textContent : pid) + '</a>';
     }).join('');
 
+    // The quote is fitted again whenever its slot changes size: as the
+    // question and the précis fold away the slot grows over a quarter of a
+    // second, and the quote follows it a frame at a time.
+    var fitFrame = 0;
+    var slotWatch = typeof ResizeObserver === 'function' && window.requestAnimationFrame ? new ResizeObserver(function () {
+      if (fitFrame) return;
+      fitFrame = window.requestAnimationFrame(function () {
+        fitFrame = 0;
+        var quote = el.focus.querySelector('[data-line="quote"]');
+        if (quote) fitQuote(quote);
+      });
+    }) : null;
+    if (slotWatch) slotWatch.observe(el.focus);
+
     /* A row's title carries glossary marks that open a definition on hover.
        Where the companion can open, the row is about to lie under it, so the
        row's marks rest and the companion's title (the same words, marks and
@@ -127,6 +147,9 @@
 
     fetch(api.dataUrl).then(function (r) { return r.json(); }).then(function (payload) {
       data = payload;
+      // The drawing names a result on its plate by the paper's number alone
+      // where this column reads it whole; from now on it can.
+      if (typeof api.redraw === 'function') api.redraw();
       restoreRequestedProblem();
     }).catch(function () { host.dispatchEvent(new CustomEvent('plectis:companion-failed')); });
 
@@ -165,9 +188,11 @@
       var title = short.page
         ? '<a class="uc__paper-title" href="' + esc(api.route(short.page)) + '">' + short.title_html + '</a>'
         : '<span class="uc__paper-title">' + short.title_html + '</span>';
+      // The précis folds away while a result is in the card (the fold
+      // gives the result's own words the room).
       return '<p class="uc__label">' + esc(short.label === 'Short paper' ? 'The short paper' : short.label) + '</p>' +
         title +
-        (short.precis_html ? '<p class="uc__precis">' + short.precis_html + '</p>' : '') +
+        (short.precis_html ? '<div class="uc__fold"><p class="uc__precis">' + short.precis_html + '</p></div>' : '') +
         (links.length ? '<p class="uc__links">' + links.join('') + '</p>' : '');
     }
 
@@ -212,16 +237,21 @@
        links); only a line whose words changed is set again, and it settles
        in a tenth of a second. The mark ripples only when the evidence it
        shows is new. A card of another kind is drawn whole. */
+    // A kept (pinned) card says so in its head, in plain words: the reader
+    // chose it, and Esc is how it is let go. The words show only while the
+    // card is kept (.uc.is-pinned).
+    var KEPT = '<span class="uc__kept">Kept. Esc lets it go</span>';
     var CARD_SHAPES = {
       // A result: its name, its own words from the paper, how far it is
       // checked, the ways out. A claim keeps its statement as the note.
-      result: '<p class="uc__label" data-line="label"></p>' +
+      result: '<p class="uc__label uc__head"><span data-line="label"></span>' + KEPT + '</p>' +
         '<p class="uc__focus-title"><span class="uc-mark" aria-hidden="true"><span class="uc-mark__ring"></span></span>' +
         '<span data-line="name"></span></p>' +
         '<div class="uc__quote" data-line="quote"></div>' +
         '<p class="uc__focus-meta" data-line="meta"></p><p class="uc__links" data-line="links"></p>' +
         '<p class="uc__note" data-line="note"></p>',
-      paper: '<p class="uc__label" data-line="label"></p><p class="uc__focus-title"><span data-line="name"></span></p>' +
+      paper: '<p class="uc__label uc__head"><span data-line="label"></span>' + KEPT + '</p>' +
+        '<p class="uc__focus-title"><span data-line="name"></span></p>' +
         '<p class="uc__links" data-line="links"></p>',
       hint: '<p class="uc__hint" data-line="hint"></p>'
     };
@@ -261,25 +291,40 @@
     }
 
     // A long quote is cut at its last whole paragraph or display that fits,
-    // never through a formula, and says that it goes on in the paper; only a
-    // single block too tall for the room is faded.
+    // never through a formula. A single block still taller than the room
+    // stops at its last whole line, and only that line fades (the cut used
+    // to fall through the middle of a line of formulae). Either way a quiet
+    // line under the quote says the statement goes on in the paper. The fit
+    // always starts from the whole quote, so a card given more room (the
+    // question folding away) shows more of it.
     function fitQuote(quote) {
-      if (quote.hidden) return;
+      var whole = state.card.lines.quote;
+      var after = quote.nextElementSibling;
+      if (after && after.classList.contains('uc__quote-more')) after.parentNode.removeChild(after);
+      if (quote.hidden || !whole) return;
+      if (quote.__trimmed) { quote.innerHTML = whole; quote.__trimmed = false; }
       quote.classList.remove('is-cut');
-      var trimmed = false;
-      while (quote.scrollHeight > quote.clientHeight + 2 && quote.children.length > 1) {
-        var last = quote.lastElementChild;
-        if (last.classList.contains('uc__quote-more')) { quote.removeChild(last); continue; }
-        quote.removeChild(last);
-        trimmed = true;
-        if (!quote.querySelector('.uc__quote-more')) {
-          quote.insertAdjacentHTML('beforeend', '<p class="uc__quote-more">The statement continues in the paper.</p>');
-        }
+      if (quote.style) quote.style.maxHeight = '';
+      var over = function () { return quote.scrollHeight > quote.clientHeight + 2; };
+      if (!over()) return;
+      var more = document.createElement('p');
+      more.className = 'uc__quote-more';
+      more.textContent = 'The statement continues in the paper.';
+      quote.parentNode.insertBefore(more, quote.nextSibling);
+      while (over() && quote.children.length > 1) {
+        quote.removeChild(quote.lastElementChild);
+        quote.__trimmed = true;
       }
-      if (trimmed && !quote.querySelector('.uc__quote-more')) {
-        quote.insertAdjacentHTML('beforeend', '<p class="uc__quote-more">The statement continues in the paper.</p>');
-      }
-      if (quote.scrollHeight > quote.clientHeight + 2) quote.classList.add('is-cut');
+      if (!over() || !document.createRange) return;
+      var room = quote.clientHeight, top = quote.getBoundingClientRect().top, best = 0;
+      var range = document.createRange();
+      range.selectNodeContents(quote);
+      Array.prototype.forEach.call(range.getClientRects(), function (r) {
+        var bottom = r.bottom - top;
+        if (r.height > 0 && bottom <= room + 0.5 && bottom > best) best = bottom;
+      });
+      if (best > 0 && quote.style) quote.style.maxHeight = Math.ceil(best) + 'px';
+      quote.classList.add('is-cut');
     }
 
     function drawCard(card, quiet) {
@@ -288,6 +333,9 @@
         el.focus.innerHTML = CARD_SHAPES[card.shape];
         state.card = { shape: card.shape, tier: null, lines: {} };
       }
+      // A result takes the room its words need: the question and the
+      // précis fold away while it is in the card.
+      root.classList.toggle('has-result', card.shape === 'result');
       var moved = [];
       Object.keys(card.lines).forEach(function (name) {
         var html = card.lines[name];
@@ -346,12 +394,12 @@
         '<p class="uc__kicker">Erdős problem #' + esc(problem.number) + '</p>' +
         '<p class="uc__title" role="heading" aria-level="3"><a href="' + esc(hrefOf[pid]) + '">' +
           (titleHtml[pid] || esc(problem.title)) + '</a></p>' +
-        '<p class="uc__question">' + problem.question_html + '</p>' +
+        '<div class="uc__fold"><p class="uc__question">' + problem.question_html + '</p></div>' +
         '<p class="uc__tally">' + tallyHtml(problem, api.tallies[pid]) + '</p>' +
         '<div class="uc__paper">' + paperHtml(problem) + '</div>';
       el.kicker = el.problem.querySelector('.uc__kicker');
       el.title = el.problem.querySelector('.uc__title');
-      el.question = el.problem.querySelector('.uc__question');
+      el.question = el.problem.querySelector('.uc__fold');
       el.tally = el.problem.querySelector('.uc__tally');
       el.paper = el.problem.querySelector('.uc__paper');
       // A new problem block can be taller or shorter than the last, so the
@@ -360,6 +408,7 @@
       var slot = el.focus.cloneNode(false);
       el.focus.parentNode.replaceChild(slot, el.focus);
       el.focus = slot;
+      if (slotWatch) { slotWatch.disconnect(); slotWatch.observe(slot); }
       state.focusKey = undefined;
       state.card = { shape: null, tier: null, lines: {} };
       Array.prototype.forEach.call(el.sw.querySelectorAll('.uc__chip'), function (chip) {
@@ -386,7 +435,7 @@
     // A target set in its final place starts where the source stands, at the
     // source's size, and travels home: the row's number and title become the
     // head of the column.
-    function travel(target, source, back) {
+    function travel(target, source) {
       if (!motion || !source) return null;
       var a = source.getBoundingClientRect();
       var b = target.getBoundingClientRect();
@@ -394,10 +443,10 @@
       var scale = parseFloat(getComputedStyle(source).fontSize) / parseFloat(getComputedStyle(target).fontSize) || 1;
       var away = { transform: 'translate(' + (a.left - b.left) + 'px,' + (a.top - b.top) + 'px) scale(' + scale + ')', opacity: 0.3 };
       var home = { transform: 'none', opacity: 1 };
-      // A third of a second home: at 560ms the title was still in flight
-      // over the half-faded list and the question when the slots arrived.
-      return target.animate(back ? [home, away] : [away, home],
-        { duration: back ? 260 : 320, easing: back ? 'cubic-bezier(0.4, 0, 0.7, 0.2)' : EASE });
+      // A third of a second home, leaving only once the list has stepped
+      // out (OUT): at 338ms the title used to cross the intro still on its
+      // way out.
+      return target.animate([away, home], { duration: 320, delay: OUT, easing: EASE, fill: 'backwards' });
     }
 
     // The slots arrive behind the title, a little apart (40ms), each in a
@@ -422,8 +471,11 @@
       var row = rows[pid];
       travel(el.kicker, row.querySelector('.home-problem__num'));
       travel(el.title, row.querySelector('.home-problem__title'));
-      rise([el.sw], 200);
-      rise([el.question, el.tally, el.paper, el.focus], 260);
+      // The tabs and the slots rise once the title, which leaves at OUT
+      // (90ms) and eases out hard, is nearly home, so it never passes over
+      // them: 150ms and 210ms after it leaves.
+      rise([el.sw], 240);
+      rise([el.question, el.tally, el.paper, el.focus], 300);
     }
 
     // A pin is let go with the column, or for another problem.
@@ -437,7 +489,6 @@
     function close() {
       if (!state.open) return;
       unpin();
-      var pid = state.problem;
       state.open = false;
       state.problem = null;
       state.focusKey = undefined;
@@ -450,11 +501,9 @@
       root.classList.remove('is-open');
       root.setAttribute('aria-hidden', 'true');
       root.inert = true;
-      var row = rows[pid];
-      if (row) {
-        travel(el.title, row.querySelector('.home-problem__title'), true);
-        travel(el.kicker, row.querySelector('.home-problem__num'), true);
-      }
+      // The panel fades through in place (AWAY) and the list follows it.
+      // The title used to travel back down to its row as it went, and
+      // crossed the problem's own question on the way.
     }
 
     // Another problem while the column is already turned: the new problem
@@ -478,6 +527,11 @@
     // The map consumes a click only where this optional panel can be shown.
     // Share the same live layout predicate used by show and syncLayout.
     api.sideBySide = sideBySide;
+    // Whether this column reads an object of a problem's sector in full
+    // (its title, its words), so the drawing need not repeat them.
+    api.reads = function (sector) {
+      return !!(data && data.problems && sector && data.problems[sector] && rows[sector] && sideBySide());
+    };
 
     function show(pid, s) {
       if (!data || !data.problems || !data.problems[pid] || !rows[pid] || !sideBySide()) return;

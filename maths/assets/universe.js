@@ -138,6 +138,74 @@
     return v || fallback;
   }
 
+  /* Colour, mixed as the stylesheet mixes it. A mark that drops back while
+     another is in focus is mixed toward the ground's line tone in Oklab,
+     as color-mix(in oklab, …) does on the system map, so it stays faded ink
+     of its own hue and never turns a pastel or a neutral grey. A colour
+     string is parsed once. */
+  var parsedColors = {};
+  function parseColor(text) {
+    var key = String(text == null ? '' : text).trim();
+    if (Object.prototype.hasOwnProperty.call(parsedColors, key)) return parsedColors[key];
+    var out = null, m;
+    if ((m = /^#([0-9a-f]{3,8})$/i.exec(key))) {
+      var hex = m[1];
+      if (hex.length === 3 || hex.length === 4) hex = hex.replace(/(.)/g, '$1$1');
+      if (hex.length === 6 || hex.length === 8) {
+        out = [parseInt(hex.slice(0, 2), 16) / 255, parseInt(hex.slice(2, 4), 16) / 255,
+               parseInt(hex.slice(4, 6), 16) / 255, hex.length === 8 ? parseInt(hex.slice(6, 8), 16) / 255 : 1];
+      }
+    } else if ((m = /^rgba?\(\s*([\d.]+%?)[\s,]+([\d.]+%?)[\s,]+([\d.]+%?)(?:[\s,/]+([\d.]+%?))?\s*\)$/i.exec(key))) {
+      var channel = function (v) { return /%$/.test(v) ? parseFloat(v) / 100 : parseFloat(v) / 255; };
+      out = [channel(m[1]), channel(m[2]), channel(m[3]),
+             m[4] == null ? 1 : /%$/.test(m[4]) ? parseFloat(m[4]) / 100 : parseFloat(m[4])];
+    } else if ((m = /^color\(\s*srgb\s+([-\d.e]+)\s+([-\d.e]+)\s+([-\d.e]+)(?:\s*\/\s*([\d.]+%?))?\s*\)$/i.exec(key))) {
+      out = [+m[1], +m[2], +m[3], m[4] == null ? 1 : /%$/.test(m[4]) ? parseFloat(m[4]) / 100 : +m[4]];
+    }
+    if (out && !out.every(function (v) { return isFinite(v); })) out = null;
+    parsedColors[key] = out;
+    return out;
+  }
+  function toLinear(c) { return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+  function toGamma(c) { return c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055; }
+  function rgbToOklab(c) {
+    var r = toLinear(c[0]), g = toLinear(c[1]), b = toLinear(c[2]);
+    var l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+    var m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+    var s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
+            1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
+            0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+  }
+  function oklabToRgb(c) {
+    var l = c[0] + 0.3963377774 * c[1] + 0.2158037573 * c[2];
+    var m = c[0] - 0.1055613458 * c[1] - 0.0638541728 * c[2];
+    var s = c[0] - 0.0894841775 * c[1] - 1.2914855480 * c[2];
+    l = l * l * l; m = m * m * m; s = s * s * s;
+    return [toGamma(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s),
+            toGamma(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s),
+            toGamma(-0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s)];
+  }
+  function rgbText(c) {
+    var v = function (x) { return Math.round(Math.max(0, Math.min(1, x)) * 255); };
+    return 'rgb(' + v(c[0]) + ', ' + v(c[1]) + ', ' + v(c[2]) + ')';
+  }
+  // What a translucent colour shows over an opaque ground.
+  function overGround(c, ground) {
+    if (c[3] >= 0.999) return c;
+    return [c[0] * c[3] + ground[0] * (1 - c[3]), c[1] * c[3] + ground[1] * (1 - c[3]),
+            c[2] * c[3] + ground[2] * (1 - c[3]), 1];
+  }
+  // color-mix(in oklab, a, b t): t of the way from a to b, as a CSS colour;
+  // null when either colour cannot be read.
+  function mixOklab(a, b, t, ground) {
+    var ca = parseColor(a), cb = parseColor(b);
+    if (!ca || !cb) return null;
+    if (ground) { ca = overGround(ca, ground); cb = overGround(cb, ground); }
+    var la = rgbToOklab(ca), lb = rgbToOklab(cb);
+    return rgbText(oklabToRgb([la[0] + (lb[0] - la[0]) * t, la[1] + (lb[1] - la[1]) * t, la[2] + (lb[2] - la[2]) * t]));
+  }
+
   function clip(text, max) {
     text = String(text);
     if (text.length <= max) return text;
@@ -209,6 +277,34 @@
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext('2d');
     var pageMode = canvas.classList.contains('universe-canvas--page');
+    /* Type on the field. The landing's teaser stands beside a column set at
+       body size and is read from a laptop's distance (and at two thirds
+       zoom on a wide monitor), so its words are set near that size: band
+       titles 16px, their counts 14px, a name plate 15px, nothing under
+       13px. The map's own page, a large field the reader zooms, keeps its
+       smaller set. One table, so every label, plate and room the label
+       manager reserves is measured in the face it is drawn in. */
+    var TYPE = pageMode ? {
+      title: 12, count: 11, rowGap: 13, arcPad: 7,
+      anchor: 13, small: 12, sub: 11, subGap: 13, below: 15,
+      plate: 12, lead: 14.5, ascent: 16, descent: 7, oneLine: 300, twoAt: 160, keepOne: 220,
+      callout: 10
+    } : {
+      title: 16, count: 14, rowGap: 17, arcPad: 9,
+      anchor: 15, small: 14, sub: 13, subGap: 15, below: 17,
+      plate: 15, lead: 18, ascent: 20, descent: 9, oneLine: 375, twoAt: 200, keepOne: 275,
+      callout: 13
+    };
+    function face(weight, size, italic) {
+      return (italic ? 'italic ' : '') + weight + ' ' + size + 'px ' + SERIF;
+    }
+    /* On the landing nothing crowds the card's edge: the outermost word of
+       the drawing stands at least EDGE_CLEAR from the frame, and a name
+       plate's box at least PLATE_EDGE from the canvas (clear of the corner
+       registration marks, 10px in with 13px arms, and of the buttons under
+       the canvas). The page's plates may come to 2px of its edge as before. */
+    var EDGE_CLEAR = pageMode ? 0 : 32;
+    var PLATE_EDGE = pageMode ? 2 : 24;
     var caption = stage.querySelector('.universe-caption');
     var inspector = document.querySelector('[data-universe-inspector]');
     var countOut = document.querySelector('[data-universe-count]');
@@ -328,6 +424,62 @@
         palette[kind] = cssColor(styles, KIND_COLOR[kind], '#888888');
       }
       darkGround = groundIsDark(palette.ground);
+      // A kept (pinned) result is framed in the landing's ember, the colour
+      // the column's card rule turns when it holds a result.
+      palette.ember = cssColor(styles, '--home-ember', '') || palette.integration_surface;
+      // The ground the canvas is actually seen on (on the landing a card
+      // laid translucent over the page), and the line tone over it a mark
+      // drops back toward: ink at 16% of the ground, as the system map's.
+      palette.under = effectiveGround();
+      palette.tone = palette.under ? mixOklab(palette.ink, rgbText(palette.under), 0.84, palette.under) : null;
+      mixCache = {};
+      shadeTableAt = -1;
+    }
+    // The colour behind the canvas: each translucent background on the way
+    // up laid over the first opaque one (or over the surface colour).
+    function effectiveGround() {
+      var layers = [], el = canvas.parentElement || null;
+      while (el && el.nodeType === 1 && layers.length < 12) {
+        var cs = getComputedStyle(el);
+        var c = cs && cs.backgroundColor ? parseColor(cs.backgroundColor) : null;
+        if (c && c[3] > 0.004) {
+          layers.push(c);
+          if (c[3] >= 0.996) break;
+        }
+        el = el.parentElement;
+      }
+      var base = parseColor(palette.ground) || [1, 1, 1, 1];
+      if (layers.length && layers[layers.length - 1][3] >= 0.996) base = layers.pop();
+      for (var j = layers.length - 1; j >= 0; j--) base = overGround(layers[j], base);
+      return [base[0], base[1], base[2], 1];
+    }
+    /* A mark that drops back is its own ink at DIM_INK of its strength
+       over the tone (color-mix(in oklab, ink 30%, tone)), reached in
+       steps as the focus fades in, so the ring keeps its hue and the lit
+       sector rises out of it. */
+    var DIM_INK = 0.3;
+    var mixCache = {};
+    function towardTone(color, amount) {
+      if (!palette.tone || !color || amount <= 0) return color;
+      var t = Math.round(Math.min(1, amount) * 40) / 40;
+      var key = color + '|' + t;
+      var hit = mixCache[key];
+      if (hit === undefined) {
+        hit = mixOklab(color, palette.tone, (1 - DIM_INK) * t, palette.under) || color;
+        mixCache[key] = hit;
+      }
+      return hit;
+    }
+    // How far the mark being drawn has dropped back (0 at full ink). Every
+    // mark that drops back in a frame drops back as far, so the frame keeps
+    // one small table of the few inks it mixes.
+    var shadeBy = 0, shadeTable = {}, shadeTableAt = -1;
+    function shade(color) {
+      if (shadeBy <= 0) return color;
+      if (shadeTableAt !== shadeBy) { shadeTable = {}; shadeTableAt = shadeBy; }
+      var hit = shadeTable[color];
+      if (hit === undefined) hit = shadeTable[color] = towardTone(color, shadeBy);
+      return hit;
     }
 
     function normalizeSearchText(text) {
@@ -385,21 +537,84 @@
       var pad = 40;
       var k = Math.min((w - pad * 2) / Math.max(1, maxX - minX),
                        (h - pad * 2) / Math.max(1, maxY - minY));
+      var tx = null, ty = null;
       // With the results ring shown, the frame holds its titles as well:
       // the outer band, the gap, two lines of text and a margin to spare.
       if (bands.length && !lensOff.paper_statement) {
         var outer = 0;
         for (var b = 0; b < bands.length; b++) outer = Math.max(outer, bandRadii(bands[b])[1] || 0);
         var room = Math.min(w, h) / 2 - 56;
-        if (outer && room > 40) k = Math.min(k, room / (outer + 6));
+        var band = !pageMode && w >= 520 ? titleExtents() : null;
+        if (outer && band) {
+          /* The teaser is fitted with its words, not by its ring: each side
+             of the content is the ring (which grows with the scale) plus the
+             words beyond it there (which do not), the level titles at three
+             and nine o'clock taking width where the others take height. The
+             content is fitted inside the canvas less EDGE_CLEAR all round
+             and centred, so the outermost word stands at least that far from
+             the frame on every side and a taller card gives breathing room,
+             never a ring bigger than the width allows. */
+          var R = outer + 6;
+          // Under the canvas the card keeps a row for the key and the two
+          // buttons; the drawing's foot keeps EDGE_CLEAR from that row, as
+          // its head does from the frame, so the ring stands centred between
+          // the two.
+          var foot = Math.max(16, EDGE_CLEAR - footGap());
+          var kx = (w - 2 * EDGE_CLEAR - band.left - band.right) / (2 * R);
+          var ky = (h - EDGE_CLEAR - foot - band.top - band.bottom) / (2 * R);
+          k = Math.min(k, kx, ky);
+          if (k > 0) {
+            tx = EDGE_CLEAR + band.left + k * R + ((w - 2 * EDGE_CLEAR) - (2 * k * R + band.left + band.right)) / 2;
+            ty = EDGE_CLEAR + band.top + k * R + ((h - EDGE_CLEAR - foot) - (2 * k * R + band.top + band.bottom)) / 2;
+          }
+        } else if (outer && room > 40) {
+          k = Math.min(k, room / (outer + 6));
+        }
       }
       k = Math.max(0.001, k);
       fittedScale = k;
       viewIsFitted = true;
       viewWidth = w; viewHeight = h;
       view.k = k;
-      view.tx = w / 2 - k * (minX + maxX) / 2;
-      view.ty = h / 2 - k * (minY + maxY) / 2;
+      view.tx = tx !== null ? tx : w / 2 - k * (minX + maxX) / 2;
+      view.ty = ty !== null ? ty : h / 2 - k * (minY + maxY) / 2;
+    }
+
+    // How far below the canvas the card's caption row (the key and the
+    // buttons) begins, in pixels; 0 where the canvas has no such row.
+    function footGap() {
+      var row = stage.querySelector ? stage.querySelector('.home-universe__caption') : null;
+      if (!row || typeof row.getBoundingClientRect !== 'function' || typeof canvas.getBoundingClientRect !== 'function') return 0;
+      var top = Infinity;
+      Array.prototype.forEach.call(row.querySelectorAll ? row.querySelectorAll('a, .universe-key, .universe-caption') : [], function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.height > 0) top = Math.min(top, r.top);
+      });
+      var bottom = canvas.getBoundingClientRect().bottom;
+      return isFinite(top) && isFinite(bottom) ? Math.max(0, top - bottom) : 0;
+    }
+    // The problems' orbit, in the layout's units.
+    function orbitRadius() {
+      var orbit = 0, count = 0;
+      for (var pid in problemIndex) {
+        var p = nodes[problemIndex[pid]];
+        if (p) { orbit += Math.sqrt(p.x * p.x + p.y * p.y); count++; }
+      }
+      return count ? orbit / count : 0;
+    }
+    /* The names inside the teaser's ring (the problems, the core, the
+       checkers) are set to the ring: 15px where the orbit is wide, down to
+       13px where a short card holds the ring small, so all eight numbers,
+       the core and both checkers keep their names. At 15px a 1280 by 690
+       window lost three of them. Nothing on the field is under 12px. */
+    function fitInteriorType() {
+      if (pageMode) return;
+      var size = Math.max(13, Math.min(15, Math.round(orbitRadius() * view.k * 0.118)));
+      if (size === TYPE.anchor) return;
+      TYPE.anchor = size;
+      TYPE.sub = Math.max(12, size - 2);
+      TYPE.subGap = TYPE.sub + 2;
+      TYPE.below = size + 2;
     }
 
     /* ---- Camera ------------------------------------------------------ */
@@ -429,6 +644,11 @@
        times in a 1.2s sweep). Name plates follow the pointer at once.
        Skipped under reduced motion. */
     var FOCUS_IN = 180, FOCUS_HOLD = 140, FOCUS_OUT = 220;
+    /* When the landing's column lets the drawing go (it closes, or lets a
+       kept result go), no pointer is sweeping between dots, so nothing is
+       held: the field comes back in LET_GO, on the same beat as the column
+       fading out, rather than a quarter of a second after it. */
+    var LET_GO = 160, letGoNow = false;
     var focusMix = 1, focusWas = -1, focusFrame = 0, focusFade = null, focusHeld = -1;
     function fadeFocus(to, dur, delay) {
       if (reduceMotion || !window.requestAnimationFrame) {
@@ -464,8 +684,10 @@
         fadeFocus(1, FOCUS_IN * (1 - focusMix), 0);
       } else if (focus < 0 && focusWas >= 0) {
         focusHeld = focusWas;
-        fadeFocus(0, FOCUS_OUT, FOCUS_HOLD);
+        if (letGoNow) fadeFocus(0, LET_GO * focusMix, 0);
+        else fadeFocus(0, FOCUS_OUT, FOCUS_HOLD);
       }
+      letGoNow = false;
       if (focus !== focusWas) {
         // A selection plays its moment once; focus returning to it after a
         // hover elsewhere does not play it again.
@@ -611,8 +833,10 @@
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1;
     }
-    // Over the marks: the ripple, the beads, and Comparator's answer.
-    function drawPulse(focus, threads, rs) {
+    // Over the marks: the ripple, the beads, and Comparator's answer. A
+    // bead runs along its thread's route where the thread was routed round
+    // the words between its ends.
+    function drawPulse(focus, threads, rs, routes) {
       if (focus < 0 || pulse.at !== focus || pulse.ms >= PULSE_END) return;
       var n = nodes[focus];
       var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
@@ -633,22 +857,23 @@
         if (p <= 0 || p >= 1) return;
         var m = nodes[th.other];
         var mx = m.x * view.k + view.tx, my = m.y * view.k + view.ty;
+        var path = routes && routes[th.other] && routes[th.other].points.length > 1 ? routes[th.other].points : [[x, y], [mx, my]];
         var fade = Math.min(1, p * 6, (1 - p) * 6);
         var q = easeInOut(p);
-        var bx = x + (mx - x) * q, by = y + (my - y) * q;
+        var bead = alongRoute(path, q);
         // The tail is three fading dots, in the map's own language of marks.
         ctx.fillStyle = color;
         for (var d = 3; d >= 1; d--) {
-          var qd = easeInOut(Math.max(0, p - d * 0.035));
+          var tail = alongRoute(path, easeInOut(Math.max(0, p - d * 0.035)));
           ctx.globalAlpha = fade * (0.56 - d * 0.14);
           ctx.beginPath();
-          ctx.arc(x + (mx - x) * qd, y + (my - y) * qd, Math.max(0.7, (2.2 - d * 0.4) * size), 0, Math.PI * 2);
+          ctx.arc(tail[0], tail[1], Math.max(0.7, (2.2 - d * 0.4) * size), 0, Math.PI * 2);
           ctx.fill();
         }
         ctx.globalAlpha = fade;
         ctx.fillStyle = darkGround ? palette.ink : color;
         ctx.beginPath();
-        ctx.arc(bx, by, 2.2 * size, 0, Math.PI * 2);
+        ctx.arc(bead[0], bead[1], 2.2 * size, 0, Math.PI * 2);
         ctx.fill();
       });
       // A replayed result's bead reaches Comparator, which answers with one
@@ -937,12 +1162,25 @@
        dot's place in the band and its place in its paper read as the same
        result, however far round the sector the two stand. It is laid under
        the marks, which stand over it, and walks with the cursor. */
-    function drawCursor(rs) {
-      if (!scaleR || cursor.alpha <= 0.01) return;
+    // The cursor's bar across the scale, [x0, y0, x1, y1], while it shows.
+    function cursorBar() {
+      if (!scaleR || cursor.alpha <= 0.01) return null;
       var R = seatedScaleR();
       var c = Math.cos(cursor.angle), s = Math.sin(cursor.angle);
-      var x0 = view.tx + c * (R - 4), y0 = view.ty + s * (R - 4);
-      var x1 = view.tx + c * (R + SCALE_MARK), y1 = view.ty + s * (R + SCALE_MARK);
+      return [view.tx + c * (R - 4), view.ty + s * (R - 4), view.tx + c * (R + SCALE_MARK), view.ty + s * (R + SCALE_MARK)];
+    }
+    // Its room, taken when the frame is placed, so a reticle corner gives
+    // way to it.
+    function cursorRoom() {
+      var bar = cursorBar();
+      if (!bar) return null;
+      return { x0: Math.min(bar[0], bar[2]) - 2, x1: Math.max(bar[0], bar[2]) + 2,
+               y0: Math.min(bar[1], bar[3]) - 2, y1: Math.max(bar[1], bar[3]) + 2, owner: -2 };
+    }
+    function drawCursor(rs) {
+      var bar = cursorBar();
+      if (!bar) return;
+      var x0 = bar[0], y0 = bar[1], x1 = bar[2], y1 = bar[3];
       var m = cursor.of >= 0 ? nodes[cursor.of] : null;
       if (m && visible(m)) {
         var mx = m.x * view.k + view.tx, my = m.y * view.k + view.ty;
@@ -961,9 +1199,6 @@
           ctx.setLineDash([]);
         }
       }
-      // Its room is taken, so a reticle corner gives way to it.
-      labelBoxes.push({ x0: Math.min(x0, x1) - 2, x1: Math.max(x0, x1) + 2,
-                        y0: Math.min(y0, y1) - 2, y1: Math.max(y0, y1) + 2, owner: -2 });
       ctx.lineCap = 'butt';
       ctx.globalAlpha = cursor.alpha;
       ctx.strokeStyle = palette.ground;
@@ -1022,8 +1257,11 @@
         var x0 = snapX(t.x - size), x1 = snapX(t.x + size), y0 = snapY(t.y - size), y1 = snapY(t.y + size);
         var ax = Math.max(hairX * 4, snapX(Math.max(3, Math.min(8, size * 0.3)))),
             ay = Math.max(hairY * 4, snapY(Math.max(3, Math.min(8, size * 0.3))));
-        ctx.globalAlpha = e * (t.at === selected ? 0.92 : 0.72);
-        ctx.fillStyle = palette.ink;
+        // On the landing a kept result's frame is ember, quiet and plain
+        // beside the ink frame of whatever the pointer is on.
+        var kept = !pageMode && t.at === selected;
+        ctx.globalAlpha = e * (t.at === selected ? (kept ? 0.95 : 0.92) : 0.72);
+        ctx.fillStyle = kept ? palette.ember : palette.ink;
         // Each corner is one horizontal and one vertical run that meet
         // without overlapping, so no corner pixel is inked twice.
         [[x0, y0, 1, 1], [x1, y0, -1, 1], [x0, y1, 1, -1], [x1, y1, -1, -1]].forEach(function (c) {
@@ -1040,10 +1278,10 @@
       });
     }
     // A leader, as runs of hairline: [x0, y0, x1, y1] each, level or upright.
-    function drawLeader(runs, alpha) {
+    function drawLeader(runs, alpha, color) {
       if (!runs || !runs.length || alpha <= 0.01) return;
       ctx.globalAlpha = alpha;
-      ctx.fillStyle = palette.ink;
+      ctx.fillStyle = color || palette.ink;
       for (var j = 0; j < runs.length; j++) {
         var run = runs[j];
         if (run[1] === run[3]) {
@@ -1341,12 +1579,14 @@
     /* A claim's glyph is its status. Rings are filled with the paper colour
        so the edges beneath do not read as marks inside them. */
     function drawGlyph(x, y, r, color, tier) {
+      // A mark that has dropped back is drawn in its own ink, faded (shade).
+      color = shade(color);
       if (tier === 'ordinary_proof') {
         ctx.beginPath();
         ctx.moveTo(x, y - r * 1.25); ctx.lineTo(x + r * 1.25, y);
         ctx.lineTo(x, y + r * 1.25); ctx.lineTo(x - r * 1.25, y);
         ctx.closePath(); ctx.fillStyle = palette.ground; ctx.fill();
-        ctx.strokeStyle = palette.paper || color; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.strokeStyle = palette.paper ? shade(palette.paper) : color; ctx.lineWidth = 1.4; ctx.stroke();
         return;
       }
       ctx.beginPath();
@@ -1575,6 +1815,7 @@
        in ink: colour on the field stays with the evidence, and the only
        colour a problem carries is its own evidence ring. */
     function drawProblemMark(n, x, y, r, ink, withRing) {
+      ink = shade(ink);
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fillStyle = palette.ground;
@@ -1605,7 +1846,7 @@
         key = EVIDENCE_ORDER[j];
         if (!b.evidence[key]) continue;
         var to = at + Math.PI * 2 * b.evidence[key] / total;
-        ctx.strokeStyle = evidenceColor(key);
+        ctx.strokeStyle = shade(evidenceColor(key));
         var keepAlpha = ctx.globalAlpha;
         ctx.globalAlpha = keepAlpha * EVIDENCE_GAUGE_ALPHA[key];
         ctx.beginPath();
@@ -1833,53 +2074,96 @@
     /* The band titles are laid out at the start of a frame, before the name
        plates are placed, so a plate can keep clear of them; they are drawn
        later, after the plates have taken their room. */
+    // On the teaser a title within this angle of three or nine o'clock is
+    // set level, out beside the scale, rather than turned on its side along
+    // the ring, where its letters would lie at ninety degrees.
+    var SIDE_COS = Math.cos(22.5 * Math.PI / 180), SIDE_GAP = 6;
+    function sideOf(mid) {
+      if (pageMode) return 0;
+      var c = Math.cos(mid);
+      return c >= SIDE_COS ? 1 : c <= -SIDE_COS ? -1 : 0;
+    }
+    // A band's two lines of words. Said as words, never as a fraction:
+    // "20 of 20" on a small ring, whose centre reads "616 of 689 replayed"
+    // beside Comparator, and "20 of 20 replayed" where the name has room.
+    function bandWords(b, narrow) {
+      var total = 0;
+      for (var key in b.evidence) total += b.evidence[key];
+      return { title: b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '',
+               count: (b.evidence.replayed || 0) + ' of ' + total + (narrow ? '' : ' replayed') };
+    }
+    // How far the teaser's words reach past the ring's outer plate on each
+    // side, in pixels, for the fit: the arc titles' two lines beyond the
+    // scale, and the level titles at the sides, measured in their own face.
+    function titleExtents() {
+      var arc = SCALE_GAP + SCALE_MARK + 4 + TYPE.title / 2 + TYPE.rowGap + TYPE.title / 2;
+      var out = { top: arc, bottom: arc, left: arc, right: arc };
+      bands.forEach(function (b) {
+        var side = sideOf((b.lo + b.hi) / 2);
+        if (!side) return;
+        var words = bandWords(b, true);
+        ctx.font = face(600, TYPE.title);
+        var width = words.title ? ctx.measureText(words.title).width : 0;
+        ctx.font = face(400, TYPE.count);
+        width = Math.max(width, ctx.measureText(words.count).width);
+        var reach = SCALE_GAP + SCALE_MARK + SIDE_GAP + width;
+        if (side > 0) out.right = Math.max(out.right, reach);
+        else out.left = Math.max(out.left, reach);
+      });
+      return out;
+    }
     function bandLabelLayout(focus, w, h) {
       if (!bands.length || lensOff.paper_statement) return [];
       if (!pageMode && w < 520) return [];
       var k = view.k;
       var items = [];
-      // A narrow field, or a ring drawn small (the teaser), keeps the number
-      // and a compact count: full names would run into each other. The ring
+      // A narrow field, or a ring drawn small, keeps the number and a
+      // compact count: full names would run into each other. The ring
       // decides once, by its smallest band, so one title never reads in a
-      // different style from its neighbours.
+      // different style from its neighbours. The teaser always does: the
+      // column beside it names every problem in full.
       var innermost = Infinity;
       for (var r0 = 0; r0 < bands.length; r0++) {
         var outer = bandRadii(bands[r0])[1];
         if (isFinite(outer)) innermost = Math.min(innermost, outer);
       }
-      var narrow = w < 560 || innermost * k < 220;
+      var narrow = !pageMode || w < 560 || innermost * k < 220;
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i], radii = bandRadii(b);
         if (!isFinite(radii[1])) continue;
         var state = bandState(b, focus);
         if (state === 'off') continue;
-        var total = 0;
-        for (var key in b.evidence) total += b.evidence[key];
         // A clear gap between the plate's edge and the first line of text;
         // with the scale drawn, every title stands outside it, all on one
-        // circle.
-        var base = Math.max((radii[1] + 6) * k + 15, scaleR ? scaleR + SCALE_MARK + 7 : 0);
-        // Said as words, never as a fraction: "20 of 20" on a small ring,
-        // whose centre reads "616 of 689 replayed" beside Comparator, and
-        // "20 of 20 replayed" where the full name has room.
-        var count = { text: (b.evidence.replayed || 0) + ' of ' + total + (narrow ? '' : ' replayed'),
-                      font: '400 11px ' + SERIF, color: palette.muted, alpha: 1 };
-        var titleText = b.title ? (narrow ? b.title.split(' ')[0] : b.title) : '';
+        // circle. On the teaser the first line's middle stands half its
+        // height and four pixels out from the tick ends, so its larger
+        // letters clear them.
+        var lift = SCALE_MARK + 4 + TYPE.title / 2;
+        var base = pageMode ? Math.max((radii[1] + 6) * k + 15, scaleR ? scaleR + SCALE_MARK + 7 : 0) :
+          Math.max((radii[1] + 6) * k + SCALE_GAP + lift, scaleR ? scaleR + lift : 0);
+        var words = bandWords(b, narrow);
+        var count = { text: words.count, font: face(400, TYPE.count), color: palette.muted, alpha: 1 };
         // A count never stands without its problem's number: wherever the
         // band labels show, so does the title, short on a narrow field.
-        var title = titleText ?
-          { text: titleText, font: '600 12px ' + SERIF, color: palette.ink, alpha: state === 'on' ? 1 : 0.86 } : null;
-        items.push({ band: b, base: base, mid: (b.lo + b.hi) / 2, count: count, title: title });
+        var title = words.title ?
+          { text: words.title, font: face(600, TYPE.title), color: palette.ink, alpha: state === 'on' ? 1 : 0.86 } : null;
+        var mid = (b.lo + b.hi) / 2;
+        items.push({ band: b, base: base, mid: mid, side: sideOf(mid), count: count, title: title });
       }
-      // Each label's half-width as an angle at its radius.
+      // Each label's half-width as an angle at its radius; a level title
+      // takes its height along the ring instead.
       function halfSpan(item) {
+        if (item.side) {
+          var tall = (item.title ? TYPE.rowGap : 0) + (TYPE.title + TYPE.count) / 2;
+          return (tall / 2 + 4) / item.base;
+        }
         ctx.font = item.count.font;
         var width = ctx.measureText(item.count.text).width;
         if (item.title) {
           ctx.font = item.title.font;
           width = Math.max(width, ctx.measureText(item.title.text).width);
         }
-        return width / (2 * (item.base + 13)) + 0.02;
+        return width / (2 * (item.base + TYPE.rowGap)) + 0.02;
       }
       items.sort(function (a, b) { return a.mid - b.mid; });
       // Relax overlaps into the gaps between bands before giving anything up.
@@ -1903,26 +2187,80 @@
         }
       }
       return items.map(function (item) {
+        if (item.side) return levelTitle(item);
         var lower = readsDownward(item.mid);
         // Reading downward the name sits inside the count; upward, outside.
         var rows = item.title ? (lower ? [item.title, item.count] : [item.count, item.title]) : [item.count];
         return { mid: item.mid, lower: lower, rows: rows.map(function (row, li) {
-          return { row: row, radius: item.base + li * 13, box: arcRunBox(row, item.base + li * 13, item.mid) };
+          var radius = item.base + li * TYPE.rowGap;
+          return { row: row, radius: radius, box: arcRunBox(row, radius, item.mid),
+                   boxes: pageMode ? null : arcRunBoxes(row, radius, item.mid) };
         }) };
+      });
+    }
+    /* A title at three or nine o'clock, set level: the problem's number over
+       its count, flush toward the ring, its column standing SIDE_GAP clear
+       of the scale's tick ends over the whole height of its two lines. */
+    function levelTitle(item) {
+      var rows = item.title ? [item.title, item.count] : [item.count];
+      var first = view.ty + item.base * Math.sin(item.mid) - (rows.length - 1) * TYPE.rowGap / 2;
+      var top = first - TYPE.title / 2, bottom = first + (rows.length - 1) * TYPE.rowGap + TYPE.count / 2;
+      var clearR = (scaleR || item.base - SCALE_MARK - 4 - TYPE.title / 2) + SCALE_MARK + SIDE_GAP;
+      var dy = (top - view.ty) * (bottom - view.ty) <= 0 ? 0 :
+        Math.min(Math.abs(top - view.ty), Math.abs(bottom - view.ty));
+      var x = view.tx + item.side * Math.sqrt(Math.max(0, clearR * clearR - dy * dy));
+      return { mid: item.mid, side: item.side, rows: rows.map(function (row, li) {
+        ctx.font = row.font;
+        var width = ctx.measureText(row.text).width, y = first + li * TYPE.rowGap;
+        var size = row === item.title ? TYPE.title : TYPE.count;
+        var x0 = item.side > 0 ? x : x - width;
+        return { row: row, x: x, y: y, align: item.side > 0 ? 'left' : 'right',
+                 box: { x0: x0 - 3, x1: x0 + width + 3, y0: y - size / 2 - 2, y1: y + size / 2 + 2 } };
+      }) };
+    }
+    // Every band title's room is taken when the frame is placed, before
+    // anything is drawn; a title under a name plate keeps its room.
+    // The title lines' whole boxes in this frame: a thread is routed round
+    // these (a few corners), while labels and the sector's index keep to
+    // the finer chain along the letters.
+    var titleRooms = [];
+    function placeBandLabels(layout) {
+      titleRooms = [];
+      layout.forEach(function (item) {
+        item.rows.forEach(function (r) {
+          titleRooms.push(r.box);
+          if (r.boxes) {
+            r.boxes.forEach(function (b) { b.seg = true; labelBoxes.push(b); });
+          } else labelBoxes.push(r.box);
+        });
       });
     }
     function drawBandLabels(layout) {
       layout.forEach(function (item) {
         // Under a name plate both lines step aside together. Their room
         // stays taken, so no other label moves while the reader points.
-        var covered = item.rows.some(function (r) { return underPlate(r.box); });
+        var covered = item.rows.some(function (r) { return (r.boxes || [r.box]).some(underPlate); });
+        if (covered) return;
         item.rows.forEach(function (r) {
-          if (covered) labelBoxes.push(r.box);
+          if (item.side) drawLevelText(r);
           else drawArcText(r.row, r.radius, item.mid, item.lower);
         });
       });
       ctx.textBaseline = 'alphabetic';
       ctx.textAlign = 'center';
+    }
+    function drawLevelText(r) {
+      ctx.font = r.row.font;
+      ctx.textAlign = r.align;
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      ctx.globalAlpha = r.row.alpha * revealAlpha(4);
+      ctx.strokeStyle = palette.ground;
+      ctx.strokeText(r.row.text, r.x, r.y);
+      ctx.fillStyle = r.row.color;
+      ctx.fillText(r.row.text, r.x, r.y);
+      ctx.globalAlpha = 1;
     }
 
     /* Upright text along a circle about the field's centre, centred on an
@@ -1974,78 +2312,82 @@
         }
       }
       ctx.globalAlpha = 1;
-      labelBoxes.push(arcRunBox(row, radius, mid));
+    }
+    // A run's room as a chain of small boxes along its letters. One box
+    // round a run set diagonally is mostly empty corner, and a name that
+    // fell in that corner was left out for nothing.
+    function arcRunBoxes(row, radius, mid) {
+      ctx.font = row.font;
+      var span = arcLetters(row.text).width / radius, pad = TYPE.arcPad;
+      var steps = Math.max(1, Math.ceil(span * radius / pad));
+      var out = [];
+      for (var e = 0; e <= steps; e++) {
+        var a = mid - span / 2 + span * e / steps;
+        var ex = view.tx + radius * Math.cos(a), ey = view.ty + radius * Math.sin(a);
+        out.push({ x0: ex - pad, x1: ex + pad, y0: ey - pad, y1: ey + pad });
+      }
+      return out;
     }
     // A run's box, from its two ends and its middle, so later labels keep
-    // clear of it.
+    // clear of it (its room is taken when the frame is placed).
     function arcRunBox(row, radius, mid) {
       ctx.font = row.font;
-      var span = arcLetters(row.text).width / radius;
+      var span = arcLetters(row.text).width / radius, pad = TYPE.arcPad;
       var ends = [mid - span / 2, mid, mid + span / 2];
       var box = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
       for (var e = 0; e < ends.length; e++) {
         var ex = view.tx + radius * Math.cos(ends[e]), ey = view.ty + radius * Math.sin(ends[e]);
-        box.x0 = Math.min(box.x0, ex - 7); box.x1 = Math.max(box.x1, ex + 7);
-        box.y0 = Math.min(box.y0, ey - 7); box.y1 = Math.max(box.y1, ey + 7);
+        box.x0 = Math.min(box.x0, ex - pad); box.x1 = Math.max(box.x1, ex + pad);
+        box.y0 = Math.min(box.y0, ey - pad); box.y1 = Math.max(box.y1, ey + pad);
       }
       return box;
     }
 
-    function drawCaptions(focus, w, h) {
-      var i;
-      /* A shared block must remain named in the fitted overview. Its
-         compact callout sits beyond the band titles, on the shared edge
-         between the two sectors; the line runs from the block out along
-         that edge, an annotation and not a graph relationship. */
-      ctx.textBaseline = 'middle';
-      for (i = 0; i < captions.length; i++) {
+    /* A shared block must remain named in the fitted overview. Its compact
+       callout sits beyond the band titles, on the shared edge between the
+       two sectors; the line runs from the block out along that edge, an
+       annotation and not a graph relationship. Its place is decided when
+       the frame is placed, after the band titles and before the anchors'
+       names; it is drawn over the dots, so a band never covers it. */
+    function placeCaptions(focus, w, h) {
+      var out = [];
+      for (var i = 0; i < captions.length; i++) {
         var c = captions[i];
         var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
         if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
         if (view.k < 1.1) {
-          var compactText = c.text.replace(/^shared by /, 'Shared claims: ');
-          ctx.font = '600 10px ' + SERIF;
-          var captionHalf = ctx.measureText(compactText).width / 2 + 6;
-          // Leave the right-hand zoom controls their own column.
-          var captionRight = Math.max(captionHalf, w - 74 - captionHalf);
+          var text = c.text.replace(/^shared by /, 'Shared claims: ');
+          ctx.font = face(600, TYPE.callout);
+          var half = ctx.measureText(text).width / 2 + 6, rise = TYPE.callout / 2 + 3;
+          // Leave the map page's zoom controls their own column; on the
+          // landing keep the words EDGE_CLEAR from the frame.
+          var left = pageMode ? half : EDGE_CLEAR + half - 6;
+          var right = pageMode ? Math.max(half, w - 74 - half) : w - EDGE_CLEAR - half + 6;
+          var top = pageMode ? 14 : EDGE_CLEAR + rise, bottom = pageMode ? h - 14 : h - EDGE_CLEAR - rise;
           var cr = Math.sqrt(c.x * c.x + c.y * c.y) || 1;
           var dx = c.x / cr, dy = c.y / cr;
           var bandOuter = 0;
           for (var bi = 0; bi < bands.length; bi++) bandOuter = Math.max(bandOuter, bandRadii(bands[bi])[1] || 0);
           var fromR = c.reach ? c.reach + 6 : cr * 1.8;
           var toR = bandOuter ? bandOuter + 58 : cr * 2.35;
-          var calloutX = Math.max(captionHalf, Math.min(captionRight, dx * toR * view.k + view.tx));
-          var calloutY = Math.max(14, Math.min(h - 14, dy * toR * view.k + view.ty + 8));
+          var x = Math.max(left, Math.min(right, dx * toR * view.k + view.tx));
+          var y = Math.max(top, Math.min(bottom, dy * toR * view.k + view.ty + 8));
           // The band titles are already placed. Pushed off its own edge by
           // the zoom controls, the name steps up or down until it clears them.
-          var shifts = [0, 16, -16, 32, -32, 48, -48];
+          var step = 2 * rise, shifts = [0, step, -step, 2 * step, -2 * step, 3 * step, -3 * step];
           for (var sh = 0; sh < shifts.length; sh++) {
-            var tryY = Math.max(14, Math.min(h - 14, calloutY + shifts[sh]));
-            if (!labelCollides({ x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: tryY - 8, y1: tryY + 8 })) {
-              calloutY = tryY;
+            var tryY = Math.max(top, Math.min(bottom, y + shifts[sh]));
+            if (!labelCollides({ x0: x - half, x1: x + half, y0: tryY - rise, y1: tryY + rise })) {
+              y = tryY;
               break;
             }
           }
-          var calloutBox = { x0: calloutX - captionHalf, x1: calloutX + captionHalf, y0: calloutY - 8, y1: calloutY + 8 };
-          labelBoxes.push(calloutBox);
+          var box = { x0: x - half, x1: x + half, y0: y - rise, y1: y + rise };
+          labelBoxes.push(box);
           // Under a name plate the callout and its line step aside together.
-          if (underPlate(calloutBox)) continue;
-          ctx.globalAlpha = 0.85 * revealAlpha(4);
-          ctx.strokeStyle = palette.faint;
-          ctx.lineWidth = 0.65;
-          ctx.setLineDash([2, 3]);
-          ctx.beginPath();
-          ctx.moveTo(dx * fromR * view.k + view.tx, dy * fromR * view.k + view.ty);
-          ctx.lineTo(calloutX, calloutY - 8);
-          ctx.stroke();
-          ctx.setLineDash([]);
-          ctx.textAlign = 'center';
-          ctx.lineWidth = 3.5;
-          ctx.strokeStyle = palette.ground;
-          ctx.strokeText(compactText, calloutX, calloutY);
-          ctx.fillStyle = palette.ink;
-          ctx.fillText(compactText, calloutX, calloutY);
-          ctx.globalAlpha = 1;
+          if (underPlate(box)) continue;
+          out.push({ compact: true, caption: c, text: text, x: x, y: y, rise: rise,
+                     from: [dx * fromR * view.k + view.tx, dy * fromR * view.k + view.ty] });
           continue;
         }
         labelBoxes.push({ x0: cx - 90, x1: cx + 90, y0: cy - 16, y1: cy + 14 });
@@ -2059,7 +2401,42 @@
         var textLeft = align === 'left' ? cx : align === 'right' ? cx - textWidth : cx - textWidth / 2;
         if (underPlate({ x0: textLeft - 2, x1: textLeft + textWidth + 2,
                          y0: cy - (c.sub ? 16 : 9), y1: cy + (c.sub ? 15 : 7) })) continue;
-        ctx.textAlign = align;
+        out.push({ compact: false, caption: c, x: cx, y: cy, align: align });
+      }
+      return out;
+    }
+    function drawCaptions(plan, focus) {
+      ctx.textBaseline = 'middle';
+      plan.forEach(function (p) {
+        var c = p.caption;
+        if (p.compact) {
+          // With a problem of its own in focus elsewhere, the callout drops
+          // back with the field.
+          var f = focus >= 0 ? nodes[focus] : null;
+          var pair = String(c.sector || '').split('+');
+          var related = !f || !f.sector || f.kind === 'universe' || f.kind === 'integration_surface' ||
+            sectorProblems(f).some(function (pid) { return pair.indexOf(pid) !== -1; });
+          ctx.globalAlpha = 0.85 * revealAlpha(4) * (related || pageMode ? 1 : 1 - 0.45 * focusMix);
+          ctx.strokeStyle = palette.faint;
+          ctx.lineWidth = 0.65;
+          ctx.setLineDash([2, 3]);
+          ctx.beginPath();
+          ctx.moveTo(p.from[0], p.from[1]);
+          ctx.lineTo(p.x, p.y - p.rise);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.font = face(600, TYPE.callout);
+          ctx.textAlign = 'center';
+          ctx.lineWidth = 3.5;
+          ctx.strokeStyle = palette.ground;
+          ctx.strokeText(p.text, p.x, p.y);
+          ctx.fillStyle = palette.ink;
+          ctx.fillText(p.text, p.x, p.y);
+          ctx.globalAlpha = 1;
+          return;
+        }
+        var cx = p.x, cy = p.y;
+        ctx.textAlign = p.align;
         ctx.globalAlpha = (focus >= 0 ? 0.45 : 0.85) * revealAlpha(4);
         // Captions sit on the same paper halo as the node labels, so they
         // stay legible where they cross a ring of claims.
@@ -2076,7 +2453,7 @@
           ctx.fillText(c.sub, cx, cy + 8);
         }
         ctx.globalAlpha = 1;
-      }
+      });
       ctx.textBaseline = 'alphabetic';
     }
 
@@ -2096,7 +2473,10 @@
        reader needs, the other marks of the field included: a plate laid
        over a band hides the very results it sits among. */
     var LEAD_RISE = 9, LEAD_RUN = 10, LEAD_GAP = 1.5;
-    var PLATE_FONT = '500 12px ' + SERIF, PLATE_LEAD = 14.5, PLATE_ONE_LINE = 300, LINE_COST = [0, 30, 250];
+    var PLATE_FONT = face(500, TYPE.plate), PLATE_LEAD = TYPE.lead, PLATE_ONE_LINE = TYPE.oneLine, LINE_COST = [0, 30, 250];
+    // A plate's box above and below its first baseline, and the text's inset
+    // from the box's side.
+    var PLATE_UP = TYPE.ascent, PLATE_DOWN = TYPE.descent, PLATE_PAD = 9;
     // A name's balanced breaks into two and into three lines (the widest
     // line as narrow as it can be), measured once per name in the plate's
     // face.
@@ -2163,15 +2543,15 @@
         // weighs least, since it steps aside and keeps its room.
         out.push({ x0: x - r - 4, x1: x + r + 4, y0: y - r - 4, y1: y + r + 4, weight: 6 });
         out.push({ x0: x - r - 9, x1: x + r + 9, y0: y - r - 9, y1: y + r + 9, weight: 1 });
-        ctx.font = '600 13px ' + SERIF;
+        ctx.font = face(600, TYPE.anchor);
         var text = anchorText(n, w, false);
         var half = ctx.measureText(text).width / 2 + 6;
-        var spot = n.kind === 'problem' ? problemLabelSpot(n, x, y, half, rs, w) : [x, y + r + 15];
-        out.push({ x0: spot[0] - half, x1: spot[0] + half, y0: spot[1] - 14, y1: spot[1] + 5, weight: 3, whole: true });
+        var spot = n.kind === 'problem' ? problemLabelSpot(n, x, y, half, rs, w) : [x, y + r + TYPE.below];
+        out.push({ x0: spot[0] - half, x1: spot[0] + half, y0: spot[1] - TYPE.anchor - 1, y1: spot[1] + 5, weight: 3, whole: true });
         if (n.sub && n.kind !== 'problem') {
-          ctx.font = '400 11px ' + SERIF;
+          ctx.font = face(400, TYPE.sub);
           var sub = ctx.measureText(clip(n.sub, 36)).width / 2 + 4;
-          out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + 18, weight: 2, whole: true });
+          out.push({ x0: x - sub, x1: x + sub, y0: spot[1] + 2, y1: spot[1] + TYPE.subGap + 5, weight: 2, whole: true });
         }
       }
       if (!pageMode) {
@@ -2224,11 +2604,11 @@
           // caption (#257's did, at the foot of the core), so that room is
           // kept.
           var zx = n.x * view.k + view.tx, zy = n.y * view.k + view.ty, zr = n.r * rs;
-          ctx.font = '600 13px ' + SERIF;
+          ctx.font = face(600, TYPE.anchor);
           var zw = ctx.measureText(n.shortLabel || '').width;
-          if (n.sub) { ctx.font = '400 11px ' + SERIF; zw = Math.max(zw, ctx.measureText(n.sub).width); }
+          if (n.sub) { ctx.font = face(400, TYPE.sub); zw = Math.max(zw, ctx.measureText(n.sub).width); }
           frameCaptionZones.push({ x0: zx - zw / 2 - 12, x1: zx + zw / 2 + 12,
-                                   y0: zy - zr - 8, y1: zy + zr + 19 + (n.sub ? 13 : 0) + 12 });
+                                   y0: zy - zr - 8, y1: zy + zr + TYPE.below + 4 + (n.sub ? TYPE.subGap : 0) + 12 });
         }
       }
     }
@@ -2244,20 +2624,46 @@
       }
       return count;
     }
+    // Every place a problem's name may take, the best first: the fewest
+    // glyphs covered, then the order tried. The label manager falls back
+    // along them when the first is taken by a name already placed (on a
+    // small field "#68" lost its one place to "#1049" by four pixels).
+    function problemLabelSpots(n, px, py, half, rs, w) {
+      var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
+      var ux = n.x / distance, uy = n.y / distance;
+      var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
+      var halfTall = pageMode ? 8 : TYPE.anchor * 0.63, drop = pageMode ? 4 : TYPE.anchor / 3;
+      var spots = [];
+      for (var d = 0; d < dirs.length; d++) {
+        for (var step = 0; step < 2; step++) {
+          var dx = dirs[d][0], dy = dirs[d][1];
+          var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + halfTall * Math.abs(dy) + step * 16;
+          var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + drop;
+          var textHalf = half - 6;
+          var hits = glyphHits({ x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - TYPE.anchor, y1: cyp + 5 });
+          spots.push({ at: [cxp, cyp], hits: hits, order: spots.length });
+        }
+      }
+      spots.sort(function (a, b) { return a.hits - b.hits || a.order - b.order; });
+      return spots.map(function (s) { return s.at; });
+    }
     function problemLabelSpot(n, px, py, half, rs, w) {
       var distance = Math.sqrt(n.x * n.x + n.y * n.y) || 1;
       var ux = n.x / distance, uy = n.y / distance;
       var dirs = [[-ux, -uy], [-uy, ux], [uy, -ux], [ux, uy]];
       var chosen = null, fewest = Infinity;
+      // Half the name's height, and how far its baseline sits below its
+      // middle, in the face the anchors are lettered in.
+      var halfTall = pageMode ? 8 : TYPE.anchor * 0.63, drop = pageMode ? 4 : TYPE.anchor / 3;
       // Each side at the disc's edge first, then one step out, past the
       // paper that sits on the orbit beside it.
       search: for (var d = 0; d < dirs.length; d++) {
         for (var step = 0; step < 2; step++) {
           var dx = dirs[d][0], dy = dirs[d][1];
-          var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + 8 * Math.abs(dy) + step * 16;
-          var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + 4;
+          var off = n.r * rs + 10 + (half - 6) * Math.abs(dx) + halfTall * Math.abs(dy) + step * 16;
+          var cxp = Math.max(half, Math.min(w - half, px + dx * off)), cyp = py + dy * off + drop;
           var textHalf = half - 6;
-          var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - 13, y1: cyp + 5 };
+          var trial = { x0: cxp - textHalf - 3, x1: cxp + textHalf + 3, y0: cyp - TYPE.anchor, y1: cyp + 5 };
           var hits = glyphHits(trial);
           if (hits < fewest) { fewest = hits; chosen = [cxp, cyp]; }
           if (!hits) break search;
@@ -2286,19 +2692,36 @@
     function namesOnPlate(n) {
       return n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface';
     }
+    /* Beside the problems column the card already reads a result whole,
+       title and all, so its plate on the drawing gives only the paper's own
+       number ("Theorem 14.7"), the tie between the dot and the card, and
+       does not say the same words twice in the same moment. A result the
+       card is not showing (another one is kept there) is named in full. */
+    function plateName(i) {
+      var n = nodes[i];
+      var full = n.kind === 'paper' ? n.label : n.shortLabel;
+      if (pageMode || n.kind !== 'paper_statement' || !companionApi || typeof companionApi.reads !== 'function') return full;
+      if (selected >= 0 && i !== selected) return full;
+      if (!companionApi.reads(n.sector)) return full;
+      var number = splitLabel(n.label).number;
+      return number && number !== n.label ? number : full;
+    }
     function namePlate(i, rs, w, h) {
       var n = nodes[i];
       var habit = i === selected && plateHabit && plateHabit.paper && plateHabit.paper === n.paperId ? plateHabit : null;
       ctx.font = PLATE_FONT;
       // A paper's short name is cut for the ring; on its plate it is whole.
-      var full = n.kind === 'paper' ? n.label : n.shortLabel;
+      var full = plateName(i);
       var fullWidth = ctx.measureText(full).width;
       var words = full.split(' ').length;
-      var two = words > 1 && fullWidth > 160 ? balancedLines(full, 2) : null;
-      var three = words > 2 && fullWidth > 160 ? balancedLines(full, 3) : null;
+      var two = words > 1 && fullWidth > TYPE.twoAt ? balancedLines(full, 2) : null;
+      var three = words > 2 && fullWidth > TYPE.twoAt ? balancedLines(full, 3) : null;
       var mx = n.x * view.k + view.tx, my = n.y * view.k + view.ty;
-      var s = reticleSize(n, rs), gap = s + LEAD_RUN + 9, near = s + LEAD_RISE;
+      var s = reticleSize(n, rs), gap = s + LEAD_RUN + PLATE_PAD, near = s + LEAD_RISE;
       var out = n.y < 0 ? -1 : 1, pref = n.x >= 0 ? 1 : -1;
+      // How close the text may come to the canvas's side: the plate's box
+      // then stands PLATE_EDGE inside it.
+      var E = PLATE_EDGE + PLATE_PAD;
       // The ways a name can be set in a room: one line when it is short
       // enough, two balanced lines when it is long, three in a narrow room;
       // cut only when even three lines will not hold it.
@@ -2307,7 +2730,7 @@
         if (oneFits) list.push({ lines: [full], width: fullWidth, cut: 0 });
         // A short name ("Reciprocal Mersenne Subseries") stays on one line
         // unless its room makes it break.
-        if (two && two.width <= room && (!oneFits || fullWidth > 220)) list.push({ lines: two.lines, width: two.width, cut: 0 });
+        if (two && two.width <= room && (!oneFits || fullWidth > TYPE.keepOne)) list.push({ lines: two.lines, width: two.width, cut: 0 });
         else if (!list.length && three && three.width <= room) list.push({ lines: three.lines, width: three.width, cut: 0 });
         if (!list.length) {
           var cut = cutLines(full, room);
@@ -2320,34 +2743,33 @@
       // A plate's first baseline is y; each further line drops by the lead.
       function make(shape, cx, y) {
         var width = shape.width, extra = (shape.lines.length - 1) * PLATE_LEAD;
-        // The whole plate, padding and edge, stays on the canvas.
-        var x0 = Math.max(11, Math.min(w - width - 11, cx - width / 2));
+        // The whole plate, padding and edge, stays PLATE_EDGE inside the canvas.
+        var x0 = Math.max(E, Math.min(w - width - E, cx - width / 2));
         return { lines: shape.lines, text: shape.lines.join(' '), cut: shape.cut, x: x0 + width / 2, y: y, width: width,
-                 box: { x0: x0 - 9, x1: x0 + width + 9, y0: y - 16, y1: y + 7 + extra, owner: i } };
+                 box: { x0: x0 - PLATE_PAD, x1: x0 + width + PLATE_PAD, y0: y - PLATE_UP, y1: y + PLATE_DOWN + extra, owner: i } };
       }
       // Beside the mark, a little up or down, its near edge a leader's run
       // from the reticle; or hung under or over the mark.
       function beside(side, v) {
-        // The text may come to 11px from the edge: its plate's padding and
-        // edge then stand 2px inside the canvas.
-        var room = side > 0 ? w - 11 - (mx + gap) : mx - gap - 11;
+        var room = side > 0 ? w - E - (mx + gap) : mx - gap - E;
         if (room < 80) return [];
         var mid = my + v * near;
         return shapes(room).map(function (shape) {
-          var half = 11.5 + (shape.lines.length - 1) * PLATE_LEAD / 2;
-          if (mid - half < 2 || mid + half > h - 2) return null;
+          var extra = (shape.lines.length - 1) * PLATE_LEAD;
+          var half = (PLATE_UP + PLATE_DOWN + extra) / 2;
+          if (mid - half < PLATE_EDGE || mid + half > h - PLATE_EDGE) return null;
           // The plate's middle sits level with the leader's run.
-          var p = make(shape, mx + side * (gap + shape.width / 2), mid + 4.5 - (shape.lines.length - 1) * PLATE_LEAD / 2);
+          var p = make(shape, mx + side * (gap + shape.width / 2), mid + (PLATE_UP - PLATE_DOWN - extra) / 2);
           var cx = mx + side * s;
           p.leader = [[cx, my + v * (s + LEAD_GAP), cx, mid], [cx, mid, side > 0 ? p.box.x0 : p.box.x1, mid]];
           return p;
         });
       }
       function hung(v) {
-        return shapes(w - 28).map(function (shape) {
+        return shapes(w - 2 * E - 6).map(function (shape) {
           var extra = (shape.lines.length - 1) * PLATE_LEAD;
-          var y = v > 0 ? my + near + 16 : my - near - 7 - extra;
-          if (y - 16 < 2 || y + 7 + extra > h - 2) return null;
+          var y = v > 0 ? my + near + PLATE_UP : my - near - PLATE_DOWN - extra;
+          if (y - PLATE_UP < PLATE_EDGE || y + PLATE_DOWN + extra > h - PLATE_EDGE) return null;
           var p = make(shape, mx, y);
           p.leader = [[mx, my + v * (s + LEAD_GAP), mx, v > 0 ? p.box.y0 : p.box.y1]];
           return p;
@@ -2371,8 +2793,9 @@
         }
       }
       if (!best) {
-        var fallback = shapes(w - 28)[0];
-        best = make(fallback, mx, Math.min(h - 9 - (fallback.lines.length - 1) * PLATE_LEAD, my + near + 16));
+        var fallback = shapes(w - 2 * E - 6)[0], fallExtra = (fallback.lines.length - 1) * PLATE_LEAD;
+        best = make(fallback, mx, Math.max(PLATE_EDGE + PLATE_UP,
+          Math.min(h - PLATE_EDGE - PLATE_DOWN - fallExtra, my + near + PLATE_UP)));
       }
       if (!best.leader) best.leader = [];
       if (i === selected) plateHabit = { paper: n.paperId || null, t: best.place };
@@ -2458,6 +2881,7 @@
          fitted scale and grow back as the reader zooms in. */
       var rs = radiusScale();
       scaleR = scaleRadius(w);
+      fitInteriorType();
       aimCursor(false);
       labelBoxes = [];
       // The hovered and the selected object name themselves on plates. The
@@ -2502,9 +2926,9 @@
         if (!pn || !visible(pn) || !namesOnPlate(pn)) return;
         var px = pn.x * view.k + view.tx, py = pn.y * view.k + view.ty;
         if (px < -60 || py < -60 || px > w + 60 || py > h + 60) return;
-        // The pinned plate keeps the place it was given until the pin or the
-        // view changes: a hover elsewhere never moves it.
-        var placed, key = k === 0 ? [at, view.k, view.tx, view.ty, w, h, rs].join('|') : null;
+        // The pinned plate keeps the place it was given until the pin, its
+        // name or the view changes: a hover elsewhere never moves it.
+        var placed, key = k === 0 ? [at, view.k, view.tx, view.ty, w, h, rs, plateName(at)].join('|') : null;
         if (key && pinnedPlate && pinnedPlate.key === key) placed = pinnedPlate.placed;
         else placed = namePlate(at, rs, w, h);
         if (key) pinnedPlate = { key: key, placed: placed };
@@ -2517,24 +2941,46 @@
         lead.forEach(function (b) { plateKeepOut.push(weighted(b, 12)); });
       });
 
+      /* Placing. Every word's room is taken before anything is drawn, in
+         the order the words were always lettered: the cursor, the band
+         titles outside the rings, the shared callout, the anchors' discs,
+         then the names by priority. Nothing placed depends on a pixel
+         drawn, so the drawing below can route the lit threads, and the lit
+         sector's index, round the words they would otherwise run through. */
+      var cursorBox = cursorRoom();
+      if (cursorBox) labelBoxes.push(cursorBox);
+      placeBandLabels(titleLayout);
+      var calloutPlan = placeCaptions(focus, w, h);
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (!visible(n)) continue;
+        if (n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface') continue;
+        var ax = n.x * view.k + view.tx, ay = n.y * view.k + view.ty, ar = n.r * rs + 4;
+        labelBoxes.push({ x0: ax - ar, x1: ax + ar, y0: ay - ar, y1: ay + ar, owner: i, disc: true });
+      }
+      var labelPlan = placeLabels(focus, near, searching, rs, w, h, moving);
+
       drawGround(w, h);
-      drawSectorSlice(focus);
+      if (pageMode) drawSectorSlice(focus);
       drawClaimPlates(focus);
       drawBandPlates(focus);
+      if (!pageMode) drawSectorIndex(focus);
       scaleYield = plateBoxes.concat(reticles.map(function (t) { return t.box; }));
       drawScale(focus, w, h);
       drawCursor(rs);
 
       var hot = graph.hot, quiet = graph.quiet;
       drawEdgeSet(quiet, (focus >= 0 ? 0.65 - 0.35 * focusMix : 0.65) * revealAlpha(1), 0.65, palette.edge);
-      drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
+      // On the landing each lit thread is routed round the words it would
+      // cross; the map's page draws them straight.
+      var routes = !pageMode && focus >= 0 && hot.length ? threadRoutes(focus, hot, rs) : null;
+      if (routes) drawThreads(routes);
+      else drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
       drawConstellation(focus);
       var threads = graph.threads;
       drawLight(focus, near, searching, threads, rs, w, h);
-      // The band titles go down first, outside the rings, so every label
-      // placed after them (the shared callout, the node labels) keeps clear.
+      // The band titles go down first, outside the rings.
       drawBandLabels(titleLayout);
-
 
       var shown = 0, seating = reveal < 1;
       for (i = 0; i < nodes.length; i++) {
@@ -2557,7 +3003,14 @@
         alpha *= revealAlpha(revealLayer(n.kind));
         var undimmed = alpha;
         var ghost = focus >= 0 && i !== focus && !near[i];
-        if (ghost) alpha = Math.min(alpha, dimmed(0.25));
+        // On the landing what drops back keeps its hue: its own ink mixed
+        // toward the ground's line tone (faded ink, never a pastel or a
+        // grey), as the system map beside it dims; the orange ring stays
+        // orange and the lit sector rises out of it. The map's page keeps
+        // its quiet grey.
+        var faded = ghost && !pageMode && !!palette.tone;
+        if (ghost && !faded) alpha = Math.min(alpha, dimmed(0.25));
+        shadeBy = faded ? focusMix : 0;
         ctx.globalAlpha = alpha;
         if (i === hover || i === selected) r = n.r * rs + 1.5;
         if (n.kind === 'universe') {
@@ -2568,20 +3021,20 @@
           ctx.fillStyle = palette.ground;
           ctx.fill();
           ctx.lineWidth = 1.8;
-          ctx.strokeStyle = palette.universe;
+          ctx.strokeStyle = shade(palette.universe);
           ctx.stroke();
           ctx.beginPath();
           ctx.arc(x, y, Math.max(1.6, r * 0.32), 0, Math.PI * 2);
-          ctx.fillStyle = palette.universe;
+          ctx.fillStyle = shade(palette.universe);
           ctx.fill();
           // Two faint rings round it, the way a chart marks its pole.
           ctx.lineWidth = 1;
           ctx.strokeStyle = palette.edge;
-          ctx.globalAlpha = alpha * 0.7;
+          ctx.globalAlpha = alpha * 0.7 * (1 - 0.5 * shadeBy);
           ctx.beginPath();
           ctx.arc(x, y, r + 8 * rs, 0, Math.PI * 2);
           ctx.stroke();
-          ctx.globalAlpha = alpha * 0.35;
+          ctx.globalAlpha = alpha * 0.35 * (1 - 0.5 * shadeBy);
           ctx.beginPath();
           ctx.arc(x, y, r + 17 * rs, 0, Math.PI * 2);
           ctx.stroke();
@@ -2593,23 +3046,23 @@
           ctx.fillStyle = palette.ground;
           ctx.fill();
           ctx.lineWidth = 2;
-          ctx.strokeStyle = palette.integration_surface;
+          ctx.strokeStyle = shade(palette.integration_surface);
           ctx.stroke();
         } else if (n.kind === 'problem') {
-          if (ghost && focusMix < 1) {
+          if (ghost && !faded && focusMix < 1) {
             ctx.globalAlpha = undimmed * (1 - focusMix);
             drawProblemMark(n, x, y, r, palette.problem, true);
           }
-          if (ghost) {
+          if (ghost && !faded) {
             ctx.globalAlpha = undimmed * focusMix * 0.5;
             drawProblemMark(n, x, y, r, palette.faint, false);
           } else {
             drawProblemMark(n, x, y, r, palette.problem, true);
           }
-        } else if (ghost) {
-          // Context recedes to a quiet grey, not to a muddy tint of its own
-          // colour, so the focus holds the only colour on the field. While
-          // the focus fades in, the colour crossfades into the grey.
+        } else if (ghost && !faded) {
+          // On the map's page, context recedes to a quiet grey, so the
+          // focus holds the only colour on the field. While the focus fades
+          // in, the colour crossfades into the grey.
           if (focusMix < 1) {
             ctx.globalAlpha = undimmed * (1 - focusMix);
             drawGlyph(x, y, r, glyphColor(n), n.proof_status || n.tier);
@@ -2621,12 +3074,16 @@
           drawGlyph(x, y, r, glyphColor(n), n.proof_status || n.tier);
           if (n.kind === 'problem') drawProblemRing(n, x, y, r);
         }
+        shadeBy = 0;
         if (i === selected) {
           // The selected object keeps a crisp ring, so it stays findable
-          // when the camera moves or the field is busy.
-          ctx.globalAlpha = 1;
-          ctx.lineWidth = 1.5;
-          ctx.strokeStyle = palette.ink;
+          // when the camera moves or the field is busy. On the landing a
+          // kept result's ring, like its reticle and its plate's edge, is
+          // the ember the column's card turns when it holds a result, so a
+          // kept result never reads as one merely pointed at.
+          ctx.globalAlpha = pageMode ? 1 : 0.9;
+          ctx.lineWidth = pageMode ? 1.5 : 1.25;
+          ctx.strokeStyle = pageMode ? palette.ink : palette.ember;
           ctx.beginPath();
           ctx.arc(x, y, r + (n.kind === 'problem' ? 8 : 5), 0, Math.PI * 2);
           ctx.stroke();
@@ -2641,159 +3098,11 @@
         }
         ctx.globalAlpha = 1;
       }
-      drawPulse(focus, threads, rs);
+      drawPulse(focus, threads, rs, routes);
 
       // The shared callout goes over the dots, so a band never covers it.
-      drawCaptions(focus, w, h);
-
-      /* Labels are placed, not just drawn. Each is a box on the field, taken
-         in priority order: the selected or hovered object, then the
-         problems, the hubs and the core, their second lines, then the rest.
-         A label that would land on a placed label or on an anchor's disc is
-         left out; its object still names itself on hover and in the rail. */
-      ctx.textAlign = 'center';
-      ctx.lineJoin = 'round';
-      for (i = 0; i < nodes.length; i++) {
-        n = nodes[i];
-        if (!visible(n)) continue;
-        if (n.kind !== 'problem' && n.kind !== 'universe' && n.kind !== 'integration_surface') continue;
-        var ax = n.x * view.k + view.tx, ay = n.y * view.k + view.ty, ar = n.r * rs + 4;
-        labelBoxes.push({ x0: ax - ar, x1: ax + ar, y0: ay - ar, y1: ay + ar, owner: i });
-      }
-      var candidates = [];
-      for (i = 0; i < nodes.length; i++) {
-        n = nodes[i];
-        if (!visible(n)) continue;
-        var isFocus = i === hover || i === selected;
-        var wantLabel = isFocus || n.kind === 'problem' || n.kind === 'universe' ||
-          n.kind === 'integration_surface' ||
-          (view.k > 1.7 && (n.kind === 'paper' || n.kind === 'human_document')) ||
-          (view.k > 3.4 && n.kind === 'public_claim');
-        if (!wantLabel) continue;
-        var isAnchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
-        if (searching && !matches(n) && !isFocus && !isAnchor) continue;
-        if (focus >= 0 && i !== focus && !near[i] && !isFocus && !isAnchor) continue;
-        var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
-        if (lx < -60 || ly < -60 || lx > w + 60 || ly > h + 60) continue;
-        var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
-        var font = (big ? '600 13px ' : '500 12px ') + SERIF;
-        ctx.font = font;
-        var text = anchorText(n, w, isFocus);
-        var half = ctx.measureText(text).width / 2 + 6;
-        var labelY = ly + n.r * rs + 15;
-        if (n.kind === 'problem') {
-          var chosen = problemLabelSpot(n, lx, ly, half, rs, w);
-          lx = chosen[0];
-          labelY = chosen[1];
-        }
-        // A hovered or selected result or claim names itself on a plate,
-        // where the frame's first step already placed it.
-        var plate = null, leader = null;
-        if (isFocus && namesOnPlate(n)) {
-          if (moving) continue;
-          plate = platePlaced[i] || namePlate(i, rs, w, h);
-          text = plate.text;
-          lx = plate.x;
-          labelY = plate.y;
-          leader = plate.leader;
-          half = plate.width / 2 + 6;
-        }
-        lx = Math.max(half, Math.min(w - half, lx));
-        // The core and the two checking surfaces name themselves first: a
-        // problem's number is also on its band's title.
-        var priority = isFocus ? 10 : n.kind === 'universe' ? 9 :
-          n.kind === 'integration_surface' ? 8.5 : n.kind === 'problem' ? 8 : 3;
-        // The core's name goes above it when the checking surfaces below
-        // take the room, as they do on a phone; a checking surface's name
-        // goes beside its disc, on the side away from the other one.
-        var alt = n.kind === 'universe' ? { x: lx, y: ly - n.r * rs - 9 } :
-          n.kind === 'integration_surface' ? { x: n.x * view.k + view.tx, y: ly + 4,
-            side: n.x < 0 ? -1 : 1, r: n.r * rs } : null;
-        candidates.push({ text: text, x: lx, y: labelY, font: font, size: big ? 13 : 12, plate: plate, alt: alt,
-                          leader: leader, color: palette.ink, priority: priority, owner: i, order: candidates.length });
-        // A quieter second line: a hub's reach. It waits for room.
-        if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
-          candidates.push({ text: clip(n.sub, 36), x: lx, y: labelY + 13, font: '400 11px ' + SERIF, size: 11,
-                            color: palette.faint, priority: 5, owner: i, order: candidates.length,
-                            checker: n.kind === 'integration_surface' });
-        }
-      }
-      /* The checkers' second lines ("616 of 689 replayed", "616 prepared")
-         stand side by side under their names. On a small field they met,
-         and read as one phrase; they spread apart, each outward by the same
-         few pixels, to keep a clear gap. */
-      var checkerSubs = candidates.filter(function (c) { return c.checker; });
-      if (checkerSubs.length === 2) {
-        var left = checkerSubs[0].x <= checkerSubs[1].x ? checkerSubs[0] : checkerSubs[1];
-        var right = left === checkerSubs[0] ? checkerSubs[1] : checkerSubs[0];
-        ctx.font = left.font;
-        var clear = (right.x - ctx.measureText(right.text).width / 2) - (left.x + ctx.measureText(left.text).width / 2);
-        if (clear < 14) {
-          var spread = Math.min(12, (14 - clear) / 2);
-          left.x -= spread;
-          right.x += spread;
-        }
-      }
-      candidates.sort(function (a, b) { return b.priority - a.priority || a.order - b.order; });
-      for (var ci = 0; ci < candidates.length; ci++) {
-        var cand = candidates[ci];
-        ctx.font = cand.font;
-        var width = cand.plate ? cand.plate.width : ctx.measureText(cand.text).width;
-        var cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
-        var box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
-        if (cand.priority < 10 && cand.alt && labelCollides(box)) {
-          cand.x = cand.alt.side ? cand.alt.x + cand.alt.side * (cand.alt.r + 6 + width / 2) : cand.alt.x;
-          cand.y = cand.alt.y;
-          cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
-          box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
-        }
-        if (cand.priority < 10 && labelCollides(box)) continue;
-        // A new plate eases out of its mark over a sixth of a second; its
-        // room is taken at once, so nothing else moves while it arrives.
-        var enter = !cand.plate ? 1 : Math.min(cand.owner === pulse.at ? plateEase(pulse.ms) : 1, plateEase(arrival.ms));
-        if (cand.plate && cand.leader) {
-          // The leader stands where it ends; the plate eases along it, over
-          // its end, so the two never part.
-          drawLeader(cand.leader, 0.66 * enter);
-          Array.prototype.push.apply(labelBoxes, leaderBoxes(cand.leader, cand.owner));
-        }
-        if (enter < 1) {
-          var ownerX = nodes[cand.owner].x * view.k + view.tx;
-          ctx.save();
-          ctx.translate((1 - enter) * 6 * (cand.x >= ownerX ? -1 : 1), 0);
-        }
-        var lines = [cand.text];
-        if (cand.plate) {
-          lines = cand.plate.lines;
-          box = { x0: cand.plate.box.x0, x1: cand.plate.box.x1, y0: cand.plate.box.y0, y1: cand.plate.box.y1, owner: cand.owner };
-          // The plate's edge is one device pixel, laid on the grid.
-          var bx0 = snapX(box.x0) + hairX / 2, by0 = snapY(box.y0) + hairY / 2;
-          var bw0 = snapX(box.x1) - snapX(box.x0) - hairX, bh0 = snapY(box.y1) - snapY(box.y0) - hairY;
-          ctx.beginPath();
-          if (typeof ctx.roundRect === 'function') ctx.roundRect(bx0, by0, bw0, bh0, 3);
-          else ctx.rect(bx0, by0, bw0, bh0);
-          // Opaque: nothing under a plate shows through it.
-          ctx.globalAlpha = enter;
-          ctx.fillStyle = palette.ground;
-          ctx.fill();
-          ctx.globalAlpha = 0.5 * enter;
-          ctx.lineWidth = hairPx;
-          ctx.strokeStyle = palette.ink;
-          ctx.stroke();
-        }
-        labelBoxes.push(box);
-        ctx.globalAlpha = revealAlpha(4) * enter;
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = palette.ground;
-        ctx.fillStyle = cand.color;
-        var tx = cand.plate ? (box.x0 + box.x1) / 2 : cx0 + width / 2;
-        // Every halo before any letter, so a second line's halo never
-        // clips the first line's descenders.
-        for (var li = 0; li < lines.length; li++) ctx.strokeText(lines[li], tx, cand.y + li * PLATE_LEAD);
-        for (li = 0; li < lines.length; li++) ctx.fillText(lines[li], tx, cand.y + li * PLATE_LEAD);
-        ctx.globalAlpha = 1;
-        if (enter < 1) ctx.restore();
-      }
+      drawCaptions(calloutPlan, focus);
+      drawLabels(labelPlan);
       // The reticles go down once every name has its place.
       drawReticles(rs, w, h);
       drawStatementNumbers(focus, near, searching, w, h);
@@ -2809,6 +3118,497 @@
           countOut.textContent = line;
         }
       }
+    }
+
+    /* Labels are placed, not just drawn. Each is a box on the field, taken
+       in priority order: the selected or hovered object, then the problems,
+       the hubs and the core, their second lines, then the rest. A label
+       that would land on a placed label or on an anchor's disc is left out;
+       its object still names itself on hover and in the rail. Placing takes
+       each label's room (and a plate's leader's); drawing comes later. */
+    function placeLabels(focus, near, searching, rs, w, h, moving) {
+      var i, n, candidates = [];
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (!visible(n)) continue;
+        var isFocus = i === hover || i === selected;
+        var wantLabel = isFocus || n.kind === 'problem' || n.kind === 'universe' ||
+          n.kind === 'integration_surface' ||
+          (view.k > 1.7 && (n.kind === 'paper' || n.kind === 'human_document')) ||
+          (view.k > 3.4 && n.kind === 'public_claim');
+        if (!wantLabel) continue;
+        var isAnchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
+        if (searching && !matches(n) && !isFocus && !isAnchor) continue;
+        if (focus >= 0 && i !== focus && !near[i] && !isFocus && !isAnchor) continue;
+        var lx = n.x * view.k + view.tx, ly = n.y * view.k + view.ty;
+        if (lx < -60 || ly < -60 || lx > w + 60 || ly > h + 60) continue;
+        var size = isAnchor ? TYPE.anchor : TYPE.small;
+        var font = face(isAnchor ? 600 : 500, size);
+        ctx.font = font;
+        var text = anchorText(n, w, isFocus);
+        var half = ctx.measureText(text).width / 2 + 6;
+        var labelY = ly + n.r * rs + TYPE.below, spots = null;
+        if (n.kind === 'problem') {
+          var chosen = problemLabelSpot(n, lx, ly, half, rs, w);
+          // On the landing a problem's name keeps its other places in
+          // reserve, worked out only if its first is taken.
+          if (!pageMode) spots = { n: n, px: lx, py: ly, half: half };
+          lx = chosen[0];
+          labelY = chosen[1];
+        }
+        // A hovered or selected result or claim names itself on a plate,
+        // where the frame's first step already placed it.
+        var plate = null, leader = null;
+        if (isFocus && namesOnPlate(n)) {
+          if (moving) continue;
+          plate = platePlaced[i] || namePlate(i, rs, w, h);
+          text = plate.text;
+          lx = plate.x;
+          labelY = plate.y;
+          leader = plate.leader;
+          half = plate.width / 2 + 6;
+          // A plate is lettered in the face it was measured in.
+          font = PLATE_FONT;
+          size = TYPE.plate;
+        }
+        lx = Math.max(half, Math.min(w - half, lx));
+        // The core and the two checking surfaces name themselves first: a
+        // problem's number is also on its band's title.
+        var priority = isFocus ? 10 : n.kind === 'universe' ? 9 :
+          n.kind === 'integration_surface' ? 8.5 : n.kind === 'problem' ? 8 : 3;
+        // The core's name goes above it when the checking surfaces below
+        // take the room, as they do on a phone; a checking surface's name
+        // goes beside its disc, on the side away from the other one.
+        var alt = n.kind === 'universe' ? { x: lx, y: ly - n.r * rs - 9 } :
+          n.kind === 'integration_surface' ? { x: n.x * view.k + view.tx, y: ly + (pageMode ? 4 : 5),
+            side: n.x < 0 ? -1 : 1, r: n.r * rs } : null;
+        // On the landing an anchor whose sector has dropped back names
+        // itself in the muted ink, as the system map's dimmed names do, so
+        // the lit sector's own number rises with its marks.
+        var dropped = !pageMode && !isFocus && focus >= 0 && i !== focus && !near[i];
+        candidates.push({ text: text, x: lx, y: labelY, font: font, size: size, plate: plate, alt: alt,
+                          spots: spots && !plate ? spots : null,
+                          leader: leader, color: dropped ? fadeText(palette.ink, focusMix) : palette.ink,
+                          priority: priority, owner: i, order: candidates.length });
+        // A quieter second line: a hub's reach. It waits for room.
+        if (n.sub && !isFocus && w >= 420 && n.kind !== 'problem') {
+          candidates.push({ text: clip(n.sub, 36), x: lx, y: labelY + TYPE.subGap, font: face(400, TYPE.sub), size: TYPE.sub,
+                            color: palette.faint, priority: 5, owner: i, order: candidates.length,
+                            checker: n.kind === 'integration_surface' });
+        }
+      }
+      /* The checkers' second lines ("616 of 689 replayed", "616 prepared")
+         stand side by side under their names. On a small field they met,
+         and read as one phrase; they spread apart, each outward by the same
+         few pixels, to keep a clear gap. */
+      var checkerSubs = candidates.filter(function (c) { return c.checker; });
+      if (checkerSubs.length === 2) {
+        var left = checkerSubs[0].x <= checkerSubs[1].x ? checkerSubs[0] : checkerSubs[1];
+        var right = left === checkerSubs[0] ? checkerSubs[1] : checkerSubs[0];
+        ctx.font = left.font;
+        var clear = (right.x - ctx.measureText(right.text).width / 2) - (left.x + ctx.measureText(left.text).width / 2);
+        if (clear < 14) {
+          var spread = Math.min(pageMode ? 12 : 30, (14 - clear) / 2);
+          left.x -= spread;
+          right.x += spread;
+        }
+      }
+      candidates.sort(function (a, b) { return b.priority - a.priority || a.order - b.order; });
+      var plan = [];
+      for (var ci = 0; ci < candidates.length; ci++) {
+        var cand = candidates[ci];
+        ctx.font = cand.font;
+        var width = cand.plate ? cand.plate.width : ctx.measureText(cand.text).width;
+        var cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
+        var box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
+        if (cand.priority < 10 && cand.alt && labelCollides(box)) {
+          cand.x = cand.alt.side ? cand.alt.x + cand.alt.side * (cand.alt.r + 6 + width / 2) : cand.alt.x;
+          cand.y = cand.alt.y;
+          cx0 = Math.max(2, Math.min(w - width - 2, cand.x - width / 2));
+          box = { x0: cx0 - 2, x1: cx0 + width + 2, y0: cand.y - cand.size + 1, y1: cand.y + 4, owner: cand.owner };
+        }
+        // A problem's name taken from its first place tries its others.
+        if (cand.priority < 10 && cand.spots && labelCollides(box)) {
+          var others = problemLabelSpots(cand.spots.n, cand.spots.px, cand.spots.py, cand.spots.half, rs, w).slice(1);
+          for (var si = 0; si < others.length && labelCollides(box); si++) {
+            var sx = Math.max(2, Math.min(w - width - 2, others[si][0] - width / 2));
+            var trial = { x0: sx - 2, x1: sx + width + 2, y0: others[si][1] - cand.size + 1, y1: others[si][1] + 4, owner: cand.owner };
+            if (labelCollides(trial)) continue;
+            cand.x = others[si][0];
+            cand.y = others[si][1];
+            cx0 = sx;
+            box = trial;
+          }
+        }
+        if (cand.priority < 10 && labelCollides(box)) continue;
+        if (cand.plate && cand.leader) Array.prototype.push.apply(labelBoxes, leaderBoxes(cand.leader, cand.owner));
+        if (cand.plate) {
+          box = { x0: cand.plate.box.x0, x1: cand.plate.box.x1, y0: cand.plate.box.y0, y1: cand.plate.box.y1, owner: cand.owner };
+        }
+        labelBoxes.push(box);
+        plan.push({ cand: cand, box: box, cx0: cx0, width: width });
+      }
+      return plan;
+    }
+    function drawLabels(plan) {
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.lineJoin = 'round';
+      plan.forEach(function (p) {
+        var cand = p.cand, box = p.box;
+        ctx.font = cand.font;
+        // A kept result's plate takes the ember edge its ring and reticle
+        // wear; one under the pointer keeps the ink hairline.
+        var kept = !pageMode && !!cand.plate && cand.owner === selected;
+        // A new plate eases out of its mark over a sixth of a second; its
+        // room was taken at once, so nothing else moves while it arrives.
+        var enter = !cand.plate ? 1 : Math.min(cand.owner === pulse.at ? plateEase(pulse.ms) : 1, plateEase(arrival.ms));
+        if (cand.plate && cand.leader) {
+          // The leader stands where it ends; the plate eases along it, over
+          // its end, so the two never part.
+          drawLeader(cand.leader, (kept ? 0.8 : 0.66) * enter, kept ? palette.ember : null);
+        }
+        if (enter < 1) {
+          var ownerX = nodes[cand.owner].x * view.k + view.tx;
+          ctx.save();
+          ctx.translate((1 - enter) * 6 * (cand.x >= ownerX ? -1 : 1), 0);
+        }
+        var lines = [cand.text];
+        if (cand.plate) {
+          lines = cand.plate.lines;
+          // The plate's edge is one device pixel, laid on the grid.
+          var bx0 = snapX(box.x0) + hairX / 2, by0 = snapY(box.y0) + hairY / 2;
+          var bw0 = snapX(box.x1) - snapX(box.x0) - hairX, bh0 = snapY(box.y1) - snapY(box.y0) - hairY;
+          ctx.beginPath();
+          if (typeof ctx.roundRect === 'function') ctx.roundRect(bx0, by0, bw0, bh0, 3);
+          else ctx.rect(bx0, by0, bw0, bh0);
+          // Opaque: nothing under a plate shows through it.
+          ctx.globalAlpha = enter;
+          ctx.fillStyle = palette.ground;
+          ctx.fill();
+          ctx.globalAlpha = (kept ? 0.9 : 0.5) * enter;
+          ctx.lineWidth = hairPx;
+          ctx.strokeStyle = kept ? palette.ember : palette.ink;
+          ctx.stroke();
+        }
+        ctx.globalAlpha = revealAlpha(4) * enter;
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = palette.ground;
+        ctx.fillStyle = cand.color;
+        var tx = cand.plate ? (box.x0 + box.x1) / 2 : p.cx0 + p.width / 2;
+        // Every halo before any letter, so a second line's halo never
+        // clips the first line's descenders.
+        for (var li = 0; li < lines.length; li++) ctx.strokeText(lines[li], tx, cand.y + li * PLATE_LEAD);
+        for (li = 0; li < lines.length; li++) ctx.fillText(lines[li], tx, cand.y + li * PLATE_LEAD);
+        ctx.globalAlpha = 1;
+        if (enter < 1) ctx.restore();
+      });
+    }
+    // A name's ink moved toward the muted ink, by the focus's fade.
+    function fadeText(color, amount) {
+      if (!color || amount <= 0) return color;
+      var t = Math.round(Math.min(1, amount) * 20) / 20;
+      var key = 'text|' + color + '|' + t;
+      var hit = mixCache[key];
+      if (hit === undefined) {
+        hit = mixOklab(color, palette.muted, t, palette.under) || color;
+        mixCache[key] = hit;
+      }
+      return hit;
+    }
+
+    /* The lit sector, indexed rather than boxed. A filled slice ran its
+       straight edges into the checkers' counts and the problems' names; the
+       index is a hairline down each edge of the sector, in the gaps either
+       side of its band, and one arc across it just outside the scale, the
+       bracket a printed chart sets round a region. Each stops INDEX_CLEAR
+       short of any word, so the arc parts round the sector's own title. */
+    var INDEX_CLEAR = 6;
+    function nearWord(x, y) {
+      for (var b = 0; b < labelBoxes.length; b++) {
+        var q = labelBoxes[b];
+        if (q.disc) continue;
+        if (x > q.x0 - INDEX_CLEAR && x < q.x1 + INDEX_CLEAR && y > q.y0 - INDEX_CLEAR && y < q.y1 + INDEX_CLEAR) return true;
+      }
+      return false;
+    }
+    function midAngle(a, b) { return a + shortArc(a, b) / 2; }
+    function drawSectorIndex(focus) {
+      if (focus < 0 || !bands.length || lensOff.paper_statement || focusMix <= 0.01) return;
+      var f = nodes[focus];
+      if (!f || f.kind === 'universe' || f.kind === 'integration_surface') return;
+      var pids = sectorProblems(f);
+      if (!pids.length) return;
+      var orbit = 0, count = 0;
+      for (var pid in problemIndex) {
+        var p = nodes[problemIndex[pid]];
+        if (p) { orbit += Math.sqrt(p.x * p.x + p.y * p.y); count++; }
+      }
+      if (!count) return;
+      var sorted = bands.slice().sort(function (a, c) { return a.lo - c.lo; });
+      var inner = Math.max(0, (orbit / count - 34) * view.k);
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = hairPx;
+      ctx.lineCap = 'butt';
+      ctx.globalAlpha = 0.55 * focusMix * revealAlpha(3);
+      for (var s = 0; s < sorted.length; s++) {
+        var b = sorted[s];
+        if (pids.indexOf(b.sector) === -1) continue;
+        var prev = sorted[(s - 1 + sorted.length) % sorted.length], next = sorted[(s + 1) % sorted.length];
+        var from = sorted.length > 1 ? midAngle(prev.hi, b.lo) : b.lo - 0.03;
+        var to = sorted.length > 1 ? midAngle(b.hi, next.lo) : b.hi + 0.03;
+        var span = ((to - from) % TURN + TURN) % TURN;
+        var outerR = scaleR ? seatedScaleR() + SCALE_MARK + 3 : (bandRadii(b)[1] + 12) * view.k;
+        if (!(outerR > inner) || !span) continue;
+        ctx.beginPath();
+        // The two edges, each from the arc inward until a word is near.
+        [from, from + span].forEach(function (a) {
+          var c = Math.cos(a), sn = Math.sin(a), last = null;
+          for (var r = outerR; r >= inner; r -= 1.5) {
+            var x = view.tx + c * r, y = view.ty + sn * r;
+            if (nearWord(x, y)) break;
+            if (!last) ctx.moveTo(x, y);
+            last = [x, y];
+          }
+          if (last) ctx.lineTo(last[0], last[1]);
+        });
+        // The arc across, in runs between the words it meets.
+        var steps = Math.max(8, Math.ceil(span * outerR / 1.5)), run = false;
+        for (var k = 0; k <= steps; k++) {
+          var a = from + span * k / steps;
+          var ax = view.tx + Math.cos(a) * outerR, ay = view.ty + Math.sin(a) * outerR;
+          if (nearWord(ax, ay)) { run = false; continue; }
+          if (!run) { ctx.moveTo(ax, ay); run = true; } else ctx.lineTo(ax, ay);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* Threads find their way round words. A lit thread from a result to
+       Comparator, Palomar, its paper or a claim ran straight through any
+       name between them, and a line through "#68" reads as a relation to
+       #68 that the data does not hold. On the landing each thread now keeps
+       THREAD_CLEAR from every word and anchor it does not end at: straight
+       when it can; otherwise first inward (or last outward) along its outer
+       end's own radius, so it leaves through its own sector, and then
+       across; otherwise round the corners of what it would still cross. It
+       ends at its far object's edge, and that object's own name is part of
+       its edge: a thread arriving from below Comparator stops at "616 of
+       689 replayed" rather than running up through it. */
+    var THREAD_CLEAR = 4, routeCache = null;
+    function screenOf(i) { return [nodes[i].x * view.k + view.tx, nodes[i].y * view.k + view.ty]; }
+    function segLength(a, b) { return Math.sqrt((b[0] - a[0]) * (b[0] - a[0]) + (b[1] - a[1]) * (b[1] - a[1])); }
+    // Where a segment enters a box, as a share of its length (Liang-Barsky):
+    // [t0, t1], or null when it misses.
+    function clipSegment(p, q, b) {
+      var dx = q[0] - p[0], dy = q[1] - p[1], t0 = 0, t1 = 1;
+      var checks = [[-dx, p[0] - b.x0], [dx, b.x1 - p[0]], [-dy, p[1] - b.y0], [dy, b.y1 - p[1]]];
+      for (var c = 0; c < 4; c++) {
+        var pp = checks[c][0], qq = checks[c][1];
+        if (pp === 0) { if (qq < 0) return null; continue; }
+        var t = qq / pp;
+        if (pp < 0) { if (t > t0) t0 = t; } else if (t < t1) t1 = t;
+        if (t1 < t0) return null;
+      }
+      return t1 > t0 ? [t0, t1] : null;
+    }
+    // How far a route runs within the clearance of the words it must keep
+    // off.
+    function routeIntrusion(points, obstacles) {
+      var inside = 0;
+      for (var j = 1; j < points.length; j++) {
+        var p = points[j - 1], q = points[j], len = segLength(p, q);
+        for (var o = 0; o < obstacles.length; o++) {
+          var hit = clipSegment(p, q, obstacles[o]);
+          if (hit) inside += (hit[1] - hit[0]) * len;
+        }
+      }
+      return inside;
+    }
+    function insideBox(pt, b) { return pt[0] > b.x0 && pt[0] < b.x1 && pt[1] > b.y0 && pt[1] < b.y1; }
+    // A route's bends rounded: each corner becomes a short curve that
+    // leaves the straight run ROUTE_ROUND before the corner and joins the
+    // next as far after it, the corner its control point.
+    var ROUTE_ROUND = 12, ROUTE_GAP = 8;
+    function roundRoute(pts) {
+      if (pts.length < 3) return pts;
+      var out = [pts[0]];
+      for (var j = 1; j < pts.length - 1; j++) {
+        var p = pts[j - 1], c = pts[j], q = pts[j + 1];
+        var r = Math.min(ROUTE_ROUND, segLength(p, c) / 2, segLength(c, q) / 2);
+        var lin = segLength(p, c) || 1, lout = segLength(c, q) || 1;
+        var s0 = [c[0] + (p[0] - c[0]) * r / lin, c[1] + (p[1] - c[1]) * r / lin];
+        var s1 = [c[0] + (q[0] - c[0]) * r / lout, c[1] + (q[1] - c[1]) * r / lout];
+        out.push(s0);
+        for (var k = 1; k < 6; k++) {
+          var t = k / 6, u = 1 - t;
+          out.push([u * u * s0[0] + 2 * u * t * c[0] + t * t * s1[0], u * u * s0[1] + 2 * u * t * c[1] + t * t * s1[1]]);
+        }
+        out.push(s1);
+      }
+      out.push(pts[pts.length - 1]);
+      return out;
+    }
+    /* A thread ends at its far object's mark, a hair (2px) short of its
+       edge, as every line on the map ends, going round that object's own
+       name like any other word. Where going round would cost more than a
+       tenth (a result under Comparator swung right round its caption to
+       reach its disc), the thread runs straight on and stops at the name
+       instead: the name is part of what it points at, never an unrelated
+       word in its way. */
+    function cutRoute(route, ends, B, rb) {
+      var points = [route[0]];
+      for (var j = 1; j < route.length; j++) {
+        var p0 = route[j - 1], p1 = route[j], enter = 1;
+        for (var e = 0; e < ends.length; e++) {
+          var cut = clipSegment(p0, p1, ends[e]);
+          if (cut && cut[0] < enter) enter = cut[0];
+        }
+        var dx = p1[0] - p0[0], dy = p1[1] - p0[1], fx = p0[0] - B[0], fy = p0[1] - B[1];
+        var qa = dx * dx + dy * dy, qb = 2 * (fx * dx + fy * dy), qc = fx * fx + fy * fy - rb * rb;
+        var root = qb * qb - 4 * qa * qc;
+        if (qa > 0 && root >= 0) {
+          var t = (-qb - Math.sqrt(root)) / (2 * qa);
+          if (t >= 0 && t < enter) enter = t;
+        }
+        if (enter < 1) {
+          points.push([p0[0] + dx * enter, p0[1] + dy * enter]);
+          break;
+        }
+        points.push(p1);
+      }
+      return points;
+    }
+    function wayLength(points) {
+      var total = 0;
+      for (var j = 1; j < points.length; j++) total += segLength(points[j - 1], points[j]);
+      return total;
+    }
+    function routeThread(a, b, rs) {
+      var A = screenOf(a), B = screenOf(b);
+      var obstacles = [], names = [];
+      var rb = nodes[b].r * rs + 2;
+      var pad = 150, lo = [Math.min(A[0], B[0]) - pad, Math.min(A[1], B[1]) - pad],
+          hi = [Math.max(A[0], B[0]) + pad, Math.max(A[1], B[1]) + pad];
+      var rooms = labelBoxes.filter(function (box) { return !box.seg; }).concat(titleRooms);
+      for (var q = 0; q < rooms.length; q++) {
+        var box = rooms[q];
+        if (box.owner === -2) continue;
+        if (box.disc && (box.owner === a || box.owner === b)) continue;
+        var grown = { x0: box.x0 - THREAD_CLEAR, x1: box.x1 + THREAD_CLEAR, y0: box.y0 - THREAD_CLEAR, y1: box.y1 + THREAD_CLEAR };
+        // A word either end stands inside cannot be kept off; it is not
+        // counted.
+        if (insideBox(A, grown) || insideBox(B, grown)) continue;
+        if (grown.x1 < lo[0] || grown.x0 > hi[0] || grown.y1 < lo[1] || grown.y0 > hi[1]) continue;
+        obstacles.push(grown);
+        if (box.owner === b) names.push(grown);
+      }
+      // The way to the mark itself, round its name; and the way to its
+      // name, where the thread may stop.
+      var toMark = shortestWay(A, B, obstacles), markPoints = toMark ? cutRoute(toMark, [], B, rb) : null;
+      if (names.length) {
+        var toName = shortestWay(A, B, obstacles.filter(function (o) { return names.indexOf(o) === -1; }));
+        var namePoints = toName ? cutRoute(toName, names, B, rb) : null;
+        if (namePoints && (!markPoints || wayLength(markPoints) > 1.1 * wayLength(namePoints) + 8)) {
+          return { points: namePoints };
+        }
+      }
+      return { points: markPoints || cutRoute([A, B], [], B, rb) };
+    }
+    /* The way round: the shortest path from one end to the other that
+       crosses no word, over the corners of the words near the straight
+       line (each ROUTE_GAP outside its clearance), so it goes round a name
+       on whichever side is shorter and never hugs it; null when there is
+       none. */
+    function shortestWay(A, B, obstacles) {
+      var route = [A, B];
+      if (routeIntrusion(route, obstacles) > 0) {
+        route = null;
+        var pts = [A, B];
+        obstacles.forEach(function (o) {
+          [[o.x0 - ROUTE_GAP, o.y0 - ROUTE_GAP], [o.x1 + ROUTE_GAP, o.y0 - ROUTE_GAP],
+           [o.x1 + ROUTE_GAP, o.y1 + ROUTE_GAP], [o.x0 - ROUTE_GAP, o.y1 + ROUTE_GAP]].forEach(function (c) {
+            if (!obstacles.some(function (other) { return insideBox(c, other); })) pts.push(c);
+          });
+        });
+        var count = pts.length, dist = [], prev = [], done = [];
+        for (var n0 = 0; n0 < count; n0++) { dist.push(Infinity); prev.push(-1); done.push(false); }
+        dist[0] = 0;
+        var clear = function (p, r) {
+          var len = segLength(p, r);
+          for (var o = 0; o < obstacles.length; o++) {
+            var hit = clipSegment(p, r, obstacles[o]);
+            if (hit && (hit[1] - hit[0]) * len > 0.5) return false;
+          }
+          return true;
+        };
+        for (;;) {
+          var at = -1;
+          for (var m = 0; m < count; m++) if (!done[m] && (at < 0 || dist[m] < dist[at])) at = m;
+          if (at < 0 || !isFinite(dist[at]) || at === 1) break;
+          done[at] = true;
+          for (var v = 0; v < count; v++) {
+            if (done[v]) continue;
+            // A little for every bend, so of two near-equal ways the
+            // straighter wins.
+            var d = dist[at] + segLength(pts[at], pts[v]) + 10;
+            if (d < dist[v] && clear(pts[at], pts[v])) { dist[v] = d; prev[v] = at; }
+          }
+        }
+        if (isFinite(dist[1])) {
+          var way = [], step = 1;
+          while (step >= 0) { way.unshift(pts[step]); step = prev[step]; }
+          route = roundRoute(way);
+        }
+      }
+      return route;
+    }
+    function threadRoutes(focus, hot, rs) {
+      var sig = 0;
+      for (var q = 0; q < labelBoxes.length; q++) sig += labelBoxes[q].x0 * 3 + labelBoxes[q].y1 * 7;
+      var key = [focus, view.k, view.tx, view.ty, hot.join(','), labelBoxes.length, sig.toFixed(2)].join('|');
+      if (routeCache && routeCache.key === key) return routeCache.routes;
+      var routes = {};
+      hot.forEach(function (at) {
+        var other = edges[at][0] === focus ? edges[at][1] : edges[at][0];
+        if (nodes[other]) routes[other] = routeThread(focus, other, rs);
+      });
+      routeCache = { key: key, routes: routes };
+      return routes;
+    }
+    // The routed threads, in the lit thread's ink: a straight line, or a
+    // curve drawn as its run of short pieces.
+    function drawThreads(routes) {
+      ctx.lineWidth = 1.25;
+      ctx.strokeStyle = palette.edgeHot;
+      ctx.globalAlpha = 1;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'butt';
+      ctx.beginPath();
+      Object.keys(routes).forEach(function (other) {
+        var pts = routes[other].points;
+        if (!pts || pts.length < 2) return;
+        ctx.moveTo(pts[0][0], pts[0][1]);
+        for (var j = 1; j < pts.length; j++) ctx.lineTo(pts[j][0], pts[j][1]);
+      });
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    // A point a given share of the way along a route.
+    function alongRoute(pts, share) {
+      var total = 0, j;
+      for (j = 1; j < pts.length; j++) total += segLength(pts[j - 1], pts[j]);
+      var want = Math.max(0, Math.min(1, share)) * total;
+      for (j = 1; j < pts.length; j++) {
+        var len = segLength(pts[j - 1], pts[j]);
+        if (want <= len || j === pts.length - 1) {
+          var f = len ? Math.min(1, want / len) : 0;
+          return [pts[j - 1][0] + (pts[j][0] - pts[j - 1][0]) * f, pts[j - 1][1] + (pts[j][1] - pts[j - 1][1]) * f];
+        }
+        want -= len;
+      }
+      return pts[pts.length - 1];
     }
 
     function radiusScale() {
@@ -4028,7 +4828,57 @@
       if (n.kind === 'integration_surface') return n.label + (n.sub ? ': ' + n.sub : '');
       return clip(n.label, 52);
     }
+    /* ---- Key (landing teaser) -----------------------------------------
+       At rest the caption slot under the drawing stood empty, and the
+       marks were explained only after a hover. It now holds one quiet line
+       of the map's own marks: Comparator's colour for a replayed result,
+       the pip of one whose replay is queued, a checked claim, the open ring
+       of a result with no Lean statement. As many whole marks as the line
+       has room for, in that order (one on a 1280-wide window, two from 1440
+       up). It steps out while the caption names
+       what the pointer is on, or the column reads it, and comes back a
+       moment after both are done (style.css, .universe-key). */
+    var KEY_MARKS = [
+      ['replayed', 'Replayed by Comparator'],
+      ['lean', 'Replay queued'],
+      ['claim', 'Checked claim'],
+      ['none', 'No Lean statement']
+    ];
+    var key = null, keyWidth = -1;
+    function buildKey() {
+      if (pageMode || key || !caption || !caption.parentNode || typeof document.createElement !== 'function') return;
+      var row = caption.parentNode;
+      if (!row.classList || !row.classList.contains('home-universe__caption') || typeof row.insertBefore !== 'function') return;
+      var slot = document.createElement('div');
+      slot.className = 'universe-captionslot';
+      row.insertBefore(slot, caption);
+      slot.appendChild(caption);
+      key = document.createElement('ul');
+      key.className = 'universe-key';
+      key.setAttribute('aria-label', 'Key to the marks');
+      key.innerHTML = KEY_MARKS.map(function (m) {
+        return '<li class="universe-key__item"><span class="universe-key__mark universe-key__mark--' + m[0] +
+          '" aria-hidden="true"></span>' + escapeHtml(m[1]) + '</li>';
+      }).join('');
+      slot.appendChild(key);
+      fitKey();
+      if (typeof ResizeObserver === 'function') new ResizeObserver(fitKey).observe(slot);
+      else window.addEventListener('resize', fitKey);
+    }
+    // Whole marks on one line: a mark that would start a second line waits
+    // out of sight rather than wrapping under the drawing.
+    function fitKey() {
+      if (!key || !key.parentNode) return;
+      var width = key.parentNode.clientWidth;
+      if (width === keyWidth) return;
+      keyWidth = width;
+      var items = key.children || [];
+      for (var j = 0; j < items.length; j++) items[j].hidden = false;
+      var top = items.length ? items[0].offsetTop : 0;
+      for (j = 1; j < items.length; j++) if (items[j].offsetTop > top + 2) items[j].hidden = true;
+    }
     function showCaption(i) {
+      if (key) key.classList.toggle('is-out', i >= 0);
       if (!caption) return;
       if (i < 0) {
         // The words go with the class: the landing's stylesheet does not
@@ -4125,6 +4975,8 @@
       var i = sector && problemIndex[sector] !== undefined ? problemIndex[sector] : -1;
       if (i === hover) return;
       hover = i;
+      // The column closing lets the field go on its own beat.
+      if (i < 0) letGoNow = true;
       draw();
       showCaption(i);
     }
@@ -4152,7 +5004,10 @@
           return true;
         },
         // The column lets a pin go (Escape, leaving the band, another problem).
-        release: function () { if (selected >= 0) { selected = -1; draw(); } }
+        release: function () { if (selected >= 0) { selected = -1; letGoNow = true; draw(); } },
+        // The column's own data has arrived: a plate it now reads in full
+        // gives only the paper's number, so the plates are set again.
+        redraw: function () { pinnedPlate = null; draw(); }
       };
       var style = document.createElement('link');
       style.rel = 'stylesheet';
@@ -4389,17 +5244,26 @@
       ingest(data);
       if (opening) startReveal();
       if (teaserOpening) {
+        // On the first screen the drawing opens at once. Since the map moved
+        // up onto the landing's first screen (5 October 2026) a third of it
+        // or less shows there, and a reader who had not scrolled met an empty
+        // frame. Reached by scrolling, it still waits until a third shows,
+        // so the rings arrive where the reader is looking.
+        var firstLook = true;
         var seen = new IntersectionObserver(function (entries) {
-          for (var i = 0; i < entries.length; i += 1) {
-            if (!entries[i].isIntersecting) continue;
+          var e = entries[entries.length - 1];
+          if (e.isIntersecting && (firstLook || e.intersectionRatio >= 0.35)) {
             seen.disconnect();
             startReveal();
-            return;
           }
-        }, { threshold: 0.35 });
+          firstLook = false;
+        }, { threshold: [0, 0.35] });
         seen.observe(canvas);
       }
-      if (!pageMode) loadCompanion(data.companion);
+      if (!pageMode) {
+        loadCompanion(data.companion);
+        buildKey();
+      }
     }).catch(function () {
       stage.classList.add('is-unavailable');
     });
@@ -4416,6 +5280,9 @@
         arcPlaces = {};
         plateBreaks = {};
         pinnedPlate = null;
+        // The teaser is fitted to its words, which were measured in the
+        // fallback face too.
+        if (!pageMode && nodes.length && viewIsFitted) fit();
         if (nodes.length) draw();
       }, function () {});
     }
@@ -4468,11 +5335,15 @@
         revealCard();
         return;
       }
-      // Beside the column the drawing never leaves the page: a dot pins, and
-      // empty ground lets a pin go. A near miss used to fall through to the
-      // full map, throwing the reader off the landing.
+      // Beside the column a dot pins, and empty ground lets a pin go. A
+      // second click on the pinned dot opens it at its place in its paper,
+      // as on the full map and the system map (Will, 5 October 2026: "if
+      // you select and click it" it should take you there). A near miss
+      // used to fall through to the full map, throwing the reader off the
+      // landing; it still never leaves the page.
       if (companionApi && typeof companionApi.sideBySide === 'function' && companionApi.sideBySide()) {
-        if (i >= 0 || selected >= 0) pinInTeaser(i >= 0 && i !== selected ? i : -1);
+        if (i >= 0 && i === selected) { openTarget(nodes[i]); return; }
+        if (i >= 0 || selected >= 0) pinInTeaser(i >= 0 ? i : -1);
         return;
       }
       // Without the column a click opens the full map on the object, whose

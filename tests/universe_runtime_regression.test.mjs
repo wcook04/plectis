@@ -26,6 +26,19 @@ function element(attrs = {}) {
   };
 }
 
+// A CSS colour's channels, 0 to 1 ('#rrggbb' or 'rgb(r, g, b)').
+function rgbOf(color) {
+  const hex = /^#([0-9a-f]{6})$/i.exec(color || '');
+  if (hex) return [0, 2, 4].map(i => parseInt(hex[1].slice(i, i + 2), 16) / 255);
+  const fn = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/.exec(color || '');
+  return fn ? [+fn[1] / 255, +fn[2] / 255, +fn[3] / 255] : null;
+}
+// How far apart two colours stand, in sRGB channels.
+function colorGap(a, b) {
+  const p = rgbOf(a), q = rgbOf(b);
+  return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
+}
+
 async function mount(options = {}) {
   let arcs = [], strokes = [], labels = [], path = [], pen, dash = [];
   const context = new Proxy({
@@ -619,13 +632,50 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   return {canvas, location, announced, appended, dot};
 }
 
+// The lit threads a paint drew (1.25px), each as its run of pieces.
+function threadRuns(map) {
+  const pieces = map.strokes().filter(s => s.width === 1.25).flatMap(s => s.segments);
+  const runs = [];
+  pieces.forEach((seg, i) => {
+    const prev = pieces[i - 1];
+    if (!prev || prev.to[0] !== seg.from[0] || prev.to[1] !== seg.from[1]) runs.push([]);
+    runs[runs.length - 1].push(seg);
+  });
+  return runs;
+}
+// Whether a thread's end meets an object: a hair from its disc, or at its
+// own name (the harness's face sets six pixels a letter, 15px high).
+function endsAt(map, end, disc, name) {
+  if (Math.hypot(end[0] - disc.x, end[1] - disc.y) < disc.r + 4) return true;
+  const label = map.labels().find(l => l.text === name);
+  if (!label) return false;
+  const half = label.text.length * 3 + 2 + 4 + 1;
+  return end[0] > label.x - half && end[0] < label.x + half && end[1] > label.y - 20 && end[1] < label.y + 9;
+}
+
 // A teaser with Comparator and a frame clock the test drives, to follow the
 // moment a settled hover plays.
-async function mountPulse({reduceMotion = false, extraNodes = []} = {}) {
+async function mountPulse({reduceMotion = false, extraNodes = [], extraEdges = [], styles = {}} = {}) {
   let arcs = [];
+  // The threads and words a paint lays down. Every paint sets the
+  // canvas's transform first, so they are cleared there; the frame probes
+  // in tools/meta/dissemination/tests splice this harness by text and rely
+  // on the two lines above and below keeping their exact words.
+  let strokes = [], labels = [], path = [], pen = null;
   const context = new Proxy({
     clearRect() { arcs = []; },
+    setTransform() { strokes = []; labels = []; },
     arc(x, y, r) { arcs.push({x, y, r, alpha: context.globalAlpha}); },
+    // A disc's ink is the fill or stroke laid on it.
+    fill() { if (arcs.length) arcs[arcs.length - 1].fill = context.fillStyle; },
+    beginPath() { path = []; pen = null; },
+    moveTo(x, y) { pen = [x, y]; },
+    lineTo(x, y) { if (pen) path.push({from: pen, to: [x, y]}); pen = [x, y]; },
+    stroke() {
+      if (arcs.length && !path.length) arcs[arcs.length - 1].stroke = context.strokeStyle;
+      strokes.push({style: context.strokeStyle, width: context.lineWidth, segments: path.slice()});
+    },
+    fillText(text, x, y) { labels.push({text, x, y, font: context.font}); },
     measureText(text) { return {width: String(text).length * 6}; },
   }, { get: (target, key) => target[key] ?? (() => {}) });
   const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
@@ -658,10 +708,10 @@ async function mountPulse({reduceMotion = false, extraNodes = []} = {}) {
        comparator_status: 'compared', side: 'short'},
       ...extraNodes,
     ],
-    edges: [[0, 2], [1, 2]],
+    edges: [[0, 2], [1, 2], ...extraEdges],
   }};
   vm.runInNewContext(source, {document, window, navigator: {},
-    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    getComputedStyle: () => ({getPropertyValue: name => styles[name] || ''}),
     fetch: async url => ({json: async () => data[url]}),
     setTimeout: fn => { fn(); return 1; }, clearTimeout() {},
   });
@@ -677,7 +727,7 @@ async function mountPulse({reduceMotion = false, extraNodes = []} = {}) {
       for (const [, fn] of due) fn(now);
     }
   };
-  return {canvas, comparator, dot, arcs: () => arcs, frames, advanceTo, now: () => now};
+  return {canvas, comparator, dot, arcs: () => arcs, strokes: () => strokes, labels: () => labels, frames, advanceTo, now: () => now};
 }
 
 test('a settled hover sends one ripple and a bead of light along its thread to Comparator', async () => {
@@ -687,14 +737,20 @@ test('a settled hover sends one ripple and a bead of light along its thread to C
   const start = map.now();
   const mid = {x: (dot.x + comparator.x) / 2, y: (dot.y + comparator.y) / 2};
   const near = (a, p, tolerance) => Math.hypot(a.x - p.x, a.y - p.y) <= tolerance;
-  // Where a mark stands on the thread: its share of the way and its distance off it.
-  const onThread = a => {
-    const vx = comparator.x - dot.x, vy = comparator.y - dot.y, len2 = vx * vx + vy * vy;
-    const u = ((a.x - dot.x) * vx + (a.y - dot.y) * vy) / len2;
-    return {u, off: Math.abs((a.x - dot.x) * vy - (a.y - dot.y) * vx) / Math.sqrt(len2)};
-  };
   map.advanceTo(start + 16 + 110 + 310);
-  assert.ok(map.arcs().some(a => { const t = onThread(a); return a.r < dot.r + 2 && t.off < 1.5 && t.u > 0.3 && t.u < 0.7; }),
+  // The thread to Comparator as drawn (on the landing it may bend round a
+  // name on its way, 5 October 2026): the run of pieces whose far end
+  // meets Comparator, its mark or its own name.
+  const toComparator = threadRuns(map).find(run => endsAt(map, run[run.length - 1].to, comparator, 'Comparator'));
+  assert.ok(toComparator, 'a thread runs from the result to Comparator');
+  const off = a => Math.min(...toComparator.map(seg => {
+    const [ax, ay] = seg.from, vx = seg.to[0] - ax, vy = seg.to[1] - ay;
+    const t = Math.max(0, Math.min(1, ((a.x - ax) * vx + (a.y - ay) * vy) / (vx * vx + vy * vy || 1)));
+    return Math.hypot(ax + vx * t - a.x, ay + vy * t - a.y);
+  }));
+  const span = Math.hypot(comparator.x - dot.x, comparator.y - dot.y);
+  assert.ok(map.arcs().some(a => a.r < dot.r + 2 && off(a) < 1.5 &&
+      Math.hypot(a.x - dot.x, a.y - dot.y) > 0.25 * span && Math.hypot(a.x - comparator.x, a.y - comparator.y) > 0.25 * span),
     'halfway through its travel a bead stands on the thread to Comparator, well clear of both ends');
   assert.ok(map.arcs().some(a => near(a, dot, 0.5) && a.r > dot.r + 8),
     'the hovered mark sends out a ripple wider than its hover ring');
@@ -731,11 +787,15 @@ test('beside the column a click pins the result instead of leaving the page', as
   assert.ok(pinned && pinned.detail, 'the click pins the result for the column');
   assert.equal(pinned.detail.id, 'statement:p257#thm:a');
   assert.equal(pinned.detail.href, 'maths/papers/p257.html#thm:a', 'the card can still go to the paper');
-  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
-  assert.equal(selects().pop().detail, null, 'a click on the pinned dot lets it go');
-  assert.equal(teaser.location.href, '/', 'and still leaves the page where it is');
   teaser.canvas.fire('click', {clientX: 2, clientY: 2});
+  assert.equal(selects().pop().detail, null, 'empty ground lets the pin go');
   assert.equal(teaser.location.href, '/', 'a near miss on empty ground never throws the reader off the landing');
+  // Chosen again, a second click on the pinned dot opens the result at its
+  // place in its paper, as the full map and the system map do (Will, 5 Oct).
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(selects().pop().detail.id, 'statement:p257#thm:a');
+  teaser.canvas.fire('click', {clientX: teaser.dot.x, clientY: teaser.dot.y});
+  assert.equal(teaser.location.href, 'maths/papers/p257.html#thm:a', 'a second click on the pinned dot opens it');
 });
 
 test('a pinned result keeps the column when the pointer leaves; a click elsewhere lets it go', () => {
@@ -898,23 +958,76 @@ test('beside the column a hovered result reaches the card with its paper’s wor
 test('a gap between two dots under a sweeping pointer keeps the field dimmed, then lets it go', async () => {
   // A paper with no thread to the result: the field dims it while the result is in focus.
   const map = await mountPulse({extraNodes: [{id: 'paper:far', kind: 'paper', label: 'Far paper', x: -150, y: 150}]});
-  const far = () => map.arcs().filter(a => a.x < map.dot.x && a.y > map.dot.y + 20)
+  const far = () => map.arcs().filter(a => a.x < map.dot.x && a.y > map.dot.y + 20 && a.fill)
     .reduce((best, a) => (best && best.r >= a.r ? best : a), null);
-  const rest = far().alpha;
+  // On the landing a mark drops back by its ink, toward the ground the
+  // canvas is seen on (here the harness's surface colour), never by
+  // turning transparent (5 October 2026).
+  const GROUND = '#fffdf7';
+  const toGround = () => colorGap(far().fill, GROUND);
+  const rest = far(), restGap = toGround();
   map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
   map.advanceTo(map.now() + 400);
-  const dim = far().alpha;
-  assert.ok(dim < rest - 0.2, 'a result in focus dims the unconnected paper');
+  const dimGap = toGround();
+  assert.ok(dimGap < restGap - 0.1, 'a result in focus fades the unconnected paper toward the ground');
+  assert.equal(far().alpha, rest.alpha, 'faded ink, never made transparent');
   map.canvas.fire('pointermove', {clientX: 2, clientY: 2});
   map.advanceTo(map.now() + 48);
-  assert.ok(far().alpha < rest - 0.2, 'the gap after a dot holds the dim instead of snapping the field bright');
+  assert.ok(toGround() < restGap - 0.1, 'the gap after a dot holds the dim instead of snapping the field bright');
   map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
   map.advanceTo(map.now() + 32);
-  assert.ok(far().alpha <= dim + 0.02, 'the next dot carries on from the held dim, never restarting from nothing');
+  assert.ok(toGround() <= dimGap + 0.02, 'the next dot carries on from the held dim, never restarting from nothing');
   map.canvas.fire('pointermove', {clientX: 2, clientY: 2});
   map.advanceTo(map.now() + 900);
-  assert.ok(Math.abs(far().alpha - rest) < 0.02, 'once the pointer has really left, the field eases back');
+  assert.ok(Math.abs(toGround() - restGap) < 0.02, 'once the pointer has really left, the field eases back');
   assert.equal(map.frames.size, 0, 'and nothing keeps running');
+});
+
+test('on the landing what drops back keeps its hue: its own ink faded, never a neutral grey', async () => {
+  // The night scheme's tokens: Comparator's orange on the violet ground.
+  const styles = {'--u-integration': '#e08a58', '--surface': '#272132', '--ink': '#f2e6d4',
+                  '--faint': '#a6a2b1', '--muted': '#bcb8c6'};
+  // A replayed result of another problem, far from the one in focus.
+  const other = {id: 'statement:p68#thm:x', kind: 'paper_statement', label: 'Theorem 9.9', x: -150, y: 150,
+                 sector: 'erdos_68', lean_status: 'exact', comparator_status: 'compared', side: 'short'};
+  const map = await mountPulse({styles, extraNodes: [other]});
+  const theirs = () => map.arcs().filter(a => a.x < map.dot.x - 100 && a.y > map.dot.y + 20 && a.fill)
+    .reduce((best, a) => (best && best.r >= a.r ? best : a), null);
+  assert.equal(theirs().fill, '#e08a58', 'at rest a replayed result wears Comparator’s colour');
+  map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
+  map.advanceTo(map.now() + 400);
+  const faded = theirs().fill;
+  assert.notEqual(faded, '#a6a2b1', 'it does not turn the faint grey');
+  const [r, , b] = rgbOf(faded);
+  assert.ok(r - b > 0.04, `still warm, its own orange faded (${faded}); the grey it used to turn was cool`);
+  assert.ok(colorGap(faded, '#272132') < colorGap('#e08a58', '#272132') - 0.15, 'and it sinks toward the ground');
+  assert.equal(theirs().alpha, 1, 'drawn whole: the mix is in the ink, as color-mix(in oklab) is on the system map');
+});
+
+test('a lit thread goes round a problem in its way instead of through it', async () => {
+  // A problem set on the straight line from the result to Comparator: a line
+  // through its mark would read as a relation to it that the data lacks.
+  const between = {id: 'problem:erdos_68', kind: 'problem', label: 'Factorial series', short: '#68',
+                   x: 75, y: -75, sector: 'erdos_68'};
+  const map = await mountPulse({extraNodes: [between]});
+  const mid = {x: (map.dot.x + map.comparator.x) / 2, y: (map.dot.y + map.comparator.y) / 2};
+  const disc = map.arcs().filter(a => Math.hypot(a.x - mid.x, a.y - mid.y) < 1 && a.r > 4)
+    .reduce((best, a) => (best && best.r >= a.r ? best : a), null);
+  assert.ok(disc, 'the problem stands on the straight way');
+  map.canvas.fire('pointermove', {clientX: map.dot.x, clientY: map.dot.y});
+  map.advanceTo(map.now() + 2400);
+  const threads = map.strokes().filter(s => s.width === 1.25 && s.segments.length).flatMap(s => s.segments);
+  assert.ok(threads.length >= 2, 'the result’s threads are drawn');
+  // Distance from the problem's centre to a piece of thread.
+  const away = seg => {
+    const [ax, ay] = seg.from, [bx, by] = seg.to, vx = bx - ax, vy = by - ay;
+    const t = Math.max(0, Math.min(1, ((disc.x - ax) * vx + (disc.y - ay) * vy) / (vx * vx + vy * vy || 1)));
+    return Math.hypot(ax + vx * t - disc.x, ay + vy * t - disc.y);
+  };
+  assert.ok(threads.every(seg => away(seg) > disc.r + 4),
+    'every thread keeps clear of the problem’s mark (its disc and four pixels more)');
+  const reachesComparator = threadRuns(map).some(run => endsAt(map, run[run.length - 1].to, map.comparator, 'Comparator'));
+  assert.ok(reachesComparator, 'and the thread to Comparator still reaches it, at its mark or its name');
 });
 
 test('under the map a tap on a dot brings its card into view; beside the map nothing scrolls', async () => {
@@ -971,21 +1084,36 @@ function structureData() {
 }
 
 async function mountStructure({page = false, reduceMotion = false, csp = null, companion = false, speculation = false,
-  withInspector = false, data = structureData} = {}) {
+  withInspector = false, data = structureData, styles = {}, reads = false, keyRow = false} = {}) {
   let arcs = [], strokes = [], fills = [], rects = [], labels = [], path = [], pen = null, paints = 0, dash = [], images = 0;
+  // Where the drawing has moved its origin (translate, save and restore;
+  // a rotation turns a letter about its own place, which is all a label's
+  // place needs).
+  let origin = [0, 0];
+  const saved = [];
   const context = new Proxy({
     clearRect() { arcs = []; strokes = []; fills = []; rects = []; labels = []; images = 0; paints++; },
+    setTransform() { origin = [0, 0]; },
+    save() { saved.push(origin.slice()); },
+    restore() { origin = saved.pop() || [0, 0]; },
+    translate(x, y) { origin = [origin[0] + x, origin[1] + y]; },
     beginPath() { path = []; pen = null; },
     moveTo(x, y) { pen = [x, y]; },
     lineTo(x, y) { if (pen) path.push({from: pen, to: [x, y]}); pen = [x, y]; },
     setLineDash(segments) { dash = segments; },
     stroke() { strokes.push({style: context.strokeStyle, alpha: context.globalAlpha, width: context.lineWidth, dashed: dash.length > 0, segments: path.slice()}); },
-    fill() { fills.push({style: context.fillStyle, alpha: context.globalAlpha}); },
-    fillRect(x, y, w, h) { rects.push({x, y, w, h, alpha: context.globalAlpha}); },
+    fill() {
+      fills.push({style: context.fillStyle, alpha: context.globalAlpha});
+      if (arcs.length) arcs[arcs.length - 1].fill = context.fillStyle;
+    },
+    fillRect(x, y, w, h) { rects.push({x, y, w, h, alpha: context.globalAlpha, style: context.fillStyle}); },
     arc(x, y, r, a0, a1) { arcs.push({x, y, r, a0, a1, alpha: context.globalAlpha}); },
     drawImage() { images++; },
     measureText(text) { return {width: String(text).length * 6}; },
-    fillText(text, x, y) { labels.push({text, x, y, alpha: context.globalAlpha}); },
+    fillText(text, x, y) {
+      labels.push({text, x: x + origin[0], y: y + origin[1], alpha: context.globalAlpha, font: context.font, fill: context.fillStyle,
+                   align: context.textAlign, baseline: context.textBaseline});
+    },
   }, { get: (target, key) => target[key] ?? (() => {}) });
   const canvas = Object.assign(element({'data-universe-src': 'initial', 'data-universe-base': 'maths/'}), {
     clientWidth: 640, clientHeight: 600, getContext: () => context,
@@ -996,7 +1124,23 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   const row = element({'data-problem-id': 'p1'});
   const host = Object.assign(element(), {querySelector: s => s.startsWith('li.home-problem') ? row : null});
   const section = Object.assign(element(), {querySelector: s => s === '.home-split__text' ? host : null});
+  // An element that can hold others, as the key's slot and list are.
+  const container = () => Object.assign(element(), {
+    children: [], clientWidth: 400,
+    appendChild(node) { this.children.push(node); node.parentNode = this; return node; },
+    insertBefore(node, ref) {
+      const at = this.children.indexOf(ref);
+      if (node.parentNode && node.parentNode.children) node.parentNode.children.splice(node.parentNode.children.indexOf(node), 1);
+      this.children.splice(at < 0 ? this.children.length : at, 0, node);
+      node.parentNode = this;
+      return node;
+    },
+  });
   const caption = element();
+  // The landing's caption row under the drawing: the caption and the buttons.
+  const captionRow = keyRow ? container() : null;
+  if (captionRow) { captionRow.classList.add('home-universe__caption'); captionRow.appendChild(caption); }
+  const captured = {};
   const stage = Object.assign(element(), {
     querySelector: s => s === 'canvas' ? canvas : s === '.universe-caption' ? caption : null, querySelectorAll: () => [],
     closest: s => s === 'section' && companion ? section : null,
@@ -1008,7 +1152,7 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   const document = Object.assign(element(), {
     readyState: 'complete', documentElement: element(), activeElement: null,
     head: {appendChild: node => { appended.push(node); if (node.onload) node.onload(); }},
-    createElement: () => element(),
+    createElement: () => (keyRow ? container() : element()),
     querySelector: s => (s.indexOf('Content-Security-Policy') !== -1 ? meta : s === '[data-universe-inspector]' ? inspector : null),
     querySelectorAll: s => s === '[data-universe-stage]' ? [stage] : [],
   });
@@ -1024,8 +1168,13 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
   const CustomEvent = class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } };
   const window = Object.assign(element(), {
     location, devicePixelRatio: 1, isSecureContext: false,
-    // Model a loaded desktop companion: production attach publishes its live layout predicate.
-    PlectisUniverseCompanion: {attach(api) { api.sideBySide = () => true; }},
+    // Model a loaded desktop companion: production attach publishes its live
+    // layout predicate (and, once its data is in, whether it reads a sector).
+    PlectisUniverseCompanion: {attach(api) {
+      api.sideBySide = () => true;
+      if (reads) api.reads = () => true;
+      captured.api = api;
+    }},
     history: {replaceState(_a, _b, url) { location.hash = new URL(url, 'http://test').hash; }},
     matchMedia: query => ({matches: /reduce/.test(query) ? reduceMotion : true}),
     requestAnimationFrame: fn => { rafCalls++; frames.set(nextFrame, fn); return nextFrame++; },
@@ -1033,7 +1182,7 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
     IntersectionObserver: IO, CustomEvent,
   });
   const sandbox = {document, window, navigator: {}, CustomEvent, IntersectionObserver: IO, URL,
-    getComputedStyle: () => ({getPropertyValue: () => ''}),
+    getComputedStyle: () => ({getPropertyValue: name => styles[name] || ''}),
     fetch: async url => ({json: async () => data()[url]}),
     setTimeout: fn => { fn(); return 1; }, clearTimeout() {}};
   if (speculation) sandbox.HTMLScriptElement = {supports: type => type === 'speculationrules'};
@@ -1097,10 +1246,11 @@ async function mountStructure({page = false, reduceMotion = false, csp = null, c
     return strokes.filter(s => s.style === '#211318' && s.width === 1).flatMap(s => s.segments)
       .filter(seg => Math.hypot(seg.from[0] - c.x, seg.from[1] - c.y) > 200);
   };
-  return {canvas, caption, document, window, location, announced, appended, frames, advanceTo, now: () => now,
+  return {canvas, caption, captionRow, document, window, location, announced, appended, frames, advanceTo, now: () => now,
     rafCalls: () => rafCalls, paints: () => paints, arcs: () => arcs, rects: () => rects, labels: () => labels,
-    strokes: () => strokes, images: () => images, inspector, centre, place, view, at, results, cursor, ticks,
-    intersect(on) { for (const o of observers) if (!o.gone) o.callback([{isIntersecting: on, target: o.target}]); },
+    strokes: () => strokes, fills: () => fills, images: () => images, inspector, centre, place, view, at, results, cursor, ticks,
+    api: () => captured.api,
+    intersect(on, ratio = on ? 1 : 0) { for (const o of observers) if (!o.gone) o.callback([{isIntersecting: on, intersectionRatio: ratio, target: o.target}]); },
     atlas(view, previous) { document.fire('plectis:atlas', {detail: {view, previous, phase: 'start', instant: false}}); },
     key(key) { document.fire('keydown', {key, target: {tagName: 'BODY'}}); },
   };
@@ -1360,6 +1510,24 @@ test('a teaser still out of view when its data arrives stays closed, then assemb
   map.advanceTo(map.now() + 2000);
   assert.ok(map.results().every(a => a.alpha > 0.99), 'and ends whole');
   assert.equal(map.frames.size, 0);
+});
+
+test('a teaser partly on the first screen opens at once; reached by scrolling it waits for a third', async () => {
+  // 5 October 2026: the map moved up onto the landing's first screen, where a
+  // third of it or less shows, and a reader who had not scrolled met an empty
+  // frame while the opening waited for 35 per cent of the drawing.
+  const first = await mountStructure();
+  first.intersect(true, 0.2);
+  first.advanceTo(first.now() + 2000);
+  assert.ok(first.results().every(a => a.alpha > 0.99), 'partly in view at first look, it opens and ends whole');
+  const below = await mountStructure();
+  below.intersect(false);
+  below.intersect(true, 0.1);
+  below.advanceTo(below.now() + 1000);
+  assert.ok(below.results().every(a => a.alpha < 0.01), 'a sliver reached by scrolling waits closed');
+  below.intersect(true, 0.4);
+  below.advanceTo(below.now() + 2000);
+  assert.ok(below.results().every(a => a.alpha > 0.99), 'a third in view opens it');
 });
 
 test('the teaser’s own caption says what the pointer is on in a plain sentence, and nothing once it leaves', async () => {
@@ -1646,4 +1814,172 @@ test('walking filtered results skips hidden statements and search keeps proof sy
   map.search.value = 'ordinary proof'; map.search.fire('input');
   assert.equal((map.results.innerHTML.match(/glyph--ordinary_proof/g) || []).length, 2);
   assert.doesNotMatch(map.results.innerHTML, /glyph--none/);
+});
+
+/* The teaser pass (5 October 2026): nothing crowds the card's edge, the
+   words are near body size, threads go round words, a kept result looks
+   kept, the column changes without double exposure, the field dims in its
+   own hues, and a key stands in the caption slot at rest. */
+
+// A label's extent on the field, from its place, its face and how it was
+// set (the harness's face sets six pixels a letter).
+function labelExtent(label) {
+  const size = Number((/(\d+(?:\.\d+)?)px/.exec(label.font || '') || [0, 12])[1]);
+  const width = label.text.length * 6;
+  const x0 = label.align === 'left' ? label.x : label.align === 'right' ? label.x - width : label.x - width / 2;
+  const y0 = label.baseline === 'middle' ? label.y - size / 2 : label.y - size * 0.75;
+  return {x0, x1: x0 + width, y0, y1: y0 + size, size};
+}
+
+test('on the landing the teaser’s outermost words keep 32px from the card’s edge, and none is under 12px', async () => {
+  const map = await mountStructure();
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const words = map.labels().filter(l => l.alpha > 0.05);
+  assert.ok(words.length > 10, 'the ring is lettered');
+  const edge = Math.min(...words.map(l => {
+    const e = labelExtent(l);
+    return Math.min(e.x0, e.y0, map.canvas.clientWidth - e.x1, map.canvas.clientHeight - e.y1);
+  }));
+  assert.ok(edge >= 31, `the outermost word stands ${edge.toFixed(1)}px from the frame`);
+  assert.ok(words.every(l => labelExtent(l).size >= 12), 'nothing on the field is set under 12px');
+  assert.ok(words.some(l => /^600 16px/.test(l.font)) && words.some(l => /^400 14px/.test(l.font)),
+    'band titles at 16px and their counts at 14px, near the body size beside them');
+  // The title at three o'clock is set level, not turned on its side.
+  const level = words.find(l => l.text === '#3');
+  assert.ok(level && level.align === 'left', 'the title at three o’clock reads level, out beside the scale');
+  // A hovered result's plate: the plate face, its box clear of the edge.
+  const dot = map.place('statement:c-long#r1');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  map.advanceTo(map.now() + 2000);
+  const plate = map.labels().find(l => l.text.startsWith('Theorem 1.1'));
+  assert.ok(plate && /^500 15px/.test(plate.font), 'a name plate is set at 15px');
+  const box = labelExtent(plate);
+  assert.ok(box.x1 + 9 <= map.canvas.clientWidth - 24 && box.x0 - 9 >= 24,
+    'the plate’s box keeps 24px from the canvas, clear of the corner marks');
+});
+
+test('the map’s own page keeps its smaller type and its old edge', async () => {
+  const map = await mountStructure({page: true});
+  map.advanceTo(map.now() + 2000);
+  assert.ok(map.labels().some(l => /^600 12px/.test(l.font || '')), 'the page’s band titles stay at 12px');
+  assert.ok(!map.labels().some(l => /^600 16px/.test(l.font || '')), 'the teaser’s set is the teaser’s alone');
+});
+
+test('a kept result is framed in ember; one under the pointer stays in ink', async () => {
+  const INK = '#f2e6d4', EMBER = '#e18a79';
+  const map = await mountStructure({companion: true, styles: {'--ink': INK, '--home-ember': EMBER}});
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const a = map.place('statement:a-long#r2'), b = map.place('statement:b-long#r3');
+  const frame = (p, ink) => map.rects().filter(r => r.style === ink &&
+    Math.abs(r.x + r.w / 2 - p.x) < 24 && Math.abs(r.y + r.h / 2 - p.y) < 24);
+  map.canvas.fire('pointermove', {clientX: a.x, clientY: a.y});
+  map.advanceTo(map.now() + 600);
+  assert.ok(frame(a, INK).length >= 8, 'pointed at, its four corners are ink');
+  assert.equal(frame(a, EMBER).length, 0, 'and none is ember');
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  map.advanceTo(map.now() + 600);
+  assert.ok(frame(a, EMBER).length >= 8, 'kept, its frame turns ember');
+  assert.ok(map.strokes().some(s => s.style === EMBER && !s.segments.length), 'and so does its ring');
+  map.canvas.fire('pointermove', {clientX: b.x, clientY: b.y});
+  map.advanceTo(map.now() + 600);
+  assert.ok(frame(a, EMBER).length >= 8, 'it stays ember while another result is pointed at');
+  assert.ok(frame(b, INK).length >= 8 && !frame(b, EMBER).length, 'which is framed in ink');
+});
+
+test('beside a column that reads the result whole, its plate gives the paper’s number only', async () => {
+  const map = await mountStructure({companion: true, reads: true});
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const a = map.place('statement:a-long#r2');
+  map.canvas.fire('pointermove', {clientX: a.x, clientY: a.y});
+  map.advanceTo(map.now() + 600);
+  const texts = map.labels().map(l => l.text);
+  assert.ok(texts.includes('Theorem 2.1'), 'the plate names the result by its number');
+  assert.ok(!texts.some(t => /Result 2 of a-long/.test(t)), 'and leaves its title to the column');
+  // Kept, and another result pointed at: the column holds the kept one, so
+  // the other is named in full.
+  map.canvas.fire('click', {clientX: a.x, clientY: a.y, detail: 1});
+  const b = map.place('statement:a-long#r4');
+  map.canvas.fire('pointermove', {clientX: b.x, clientY: b.y});
+  map.advanceTo(map.now() + 600);
+  assert.ok(map.labels().some(l => /Theorem 4\.1 \(Result 4 of a-long\)|Result 4 of a-long/.test(l.text)),
+    'a result the column is not showing is named in full');
+});
+
+test('the lit sector is indexed by hairlines, not washed, and they stop short of words', async () => {
+  const map = await mountStructure();
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const a = map.place('statement:a-long#r2');
+  map.canvas.fire('pointermove', {clientX: a.x, clientY: a.y});
+  map.advanceTo(map.now() + 600);
+  // The harness's halo colour is the stylesheet's fallback for --u-halo.
+  assert.ok(!map.fills().some(f => f.style === 'rgba(226,168,62,0.35)'), 'no wash is laid over the sector');
+  const index = map.strokes().filter(s => s.style === '#211318' && Math.abs(s.alpha - 0.55) < 0.01).flatMap(s => s.segments);
+  assert.ok(index.length > 4, 'two edges and an arc index the sector');
+  const letters = map.labels().filter(l => l.text.length === 1 && l.alpha > 0.05);
+  const gap = Math.min(...index.flatMap(seg => letters.map(l => Math.min(
+    Math.hypot(seg.from[0] - l.x, seg.from[1] - l.y), Math.hypot(seg.to[0] - l.x, seg.to[1] - l.y)))));
+  assert.ok(gap >= 6, `the index keeps clear of the sector’s title (${gap.toFixed(1)}px)`);
+  const page = await mountStructure({page: true});
+  page.advanceTo(page.now() + 2000);
+  const p = page.at('statement:a-long#r2');
+  page.canvas.fire('pointermove', {clientX: p.x, clientY: p.y});
+  page.advanceTo(page.now() + 600);
+  assert.ok(page.fills().some(f => f.style === 'rgba(226,168,62,0.35)'), 'the map’s own page keeps its lit slice');
+});
+
+test('letting the column go restores the field on the column’s beat, with no hold', async () => {
+  const map = await mountStructure({companion: true});
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const api = map.api();
+  const other = map.place('statement:b-long#r2');
+  const ink = () => map.arcs().filter(a => Math.hypot(a.x - other.x, a.y - other.y) < 1 && a.fill)
+    .reduce((best, a) => (best && best.r >= a.r ? best : a), null).fill;
+  const rest = ink();
+  api.light('p1');
+  map.advanceTo(map.now() + 600);
+  assert.notEqual(ink(), rest, 'the column reading #1 drops the other sector back');
+  api.light(null);
+  map.advanceTo(map.now() + 16 + 160 + 16);
+  assert.equal(ink(), rest, 'the column closing brings it back within its own 160ms');
+});
+
+test('at rest the caption slot holds a key of the map’s own marks, which steps out while a name shows', async () => {
+  const map = await mountStructure({keyRow: true});
+  map.intersect(true);
+  map.advanceTo(map.now() + 2000);
+  const slot = map.captionRow.children.find(node => node.className === 'universe-captionslot');
+  assert.ok(slot, 'the caption shares its slot with the key');
+  const key = slot.children.find(node => node.className === 'universe-key');
+  assert.ok(key, 'the key is there at rest');
+  for (const words of ['Replayed by Comparator', 'Replay queued', 'No Lean statement', 'Checked claim']) {
+    assert.match(key.innerHTML, new RegExp(words), `it names: ${words}`);
+  }
+  assert.doesNotMatch(key.innerHTML, /·|·/, 'plain words, no middle dots');
+  assert.match(key.innerHTML, /universe-key__mark--replayed[\s\S]*universe-key__mark--lean/, 'each drawn with the map’s mark');
+  const dot = map.place('statement:a-long#r1');
+  map.canvas.fire('pointermove', {clientX: dot.x, clientY: dot.y});
+  assert.ok(key.classList.contains('is-out'), 'it steps out while the caption names the result');
+  map.canvas.fire('pointermove', {clientX: 3, clientY: 3});
+  assert.ok(!key.classList.contains('is-out'), 'and comes back when the caption is empty');
+});
+
+test('the column and the drawing’s card never show at once: out in 90ms, then the title travels; away in 160ms, then the list', () => {
+  const css = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.css', import.meta.url), 'utf8');
+  const js = readFileSync(new URL('../../../tools/meta/dissemination/maths_site_assets/universe-companion.js', import.meta.url), 'utf8');
+  assert.match(css, /\.uc-host--open > :not\(\.uc\) \{[^}]*transition: opacity 90ms/, 'the list steps out in 90ms');
+  assert.match(css, /\.uc-host > :not\(\.uc\) \{[^}]*transition: opacity 240ms [^;]*\) 160ms;/,
+    'and comes back over 240ms only after the card has gone (160ms)');
+  assert.match(css, /\.uc \{[^}]*transition: opacity 160ms/, 'the card steps out in 160ms');
+  assert.match(css, /\.uc\.is-open \{[^}]*transition: opacity 0s linear 90ms/, 'and shows only once the list has gone');
+  assert.match(js, /var OUT = 90, AWAY = 160;/);
+  assert.match(js, /\{ duration: 320, delay: OUT, easing: EASE, fill: 'backwards' \}/, 'the title travels only after OUT');
+  assert.match(js, /var EASE = 'cubic-bezier\(0\.16, 1, 0\.3, 1\)';/, 'arrivals ease out hard');
+  assert.doesNotMatch(css.replace(/\/\*[\s\S]*?\*\//g, ''), /transition:[^;]*(?:width|height|top|left|margin)\b/,
+    'only opacity and transform move (the fold excepted, by its rows)');
+  assert.match(js, /Kept\. Esc lets it go/, 'a kept card says so in plain words');
 });

@@ -2071,7 +2071,13 @@
     var reduceQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     var reduceMotion = !!(reduceQuery && reduceQuery.matches);
 
-    var model = null, D = null, ring = null, map = null;
+    // map: the drawing on screen; baseMap: the whole system as it rests,
+    // which every camera is reckoned from; camNow: the camera map is drawn
+    // for (null is the whole system).
+    var model = null, D = null, ring = null, map = null, baseMap = null, camNow = null;
+    // Ids for the paths and masks a drawing defines: two drawings stand in
+    // the page while the camera moves, so they count on from one another.
+    var arcN = 0, revealN = 0;
     // Where the reader is: a level and what is chosen there.
     //   system | family (fam) | component (comp) | doctrine | rule (rule)
     var at = { level: 'system', fam: -1, comp: -1, rule: null };
@@ -2117,6 +2123,10 @@
     head.appendChild(backBtn);
     var caption = h('p', 'sm-caption');
     var area = h('div', 'sm-area');
+    // The drawing's own box inside the area: while the camera moves it holds
+    // the view being left and the view arriving, one over the other.
+    var view = h('div', 'sm-view');
+    area.appendChild(view);
     var tip = h('div', 'sm-tip');
     tip.hidden = true;
     tip.setAttribute('aria-hidden', 'true');
@@ -2152,6 +2162,7 @@
       at = copyAt(next);
       if (pageMode && !how.fromAddress) writeAddress(!!how.replace);
       render(how);
+      if (at.level !== 'system') warm(keyOf(at));
     }
     function goSystem(how) { navigate(copyAt(SYSTEM), how); }
     function goFamily(fi, how) { navigate({ level: 'family', fam: fi, comp: -1, rule: null }, how); }
@@ -2203,6 +2214,100 @@
       if (a.level === 'component') return model.comps[a.comp].label;
       if (a.level === 'family') return model.families[a.fam].title;
       return 'the whole system';
+    }
+
+    /* ---- Opening a page ---- */
+    /* Everything on the map has a page on the site: a component its own
+       page (or, without one, its paper module), a rule its card on the
+       doctrine page, a family its page, the doctrine its page. A click
+       chooses; a second click on what is chosen, or a double click, opens
+       its page (Will, 5 October 2026: if you "select and click it" it
+       should "take you to that in the website and load really quick").
+       Enter does the same from the keyboard, and a click with Cmd or Ctrl
+       opens the page in a new tab. */
+    function pageOf(key) {
+      if (!model || !key) return null;
+      if (key === 'doctrine' || key.indexOf('rule:') === 0) {
+        if (!D) return null;
+        if (key !== 'doctrine') { var r = D.rules[key.slice(5)]; return r && r.doctrine ? r.doctrine : null; }
+        var any = Object.keys(D.rules).map(function (id) { return D.rules[id].doctrine; }).filter(Boolean)[0];
+        return any ? any.replace(/#.*$/, '') : null;
+      }
+      if (key.indexOf('fam:') === 0) { var fi = familyIndex(key.slice(4)); return fi >= 0 ? model.families[fi].page || null : null; }
+      for (var i = 0; key.indexOf('comp:') === 0 && i < model.comps.length; i++) {
+        if ('comp:' + model.comps[i].id === key) return model.comps[i].page || model.comps[i].reader || null;
+      }
+      return null;
+    }
+    function openWords(key) {
+      if (key === 'doctrine') return 'Click again to open the doctrine';
+      if (key.indexOf('rule:') === 0) return 'Click again to read its card';
+      if (key.indexOf('fam:') === 0) return 'Click again to open the family’s page';
+      return 'Click again to open its page';
+    }
+    function openPage(key, e) {
+      var href = pageOf(key);
+      if (!href) return false;
+      hideTip();
+      if (e && (e.metaKey || e.ctrlKey) && window.open) { window.open(href, '_blank', 'noopener'); return true; }
+      if (window.location && window.location.assign) window.location.assign(href);
+      else if (window.location) window.location.href = href;
+      return true;
+    }
+    var lastPress = null;
+    function press(e, key, go) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      var keyedIt = keyedClick(e), t = nowMs();
+      if (!keyedIt && e && e.detail >= 2 && lastPress && t - lastPress.at < 700) { openPage(lastPress.key, e); return; }
+      if (!keyedIt && e && (e.metaKey || e.ctrlKey) && openPage(key, e)) return;
+      if (!keyedIt && key === keyOf(at) && openPage(key, e)) return;
+      lastPress = keyedIt ? null : { key: key, at: t };
+      go({ keyed: keyedIt });
+    }
+    /* What a choice can open is fetched as it is chosen, so the second click
+       lands at once: one page at a time, never under Save-Data. Where the
+       browser takes speculation rules and the page's policy admits them the
+       page is prerendered whole; the document also goes into the cache by
+       prefetch, or by a plain fetch where prefetch is off (Safari). */
+    var warmed = null, warmNodes = [];
+    function speculationAllowed() {
+      var meta = null;
+      try { meta = document.querySelector ? document.querySelector('meta[http-equiv="Content-Security-Policy" i]') : null; } catch (e) { meta = null; }
+      if (!meta) return true;
+      var policy = String(meta.getAttribute('content') || '');
+      var rule = /(?:^|;)\s*script-src-elem\s+([^;]*)/i.exec(policy) || /(?:^|;)\s*script-src\s+([^;]*)/i.exec(policy) ||
+        /(?:^|;)\s*default-src\s+([^;]*)/i.exec(policy);
+      if (!rule) return true;
+      if (/'inline-speculation-rules'/i.test(rule[1])) return true;
+      return /'unsafe-inline'/i.test(rule[1]) && !/'(?:nonce-|sha(?:256|384|512)-|strict-dynamic)/i.test(rule[1]);
+    }
+    function warm(key) {
+      var href = pageOf(key);
+      if (!href || !document.head || typeof document.createElement !== 'function') return;
+      var conn = typeof navigator !== 'undefined' ? navigator.connection : null;
+      if (conn && conn.saveData) return;
+      var url;
+      try { url = new URL(href, window.location.href); } catch (e) { return; }
+      url.hash = '';
+      if (url.href === warmed) return;
+      warmed = url.href;
+      warmNodes.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+      warmNodes = [];
+      if (typeof HTMLScriptElement !== 'undefined' && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules') && speculationAllowed()) {
+        var rules = document.createElement('script');
+        rules.type = 'speculationrules';
+        rules.textContent = JSON.stringify({ prerender: [{ source: 'list', urls: [url.href] }] });
+        warmNodes.push(rules);
+      }
+      var link = document.createElement('link');
+      if (link.relList && link.relList.supports && link.relList.supports('prefetch')) {
+        link.rel = 'prefetch';
+        link.href = url.href;
+        warmNodes.push(link);
+      } else if (typeof fetch === 'function') {
+        try { fetch(url.href, { credentials: 'same-origin' }).catch(function () {}); } catch (e) {}
+      }
+      warmNodes.forEach(function (n) { document.head.appendChild(n); });
     }
 
     /* ---- The address (own page only) ---- */
@@ -2309,6 +2414,213 @@
     /* ---- Motion ---- */
     var EASE = 'cubic-bezier(0.22, 0.7, 0.18, 1)';
     function motionOK() { return !reduceMotion && !!root.animate && !document.hidden; }
+    function nowMs() { return typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now(); }
+    // The camera's curve: cubic-bezier(0.3, 0.1, 0.12, 1). It leaves at once,
+    // so the move is seen to answer the click within a frame or two (a
+    // symmetric slow-in held the drawing still for a tenth of a second), and
+    // it settles slowly, so the eye lands with it.
+    function cameraEase(t) {
+      var x1 = 0.3, y1 = 0.1, x2 = 0.12, y2 = 1, u = t;
+      for (var i = 0; i < 8; i++) {
+        var x = 3 * (1 - u) * (1 - u) * u * x1 + 3 * (1 - u) * u * u * x2 + u * u * u - t;
+        var dx = 3 * (1 - u) * (1 - u) * x1 + 6 * (1 - u) * u * (x2 - x1) + 3 * u * u * (1 - x2);
+        if (Math.abs(x) < 1e-5 || !dx) break;
+        u = clamp(u - x / dx, 0, 1);
+      }
+      return 3 * (1 - u) * (1 - u) * u * y1 + 3 * (1 - u) * u * u * y2 + u * u * u;
+    }
+
+    /* ---- The camera ---- */
+    /* A choice about one part of the ring brings the reader closer to it,
+       as the mathematics map does when it opens a problem: a family is
+       framed with each of its components named along its arc; a component
+       with everything it lights (its connections and the rules it cites);
+       the doctrine fills the drawing. A rule reaches round the whole ring,
+       so a rule, like the whole system, is seen from the usual distance.
+       The view is drawn afresh for its camera, so marks, lines and words
+       keep their own sizes, and the move between two views carries both
+       drawings along one path, the view left fading as the view arrived at
+       comes in. Under reduced motion, or from the keyboard, the view simply
+       changes. On the map's own page every name is already round the rim,
+       and the camera stays where it is. */
+    var KMAX = 2.4;
+    function camOf(k, cx, cy, names, nameSize) {
+      names = names === undefined ? -1 : names;
+      if (!(k > 1.06) && names < 0) return null;
+      return { k: k, cx: cx, cy: cy, names: names, nameSize: nameSize || 15, R0: baseMap.R0, size: baseMap.size, width: baseMap.width };
+    }
+    // The zooms to try, from the closest wanted down to the least allowed.
+    function zooms(top, least) {
+      var out = [];
+      for (var k = top; k > least + 1e-6; k *= 0.95) out.push(k);
+      out.push(least);
+      return out;
+    }
+    function boxOfPoints(list) {
+      var b = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
+      list.forEach(function (p) {
+        if (p[0] < b.x0) b.x0 = p[0];
+        if (p[0] > b.x1) b.x1 = p[0];
+        if (p[1] < b.y0) b.y0 = p[1];
+        if (p[1] > b.y1) b.y1 = p[1];
+      });
+      return b;
+    }
+    // A family close enough for its components' names to stand side by
+    // side along its arc (a name every font size and a little more round
+    // the rim), the arc and the names together centred in the drawing. The
+    // closest such look whose names all fit is taken, at 15px and failing
+    // that 14px; where none fits, no closer look.
+    function famCamera(fi) {
+      var B = baseMap, F = model.families[fi];
+      if (!F || !F.members.length || !(B.pitch > 0)) return null;
+      // pad: the band at the drawing's edges where a camera's view fades out.
+      var W = B.width, H = B.size, pad = 20;
+      function frame(names, k) {
+        var pts = [];
+        names.forEach(function (n) {
+          var c = Math.cos(n.a), s = Math.sin(n.a), r = k * B.R0, r2 = r + B.depth + 8 + n.w;
+          pts.push([c * (r - 16), s * (r - 16)], [c * r2 - s * 10, s * r2 + c * 10], [c * r2 + s * 10, s * r2 - c * 10]);
+        });
+        return boxOfPoints(pts);
+      }
+      var sizes = [15, 14];
+      for (var si = 0; si < sizes.length; si++) {
+        var fs = sizes[si], cls = 'sm-rimname sm-rimname--' + fs;
+        var names = F.members.map(function (ci) { return { a: B.comp[ci].a, w: textWidth(model.comps[ci].label, cls) }; });
+        var least = Math.max(1, (fs + 2) / B.pitch), top = Math.max(least, Math.min(KMAX, (fs + 5) / B.pitch));
+        if (least > KMAX) continue;
+        var tries = zooms(top, least);
+        for (var t = 0; t < tries.length; t++) {
+          var b = frame(names, tries[t]);
+          if (b.x1 - b.x0 <= W - 2 * pad && b.y1 - b.y0 <= H - 2 * pad) {
+            return camOf(tries[t], W / 2 - (b.x0 + b.x1) / 2, H / 2 - (b.y0 + b.y1) / 2, fi, fs);
+          }
+        }
+      }
+      return null;
+    }
+    // A component and all it lights, with room round them for the plates
+    // that name what it touches (its own plate, with the arrow to its page,
+    // first): the closest look at which every plate still fits.
+    function litCamera(a) {
+      var B = baseMap, L = B.lightOf(a), W = B.width, H = B.size, margin = 20;
+      var comps = Object.keys(L.comps).map(Number).filter(function (ci) { return !!B.comp[ci]; });
+      var rules = Object.keys(L.rules).filter(function (id) { return !!B.rule[id]; });
+      if (!comps.length) return null;
+      var plateW = Object.create(null);
+      L.plates.slice(0, 14).forEach(function (ci, rank) {
+        plateW[ci] = Math.min(230, textWidth(model.comps[ci].label, 'sm-plate__text') + 16 + (rank === 0 ? 22 : 0));
+      });
+      function frame(k) {
+        var pts = [], r = k * B.R0;
+        comps.forEach(function (ci) {
+          var C = B.comp[ci], c = Math.cos(C.a), s = Math.sin(C.a);
+          pts.push([c * r, s * r]);
+          if (plateW[ci] === undefined) return;
+          // Its plate: out along the radius past the rim's furniture, then
+          // beside the leader's end (over the top and under the foot, hung
+          // above or below it).
+          var re = r + B.depth + 12, ex = c * re, ey = s * re, w = plateW[ci];
+          if (Math.abs(c) < 0.42) pts.push([ex - w / 2, ey + (s < 0 ? -34 : 34)], [ex + w / 2, ey + (s < 0 ? -34 : 34)]);
+          else pts.push([ex + (c > 0 ? w + 8 : -w - 8), ey - 15], [ex + (c > 0 ? w + 8 : -w - 8), ey + 15]);
+        });
+        rules.forEach(function (id) { var q = B.rule[id]; pts.push([(q.x - B.cx) * k, (q.y - B.cy) * k]); });
+        return boxOfPoints(pts);
+      }
+      var tries = zooms(KMAX, 1.12);
+      for (var t = 0; t < tries.length; t++) {
+        var b = frame(tries[t]);
+        if (b.x1 - b.x0 <= W - 2 * margin && b.y1 - b.y0 <= H - 2 * margin) {
+          return camOf(tries[t], W / 2 - (b.x0 + b.x1) / 2, H / 2 - (b.y0 + b.y1) / 2, -1);
+        }
+      }
+      return null;
+    }
+    // The doctrine, filling the drawing.
+    function coreCamera() {
+      var B = baseMap;
+      if (!(B.coreOuter > 0)) return null;
+      return camOf(clamp(Math.min(B.width, B.size) * 0.46 / B.coreOuter, 1, 2.2), B.cx, B.cy, -1);
+    }
+    function cameraFor(a) {
+      if (pageMode || !baseMap || !model || !a) return null;
+      if (a.level === 'family') return famCamera(a.fam);
+      if (a.level === 'component') return litCamera(a);
+      if (a.level === 'doctrine') return D ? coreCamera() : null;
+      return null;
+    }
+    function sameCamera(a, b) {
+      if (!a || !b) return !a && !b;
+      return a.names === b.names && a.width === b.width && Math.abs(a.k / b.k - 1) < 0.03 && Math.abs(a.cx - b.cx) < 4 && Math.abs(a.cy - b.cy) < 4;
+    }
+    /* The move. Each drawing is laid out for its own camera; while the
+       camera travels from one to the other (its scale geometrically, the
+       point it looks at in a straight line, slow in and slow out, as Heer
+       and Robertson recommend for a move the eye must follow) both drawings
+       ride the same path as one picture, the new one coming in over the
+       old as it settles. Only transform and opacity animate. */
+    var flight = null;
+    function camOr(c) { return c || { k: 1, cx: baseMap.cx, cy: baseMap.cy }; }
+    function track(from, to, layer, n) {
+      var c0x = baseMap.cx, c0y = baseMap.cy, Dx = baseMap.width / 2, Dy = baseMap.size / 2, out = [];
+      var qa = [c0x + (Dx - from.cx) / from.k, c0y + (Dy - from.cy) / from.k];
+      var qb = [c0x + (Dx - to.cx) / to.k, c0y + (Dy - to.cy) / to.k];
+      for (var i = 0; i < n; i++) {
+        var e = cameraEase(i / (n - 1)), k = from.k * Math.pow(to.k / from.k, e);
+        var qx = qa[0] + (qb[0] - qa[0]) * e, qy = qa[1] + (qb[1] - qa[1]) * e, sc = k / layer.k;
+        var tx = k * (c0x - layer.cx / layer.k - qx) + Dx, ty = k * (c0y - layer.cy / layer.k - qy) + Dy;
+        out.push({ transform: 'translate(' + fx(tx) + 'px, ' + fx(ty) + 'px) scale(' + (Math.round(sc * 1e4) / 1e4) + ')', offset: i / (n - 1) });
+      }
+      return out;
+    }
+    function settleMove() {
+      var f = flight;
+      if (!f) return;
+      flight = null;
+      f.anims.forEach(function (an) { try { an.cancel(); } catch (e) {} });
+      if (f.old && f.old !== map && f.old.el.parentNode) f.old.el.parentNode.removeChild(f.old.el);
+      [f.old, f.next].forEach(function (x) {
+        if (x && x.el.classList) { x.el.classList.remove('is-moving'); x.el.classList.remove('is-leaving'); }
+      });
+    }
+    function shoot(want, how) {
+      settleMove();
+      var old = map, next = want ? buildMap(want) : baseMap, from = camNow;
+      var carry = motionOK() && !how.instant && !how.keyed && onScreen && !!old && old !== next && !!old.el.animate;
+      map = next;
+      camNow = want;
+      if (next.el.parentNode !== view) view.appendChild(next.el);
+      var seen = {};
+      Object.keys(how).forEach(function (key) { seen[key] = how[key]; });
+      if (carry) seen.later = 170;
+      next.select(at, seen);
+      if (!carry) {
+        if (old && old !== next && old.el.parentNode) old.el.parentNode.removeChild(old.el);
+        return;
+      }
+      var A = camOr(from), Z = camOr(want);
+      var Dx = baseMap.width / 2, Dy = baseMap.size / 2;
+      var travel = Math.sqrt(Math.pow((Dx - A.cx) / A.k - (Dx - Z.cx) / Z.k, 2) + Math.pow((Dy - A.cy) / A.k - (Dy - Z.cy) / Z.k, 2));
+      var dur = Math.round(Math.min(680, 340 + 170 * Math.abs(Math.log(Z.k / A.k) / Math.LN2) + 0.12 * travel));
+      var anims = [];
+      old.el.classList.add('is-moving');
+      old.el.classList.add('is-leaving');
+      next.el.classList.add('is-moving');
+      try {
+        anims.push(old.el.animate(track(A, Z, A, 14), { duration: dur, easing: 'linear', fill: 'both' }));
+        anims.push(next.el.animate(track(A, Z, Z, 14), { duration: dur, easing: 'linear', fill: 'both' }));
+        anims.push(old.el.animate([{ opacity: 1 }, { opacity: 1, offset: 0.22 }, { opacity: 0, offset: 0.56 }, { opacity: 0 }], { duration: dur, easing: 'linear', fill: 'both' }));
+        anims.push(next.el.animate([{ opacity: 0 }, { opacity: 0, offset: 0.08 }, { opacity: 1, offset: 0.46 }, { opacity: 1 }], { duration: dur, easing: 'linear', fill: 'both' }));
+      } catch (e) {}
+      var mine = { old: old, next: next, anims: anims };
+      flight = mine;
+      tipHushUntil = nowMs() + dur + 160;
+      hideTip();
+      var done = function () { if (flight === mine) settleMove(); };
+      if (anims[1]) anims[1].onfinish = done;
+      setTimeout(done, dur + 90);
+    }
 
     /* ---- Rendering ---- */
     // The card's height less its drawing's, once laid out: what the circle
@@ -2318,7 +2630,11 @@
       if (pageMode || refitting || !map || !stage.getBoundingClientRect || !map.svg.getBoundingClientRect) return;
       if (stage.classList && stage.classList.contains('is-parked')) return;
       if (stage.style && stage.style.removeProperty) stage.style.removeProperty('--sm-floor');
-      var c = stage.getBoundingClientRect().height - map.svg.getBoundingClientRect().height;
+      // The card less its drawing's area (not the drawing: beside its column
+      // the area may stand taller than the circle, and that room is not
+      // chrome, or the circle would shrink each time it was fitted).
+      var c = stage.getBoundingClientRect().height - Math.max(area.getBoundingClientRect().height, 0);
+      if (!(area.getBoundingClientRect().height > 0)) c = stage.getBoundingClientRect().height - map.svg.getBoundingClientRect().height;
       if (!(c > 0) || Math.abs(c - chromeH) < 3) return;
       chromeH = c;
       refitting = true;
@@ -2332,9 +2648,13 @@
       renderHead();
       caption.textContent = captionText();
       renderKey();
-      if (!map) { map = buildMap(); clear(area); area.appendChild(map.el); }
+      if (!map) { baseMap = map = buildMap(null); camNow = null; clear(view); view.appendChild(map.el); }
       root.setAttribute('data-view', at.level);
-      map.select(at, how);
+      // The camera frames what the view is about; where it moves, the view
+      // is drawn again for it and the reader is carried there.
+      var want = cameraFor(at);
+      if (!sameCamera(want, camNow)) shoot(want, how);
+      else map.select(at, how);
       if (at.level === 'system') fitHeight();
       column.sync(how);
       measureFloor();
@@ -2345,12 +2665,15 @@
     // The map is laid out again for a new size; the view stays as it was.
     function relayout() {
       if (!model) return;
+      settleMove();
       hoverKey = null;
       hideTip();
       renderKey();
-      map = buildMap();
-      clear(area);
-      area.appendChild(map.el);
+      baseMap = buildMap(null);
+      camNow = cameraFor(at);
+      map = camNow ? buildMap(camNow) : baseMap;
+      clear(view);
+      view.appendChild(map.el);
       map.select(at, { instant: true });
       // A new layout at the top level fits the card to the window again.
       if (at.level === 'system') fitHeight();
@@ -2424,7 +2747,7 @@
       if (onlyNamed()) return 'Red lines are the relations each component’s own record lists, not read from the code.';
       var none = unconnected();
       return 'Red lines are derived from the code: each one rests on the place in the code where one component runs another, ' +
-        'reads its saved results or checks its copied files.' + (none ? ' ' + none + ' of the ' + model.comps.length + ' components have none.' : '');
+        'reads its saved results or checks its copied files.' + (none ? ' ' + none + ' of the ' + model.comps.length + ' components ' + (none === 1 ? 'has' : 'have') + ' none.' : '');
     }
     function linkNote() {
       if (onlyNamed()) return 'Listed in a component’s own record, not read from the code.';
@@ -2607,7 +2930,24 @@
       // along its top is what the card may take.
       var chrome = chromeH > 0 ? chromeH : 135 + Math.max(0, bar - 56);
       var byHeight = (vh - 75 - chrome) / 2 - room;
+      // Beside its column the card is exactly as tall as the mathematics
+      // slide (one frame for both drawings, 5 October 2026), so the band
+      // never grows when the switch turns to the system: the circle takes
+      // what that height leaves.
+      var row = mathsRow();
+      if (row > 0) byHeight = Math.min(byHeight, (row - chrome) / 2 - room);
       return clamp(Math.min(byWidth, Math.max(byHeight, 180)), 140, 430);
+    }
+    // The mathematics slide's height beside its column, where the band
+    // lays the two slides out side by side (0 elsewhere).
+    function mathsRow() {
+      if (pageMode || !slide || !slide.parentNode || !framedBand()) return 0;
+      var other = slide.parentNode.querySelector ? slide.parentNode.querySelector('[data-atlas-slide="mathematics"] .home-split') : null;
+      var r = other && other.getBoundingClientRect ? other.getBoundingClientRect() : null;
+      return r && r.height > 0 ? r.height : 0;
+    }
+    function framedBand() {
+      try { return !!(window.matchMedia && window.matchMedia('(min-width: 961px)').matches); } catch (e) { return false; }
     }
     /* On the map's own page every component is named round the rim when the
        room allows: the largest of 16, 15 or 14px whose circle fits the window
@@ -2658,19 +2998,27 @@
     // the core.
     var NEAR = 50 * Math.PI / 180;
 
-    function buildMap() {
+    /* cam, when given, is a closer look at the same drawing: the ring drawn
+       k times larger with its centre at (cx, cy) in a box of the whole
+       system's size. Every angle stays the whole system's, so a mark keeps
+       its place round the ring; what grows is the room between things.
+       Marks, lines and words keep their own sizes, the way a map keeps its
+       type as it zooms. */
+    function buildMap(cam) {
       var el = h('div', 'sm-body sm-body--ring');
-      var width = Math.max(320, (area.getBoundingClientRect ? area.getBoundingClientRect().width : 0) || 760);
+      var width = cam ? cam.width : Math.max(320, (area.getBoundingClientRect ? area.getBoundingClientRect().width : 0) || 760);
       var order = ring.order, nF = order.length, nComp = model.comps.length;
       var depth = rimDepth();
-      var named = namedPlan(width, depth);
-      var R = named ? named.R : landingRadius(width, depth);
-      var labelR1 = R + depth + 13, labelR2 = labelR1 + 18;
-      var size = named ? named.size : Math.ceil(2 * (labelR2 + 12));
-      var cx = width / 2, cy = size / 2;
-      // Lines grow more slowly than the ring, so a large drawing stays fine.
-      var s = R / 320, rs = Math.sqrt(s), ws = Math.pow(s, 0.6);
-      var svg = sv('svg', { 'class': 'sm-ring' + (named ? ' is-named' : '') + (!revealed && motionOK() ? ' awaits-reveal' : ''), width: fx(width), height: size,
+      var named = cam ? null : namedPlan(width, depth);
+      // R0: the ring as the whole system draws it; R: as this camera sees it.
+      var R0 = cam ? cam.R0 : named ? named.R : landingRadius(width, depth), R = cam ? R0 * cam.k : R0;
+      var labelR1 = R + depth + 13, labelR2 = labelR1 + 18, labelR10 = R0 + depth + 13;
+      var size = cam ? cam.size : named ? named.size : Math.ceil(2 * (labelR10 + 18 + 12));
+      var cx = cam ? cam.cx : width / 2, cy = cam ? cam.cy : size / 2;
+      // Lines grow more slowly than the ring, so a large drawing stays fine;
+      // a closer look keeps the whole drawing's weights.
+      var s = R0 / 320, rs = Math.sqrt(s), ws = Math.pow(s, 0.6);
+      var svg = sv('svg', { 'class': 'sm-ring' + (named ? ' is-named' : '') + (cam ? ' is-camera' : '') + (!revealed && motionOK() ? ' awaits-reveal' : ''), width: fx(width), height: size,
         viewBox: '0 0 ' + fx(width) + ' ' + size, role: 'group',
         'aria-label': 'The system: ' + nComp + ' components round the rim in ' + numberWord(nF) + ' families' + (D ? ', the doctrine at the centre' : '') });
       var AZ_W = fx(Math.max(1, rs)), SPAN_W = fx(Math.max(0.9, 0.9 * rs));
@@ -2707,8 +3055,8 @@
       // With every name round the rim, a family's name stands in the gap
       // before its run, so the gap is a slot and a spacing either side of it,
       // and a sector needs no more room than its run.
-      var gapA = named ? (named.slot + 2 * named.pitch) / named.rName : 16 / R;
-      function floorOf(fi) { return named ? 0 : (labelW[fi] + 26) / labelR1; }
+      var gapA = named ? (named.slot + 2 * named.pitch) / named.rName : 16 / R0;
+      function floorOf(fi) { return named ? 0 : (labelW[fi] + 26) / labelR10; }
       function needAt(p) {
         var total = nF * gapA;
         order.forEach(function (fi) {
@@ -2719,13 +3067,13 @@
       var pitch;
       if (named) pitch = named.pitch / named.rName;
       else {
-        var lo = 7 / R, hi = 22 / R;
+        var lo = 7 / R0, hi = 22 / R0;
         for (var it = 0; it < 30; it++) { var mid = (lo + hi) / 2; if (needAt(mid) <= TAU) lo = mid; else hi = mid; }
         pitch = lo;
       }
       var pitchPx = pitch * R, spare = Math.max(0, TAU - needAt(pitch)) / nF;
       // Every mark at least ten pixels, so its cut survives a reader's zoom.
-      var markSize = clamp(pitchPx - 2, 10, 11.5);
+      var markSize = clamp(pitch * R0 - 2, 10, 11.5);
       var sectors = [], comp = [];
       var firstSpan = Math.max(model.families[order[0]].members.length * pitch, floorOf(order[0])) + spare;
       var a0 = -Math.PI / 2 - firstSpan / 2;
@@ -3065,13 +3413,18 @@
           'data-from': 'comp:' + model.comps[x.a].id, 'data-to': 'comp:' + model.comps[x.b].id });
       }
       // How lit pieces draw in: a lone link from its own end; a ribbon and
-      // its parting fibres in turn, from the end the light starts at.
+      // its parting fibres in turn, from the end the light starts at. The
+      // light runs at one speed (about a pixel a millisecond), so it reaches
+      // a near component before a far one, and every line is whole within
+      // two thirds of a second.
+      function speedDur(pts) { return clamp(Math.round(polyLen(pts)), 220, 640); }
       function revealItems(draws) {
         var wRed = 2 * 1.85 * ws * 1.3 * 1.2 + 3;
         return draws.map(function (dr) {
-          if (dr.t === 'link') return { pts: routes[dr.x.k].pts, reverse: dr.x.a !== model.links[dr.x.k][0], w: wRed };
-          if (dr.t === 'trunk') return { pts: dr.it.pts, reverse: dr.reverse, w: wRed * Math.sqrt(dr.n), delay: dr.reverse ? 260 : 0, dur: 460 };
-          return { pts: dr.it.pts, reverse: dr.reverse, w: wRed, delay: dr.after ? 380 : 0, dur: 340 };
+          if (dr.t === 'link') return { pts: routes[dr.x.k].pts, reverse: dr.x.a !== model.links[dr.x.k][0], w: wRed, dur: speedDur(routes[dr.x.k].pts) };
+          var trunkDur = speedDur(sheaves[dr.si].pts), twigDur = 240;
+          if (dr.t === 'trunk') return { pts: dr.it.pts, reverse: dr.reverse, w: wRed * Math.sqrt(dr.n), delay: dr.reverse ? Math.round(twigDur * 0.8) : 0, dur: trunkDur };
+          return { pts: dr.it.pts, reverse: dr.reverse, w: wRed, delay: dr.after ? Math.round(trunkDur * 0.8) : 0, dur: twigDur };
         });
       }
 
@@ -3191,9 +3544,15 @@
       }
       // From a component's mark to a rule; a rule's lines out to the rim are
       // the same lines, read from the other end.
+      // Every rule line stops a few pixels short of its rule's glyph, so a
+      // rule that sends forty lines out is still seen at their meeting
+      // point, framed, and never buried in its own fan.
       function ray(ci, id) {
         var key = ci + '|' + id;
-        if (!rayCache[key]) rayCache[key] = Math.abs(turn(comp[ci].a, rule[id].a)) <= NEAR ? nearRay(comp[ci], id) : farRay(comp[ci], id);
+        if (!rayCache[key]) {
+          var run = Math.abs(turn(comp[ci].a, rule[id].a)) <= NEAR ? nearRay(comp[ci], id) : farRay(comp[ci], id);
+          rayCache[key] = trimTo(run, [rule[id].x, rule[id].y], rule[id].half + 6);
+        }
         return rayCache[key];
       }
 
@@ -3212,7 +3571,7 @@
       // component's bar: one step for each rule its paper module cites; a
       // crossbar caps it where a rule is enforced there, an open one where a
       // narrower part of a rule is checked.
-      var tickEls = Object.create(null), sectorScale = [];
+      var tickEls = Object.create(null);
       order.forEach(function (fi) {
         var S = sectors[fi], F = model.families[fi];
         var g = sv('g', { 'class': 'sm-scale__sector', 'data-fam': F.key });
@@ -3238,7 +3597,6 @@
           }
         });
         gScale.appendChild(g);
-        sectorScale[fi] = g;
       });
 
       /* ---- The doctrine's own relations ---- */
@@ -3258,7 +3616,7 @@
       }
 
       /* ---- Nodes: focusable, named, each with a target the size of its place ---- */
-      var nodes = Object.create(null);
+      var nodes = Object.create(null), nameBoxes = [];
       function node(key, x, y, cls, label, hitR, haloR) {
         var g = sv('g', { 'class': 'sm-node ' + cls, 'data-sm-key': key, transform: 'translate(' + fx(x) + ' ' + fx(y) + ')',
           role: 'button', tabindex: '-1', 'aria-label': label });
@@ -3307,8 +3665,22 @@
             transform: 'rotate(' + fx(right ? deg : deg + 180) + ') translate(' + fx(right ? off : -off) + ' 0)' });
           t.textContent = c.label;
           g.appendChild(t);
+        } else if (cam && cam.names === c.fam) {
+          // A family looked at closely names each of its components along
+          // its radius, just outside the rim's furniture.
+          var dg = C.a * 180 / Math.PI, rt = Math.cos(C.a) >= 0, out = depth + 8, nsz = 'sm-rimname--' + (cam.nameSize || 15);
+          var nw = textWidth(c.label, 'sm-rimname ' + nsz);
+          var tn = sv('text', { 'class': 'sm-rimname ' + nsz + ' sm-rimname--cam sm-note', 'dominant-baseline': 'central',
+            'text-anchor': rt ? 'start' : 'end',
+            transform: 'rotate(' + fx(rt ? dg : dg + 180) + ') translate(' + fx(rt ? out : -out) + ' 0)' });
+          tn.textContent = c.label;
+          g.appendChild(tn);
+          for (var along = 0; along <= nw; along += 8) {
+            var np = polar(cx, cy, R + out + along, C.a);
+            nameBoxes.push({ x0: np[0] - 8, x1: np[0] + 8, y0: np[1] - 9, y1: np[1] + 9 });
+          }
         }
-        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goComponent(ci, { keyed: keyedClick(e) }); });
+        g.addEventListener('click', function (e) { press(e, 'comp:' + c.id, function (how) { goComponent(ci, how); }); });
         hoverable(g, 'comp:' + c.id, g);
         gRim.appendChild(g);
       });
@@ -3319,7 +3691,7 @@
             KIND_WORDS[q.kind] + ': ' + r.title + '. Select to light where it reaches.', Math.max(7.5, q.half + 2.5), q.half + 2.2);
           g.appendChild(ruleGlyph(q.kind, q.size));
           g.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(q.half + 3.5) }));
-          g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goDoctrine(id, { keyed: keyedClick(e) }); });
+          g.addEventListener('click', function (e) { press(e, 'rule:' + id, function (how) { goDoctrine(id, how); }); });
           hoverable(g, 'rule:' + id, g);
           gCore.appendChild(g);
         });
@@ -3333,10 +3705,11 @@
         var ct = sv('text', { 'class': 'sm-centre__label sm-label', x: 0, y: 0, 'text-anchor': 'middle', 'dominant-baseline': 'central' });
         ct.textContent = 'Doctrine';
         var cpop = sv('g', { 'class': 'sm-pop' });
-        cpop.appendChild(ct);
+        // Under a camera the centre's name is set only where it stands whole.
+        if (!cam || (labelBox && labelBox.x0 >= 18 && labelBox.x1 <= width - 18 && labelBox.y0 >= 18 && labelBox.y1 <= size - 18)) cpop.appendChild(ct);
         cg.appendChild(cpop);
         cg.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(Math.max(14, centreClear - 4)) }));
-        cg.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goDoctrine(null, { keyed: keyedClick(e) }); });
+        cg.addEventListener('click', function (e) { press(e, 'doctrine', function (how) { goDoctrine(null, how); }); });
         hoverable(cg, 'doctrine', cg);
         gCore.appendChild(cg);
       }
@@ -3362,7 +3735,7 @@
         g.appendChild(t1);
         g.appendChild(t2);
         g.appendChild(sv('rect', { 'class': 'sm-focus-box', x: fx(x0 - 5), y: -13, width: fx(tw + cw + 20), height: 26, rx: 4 }));
-        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goFamily(fi, { keyed: keyedClick(e) }); });
+        g.addEventListener('click', function (e) { press(e, 'fam:' + F.key, function (how) { goFamily(fi, how); }); });
         hoverable(g, 'fam:' + F.key, g);
         gLabels.appendChild(g);
         nodes['fam:' + F.key] = g;
@@ -3372,13 +3745,30 @@
         var S = sectors[fi], F = model.families[fi], lower = readsDownward(S.mid);
         var rows = lower ? [[F.title, 'sm-sector__name', labelR1], [countLine(F), 'sm-sector__count', labelR2]] :
           [[countLine(F), 'sm-sector__count', labelR1], [F.title, 'sm-sector__name', labelR2]];
+        // Where each word will stand, before any is set: under a camera a
+        // family's name is set only where it stands whole on the drawing
+        // and clear of the names a closer look gives a family's components,
+        // never cut by the drawing's edge; the family looked at is named by
+        // the trail and by its components' own names.
+        var samples = [], widths = [];
+        rows.forEach(function (row) {
+          var w = textWidth(row[0], row[1]), half = (w / 2 + 4) / row[2];
+          widths.push(w);
+          for (var a = S.mid - half; a <= S.mid + half + 1e-9; a += 7 / row[2]) {
+            var p = polar(cx, cy, row[2], a);
+            samples.push({ x0: p[0] - 8, x1: p[0] + 8, y0: p[1] - 9, y1: p[1] + 9 });
+          }
+        });
+        if (cam && (cam.names === fi || samples.some(function (q) {
+          return q.x0 < 18 || q.x1 > width - 18 || q.y0 < 18 || q.y1 > size - 18 ||
+            nameBoxes.some(function (b) { return q.x0 < b.x1 && q.x1 > b.x0 && q.y0 < b.y1 && q.y1 > b.y0; });
+        }))) return;
         var g = sv('g', { 'class': 'sm-node sm-node--fam', 'data-sm-key': 'fam:' + F.key, role: 'button', tabindex: '0',
           'aria-label': F.title + ': ' + countLine(F) + '. Select to light the family.' });
         var spanHit = Math.max(S.hi - S.lo, (labelW[fi] + 26) / labelR1);
         g.appendChild(sv('path', { 'class': 'sm-hit sm-hit--band', d: arcFor(cx, cy, (labelR1 + labelR2) / 2, S.mid, spanHit, lower), 'stroke-width': 40 }));
-        var samples = [];
         rows.forEach(function (row, j) {
-          var id = 'sm-arc-' + mounted + '-' + k + '-' + j, w = textWidth(row[0], row[1]);
+          var id = 'sm-arc-' + mounted + '-' + (++arcN) + '-' + k + '-' + j, w = widths[j];
           var span = Math.min(TAU * 0.45, (w + 60) / row[2]);
           defs.appendChild(sv('path', { id: id, d: arcFor(cx, cy, row[2], S.mid, span, lower) }));
           var t = sv('text', { 'class': row[1] + (row[1] === 'sm-sector__name' ? ' sm-label' : ' sm-note'), 'dominant-baseline': 'central' });
@@ -3387,21 +3777,21 @@
           tp.textContent = row[0];
           t.appendChild(tp);
           g.appendChild(t);
-          var half = (w / 2 + 4) / row[2];
-          for (var a = S.mid - half; a <= S.mid + half + 1e-9; a += 7 / row[2]) {
-            var p = polar(cx, cy, row[2], a);
-            samples.push({ x0: p[0] - 8, x1: p[0] + 8, y0: p[1] - 9, y1: p[1] + 9 });
-          }
         });
         g.appendChild(sv('path', { 'class': 'sm-focus-band', d: arcFor(cx, cy, (labelR1 + labelR2) / 2, S.mid, spanHit, lower), 'stroke-width': 42 }));
-        g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); goFamily(fi, { keyed: keyedClick(e) }); });
+        g.addEventListener('click', function (e) { press(e, 'fam:' + F.key, function (how) { goFamily(fi, how); }); });
         hoverable(g, 'fam:' + F.key, g);
         gLabels.appendChild(g);
         nodes['fam:' + F.key] = g;
         labelBoxes[fi] = { g: g, boxes: samples };
       });
-      // An empty click steps back a level.
-      svg.addEventListener('click', function () { if (at.level !== 'system') up({}); });
+      // An empty click steps back a level; the second click of a double
+      // click that lands on empty ground (the mark may have moved under it)
+      // still opens what the first one chose.
+      svg.addEventListener('click', function (e) {
+        if (e && e.detail >= 2 && lastPress && nowMs() - lastPress.at < 700) { openPage(lastPress.key, e); return; }
+        if (at.level !== 'system') up({});
+      });
 
       /* ---- Light ---- */
       /* What a view lights, each relation with the direction its light runs:
@@ -3514,7 +3904,7 @@
          through a mask whose stroke runs along their centre lines; a mask is
          removed the moment its lines are whole. Reduced motion shows them at
          once. */
-      var reveals = [], revealN = 0;
+      var reveals = [];
       function polyLen(pts) { var n = 0; for (var i = 1; i < pts.length; i++) n += dist(pts[i - 1], pts[i]); return n; }
       function revealAlong(group, items, delay, dur) {
         if (!items.length || !motionOK() || !group.setAttribute) return;
@@ -3657,13 +4047,19 @@
           restCut[id] = !!cutRest[id];
           p.classList.toggle('is-under', litItem(items[id]));
         });
+        // later: how long a camera move keeps the new view out of sight
+        // before its light can be seen to run.
+        var later = how.later || 0, arrive = Object.create(null);
         if (moving) {
-          revealAlong(gLitRed, revealItems(draws), 40, 720);
-          revealAlong(gLitAz, az.map(function (a) { return { pts: a.pts, w: +AZ_W + 4 }; }), 60, 760);
+          revealAlong(gLitRed, revealItems(draws), 40 + later, 720);
+          revealAlong(gLitAz, az.map(function (a) { return { pts: a.pts, w: +AZ_W + 4, dur: speedDur(a.pts) }; }), 60 + later, 760);
           Object.keys(L.spans).forEach(function (k) {
             var sp = spanEls[k], sl = L.spans[k];
-            if (sp) drawIn(sp.el, sl.stage ? 520 : 40, 460);
+            if (sp) drawIn(sp.el, (sl.stage ? 520 : 40) + later, 460);
           });
+          // A name arrives as the light reaches its component.
+          L.links.forEach(function (x) { arrive[x.b] = Math.min(arrive[x.b] || Infinity, 40 + later + Math.round(speedDur(routes[x.k].pts) * 0.85)); });
+          az.forEach(function (a) { if (a.x.out) arrive[a.x.ci] = Math.min(arrive[a.x.ci] || Infinity, 60 + later + Math.round(speedDur(a.pts) * 0.85)); });
         }
         // Frames round neighbouring marks share the room between them.
         var framed = L.reticles.concat(L.open).filter(function (key) { return key.indexOf('comp:') === 0 && nodes[key]; })
@@ -3676,7 +4072,7 @@
         L.reticles.forEach(function (key, i) { reticle(key, moving, i === 0 ? 'self' : 'full', nearest); });
         L.open.forEach(function (key) { reticle(key, moving, 'part', nearest); });
         lit = L;
-        plates(L.plates, moving);
+        plates(L.plates, moving, arrive, later);
       }
 
       /* A reticle: four corner ticks round the object chosen, a target lock,
@@ -3720,13 +4116,15 @@
          A sector's name under a plate steps aside while it shows. A name
          that finds no room is listed in the column all the same. On the
          map's own page every name is already round the rim. */
-      var PLATE_MAX = 14, PLATE_LEAD = 20;
+      var PLATE_MAX = 14, PLATE_LEAD = 20, GO_W = 22;
       // The ways a name can be set on a plate: on one line, or on two or
       // three lines broken where they come out most nearly equal (a narrow
-      // room at the sides of the ring takes them). Never cut.
-      function plateShapes(text) {
+      // room at the sides of the ring takes them). Never cut. extra: room
+      // kept at the right for the arrow on the chosen component's plate.
+      function plateShapes(text, extra) {
+        extra = extra || 0;
         var one = textWidth(text, 'sm-plate__text');
-        var out = [{ lines: [text], w: one + 16, h: 26, cost: 0 }];
+        var out = [{ lines: [text], w: one + 16 + extra, h: 26, cost: 0 }];
         var words = text.split(' ');
         if (words.length > 1) {
           var best2 = null;
@@ -3735,7 +4133,7 @@
             var wide = Math.max(textWidth(a, 'sm-plate__text'), textWidth(b, 'sm-plate__text'));
             if (!best2 || wide < best2.wide) best2 = { lines: [a, b], wide: wide };
           }
-          if (best2.wide < one - 24) out.push({ lines: best2.lines, w: best2.wide + 16, h: 26 + PLATE_LEAD, cost: 22 });
+          if (best2.wide < one - 24) out.push({ lines: best2.lines, w: best2.wide + 16 + extra, h: 26 + PLATE_LEAD, cost: 22 });
         }
         if (words.length > 2) {
           var best3 = null;
@@ -3746,14 +4144,16 @@
               if (!best3 || w3 < best3.wide) best3 = { lines: l3, wide: w3 };
             }
           }
-          if (best3.wide < out[out.length - 1].w - 16 - 14) out.push({ lines: best3.lines, w: best3.wide + 16, h: 26 + 2 * PLATE_LEAD, cost: 60 });
+          if (best3.wide < out[out.length - 1].w - extra - 16 - 14) out.push({ lines: best3.lines, w: best3.wide + 16 + extra, h: 26 + 2 * PLATE_LEAD, cost: 60 });
         }
         return out;
       }
-      function plates(list, moving) {
+      function plates(list, moving, arrive, later) {
         Object.keys(labelBoxes).forEach(function (fi) { labelBoxes[fi].g.classList.remove('is-covered'); });
         if (named || !list.length) return;
         var placed = [], covered = Object.create(null), shown = 0;
+        // Under a camera a plate keeps clear of the band where the view fades.
+        var edgeIn = cam ? 20 : 4;
         var furn = R + depth;
         function hits(a, b, pad) { return a.x0 - pad < b.x1 && a.x1 + pad > b.x0 && a.y0 - pad < b.y1 && a.y1 + pad > b.y0; }
         function segBox(x0, y0, x1, y1) { return { x0: Math.min(x0, x1) - 1.5, x1: Math.max(x0, x1) + 1.5, y0: Math.min(y0, y1) - 1.5, y1: Math.max(y0, y1) + 1.5 }; }
@@ -3773,14 +4173,17 @@
           var C = comp[ci], c = model.comps[ci], self = rank === 0 && at.level === 'component';
           var r0 = R + 16 + C.bar + (C.enf ? 5 : 2);
           var best = null;
-          plateShapes(c.label).forEach(function (shape) {
+          // The chosen component's own plate is a way to its page: its name
+          // and an arrow, a click away (as is a second click on its mark).
+          var go = self && !!pageOf('comp:' + c.id);
+          plateShapes(c.label, go ? GO_W : 0).forEach(function (shape) {
             var w = shape.w, hgt = shape.h;
             [0, 10, 22, 36, 52, 70, 90].forEach(function (lift) {
               var rl = Math.max(furn + 6, r0 + 4) + lift;
               var e = polar(cx, cy, rl, C.a), s0 = polar(cx, cy, r0, C.a);
               // The leader's bend stays on the drawing too, never out under
               // the key or the caption.
-              if (e[0] < 4 || e[0] > width - 4 || e[1] < 4 || e[1] > size - 4) return;
+              if (e[0] < edgeIn || e[0] > width - edgeIn || e[1] < edgeIn || e[1] > size - edgeIn) return;
               var cos = Math.cos(C.a), sides = Math.abs(cos) < 0.42 ? [cos >= 0 ? 1 : -1, cos >= 0 ? -1 : 1] : [cos >= 0 ? 1 : -1];
               sides.forEach(function (side, si) {
                 [0, -1, 1, -2, 2].forEach(function (v) {
@@ -3791,7 +4194,7 @@
                     x0 = side > 0 ? e[0] - 10 : e[0] + 10 - w;
                   }
                   var box = { x0: x0, x1: x0 + w, y0: y0, y1: y0 + hgt };
-                  if (box.x0 < 4 || box.x1 > width - 4 || box.y0 < 4 || box.y1 > size - 4) return;
+                  if (box.x0 < edgeIn || box.x1 > width - edgeIn || box.y0 < edgeIn || box.y1 > size - edgeIn) return;
                   if (!outside(box)) return;
                   var ey = clamp(e[1], box.y0 + 4, box.y1 - 4), ex = side > 0 ? box.x0 : box.x1;
                   var legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], ex, ey]];
@@ -3819,21 +4222,28 @@
           // where a test shows the rule enforced, lighter and open where a
           // test checks a part of it.
           var how = at.level === 'rule' && lit && lit.comps ? lit.comps[ci] : null;
-          var g = sv('g', { 'class': 'sm-plate' + (self ? ' sm-plate--self' : '') + (how === 'enforce' ? ' sm-plate--full' : how === 'partly' ? ' sm-plate--part' : ''),
+          var g = sv('g', { 'class': 'sm-plate' + (self ? ' sm-plate--self' : '') + (go ? ' sm-plate--go' : '') + (how === 'enforce' ? ' sm-plate--full' : how === 'partly' ? ' sm-plate--part' : ''),
             'data-sm-plate': 'comp:' + c.id });
           var dl = '';
           best.legs.forEach(function (L4) { dl += 'M' + fx(L4[0]) + ' ' + fx(L4[1]) + 'L' + fx(L4[2]) + ' ' + fx(L4[3]); });
           g.appendChild(sv('path', { 'class': 'sm-leader sm-wire', d: dl, 'data-from': 'comp:' + c.id, 'data-to': null }));
-          var b = best.box, sh = best.shape;
+          var b = best.box, sh = best.shape, textW = sh.w - (go ? GO_W : 0);
           g.appendChild(sv('rect', { 'class': 'sm-plate__box', x: fx(Math.round(b.x0) + 0.5), y: fx(Math.round(b.y0) + 0.5), width: Math.round(sh.w), height: sh.h, rx: 3 }));
           sh.lines.forEach(function (lineText, li) {
-            var t = sv('text', { 'class': 'sm-plate__text sm-label', x: fx(b.x0 + sh.w / 2), y: fx(b.y0 + 13 + li * PLATE_LEAD), 'text-anchor': 'middle', 'dominant-baseline': 'central' });
+            var t = sv('text', { 'class': 'sm-plate__text sm-label', x: fx(b.x0 + textW / 2), y: fx(b.y0 + 13 + li * PLATE_LEAD), 'text-anchor': 'middle', 'dominant-baseline': 'central' });
             t.textContent = lineText;
             g.appendChild(t);
           });
+          if (go) {
+            var arrow = sv('text', { 'class': 'sm-plate__go', x: fx(b.x0 + sh.w - 10), y: fx(b.y0 + sh.h / 2), 'text-anchor': 'end', 'dominant-baseline': 'central' });
+            arrow.textContent = '→';
+            g.appendChild(arrow);
+            g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); openPage('comp:' + c.id, e); });
+          }
           gPlates.appendChild(g);
           if (moving && motionOK() && g.animate) {
-            try { g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, delay: 120 + rank * 30, easing: EASE, fill: 'backwards' }); } catch (e) {}
+            var when = arrive && arrive[ci] !== undefined ? arrive[ci] : 120 + (later || 0) + rank * 30;
+            try { g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 140, delay: Math.min(1200, when), easing: EASE, fill: 'backwards' }); } catch (e) {}
           }
         });
         Object.keys(covered).forEach(function (fi) { labelBoxes[fi].g.classList.add('is-covered'); });
@@ -3857,51 +4267,27 @@
         L.cites.forEach(function (x) { previewG.appendChild(sv('path', { 'class': 'sm-rline is-preview', d: Loom.lineD(ray(x.ci, x.id)) })); });
       }
 
-      /* ---- The first sight: the map assembles once ---- */
-      /* The scale sweeps round from the top, sector by sector, the marks
-         arriving along it; the doctrine blooms from the centre out (its name,
-         the necklace, the axioms, their satellites, the rules between them
-         and their lines); the sector names settle; the fibres at rest run out
-         along their own lines last, each from the component it leaves. About
-         a second and a quarter, once. */
+      /* ---- The first sight: the lines run out once ---- */
+      /* The rim, its names and the doctrine's glyphs are already in place as
+         the drawing arrives (an empty frame used to slide in, and its marks
+         then popped in one by one for a second more). Once it has landed,
+         the doctrine's own lines draw out from its rules, and the fibres at
+         rest run out along their own lines, each from the component it
+         leaves, a little after one another round the ring. Two thirds of a
+         second, once; then nothing moves. */
       function assemble() {
         if (!motionOK()) return;
-        function anim(elx, frames, delay, dur) {
-          if (!elx || !elx.animate) return;
-          try { elx.animate(frames, { duration: dur, delay: delay, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', fill: 'backwards' }); } catch (e) {}
-        }
-        var POP = [{ opacity: 0, transform: 'scale(0.35)' }, { opacity: 1, transform: 'scale(1)' }];
-        order.forEach(function (fi, k) {
-          var S = sectors[fi];
-          var frac = norm(S.mid + Math.PI / 2) / TAU;
-          anim(sectorScale[fi], [{ opacity: 0 }, { opacity: 1 }], frac * 420, 360);
-          model.families[fi].members.forEach(function (ci) {
-            var f2 = norm(comp[ci].a + Math.PI / 2) / TAU;
-            var n = nodes['comp:' + model.comps[ci].id];
-            anim(n && n.querySelector ? n.querySelector('.sm-pop') : null, POP, 60 + f2 * 480, 300);
-          });
-          anim(labelBoxes[fi] && labelBoxes[fi].g, [{ opacity: 0 }, { opacity: 1 }], 620 + k * 30, 380);
-        });
-        if (D && core) {
-          anim(nodes.doctrine && nodes.doctrine.querySelector('.sm-pop'), [{ opacity: 0 }, { opacity: 1 }], 0, 360);
-          anim(neck, [{ opacity: 0 }, { opacity: 1 }], 80, 420);
-          Object.keys(rule).forEach(function (id) {
-            var q = rule[id], n = nodes['rule:' + id];
-            var delay = q.role === 'hub' ? 160 : q.role === 'satellite' ? 300 : 380;
-            anim(n && n.querySelector ? n.querySelector('.sm-pop') : null, POP, delay + norm(q.a + Math.PI / 2) / TAU * 160, 320);
-          });
-          Object.keys(spanEls).forEach(function (k) { drawIn(spanEls[k].el, 420, 460); });
-        }
+        if (D && core) Object.keys(spanEls).forEach(function (k) { drawIn(spanEls[k].el, 40, 380); });
         if (restDrawn) {
           // A ribbon runs out before its parting fibres when its component
           // acts on the others, after them when they act on it.
           var w0 = 2 * 0.95 * ws * 1.3 * 1.25 + 3;
           revealAlong(gRest, items.map(function (it) {
-            if (it.part === 'link') return { pts: it.pts, w: w0, delay: norm(comp[model.links[it.links[0]][0]].a + Math.PI / 2) / TAU * 200 };
-            var S = sheaves[it.sheaf], at0 = norm(comp[S.h].a + Math.PI / 2) / TAU * 200, out = S.role === 'out';
-            if (it.part === 'trunk') return { pts: it.pts, w: w0 * Math.sqrt(it.links.length), reverse: !out, delay: at0 + (out ? 0 : 260), dur: 420 };
-            return { pts: it.pts, w: w0, reverse: !out, delay: at0 + (out ? 340 : 0), dur: 340 };
-          }), 560, 680);
+            if (it.part === 'link') return { pts: it.pts, w: w0, delay: norm(comp[model.links[it.links[0]][0]].a + Math.PI / 2) / TAU * 140 };
+            var S = sheaves[it.sheaf], at0 = norm(comp[S.h].a + Math.PI / 2) / TAU * 140, out = S.role === 'out';
+            if (it.part === 'trunk') return { pts: it.pts, w: w0 * Math.sqrt(it.links.length), reverse: !out, delay: at0 + (out ? 0 : 180), dur: 320 };
+            return { pts: it.pts, w: w0, reverse: !out, delay: at0 + (out ? 240 : 0), dur: 240 };
+          }), 60, 460);
         }
       }
 
@@ -3962,6 +4348,8 @@
       });
       function activate(key, keyedIt) {
         var how = { keyed: !!keyedIt };
+        // Enter on what is already chosen opens its page, as a second click does.
+        if (key === keyOf(at) && openPage(key)) return;
         if (key === 'doctrine') goDoctrine(null, how);
         else if (key.indexOf('fam:') === 0) goFamily(familyIndex(key.slice(4)), how);
         else if (key.indexOf('comp:') === 0) goComponent(nodes[key].__ci, how);
@@ -3978,6 +4366,9 @@
 
       return {
         el: el, svg: svg, R: R, cx: cx, cy: cy, pitch: pitchPx, sectors: sectors, named: named ? named.fs : 0,
+        // What a camera is reckoned from: the whole system's ring and box,
+        // and what any view would light.
+        R0: R0, depth: depth, width: width, size: size, coreOuter: core ? coreOuter : 0, lightOf: lightOf, cam: cam || null,
         core: core ? { order: core.order.slice(), ring: fx(hubR), outer: fx(coreOuter), pinned: !!core.stats.orderPinned,
                        bridges: Object.keys(rule).filter(function (id) { return rule[id].role === 'bridge'; }).length,
                        glyphGap: fx(coreGap), lineGap: fx(core.stats.lineGlyphGap), nearest: fx(core.stats.nearestToCentre),
@@ -4021,21 +4412,64 @@
       }
       return null;
     }
+    /* The tip is a plate like the map's own, set outward from the ring
+       beside the thing it names (above a mark in the ring's upper half,
+       below one in its lower half, to the side at the sides), always inside
+       the drawing, so it never covers the words above the map or runs past
+       the card, and never over the mark itself. A name the drawing already
+       shows is not said again: a family's name stands round the rim, and a
+       name on a plate lights its plate instead. What is already chosen
+       says how to open it. */
+    var litPlate = null, tipHushUntil = 0;
     function showTipFor(key, anchor) {
+      if (litPlate) { litPlate.classList.remove('is-hover'); litPlate = null; }
+      // A camera move slides marks under a pointer that has not moved; no
+      // tip names whatever happens to arrive under it.
+      if (nowMs() < tipHushUntil) { hideTip(); return; }
+      var plated = map && map.svg.querySelector ? map.svg.querySelector('[data-sm-plate="' + key + '"]') : null;
+      if (plated) { hideTip(); plated.classList.add('is-hover'); litPlate = plated; return; }
+      if (key && key.indexOf('fam:') === 0) { hideTip(); return; }
       var t = tipText(key);
       if (!t || !anchor || !anchor.getBoundingClientRect || !root.getBoundingClientRect) return;
       clear(tip);
       tip.appendChild(h('span', 'sm-tip__title', t.title));
-      if (t.sub) tip.appendChild(h('span', 'sm-tip__sub', t.sub));
+      var chosen = key === keyOf(at) && !!pageOf(key);
+      if (t.sub && !chosen) tip.appendChild(h('span', 'sm-tip__sub', t.sub));
+      if (chosen) tip.appendChild(h('span', 'sm-tip__hint', openWords(key)));
       tip.hidden = false;
       var rr = root.getBoundingClientRect(), b = anchor.getBoundingClientRect();
-      var w = tip.offsetWidth || 0, hgt = tip.offsetHeight || 0;
-      var x = clamp(b.left - rr.left + b.width / 2 - w / 2, 6, Math.max(6, rr.width - w - 6));
-      var y = b.top - rr.top - hgt - 10;
-      if (y < 6) y = b.bottom - rr.top + 10;
-      if (tip.style) { tip.style.left = fx(x) + 'px'; tip.style.top = fx(y) + 'px'; }
+      var box = map && map.svg.getBoundingClientRect ? map.svg.getBoundingClientRect() : rr;
+      var w = tip.offsetWidth || 0, hgt = tip.offsetHeight || 0, gap = 10, inset = 6;
+      var ax = b.left + b.width / 2, ay = b.top + b.height / 2;
+      var dx = map ? ax - (box.left + map.cx) : 0, dy = map ? ay - (box.top + map.cy) : -1;
+      var spots = {
+        above: [ax - w / 2, b.top - gap - hgt], below: [ax - w / 2, b.bottom + gap],
+        right: [b.right + gap, ay - hgt / 2], left: [b.left - gap - w, ay - hgt / 2]
+      };
+      var order = Math.abs(dy) >= Math.abs(dx) * 0.7 ? (dy < 0 ? ['above', 'below', 'right', 'left'] : ['below', 'above', 'right', 'left']) :
+        (dx > 0 ? ['right', 'left', 'above', 'below'] : ['left', 'right', 'above', 'below']);
+      var x0 = Math.max(box.left, rr.left) + inset, x1 = Math.min(box.right, rr.right) - inset;
+      var y0 = Math.max(box.top, rr.top) + inset, y1 = Math.min(box.bottom, rr.bottom) - inset, pick = null;
+      // Never over the mark, nor over a plate naming something lit.
+      var keep = [{ left: b.left, right: b.right, top: b.top, bottom: b.bottom }];
+      if (map && map.svg.querySelectorAll) {
+        Array.prototype.forEach.call(map.svg.querySelectorAll('.sm-plate__box'), function (r) {
+          if (r.getBoundingClientRect) { var q = r.getBoundingClientRect(); keep.push({ left: q.left - 4, right: q.right + 4, top: q.top - 4, bottom: q.bottom + 4 }); }
+        });
+      }
+      for (var i = 0; i < order.length && !pick; i++) {
+        var p = spots[order[i]];
+        var px = clamp(p[0], x0, Math.max(x0, x1 - w)), py = clamp(p[1], y0, Math.max(y0, y1 - hgt));
+        var hits = keep.some(function (q) { return px < q.right && px + w > q.left && py < q.bottom && py + hgt > q.top; });
+        if (!hits) pick = [px, py];
+      }
+      if (!pick) pick = [clamp(ax - w / 2, x0, Math.max(x0, x1 - w)), clamp(b.top - gap - hgt, y0, Math.max(y0, y1 - hgt))];
+      if (tip.style) { tip.style.left = fx(pick[0] - rr.left) + 'px'; tip.style.top = fx(pick[1] - rr.top) + 'px'; }
     }
-    function hideTip() { tip.hidden = true; }
+    function hideTip() {
+      tip.hidden = true;
+      if (litPlate) { litPlate.classList.remove('is-hover'); litPlate = null; }
+    }
 
     /* ---- The column beside the map ---- */
     /* At the top level the column is the band's heading, its sentence, the
@@ -4079,6 +4513,9 @@
             link.addEventListener('blur', function () { if (hoverKey === 'fam:' + F.key) setHover(null); });
             link.addEventListener('click', function (e) {
               if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0)) return;
+              // A second click on the family already chosen follows the
+              // row's own link to the family's page.
+              if (at.level === 'family' && at.fam === fi) return;
               if (e && e.preventDefault) e.preventDefault();
               goFamily(fi, { keyed: keyedClick(e) });
             });
@@ -4249,7 +4686,7 @@
           (function () {
             if (!unconnected()) return '';
             var none = F.members.filter(function (ci) { return !model.comps[ci].out.length && !model.comps[ci].inc.length; }).length;
-            return none === F.members.length ? ' None of its components has one.' : none ? ' ' + none + ' of its ' + F.members.length + ' components have none.' : '';
+            return none === F.members.length ? ' None of its components has one.' : none ? ' ' + none + ' of its ' + F.members.length + ' components ' + (none === 1 ? 'has' : 'have') + ' none.' : '';
           })()));
         node.appendChild(headEl);
         var sc = scroller(node);
@@ -4479,8 +4916,10 @@
         if (host.classList) host.classList.add('sc-host--open');
         node = tighten(node);
         fitScroll(node);
+        // The card comes in as the column's own words step out (90ms), so
+        // the two never stand over each other and the column is never empty.
         if (motionOK() && !how.instant && node.animate) {
-          try { node.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: EASE }); } catch (e) {}
+          try { node.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 220, delay: 60, easing: EASE, fill: 'backwards' }); } catch (e) {}
         }
         // Replacing a long phone column can leave its new title behind the
         // sticky header after the browser preserves the old scroll position.
@@ -4616,12 +5055,14 @@
       hideTip();
       if (up({ keyed: true })) { if (e.preventDefault) e.preventDefault(); }
     });
-    // The map band's two slides share one height. While the system slide is
-    // away its card is parked (folded to nothing), so a tall view never
-    // leaves the mathematics slide standing in empty space.
+    // The map band's two slides share one height. Stacked (a narrow
+    // window), while the system slide is away its card is parked (folded to
+    // nothing), so a tall view never leaves the mathematics slide standing
+    // in empty space. Beside its column the card is the mathematics slide's
+    // height already, so it stays laid out, ready, as the slide arrives.
     function park(on) {
       if (!slide || pageMode || !stage.classList) return;
-      stage.classList.toggle('is-parked', !!on);
+      stage.classList.toggle('is-parked', !!on && !framedBand());
     }
     if (slide && (slide.inert || (slide.getAttribute && slide.getAttribute('aria-hidden') === 'true'))) park(true);
     document.addEventListener('plectis:atlas', function (event) {
@@ -4649,14 +5090,15 @@
       if (slide && (slide.inert || (slide.getAttribute && slide.getAttribute('aria-hidden') === 'true'))) return;
       if (doctrineSrc && doctrineState === 'pending' && !forceReveal) return;
       revealed = true;
-      if (map.svg.classList) map.svg.classList.remove('awaits-reveal');
+      [map, baseMap].forEach(function (m) { if (m && m.svg.classList) m.svg.classList.remove('awaits-reveal'); });
       map.assemble();
     }
     // Without the opening (reduced motion, or a view chosen before it), the
-    // map simply shows.
+    // map simply shows: the view on screen and the whole system kept for the
+    // way back.
     function settleReveal() {
       revealed = true;
-      if (map && map.svg.classList) map.svg.classList.remove('awaits-reveal');
+      [map, baseMap].forEach(function (m) { if (m && m.svg.classList) m.svg.classList.remove('awaits-reveal'); });
     }
     // The card keeps the whole system's height as its least, so a view
     // never makes the band jump shorter.
@@ -4740,6 +5182,9 @@
           lit: L ? { comps: Object.keys(L.comps).length, rules: Object.keys(L.rules).length, routes: L.links.length, lines: L.cites.length,
                      spans: Object.keys(L.spans).length, reticles: L.reticles.slice(), open: L.open.slice(), plates: L.plated || 0 } : null,
           weave: map ? map.weave() : null,
+          // How close the camera stands (null: the whole system), and the
+          // family it names round the rim, if any.
+          camera: camNow ? { k: fx(camNow.k), names: camNow.names >= 0 ? model.families[camNow.names].id : null } : null,
           labels: labels, wires: wires, hover: hoverKey, column: column.state(), trail: trail.length
         };
       }
@@ -4808,16 +5253,22 @@
     }
 
     /* ---- Housekeeping ---- */
-    var frame = 0, lastWidth = 0;
+    var frame = 0, lastWidth = 0, lastRow = 0;
+    // Laid out again for a new width, or, beside its column, for a new
+    // height of the mathematics slide the card matches.
     function refresh() {
       if (!model || !map) return;
-      var w = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0;
-      if (w && Math.abs(w - lastWidth) > 1) { lastWidth = w; relayout(); }
+      var w = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0, row = mathsRow();
+      if ((w && Math.abs(w - lastWidth) > 1) || Math.abs(row - lastRow) > 2) { lastWidth = w; lastRow = row; relayout(); }
       measureFloor();
       column.refit();
     }
     function watchSize() {
       lastWidth = area.getBoundingClientRect ? area.getBoundingClientRect().width : 0;
+      lastRow = mathsRow();
+      // The mathematics slide reflows as the window changes; the card follows.
+      var mathsSplit = slide && slide.parentNode && slide.parentNode.querySelector ? slide.parentNode.querySelector('[data-atlas-slide="mathematics"] .home-split') : null;
+      if (mathsSplit && 'ResizeObserver' in window) new window.ResizeObserver(function () { later(); }).observe(mathsSplit);
       var raf = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 16); };
       function later() { if (frame) return; frame = raf(function () { frame = 0; refresh(); }); }
       if ('ResizeObserver' in window) new window.ResizeObserver(later).observe(area);

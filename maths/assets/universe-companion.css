@@ -6,31 +6,41 @@
    and only opacity and transform change. */
 
 .uc-host { position: relative; }
-/* The column's own content steps back quickly (so the rising title never
-   crosses visible words) and returns at an easier pace. */
+/* The column's own content and the panel never show at once. They did,
+   for about a third of a second each way: opening, the travelling title
+   crossed the intro still fading out; closing, both columns stood at half
+   strength together. Opening, the list now steps out in 90ms and only then
+   does the title travel (universe-companion.js waits the same 90ms);
+   closing, the panel steps out in 160ms and only then does the list come
+   back, over a quarter of a second, easing out. Only opacity moves. */
 .uc-host > :not(.uc) {
-  transition: opacity 300ms var(--ease-out, ease-out), transform 300ms var(--ease-out, ease-out);
+  transition: opacity 240ms var(--ease-emph, cubic-bezier(0.16, 1, 0.3, 1)) 160ms;
 }
-/* It leaves by opacity alone, in an eighth of a second, so the travelling
-   title never crosses words still on their way out. */
 .uc-host--open > :not(.uc) {
   opacity: 0; pointer-events: none;
-  transition-duration: 120ms;
+  transition: opacity 90ms var(--ease-exit, cubic-bezier(0.3, 0, 1, 1));
 }
 
 /* Three slots: the eight problems as tabs, the problem, and a card slot
    that takes the rest of the height (its contents are replaced in place, so
-   a card never moves anything). */
+   a card never moves anything). The panel clips ten pixels outside the
+   column it covers, so a tab's ring, the current tab's breath of light and
+   a focus outline are never cut at its edge (they were, on the left and top
+   edges, until 5 October 2026); its padding keeps the words where the
+   column's are. The rings inside the card are drawn inward (inset), since
+   the card's slot clips at the column's own edge. */
 .uc {
-  position: absolute; inset: 0; z-index: 1;
+  position: absolute; inset: -12px; z-index: 1; padding: 12px;
   display: grid; grid-template-rows: auto auto minmax(0, 1fr);
   overflow: hidden;
   opacity: 0; visibility: hidden;
-  transition: opacity 260ms var(--ease-out, ease-out), visibility 0s linear 260ms;
+  transition: opacity 160ms var(--ease-exit, cubic-bezier(0.3, 0, 1, 1)), visibility 0s linear 160ms;
 }
+/* Open, the panel shows once the list has gone; what is in it arrives by
+   its own motion (the title's travel, the slots' rise). */
 .uc.is-open {
   opacity: 1; visibility: visible;
-  transition: opacity 200ms var(--ease-out, ease-out), visibility 0s;
+  transition: opacity 0s linear 90ms, visibility 0s;
 }
 
 /* The head takes the band heading's place and size: the row's number and
@@ -90,7 +100,10 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc__focus-meta { margin: 0.25rem 0 0; max-width: 54ch; font-size: 0.84rem; line-height: 1.5; color: var(--muted); }
 /* A result's own words, quoted from its paper (the map's excerpt files):
    the paper's serif and its maths, a rule down the side, cut at about seven
-   lines, with a fade only when it runs on. */
+   lines. A statement longer than its room ends on a whole line (the
+   script measures the lines and stops at the last that fits), and only that
+   last line fades: a cut through the middle of a line of formulae read as
+   the card being cropped. */
 .uc__quote {
   margin: 0.45rem 0 0.1rem; padding: 0 0 0 0.75rem; max-width: 52ch; max-height: 10.6em;
   border-left: 2px solid var(--home-line);
@@ -98,17 +111,30 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
   overflow: hidden;
 }
 .uc__quote.is-cut {
-  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
-  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.45em), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1.45em), transparent);
 }
+/* While a result is in the card, the problem's question and its short
+   paper's précis step out of its way (the title, the tally and the paper's
+   links stay), so the result's own words have the column's room; they come
+   back with the problem alone. Each folds to its height and back. */
+.uc__fold {
+  display: grid; grid-template-rows: 1fr;
+  transition: grid-template-rows 260ms var(--ease-out, ease-out), opacity 200ms var(--ease-out, ease-out);
+}
+.uc__fold > * { min-height: 0; overflow: hidden; transition: padding 260ms var(--ease-out, ease-out); }
+.uc__fold > .uc__question { margin: 0; padding-bottom: 0.7rem; }
+.uc__fold > .uc__precis { margin: 0; padding: 0.3rem 0 0.4rem; }
+.uc.has-result .uc__fold { grid-template-rows: 0fr; opacity: 0; }
+.uc.has-result .uc__fold > * { padding-top: 0; padding-bottom: 0; }
 .uc__quote p { margin: 0 0 0.35em; }
 .uc__quote p:last-child { margin-bottom: 0; }
 .uc__quote .math-display { margin: 0.3em 0; overflow: hidden; }
 .uc__quote math { font-size: 1.03em; color: var(--ink-soft); }
 .uc__quote a { color: inherit; text-decoration-color: var(--home-line); }
-/* Where a long statement is cut at its last whole block, a quiet line says so;
-   the buttons below go on to the paper. */
-.uc__quote-more { margin: 0.3em 0 0; font-family: var(--font-sans); font-style: normal; font-size: 0.8rem; color: var(--faint); }
+/* Where a long statement is cut, a quiet line under it says so; the buttons
+   below go on to the paper. */
+.uc__quote-more { flex: none; margin: 0.2rem 0 0; padding-left: calc(0.75rem + 2px); font-family: var(--font-sans); font-style: normal; font-size: 0.8rem; color: var(--faint); }
 .uc__links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.15rem; margin: 0.35rem 0 0; font-size: 0.84rem; }
 .uc__links a { display: inline-flex; align-items: center; min-height: 24px; }
 .uc__hint { margin: 0; font-size: 0.86rem; color: var(--faint); }
@@ -124,18 +150,30 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc__go {
   min-height: 26px; padding: 0.05rem 0.75rem; border-radius: var(--r-pill, 999px);
   color: var(--ink); text-decoration: none;
-  box-shadow: 0 0 0 1px var(--home-line);
+  box-shadow: inset 0 0 0 1px var(--home-line);
   transition: box-shadow var(--motion-fast, 140ms) var(--ease-out, ease-out),
               background-color var(--motion-fast, 140ms) var(--ease-out, ease-out);
 }
-.uc__go--first { box-shadow: 0 0 0 1px var(--home-ember); }
+.uc__go--first { box-shadow: inset 0 0 0 1px var(--home-ember); }
 .uc__go:hover {
   color: var(--ink); text-decoration: none;
-  box-shadow: 0 0 0 1px var(--home-ember);
+  box-shadow: inset 0 0 0 1px var(--home-ember);
   background-color: color-mix(in oklab, var(--home-ember) 10%, transparent);
 }
-.uc__go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.uc__go:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; }
 .uc.is-pinned .uc__focus { border-top-color: var(--home-ember); }
+/* A kept card says so at the right of its head, in the ember its rule and
+   the drawing's frame round the kept dot wear. */
+.uc__head { display: flex; align-items: baseline; gap: 0.75rem; }
+.uc__kept {
+  flex: none; margin-left: auto; font-weight: 600; color: var(--home-ember);
+  opacity: 0; visibility: hidden;
+  transition: opacity 120ms var(--ease-exit, cubic-bezier(0.3, 0, 1, 1)), visibility 0s linear 120ms;
+}
+.uc.is-pinned .uc__kept {
+  opacity: 1; visibility: visible;
+  transition: opacity 200ms var(--ease-emph, cubic-bezier(0.16, 1, 0.3, 1)), visibility 0s;
+}
 
 /* The eight problems as tabs over the head: the column moves between them
    without the list. The current one wears the band's ember; a row's link
@@ -210,6 +248,7 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
 .uc [data-line][hidden] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .uc-host > :not(.uc), .uc, .uc.is-open, .uc__chip { transition: none; }
+  .uc-host > :not(.uc), .uc-host--open > :not(.uc), .uc, .uc.is-open, .uc__chip, .uc__fold, .uc__fold > *,
+  .uc__kept, .uc.is-pinned .uc__kept { transition: none; }
   .uc-host--open > :not(.uc) { transform: none; }
 }

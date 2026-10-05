@@ -123,8 +123,19 @@ with the five page destinations on the next row. The existing labelled search
 icon replaces the wider text button. Let the destinations wrap when text is
 enlarged; never clip a route to preserve a fixed header height.
 
-The strongest-results band uses one reading column: result, precise statement,
-proof idea, surviving boundary, then three adjacent evidence links. Quiet previous/next arrows and a count navigate the twelve; touch swipes remain, and
+The strongest-results band reads in order: result, precise statement,
+proof idea, surviving boundary, then three adjacent evidence links and the way
+into the map. On a wide screen (5 October 2026) the band sits on the page's
+own column under a hairline, like the papers, never in a card centred inside
+it; the claim takes the left column at display size, the statement the right
+on an ember hairline as a proposition, and the proof idea and the boundary
+stand side by side under it, both at reading contrast. The evidence row closes
+it: "In the map" opens the universe map with that result selected
+(`maths/universe.html#o=<statement id>`; Will, 5 October: "click view on map
+and it takes you to the map with that one selected"). The statement is the one
+the paper link names or whose Lean declarations include the checked one;
+`test_strongest_results_have_direct_checked_evidence_and_paper_sections` holds
+each link to a statement in the map data. Quiet previous/next arrows and a count navigate the twelve; touch swipes remain, and
 no-JavaScript readers get the complete horizontal strip. There is no autoplay
 or delayed transition. Do not add a dropdown here (Will, 4 October). Each result keeps a stable `result-*` fragment; `#result`
 continues to open the section. Inactive results are hidden and inert, and carousel keys
@@ -184,10 +195,28 @@ screen. The switch (`role="tablist"`, Mathematics and System) is the keyboard
 and screen-reader route, its arrow keys land at once, and its thumb travels
 with the slice; the edge arrows are mouse-only twins (`aria-hidden`,
 `tabindex="-1"`) and lean the slice 26px toward the drawing they open after a
-90ms rest. A click moves the slice in 720ms on `--ease-move`, each drawing
-covering a few per cent more ground than its text; the slide out of view is
+90ms rest. A click moves the slice in 620ms on `--atlas-ease`
+(`cubic-bezier(0.45, 0, 0.2, 1)`, which leaves at once: the symmetric ease
+it replaced held the slice still for a tenth of a second after the click),
+each drawing covering a few per cent more ground than its text; the edge
+arrows step out while the slice moves and, below about 1510px, where the
+margin cannot hold them 24px clear of both the card and the window's edge
+(they stood across the cards at 1280 and 6px from the window's edge at
+1440), are not shown (the switch is the way across). The slide out of view is
 inert, `aria-hidden` and unpainted once the move settles; `#system` opens the
 band on the system drawing without a move; reduced motion never animates.
+One frame for both drawings (5 October 2026; a critique measured the system
+card up to 234px taller than the mathematics card, so the page jumped at
+every switch): beside their columns both slides take the mathematics
+columns (5fr and 6fr), both headings and both cards hang from the band's top
+line, the system card is exactly as tall as the mathematics slide
+(`system-map.js` sizes its circle to what that leaves), and the mathematics
+card stands as tall as the window shows below the switch, so a laptop sees
+the whole drawing. The floating glossary chip tucks away wherever a card
+reaches the window's lower right corner, and the open chip never stands on
+a drawing: where it would (the mathematics map on the first screen at 1512
+and 1920), it starts folded to its mark, and a short first scroll that
+brings a drawing under it folds it too.
 landing.js loads the system drawing's script on the first sign of intent and
 prefetches it when the band nears the viewport, and `plectis:atlas`
 `{view, previous, phase, instant}` tells both drawings when the band moves.
@@ -231,6 +260,48 @@ from the landing's "Open the system map"; `#map=<node id>` deep links select
 and are written on selection. The old `docs/architecture.html` stays for its
 existing links.
 
+Drilling in and opening (5 October 2026). Will: selecting should work "like
+the maths map ... you should be able to drill into it", and "if you select
+and click it" (or double click) "it should take you to that in the website
+and load really quick".
+- The camera. On the landing a choice about one part of the ring brings the
+  reader closer to it: a family is framed with each of its components named
+  along its arc (15px, failing that 14px; no closer look where the names
+  cannot stand whole), a component with everything it lights and room for
+  the plates that name them, the doctrine filling the drawing. A rule
+  reaches round the whole ring, so a rule and the whole system are seen from
+  the usual distance. Each view is drawn afresh for its camera
+  (`buildMap(cam)`: every angle stays the whole system's, marks, lines and
+  words keep their sizes, the room between them grows), cut at the drawing's
+  own box, and no word that would be cut is set. The move carries the view
+  left and the view arrived at along one path (scale geometrically, the
+  point looked at in a straight line, on a curve that answers the click at
+  once and settles slowly), the new view coming in over the old; only
+  transform and opacity animate, a keyboard action or reduced motion changes
+  the view at once, and no tip names what slides under a resting pointer.
+  The map's own page names every component already and keeps its distance.
+- Opening. A click chooses; a second click on what is chosen, or a double
+  click, opens its page: a component's page (or its paper module), a rule's
+  card on the doctrine page, a family's page, the doctrine's page; Enter does
+  the same from the keyboard and Cmd or Ctrl opens a new tab. A choice
+  starts its page loading at once (one at a time, never under Save-Data):
+  prerendered where speculation rules are allowed, otherwise prefetched,
+  or fetched where prefetch is off. The chosen component's plate carries an
+  arrow to its page, the chosen mark's tip says "Click again to open its
+  page", and the column's ways out stand under its card's head.
+- The tip is one of the map's plates (the ground lifted a step, a hairline,
+  the plates' serif), set outward from the ring beside its mark, inside the
+  drawing, never over the words above the map, a plate or the mark; it is
+  silent on a family's name, which is its own label, and a mark already named
+  on a plate lights its plate instead. The cream tip it replaced was the
+  brightest thing on the dark ground and covered the caption.
+- Light. The rim, its names and the doctrine's glyphs arrive with the slide;
+  on the first sight only the lines run out (no mark pops in), and a lit line
+  runs at one speed, so near components light first and each plate arrives
+  as the light reaches it. A rule's lines stop short of its glyph, so a rule
+  sending forty lines out is still seen where they meet. A name pointed at in
+  the column finds its mark with one closing ring; nothing pulses.
+
 The papers band (4 October 2026). Will: the short paper is "the main focus
 and attraction", its companion sits beside it, small, and the band had "too
 much information". It holds three reading pairs chosen by
@@ -244,8 +315,13 @@ title). Questions and abstracts stay in the catalogue, which the heading row
 routes to. The pages are ink on a transparent ground in
 `assets/paper-sheets/`, rendered from the live PDFs by
 `tools/meta/dissemination/build_landing_paper_sheets.py` (`--check` names the
-pages a republished PDF has made stale); the frame is the paper, and at night
-the ink inverts while the paper keeps the theme's surface. The drawing is a
+pages a republished PDF has made stale); the frame is the paper. At night the
+paper stays paper (5 October 2026): the day theme's cream dimmed toward black
+(92%, which keeps its hue), its own dark ink, the companion the same paper in
+shadow (77%). The
+earlier night sheet (the theme's surface with the ink inverted) read as grey
+tiles, and a Type B design review asked for pages that read as documents;
+captures of both settled it. Never pure white. The drawing is a
 mouse-only twin of the title link. Floating controls share one grammar: the
 back pill and the glossary chip carry a hairline and a short lift, no halo,
 and fold to their mark once reading starts.
@@ -318,8 +394,38 @@ the first-visit glossary chip stay on.
 
 To feature a new film, edit the `home-film` figure and its card in the videos
 list; nothing else depends on which film it is. Judge the first screen at
-1440 × 900 and 1280 × 800: the introduction, the film, the weave and the
-figures fit together.
+1440 × 900 and 1280 × 800: the introduction, the weave, the figures and the
+top of the mathematics map fit together.
+
+The first screen and the bands below it (5 October 2026, from a Type B design
+review read against the live page). The films are about the research system,
+so a film's still, a software diagram, was the largest picture on a page whose
+subject is mathematics. The introduction is now two columns that end on one
+line: the name, the subject and the byline on the left; the reason, the two
+routes and the film on the right, where the film is a thumbnail beside its
+title. The hero gave its height back, so the plait, the figures and the top of
+the universe map reach the first screen at 1440 × 900. The figures are one
+line of orientation, each number beside the word it counts. The videos band
+leads with one film (the five-minute walk-through, its still large enough to
+read) and lists the shorter and longer films beside the heading, one row each,
+instead of three equal cards. The essay opens on its own first sentence, set as
+the band's proposition (formal verification "is necessary but not
+sufficient"; a paragraph break, Will's words unchanged), and the rest reads at
+running-text size. The credit ledger keeps Will's fixed frame (4 October: "it
+stays in that frame and then you can scroll through them, but the frame stays
+the same") with its entries side by side, two whole entries at a time and
+arrows that page by what the frame shows; the vertical window it replaced cut
+its last entry under a fade. Kept against the review: the paper order (Will's
+call, the system first) and every glossary link. A fresh-eyes critique of the
+result then settled the finish: the reason sits under the subject, never
+floating top-right beside the name; every two-column band shares one gutter,
+so second columns land on two axes only (7/5 in the hero and the essay, 5/7 in
+the results, the videos and the earlier software); a result's evidence closes
+the claim's own column; the ledger's links leave the site and so are gold; the
+night paper is dimmed toward black, which keeps its hue (mixed toward the
+violet ground it turned lilac-grey). The figures stay counts of what exists;
+a count of checked results on the first screen is a claim-boundary call left
+to Will.
 
 Design changes follow the `public-web-design` skill
 (`.agents/skills/public-web-design/SKILL.md`). Before calling a change done,
@@ -335,7 +441,10 @@ label); a paper's page count rides on its PDF link; headings stack over their
 sentence; the AI-packet routes sit under "Why I am building it" and the
 take-part card holds only the human routes; the landing header shares the
 docs and maths bar's container so the wordmark never moves between pages; the
-first-visit glossary chip folds to its mark once reading starts. The eight
+first-visit glossary chip folds to its mark once reading starts, and on a
+phone, where every place the mark could stand is on the reading column, the
+mark itself steps aside then and stands again at the top of the page (the
+header keeps the way to the glossary). The eight
 problems read as one index (number, title, status on a line). The #257 card
 typesets its series (1/1 + 1/3 + 1/7 + 1/15 + …, each denominator labelled
 2ⁿ−1, `aria-hidden` because the question sentence says it) and sets the
@@ -409,7 +518,10 @@ checks idle motion and theme smear.
   nothing behind (one paint, one bounded reveal, nothing afterwards). The
   words, the film and the figures are simply there at first paint.
 - The map's moment is its opening, ring by ring. A teaser (the landing, the
-  maths overview) plays it once, when the drawing first comes into view.
+  maths overview) plays it once, when the drawing first comes into view: at
+  once if any of it shows at first look (on the landing's first screen a
+  third of it or less shows, and waiting for more left an empty frame,
+  5 October 2026), and otherwise once a third of it shows.
 - A paper's moment is the arrival at a statement: a theorem reached by a link
   (the map's "read it in the paper", a cross-reference) flares its hairline
   ember for about two seconds under a light wash. Any other deep-link target
@@ -705,7 +817,14 @@ the ledger, the evidence or the rendered papers come from different editions.
   open, the rows' glossary marks rest and the companion's title, the same
   words and marks, offers the definitions instead. Its prose keeps the
   précis's measure (52ch at 0.88rem, 54ch for the 0.84rem tally and card
-  lines). `public_web_audit.py` sees the page with the companion closed, so
+  lines). While a result is in the card the problem's question and its
+  short paper's précis fold away (to their height and back), so the result's
+  own words and its buttons stand in the first screen at laptop height; a
+  statement longer than its room stops at its last whole line, never through
+  a line of formulae, with "The statement continues in the paper." under it.
+  The companion clips twelve pixels outside the column, so the tabs' rings
+  and the current tab's light are never cut, and the card's rings are drawn
+  inward. `public_web_audit.py` sees the page with the companion closed, so
   judge its open state from probe captures at laptop and monitor sizes. Its
   three files belong to the reading-room deploy scope with the teaser data
   that names them.
@@ -720,10 +839,11 @@ the ledger, the evidence or the rendered papers come from different editions.
   the column a click pins the result: the card holds it while the pointer
   crosses other dots to reach its buttons (its place in the paper, its Lean
   source on GitHub in a new tab, the full map), and the card's rule turns
-  ember. A click on the pinned dot or on empty ground, Escape, a tab for
-  another problem, or leaving the column and the drawing lets it go. A
-  double-click, on the landing or the map, opens the result at its place in
-  its paper (Will, 4 Oct). Without the column a click opens the full map on
+  ember. A click on empty ground, Escape, a tab for another problem, or a
+  click elsewhere on the page lets it go. A second click on the pinned dot,
+  or a double-click, on the landing or the map, opens the result at its
+  place in its paper (Will, 4 and 5 Oct; the same grammar as the system
+  map). Without the column a click opens the full map on
   the object. A pin starts the paper loading, one page at a time and never on
   a hover or under Save-Data: where the browser takes speculation rules the
   page is prerendered whole, and the document goes into the cache as well,
@@ -741,6 +861,25 @@ the ledger, the evidence or the rendered papers come from different editions.
   number: wherever band labels show, so do the titles, and the ring picks
   one style for all of them by its smallest band (compact on the teaser,
   full names on the map).
+- The teaser keeps its words off the frame (5 October 2026; at 1440 a title
+  had stood 11px from it). It fits the ring with its titles, not the ring
+  alone, so the outermost word keeps 32px from the frame and from the row of
+  key and buttons at its foot, and a plate keeps 24px from every edge. Its
+  type is one table: band titles 16px, counts 14px, plates 15px, the
+  shared-claims callout 13px, and names inside the ring 15px, down to 13px
+  on a short card rather than dropping a name. The titles at three and nine
+  o'clock stand level. A thread runs straight when the way is clear and
+  otherwise around the words with 4px to spare. The lit sector is marked by
+  two hairlines and an arc outside the scale instead of a wash, and the
+  other marks fade toward the ground in their own hue, mixed as the system
+  map mixes them. A kept result is ember (ring, ticks, plate edge, leader,
+  and "Kept. Esc lets it go" over the card); a hovered one stays ink. While
+  the column reads a result in full its plate shows only the result's name.
+  At rest the caption's place holds one line of the map's own marks, as many
+  whole marks as fit, and it steps out while the caption or the column
+  speaks. The column changes over without showing both: the list leaves in
+  90ms before the card comes, and on close the card leaves in 160ms before
+  the list returns. The full map page keeps its own type and dimming.
 - On a wide screen the map takes the room it is given (Will, 3 Oct: "use
   all the available space"). Only `universe.html` lifts the reading
   layout's width caps, so the field spans the window beside the navigation
@@ -834,18 +973,6 @@ the ledger, the evidence or the rendered papers come from different editions.
   when its evidence is new, a new plate eases out of its mark over a sixth of
   a second, and a selection plays its moment once. Reduced motion keeps the
   still embers and plays none of the motion.
-, as colour does, and the ground stays flat.
-  On the dark ground a replayed result glows faintly, an ember, brighter in
-  its lit sector; on paper there is no ambient glow. The mark in focus glows
-  in either scheme. Settling on a result plays one moment, after a tenth of
-  a second so a sweeping pointer leaves no trail: one ripple from the mark,
-  a bead of light along each of its threads (at most four, the checking
-  surfaces first), and a brief glow from Comparator when it replayed the
-  result. Palomar, which holds a prepared corpus, does not answer. The
-  companion's card mark ripples on the same beat when its evidence is new,
-  a new plate eases out of its mark over a sixth of a second, and a
-  selection plays its moment once.
-  Reduced motion keeps the still glow and plays none of the motion.
 - Names are plain words. Two #251 result names in the ledger carry a
   Markdown link inside their parentheses ("Theorem 5.6 ([criterion using least
   common multiples](https://…))"); the map reads the link as its words on

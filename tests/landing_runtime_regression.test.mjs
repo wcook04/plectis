@@ -228,7 +228,8 @@ test('a click on System moves the whole slice once, eased, and asks for its draw
     'both slides paint while the slice moves');
   assert.equal(page.figures[0].animations.length, 1, 'the leaving drawing rides the nearer layer');
   assert.equal(page.figures[1].animations.length, 1, 'the arriving drawing settles into place');
-  assert.equal(page.figures[1].animations[0].timing.duration, 720);
+  assert.equal(page.figures[1].animations[0].timing.duration, 620);
+  assert.ok(page.band.classList.contains('is-moving'), 'the edge arrows step out while the slice moves');
   assert.ok(page.events.some((e) => e.type === 'plectis:runtime' && e.detail.name === 'system'));
   assert.ok(page.events.some((e) => e.type === 'plectis:atlas' && e.detail.phase === 'start' && e.detail.view === 'system'));
   assert.deepEqual(page.replaced, ['#system']);
@@ -325,3 +326,128 @@ test('the docs runtime never takes over the landing map band', () => {
   assert.deepEqual(asked, ['[data-atlas]:not(.home-atlas)']);
   assert.match(HTML, /class="home-band home-maths home-atlas" id="mathematics" data-atlas/);
 });
+
+/* The glossary chip (5 October 2026): the open chip never stands on a
+   drawing, and on a phone the folded mark steps aside once reading starts.
+   These run the production cue against a small fake DOM, from landing.js and
+   from docs.js's copy, which must stay in step. */
+const DOCS_SOURCE = readFileSync(join(SITE, 'assets', 'docs.js'), 'utf8');
+function cueBlock(source, closing, next) {
+  const start = source.indexOf('/* Glossary cue (2026-09-14).');
+  assert.ok(start >= 0, 'the glossary cue is present');
+  const stop = source.indexOf(closing + next, start);
+  assert.ok(stop > start, 'the glossary cue closes where expected');
+  return source.slice(start, stop + closing.length);
+}
+const CUES = {
+  'landing.js': cueBlock(SOURCE, '\n})();', '\n\n/* Results carousel'),
+  'docs.js': cueBlock(DOCS_SOURCE, '\n  })();', '\n\n})();'),
+};
+
+function cueHarness(file, { width = 1512, height = 859, touch = false, narrow = false, drawings = [] } = {}) {
+  const listeners = {};
+  const queries = {};
+  const classList = () => {
+    const set = new Set();
+    return {
+      add: (n) => set.add(n), remove: (n) => set.delete(n), contains: (n) => set.has(n),
+      toggle: (n, on) => { const want = on === undefined ? !set.has(n) : !!on; if (want) set.add(n); else set.delete(n); return want; },
+    };
+  };
+  // The open chip and the folded mark as they stand at the window's lower
+  // right, 16px in (style.css).
+  const openBox = { left: width - 394, top: height - 99, right: width - 16, bottom: height - 16 };
+  const markBox = { left: width - 58, top: height - 58, right: width - 16, bottom: height - 16 };
+  const node = (tag) => {
+    const el = {
+      tagName: tag.toUpperCase(), children: [], _attrs: {}, _on: {}, style: {},
+      setAttribute(k, v) { this._attrs[k] = String(v); },
+      getAttribute(k) { return k in this._attrs ? this._attrs[k] : null; },
+      appendChild(child) { this.children.push(child); child.parentNode = this; return child; },
+      removeChild(child) { this.children = this.children.filter((c) => c !== child); child.parentNode = null; },
+      addEventListener(type, fn) { (this._on[type] = this._on[type] || []).push(fn); },
+      fire(type) { (this._on[type] || []).forEach((fn) => fn({ target: this })); },
+    };
+    el.classList = classList();
+    el.getBoundingClientRect = () => (el.classList.contains('is-compact') && !el.classList.contains('is-open')) ? markBox : openBox;
+    return el;
+  };
+  let hint = null;
+  const attrs = {};
+  const term = { getAttribute: (k) => k === 'href' ? 'docs/glossary.html#term-lean' : null };
+  const document = {
+    documentElement: { getAttribute: (k) => attrs[k] || null, setAttribute: (k, v) => { attrs[k] = v; } },
+    body: { appendChild(child) { hint = child; child.parentNode = this; return child; }, removeChild() {} },
+    createElement: node,
+    createTextNode: (text) => ({ text }),
+    querySelector: (sel) => sel === 'a.narrative-ref--term[data-term]' ? term : null,
+    querySelectorAll: (sel) => sel === '[data-plait-band], .home-universe, .home-system' ? drawings : [],
+    addEventListener() {},
+    removeEventListener() {},
+  };
+  const window = {
+    location: { pathname: '/' },
+    scrollY: 0,
+    innerWidth: width,
+    innerHeight: height,
+    matchMedia: (q) => (queries[q] = queries[q] || {
+      matches: q.includes('hover: none') ? touch : q.includes('max-width: 620px') ? narrow : false,
+      addEventListener() {},
+    }),
+    getComputedStyle: (el) => ({ visibility: el.visibility || 'visible' }),
+    addEventListener: (type, fn) => { (listeners[type] = listeners[type] || []).push(fn); },
+    removeEventListener: (type, fn) => { listeners[type] = (listeners[type] || []).filter((f) => f !== fn); },
+    setTimeout: () => 0,
+  };
+  const localStorage = { getItem: () => null, setItem() {} };
+  vm.runInNewContext(CUES[file], { document, window, localStorage }, { filename: file + '#glossary-cue' });
+  assert.ok(hint, 'the cue mounted');
+  const scrollTo = (y) => { window.scrollY = y; (listeners.scroll || []).forEach((fn) => fn()); };
+  return { hint, mark: hint.children[0], scrollTo, attrs };
+}
+
+const card = (box, visibility) => ({
+  visibility,
+  getBoundingClientRect: () => ({ ...box, width: box.right - box.left, height: box.bottom - box.top }),
+});
+
+test('the open glossary chip folds to its mark where it would stand on a map', () => {
+  // At 1512x859 and 1920x953 the mathematics map stands on the first screen
+  // and the open chip covered its right edge (critique, 5 October 2026).
+  const over = cueHarness('landing.js', { drawings: [card({ left: 734, top: 705, right: 1408, bottom: 1400 })] });
+  assert.ok(over.hint.classList.contains('is-compact'), 'folded where it would cover the map');
+  // On a monitor the map stands clear of the chip, which keeps its line.
+  const clear = cueHarness('landing.js', { width: 2560, height: 1313, drawings: [card({ left: 1258, top: 810, right: 1933, bottom: 1504 })] });
+  assert.ok(!clear.hint.classList.contains('is-compact'), 'open where nothing is under it');
+  // The slide the switch has put away is hidden and does not count.
+  const away = cueHarness('landing.js', { drawings: [card({ left: 734, top: 705, right: 1408, bottom: 1400 }, 'hidden')] });
+  assert.ok(!away.hint.classList.contains('is-compact'), 'a hidden slide does not fold it');
+});
+
+test('a short first scroll that brings a map under the open chip folds it', () => {
+  const box = { left: 734, top: 900, right: 1408, bottom: 1600 };
+  const page = cueHarness('landing.js', { drawings: [card(box)] });
+  assert.ok(!page.hint.classList.contains('is-compact'), 'open while the map is below it');
+  box.top = 780;
+  page.scrollTo(120);
+  assert.ok(page.hint.classList.contains('is-compact'), 'folded once the map reaches it');
+});
+
+for (const file of Object.keys(CUES)) {
+  test(`on a phone the mark steps aside once reading starts and stands again at the top (${file})`, () => {
+    const page = cueHarness(file, { width: 390, height: 664, touch: true, narrow: true });
+    assert.ok(page.hint.classList.contains('is-compact'), 'a touch screen starts on the mark');
+    assert.ok(!page.hint.classList.contains('is-aside'), 'the mark stands at the top of the page');
+    page.mark.fire('click');
+    assert.ok(page.hint.classList.contains('is-open'), 'the mark opens the chip');
+    page.scrollTo(300);
+    assert.ok(page.hint.classList.contains('is-aside'), 'reading started: the mark steps aside');
+    assert.ok(!page.hint.classList.contains('is-open'), 'and the chip it opened folds');
+    page.scrollTo(0);
+    assert.ok(!page.hint.classList.contains('is-aside'), 'back at the top it stands again');
+    // A wider window keeps the mark wherever the reader is.
+    const wide = cueHarness(file, { width: 1512, height: 859, touch: true, narrow: false });
+    wide.scrollTo(3000);
+    assert.ok(!wide.hint.classList.contains('is-aside'));
+  });
+}

@@ -862,17 +862,21 @@ test('reduced motion lands every change at once; otherwise the map assembles onc
   still.map.select(busiest(scene));
   still.map.select('doctrine:P-3');
   assert.equal(still.animations.length, 0);
-  const moving = await mount({ scene });
+  // A scene of code connections draws its fibres at rest, so its first
+  // sight has lines to run out.
+  const moving = await mount({ scene: codeScene() });
   const opening = moving.animations.length;
-  assert.ok(opening > 50, 'the first sight assembles the map');
+  // The rim and the glyphs arrive in place with the slide; the first sight
+  // runs the lines out, once, and nothing pops in.
+  assert.ok(opening > 20, 'the first sight runs the lines out');
+  assert.equal(moving.animations.filter(a => JSON.stringify(a.frames).includes('scale(0.35)')).length, 0, 'no mark pops in');
   moving.map.select(busiest(scene));
   assert.ok(moving.animations.length > opening, 'a choice moves');
   moving.animations.forEach(a => assert.ok(a.opts.duration <= 900 && (a.opts.delay || 0) <= 1300, 'each motion is short'));
-  const pops = () => moving.animations.filter(a => JSON.stringify(a.frames).includes('scale(0.35)')).length, popped = pops();
-  assert.ok(popped > 50, 'the marks arrive');
   moving.map.select(null);
-  moving.map.select('area:formal_math_and_proof');
-  assert.equal(pops(), popped, 'the opening plays once');
+  const before = moving.animations.length;
+  moving.document.fire('plectis:atlas', { detail: { view: 'system', previous: 'mathematics', phase: 'end' } });
+  assert.equal(moving.animations.length, before, 'the opening plays once');
 });
 
 test('the scene and the doctrine are each fetched once, and the API answers before they arrive', async () => {
@@ -915,6 +919,70 @@ test('bad rows are dropped and the rest is drawn', async () => {
   assert.equal(s.ready, true);
   assert.ok(s.counts.dropped >= 3);
   assert.equal(s.counts.links, counts(liveScene()).links.length);
+});
+
+/* ---- Opening a page, and the camera (Will, 5 Oct) ------------------------------- */
+test('a second click on what is chosen, or a double click, opens its page; Enter does it from the keyboard', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, reduce: true });
+  const id = busiest(scene), node = () => page.root.querySelector('.sm-node--comp[data-sm-key="comp:' + id + '"]');
+  const slug = id.replace(/^[a-z_]+:/, '').replace(/_/g, '-');
+  page.click(node());
+  assert.equal(page.map.snapshot().view, 'component', 'a first click chooses');
+  assert.equal(page.window.location.href, undefined, 'and stays on the map');
+  page.click(node());
+  assert.equal(page.window.location.href, 'docs/component-' + slug + '.html', 'a second click opens its page');
+  // A double click on a mark not yet chosen: the first click chooses it, the second opens it.
+  const fresh = await mount({ scene, doctrine, reduce: true });
+  const rule = fresh.root.querySelector('.sm-node--rule[data-sm-key="rule:P-3"]');
+  rule.fire('click', { detail: 1 });
+  assert.equal(fresh.map.snapshot().view, 'rule');
+  rule.fire('click', { detail: 2 });
+  assert.equal(fresh.window.location.href, 'docs/doctrine.html#dcard-p-3', 'a rule opens at its card');
+  // Enter on what is already chosen opens it too.
+  const keyed = await mount({ scene, doctrine, reduce: true });
+  keyed.map.select('doctrine');
+  const centre = keyed.root.querySelector('[data-sm-key="doctrine"]');
+  centre.fire('keydown', { key: 'Enter', target: centre });
+  assert.equal(keyed.window.location.href, 'docs/doctrine.html', 'the doctrine opens its page');
+});
+
+test('a family, a component and the doctrine are looked at closely; a rule and the whole system from the usual distance', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, areaWidth: 820 });
+  assert.equal(page.map.snapshot().camera, null, 'the whole system rests');
+  page.map.select('doctrine');
+  const core = page.map.snapshot().camera;
+  assert.ok(core && core.k > 1.2, 'the doctrine fills the drawing');
+  page.map.select('doctrine:P-3');
+  assert.equal(page.map.snapshot().camera, null, 'a rule reaches round the whole ring');
+  page.map.select('area:formal_math_and_proof');
+  const fam = page.map.snapshot().camera;
+  if (fam) {
+    assert.equal(fam.names, 'area:formal_math_and_proof', 'a family looked at closely names its components');
+    const members = compNodes(scene).filter(n => n.parent_cluster_id === 'cluster:formal_math_and_proof').length;
+    assert.equal(page.root.querySelectorAll('.sm-rimname--cam').length, members);
+  }
+  // Every view drawn under a camera keeps the drawing's box and never cuts a word: a
+  // family's name is set only where it stands whole.
+  page.map.select(null);
+  assert.equal(page.map.snapshot().camera, null);
+  assert.equal(page.root.querySelectorAll('svg.sm-ring').length, 1, 'once settled, one drawing');
+});
+
+test('the tip is a plate set beside its mark, silent on a family name, and the chosen mark says how to open it', async () => {
+  const scene = liveScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, reduce: true });
+  const tip = page.root.querySelector('.sm-tip');
+  const fam = page.root.querySelector('.sm-node--fam');
+  fam.fire('pointerenter', { pointerType: 'mouse' });
+  assert.equal(tip.hidden, true, 'a family name is already its own label');
+  const id = isolated(scene) || busiest(scene);
+  page.map.select(id);
+  const chosen = page.root.querySelector('.sm-node--comp[data-sm-key="comp:' + id + '"]');
+  chosen.fire('pointerenter', { pointerType: 'mouse' });
+  if (!tip.hidden) assert.match(page.textOf(tip), /Click again to open its page/);
+  else assert.ok(page.root.querySelector('.sm-plate.is-hover'), 'or its plate lights instead of a tip repeating its name');
 });
 
 /* ---- Names ------------------------------------------------------------------------ */
@@ -1218,13 +1286,13 @@ test('the key says where the red lines come from and how many components have no
   page.press(page.keySlot.querySelector('.sm-key__more'));
   const key = page.textOf(page.keySlot);
   assert.match(key, /Red lines are derived from the code: each one rests on the place in the code where one component runs another, reads its saved results or checks its copied files\./);
-  assert.match(key, new RegExp(none.length + ' of the ' + comps.length + ' components have none\\.'));
+  assert.match(key, new RegExp(none.length + ' of the ' + comps.length + ' components ' + (none.length === 1 ? 'has' : 'have') + ' none\\.'));
   assert.match(key, /One component’s lines to several in one family travel as one ribbon/);
   // A family with some components and none of their code connected says how many.
   const f = Object.values(fam).find(k => none.some(n => fam[n.id] === k) && comps.some(n => fam[n.id] === k && !none.includes(n)));
   page.map.select('area:' + f);
   const count = none.filter(n => fam[n.id] === f).length, of = comps.filter(n => fam[n.id] === f).length;
-  assert.match(page.textOf(page.panel()), new RegExp(count + ' of its ' + of + ' components have none\\.'));
+  assert.match(page.textOf(page.panel()), new RegExp(count + ' of its ' + of + ' components ' + (count === 1 ? 'has' : 'have') + ' none\\.'));
 });
 test('a component with no code connection says so plainly; each code connection links to the line of code that makes it', async () => {
   const scene = codeScene(), edges = codeEdges(scene);
