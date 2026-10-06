@@ -451,3 +451,159 @@ for (const file of Object.keys(CUES)) {
     assert.ok(!wide.hint.classList.contains('is-aside'));
   });
 }
+
+/* The results contents (Type B review, 6 October 2026): the index of the
+   twelve results stands above the open result, so its place never depends on
+   that result's height, and an arrow pressed on an entry that names one
+   result never opens another. Runs the production block against a fake DOM. */
+function resultsBlock() {
+  const start = SOURCE.indexOf('/* Results carousel');
+  assert.ok(start >= 0, 'the results carousel is present');
+  const stop = SOURCE.indexOf('\n})();', start);
+  return SOURCE.slice(start, stop + '\n})();'.length);
+}
+function resultsHarness(labels, { hash = '', aliases = {} } = {}) {
+  const node = (tag, props = {}) => {
+    const set = new Set();
+    const n = {
+      tagName: tag.toUpperCase(), children: [], parentNode: null, _attrs: {}, _on: {}, textContent: '', id: '',
+      className: '',
+      classList: {
+        // landing.js names built nodes through className; read both.
+        add: (c) => set.add(c), remove: (c) => set.delete(c), contains: (c) => set.has(c) || n.className.split(' ').includes(c),
+        toggle: (c, on) => { const w = on === undefined ? !set.has(c) : !!on; if (w) set.add(c); else set.delete(c); return w; },
+      },
+      setAttribute(k, v) { this._attrs[k] = String(v); },
+      getAttribute(k) { return k in this._attrs ? this._attrs[k] : null; },
+      removeAttribute(k) { delete this._attrs[k]; },
+      addEventListener(type, fn) { this._on[type] = fn; },
+      // Slides carry no plate drawing here; the overview copies none.
+      querySelector: () => null, querySelectorAll: () => [],
+      appendChild(c) { c.parentNode = this; this.children.push(c); return c; },
+      insertBefore(c, ref) { c.parentNode = this; const i = this.children.indexOf(ref); this.children.splice(i < 0 ? this.children.length : i, 0, c); return c; },
+      closest(sel) {
+        for (let at = this; at; at = at.parentNode) {
+          if (sel.split(',').some((s) => { s = s.trim(); return s.startsWith('.') ? at.classList.contains(s.slice(1)) : at.tagName === s.toUpperCase(); })) return at;
+        }
+        return null;
+      },
+      ...props,
+    };
+    return n;
+  };
+  const root = node('section');
+  const inner = root.appendChild(node('div'));
+  const head = inner.appendChild(node('div'));
+  const win = inner.appendChild(node('div'));
+  win.classList.add('home-results__window');
+  const track = win.appendChild(node('ol'));
+  const slides = labels.map((label, i) => {
+    const slide = track.appendChild(node('li', { id: 'r' + i }));
+    slide.setAttribute('data-result-label', label);
+    if (aliases[slide.id]) slide.setAttribute('data-result-aliases', aliases[slide.id]);
+    return slide;
+  });
+  const prev = head.appendChild(node('button'));
+  const next = head.appendChild(node('button'));
+  const count = head.appendChild(node('span'));
+  // The register switch and each slide's "Read the theorem" (6 October 2026).
+  const modes = ['intuitive', 'technical'].map((mode) => {
+    const b = head.appendChild(node('button'));
+    b.setAttribute('data-results-mode', mode);
+    return b;
+  });
+  const theorems = slides.map((slide) => {
+    const b = slide.appendChild(node('button'));
+    b.setAttribute('aria-controls', slide.id + '-theorem');
+    return b;
+  });
+  const sel = {
+    '.home-results__track': track, '.home-results__window': win,
+    '[data-results-prev]': prev, '[data-results-next]': next, '[data-results-count]': count,
+  };
+  const all = { '[data-results-mode]': modes, '[data-results-theorem]': theorems };
+  root.querySelector = (s) => sel[s] || null;
+  root.querySelectorAll = (s) => all[s] || [];
+  let scrolled = 0;
+  root.scrollIntoView = () => { scrolled += 1; };
+  const document = {
+    querySelector: (s) => s === '[data-results-carousel]' ? root : null,
+    createElement: (t) => node(t), getElementById: () => null,
+    baseURI: 'https://example.test/', head: { appendChild() {} },
+  };
+  const window = { location: { hash }, history: { replaceState(_, __, h) { window.location.hash = h; } }, addEventListener() {} };
+  vm.runInNewContext(resultsBlock(), { document, window, URL });
+  return { root, inner, win, count, slides, modes, theorems, scrolled: () => scrolled };
+}
+
+test('the results contents stand above the open result and keep arrows off named entries', () => {
+  const { inner, win, count, slides } = resultsHarness(['#1041: A', '#257: B', '#243: C']);
+  const contents = inner.children.find((c) => c.classList.contains('home-results__contents'));
+  assert.ok(contents, 'the contents are built from the slide labels');
+  assert.ok(inner.children.indexOf(contents) < inner.children.indexOf(win), 'the contents come before the open result');
+  const entries = contents.children[0].children.map((li) => li.children[0]);
+  assert.equal(entries.length, 3);
+  assert.equal(entries[2].children[0].textContent, '#243');
+  assert.equal(entries[2].children[1].textContent, 'C');
+  assert.equal(count.textContent, '1 / 3');
+  entries[2]._on.click();
+  assert.equal(count.textContent, '3 / 3');
+  assert.equal(entries[2].getAttribute('aria-current'), 'true');
+  assert.equal(entries[0].getAttribute('aria-current'), null);
+  assert.ok(slides[2].classList.contains('is-active'));
+  // An arrow on a named entry leaves the open result alone.
+  let prevented = false;
+  const root = contents.parentNode.parentNode;
+  root._on.keydown({ key: 'ArrowRight', target: entries[0], preventDefault() { prevented = true; } });
+  assert.equal(count.textContent, '3 / 3');
+  assert.equal(prevented, false);
+  // Elsewhere in the band the arrows still page.
+  root._on.keydown({ key: 'ArrowRight', target: root, preventDefault() { prevented = true; } });
+  assert.equal(count.textContent, '1 / 3');
+  assert.ok(prevented);
+});
+
+/* One result per problem, each led by its plate (6 October 2026). A load
+   with no fragment opens the first result where it is and never scrolls;
+   a fragment of a result that left the band opens its problem's result;
+   the switch sets the register for every slide; "Read the theorem" opens
+   and closes on every slide at once. */
+test('a load without a fragment opens the first result in place', () => {
+  const { slides, count, scrolled } = resultsHarness(['#1041: A', '#257: B']);
+  assert.equal(scrolled(), 0, 'an empty hash must not scroll the page to the results');
+  assert.ok(slides[0].classList.contains('is-active'));
+  assert.equal(count.textContent, '1 / 2');
+});
+
+test('a dropped result fragment opens its problem result', () => {
+  const { slides, count, scrolled } = resultsHarness(['#1041: A', '#257: B'], {
+    hash: '#r9-old', aliases: { r1: 'r8-old r9-old' },
+  });
+  assert.ok(slides[1].classList.contains('is-active'));
+  assert.equal(count.textContent, '2 / 2');
+  assert.equal(scrolled(), 1);
+});
+
+test('the switch sets one register for every result', () => {
+  const { root, modes } = resultsHarness(['#1041: A', '#257: B']);
+  assert.equal(root.getAttribute('data-results-mode'), 'intuitive');
+  assert.equal(modes[0].getAttribute('aria-pressed'), 'true');
+  modes[1]._on.click();
+  assert.equal(root.getAttribute('data-results-mode'), 'technical');
+  assert.equal(modes[0].getAttribute('aria-pressed'), 'false');
+  assert.equal(modes[1].getAttribute('aria-pressed'), 'true');
+});
+
+test('Read the theorem opens and closes on every result at once', () => {
+  const { root, theorems } = resultsHarness(['#1041: A', '#257: B']);
+  assert.equal(root.classList.contains('is-theorem-open'), false);
+  theorems[0]._on.click();
+  assert.ok(root.classList.contains('is-theorem-open'));
+  for (const b of theorems) {
+    assert.equal(b.getAttribute('aria-expanded'), 'true');
+    assert.equal(b.textContent, 'Hide the theorem');
+  }
+  theorems[1]._on.click();
+  assert.equal(root.classList.contains('is-theorem-open'), false);
+  assert.equal(theorems[0].textContent, 'Read the theorem');
+});

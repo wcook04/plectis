@@ -110,6 +110,47 @@ override native `math` elements with CSS `display: block` or `inline-block`.
 Change the excerpt schema version when this conversion changes, so existing
 map data cannot continue serving cached broken excerpts.
 
+### Reader performance
+
+Long manuscripts open on a compact contents page and complete sections. The
+builder retains the exact full HTML edition under `--complete.html` for whole
+paper search, copying and print; PDFs and TeX keep their source identity. Every
+old manuscript fragment resolves to the section containing its exact anchor.
+Split only at complete section boundaries, retain parent introductions and
+bibliographies, and keep previous/next navigation and no-JavaScript links.
+Do not put a multi-megabyte equation DOM on the ordinary paper entry route.
+`plectis_paper_chapters.py` owns this projection after equation compilation;
+its tests check anchor closure, complete-edition byte identity and entry size.
+
+Map selection must not start rendering a second document. Warm bytes only;
+keep native click and double-click navigation. Cache bounded, immutable topology
+plans and recent cameras, and invalidate geometry and text measurements when
+size or fonts change. The system map supports hold-and-drag at every scale;
+Fit restores its original framing. Native fullscreen keeps the complete page
+ancestor tree, with a window-filling fallback when an embedded host refuses it.
+Browser regressions cover native fullscreen, rejection, exiting and dragging.
+
+Evaluate work until the requested content or map state is visible. Keep document
+navigation, discrete input-to-visible-state latency, and frame cadence during
+continuous panning as separate observations. Functional fullscreen/drag checks
+and a navigation with no recorded long tasks do not prove smooth motion.
+Record browser, viewport, motion preference, font readiness, CPU throttling,
+sample count and timed boundaries. A stopwatch around `select()` measures
+synchronous selection work; frame waits outside it do not measure presentation.
+Report first use separately from repeated same-camera reuse. The next profile
+must cover different cameras, fullscreen relayout, font changes and cache
+eviction before generalising a warm-cache result to ordinary responsiveness.
+
+Observe representation cost after complete HTML assembly, including chrome,
+routing metadata, required assets and the DOM the browser constructs. The
+chapter builder's `section_budget` is a subdivision threshold, not a universal
+limit on emitted bytes or rendering cost: oversized leaves, parent introductions
+and added chrome require their own evidence. Preserve exact section content and
+anchors when addressing an observed oversized reading unit. Full and permitted
+partial builds must retain the same direct small-reader destinations and matching
+generation receipts; eventual anchor resolution through another document is not
+an equivalent performance route. Complete editions remain explicit choices for
+whole-document search, copying and print.
 ### AI downloads
 
 The primary AI handoff is a JSON attachment for a tour of the website and both
@@ -142,23 +183,56 @@ with the five page destinations on the next row. The existing labelled search
 icon replaces the wider text button. Let the destinations wrap when text is
 enlarged; never clip a route to preserve a fixed header height.
 
-The strongest-results band reads in order: result, precise statement,
-proof idea, surviving boundary, then three adjacent evidence links and the way
-into the map. On a wide screen (5 October 2026) the band sits on the page's
-own column under a hairline, like the papers, never in a card centred inside
-it; the claim takes the left column at display size, the statement the right
-on an ember hairline as a proposition, and the proof idea and the boundary
-stand side by side under it, both at reading contrast. The evidence row closes
-it: "In the map" opens the universe map with that result selected
-(`maths/universe.html#o=<statement id>`; Will, 5 October: "click view on map
-and it takes you to the map with that one selected"). The statement is the one
-the paper link names or whose Lean declarations include the checked one;
-`test_strongest_results_have_direct_checked_evidence_and_paper_sections` holds
-each link to a statement in the map data. Quiet previous/next arrows and a count navigate the twelve; touch swipes remain, and
-no-JavaScript readers get the complete horizontal strip. There is no autoplay
-or delayed transition. Do not add a dropdown here (Will, 4 October). Each result keeps a stable `result-*` fragment; `#result`
-continues to open the section. Inactive results are hidden and inert, and carousel keys
-must never remove focus from an evidence link or hijack native input keys.
+The interesting-results band (6 October 2026) shows one result per problem,
+eight in all, each led by its plate. Will: "best result from each, reduce
+that 12 to 8"; the plates are "the main attraction", and the band should
+"toggle the same way we do system vs maths ... technical vs intuitive ...
+defaults to intuitive", with "an expandable thing below which then shows the
+best result as well only if you click it and animation". A slide reads: the
+problem and its status, the claim, the plate (a computed figure, see "The
+plates"), and the plate explained in one register. The band's switch
+(Intuitive, Technical; buttons with `aria-pressed`, the map band's pill and
+thumb) chooses the register for every slide at once: intuitive is plain and
+from first principles; technical is "the technical version of what the
+intuitive is showing", the drawing read precisely. "Read the theorem" opens,
+under the whole slide, the precise statement on its ember rule (drawn down
+like a pen as it opens), the proof idea and the boundary beside it, and the
+evidence row: Lean proof, Comparator check, the paper section and "In the
+map" (`maths/universe.html#o=<statement id>`; Will, 5 October: "click view
+on map and it takes you to the map with that one selected"). The open
+theorem stays open while the reader turns, and closed it is hidden from the
+tab order. It is the one fold on the landing and Will asked for it; it is a
+labelled control, never a chevron. On a wide screen the plate takes the
+right seven of the sheet's twelve columns, the problem, claim, explanation
+and "Read the theorem" the left five, the way the papers page's frontispiece
+faces its title. Without JavaScript nothing folds: both registers and the
+theorem stand in order, and the strip of results scrolls. The statement is
+the one the paper link names or whose Lean declarations include the checked
+one; `test_strongest_results_have_direct_checked_evidence_and_paper_sections`
+holds each link to a statement in the map data. Quiet previous/next arrows
+and a count navigate the eight; touch swipes remain. There is no autoplay or
+delayed transition, and no dropdown. Each result keeps a stable `result-*`
+fragment, and the four results that left the band keep theirs through
+`data-result-aliases` (each opens its problem's result): `#result-257-measure`,
+`#result-1041-trinomials`, `#result-243-inclusive`, `#result-249-basis`.
+`#result` continues to open the section. Inactive results are hidden and
+inert, and carousel keys must never remove focus from an evidence link or
+the theorem button, or hijack native input keys.
+
+The same band supplies the mathematics film's establishing view (Will,
+6 October 2026): all eight actual Type B plates together, then the selected
+figure enlarged in its own result. `landing.js` derives the overview from
+each slide's inlined plate, with unique SVG ids for its thumbnail copy;
+`assets/results-overview.css` gives it four columns on laptops and monitors,
+two on phones. It becomes the default only when every slide has its plate.
+An incomplete edition retains the existing result reading and text index.
+“All eight” returns to the overview; “One result” retains the current choice.
+`#result-overview` is the reproducible video capture entry. Individual result
+fragments and aliases still open their result directly. The enlarged reading
+keeps the Intuitive/Technical switch and theorem disclosure. Selection
+briefly settles the enlarged figure, with no motion under reduced motion.
+Video readiness requires a qualified source edition and actual capture; a
+working control alone does not establish integration or filming.
 
 Every formula in this band, including titles and proof ideas, uses exact TeX
 spans compiled by the existing `plectis_math_renderer` during the public-site
@@ -182,13 +256,14 @@ consequences and mechanisms, preserve hypotheses and attribution, and state
 the remaining open boundary once. Do not pad the twelve with corollaries of a
 stronger selected result merely to reach the count.
 
-The 4 October selection leads with the exact #1041 path-image refutation and
-#257 weighted-support irrationality, followed by #243 cubic irrationality,
-#1049 rational-base values, #249 bounded-residue classification, #1041
-trinomial connections, #251 sparse perturbations, #243 one-sided rigidity,
-#249 all-base sections, #269 kernel rank, #68 denominator growth and #257
-subsum-set measure. These are twelve distinct mechanisms, not a quota per
-problem. The selected `data-comparator-interface` names are bound to passing
+The 6 October selection presents one interesting result per problem, in the 4
+October ranking's order: the exact #1041 path-image refutation, #257
+weighted-support irrationality, #243 cubic irrationality, #1049
+rational-base values, #249 bounded-residue classification, #251 sparse
+perturbations, #269 kernel rank and #68 denominator growth. The four that
+left (#1041 trinomial connections, #243 one-sided rigidity, #249 all-base
+sections, #257 subsum-set measure) stay on their problem pages, two of them
+with plates. The selected `data-comparator-interface` names are bound to passing
 replay 35935225572 at Lean commit `cc7e541cf2081c6fef5a5e377d52e365e33b01eb`;
 the linked receipts are pinned in `plectis-erdos` at
 `436f55ebdafa67e4af0fff79f621c13f2ded12bf`. Each linked Solution-file digest
@@ -197,6 +272,48 @@ it does not provide human peer review or certify novelty. Later unpublished
 strengthenings do not inherit this status automatically. In particular, use
 the exact checked sufficient threshold `81/200` in the short #1049 statement,
 not unverified decimal rounding of the sharper constant.
+
+The plates (6 October 2026). Each selected result stands beside
+one computed figure: the object its proof turns on, drawn from numbers its
+paper prints. Will, on seeing the #1041 lemniscate open the papers page:
+"on our landing page we should have things like that". Eight Type B returns
+proposed one each (`work/landing_figure_packets_20261006`); each plate is
+that proposal checked against its paper and redrawn, and the words were
+rewritten because the drafts read "like a salesperson" (Will): intuitive,
+from first principles, interesting to a mathematician, with the ideas
+left to speak for themselves.
+- Source: one module per plate in `tools/meta/dissemination/plectis_plates/`
+  (`erdos<N>_<slug>.py`, `PLATE_ID`, `build() -> (svg, facts)`), sharing
+  `draw.py`. `build.py --check` rebuilds every plate, compares
+  `sites/microcosm/assets/plates/<id>.svg` and enforces the shared rules:
+  classes only from the `pl-` vocabulary, no inline colour or style, every
+  id prefixed by the plate's id, under 40 KB, no em dash. `preview.py`
+  renders a plate against the real stylesheet: both themes, the reversed
+  results sheet and a 200px thumbnail.
+- Truth: every mark is computed; each module asserts every fact its drawing
+  and its words state and fails loudly otherwise; a second view is either a
+  true enlargement, labelled with its factor or its window in the paper's
+  coordinates, or a second reading named for what it shows, never a fake
+  magnification.
+- Look: hairline ink; regions hatched at -28 degrees like an engraving,
+  never tinted; the plait's ember for the one object the result is about,
+  its ice for the rest, and every colour distinction repeated in weight,
+  shape or a label; the page's own flat ground; still; numerals and symbols
+  inside the drawing, sentences outside it. The `pl-` classes in style.css
+  carry every colour, so a plate follows the theme and reverses with the
+  results sheet (the sheet's palette carries `--home-ice` for this).
+- Words: `PLATES` in `plectis_plates/__init__.py` gives each plate its
+  slide, its intuitive text and its technical text, as HTML with exact-TeX
+  spans (never `<sub>` or `<sup>`). `sync_curated_landing_plates` inlines
+  plate and words between each slide's `<!-- mc:plate:start/end -->`
+  markers, with the technical text in landing-depth markers; the problem
+  page builder opens each problem page on its plates with both texts under
+  the drawing (`problem_plates_html`, ids `plate-<id>`).
+- Rejected: decorative or "mathematical-looking" art; a tagline or heading
+  inside a figure; a second view labelled as a magnification it is not; a
+  figure beside a result it does not depict (the #249 Farey certificate
+  opens the #249 page, where its finite exclusion is named, not the
+  residue slide).
 
 
 The map band (4 October 2026). Will asked for an arrow that "scrolls that
@@ -308,7 +425,11 @@ the one way back) and the drawing fitted whole to the rest of the window.
 Names come by levels of detail rather than all round the rim: the families at
 rest, a family's own components on its closer look, a name and its relations
 lit under the pointer or the keyboard, and, on a deliberate zoom, every name
-that stands whole in view. It is reached from the landing's "Expand map",
+that stands whole in view, read outward along its radius past the rim's
+furniture. A name is never set inward from its mark across the lines (Will,
+6 October 2026, of a zoomed view where they were: "fix this ugliness"); one
+that cannot stand outward waits for a closer look, the pointer, or its plate
+when it is lit. It is reached from the landing's "Expand map",
 whose link the drawing keeps on its current choice; `#map=<node id>` deep
 links select and are written on selection. The old `docs/architecture.html` stays for its
 existing links.
@@ -331,29 +452,99 @@ and load really quick".
   point looked at in a straight line, on a curve that answers the click at
   once and settles slowly), the new view coming in over the old; only
   transform and opacity animate, a keyboard action or reduced motion changes
-  the view at once, and no tip names what slides under a resting pointer.
-  The map's own page names every component already and keeps its distance.
+  the view at once, and nothing is named or read out for what slides under a
+  resting pointer. A view not drawn before leaves at once (6 October 2026):
+  the view on screen sets off along the camera's path in the frame the click
+  lands in, on the compositor, and the view arriving is drawn once that
+  frame is shown, joining the move where it has got to, so a click is
+  answered in the next frame however long the new view takes to draw.
 - Opening. A click chooses; a second click on what is chosen, or a double
   click, opens its page: a component's page (or its paper module), a rule's
   card on the doctrine page, a family's page, the doctrine's page; Enter does
   the same from the keyboard and Cmd or Ctrl opens a new tab. A choice
   starts its page loading at once (one at a time, never under Save-Data):
   prerendered where speculation rules are allowed, otherwise prefetched,
-  or fetched where prefetch is off. The chosen component's plate carries an
-  arrow to its page, the chosen mark's tip says "Click again to open its
-  page", and the column's ways out stand under its card's head.
-- The tip is one of the map's plates (the ground lifted a step, a hairline,
-  the plates' serif), set outward from the ring beside its mark, inside the
-  drawing, never over the words above the map, a plate or the mark; it is
-  silent on a family's name, which is its own label, and a mark already named
-  on a plate lights its plate instead. The cream tip it replaced was the
-  brightest thing on the dark ground and covered the caption.
+  or fetched where prefetch is off. The chosen component's plate and the
+  chosen rule's tag carry an arrow to its page, the readout for the chosen
+  mark says "Click again to open its page", and the column's ways out stand
+  under its card's head (in the explorer too, above its relations and its
+  long description).
+- The readout (6 October 2026, replacing the tip). What the pointer or the
+  keyboard is on is named on the drawing beside its mark (its plate, or a
+  rule's name in its ink), and what it is, in a sentence, is read out in a
+  place of its own: on the landing over the card's own sentence, in the
+  same box, so nothing round it shifts; in the explorer in the stage's top
+  left corner (its bottom right, short of the inset, when the mark stands
+  there). A Type B review found the floating tip covering the small drawing
+  it described, and the cream tip before it was the brightest thing on the
+  dark ground.
 - Light. The rim, its names and the doctrine's glyphs arrive with the slide;
   on the first sight only the lines run out (no mark pops in), and a lit line
   runs at one speed, so near components light first and each plate arrives
   as the light reaches it. A rule's lines stop short of its glyph, so a rule
   sending forty lines out is still seen where they meet. A name pointed at in
   the column finds its mark with one closing ring; nothing pulses.
+
+Readable selection (6 October 2026; a Type B design review, then Will: "we
+have the artistic direction now ... make this even better", "lightning fast
+of course"). Whatever a view is about is named on the drawing, so the eye
+finds it there and needs the column only to read on.
+- The chosen rule wears a tag beside its glyph: its kind over its name,
+  framed in the rule's ink, the arrow to its card, its name broken into
+  narrower lines where a small drawing has less room, and failing that its
+  name alone. Where no shape stands clear (the landing's card at laptop
+  sizes, where the core is too small), the card's own trail names it and
+  the glyph keeps its frame; no word is ever set smaller to fit. A component's view
+  names the rules its paper module cites and the rules shown holding there;
+  a rule's view names the few rules it rests on or threatens; the doctrine's
+  view names its twelve axioms. A rule's name is set in its ink on a halo of
+  the ground, beside its glyph, never over a mark, a glyph, a word or a
+  plate, off the rim's band, as clear of the lit lines as it can be, on a
+  hairline leader where it stands apart; one with no such place is left to
+  the column, which lists every one.
+- The framing is one grammar both ways: in a rule's view the components
+  where a test shows it are framed, and in a component's view the rules a
+  test shows holding there are framed, four corners where enforced, two
+  where a part is checked. The column says the same at each rule's row: a
+  small solid frame "Enforced here", a broken one "Partly checked here".
+- Pointing at a lit thing, on the map or at its row in the column, singles
+  out its own lines to what is chosen, and the view's other lit lines step
+  back while it is pointed at.
+- The explorer's column reads: what it is in a sentence and how it is
+  backed, the ways to its own pages, what the map shows, its relations, and
+  last its whole description under "What it does".
+- The explorer keeps a choice and the camera apart: Fit shows the whole map
+  with the choice still lit, and "Focus" (or F) frames the choice again; it
+  shows only while there is a framing to go back to and holds its place in
+  the controls. While the view is closer than the whole map, an inset in the
+  stage's bottom right shows where it stands: the families' runs, the
+  doctrine, what is chosen as a dot, and the view as a frame that travels
+  with the camera. No name or plate is set under it.
+- The back pill (docs.js) stands in the explorer's panel foot, in a band of
+  its own, never on the stage, where it covered the start of the key. On a
+  phone the inset is not shown (the key needs the room).
+- The light runs. As a choice's lines draw in from the end their light
+  starts at, a short brighter stretch rides each front (the line's own ink
+  lifted toward the page's ink, the palette's glow step, no blur) and is
+  gone at the far end; a mark the view names answers once with a ring that
+  closes on it as the light arrives (a plated component, a rule a
+  component's paper module cites; never the forty marks round the rim a
+  much-cited axiom reaches). On the first sight the guides are ruled before
+  the lines run out: each family's scale base clockwise from the top, and
+  the necklace's orbit from the top round. Everything is still by about two
+  thirds of a second; reduced motion shows the end at once.
+- Speed. A choice is measured against the committed engine in one browser
+  (a median over rounds): the rule lines judge their candidate routes on
+  coarse runs and draw the winner fine, words are measured a batch at a
+  time and summed from their words, the fibres' outlines drop samples that
+  lie on a straight run, the weave finds its crossings on lines with those
+  samples left out (a crossing moves by well under half a pixel), and the
+  core's line-to-glyph check runs only when a test asks. With every name,
+  tag and light of this wave drawn, the summed medians fell by about two
+  fifths (317 to 192 ms at 2560 by 1296), and every kind of choice is
+  faster than before.
+- The landing card's sentence no longer repeats the name its trail shows in
+  bold just above it; it says what the map shows of the choice.
 
 The papers band (4 October 2026). Will: the short paper is "the main focus
 and attraction", its companion sits beside it, small, and the band had "too
@@ -548,6 +739,79 @@ inside a paragraph; the landing's term floor (`_LANDING_TERM_FLOOR` in
 `test_internal_link_integrity.py`) keeps the links that are meant. Measure is
 counted in real characters (about 75 a line); CSS `ch` is a zero's width, so
 66ch of Source Sans 3 is about 77 characters.
+
+The papers catalogue as a publication index (6 October 2026, from a Type B
+visual review of `docs/papers.html`). The catalogue had read as one narrow
+page inside the software manual: the software tree beside it, the software
+pager after it ("Next: How it fits together"), current reasoning records set
+a step smaller than the rest and retired manuscripts a step larger. The page
+now has its own frame (`DocPage.catalogue`, `docs-layout--catalogue`):
+- The catalogue starts on the wordmark's edge. The software tree is not a
+  standing column on desktop; the Menu drawer and the breadcrumb's "Docs"
+  still reach it. The contents rail on the right gives each shelf its count
+  (`DocPage.toc_counts`), with the archive set apart. Below 960px the rail
+  becomes a shelf list under the lede (`.catalogue-index`).
+- Each entry hangs its problem and kind of document in a label column, flush
+  right against the text and level with the title's first line, so the
+  problem numbers form one column. The number links to its problem page (it
+  had been glossary-linked to the general definition of an Erdős problem),
+  and a short paper and its long record name each other in that column
+  ("long record ↓", "short paper ↑"). One title role serves every current shelf.
+  The question is reading text: serif roman at body size in the soft ink, so
+  the italic variables of its formulas stand out. "Read online" leads the
+  routes, with a hairline before the files.
+- A retired or pending manuscript says "Retired" or "Pending" first, before
+  its title, and the sentence saying why sits above its links. The archive
+  shelves take a hairline instead of the ink rule, and their titles are one
+  step smaller in the soft ink. Nothing is faded.
+- The page is out of the docs pager and ends on the front page and the
+  mathematics library, with one line to the earlier software's overview.
+- The return pill docks where the catalogue's labels start, so on this page
+  it rests folded to its arrow (`html.is-catalogue`).
+Rejected: tabs or accordions per shelf (they hide the comparison the
+catalogue exists for), cover images per entry (the landing's shelf already
+shows real first pages), and fading archived entries.
+
+The catalogue as a folio (6 October 2026, second pass; Will asked for
+artistry, and a Type B review set the subject: the relationship between a
+concise argument and the investigation behind it). Three registers:
+- The opening faces display type with one real object: the lemniscate
+  {|f| < 1} of the #1041 counterexample (ani's degree-seven polynomial),
+  computed from the coefficients printed in the short paper by the plate
+  `erdos-1041-counterexample` (`tools/meta/dissemination/plectis_plates`,
+  see "The plates" below; `--check` says when it is stale) and inlined so
+  its inks follow the theme. Its centre is drawn again as the disc
+  |z| < 4.4 x 10^-12, where the arms nearly touch at six critical points
+  and pass through at one: a result and the detail behind it. (Until 6
+  October the small view was labelled "x 10^12"; its true display ratio is
+  about 1.35 x 10^11, so it now names the window, not a magnification, and
+  the caption no longer says the petals "join at one" point: an open set
+  connects through a passage.)
+  Regions are hatched like an engraving, never tinted; the component with
+  two roots is in the plait's red, the rest in its azure. The caption names
+  it as a specimen of #1041, credits the construction and links the paper.
+  The lede says once what the two problem shelves hold; the copy and JSON
+  utilities stay in the trail's row as quiet text actions.
+- The catalogue keeps a steady cadence in a margin of serif numerals: each
+  shelf's count with its unit ("8 papers"), each problem's number at the
+  title's size, and, where a short paper and its record name each other, a
+  two-strand mark (the mark's weave at the size of a word, the same for
+  every pair, so it encodes nothing but the pairing). Shelf names are serif
+  display; the cross-problem shelf pauses the cadence (more space, an
+  italic name, and the eight problem numbers as one line of routes); the
+  archive steps down.
+- An opened guide is an annotated passage: the abstract in the reading
+  measure, the three notes beside it behind a hairline where the entry is
+  62rem or wider, beneath it otherwise. "Where to start" names the paper's
+  own sections by the headings of its online reading and links them.
+- Formulas are upright with italic variables (`mark_variables` in
+  `plectis_math_notation.py`); the whole span used to be slanted.
+- The page ends on a colophon: an ink rule, the mark in the margin, and the
+  mathematics library and the front page set as serif titles.
+Rejected: a decorative or generic mathematical image (a torus, a formula
+cloud), motion on the figure (the catalogue reads still), a full plait on
+every entry (the site's strongest mark would become a border), and a colour
+per shelf.
 
 Motion (4 October 2026; Will asked for "subtle animations that really add to
 things" on every page people visit often) follows one grammar, the universe
@@ -1093,6 +1357,35 @@ reading pages; only the universe map keeps the wide workbench layout.
   retained bytes match; it cannot publish a link to an absent reader.
 - A known audit warning that stays: headline length on long manuscript
   titles (three balanced lines).
+
+### Glossary (October 2026)
+
+`docs/glossary.html` is a reference publication: one continuous alphabetical
+document built by `public_glossary_html` and laid out by the "Glossary
+reference layout" block of `assets/style.css`.
+
+- A glossary entry has a compact recognition state and a composed reading
+  state. Closed, it is a headword, its kind and its one-sentence definition.
+  Open, the headword and definition step up a size, the explanation and
+  example take the wider column, meaning scope, scope and "not this" sit
+  beside them as the entry's limits, and the reader rule closes the entry
+  across the full width. The open state is carried by type and one darker
+  rule, never a tinted box; focus keeps its own ring.
+- Definitions and entry prose are set in the serif, the face of the formulas
+  they contain; labels, kinds and controls stay in the sans.
+- The letter of each group stands in the margin and rides under the lookup
+  bar while its entries scroll. The current-letter mark names the group still
+  reaching below the bar, never one that has scrolled away.
+- The masthead holds the title, the lede and the guide beside the plait.
+  `assets/art.js` draws a `data-plait-band="contained"` band inside that box
+  only, once, with no reveal: the entrance belongs to the landing. The band is
+  hidden below 860px rather than shrinking any text.
+- A figure belongs only to an entry whose meaning is spatial, drawn to scale,
+  illustrating a sentence the entry already makes, and captioned with exactly
+  what it shows (`GLOSSARY_TERM_FIGURES`; `basis` is the first). An entry
+  without one is composed as prose, never given a decorative drawing.
+- Letters jump to their section and clear an active search; they do not
+  filter the list, so direct term links and Back keep working.
 
 ### Route namespace boundary
 

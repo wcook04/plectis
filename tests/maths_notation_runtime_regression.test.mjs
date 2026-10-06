@@ -27,7 +27,10 @@ function run(expressions, { delayed = false, src = 'https://preview.example/plec
     calls.push({ element, ids: Array.from(ids), href: options.hrefForId(ids[0]), keyboardFocus: options.keyboardFocus });
     return true;
   } };
-  const window = delayed ? {} : { PlectisTermHelp: api };
+  // The scanner runs to the end of maths.js, whose early paper arrival reads
+  // the address; this page has none to arrive at.
+  const location = { hash: '', pathname: '/maths/papers/p.html', search: '' };
+  const window = delayed ? { location } : { PlectisTermHelp: api, location };
   const document = {
     currentScript: { src },
     querySelectorAll() { return expressions; },
@@ -82,8 +85,11 @@ test('late shared controller registers once while linked formulas and literal pr
   assert.equal(formula.reads, 0);
   runtime.ready();
   assert.equal(runtime.calls.length, 1);
-  assert.equal(linked.reads, 0);
-  assert.equal(literal.reads, 0);
+  assert.equal(runtime.calls[0].element, formula, 'only the free formula is registered');
+  // Since 3 October 2026 the scanner reads each formula's small TeX attribute
+  // before it looks at the generated tree, so "untouched" means unregistered.
+  assert.equal(linked.getAttribute('data-term-tabindex'), null);
+  assert.equal(literal.getAttribute('data-term-tabindex'), null);
 });
 
 test('glossary destination follows the actual deployment prefix', () => {

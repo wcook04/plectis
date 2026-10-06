@@ -771,24 +771,252 @@
   if (!track || slides.length < 2 || !prev || !next) return;
   var index = 0;
   root.classList.add('is-live');
+  // Keep the overview in the results owner: its figures are copies of the
+  // actual inlined plates, never a second catalogue of mathematical claims.
+  var overview = false;
+  var overviewButtons = [];
+  var overviewControl;
+  var overviewStyleReady = false;
+  var pendingOverview = false;
+  var views;
+  var overviewStyle = document.createElement('link');
+  overviewStyle.rel = 'stylesheet';
+  var runtimeSource = document.currentScript && document.currentScript.src;
+  overviewStyle.href = runtimeSource
+    ? runtimeSource.replace(/landing\.js(?:\?.*)?$/, 'results-overview.css') + new URL(runtimeSource).search
+    : new URL('assets/results-overview.css', document.baseURI).href;
+  overviewStyle.addEventListener('load', function () {
+    overviewStyleReady = true;
+    if (views) views.hidden = false;
+    if (pendingOverview) {
+      setOverview(true, false);
+      if (window.location.hash === '#result-overview') root.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }
+  });
+  document.head.appendChild(overviewStyle);
+  // A slow enhancement must not replace a reading the visitor has already
+  // begun. Focus, keyboard or pointer intent wins over the default overview.
+  function keepEarlyReading() {
+    if (!overviewStyleReady) pendingOverview = false;
+  }
+  root.addEventListener('focusin', keepEarlyReading, true);
+  root.addEventListener('keydown', keepEarlyReading, true);
+  root.addEventListener('pointerdown', keepEarlyReading, { capture: true, passive: true });
+
+  /* Each result leads with its plate, explained in two registers (Will,
+     6 October 2026): intuitive by default, and on the switch "the technical
+     version of what the intuitive is showing". The choice holds while the
+     reader turns through the results. */
+  var modes = Array.prototype.slice.call(root.querySelectorAll('[data-results-mode]'));
+  function setMode(mode) {
+    root.setAttribute('data-results-mode', mode);
+    modes.forEach(function (button) {
+      button.setAttribute('aria-pressed', button.getAttribute('data-results-mode') === mode ? 'true' : 'false');
+    });
+  }
+  modes.forEach(function (button) {
+    button.addEventListener('click', function () { setMode(button.getAttribute('data-results-mode')); });
+  });
+  setMode('intuitive');
+
+  /* "Read the theorem" opens the statement, proof idea, boundary and sources
+     under the plate, on every result at once, so a reader who wants the
+     theorems keeps them while turning; the stylesheet unrolls it and draws
+     the statement's rule down. Closed, it is hidden from the tab order. */
+  var theoremButtons = Array.prototype.slice.call(root.querySelectorAll('[data-results-theorem]'));
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function setTheorem(open, from) {
+    root.classList.toggle('is-theorem-open', open);
+    theoremButtons.forEach(function (button) {
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+      button.textContent = open ? 'Hide the theorem' : 'Read the theorem';
+    });
+    if (open && from) {
+      var region = document.getElementById(from.getAttribute('aria-controls'));
+      if (region && region.scrollIntoView) {
+        window.setTimeout(function () {
+          region.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+        }, reduceMotion ? 0 : 240);
+      }
+    }
+  }
+  theoremButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      setTheorem(!root.classList.contains('is-theorem-open'), button);
+    });
+  });
+
+  /* The contents (Type B reviews, 6 October 2026): every result by its
+     problem and short title ("#1041" "Degree-seven counterexample"), so a
+     reader can go straight to any of them; arrows and "1 / 12" said more
+     existed but not what. Built from each slide's data-result-label, so the
+     slides stay the one source; always visible, never a fold. It stands
+     above the open result, not under it: results run from about 230 to 400px
+     tall, and an index under them moved by up to 140px with each choice, so
+     the next choice was never where the last one had been. Above, its place
+     depends on the window and the labels alone, and a choice opens the
+     result below it with no scroll. */
+  var entries = [];
+  var labelled = slides.every(function (slide) { return slide.getAttribute('data-result-label'); });
+  var win = root.querySelector('.home-results__window');
+  if (labelled && win && win.parentNode && typeof document.createElement === 'function') {
+    var contents = document.createElement('nav');
+    contents.className = 'home-results__contents';
+    contents.setAttribute('aria-label', 'All ' + slides.length + ' results');
+    var list = document.createElement('ol');
+    slides.forEach(function (slide, i) {
+      var label = slide.getAttribute('data-result-label');
+      var cut = label.indexOf(': ');
+      var item = document.createElement('li');
+      var entry = document.createElement('button');
+      entry.type = 'button';
+      entry.className = 'home-results__entry';
+      if (slide.id) entry.setAttribute('aria-controls', slide.id);
+      var num = document.createElement('span');
+      num.className = 'home-results__entry-num';
+      num.textContent = cut > 0 ? label.slice(0, cut) : '';
+      var name = document.createElement('span');
+      name.className = 'home-results__entry-name';
+      name.textContent = cut > 0 ? label.slice(cut + 2) : label;
+      var drawing = slide.querySelector('.home-result-plate svg.plate');
+      if (drawing) {
+        var figure = drawing.cloneNode(true);
+        // SVG masks, hatch patterns and accessibility ids must stay unique
+        // when the same plate also appears in the enlarged result below.
+        var ids = {};
+        Array.prototype.forEach.call(figure.querySelectorAll('[id]'), function (node) {
+          ids[node.id] = 'overview-' + node.id;
+          node.id = ids[node.id];
+        });
+        Array.prototype.forEach.call(figure.querySelectorAll('*'), function (node) {
+          Array.prototype.slice.call(node.attributes).forEach(function (attr) {
+            var value = attr.value.replace(/url\(#([^)]*)\)/g, function (match, id) {
+              return ids[id] ? 'url(#' + ids[id] + ')' : match;
+            });
+            if (attr.name === 'href' || attr.name === 'xlink:href') {
+              if (ids[value.slice(1)]) value = '#' + ids[value.slice(1)];
+            }
+            if (value !== attr.value) node.setAttribute(attr.name, value);
+          });
+        });
+        figure.removeAttribute('aria-labelledby');
+        figure.removeAttribute('aria-describedby');
+        figure.setAttribute('aria-hidden', 'true');
+        figure.setAttribute('focusable', 'false');
+        var preview = document.createElement('span');
+        preview.className = 'home-results__preview';
+        preview.hidden = true;
+        preview.appendChild(figure);
+        entry.appendChild(preview);
+      }
+      entry.appendChild(num);
+      entry.appendChild(name);
+      entry.addEventListener('click', function () {
+        var wasOverview = overview;
+        setOverview(false, false);
+        show(i, true);
+        if (wasOverview) {
+          // A figure opens into its own reading; focus follows it instead of
+          // remaining on a thumbnail which has just disappeared.
+          slides[i].tabIndex = -1;
+          slides[i].focus({ preventScroll: true });
+          var enlarged = slides[i].querySelector('svg.plate');
+          if (enlarged && enlarged.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            enlarged.animate([{ opacity: 0.5, transform: 'scale(0.96)' }, { opacity: 1, transform: 'scale(1)' }],
+              { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+          }
+        }
+      });
+      item.appendChild(entry);
+      list.appendChild(item);
+      entries.push(entry);
+    });
+    contents.appendChild(list);
+    win.parentNode.insertBefore(contents, win);
+    // Only offer the all-figure view when the source build contains every
+    // plate. A partially integrated edition keeps the existing text index.
+    if (entries.every(function (entry) { return entry.querySelector('.home-results__preview'); })) {
+      root.classList.add('has-overview');
+      views = document.createElement('div');
+      views.hidden = !overviewStyleReady;
+      views.className = 'home-results__views';
+      views.setAttribute('role', 'group');
+      views.setAttribute('aria-label', 'Results view');
+      [['overview', 'All eight'], ['focus', 'One result']].forEach(function (choice) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'home-results__view';
+        button.setAttribute('data-results-view', choice[0]);
+        button.textContent = choice[1];
+        button.addEventListener('click', function () { setOverview(choice[0] === 'overview', true); });
+        views.appendChild(button);
+        overviewButtons.push(button);
+      });
+      overviewControl = overviewButtons[0];
+      root.querySelector('.home-results__controls').insertBefore(views, prev);
+    }
+  }
+
+  function setOverview(on, updateHash) {
+    pendingOverview = !!on;
+    overview = !!on && overviewStyleReady && root.classList.contains('has-overview');
+    root.classList.toggle('is-overview', overview);
+    entries.forEach(function (entry) {
+      var preview = entry.querySelector('.home-results__preview');
+      if (preview) preview.hidden = !overview;
+    });
+    if (win) win.hidden = overview;
+    prev.hidden = next.hidden = overview;
+    overviewButtons.forEach(function (button) {
+      button.setAttribute('aria-pressed', (button.getAttribute('data-results-view') === 'overview') === overview ? 'true' : 'false');
+    });
+    if (count) count.textContent = overview ? slides.length + ' problems' : (index + 1) + ' / ' + slides.length;
+    if (updateHash && window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '#' + (overview ? 'result-overview' : slides[index].id));
+    }
+  }
 
   function show(target, updateHash) {
+    var from = index;
+    var focusedReading = slides[from] === document.activeElement;
     index = (target + slides.length) % slides.length;
+    // A turn the reader made draws the new statement's rule down like a pen
+    // (style.css, .is-turned); the first result at load arrives still.
+    if (updateHash && index !== from) root.classList.add('is-turned');
     slides.forEach(function (slide, i) {
       var on = i === index;
       slide.classList.toggle('is-active', on);
       slide.setAttribute('aria-hidden', on ? 'false' : 'true');
       if ('inert' in slide) slide.inert = !on;
     });
-    if (count) count.textContent = (index + 1) + ' / ' + slides.length;
+    if (focusedReading && index !== from) {
+      slides[index].tabIndex = -1;
+      slides[index].focus({ preventScroll: true });
+    }
+    entries.forEach(function (entry, i) {
+      if (i === index) entry.setAttribute('aria-current', 'true');
+      else entry.removeAttribute('aria-current');
+    });
+    if (count) count.textContent = overview ? slides.length + ' problems' : (index + 1) + ' / ' + slides.length;
     if (updateHash && slides[index].id && window.history && window.history.replaceState) {
       window.history.replaceState(null, '', '#' + slides[index].id);
     }
   }
   function fromHash() {
     var id = window.location.hash.slice(1);
-    var target = slides.findIndex(function (slide) { return slide.id === id; });
+    if (!id) return false;
+    if (id === 'result-overview' && overviewControl) {
+      setOverview(true, false);
+      root.scrollIntoView({ block: 'start', behavior: 'auto' });
+      return true;
+    }
+    // Results that left the band when it became one per problem keep their
+    // fragments: each opens its problem's result (data-result-aliases).
+    var target = slides.findIndex(function (slide) {
+      return slide.id === id || (' ' + (slide.getAttribute('data-result-aliases') || '') + ' ').indexOf(' ' + id + ' ') >= 0;
+    });
     if (target >= 0) {
+      setOverview(false, false);
       show(target, false);
       root.scrollIntoView({ block: 'start', behavior: 'auto' });
     }
@@ -796,8 +1024,14 @@
   }
   prev.addEventListener('click', function () { show(index - 1, true); });
   next.addEventListener('click', function () { show(index + 1, true); });
+  // Arrows page the results from anywhere in the band except a control that
+  // names a result of its own: with focus on "#243 Cubic-rate
+  // irrationality", an arrow that opened #1049 would leave focus naming one
+  // result and the page showing another. The contents are plain buttons
+  // (Tab moves, Enter or Space opens); the arrows and the count keep theirs.
   root.addEventListener('keydown', function (event) {
-    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a')))) return;
+    if (overview || (event.target.closest && event.target.closest('[data-results-view], button[data-results-mode]'))) return;
+    if (event.target && (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable || (event.target.closest && event.target.closest('a, .home-results__contents, [data-results-theorem]')))) return;
     if (event.key === 'ArrowRight') { event.preventDefault(); show(index + 1, true); }
     else if (event.key === 'ArrowLeft') { event.preventDefault(); show(index - 1, true); }
     else if (event.key === 'Home') { event.preventDefault(); show(0, true); }
@@ -816,7 +1050,8 @@
     if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1), true);
   }, { passive: true });
   window.addEventListener('hashchange', fromHash);
-  if (!fromHash()) show(0, false);
+  show(0, false);
+  if (!fromHash()) setOverview(true, false);
 })();
 
 /* Credit ledger frame (2026-10-05). The entries stand side by side in Will's

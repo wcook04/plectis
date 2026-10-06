@@ -28,9 +28,9 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=7b3699238f46">
-  <link rel="stylesheet" href="../assets/maths.css?v=1004490ab6b1">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=e01614efda83"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=34ad058b4184">
+  <link rel="stylesheet" href="../assets/maths.css?v=73f5180b2f81">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=2481459dc144"></script>
   <meta name="author" content="Will Cook">
@@ -94,11 +94,12 @@
       </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow">Editorial method companion</p>
-        <h1>Writing Mathematics from the Literature and Reviewed Revisions</h1>
+        <h1 data-page-name="Writing Mathematics from the Literature and Reviewed Revisions">Writing Mathematics from the Literature and Reviewed Revisions</h1>
         <div class="paper-head__meta">
           <span>Exposition method</span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>5 October 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/writing-mathematics-from-reviewed-revisions.pdf"><span class="btn__format">PDF</span>Open the PDF, 21&nbsp;pages</a>
@@ -110,15 +111,10 @@
 
       <div class="paper-precis">
         <p><b class="paper-precis__head">Pr&eacute;cis.</b> A method for reading nearby mathematical prose, examining reviewed revisions, and retaining editorial lessons with their source, native decision and limit. The examples come from eight Erdős-problem papers. This documented practice has not been evaluated as an intervention in reader understanding.</p>
-      </div>
-
-      <div class="paper-notes">
-        <div class="authority-card">
+        <div class="authority-card paper-scope">
           <p><b>This paper owns</b> the exposition methodology: reading primary mathematical prose, reviewing specific revisions, and retaining bounded editorial lessons.</p>
           <p><b>It is not authority for</b> the example mathematics, independent mathematical review, or a measured improvement in reader understanding.</p>
         </div>
-        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
-        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
       <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:reading">Learning to explain a particular argument</a><a href="#sec:revisions">Explain the choices in a proof</a><a href="#sec:review">Review changes without changing their meaning</a><a href="#sec:practice">Keeping a useful practice small</a></nav></div>
@@ -1401,7 +1397,10 @@ class="uri">https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cla
 </article>
 
       </div>
-      <div class="paper-foot" aria-label="Other ways to read this paper">
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/writing-mathematics-from-reviewed-revisions.pdf"><span class="btn__format">PDF</span>Open the PDF, 21&nbsp;pages</a>
@@ -1409,10 +1408,10 @@ class="uri">https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cla
           
         </div>
         <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:ff172560fbca4a14</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
-      </div>
+      </section>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:reading">Learning to explain a particular argument</a><a class="toc-l2" href="#sec:revisions">Explain the choices in a proof</a><a class="toc-l2" href="#sec:worked-explanations">From a formula to the sentence that explains it</a><a class="toc-l2" href="#sec:review">Review changes without changing their meaning</a><a class="toc-l2" href="#sec:practice">Keeping a useful practice small</a><a class="toc-l2" href="#sec:genre-transfer">Transfer the method across research genres</a><a class="toc-l2" href="#acknowledgement">Acknowledgement</a><a class="toc-l2" href="#availability-and-authorship">Availability and authorship</a><a class="toc-l2" href="#references">References</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:reading">Learning to explain a particular argument</a><a class="toc-l2" href="#sec:revisions">Explain the choices in a proof</a><a class="toc-l2" href="#sec:worked-explanations">From a formula to the sentence that explains it</a><a class="toc-l2" href="#sec:review">Review changes without changing their meaning</a><a class="toc-l2" href="#sec:practice">Keeping a useful practice small</a><a class="toc-l2" href="#sec:genre-transfer">Transfer the method across research genres</a><a class="toc-l2" href="#acknowledgement">Acknowledgement</a><a class="toc-l2" href="#availability-and-authorship">Availability and authorship</a><a class="toc-l2" href="#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
   </div>
 </body>
 </html>

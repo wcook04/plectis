@@ -513,20 +513,58 @@
         fromL = g.outL; fromR = g.outR;
       });
       pieces.push([fromL, n - 1, fromR, n - 1]);
+      var keepL = edgeKeep(Lx, Ly, 0.1), keepR = edgeKeep(Rx, Ry, 0.1);
       var d = '';
       pieces.forEach(function (pc) {
         if (pc[1] - pc[0] < minPiece || pc[3] - pc[2] < minPiece) return;
-        d += 'M' + edgeRun(Lx, Ly, pc[0], pc[1], false) + 'L' + edgeRun(Rx, Ry, pc[2], pc[3], true) + 'Z';
+        d += 'M' + edgeRun(Lx, Ly, pc[0], pc[1], false, keepL) + 'L' + edgeRun(Rx, Ry, pc[2], pc[3], true, keepR) + 'Z';
       });
       return d;
     }
+    /* The samples of an edge worth writing: where the edge runs straight to
+       within `tol` px, the samples between the ends of the run add nothing
+       to the picture and only lengthen the path the browser parses and
+       fills. A sample is kept wherever leaving it out would move any sample
+       since the last one kept further than tol from the chord. */
+    function edgeKeep(X, Y, tol) {
+      var n = X.length, keep = new Uint8Array(n);
+      if (n < 3) { keep.fill(1); return keep; }
+      keep[0] = 1; keep[n - 1] = 1;
+      var a = 0;
+      for (var i = 2; i < n; i++) {
+        var dx = X[i] - X[a], dy = Y[i] - Y[a], L = Math.sqrt(dx * dx + dy * dy);
+        if (i - a > 48) { keep[i - 1] = 1; a = i - 1; continue; }
+        if (L < 1e-9) continue;
+        for (var j = a + 1; j < i; j++) {
+          if (Math.abs((X[j] - X[a]) * dy - (Y[j] - Y[a]) * dx) / L > tol) { keep[i - 1] = 1; a = i - 1; break; }
+        }
+      }
+      return keep;
+    }
+    /* coarse(pts, tol) -> the same polyline with the points that lie within
+       tol px of a straight run left out, kept on the array so it is made
+       once. The weave finds its crossings on these: a crossing moves by
+       well under half a pixel, and the search, which tests segments
+       against segments, has a fifth as many to test. */
+    function coarse(pts, tol) {
+      if (pts.__coarse) return pts.__coarse;
+      var n = pts.length;
+      if (n < 4) return (pts.__coarse = pts);
+      var X = new Float64Array(n), Y = new Float64Array(n);
+      for (var i = 0; i < n; i++) { X[i] = pts[i][0]; Y[i] = pts[i][1]; }
+      var keep = edgeKeep(X, Y, tol || 0.15), out = [];
+      for (var k = 0; k < n; k++) if (keep[k]) out.push(pts[k]);
+      try { Object.defineProperty(pts, '__coarse', { value: out, enumerable: false }); } catch (e) {}
+      return out;
+    }
     // The points of one edge between two fractional sample indices, as
-    // "x y L x y ..." (reversed if asked).
-    function edgeRun(X, Y, from, to, reverse) {
+    // "x y L x y ..." (reversed if asked), the samples between kept ones
+    // left out.
+    function edgeRun(X, Y, from, to, reverse, keep) {
       var list = [];
       function at(f) { var i = Math.min(X.length - 2, Math.floor(f)), t = f - i; return nf(X[i] + (X[i + 1] - X[i]) * t) + ' ' + nf(Y[i] + (Y[i + 1] - Y[i]) * t); }
       list.push(at(from));
-      for (var i = Math.floor(from) + 1; i < to; i++) list.push(nf(X[i]) + ' ' + nf(Y[i]));
+      for (var i = Math.floor(from) + 1; i < to; i++) if (!keep || keep[i]) list.push(nf(X[i]) + ' ' + nf(Y[i]));
       list.push(at(Math.min(to, X.length - 1)));
       if (reverse) list.reverse();
       return list.join('L');
@@ -1355,6 +1393,7 @@
        no chord crosses the centre. stats reports the smallest gap between
        two glyphs, the nearest a line comes to a glyph it does not join, the
        nearest any line comes to the centre and the crossings drawn. */
+    var corePlans = new Map();
     function coreLayout(spec) {
       var t0 = now(), cx = spec.cx, cy = spec.cy, A = spec.axioms, n = A.length;
       var size = spec.size || { axiom: 13, principle: 10, failure: 10 };
@@ -1366,16 +1405,23 @@
       // otherwise the doctrine has changed and the order is chosen afresh.
       var pinned = Array.isArray(spec.order) && spec.order.length === n &&
         spec.order.slice().sort().join('|') === A.slice().sort().join('|');
-      var hubs = pinned ? { order: spec.order.slice(), candidates: [{ order: spec.order.slice() }], ms: 0, pinned: true } :
-        hubOrder(A, bridges.map(function (r) { return r.on; }), spec.hubOpts);
-      // Of the best orders, the one whose bridges draw with fewest crossings.
-      var chosen = null;
-      hubs.candidates.forEach(function (cand) {
-        var p = Object.create(null);
-        cand.order.forEach(function (id, k) { p[id] = k; });
-        var plan = bridgePlan(n, bridges.map(function (r) { return r.on.map(function (h) { return p[h]; }); }), cap);
-        if (!chosen || plan.total < chosen.plan.total - 1e-9) chosen = { order: cand.order, pos: p, plan: plan };
-      });
+      var planKey = JSON.stringify([A, bridges.map(function (r) { return r.on; }), pinned ? spec.order : null, cap, spec.hubOpts || null]);
+      var cached = corePlans.get(planKey), hubs, chosen;
+      if (cached) { hubs = cached.hubs; chosen = cached.chosen; }
+      else {
+        hubs = pinned ? { order: spec.order.slice(), candidates: [{ order: spec.order.slice() }], ms: 0, pinned: true } :
+          hubOrder(A, bridges.map(function (r) { return r.on; }), spec.hubOpts);
+        // Of the best orders, the one whose bridges draw with fewest crossings.
+        chosen = null;
+        hubs.candidates.forEach(function (cand) {
+          var p = Object.create(null);
+          cand.order.forEach(function (id, k) { p[id] = k; });
+          var plan = bridgePlan(n, bridges.map(function (r) { return r.on.map(function (h) { return p[h]; }); }), cap);
+          if (!chosen || plan.total < chosen.plan.total - 1e-9) chosen = { order: cand.order, pos: p, plan: plan };
+        });
+        corePlans.set(planKey, {hubs: hubs, chosen: chosen});
+        if (corePlans.size > 8) corePlans.delete(corePlans.keys().next().value);
+      }
       var order = chosen.order, hubPos = chosen.pos, plan = chosen.plan, slot = TAU / n;
       // The gaps between hubs share the ring by what they hold: an empty gap
       // `gapEmpty` units, one more for each bridge glyph standing in it, so
@@ -1462,20 +1508,28 @@
         });
       });
       Object.keys(glyphs).forEach(function (id) { var q = glyphs[id]; q.x = cx + q.r * Math.cos(q.a); q.y = cy + q.r * Math.sin(q.a); });
-      // Checks, for the record.
-      var ids = Object.keys(glyphs), minGap = Infinity, lineGap = Infinity, minR = Infinity, drawn = 0;
+      // Checks, for the record. How near a line comes to a glyph it does not
+      // join tests every point of every line against every glyph, so it is
+      // reckoned only when it is asked for (a test or an audit), never as
+      // a view is drawn.
+      var ids = Object.keys(glyphs), minGap = Infinity, minR = Infinity, drawn = 0, lineGapMemo = null;
       for (var i = 0; i < ids.length; i++) for (var j = i + 1; j < ids.length; j++) {
         var p = glyphs[ids[i]], q = glyphs[ids[j]];
         minGap = Math.min(minGap, Math.hypot(p.x - q.x, p.y - q.y) - (p.size + q.size) / 2);
       }
-      lines.forEach(function (ln) {
-        ln.polar.forEach(function (pp) { minR = Math.min(minR, pp[1]); });
-        ids.forEach(function (id) {
-          if (id === ln.from || id === ln.to) return;
-          var g = glyphs[id];
-          ln.pts.forEach(function (pt) { lineGap = Math.min(lineGap, Math.hypot(pt[0] - g.x, pt[1] - g.y) - g.size / 2); });
+      lines.forEach(function (ln) { ln.polar.forEach(function (pp) { minR = Math.min(minR, pp[1]); }); });
+      function lineGlyphGap() {
+        if (lineGapMemo !== null) return lineGapMemo;
+        var gap = Infinity;
+        lines.forEach(function (ln) {
+          ids.forEach(function (id) {
+            if (id === ln.from || id === ln.to) return;
+            var g = glyphs[id];
+            ln.pts.forEach(function (pt) { gap = Math.min(gap, Math.hypot(pt[0] - g.x, pt[1] - g.y) - g.size / 2); });
+          });
         });
-      });
+        return (lineGapMemo = gap);
+      }
       // Counting the crossings actually drawn tests every pair of lines
       // against each other: a check for tests and audits (spec.checks), not
       // something a page needs to pay for at load.
@@ -1488,7 +1542,7 @@
       } else drawn = null;
       return {
         order: order, start: start, flip: flip, glyphs: glyphs, lines: lines, laneTop: laneTop, pitch: pitch, hubs: hubs, plan: plan,
-        stats: { glyphGap: minGap, lineGlyphGap: lineGap, nearestToCentre: minR, labelR: rLabel, planCrossings: plan.crossings,
+        stats: { glyphGap: minGap, get lineGlyphGap() { return lineGlyphGap(); }, nearestToCentre: minR, labelR: rLabel, planCrossings: plan.crossings,
                  lanes: plan.depth + 1, crossingsDrawn: drawn, orderPinned: !!hubs.pinned, hubOrderMs: hubs.ms, ms: now() - t0 }
       };
     }
@@ -1513,7 +1567,7 @@
       // polar curves
       polarXY: polarXY, polarBezier: polarBezier, polarSpline: polarSpline, polarRun: polarRun,
       // fibres
-      bundle: bundle, taper: taper, fibreStroke: fibreStroke, strokeGaps: strokeGaps,
+      bundle: bundle, taper: taper, fibreStroke: fibreStroke, strokeGaps: strokeGaps, coarse: coarse,
       // the weave
       weave: weave,
       // rule lines
@@ -1806,6 +1860,9 @@
      paper module cites. Rows naming an unknown rule or component are
      dropped, never guessed at. */
   var KIND_WORDS = { axiom: 'Axiom', principle: 'Principle', failure: 'Failure mode' };
+  // The styles a rule's name is set in on the drawing: the chosen rule's tag
+  // (its kind over its name), and the names of the rules a view lights.
+  var TAG_KIND = 'sm-tag__kind', TAG_TITLE = 'sm-tag__title', RULE_NAME = 'sm-rname';
   function readDoctrine(json, model, base) {
     if (!isObj(json) || !Array.isArray(json.axioms) || !Array.isArray(json.principles) || !model) return null;
     var rules = Object.create(null), lists = { axiom: [], principle: [], failure: [] }, tested = false;
@@ -2156,7 +2213,10 @@
     // the view being left and the view arriving, one over the other.
     var view = h('div', 'sm-view');
     area.appendChild(view);
-    var tip = h('div', 'sm-tip');
+    // What the pointer or the keyboard is on, read out in a place of its own
+    // (on the landing, over the card's sentence; in the explorer, in the
+    // stage's corner), never over the drawing it describes.
+    var tip = h('div', 'sm-readout');
     tip.hidden = true;
     tip.setAttribute('aria-hidden', 'true');
     var live = h('p', 'sm-live');
@@ -2315,17 +2375,7 @@
        page is prerendered whole; the document also goes into the cache by
        prefetch, or by a plain fetch where prefetch is off (Safari). */
     var warmed = null, warmNodes = [];
-    function speculationAllowed() {
-      var meta = null;
-      try { meta = document.querySelector ? document.querySelector('meta[http-equiv="Content-Security-Policy" i]') : null; } catch (e) { meta = null; }
-      if (!meta) return true;
-      var policy = String(meta.getAttribute('content') || '');
-      var rule = /(?:^|;)\s*script-src-elem\s+([^;]*)/i.exec(policy) || /(?:^|;)\s*script-src\s+([^;]*)/i.exec(policy) ||
-        /(?:^|;)\s*default-src\s+([^;]*)/i.exec(policy);
-      if (!rule) return true;
-      if (/'inline-speculation-rules'/i.test(rule[1])) return true;
-      return /'unsafe-inline'/i.test(rule[1]) && !/'(?:nonce-|sha(?:256|384|512)-|strict-dynamic)/i.test(rule[1]);
-    }
+
     function warm(key) {
       var href = pageOf(key);
       if (!href || !document.head || typeof document.createElement !== 'function') return;
@@ -2338,12 +2388,7 @@
       warmed = url.href;
       warmNodes.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
       warmNodes = [];
-      if (typeof HTMLScriptElement !== 'undefined' && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules') && speculationAllowed()) {
-        var rules = document.createElement('script');
-        rules.type = 'speculationrules';
-        rules.textContent = JSON.stringify({ prerender: [{ source: 'list', urls: [url.href] }] });
-        warmNodes.push(rules);
-      }
+      // Warm bytes only. Rendering a second document competes with map input.
       var link = document.createElement('link');
       if (link.relList && link.relList.supports && link.relList.supports('prefetch')) {
         link.rel = 'prefetch';
@@ -2635,8 +2680,10 @@
     // The ring's centre kept near enough that the map never leaves the
     // stage; zooming out draws it back to its resting place.
     function clampCam(c) {
-      var B = baseMap, room = (c.k - 1) * B.R0 * 1.15;
-      return camOf(c.k, clamp(c.cx, B.cx - room, B.cx + room), clamp(c.cy, B.cy - room, B.cy + room), 'all', 15);
+      var B = baseMap, room = Math.max(0.65, c.k - 1) * B.R0 * 1.15;
+      var camera = camOf(c.k, clamp(c.cx, B.cx - room, B.cx + room), clamp(c.cy, B.cy - room, B.cy + room), 'all', 15);
+      if (c.k <= 1.02) camera.names = -1;
+      return camera;
     }
     // The transform that shows a drawing made for camera L as camera Z.
     function carryTo(L, Z) {
@@ -2689,7 +2736,8 @@
       var g = gesture;
       if (!g) return;
       gesture = null;
-      var cam = g.cam && g.cam.k > 1.02 ? clampCam(g.cam) : null;
+      var cam = g.cam && (g.cam.k > 1.02 || Math.abs(g.cam.cx - baseMap.cx) > 0.5 ||
+        Math.abs(g.cam.cy - baseMap.cy) > 0.5) ? clampCam(g.cam) : null;
       if (draw === false) {
         if (map && map.el.style) map.el.style.transform = '';
         if (map && map.el.classList) map.el.classList.remove('is-moving');
@@ -2710,10 +2758,119 @@
       if (!explorer || !area.classList) return;
       var V = viewCam();
       area.classList.toggle('is-zoomed', V.k > 1.02);
+      syncFocus();
+      syncInset(V, !!gesture);
+    }
+    /* Focus. A choice frames itself; once the reader fits the map or zooms
+       and moves away from it, "Focus" frames it again. It shows only while
+       there is a framing to go back to, and keeps its place in the
+       controls while it waits, so they never shift. */
+    var focusBtn = null, ownMemo = { key: null, base: null, cam: null };
+    // The camera a choice frames itself with, whatever the reader has done
+    // since (kept while the choice and the layout stand, since a drag asks
+    // for it at every step).
+    function ownCamera(a) {
+      var key = keyOf(a);
+      if (ownMemo.key === key && ownMemo.base === baseMap) return ownMemo.cam;
+      var keep = userCam;
+      userCam = undefined;
+      var c = cameraFor(a);
+      userCam = keep;
+      ownMemo = { key: key, base: baseMap, cam: c };
+      return c;
+    }
+    function syncFocus() {
+      if (!focusBtn) return;
+      var own = model && baseMap && at.level !== 'system' && at.level !== 'rule' ? ownCamera(at) : null;
+      var show = !!own && userCam !== undefined && !sameCamera(own, gesture ? gesture.cam : camNow);
+      if (focusBtn.classList) focusBtn.classList.toggle('is-idle', !show);
+      focusBtn.disabled = !show;
+      focusBtn.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+    function refocus(how) {
+      if (!model || !baseMap || at.level === 'system') return;
+      settleGesture(false);
+      userCam = undefined;
+      var want = cameraFor(at);
+      if (!sameCamera(want, camNow)) shoot(want, how || {});
+      syncZoomed();
+    }
+    /* The inset: where a closer view stands in the whole. A small ring of
+       the families' runs, the doctrine at its middle, what is chosen as a
+       dot, and the view as a frame that travels with the camera. It shows
+       only while the view is closer than the whole map, and is never
+       pressed: Fit and the trail are the ways back. */
+    var inset = null;
+    function makeInset() {
+      if (!explorer || inset || !root.appendChild) return;
+      var box = h('div', 'sm-inset');
+      box.setAttribute('aria-hidden', 'true');
+      var s = sv('svg', { 'class': 'sm-inset__svg', viewBox: '-50 -50 100 100', width: 88, height: 88, focusable: 'false' });
+      var arcs = sv('g', { 'class': 'sm-inset__arcs' });
+      var core = sv('circle', { 'class': 'sm-inset__core', cx: 0, cy: 0, r: 13 });
+      var dot = sv('circle', { 'class': 'sm-inset__dot', cx: 0, cy: 0, r: 2.6 });
+      var frame = sv('rect', { 'class': 'sm-inset__view', x: 0, y: 0, width: 1, height: 1 });
+      [arcs, core, dot, frame].forEach(function (n) { s.appendChild(n); });
+      box.appendChild(s);
+      root.appendChild(box);
+      inset = { box: box, arcs: arcs, core: core, dot: dot, frame: frame, drawn: null };
+    }
+    var INSET_R = 34;
+    function insetPoint(B, x, y) { var u = INSET_R / B.R0; return [(x - B.cx) * u, (y - B.cy) * u]; }
+    function syncInset(V, live) {
+      if (!inset || !baseMap || !model) return;
+      var B = baseMap;
+      // The families' runs, drawn again only for a new layout.
+      if (inset.drawn !== B) {
+        clear(inset.arcs);
+        ring.order.forEach(function (fi) {
+          var S = B.sectors[fi];
+          if (!S) return;
+          var a0 = S.runFrom, a1 = S.runTo, p0 = polar(0, 0, INSET_R, a0), p1 = polar(0, 0, INSET_R, a1);
+          inset.arcs.appendChild(sv('path', { 'class': 'sm-inset__arc', 'data-fam': model.families[fi].key,
+            d: 'M' + pt(p0) + 'A' + INSET_R + ' ' + INSET_R + ' 0 ' + (a1 - a0 > Math.PI ? 1 : 0) + ' 1 ' + pt(p1) }));
+        });
+        inset.core.setAttribute('r', fx(INSET_R * (B.coreOuter > 0 ? B.coreOuter / B.R0 : 0.4)));
+        inset.drawn = B;
+      }
+      Array.prototype.forEach.call(inset.arcs.children || [], function (p) {
+        if (p.classList) p.classList.toggle('is-self', at.fam >= 0 && p.getAttribute('data-fam') === model.families[at.fam].key);
+      });
+      // What is chosen, as a dot where it stands.
+      var spot = null;
+      if (at.level === 'component' && B.comp[at.comp]) spot = insetPoint(B, B.comp[at.comp].x, B.comp[at.comp].y);
+      else if (at.level === 'rule' && B.rule[at.rule]) spot = insetPoint(B, B.rule[at.rule].x, B.rule[at.rule].y);
+      inset.dot.setAttribute('cx', spot ? fx(spot[0]) : 0);
+      inset.dot.setAttribute('cy', spot ? fx(spot[1]) : 0);
+      if (inset.dot.classList) {
+        inset.dot.classList.toggle('is-shown', !!spot);
+        inset.dot.classList.toggle('is-rule', at.level === 'rule');
+      }
+      // The view: the drawing's box as the camera sees it, in the ring's
+      // own units, carried by a transform so it can travel with the move.
+      var on = V.k > 1.02;
+      if (inset.box.classList) {
+        inset.box.classList.toggle('is-shown', on);
+        inset.box.classList.toggle('is-live', !!live);
+      }
+      if (!on) return;
+      var tl = insetPoint(B, B.cx + (0 - V.cx) / V.k, B.cy + (0 - V.cy) / V.k);
+      var br = insetPoint(B, B.cx + (B.width - V.cx) / V.k, B.cy + (B.size - V.cy) / V.k);
+      if (inset.frame.style) inset.frame.style.transform = 'translate(' + fx(tl[0]) + 'px, ' + fx(tl[1]) + 'px) scale(' + fx(Math.max(0.5, br[0] - tl[0])) + ', ' + fx(Math.max(0.5, br[1] - tl[1])) + ')';
     }
     function wireExplorer() {
       if (!explorer || wireExplorer.done) return;
       wireExplorer.done = true;
+      makeInset();
+      var tools = explorerEl.querySelector ? explorerEl.querySelector('.explorer__tools') : null;
+      if (tools && tools.insertBefore) {
+        focusBtn = button('explorer-tool explorer-tool--focus is-idle', 'Focus');
+        focusBtn.setAttribute('title', 'Frame what is chosen (F)');
+        focusBtn.disabled = true;
+        focusBtn.setAttribute('aria-hidden', 'true');
+        tools.insertBefore(focusBtn, tools.firstChild);
+        focusBtn.addEventListener('click', function (e) { refocus({ keyed: keyedClick(e) }); });
+      }
       explorerEl.addEventListener('explorer:fit', function () { if (model) setView(null, {}); });
       explorerEl.addEventListener('explorer:zoom', function (e) { zoomBy(e && e.detail && e.detail.direction < 0 ? -1 : 1, {}); });
       explorerEl.addEventListener('explorer:resize', function () { requestRefresh(); });
@@ -2727,7 +2884,7 @@
         moveGesture(k > 1.02 ? zoomedCam(V, k, P) : null);
         restGesture();
       }, { passive: false });
-      // A drag moves a zoomed map; two fingers pinch it. A press that moves
+      // A drag moves the map at every scale; two fingers pinch it. A press that moves
       // is no click: it never chooses or steps back.
       var pointers = Object.create(null), drag = null, moved = false;
       function pts() { return Object.keys(pointers).map(function (id) { return pointers[id]; }); }
@@ -2760,8 +2917,7 @@
         var dx = list[0][0] - drag.start[0][0], dy = list[0][1] - drag.start[0][1];
         if (!moved && Math.abs(dx) + Math.abs(dy) < 5) return;
         moved = true;
-        // The whole map is already in view: only a closer look moves.
-        if (!(drag.cam.k > 1.02)) return;
+        if (e.preventDefault) e.preventDefault();
         if (area.setPointerCapture && !drag.captured) { drag.captured = true; try { area.setPointerCapture(e.pointerId); } catch (err) {} }
         if (area.classList) area.classList.add('is-dragging');
         moveGesture(clampCam({ k: drag.cam.k, cx: drag.cam.cx + dx, cy: drag.cam.cy + dy }));
@@ -2791,6 +2947,7 @@
         if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomBy(1, { keyed: true }); }
         else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomBy(-1, { keyed: true }); }
         else if (e.key === '0') { e.preventDefault(); setView(null, { keyed: true }); }
+        else if ((e.key === 'f' || e.key === 'F') && focusBtn && !focusBtn.disabled) { e.preventDefault(); refocus({ keyed: true }); }
       });
     }
     /* The move. Each drawing is laid out for its own camera; while the
@@ -2814,6 +2971,15 @@
       return out;
     }
     function settleMove() {
+      var p = pendingShot;
+      if (p) {
+        // A move that set off before its view was drawn, overtaken: the
+        // view on screen stops where it is drawn, for its own camera.
+        pendingShot = null;
+        if (p.anim) { try { p.anim.cancel(); } catch (e) {} }
+        if (p.old.el.classList) p.old.el.classList.remove('is-moving');
+        if (map === p.old) camNow = p.from;
+      }
       var f = flight;
       if (!f) return;
       flight = null;
@@ -2823,9 +2989,49 @@
         if (x && x.el.classList) { x.el.classList.remove('is-moving'); x.el.classList.remove('is-leaving'); }
       });
     }
+    // A return to a recent camera reuses its geometry and event targets.
+    // The cache is bounded and discarded for any geometry/font change.
+    var cameraMaps = new Map();
+    function cameraMap(want) {
+      var key = JSON.stringify(want), found = cameraMaps.get(key);
+      if (found) return found;
+      var drawn = buildMap(want);
+      cameraMaps.set(key, drawn);
+      if (cameraMaps.size > 3) cameraMaps.delete(cameraMaps.keys().next().value);
+      return drawn;
+    }
+    // How long a move takes: longer the further the camera travels and the
+    // more it changes scale, never more than two thirds of a second.
+    function moveDuration(A, Z) {
+      var Dx = baseMap.width / 2, Dy = baseMap.size / 2;
+      var travel = Math.sqrt(Math.pow((Dx - A.cx) / A.k - (Dx - Z.cx) / Z.k, 2) + Math.pow((Dy - A.cy) / A.k - (Dy - Z.cy) / Z.k, 2));
+      return Math.round(Math.min(680, 340 + 170 * Math.abs(Math.log(Z.k / A.k) / Math.LN2) + 0.12 * travel));
+    }
+    /* Leaving at once. A view not drawn before takes a while to draw, so
+       where the move is animated the view on screen sets off along the
+       camera's path in the frame the click lands in (the move runs on the
+       compositor and keeps its pace while the page works), and the view
+       arriving is drawn once that frame is on screen, joining the move
+       where it has got to and coming in over the view it replaces. The
+       click is answered in the next frame, however long the new view takes
+       to draw. A page not being painted (hidden, or with no frames) draws
+       the new view at once. */
+    var pendingShot = null;
+    function afterPaint(fn) {
+      var raf = window.requestAnimationFrame;
+      if (typeof raf !== 'function' || document.visibilityState !== 'visible') { fn(); return; }
+      raf.call(window, function () { setTimeout(fn, 0); });
+    }
     function shoot(want, how) {
       settleMove();
-      var old = map, next = want ? buildMap(want) : baseMap, from = camNow;
+      var old = map, from = camNow;
+      var key = want ? JSON.stringify(want) : null;
+      if (want && key && !cameraMaps.has(key) && motionOK() && !how.instant && !how.keyed && onScreen && !!old && !!old.el.animate &&
+          document.visibilityState === 'visible' && typeof window.requestAnimationFrame === 'function') {
+        lead(old, from, want, how);
+        return;
+      }
+      var next = want ? cameraMap(want) : baseMap;
       var carry = motionOK() && !how.instant && !how.keyed && onScreen && !!old && old !== next && !!old.el.animate;
       map = next;
       camNow = want;
@@ -2839,9 +3045,7 @@
         return;
       }
       var A = camOr(from), Z = camOr(want);
-      var Dx = baseMap.width / 2, Dy = baseMap.size / 2;
-      var travel = Math.sqrt(Math.pow((Dx - A.cx) / A.k - (Dx - Z.cx) / Z.k, 2) + Math.pow((Dy - A.cy) / A.k - (Dy - Z.cy) / Z.k, 2));
-      var dur = Math.round(Math.min(680, 340 + 170 * Math.abs(Math.log(Z.k / A.k) / Math.LN2) + 0.12 * travel));
+      var dur = moveDuration(A, Z);
       var anims = [];
       old.el.classList.add('is-moving');
       old.el.classList.add('is-leaving');
@@ -2859,6 +3063,42 @@
       var done = function () { if (flight === mine) settleMove(); };
       if (anims[1]) anims[1].onfinish = done;
       setTimeout(done, dur + 90);
+    }
+    // The view on screen sets off; the view arriving is drawn after this
+    // frame. Only transform moves until then: the view on screen keeps its
+    // place in the page, so nothing round the drawing shifts.
+    function lead(old, from, want, how) {
+      var A = camOr(from), Z = camOr(want), dur = moveDuration(A, Z), anim = null;
+      if (old.el.classList) old.el.classList.add('is-moving');
+      try { anim = old.el.animate(track(A, Z, A, 14), { duration: dur, easing: 'linear', fill: 'both' }); } catch (e) { anim = null; }
+      camNow = want;
+      tipHushUntil = nowMs() + dur + 160;
+      hideTip();
+      var mine = { old: old, from: from, want: want, how: how, A: A, Z: Z, dur: dur, start: nowMs(), anim: anim };
+      pendingShot = mine;
+      afterPaint(function () { if (pendingShot === mine) { pendingShot = null; arrive(mine); } });
+    }
+    function arrive(p) {
+      var next = cameraMap(p.want), old = p.old, elapsed = Math.min(p.dur, nowMs() - p.start), rest = Math.max(0, p.dur - elapsed);
+      map = next;
+      if (next.el.parentNode !== view) view.appendChild(next.el);
+      var seen = {};
+      Object.keys(p.how).forEach(function (key) { seen[key] = p.how[key]; });
+      // The light runs once the camera is nearly there.
+      seen.later = Math.max(0, 170 - elapsed);
+      next.select(at, seen);
+      if (old.el.classList) old.el.classList.add('is-leaving');
+      if (next.el.classList) next.el.classList.add('is-moving');
+      var anims = p.anim ? [p.anim] : [], fade = Math.max(90, Math.min(220, rest));
+      try {
+        anims.push(next.el.animate(track(p.A, p.Z, p.Z, 14), { duration: p.dur, delay: -elapsed, easing: 'linear', fill: 'both' }));
+        anims.push(old.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fade, easing: 'linear', fill: 'forwards' }));
+        anims.push(next.el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: Math.round(fade * 0.7), easing: EASE, fill: 'backwards' }));
+      } catch (e) {}
+      var mine = { old: old, next: next, anims: anims };
+      flight = mine;
+      var done = function () { if (flight === mine) settleMove(); };
+      setTimeout(done, Math.max(rest, fade) + 90);
     }
 
     /* ---- Rendering ---- */
@@ -2916,6 +3156,9 @@
     // The map is laid out again for a new size; the view stays as it was.
     function relayout() {
       if (!model) return;
+      cameraMaps.clear();
+      textWidths = Object.create(null);
+      wordWidths = Object.create(null);
       settleMove();
       // A new stage is fitted afresh; a zoom made for the old one is let go.
       if (explorer) { settleGesture(false); userCam = undefined; }
@@ -2932,6 +3175,7 @@
       if (at.level === 'system') fitHeight();
       measureFloor();
       column.refit();
+      syncZoomed();
     }
     function renderHead() {
       clear(crumbList);
@@ -3047,9 +3291,12 @@
         (none ? ', ' + none + ' of them with no code connection,' : '') +
         (D ? (none ? ' and' : ',') + ' the doctrine at the centre' : '') + '. Select any of them to light what it touches.'];
     }
+    // The card's trail already names what is chosen, in bold, just above;
+    // the sentence says only what the map shows of it (a Type B review, 6
+    // October 2026, found the name said three times over).
     function captionText() {
       var p = captionParts();
-      return p[0] ? p[0] + ': ' + p[1] : p[1];
+      return p[0] ? capital(p[1]) : p[1];
     }
     function announce() {
       var text;
@@ -3190,21 +3437,56 @@
       for (var i = 0; i < model.families.length; i++) if (model.families[i].key === key) return i;
       return -1;
     }
-    // Words are measured in a drawing that stays in the page, out of sight.
-    var measurer = null;
-    function textWidth(text, cls) {
+    /* Words are measured in a drawing that stays in the page, out of sight,
+       a batch at a time: every word of every style the map sets is read in
+       one layout, once, and a name is as wide as its words and the spaces
+       between them. Measuring a name at a time made each choice wait on a
+       layout for every word it set (about forty milliseconds a choice). */
+    var measurer = null, textWidths = Object.create(null), wordWidths = Object.create(null);
+    function measureWords(pairs) {
+      var want = [], seen = Object.create(null);
+      pairs.forEach(function (p) {
+        var key = p[1] + '\n' + p[0];
+        if (wordWidths[key] === undefined && !seen[key]) { seen[key] = true; want.push(p); }
+      });
+      if (!want.length) return;
       if (!measurer) {
         var box = sv('svg', { 'class': 'sm-measure', width: 1, height: 1, 'aria-hidden': 'true', focusable: 'false' });
         root.appendChild(box);
         measurer = sv('g');
         box.appendChild(measurer);
       }
-      var t = sv('text', { 'class': cls });
-      t.textContent = text;
-      measurer.appendChild(t);
-      var w = t.getComputedTextLength ? t.getComputedTextLength() : 0;
-      measurer.removeChild(t);
-      return w > 0 ? w : String(text).length * (/sector__name|plate|centre/.test(cls) ? 8.6 : 7.4);
+      var nodes = want.map(function (p) {
+        var t = sv('text', { 'class': p[1] });
+        t.textContent = p[0];
+        measurer.appendChild(t);
+        return t;
+      });
+      nodes.forEach(function (t, i) {
+        var w = t.getComputedTextLength ? t.getComputedTextLength() : 0;
+        wordWidths[want[i][1] + '\n' + want[i][0]] = w > 0 ? w : 0;
+      });
+      nodes.forEach(function (t) { measurer.removeChild(t); });
+    }
+    // Every word of these names in these styles, and each style's space
+    // (the width of "n n" less that of "nn"), measured together.
+    function prewarm(list) {
+      var pairs = [], styles = Object.create(null);
+      list.forEach(function (it) {
+        styles[it[1]] = true;
+        String(it[0]).split(' ').forEach(function (w) { if (w) pairs.push([w, it[1]]); });
+      });
+      Object.keys(styles).forEach(function (cls) { pairs.push(['nn', cls], ['n n', cls]); });
+      measureWords(pairs);
+    }
+    function textWidth(text, cls) {
+      var key = cls + '\n' + text;
+      if (textWidths[key] !== undefined) return textWidths[key];
+      prewarm([[text, cls]]);
+      var words = String(text).split(' '), w = 0, gap = (wordWidths[cls + '\nn n'] || 0) - (wordWidths[cls + '\nnn'] || 0);
+      for (var i = 0; i < words.length; i++) w += words[i] ? wordWidths[cls + '\n' + words[i]] || 0 : 0;
+      w += (words.length - 1) * gap;
+      return (textWidths[key] = w > 0 ? w : String(text).length * (/sector__name|plate|centre/.test(cls) ? 8.6 : 7.4));
     }
     function countLine(F) { return countFigure(F.members.length, 'component', 'components'); }
     // How many rules a component's paper module cites, and how strongly a
@@ -3300,7 +3582,9 @@
         if (touches(keyR, p)) bottom = Math.max(bottom, H - keyR.y0 + 2 - gut * 0.5);
         p = place(top, bottom);
       }
-      avoidRects = [toolsR, keyR].filter(Boolean);
+      // The inset in the bottom right, shown while the view is closer than
+      // the whole map: no name or plate is set under it.
+      avoidRects = [toolsR, keyR, { x0: W - 14 - 88, x1: W - 14, y0: H - 14 - 88, y1: H - 14 }].filter(Boolean);
       frameInset = { top: toolsR ? Math.max(0, toolsR.y1 + 4) : 0, bottom: keyR ? Math.max(0, H - keyR.y0 + 4) : 0 };
       return { width: W, height: H, R: Math.max(96, p.R), cx: p.cx, cy: p.cy };
     }
@@ -3333,8 +3617,22 @@
        its place round the ring; what grows is the room between things.
        Marks, lines and words keep their own sizes, the way a map keeps its
        type as it zooms. */
+    // Every name a drawing may set, in every style it may set it in.
+    function allNames() {
+      var out = [['Doctrine', 'sm-centre__label']];
+      model.families.forEach(function (F) { out.push([F.title, 'sm-sector__name'], [countLine(F), 'sm-sector__count']); });
+      model.comps.forEach(function (c) {
+        out.push([c.label, 'sm-plate__text'], [c.label, 'sm-rimname sm-rimname--15'], [c.label, 'sm-rimname sm-rimname--14']);
+      });
+      if (D) Object.keys(D.rules).forEach(function (id) {
+        var r = D.rules[id];
+        out.push([r.title, TAG_TITLE], [r.title, RULE_NAME], [KIND_WORDS[r.kind], TAG_KIND]);
+      });
+      return out;
+    }
     function buildMap(cam) {
       var el = h('div', 'sm-body sm-body--ring');
+      prewarm(allNames());
       var order = ring.order, nF = order.length, nComp = model.comps.length;
       var depth = rimDepth();
       // The explorer's drawing is its stage, the circle fitted inside it.
@@ -3391,7 +3689,14 @@
       var gLabels = sv('g', { 'class': 'sm-sectors' });
       var gPlates = sv('g', { 'class': 'sm-plates', 'aria-hidden': 'true' });
       var gMarks = sv('g', { 'class': 'sm-reticles', 'aria-hidden': 'true' });
-      [defs, gScale, gRest, gNeck, gSpans, gLight, gCore, gRim, gLabels, gPlates, gMarks].forEach(function (g) { svg.appendChild(g); });
+      // The names a view sets on the drawing (the chosen rule's tag, the
+      // rules a view lights), and over everything the name of what the
+      // pointer or the keyboard is on.
+      var gTags = sv('g', { 'class': 'sm-tags', 'aria-hidden': 'true' });
+      var gHover = sv('g', { 'class': 'sm-hovers', 'aria-hidden': 'true' });
+      // The light that runs along a choice's lines, above them, under the marks.
+      var gFx = sv('g', { 'class': 'sm-fx', 'aria-hidden': 'true' });
+      [defs, gScale, gRest, gNeck, gSpans, gLight, gFx, gCore, gRim, gLabels, gPlates, gMarks, gTags, gHover].forEach(function (g) { svg.appendChild(g); });
 
       /* ---- The rim ---- */
       /* One spacing for every component round the ring; a sector is as wide
@@ -3781,28 +4086,41 @@
       var rayCache = Object.create(null);
       function dist(p, q) { return Math.sqrt((p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1])); }
       // How many glyphs of the core, other than the given one, a run of
-      // points (no more than two pixels apart) passes over.
+      // points passes over. A glyph far from the run's box is passed over
+      // at once.
+      var ruleIds = null;
       function glyphHits(pts, skip, pad) {
+        if (!ruleIds) ruleIds = Object.keys(rule);
+        var x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, i;
+        for (i = 0; i < pts.length; i++) {
+          var p = pts[i];
+          if (p[0] < x0) x0 = p[0];
+          if (p[0] > x1) x1 = p[0];
+          if (p[1] < y0) y0 = p[1];
+          if (p[1] > y1) y1 = p[1];
+        }
         var n = 0;
-        Object.keys(rule).forEach(function (id) {
-          if (id === skip) return;
-          var q = rule[id], room = q.half + pad, rr = room * room;
-          for (var i = 0; i < pts.length; i++) {
+        for (var k = 0; k < ruleIds.length; k++) {
+          if (ruleIds[k] === skip) continue;
+          var q = rule[ruleIds[k]], room = q.half + pad, rr = room * room;
+          if (q.x < x0 - room || q.x > x1 + room || q.y < y0 - room || q.y > y1 + room) continue;
+          for (i = 0; i < pts.length; i++) {
             var dx = pts[i][0] - q.x, dy = pts[i][1] - q.y;
-            if (dx * dx + dy * dy < rr) { n++; return; }
+            if (dx * dx + dy * dy < rr) { n++; break; }
           }
-        });
+        }
         return n;
       }
-      function inLabel(pts) {
+      function inLabel(pts, pad) {
         if (!labelBox) return false;
+        pad = pad || 0;
         for (var i = 0; i < pts.length; i++) {
-          if (pts[i][0] > labelBox.x0 && pts[i][0] < labelBox.x1 && pts[i][1] > labelBox.y0 && pts[i][1] < labelBox.y1) return true;
+          if (pts[i][0] > labelBox.x0 - pad && pts[i][0] < labelBox.x1 + pad && pts[i][1] > labelBox.y0 - pad && pts[i][1] < labelBox.y1 + pad) return true;
         }
         return false;
       }
-      function cubic(p0, p1, p2, p3) {
-        var len = dist(p0, p1) + dist(p1, p2) + dist(p2, p3), n = clamp(Math.ceil(len / 2), 4, 600), out = [];
+      function cubic(p0, p1, p2, p3, step) {
+        var len = dist(p0, p1) + dist(p1, p2) + dist(p2, p3), n = clamp(Math.ceil(len / (step || 2)), 4, 600), out = [];
         for (var i = 0; i <= n; i++) {
           var t = i / n, u = 1 - t, b0 = u * u * u, b1 = 3 * u * u * t, b2 = 3 * u * t * t, b3 = t * t * t;
           out.push([b0 * p0[0] + b1 * p1[0] + b2 * p2[0] + b3 * p3[0], b0 * p0[1] + b1 * p1[1] + b2 * p2[1] + b3 * p3[1]]);
@@ -3855,17 +4173,22 @@
         var ux = cx - q.x, uy = cy - q.y, ul = Math.sqrt(ux * ux + uy * uy) || 1;
         ux /= ul; uy /= ul;
         var best = null;
-        function consider(run, extra) {
-          run = trimTo(run, G, q.half + 2);
-          var cost = (inLabel(run) ? 1e6 : 0) + glyphHits(run, id, 1.5) * 120 + turning(run) * 40 + polyLen(run) * 0.04 + (extra || 0);
-          if (!best || cost < best.cost) best = { cost: cost, pts: run };
+        // Each way in is judged on a coarse run, a point every six pixels
+        // (each glyph's room and the name's box a pixel or so wider, so a
+        // run that grazes one is never passed as clear); the way chosen is
+        // drawn fine.
+        function consider(make, extra) {
+          var run = trimTo(make(6), G, q.half + 2);
+          var cost = (inLabel(run, 3) ? 1e6 : 0) + glyphHits(run, id, 2.6) * 120 + turning(run) * 40 + polyLen(run) * 0.04 + (extra || 0);
+          if (!best || cost < best.cost) best = { cost: cost, make: make };
         }
         [-72, -54, -36, 36, 54, 72].forEach(function (deg) {
           var an = deg * Math.PI / 180, c = Math.cos(an), sn = Math.sin(an);
           var d = [ux * c - uy * sn, ux * sn + uy * c];
           [0.3, 0.44].forEach(function (k1) {
             [0.28, 0.42].forEach(function (k2) {
-              consider(cubic(P0, [P0[0] + t0[0] * k1 * L, P0[1] + t0[1] * k1 * L], [G[0] + d[0] * k2 * L, G[1] + d[1] * k2 * L], G));
+              var c1 = [P0[0] + t0[0] * k1 * L, P0[1] + t0[1] * k1 * L], c2 = [G[0] + d[0] * k2 * L, G[1] + d[1] * k2 * L];
+              consider(function (step) { return cubic(P0, c1, c2, G, step); });
             });
           });
         });
@@ -3875,12 +4198,14 @@
           [[cx - bw, cy], [cx + bw, cy], [cx, cy - bh], [cx, cy + bh]].forEach(function (V) {
             var dv = [G[0] - P0[0], G[1] - P0[1]], dl = Math.sqrt(dv[0] * dv[0] + dv[1] * dv[1]) || 1, k = 0.22 * L;
             dv = [dv[0] / dl, dv[1] / dl];
-            var a1 = cubic(P0, [P0[0] + t0[0] * 0.3 * L, P0[1] + t0[1] * 0.3 * L], [V[0] - dv[0] * k, V[1] - dv[1] * k], V);
-            var a2 = cubic(V, [V[0] + dv[0] * k, V[1] + dv[1] * k], [G[0] + (ux * 0.8 - uy * 0.6) * 0.2 * L, G[1] + (uy * 0.8 + ux * 0.6) * 0.2 * L], G);
-            consider(a1.concat(a2.slice(1)), 200);
+            consider(function (step) {
+              var a1 = cubic(P0, [P0[0] + t0[0] * 0.3 * L, P0[1] + t0[1] * 0.3 * L], [V[0] - dv[0] * k, V[1] - dv[1] * k], V, step);
+              var a2 = cubic(V, [V[0] + dv[0] * k, V[1] + dv[1] * k], [G[0] + (ux * 0.8 - uy * 0.6) * 0.2 * L, G[1] + (uy * 0.8 + ux * 0.6) * 0.2 * L], G, step);
+              return a1.concat(a2.slice(1));
+            }, 200);
           });
         }
-        return best.pts;
+        return trimTo(best.make(2), G, q.half + 2);
       }
       // From a component's mark to a rule; a rule's lines out to the rim are
       // the same lines, read from the other end.
@@ -3945,7 +4270,9 @@
       // mathematics slide draws the orbit of its problems.
       var neck = null, spanEls = Object.create(null);
       if (core) {
-        neck = sv('circle', { 'class': 'sm-necklace', cx: fx(cx), cy: fx(cy), r: fx(hubR) });
+        // Turned a quarter back, so its stroke begins at the top, as the
+        // families' order does.
+        neck = sv('circle', { 'class': 'sm-necklace', cx: fx(cx), cy: fx(cy), r: fx(hubR), transform: 'rotate(-90 ' + fx(cx) + ' ' + fx(cy) + ')' });
         gNeck.appendChild(neck);
         core.lines.forEach(function (ln) {
           var key = ln.from + '>' + ln.to;
@@ -3956,8 +4283,51 @@
         });
       }
 
+      /* A grid of boxes, for asking quickly whether a box would cover any of
+         them: the names a zoom sets round the rim, the glyphs, the plates
+         and the tags once placed. */
+      function boxGrid(cell) {
+        var cells = new Map(), all = [];
+        function each(b, pad, fn) {
+          var x0 = Math.floor((b.x0 - pad) / cell), x1 = Math.floor((b.x1 + pad) / cell);
+          var y0 = Math.floor((b.y0 - pad) / cell), y1 = Math.floor((b.y1 + pad) / cell);
+          for (var gx = x0; gx <= x1; gx++) for (var gy = y0; gy <= y1; gy++) if (fn(gx * 100003 + gy)) return true;
+          return false;
+        }
+        return {
+          all: all,
+          add: function (b) {
+            all.push(b);
+            each(b, 0, function (key) { var l = cells.get(key); if (l) l.push(b); else cells.set(key, [b]); return false; });
+          },
+          hits: function (b, pad) {
+            pad = pad || 0;
+            return each(b, pad, function (key) {
+              var l = cells.get(key);
+              if (!l) return false;
+              for (var i = 0; i < l.length; i++) {
+                var q = l[i];
+                if (b.x0 - pad < q.x1 && b.x1 + pad > q.x0 && b.y0 - pad < q.y1 && b.y1 + pad > q.y0) return true;
+              }
+              return false;
+            });
+          }
+        };
+      }
+
+      // Whether a straight segment [x0, y0, x1, y1] passes over any box of a
+      // grid, judged a few pixels at a time.
+      function segmentHits(grid, s, pad) {
+        var len = Math.hypot(s[2] - s[0], s[3] - s[1]), n = Math.max(1, Math.ceil(len / 5));
+        for (var i = 0; i <= n; i++) {
+          var x = s[0] + (s[2] - s[0]) * i / n, y = s[1] + (s[3] - s[1]) * i / n;
+          if (grid.hits({ x0: x - 1, x1: x + 1, y0: y - 1, y1: y + 1 }, pad)) return true;
+        }
+        return false;
+      }
+
       /* ---- Nodes: focusable, named, each with a target the size of its place ---- */
-      var nodes = Object.create(null), nameBoxes = [];
+      var nodes = Object.create(null), nameBoxes = [], nameGrid = boxGrid(32), centreShown = false;
       function node(key, x, y, cls, label, hitR, haloR) {
         var g = sv('g', { 'class': 'sm-node ' + cls, 'data-sm-key': key, transform: 'translate(' + fx(x) + ' ' + fx(y) + ')',
           role: 'button', tabindex: '-1', 'aria-label': label });
@@ -4000,34 +4370,16 @@
       function nameStands(C, label) {
         return spanStands(C.a, R + depth + 8, textWidth(label, 'sm-rimname sm-rimname--' + (cam.nameSize || 15)));
       }
-      function nameStandsIn(C, label) {
-        var w = textWidth(label, 'sm-rimname sm-rimname--' + (cam.nameSize || 15)), r1 = R - markSize / 2 - 7;
-        return r1 - w >= coreOuter + 16 && spanStands(C.a, r1 - w, w);
-      }
-      /* One way for a family's names: the members whose marks are in view
-         are named outward when every one of them stands so, else inward
-         when every one does; failing both, the way most of them stand
-         (three in five at least) names those, a name that cannot stand that
-         way reading the other way where it can, and otherwise none is named
-         until a closer look has room for them. */
+      /* A zoomed component is named outward along its radius, past the
+         rim's furniture, wherever its whole name stands in view, and nowhere
+         else. A name set inward from the mark crossed every line on its way
+         to the core and read as clutter (Will, 6 October 2026: "fix this
+         ugliness"); a component whose name cannot stand outward waits for a
+         closer look, the pointer, or its plate when it is lit. */
       var nameWay = Object.create(null);
-      if (namesClear) order.forEach(function (fi) {
-        var seen = model.families[fi].members.filter(function (ci) {
-          var C = comp[ci];
-          return C && C.x > 12 && C.x < width - 12 && C.y > 12 && C.y < size - 12;
-        });
-        if (!seen.length) return;
-        var outs = seen.filter(function (ci) { return nameStands(comp[ci], model.comps[ci].label); });
-        var ins = outs.length === seen.length ? [] : seen.filter(function (ci) { return nameStandsIn(comp[ci], model.comps[ci].label); });
-        var pick = outs.length === seen.length ? [outs, 'out'] : ins.length === seen.length ? [ins, 'in'] :
-          outs.length >= ins.length && outs.length >= 0.6 * seen.length ? [outs, 'out'] : ins.length >= 0.6 * seen.length ? [ins, 'in'] : null;
-        if (!pick) return;
-        pick[0].forEach(function (ci) { nameWay[ci] = pick[1]; });
-        seen.forEach(function (ci) {
-          if (nameWay[ci]) return;
-          var C = comp[ci], label = model.comps[ci].label;
-          if (pick[1] === 'out' ? nameStandsIn(C, label) : nameStands(C, label)) nameWay[ci] = pick[1] === 'out' ? 'in' : 'out';
-        });
+      if (namesClear) model.comps.forEach(function (c, ci) {
+        var C = comp[ci];
+        if (C && C.x > 12 && C.x < width - 12 && C.y > 12 && C.y < size - 12 && nameStands(C, c.label)) nameWay[ci] = 'out';
       });
       // Whether a word set along the radius at angle a, from r0 for w pixels,
       // stands whole in view.
@@ -4059,17 +4411,18 @@
         var way = !cam ? null : cam.names === c.fam ? 'out' : cam.names === 'all' ? nameWay[ci] || null : null;
         if (way) {
           var dg = C.a * 180 / Math.PI, rt = Math.cos(C.a) >= 0, nsz = 'sm-rimname--' + (cam.nameSize || 15);
-          var out = way === 'out' ? depth + 8 : -(markSize / 2 + 7);
+          var out = depth + 8;
           var nw = textWidth(c.label, 'sm-rimname ' + nsz);
           namedComp[ci] = true;
-          var tn = sv('text', { 'class': 'sm-rimname ' + nsz + ' sm-rimname--cam' + (way === 'in' ? ' sm-rimname--in' : '') + ' sm-note',
-            'dominant-baseline': 'central', 'text-anchor': rt === (way === 'out') ? 'start' : 'end',
+          var tn = sv('text', { 'class': 'sm-rimname ' + nsz + ' sm-rimname--cam sm-note',
+            'dominant-baseline': 'central', 'text-anchor': rt ? 'start' : 'end',
             transform: 'rotate(' + fx(rt ? dg : dg + 180) + ') translate(' + fx(rt ? out : -out) + ' 0)' });
           tn.textContent = c.label;
           g.appendChild(tn);
           for (var along = 0; along <= nw; along += 8) {
-            var np = polar(cx, cy, R + out + (way === 'out' ? along : -along), C.a);
-            nameBoxes.push({ x0: np[0] - 8, x1: np[0] + 8, y0: np[1] - 9, y1: np[1] + 9 });
+            var np = polar(cx, cy, R + out + along, C.a), nb = { x0: np[0] - 8, x1: np[0] + 8, y0: np[1] - 9, y1: np[1] + 9 };
+            nameBoxes.push(nb);
+            nameGrid.add(nb);
           }
         }
         g.addEventListener('click', function (e) { press(e, 'comp:' + c.id, function (how) { goComponent(ci, how); }); });
@@ -4099,7 +4452,10 @@
         var cpop = sv('g', { 'class': 'sm-pop' });
         // Under a camera the centre's name is set only where it stands whole.
         if (!cam || (labelBox && labelBox.x0 >= 18 && labelBox.x1 <= width - 18 && labelBox.y0 >= 18 && labelBox.y1 <= size - 18 &&
-            !avoidRects.some(function (A) { return labelBox.x0 < A.x1 + 6 && labelBox.x1 > A.x0 - 6 && labelBox.y0 < A.y1 + 6 && labelBox.y1 > A.y0 - 6; }))) cpop.appendChild(ct);
+            !avoidRects.some(function (A) { return labelBox.x0 < A.x1 + 6 && labelBox.x1 > A.x0 - 6 && labelBox.y0 < A.y1 + 6 && labelBox.y1 > A.y0 - 6; }))) {
+          cpop.appendChild(ct);
+          centreShown = true;
+        }
         cg.appendChild(cpop);
         cg.appendChild(sv('circle', { 'class': 'sm-focus-ring', r: fx(Math.max(14, centreClear - 4)) }));
         cg.addEventListener('click', function (e) { press(e, 'doctrine', function (how) { goDoctrine(null, how); }); });
@@ -4276,6 +4632,21 @@
               L.rules[aid] = 'lit';
               L.cites.push({ ci: ci, id: aid, out: false });
             });
+            // Where a test shows a rule holding in this component, its glyph
+            // is framed, as the component is framed in that rule's own view:
+            // four corners where the rule is enforced here, two where a part
+            // of it is checked. A rule its paper module does not cite is lit
+            // and framed with no line, since a line is a citation.
+            info.enforces.forEach(function (id) {
+              if (!rule[id]) return;
+              L.rules[id] = L.rules[id] || 'lit';
+              L.reticles.push('rule:' + id);
+            });
+            info.partly.forEach(function (id) {
+              if (!rule[id] || info.enforces.indexOf(id) >= 0) return;
+              L.rules[id] = L.rules[id] || 'lit';
+              L.open.push('rule:' + id);
+            });
           }
           return L;
         }
@@ -4347,6 +4718,41 @@
           if (an) { rec.anims.push(an); an.onfinish = function () { if (--rec.left <= 0) unmask(rec); }; }
           else if (--rec.left <= 0) unmask(rec);
         });
+      }
+      /* The light that runs. As a lit line draws in from the end its light
+         starts at, a short brighter stretch rides its front and is gone at
+         the far end, and the mark it reaches answers once with a ring that
+         closes on it: the relation is seen to travel from what is chosen to
+         what it touches. Then nothing moves. */
+      var HEAD = 22;
+      function runLight(items, ink, delay, dur) {
+        if (!items.length || !motionOK()) return;
+        items.forEach(function (it) {
+          var pts = it.reverse ? it.pts.slice().reverse() : it.pts, len = polyLen(pts);
+          if (!(len > HEAD * 1.5)) return;
+          var p = sv('path', { 'class': 'sm-head sm-head--' + ink, d: Loom.lineD(pts), 'stroke-width': fx(it.hw || 1.8),
+            'stroke-dasharray': HEAD + ' ' + fx(len + HEAD), 'stroke-dashoffset': HEAD });
+          gFx.appendChild(p);
+          var an = null;
+          try {
+            an = p.animate([{ strokeDashoffset: HEAD, opacity: 0 }, { opacity: 1, offset: 0.05 }, { opacity: 0.95, offset: 0.8 }, { strokeDashoffset: HEAD - len, opacity: 0 }],
+              { duration: it.dur || dur, delay: delay + (it.delay || 0), easing: EASE, fill: 'both' });
+          } catch (e) { an = null; }
+          if (an) an.onfinish = function () { if (p.parentNode) p.parentNode.removeChild(p); };
+          else if (p.parentNode) p.parentNode.removeChild(p);
+        });
+      }
+      function answer(x, y, r, ink, when) {
+        if (!motionOK()) return;
+        var c = sv('circle', { 'class': 'sm-answer sm-answer--' + ink, cx: fx(x), cy: fx(y), r: fx(r) });
+        gFx.appendChild(c);
+        var an = null;
+        try {
+          an = c.animate([{ opacity: 0, transform: 'scale(1.7)' }, { opacity: 0.7, offset: 0.35 }, { opacity: 0, transform: 'scale(1)' }],
+            { duration: 380, delay: Math.max(0, when), easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)', fill: 'both' });
+        } catch (e) { an = null; }
+        if (an) an.onfinish = function () { if (c.parentNode) c.parentNode.removeChild(c); };
+        else if (c.parentNode) c.parentNode.removeChild(c);
       }
       function unmask(rec) {
         if (rec.group.getAttribute && rec.group.getAttribute('mask') === 'url(#' + rec.mask.getAttribute('id') + ')') rec.group.removeAttribute('mask');
@@ -4421,8 +4827,8 @@
         var moving = !how.instant && !how.keyed && motionOK();
         // The azure lines, each from the end its light starts at.
         var az = L.cites.map(function (x) {
-          var pts = ray(x.ci, x.id);
-          return { x: x, pts: x.out ? pts.slice().reverse() : pts };
+          var pts = ray(x.ci, x.id), c = Loom.coarse(pts);
+          return { x: x, pts: x.out ? pts.slice().reverse() : pts, wpts: x.out ? c.slice().reverse() : c };
         });
         // The weave: every lit line, and the fibres at rest beneath them.
         var litK = Object.create(null), strands = [], refs = [], draws = litDraws(L.links);
@@ -4430,18 +4836,18 @@
         draws.forEach(function (dr) {
           var pts = dr.t === 'link' ? routes[dr.x.k].pts : dr.it.pts, pair = dr.t === 'link' ? routes[dr.x.k].pair : dr.it.pair;
           var w = dr.t === 'link' ? widthOf(dr.x.k, true) : itemWidth(dr.it, true, dr.n);
-          strands.push({ pts: pts, ink: 'red', rank: 1, width: w, bundle: pair >= 0 ? 'pair' + pair : null });
+          strands.push({ pts: Loom.coarse(pts), ink: 'red', rank: 1, width: w, bundle: pair >= 0 ? 'pair' + pair : null });
           refs.push({ t: 'lit', dr: dr });
         });
         // A piece at rest is lit when every link it carries is.
         var litItem = function (it) { return it.links.every(function (k) { return !!litK[k]; }); };
         if (restDrawn && az.length) items.forEach(function (it) {
           if (litItem(it)) return;
-          strands.push({ pts: it.pts, ink: 'red', rank: 0, width: itemWidth(it, false), bundle: it.pair >= 0 ? 'pair' + it.pair : null });
+          strands.push({ pts: Loom.coarse(it.pts), ink: 'red', rank: 0, width: itemWidth(it, false), bundle: it.pair >= 0 ? 'pair' + it.pair : null });
           refs.push({ t: 'rest', it: it });
         });
         az.forEach(function (a) {
-          strands.push({ pts: a.pts, ink: 'azure', rank: 1, width: +AZ_W, bundle: s.level === 'component' ? 'fan' : null });
+          strands.push({ pts: a.wpts, ink: 'azure', rank: 1, width: +AZ_W, bundle: s.level === 'component' ? 'fan' : null });
           refs.push({ t: 'az', a: a });
         });
         woven = az.length && strands.length > az.length ? Loom.weave(strands, WEAVE) : null;
@@ -4473,9 +4879,13 @@
         // later: how long a camera move keeps the new view out of sight
         // before its light can be seen to run.
         var later = how.later || 0, arrive = Object.create(null);
+        clear(gFx);
         if (moving) {
-          revealAlong(gLitRed, revealItems(draws), 40 + later, 720);
-          revealAlong(gLitAz, az.map(function (a) { return { pts: a.pts, w: +AZ_W + 4, dur: speedDur(a.pts) }; }), 60 + later, 760);
+          var redItems = revealItems(draws), azItems = az.map(function (a) { return { pts: a.pts, w: +AZ_W + 4, dur: speedDur(a.pts), hw: +AZ_W + 0.7 }; });
+          revealAlong(gLitRed, redItems, 40 + later, 720);
+          revealAlong(gLitAz, azItems, 60 + later, 760);
+          runLight(redItems.map(function (it) { return { pts: it.pts, reverse: it.reverse, delay: it.delay, dur: it.dur, hw: 2.2 }; }), 'red', 40 + later, 720);
+          runLight(azItems, 'azure', 60 + later, 760);
           Object.keys(L.spans).forEach(function (k) {
             var sp = spanEls[k], sl = L.spans[k];
             if (sp) drawIn(sp.el, (sl.stage ? 520 : 40) + later, 460);
@@ -4483,6 +4893,22 @@
           // A name arrives as the light reaches its component.
           L.links.forEach(function (x) { arrive[x.b] = Math.min(arrive[x.b] || Infinity, 40 + later + Math.round(speedDur(routes[x.k].pts) * 0.85)); });
           az.forEach(function (a) { if (a.x.out) arrive[a.x.ci] = Math.min(arrive[a.x.ci] || Infinity, 60 + later + Math.round(speedDur(a.pts) * 0.85)); });
+          // And where the light reaches a mark the view names, the mark
+          // answers once: a component named on a plate, a rule a
+          // component's paper module cites. A rule cited by forty
+          // components answers only where it is named, never round the rim.
+          var answers = [];
+          L.plates.forEach(function (ci, rank) {
+            var C = comp[ci];
+            if (!C || rank === 0 && s.level === 'component' || arrive[ci] === undefined) return;
+            answers.push({ x: C.x, y: C.y, r: markSize / 2 + 2.5, ink: s.level === 'rule' ? 'azure' : 'red', when: arrive[ci] + 40 });
+          });
+          if (s.level === 'component') az.forEach(function (a) {
+            if (a.x.out || !rule[a.x.id]) return;
+            var q = rule[a.x.id];
+            answers.push({ x: q.x, y: q.y, r: q.half + 2.5, ink: 'azure', when: 60 + later + speedDur(a.pts) });
+          });
+          answers.sort(function (p, q) { return p.when - q.when; }).slice(0, 12).forEach(function (w) { answer(w.x, w.y, w.r, w.ink, w.when); });
         }
         // Frames round neighbouring marks share the room between them.
         var framed = L.reticles.concat(L.open).filter(function (key) { return key.indexOf('comp:') === 0 && nodes[key]; })
@@ -4495,7 +4921,11 @@
         L.reticles.forEach(function (key, i) { reticle(key, moving, i === 0 ? 'self' : 'full', nearest); });
         L.open.forEach(function (key) { reticle(key, moving, 'part', nearest); });
         lit = L;
+        // The plates first, then the names, each keeping clear of what is
+        // already set.
+        annot = boxGrid(28);
         plates(L.plates, moving, arrive, later);
+        annotate(L, s, moving, later);
       }
 
       /* A reticle: four corner ticks round the object chosen, a target lock,
@@ -4626,6 +5056,8 @@
                   var legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], ex, ey]];
                   if (Math.abs(cos) < 0.42 && v === 0) legs = [[s0[0], s0[1], e[0], e[1]], [e[0], e[1], e[0], Math.sin(C.a) < 0 ? box.y1 : box.y0]];
                   var legBoxes = legs.map(function (L4) { return segBox(L4[0], L4[1], L4[2], L4[3]); });
+                  // Never over a name a zoom has set round the rim.
+                  if (nameGrid.hits(box, 3) || legs.some(function (L4) { return segmentHits(nameGrid, L4, 1); })) return;
                   for (var q = 0; q < placed.length; q++) {
                     if (hits(box, placed[q].box, 5)) return;
                     for (var m = 0; m < placed[q].legs.length; m++) if (hits(box, placed[q].legs[m], 3)) return;
@@ -4642,6 +5074,11 @@
           if (!best) return;
           if (self && best.cov.length && best.cost > 2000) return;
           placed.push({ box: best.box, legs: best.legBoxes });
+          // The rules' names placed after the plates keep clear of them.
+          if (annot) {
+            annot.add(best.box);
+            best.legs.forEach(function (L4) { addSegment(annot, L4); });
+          }
           best.cov.forEach(function (fi) { covered[fi] = true; });
           shown++;
           // In a rule's view a name is framed as its mark is: the rule's ink
@@ -4676,11 +5113,326 @@
         lit.plated = shown;
       }
 
+      /* ---- Tags and names on the drawing ---- */
+      /* What a view is about is named on the drawing beside its mark, so the
+         eye finds it there and needs the column only to read on: the chosen
+         rule on a tag (its kind over its name, framed in the rule's ink,
+         the arrow to its card), and where they stand clear the names of the
+         rules the view lights (those a component's paper module cites, the
+         axioms a rule rests on or threatens, the twelve axioms when the
+         doctrine fills the drawing). Each is set where it covers no mark,
+         glyph, word or plate, off the rim's band and inside the drawing's
+         edges, as near its mark and as clear of the lit lines as it can be,
+         on a hairline leader where it stands apart. A name with no such
+         place is left to the column, which lists every one. */
+      var annot = null, litPts = null, staticObs = null, tagged = Object.create(null);
+      function addSegment(grid, s) {
+        var len = Math.hypot(s[2] - s[0], s[3] - s[1]), n = Math.max(1, Math.ceil(len / 5));
+        for (var i = 0; i <= n; i++) {
+          var x = s[0] + (s[2] - s[0]) * i / n, y = s[1] + (s[3] - s[1]) * i / n;
+          grid.add({ x0: x - 1.5, x1: x + 1.5, y0: y - 1.5, y1: y + 1.5 });
+        }
+      }
+      // What no name may cover: the marks, the glyphs, the centre's name,
+      // the families' names and the names a zoom set round the rim.
+      function obstacles() {
+        if (staticObs) return staticObs;
+        staticObs = boxGrid(28);
+        model.comps.forEach(function (c, ci) {
+          var C = comp[ci];
+          if (C) staticObs.add({ x0: C.x - markSize / 2 - 3, x1: C.x + markSize / 2 + 3, y0: C.y - markSize / 2 - 3, y1: C.y + markSize / 2 + 3 });
+        });
+        Object.keys(rule).forEach(function (id) {
+          var q = rule[id], e = q.half + 3;
+          staticObs.add({ x0: q.x - e, x1: q.x + e, y0: q.y - e, y1: q.y + e });
+        });
+        // The centre's name keeps a wider berth: a name set close beside it
+        // reads as one line of words with it.
+        if (labelBox && centreShown) staticObs.add({ x0: labelBox.x0 - 14, x1: labelBox.x1 + 14, y0: labelBox.y0 - 12, y1: labelBox.y1 + 12 });
+        Object.keys(labelBoxes).forEach(function (fi) { labelBoxes[fi].boxes.forEach(function (b) { staticObs.add(b); }); });
+        nameBoxes.forEach(function (b) { staticObs.add(b); });
+        return staticObs;
+      }
+      // Whether a box reaches into the rim's band: the marks and their
+      // furniture, from just inside the marks to the end of the bars.
+      var bandIn = R - markSize / 2 - 5, bandOut = R + depth + 5;
+      function nearFar(b) {
+        var nx = clamp(cx, b.x0, b.x1), ny = clamp(cy, b.y0, b.y1);
+        return [Math.hypot(nx - cx, ny - cy), Math.max(Math.hypot(b.x0 - cx, b.y0 - cy), Math.hypot(b.x1 - cx, b.y0 - cy),
+          Math.hypot(b.x0 - cx, b.y1 - cy), Math.hypot(b.x1 - cx, b.y1 - cy))];
+      }
+      // Points along what a view lights, a few pixels apart, counted by area.
+      function pointGrid(cell) {
+        var cells = new Map();
+        return {
+          add: function (x, y) {
+            var key = Math.floor(x / cell) * 100003 + Math.floor(y / cell), l = cells.get(key);
+            if (l) l.push(x, y); else cells.set(key, [x, y]);
+          },
+          count: function (b) {
+            var n = 0, gx1 = Math.floor(b.x1 / cell), gy0 = Math.floor(b.y0 / cell), gy1 = Math.floor(b.y1 / cell);
+            for (var gx = Math.floor(b.x0 / cell); gx <= gx1; gx++) for (var gy = gy0; gy <= gy1; gy++) {
+              var l = cells.get(gx * 100003 + gy);
+              if (!l) continue;
+              for (var i = 0; i < l.length; i += 2) if (l[i] >= b.x0 && l[i] <= b.x1 && l[i + 1] >= b.y0 && l[i + 1] <= b.y1) n++;
+            }
+            return n;
+          }
+        };
+      }
+      function litPoints(L) {
+        var g = pointGrid(24);
+        litPaths.forEach(function (lp) { for (var i = 0; i < lp.pts.length; i += 2) g.add(lp.pts[i][0], lp.pts[i][1]); });
+        Object.keys(L.spans).forEach(function (k) {
+          var sp = spanEls[k];
+          if (sp) for (var i = 0; i < sp.pts.length; i += 2) g.add(sp.pts[i][0], sp.pts[i][1]);
+        });
+        return g;
+      }
+      // Sixteen ways out from a mark (thirty-two for the chosen rule's tag,
+      // which must find room), and how far out along each to try.
+      var DIRS = [], DIRS32 = [];
+      for (var di = 0; di < 16; di++) DIRS.push([Math.cos(di * Math.PI / 8), Math.sin(di * Math.PI / 8)]);
+      for (var dj = 0; dj < 32; dj++) DIRS32.push([Math.cos(dj * Math.PI / 16), Math.sin(dj * Math.PI / 16)]);
+      /* A place for a box w by hgt beside the point a, whose mark reaches
+         rA px round it: the box stands wholly beyond rA + a step along one of
+         the sixteen ways, and the nearest clear place wins, a place over lit
+         lines paying for every few pixels of them. opts.inside keeps the box
+         inside the rim; opts.outside, outside it; opts.toward [x, y] leans
+         the choice that way. Returns { box, u, leader } or null. */
+      function placeBox(a, rA, w, hgt, opts) {
+        opts = opts || {};
+        var obs = obstacles(), edge = cam ? 22 : 8, best = null, toward = opts.toward || null, dirs = opts.dirs || DIRS;
+        var steps = opts.steps || [3, 10, 20, 34, 52, 76, 106];
+        for (var si = 0; si < steps.length; si++) {
+          var dd = rA + steps[si];
+          for (var k = 0; k < dirs.length; k++) {
+            var u = dirs[k], s = Math.abs(u[0]) * w / 2 + Math.abs(u[1]) * hgt / 2;
+            var bx = a[0] + u[0] * (dd + s), by = a[1] + u[1] * (dd + s);
+            var box = { x0: bx - w / 2, x1: bx + w / 2, y0: by - hgt / 2, y1: by + hgt / 2 };
+            if (box.x0 < edge || box.x1 > width - edge || box.y0 < edge || box.y1 > size - edge) continue;
+            var nf2 = nearFar(box);
+            if (nf2[0] < bandOut && nf2[1] > bandIn) continue;
+            if (opts.inside && nf2[1] > bandIn) continue;
+            if (opts.outside && nf2[0] < bandOut) continue;
+            var blocked = false;
+            for (var q = 0; q < avoidRects.length && !blocked; q++) {
+              var A = avoidRects[q];
+              if (box.x0 < A.x1 + 6 && box.x1 > A.x0 - 6 && box.y0 < A.y1 + 6 && box.y1 > A.y0 - 6) blocked = true;
+            }
+            if (blocked || obs.hits(box, 2) || (annot && annot.hits(box, 4))) continue;
+            var lines = litPts ? litPts.count({ x0: box.x0 - 2, x1: box.x1 + 2, y0: box.y0 - 2, y1: box.y1 + 2 }) : 0;
+            var cost = steps[si] + lines * 8 + (toward ? (1 - (u[0] * toward[0] + u[1] * toward[1])) * 10 : 0);
+            if (best && cost >= best.cost) continue;
+            // Its leader, from the mark's edge to the box's nearest point,
+            // passes over no other mark or glyph.
+            var nx = clamp(a[0], box.x0, box.x1), ny = clamp(a[1], box.y0, box.y1), L = Math.hypot(nx - a[0], ny - a[1]);
+            var leader = L > rA + 8 ? [a[0] + (nx - a[0]) / L * rA, a[1] + (ny - a[1]) / L * rA, nx, ny] : null;
+            if (leader && segmentHits(obs, [leader[0] + (nx - a[0]) / L * 3, leader[1] + (ny - a[1]) / L * 3, nx, ny], 0)) continue;
+            best = { cost: cost, box: box, u: u, leader: leader };
+          }
+          // A clear place this near beats anything further out.
+          if (best && best.cost <= (si + 1 < steps.length ? steps[si + 1] : Infinity)) break;
+        }
+        return best;
+      }
+      // A name broken into the fewest lines no wider than `most`, the lines
+      // as nearly equal as the words allow.
+      function balance(text, cls, most) {
+        if (textWidth(text, cls) <= most) return [text];
+        var words = text.split(' '), two = null, three = null, i, j;
+        for (i = 1; i < words.length; i++) {
+          var a2 = words.slice(0, i).join(' '), b2 = words.slice(i).join(' ');
+          var w2 = Math.max(textWidth(a2, cls), textWidth(b2, cls));
+          if (!two || w2 < two.wide) two = { lines: [a2, b2], wide: w2 };
+        }
+        if (two && two.wide <= most) return two.lines;
+        for (i = 1; i < words.length - 1; i++) for (j = i + 1; j < words.length; j++) {
+          var l3 = [words.slice(0, i).join(' '), words.slice(i, j).join(' '), words.slice(j).join(' ')];
+          var w3 = Math.max(textWidth(l3[0], cls), textWidth(l3[1], cls), textWidth(l3[2], cls));
+          if (!three || w3 < three.wide) three = { lines: l3, wide: w3 };
+        }
+        return three && (!two || three.wide < two.wide) ? three.lines : two ? two.lines : [text];
+      }
+      function linesWide(lines, cls) { return lines.reduce(function (m, l) { return Math.max(m, textWidth(l, cls)); }, 0); }
+      function arriveIn(g, delay, from) {
+        if (!motionOK() || !g.animate) return;
+        var k = [{ opacity: 0 }, { opacity: 1 }];
+        if (from) k = [{ opacity: 0, transform: 'translate(' + fx(from[0]) + 'px, ' + fx(from[1]) + 'px)' }, { opacity: 1, transform: 'none' }];
+        try { g.animate(k, { duration: 200, delay: Math.max(0, Math.min(1200, delay)), easing: EASE, fill: 'backwards' }); } catch (e) {}
+      }
+      /* The chosen rule's tag: its kind over its name, framed in the rule's
+         ink, the arrow to its card at the end of the kind's line. It is the
+         first thing placed after the plates, so it takes the best room. */
+      // The tag's shapes, roomiest first: its kind over its name, the name
+      // broken narrower; then, where a small drawing has no room for those,
+      // the name alone (the glyph and the column say its kind), the arrow
+      // at the end of its last line.
+      var TAG_SHAPES = [{ kind: true, most: 236 }, { kind: true, most: 176 }, { kind: true, most: 132 },
+                        { kind: false, most: 236 }, { kind: false, most: 160 }, { kind: false, most: 112 }];
+      function drawTag(id, moving, later) {
+        var q = rule[id], r = D.rules[id];
+        if (!q || !r) return false;
+        var kind = KIND_WORDS[r.kind], go = !!r.doctrine, lines = null, w = 0, hgt = 0, spot = null, shape = null;
+        for (var m = 0; m < TAG_SHAPES.length && !spot; m++) {
+          shape = TAG_SHAPES[m];
+          lines = balance(r.title, TAG_TITLE, shape.most);
+          var lastW = textWidth(lines[lines.length - 1], TAG_TITLE) + (go && !shape.kind ? 22 : 0);
+          w = Math.ceil(Math.max(shape.kind ? textWidth(kind, TAG_KIND) + (go ? 24 : 0) : 0, linesWide(lines, TAG_TITLE), lastW) + 24);
+          hgt = shape.kind ? 8 + 18 + 3 + lines.length * 20 + 8 : 7 + lines.length * 20 + 7;
+          spot = placeBox([q.x, q.y], q.half + 9, w, hgt, { inside: true, dirs: DIRS32, steps: [3, 8, 14, 22, 32, 44, 58, 76, 98, 124, 154, 190] });
+        }
+        if (!spot) return false;
+        var b = spot.box, top = shape.kind ? b.y0 + 8 + 18 + 3 : b.y0 + 7;
+        var g = sv('g', { 'class': 'sm-tag sm-tag--' + r.kind + (go ? ' sm-tag--go' : ''), 'data-sm-tag': 'rule:' + id });
+        if (spot.leader) g.appendChild(sv('path', { 'class': 'sm-tag__leader', d: 'M' + fx(spot.leader[0]) + ' ' + fx(spot.leader[1]) + 'L' + fx(spot.leader[2]) + ' ' + fx(spot.leader[3]) }));
+        g.appendChild(sv('rect', { 'class': 'sm-tag__box', x: fx(Math.round(b.x0) + 0.5), y: fx(Math.round(b.y0) + 0.5), width: w, height: hgt, rx: 3 }));
+        if (shape.kind) {
+          var tk = sv('text', { 'class': TAG_KIND, x: fx(b.x0 + 12), y: fx(b.y0 + 8 + 9), 'dominant-baseline': 'central' });
+          tk.textContent = kind;
+          g.appendChild(tk);
+        }
+        lines.forEach(function (ln, i) {
+          var t = sv('text', { 'class': TAG_TITLE + ' sm-label', x: fx(b.x0 + 12), y: fx(top + 10 + i * 20), 'dominant-baseline': 'central' });
+          t.textContent = ln;
+          g.appendChild(t);
+        });
+        if (go) {
+          var arrow = sv('text', { 'class': 'sm-tag__go', x: fx(b.x0 + w - 11), y: fx(shape.kind ? b.y0 + 8 + 9 : top + 10 + (lines.length - 1) * 20),
+            'text-anchor': 'end', 'dominant-baseline': 'central' });
+          arrow.textContent = '→';
+          g.appendChild(arrow);
+          g.addEventListener('click', function (e) { if (e && e.stopPropagation) e.stopPropagation(); openPage('rule:' + id, e); });
+        }
+        gTags.appendChild(g);
+        annot.add(b);
+        if (spot.leader) addSegment(annot, spot.leader);
+        if (moving) arriveIn(g, 110 + (later || 0), [-spot.u[0] * 6, -spot.u[1] * 6]);
+        return true;
+      }
+      /* A rule's name in its ink, on a halo of the ground that parts the
+         lines beneath it, beside its glyph: set to read away from the glyph
+         (from its left edge to the right of a glyph, from its right edge to
+         the left, centred above or below). */
+      function drawName(id, into, opts) {
+        opts = opts || {};
+        var q = rule[id], r = D.rules[id];
+        if (!q || !r) return false;
+        // Its shapes, widest first, as the tag's.
+        var mosts = [opts.most || 220, 150, 112], lead = 18, lines = null, w = 0, hgt = 0, spot = null;
+        for (var m = 0; m < mosts.length && !spot; m++) {
+          var next = balance(r.title, RULE_NAME, mosts[m]);
+          if (lines && next.join('|') === lines.join('|')) continue;
+          lines = next;
+          w = Math.ceil(linesWide(lines, RULE_NAME) + 8);
+          hgt = lines.length * lead + 4;
+          spot = placeBox([q.x, q.y], q.half + 6, w, hgt, { inside: true, steps: opts.steps || [2, 7, 14, 24, 38, 56] });
+        }
+        if (!spot) return false;
+        var b = spot.box, u = spot.u, anchor = u[0] > 0.35 ? 'start' : u[0] < -0.35 ? 'end' : 'middle';
+        var tx = anchor === 'start' ? b.x0 + 4 : anchor === 'end' ? b.x1 - 4 : (b.x0 + b.x1) / 2;
+        var g = sv('g', { 'class': 'sm-rname-g' + (opts.cls ? ' ' + opts.cls : ''), 'data-sm-name': 'rule:' + id });
+        if (spot.leader) g.appendChild(sv('path', { 'class': 'sm-rname__leader', d: 'M' + fx(spot.leader[0]) + ' ' + fx(spot.leader[1]) + 'L' + fx(spot.leader[2]) + ' ' + fx(spot.leader[3]) }));
+        lines.forEach(function (ln, i) {
+          var t = sv('text', { 'class': RULE_NAME + ' sm-note', x: fx(tx), y: fx(b.y0 + 2 + lead / 2 + i * lead), 'text-anchor': anchor, 'dominant-baseline': 'central' });
+          t.textContent = ln;
+          g.appendChild(t);
+        });
+        into.appendChild(g);
+        if (into === gTags) {
+          annot.add(b);
+          if (spot.leader) addSegment(annot, spot.leader);
+        }
+        if (opts.delay !== undefined) arriveIn(g, opts.delay);
+        return true;
+      }
+      // The names a view sets, in the order they matter.
+      function annotate(L, s, moving, later) {
+        clear(gTags);
+        clear(gHover);
+        tagged = Object.create(null);
+        litPts = litPoints(L);
+        if (!D || !core || !s) return;
+        var put = function (id, opts) { if (!tagged['rule:' + id] && drawName(id, gTags, opts)) tagged['rule:' + id] = true; };
+        if (s.level === 'rule' && rule[s.rule]) {
+          var r = D.rules[s.rule];
+          if (drawTag(s.rule, moving, later)) tagged['rule:' + s.rule] = true;
+          // The few rules it stands on or threatens, named; an axiom's own
+          // many principles and failure modes wait for the pointer.
+          var near = r.kind === 'principle' ? r.restsOn : r.kind === 'failure' ? r.guards : r.grounds.concat(r.threatenedBy);
+          if (near.length <= 4) near.forEach(function (id) { put(id, { delay: moving ? 360 + (later || 0) : undefined }); });
+        } else if (s.level === 'component') {
+          var info = D.comp[s.comp], rank = function (id) {
+            return info.enforces.indexOf(id) >= 0 ? 0 : info.partly.indexOf(id) >= 0 ? 1 : D.rules[id].kind === 'principle' ? 2 : 3;
+          };
+          // The rules shown holding here first, then the principles and the
+          // axioms its paper module cites.
+          var cited = Object.create(null);
+          L.cites.forEach(function (x) { cited[x.id] = true; });
+          var ids = uniq(info.enforces.concat(info.partly, Object.keys(cited))).filter(function (id) { return !!rule[id]; })
+            .sort(function (p, q2) { return rank(p) - rank(q2); });
+          var most = explorer ? 8 : 5, n = 0;
+          ids.forEach(function (id) {
+            if (n >= most) return;
+            var when = !moving ? undefined : cited[id] ? 60 + (later || 0) + Math.round(speedDur(ray(s.comp, id)) * 0.9) : 260 + (later || 0);
+            if (!tagged['rule:' + id] && drawName(id, gTags, { delay: when, steps: [2, 7, 14, 24, 38, 56, 80] })) { tagged['rule:' + id] = true; n++; }
+          });
+        } else if (s.level === 'doctrine') {
+          D.axioms.forEach(function (id, k) { put(id, { cls: 'sm-rname-g--axiom', most: 200, delay: moving ? 220 + k * 24 + (later || 0) : undefined }); });
+        }
+      }
+      // The name of whatever the pointer is on, when the drawing does not
+      // already show it: a rule's beside its glyph, a component's on a
+      // plate outside the rim. Never added to what the names keep clear of.
+      function hoverName(key) {
+        clear(gHover);
+        if (!key || tagged[key] || !model || nowMs() < tipHushUntil) return;
+        if (key.indexOf('rule:') === 0) {
+          // Pointed at, a name may stand further off, on its leader.
+          if (D && core && rule[key.slice(5)]) drawName(key.slice(5), gHover, { cls: 'sm-rname-g--hover', steps: [2, 7, 14, 24, 38, 56, 80, 110, 150, 196] });
+          return;
+        }
+        if (key.indexOf('comp:') !== 0 || !nodes[key]) return;
+        var ci = nodes[key].__ci, C = comp[ci];
+        if (namedComp[ci] || (svg.querySelector && svg.querySelector('[data-sm-plate="' + key + '"]'))) return;
+        var text = model.comps[ci].label, tw = textWidth(text, 'sm-plate__text'), w = Math.ceil(tw + 16), hgt = 26;
+        var spot = placeBox([C.x, C.y], markSize / 2 + 8, w, hgt, { outside: true, toward: [Math.cos(C.a), Math.sin(C.a)], steps: [4, 12, 22, 36, 54] });
+        if (!spot) return;
+        var b = spot.box, g = sv('g', { 'class': 'sm-plate sm-plate--hover', 'data-sm-hover': key });
+        if (spot.leader) g.appendChild(sv('path', { 'class': 'sm-leader', d: 'M' + fx(spot.leader[0]) + ' ' + fx(spot.leader[1]) + 'L' + fx(spot.leader[2]) + ' ' + fx(spot.leader[3]) }));
+        g.appendChild(sv('rect', { 'class': 'sm-plate__box', x: fx(Math.round(b.x0) + 0.5), y: fx(Math.round(b.y0) + 0.5), width: w, height: hgt, rx: 3 }));
+        var t = sv('text', { 'class': 'sm-plate__text sm-label', x: fx(b.x0 + w / 2), y: fx(b.y0 + 13), 'text-anchor': 'middle', 'dominant-baseline': 'central' });
+        t.textContent = text;
+        g.appendChild(t);
+        gHover.appendChild(g);
+      }
+
       /* ---- Pointing: the node named and lit, its own lines shown lightly ---- */
       var previewG = sv('g', { 'class': 'sm-preview', 'aria-hidden': 'true' });
       svg.insertBefore(previewG, gCore);
+      /* Pointing at something the view lights (on the map or in the
+         column) singles out its own lines to what is chosen: they keep
+         their ink and the view's other lit lines step back. */
+      function traced(key) {
+        if (!key || !lit || at.level === 'system' || at.level === 'family') return false;
+        if (key.indexOf('comp:') === 0) return !!nodes[key] && !!lit.comps[nodes[key].__ci];
+        if (key.indexOf('rule:') === 0) return !!lit.rules[key.slice(5)];
+        return false;
+      }
+      function trace(key) {
+        var on = traced(key);
+        svg.classList.toggle('is-tracing', on);
+        var ends = function (el) { return on && (el.getAttribute('data-from') === key || el.getAttribute('data-to') === key); };
+        litPaths.forEach(function (lp) { lp.el.classList.toggle('is-traced', ends(lp.el)); });
+        Object.keys(spanEls).forEach(function (k) { spanEls[k].el.classList.toggle('is-traced', ends(spanEls[k].el)); });
+        Array.prototype.forEach.call(gTags.children || [], function (g) {
+          if (g.classList) g.classList.toggle('is-traced', on && g.getAttribute('data-sm-name') === key);
+        });
+      }
       function preview(key) {
         clear(previewG);
+        hoverName(key);
+        trace(key);
         Object.keys(nodes).forEach(function (k) { nodes[k].classList.toggle('is-hover', k === key); });
         // Inside a family, a component pointed at shows its own relations
         // over the family's, which step back while it is pointed at.
@@ -4707,6 +5459,15 @@
          second, once; then nothing moves. */
       function assemble() {
         if (!motionOK()) return;
+        // The guides draw first, as an instrument is ruled: each family's
+        // scale base clockwise from the top, and the necklace's orbit from
+        // the top round.
+        scaleEls.forEach(function (g) {
+          if (!g || !g.querySelector) return;
+          var base = g.querySelector('.sm-tick--base'), S = sectors[familyIndex(g.getAttribute('data-fam'))];
+          if (base && S) drawIn(base, Math.round(norm(S.runFrom + Math.PI / 2) / TAU * 260), 300);
+        });
+        if (neck) drawIn(neck, 0, 560);
         if (D && core) Object.keys(spanEls).forEach(function (k) { drawIn(spanEls[k].el, 40, 380); });
         if (restDrawn) {
           // A ribbon runs out before its parting fibres when its component
@@ -4801,7 +5562,7 @@
         R0: R0, depth: depth, width: width, size: size, coreOuter: core ? coreOuter : 0, lightOf: lightOf, cam: cam || null, crowded: crowded,
         core: core ? { order: core.order.slice(), ring: fx(hubR), outer: fx(coreOuter), pinned: !!core.stats.orderPinned,
                        bridges: Object.keys(rule).filter(function (id) { return rule[id].role === 'bridge'; }).length,
-                       glyphGap: fx(coreGap), lineGap: fx(core.stats.lineGlyphGap), nearest: fx(core.stats.nearestToCentre),
+                       glyphGap: fx(coreGap), get lineGap() { return fx(core.stats.lineGlyphGap); }, nearest: fx(core.stats.nearestToCentre),
                        smallest: fx(Object.keys(rule).reduce(function (m, id) { return Math.min(m, rule[id].size); }, Infinity)) } : null,
         // Where the drawing stands, for tests and audits: its centre, the ring,
         // the radius rule lines come into the core from, the centre's name.
@@ -4823,109 +5584,84 @@
       };
     }
 
-    /* ---- The tip: a name where the pointer or the keyboard is ---- */
+    /* ---- The readout: what the pointer or the keyboard is on ---- */
+    /* The drawing names the thing beside its mark (its plate, or its name);
+       what it is, in a sentence, is read out in a place of its own that
+       never moves and never covers the drawing: on the landing over the
+       card's own sentence, in the same box, so nothing round it shifts; in
+       the explorer in the stage's top left corner, or, when the thing
+       pointed at stands there, its bottom right. What is already chosen
+       says how to open it. A camera move slides marks under a pointer that
+       has not moved, so nothing is read out until it settles. */
     function tipText(key) {
-      if (key === 'doctrine') return { title: 'The doctrine', sub: D ? countWords(D.axioms.length, 'axiom', 'axioms') + ', ' + countWords(D.principles.length, 'principle', 'principles') + ' and ' + countWords(D.failures.length, 'failure mode', 'failure modes') : null };
+      if (key === 'doctrine') {
+        return { title: 'The doctrine', sub: D ? countWords(D.axioms.length, 'axiom', 'axioms') + ', ' + countWords(D.principles.length, 'principle', 'principles') +
+          ' and ' + countWords(D.failures.length, 'failure mode', 'failure modes') : null, text: 'The rules the system is built on.' };
+      }
       if (key.indexOf('comp:') === 0) {
         for (var i = 0; i < model.comps.length; i++) if ('comp:' + model.comps[i].id === key) {
           var c = model.comps[i];
-          return { title: c.label, sub: model.families[c.fam].title + (c.cls ? ' · ' + lowerFirst(CLASS_WORDS[c.cls]) : '') };
+          return { title: c.label, sub: model.families[c.fam].title + (c.cls ? ' · ' + lowerFirst(CLASS_WORDS[c.cls]) : ''), text: c.line };
         }
       }
       if (key.indexOf('rule:') === 0 && D && D.rules[key.slice(5)]) {
         var r = D.rules[key.slice(5)];
-        return { title: r.title, sub: KIND_WORDS[r.kind] + (r.plain ? '. ' + r.plain : '') };
+        return { title: r.title, sub: KIND_WORDS[r.kind], text: r.plain };
       }
       if (key.indexOf('fam:') === 0) {
         var F = model.families[familyIndex(key.slice(4))];
-        return F ? { title: F.title, sub: countLine(F) + (F.inside ? ', ' + countFigure(F.inside, linkNoun(1), linkNoun(2)) + ' among them' : '') } : null;
+        return F ? { title: F.title, sub: countLine(F) + (F.inside ? ', ' + countFigure(F.inside, linkNoun(1), linkNoun(2)) + ' among them' : ''), text: F.summary } : null;
       }
       return null;
     }
-    /* The tip is a plate like the map's own, set outward from the ring
-       beside the thing it names (above a mark in the ring's upper half,
-       below one in its lower half, to the side at the sides), always inside
-       the drawing, so it never covers the words above the map or runs past
-       the card, and never over the mark itself. A name the drawing already
-       shows is not said again: a family's name stands round the rim, and a
-       name on a plate lights its plate instead. What is already chosen
-       says how to open it. */
     var litPlate = null, tipHushUntil = 0;
     function showTipFor(key, anchor) {
       if (litPlate) { litPlate.classList.remove('is-hover'); litPlate = null; }
-      // A camera move slides marks under a pointer that has not moved; no
-      // tip names whatever happens to arrive under it.
       if (nowMs() < tipHushUntil) { hideTip(); return; }
-      var plated = map && map.svg.querySelector ? map.svg.querySelector('[data-sm-plate="' + key + '"]') : null;
-      if (plated) { hideTip(); plated.classList.add('is-hover'); litPlate = plated; return; }
-      if (key && key.indexOf('fam:') === 0) { hideTip(); return; }
-      var t = tipText(key);
-      if (!t || !anchor || !anchor.getBoundingClientRect || !root.getBoundingClientRect) return;
+      // A mark already named on a plate lights its plate as well.
+      var plated = key && map && map.svg.querySelector ? map.svg.querySelector('[data-sm-plate="' + key + '"]') : null;
+      if (plated) { plated.classList.add('is-hover'); litPlate = plated; }
+      var t = key ? tipText(key) : null;
+      if (!t) { hideTip(); return; }
       clear(tip);
-      tip.appendChild(h('span', 'sm-tip__title', t.title));
+      var headLine = h('p', 'sm-readout__head');
+      headLine.appendChild(h('span', 'sm-readout__title', t.title));
+      if (t.sub) headLine.appendChild(h('span', 'sm-readout__kind', t.sub));
+      tip.appendChild(headLine);
       var chosen = key === keyOf(at) && !!pageOf(key);
-      if (t.sub && !chosen) tip.appendChild(h('span', 'sm-tip__sub', t.sub));
-      if (chosen) tip.appendChild(h('span', 'sm-tip__hint', openWords(key)));
+      if (chosen) tip.appendChild(h('p', 'sm-readout__hint', openWords(key)));
+      else if (t.text) tip.appendChild(h('p', 'sm-readout__text', t.text));
+      if (!explorer) {
+        // The card's sentence steps aside and the readout takes its box.
+        var top = caption.offsetTop || 0, left = caption.offsetLeft || 0, wide = caption.offsetWidth || 0, tall = caption.offsetHeight || 0;
+        if (tip.style && tip.style.setProperty && wide > 0) {
+          tip.style.setProperty('--sm-readout-x', left + 'px');
+          tip.style.setProperty('--sm-readout-y', top + 'px');
+          tip.style.setProperty('--sm-readout-w', wide + 'px');
+          tip.style.setProperty('--sm-readout-h', Math.max(tall, 24) + 'px');
+          tip.style.setProperty('--sm-readout-lines', String(Math.max(1, Math.floor(Math.max(tall, 24) / 24) - 1)));
+        }
+        if (caption.classList) caption.classList.add('is-read-over');
+        tip.hidden = false;
+        return;
+      }
+      // The explorer: the stage's top left, or its bottom right when the
+      // thing pointed at stands under the top left.
       tip.hidden = false;
-      var rr = root.getBoundingClientRect(), b = anchor.getBoundingClientRect();
-      var box = map && map.svg.getBoundingClientRect ? map.svg.getBoundingClientRect() : rr;
-      var w = tip.offsetWidth || 0, hgt = tip.offsetHeight || 0, gap = 10, inset = 6;
-      var ax = b.left + b.width / 2, ay = b.top + b.height / 2;
-      var dx = map ? ax - (box.left + map.cx) : 0, dy = map ? ay - (box.top + map.cy) : -1;
-      var spots = {
-        above: [ax - w / 2, b.top - gap - hgt], below: [ax - w / 2, b.bottom + gap],
-        right: [b.right + gap, ay - hgt / 2], left: [b.left - gap - w, ay - hgt / 2]
-      };
-      var order = Math.abs(dy) >= Math.abs(dx) * 0.7 ? (dy < 0 ? ['above', 'below', 'right', 'left'] : ['below', 'above', 'right', 'left']) :
-        (dx > 0 ? ['right', 'left', 'above', 'below'] : ['left', 'right', 'above', 'below']);
-      var x0 = Math.max(box.left, rr.left) + inset, x1 = Math.min(box.right, rr.right) - inset;
-      var y0 = Math.max(box.top, rr.top) + inset, y1 = Math.min(box.bottom, rr.bottom) - inset, pick = null;
-      // Never over the mark, nor over a plate naming something lit.
-      var keep = [{ left: b.left, right: b.right, top: b.top, bottom: b.bottom }];
-      if (map && map.svg.querySelectorAll) {
-        Array.prototype.forEach.call(map.svg.querySelectorAll('.sm-plate__box'), function (r) {
-          if (r.getBoundingClientRect) { var q = r.getBoundingClientRect(); keep.push({ left: q.left - 4, right: q.right + 4, top: q.top - 4, bottom: q.bottom + 4 }); }
-        });
-        // Nor over a word the drawing already sets: a family's name, a
-        // component's, the centre's.
-        Array.prototype.forEach.call(map.svg.querySelectorAll('.sm-sector__name, .sm-sector__count, .sm-rimname, .sm-centre__label'), function (r) {
-          if (!r.getBoundingClientRect || (r.closest && r.closest('.is-covered'))) return;
-          var q = r.getBoundingClientRect();
-          if (q.width > 0) keep.push({ left: q.left - 3, right: q.right + 3, top: q.top - 3, bottom: q.bottom + 3 });
-        });
+      var corner = 'tl';
+      if (anchor && anchor.getBoundingClientRect && root.getBoundingClientRect) {
+        var rr = root.getBoundingClientRect(), b = anchor.getBoundingClientRect();
+        var w = tip.offsetWidth || 0, hgt = tip.offsetHeight || 0;
+        if (b.left - rr.left < 18 + w + 24 && b.top - rr.top < 14 + hgt + 24) corner = 'br';
       }
-      // Nor under the explorer's controls or its key.
-      if (explorer && area.getBoundingClientRect) {
-        var ar = area.getBoundingClientRect();
-        avoidRects.forEach(function (A) { keep.push({ left: ar.left + A.x0 - 4, right: ar.left + A.x1 + 4, top: ar.top + A.y0 - 4, bottom: ar.top + A.y1 + 4 }); });
+      if (tip.classList) {
+        tip.classList.toggle('sm-readout--tl', corner === 'tl');
+        tip.classList.toggle('sm-readout--br', corner === 'br');
       }
-      // Failing those, in toward the centre, where only lines run.
-      if (map && dx * dx + dy * dy > 1) {
-        var dl = Math.sqrt(dx * dx + dy * dy), ux = -dx / dl, uy = -dy / dl;
-        [1, 1.6, 2.3].forEach(function (f, j) {
-          var d = (Math.abs(ux) * w / 2 + Math.abs(uy) * hgt / 2 + 14) * f;
-          spots['in' + j] = [ax + ux * d - w / 2, ay + uy * d - hgt / 2];
-          order.push('in' + j);
-        });
-      }
-      // The first place clear of all of these; failing any, the one that
-      // covers least, and never the mark itself.
-      var least = null;
-      for (var i = 0; i < order.length && !pick; i++) {
-        var p = spots[order[i]];
-        var px = clamp(p[0], x0, Math.max(x0, x1 - w)), py = clamp(p[1], y0, Math.max(y0, y1 - hgt)), cover = 0;
-        keep.forEach(function (q, k) {
-          var ox = Math.min(px + w, q.right) - Math.max(px, q.left), oy = Math.min(py + hgt, q.bottom) - Math.max(py, q.top);
-          if (ox > 0 && oy > 0) cover += k === 0 ? 1e9 : ox * oy;
-        });
-        if (!cover) pick = [px, py];
-        else if (!least || cover < least.cover) least = { cover: cover, at: [px, py] };
-      }
-      if (!pick) pick = least ? least.at : [clamp(ax - w / 2, x0, Math.max(x0, x1 - w)), clamp(b.top - gap - hgt, y0, Math.max(y0, y1 - hgt))];
-      if (tip.style) { tip.style.left = fx(pick[0] - rr.left) + 'px'; tip.style.top = fx(pick[1] - rr.top) + 'px'; }
     }
     function hideTip() {
       tip.hidden = true;
+      if (caption.classList) caption.classList.remove('is-read-over');
       if (litPlate) { litPlate.classList.remove('is-hover'); litPlate = null; }
     }
 
@@ -5032,6 +5768,10 @@
         body.appendChild(h('span', 'sc__item-name', text));
         if (note) body.appendChild(h('span', 'sc__item-note', note));
         b.appendChild(body);
+        // Where a test shows the rule holding here: a small frame at the
+        // row's end, solid where it is enforced, broken where a part of it
+        // is checked, as the map frames its glyph.
+        if (opts.held) b.appendChild(h('span', 'sc__held sc__held--' + opts.held, opts.held === 'full' ? 'Enforced here' : 'Partly checked here'));
         b.addEventListener('click', function (e) { onPress(e); });
         b.addEventListener('pointerenter', function () { pulse(key); });
         b.addEventListener('pointerleave', function () { unpulse(key); });
@@ -5040,16 +5780,20 @@
         li.appendChild(b);
         return li;
       }
+      // A row pointed at finds its mark: the mark's ring closes once, the
+      // map names it and singles out its lines to what is chosen, and the
+      // readout says what it is.
       function pulse(key) {
         var n = map && map.nodeOf(key);
         if (!n) return;
         n.classList.add('is-pulse');
-        showTipFor(key, n);
+        setHover(key, n);
       }
       function unpulse(key) {
         var n = map && map.nodeOf(key);
         if (n) n.classList.remove('is-pulse');
-        hideTip();
+        if (hoverKey === key) setHover(null);
+        else hideTip();
       }
       function list(label, items, capKey, count, two) {
         var wrap = h('div', 'sc__block');
@@ -5131,9 +5875,11 @@
         var wide = host && host.getBoundingClientRect ? host.getBoundingClientRect().width : 0;
         return wide >= 400 && ids.every(function (id) { return D.rules[id].title.length <= Math.floor(wide / 16.5); });
       }
-      function ruleItem(id, note) {
+      // held: 'full' or 'part' where a test shows the rule holding in the
+      // component the page is about.
+      function ruleItem(id, note, held) {
         return item('rule:' + id, D.rules[id].title, note || null, function (e) { goDoctrine(id, { keyed: keyedClick(e) }); },
-          { cls: 'sc__item--rule', rule: D.rules[id].kind });
+          { cls: 'sc__item--rule', rule: D.rules[id].kind, held: held || null });
       }
       function ordered(ids, order) {
         var p = positions(order);
@@ -5153,7 +5899,6 @@
         headEl.appendChild(line('sc__kicker', 'Family · ' + countWords(F.members.length, 'component', 'components')));
         headEl.appendChild(titleOf(F.title));
         if (F.summary) headEl.appendChild(line('sc__lede', F.summary));
-        onMap(headEl);
         var to = 0, from = 0, partners = [];
         model.pairs.forEach(function (p) {
           if (p.a !== fi && p.b !== fi) return;
@@ -5169,7 +5914,10 @@
             return none === F.members.length ? ' None of its components has one.' : none ? ' ' + none + ' of its ' + F.members.length + ' components ' + (none === 1 ? 'has' : 'have') + ' none.' : '';
           })()));
         node.appendChild(headEl);
+        var act = actions([F.page ? goLink(F.page, 'Family page', true) : null]);
+        if (act) node.appendChild(act);
         var sc = scroller(node);
+        onMap(sc);
         sc.appendChild(list('Its components', F.members.map(function (ci) { return compItem(ci, null); }), 'fam:' + fi));
         partners.sort(function (p, q) { return q.n - p.n; });
         if (partners.length) {
@@ -5179,17 +5927,18 @@
           }), null));
         }
         sc.appendChild(line('sc__note', linkNote()));
-        var act = actions([F.page ? goLink(F.page, 'Family page', true) : null]);
-        if (act) node.appendChild(act);
         return node;
       }
 
-      /* A component in the explorer, read in order: what it is (its whole
-         description), how it is backed, what the map shows of it, then its
-         code connections, each relation under its own verb with the other
-         end named, then the rules its paper module cites (a different
-         relation in a different ink, never mixed into the first list), then
-         the ways to its own pages. */
+      /* A component in the explorer, read in order: what it is in a
+         sentence and how it is backed, then at once the ways to its own
+         pages; then what the map shows of it, its code connections (each
+         relation under its own verb, the other end named) and the rules its
+         paper module cites (a different relation in a different ink, never
+         mixed into the first list, a rule shown holding here framed at the
+         row's end); and last, under its own heading, the whole description.
+         The ways out used to close the page, below a long description and
+         every relation (a Type B review, 6 October 2026). */
       function compReading(ci) {
         var c = model.comps[ci], F = model.families[c.fam], info = D ? D.comp[ci] : null;
         var node = page('comp');
@@ -5197,8 +5946,6 @@
         headEl.appendChild(line('sc__kicker', F.title));
         headEl.appendChild(titleOf(c.label));
         if (c.line) headEl.appendChild(line('sc__lede', c.line));
-        var what = trimProse(c.what, 1e6);
-        if (what && what !== c.line) headEl.appendChild(line('sc__body', what));
         if (c.cls || c.basis) {
           var meta = line('sc__meta sc__meta--mark', '');
           if (c.cls) {
@@ -5210,9 +5957,15 @@
           meta.appendChild(h('span', null, ((c.cls ? CLASS_WORDS[c.cls] + '.' : '') + (c.basis ? ' Evidence: ' + lowerFirst(c.basis) + '.' : '')).trim()));
           headEl.appendChild(meta);
         }
-        onMap(headEl);
         node.appendChild(headEl);
+        var act = actions([
+          c.page ? goLink(c.page, 'Component page', true) : null,
+          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
+          c.source ? goLink(c.source, /^https:\/\/github\.com\//i.test(c.source) ? 'Source on GitHub' : 'Source', false) : null
+        ]);
+        if (act) node.appendChild(act);
         var sc = scroller(node);
+        onMap(sc);
         // Code connections, by what the code does, from this component's side.
         var code = h('section', 'sc__section sc__section--code');
         var total = 0, groups = [];
@@ -5240,12 +5993,12 @@
         sc.appendChild(code);
         // The rules, in the doctrine's ink.
         if (info) {
-          var enf = function (id) { return info.enforces.indexOf(id) >= 0 ? 'Enforced here' : info.partly.indexOf(id) >= 0 ? 'Partly checked here' : null; };
+          var held = function (id) { return info.enforces.indexOf(id) >= 0 ? 'full' : info.partly.indexOf(id) >= 0 ? 'part' : null; };
           var cited = ordered(info.gov, D.principles).concat(ordered(info.abide, D.axioms));
           var rules = h('section', 'sc__section sc__section--rules');
           var source = lowerFirst(info.source || 'paper module');
           rules.appendChild(h('h3', 'sc__section-title', 'Rules its ' + source + ' cites' + (cited.length ? ' · ' + cited.length : '')));
-          if (cited.length) rules.appendChild(list(null, cited.map(function (id) { return ruleItem(id, enf(id)); }), null));
+          if (cited.length) rules.appendChild(list(null, cited.map(function (id) { return ruleItem(id, null, held(id)); }), null));
           else rules.appendChild(line('sc__note', 'Its ' + source + ' cites no rule.'));
           [['enforces', 'Also enforced here'], ['partly', 'Also partly checked here']].forEach(function (pair) {
             var extra = info[pair[0]].filter(function (id) {
@@ -5259,12 +6012,14 @@
           rules.appendChild(line('sc__note', byTests() ? 'A rule is marked enforced here only where a test shows it.' : 'Where a rule is enforced is what its doctrine card names.'));
           sc.appendChild(rules);
         }
-        var act = actions([
-          c.page ? goLink(c.page, 'Component page', true) : null,
-          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
-          c.source ? goLink(c.source, /^https:\/\/github\.com\//i.test(c.source) ? 'Source on GitHub' : 'Source', false) : null
-        ]);
-        if (act) node.appendChild(act);
+        // The whole description, under its own heading.
+        var what = trimProse(c.what, 1e6);
+        if (what && what !== c.line) {
+          var about = h('section', 'sc__section sc__section--about');
+          about.appendChild(h('h3', 'sc__section-title', 'What it does'));
+          about.appendChild(line('sc__body', what));
+          sc.appendChild(about);
+        }
         return node;
       }
       function compPage(ci) {
@@ -5289,14 +6044,21 @@
           headEl.appendChild(meta);
         }
         node.appendChild(headEl);
+        var act = actions([
+          c.page ? goLink(c.page, 'Component page', true) : null,
+          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
+          c.source ? goLink(c.source, 'Source', false) : null
+        ]);
+        if (act) node.appendChild(act);
         var sc = scroller(node);
         if (info) {
-          var enf = function (id) { return info.enforces.indexOf(id) >= 0 ? 'Enforced here' : info.partly.indexOf(id) >= 0 ? 'Partly checked here' : null; };
-          var noted = function (ids) { return ids.some(function (id) { return !!enf(id); }); };
+          var held = function (id) { return info.enforces.indexOf(id) >= 0 ? 'full' : info.partly.indexOf(id) >= 0 ? 'part' : null; };
+          var noted = function (ids) { return ids.some(function (id) { return !!held(id); }); };
           // The principles and the axioms its paper module cites, in one list,
-          // each with its own glyph.
+          // each with its own glyph, a rule shown holding here framed at the
+          // row's end.
           var cited = ordered(info.gov, D.principles).concat(ordered(info.abide, D.axioms));
-          if (cited.length) sc.appendChild(list('Its ' + lowerFirst(info.source || 'paper module') + ' cites', cited.map(function (id) { return ruleItem(id, enf(id)); }),
+          if (cited.length) sc.appendChild(list('Its ' + lowerFirst(info.source || 'paper module') + ' cites', cited.map(function (id) { return ruleItem(id, null, held(id)); }),
             'cites:' + ci, undefined, !noted(cited) && shortNames(cited)));
           // Rules shown holding here that its paper module does not cite (the
           // failure modes it guards against, for the most part).
@@ -5329,12 +6091,6 @@
         if (!c.out.length && !c.inc.length) sc.appendChild(line('sc__note', onlyNamed() ? 'Its record lists no related components.' :
           'No code connections. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it.'));
         else sc.appendChild(line('sc__note', linkNote()));
-        var act = actions([
-          c.page ? goLink(c.page, 'Component page', true) : null,
-          c.reader ? goLink(c.reader, 'Paper module', !c.page) : null,
-          c.source ? goLink(c.source, 'Source', false) : null
-        ]);
-        if (act) node.appendChild(act);
         return node;
       }
 
@@ -5362,9 +6118,11 @@
         headEl.appendChild(line('sc__kicker sc__kicker--doctrine', KIND_WORDS[r.kind]));
         headEl.appendChild(titleOf(r.title));
         if (r.plain) headEl.appendChild(line('sc__lede', r.plain));
-        onMap(headEl);
         node.appendChild(headEl);
+        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
+        if (act) node.appendChild(act);
         var sc = scroller(node);
+        onMap(sc);
         if (r.kind === 'principle') {
           if (r.restsOn.length) sc.appendChild(list('Rests on', ordered(r.restsOn, D.axioms).map(function (x) { return ruleItem(x); }), null));
           if (r.brokenBy.length) sc.appendChild(list('Failure modes that threaten it', ordered(r.brokenBy, D.failures).map(function (x) { return ruleItem(x); }), 'thr:' + id, undefined, shortNames(r.brokenBy)));
@@ -5428,8 +6186,6 @@
           if (!folded) wrap.appendChild(groups);
           sc.appendChild(wrap);
         }
-        var act = actions([r.doctrine ? goLink(r.doctrine, 'Read its doctrine card', true) : null]);
-        if (act) node.appendChild(act);
         return node;
       }
 
@@ -5741,7 +6497,7 @@
           weave: map ? map.weave() : null,
           // How close the camera stands (null: the whole system), and the
           // family it names round the rim, if any.
-          camera: camNow ? { k: fx(camNow.k), names: camNow.names === 'all' ? 'all' : camNow.names >= 0 ? model.families[camNow.names].id : null } : null,
+          camera: camNow ? { k: fx(camNow.k), cx: fx(camNow.cx), cy: fx(camNow.cy), names: camNow.names === 'all' ? 'all' : camNow.names >= 0 ? model.families[camNow.names].id : null } : null,
           labels: labels, wires: wires, hover: hoverKey, column: column.state(), trail: trail.length
         };
       }

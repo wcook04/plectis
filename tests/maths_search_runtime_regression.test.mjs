@@ -4,12 +4,13 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 const source = readFileSync(process.env.MICROCOSM_DOCS_JS || new URL('../assets/docs.js', import.meta.url), 'utf8');
+const records = source.match(/function searchIndexRecords\(data\) \{([\s\S]*?)\n  \}/)?.[0];
 const merge = source.match(/function mcSearchIndexRecords\(\) \{([\s\S]*?)\n  \}/)?.[0];
 const score = source.match(/function score\(rec, qs\) \{([\s\S]*?)\n    \}/)?.[0];
-assert.ok(merge && score, 'production search functions are available');
+assert.ok(records && merge && score, 'production search functions are available');
 function palette(payload) {
   const context = { window: { __MICROCOSM_INDEX__: payload } };
-  vm.runInNewContext(`${merge}\n${score}\nrecords = mcSearchIndexRecords(); rank = score;`, context);
+  vm.runInNewContext(`${records}\n${merge}\n${score}\nrecords = mcSearchIndexRecords(); rank = score;`, context);
   return context;
 }
 

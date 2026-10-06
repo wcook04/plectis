@@ -265,7 +265,7 @@ function makeDom() {
 // bottom left). `expand`: the landing's ways into the full map.
 async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '', page = false, column = true, inert = false,
                        areaWidth = 820, areaHeight = 900, innerHeight = 900, headerBottom = 0, columnTitleTop = null,
-                       explorer = false } = {}) {
+                       explorer = false, visible = false } = {}) {
   if (doctrine === undefined) doctrine = doctrineFor(scene);
   if (explorer) page = true;
   const dom = makeDom();
@@ -353,7 +353,7 @@ async function mount({ scene = liveScene(), doctrine, reduce = false, hash = '',
 
   const docListeners = {};
   const document = Object.assign(dom, {
-    readyState: 'complete', hidden: false, activeElement: null,
+    readyState: 'complete', hidden: false, activeElement: null, visibilityState: visible ? 'visible' : undefined,
     documentElement: node('html'),
     createElement: tag => node(tag),
     createElementNS: (ns, tag) => node(tag),
@@ -610,7 +610,7 @@ test('a family lights its members and every link that touches it, each line from
   assert.equal(page.root.querySelectorAll('.sm-node--fam.is-lit').length, named.length, 'and no other');
   assert.equal(page.panel().querySelector('.sc__title').textContent, s.crumbs[1]);
   assert.match(page.textOf(page.panel()), new RegExp('Its components · ' + members.length));
-  assert.match(s.caption, /: its \w+ components and their listed relations, inside the family and out to the others\.$/);
+  assert.match(s.caption, /^Its \w+ components and their listed relations, inside the family and out to the others\.$/);
   page.root.querySelectorAll('.sm-route').forEach(w => assert.match(w.getAttribute('d'), /Z/, 'a fibre is a filled outline'));
 });
 
@@ -642,7 +642,13 @@ test('a component lights its links, the rules its paper module cites and the axi
   const routes = page.root.querySelectorAll('.sm-route.sm-wire');
   assert.equal(routes.length, touching.length);
   routes.forEach(w => assert.equal(w.getAttribute('data-from'), 'comp:' + row.id));
-  assert.deepEqual(plain(s.lit.reticles), ['comp:' + row.id]);
+  // Where a rule is shown holding here its glyph is framed, as the component
+  // is framed in that rule's own view (the chosen component first); no line
+  // is drawn to a rule its paper module does not cite.
+  const held = [...doctrine.axioms, ...doctrine.principles, ...doctrine.anti_principles]
+    .filter(r => (r.enforced_in || []).includes(row.id)).map(r => 'rule:' + r.id);
+  assert.equal(plain(s.lit.reticles)[0], 'comp:' + row.id);
+  assert.deepEqual(plain(s.lit.reticles).sort(), ['comp:' + row.id, ...held].sort());
   const col = page.textOf(page.panel());
   assert.match(col, new RegExp('Its paper module cites · ' + new Set([...row.governed_by, ...row.abides_by]).size));
   assert.doesNotMatch(col, /Follows these principles|Cites these axioms|governed|abides/);
@@ -653,7 +659,7 @@ test('a component lights its links, the rules its paper module cites and the axi
   assert.match(col, new RegExp('Listed as related · ' + others.size));
   assert.doesNotMatch(col, /Names · |Named by · /);
   assert.match(col, /Listed in a component’s own record, not read from the code\./);
-  assert.match(s.caption, /: red lines to the components listed as related, azure lines to the rules its paper module cites\.$/);
+  assert.match(s.caption, /^Red lines to the components listed as related, azure lines to the rules its paper module cites\.$/);
 });
 
 /* ---- Code connections --------------------------------------------------------- */
@@ -710,7 +716,7 @@ test('typed code connections: each kind in its own texture, named in plain words
   assert.match(col, page.panel().querySelector('.sc__code') ? /Each is derived from the code; Code opens the file that makes it\./ :
     /Each connection is derived from the code\./);
   assert.doesNotMatch(col + page.map.snapshot().caption, /works with|Listed as related/);
-  assert.match(page.map.snapshot().caption, /: red lines for its code connections, azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^Red lines for its code connections, azure lines to the rules its paper module cites\.$/);
   page.root.querySelectorAll('.sm-route').forEach(w => assert.match(w.getAttribute('class'), /sm-route--(?:runs|reads|checks)/));
   // Its lit lines are woven with the rule lines and the pieces at rest that
   // are not lit (a ribbon is one strand, its parting fibres one each).
@@ -721,7 +727,7 @@ test('typed code connections: each kind in its own texture, named in plain words
   const none = compNodes(scene).map(n => n.id).find(x => !tally[x]);
   page.map.select(none);
   assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
-  assert.match(page.map.snapshot().caption, /: no code connections to other components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^No code connections to other components; azure lines to the rules its paper module cites\.$/);
   assert.ok(c.links.length > 90, 'the published scene of named links is too many to show at rest');
 });
 
@@ -746,7 +752,7 @@ test('a component with no links says so, in the caption and the column', async (
   page.map.select(id);
   // The published scene's relations are the ones a record lists, so a
   // component with none says that, in those terms.
-  assert.match(page.map.snapshot().caption, /: its record lists no related components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^Its record lists no related components; azure lines to the rules its paper module cites\.$/);
   assert.match(page.textOf(page.panel()), /Its record lists no related components\./);
   assert.equal(page.root.querySelectorAll('.sm-route').length, 0);
 });
@@ -761,7 +767,7 @@ test('the doctrine view lights every rule and every span, and sends no line to t
   assert.deepEqual(plain(s.crumbs), ['System', 'The doctrine']);
   assert.equal(page.root.querySelectorAll('.sm-span.is-lit').length, spansOf(doctrine).length);
   assert.equal(page.root.querySelectorAll('.sm-rline').length, 0);
-  assert.match(s.caption, /^The doctrine: twelve axioms on a ring\. A rule tied to one axiom sits just outside it; a rule tied to several stands between them\.$/);
+  assert.match(s.caption, /^Twelve axioms on a ring\. A rule tied to one axiom sits just outside it; a rule tied to several stands between them\.$/);
   const col = page.textOf(page.panel());
   assert.match(col, /Each rule’s doctrine card names the components where it is enforced\./);
 });
@@ -805,7 +811,7 @@ test('an axiom lights everything tied to it; a failure mode lights its axioms an
   const f = doctrine.anti_principles[3];
   assert.deepEqual(page.root.querySelectorAll('.sm-span.is-lit').map(spanKey).sort(), f.guards.map(a => 'AP-4>' + a).sort());
   assert.deepEqual(page.root.querySelectorAll('.sm-rline').map(w => w.getAttribute('data-to').slice(5)).sort(), f.enforced_in.slice().sort());
-  assert.match(page.map.snapshot().caption, /: lit with the axioms it threatens and the components its card names as enforcing it\.$/);
+  assert.match(page.map.snapshot().caption, /^Lit with the axioms it threatens and the components its card names as enforcing it\.$/);
 });
 
 /* ---- Words ---------------------------------------------------------------------- */
@@ -1018,19 +1024,44 @@ test('a family, a component and the doctrine are looked at closely; a rule and t
   assert.equal(page.root.querySelectorAll('svg.sm-ring').length, 1, 'once settled, one drawing');
 });
 
-test('the tip is a plate set beside its mark, silent on a family name, and the chosen mark says how to open it', async () => {
+test('what is pointed at is named beside its mark and read out in a place of its own; the chosen mark says how to open it', async () => {
+  // A Type B review (6 October 2026) found the floating tip covering the
+  // small drawing it described: the name now stands beside the mark and
+  // the sentence goes in the card's own sentence box.
   const scene = liveScene(), doctrine = doctrineFor(scene);
   const page = await mount({ scene, doctrine, reduce: true });
-  const tip = page.root.querySelector('.sm-tip');
+  assert.equal(page.root.querySelector('.sm-tip'), null, 'no floating tip');
+  const out = page.root.querySelector('.sm-readout');
+  assert.ok(out && out.hidden, 'nothing is read out at rest');
   const fam = page.root.querySelector('.sm-node--fam');
   fam.fire('pointerenter', { pointerType: 'mouse' });
-  assert.equal(tip.hidden, true, 'a family name is already its own label');
+  assert.equal(out.hidden, false);
+  assert.match(page.textOf(out), / components?/, 'a family is read out with its count');
+  assert.ok(page.root.querySelector('.sm-caption').classList.contains('is-read-over'), 'over the card’s own sentence');
+  fam.fire('pointerleave', { pointerType: 'mouse' });
+  assert.equal(out.hidden, true);
+  assert.ok(!page.root.querySelector('.sm-caption').classList.contains('is-read-over'), 'and the sentence comes back');
+  // A rule pointed at is read out, and named beside its glyph in its ink
+  // wherever its name stands clear (at the landing's smallest size, nearly
+  // all of them); leaving it takes the name away.
+  const rules = doctrine.axioms.concat(doctrine.principles, doctrine.anti_principles);
+  const glyphs = page.root.querySelectorAll('.sm-node--rule');
+  let named = 0;
+  glyphs.forEach(glyph => {
+    const title = rules.find(r => r.id === glyph.getAttribute('data-sm-key').slice(5)).title;
+    glyph.fire('pointerenter', { pointerType: 'mouse' });
+    assert.ok(page.textOf(out).includes(title), 'read out: ' + title);
+    const set = page.root.querySelectorAll('.sm-hovers .sm-rname').map(t => t.textContent).join(' ');
+    if (set) { named++; assert.equal(set, title, 'its own name, whole'); }
+    glyph.fire('pointerleave', { pointerType: 'mouse' });
+    assert.equal(page.root.querySelectorAll('.sm-hovers .sm-rname').length, 0);
+  });
+  assert.ok(named >= 0.75 * glyphs.length, named + ' of ' + glyphs.length + ' named beside their glyphs');
   const id = isolated(scene) || busiest(scene);
   page.map.select(id);
   const chosen = page.root.querySelector('.sm-node--comp[data-sm-key="comp:' + id + '"]');
   chosen.fire('pointerenter', { pointerType: 'mouse' });
-  if (!tip.hidden) assert.match(page.textOf(tip), /Click again to open its page/);
-  else assert.ok(page.root.querySelector('.sm-plate.is-hover'), 'or its plate lights instead of a tip repeating its name');
+  assert.match(page.textOf(out), /Click again to open its page/);
 });
 
 /* ---- Names ------------------------------------------------------------------------ */
@@ -1119,7 +1150,7 @@ test('the explorer fits the whole circle to its stage, names only the families a
   assert.ok(+ps.ring.frame.R > 390 / 2 - 80, 'the ring takes the room the names would have taken');
 });
 
-test('a choice in the explorer reads in the panel: the trail, the whole description, each relation under its verb, the rules apart, the ways out last', async () => {
+test('a choice in the explorer reads in the panel: the trail, its ways out under its head, each relation under its verb, the rules apart, the whole description last', async () => {
   const scene = typedScene();
   const page = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730 });
   const id = mostConnected(scene);
@@ -1161,10 +1192,101 @@ test('a choice in the explorer reads in the panel: the trail, the whole descript
   assert.equal(code.querySelectorAll('.sc__item--rule').length, 0, 'no rule among the code connections');
   assert.equal(rules.querySelectorAll('.sc__item').filter(b => !b.classList.contains('sc__item--rule')).length, 0, 'no component among the rules');
   assert.match(page.textOf(rules.querySelector('.sc__section-title')), /^Rules its paper module cites · \d+$/);
-  // The ways to its own pages close the page.
-  const last = pg.children[pg.children.length - 1];
-  assert.ok(last.classList.contains('sc__actions'));
-  assert.match(page.textOf(last), /Component page/);
+  // The ways to its own pages stand straight under its head (a Type B
+  // review, 6 October 2026: they were below every relation and a long
+  // description); the whole description closes the page under its heading.
+  assert.ok(pg.children[0].classList.contains('sc__head'));
+  const ways = pg.children[1];
+  assert.ok(ways.classList.contains('sc__actions'));
+  assert.match(page.textOf(ways), /Component page/);
+  if (whole && whole !== d.summary_line) {
+    const about = flow.children[flow.children.length - 1];
+    assert.ok(about.classList.contains('sc__section--about'));
+    assert.match(page.textOf(about.querySelector('.sc__section-title')), /^What it does$/);
+  }
+  // A rule shown holding here is framed at its row's end, in words.
+  rules.querySelectorAll('.sc__held').forEach(t => assert.match(page.textOf(t), /^(Enforced here|Partly checked here)$/));
+});
+
+/* ---- Readable selection (6 October 2026) ------------------------------------- */
+// A Type B review found the drawing naming a component a rule touches but not
+// the rule itself; Will then asked for the map to be "lightning fast".
+const allRules = doctrine => [...doctrine.axioms, ...doctrine.principles, ...doctrine.anti_principles];
+const boxOfRect = rect => {
+  const x0 = +rect.getAttribute('x'), y0 = +rect.getAttribute('y');
+  return { x0, y0, x1: x0 + +rect.getAttribute('width'), y1: y0 + +rect.getAttribute('height') };
+};
+const placeOf = node => {
+  const m = /translate\((-?[\d.]+) (-?[\d.]+)\)/.exec(node.getAttribute('transform'));
+  return [+m[1], +m[2]];
+};
+test('the chosen rule wears a tag beside its glyph: its whole name, clear of every glyph and mark', async () => {
+  const scene = typedScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, explorer: true, areaWidth: 2040, areaHeight: 1253, reduce: true });
+  let tagged = 0;
+  for (const r of allRules(doctrine).slice(0, 12)) {
+    page.map.select('doctrine:' + r.id);
+    const tags = page.root.querySelectorAll('.sm-tag');
+    assert.ok(tags.length <= 1, 'one tag at a time');
+    if (!tags.length) continue;
+    tagged++;
+    const tag = tags[0];
+    assert.equal(tag.getAttribute('data-sm-tag'), 'rule:' + r.id);
+    assert.equal(tag.querySelectorAll('.sm-tag__title').map(t => t.textContent).join(' '), r.title, 'its whole name');
+    const b = boxOfRect(tag.querySelector('.sm-tag__box'));
+    page.root.querySelectorAll('.sm-node--rule, .sm-node--comp').forEach(n => {
+      const [x, y] = placeOf(n);
+      assert.ok(x < b.x0 - 4 || x > b.x1 + 4 || y < b.y0 - 4 || y > b.y1 + 4, 'the tag stands clear of ' + n.getAttribute('data-sm-key'));
+    });
+  }
+  assert.ok(tagged >= 10, tagged + ' of 12 rules tagged in a large explorer');
+});
+
+test('a component’s view names the rules it cites and those shown holding there, each beside its glyph', async () => {
+  const scene = typedScene(), doctrine = doctrineFor(scene);
+  const page = await mount({ scene, doctrine, explorer: true, areaWidth: 2040, areaHeight: 1253, reduce: true });
+  const id = mostConnected(scene);
+  page.map.select(id);
+  const row = doctrine.components.find(c => c.id === id);
+  const held = allRules(doctrine).filter(r => (r.enforced_in || []).includes(id)).map(r => r.id);
+  const allowed = new Set([...row.governed_by, ...row.abides_by, ...held]);
+  const titles = Object.fromEntries(allRules(doctrine).map(r => [r.id, r.title]));
+  const names = page.root.querySelectorAll('.sm-tags .sm-rname-g');
+  assert.ok(names.length > 0 && names.length <= 8, names.length + ' names');
+  names.forEach(g => {
+    const rid = g.getAttribute('data-sm-name').slice(5);
+    assert.ok(allowed.has(rid), 'only a rule the view lights is named: ' + rid);
+    assert.equal(g.querySelectorAll('.sm-rname').map(t => t.textContent).join(' '), titles[rid], 'its whole name');
+  });
+  // The doctrine's own view names its axioms.
+  page.map.select('doctrine');
+  const axioms = page.root.querySelectorAll('.sm-tags .sm-rname-g').map(g => g.getAttribute('data-sm-name').slice(5));
+  assert.ok(axioms.length >= 8 && axioms.every(a => /^AX-/.test(a)), axioms.join(' '));
+});
+
+test('a choice that needs a new view sets off at once, and the new view is drawn once that frame is shown', async () => {
+  const scene = typedScene();
+  // A component its choice brings the camera closer to.
+  const probe = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730, reduce: true });
+  const id = compNodes(scene).map(n => n.id).find(c => { probe.map.select(c, { instant: true }); return !!probe.map.snapshot().camera; });
+  assert.ok(id, 'some choice moves the camera');
+  const page = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730, visible: true });
+  const old = page.root.querySelector('.sm-body'), n0 = page.animations.length;
+  page.map.select(id);
+  const moved = page.animations.slice(n0).filter(a => a.el === old && a.frames.some(f => f.transform));
+  assert.equal(moved.length, 1, 'the view on screen sets off in the click’s own frame');
+  assert.equal(page.root.querySelectorAll('.sm-body').length, 1, 'the new view is not drawn yet');
+  assert.ok(page.map.snapshot().camera, 'and the camera is already the new one');
+  page.flushFrames();
+  const bodies = page.root.querySelectorAll('.sm-body');
+  assert.equal(bodies.length, 1, 'once the frame is shown the new view is drawn and the old one let go');
+  assert.notEqual(bodies[0], old);
+  assert.equal(page.map.snapshot().view, 'component');
+  // A page that is not painting (hidden, or with no frames) draws at once.
+  const quiet = await mount({ scene, explorer: true, areaWidth: 1037, areaHeight: 730 });
+  const old2 = quiet.root.querySelector('.sm-body');
+  quiet.map.select(id);
+  assert.ok(quiet.root.querySelectorAll('.sm-body').some(b => b !== old2), 'drawn in the same call');
 });
 
 test('the explorer zooms and fits when its frame asks; a closer look names the components that stand whole; a new choice frames itself', async () => {
@@ -1193,6 +1315,24 @@ test('the explorer zooms and fits when its frame asks; a closer look names the c
   page.map.select(mostConnected(scene));
   const cam = page.map.snapshot().camera;
   assert.ok(!cam || cam.names !== 'all', 'a new choice lets the zoom go and frames itself');
+});
+
+test('click-and-hold pans the fitted map and Fit restores it without selecting a node', async () => {
+  const page = await mount({ scene: typedScene(), explorer: true, areaWidth: 1037, areaHeight: 730, reduce: true });
+  const area = page.root.querySelector('.sm-area');
+  assert.equal(page.map.snapshot().camera, null);
+  area.fire('pointerdown', {pointerId: 1, button: 0, clientX: 500, clientY: 350});
+  area.fire('pointermove', {pointerId: 1, clientX: 600, clientY: 400, preventDefault() {}});
+  area.fire('pointerup', {pointerId: 1});
+  const camera = page.map.snapshot().camera;
+  assert.ok(camera, 'the fitted camera retains its translation after release');
+  assert.equal(camera.k, 1);
+  assert.equal(page.map.snapshot().view, 'system');
+  let swallowed = false;
+  area.fire('click', {stopPropagation() {swallowed = true;}, preventDefault() {}});
+  assert.ok(swallowed, 'a completed drag cannot accidentally choose a node');
+  page.section.fire('explorer:fit', { detail: {} });
+  assert.equal(page.map.snapshot().camera, null);
 });
 
 test('a choice tells the explorer frame, an arrival does not; the trail and Escape step back up', async () => {
@@ -1507,7 +1647,7 @@ test('a component with no code connection says so plainly; each code connection 
   const page = await mount({ scene, doctrine: doctrineFor(scene) });
   const lone = compNodes(scene).map(n => n.id).find(id => !edges.some(e => e.source === id || e.target === id));
   page.map.select(lone);
-  assert.match(page.map.snapshot().caption, /: no code connections to other components; azure lines to the rules its paper module cites\.$/);
+  assert.match(page.map.snapshot().caption, /^No code connections to other components; azure lines to the rules its paper module cites\.$/);
   assert.match(page.textOf(page.panel()), /No code connections\. Its code does not run, read or check another component, and no other component’s code runs, reads or checks it\./);
   const fan = widestFan(scene);
   page.map.select(fan.hub);

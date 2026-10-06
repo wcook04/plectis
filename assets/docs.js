@@ -751,6 +751,11 @@
       // name and cannot acquire tab-manager decoration while the session trail
       // is open. The document-title fallback keeps non-standard pages usable.
       var heading = document.querySelector('main h1, h1');
+      // A heading that is a sentence rather than a name ("Read the
+      // mathematics. Find what comes next.") carries a short page name for
+      // the return control, so it reads "Back to Mathematics overview".
+      var named = heading && cleanText(heading.getAttribute('data-page-name') || '');
+      if (named) return named;
       var t = heading
         ? cleanText(heading.textContent || '')
         : cleanText((document.title || '').split('·')[0]);
@@ -2380,6 +2385,15 @@
       }
     });
 
+    // A letter link (data-comp-jump) browses the whole list, so it clears an
+    // active search first; the browser's jump then lands on a visible group.
+    document.addEventListener('click', function (event) {
+      var jump = event.target && event.target.closest ? event.target.closest('a[data-comp-jump]') : null;
+      if (!jump || !input.value) return;
+      input.value = '';
+      apply();
+    });
+
     function scheduleApply() {
       if (pendingFrame) cancelAnimationFrame(pendingFrame);
       pendingFrame = requestAnimationFrame(function () {
@@ -2412,6 +2426,59 @@
     apply({ skipUrl: true });
     revealFilteredTarget(initialFilterTarget);
     initialFilterTarget = null;
+  })();
+
+  // --- Glossary bar: sticky search + letters --------------------------------
+  // The bar rides under the header, so fragment jumps must clear it: its
+  // height feeds --glossary-bar-h, which the stylesheet adds to
+  // scroll-padding-top (and scrollPaddingTop() above reads). The letter of
+  // the group at the top of the reading area is marked aria-current.
+  (function glossaryBar() {
+    var bar = document.querySelector('[data-glossary-bar]');
+    if (!bar) return;
+    var root = document.documentElement;
+    function measure() {
+      root.style.setProperty('--glossary-bar-h', Math.ceil(bar.getBoundingClientRect().height) + 'px');
+    }
+    measure();
+    if (typeof ResizeObserver === 'function') new ResizeObserver(measure).observe(bar);
+    else window.addEventListener('resize', measure);
+
+    var links = {};
+    Array.prototype.forEach.call(bar.querySelectorAll('a[data-comp-jump]'), function (a) {
+      links[(a.getAttribute('href') || '').slice(1)] = a;
+    });
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.glossary-group[id]'));
+    if (!groups.length) return;
+    var current = null;
+    var frame = 0;
+    // The current letter is the first visible group still reaching below the
+    // bar's edge. Marking the last group whose top had passed the edge named
+    // a group that had already scrolled away: "#" lit while the A entries
+    // filled the screen, "C" while doctrine was open under D.
+    function mark() {
+      frame = 0;
+      var edge = scrollPaddingTop() + 2;
+      var found = null;
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].hasAttribute('hidden')) continue;
+        var box = groups[i].getBoundingClientRect();
+        if (box.bottom > edge) {
+          // Above the list (the masthead still on screen) nothing is current.
+          if (box.top <= edge + 64) found = groups[i];
+          break;
+        }
+      }
+      var link = found ? links[found.id] : null;
+      if (link === current) return;
+      if (current) current.removeAttribute('aria-current');
+      if (link) link.setAttribute('aria-current', 'location');
+      current = link;
+    }
+    window.addEventListener('scroll', function () {
+      if (!frame) frame = requestAnimationFrame(mark);
+    }, { passive: true });
+    mark();
   })();
 
   // --- Command palette: site-wide search over the generated index -----------

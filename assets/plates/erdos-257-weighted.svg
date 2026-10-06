@@ -1,0 +1,45 @@
+<svg class="plate" viewBox="0 0 600 500" role="img" aria-labelledby="erdos-257-weighted-title" focusable="false" data-plate="erdos-257-weighted">
+  <title id="erdos-257-weighted-title">The displacement Delta(N) of Erdős #257&#x27;s proof, for the support A star at base 2 and N from 1 to 288, on a logarithmic scale: each N a tooth hanging from the axis, longer when the displacement is smaller. The multiples of 24, in red, hang far below the rest. Beside it, one exponent&#x27;s orbit: the multiples of 4 meet only the residues 4, 2 and 0 modulo 6.</title>
+  <path class="pl-axis" d="M36 46L36 294.4M32 46L36 46M32 118L36 118M32 190L36 190M32 262L36 262"/>
+  <text class="pl-text" x="29" y="123" text-anchor="end">1</text>
+  <text class="pl-text" x="29" y="195" text-anchor="end">10<tspan class="pl-sup" dy="-0.42em">−1</tspan></text>
+  <text class="pl-text" x="29" y="267" text-anchor="end">10<tspan class="pl-sup" dy="-0.42em">−2</tspan></text>
+  <path class="pl-line pl-thin" d="M46 46V145.1M47.8 46V160.1M49.6 46V119.9M51.4 46V155.6M53.2 46V117.3M55 46V142M56.8 46V108.7M58.6 46V185.9M60.4 46V131.6M62.2 46V128.4M64 46V98.7M65.8 46V182.9M67.6 46V130.5M69.4 46V126.5M71.2 46V97.2M73 46V154.8M74.8 46V116.9M76.6 46V140.1M78.4 46V107.3M80.2 46V163.2M82 46V121.6M83.8 46V112.2M85.6 46V85.5M89.2 46V136.1M91 46V137.1M92.8 46V105.2M94.6 46V144.4M96.4 46V110.3M98.2 46V118.6M100 46V90.9M101.8 46V171.5M103.6 46V125.7M105.4 46V118.6M107.2 46V90.8M109 46V170.2M110.8 46V125.1M112.6 46V117.6M114.4 46V90M116.2 46V154M118 46V116.4M119.8 46V138.1M121.6 46V105.9M123.4 46V149.9M125.2 46V113.9M127 46V101.4M128.8 46V76M132.4 46V136M134.2 46V137.1M136 46V105.2M137.8 46V144.1M139.6 46V110.1M141.4 46V118.1M143.2 46V90.5M145 46V161.8M146.8 46V120.8M148.6 46V111.1M150.4 46V84.6M152.2 46V161.7M154 46V120.8M155.8 46V111.1M157.6 46V84.5M159.4 46V160.9M161.2 46V120.4M163 46V158.5M164.8 46V119M166.6 46V150.2M168.4 46V114.1M170.2 46V101.6M172 46V76.3M175.6 46V142.8M177.4 46V153.3M179.2 46V116M181 46V136.4M182.8 46V104.7M184.6 46V105.7M186.4 46V79.9M188.2 46V171.6M190 46V125.7M191.8 46V118.6M193.6 46V90.9M195.4 46V170.8M197.2 46V125.4M199 46V118M200.8 46V90.4M202.6 46V159.9M204.4 46V119.8M206.2 46V155M208 46V117M209.8 46V140.6M211.6 46V107.7M213.4 46V93.3M215.2 46V68.8M218.8 46V136.1M220.6 46V137.1M222.4 46V105.2M224.2 46V144.4M226 46V110.3M227.8 46V118.6M229.6 46V90.8M231.4 46V170.2M233.2 46V125.1M235 46V117.6M236.8 46V90M238.6 46V154.6M240.4 46V116.8M242.2 46V105.3M244 46V79.5M245.8 46V160M247.6 46V119.8M249.4 46V155.1M251.2 46V117M253 46V140.8M254.8 46V107.8M256.6 46V93.5M258.4 46V69M262 46V142.8M263.8 46V153.3M265.6 46V116M267.4 46V136.4M269.2 46V104.7M271 46V105.8M272.8 46V79.9M274.6 46V172.2M276.4 46V126M278.2 46V119M280 46V91.2M281.8 46V181.7M283.6 46V130M285.4 46V125.7M287.2 46V96.6M289 46V147.4M290.8 46V112.3M292.6 46V124.2M294.4 46V95.4M296.2 46V137M298 46V105.2M299.8 46V90.2M301.6 46V65.9M305.2 46V144.5M307 46V158.1M308.8 46V118.8M310.6 46V149.2M312.4 46V113.4M314.2 46V127.7M316 46V98.1M317.8 46V169M319.6 46V124.5M321.4 46V116.7M323.2 46V89.3M325 46V144M326.8 46V110M328.6 46V96.3M330.4 46V71.5M332.2 46V160.4M334 46V120.1M335.8 46V156.7M337.6 46V118M339.4 46V145.1M341.2 46V110.8M343 46V97.3M344.8 46V72.4M348.4 46V142.8M350.2 46V153.1M352 46V115.8M353.8 46V136M355.6 46V104.4M357.4 46V105.1M359.2 46V79.4M361 46V155.5M362.8 46V117.3M364.6 46V106M366.4 46V80.2M368.2 46V183.5M370 46V130.7M371.8 46V126.9M373.6 46V97.5M375.4 46V159M377.2 46V119.3M379 46V151.9M380.8 46V115.2M382.6 46V133.4M384.4 46V102.5M386.2 46V86.9M388 46V62.9M391.6 46V135.7M393.4 46V136.3M395.2 46V104.6M397 46V140.4M398.8 46V107.5M400.6 46V111.9M402.4 46V85.2M404.2 46V182.9M406 46V130.5M407.8 46V126.5M409.6 46V97.2M411.4 46V154.6M413.2 46V116.8M415 46V105.3M416.8 46V79.6M418.6 46V160.4M420.4 46V120.1M422.2 46V156.5M424 46V117.9M425.8 46V144.5M427.6 46V110.4M429.4 46V96.8M431.2 46V71.9M434.8 46V128.4M436.6 46V122.9M438.4 46V94.4M440.2 46V130.3M442 46V100.1M443.8 46V96.9M445.6 46V72.1M447.4 46V185.9M449.2 46V131.6M451 46V128.5M452.8 46V98.7M454.6 46V183.4M456.4 46V130.7M458.2 46V126.8M460 46V97.5M461.8 46V158.2M463.6 46V118.8M465.4 46V149.3M467.2 46V113.5M469 46V127.8M470.8 46V98.2M472.6 46V81.8M474.4 46V58.1M478 46V144.5M479.8 46V158M481.6 46V118.8M483.4 46V148.9M485.2 46V113.2M487 46V127M488.8 46V97.6M490.6 46V160.7M492.4 46V120.3M494.2 46V110.3M496 46V83.9M497.8 46V148.2M499.6 46V112.8M501.4 46V100M503.2 46V74.8M505 46V148.1M506.8 46V112.7M508.6 46V125.4M510.4 46V96.3M512.2 46V145.2M514 46V110.8M515.8 46V97.3M517.6 46V72.4M521.2 46V143.4M523 46V154.9M524.8 46V116.9M526.6 46V140.4M528.4 46V107.5M530.2 46V111.9M532 46V85.2M533.8 46V181.9M535.6 46V130.1M537.4 46V125.8M539.2 46V96.7M541 46V148.8M542.8 46V113.2M544.6 46V100.4M546.4 46V75.2M548.2 46V158.2M550 46V118.8M551.8 46V149.3M553.6 46V113.5M555.4 46V127.8M557.2 46V98.2M559 46V81.8M560.8 46V58.1"/>
+  <path class="pl-line pl-line--key" d="M87.4 46V200.9M130.6 46V200.8M173.8 46V247.5M217 46V200.9M260.2 46V247.6M303.4 46V288.9M346.6 46V246.6M389.8 46V199.3M433 46V177.6M476.2 46V287.3M519.4 46V256.9M562.6 46V287.5"/>
+  <circle class="pl-dot pl-dot--key" cx="87.4" cy="200.9" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="130.6" cy="200.78" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="173.8" cy="247.53" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="217" cy="200.89" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="260.2" cy="247.56" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="303.4" cy="288.93" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="346.6" cy="246.61" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="389.8" cy="199.3" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="433" cy="177.65" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="476.2" cy="287.27" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="519.4" cy="256.88" r="2.2"/>
+  <circle class="pl-dot pl-dot--key" cx="562.6" cy="287.49" r="2.2"/>
+  <path class="pl-line pl-line--key pl-thin pl-dashed" d="M46 216.9L562.6 216.9"/>
+  <text class="pl-text pl-text--key pl-text--small" x="558.6" y="211.9" text-anchor="end">mean</text>
+  <path class="pl-axis" d="M42 46L566.6 46M87.4 46L87.4 41M130.6 46L130.6 41M173.8 46L173.8 41M217 46L217 41M260.2 46L260.2 41M303.4 46L303.4 41M346.6 46L346.6 41M389.8 46L389.8 41M433 46L433 41M476.2 46L476.2 41M519.4 46L519.4 41M562.6 46L562.6 41"/>
+  <text class="pl-text" x="87.4" y="36" text-anchor="middle">24</text>
+  <text class="pl-text" x="574.6" y="51"><tspan class="pl-var">N</tspan></text>
+  <circle class="pl-ground" cx="440" cy="388" r="84"/>
+  <circle class="pl-ring" cx="440" cy="388" r="84"/>
+  <circle class="pl-ref" cx="440" cy="388" r="48"/>
+  <path class="pl-line pl-line--key pl-thin" d="M398.43 412L481.57 412L440 340L398.43 412"/>
+  <path class="pl-line" d="M481.57 364L482.45 363.49M440 436L440 443.11M398.43 364L371.16 348.25"/>
+  <path class="pl-line pl-line--key" d="M481.57 412L484.21 413.52M398.43 412L385.23 419.62"/>
+  <circle class="pl-dot pl-dot--key" cx="440" cy="340" r="3"/>
+  <text class="pl-text pl-text--small" x="440" y="362.3" text-anchor="middle">0</text>
+  <circle class="pl-dot pl-dot--open" cx="481.57" cy="364" r="3"/>
+  <text class="pl-text pl-text--small" x="469.4" y="375.3" text-anchor="middle">1</text>
+  <circle class="pl-dot pl-dot--key" cx="481.57" cy="412" r="3"/>
+  <text class="pl-text pl-text--small" x="466" y="407.3" text-anchor="middle">2</text>
+  <circle class="pl-dot pl-dot--open" cx="440" cy="436" r="3"/>
+  <text class="pl-text pl-text--small" x="440" y="426.3" text-anchor="middle">3</text>
+  <circle class="pl-dot pl-dot--key" cx="398.43" cy="412" r="3"/>
+  <text class="pl-text pl-text--small" x="414" y="407.3" text-anchor="middle">4</text>
+  <circle class="pl-dot pl-dot--open" cx="398.43" cy="364" r="3"/>
+  <text class="pl-text pl-text--small" x="410.6" y="375.3" text-anchor="middle">5</text>
+  <text class="pl-text" x="440" y="494" text-anchor="middle"><tspan class="pl-var">a</tspan> = 6, <tspan class="pl-var">Q</tspan> = 4</text>
+</svg>

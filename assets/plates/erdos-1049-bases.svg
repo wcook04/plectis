@@ -1,0 +1,122 @@
+<svg class="plate" viewBox="0 0 600 500" role="img" aria-labelledby="erdos-1049-bases-title" focusable="false" data-plate="erdos-1049-bases">
+  <title id="erdos-1049-bases-title">Rational bases a over b as points with coordinates log b and log a. A hatched sector holds the bases that the criterion of Bundschuh and Väänänen covers; the paper&#x27;s cutoff is the red ray just outside it, and the first three powers of 31 over 4, red dots, lie between the two rays. 3 over 2, hollow, lies outside both. A disc enlarges the neighbourhood of 31 over 4 squared 64 times: the two rays separate into a strip, and the bases with denominator 16 in the window appear as points, hollow beyond the paper&#x27;s cutoff and red inside the strip.</title>
+  <path class="pl-hatch" d="M62 71.7L70.6 67.1M62 76.4L79.1 67.4M62 81.2L87.2 67.8M62 86L95 68.4M62 90.7L102.6 69.1M62 95.5L110 69.9M62 100.2L117.2 70.9M62 105L124.2 71.9M62 109.7L131 73.1M62 114.5L137.6 74.3M62 119.3L144.1 75.6M62 124L150.4 77M62 128.8L156.6 78.5M62 133.5L162.6 80M62 138.3L168.5 81.6M62 143L174.3 83.3M62 147.8L180 85M62 152.5L185.6 86.8M62 157.3L191.1 88.7M62 162.1L196.4 90.6M62 166.8L201.7 92.5M62 171.6L206.9 94.5M62 176.3L206.5 99.5M62 181.1L204.1 105.5M62 185.8L201.7 111.6M62 190.6L199.3 117.6M62 195.4L196.9 123.6M62 200.1L194.5 129.7M62 204.9L192.1 135.7M62 209.6L189.7 141.7M62 214.4L187.3 147.8M62 219.1L184.9 153.8M62 223.9L182.5 159.9M62 228.7L180.1 165.9M62 233.4L177.6 171.9M62 238.2L175.2 178M62 242.9L172.8 184M62 247.7L170.4 190M62 252.4L168 196.1M62 257.2L165.6 202.1M62 262L163.2 208.1M62 266.7L160.8 214.2M62 271.5L158.4 220.2M62 276.2L156 226.3M62 281L153.6 232.3M62 285.7L151.2 238.3M62 290.5L148.8 244.4M62 295.3L146.4 250.4M62 300L144 256.4M62 304.8L141.5 262.5M62 309.5L139.1 268.5M62 314.3L136.7 274.5M62 319L134.3 280.6M62 323.8L131.9 286.6M62 328.6L129.5 292.7M62 333.3L127.1 298.7M62 338.1L124.7 304.7M62 342.8L122.3 310.8M62 347.6L119.9 316.8M62 352.3L117.5 322.8M62 357.1L115.1 328.9M62 361.8L112.7 334.9M62 366.6L110.3 340.9M62 371.4L107.9 347M62 376.1L105.4 353M62 380.9L103 359.1M62 385.6L100.6 365.1M62 390.4L98.2 371.1M62 395.1L95.8 377.2M62 399.9L93.4 383.2M62 404.7L91 389.2M62 409.4L88.6 395.3M62 414.2L86.2 401.3M62 418.9L83.8 407.3M62 423.7L81.4 413.4M62 428.4L79 419.4M62 433.2L76.6 425.5M62 438L74.2 431.5M62 442.7L71.8 437.5M62 447.5L69.4 443.6M62 452.2L66.9 449.6M62 457L64.5 455.6"/>
+  <path class="pl-axis" d="M62 462L62 53"/>
+  <path class="pl-axis" d="M62 462L343.4 462"/>
+  <path class="pl-ref pl-ref--faint" d="M62 462L341.31 182.69"/>
+  <path class="pl-ref" d="M62 67L65.23 67.01L68.46 67.05L71.69 67.12L74.92 67.21L78.15 67.33L81.38 67.48L84.61 67.65L87.83 67.85L91.06 68.07L94.28 68.32L97.5 68.6L100.72 68.9L103.93 69.23L107.14 69.59L110.35 69.97L113.56 70.38L116.76 70.81L119.96 71.28L123.15 71.76L126.34 72.28L129.53 72.82L132.71 73.38L135.89 73.97L139.06 74.59L142.23 75.23L145.39 75.9L148.54 76.6L151.7 77.32L154.84 78.07L157.98 78.84L161.11 79.64L164.23 80.46L167.35 81.31L170.46 82.18L173.57 83.08L176.66 84.01L179.75 84.96L182.83 85.94L185.9 86.94L188.97 87.96L192.02 89.01L195.07 90.09L198.11 91.19L201.14 92.32L204.16 93.47L207.17 94.64L210.17 95.84L213.16 97.07L216.14 98.32L219.11 99.59L222.07 100.89L225.02 102.21L227.96 103.55L230.88 104.92L233.8 106.32L236.7 107.74L239.6 109.18L242.48 110.64L245.35 112.13L248.2 113.64L251.05 115.18L253.88 116.73L256.69 118.32L259.5 119.92L262.29 121.55L265.07 123.2L267.84 124.87L270.59 126.57L273.32 128.28L276.05 130.02L278.76 131.79L281.45 133.57L284.13 135.38L286.79 137.2L289.44 139.05L292.08 140.93L294.7 142.82L297.3 144.73L299.89 146.67L302.46 148.63L305.02 150.6L307.56 152.6L310.08 154.62L312.59 156.66L315.07 158.72L317.55 160.8L320 162.9L322.44 165.02L324.86 167.16L327.27 169.32L329.65 171.5L332.02 173.7L334.37 175.92L336.7 178.16L339.01 180.42L341.31 182.69"/>
+  <path class="pl-edge" d="M62 462L208.28 95.08"/>
+  <path class="pl-edge pl-edge--key" d="M62 462L210.49 95.97"/>
+  <path class="pl-edge pl-edge--key pl-dashed" d="M212.11 90.16L226.34 54.92"/>
+  <path class="pl-leader" d="M154.1 233.4L433.7 378.2M154.6 230.3L465.7 181.3"/>
+  <circle class="pl-dot pl-dot--key" cx="108.44" cy="346.96" r="3.3"/>
+  <circle class="pl-dot pl-dot--key" cx="154.88" cy="231.92" r="3.3"/>
+  <circle class="pl-dot pl-dot--key" cx="201.32" cy="116.88" r="3.3"/>
+  <circle class="pl-dot pl-dot--open" cx="85.22" cy="425.2" r="2.8"/>
+  <text class="pl-text" x="62" y="45" text-anchor="middle">log <tspan class="pl-var">a</tspan></text>
+  <text class="pl-text" x="351.4" y="467">log <tspan class="pl-var">b</tspan></text>
+  <text class="pl-text pl-text--key" x="118.4" y="352">31/4</text>
+  <text class="pl-text pl-text--key" x="145.9" y="236.9" text-anchor="end">(31/4)<tspan class="pl-sup" dy="-0.42em">2</tspan></text>
+  <text class="pl-text pl-text--key" x="211.3" y="121.9">(31/4)<tspan class="pl-sup" dy="-0.42em">3</tspan></text>
+  <text class="pl-text" x="94.2" y="430.2">3/2</text>
+  <circle class="pl-ground" cx="482" cy="285" r="105"/>
+  <path class="pl-hatch" d="M426.4 196.6L439.8 189.5M408.4 211L445.5 191.3M400.3 220L443.1 197.3M394.7 227.8L440.7 203.3M390.5 234.8L438.2 209.4M387.2 241.3L435.8 215.4M384.6 247.4L433.4 221.4M382.5 253.2L431 227.5M380.9 258.9L428.6 233.5M379.7 264.3L426.2 239.5M378.8 269.5L423.8 245.6M378.1 274.6L421.4 251.6M377.7 279.6L419 257.7M377.6 284.4L416.6 263.7M377.7 289.1L414.2 269.7M378 293.7L411.8 275.8M378.4 298.2L409.4 281.8M379.1 302.6L407 287.8M379.9 307L404.6 293.9M380.9 311.2L402.1 299.9M382.1 315.3L399.7 305.9M383.4 319.4L397.3 312M384.9 323.3L394.9 318M386.5 327.2L392.5 324.1M388.3 331.1L390.1 330.1"/>
+  <path class="pl-hatch pl-hatch--key pl-thin" d="M445.5 191.3L461.8 182.6M443.1 197.3L473.8 180.9M440.7 203.3L483.4 180.6M438.2 209.4L491.5 181M435.8 215.4L498.7 182M433.4 221.4L505.3 183.2M431 227.5L511.3 184.8M428.6 233.5L516.9 186.6M426.2 239.5L522 188.6M423.8 245.6L526.9 190.8M421.4 251.6L531.5 193.1M419 257.7L535.8 195.5M416.6 263.7L539.9 198.1M414.2 269.7L543.8 200.8M411.8 275.8L543.4 205.8M409.4 281.8L540.9 211.9M407 287.8L538.4 217.9M404.6 293.9L536 224M402.1 299.9L533.5 230.1M399.7 305.9L531.1 236.1M397.3 312L528.6 242.2M394.9 318L526.1 248.3M392.5 324.1L523.7 254.3M390.1 330.1L521.2 260.4M390.2 334.8L518.8 266.4M392.3 338.4L516.3 272.5M394.5 342L513.8 278.6M396.9 345.5L511.4 284.6M399.4 348.9L508.9 290.7M402.1 352.2L506.5 296.8M405 355.5L504 302.8M408 358.6L501.5 308.9M411.2 361.7L499.1 315M414.5 364.7L496.6 321M418.1 367.5L494.1 327.1M421.8 370.3L491.7 333.2M425.8 373L489.2 339.2M430 375.5L486.8 345.3M434.4 377.9L484.3 351.4M439.1 380.2L481.8 357.4M444.1 382.3L479.4 363.5M449.4 384.2L476.9 369.6M455.2 385.9L474.5 375.6M461.4 387.3L472 381.7M468.2 388.5L469.5 387.8"/>
+  <path class="pl-edge pl-edge--key pl-dashed pl-thin" d="M442.7 382.4L521.3 187.6"/>
+  <path class="pl-edge" d="M388.8 333.4L447.6 185.8"/>
+  <path class="pl-edge pl-edge--key" d="M469 389.2L545.2 201.2"/>
+  <circle class="pl-ground" cx="482" cy="385.48" r="3"/>
+  <circle class="pl-ground" cx="482" cy="380.81" r="3"/>
+  <circle class="pl-ground" cx="482" cy="376.15" r="3"/>
+  <circle class="pl-ground" cx="482" cy="371.5" r="3"/>
+  <circle class="pl-ground" cx="482" cy="366.86" r="3"/>
+  <circle class="pl-ground" cx="482" cy="362.23" r="3"/>
+  <circle class="pl-ground" cx="482" cy="357.61" r="3"/>
+  <circle class="pl-ground" cx="482" cy="353" r="3"/>
+  <circle class="pl-ground" cx="482" cy="348.4" r="3"/>
+  <circle class="pl-ground" cx="482" cy="343.81" r="3"/>
+  <circle class="pl-ground" cx="482" cy="339.22" r="3"/>
+  <circle class="pl-ground" cx="482" cy="334.65" r="3"/>
+  <circle class="pl-ground" cx="482" cy="330.09" r="3"/>
+  <circle class="pl-ground" cx="482" cy="325.54" r="3"/>
+  <circle class="pl-ground" cx="482" cy="321" r="3"/>
+  <circle class="pl-ground" cx="482" cy="316.46" r="3"/>
+  <circle class="pl-ground" cx="482" cy="311.94" r="3"/>
+  <circle class="pl-ground" cx="482" cy="307.43" r="3"/>
+  <circle class="pl-ground" cx="482" cy="302.92" r="3"/>
+  <circle class="pl-ground" cx="482" cy="298.43" r="3"/>
+  <circle class="pl-ground" cx="482" cy="293.94" r="3"/>
+  <circle class="pl-ground" cx="482" cy="289.47" r="3"/>
+  <circle class="pl-ground" cx="482" cy="285" r="4.4"/>
+  <circle class="pl-ground" cx="482" cy="280.54" r="3"/>
+  <circle class="pl-ground" cx="482" cy="276.09" r="3"/>
+  <circle class="pl-ground" cx="482" cy="271.66" r="3"/>
+  <circle class="pl-ground" cx="482" cy="267.23" r="3"/>
+  <circle class="pl-ground" cx="482" cy="262.81" r="3"/>
+  <circle class="pl-ground" cx="482" cy="258.39" r="3"/>
+  <circle class="pl-ground" cx="482" cy="253.99" r="3"/>
+  <circle class="pl-ground" cx="482" cy="249.6" r="3"/>
+  <circle class="pl-ground" cx="482" cy="245.21" r="3"/>
+  <circle class="pl-ground" cx="482" cy="240.84" r="3"/>
+  <circle class="pl-ground" cx="482" cy="236.47" r="3"/>
+  <circle class="pl-ground" cx="482" cy="232.11" r="3"/>
+  <circle class="pl-ground" cx="482" cy="227.76" r="3"/>
+  <circle class="pl-ground" cx="482" cy="223.42" r="3"/>
+  <circle class="pl-ground" cx="482" cy="219.09" r="3"/>
+  <circle class="pl-ground" cx="482" cy="214.77" r="3"/>
+  <circle class="pl-ground" cx="482" cy="210.46" r="3"/>
+  <circle class="pl-ground" cx="482" cy="206.15" r="3"/>
+  <circle class="pl-ground" cx="482" cy="201.85" r="3"/>
+  <circle class="pl-ground" cx="482" cy="197.57" r="3"/>
+  <circle class="pl-ground" cx="482" cy="193.29" r="3"/>
+  <circle class="pl-ground" cx="482" cy="189.02" r="3"/>
+  <circle class="pl-ground" cx="482" cy="184.75" r="3"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="385.48" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="380.81" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="376.15" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="371.5" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="366.86" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="362.23" r="1.7"/>
+  <circle class="pl-dot pl-dot--open pl-thin" cx="482" cy="357.61" r="1.7"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="353" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="348.4" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="343.81" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="339.22" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="334.65" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="330.09" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="325.54" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="321" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="316.46" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="311.94" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="307.43" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="302.92" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="298.43" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="293.94" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="289.47" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="285" r="2.9"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="280.54" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="276.09" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="271.66" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="267.23" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="262.81" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="258.39" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="253.99" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="249.6" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="245.21" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="240.84" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="236.47" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="232.11" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="227.76" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="223.42" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="219.09" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="214.77" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="210.46" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="206.15" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="201.85" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="197.57" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="193.29" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="189.02" r="1.85"/>
+  <circle class="pl-dot pl-dot--key" cx="482" cy="184.75" r="1.85"/>
+  <circle class="pl-ring" cx="482" cy="285" r="105"/>
+  <text class="pl-text" x="482" y="414" text-anchor="middle">×64</text>
+</svg>

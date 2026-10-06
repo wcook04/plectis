@@ -7,8 +7,8 @@
 
    - [data-explorer-fullscreen] asks the browser for full screen on the
      explorer and keeps the button's label and aria-pressed true to the
-     browser's actual state. Where full screen is unavailable the button
-     hides; the explorer already fills the window.
+     browser's actual state. Where native full screen is unavailable, the
+     same button expands the explorer within the window and Escape exits.
    - [data-explorer-fit] and [data-explorer-zoom="in"|"out"] dispatch
      "explorer:fit" and "explorer:zoom" (detail.direction = 1 | -1) on the
      [data-explorer] element, which the engine handles.
@@ -30,9 +30,14 @@
   // Full screen ------------------------------------------------------------
   var fsButtons = Array.prototype.slice.call(root.querySelectorAll("[data-explorer-fullscreen]"));
   var fsEnabled = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  var windowMode = false;
+  // Keep the drawing in its existing ancestor/compositing tree. Promoting
+  // only the nested SVG/canvas frame can produce a black native surface.
+  var fullscreenHost = document.documentElement;
   function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
   function syncFs() {
-    var on = fsElement() === root;
+    var on = windowMode || fsElement() === fullscreenHost || fsElement() === root;
+    document.documentElement.classList.toggle("is-map-fullscreen", on);
     root.classList.toggle("is-fullscreen", on);
     fsButtons.forEach(function (b) {
       b.setAttribute("aria-pressed", on ? "true" : "false");
@@ -41,24 +46,40 @@
       if (label) label.textContent = text; else b.setAttribute("aria-label", text);
       b.title = on ? "Exit full screen (Esc)" : "Full screen";
     });
+    requestAnimationFrame(function () { fire("explorer:resize"); });
   }
   fsButtons.forEach(function (b) {
-    if (!fsEnabled) { b.hidden = true; return; }
+    b.hidden = false;
     b.addEventListener("click", function () {
+      if (windowMode) { windowMode = false; syncFs(); return; }
       if (fsElement()) {
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        var exit = document.exitFullscreen || document.webkitExitFullscreen;
+        try {
+          var done = exit.call(document);
+          if (done && done.catch) done.catch(syncFs);
+        } catch (err) { syncFs(); }
         return;
       }
-      var req = root.requestFullscreen || root.webkitRequestFullscreen;
+      function expandWindow() { windowMode = true; syncFs(); }
+      var req = fullscreenHost.requestFullscreen || fullscreenHost.webkitRequestFullscreen;
+      if (!fsEnabled || !req) { expandWindow(); return; }
       try {
-        var p = req.call(root);
-        if (p && typeof p.catch === "function") p.catch(function () { syncFs(); });
-      } catch (err) { syncFs(); }
+        var p = req.call(fullscreenHost);
+        if (p && typeof p.catch === "function") p.catch(expandWindow);
+      } catch (err) { expandWindow(); }
     });
   });
   document.addEventListener("fullscreenchange", syncFs);
   document.addEventListener("webkitfullscreenchange", syncFs);
   syncFs();
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && windowMode) {
+      windowMode = false;
+      syncFs();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
 
   // Fit and zoom -------------------------------------------------------------
   root.addEventListener("click", function (ev) {
@@ -94,7 +115,10 @@
   root.addEventListener("explorer:selected", function () {
     if (window.matchMedia("(max-width: 899px)").matches) showView("details");
   });
-  showView(root.getAttribute("data-explorer-shown") || "map");
+  // An exact result URL already chooses its reading. Show the panel before
+  // deferred graph data arrives, so return focus and new input can resolve.
+  var exactResult = root.getAttribute("data-explorer") === "universe" && /^#o=.+/.test(location.hash);
+  showView(root.getAttribute("data-explorer-shown") || (exactResult ? "details" : "map"));
 
   // Stage size ----------------------------------------------------------------
   var stage = root.querySelector(".explorer__stage");

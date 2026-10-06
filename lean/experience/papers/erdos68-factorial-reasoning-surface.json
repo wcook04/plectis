@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos68-factorial-reasoning-surface",
-  "title": "Factorial Linear Forms and Denominators Detailed Proofs and Rationality Criteria",
+  "title": "Factorial Linear Forms and Denominators: Detailed Proofs and Rationality Criteria",
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Reasoning surface",
@@ -45,8 +45,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d81a646d472fe53ba56ea9683bf62a51377fd45c00f951730b57104c3dd1e879",
-    "html_exact_tex_sha256": "0ff5857d31b7ffac14fd47bf005ddc191295b8ed0c13693acb6fbdde9e9fecdf"
+    "html_mathml_sha256": "4b7cae52cfa92adfbeb88faf3dd4370f1eed22558b6ab61d5c3bae6596d466e0",
+    "html_exact_tex_sha256": "de6cf737add0d423dbd3c4e3993b7b5a601a94cf461fa8a57dffd4074b013027"
   },
   "sections": [
     {

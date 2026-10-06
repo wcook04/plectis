@@ -98,22 +98,34 @@
   --paper-font: clamp(1.125rem, 0.90625rem + 0.3125vw, 1.3125rem);
   --paper-measure: calc(var(--paper-font) * 38);
 }
-/* A manuscript page takes a wider frame than the docs' 1320px cap: the cap
-   held the main column to 800px on every laptop and monitor. The grid gap
-   already separates the text from the sidebars, so the wrap drops its own
-   24px gutters there instead of doubling them. */
-.docs-layout.maths-layout:has(.paper-stage) { width: min(1560px, calc(100% - 40px)); }
+/* ---- One reading frame (6 October 2026) --------------------------------
+   Every maths page with the sidebar (the overview, the problem pages, the
+   papers and the guides) sits in one frame, and the site header lines up
+   with it. The overview used to keep the docs' 1320px cap while a manuscript
+   took 1560px, so the sidebar, the wordmark and the first line of text all
+   moved sideways between the overview and the paper it links to. The frame
+   is the manuscript's, kept because the 1320px cap held the main column to
+   800px on every laptop and monitor. The grid gap already separates the text
+   from the sidebars, so the wrap drops its own 24px gutters there instead of
+   doubling them, and every page's text starts on the same edge.
+   The sidebar widens with the screen to 258px, where every problem's number
+   and name fit on one line; the margin contents keep 220px. */
+body:has(.maths-layout) { --maths-frame: min(1560px, calc(100% - 40px)); --maths-nav-w: clamp(220px, 18vw, 258px); }
+.docs-layout.maths-layout,
+body:has(.maths-layout) .docs-topbar__inner { width: var(--maths-frame); }
 @media (min-width: 769px) {
-  .maths-layout:has(.paper-stage) .docs-main { --gutter: 0px; }
+  .maths-layout .docs-main { --gutter: 0px; }
 }
 @media (min-width: 1281px) {
-  .maths-layout:has(.docs-toc) { grid-template-columns: 220px minmax(0, 1fr) 220px; }
+  .maths-layout { grid-template-columns: var(--maths-nav-w) minmax(0, 1fr) 220px; }
   .maths-layout .docs-toc { grid-column: 3; grid-row: 1; }
 }
 @media (max-width: 1280px) { .maths-layout .docs-toc { display: none; } }
-/* With the margin contents hidden, its empty 208px track went too. */
+/* With the margin contents hidden, its empty track went too, and the sidebar
+   takes its full width so no problem's name wraps. */
 @media (min-width: 1081px) and (max-width: 1280px) {
-  .maths-layout { grid-template-columns: 244px minmax(0, 1fr); }
+  body:has(.maths-layout) { --maths-nav-w: 258px; }
+  .maths-layout { grid-template-columns: var(--maths-nav-w) minmax(0, 1fr); }
 }
 .maths-layout .docs-sidebar {
   top: var(--topbar-h);
@@ -218,19 +230,20 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
   max-width: var(--measure-note);
   margin: 0 0 var(--space-3);
 }
-.maths-hero__starts {
+/* The ways to work with the corpus, at the foot of the overview. */
+.maths-starts {
   list-style: none;
   padding: 0;
-  margin: 0 0 var(--space-4);
-  max-width: var(--measure-note);
+  margin: 0 0 var(--space-5);
+  max-width: var(--hero-measure, var(--measure-note));
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
-.maths-hero__starts li {
+.maths-starts li {
   color: var(--ink-soft);
   line-height: var(--lh-body);
 }
-.maths-hero__starts strong {
+.maths-starts strong {
   color: var(--ink);
 }
 .maths-hero__boundary {
@@ -310,13 +323,11 @@ a.brand-ladder--home:focus-visible { outline: 2px solid var(--accent); outline-o
    join it follows the problem list in a quieter voice under a hairline. */
 .reading-index { --hero-measure: 42rem; }
 .reading-index .maths-hero__lede,
-.reading-index .maths-hero__starts,
 .maths-hero__map,
 .maths-hero__about { max-width: var(--hero-measure); }
 /* The lede is set larger than the blocks beside it, so on their shared
    measure it ran to 88 characters; at 32em it keeps to about 75. */
 .reading-index .maths-hero__lede { margin-bottom: var(--space-5); max-width: min(var(--hero-measure), 32em); }
-.reading-index .maths-hero__starts { margin: 0 0 var(--space-5); gap: var(--space-3); }
 .maths-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -756,6 +767,21 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin-top: var(--space-4);
 }
 .dossier-head__actions .btn { font-size: var(--fs-meta); padding: 0.5rem 0.9rem; }
+/* The plates open the page under its head (6 October 2026): each a computed
+   figure of one strongest result, with the caption the landing gives it and
+   the mathematician's reading under it. The drawing keeps the papers page's
+   frontispiece scale; the reading keeps the page's measure. */
+.problem-plates { margin: 0 0 var(--space-6); }
+.problem-plate { margin: 0 0 var(--space-6); }
+.problem-plate:last-child { margin-bottom: 0; }
+.problem-plate__drawing { width: min(100%, 34rem); }
+.problem-plate__caption { max-width: var(--measure-note); margin-top: var(--space-3); }
+.problem-plate__lead {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif); font-size: 1.02rem; line-height: 1.55;
+  color: var(--ink-soft); text-wrap: pretty;
+}
+.problem-plate__reading { margin: 0; color: var(--ink-soft); line-height: 1.62; text-wrap: pretty; }
 
 .dossier-section { margin: var(--space-6) 0; }
 .dossier-section > h2 {
@@ -956,35 +982,28 @@ html:not(.scripting) .universe-nojs { display: block; }
 .authority-card p { margin: 0.3rem 0; }
 .authority-card b { font-weight: 600; }
 
-/* What the paper is authority for, the authorship and AI-use disclosure and
-   the citation note: one quiet panel under the précis, every word intact, in
-   caption type so it qualifies the paper without standing in front of it. */
-.paper-notes {
-  max-width: var(--paper-measure, 42rem);
-  margin: 0 0 var(--space-6);
-  padding: var(--space-3) 0 0 var(--space-5);
-  border-top: 1px solid var(--rule);
-  font-size: var(--fs-meta);
-  line-height: 1.6;
-  color: var(--muted);
-}
-.paper-notes b { font-weight: 600; color: var(--ink-soft); }
-.paper-notes .authority-card {
+/* What the paper is and is not authority for stays with the précis (6 October
+   2026): it governs how every result below is read, so it is in reading type,
+   not caption type. Authorship, AI use and the citation note moved to the
+   foot ("About this paper"), named by a link in the byline. */
+.paper-precis .paper-scope {
   border: 0;
   border-radius: 0;
   background: none;
   padding: 0;
-  margin: 0;
+  margin: var(--space-3) 0 0;
   max-width: none;
-  font-size: inherit;
 }
-.paper-notes .authority-card p { margin: 0; }
-.paper-notes .authority-card p + p { margin-top: var(--space-1); }
-.paper-notes > p.note { margin: var(--space-3) 0 0; }
-/* Caption type sets narrow: the shared measure ran these notes past 90
-   characters a line. */
-.paper-notes p { max-width: 62ch; }
-@media (max-width: 768px) { .paper-notes { padding-left: 0; } }
+.paper-precis .paper-scope p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 66ch;
+}
+.paper-precis .paper-scope p + p { margin-top: var(--space-1); }
+.paper-precis .paper-scope b { font-weight: 600; color: var(--ink-soft); }
 
 /* The rendered manuscript. Pandoc emits section.levelN wrappers.
    Set like a journal page: a serif measure of about 68 characters, an
@@ -1968,6 +1987,11 @@ html:not(.scripting) .universe-nojs { display: block; }
   scrollbar-width: thin;
 }
 .docs-toc a.toc-l3 { padding-left: 1.6rem; font-size: var(--fs-small); }
+/* The margin contents is navigation a reader uses, not a caption: it takes
+   the sidebar's type size, one step down for nested sections. */
+.maths-layout .docs-toc a { font-size: 0.9rem; }
+.maths-layout .docs-toc a.toc-l3,
+.maths-layout .docs-toc a.toc-l4 { font-size: var(--fs-meta); }
 
 /* ---- Pandoc table alignment classes ---------------------------------------
    The experience builder converts LaTeX/Pandoc inline alignment styles into
@@ -2068,6 +2092,12 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--muted);
   margin: 0 0 var(--space-3);
 }
+/* The paper's record: authorship and AI use, citation, the manuscript, the
+   rendered source. Reading type, quieter in colour, at the notes' measure. */
+.paper-foot__title { font-family: var(--font-serif); font-size: 1.35rem; margin: 0 0 var(--space-3); }
+.paper-foot > p.note { margin: 0 0 var(--space-3); max-width: 62ch; font-size: var(--fs-body); line-height: 1.6; color: var(--muted); }
+.paper-foot > p.note b { font-weight: 600; color: var(--ink-soft); }
+.paper-foot > p.note + .paper-foot__label { margin-top: var(--space-5); }
 .maths-receipt--inline { margin-top: var(--space-4); }
 
 /* ---- Small screens ------------------------------------------------------- */
@@ -2094,9 +2124,16 @@ html:not(.scripting) .universe-nojs { display: block; }
 /* Problem rows share one shape: number and title, the question, an optional
    note in a quieter line, then the reading routes. */
 .problem-section { margin: var(--space-4) 0 0; }
-/* The rows keep the hero's measure, so a question never runs the width of
-   a monitor and the rules between rows end where the text does. */
-.problem-directory, .reading-index .reading-shelf { max-width: 40rem; }
+/* Two widths inside the frame (6 October 2026): prose keeps the reading
+   measure, and what a reader scans (the problems, the papers, the map preview
+   and the guides) shares one wider index track. A question still never runs
+   the width of a monitor: each row's text keeps its own measure inside it. */
+.reading-index { --index-measure: 48rem; }
+.problem-directory,
+.reading-index .reading-shelf,
+.reading-index .fact-list,
+.reading-index .universe-teaser,
+.reading-index > .maths-receipt { max-width: var(--index-measure); }
 .reading-index .dossier-section > p { max-width: 62ch; }
 .problem-section__head { margin: 0 0 var(--space-4); }
 .problem-section__head h2 { font-family: var(--font-serif); font-size: 1.45rem; margin: 0 0 var(--space-1); }
@@ -2110,22 +2147,37 @@ html:not(.scripting) .universe-nojs { display: block; }
 .problem-entry__title > span { color: var(--muted); font-variant-numeric: tabular-nums; }
 .problem-entry > p { margin: .5rem 0 0 5.5rem; max-width: 65ch; }
 .problem-entry__question { color: var(--ink-soft); }
-.problem-entry__note { color: var(--muted); font-size: var(--fs-meta); line-height: var(--lh-body); }
+/* A note qualifies the question above it (what is proved, what stays open),
+   so it is set in reading type, quieter in colour only. */
+.problem-entry__note { color: var(--muted); font-size: var(--fs-body); line-height: var(--lh-body); }
 .problem-entry__note strong { font-weight: 600; color: var(--ink-soft); }
 .problem-entry__links {
   display: flex;
   flex-wrap: wrap;
-  gap: .35rem 1.4rem;
-  margin: .75rem 0 0 5.5rem;
-  font-size: var(--fs-meta);
+  gap: .1rem 1.4rem;
+  margin: .6rem 0 0 5.5rem;
+  font-size: var(--fs-body);
 }
-.reading-next, .problem-jumps { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--u-edge); }
+/* Each route is a full-height target; the short paper leads. */
+.problem-entry__links a { padding-block: .2rem; }
+.problem-entry__links a:first-child { font-weight: 600; }
+.problem-jumps { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--u-edge); }
 .reading-shelf li { padding: 0.85rem 0; border-bottom: 1px solid var(--u-edge); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; align-items: center; }
 .reading-shelf li > a:first-child { flex: 1 1 100%; }
 .reading-shelf__title { flex: 1 1 18rem; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
 .reading-shelf__title small { color: var(--muted); font-size: var(--fs-small); }
 .reading-shelf li > p { flex: 1 1 100%; margin: 0; max-width: 65ch; color: var(--ink-soft); }
 .reading-shelf .btn { font-size: var(--fs-small); padding: 0.3rem 0.7rem; }
+/* The guides are single links, so on a wide screen they set in two columns
+   instead of eleven full-width rules. */
+@media (min-width: 900px) {
+  .reading-index #documents .fact-list,
+  .reading-index #reference .fact-list { columns: 2; column-gap: 2.5rem; }
+  .reading-index #documents .fact-list li,
+  .reading-index #reference .fact-list li { break-inside: avoid; }
+}
+/* The overview closes on how to take part, then who made it and how to cite. */
+.maths-closing .maths-hero__about { margin-bottom: 0; }
 
 /* A folded section on the overview reads as a section: its summary takes the
    same serif heading as the open sections around it, with a small chevron. */
@@ -2267,6 +2319,36 @@ body.has-viewback:has(.maths-layout) .viewback {
     height: calc(100dvh - var(--topbar-h));
   }
 }
+/* Where the sidebar stays on screen the pill is part of it (6 October 2026):
+   it sits on the frame's left edge, exactly as wide as the sidebar, in the
+   space the sidebar keeps free above its first heading. Every maths page has
+   the same frame, so a second press still lands on the same spot. Docked in
+   its own space it covers no text, so it keeps its label while the reader
+   scrolls instead of folding to a bare arrow, and the page names itself in a
+   few words (h1[data-page-name], read by docs.js) so the label wraps rather
+   than trails off. */
+@media (min-width: 1081px) {
+  body.has-viewback:has(.maths-layout) .viewback,
+  body.has-viewback:has(.maths-layout) .viewback.is-folded:not(:hover):not(:focus-visible) {
+    left: max(20px, calc((100vw - 1560px) / 2));
+    width: var(--maths-nav-w);
+    min-width: 0;
+    max-width: none;
+    height: auto;
+    gap: 0.45rem;
+    padding: 0.5rem 0.9rem 0.5rem 0.8rem;
+    justify-content: flex-start;
+    border-radius: 1.25rem;
+  }
+  body.has-viewback:has(.maths-layout) .viewback .viewback__label,
+  body.has-viewback:has(.maths-layout) .viewback.is-folded:not(:hover):not(:focus-visible) .viewback__label {
+    display: inline;
+    white-space: normal;
+    overflow: visible;
+    max-width: none;
+    line-height: 1.3;
+  }
+}
 @media (max-width: 768px) {
   body.has-viewback:has(.maths-layout) .viewback {
     top: auto;
@@ -2383,6 +2465,9 @@ body.has-viewback:has(.maths-layout) .viewback {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+.paper-chapter-nav { display: flex; flex-wrap: wrap; gap: .6em 1.2em; margin: 1.3em 0; font: .9rem/1.5 var(--font-sans); }
+.paper-chapter-link { margin: .7em 0; }
 
 /* ---- Long manuscripts: lay out only what is on screen ---------------------
    The long records arrive as two and a half megabytes of prerendered
@@ -2526,8 +2611,10 @@ html:not(.scripting) .maths-layout a.narrative-ref--term {
 .universe-explorer.is-reading .explorer__lede { display: none; }
 .universe-explorer.is-reading .universe-rest { display: none; }
 
+/* The preview layer spans the whole panel, so nothing of the card under it
+   shows at its edge; its words keep the panel's measure. */
 .universe-explorer .universe-inspector,
-.universe-preview { max-width: 62ch; }
+.universe-preview > * { max-width: 62ch; }
 .universe-summary {
   margin: 0.15rem 0 0.8rem; max-width: 52ch;
   font-size: 1rem; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
@@ -2751,7 +2838,7 @@ html:not(.scripting) .universe-explorer .universe-show { display: none; }
    displayed formulae and its Lean statements need the measure, and the
    ring, which fills the stage's height on every laptop and monitor, gives
    up nothing for it. */
-.universe-explorer { --explorer-panel: clamp(360px, 31vw, 560px); }
+.universe-explorer { --explorer-panel: clamp(360px, 22vw + 130px, 660px); }
 /* A closer view brings marks into the corners, so the key steps aside
    while the reader explores and returns with Fit. */
 .universe-explorer .explorer__legend.universe-marks {
@@ -2781,3 +2868,400 @@ html:not(.scripting) .universe-explorer .universe-show { display: none; }
 .universe-explorer .universe-result__label { white-space: normal; overflow: visible; text-overflow: clip; text-wrap: pretty; }
 .universe-explorer .universe-result .glyph, .universe-explorer .universe-result .dot { margin-top: 0.35em; }
 .universe-explorer .universe-index code { overflow-wrap: normal; word-break: normal; }
+
+/* ---- The universe reader's states (6 October 2026) --------------------------
+   The panel says which of two things it is showing. A card the pointer only
+   rests on is a preview: it covers the whole panel (the page underneath is
+   kept exactly as the reader left it) and says "Preview" where a kept card
+   has its Back or Close. A kept card turns the panel's edge toward the map
+   ember, as the landing's column turns its rule ember when it holds a
+   result, so what is held reads as held from across the window. */
+.universe-preview { max-width: none; }
+.universe-inspector__head--preview { align-items: baseline; }
+.universe-preview__tag {
+  flex: none; margin-left: auto;
+  font-size: var(--fs-small); line-height: 1.3; letter-spacing: 0.02em;
+  color: var(--faint);
+}
+.universe-explorer .explorer__panel {
+  transition: border-color 220ms var(--ease-out, ease-out);
+}
+.universe-explorer.is-reading .explorer__panel {
+  border-right-color: color-mix(in oklab, var(--home-ember) 62%, var(--home-line-strong));
+}
+@media (max-width: 899px) {
+  .universe-preview__tag { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .universe-explorer .explorer__panel { transition: none; }
+}
+
+/* ---- The universe reader as a page (7 October 2026) ------------------------
+   Once something is kept, the map's own title gives way (the crumbs above
+   it still say where the reader is) and the kept object's title leads. A
+   kept result reads down the panel as a page of an edition: its problem as
+   a running head; one folio line with the way through its paper and the
+   way back, quiet and always in the same place, so stepping through a
+   paper never hunts for its buttons; the title; where it is stated and how
+   far it is checked, in one line; then the statement on the panel's own
+   ground behind one fine ember rule, the largest uninterrupted thing in
+   the panel. Status keeps its glyph and words, never its colour alone. */
+.universe-explorer.is-reading .explorer__title {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.universe-explorer.is-reading .universe-find { margin-top: 0; }
+.universe-explorer .universe-context { margin: 0 0 0.35rem; padding: 0; border-bottom: 0; }
+.universe-explorer .universe-folio {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  margin: 0 0 1rem; padding: 0 0 0.45rem; border-bottom: 1px solid var(--home-line);
+}
+.universe-folio__room { flex: 1 1 auto; }
+.universe-folio .universe-step {
+  flex: 0 1 auto; justify-content: flex-start; gap: 0.1rem;
+  margin: 0 0 0 -0.5rem; padding: 0; border: 0; border-radius: 0; background: none;
+}
+.universe-folio .universe-step__btn {
+  min-height: 32px; padding: 0.2rem 0.5rem; font-size: var(--fs-meta);
+  color: var(--muted); background: none; border-color: transparent;
+}
+.universe-folio .universe-step__btn:hover:not([disabled]) { color: var(--ink); border-color: var(--home-line-strong); }
+.universe-folio .universe-step__btn[disabled] { opacity: 0.32; }
+.universe-folio .universe-step__at { min-width: 6.2rem; gap: 3px; color: var(--muted); }
+.universe-folio .universe-step__knock { stroke: var(--page); }
+.universe-folio .universe-inspector__clear { flex: none; }
+.universe-explorer .universe-inspector .universe-inspector__title {
+  margin-bottom: 0.4rem; font-size: 1.7rem; line-height: 1.14; letter-spacing: -0.008em;
+}
+.universe-explorer .universe-result__where {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 1rem;
+  margin: 0 0 1.15rem; color: var(--muted);
+}
+.universe-result__where .universe-chip,
+.universe-result__where .universe-chip--replayed,
+.universe-result__where .universe-chip--lean {
+  margin: 0; padding: 0; border: 0; border-radius: 0; background: none;
+  font-size: inherit; color: var(--ink-soft); white-space: nowrap;
+}
+.universe-explorer .universe-inspector .universe-quote { margin: 0 0 1.25rem; }
+.universe-explorer .universe-inspector .universe-quote__text {
+  padding: 0.1rem 0 0.15rem 1.1rem; background: none; border-radius: 0;
+  border-left: 1px solid color-mix(in oklab, var(--home-ember) 62%, transparent);
+  font-size: 1.125rem; line-height: 1.64;
+}
+.universe-explorer .universe-inspector .universe-quote__from { margin: 0 0 0.55rem; }
+.universe-explorer .universe-inspector .universe-quote__go { margin-top: 0.9rem; }
+/* Two papers' statements: a row of quiet tabs, the chosen one underlined
+   in ember, and the reason there are two said before them. */
+.universe-explorer .universe-quote__tabs { align-items: baseline; gap: 0.15rem 0.6rem; margin: 0 0 0.6rem; }
+.universe-quote__twins { color: var(--faint); font-size: var(--fs-small); margin-right: 0.15rem; }
+/* A narrower panel keeps the two tabs on one line; the tab list's name says why there are two. */
+@media (max-width: 1279px) { .universe-quote__twins { display: none; } }
+.universe-explorer .universe-quote__tab {
+  min-height: 30px; padding: 0.2rem 0.1rem; font-size: var(--fs-small);
+  background: none; border: 0; border-bottom: 1px solid transparent; border-radius: 0;
+}
+.universe-explorer .universe-quote__tab:hover { border-bottom-color: var(--home-line-strong); }
+.universe-explorer .universe-quote__tab[aria-selected="true"] {
+  color: var(--ink); background: none; border-bottom-color: var(--home-ember);
+}
+/* A claim's notation, set on the card: indices sit on the line's own lead. */
+.universe-inspector__title sub, .universe-inspector__title sup,
+.universe-inspector__body sub, .universe-inspector__body sup,
+.universe-inspector__boundary sub, .universe-inspector__boundary sup { font-size: 0.74em; line-height: 0; }
+@media (min-width: 1800px) {
+  .universe-explorer .universe-inspector .universe-inspector__title { font-size: 1.85rem; }
+  .universe-explorer .universe-inspector .universe-quote__text { font-size: 1.1875rem; }
+}
+
+/* ---- The page refers to the figure (7 October 2026) -------------------------
+   A kept result's references (where it is stated, its counterpart in the
+   other paper, Comparator's replay, Palomar's corpus) identify their
+   relation on the map when rested on or focused. They carry one quiet mark
+   of that: a dotted rule under inline words, and a held row warms to the
+   map's ember, so a reader can see which words the figure answers. */
+.universe-explorer .universe-result__place[data-universe-refer] {
+  text-decoration: underline dotted; text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in oklab, var(--muted) 60%, transparent);
+  text-underline-offset: 0.24em;
+}
+.universe-explorer .universe-result__place.is-referred { color: var(--ink); text-decoration-color: var(--home-ember); }
+.universe-explorer .universe-check[data-universe-refer] {
+  border-radius: var(--r-sm);
+  transition: background-color 160ms var(--ease-out, ease-out), box-shadow 160ms var(--ease-out, ease-out);
+}
+.universe-explorer .universe-check.is-referred {
+  background: color-mix(in oklab, var(--home-ember) 8%, transparent);
+  box-shadow: 0 0 0 0.4rem color-mix(in oklab, var(--home-ember) 8%, transparent);
+}
+.universe-explorer .universe-quote__tab.is-referred:not([aria-selected="true"]) { color: var(--ink); border-bottom-color: var(--home-line-strong); }
+/* A claim's assertion reads as a statement: the paper results' serif and
+   measure behind the same fine rule, upright, since a claim is not quoted
+   from a paper's theorem. */
+.universe-explorer .universe-inspector .universe-claim__statement {
+  margin: 0.2rem 0 1.15rem; padding: 0.1rem 0 0.15rem 1.1rem;
+  border-left: 1px solid color-mix(in oklab, var(--home-ember) 62%, transparent);
+  font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.64; color: var(--ink);
+  text-wrap: pretty;
+}
+/* A run of relations too wide for the measure, stacked on its signs. */
+.universe-quote__text mtable.universe-stack > mtr > mtd { padding: 0.14em 0; }
+.universe-quote__text mtable.universe-stack > mtr > mtd:first-child:not(.universe-stack__lhs) { padding-right: 0.9em; }
+.universe-quote__text .universe-stack__lhs { text-align: right; }
+.universe-quote__text .universe-stack__rhs { text-align: left; }
+.universe-explorer .universe-quote__text .math-display.is-wide { scrollbar-color: color-mix(in oklab, var(--home-ember) 70%, transparent) transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .universe-explorer .universe-check[data-universe-refer] { transition: none; }
+}
+
+/* ---- The universe reader's type (6 October 2026) ----------------------------
+   Each kind of reading has its own size: the chosen object's title is read
+   first and stands a step larger; a quoted statement, the mathematics the
+   card exists to show, is set a little above body size so its formulae read
+   at the paper's own scale; the lists and asides keep their smaller steps,
+   so a long index stays quick to scan. Where the panel is wide (a monitor),
+   the title and the statement take one more step. */
+.universe-explorer .universe-inspector__title,
+.universe-preview .universe-inspector__title { font-size: 1.5rem; line-height: 1.18; }
+.universe-explorer .universe-quote__text { font-size: 1.0625rem; line-height: 1.62; }
+@media (min-width: 1800px) {
+  .universe-explorer .universe-inspector__title,
+  .universe-preview .universe-inspector__title { font-size: 1.62rem; }
+  .universe-explorer .universe-quote__text,
+  .universe-explorer .universe-question,
+  .universe-explorer .universe-precis { font-size: 1.125rem; }
+}
+
+/* ---- The overview as a folio (6 October 2026) ---------------------------
+   The overview is the collection's opening, not a manual page: the maths
+   navigation lives in the Menu drawer here (body.docs-nav-drawer), and the
+   page takes the whole frame in five movements. An opening sets the title
+   beside one real expression on a plate; the eight programmes follow as a
+   two-column numbered index; then one wide feature, the map, and spreads
+   whose heads sit in the left column and whose text starts on the right
+   column's edge, so every section below the index shares the index's grid.
+   The papers, problem pages and guides keep their sidebars and frame. */
+body.maths-folio .maths-layout--folio { grid-template-columns: minmax(0, 1fr); }
+body.maths-folio .maths-layout--folio .docs-main { padding-top: 0; }
+.maths-layout--folio .docs-main > .wrap.folio { width: 100%; max-width: none; margin-inline: 0; }
+.folio { --folio-gap: clamp(2.5rem, 5vw, 5.5rem); }
+.reading-index.folio .problem-directory,
+.reading-index.folio .reading-shelf,
+.reading-index.folio .fact-list,
+.reading-index.folio .universe-teaser,
+.reading-index.folio > .maths-receipt { max-width: none; }
+
+/* The opening: title and lede on the left, the plate on the right. */
+.reading-index.folio .folio-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6) var(--folio-gap);
+  align-items: center;
+  padding: 2.25rem 0 1.75rem;
+}
+@media (min-width: 1000px) {
+  .reading-index.folio .folio-cover { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+.folio-kicker {
+  margin: 0 0 var(--space-4);
+  color: var(--maths-gold);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.reading-index.folio .folio-cover h1 {
+  font-size: clamp(1.9rem, 1.2rem + 2.7vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-5);
+}
+.reading-index.folio .folio-cover .maths-hero__lede { max-width: 34em; margin-bottom: var(--space-4); }
+/* Each sentence of the title keeps its own line where the column allows. */
+.folio-cover h1 .folio-line { display: inline-block; }
+.reading-index.folio .folio-cover .maths-hero__map { margin: var(--space-3) 0 0; max-width: 40em; font-size: var(--fs-meta); }
+
+/* The plate reverses the page: ivory on the night ground, night on the
+   cream one, flat, with the expression set large in display style. */
+.folio-specimen { margin: 0; min-width: 0; }
+.folio-specimen__plate {
+  display: grid;
+  place-items: center;
+  min-height: clamp(11rem, 18vw, 15rem);
+  padding: clamp(1.75rem, 3.5vw, 3rem) clamp(1rem, 3vw, 2.5rem);
+  background: var(--ink);
+  color: var(--page);
+  border-radius: var(--r-md);
+  font-size: clamp(1.3rem, 0.75rem + 1.45vw, 2.25rem);
+  overflow-x: auto;
+}
+.folio-specimen__plate .math.display { display: block; margin: 0; }
+/* On a phone the widest statement (#243's two conditions) still fits the plate. */
+@media (max-width: 640px) { .folio-specimen__plate { font-size: 1.1rem; padding-inline: 0.6rem; } }
+.folio-specimen__plate mjx-container[display="true"],
+.folio-specimen__plate math[display="block"] { margin: 0; color: inherit; }
+/* One formula per programme. The numbers above the plate are radio
+   buttons, so the choice works without a script and from the keyboard. The
+   slides share one grid cell, so the plate keeps the tallest one's height
+   and the page never moves when the reader picks another problem. */
+.folio-specimen__picks { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0 0 var(--space-3); }
+.folio-specimen__picks label { position: relative; cursor: pointer; }
+.folio-specimen__picks input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.folio-specimen__picks span {
+  display: inline-flex; align-items: center; min-height: 2rem; padding: 0.2rem 0.7rem;
+  border: 1px solid var(--rule-strong); border-radius: 999px;
+  font-family: var(--font-serif); font-size: 0.98rem; color: var(--ink-soft);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.folio-specimen__picks label:hover span { border-color: var(--maths-gold); color: var(--ink); }
+.folio-specimen__picks input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--page); }
+.folio-specimen__picks input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.folio-specimen__slides { display: grid; grid-template-columns: minmax(0, 1fr); }
+.folio-specimen__slide { grid-area: 1 / 1; min-width: 0; visibility: hidden; }
+.folio-specimen__picks:has(label:nth-child(1) input:checked) + .folio-specimen__slides > :nth-child(1),
+.folio-specimen__picks:has(label:nth-child(2) input:checked) + .folio-specimen__slides > :nth-child(2),
+.folio-specimen__picks:has(label:nth-child(3) input:checked) + .folio-specimen__slides > :nth-child(3),
+.folio-specimen__picks:has(label:nth-child(4) input:checked) + .folio-specimen__slides > :nth-child(4),
+.folio-specimen__picks:has(label:nth-child(5) input:checked) + .folio-specimen__slides > :nth-child(5),
+.folio-specimen__picks:has(label:nth-child(6) input:checked) + .folio-specimen__slides > :nth-child(6),
+.folio-specimen__picks:has(label:nth-child(7) input:checked) + .folio-specimen__slides > :nth-child(7),
+.folio-specimen__picks:has(label:nth-child(8) input:checked) + .folio-specimen__slides > :nth-child(8),
+.folio-specimen__picks:has(label:nth-child(9) input:checked) + .folio-specimen__slides > :nth-child(9),
+.folio-specimen__picks:has(label:nth-child(10) input:checked) + .folio-specimen__slides > :nth-child(10) { visibility: visible; }
+/* Without :has the numbers cannot choose, so the first formula stands alone. */
+@supports not selector(:has(*)) {
+  .folio-specimen__picks { display: none; }
+  .folio-specimen__slide:first-child { visibility: visible; }
+}
+.folio-specimen__caption { margin-top: var(--space-4); max-width: 36em; }
+.folio-specimen__label {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.folio-specimen__label span { color: var(--maths-gold); font-variant-numeric: lining-nums tabular-nums; margin-right: 0.3em; }
+.folio-specimen__label:hover { color: var(--accent); }
+.folio-specimen__caption p { margin: var(--space-1) 0 0; color: var(--muted); font-size: var(--fs-base); line-height: var(--lh-body); }
+
+/* The page's contents, one line between the opening and the index. */
+.folio-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1.9rem;
+  padding: 0.75rem 0;
+  margin: 0 0 var(--space-4);
+  border-block: 1px solid var(--rule);
+  font-size: var(--fs-body);
+}
+.folio-nav a { color: var(--ink-soft); padding-block: 0.25rem; text-decoration: none; }
+.folio-nav a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* The eight programmes: two open columns of numbered entries on one grid. */
+.reading-index.folio .problem-section__head h2,
+.reading-index.folio .folio-spread__head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 1.2rem + 0.9vw, 2.1rem);
+  line-height: 1.15;
+  margin: 0 0 var(--space-2);
+}
+.reading-index.folio .problem-section__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1.5rem; margin-bottom: var(--space-3); }
+.reading-index.folio .problem-section__head h2 { margin: 0; }
+.reading-index.folio .problem-section__head .note { font-size: var(--fs-base); }
+@media (min-width: 1000px) {
+  .reading-index.folio .problem-directory {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--folio-gap);
+  }
+}
+.reading-index.folio .problem-entry { padding: 1.4rem 0 1.9rem; }
+.reading-index.folio .problem-entry__title { display: block; }
+.reading-index.folio .problem-entry__title > span {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--maths-gold);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.reading-index.folio .problem-entry__title strong {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--ink);
+}
+.reading-index.folio .problem-entry__title:hover strong { color: var(--accent); }
+.reading-index.folio .problem-entry > p { margin: 0.6rem 0 0; max-width: 32em; }
+.reading-index.folio .problem-entry__question { font-size: 1.125rem; line-height: 1.55; }
+.reading-index.folio .problem-entry__note { font-size: var(--fs-base); }
+.reading-index.folio .problem-entry__links { margin: 0.9rem 0 0; font-size: var(--fs-base); }
+
+/* Spreads: the head on the left column, the text from the right column's
+   edge, the same two columns and gap as the problem index above. */
+.reading-index.folio .folio-spread { margin: var(--space-8) 0 0; padding-top: var(--space-5); border-top: 1px solid var(--rule-strong); }
+.folio-spread__body > :first-child { margin-top: 0; }
+.folio-spread__body > p { max-width: 32em; }
+.folio-spread__action { margin: var(--space-4) 0 var(--space-5); }
+@media (min-width: 1000px) {
+  .reading-index.folio .folio-spread {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--folio-gap);
+  }
+  .reading-index.folio > details.dossier-section,
+  .reading-index.folio > .maths-receipt { margin-left: calc(50% + var(--folio-gap) / 2); }
+}
+.reading-index.folio .folio-spread .maths-hero__about { max-width: none; }
+@media (min-width: 1000px) {
+  .reading-index.folio #documents .fact-list { columns: 2; column-gap: 2rem; }
+  /* A spread's head travels with a long body, so its name stays in view. */
+  .reading-index.folio .folio-spread__head { position: sticky; top: calc(var(--topbar-h) + 1.5rem); align-self: start; }
+}
+
+/* The feature: the paper read across all eight, set as large as a title. */
+.reading-index.folio .folio-feature { border-top: 2px solid var(--ink); }
+.reading-index.folio .folio-feature__papers { margin-top: var(--space-5); }
+.folio-feature__papers li { display: block; padding: 0 0 var(--space-5); border-bottom: 0; }
+.folio-feature__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+  line-height: 1.2;
+  color: var(--ink);
+  text-decoration: none;
+}
+.folio-feature__title:hover { color: var(--accent); }
+.reading-index.folio .folio-feature__papers li > p { margin: var(--space-3) 0 0; max-width: 32em; font-size: 1.0625rem; }
+.folio-feature__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); }
+.folio-feature__actions > a:first-child { font-weight: 600; }
+
+/* The map takes the whole frame. */
+.reading-index.folio .universe-teaser { margin: var(--space-8) 0 0; }
+.reading-index.folio .universe-canvas--teaser { height: clamp(320px, 36vw, 520px); }
+
+/* Papers that no programme entry opens: one quiet line each. */
+.reading-index.folio .paper-shelves > .folio-spread__body > h3 {
+  font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; margin: var(--space-6) 0 var(--space-2);
+}
+.folio-papers { list-style: none; margin: 0; padding: 0; }
+.folio-papers li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.15rem 1rem; padding: 0.7rem 0; border-top: 1px solid var(--u-edge); }
+.folio-papers li:last-child { border-bottom: 1px solid var(--u-edge); }
+.folio-papers__meta { color: var(--muted); font-size: var(--fs-meta); }
+.folio-papers__meta a { margin-left: 0.35rem; font-weight: 600; }
+
+.reading-index.folio > details.dossier-section > summary { font-size: 1.2rem; }
+.reading-index.folio > details.dossier-section { margin-top: var(--space-6); }
+
+/* The way back rests as its arrow at the frame's corner, as on the papers
+   catalogue; pointer or keyboard focus opens its label in place. */
+body.maths-folio.has-viewback:has(.maths-layout) .viewback:not(:hover):not(:focus-visible) {
+  min-width: 0; gap: 0; padding: 0; width: 2.5rem; height: 2.5rem; justify-content: center; border-radius: 999px;
+}
+body.maths-folio.has-viewback:has(.maths-layout) .viewback:not(:hover):not(:focus-visible) .viewback__label { display: none; }
+@media (min-width: 1081px) {
+  body.maths-folio.has-viewback:has(.maths-layout) .viewback:is(:hover, :focus-visible) { width: auto; max-width: 22rem; }
+}
+/* The resting arrow sits above the opening's first line, never on it. */
+body.maths-folio.has-viewback .reading-index.folio .folio-cover { padding-top: 4rem; }

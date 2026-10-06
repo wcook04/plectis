@@ -28,9 +28,9 @@
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/style.css?v=7b3699238f46">
-  <link rel="stylesheet" href="../assets/maths.css?v=1004490ab6b1">
-  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=e01614efda83"></script></template>
+  <link rel="stylesheet" href="../../assets/style.css?v=34ad058b4184">
+  <link rel="stylesheet" href="../assets/maths.css?v=73f5180b2f81">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
   <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
   <script defer src="../assets/maths.js?v=2481459dc144"></script>
   <meta name="author" content="Will Cook">
@@ -94,31 +94,27 @@
       </div>
       <header class="paper-head">
         <p class="paper-head__eyebrow">Short paper</p>
-        <h1>Distinct running least common multiples</h1>
+        <h1 data-page-name="Erdős #269 short paper">Distinct running least common multiples</h1>
         <div class="paper-head__meta">
           <span><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #269</a></span>
           <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
           <span>July 2026; revised 5 October 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
         </div>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF, 17&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex"><span class="btn__format">TeX</span>LaTeX source</a>
           <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
-          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem dossier</a>
+          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem page</a>
         </div>
       </header>
 
       <div class="paper-precis">
         <p><b class="paper-precis__head">Pr&eacute;cis.</b> A five-map argument proves irrationality of the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reciprocal-series" data-term="reciprocal_series" data-term-auto="1">reciprocal sum</a> over distinct <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-running-lcm" data-term="running_lcm" data-term-auto="1">running least common multiples</a> of the 5-smooth integers. The spacing of powers of five separates the tail images, so rationality would force a periodic jump sequence. Counting running LCMs with multiplicity gives a different number, whose irrationality remains open here.</p>
-      </div>
-
-      <div class="paper-notes">
-        <div class="authority-card">
+        <div class="authority-card paper-scope">
           <p><b>This paper owns</b> the five-map proof for distinct running LCMs over {2,3,5}; the long paper treats general prime sets, the sum with multiplicity, kernels and residue criteria.</p>
           <p><b>It is not authority for</b> the validity of claims tagged <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open.</p>
         </div>
-        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
-        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
       </div>
 
       <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="#sec:problem">Two sums from running least common multiples</a><a href="#sec:distinct">Recovering the prime-power jumps</a></nav></div>
@@ -1498,18 +1494,21 @@ author manuscript</a>.</p></li>
 </article>
 
       </div>
-      <div class="paper-foot" aria-label="Other ways to read this paper">
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
         <p class="paper-foot__label">Prefer the manuscript?</p>
         <div class="paper-head__routes">
           <a class="btn btn--primary btn--file" href="../../papers/erdos-269-three-prime-running-lcm.pdf"><span class="btn__format">PDF</span>Open the PDF, 17&nbsp;pages</a>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
-          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem dossier</a>
+          <a class="btn btn--ghost" href="../problems/erdos_269.html">Problem page</a>
         </div>
         <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:0c1f2ec03faab778</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
-      </div>
+      </section>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">Two sums from running least common multiples</a><a class="toc-l2" href="#sec:distinct">Recovering the prime-power jumps</a><a class="toc-l2" href="#sec:lcm">The repeated three-prime sum</a><a class="toc-l2" href="#sec:escape">A residue criterion</a><a class="toc-l2" href="#sec:two-prime">Two-prime transcendence</a><a class="toc-l2" href="#sec:height-identities">Identities for the running LCM and multiplicities</a><a class="toc-l2" href="#sec:rank">The three-prime kernel</a><a class="toc-l2" href="#app:sources">Verification, reproducibility and sources</a><a class="toc-l3" href="#further-comparisons">Further comparisons</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#references">References</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="#sec:problem">Two sums from running least common multiples</a><a class="toc-l2" href="#sec:distinct">Recovering the prime-power jumps</a><a class="toc-l2" href="#sec:lcm">The repeated three-prime sum</a><a class="toc-l2" href="#sec:escape">A residue criterion</a><a class="toc-l2" href="#sec:two-prime">Two-prime transcendence</a><a class="toc-l2" href="#sec:height-identities">Identities for the running LCM and multiplicities</a><a class="toc-l2" href="#sec:rank">The three-prime kernel</a><a class="toc-l2" href="#app:sources">Verification, reproducibility and sources</a><a class="toc-l3" href="#further-comparisons">Further comparisons</a><a class="toc-l3" href="#statements-and-declarations">Statements and declarations</a><a class="toc-l2" href="#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
   </div>
 </body>
 </html>

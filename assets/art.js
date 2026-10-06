@@ -107,12 +107,29 @@
     return doc.querySelector('[data-plait-band]');
   }
 
+  /* A band marked data-plait-band="contained" (the glossary masthead) holds
+     the weave inside its own box rather than across the window, and is
+     painted once with no reveal: the entrance belongs to the landing. */
+  function contained() {
+    var el = stage();
+    return !!el && el.getAttribute('data-plait-band') === 'contained';
+  }
+
   function stageBox() {
     var el = stage();
     if (!el) return null;
     var r = el.getBoundingClientRect();
-    if (r.height < 40) return null;
-    return { top: Math.round(r.top + (window.pageYOffset || 0)), height: Math.round(r.height) };
+    if (r.height < 40 || (contained() && r.width < 160)) return null;
+    return {
+      top: Math.round(r.top + (window.pageYOffset || 0)),
+      left: Math.round(r.left + (window.pageXOffset || 0)),
+      width: Math.round(r.width),
+      height: Math.round(r.height)
+    };
+  }
+
+  function bandWidth(box) {
+    return contained() ? box.width : Math.max(320, root.clientWidth || window.innerWidth);
   }
 
   function stageHeight() {
@@ -149,36 +166,91 @@
      slower-turning threads in each rope, and a shallower drift of the axis.
      The band is a little shorter, so the cables take a larger share of it;
      a longer period with a flatter rope read as ribbon, not cable. */
-  function geometry(W, H) {
+  /* 6 October 2026: the landing's plait is composed, not repeated (Type B
+     art direction, after Anni Albers on stripes set by the structure). Its
+     pitch is no longer constant: the crossing rate is integrated from a
+     frequency that is slow and open at the margins and gathers into one
+     tight knot just right of centre, above the place the atlas begins, where
+     the cables are drawn close and their ropes thicken as a pulled braid
+     does. Fewer, longer interlacings either side, so the eye travels to the
+     knot and on down into the map. Every crossing is still a true over and
+     under. The glossary's contained band keeps the even plait. */
+  var KNOT = 0.585;
+  function geometry(W, H, composed) {
     var narrow = W < 760;
     var swell = function (u) { return Math.sin(Math.PI * Math.max(0, Math.min(1, u))); };
+    var base = Math.max(300, Math.min(540, W * 0.3));
+    var knotW = narrow ? 0.12 : 0.072;
+    var knot = composed
+      ? function (u) { var d = (u - KNOT) / knotW; return Math.exp(-d * d); }
+      : function () { return 0; };
+    /* Crossings per pixel: under half the even plait's rate at the margins,
+       nearly three times it in the knot. The phase is its
+       running integral, tabled at 2px and read back by interpolation. */
+    var freq = composed
+      ? function (u) { return (0.46 + 2.3 * knot(u)) / base; }
+      : function () { return 1 / base; };
+    var lo = -Math.round(base), hi = Math.round(W + base), dx = 2;
+    var table = [0], acc = 0, x;
+    for (x = lo + dx; x <= hi + dx; x += dx) {
+      acc += Math.PI * 2 * dx * freq((x - dx / 2) / W);
+      table.push(acc);
+    }
+    var zero = (function () {
+      var i = Math.floor((0 - lo) / dx), f = ((0 - lo) / dx) - i;
+      return table[i] + (table[i + 1] - table[i]) * f;
+    })();
     return {
       W: W,
       H: H,
-      period: Math.max(300, Math.min(540, W * 0.3)),
+      period: base,
       ropeTwist: Math.max(58, Math.min(92, W * 0.056)),
       strands: narrow ? 9 : 11,
+      lo: lo,
+      hi: hi,
+      phase: function (xx) {
+        var t = (Math.max(lo, Math.min(hi, xx)) - lo) / dx;
+        var i = Math.min(table.length - 2, Math.floor(t)), f = t - i;
+        return table[i] + (table[i + 1] - table[i]) * f - zero;
+      },
       centre: function (u) {
         return H * (0.5 + 0.055 * Math.sin(Math.PI * 2 * (0.7 * u + 0.08)));
       },
       sep: function (u) {
-        return H * (0.145 + 0.075 * swell(u));
+        return composed
+          ? H * (0.24 - 0.155 * knot(u)) * (0.7 + 0.3 * swell(u))
+          : H * (0.145 + 0.075 * swell(u));
       },
       rope: function (u) {
-        return H * (0.058 + 0.032 * swell(u));
+        return composed
+          ? H * (0.044 + 0.018 * swell(u) + 0.028 * knot(u))
+          : H * (0.058 + 0.032 * swell(u));
       }
     };
   }
 
   function cableY(g, x, k) {
     var u = x / g.W;
-    var phi = (Math.PI * 2 * x) / g.period;
-    return g.centre(u) + g.sep(u) * Math.cos(phi + k * Math.PI);
+    return g.centre(u) + g.sep(u) * Math.cos(g.phase(x) + k * Math.PI);
   }
 
   function cableDepth(g, x, k) {
-    var phi = (Math.PI * 2 * x) / g.period;
-    return Math.sin(phi + k * Math.PI);
+    return Math.sin(g.phase(x) + k * Math.PI);
+  }
+
+  /* Where the cables stand furthest apart (phase a multiple of pi): the
+     chunk boundaries, each chunk holding exactly one crossing. */
+  function apexes(g) {
+    var out = [];
+    var m = Math.floor(g.phase(g.lo) / Math.PI);
+    var x = g.lo;
+    out.push(x);
+    for (x = g.lo; x <= g.hi; x += 1) {
+      var n = Math.floor(g.phase(x) / Math.PI);
+      if (n !== m) { out.push(x); m = n; }
+    }
+    out.push(g.hi);
+    return out;
   }
 
   /* Draw one cable's threads between x0 and x1. Opacity follows depth twice:
@@ -330,23 +402,24 @@
   function paintInto(target, W, H, dpr, dark) {
     var c = target.getContext('2d');
     var pal = palette(dark);
-    var g = geometry(W, H);
+    var g = geometry(W, H, !contained());
     c.setTransform(dpr, 0, 0, dpr, 0, 0);
     c.clearRect(0, 0, W, H);
     c.globalCompositeOperation = pal.blend;
     c.lineCap = 'round';
 
     /* Chunks run between the points where the cables are furthest apart, so
-       each chunk holds exactly one crossing and one cable is in front. */
-    var half = g.period / 2;
-    var start = -half;
-    var chunk = 0;
-    while (start < W + half) {
-      var end = start + half;
-      var frontK = chunk % 2 === 0 ? 0 : 1;
+       each chunk holds exactly one crossing and one cable is in front; the
+       front cable alternates, chunk by chunk, as in a true plait. */
+    var cuts = apexes(g);
+    for (var chunk = 0; chunk + 1 < cuts.length; chunk += 1) {
+      // Which cable is in front follows the phase's half-turn, exactly as the
+      // even plait's chunk parity did (its first chunk began at -pi).
+      var m = Math.floor(g.phase((cuts[chunk] + cuts[chunk + 1]) / 2) / Math.PI);
+      var frontK = Math.abs(m) % 2 === 1 ? 0 : 1;
       var backK = 1 - frontK;
-      var x0 = Math.max(-20, start);
-      var x1 = Math.min(W + 20, end);
+      var x0 = Math.max(-20, cuts[chunk]);
+      var x1 = Math.min(W + 20, cuts[chunk + 1]);
       if (x1 > x0) {
         drawCable(c, g, pal, backK, x0, x1, 1);
         drawCore(c, g, pal, backK, x0, x1);
@@ -355,8 +428,6 @@
         drawCable(c, g, pal, frontK, x0, x1, 1);
         drawCore(c, g, pal, frontK, x0, x1);
       }
-      start = end;
-      chunk += 1;
     }
     drawFibres(c, g, pal, 1);
 
@@ -427,7 +498,7 @@
       ctx.drawImage(off, 0, 0);
       return;
     }
-    var g = geometry(W, H);
+    var g = geometry(W, H, !contained());
     var pal = palette(isDark());
     var feather = Math.round(Math.min(240, Math.max(90, W * 0.14)) * dpr);
     var t0 = 0;
@@ -465,16 +536,21 @@
   }
 
   function paint(animate) {
-    if (!wrap && !build()) return;
-    var W = Math.max(320, root.clientWidth || window.innerWidth);
     var box = stageBox();
-    if (!box) return;
+    if (!box) {
+      if (wrap && contained()) teardown();
+      return;
+    }
+    if (!wrap && !build()) return;
+    var W = bandWidth(box);
     var H = box.height;
     lastW = W;
     lastH = H;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     wrap.style.top = box.top + 'px';
     wrap.style.height = H + 'px';
+    wrap.style.left = contained() ? box.left + 'px' : '';
+    wrap.style.width = contained() ? W + 'px' : '';
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     canvas.style.width = W + 'px';
@@ -511,15 +587,22 @@
   /* Late fonts and reflow can move the band without resizing the window, so
      the wrapper follows its top; only a change of size repaints. */
   function follow() {
-    if (!wrap) return;
     var box = stageBox();
-    if (!box) return;
-    var W = root.clientWidth || window.innerWidth;
+    if (!wrap) {
+      if (box && contained()) paint(false);
+      return;
+    }
+    if (!box) {
+      if (contained()) teardown();
+      return;
+    }
+    var W = contained() ? box.width : root.clientWidth || window.innerWidth;
     if (Math.abs(W - lastW) >= 2 || Math.abs(box.height - lastH) >= 4) {
       paint(false);
       return;
     }
     wrap.style.top = box.top + 'px';
+    if (contained()) wrap.style.left = box.left + 'px';
   }
 
   function onResize() {
@@ -534,7 +617,7 @@
 
   function start() {
     if (!stage()) return;
-    paint(true);
+    paint(!contained());
     window.addEventListener('resize', onResize, { passive: true });
     window.addEventListener('load', follow);
     try {

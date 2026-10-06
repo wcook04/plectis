@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en" data-glossary-hint="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Reading Eight Erdős Problems Together · Plectis maths</title>
+  <meta name="description" content="One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial…">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/optimal-sparse-perturbations.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Reading Eight Erdős Problems Together · Plectis maths">
+  <meta property="og:description" content="One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial…">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/optimal-sparse-perturbations.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reading Eight Erdős Problems Together · Plectis maths">
+  <meta name="twitter:description" content="One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial…">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1526">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="preload" href="../../assets/fonts/plectis-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/plectis-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=34ad058b4184">
+  <link rel="stylesheet" href="../assets/maths.css?v=73f5180b2f81">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=1eb60a8b10c2"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=9e9419f91c31"></script>
+  <script defer src="../assets/maths.js?v=2481459dc144"></script>
+  <meta name="author" content="Will Cook">
+  <meta name="citation_title" content="Reading Eight Erdős Problems Together">
+  <meta name="citation_author" content="Will Cook">
+  <meta name="citation_date" content="2026/09/22">
+  <meta name="citation_pdf_url" content="https://wcook04.github.io/plectis/maths/papers/optimal-sparse-perturbations.pdf">
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-n.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/math/fonts/mjx-stx-mi.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/math/d8b23a30c4466518.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html"><img class="wordmark__mark" src="../../assets/favicon.svg" alt="" width="26" height="26" decoding="async">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links site-nav" aria-label="Primary">
+        <a href="../index.html">Mathematics</a>
+        <a href="../../docs/papers.html" aria-current="true">Papers</a>
+        <a href="../../index.html#videos">Videos</a>
+        <a href="../../docs/glossary.html">Glossary</a>
+        <a href="../../docs/introduction.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html" class="maths-nav-problem"><span class="maths-nav-number">#68</span><span class="maths-nav-name">Factorial denominator</span></a>
+        <a href="../problems/erdos_243.html" class="maths-nav-problem"><span class="maths-nav-number">#243</span><span class="maths-nav-name">Sylvester-tail rigidity</span></a>
+        <a href="../problems/erdos_249.html" class="maths-nav-problem"><span class="maths-nav-number">#249</span><span class="maths-nav-name">Binary totient series</span></a>
+        <a href="../problems/erdos_251.html" class="maths-nav-problem"><span class="maths-nav-number">#251</span><span class="maths-nav-name">Prime-gap dyadic series</span></a>
+        <a href="../problems/erdos_257.html" class="maths-nav-problem"><span class="maths-nav-number">#257</span><span class="maths-nav-name">Infinite exponent supports</span></a>
+        <a href="../problems/erdos_269.html" class="maths-nav-problem"><span class="maths-nav-number">#269</span><span class="maths-nav-name">Three-prime running LCMs</span></a>
+        <a href="../problems/erdos_1041.html" class="maths-nav-problem"><span class="maths-nav-number">#1041</span><span class="maths-nav-name">Lemniscate connections</span></a>
+        <a href="../problems/erdos_1049.html" class="maths-nav-problem"><span class="maths-nav-number">#1049</span><span class="maths-nav-name">Rational-base Lambert series</span></a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers" class="is-active" aria-current="page">The papers</a>
+        <a href="../index.html#documents">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <div class="maths-pagebar">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#papers">Papers</a></li><li aria-current="page">Cross-problem paper</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off" role="group" aria-label="This page">
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy section</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root=".paper-stage" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download section JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+      <header class="paper-head">
+        <p class="paper-head__eyebrow">Cross-problem paper</p>
+        <h1 data-page-name="Reading Eight Erdős Problems Together">Reading Eight Erdős Problems Together</h1>
+        <div class="paper-head__meta">
+          <span>Eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problems</a> read together</span>
+          <span>By <a href="mailto:williamwkcook@gmail.com" rel="author">Will Cook</a></span>
+          <span>22 September 2026</span>
+          <a href="#about-paper">Authorship, AI use and citation</a>
+        </div>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/optimal-sparse-perturbations.pdf"><span class="btn__format">PDF</span>Open the PDF, 38&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex"><span class="btn__format">TeX</span>LaTeX source</a>
+          <a class="btn btn--ghost" href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex" data-link-kind="exogenous" rel="external noopener">Source on GitHub</a>
+          
+        </div>
+      </header>
+
+      <div class="paper-precis">
+        <p><b class="paper-precis__head">Pr&eacute;cis.</b> One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-subsum" data-term="subsum" data-term-auto="1">subsums</a> across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> ingredients have their own stated scope. Historical novelty and independent expert review are not established.</p>
+        <div class="authority-card paper-scope">
+          <p><b>This paper owns</b> the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record.</p>
+          <p><b>It is not authority for</b> a solution to any original Erdős target, historical novelty, independent expert review, or a full Lean proof of the analytic capacity criterion or Lambert-chain theorem.</p>
+        </div>
+      </div>
+
+      <div class="reader-contents reader-contents--inline"><p class="docs-toc__title">Start here, by the editorial route</p><nav aria-label="Start here"><a href="optimal-sparse-perturbations--chapter-9c0d16238456.html#sec:map">From individual problems to reusable questions</a><a href="optimal-sparse-perturbations--chapter-b9c44fa63f0d.html#capacity:sec:criterion">An exact capacity criterion</a><a href="optimal-sparse-perturbations--chapter-461688eb57eb.html#sec:results">Lambert subsums across bases</a><a href="optimal-sparse-perturbations--chapter-ae2bc2856b8e.html#sec:questions">Further questions</a></nav></div>
+      <details class="reader-contents"><summary>In this paper</summary><nav aria-label="Paper contents"><a class="toc-l2" href="optimal-sparse-perturbations--chapter-9c0d16238456.html#sec:map">From individual problems to reusable questions</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-f326f058b845.html#capacity:sec:jets-intro">Prescribing a value and its derivatives</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-b9c44fa63f0d.html#capacity:sec:criterion">An exact capacity criterion</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-15bc0843b09c.html#the-sharp-support-threshold">The sharp support threshold</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-ffe799195c02.html#capacity:sec:capacity-proof">Proof of the capacity criterion</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-2668a0071136.html#capacity:sec:negative">Why a large gap prevents interval filling</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-7dc375641ea1.html#a-digit-that-also-corrects-the-cumulative-residue">A digit that also corrects the cumulative residue</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-0fdf77119596.html#the-positive-direction-and-the-arithmetic-cost">The positive direction and the arithmetic cost</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-881d666df522.html#capacity:sec:carry">A common-divisor test for irrationality</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-ec95d7f739f9.html#why-a-small-allowance-along-a-subsequence-is-insufficient">Why a small allowance along a subsequence is insufficient</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#capacity:sec:jets-proof">Proof of the derivative interpolation theorem</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#nullity-at-and-below-the-critical-exponent">Nullity at and below the critical exponent</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#lifting-a-scalar-interval-to-an-open-set">Lifting a scalar interval to an open set</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#the-upper-bound-for-hausdorff-dimension">The upper bound for Hausdorff dimension</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#a-separated-construction-attaining-the-dimension">A separated construction attaining the dimension</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-374cc220d903.html#capacity:sec:rational-jets">The arithmetic threshold for rational derivatives</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-461688eb57eb.html#sec:results">Lambert subsums across bases</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-998243d5a353.html#sec:dichotomy">Choices against contraction</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-5b179c4e287a.html#sec:bases">The subseries across bases</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-e13887514ab9.html#sec:separated-cuts">Divisibility cuts at every algebraic base</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-8578ad85b81e.html#sec:base2">Base two</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-b688c73bc810.html#sec:dyadic-shifts">Which dyadic shifts detect irrationality?</a><a class="toc-l3" href="optimal-sparse-perturbations--chapter-b688c73bc810.html#sec:polynomial-shifts">Polynomially selected shifts</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-f1487d3c8d80.html#sec:second">Limits on methods</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-66d83a6da182.html#sec:misread">The computation and its limits</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-23c2de5958a8.html#sec:eliminated">Eliminated ideas</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-9c3345350768.html#sec:known">What was already known</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-62cc134a4d87.html#capacity:sec:sources">Verification and sources</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-ae2bc2856b8e.html#sec:questions">Further questions</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-e6b4d4376ead.html#declaration-of-generative-ai-use">Declaration of generative AI use</a><a class="toc-l2" href="#references">References</a></nav></details>
+      <div class="paper-stage"><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="optimal-sparse-perturbations.html">Paper contents</a> · <a href="optimal-sparse-perturbations--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="optimal-sparse-perturbations--chapter-e6b4d4376ead.html#declaration-of-generative-ai-use">Previous section</a></nav><section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>T. H. Lê, <em>Intersective polynomials and the primes</em>, <a
+href="https://arxiv.org/abs/0910.1880v1">arXiv:0910.1880v1</a>.</p></li>
+<li id="ref-2"><p>A. Rice, <em>Sárközy’s theorem for <span
+class="math inline" data-term-auto="off" data-tex="\(P\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D443">𝑃</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi></math></mjx-assistive-mml></mjx-container></span>-intersective polynomials</em>, <a
+href="https://arxiv.org/abs/1111.6559">arXiv:1111.6559</a>.</p></li>
+<li id="ref-3"><p>B. Mishra, <em>Polynomials consisting of quadratic factors with
+roots modulo any positive integer</em>, Amer. Math. Monthly
+<strong>129</strong> (2022), 178–182, <a
+href="https://arxiv.org/abs/2102.08379">arXiv:2102.08379</a>.</p></li>
+<li id="ref-4"><p>S. Akiyama and H. Kaneko, <em>Multiplicative analogue of
+Markoff–Lagrange spectrum and Pisot numbers</em>, Adv. Math. 380 (2021),
+107547, p. 3, reporting the theorem of A. Dubickas, <a
+href="https://arxiv.org/abs/1911.06170v6">arXiv:1911.06170v6</a>.</p></li>
+<li id="ref-5"><p>J.-P. Allouche, M. Clarke and N. Sidorov, <em>Periodic unique
+beta-expansions: the Sharkovskiı̆ ordering</em>, Ergodic Theory
+Dynam. Systems 29 (2009), 1055–1074, <a
+href="https://doi.org/10.1017/S0143385708000746">doi:10.1017/S0143385708000746</a>.</p></li>
+<li id="ref-6"><p>P. Erdős and R. L. Graham, <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
+Monogr. Enseign. Math. 28, Geneva, 1980.</p></li>
+<li id="ref-7"><p>P. Erdős, <em>On the irrationality of certain series: problems
+and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
+Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
+<li id="ref-8"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
+irrationality of certain series</em></a>, Math. Student 36 (1968),
+222–226 (issued 1969).</p></li>
+<li id="ref-9"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
+Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
+(1941), 316–320. <a
+href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
+<li id="ref-10"><p>Z. Nitecki, <a
+href="https://arxiv.org/abs/1106.3779v2"><em>Subsum sets: intervals,
+Cantor sets, and Cantorvals</em></a>, arXiv:1106.3779v2 (2013).</p></li>
+<li id="ref-11"><p>John A. Fridy, <a
+href="https://www.fq.math.ca/Scanned/4-3/fridy.pdf"><em>Generalized
+bases for the real numbers</em></a>. The Fibonacci Quarterly
+<strong>4</strong> (1966), no. 3, 193–201.</p></li>
+<li id="ref-12"><p>T. Crmarić and V. Kovač, <a
+href="https://arxiv.org/abs/2504.18712v1"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>, Colloq. Math.
+<strong>179</strong> (2025), 55–68, doi:<a
+href="https://doi.org/10.4064/cm9628-5-2025">10.4064/cm9628-5-2025</a>.
+Theorem locators follow arXiv:2504.18712v1.</p></li>
+<li id="ref-13"><p>Vjekoslav Kovač and Terence Tao, <a
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
+problems for Ahmes series</em></a>. Acta Mathematica Hungarica
+<strong>175</strong> (2025), 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4" data-link-kind="exogenous" rel="external noopener">2406.17593v4</a>.
+Statement and section numbers refer to arXiv version 4.</p></li>
+<li id="ref-14"><p>W. Zudilin, <a
+href="https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/"><em>Heine’s
+basic transform and a permutation group for <span
+class="math inline" data-term-auto="off" data-tex="\(q\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45E">𝑞</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>q</mi></math></mjx-assistive-mml></mjx-container></span>-harmonic series</em></a>, Acta Arith.
+<strong>111</strong> (2004), no. 2, 153–164, doi:<a
+href="https://doi.org/10.4064/aa111-2-4">10.4064/aa111-2-4</a>.</p></li>
+<li id="ref-15"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
+and some problems on prime factors of consecutive integers</em></a>,
+arXiv:2512.01739v2 (submitted December 2025, revised April
+2026).</p></li>
+<li id="ref-16"><p>Steve Fan, <em>Comment on Erdős Problem #269, thread 269, post
+7218</em> (2026), <a
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">source</a>.
+26 June 2026.</p></li>
+<li id="ref-17"><p>K. Mahler, <em>Arithmetische Eigenschaften der Lösungen einer
+Klasse von Funktionalgleichungen</em>, Math. Ann. <strong>101</strong>
+(1929), 342–367.</p></li>
+<li id="ref-18"><p>B. Adamczewski and C. Faverjon, <a
+href="https://arxiv.org/abs/1508.07158v2"><em>Méthode de Mahler :
+relations linéaires, transcendance et applications aux nombres
+automatiques</em></a>, arXiv:1508.07158v2 (2016), Theorem 1.1,
+p. 3.</p></li>
+<li id="ref-19"><p>Ku. Nishioka, <em>Mahler Functions and Transcendence</em>,
+Lecture Notes in Math. 1631, Springer, Berlin, 1996.</p></li>
+<li id="ref-20"><p>W. M. Schmidt, <em>Norm form equations</em>, Ann. of Math. (2)
+<strong>96</strong> (1972), 526–551.</p></li>
+<li id="ref-21"><p>H. P. Schlickewei, <em>Die <span
+class="math inline" data-term-auto="off" data-tex="\(p\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D45D">𝑝</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi></math></mjx-assistive-mml></mjx-container></span>-adische Verallgemeinerung des Satzes
+von Thue–Siegel–Roth–Schmidt</em>, J. Reine
+Angew. Math. <strong>288</strong> (1976), 86–105.</p></li>
+<li id="ref-22"><p>Yu. F. Bilu, <em>The many faces of the subspace theorem [after
+Adamczewski, Bugeaud, Corvaja, Zannier…]</em>, Séminaire Bourbaki,
+Vol. 2006/2007, Exp. No. 967, Astérisque <strong>317</strong> (2008),
+1–38; <a href="https://arxiv.org/abs/0907.2098" data-link-kind="exogenous" rel="external noopener">arXiv:0907.2098</a>.
+Theorem 2.3 is the statement used here.</p></li>
+<li id="ref-23"><p>P. Corvaja and U. Zannier, <em>Some new applications of the
+subspace theorem</em>, Compositio Math. <strong>131</strong> (2002),
+319–340, doi:<a
+href="https://doi.org/10.1023/A:1015594913393"><code>10.1023/A:1015594913393</code></a>.</p></li>
+<li id="ref-24"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
+of certain functions in several variables III</em>,
+Bull. Austral. Math. Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978"><code>10.1017/S0004972700022978</code></a>.</p></li>
+<li id="ref-25"><p>K. F. Roth, <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-rational-approximation" data-term="rational_approximation" data-term-auto="1">Rational approximations</a> to <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-algebraic-number" data-term="algebraic_number" data-term-auto="1">algebraic
+numbers</a></em>, Mathematika <strong>2</strong> (1955), 1–20.</p></li>
+<li id="ref-26"><p>D. Boes, R. Darst and P. Erdős, <a
+href="https://www.tandfonline.com/doi/abs/10.1080/00029890.1981.11995266"><em>Fat,
+symmetric, irrational Cantor sets</em></a>, Amer. Math. Monthly
+<strong>88</strong> (1981), 340–341.</p></li>
+<li id="ref-27"><p>A. Rahm, N. Solomon, T. Trauthwein and B. Weiss, <a
+href="https://arxiv.org/abs/1909.01198"><em>The distribution of rational
+numbers on Cantor’s middle thirds set</em></a>,
+arXiv:1909.01198.</p></li>
+<li id="ref-28"><p>S. Chow, P. Varjú and H. Yu, <a
+href="https://arxiv.org/abs/2402.18395"><em>Counting rationals and
+diophantine approximation in missing-digit Cantor sets</em></a>,
+arXiv:2402.18395.</p></li>
+<li id="ref-29"><p>W. Cook, <a
+href="../../papers/erdos-68-factorial-denominator-irrationality.pdf"><em>Two
+incomparable denominator exclusions for <span
+class="math inline" data-term-auto="off" data-tex="\(\sum_{n\ge2}(n!-1)^{-1}\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math breakable="true" class="STX-N" aria-hidden="true"><mjx-munder limits="false"><mjx-mo class="mjx-s-8773d60657f0dad2"><mjx-c class="mjx-c2211">∑</mjx-c></mjx-mo><mjx-script class="mjx-s-59346988eaa34290"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c2265">≥</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c32">2</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-munder><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c28">(</mjx-c></mjx-mo><mjx-mi><mjx-c class="mjx-c1D45B">𝑛</mjx-c></mjx-mi><mjx-mo><mjx-c class="mjx-c21">!</mjx-c></mjx-mo><mjx-break size="3"> </mjx-break><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn space="3"><mjx-c class="mjx-c31">1</mjx-c></mjx-mn><mjx-msup><mjx-mo class="mjx-s-f5799f6dc6a49d41"><mjx-c class="mjx-c29">)</mjx-c></mjx-mo><mjx-script class="mjx-s-bbf3eafe63e6763e"><mjx-TeXAtom size="s" texclass="ORD"><mjx-mo><mjx-c class="mjx-c2212">−</mjx-c></mjx-mo><mjx-mn><mjx-c class="mjx-c31">1</mjx-c></mjx-mn></mjx-TeXAtom></mjx-script></mjx-msup></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><munder><mo>∑</mo><mrow data-mjx-texclass="ORD"><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></munder><mo stretchy="false">(</mo><mi>n</mi><mo>!</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mo>−</mo><mn>1</mn></mrow></msup></math></mjx-assistive-mml></mjx-container></span></em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-30"><p>W. Cook, <a
+href="../../papers/erdos-243-reciprocal-tail-rigidity.pdf"><em>Bounded increments and
+rational reciprocal sums</em></a>, Erdős Problem Notes, 2026.</p></li>
+<li id="ref-31"><p>W. Cook, <a href="../../papers/erdos-249-binary-totient-series.pdf"><em>Bases
+and integral relations for the <span
+class="math inline" data-term-auto="off" data-tex="\(k\)" data-math-rendered="true" data-math-compact="true"><mjx-container class="mjx-s-4fa00029d5b13baa MathJax" jax="CHTML" overflow="overflow"><mjx-math class="STX-N" aria-hidden="true"><mjx-mi><mjx-c class="mjx-c1D458">𝑘</mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></mjx-assistive-mml></mjx-container></span>-kernel of Euler’s totient</em></a>,
+Erdős Problem Notes, 2026.</p></li>
+<li id="ref-32"><p>W. Cook, <a
+href="../../papers/erdos-251-prime-gap-dyadic-series.pdf"><em>Sparse
+congruence-preserving perturbations of dyadic series</em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-33"><p>W. Cook, <a
+href="../../papers/erdos-257-mersenne-support-subseries.pdf"><em>Weighted support
+criteria for reciprocal Mersenne subseries</em></a>, Erdős Problem
+Notes, 2026.</p></li>
+<li id="ref-34"><p>W. Cook, <a href="../../papers/erdos-269-three-prime-running-lcm.pdf"><em>No
+finite separable representation at three prime generators</em></a>,
+Erdős Problem Notes, 2026.</p></li>
+<li id="ref-35"><p>W. Cook, <a
+href="../../papers/erdos-1049-rational-base-lambert.pdf"><em>Zudilin’s forms at
+rational bases and the exact normalised Hankel order</em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-36"><p>W. Cook, <em>Choices, contraction and rational membership</em>,
+exact computation with saved outputs in
+<code>research/experiments/choices_contraction/</code> of the
+repository, 2026.</p></li>
+<li id="ref-37"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
+J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
+<li id="ref-38"><p>Wouter van Doorn and Vjekoslav Kovač, <a
+href="https://arxiv.org/abs/2509.24971v3"><em>Lacunary sequences whose
+reciprocal sums represent all rational numbers in an interval</em></a>.
+Acta Arithmetica <strong>223</strong> (2026), 275–295, doi:<a
+href="https://doi.org/10.4064/aa251001-13-1">10.4064/aa251001-13-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2509.24971v3" data-link-kind="exogenous" rel="external noopener">2509.24971v3</a>.
+Statement numbers refer to arXiv version 3.</p></li>
+<li id="ref-39"><p>D. Duverney and Y. Tachiya, <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
+of the Chowla–Erdős method and linear independence of certain Lambert
+series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
+href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
+refer to the linked author preprint.</p></li>
+<li id="ref-40"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
+several variables and finite automata</em>, Annals of Mathematics
+<strong>204</strong>, no. 2 (2026), 455–533, <a
+href="https://doi.org/10.4007/annals.2026.204.2.1">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
+Locators refer to the <a
+href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf">68-page
+author manuscript</a>.</p></li>
+<li id="ref-41"><p>D. Airey, B. Mance and J. Vandehey, <em>Normality preserving
+operations for Cantor series expansions and associated fractals.
+II</em>, New York J. Math. <strong>21</strong> (2015), 1311–1326. <a
+href="https://nyjm.albany.edu/j/2015/21-60v.pdf"
+class="uri">https://nyjm.albany.edu/j/2015/21-60v.pdf</a>.</p></li>
+<li id="ref-42"><p>M. Waldschmidt, <em>Integer-valued functions, Hurwitz functions,
+and related topics: a survey</em>, in K. Kurşungöz and A. Zeytin (eds.),
+<em>Number Theory: Proceedings of the Journées Arithmétiques 2019</em>,
+De Gruyter, 2022, pp. 61–82. <a
+href="https://doi.org/10.1515/9783110761115-005"
+class="uri">https://doi.org/10.1515/9783110761115-005</a>.</p></li>
+<li id="ref-43"><p>H. Wegmann, <em>Die Hausdorffsche Dimension von Mengen reeller
+Zahlen, die durch Zifferneigenschaften einer Cantorentwicklung
+charakterisiert sind</em>, Czechoslovak Math. J. <strong>18</strong>
+(1968), 622–632. <a href="https://dml.cz/handle/10338.dmlcz/100861" data-link-kind="exogenous" rel="external noopener"
+class="uri">https://dml.cz/handle/10338.dmlcz/100861</a>.</p></li>
+<li id="ref-44"><p>J.-H. Evertse and R. Ferretti, <em>A further improvement of the
+quantitative Subspace Theorem</em>, Ann. of Math. <strong>177</strong>
+(2013), 513–590. Normalizations refer to §1.1, (1.1), and §2.1 of the <a
+href="https://pub.math.leidenuniv.nl/~evertsejh/10-subspace.pdf">3 May
+2012 author version</a>.</p></li>
+</ol>
+</section><nav class="paper-chapter-nav" aria-label="Paper reading options"><a href="optimal-sparse-perturbations.html">Paper contents</a> · <a href="optimal-sparse-perturbations--complete.html" data-paper-full>Complete HTML for search and print</a></nav><nav class="paper-chapter-nav" aria-label="Section navigation"><a href="optimal-sparse-perturbations--chapter-e6b4d4376ead.html#declaration-of-generative-ai-use">Previous section</a></nav></div>
+      <section class="paper-foot" id="about-paper" aria-labelledby="about-paper-title">
+        <h2 class="paper-foot__title" id="about-paper-title">About this paper</h2>
+        <p class="note"><b>Authorship and AI use.</b> Will Cook built and directed the research infrastructure and maintains the public release. He reviewed claims when he could. AI agents did most of the research and drafting. Cook did not independently verify every claim.</p>
+        <p class="note"><b>Cite and contact.</b> Cite this paper by its title, author and date above, with its PDF; cite the earlier sources it uses for a mathematical result. For software, use the <a href="https://github.com/wcook04/plectis-erdos/blob/main/CITATION.cff">release citation</a> and give the commit used. <a href="mailto:williamwkcook@gmail.com">Contact Will</a> with questions or corrections.</p>
+        <p class="paper-foot__label">Prefer the manuscript?</p>
+        <div class="paper-head__routes">
+          <a class="btn btn--primary btn--file" href="../../papers/optimal-sparse-perturbations.pdf"><span class="btn__format">PDF</span>Open the PDF, 38&nbsp;pages</a>
+          <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
+          
+        </div>
+        <p class="maths-receipt maths-receipt--inline">Equations typeset from the exact TeX. Rendered from the LaTeX at <code>sha256:83e0788b73c2144a</code>. It matched the published source manifest, so the PDF above, the LaTeX, and this page are one manuscript. Redeploying the site regenerates this page from whatever the public repository holds at that moment.</p>
+      </section>
+      </div>
+    </main>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">In this paper</p><a class="toc-l2" href="optimal-sparse-perturbations--chapter-9c0d16238456.html#sec:map">From individual problems to reusable questions</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-f326f058b845.html#capacity:sec:jets-intro">Prescribing a value and its derivatives</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-b9c44fa63f0d.html#capacity:sec:criterion">An exact capacity criterion</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-dcac4682b8b5.html#capacity:sec:jets-proof">Proof of the derivative interpolation theorem</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-374cc220d903.html#capacity:sec:rational-jets">The arithmetic threshold for rational derivatives</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-461688eb57eb.html#sec:results">Lambert subsums across bases</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-b688c73bc810.html#sec:dyadic-shifts">Which dyadic shifts detect irrationality?</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-f1487d3c8d80.html#sec:second">Limits on methods</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-66d83a6da182.html#sec:misread">The computation and its limits</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-23c2de5958a8.html#sec:eliminated">Eliminated ideas</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-9c3345350768.html#sec:known">What was already known</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-62cc134a4d87.html#capacity:sec:sources">Verification and sources</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-ae2bc2856b8e.html#sec:questions">Further questions</a><a class="toc-l2" href="optimal-sparse-perturbations--chapter-e6b4d4376ead.html#declaration-of-generative-ai-use">Declaration of generative AI use</a><a class="toc-l2" href="#references">References</a><a class="toc-l2" href="#about-paper">About this paper</a></aside>
+  </div>
+</body>
+</html>

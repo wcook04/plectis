@@ -61,7 +61,9 @@
   var KIND_LABEL = {
     universe: 'universe',
     problem: 'problem',
-    public_claim: 'checked claim',
+    // A claim is named by what it is; its status (proved, conditional,
+    // open) is said by its glyph and chip, never by its kind's name.
+    public_claim: 'claim',
     paper_statement: 'paper result',
     paper: 'paper',
     human_document: 'repository document',
@@ -515,7 +517,17 @@
         .replace(/\s+/g, ' ').trim();
     }
 
+    /* Whether a node is shown is asked thousands of times a frame (every
+       loop over the field, every pointer move) and changes only when a
+       filter does: the answer is kept on the node until afterFilterChange
+       or a new ingest moves visGen on. */
+    var visGen = 1;
     function visible(node) {
+      if (node._visGen === visGen) return node._vis;
+      node._visGen = visGen;
+      return (node._vis = shownByFilters(node));
+    }
+    function shownByFilters(node) {
       if (lensOff[node.kind]) return false;
       if (node.kind === 'paper_statement') {
         if (paperScope !== 'all' && node.side !== paperScope) return false;
@@ -644,7 +656,8 @@
       els.forEach(function (el) {
         var r = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
         if (!r || !(r.width > 0) || !(r.height > 0)) return;
-        out.push({ x0: r.left - base.left, x1: r.right - base.left, y0: r.top - base.top, y1: r.bottom - base.top });
+        out.push({ x0: r.left - base.left, x1: r.right - base.left, y0: r.top - base.top, y1: r.bottom - base.top,
+                   legend: !!(el.parentElement && el.parentElement.classList && el.parentElement.classList.contains('explorer__legend')) });
       });
       chromeCache = out;
       return out;
@@ -784,8 +797,13 @@
        ring, precisely, never lit. */
     var darkGround = false;
     // Measured on the landing at 1280 and 1440: below about a fifth, the
-    // halo at a band's edge does not register at all.
-    var EMBER_REST = 0.22, EMBER_LIT = 0.36, EMBER_REACH = 4.4;
+    // halo at a band's edge does not register at all. An ember reaches a
+    // little past its mark and no further (6 October 2026): at four and a
+    // half radii the halos of a dense band ran together into an orange haze
+    // that blurred the marks, and a close view swelled each into a soft
+    // disc. Now it stays within a few pixels of its mark at any zoom, so
+    // the band reads as warm, separate marks.
+    var EMBER_REST = 0.26, EMBER_LIT = 0.4, EMBER_REACH = 2.9, EMBER_PX = 5;
     function groundIsDark(color) {
       var rgb = null, hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color || '');
       if (hex) {
@@ -898,8 +916,8 @@
           if (x < -30 || y < -30 || x > w + 30 || y > h + 30) continue;
           var lit = focus >= 0 && (i === focus || near[i]);
           var fade = focus >= 0 && !lit ? 1 - focusMix : 1;
-          drawGlow(x, y, n.r * rs * EMBER_REACH, palette.integration_surface,
-                   (lit ? EMBER_LIT : EMBER_REST) * fade * revealAlpha(3));
+          drawGlow(x, y, Math.min(n.r * rs * EMBER_REACH, n.r * rs + EMBER_PX), palette.integration_surface,
+                   (lit ? EMBER_LIT : EMBER_REST) * fade * (reveal < 1 ? setAt(Math.atan2(n.y, n.x)) : 1));
         }
       }
       // The mark in focus is framed by its reticle, not lit: the embers are
@@ -1054,6 +1072,12 @@
       scaleRows.forEach(function (row) {
         row.from = (row.lo + row.hi) / 2 - row.slots.length * scalePitch / 2;
       });
+      penFrom = -Math.PI / 2;
+      var nearest = Infinity;
+      sectorGaps().forEach(function (gap) {
+        var d = Math.abs(shortArc(-Math.PI / 2, gap));
+        if (d < nearest) { nearest = d; penFrom = gap; }
+      });
     }
     // The angle of a place on the scale: 0 is the start of its sector's run,
     // a whole number the edge between two results.
@@ -1130,12 +1154,14 @@
               if (c % SCALE_TICKS[q][0] === 0) { level = q; break; }
             }
             if (level > finest) continue;
-            put(SCALE_TICKS[level][2] * dim * ra, slotAngle(row, paper.from + j + 0.5), SCALE_TICKS[level][1]);
+            var ta = slotAngle(row, paper.from + j + 0.5);
+            put(SCALE_TICKS[level][2] * dim * ra * setAt(ta), ta, SCALE_TICKS[level][1]);
           }
         });
         // Between the two papers.
         row.breaks.forEach(function (at) {
-          put(0.55 * (sectorOn && !litPaper ? 1 : rest) * ra, slotAngle(row, at), SCALE_PAPER);
+          var ba = slotAngle(row, at);
+          put(0.55 * (sectorOn && !litPaper ? 1 : rest) * ra * setAt(ba), ba, SCALE_PAPER);
         });
       });
       ctx.strokeStyle = palette.ink;
@@ -1158,7 +1184,7 @@
         var c = Math.cos(mid), s = Math.sin(mid);
         var x0 = view.tx + c * (R - 1.5), y0 = view.ty + s * (R - 1.5);
         var x1 = view.tx + c * (R + SCALE_MARK), y1 = view.ty + s * (R + SCALE_MARK);
-        if (yields(x0, y0, x1, y1)) return;
+        if (yields(x0, y0, x1, y1) || setAt(mid) < 1) return;
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         any = true;
@@ -1422,9 +1448,41 @@
        hard, so each lands with a definite stop rather than a drift. One
        layer never cuts through a mark or a letter, the rings are 110ms
        apart, and the whole opening takes a little over 0.8s. */
+    /* The results ring is laid down rather than faded up (6 October 2026):
+       once its plates are in place a pen runs once round the ring, clockwise
+       from twelve o'clock, ruling the plates' edges as it goes, and each
+       result sets into its plate as the pen passes it, its tick on the scale
+       with it. The ring is the papers laid end to end, so the pen walks the
+       record in the order the papers state it. The pen eases off the mark
+       and then runs at one speed; the whole ring takes a little over half a
+       second and the opening about a second. */
     var reveal = 1, revealMs = 1e9, revealFrame = 0, revealStarted = false;
-    var REVEAL_DELAY = [0, 110, 220, 330, 520], REVEAL_FADE = 300, REVEAL_SEAT = 0.025;
-    var REVEAL_END = REVEAL_DELAY[REVEAL_DELAY.length - 1] + REVEAL_FADE;
+    var REVEAL_DELAY = [0, 110, 220, 330, 600], REVEAL_FADE = 300, REVEAL_SEAT = 0.025;
+    var SWEEP = 560, SWEEP_EASE = 0.15, SWEEP_SET = 0.3;
+    var REVEAL_END = Math.max(REVEAL_DELAY[4] + REVEAL_FADE,
+                              REVEAL_DELAY[3] + SWEEP * (1 + SWEEP_EASE / 2 + SWEEP_SET));
+    // How far round the pen has come, as a share of the turn (beyond 1 once
+    // it has passed twelve o'clock again; 2 when the opening is over).
+    function penAt() {
+      if (reveal >= 1) return 2;
+      var t = (revealMs - REVEAL_DELAY[3]) / SWEEP;
+      if (t <= 0) return 0;
+      return t < SWEEP_EASE ? t * t / (2 * SWEEP_EASE) : t - SWEEP_EASE / 2;
+    }
+    // A place on the ring as a share of the turn, clockwise from where the
+    // pen sets off: the division between two sectors nearest twelve
+    // o'clock, so no sector is laid down in two halves.
+    var penFrom = -Math.PI / 2;
+    function turnShare(angle) {
+      var a = (angle - penFrom) % TURN;
+      return (a < 0 ? a + TURN : a) / TURN;
+    }
+    // How far a result at this angle has set (0 to 1).
+    function setAt(angle) {
+      if (reveal >= 1) return 1;
+      var t = (penAt() - turnShare(angle)) / SWEEP_SET;
+      return t <= 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3);
+    }
     function revealAlpha(layer) {
       if (reveal >= 1) return 1;
       var t = (revealMs - REVEAL_DELAY[layer]) / REVEAL_FADE;
@@ -1523,19 +1581,65 @@
       // takes a little longer, never more than two thirds of a second.
       var start = null;
       var duration = Math.min(650, 300 + 120 * Math.abs(Math.log(to.k / from.k) / Math.LN2));
+      /* A long way at a close scale (one sector's results to another's)
+         flies: the view draws back part way over the ring and comes down on
+         the new place, the path van Wijk and Nuij (2003) showed is the
+         shortest for the eye, so the reader sees where they are going
+         instead of a blur of marks sliding past. A short move keeps the
+         straight glide. The flight takes as long as its path, up to 0.9s. */
+      var flight = flightPath(from, to, Math.max(w, h));
+      if (flight) duration = Math.max(duration, Math.min(900, flight.ms));
       viewIsFitted = false;
       var step = function (now) {
         if (start === null) start = now + (delay || 0);
         var t = Math.max(0, Math.min(1, (now - start) / duration));
         var e = easeInOut(t);
-        var k = from.k * Math.pow(to.k / from.k, e);
-        var cx = from.cx + (to.cx - from.cx) * e, cy = from.cy + (to.cy - from.cy) * e;
+        var k, cx, cy;
+        if (flight) {
+          var at = flight.at(e);
+          k = at[2]; cx = at[0]; cy = at[1];
+        } else {
+          k = from.k * Math.pow(to.k / from.k, e);
+          cx = from.cx + (to.cx - from.cx) * e; cy = from.cy + (to.cy - from.cy) * e;
+        }
         view.k = k; view.tx = w / 2 - cx * k; view.ty = h / 2 - cy * k;
         draw();
         if (t < 1) cameraFrame = requestMotionFrame(step);
         else { cameraFrame = 0; finish(); plateArrival(); }
       };
       cameraFrame = requestMotionFrame(step);
+    }
+    /* The smooth zoom path between two views (van Wijk and Nuij, "Smooth
+       and efficient zooming and panning", 2003; the form d3's
+       interpolateZoom uses). A view is its centre and the width of the field
+       it shows; RHO sets how far the path draws back. Used only when the
+       move crosses more than the view's own width at a close scale, where a
+       straight glide would sweep the reader across marks too fast to read. */
+    var RHO = 1.4;
+    function flightPath(from, to, span) {
+      var w0 = span / from.k, w1 = span / to.k;
+      var dx = to.cx - from.cx, dy = to.cy - from.cy, d2 = dx * dx + dy * dy, u1 = Math.sqrt(d2);
+      if (!(u1 > Math.min(w0, w1) * 0.9) || from.k <= fittedScale * 1.25 || to.k <= fittedScale * 1.25) return null;
+      var rho2 = RHO * RHO, rho4 = rho2 * rho2;
+      var b0 = (w1 * w1 - w0 * w0 + rho4 * d2) / (2 * w0 * rho2 * u1);
+      var b1 = (w1 * w1 - w0 * w0 - rho4 * d2) / (2 * w1 * rho2 * u1);
+      var r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0), r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1);
+      var S = (r1 - r0) / RHO;
+      if (!isFinite(S) || S <= 0) return null;
+      var cosh = function (x) { return (Math.exp(x) + Math.exp(-x)) / 2; };
+      var sinh = function (x) { return (Math.exp(x) - Math.exp(-x)) / 2; };
+      var tanh = function (x) { var e2 = Math.exp(2 * x); return (e2 - 1) / (e2 + 1); };
+      var c0 = cosh(r0);
+      return {
+        ms: S * 1000 * RHO / Math.SQRT2 * 0.62,
+        at: function (t) {
+          var s = t * S;
+          var u = w0 / rho2 * (c0 * tanh(RHO * s + r0) - sinh(r0));
+          var wide = w0 * c0 / cosh(RHO * s + r0);
+          if (t >= 1) return [to.cx, to.cy, to.k];
+          return [from.cx + u * dx / u1, from.cy + u * dy / u1, span / wide];
+        }
+      };
     }
     // Plates arrive over a sixth of a second once a camera move has settled.
     var PLATE_IN = 160, arrival = { ms: 1e9, frame: 0 };
@@ -1558,6 +1662,10 @@
       return 1 - Math.pow(1 - Math.min(1, Math.max(0, ms) / PLATE_IN), 2);
     }
     function frameOf(indices, maxK, sector) {
+      // A large canvas (a monitor) may come closer: the closest scale grows
+      // with the window past a laptop's, so a framed sector fills a wide
+      // screen as it fills a laptop's instead of shrinking into its middle.
+      maxK *= Math.max(1, Math.min(canvas.clientWidth / 1000, canvas.clientHeight / 840));
       var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
       var take = function (x, y) {
         if (x < minX) minX = x;
@@ -1590,7 +1698,7 @@
     }
 
     // The beat between a drill lighting its target and the camera leaving.
-    var DRILL_BEAT = 90;
+    var DRILL_BEAT = 90, RESULT_RUN = 6;
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
       var n = nodes[i];
@@ -1614,8 +1722,30 @@
         var run = (paperSequence[String(n.id).replace(/^paper:/, '')] || []).filter(function (j) { return visible(nodes[j]); });
         if (run.length) { cameraTo(frameOf(run.concat([i]), 3, nodes[run[0]].sector), false, DRILL_BEAT); return; }
       }
-      // A result is shown close enough to read its neighbours' numbers.
-      var k = n.kind === 'paper_statement' ? Math.max(view.k, 3.2) : (view.k < 1.1 ? 1.6 : view.k);
+      /* A result arrives among what explains it (7 October 2026): the run
+         of its paper either side of it, close enough to read their numbers,
+         and its band's title, so the frame shows where in the paper and the
+         programme it stands rather than a lone dot in an empty region. Its
+         far relations (the centre, Comparator) are left to their threads,
+         which name them at the window's edge. */
+      if (n.kind === 'paper_statement') {
+        // Already in a readable view, well inside it: the reader's frame stays.
+        var nx = n.x * view.k + view.tx, ny = n.y * view.k + view.ty;
+        if (view.k >= 2.2 && nx > 90 && ny > 90 && nx < canvas.clientWidth - 90 && ny < canvas.clientHeight - 90) return;
+        var seq = (paperSequence[n.paperId] || []).filter(function (j) { return visible(nodes[j]); });
+        var at = seq.indexOf(i), local = [i];
+        if (at >= 0) local = seq.slice(Math.max(0, at - RESULT_RUN), at + RESULT_RUN + 1);
+        if (local.indexOf(i) < 0) local.push(i);
+        var framed = frameOf(local, 3.4, n.sector);
+        if (framed.k < 2.2) framed = { k: 2.2, tx: canvas.clientWidth / 2 - n.x * 2.2, ty: canvas.clientHeight / 2 - n.y * 2.2 };
+        // The result itself stays well inside the frame, whatever its run.
+        var sx = n.x * framed.k + framed.tx, sy = n.y * framed.k + framed.ty, inset = 90;
+        framed.tx += Math.max(0, inset - sx) - Math.max(0, sx - (canvas.clientWidth - inset));
+        framed.ty += Math.max(0, inset - sy) - Math.max(0, sy - (canvas.clientHeight - inset));
+        cameraTo(framed, false);
+        return;
+      }
+      var k = view.k < 1.1 ? 1.6 : view.k;
       cameraTo({ k: k, tx: canvas.clientWidth / 2 - n.x * k, ty: canvas.clientHeight / 2 - n.y * k }, false);
     }
 
@@ -1833,19 +1963,21 @@
       // paper states it: one dashed line per counterpart.
       var twins = nodes[focus].twins || [];
       if (twins.length) {
-        var f = nodes[focus];
-        ctx.globalAlpha = 0.9;
+        var f = nodes[focus], ref = referring(focus);
         ctx.strokeStyle = palette.integration_surface;
-        ctx.lineWidth = 1.2;
         ctx.setLineDash([3, 3]);
-        ctx.beginPath();
         for (var t = 0; t < twins.length; t++) {
           var m = nodes[twins[t].at];
           if (!m || !visible(m)) continue;
+          // The counterpart in reference: the bridge a step heavier.
+          var on = twins[t].at === ref;
+          ctx.globalAlpha = on ? 0.9 + 0.1 * referMix : ref >= 0 ? 0.9 - 0.5 * referMix : 0.9;
+          ctx.lineWidth = on ? 1.2 + 0.8 * referMix : 1.2;
+          ctx.beginPath();
           ctx.moveTo(f.x * k + view.tx, f.y * k + view.ty);
           ctx.lineTo(m.x * k + view.tx, m.y * k + view.ty);
+          ctx.stroke();
         }
-        ctx.stroke();
         ctx.setLineDash([]);
         ctx.globalAlpha = 1;
       }
@@ -1985,6 +2117,12 @@
       }
       if (!count) return;
       var inner = Math.max(0, (orbit / count - 34) * k);
+      // In a search most of the sector's marks step back, and a full wash
+      // would become the heaviest thing on the canvas with almost nothing in
+      // it; the region keeps its hairline edge and only a breath of tone.
+      // Around a single result the region is its envelope, not its subject:
+      // the plates and the result's own threads carry the tone.
+      var wash = query.length >= 2 ? 0.16 : f.kind === 'paper_statement' ? 0.3 : 0.5;
       for (var i = 0; i < bands.length; i++) {
         var b = bands[i];
         if (pids.indexOf(b.sector) === -1) continue;
@@ -1993,7 +2131,7 @@
         // One flat wash, edged with a hairline, like a highlighted region on
         // a printed chart.
         ctx.fillStyle = palette.halo;
-        ctx.globalAlpha = 0.5 * focusMix;
+        ctx.globalAlpha = wash * focusMix;
         ctx.beginPath();
         ctx.arc(view.tx, view.ty, outer, b.lo - 0.012, b.hi + 0.012);
         ctx.arc(view.tx, view.ty, inner, b.hi + 0.012, b.lo - 0.012, true);
@@ -2042,27 +2180,41 @@
         // Both long edges are ruled, in hairline. The evidence gauge, which
         // repeats what the dots and the title already say, shows only for a
         // band in focus.
-        ctx.globalAlpha = (state === 'off' ? 1 - 0.65 * focusMix : 1) * ra;
-        ctx.strokeStyle = palette.edge;
-        ctx.lineWidth = hairPx;
-        ctx.beginPath();
-        ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, b.hi);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.lo, b.hi);
-        ctx.stroke();
+        // During the opening the pen rules each edge as it passes.
+        var ruled = b.hi;
+        if (reveal < 1) {
+          var span = (b.hi - b.lo) / TURN;
+          ruled = b.lo + (b.hi - b.lo) * Math.max(0, Math.min(1, (penAt() - turnShare(b.lo)) / (span || 1)));
+        }
+        if (ruled > b.lo + 1e-4) {
+          ctx.globalAlpha = (state === 'off' ? 1 - 0.65 * focusMix : 1) * ra;
+          ctx.strokeStyle = palette.edge;
+          ctx.lineWidth = hairPx;
+          ctx.beginPath();
+          ctx.arc(view.tx, view.ty, (radii[1] + pad) * k, b.lo, ruled);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(view.tx, view.ty, Math.max(0, (radii[0] - pad) * k), b.lo, ruled);
+          ctx.stroke();
+        }
         var total = 0, key;
         for (key in b.evidence) total += b.evidence[key];
         var at = b.lo, gaugeR = (radii[0] - pad - 5) * k;
+        /* The gauge is the programme's whole tally (7 October 2026). With a
+           single result in focus it is context, not the route being read,
+           so it steps back to a hairline in its own colours: the long ember
+           sweep no longer looks like the result's own thread, and the band's
+           title still says the count in words. */
+        var summary = focus >= 0 && nodes[focus] && nodes[focus].kind === 'paper_statement';
         if (total && gaugeR > 0 && state === 'on') {
-          ctx.lineWidth = Math.max(1.6, 2.4 * Math.min(1, k / 0.6));
+          ctx.lineWidth = summary ? Math.max(1, hairPx * 1.5) : Math.max(1.6, 2.4 * Math.min(1, k / 0.6));
           ctx.lineCap = 'butt';
           var hair = 1.5 / gaugeR;
           for (var j = 0; j < EVIDENCE_ORDER.length; j++) {
             key = EVIDENCE_ORDER[j];
             if (!b.evidence[key]) continue;
             var to = at + (b.hi - b.lo) * b.evidence[key] / total;
-            ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * EVIDENCE_GAUGE_ALPHA[key];
+            ctx.globalAlpha = (state === 'off' ? dimmed(0.35) : 1) * EVIDENCE_GAUGE_ALPHA[key] * (summary ? 0.55 : 1);
             ctx.strokeStyle = evidenceColor(key);
             // A part too short for its hair of air is drawn whole; an arc
             // whose end came before its start would run the long way round.
@@ -2081,7 +2233,7 @@
           var dist = Math.sqrt(p.x * p.x + p.y * p.y) || 1;
           var ux = p.x / dist, uy = p.y / dist;
           var from = dist * k + p.r * radiusScale() + 3;
-          ctx.globalAlpha = 0.9;
+          ctx.globalAlpha = summary ? 0.35 : 0.9;
           ctx.strokeStyle = palette.edge;
           ctx.lineWidth = 1;
           ctx.setLineDash([2, 4]);
@@ -2100,24 +2252,37 @@
       bands.forEach(function (sb) { var rr = bandRadii(sb); r0 = Math.min(r0, rr[0]); r1 = Math.max(r1, rr[1]); });
       if (gaps.length && isFinite(r0)) {
         var tickTo = scaleR ? seatedScaleR() - 1.5 : (r1 + 12) * k;
-        ctx.globalAlpha = (focus >= 0 ? 0.6 : 1) * revealAlpha(3);
         ctx.strokeStyle = palette.edge;
         ctx.lineWidth = hairPx * 1.5;
-        ctx.beginPath();
         for (var s = 0; s < gaps.length; s++) {
+          var gapSet = setAt(gaps[s]);
+          if (gapSet <= 0) continue;
           var cx = Math.cos(gaps[s]), sy = Math.sin(gaps[s]);
+          ctx.globalAlpha = (focus >= 0 ? 0.6 : 1) * revealAlpha(3) * gapSet;
+          ctx.beginPath();
           ctx.moveTo(view.tx + cx * (r0 - 16) * k, view.ty + sy * (r0 - 16) * k);
           ctx.lineTo(view.tx + cx * tickTo, view.ty + sy * tickTo);
+          ctx.stroke();
         }
-        ctx.stroke();
       }
       ctx.globalAlpha = 1;
     }
 
     /* Close in, a result shows its printed number above its dot, so a band
        reads as the paper's own sequence. */
+    // Words that come with closeness come in with it (6 October 2026): over
+    // the last stretch of a zoom to their scale they fade up, rather than
+    // all appearing on the frame the threshold is crossed.
+    function zoomIn(from, to) {
+      var t = (view.k - from) / (to - from);
+      if (t <= 0) return 0;
+      if (t >= 1) return 1;
+      return t * t * (3 - 2 * t);
+    }
     function drawStatementNumbers(focus, near, searching, w, h) {
-      if (view.k < 3 || lensOff.paper_statement) return;
+      var lod = zoomIn(2.4, 3);
+      if (lod <= 0 || lensOff.paper_statement) return;
+      ctx.globalAlpha = lod;
       ctx.font = face(600, TYPE.number);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
@@ -2141,6 +2306,7 @@
         ctx.fillStyle = palette.faint;
         ctx.fillText(n.num, x, ly);
       }
+      ctx.globalAlpha = 1;
     }
     /* Which way a label reads along the ring. Over the top it runs
        clockwise, under the bottom anticlockwise. Near either side both run
@@ -2679,6 +2845,16 @@
        The same places serve the labels and the plates that keep clear of
        them. */
     function anchorText(n, w, isFocus) {
+      /* At rest a problem's two papers are named by what they are, "Short
+         paper" and "Long paper", the way the card's tabs name them: a
+         title cut to fit ("Reciprocal Sums and the Sylv…") said less, and
+         the pair either side of each problem now reads as the structure it
+         is. Pointed at, a paper names itself in full on its plate. */
+      if (n.kind === 'paper' && !isFocus) {
+        var run = paperSequence[String(n.id).replace(/^paper:/, '')];
+        var side = run && nodes[run[0]] ? nodes[run[0]].side : null;
+        if (TAB_NAME[side]) return TAB_NAME[side];
+      }
       var text = clip(n.shortLabel, isFocus ? 60 : 42);
       if (n.kind === 'problem' && (w < 600 || view.k < 1.1)) {
         var number = n.id.match(/(?:^|[:_])(\d+)$/);
@@ -2799,10 +2975,20 @@
        number ("Theorem 14.7"), the tie between the dot and the card, and
        does not say the same words twice in the same moment. A result the
        card is not showing (another one is kept there) is named in full. */
+    /* On the map's own page the reading panel owns the title of the result
+       it shows, kept or previewed (7 October 2026): the plate gives the
+       paper's number, so the drawing and the page never set the same long
+       title side by side. A result the panel is not showing is named in
+       full. */
     function plateName(i) {
       var n = nodes[i];
       var full = n.kind === 'paper' ? n.label : n.shortLabel;
-      if (pageMode || n.kind !== 'paper_statement' || !companionApi || typeof companionApi.reads !== 'function') return full;
+      if (pageMode) {
+        if (n.kind !== 'paper_statement' || !inspector || (i !== selected && !(previewBox && i === previewTarget()))) return full;
+        var own = splitLabel(n.label).number;
+        return own && own !== n.label ? own : full;
+      }
+      if (n.kind !== 'paper_statement' || !companionApi || typeof companionApi.reads !== 'function') return full;
       if (selected >= 0 && i !== selected) return full;
       if (!companionApi.reads(n.sector)) return full;
       var number = splitLabel(n.label).number;
@@ -3000,8 +3186,12 @@
       plateBoxes = [];
       platePlaced = {};
       gatherLabelObstacles(rs, w, h);
-      // No label is set under the explorer's controls or its key.
-      chromeBoxes().forEach(function (b) { labelBoxes.push({ x0: b.x0 - 4, x1: b.x1 + 4, y0: b.y0 - 4, y1: b.y1 + 4 }); });
+      // No label is set under the explorer's controls or its key; the key
+      // steps aside in a closer view, and gives its corner back then.
+      chromeBoxes().forEach(function (b) {
+        if (b.legend && exploredShown) return;
+        labelBoxes.push({ x0: b.x0 - 4, x1: b.x1 + 4, y0: b.y0 - 4, y1: b.y1 + 4 });
+      });
       var titleLayout = bandLabelLayout(focus, w, h);
       var reticles = reticleTargets(rs, w, h);
       plateKeepOut = [];
@@ -3085,8 +3275,9 @@
       // On the landing each lit thread is routed round the words it would
       // cross; the map's page draws them straight.
       var routes = !pageMode && focus >= 0 && hot.length ? threadRoutes(focus, hot, rs) : null;
-      if (routes) drawThreads(routes);
-      else drawEdgeSet(hot, 1, 1.25, palette.edgeHot);
+      var grown = threadGrowth(focus);
+      if (routes) drawThreads(routes, grown);
+      else drawHotEdges(focus, hot, grown);
       drawConstellation(focus);
       var threads = graph.threads;
       drawLight(focus, near, searching, threads, rs, w, h);
@@ -3111,7 +3302,16 @@
         if (n.kind === 'lean_module' && i !== focus) alpha = 0.45;
         var anchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         if (searching && !matches(n) && !anchor) alpha = 0.12;
-        alpha *= revealAlpha(revealLayer(n.kind));
+        // A result sets into its plate as the opening's pen passes it: it
+        // comes in a little large and settles to its size.
+        var settle = 1;
+        if (seating && n.kind === 'paper_statement') {
+          settle = setAt(Math.atan2(n.y, n.x));
+          alpha *= settle;
+        } else {
+          alpha *= revealAlpha(revealLayer(n.kind));
+        }
+        if (alpha <= 0.004) continue;
         var undimmed = alpha;
         var ghost = focus >= 0 && i !== focus && !near[i];
         // On the landing what drops back keeps its hue: its own ink mixed
@@ -3124,6 +3324,7 @@
         shadeBy = faded ? focusMix : 0;
         ctx.globalAlpha = alpha;
         if (i === hover || i === selected) r = n.r * rs + 1.5;
+        if (settle < 1) r *= 1 + 0.45 * (1 - settle);
         if (n.kind === 'universe') {
           // The core is a ring round a point: the Lean source everything
           // here is checked against, drawn as a mark, not a mass.
@@ -3210,10 +3411,12 @@
         ctx.globalAlpha = 1;
       }
       drawPulse(focus, threads, rs, routes);
+      drawReferMark(focus, rs, w, h);
 
       // The shared callout goes over the dots, so a band never covers it.
       drawCaptions(calloutPlan, focus);
       drawLabels(labelPlan);
+      if (pageMode && focus >= 0 && grown >= 1) drawExitNames(focus, hot, w, h);
       // The reticles go down once every name has its place.
       drawReticles(rs, w, h);
       drawStatementNumbers(focus, near, searching, w, h);
@@ -3247,6 +3450,9 @@
           n.kind === 'integration_surface' ||
           (view.k > 1.7 && (n.kind === 'paper' || n.kind === 'human_document')) ||
           (view.k > 3.4 && n.kind === 'public_claim');
+        // A paper's or a claim's name fades up as the view closes in.
+        var lod = isFocus ? 1 : n.kind === 'paper' || n.kind === 'human_document' ? zoomIn(1.7, 2) :
+          n.kind === 'public_claim' ? zoomIn(3.4, 3.8) : 1;
         if (!wantLabel) continue;
         var isAnchor = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         if (searching && !matches(n) && !isFocus && !isAnchor) continue;
@@ -3297,7 +3503,7 @@
         // itself in the muted ink, as the system map's dimmed names do, so
         // the lit sector's own number rises with its marks.
         var dropped = !pageMode && !isFocus && focus >= 0 && i !== focus && !near[i];
-        candidates.push({ text: text, x: lx, y: labelY, font: font, size: size, plate: plate, alt: alt,
+        candidates.push({ text: text, x: lx, y: labelY, font: font, size: size, plate: plate, alt: alt, lod: lod,
                           spots: spots && !plate ? spots : null,
                           leader: leader, color: dropped ? fadeText(palette.ink, focusMix) : palette.ink,
                           priority: priority, owner: i, order: candidates.length });
@@ -3361,6 +3567,56 @@
       }
       return plan;
     }
+    /* A lit thread whose far end is out of the view says where it goes,
+       where it leaves (6 October 2026): close in on a result, its threads
+       to Comparator, Palomar or the core run off the edge of the window,
+       and a line that leads nowhere visible reads as arbitrary. Its far
+       end's name stands just inside the edge on the thread, in the quiet
+       italic of the map's second lines, and only where it takes no room
+       another word holds. */
+    function drawExitNames(focus, hot, w, h) {
+      var f = nodes[focus];
+      var fx = f.x * view.k + view.tx, fy = f.y * view.k + view.ty;
+      if (fx < 0 || fy < 0 || fx > w || fy > h) return;
+      var size = TYPE.sub, font = face(400, size, true), inset = 10;
+      ctx.font = font;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.lineJoin = 'round';
+      var said = {};
+      hot.forEach(function (at) {
+        var other = edges[at][0] === focus ? edges[at][1] : edges[at][0], o = nodes[other];
+        if (!o || said[other]) return;
+        if (o.kind !== 'universe' && o.kind !== 'integration_surface' && o.kind !== 'problem' && o.kind !== 'paper') return;
+        var ox = o.x * view.k + view.tx, oy = o.y * view.k + view.ty;
+        if (ox >= 0 && oy >= 0 && ox <= w && oy <= h) return;
+        var span = clipSegment([fx, fy], [ox, oy], { x0: inset, x1: w - inset, y0: inset, y1: h - inset });
+        if (!span) return;
+        var len = Math.sqrt((ox - fx) * (ox - fx) + (oy - fy) * (oy - fy)) || 1;
+        var ux = (ox - fx) / len, uy = (oy - fy) / len;
+        var ex = fx + (ox - fx) * span[1], ey = fy + (oy - fy) * span[1];
+        var text = o.kind === 'paper' ? anchorText(o, w, false) : clip(o.shortLabel, 28);
+        var width = ctx.measureText(text).width;
+        // Step back along the thread until the name stands clear.
+        for (var back = 16; back <= 64; back += 12) {
+          var cx = ex - ux * back, cy = ey - uy * back + size * 0.35;
+          var box = { x0: cx - width / 2 - 3, x1: cx + width / 2 + 3, y0: cy - size, y1: cy + 4 };
+          if (box.x0 < 2 || box.x1 > w - 2 || box.y0 < 2 || box.y1 > h - 2) continue;
+          if (labelCollides(box) || underPlate(box)) continue;
+          labelBoxes.push(box);
+          said[other] = true;
+          var lit = other === referring(focus);
+          ctx.globalAlpha = lit ? 0.9 + 0.1 * referMix : 0.9;
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = palette.ground;
+          ctx.strokeText(text, cx, cy);
+          ctx.fillStyle = lit && referMix > 0.5 ? referInk(other) : palette.muted;
+          ctx.fillText(text, cx, cy);
+          ctx.globalAlpha = 1;
+          return;
+        }
+      });
+    }
     function drawLabels(plan) {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
@@ -3402,7 +3658,7 @@
           ctx.strokeStyle = kept ? palette.ember : palette.ink;
           ctx.stroke();
         }
-        ctx.globalAlpha = revealAlpha(4) * enter;
+        ctx.globalAlpha = revealAlpha(4) * enter * (cand.lod == null ? 1 : cand.lod);
         ctx.lineWidth = 4;
         ctx.strokeStyle = palette.ground;
         ctx.fillStyle = cand.color;
@@ -3688,20 +3944,217 @@
       routeCache = { key: key, routes: routes };
       return routes;
     }
+    /* The lit threads run out from the object in focus (6 October 2026):
+       when a reader settles on something new, its threads are drawn from it
+       toward what they reach, all at one speed, so a near neighbour is
+       joined first and the farthest last, in a quarter of a second. The
+       field shows the connection being made, then holds still. A focus that
+       returns (a kept result after a hover elsewhere) and reduced motion
+       show the threads whole. */
+    var THREAD_GROW = 240;
+    function threadGrowth(focus) {
+      if (focus < 0 || pulse.at !== focus || pulse.ms >= THREAD_GROW) return 1;
+      var t = Math.max(0, pulse.ms / THREAD_GROW);
+      return 1 - Math.pow(1 - t, 3);
+    }
+    /* The lit edges on the map's page, straight, from the focus outward.
+       A thread is light leaving the object in focus (7 October 2026): it
+       is brightest where it starts, and one that runs far (to the centre,
+       to Comparator, to a problem across the window or out of it) keeps its
+       full ink only for the local reach, then cools toward its end, so the
+       field near the subject is drawn in precise lines and the long rays to
+       the hubs read as direction rather than as the brightest marks on the
+       canvas. A near thread keeps its ink to its end, and a thread whose
+       far end leaves the window ends at the edge, where its name is set. */
+    var THREAD_LOCAL = 0.2, THREAD_FAR_ALPHA = 0.24;
+
+    /* ---- References from the page (7 October 2026) ---------------------
+       The kept result's page names things the figure also draws: the paper
+       that states it, the same statement in the other paper (they cite one
+       Lean declaration), Comparator's replay, Palomar's prepared corpus.
+       Resting on, or tabbing to, such a reference identifies exactly that
+       relation on the figure: its thread comes up to full ink and full
+       length, the other threads step back, and its far end is ringed (or,
+       off the window, its name at the edge is set in ink). The kept result
+       stays the subject: nothing is selected, the camera does not move and
+       the page is not redrawn. Only relations the record draws are
+       referable; the Lean row names no object on the figure, so it has
+       none. */
+    var referAt = -1, referShown = -1, referMix = 0, referFrame = 0, referAnim = null, REFER_MS = 170;
+    var referEl = null;
+    function setRefer(j) {
+      if (j === referAt) return;
+      referAt = j;
+      if (j >= 0) { if (referShown !== j) referMix = 0; referShown = j; }
+      referAnim = { from: referMix, to: j >= 0 ? 1 : 0, start: null };
+      if (reduceMotion || !window.requestAnimationFrame) {
+        referMix = referAnim.to; referAnim = null;
+        if (j < 0) referShown = -1;
+        draw();
+        return;
+      }
+      if (!referFrame) referFrame = requestMotionFrame(stepRefer);
+    }
+    function stepRefer(now) {
+      referFrame = 0;
+      var a = referAnim;
+      if (!a) return;
+      if (a.start === null) a.start = now;
+      var t = Math.min(1, (now - a.start) / REFER_MS);
+      referMix = a.from + (a.to - a.from) * (1 - (1 - t) * (1 - t));
+      if (t < 1) referFrame = requestMotionFrame(stepRefer);
+      else { referAnim = null; if (a.to === 0) referShown = -1; }
+      draw();
+    }
+    // The object the page refers to, while the kept result is the focus.
+    function referring(focus) {
+      return focus >= 0 && focus === selected && referShown >= 0 && nodes[referShown] ? referShown : -1;
+    }
+    // Whether the figure draws a relation from result i to object j: a
+    // thread of the record (its paper, Comparator, Palomar) or the shared
+    // declaration that joins it to its counterpart in the other paper.
+    function relationDrawn(i, j) {
+      if (i < 0 || j < 0 || i === j || !nodes[i] || !nodes[j] || !visible(nodes[j])) return false;
+      if ((nodes[i].twins || []).some(function (t) { return t.at === j; })) return true;
+      var list = incidentEdges(i);
+      for (var q = 0; q < list.length; q++) {
+        var e = edges[list[q]];
+        if ((e[0] === i && e[1] === j) || (e[1] === i && e[0] === j)) return true;
+      }
+      return false;
+    }
+    function referAttr(i, j) {
+      return relationDrawn(i, j) ? ' data-universe-refer="' + j + '"' : '';
+    }
+    function referInk(j) {
+      return nodes[j].kind === 'integration_surface' ? glyphColor(nodes[j]) : palette.ink;
+    }
+    // The far end of the relation in reference, ringed like a registration mark.
+    function drawReferMark(focus, rs, w, h) {
+      var ref = referring(focus);
+      if (ref < 0 || referMix <= 0) return;
+      var n = nodes[ref], x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
+      if (x < -20 || y < -20 || x > w + 20 || y > h + 20) return;
+      var r = n.r * rs + 5;
+      ctx.strokeStyle = referInk(ref);
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = referMix;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.35 * referMix;
+      ctx.beginPath();
+      ctx.arc(x, y, r + 4 + 3 * referMix, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    function fadedHot(part) {
+      var keep = part == null ? THREAD_FAR_ALPHA : part;
+      var key = 'hotfade|' + palette.edgeHot + '|' + keep;
+      var hit = mixCache[key];
+      if (hit === undefined) {
+        var c = parseColor(palette.edgeHot);
+        hit = c ? 'rgba(' + Math.round(c[0] * 255) + ', ' + Math.round(c[1] * 255) + ', ' + Math.round(c[2] * 255) +
+          ', ' + (c[3] * keep).toFixed(3) + ')' : null;
+        mixCache[key] = hit;
+      }
+      return hit;
+    }
+    function drawHotEdges(focus, hot, grown) {
+      // While the rings seat, each end rides its own ring.
+      if (focus < 0 || !nodes[focus] || reveal < 1) { drawEdgeSet(hot, 1, 1.25, palette.edgeHot); return; }
+      var f = nodes[focus], fx = f.x * view.k + view.tx, fy = f.y * view.k + view.ty;
+      var w = canvas.clientWidth, h = canvas.clientHeight, local = THREAD_LOCAL * Math.min(w, h);
+      var ends = [], longest = 0;
+      hot.forEach(function (at) {
+        var o = nodes[edges[at][0] === focus ? edges[at][1] : edges[at][0]];
+        if (!o) return;
+        var ox = o.x * view.k + view.tx, oy = o.y * view.k + view.ty;
+        var len = Math.sqrt((ox - fx) * (ox - fx) + (oy - fy) * (oy - fy));
+        longest = Math.max(longest, len);
+        ends.push([ox, oy, len, edges[at][0] === focus ? edges[at][1] : edges[at][0]]);
+      });
+      var reach = grown >= 1 ? Infinity : grown * longest;
+      var faded = pageMode && ctx.createLinearGradient ? fadedHot() : null;
+      var ref = referring(focus), rest = ref >= 0 ? 1 - 0.72 * referMix : 1, named = null;
+      ctx.lineWidth = 1.25;
+      ctx.globalAlpha = rest;
+      var near = [];
+      ends.forEach(function (e) {
+        if (e[3] === ref) { named = e; return; }
+        var share = e[2] > reach ? reach / e[2] : 1;
+        if (share <= 0) return;
+        var tx = fx + (e[0] - fx) * share, ty = fy + (e[1] - fy) * share;
+        // Where the thread leaves the window, if it does.
+        var span = clipSegment([fx, fy], [e[0], e[1]], { x0: 0, x1: w, y0: 0, y1: h });
+        var shown = (span ? Math.min(span[1], share) : share) * e[2];
+        var grad = faded && e[2] > local * 1.5 && shown > local ? ctx.createLinearGradient(fx, fy, e[0], e[1]) : null;
+        if (!grad || typeof grad.addColorStop !== 'function') { near.push([tx, ty]); return; }
+        // Full ink for the local reach, then cooling to the edge or the end.
+        var hold = Math.min(0.9, local / e[2]), cool = Math.max(hold + 0.05, Math.min(1, shown / e[2]));
+        grad.addColorStop(0, palette.edgeHot);
+        grad.addColorStop(hold, palette.edgeHot);
+        // Cooling eases out: most of the light is gone by halfway.
+        grad.addColorStop(hold + (cool - hold) * 0.45, fadedHot(0.5));
+        grad.addColorStop(cool, faded);
+        if (cool < 1) grad.addColorStop(1, faded);
+        ctx.strokeStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(fx, fy);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      });
+      if (near.length) {
+        ctx.strokeStyle = palette.edgeHot;
+        ctx.beginPath();
+        near.forEach(function (e) { ctx.moveTo(fx, fy); ctx.lineTo(e[0], e[1]); });
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      if (!named) return;
+      // The relation in reference: whole, uncooled, a step heavier, in the
+      // ink of what it reaches.
+      ctx.strokeStyle = referInk(ref);
+      ctx.lineWidth = 1.25 + 0.75 * referMix;
+      ctx.globalAlpha = 0.55 + 0.45 * referMix;
+      ctx.beginPath();
+      ctx.moveTo(fx, fy);
+      ctx.lineTo(named[0], named[1]);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
     // The routed threads, in the lit thread's ink: a straight line, or a
-    // curve drawn as its run of short pieces.
-    function drawThreads(routes) {
+    // curve drawn as its run of short pieces; while they grow, each is
+    // drawn as far along its route as the growth has reached.
+    function drawThreads(routes, grown) {
       ctx.lineWidth = 1.25;
       ctx.strokeStyle = palette.edgeHot;
       ctx.globalAlpha = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'butt';
+      var keys = Object.keys(routes), lengths = {}, longest = 0;
+      if (grown < 1) {
+        keys.forEach(function (other) {
+          var pts = routes[other].points;
+          lengths[other] = pts && pts.length > 1 ? wayLength(pts) : 0;
+          longest = Math.max(longest, lengths[other]);
+        });
+      }
+      var reach = grown * longest;
       ctx.beginPath();
-      Object.keys(routes).forEach(function (other) {
+      keys.forEach(function (other) {
         var pts = routes[other].points;
         if (!pts || pts.length < 2) return;
+        var left = grown < 1 ? reach : Infinity;
         ctx.moveTo(pts[0][0], pts[0][1]);
-        for (var j = 1; j < pts.length; j++) ctx.lineTo(pts[j][0], pts[j][1]);
+        for (var j = 1; j < pts.length && left > 0; j++) {
+          var len = segLength(pts[j - 1], pts[j]);
+          if (len <= left) { ctx.lineTo(pts[j][0], pts[j][1]); left -= len; continue; }
+          var f = left / len;
+          ctx.lineTo(pts[j - 1][0] + (pts[j][0] - pts[j - 1][0]) * f, pts[j - 1][1] + (pts[j][1] - pts[j - 1][1]) * f);
+          left = 0;
+        }
       });
       ctx.stroke();
       ctx.globalAlpha = 1;
@@ -3969,7 +4422,7 @@
       var n = nodes[i];
       var info = problemInfoOf(n);
       var head = '<p class="universe-inspector__kind universe-kicker">Erdős problem ' + escapeHtml(n.shortLabel) + '</p>';
-      if (pinned) head = cardHeadHtml(head);
+      head = pinned ? cardHeadHtml(head) : previewHeadHtml(head);
       var parts = [head, '<h2 class="universe-inspector__title universe-inspector__title--problem">' + escapeHtml(n.label) + '</h2>'];
       if (n.status && n.status !== 'open') {
         parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--status">' + escapeHtml(capitalFirst(n.status)) + '</span></p>');
@@ -4072,13 +4525,54 @@
             })) {
           group.items.sort(function (a, b) { return nodes[a.to].seq - nodes[b.to].seq; });
         }
-        var items = group.items.map(function (item) { return item.html; }).join('');
         var many = (KIND_PLURAL[group.kind] || group.kind).toLowerCase();
-        html += '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) +
+        var head = '<li class="universe-link"><span class="universe-link__how">' + escapeHtml(group.phrase) +
           (group.items.length > 3 ? ' <span class="universe-link__count">' + group.items.length + ' ' + escapeHtml(many) + '</span>' : '') +
-          '</span><ul class="universe-list' + (group.kind === 'paper_statement' ? '' : ' universe-list--goto') + '">' + items + '</ul></li>';
+          '</span>';
+        if (owner.kind === 'integration_surface' && group.kind === 'paper_statement') {
+          html += head + checkerListsHtml(group.items) + '</li>';
+          continue;
+        }
+        var items = group.items.map(function (item) { return item.html; }).join('');
+        html += head + '<ul class="universe-list' + (group.kind === 'paper_statement' ? '' : ' universe-list--goto') + '">' + items + '</ul></li>';
       }
       return { html: html ? '<ul class="universe-links">' + html + '</ul>' : '', total: rows.length };
+    }
+
+    /* What Comparator replayed (or Palomar holds) is read as the problem
+       cards read their results (6 October 2026): problem by problem in the
+       order the map lists them, each paper under its own line, short paper
+       first, every result in the order its paper states it. One long list
+       sorted by name ran "6.4, 6.40, 6.49, 6.5, 6.52" and printed the same
+       number twice from two papers with nothing to tell them apart. */
+    function checkerListsHtml(items) {
+      var bandAt = {};
+      bands.forEach(function (b, k) { bandAt[b.sector] = k; });
+      var runs = {}, order = [];
+      items.forEach(function (item) {
+        var m = nodes[item.to], key = m.paperId || '';
+        if (!runs[key]) { runs[key] = { first: m, items: [] }; order.push(key); }
+        runs[key].items.push(item);
+      });
+      order.sort(function (p, q) {
+        var a = runs[p].first, b = runs[q].first;
+        var pa = bandAt[a.sector], pb = bandAt[b.sector];
+        pa = pa === undefined ? 1e3 : pa; pb = pb === undefined ? 1e3 : pb;
+        return pa - pb || (SIDE_ORDER[a.side] || 0) - (SIDE_ORDER[b.side] || 0) || (p < q ? -1 : p > q ? 1 : 0);
+      });
+      return order.map(function (key) {
+        var run = runs[key], first = run.first;
+        run.items.sort(function (a, b) {
+          var sa = nodes[a.to].seq, sb = nodes[b.to].seq;
+          return (typeof sa === 'number' ? sa : 1e6) - (typeof sb === 'number' ? sb : 1e6);
+        });
+        var problem = first.sector && problemIndex[first.sector] !== undefined ? nodes[problemIndex[first.sector]].shortLabel : null;
+        var where = capitalFirst(first.side === 'long' ? 'the long record' : roleName(first)) + (problem ? ' on ' + problem : '');
+        return '<p class="universe-list__from">' + escapeHtml(where) +
+          (first.paperTitle ? ', <cite>' + escapeHtml(first.paperTitle) + '</cite>' : '') +
+          ' <span class="universe-list__count">' + run.items.length + (run.items.length === 1 ? ' result' : ' results') + '</span></p>' +
+          '<ol class="universe-list">' + run.items.map(function (item) { return item.html; }).join('') + '</ol>';
+      }).join('');
     }
 
     /* What sits with a problem, by status, with the shared fan named. */
@@ -4160,8 +4654,9 @@
       if (n.paper) {
         rows.push('<a class="universe-open universe-open--primary" href="' + escapeHtml(n.paper) + '">' +
           '<span class="universe-open__verb">Read this result in the paper</span>' +
-          '<span class="universe-open__where">' + escapeHtml(n.paperTitle || 'paper') +
-          (n.paperLabel ? ' <code>' + escapeHtml(n.paperLabel) + '</code>' : '') + '</span></a>');
+          // The paper's title says where; its TeX label is a source anchor,
+          // not a word for the reader, and stays in the link only.
+          '<span class="universe-open__where">' + escapeHtml(n.paperTitle || 'paper') + '</span></a>');
       }
       if (n.page) {
         rows.push('<a class="universe-open' + (n.paper ? '' : ' universe-open--primary') + '" href="' + escapeHtml(n.page) + '">' +
@@ -4222,8 +4717,15 @@
       return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
     }
 
+    // One formatter, made once: toLocaleString builds a new one per call,
+    // and the panel and the count line ask for dozens a frame.
+    var countFormat = null;
     function fmtCount(value) {
-      return value == null ? '' : Number(value).toLocaleString('en-GB');
+      if (value == null) return '';
+      if (countFormat === null) {
+        try { countFormat = new Intl.NumberFormat('en-GB'); } catch (err) { countFormat = false; }
+      }
+      return countFormat ? countFormat.format(Number(value)) : Number(value).toLocaleString('en-GB');
     }
 
     function extLink(href, text, cls) {
@@ -4325,6 +4827,37 @@
 
     // A Lean name has no spaces, so a narrow card broke it mid-word
     // ("…ResidueProj / ection"). It may break after a dot or an underscore.
+    /* A claim's words come from the record as plain text written with
+       ASCII notation ("sum_{j<N} j^2", "d <= X", "N^(-8 xi)", "H_a"). The
+       card sets that notation as a reader of mathematics expects
+       (7 October 2026): subscripts and superscripts, ≤ ≥ ≠, ∑ and ∏, and a
+       Greek letter where its name stands as a symbol. Only the marks of
+       notation change; every symbol, number and word of the statement
+       stays, and a Lean identifier (total_totient_series) is never read as
+       a subscript, because a subscript's base is one letter standing on
+       its own. */
+    var GREEK_NAMES = { alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', epsilon: 'ε', theta: 'θ', kappa: 'κ',
+      lambda: 'λ', mu: 'μ', nu: 'ν', xi: 'ξ', rho: 'ρ', sigma: 'σ', tau: 'τ', phi: 'φ', chi: 'χ', psi: 'ψ', omega: 'ω',
+      Gamma: 'Γ', Delta: 'Δ', Theta: 'Θ', Lambda: 'Λ', Sigma: 'Σ', Phi: 'Φ', Psi: 'Ψ', Omega: 'Ω' };
+    var GREEK_WORD = /(^|[\s(=^_{,+\/−])(alpha|beta|gamma|delta|epsilon|theta|kappa|lambda|mu|nu|xi|rho|sigma|tau|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Sigma|Phi|Psi|Omega)(?![A-Za-z0-9])/g;
+    var SUB_MARK = /(^|[^A-Za-z_])([A-Za-zΑ-Ωα-ω∑∏])_(\{[^{}]{1,24}\}|\([^()]{1,24}\)|[A-Za-z0-9]{1,3}(?![A-Za-z0-9_]))/g;
+    var SUP_MARK = /([A-Za-z0-9)\]α-ω])\^(\{[^{}]{1,24}\}|\([^()]{1,24}\)|[+\-−]?[A-Za-z0-9α-ω]{1,4}(?![A-Za-z0-9_])|[+\-−](?![A-Za-z0-9]))/g;
+    function markInner(text) {
+      var inner = /^[{(]/.test(text) ? text.slice(1, -1) : text;
+      return inner.replace(/(^|[\s(])-(?=[\dA-Za-zα-ω])/g, '$1−');
+    }
+    function notationHtml(text) {
+      var s = escapeHtml(String(text || ''));
+      if (!/[_^]|&lt;=|&gt;=|!=|\b(?:alpha|beta|gamma|delta|epsilon|theta|kappa|lambda|mu|nu|xi|rho|sigma|tau|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Sigma|Phi|Psi|Omega)\b/.test(s)) return s;
+      s = s.replace(/&lt;=/g, '≤').replace(/&gt;=/g, '≥').replace(/!=/g, '≠');
+      s = s.replace(/(^|[^A-Za-z_])(sum|prod)_/g, function (m, pre, op) { return pre + (op === 'sum' ? '∑' : '∏') + '_'; });
+      s = s.replace(GREEK_WORD, function (m, pre, name) { return pre + GREEK_NAMES[name]; });
+      s = s.replace(SUB_MARK, function (m, pre, base, mark) { return pre + base + '<sub>' + markInner(mark) + '</sub>'; });
+      s = s.replace(SUP_MARK, function (m, base, mark) { return base + '<sup>' + markInner(mark) + '</sup>'; });
+      // A hyphen between two set terms ("3^(n+1)-2^(n+1)") is a minus.
+      s = s.replace(/(<\/su[bp]>|\))-(?=[0-9(A-Za-z])/g, '$1\u2212');
+      return s;
+    }
     function nameHtml(text) {
       var safe = escapeHtml(String(text || ''));
       if (/\s/.test(safe) || safe.length < 20) return safe;
@@ -4442,12 +4975,14 @@
       var html = '<figure class="universe-quote">';
       if (tabs.length > 1) {
         // Related statements in two papers; retain the reader's chosen excerpt.
+        // The row says why there are two: they share Lean support.
         html += '<div class="universe-quote__tabs" role="tablist" aria-label="Related statements in the two papers">' +
+          ((nodes[i].twins || []).length ? '<span class="universe-quote__twins" aria-hidden="true">Shared Lean support</span>' : '') +
           tabs.map(function (t) {
             var tm = nodes[t.at];
             // "Short paper, 5.2": short enough for two tabs on one line.
             return '<button type="button" role="tab" class="universe-quote__tab" aria-selected="' +
-              (t.at === place.at) + '" data-universe-place="' + t.at + '" aria-label="' +
+              (t.at === place.at) + '" data-universe-place="' + t.at + '"' + (t.at !== i ? referAttr(i, t.at) : '') + ' aria-label="' +
               escapeHtml(capitalFirst(roleName(tm)) + ', ' + splitLabel(tm.label).number) + '">' +
               (TAB_NAME[tm.side] || 'Paper') + ', ' + escapeHtml(tm.num || splitLabel(tm.label).number) + '</button>';
           }).join('') + '</div>';
@@ -4472,13 +5007,13 @@
         // universe-open--primary is the hook the site's navigation warming
         // (docs.js) reads to fetch a pinned card's paper ahead of the click.
         go.push('<a class="universe-go universe-go--primary universe-open--primary" href="' +
-          escapeHtml(route(m.paper)) + '">Read it in the paper</a>');
+          escapeHtml(route(m.paper)) + '"' + (pinned && place.at === i ? referAttr(i, paperOf(i)) : '') + '>Read it in the paper</a>');
       }
       if (m.tex && statementMeta && statementMeta.tex_source_base) {
         go.push(extLink(statementMeta.tex_source_base + m.tex, 'TeX source' + (m.line ? ', line ' + m.line : ''), 'universe-go'));
       }
       if (pinned && place.at !== i) {
-        go.push('<button type="button" class="universe-go" data-universe-go="' + place.at + '">Select it on the map</button>');
+        go.push('<button type="button" class="universe-go" data-universe-go="' + place.at + '"' + referAttr(i, place.at) + '>Select it on the map</button>');
       }
       if (go.length) html += '<p class="universe-quote__go">' + go.join('') + '</p>';
       if (pinned && places.length > tabs.length) {
@@ -4522,13 +5057,21 @@
         '<ol class="universe-lean__list">' + items.join('') + '</ol></section>';
     }
 
-    function checkHtml(state, station, sentence, more) {
-      return '<li class="universe-check universe-check--' + state + ' universe-check--' + station.toLowerCase() + '">' +
+    function checkHtml(state, station, sentence, more, refer) {
+      return '<li class="universe-check universe-check--' + state + ' universe-check--' + station.toLowerCase() + '"' + (refer || '') + '>' +
         '<span class="universe-check__mark" aria-hidden="true"></span>' +
         '<div class="universe-check__body"><p class="universe-check__text"><b>' + station + '.</b> ' + sentence + '</p>' +
         (more || '') + '</div></li>';
     }
 
+    function paperOf(i) {
+      var at = nodes[i] && nodes[i].paperId ? byId['paper:' + nodes[i].paperId] : undefined;
+      return at === undefined ? -1 : at;
+    }
+    function hubAttr(n, id) {
+      var i = byId[n.id], j = byId[id];
+      return i === undefined || j === undefined ? '' : referAttr(i, j);
+    }
     function checksHtml(n, pinned) {
       var href = detailHref(n);
       var detail = pinned && details[href];
@@ -4609,16 +5152,18 @@
             cmpMore += '<p class="universe-check__more">The challenge states it in an equivalent form; the evidence record prints both.</p>';
           }
         }
-        rows.push(checkHtml('done', 'Comparator', said, cmpMore));
+        rows.push(checkHtml('done', 'Comparator', said, cmpMore, pinned ? hubAttr(n, 'integration:comparator') : ''));
       } else if (lean === 'exact' || lean === 'exact_or_stronger') {
         rows.push(checkHtml('queued', 'Comparator', 'Its replay is queued' +
-          (n.comparator_queued_at ? ' since ' + escapeHtml(n.comparator_queued_at) : '') + '.'));
+          (n.comparator_queued_at ? ' since ' + escapeHtml(n.comparator_queued_at) : '') + '.', '',
+          pinned ? hubAttr(n, 'integration:comparator') : ''));
       } else {
         rows.push(checkHtml('none', 'Comparator', 'Nothing to replay until Lean states it exactly.'));
       }
       // Palomar: a prepared corpus; nothing has been submitted.
       if (n.palomar_status === 'prepared') {
-        rows.push(checkHtml('ready', 'Palomar', 'It is in the corpus prepared for Palomar. Nothing has been submitted.'));
+        rows.push(checkHtml('ready', 'Palomar', 'It is in the corpus prepared for Palomar. Nothing has been submitted.', '',
+          pinned ? hubAttr(n, 'integration:palomar') : ''));
       } else if (n.palomar_status === 'pending') {
         rows.push(checkHtml('none', 'Palomar', 'It joins the prepared corpus once Comparator has replayed it.'));
       } else {
@@ -4691,38 +5236,48 @@
         '<p class="universe-inspector__note">' + escapeHtml(n.proof_note || '') + '</p></div>';
     }
 
+    /* A kept result reads as a page (7 October 2026): one running head
+       (its problem), one folio line (the way through its paper, and the
+       way back), then its title, where it is stated and how far it is
+       checked in one line, and its statement, the largest uninterrupted
+       thing in the panel. The preview keeps its kind and its Preview tag. */
     function resultCardHtml(i, pinned) {
       var n = nodes[i];
       var lab = splitLabel(n.label);
       var ex = excerptOf(i);
-      var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) + 'Paper result</p>';
-      if (pinned) head = cardHeadHtml(head);
       var problem = n.sector && problemIndex[n.sector] !== undefined;
-      // Once a result is chosen its problem shrinks to one line above it,
-      // the way back up to the problem's own card.
-      var parts = [problem ? contextLineHtml(n.sector) : '', head,
-        '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
-        '<p class="universe-result__where">' + (lab.name ? '<b>' + escapeHtml(lab.number) + '</b> in ' : 'In ') +
-          roleName(n) + '</p>'];
-      parts.push(proofHtml(n));
-      if ((n.twins || []).length) parts.push('<p class="universe-inspector__note">Shared Lean support in both papers · compare the statements below.</p>');
-      if (n.tier) {
-        parts.push('<p class="universe-inspector__meta"><span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' +
-          glyphHtml(n.tier) + escapeHtml(capitalFirst(EVIDENCE_TEXT[n.tier] || n.tier)) + '</span></p>');
-      }
       var seq = paperSequence[n.paperId];
+      var step = '';
       if (pinned && seq && seq.length > 1 && n.seq != null) {
         // Walk the paper: the previous and next results in the order it
         // states them (the arrow keys do the same).
-        parts.push('<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
+        step = '<div class="universe-step" role="group" aria-label="Step through this paper’s results">' +
           '<button type="button" class="universe-step__btn" data-universe-step="-1"' +
           (adjacentStatement(n, -1) < 0 ? ' disabled' : '') + '><span aria-hidden="true">←</span> Previous</button>' +
           '<span class="universe-step__at">Result ' + (n.seq + 1) + ' of ' + seq.length +
           stepScaleHtml(n.seq, seq.length) + '</span>' +
           '<button type="button" class="universe-step__btn" data-universe-step="1"' +
           (adjacentStatement(n, 1) < 0 ? ' disabled' : '') + '>Next <span aria-hidden="true">→</span></button>' +
-          '</div>');
+          '</div>';
       }
+      var head;
+      if (pinned) {
+        // The kind is said by the line under the title ("Lemma 2.7 in the
+        // long paper"); the head carries the folio and the way back.
+        head = cardHeadHtml(step || '<span class="universe-folio__room"></span>').replace(
+          'universe-inspector__head"', 'universe-inspector__head universe-folio"');
+      } else {
+        head = previewHeadHtml('<p class="universe-inspector__kind">' + dotHtml(n.kind) + 'Paper result</p>');
+      }
+      var status = n.tier ? '<span class="universe-chip universe-chip--' + escapeHtml(n.tier) + '">' +
+        glyphHtml(n.tier) + escapeHtml(capitalFirst(EVIDENCE_TEXT[n.tier] || n.tier)) + '</span>' : '';
+      // Once a result is chosen its problem shrinks to one line above it,
+      // the way back up to the problem's own card.
+      var parts = [problem ? contextLineHtml(n.sector) : '', head,
+        '<h2 class="universe-inspector__title">' + capitalFirst(ex && ex.name ? ex.name : escapeHtml(lab.name || lab.number)) + '</h2>',
+        '<p class="universe-result__where"><span class="universe-result__place"' + (pinned ? referAttr(i, paperOf(i)) : '') + '>' +
+          (lab.name ? '<b>' + escapeHtml(lab.number) + '</b> in ' : 'In ') + roleName(n) + '</span>' + status + '</p>'];
+      parts.push(proofHtml(n));
       parts.push(quoteHtml(i, pinned));
       if (!pinned) {
         parts.push('<p class="universe-inspector__evidence">' + escapeHtml(evidenceSentence(n)) + '</p>');
@@ -4769,6 +5324,15 @@
         escapeHtml(up ? 'Back to ' + placeName(back.up) + ' (Esc)' : 'Close this card (Esc)') + '">' +
         (up ? '<span aria-hidden="true">←</span> Back' : 'Close') + '</button></div>';
     }
+    /* A card the pointer is only resting on says so where a kept card has
+       its Back or Close: the reader sees at a glance whether the panel is
+       holding a choice or showing what is under the pointer (6 October
+       2026). Only the explorer's preview layer shows such a card. */
+    function previewHeadHtml(head) {
+      if (!previewBox) return head;
+      return '<div class="universe-inspector__head universe-inspector__head--preview">' + head +
+        '<span class="universe-preview__tag">Preview</span></div>';
+    }
     function stepBackHtml() {
       var back = backTarget(), where;
       if (back.up >= 0) where = 'go back to ' + escapeHtml(placeName(back.up));
@@ -4799,9 +5363,9 @@
       if (n.kind === 'problem' && n.sector) return problemCardHtml(i, pinned);
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
         escapeHtml(kindLine(n)) + '</p>';
-      if (pinned) head = cardHeadHtml(head);
+      head = pinned ? cardHeadHtml(head) : previewHeadHtml(head);
       var parts = [head,
-        '<h2 class="universe-inspector__title">' + nameHtml(n.label) + '</h2>'];
+        '<h2 class="universe-inspector__title">' + (n.kind === 'public_claim' && /\s/.test(n.label || '') ? notationHtml(n.label) : nameHtml(n.label)) + '</h2>'];
       var chips = '';
       if (n.status) {
         chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(capitalFirst(n.status)) + '</span>';
@@ -4810,9 +5374,12 @@
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
       parts.push(proofHtml(n));
       var body = n.statement || n.question || null;
-      if (body) parts.push('<p class="universe-inspector__body">' + escapeHtml(body) + '</p>');
+      var claim = n.kind === 'public_claim';
+      // A claim's assertion is set as a statement, as a paper's result is.
+      if (body) parts.push('<p class="universe-inspector__body' + (claim ? ' universe-claim__statement' : '') + '">' +
+        (claim ? notationHtml(body) : escapeHtml(body)) + '</p>');
       if (n.boundary) {
-        parts.push('<p class="universe-inspector__boundary">' + escapeHtml(n.boundary) + '</p>');
+        parts.push('<p class="universe-inspector__boundary">' + (claim ? notationHtml(n.boundary) : escapeHtml(n.boundary)) + '</p>');
       }
       if (n.subject) {
         parts.push('<p class="universe-inspector__note">Subject: ' + escapeHtml(n.subject) + '</p>');
@@ -4874,15 +5441,83 @@
       }
     }
 
-    /* A displayed formula wider than the panel's measure is set a little
-       smaller to fit it (to three quarters of its size at most); one wider
-       still scrolls sideways in its own line, never cut. */
+    /* A display that sets several relations side by side, parted by the
+       paper's wide spaces (\qquad: "u = …,  v = …,  gcd(u, v) = 1,"), is
+       first set as an aligned stack when it is too wide for the measure
+       (7 October 2026): one relation a line, in the paper's order, each on
+       its relation sign, the equation's number on the first line. Every
+       term and comma stays; only the wide spaces become line breaks. */
+    var MATHML_NS = 'http://www.w3.org/1998/Math/MathML';
+    var RELATION_SIGN = /^[=<>\u2260\u2264\u2265\u2261\u2248\u223c\u2243\u2245\u221d\u2282\u2286\u2208\u2192\u21a6\u27f9\u21d2\u21d4\u2223]$/;
+    function stackRelations(el) {
+      var math = el.querySelector && el.querySelector('math');
+      if (!math || !document.createElementNS || el.getAttribute('data-stacked')) return false;
+      var table = math.querySelector('mtable'), label = null, body;
+      if (table) {
+        var trs = table.querySelectorAll('mtr');
+        if (trs.length !== 1 || trs[0].children.length > 2) return false;
+        var cells = trs[0].children;
+        body = cells[cells.length - 1];
+        label = cells.length === 2 ? cells[0] : null;
+      } else {
+        body = math.children.length === 1 && math.children[0].localName === 'mrow' ? math.children[0] : math;
+      }
+      var parts = [[]];
+      Array.prototype.forEach.call(body.childNodes, function (k) {
+        var wide = k.localName === 'mspace' && parseFloat(k.getAttribute('width')) >= 1;
+        if (wide) parts.push([]); else parts[parts.length - 1].push(k);
+      });
+      parts = parts.filter(function (p) { return p.some(function (k) { return k.nodeType === 1; }); });
+      if (parts.length < 2) return false;
+      var stack = document.createElementNS(MATHML_NS, 'mtable');
+      stack.setAttribute('class', 'universe-stack');
+      if (table && table.getAttribute('displaystyle')) stack.setAttribute('displaystyle', table.getAttribute('displaystyle'));
+      parts.forEach(function (p, j) {
+        var tr = document.createElementNS(MATHML_NS, 'mtr');
+        if (label) tr.appendChild(j === 0 ? label : document.createElementNS(MATHML_NS, 'mtd'));
+        var lhs = document.createElementNS(MATHML_NS, 'mtd'), rhs = document.createElementNS(MATHML_NS, 'mtd');
+        var left = document.createElementNS(MATHML_NS, 'mrow'), right = document.createElementNS(MATHML_NS, 'mrow');
+        lhs.setAttribute('class', 'universe-stack__lhs');
+        rhs.setAttribute('class', 'universe-stack__rhs');
+        var at = -1;
+        for (var q = 0; q < p.length && at < 0; q++) {
+          if (q > 0 && p[q].localName === 'mo' && RELATION_SIGN.test((p[q].textContent || '').trim())) at = q;
+        }
+        p.forEach(function (k, q) { (at > 0 && q < at ? left : right).appendChild(k); });
+        lhs.appendChild(left);
+        rhs.appendChild(right);
+        tr.appendChild(lhs);
+        tr.appendChild(rhs);
+        stack.appendChild(tr);
+      });
+      if (table) table.parentNode.replaceChild(stack, table);
+      else { while (math.firstChild) math.removeChild(math.firstChild); math.appendChild(stack); }
+      // A table cell's math is laid out from its start, so each left side
+      // is set flush right by the space it lacks: the signs share a line.
+      var sides = Array.prototype.slice.call(stack.querySelectorAll('.universe-stack__lhs > mrow'));
+      var widths = sides.map(function (m) { return m.getBoundingClientRect ? m.getBoundingClientRect().width : 0; });
+      var widest = Math.max.apply(null, widths.concat([0]));
+      sides.forEach(function (m, j) {
+        if (!(widest - widths[j] > 0.5)) return;
+        var pad = document.createElementNS(MATHML_NS, 'mspace');
+        pad.setAttribute('width', (widest - widths[j]).toFixed(1) + 'px');
+        m.parentNode.insertBefore(pad, m);
+      });
+      el.setAttribute('data-stacked', '1');
+      return true;
+    }
+    /* A displayed formula wider than the panel's measure is first stacked
+       where it is a run of relations, then set a little smaller to fit (to
+       three quarters of its size at most); one wider still scrolls sideways
+       in its own line, never cut, with a fade at the edge it continues past. */
     function fitDisplays(root) {
       if (!root || !root.querySelectorAll) return;
       Array.prototype.forEach.call(root.querySelectorAll('.math-display'), function (el) {
         el.style.fontSize = '';
         var room = el.clientWidth, need = el.scrollWidth;
+        if (room > 0 && need > room + 1 && stackRelations(el)) need = el.scrollWidth;
         if (room > 0 && need > room + 1) el.style.fontSize = Math.max(0.75, Math.floor(room / need * 100) / 100) + 'em';
+        if (el.classList) el.classList.toggle('is-wide', room > 0 && el.scrollWidth > el.clientWidth + 1);
       });
     }
     function levelOf(i) {
@@ -4913,9 +5548,12 @@
       // The same words are never set again: a refresh that changes nothing
       // keeps the reader's place, focus and selection of text.
       if (html !== lastInspectorHtml) {
+        // A new card arrives (not a card refreshed as its words load).
+        var arriving = lastInspectorHtml !== null && selected !== shownAt;
         inspector.innerHTML = html;
         lastInspectorHtml = html;
         fitDisplays(inspector);
+        if (arriving) playArrival(inspector, stepping);
       }
       if (scrollBox && selected !== shownAt) {
         if (shownAt < 0) overviewScroll = scrollBox.scrollTop;
@@ -4947,11 +5585,36 @@
         if (panel) panel.classList.remove('is-previewing');
         return;
       }
+      var opening = previewBox.hidden;
       previewBox.innerHTML = cardHtml(i, false);
       if (scrollBox) previewBox.style.top = scrollBox.offsetTop + 'px';
       previewBox.hidden = false;
       fitDisplays(previewBox);
       if (panel) panel.classList.add('is-previewing');
+      // The layer's ground covers the panel at once; its words rise in.
+      if (opening) playArrival(previewBox, false, true);
+    }
+    /* A card's arrival (6 October 2026): a chosen card's parts rise into
+       place one after another, a few hundredths of a second apart, so the
+       panel reads as turning to the new card rather than flashing; a step
+       to the next result in a paper only lifts the card from a faint
+       ghost, so walking a paper stays quick. Under reduced motion, or
+       without Web Animations, the card is simply there. */
+    var stepping = false;
+    function playArrival(box, turning, quick) {
+      if (!box || reduceMotion || typeof box.animate !== 'function') return;
+      if (turning) {
+        box.animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 150, easing: 'ease-out' });
+        return;
+      }
+      var kids = box.children || [];
+      for (var k = 0; k < kids.length && k < 12; k++) {
+        if (typeof kids[k].animate !== 'function') continue;
+        kids[k].animate([{ opacity: 0, transform: 'translateY(' + (quick ? 3 : 7) + 'px)' },
+                         { opacity: 1, transform: 'none' }],
+          { duration: quick ? 170 : 300, delay: Math.min(k, 6) * (quick ? 14 : 32),
+            easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', fill: 'backwards' });
+      }
     }
     function refreshPreview(force) {
       if (!previewBox) return;
@@ -4989,19 +5652,7 @@
        only the scripts it serves (script-src 'self'), so there an inline
        rule set is refused and the refusal logged on every pin; where the
        page's policy says so, the paper is prefetched only. */
-    function inlineScriptsAllowed() {
-      var meta = null;
-      try { meta = document.querySelector ? document.querySelector('meta[http-equiv="Content-Security-Policy" i]') : null; }
-      catch (err) { meta = null; }
-      if (!meta) return true;
-      var policy = String(meta.getAttribute('content') || '');
-      var rule = /(?:^|;)\s*script-src-elem\s+([^;]*)/i.exec(policy) ||
-        /(?:^|;)\s*script-src\s+([^;]*)/i.exec(policy) ||
-        /(?:^|;)\s*default-src\s+([^;]*)/i.exec(policy);
-      if (!rule) return true;
-      // A nonce, a hash or 'strict-dynamic' switches 'unsafe-inline' off.
-      return /'unsafe-inline'/i.test(rule[1]) && !/'(?:nonce-|sha(?:256|384|512)-|strict-dynamic)/i.test(rule[1]);
-    }
+
     function warmPaper(i) {
       var target = i >= 0 && nodes[i] ? primaryTarget(nodes[i]) : null;
       if (!target || target.external || typeof document.createElement !== 'function' || !document.head) return;
@@ -5013,13 +5664,7 @@
       warmedHref = href;
       warmNodes.forEach(function (node) { if (node.parentNode) node.parentNode.removeChild(node); });
       warmNodes = [];
-      if (typeof HTMLScriptElement !== 'undefined' && HTMLScriptElement.supports &&
-          HTMLScriptElement.supports('speculationrules') && inlineScriptsAllowed()) {
-        var rules = document.createElement('script');
-        rules.type = 'speculationrules';
-        rules.textContent = JSON.stringify({ prerender: [{ source: 'list', urls: [href] }] });
-        warmNodes.push(rules);
-      }
+      // Do not prerender the target while the reader is still using the map.
       if (!pageMode) {
         var link = document.createElement('link');
         link.rel = 'prefetch';
@@ -5048,7 +5693,7 @@
     function pin(i, center, keepTrail) {
       if (!keepTrail) trail = i >= 0 ? [{ at: i, before: center ? viewNow() : null }] : [];
       var restoreFocus = inspector && inspector.contains(document.activeElement);
-      if (i !== selected) quoteAt = -1;
+      if (i !== selected) { quoteAt = -1; referEl = null; referAt = referShown = -1; referMix = 0; }
       selected = i;
       hover = -1;
       canvas.classList.remove('is-over');
@@ -5062,6 +5707,9 @@
       updateHash();
       if (center && i >= 0) centerOn(i);
       draw();
+      // Every selection route brings its reading forward on a phone: a
+      // direct URL, search or stepper chooses the same object as a canvas tap.
+      if (i >= 0 && explorerRoot) explorerRoot.dispatchEvent(new CustomEvent('explorer:selected', { bubbles: true, detail: { id: nodes[i].id } }));
     }
 
     // Where the card sits under the map (a phone, a narrow window), a tap on
@@ -5116,7 +5764,8 @@
       var last = trail.length ? trail[trail.length - 1] : null;
       if (last && last.at === selected) last.at = next;
       else trail = [{ at: next, before: null }];
-      pin(next, false, true);
+      stepping = true;
+      try { pin(next, false, true); } finally { stepping = false; }
       keepInView(next, trail[trail.length - 1]);
     }
     function keepInView(i, step) {
@@ -5352,7 +6001,7 @@
       if (typeof window.CustomEvent !== 'function') return;
       companionApi = {
         stage: stage, host: host, route: route, reduceMotion: reduceMotion,
-        dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem,
+        dataUrl: route(spec.data), tallies: companionTallies(), light: lightProblem, notation: notationHtml,
         restoreSelection: function (id, sector) {
           var i = typeof id === 'string' && Object.prototype.hasOwnProperty.call(byId, id) ? byId[id] : -1;
           var n = typeof i === 'number' && i >= 0 ? nodes[i] : null;
@@ -5431,6 +6080,7 @@
         detailRoutes = {};
         data.details.forEach(function (pair) { detailRoutes[pair[0]] = pair[1]; });
       }
+      visGen++;
       nodes = data.nodes.map(function (n) {
         var row = {
           id: n.id, kind: n.kind, label: plainText(n.label),
@@ -5563,6 +6213,8 @@
         nodes[i].r += degreeBonus(nodes[i].kind, degree[i]);
       }
       hover = -1;
+      // Every node's fields are in place: visibility is asked afresh.
+      visGen++;
       selected = keepId && byId[keepId] !== undefined ? byId[keepId] : -1;
       // A history-restored form value can predate this data response.
       if (searchIn) query = normalizeSearchText(searchIn.value);
@@ -5710,8 +6362,7 @@
         trail.push({ at: i, before: frames ? viewNow() : null });
         pin(i, frames, true);
         // On a phone the explorer shows the panel for what was chosen.
-        if (explorerRoot) explorerRoot.dispatchEvent(new CustomEvent('explorer:selected', { bubbles: true, detail: { id: nodes[i].id } }));
-        else revealCard();
+        if (!explorerRoot) revealCard();
         return;
       }
       // Beside the column a dot pins, and empty ground lets a pin go. A
@@ -5960,6 +6611,19 @@
        focuses it and its name plate shows, as a hover on the map does, and
        the panel itself is left exactly as it is. */
     function lightFromPanel(event) {
+      // A kept result's references name its own relations: they identify
+      // them on the figure and leave the focus where it is.
+      var ref = event.target && event.target.closest ? event.target.closest('[data-universe-refer]') : null;
+      if (ref && !(inspector && inspector.contains(ref))) ref = null;
+      var j = ref ? parseInt(ref.getAttribute('data-universe-refer'), 10) : -1;
+      if (!relationDrawn(selected, j)) { ref = null; j = -1; }
+      if (ref !== referEl) {
+        if (referEl && referEl.classList) referEl.classList.remove('is-referred');
+        referEl = ref;
+        if (ref && ref.classList) ref.classList.add('is-referred');
+      }
+      setRefer(j);
+      if (ref) return;
       var go = event.target && event.target.closest ? event.target.closest('[data-universe-go]') : null;
       var i = go ? parseInt(go.getAttribute('data-universe-go'), 10) : -1;
       if (isNaN(i) || !nodes[i] || !visible(nodes[i])) i = -1;
@@ -5971,6 +6635,9 @@
       refreshPreview();
     }
     function unlightFromPanel() {
+      if (referEl && referEl.classList) referEl.classList.remove('is-referred');
+      referEl = null;
+      setRefer(-1);
       if (hoverFromMap || hover < 0) return;
       hover = -1;
       draw();
@@ -5987,6 +6654,7 @@
     /* ---- Controls ----------------------------------------------------- */
 
     function afterFilterChange() {
+      visGen++;
       frameGraphCache = null;
       pinnedPlate = null;
       if (hover >= 0 && !visible(nodes[hover])) hover = -1;

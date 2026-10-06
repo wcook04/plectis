@@ -264,9 +264,10 @@
       }
       if (s && s.kind === 'public_claim') {
         return { shape: 'result', tier: CLAIM_TIER[s.status] || 'proved', lines: {
-          label: 'Checked claim', name: esc(s.label), quote: '',
+          // The map sets a claim's ASCII notation (indices, ≤, ∑) as it does on its own cards.
+          label: 'Claim', name: api.notation ? api.notation(s.label) : esc(s.label), quote: '',
           meta: s.status ? esc(capital(s.status)) + '.' : '',
-          note: s.statement ? esc(s.statement) : '',
+          note: s.statement ? (api.notation ? api.notation(s.statement) : esc(s.statement)) : '',
           links: linksInner(s, 'Read it') } };
       }
       if (s && s.kind === 'paper') {

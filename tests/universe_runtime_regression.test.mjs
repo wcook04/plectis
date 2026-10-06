@@ -62,6 +62,9 @@ async function mount(options = {}) {
     getBoundingClientRect: () => ({left: 0, top: 0, bottom: 340}),
   });
   canvas.classList.add('universe-canvas--page');
+  const selections = [];
+  const explorer = Object.assign(element(), {dispatchEvent: event => selections.push(event)});
+  canvas.closest = selector => options.explorer && selector === '[data-explorer]' ? explorer : null;
   const scope = Object.fromEntries(['all', 'short', 'long'].map(value => [value,
     element({'data-universe-scope': value, 'aria-pressed': String(value === 'all')})]));
   const overlap = element(); overlap.checked = false;
@@ -112,6 +115,7 @@ async function mount(options = {}) {
   const timers = [];
   const flushTimers = () => { for (const fn of timers.splice(0)) fn(); };
   vm.runInNewContext(source, {document, window, navigator: {},
+    CustomEvent: class {constructor(type, init) {this.type = type; Object.assign(this, init);}},
     getComputedStyle: () => ({getPropertyValue: name => name === '--u-edge-hot' ? HOT_EDGE : ''}),
     fetch: async url => { requests.push(url); return {json: async () => data[url]}; },
     setTimeout: fn => { if (options.queueTimers) timers.push(fn); else fn(); return 1; }, clearTimeout() {},
@@ -119,7 +123,7 @@ async function mount(options = {}) {
   const settle = () => new Promise(resolve => setImmediate(resolve));
   await settle();
   return {results, scope, overlap, checking, canvas, count, inspector, search, claims, modules, zoom, fit, full, location, window, scrolled,
-    document, requests, settle, flushTimers, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
+    document, requests, settle, flushTimers, selections, arcs: () => arcs, strokes: () => strokes, labels: () => labels,
     drawnSegments: () => strokes.flatMap(stroke => stroke.segments),
     dashedSegments: () => strokes.filter(stroke => stroke.dashed).flatMap(stroke => stroke.segments),
     hotSegments: () => strokes.filter(stroke => stroke.style === HOT_EDGE).flatMap(stroke => stroke.segments),
@@ -1308,13 +1312,25 @@ test('the teaser assembles once, ring by ring, and a trip away on the atlas and 
   const core = map.arcs().filter(a => a.r > 10 && Math.hypot(a.x - map.centre().x, a.y - map.centre().y) < 0.5);
   assert.ok(core.some(a => a.alpha > 0.5), 'the core is up first');
   assert.ok(map.results().every(a => a.alpha < 0.01), 'while the results ring has not begun');
-  map.advanceTo(start + 16 + 352);
-  const seating = map.results().map(a => Math.hypot(a.x - map.centre().x, a.y - map.centre().y));
-  assert.ok(map.results().some(a => a.alpha > 0.1 && a.alpha < 0.9), 'the results ring is arriving');
+  // The results ring is laid by a pen running once round it (6 October
+  // 2026): part way round, the results it has passed are set and the rest
+  // are still to come.
+  const polar = () => {
+    const c = map.centre();
+    return map.results().map(a => ({ang: Math.atan2(a.y - c.y, a.x - c.x), d: Math.hypot(a.x - c.x, a.y - c.y), alpha: a.alpha}));
+  };
+  map.advanceTo(start + 16 + 470);
+  const seating = polar();
+  assert.ok(seating.length > 0, 'the pen has begun to lay the results ring');
+  assert.ok(seating.some(a => a.alpha > 0.1 && a.alpha < 0.9), 'the results ring is arriving');
   map.advanceTo(start + 2000);
   assert.equal(map.frames.size, 0, 'the opening ends and nothing keeps running');
-  const final = map.results().map(a => Math.hypot(a.x - map.centre().x, a.y - map.centre().y));
-  assert.ok(seating.every((d, i) => d < final[i] - 1), 'arriving, the ring stood inside its place and seated outward');
+  const final = polar();
+  assert.ok(seating.length < final.length, 'part way round, part of the ring is still to come');
+  assert.ok(seating.every(m => {
+    const f = final.find(q => Math.abs(q.ang - m.ang) < 1e-6);
+    return f && m.d < f.d - 0.05;
+  }), 'arriving, the ring stood inside its place and seated outward');
   assert.ok(map.results().every(a => a.alpha > 0.99), 'every result is drawn whole');
   assert.ok(map.ticks().length >= 10, 'the scale has a tick for every result');
   const paints = map.paints();
@@ -1541,7 +1557,7 @@ test('under a policy that refuses inline scripts a pin prefetches its paper with
   open.advanceTo(open.now() + 2000);
   dot = open.results()[0];
   open.canvas.fire('click', {clientX: dot.x, clientY: dot.y, detail: 1});
-  assert.ok(open.appended.some(node => node.type === 'speculationrules'), 'without such a policy the paper is prerendered as before');
+  assert.ok(!open.appended.some(node => node.type === 'speculationrules'), 'a pin never starts rendering a second document');
 });
 
 test('structure (2026-10-04): every mark a datum, no clock or dial props, words for people', () => {
@@ -2068,4 +2084,17 @@ test('the column and the drawing’s card never show at once: out in 90ms, then 
   assert.doesNotMatch(css.replace(/\/\*[\s\S]*?\*\//g, ''), /transition:[^;]*(?:width|height|top|left|margin)\b/,
     'only opacity and transform move (the fold excepted, by its rows)');
   assert.match(js, /Kept\. Esc lets it go/, 'a kept card says so in plain words');
+});
+
+test('URL and search selections notify the explorer reading owner', async () => {
+  const map = await mount({explorer: true, hash: '#o=claim%3Aone'});
+  assert.equal(map.selections.length, 1);
+  assert.equal(map.selections[0].type, 'explorer:selected');
+  assert.equal(map.selections[0].detail.id, 'claim:one');
+  assert.equal(map.selections[0].bubbles, true);
+  map.search.value = 'Second problem';
+  map.search.fire('input');
+  map.search.fire('keydown', {key: 'Enter'});
+  assert.equal(map.selections.length, 2);
+  assert.equal(map.selections[1].detail.id, 'problem:two');
 });

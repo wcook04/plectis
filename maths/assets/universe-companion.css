@@ -239,3 +239,6 @@ a.uc__paper-title:hover { color: var(--home-ember); text-decoration: none; }
   .uc__kept, .uc.is-pinned .uc__kept { transition: none; }
   .uc-host--open > :not(.uc) { transform: none; }
 }
+
+/* A claim's notation set by the map (indices on the line's own lead). */
+.uc sub, .uc sup { font-size: 0.74em; line-height: 0; }
