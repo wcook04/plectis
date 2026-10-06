@@ -422,6 +422,12 @@ the band is a strip that scrolls and snaps. The earlier software keeps its
 quiet row at the foot of the page: the band's second drawing is one switch
 away and never the default.
 
+The mathematics card’s header shows the actual Comparator replay count and
+paper-result total from the loaded map’s `statements.summary`, across all
+problems. It never presents symbolic “n of m” as the census or keeps a second
+typed copy of the numbers. Until that data arrives, the header names replay
+coverage without asserting a count; missing metadata must not imply zero.
+
 The maps' entry points and their explorers (5 October 2026; a Type B design
 review with Will's go-ahead: "Explore the mathematics" landed on an
 intermediate page, the full-map buttons sat at the foot of the cards and

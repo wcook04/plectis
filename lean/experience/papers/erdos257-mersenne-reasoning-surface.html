@@ -10353,9 +10353,10 @@ arithmetic to row 200<span>,</span>000 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257/receipts/seam-orbit-200000.json">saved
 run</a>); branch counts
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mspace width="-0.167em"></mspace><mo>:</mo><mspace width="-0.167em"></mspace><mi>M</mi><mspace width="-0.167em"></mspace><mo>:</mo><mspace width="-0.167em"></mspace><mi>U</mi><mo>=</mo><mn>100197</mn><mspace width="-0.167em"></mspace><mo>:</mo><mspace width="-0.167em"></mspace><mn>49899</mn><mspace width="-0.167em"></mspace><mo>:</mo><mspace width="-0.167em"></mspace><mn>49898</mn></mrow><annotation encoding="application/x-tex">R\!:\!M\!:\!U =
-100197\!:\!49899\!:\!49898</annotation></semantics></math>; for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">r\ge6</annotation></semantics></math>
-the obligation <em>fails only at</em>
+100197\!:\!49899\!:\!49898</annotation></semantics></math>; within the
+tested range
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>≤</mo><mi>r</mi><mo>≤</mo><mn>200</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">6\le r\le200{,}000</annotation></semantics></math>
+the obligation fails only at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">r=7</annotation></semantics></math>;
 maximum R-run
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>19</mn><annotation encoding="application/x-tex">19</annotation></semantics></math>
@@ -10378,15 +10379,12 @@ fixed-scale exhaustive verification versus a statement at every reset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">r \ge 31</annotation></semantics></math>.
 This is the difference between a finite and an unbounded parameter
 range: a finite verified list supplies no witnesses at unbounded depths,
-however large the margin. <strong>Missing step.</strong> Nothing
-computational; only a theorem. The certificate’s value is fixing the
-true constant
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≥</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">r \ge 31</annotation></semantics></math>,
-sole violation among reset rows
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>≤</mo><mi>r</mi><mo>≤</mo><mn>200</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">6\le r\le200{,}000</annotation></semantics></math>
-at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">r=7</annotation></semantics></math>)
-so the theorem’s scope can be stated exactly.</p>
+however large the margin. <strong>Missing step.</strong> The computation
+records the tested range and its exception at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">r=7</annotation></semantics></math>;
+it does not determine a valid threshold for the infinite orbit. A
+theorem must still establish the proposed bound at every reset beyond
+its stated threshold.</p>
 </div>
 <div class="obs">
 <p><em>Observation 9.17</em> (Structure of resets after long runs).
@@ -10722,7 +10720,8 @@ bound at unbounded ranks. Establishing the latter would supply the
 hypothesis of the stated conditional argument.</p>
 </div>
 <div class="obs">
-<p><em>Observation 9.26</em> (Frozen margin, ineffective horizon). <a
+<p><em>Observation 9.26</em> (A computable horizon, not the required
+horizon). <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L1198"><code>exists_greedyHalfFrozenMargin_nonneg_of_excess_neg</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L1229"><code>exists_greedyHalfFrozenMargin_nonneg_iff_excess_neg</code></a>.
@@ -10734,17 +10733,20 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 the finite coefficient window eventually covers the centred carry.
 Nonnegativity is monotone up in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>.
-<strong>Parameter range.</strong> The horizon comes from a non-effective
-limit argument (convergence of the finite coefficient windows, then an
-existence extraction), so
+<strong>Parameter range.</strong> For a fixed prefix with positive
+safety margin, the displayed tail estimate gives a computable sufficient
+horizon: increase
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-is unbounded. The exact-row route needs the crossing by the specific
-horizon
+until
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>J</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>J</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(k+J+3)2^{-J}</annotation></semantics></math>
+is smaller than that margin. What is not proved is success by the
+prescribed horizon needed by the exact-row construction. The exact-row
+route needs the crossing by the specific horizon
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mi>c</mi><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">J=c-3</annotation></semantics></math>
 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean#L866"><code>halfGreedy_precriticalSuffix_lt_iff_frozenMargin_nonneg</code></a>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=c-1</annotation></semantics></math>).
-All ingredients to make it effective already exist: <a
+The quantitative ingredients are already available: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L203"><code>binaryCoeffTail_eq_finiteCoeffWindow_add_shiftedTail</code></a>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">g</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">p</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>+</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>J</mi></msup></mrow><annotation encoding="application/x-tex">\mathrm{gap}=\mathrm{tail}(k{+}1{+}J)/2^J</annotation></semantics></math>,
@@ -10752,16 +10754,17 @@ and <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L85"><code>binaryCoeffTail_le</code></a>
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>m</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mathrm{tail}(m)\le m+2</annotation></semantics></math>.
-<strong>Missing step.</strong>
+<strong>Available bound.</strong>
 Margin<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(k,J)\ge0</annotation></semantics></math>
 as soon as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mi>J</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>J</mi></msup><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mspace width="0.167em"></mspace><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mspace width="0.167em"></mspace><mi>k</mi></mrow><annotation encoding="application/x-tex">(k{+}J{+}3)/2^J &lt;
 |\mathrm{halfGreedyNextDyadicExcessNumerator}\,k|/\mathrm{halfGreedyPrefixDenominator}\,k</annotation></semantics></math>.
-Setting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mi>k</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J=k-2</annotation></semantics></math>
-turns the hypothesis into one explicit dyadic-safety margin
+<strong>Missing step.</strong> At the prescribed horizon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mi>k</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J=k-2</annotation></semantics></math>,
+the displayed bound would suffice if one proved
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>/</mi><msub><mi>D</mi><mi>k</mi></msub><mo>&gt;</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mi>k</mi><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|E_k|/D_k &gt; (2k{+}1)/2^{k-2}</annotation></semantics></math>
-at every skipped rank. This uses only lemmas already proved.</p>
+at every skipped rank. The tail estimate uses only lemmas already
+proved; this stronger margin bound is not established.</p>
 </div>
 <div class="obs">
 <p><em>Observation 9.27</em> (A nonnegative margin at an unspecified

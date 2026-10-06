@@ -128,13 +128,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf",
-      "source_sha256": "f7589e7d29959c9f635d89f94a3d12c3e960e2e81d339fd7df18a7929155f77c",
-      "bytes": 832804,
+      "source_sha256": "c07798741476b7d1dd46a272b2ef798fc1040c6e1f25fa7f8f187b04749e34ef",
+      "bytes": 832991,
       "source_tex_path": "paper/257/erdos257-mersenne-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-mersenne-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex",
-      "hosted_tex_sha256": "b5bb906130585421403fb2955ee08a596207ff928ac2197a1d6afe5a0daeb853",
-      "tex_bytes": 495139
+      "hosted_tex_sha256": "185074ce31bacd2b3ab803ae1982face22f6951d82ae97d7c951fad2083325e6",
+      "tex_bytes": 495402
     },
     {
       "hosted_path": "papers/erdos269-running-lcm-reasoning-surface.pdf",

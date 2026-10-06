@@ -572,7 +572,7 @@ test('focus and Enter reconcile late restored values without creating false matc
 /* The landing teaser: the same script drawn from the site root, which names
    maths/ in data-universe-base, beside a column of problem rows that the
    companion reads along with. */
-async function mountTeaser({withCompanionHost = true} = {}) {
+async function mountTeaser({withCompanionHost = true, summary} = {}) {
   let arcs = [];
   const context = new Proxy({
     clearRect() { arcs = []; },
@@ -584,11 +584,13 @@ async function mountTeaser({withCompanionHost = true} = {}) {
     getBoundingClientRect: () => ({left: 0, top: 0}),
   });
   const announced = [];
+  const replaySummary = element();
+  replaySummary.innerHTML = 'Comparator replay coverage across the problems’ papers.';
   const row = element({'data-problem-id': 'erdos_257'});
   const host = Object.assign(element(), {querySelector: s => s.startsWith('li.home-problem') ? row : null});
   const section = Object.assign(element(), {querySelector: s => s === '.home-split__text' ? host : null});
   const stage = Object.assign(element(), {
-    querySelector: s => s === 'canvas' ? canvas : null,
+    querySelector: s => s === 'canvas' ? canvas : s === '.home-universe__legend' ? replaySummary : null,
     querySelectorAll: () => [],
     closest: s => s === 'section' && withCompanionHost ? section : null,
     dispatchEvent: event => { announced.push(event); return true; },
@@ -613,6 +615,7 @@ async function mountTeaser({withCompanionHost = true} = {}) {
     CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } },
   });
   const data = {initial: {
+    ...(summary ? {statements: {summary}} : {}),
     nodes: [
       {id: 'problem:erdos_257', kind: 'problem', label: 'Reciprocal sums', x: -150, y: 0,
        sector: 'erdos_257', page: 'problems/erdos_257.html'},
@@ -637,8 +640,21 @@ async function mountTeaser({withCompanionHost = true} = {}) {
   await new Promise(resolve => setImmediate(resolve));
   // The statement is the rightmost disc drawn.
   const dot = arcs.reduce((best, a) => (best && best.x >= a.x ? best : a), null);
-  return {canvas, location, announced, appended, dot, expand};
+  return {canvas, location, announced, appended, dot, expand, replaySummary};
 }
+
+test('the landing header shows the replay and result counts from the map edition', async () => {
+  const map = await mountTeaser({summary: {statements: 1234, comparator: {compared: 987}}});
+  assert.equal(map.replaySummary.innerHTML,
+    '<span class="home-universe__specimen">987 of 1,234</span> paper results replayed by Comparator.');
+});
+
+test('the landing replay count distinguishes a recorded zero from missing metadata', async () => {
+  const zero = await mountTeaser({summary: {statements: 37, comparator: {compared: 0}}});
+  assert.match(zero.replaySummary.innerHTML, /0 of 37/);
+  const missing = await mountTeaser();
+  assert.equal(missing.replaySummary.innerHTML, 'Comparator replay coverage across the problems’ papers.');
+});
 
 // The lit threads a paint drew (1.25px), each as its run of pieces.
 function threadRuns(map) {

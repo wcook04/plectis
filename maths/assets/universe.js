@@ -323,6 +323,7 @@
     var EDGE_CLEAR = pageMode ? 0 : 32;
     var PLATE_EDGE = pageMode ? 2 : 24;
     var caption = stage.querySelector('.universe-caption');
+    var replaySummary = stage.querySelector('.home-universe__legend');
     var inspector = document.querySelector('[data-universe-inspector]');
     var countOut = document.querySelector('[data-universe-count]');
     var searchIn = document.querySelector('[data-universe-search]');
@@ -6109,6 +6110,15 @@
       var keepId = selected >= 0 && nodes[selected] ? nodes[selected].id : null;
       var keepView = nodes.length > 0;
       if (data.statements) statementMeta = data.statements;
+      // The landing names the counts from this map edition, not symbolic
+      // placeholders or a separately maintained census. Missing metadata
+      // keeps the plain fallback; a recorded zero is still a real count.
+      var census = statementMeta && statementMeta.summary;
+      var replayed = census && census.comparator && census.comparator.compared;
+      if (replaySummary && census && typeof census.statements === 'number' && typeof replayed === 'number') {
+        replaySummary.innerHTML = '<span class="home-universe__specimen">' + fmtCount(replayed) + ' of ' +
+          fmtCount(census.statements) + '</span> paper results replayed by Comparator.';
+      }
       if (data.companion) companionSpec = data.companion;
       if (data.bands) bands = data.bands;
       if (data.excerpts) {

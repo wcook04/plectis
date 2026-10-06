@@ -8431,9 +8431,9 @@ not supply it at every later row.</p>
 arithmetic to row 200<span>,</span>000 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257/receipts/seam-orbit-200000.json">saved
 run</a>); branch counts <span class="math inline" data-term-auto="off">\(R\!:\!M\!:\!U =
-100197\!:\!49899\!:\!49898\)</span>; for <span
-class="math inline" data-term-auto="off">\(r\ge6\)</span> the obligation <em>fails only
-at</em> <span class="math inline" data-term-auto="off">\(r=7\)</span>; maximum R-run <span
+100197\!:\!49899\!:\!49898\)</span>; within the tested range <span
+class="math inline" data-term-auto="off">\(6\le r\le200{,}000\)</span> the obligation fails
+only at <span class="math inline" data-term-auto="off">\(r=7\)</span>; maximum R-run <span
 class="math inline" data-term-auto="off">\(19\)</span> after the reset at row <span
 class="math inline" data-term-auto="off">\(158{,}096\)</span> against the required threshold
 <span class="math inline" data-term-auto="off">\(\approx (r-3)/2 \approx 79{,}000\)</span>
@@ -8449,12 +8449,11 @@ verification versus a statement at every reset <span
 class="math inline" data-term-auto="off">\(r \ge 31\)</span>. This is the difference between
 a finite and an unbounded parameter range: a finite verified list
 supplies no witnesses at unbounded depths, however large the margin.
-<strong>Missing step.</strong> Nothing computational; only a theorem.
-The certificate’s value is fixing the true constant (<span
-class="math inline" data-term-auto="off">\(r \ge 31\)</span>, sole violation among reset rows
-<span class="math inline" data-term-auto="off">\(6\le r\le200{,}000\)</span> at <span
-class="math inline" data-term-auto="off">\(r=7\)</span>) so the theorem’s scope can be stated
-exactly.</p>
+<strong>Missing step.</strong> The computation records the tested range
+and its exception at <span class="math inline" data-term-auto="off">\(r=7\)</span>; it does
+not determine a valid threshold for the infinite orbit. A theorem must
+still establish the proposed bound at every reset beyond its stated
+threshold.</p>
 </div>
 <div class="obs">
 <p><em>Observation 9.17</em> (Structure of resets after long runs).
@@ -8718,7 +8717,8 @@ at unbounded ranks. Establishing the latter would supply the hypothesis
 of the stated conditional argument.</p>
 </div>
 <div class="obs">
-<p><em>Observation 9.26</em> (Frozen margin, ineffective horizon). <a
+<p><em>Observation 9.26</em> (A computable horizon, not the required
+horizon). <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L1198"><code>exists_greedyHalfFrozenMargin_nonneg_of_excess_neg</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L1229"><code>exists_greedyHalfFrozenMargin_nonneg_iff_excess_neg</code></a>.
@@ -8729,28 +8729,32 @@ class="math inline" data-term-auto="off">\(\ensuremath{F}\,k\,J \ge
 class="math inline" data-term-auto="off">\(J\)</span>; the finite coefficient window
 eventually covers the centred carry. Nonnegativity is monotone up in
 <span class="math inline" data-term-auto="off">\(J\)</span>. <strong>Parameter
-range.</strong> The horizon comes from a non-effective limit argument
-(convergence of the finite coefficient windows, then an existence
-extraction), so <span class="math inline" data-term-auto="off">\(J\)</span> is unbounded. The
-exact-row route needs the crossing by the specific horizon <span
-class="math inline" data-term-auto="off">\(J=c-3\)</span> (<a
+range.</strong> For a fixed prefix with positive safety margin, the
+displayed tail estimate gives a computable sufficient horizon: increase
+<span class="math inline" data-term-auto="off">\(J\)</span> until <span
+class="math inline" data-term-auto="off">\((k+J+3)2^{-J}\)</span> is smaller than that
+margin. What is not proved is success by the prescribed horizon needed
+by the exact-row construction. The exact-row route needs the crossing by
+the specific horizon <span class="math inline" data-term-auto="off">\(J=c-3\)</span> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean#L866"><code>halfGreedy_precriticalSuffix_lt_iff_frozenMargin_nonneg</code></a>,
-<span class="math inline" data-term-auto="off">\(k=c-1\)</span>). All ingredients to make it
-effective already exist: <a
+<span class="math inline" data-term-auto="off">\(k=c-1\)</span>). The quantitative
+ingredients are already available: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/HalfCylinderFiniteShadow.lean#L203"><code>binaryCoeffTail_eq_finiteCoeffWindow_add_shiftedTail</code></a>
 gives <span
 class="math inline" data-term-auto="off">\(\mathrm{gap}=\mathrm{tail}(k{+}1{+}J)/2^J\)</span>,
 and <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/GenericTailOrbitRigidity.lean#L85"><code>binaryCoeffTail_le</code></a>
 gives <span class="math inline" data-term-auto="off">\(\mathrm{tail}(m)\le m+2\)</span>.
-<strong>Missing step.</strong> Margin<span
+<strong>Available bound.</strong> Margin<span
 class="math inline" data-term-auto="off">\((k,J)\ge0\)</span> as soon as <span
 class="math inline" data-term-auto="off">\((k{+}J{+}3)/2^J &lt;
 |\mathrm{halfGreedyNextDyadicExcessNumerator}\,k|/\mathrm{halfGreedyPrefixDenominator}\,k\)</span>.
-Setting <span class="math inline" data-term-auto="off">\(J=k-2\)</span> turns the hypothesis
-into one explicit dyadic-safety margin <span
-class="math inline" data-term-auto="off">\(|E_k|/D_k &gt; (2k{+}1)/2^{k-2}\)</span> at every
-skipped rank. This uses only lemmas already proved.</p>
+<strong>Missing step.</strong> At the prescribed horizon <span
+class="math inline" data-term-auto="off">\(J=k-2\)</span>, the displayed bound would suffice
+if one proved <span class="math inline" data-term-auto="off">\(|E_k|/D_k &gt;
+(2k{+}1)/2^{k-2}\)</span> at every skipped rank. The tail estimate uses
+only lemmas already proved; this stronger margin bound is not
+established.</p>
 </div>
 <div class="obs">
 <p><em>Observation 9.27</em> (A nonnegative margin at an unspecified

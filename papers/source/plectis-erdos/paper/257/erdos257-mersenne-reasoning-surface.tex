@@ -6537,7 +6537,7 @@ it at every later row.
 \begin{obs}[Reported computation through row 200{,}000]
 \textbf{Conclusion.} Exact integer arithmetic to row 200{,}000
 (\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257/receipts/seam-orbit-200000.json}{saved run}); branch counts $R\!:\!M\!:\!U =
-100197\!:\!49899\!:\!49898$; for $r\ge6$ the obligation \emph{fails only at} $r=7$; maximum R-run $19$ after the reset at row
+100197\!:\!49899\!:\!49898$; within the tested range $6\le r\le200{,}000$ the obligation fails only at $r=7$; maximum R-run $19$ after the reset at row
 $158{,}096$ against the required threshold $\approx (r-3)/2 \approx 79{,}000$ (margin
 $\sim\!4000\times$). Independently: 1209 resets checked to row 2500
 (\href{https://github.com/wcook04/plectis-erdos/blob/f757115e03bebe5c04431a147da559015c680a37/research/experiments/erdos257/receipts/seam-reset-crossing-2500.json}{saved run}), zero classification
@@ -6547,8 +6547,10 @@ scope.
 at every reset $r \ge 31$.  This is the difference between a finite and an unbounded
 parameter range: a finite verified list supplies no witnesses at unbounded depths, however
 large the margin.
-\textbf{Missing step.} Nothing computational; only a theorem. The certificate's value is fixing the
-true constant ($r \ge 31$, sole violation among reset rows $6\le r\le200{,}000$ at $r=7$) so the theorem's scope can be stated exactly.
+\textbf{Missing step.} The computation records the tested range and its
+exception at $r=7$; it does not determine a valid threshold for the infinite
+orbit. A theorem must still establish the proposed bound at every reset
+beyond its stated threshold.
 \end{obs}
 
 \begin{obs}[Structure of resets after long runs]
@@ -6718,25 +6720,29 @@ bound at unbounded ranks.  Establishing the latter would supply the
 hypothesis of the stated conditional argument.
 \end{obs}
 
-\begin{obs}[Frozen margin, ineffective horizon]
+\begin{obs}[A computable horizon, not the required horizon]
 \lean{exists\_greedyHalfFrozenMargin\_nonneg\_of\_excess\_neg}{HalfCylinderFiniteShadow.lean:1198},
 \lean{exists\_greedyHalfFrozenMargin\_nonneg\_iff\_excess\_neg}{HalfCylinderFiniteShadow.lean:1229}.
 \textbf{Conclusion.} At every dyadically safe rank $k>0$, $\ensuremath{F}\,k\,J \ge
 0$ for \emph{some} horizon $J$; the finite coefficient window eventually covers the centred
 carry. Nonnegativity is monotone up in $J$.
-\textbf{Parameter range.} The horizon comes from a non-effective limit argument
-(convergence of the finite coefficient windows, then an existence extraction), so $J$ is
-unbounded.
+\textbf{Parameter range.} For a fixed prefix with positive safety margin,
+the displayed tail estimate gives a computable sufficient horizon: increase
+$J$ until $(k+J+3)2^{-J}$ is smaller than that margin. What is not proved is
+success by the prescribed horizon needed by the exact-row construction.
 The exact-row route needs the crossing by the specific horizon $J=c-3$
 (\lean{halfGreedy\_precriticalSuffix\_lt\_iff\_frozenMargin\_nonneg}{BooleanMobiusCriticalCapacityCofinal.lean:866},
-$k=c-1$). All ingredients to make it effective already exist:
+$k=c-1$). The quantitative ingredients are already available:
 \lean{binaryCoeffTail\_eq\_finiteCoeffWindow\_add\_shiftedTail}{HalfCylinderFiniteShadow.lean:203} gives
 $\mathrm{gap}=\mathrm{tail}(k{+}1{+}J)/2^J$, and
 \lean{binaryCoeffTail\_le}{GenericTailOrbitRigidity.lean:85} gives $\mathrm{tail}(m)\le m+2$.
-\textbf{Missing step.} Margin$(k,J)\ge0$ as soon as $(k{+}J{+}3)/2^J <
+\textbf{Available bound.} Margin$(k,J)\ge0$ as soon as $(k{+}J{+}3)/2^J <
 |\mathrm{halfGreedyNextDyadicExcessNumerator}\,k|/\mathrm{halfGreedyPrefixDenominator}\,k$.
-Setting $J=k-2$ turns the hypothesis into one explicit dyadic-safety margin
-$|E_k|/D_k > (2k{+}1)/2^{k-2}$ at every skipped rank.  This uses only lemmas already proved.
+\textbf{Missing step.} At the prescribed horizon $J=k-2$, the displayed bound
+would suffice if one proved
+$|E_k|/D_k > (2k{+}1)/2^{k-2}$ at every skipped rank.
+The tail estimate uses only lemmas already proved; this stronger margin
+bound is not established.
 \end{obs}
 
 \begin{obs}[A nonnegative margin at an unspecified horizon]

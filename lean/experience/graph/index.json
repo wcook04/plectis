@@ -4217,19 +4217,19 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#cor:257-logarithmic-separation",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9219",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9225",
       "label": "Corollary 13.2 (finite-functional separation)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#cor:cd-remaining",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7390",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7396",
       "label": "Corollary 10.7 (Only C_D∈{-2,-1} remain among the exceptional dyadic cells)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#cor:mersenne-height",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7582",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7588",
       "label": "Corollary 10.14 (Mersenne specialisation)"
     },
     {
@@ -4331,7 +4331,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#lem:odometer",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7786",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7792",
       "label": "Lemma 11.2 (Divisor-residue form of the short-window phase)"
     },
     {
@@ -4349,7 +4349,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#lem:scalar-localization",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7555",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7561",
       "label": "Lemma 10.13 (Denominator complement survives scaling)"
     },
     {
@@ -4373,7 +4373,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#lem:sqwitness",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8247",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8253",
       "label": "Lemma 11.3 (The terminal bound at square depths)"
     },
     {
@@ -4415,13 +4415,13 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:257-logarithmic-initial-interval",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9264",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9270",
       "label": "Proposition 13.3 (ordinary initial intervals)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:2adic-nogo",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7252",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7258",
       "label": "Proposition 10.4 (Centred completion of fixed-precision 2-adic data)"
     },
     {
@@ -4439,7 +4439,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:carry-survivor-extinction",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7523",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7529",
       "label": "Proposition 10.12 (Period exclusion for the totient series)"
     },
     {
@@ -4457,13 +4457,13 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:cpgs-equiv",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8575",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8581",
       "label": "Proposition 12.3 (Infinitely many positive skips are equivalent to half-membership)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:critical-band-index",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7619",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7625",
       "label": "Proposition 10.16 (Quantifier collapse: one critical index suffices, not d{+}1)"
     },
     {
@@ -4487,13 +4487,13 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:finite-boolSupport-and-onesided",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7501",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7507",
       "label": "Proposition 10.11 (Finite computation and half-membership)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:finite-state-nogo",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7465",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7471",
       "label": "Proposition 10.9 (A finite-state restriction for the stated pulse family)"
     },
     {
@@ -4505,7 +4505,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:mobius-nogo",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7485",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7491",
       "label": "Proposition 10.10 (Möbius-support countermodel: the natural negative-sign candidate overshoots)"
     },
     {
@@ -4517,13 +4517,13 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:squarefree",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8364",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8370",
       "label": "Proposition 11.4 (Squarefree support: a limit of the certificate method, not an open value)"
     },
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:strip-equiv",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8595",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L8601",
       "label": "Proposition 12.4 (Terminal carry bounds are equivalent to half-membership)"
     },
     {
@@ -4535,7 +4535,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#prop:upper-unconditional",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7325",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7331",
       "label": "Proposition 10.5 (The upper (carries) successor needs no exceptional-cell exclusion)"
     },
     {
@@ -4907,7 +4907,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#thm:257-logarithmic-counterexample",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9061",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L9067",
       "label": "Theorem 13.1 (arithmetic logarithmic counterexample)"
     },
     {
@@ -4931,7 +4931,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#thm:cd-neg3-impossible",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7340",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7346",
       "label": "Theorem 10.6 (C_D=-3 is impossible at the final middle transition, D≥ 13)"
     },
     {
@@ -5045,7 +5045,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#thm:lower-bound-every-reset",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7020",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7026",
       "label": "Theorem 9.46 (A: a sufficient lower bound at every reset)"
     },
     {
@@ -5123,7 +5123,7 @@
     {
       "id": "statement:erdos257-mersenne-reasoning-surface#thm:one-sided-finite-decision-boundary",
       "kind": "paper_statement",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7053",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/reasoning-parts/erdos257/a257_front.tex#L7059",
       "label": "Theorem 9.48 (C: the one-sided finite decision boundary)"
     },
     {

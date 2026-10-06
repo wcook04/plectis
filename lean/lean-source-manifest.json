@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "d90c883aeb2f87ddbfe3acbebefb5f8cb12ffacb99db1db63a1ac6737bc3e693",
+      "source_sha256": "c8cae18769a2c002e325bc1cf4b5048917eae5860b75c45b0473b9225c0502ac",
       "bytes": 1276704
     },
     {
@@ -51,7 +51,7 @@
       "source_ref": "main",
       "source_path": "docs/paper_lean_coverage.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/paper_lean_coverage.json",
-      "source_sha256": "8d422a56fdd3c1527e2bf276cf0de63bbeaefba8c7b231b96eb5e2f6e1f1c49d",
+      "source_sha256": "058ad95477aced1865be09cb8fc5057d2e8a5b4a882333c0e6f97ce64c79919e",
       "bytes": 1036828
     },
     {
@@ -213,7 +213,7 @@
       "source_ref": "main",
       "source_path": "docs/research-commons/credit-ledger.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/credit-ledger.json",
-      "source_sha256": "c1743a18866c020d9a99906edde42e238f426f0965726b341c1a28aec9fdd69c",
+      "source_sha256": "5ca628d6583614c5cd6cfa315c2883764ccffc727da542f47d2be1399e431887",
       "bytes": 12270
     }
   ]
